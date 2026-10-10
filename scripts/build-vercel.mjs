@@ -31,10 +31,10 @@ await fs.copyFile(path.join(root,'node_modules','@vercel','analytics','dist','in
 const appFile=path.join(staticOutput,'app.js'),appSource=await fs.readFile(appFile,'utf8');
 await fs.writeFile(appFile,`import {inject} from '/vendor/vercel-analytics.mjs';\ninject({mode:'production'});\n${appSource}`);
 
-const apiPaths=['account/session','account/register','account/login','account/recover','account/data','account/profile','account/password','account/recovery-code','account/logout-all','account/delete','account/logout','account/export','status'];
-const functionSource=`import {createServer} from './src/platform/server.mjs';\nconst server=createServer();\nexport default function handler(request,response){server.emit('request',request,response);}\n`;
-for(const apiPath of apiPaths){
-  const functionDirectory=path.join(functionsOutput,'api',`${apiPath}.func`);
+const functionPaths=['account','status'];
+const functionSource=`import {createServer} from './src/platform/server.mjs';\nconst server=createServer();\nexport default function handler(request,response){if(request.url?.startsWith('/api/account?')){const url=new URL(request.url,'http://vercel.invalid'),action=url.searchParams.get('__action')||'';url.searchParams.delete('__action');request.url='/api/account/'+encodeURIComponent(action)+url.search;}server.emit('request',request,response);}\n`;
+for(const functionPath of functionPaths){
+  const functionDirectory=path.join(functionsOutput,'api',`${functionPath}.func`);
   await fs.mkdir(functionDirectory,{recursive:true});
   await fs.writeFile(path.join(functionDirectory,'index.mjs'),functionSource);
   await fs.writeFile(path.join(functionDirectory,'package.json'),'{"type":"module"}');
@@ -50,5 +50,5 @@ for(const apiPath of apiPaths){
     await fs.copyFile(path.join(root,'courses',subject.id,'course.json'),path.join(manifestDirectory,'course.json'));
   }
 }
-await fs.writeFile(path.join(output,'config.json'),JSON.stringify({version:3,routes:[{handle:'filesystem'}]},null,2));
-console.log(`Prepared ${subjects.length} courses, Analytics, and ${apiPaths.length} serverless API routes in .vercel/output/.`);
+await fs.writeFile(path.join(output,'config.json'),JSON.stringify({version:3,routes:[{src:'^/api/account/([^/]+)$',dest:'/api/account?__action=$1'},{handle:'filesystem'}]},null,2));
+console.log(`Prepared ${subjects.length} courses, Analytics, and ${functionPaths.length} serverless API functions in .vercel/output/.`);
