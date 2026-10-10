@@ -32,8 +32,40 @@ async function readBody(req){
 }
 export function createAccounts({directory,courses}){
  const file=path.join(directory,'accounts.json');let chain=Promise.resolve(),database;
+ const redisUrl=process.env.UPSTASH_REDIS_REST_URL||process.env.KV_REST_API_URL;
+ const redisToken=process.env.UPSTASH_REDIS_REST_TOKEN||process.env.KV_REST_API_TOKEN;
+ const redisKey=process.env.CSQUEST_REDIS_KEY||'csquest:accounts:v1';
+ const redisEnabled=Boolean(redisUrl&&redisToken);
+ const redisCommand=async command=>{
+  const response=await fetch(redisUrl,{method:'POST',headers:{Authorization:`Bearer ${redisToken}`,'Content-Type':'application/json'},body:JSON.stringify(command)});
+  const result=await response.json();
+  if(!response.ok||result.error)throw new Error('Account database is unavailable.');
+  return result.result;
+ };
+ const redisRead=async()=>{
+  const value=await redisCommand(['GET',redisKey]);
+  if(value===null)return null;
+  const parsed=typeof value==='string'?JSON.parse(value):value;
+  if(parsed.version!==1||!Array.isArray(parsed.users)||!Array.isArray(parsed.sessions))throw new Error('Invalid account database');
+  return parsed;
+ };
+ const redisCompareAndSet=async(expected,value)=>{
+  const script="local current=redis.call('GET',KEYS[1]); if ARGV[1]=='MISSING' then if current then return 0 end else if not current then return 0 end; local ok,decoded=pcall(cjson.decode,current); if not ok or tostring(decoded._revision or 0)~=ARGV[1] then return 0 end end; redis.call('SET',KEYS[1],ARGV[2]); return 1";
+  return Number(await redisCommand(['EVAL',script,'1',redisKey,expected,JSON.stringify(value)]))===1;
+ };
  const keys=new Set(['csquest-subject','csquest-theme','csquest-preferences',...courses.flatMap(c=>[c.storageKey,'csquest-drafts-'+c.id])]);
  const transact=(task,readOnly=false)=>{const job=chain.then(async()=>{
+  if(redisEnabled){
+   for(let attempt=0;attempt<8;attempt++){
+    const original=await redisRead(),expected=original?String(original._revision||0):'MISSING';
+    const working=original?structuredClone(original):{version:1,users:[],sessions:[]},result=await task(working);
+    if(readOnly)return result;
+    working._revision=expected==='MISSING'?1:Number(expected)+1;
+    if(await redisCompareAndSet(expected,working))return result;
+   }
+   throw new Error('Account database is busy. Please try again.');
+  }
+  if(process.env.VERCEL)throw new Error('Connect an Upstash Redis database to enable accounts.');
   if(!database){await fs.mkdir(directory,{recursive:true});try{database=JSON.parse(await fs.readFile(file,'utf8'));if(database.version!==1||!Array.isArray(database.users)||!Array.isArray(database.sessions))throw Error('Invalid account database');}catch(e){if(e.code!=='ENOENT')throw e;database={version:1,users:[],sessions:[]};}}
   // Commit only after the operation succeeds. Rejected requests never partly mutate records.
   const working=structuredClone(database),result=await task(working);
@@ -43,8 +75,8 @@ export function createAccounts({directory,courses}){
  const snapshot=user=>({user:publicUser(user),data:user.data,revision:user.revision,updatedAt:user.updatedAt});
  const tokenOf=req=>{const raw=(req.headers.cookie||'').split(';').map(s=>s.trim()).find(s=>s.startsWith('csquest_session='));return raw?raw.slice('csquest_session='.length):'';};
  const authenticate=(db,req)=>{const session=db.sessions.find(s=>s.hash===digest(tokenOf(req))&&s.expiresAt>Date.now()),user=session&&db.users.find(u=>u.id===session.userId);if(!user)fail(401,'Please log in to your account.','AUTH_REQUIRED');return {user,session};};
- const cookie=(res,token,remember=false)=>res.setHeader('Set-Cookie',`csquest_session=${token}; Path=/; HttpOnly; SameSite=Strict${remember?'; Max-Age=2592000':''}`);
- const clearCookie=res=>res.setHeader('Set-Cookie','csquest_session=; Path=/; HttpOnly; SameSite=Strict; Max-Age=0');
+ const cookie=(res,token,remember=false)=>res.setHeader('Set-Cookie',`csquest_session=${token}; Path=/; HttpOnly; SameSite=Strict${process.env.VERCEL?'; Secure':''}${remember?'; Max-Age=2592000':''}`);
+ const clearCookie=res=>res.setHeader('Set-Cookie',`csquest_session=; Path=/; HttpOnly; SameSite=Strict${process.env.VERCEL?'; Secure':''}; Max-Age=0`);
  const startSession=(db,user,res,remember)=>{const token=randomBytes(32).toString('hex'),now=Date.now();db.sessions=db.sessions.filter(s=>s.expiresAt>now);db.sessions.push({hash:digest(token),userId:user.id,createdAt:now,expiresAt:now+(remember?30:1)*86400000});user.lastLoginAt=now;cookie(res,token,remember);};
  const cleanData=input=>{
   if(!input||typeof input!=='object'||Array.isArray(input))fail(400,'Invalid learning data.');
@@ -62,7 +94,16 @@ export function createAccounts({directory,courses}){
   }return output;
  };
  const attempts=new Map();
- const limit=req=>{const key=req.socket.remoteAddress||'local',now=Date.now(),record=attempts.get(key);if(record&&record.until>now&&record.count>=20)fail(429,'Too many attempts. Try again in 15 minutes.');attempts.set(key,record&&record.until>now?{...record,count:record.count+1}:{count:1,until:now+15*60000});};
+ const limit=async req=>{
+  const address=req.headers['x-forwarded-for']?.split(',')[0].trim()||req.socket.remoteAddress||'local';
+  if(redisEnabled){
+   const key=`${redisKey}:attempts:${digest(address)}`;
+   const count=Number(await redisCommand(['EVAL',"local n=redis.call('INCR',KEYS[1]); if n==1 then redis.call('EXPIRE',KEYS[1],900) end; return n",'1',key]));
+   if(count>20)fail(429,'Too many attempts. Try again in 15 minutes.');
+   return;
+  }
+  const now=Date.now(),record=attempts.get(address);if(record&&record.until>now&&record.count>=20)fail(429,'Too many attempts. Try again in 15 minutes.');attempts.set(address,record&&record.until>now?{...record,count:record.count+1}:{count:1,until:now+15*60000});
+ };
  const unknownPassword={salt:'0'.repeat(32),hash:'0'.repeat(128)};
  const handle=async function(req,res,url,send){
   if(!url.pathname.startsWith('/api/account/'))return false;
@@ -71,10 +112,11 @@ export function createAccounts({directory,courses}){
    if(!write&&req.method!=='GET'){send(405,{error:'Method not allowed'});return true;}
    if(write){
     const origin=req.headers.origin;
-    if(req.headers['x-csquest-request']!=='1'||(origin&&origin!==`http://${req.headers.host}`)||req.headers['sec-fetch-site']==='cross-site')fail(403,'This request must come from CSQuest.');
+    const expectedOrigin=`${process.env.VERCEL?'https':(req.headers['x-forwarded-proto']||'http').split(',')[0]}://${req.headers.host}`;
+    if(req.headers['x-csquest-request']!=='1'||(origin&&origin!==expectedOrigin)||req.headers['sec-fetch-site']==='cross-site')fail(403,'This request must come from CSQuest.');
    }
    const body=write?await readBody(req):{};
-   if(['register','login','recover'].includes(route)&&write)limit(req);
+   if(['register','login','recover'].includes(route)&&write)await limit(req);
    const result=await transact(async db=>{
     if(route==='session'&&!write){try{const {user}=authenticate(db,req);return snapshot(user);}catch(e){if(e.status!==401)throw e;return {user:null};}}
     if(route==='register'&&write){

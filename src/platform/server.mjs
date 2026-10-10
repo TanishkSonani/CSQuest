@@ -21,6 +21,7 @@ export function createServer({accountDirectory=path.join(platformRoot,'data','ac
       const course=subjects.find(c=>c.id===(url.searchParams.get('subject')||'coa'));
       if(!course){send(400,{error:'Unknown subject'});return;}
       if(url.pathname==='/api/status'){
+        if(process.env.VERCEL){send(200,{checkedAt:new Date().toISOString(),sourceAvailable:false,phase:course.status==='planned'?'planned':'stopped',total:course.lectureCount,completed:0,imported:0,totalSeconds:null,completedSeconds:0,lessonSources:[]});return;}
         file=path.join(platformRoot,'runtime','courses',course.id,'progress.json');
         try{await fs.access(file);}catch{await syncCourse({subject:course.id});}
       }

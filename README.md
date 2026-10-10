@@ -32,6 +32,12 @@ tooling/              Ignored downloaded dependencies, models, and archives
 
 Node.js **20 or newer** is required. The app has no npm runtime dependencies.
 
+## Deploying on Vercel
+
+Keep the Vercel **Root Directory** at the repository root. `vercel.json` runs `npm run build:vercel`, which assembles the browser UI, shared modules, subject list, and course lessons into `dist/`; Vercel also deploys the API function from `api/`.
+
+To enable accounts and saved progress, connect an Upstash Redis database to the Vercel project through the Vercel Marketplace. The integration must provide `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` (or `KV_REST_API_URL` and `KV_REST_API_TOKEN`). No local recording-drive paths are needed in Vercel. The hosted app serves committed course lessons; local transcription and watcher updates remain available only on the local server.
+
 | Command | Purpose |
 |---|---|
 | `npm start` | Run the localhost server |
