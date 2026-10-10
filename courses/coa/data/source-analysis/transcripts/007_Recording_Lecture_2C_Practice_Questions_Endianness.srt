@@ -1,0 +1,5608 @@
+1
+00:00:00,530 --> 00:00:16,390
+Hi, everyone. So in the last lecture, we were discussing by ordering this concept we were
+
+2
+00:00:16,390 --> 00:00:22,030
+discussing. I can also say that concept of and DNS we were discussing. We have already
+
+3
+00:00:22,030 --> 00:00:27,070
+seen what is a little Indian architecture, big Indian architecture. Yes or no. So this
+
+4
+00:00:27,070 --> 00:00:32,350
+concept of byte ordering, this actually we have seen. Now in this lecture, what we will
+
+5
+00:00:32,350 --> 00:00:38,790
+do, we will do a lot of practice of these concepts. Okay, little Indian, big Indian,
+
+6
+00:00:38,790 --> 00:00:43,350
+concept of byte ordering. So basically a lot of practice we are going to do in this session.
+
+7
+00:00:44,150 --> 00:00:52,070
+Okay, so let's start now. Before we do the practice, one small topic I want to teach you.
+
+8
+00:00:52,070 --> 00:00:58,470
+Okay, see in this byte ordering, I told you that that we will study two topics. One is
+
+9
+00:00:58,470 --> 00:01:03,910
+byte ordering for multi byte data. Okay, if you have multi byte data, for example,
+
+10
+00:01:03,910 --> 00:01:10,550
+2 byte 4 byte data integer data which is 4 byte ok long int which is 8 byte so if you have multiple
+
+11
+00:01:10,550 --> 00:01:17,350
+byte data then for multiple byte data how to do the byte ordering ok yes or no so this concept
+
+12
+00:01:17,350 --> 00:01:23,990
+of little and big and this concept we have already seen for multi byte data now we need to study
+
+13
+00:01:23,990 --> 00:01:29,830
+this same concept the concept of byte ordering the same concept little and big and the same
+
+14
+00:01:29,830 --> 00:01:37,270
+concept we need to study for word okay see word is also multi byte data yes or no agree okay so
+
+15
+00:01:37,270 --> 00:01:42,550
+you can simply say that this these are actually same these are actually basically same okay because
+
+16
+00:01:42,550 --> 00:01:48,230
+word is also multiple byte data okay so because what is a word word is nothing but your multi byte
+
+17
+00:01:48,230 --> 00:01:55,190
+data so I can say that this is also multi byte data correct yes or no so I can say that these are
+
+18
+00:01:55,190 --> 00:01:59,510
+actually same. So there is no difference. We have already seen a little Indian big Indian
+
+19
+00:01:59,510 --> 00:02:04,150
+these two concepts we have seen for multiple byte data. If you have multiplied data, then
+
+20
+00:02:04,150 --> 00:02:09,750
+how this byte ordering will work. This we have already seen now in this lecture, we will study
+
+21
+00:02:09,750 --> 00:02:15,190
+forward. Okay, this byte ordering forward. But you can see word is also multiplied by
+
+22
+00:02:15,190 --> 00:02:20,230
+multiplied data. Yes or no, in a word, you can have for example, maybe one word equal to four
+
+23
+00:02:20,230 --> 00:02:25,670
+byte one word equal to 8 byte one word equal to 2 byte. Okay. Yes or no. So word is also
+
+24
+00:02:25,670 --> 00:02:30,710
+multi byte data. So these are actually basically same. So there is no difference. Whatever concept
+
+25
+00:02:30,710 --> 00:02:35,910
+you have seen for multi byte data, the same concept you can apply for a word. Is this clear?
+
+26
+00:02:35,910 --> 00:02:41,110
+Please tell me. Okay. So this is what we need to study byte ordering within a word. Okay. If
+
+27
+00:02:41,110 --> 00:02:46,950
+you have a word, then how to do the byte ordering within a word. So little Indian big Indian concept
+
+28
+00:02:46,950 --> 00:02:52,550
+for a word. This is what we need to study. Okay, so let's start. So let's assume,
+
+29
+00:02:54,070 --> 00:03:00,790
+let's assume that word size, I'm giving you the word size. Okay, so let's assume word size of CPU.
+
+30
+00:03:01,590 --> 00:03:07,590
+Okay, because word size depends on the CPU, yes or no, this size of word that depends on the CPU.
+
+31
+00:03:07,590 --> 00:03:11,830
+So let's assume that word size of CPU that is four bytes. Okay, in one word,
+
+32
+00:03:11,830 --> 00:03:17,030
+you have let's assume four bytes. Okay, is this clear? Now, let's assume I'm giving you some
+
+33
+00:03:17,030 --> 00:03:23,510
+word. Okay, consider this word. So consider. So let's consider the word. Okay, I'm giving you
+
+34
+00:03:23,510 --> 00:03:28,870
+a word. Remember one word equal to four bytes. So consider this word. Okay, so I'm giving you
+
+35
+00:03:28,870 --> 00:03:34,470
+in the hexadecimal I'm giving you what this means. Tell me this zero X what this zero X means,
+
+36
+00:03:34,470 --> 00:03:40,950
+this zero X simply represents hexadecimal. Okay, this represents hexadecimal that the data
+
+37
+00:03:40,950 --> 00:03:46,710
+I'm giving you in hexadecimal format. Okay. So I'm giving you this word consider this word that is
+
+38
+00:03:46,710 --> 00:03:53,990
+zero X. Let's assume for example, a one B two C three D four. Okay. So consider this word.
+
+39
+00:03:53,990 --> 00:03:58,390
+Is this clear? Please tell me. Okay. So this is the word that is given to you because you can see
+
+40
+00:03:58,390 --> 00:04:03,430
+I'm assuming that word size is four bytes. So I'm giving you a four byte data. This four byte data
+
+41
+00:04:03,430 --> 00:04:08,790
+I'm giving you. So tell me how many bytes are there in this in this word? How many bytes are
+
+42
+00:04:08,790 --> 00:04:13,990
+are there. So there are total four bytes because remember, this is hexadecimal data, I'm giving
+
+43
+00:04:13,990 --> 00:04:19,350
+you this in the hexadecimal format. So this four is actually nothing but 0100. Yes or
+
+44
+00:04:19,350 --> 00:04:26,150
+no, this D what is this? This is nothing but 011101. Yes or no, is this clear? Please tell
+
+45
+00:04:26,150 --> 00:04:30,470
+me. Okay, so basically, actually, if you notice this word, this word that is actually given
+
+46
+00:04:30,470 --> 00:04:35,230
+to you this word, if you notice, this is like this in the hexadecimal format, you can write
+
+47
+00:04:35,230 --> 00:04:39,790
+like this and in the binary format if you want to write in the binary format then how
+
+48
+00:04:39,790 --> 00:04:46,390
+you how you will write so this a this simply means 10 that means 1010 this is your a what
+
+49
+00:04:46,390 --> 00:04:56,190
+is B what is one one means 0001 this is one what is B B means 1011 okay this is B what
+
+50
+00:04:56,190 --> 00:05:04,870
+is two two means 0010 and what is C C means 1100 okay this is C and what is three three
+
+51
+00:05:04,870 --> 00:05:13,390
+means 0011. Okay, what is D? D we have already seen that is 1101. And what is four, four
+
+52
+00:05:13,390 --> 00:05:20,230
+is 0100. Yes or no. So if you notice this is your word. Okay, so consider this, this
+
+53
+00:05:20,230 --> 00:05:26,270
+is your word, our word. Is this clear? Okay, so you can see this is the four byte data.
+
+54
+00:05:26,270 --> 00:05:31,790
+Okay, now, now tell me if you want to store this word, this word that is given to you,
+
+55
+00:05:31,790 --> 00:05:38,750
+I want to store this word at the address 100. Okay, so let's store. Let's store this word.
+
+56
+00:05:38,750 --> 00:05:45,510
+This word I want to store. Let's store this word at location at address at memory location.
+
+57
+00:05:45,510 --> 00:05:51,550
+Okay, location means memory address location what that means that means memory address.
+
+58
+00:05:51,550 --> 00:05:57,670
+Okay, and tell me memory is byte addressable or word addressable. Tell me the memory that
+
+59
+00:05:57,670 --> 00:06:03,510
+is byte addressable or what addressable I told you that by default memory is byte addressable
+
+60
+00:06:03,510 --> 00:06:09,990
+also in the concept of this byte ordering concept this this comes into picture when you have
+
+61
+00:06:09,990 --> 00:06:15,430
+byte addressable memory yes or no this concept byte ordering this concept comes into play
+
+62
+00:06:15,430 --> 00:06:19,830
+when you have byte addressable memory so remember your memory is byte addressable means
+
+63
+00:06:19,830 --> 00:06:25,830
+at any memory address you will find one byte okay for every byte we give one memory address
+
+64
+00:06:25,830 --> 00:06:30,550
+So very simple. So store this word, this word that you have this word, or I can say the same
+
+65
+00:06:30,550 --> 00:06:35,670
+word in the hexadecimal format. Okay, so this word we want to store at location, let's assume
+
+66
+00:06:36,310 --> 00:06:43,030
+0x100. Okay, so this address also I have given you in the hexadecimal format. Is this clear?
+
+67
+00:06:43,030 --> 00:06:45,990
+Okay, this is your address. So this, this is our address.
+
+68
+00:06:47,830 --> 00:06:52,230
+This is our address. So this address also I have given you in the hexadecimal format.
+
+69
+00:06:52,230 --> 00:06:57,270
+Okay. So this I want to do this, this word that you have, I want to store at this address.
+
+70
+00:06:57,270 --> 00:07:03,830
+Now you tell me if we follow big Indian, big Indian architecture, then how your memory will
+
+71
+00:07:03,830 --> 00:07:08,470
+look like. And if we follow little Indian architecture, then how the memory will look like.
+
+72
+00:07:08,470 --> 00:07:13,510
+Tell me, tell me in the little Indian, what will happen in the big Indian, what will happen?
+
+73
+00:07:13,510 --> 00:07:18,470
+So let's see first big Indian. Okay. In the big Indian system, what will happen?
+
+74
+00:07:18,470 --> 00:07:25,500
+in the big Indian system what will happen tell me so you can see this is our data this is our
+
+75
+00:07:25,500 --> 00:07:32,020
+word this is 4 byte data so this is multi byte data yes or no yes or no so this is a multi byte
+
+76
+00:07:32,020 --> 00:07:38,220
+data okay this 4 byte word so this is nothing but your multi byte data okay so the same concept
+
+77
+00:07:38,220 --> 00:07:45,140
+you can apply this is your multi byte data okay so what what I will do very simple this is your
+
+78
+00:07:45,140 --> 00:07:52,660
+main memory let's assume this is the main memory in the main memory okay and so on so in the main
+
+79
+00:07:52,660 --> 00:07:59,140
+memory let's assume this is your address 100 okay these are the addresses these are the addresses
+
+80
+00:07:59,860 --> 00:08:04,980
+okay so these are the addresses in hexadecimal okay all these addresses these are given in
+
+81
+00:08:04,980 --> 00:08:15,040
+hexadecimal right okay so these are the addresses in hexadecimal okay so this 100 this is in the
+
+82
+00:08:15,040 --> 00:08:23,160
+the hexadecimal. Okay, this let's assume 101102103104 and so on. Okay, and so on. Now,
+
+83
+00:08:23,160 --> 00:08:27,520
+so how your memory will look like tell me in the big Indian, if you are following the
+
+84
+00:08:27,520 --> 00:08:32,480
+big Indian system, if your system is big Indian system, then you can see this word how you
+
+85
+00:08:32,480 --> 00:08:37,160
+will store this word in your main memory. This word how it will be stored in the main
+
+86
+00:08:37,160 --> 00:08:42,440
+memory very simple, very simple that basically these four locations will be used because
+
+87
+00:08:42,440 --> 00:08:44,940
+You are storing this word at the location 100, right?
+
+88
+00:08:44,940 --> 00:08:45,740
+Yes or No?
+
+89
+00:08:45,740 --> 00:08:48,800
+At this location, at this location, you have storing this word,
+
+90
+00:08:49,140 --> 00:08:50,520
+this four byte data,
+
+91
+00:08:50,840 --> 00:08:54,240
+this word, this four byte word you are storing at this location.
+
+92
+00:08:54,240 --> 00:08:55,040
+What this means?
+
+93
+00:08:55,140 --> 00:08:57,740
+That these four locations will be used here.
+
+94
+00:08:57,740 --> 00:08:58,920
+Your word will be there
+
+95
+00:08:59,040 --> 00:08:59,340
+OK.
+
+96
+00:08:59,340 --> 00:08:59,960
+Yes or No
+
+97
+00:09:00,440 --> 00:09:03,260
+our word, our word will be sitting here.
+
+98
+00:09:03,600 --> 00:09:03,780
+Okay?
+
+99
+00:09:03,780 --> 00:09:07,240
+A hundred hundred one hundred two hundred three in these four locations
+
+100
+00:09:07,240 --> 00:09:08,180
+in these four locations
+
+101
+00:09:08,340 --> 00:09:09,540
+our word will be sitting.
+
+102
+00:09:09,740 --> 00:09:12,240
+Now in big Indian system, what will happen?
+
+103
+00:09:12,440 --> 00:09:17,400
+in big Indian system, you will start with the big end. Yes or no? What you will do? You will
+
+104
+00:09:17,400 --> 00:09:22,760
+start with the big end. Okay, so now we need to see how to put the data here. So what we will do
+
+105
+00:09:22,760 --> 00:09:28,440
+in the big Indian system, we will start with the big end. This big end, we will start big end.
+
+106
+00:09:28,440 --> 00:09:34,600
+And what is the big end? So you can see big end means most significant bite. Okay, yes or no?
+
+107
+00:09:34,600 --> 00:09:42,040
+Okay, so start with the most significant bite, most significant bite. Okay, so let's start
+
+108
+00:09:42,040 --> 00:09:46,240
+with the most significant bite. This is your most significant bite. Right. Correct. Yes
+
+109
+00:09:46,240 --> 00:09:52,160
+or no. This is the most significant bite. Okay. So let's start with this. So A1, then
+
+110
+00:09:52,160 --> 00:09:58,360
+the next bite B2, then the next bite C3, then the next bite that is D4. Is this clear?
+
+111
+00:09:58,360 --> 00:10:03,360
+Please tell me yes or no. Okay. So very easy. So I can say this word you can store in the
+
+112
+00:10:03,360 --> 00:10:07,640
+big Indian system like this. So your main memory will look like this. If I give you the
+
+113
+00:10:07,640 --> 00:10:14,120
+photo of main memory okay then your main memory will look like this means at this 100 at this address
+
+114
+00:10:14,120 --> 00:10:20,280
+a1 will be there at this address b2 will be there at this address c3 will be there at this address
+
+115
+00:10:20,280 --> 00:10:29,720
+d4 will be there okay is this clear very simple now you tell me so can i say in the big indian
+
+116
+00:10:29,720 --> 00:10:35,320
+actually what will happen in the big indian actually what will happen tell me if you have
+
+117
+00:10:35,320 --> 00:10:40,440
+big Indian system in the big Indian system, what will happen? So this is your work. Word
+
+118
+00:10:40,440 --> 00:10:46,120
+is four bites, right? Okay, so in this word, basically, in this let's see what will happen
+
+119
+00:10:46,120 --> 00:10:52,960
+in the big Indian system, okay, let's write the summary. Okay. So you tell me. So this
+
+120
+00:10:52,960 --> 00:10:56,640
+is your word. The word is four bite. There are four bites in your word, right? Okay.
+
+121
+00:10:56,640 --> 00:11:01,500
+So let's assume the four bites are like these. Okay. In this word, there are four bites.
+
+122
+00:11:01,500 --> 00:11:04,780
+So let's assume the bytes are like this.
+
+123
+00:11:04,780 --> 00:11:09,260
+So this is your byte zero, then your byte one, then byte two, then byte three.
+
+124
+00:11:09,260 --> 00:11:10,580
+Okay, is this clear?
+
+125
+00:11:10,580 --> 00:11:13,820
+Okay, so let's assume these are the four bytes in your word.
+
+126
+00:11:13,820 --> 00:11:15,740
+Okay, is this clear?
+
+127
+00:11:15,740 --> 00:11:17,580
+So in the big Indian system, what will happen?
+
+128
+00:11:17,580 --> 00:11:23,380
+Tell me in the big Indian system, I can say that this most significant byte that will
+
+129
+00:11:23,380 --> 00:11:24,660
+go to the lowest address.
+
+130
+00:11:24,660 --> 00:11:28,500
+Okay, in the big Indian system, what will happen in the big Indian system?
+
+131
+00:11:28,500 --> 00:11:29,500
+Tell me.
+
+132
+00:11:29,500 --> 00:11:36,380
+most significant bite MSB what that means that means most significant bite of the word
+
+133
+00:11:36,380 --> 00:11:46,100
+most significant bite of the word bite of the word okay your word is four bite remember
+
+134
+00:11:46,100 --> 00:11:50,900
+your word that is actually four bite there are four bites in your word okay so there
+
+135
+00:11:50,900 --> 00:11:56,900
+are four bites there is I can say okay or maybe ABCD something like that I can say okay
+
+136
+00:11:56,900 --> 00:12:02,980
+So let's assume there are four bytes. Let's assume a b c d something like this. Okay, so let's assume
+
+137
+00:12:02,980 --> 00:12:08,020
+this is one byte of data. Okay, just consider this is one byte. Just assume this is one byte.
+
+138
+00:12:08,020 --> 00:12:13,700
+You can say XYZW. Okay, for simplicity, so that you don't get confused with the
+
+139
+00:12:15,220 --> 00:12:20,980
+with the hexadecimal notation. So let's assume this is your XYZW. This is your word. Okay,
+
+140
+00:12:20,980 --> 00:12:26,340
+this is your word. So this is a four byte data. So now in this big Indian system, what will happen?
+
+141
+00:12:26,340 --> 00:12:32,340
+the most significant byte of the word what is the most significant byte of this word in this word
+
+142
+00:12:32,340 --> 00:12:37,300
+what is the most significant byte this is the most significant byte of this word
+
+143
+00:12:39,140 --> 00:12:46,580
+of this word so you can see most significant byte of word of word that will go here that will be
+
+144
+00:12:46,580 --> 00:12:54,260
+stored here that will be stored at lowest address yes or no that will be stored at lowest memory
+
+145
+00:12:54,260 --> 00:13:01,140
+address. Okay. Is this clear? Please tell me. Okay. Very simple. Okay. So this basically
+
+146
+00:13:01,140 --> 00:13:05,320
+you will start with the most significant bite. Okay. You will start with the big end. The
+
+147
+00:13:05,320 --> 00:13:09,580
+name itself is telling you that you will start with the big end. You will start with the
+
+148
+00:13:09,580 --> 00:13:14,780
+big end. Okay. So the most significant bite of the word, this most significant bite of
+
+149
+00:13:14,780 --> 00:13:19,480
+the word, this you will put where you will put you will store it at the lowest memory
+
+150
+00:13:19,480 --> 00:13:26,200
+address. Okay. Very simple point. Now what will happen in the little Indian system? Tell me if
+
+151
+00:13:26,200 --> 00:13:32,680
+you are using little Indian system, if you are using little Indian system, little Indian architecture,
+
+152
+00:13:32,680 --> 00:13:37,800
+if you are using little Indian architecture, then what will happen in the little Indian architecture?
+
+153
+00:13:37,800 --> 00:13:45,640
+Tell me how the memory will look like. So these are the addresses. So you can see we are restoring
+
+154
+00:13:45,640 --> 00:13:52,440
+this word at this address so these four locations will be used here our word will be there our word
+
+155
+00:13:52,440 --> 00:13:57,400
+you will put here okay is this clear very simple so in the little Indian architecture what will
+
+156
+00:13:57,400 --> 00:14:02,360
+happen you will start with the little end you will start with the little end little end means
+
+157
+00:14:02,360 --> 00:14:10,920
+least significant bite least significant bite okay yes or no least significant bite of the word
+
+158
+00:14:10,920 --> 00:14:16,400
+word bite of the word. Okay, so you will start with the little end. So this is the little
+
+159
+00:14:16,400 --> 00:14:22,840
+end you can see this is the least significant bite of this word. Okay, so you what you will
+
+160
+00:14:22,840 --> 00:14:27,200
+do you will start with this means first you will add this address. Okay, at this lowest
+
+161
+00:14:27,200 --> 00:14:32,400
+address you vote you will put at this address you will put D4 then the next bite C3 then
+
+162
+00:14:32,400 --> 00:14:37,520
+the next bite then the next bite that is B2 and then the next bite that is even so
+
+163
+00:14:37,520 --> 00:14:40,620
+This is how your main memory will look like in the little Indian.
+
+164
+00:14:40,820 --> 00:14:41,120
+Okay.
+
+165
+00:14:41,420 --> 00:14:44,020
+In the little Indian, this is how your main memory will look like.
+
+166
+00:14:44,420 --> 00:14:45,020
+Is this clear?
+
+167
+00:14:45,020 --> 00:14:45,520
+Please tell me.
+
+168
+00:14:45,720 --> 00:14:49,720
+So if you have a word that is four byte, let's assume your word is like this.
+
+169
+00:14:50,120 --> 00:14:52,620
+Your word is like this X, Y, Z, W.
+
+170
+00:14:52,720 --> 00:14:53,020
+Okay.
+
+171
+00:14:53,020 --> 00:14:53,920
+This is your word.
+
+172
+00:14:54,120 --> 00:14:59,020
+Then in the little Indian, what will happen in the little Indian system?
+
+173
+00:15:01,350 --> 00:15:01,650
+Okay.
+
+174
+00:15:01,650 --> 00:15:03,450
+Because your word is multi byte data.
+
+175
+00:15:03,550 --> 00:15:03,850
+Okay.
+
+176
+00:15:03,850 --> 00:15:07,950
+In your word, in your word, you can see this is your word that is four byte.
+
+177
+00:15:07,950 --> 00:15:16,030
+So this is our word, I can say this is our word. Okay. And this is multiplied data now. So in the
+
+178
+00:15:16,030 --> 00:15:20,910
+little Indian system, what you will do, what you will do where this so you will start with the
+
+179
+00:15:20,910 --> 00:15:25,630
+little and little and means least significant bite and what is the least significant bite in this
+
+180
+00:15:25,630 --> 00:15:31,310
+word in this word what is the least significant bite. So you can see w this is the least significant
+
+181
+00:15:31,310 --> 00:15:38,150
+byte of this word. Correct. Yes or no. Okay. So of this word, this is the least significant
+
+182
+00:15:38,150 --> 00:15:42,830
+bite. So you will start with the least significant bite and this list is significant bite. This
+
+183
+00:15:42,830 --> 00:15:51,580
+will go to the lowest address. This will go to the lowest memory address, memory address.
+
+184
+00:15:51,580 --> 00:15:58,260
+Okay. So very simple point. And this B means bite least significant bite of the word. Okay.
+
+185
+00:15:58,260 --> 00:16:05,940
+is this clear so I can say this list significant byte of word this will this will be stored at
+
+186
+00:16:07,140 --> 00:16:12,580
+this will be stored at lowest memory address so that's it so this is your topic okay so you can
+
+187
+00:16:12,580 --> 00:16:19,700
+read here okay just read this the name big indian when you use this word the name big indian is
+
+188
+00:16:19,700 --> 00:16:28,020
+used when lower byte address is used for most significant byte of the word just read this line
+
+189
+00:16:28,020 --> 00:16:29,220
+We have already seen this.
+
+190
+00:16:29,220 --> 00:16:31,520
+Little and then big and then we have already seen this.
+
+191
+00:16:31,520 --> 00:16:33,720
+Now tell me, did you understand this statement?
+
+192
+00:16:33,720 --> 00:16:35,020
+Read this statement.
+
+193
+00:16:35,020 --> 00:16:45,320
+The name Big and then is used when lower byte address means lowest byte address is used for more significant byte of the word.
+
+194
+00:16:45,320 --> 00:16:46,020
+Is this clear?
+
+195
+00:16:46,020 --> 00:16:48,520
+Please tell me this statement is this clear?
+
+196
+00:16:48,520 --> 00:16:57,920
+So you can see what is Big and then Big and then means the lowest byte address that is used for more significant byte of the word.
+
+197
+00:16:57,920 --> 00:17:02,960
+Similarly, when you can say little Indian little Indian means what little Indian means
+
+198
+00:17:02,960 --> 00:17:09,680
+little Indian means that lowest byte address is used for least significant byte of the word.
+
+199
+00:17:09,680 --> 00:17:14,880
+Okay. So very simple. So this is the point. I hope you understood. Okay.
+
+200
+00:17:15,520 --> 00:17:19,520
+You already know what is it least significant byte and what is most significant bite.
+
+201
+00:17:19,520 --> 00:17:22,480
+These things you already know. Okay. Now let's move on now.
+
+202
+00:17:22,480 --> 00:17:28,240
+So you can see if this is your word. So how should be okay. So this is the concept by
+
+203
+00:17:28,240 --> 00:17:33,920
+ordering this is the concept. How should bytes within a word bytes within a word. Okay. If
+
+204
+00:17:33,920 --> 00:17:38,480
+I give you a word if I give you a word then how should the bytes within a word be ordered
+
+205
+00:17:38,480 --> 00:17:45,760
+in the main memory. Okay. So you can see if I give you a 32 bit word this word if I give you
+
+206
+00:17:45,760 --> 00:17:50,560
+then how you will store it very simple in the big Indian you will start with the big end.
+
+207
+00:17:50,560 --> 00:17:55,280
+Okay, you will start with the big end. So you will store like this. And in the little Indian,
+
+208
+00:17:55,280 --> 00:17:59,760
+you will start with the little end, you will start with the least significant bite. Okay,
+
+209
+00:17:59,760 --> 00:18:04,240
+so you will start with the least significant bite. So you can store like this. Okay, so very
+
+210
+00:18:04,240 --> 00:18:13,160
+simple. So this concept we have seen. Now let's move on now. Okay, so let's see. Now we will do
+
+211
+00:18:13,160 --> 00:18:18,600
+a lot of practice we are going to do for for this topic. And in this little Indian, big Indian,
+
+212
+00:18:18,600 --> 00:18:24,840
+a lot of practice we will do so can you take your copy pan now can you notice what I've written here
+
+213
+00:18:24,840 --> 00:18:29,480
+all practice questions on byte ordering what that means can I even tell me what this means I'm
+
+214
+00:18:29,480 --> 00:18:35,640
+I'm saying all practice questions all practice questions so let me tell you that on the internet
+
+215
+00:18:35,640 --> 00:18:41,640
+in the standard resources whatever question I found I put here you will see we will see Washington
+
+216
+00:18:41,640 --> 00:18:46,600
+University question gate question ISRO question basically we will see every question available
+
+217
+00:18:46,600 --> 00:19:02,600
+I can say every gate relevant question from this byte ordering we will study. Okay, we will solve. So take your copy pen and let's solve all practice questions on byte ordering means little Indian big Indian. Okay, let's solve some questions. Okay, so let's start.
+
+218
+00:19:04,600 --> 00:19:14,600
+Now, this is Washington University question on byte ordering means this is based on the concept of little Indian big Indian little Indian big Indian. So this question let's solve.
+
+219
+00:19:16,600 --> 00:19:20,240
+So you can see this is Washington University question for 20 points.
+
+220
+00:19:20,320 --> 00:19:21,360
+Let's solve this question.
+
+221
+00:19:21,800 --> 00:19:23,440
+You have 32-bit integers.
+
+222
+00:19:23,800 --> 00:19:26,720
+So 32-bit integers means how many bytes are there?
+
+223
+00:19:27,200 --> 00:19:29,760
+Tell me 32-bit integers means four bytes.
+
+224
+00:19:29,760 --> 00:19:30,160
+Yes or no.
+
+225
+00:19:30,160 --> 00:19:31,880
+So this is your multi-byte data, right?
+
+226
+00:19:32,280 --> 00:19:32,560
+Okay.
+
+227
+00:19:33,080 --> 00:19:37,520
+You have 32-bit integer that simply means that this is your multi-byte data.
+
+228
+00:19:38,520 --> 00:19:44,520
+And when you multi-byte data, then you tell me when you multi-byte data, then
+
+229
+00:19:44,520 --> 00:19:46,320
+And in this will come into picture.
+
+230
+00:19:46,400 --> 00:19:48,680
+Yes or no, whenever you are multi byte data.
+
+231
+00:19:48,840 --> 00:19:50,200
+So you have four byte data.
+
+232
+00:19:50,360 --> 00:19:52,800
+If you notice this is your four byte integers.
+
+233
+00:19:53,120 --> 00:19:54,280
+So there are four bytes.
+
+234
+00:19:56,640 --> 00:19:56,840
+Okay.
+
+235
+00:19:56,840 --> 00:20:00,280
+And whenever you have multi byte data, then how to store this data in the man
+
+236
+00:20:00,280 --> 00:20:04,280
+memory for that, the concept of byte ordering comes into picture.
+
+237
+00:20:04,440 --> 00:20:04,680
+Okay.
+
+238
+00:20:04,680 --> 00:20:05,440
+So let's solve it.
+
+239
+00:20:05,880 --> 00:20:09,840
+Now you can see here, what is the first question?
+
+240
+00:20:09,920 --> 00:20:14,840
+The first question is write the decimal number 13 in binary.
+
+241
+00:20:14,840 --> 00:20:23,160
+as a 32 bit big Indian integer. Okay, so what we need to do? We need to write decimal number 13 in
+
+242
+00:20:23,160 --> 00:20:29,720
+binary as a 32 bit big Indian integer. This is what we need to write. Okay, but read this
+
+243
+00:20:29,720 --> 00:20:35,640
+statement. Read this statement. What this statement is telling you? Tell me what this
+
+244
+00:20:35,640 --> 00:20:40,760
+statement is telling you that whenever you are writing your answer, when you are writing your
+
+245
+00:20:40,760 --> 00:20:47,880
+answer. Then make sure that you put the bite with the lowest address on the left. Okay.
+
+246
+00:20:47,880 --> 00:20:52,840
+Whenever you are writing your answer, then make sure that you put the bite with the lowest
+
+247
+00:20:52,840 --> 00:20:57,720
+address on the left and bite with the highest address on the right. What this line means?
+
+248
+00:20:57,720 --> 00:21:02,760
+Can anyone tell me? Okay, first you understand this line. First understand this line. What this
+
+249
+00:21:02,760 --> 00:21:10,360
+means? Okay, what it means? What this line means? See, this line simply means that let's assume that
+
+250
+00:21:10,360 --> 00:21:16,360
+somehow okay i don't know which architecture but let's assume that your memory looks like this
+
+251
+00:21:16,360 --> 00:21:21,720
+okay just for a moment for a moment let's assume that your main memory looks like this these are the
+
+252
+00:21:21,720 --> 00:21:28,040
+addresses okay and i am saying that let's assume your main memory looks like this for example
+
+253
+00:21:28,040 --> 00:21:36,760
+one two a b okay for example maybe two c and d e okay so let's assume this is your main memory
+
+254
+00:21:36,760 --> 00:21:42,840
+If your memory looks like this, if, if memory looks like this, then what your answer will be?
+
+255
+00:21:43,720 --> 00:21:56,130
+If memory looks like this in some Andeanness, okay, in some, in some Andean, in some Andeanness,
+
+256
+00:21:56,130 --> 00:22:01,490
+is this clear? Okay, so if your main memory looks like this, I don't know Little Andean or Big
+
+257
+00:22:01,490 --> 00:22:06,690
+Andean, I don't know. I don't know Little Andean or Big Andean. I'm saying if your memory looks like
+
+258
+00:22:06,690 --> 00:22:13,490
+this. Okay. In any endearness, then your answer will be what? Then, then write your answer,
+
+259
+00:22:14,050 --> 00:22:19,970
+then write your answer. So, how you will write your answer, then you write your answer like,
+
+260
+00:22:19,970 --> 00:22:27,170
+like this. Okay. Like this. So, you can see how, how to write the answer. See, here this statement
+
+261
+00:22:27,170 --> 00:22:32,290
+is already telling you. See, when you are writing your answer, read this statement. When you are
+
+262
+00:22:32,290 --> 00:22:38,210
+writing your answer, when you are writing your answer, make sure make sure that you put the
+
+263
+00:22:38,210 --> 00:22:44,130
+byte with the lowest address on the left. Okay. This is the byte with the lowest address. Yes
+
+264
+00:22:44,130 --> 00:22:51,010
+or no. So you put this on the left and then AB, then to see and then DE is this understood.
+
+265
+00:22:51,010 --> 00:22:56,210
+Please tell me. Okay. So if your main memory looks like this in some and DNS, I don't know
+
+266
+00:22:56,210 --> 00:23:01,410
+which and DNS, okay, big Indian, little Indian, whatever and DNS you take. If your main memory
+
+267
+00:23:01,410 --> 00:23:06,570
+looks like this, then write your answer like this. Is this clear? Please tell me. Did you
+
+268
+00:23:06,570 --> 00:23:11,370
+understand this statement? This statement, did you understand in this question in this
+
+269
+00:23:11,370 --> 00:23:17,210
+Washington University question? This statement, did you understand? Okay, so very simple statement
+
+270
+00:23:17,210 --> 00:23:21,810
+that when you are writing your final answer, then make sure that bite with the lowest address
+
+271
+00:23:21,810 --> 00:23:27,010
+you write on the left. Okay, whether you take little Indian big Indian does not matter.
+
+272
+00:23:27,010 --> 00:23:31,370
+When you are writing your final answer, then make sure that you put the bite with the lowest
+
+273
+00:23:31,370 --> 00:23:36,970
+address on the left. Okay, your final answer should look like this. If your memory looks
+
+274
+00:23:36,970 --> 00:23:42,450
+like this, okay, if your main memory looks like this, then your answer should look like
+
+275
+00:23:42,450 --> 00:23:48,210
+this. So this is the point. Okay, now let's solve this question. Now, now let's see what
+
+276
+00:23:48,210 --> 00:23:54,450
+the part one. So tell me what the answer for part one, write the decimal number 13. We
+
+277
+00:23:54,450 --> 00:24:01,130
+We need to write the decimal number 13 in binary as a 32 bit long int.
+
+278
+00:24:01,130 --> 00:24:04,970
+So first of all, you tell me this number you have 30, this is your data, right?
+
+279
+00:24:04,970 --> 00:24:10,070
+Can I say, can I say that our data that is nothing but 13.
+
+280
+00:24:10,070 --> 00:24:15,570
+So we need to write this data as a 32 bit big Indian.
+
+281
+00:24:15,570 --> 00:24:20,090
+Okay, you can see we need to write this as a 32 bit big Indian integer.
+
+282
+00:24:20,090 --> 00:24:22,090
+So first you convert this into binary.
+
+283
+00:24:22,090 --> 00:24:24,050
+So tell me what your binary will be.
+
+284
+00:24:24,050 --> 00:24:32,210
+first you convert this into 32 bit binary 32 bit binary so what your data will look
+
+285
+00:24:32,210 --> 00:24:37,730
+like because ultimately we want 32 bit right in all the questions we want 32 bit 32 bit
+
+286
+00:24:37,730 --> 00:24:45,130
+32 bit okay so first you convert this 13 into 32 bit let's do that so tell me in the 32
+
+287
+00:24:45,130 --> 00:24:50,450
+bit how this 13 will look like for 32 bit very simple this 13 is actually if you notice
+
+288
+00:24:50,450 --> 00:24:57,810
+this 13 actually nothing but 1101 right okay but we want 32 bits so just put zeros just
+
+289
+00:24:57,810 --> 00:25:03,810
+put extra zeros so actually it will look like this 1101 okay just put extra zero how many
+
+290
+00:25:03,810 --> 00:25:09,930
+extra zeros I need to put how many leading zeros I need to put tell me so total 28 leading
+
+291
+00:25:09,930 --> 00:25:16,490
+zeros I need to put yes or no okay leading zeros do they affect the number do they affect
+
+292
+00:25:16,490 --> 00:25:20,890
+the number the leading zeros they will not affect the number right because you already know for
+
+293
+00:25:20,890 --> 00:25:26,970
+example if I put like 032 that is same as 32 okay so these two things are same you already know
+
+294
+00:25:26,970 --> 00:25:31,850
+okay these two things so leading zero does not matter okay these zeros they do not matter so
+
+295
+00:25:31,850 --> 00:25:37,930
+you can put extra zeros so what you can do you can put 28 extra zeros you need to put okay so
+
+296
+00:25:37,930 --> 00:25:53,330
+So let's put so eight then next eight then next eight and I think four more I need to
+
+297
+00:25:53,330 --> 00:26:05,700
+put okay so four more zeros we need to put and then finally our data will be 1101 okay
+
+298
+00:26:05,700 --> 00:26:14,240
+so this is your data yes or no this is our data this is your our data I can see I can
+
+299
+00:26:14,240 --> 00:26:19,680
+say that this is the data that we have in the or you want if you want you can convert it into the
+
+300
+00:26:19,680 --> 00:26:25,680
+hexadecimal also but that is another question right yes or no see part b is for hexadecimal
+
+301
+00:26:25,680 --> 00:26:30,240
+okay you can see that is another question so let's solve the these two questions first
+
+302
+00:26:30,240 --> 00:26:35,520
+then we will solve little indian first we will solve big indian you can see part a that is talking
+
+303
+00:26:35,520 --> 00:26:43,200
+about big indian in binary okay what is part a part is big indian in binary in binary the part
+
+304
+00:26:43,200 --> 00:26:49,600
+be saying big Indian but consider the hexadecimal representation the part C is telling little
+
+305
+00:26:49,600 --> 00:26:55,840
+Indian binary and part D is saying little Indian hexadecimal okay so let's solve this question now
+
+306
+00:26:56,560 --> 00:27:04,830
+so first you tell me now what will happen in 32 bit uh in in big Indian system in big Indian
+
+307
+00:27:04,830 --> 00:27:12,770
+system what will happen tell me in big Indian system in the big Indian system what you will do
+
+308
+00:27:12,770 --> 00:27:17,410
+you will start with the big end. Yes or no. Okay. In the big Indian system, if you notice,
+
+309
+00:27:17,410 --> 00:27:23,410
+you will start with the big end. This is the big end. This is the big end. What big end means?
+
+310
+00:27:23,410 --> 00:27:29,410
+Big end means more significant bite. This is more significant bite. Okay. So what you will do,
+
+311
+00:27:29,410 --> 00:27:33,810
+you will start with the most significant bite. Okay. So in the big Indian, actually the answer
+
+312
+00:27:33,810 --> 00:27:39,490
+will look like this in the big Indian. Okay. If you have, if you are storing at address,
+
+313
+00:27:39,490 --> 00:27:44,130
+at some address at any address does not matter okay whatever address you take so in the big
+
+314
+00:27:44,130 --> 00:27:48,930
+Indian actually you will start with the big end okay so first you will put this most significant
+
+315
+00:27:48,930 --> 00:27:53,570
+bite here you will put the most significant bite this most significant bite you will put here
+
+316
+00:27:54,130 --> 00:27:58,290
+then what you will do then the next bite then the next bite then the next bite and so on
+
+317
+00:27:58,290 --> 00:28:03,650
+so tell me can you notice your final answer what that will be that will be same as this number
+
+318
+00:28:04,370 --> 00:28:09,170
+okay because I told you in the question it is saying that if your photo looks like this if
+
+319
+00:28:09,170 --> 00:28:13,250
+If your main memory looks like this, then write your answer like this.
+
+320
+00:28:13,850 --> 00:28:14,250
+Okay.
+
+321
+00:28:14,370 --> 00:28:14,930
+Yes or no.
+
+322
+00:28:15,250 --> 00:28:19,090
+If your main memory looks like this, then write your answer in this order.
+
+323
+00:28:19,730 --> 00:28:20,970
+Write your answer in this order.
+
+324
+00:28:21,130 --> 00:28:25,290
+So if you notice in the big Indian system, in the big Indian system, how the
+
+325
+00:28:25,290 --> 00:28:28,970
+main memory will look like, you can see this is the main memory that will look
+
+326
+00:28:28,970 --> 00:28:31,130
+like because you will start with the big end.
+
+327
+00:28:31,490 --> 00:28:34,850
+So first you will put more significant bite than the next bite.
+
+328
+00:28:35,050 --> 00:28:36,130
+Then the next bite.
+
+329
+00:28:36,330 --> 00:28:36,610
+Okay.
+
+330
+00:28:36,610 --> 00:28:37,450
+What are the next bite?
+
+331
+00:28:37,770 --> 00:28:38,770
+That is like this.
+
+332
+00:28:41,020 --> 00:28:46,700
+Okay. And what are the next bite? That is like this. Okay. So finally tell me if your
+
+333
+00:28:46,700 --> 00:28:52,100
+main memory looks like this, then your final answer will be what? Then your final answer
+
+334
+00:28:52,100 --> 00:29:02,320
+will be what? Then final answer for option A for part A. Tell me what your answer will
+
+335
+00:29:02,320 --> 00:29:06,920
+be. If your main memory looks like this, then what you will do? Your final answer you need
+
+336
+00:29:06,920 --> 00:29:12,120
+to put in this order. Okay. Yes or no. First you need to put the bite at the lowest address.
+
+337
+00:29:12,120 --> 00:29:17,040
+The question is already saying that when you are writing your answer, then put the bite
+
+338
+00:29:17,040 --> 00:29:18,960
+with the lowest address on the left.
+
+339
+00:29:18,960 --> 00:29:19,960
+Okay.
+
+340
+00:29:19,960 --> 00:29:22,880
+Put the bite, bite with the lowest address on the left.
+
+341
+00:29:22,880 --> 00:29:24,560
+So what do you need to do here?
+
+342
+00:29:24,560 --> 00:29:28,320
+Your final answer will be first you will put this bite, then you will put this bite, then
+
+343
+00:29:28,320 --> 00:29:30,560
+you will put this bite, then you will put this bite.
+
+344
+00:29:30,560 --> 00:29:31,560
+Okay.
+
+345
+00:29:31,560 --> 00:29:33,240
+So basically the same answer you will get agree.
+
+346
+00:29:33,240 --> 00:29:34,240
+Yes or no.
+
+347
+00:29:34,240 --> 00:29:36,920
+So your final answer will be same as this.
+
+348
+00:29:36,920 --> 00:29:39,200
+Your final answer will be like this.
+
+349
+00:29:39,200 --> 00:29:41,600
+This is your final answer.
+
+350
+00:29:41,600 --> 00:29:42,900
+I'm writing the final answer.
+
+351
+00:29:49,010 --> 00:29:49,310
+Okay.
+
+352
+00:29:49,310 --> 00:29:50,410
+So this is your final answer.
+
+353
+00:29:50,510 --> 00:29:51,110
+Is this clear?
+
+354
+00:29:51,110 --> 00:29:51,710
+Please tell me.
+
+355
+00:29:52,010 --> 00:29:52,810
+Did you understand?
+
+356
+00:29:52,810 --> 00:29:53,310
+Let me know.
+
+357
+00:29:53,910 --> 00:29:55,410
+This is your final answer.
+
+358
+00:29:59,560 --> 00:29:59,960
+Please tell me.
+
+359
+00:29:59,960 --> 00:30:00,760
+Did you understand this?
+
+360
+00:30:01,560 --> 00:30:02,060
+This question.
+
+361
+00:30:02,060 --> 00:30:02,760
+Did you understand?
+
+362
+00:30:03,060 --> 00:30:04,460
+Okay, because this is our data.
+
+363
+00:30:04,460 --> 00:30:06,360
+See, our data is already there.
+
+364
+00:30:06,460 --> 00:30:07,860
+Okay, our data is 13.
+
+365
+00:30:08,060 --> 00:30:08,860
+So first, what do you do?
+
+366
+00:30:08,860 --> 00:30:10,960
+You convert it into 32-bit binary.
+
+367
+00:30:11,260 --> 00:30:12,360
+This is our data.
+
+368
+00:30:12,360 --> 00:30:14,560
+This is our data in the big Indian system.
+
+369
+00:30:14,560 --> 00:30:16,960
+How you will represent this data?
+
+370
+00:30:17,060 --> 00:30:20,360
+How you will put in the main memory in the big Indian system?
+
+371
+00:30:20,460 --> 00:30:25,100
+this data you have how you will put this data in the memory very simple you will start with
+
+372
+00:30:25,100 --> 00:30:29,740
+the big end. So you will start with the most significant byte. So first you will put this
+
+373
+00:30:29,740 --> 00:30:38,060
+most significant byte at the lowest address, then the next byte, then the next byte and then
+
+374
+00:30:38,060 --> 00:30:43,820
+then finally this least significant byte at the highest address. Okay and once you have this orph
+
+375
+00:30:43,820 --> 00:30:49,580
+once you have this photo then how to write the answer very simple? Okay, start with the lowest
+
+376
+00:30:49,580 --> 00:30:54,180
+address. Okay, start with the byte with the lowest address, put this on the left, put
+
+377
+00:30:54,180 --> 00:30:58,740
+this on the right. Okay, so your final answer will be this. That's it. Now tell me the
+
+378
+00:30:58,740 --> 00:31:04,900
+answer for part B. Tell me the answer for part B. Let me know for part B, what I need
+
+379
+00:31:04,900 --> 00:31:12,300
+to do or before that, just tell me for part C. Okay, let's do the answer for part C.
+
+380
+00:31:12,300 --> 00:31:20,340
+In part C, what we have, we have little Indian. Let's see the answer for part C, little
+
+381
+00:31:20,340 --> 00:31:28,180
+Indian binary this is your part C if you notice okay so 32 bit little Indian binary okay binary
+
+382
+00:31:28,180 --> 00:31:32,900
+now you tell me the answer will be what so in the little Indian how the memory will look like
+
+383
+00:31:32,900 --> 00:31:38,180
+anyone in the little Indian if you are restoring this data at address 100
+
+384
+00:31:40,020 --> 00:31:45,140
+let's assume I'm storing this data this data I'm storing at address 100 means from 100 to
+
+385
+00:31:45,140 --> 00:31:49,620
+103 in the little Indian what will happen very simple you will start with the little and
+
+386
+00:31:50,340 --> 00:31:55,620
+yes or no you will start with the little end this little end you will put here okay so you will
+
+387
+00:31:55,620 --> 00:32:01,540
+put the little end this is your least significant byte this is the least significant byte this is
+
+388
+00:32:01,540 --> 00:32:06,660
+the little end so you will start with the least significant byte you will put it or at the lowest
+
+389
+00:32:06,660 --> 00:32:12,500
+address okay so you will put this byte first first you will put this byte that's it and then
+
+390
+00:32:12,500 --> 00:32:18,500
+then the next byte then what you will do then this next byte this next byte you will put at this
+
+391
+00:32:18,500 --> 00:32:30,820
+address. Okay. So you can see then the next bite, then the next bite and tell me your
+
+392
+00:32:30,820 --> 00:32:38,100
+final answer, how you will write. So your final answer, how to write that? Let me know.
+
+393
+00:32:38,100 --> 00:32:42,140
+This is already given in the question that your final answer, you have to write that
+
+394
+00:32:42,140 --> 00:32:46,860
+bite at the lowest address you have to write on the left. Okay. So your final answer for
+
+395
+00:32:46,860 --> 00:32:52,580
+this part, see what that will be. That will be you start with this. Okay. So just just
+
+396
+00:32:52,580 --> 00:32:58,260
+right like this. This is your little Indian. You can see one thing basically you are starting
+
+397
+00:32:58,260 --> 00:33:02,300
+with a little and in the little Indian in the little Indian what you are doing you are
+
+398
+00:33:02,300 --> 00:33:06,100
+starting with the little and this is your little and you are basically you are starting
+
+399
+00:33:06,100 --> 00:33:10,020
+with the little and in the little Indian what you are doing tell me you are starting with
+
+400
+00:33:10,020 --> 00:33:14,940
+the little and this is the little and right yes or no. Okay. Then what you do then the
+
+401
+00:33:14,940 --> 00:33:29,020
+next bite then the next bite then the next bite. Okay. So this is your final answer.
+
+402
+00:33:29,020 --> 00:33:34,320
+I hope you understood. Okay. What is the part B in the part B we need to convert it into
+
+403
+00:33:34,320 --> 00:33:42,160
+hexadecimal read the part B write the decimal number 13 in hexadecimal. Okay. As a 32 bit
+
+404
+00:33:42,160 --> 00:33:47,360
+big Indian. So first you convert this into this data, this binary data that you have
+
+405
+00:33:47,360 --> 00:33:51,840
+first you convert into hexadecimal. So what that will be in the hexadecimal what it will
+
+406
+00:33:51,840 --> 00:33:57,840
+be, it will be like this. Okay. This is your zero zero and so on. So in the hexadecimal,
+
+407
+00:33:57,840 --> 00:34:04,320
+will be like this. Okay. Finally, it will be zero and this will be D. Okay. Yes or no.
+
+408
+00:34:04,320 --> 00:34:11,920
+So this is your hexadecimal. Now tell me. Now tell me part B, the answer for part B.
+
+409
+00:34:11,920 --> 00:34:18,960
+So in the big Indian, what will happen in big Indian? What your final answer will be
+
+410
+00:34:18,960 --> 00:34:23,000
+in the big Indian system? Your final answer will be very simple. You start with the big
+
+411
+00:34:23,000 --> 00:34:27,840
+end you start with the big and this is the big end you start with the big and that's
+
+412
+00:34:27,840 --> 00:34:33,060
+it okay so in the big end okay your final answer I'm writing the final answer directly
+
+413
+00:34:33,060 --> 00:34:38,300
+okay so your final answer will be what you start with the big end then the next bite
+
+414
+00:34:38,300 --> 00:34:44,660
+then the next bite and then the next bite so this will be your answer is this clear
+
+415
+00:34:44,660 --> 00:34:49,980
+so this is going to be your answer simple right yes or no very simple now tell me the
+
+416
+00:34:49,980 --> 00:34:59,720
+next what about part d part D means little Indian tell me about this in the little Indian
+
+417
+00:34:59,720 --> 00:35:04,620
+what you will do you will start with the little and this is the little and correct yes you
+
+418
+00:35:04,620 --> 00:35:10,060
+know this is the little and so you will start with the little and OK so fast you put this
+
+419
+00:35:10,060 --> 00:35:17,700
+part then the next bite then the next bite then the next bite this will be your answer
+
+420
+00:35:17,700 --> 00:35:23,940
+Okay. So quite simple, right? Okay. Hexadecimal. This is in the hexadecimal. So just put it here
+
+421
+00:35:23,940 --> 00:35:33,750
+that this is the answer is also in the hexadecimal. Okay. Understood. Now let's move on. Is this
+
+422
+00:35:33,750 --> 00:35:38,630
+clear? Please tell me this particular question. Is this understood? Let me know. Now let's see
+
+423
+00:35:38,630 --> 00:35:44,070
+the next question. This is another question from the Washington University. And this is a nice
+
+424
+00:35:44,070 --> 00:35:51,070
+question let's solve this what this question is saying for each of the following answer
+
+425
+00:35:51,070 --> 00:35:58,270
+same if the little Indian and big Indian representation are same okay so some options are given to
+
+426
+00:35:58,270 --> 00:36:04,230
+you and for each of them what we need to do we need to answer same if little Indian and
+
+427
+00:36:04,230 --> 00:36:09,790
+big Indian representations are same okay and if little Indian big Indian representation
+
+428
+00:36:09,790 --> 00:36:15,310
+are different than answer different. Okay, all the numbers are 32 bit integers. All the
+
+429
+00:36:15,310 --> 00:36:21,550
+numbers are multi byte data. Yes or no. Did you understand the question? A very nice question.
+
+430
+00:36:21,550 --> 00:36:25,910
+This is a beautiful question. Okay, from Washington University. This is a standard question. This
+
+431
+00:36:25,910 --> 00:36:29,910
+is actually a very nice question. So let's solve it. So you can see all the numbers are
+
+432
+00:36:29,910 --> 00:36:37,270
+32 bit integers. All the numbers, these are multi byte integers. Okay, now let's solve
+
+433
+00:36:37,270 --> 00:36:46,010
+So tell me the maximum unsigned number what is that in 32 bit what is the maximum unsigned
+
+434
+00:36:46,010 --> 00:36:52,170
+number let's solve the first one let's see the first one first of all you tell me in
+
+435
+00:36:52,170 --> 00:37:00,610
+32 bits in 32 bits what is the maximum maximum mean largest what is the largest unsigned
+
+436
+00:37:00,610 --> 00:37:07,290
+number that you can create unsigned integer tell me what are the largest unsigned number
+
+437
+00:37:07,290 --> 00:37:15,210
+you can create anyone if you want to create maximum unsigned number then in binary how
+
+438
+00:37:15,210 --> 00:37:21,210
+it will look like it will be all once yes or no in 32 bits there are 32 bits I want
+
+439
+00:37:21,210 --> 00:37:26,570
+to create maximum unsigned number I want to create there is no sign so what I will do
+
+440
+00:37:26,570 --> 00:37:28,570
+I will simply put all ones.
+
+441
+00:37:28,570 --> 00:37:29,570
+Okay, yes or no?
+
+442
+00:37:29,570 --> 00:37:33,070
+So your number actually, your number actually will be all ones.
+
+443
+00:37:33,070 --> 00:37:39,710
+Just put all ones.
+
+444
+00:37:39,710 --> 00:37:41,710
+Just put all ones.
+
+445
+00:37:41,710 --> 00:37:44,710
+So if you notice, actually if you notice, your number is this.
+
+446
+00:37:44,710 --> 00:37:47,210
+This is the maximum unsigned number.
+
+447
+00:37:47,210 --> 00:37:49,210
+Okay, just put all the ones.
+
+448
+00:37:49,210 --> 00:37:51,210
+Is this clear? Please tell me, did you understand this?
+
+449
+00:37:51,210 --> 00:37:56,210
+See the question is saying the maximum unsigned number in 32 bits.
+
+450
+00:37:56,210 --> 00:38:00,710
+In 32 bits, if I want unsigned number, if I want unsigned number,
+
+451
+00:38:00,710 --> 00:38:15,110
+Okay, there is no sign. So I can say if I want maximum unsigned number, then I will put all ones that is same as what that is same as ff ff ff ff in hexadecimal in hexadecimal, you can write like this.
+
+452
+00:38:15,670 --> 00:38:29,400
+Okay, in the hexadecimal, because this is nothing but F in hexadecimal. Correct. Is this clear? So this is your largest unsigned number. Now you tell me
+
+453
+00:38:29,400 --> 00:38:34,640
+Now you tell me for this number can I say little and then system big and then system
+
+454
+00:38:34,640 --> 00:38:41,240
+they will be same yes or no can I say that big and then and little and then representation
+
+455
+00:38:41,240 --> 00:38:46,600
+will be same for this yes of course yes or no for this little and then big and then will
+
+456
+00:38:46,600 --> 00:38:54,520
+be same okay so I can say for this for this number okay for this number what I can say
+
+457
+00:39:26,790 --> 00:39:33,230
+So in the little Indian you will start with the little and in the big Indian you will start with the big and but all are same
+
+458
+00:39:33,230 --> 00:39:38,990
+All are one one one one one one all are ffff. Okay, so very simple. So this is the simple point that
+
+459
+00:39:40,350 --> 00:39:44,550
+Okay, in the big Indian what you will do in the big Indian you will start with the big and
+
+460
+00:39:46,150 --> 00:39:48,830
+You will start with the big end. So that's it
+
+461
+00:39:49,630 --> 00:39:55,190
+FFFFF and so on. So this is your answer. So for this question the answer will be what?
+
+462
+00:39:55,190 --> 00:39:59,790
+for this question what I will say I will say same little Indian big Indian both
+
+463
+00:39:59,790 --> 00:40:06,860
+representations are same what about the answer for the next the maximum sorry
+
+464
+00:40:06,860 --> 00:40:13,780
+actually we have done the second part right we have done the maximum unsigned
+
+465
+00:40:13,780 --> 00:40:19,400
+number we have done okay we have done the part two we have actually done the
+
+466
+00:40:19,400 --> 00:40:25,740
+part two because we have done maximum unsigned number okay is this clear the
+
+467
+00:40:25,740 --> 00:40:31,420
+part two we have done we have done part two now let's do the part one okay so this part
+
+468
+00:40:31,420 --> 00:40:35,940
+two is done this is done remember we have done the part two that is maximum unsigned
+
+469
+00:40:35,940 --> 00:40:41,780
+number what about minimum unsigned number tell me about the minimum unsigned number
+
+470
+00:40:41,780 --> 00:40:51,670
+what about the part one in 32 bits 32 bits minimum unsigned number if you want unsigned
+
+471
+00:40:51,670 --> 00:40:58,570
+number which is minimum that is zero yes or no minimum unsigned number I want I want minimum
+
+472
+00:40:58,570 --> 00:41:03,550
+unsigned number okay so if I want minimum unsigned number then very simple that is zero that
+
+473
+00:41:03,550 --> 00:41:11,550
+is all zeros so in 32 bits minimum unsigned number will be all zeros all zeros correct
+
+474
+00:41:11,550 --> 00:41:16,030
+okay so if you notice the minimum unsigned number that will be basically that will be
+
+475
+00:41:16,030 --> 00:41:24,990
+in hexadecimal if I write in hexadecimal it will be 0000000 correct yes or no now you can see
+
+476
+00:41:24,990 --> 00:41:30,990
+for this can I say little and in big and in will be same little and in equal to same as big and in
+
+477
+00:41:31,790 --> 00:41:37,070
+yes or no is this clear okay little and in big and in will be same in the little and in you will
+
+478
+00:41:37,070 --> 00:41:41,870
+start with the little and in the big and in you will start with the big and but all are zeros so
+
+479
+00:41:41,870 --> 00:41:43,670
+So there is no, there is no change.
+
+480
+00:41:43,870 --> 00:41:45,870
+So I can say for this also, they will be same.
+
+481
+00:41:46,330 --> 00:41:50,470
+What about the third one plus one in two's compliment?
+
+482
+00:41:51,170 --> 00:41:53,570
+Okay, so tell me what is plus one in two's compliment?
+
+483
+00:41:53,770 --> 00:41:59,670
+Let's see the third part plus one in two's compliment in two's compliment.
+
+484
+00:42:00,670 --> 00:42:02,470
+This two's compliment, one's compliment.
+
+485
+00:42:02,470 --> 00:42:05,270
+This concept we have already seen in the digital logic.
+
+486
+00:42:05,470 --> 00:42:05,770
+Okay.
+
+487
+00:42:06,070 --> 00:42:07,170
+What is two's compliment?
+
+488
+00:42:07,170 --> 00:42:08,370
+What is one's compliment?
+
+489
+00:42:08,670 --> 00:42:10,770
+These concepts we have seen in the digital logic.
+
+490
+00:42:10,770 --> 00:42:22,770
+So plus 1 in 2's complement and 32 bits. Okay 32 bits. So tell me what that will be in binary. How it will look like plus 1 in 2's complement.
+
+491
+00:42:22,770 --> 00:42:34,770
+Okay, for positive numbers 2's complement is same as sine magnitude system. Yes or no. If you have a positive number for positive number 2's complement is same as your sine magnitude system.
+
+492
+00:42:34,770 --> 00:42:40,290
+system. Okay, so how your plus one will look like very simple all zeros ending with one. Okay,
+
+493
+00:42:40,290 --> 00:42:46,050
+so your plus one your data is actually like this in hexadecimal if I write that will be all zeros
+
+494
+00:42:46,690 --> 00:42:53,410
+all zeros. Okay, and finally at the end there will be one in binary if I write if you want you
+
+495
+00:42:53,410 --> 00:43:02,340
+can write in the binary also in the binary it will be like this all zeros there will be all zeros
+
+496
+00:43:07,140 --> 00:43:11,780
+and then finally this will be one. Okay, so you can see this is actually one
+
+497
+00:43:11,940 --> 00:43:16,530
+This is actually your one.
+
+498
+00:43:16,530 --> 00:43:18,530
+Okay.
+
+499
+00:43:18,530 --> 00:43:19,530
+So understood.
+
+500
+00:43:19,530 --> 00:43:20,530
+Simple.
+
+501
+00:43:20,530 --> 00:43:21,530
+Okay.
+
+502
+00:43:21,530 --> 00:43:23,530
+So in the hexadecimal you can write or you can write in binary.
+
+503
+00:43:23,530 --> 00:43:26,530
+Now you tell me for this number.
+
+504
+00:43:26,530 --> 00:43:27,530
+Okay.
+
+505
+00:43:27,530 --> 00:43:28,530
+Focus on this number.
+
+506
+00:43:28,530 --> 00:43:32,530
+For this number, you tell me little and then begin and will they be same?
+
+507
+00:43:32,530 --> 00:43:38,530
+Will they be same little and then begin and how the little and then will look like for this number?
+
+508
+00:43:38,530 --> 00:43:39,530
+How the little and then will look like?
+
+509
+00:43:39,530 --> 00:43:42,530
+Tell me in the little and then what you will do?
+
+510
+00:43:42,530 --> 00:43:47,150
+will start with the little and okay you will start with the little and so in the little
+
+511
+00:43:47,150 --> 00:43:52,130
+Indian what you will do you will start with the little and and then the next bite then
+
+512
+00:43:52,130 --> 00:43:56,610
+the next bite then the next bite this is your little Indian in the big Indian what you will
+
+513
+00:43:56,610 --> 00:44:02,250
+do in the big Indian you will start with the big and in the big Indian you will start with
+
+514
+00:44:02,250 --> 00:44:12,730
+the big and okay so simple so they are different clear please tell me did you understand let
+
+515
+00:44:12,730 --> 00:44:16,810
+me know remember in the little Indian you will start with the little end in the big
+
+516
+00:44:16,810 --> 00:44:20,810
+Indian you will start with the big end. Okay, so you can clearly see they are different.
+
+517
+00:44:20,810 --> 00:44:24,890
+Okay, this and this they are different. So I can say for this question, the answer will
+
+518
+00:44:24,890 --> 00:44:34,380
+be different. What about the next one? Anyone minus one in two's compliment? What is minus
+
+519
+00:44:34,380 --> 00:44:40,700
+one in two's compliment? Tell me anyone? What is minus one in two's compliment? Okay, so this
+
+520
+00:44:40,700 --> 00:44:56,420
+see your part for minus one in two's compliment 32 bits in 32 bits. Okay. So you first what
+
+521
+00:44:56,420 --> 00:45:01,780
+you will do if you want minus one in two's compliment, then first what you will do? Tell
+
+522
+00:45:01,780 --> 00:45:05,380
+me first what you will do first you will write plus one in two's compliment. Okay.
+
+523
+00:45:05,380 --> 00:45:11,260
+So just see plus one in two's compliment. What that will be plus one in two's compliment
+
+524
+00:45:11,260 --> 00:45:16,900
+that will be all zero ending with one. Yes or no, that will be like this all zeros, all
+
+525
+00:45:16,900 --> 00:45:23,060
+zeros and ending with one yes or no so this will be your plus one now tell me how to find
+
+526
+00:45:23,060 --> 00:45:28,660
+minus one in two's compliment how to find that minus one in two's compliment we have
+
+527
+00:45:28,660 --> 00:45:35,460
+already seen this okay from left to right you go till the first one till the first one
+
+528
+00:45:35,460 --> 00:45:41,060
+you write as it is then everything you will compliment yes or no then everything you will
+
+529
+00:45:41,060 --> 00:45:46,900
+compliment. Is this clear till the first one as it is see go from left to right go from
+
+530
+00:45:46,900 --> 00:45:53,620
+left to right till the first one as it is till the first one as it is okay but then compliment
+
+531
+00:45:53,620 --> 00:45:58,980
+everything but then you what you do you compliment everything now you compliment everything
+
+532
+00:46:01,670 --> 00:46:07,110
+okay so you can see minus one in two's compliment that is actually all once is this clear
+
+533
+00:46:07,110 --> 00:46:15,190
+see what we what I'm saying if you want for example let's assume I want just let's assume
+
+534
+00:46:15,190 --> 00:46:20,670
+that I want minus four in two's complement okay I want minus four in two's complement
+
+535
+00:46:20,670 --> 00:46:28,590
+okay let's assume that in eight bits then tell me what your answer will be if I want
+
+536
+00:46:28,590 --> 00:46:33,070
+minus four in two's complement then what you can do first you can put plus four in two's
+
+537
+00:46:33,070 --> 00:46:39,470
+compliment okay first what you do you write plus four in two's compliment so plus four in two's
+
+538
+00:46:39,470 --> 00:46:45,390
+compliment that is same as sine magnitude for positive numbers two's compliment is same as sine
+
+539
+00:46:45,390 --> 00:46:50,510
+magnitude okay so because this is a positive number so two's compliment representation will be
+
+540
+00:46:50,510 --> 00:46:58,350
+same as sine magnitude okay so what you what that will be that will be 0 0 0 0 0 1 0 0 yes or no
+
+541
+00:46:58,350 --> 00:47:02,790
+Now how to write minus 4 into compliment? How to write that?
+
+542
+00:47:02,790 --> 00:47:04,090
+Very simple.
+
+543
+00:47:04,090 --> 00:47:08,030
+Go from left to right. Go from left to right.
+
+544
+00:47:08,030 --> 00:47:10,050
+Okay. Till the first one you go.
+
+545
+00:47:10,050 --> 00:47:12,990
+Go from left to right. Go from left to right.
+
+546
+00:47:12,990 --> 00:47:15,650
+Till the first one you go. Till the first one.
+
+547
+00:47:15,650 --> 00:47:19,050
+That will be same. Till the first one everything is same.
+
+548
+00:47:19,050 --> 00:47:22,750
+Okay. Till the first one. Till the first one everything will be same.
+
+549
+00:47:22,750 --> 00:47:24,350
+Till the first one.
+
+550
+00:47:24,350 --> 00:47:26,650
+Till the first one everything will be same.
+
+551
+00:47:26,650 --> 00:47:33,050
+After that, everything will be compliment. Okay, after that, everything will compliment.
+
+552
+00:47:33,050 --> 00:47:38,010
+So this is your minus four in two's compliment. Is this understood? Please tell me. Okay, so very
+
+553
+00:47:38,010 --> 00:47:45,620
+simple. So here you can notice minus one in two's compliment that will be what minus one in two's
+
+554
+00:47:45,620 --> 00:47:51,540
+compliment that will be all ones. Okay, that will be nothing but all ones one one one one one one
+
+555
+00:47:51,540 --> 00:47:58,260
+one and so on one, one, one, one. Okay. 32 bits in 32 bits. So this is your minus one
+
+556
+00:47:58,260 --> 00:48:03,460
+in two's compliment in hexadecimal. If you write, you can write in the hexadecimal also.
+
+557
+00:48:03,460 --> 00:48:11,140
+So that will be ff, ff, ff, ff. Yes or no. Is this clear? Please tell me. Now tell me
+
+558
+00:48:11,140 --> 00:48:15,060
+for this, can I say little and then big and then we'll be same little and then big and
+
+559
+00:48:15,060 --> 00:48:19,620
+then we'll be same. Right? Yes or no. For this little and then big and then they will
+
+560
+00:48:19,620 --> 00:48:26,700
+be same. So this is your answer for the part four. Okay. So for this question, answer will
+
+561
+00:48:26,700 --> 00:48:30,660
+be that little Indian representation, big Indian representation will be same. What
+
+562
+00:48:30,660 --> 00:48:35,200
+about the next one? Quickly tell me, tell me the answer for the next one, the maximum
+
+563
+00:48:35,200 --> 00:48:41,380
+two's compliment number, the maximum two's compliment number. Okay. I want maximum two's
+
+564
+00:48:41,380 --> 00:48:51,950
+compliment number. Tell me what is maximum two's compliment number part five in 32 bits
+
+565
+00:48:51,950 --> 00:48:56,350
+in 32 bits, what is maximum 2s compliment number?
+
+566
+00:48:57,050 --> 00:48:57,550
+Anyone?
+
+567
+00:49:02,000 --> 00:49:04,500
+See, maximum 2s compliment number will be positive?
+
+568
+00:49:04,700 --> 00:49:05,400
+Yes or no?
+
+569
+00:49:06,000 --> 00:49:06,500
+Agree?
+
+570
+00:49:06,800 --> 00:49:08,400
+Maximum 2s compliment number.
+
+571
+00:49:08,400 --> 00:49:11,100
+I want maximum 2s compliment number in 32 bits.
+
+572
+00:49:11,200 --> 00:49:12,700
+So that will be a positive number.
+
+573
+00:49:13,700 --> 00:49:14,300
+Agree with me?
+
+574
+00:49:14,400 --> 00:49:16,000
+I want maximum 2s compliment number.
+
+575
+00:49:16,000 --> 00:49:17,100
+So that will be positive.
+
+576
+00:49:17,500 --> 00:49:17,800
+Okay.
+
+577
+00:49:17,900 --> 00:49:22,500
+So what you can do in 32 bits, if I want maximum 2s compliment number,
+
+578
+00:49:23,500 --> 00:49:24,600
+then that will be positive.
+
+579
+00:49:24,600 --> 00:49:25,500
+That you already know.
+
+580
+00:49:57,040 --> 00:50:01,040
+If I want maximum 2's complement number, then what I will do?
+
+581
+00:50:01,040 --> 00:50:06,040
+Did you understand this logic? See, I want maximum 2's complement number.
+
+582
+00:50:06,040 --> 00:50:11,040
+So I know that that number will be positive. I already know that number will be positive.
+
+583
+00:50:11,040 --> 00:50:15,040
+And for positive numbers, 2's complement is same as sine magnitude.
+
+584
+00:50:15,040 --> 00:50:18,040
+Sine magnitude representation and 2's complement, they are same.
+
+585
+00:50:18,040 --> 00:50:24,040
+But for positive numbers, so the sine bit will be 0. Yes or no?
+
+586
+00:50:24,040 --> 00:50:27,160
+Sine bit will be 0 for positive numbers
+
+587
+00:50:27,160 --> 00:50:30,760
+I can say that Sine bit that must be 0
+
+588
+00:50:31,760 --> 00:50:33,200
+Sine bit must be 0
+
+589
+00:50:33,200 --> 00:50:35,320
+Okay, so just put Sine bit equal to 0
+
+590
+00:50:35,320 --> 00:50:36,920
+Now I want maximum
+
+591
+00:50:36,920 --> 00:50:38,320
+So just put all 1s
+
+592
+00:50:39,320 --> 00:50:40,280
+Yes or no?
+
+593
+00:50:40,280 --> 00:50:41,640
+Is this clear? Please tell me
+
+594
+00:50:41,640 --> 00:50:43,400
+Now just put all 1s
+
+595
+00:50:47,170 --> 00:50:50,250
+This is your maximum 2s compliment number
+
+596
+00:50:50,250 --> 00:50:51,690
+Is this understood? Please tell me
+
+597
+00:50:51,930 --> 00:50:53,010
+Did you understand this?
+
+598
+00:50:53,010 --> 00:50:54,410
+In 32 bits
+
+599
+00:50:54,410 --> 00:50:56,730
+This is the maximum 2s compliment number
+
+600
+00:50:56,730 --> 00:50:59,730
+Okay, just this will be 0, the remaining all will be 1s
+
+601
+00:50:59,730 --> 00:51:03,730
+Okay, now you tell me, in the hexadecimal what I can write?
+
+602
+00:51:03,730 --> 00:51:07,730
+The same number in the hexadecimal, in the hexadecimal I can write it
+
+603
+00:51:07,730 --> 00:51:12,730
+That this is your basically 7, okay, this is 7, right, this is 7
+
+604
+00:51:12,730 --> 00:51:20,860
+In hexadecimal, this will be 7 in hexadecimal
+
+605
+00:51:20,860 --> 00:51:26,860
+Okay, so 7 and then ff ff ff, ff ff ff ff
+
+606
+00:51:26,860 --> 00:51:27,860
+Yes or no?
+
+607
+00:51:57,860 --> 00:52:03,380
+like in the big Indian it start with the big end it start with the big end so it will look
+
+608
+00:52:03,380 --> 00:52:11,420
+like 7f ff ff ff okay so are they same or different are they same or different they
+
+609
+00:52:11,420 --> 00:52:18,100
+are different okay so for this question the answer will be what tell me for this question
+
+610
+00:52:18,100 --> 00:52:24,700
+the answer will be different see this question is beautiful right I can guarantee that many
+
+611
+00:52:24,700 --> 00:52:28,540
+Many students will make mistake in this question, actually in this question multiple concepts
+
+612
+00:52:28,540 --> 00:52:34,060
+are used, little indian, big indian and number system, sign magnitude, two's compliment,
+
+613
+00:52:34,060 --> 00:52:37,340
+one's compliment, so multiple concepts are used in this question.
+
+614
+00:52:37,340 --> 00:52:42,060
+So this will be a very nice question, if this type of question comes in the gate exam, MSQ
+
+615
+00:52:42,060 --> 00:52:45,980
+question, then that will be very nice question, okay.
+
+616
+00:52:45,980 --> 00:52:49,980
+So you can see, so very nice question from Washington University.
+
+617
+00:52:49,980 --> 00:52:54,680
+Now let's just do the last one also, tell me, what about the answer?
+
+618
+00:52:54,680 --> 00:53:00,760
+For 6th one, the minimum, minimum means most negative 2s compliment sign number.
+
+619
+00:53:00,760 --> 00:53:05,900
+The minimum most negative 2s compliment sign number.
+
+620
+00:53:05,900 --> 00:53:09,280
+Now tell me the answer for this one.
+
+621
+00:53:09,280 --> 00:53:13,790
+What is the minimum 2s compliment sign number?
+
+622
+00:53:13,790 --> 00:53:29,370
+The answer for 6th one, in 32 bits, in 32 bits, what are the minimum 2s compliment?
+
+623
+00:53:29,370 --> 00:53:37,370
+to the minimum to complement number. Tell me what are the minimum to complement number.
+
+624
+00:53:37,370 --> 00:53:41,890
+This is what I want. So if I want minimum to complement number, this we have seen in
+
+625
+00:53:41,890 --> 00:53:46,530
+the digital logic. I told you in the digital logic how to create minimum to complement
+
+626
+00:53:46,530 --> 00:53:52,050
+number. What to do? Very simple. First of all, just put the sign bit equal to one and
+
+627
+00:53:52,050 --> 00:53:58,530
+the remaining will be zero. The remaining all they will be zero. Yes or no, the remaining
+
+628
+00:53:58,530 --> 00:54:05,690
+all will be zeros do you remember this do you remember this this we have seen in the digital
+
+629
+00:54:05,690 --> 00:54:10,250
+logic in the digital logic we have already seen this okay most of the students they have
+
+630
+00:54:10,250 --> 00:54:14,930
+given correct answer I can see all of them have given correct answer very good very good
+
+631
+00:54:14,930 --> 00:54:21,930
+okay so you can see in 32 bits I want minimum to complement number so what I can do so that
+
+632
+00:54:21,930 --> 00:54:27,290
+will be start with the sign bit will be one okay and the remaining will be zero this will
+
+633
+00:54:27,290 --> 00:54:32,730
+be your minimum two's compliment number. Okay. So in the hexadecimal, what I can write it
+
+634
+00:54:32,730 --> 00:54:39,810
+in the hexadecimal, what it will be, it will be eight in the hexadecimal, it will be eight
+
+635
+00:54:39,810 --> 00:54:47,690
+then 0000000. Okay. This will be your number. Now you tell me in little Indian, what it
+
+636
+00:54:47,690 --> 00:54:56,470
+will be this number in little Indian and this number in big Indian, how it will look like
+
+637
+00:54:56,470 --> 00:55:01,190
+this number how it will be stored in the little Indian if you store this number in a little
+
+638
+00:55:01,190 --> 00:55:05,750
+Indian system then what will happen very simple in the little Indian system you will start with
+
+639
+00:55:05,750 --> 00:55:11,110
+the little end you will start with the little end so your answer will be you will start with the
+
+640
+00:55:11,110 --> 00:55:22,120
+little end okay in the big Indian system you will start with the big end are they same they are not
+
+641
+00:55:22,120 --> 00:55:30,840
+same they are not same they are different okay so very simple so for this question the answer
+
+642
+00:55:30,840 --> 00:55:37,750
+will be different. Okay, so that's it. So this is a very nice question we have done this question
+
+643
+00:55:37,750 --> 00:55:42,870
+number e we have done it. Okay, did you understand please tell me did you understand this question
+
+644
+00:55:42,870 --> 00:55:48,550
+very nice question multiple concepts are used. Did you understand please tell me let me know.
+
+645
+00:55:48,550 --> 00:55:55,990
+Now let's see the next one. The question number f give in hexadecimal. Okay, given hexadecimal
+
+646
+00:55:55,990 --> 00:56:06,590
+a 32 bit value that represents the same unsigned number same unsigned number okay that represents
+
+647
+00:56:06,590 --> 00:56:14,470
+same unsigned number in big Indian or little Indian is not one of the previous problem basically
+
+648
+00:56:14,470 --> 00:56:22,430
+other than these other than these give a 32 bit value you give me a 32 bit value that
+
+649
+00:56:22,430 --> 00:56:29,430
+represents same unsigned number in big Indian also in the little Indian also in the big
+
+650
+00:56:29,430 --> 00:56:34,950
+Indian in the little Indian that will represent same unsigned number. So tell me what will
+
+651
+00:56:34,950 --> 00:56:53,620
+be the answer for part F anyone anyone want to give Satyam has given AB AB AB AB yeah
+
+652
+00:56:53,620 --> 00:56:59,860
+that will work that will work. Okay. So Satyam has already given this. So for part F Satyam
+
+653
+00:56:59,860 --> 00:57:07,860
+has given this answer in the hexadecimal he has given a b a b a b a b okay now you can
+
+654
+00:57:07,860 --> 00:57:15,020
+see that okay this number this is a 32 bit value first of all this is a 32 bit value
+
+655
+00:57:15,020 --> 00:57:19,780
+okay and you can see in the little and in the big Indian it will represent the same
+
+656
+00:57:19,780 --> 00:57:25,620
+unsigned number right yes or no in little and in in big Indian this will represent
+
+657
+00:57:25,620 --> 00:57:32,580
+the same unsigned number in the little Indian what it will be this is your 32 bit value okay
+
+658
+00:57:32,580 --> 00:57:38,460
+now this 32 bit value you can see what the question is saying read the question give
+
+659
+00:57:38,460 --> 00:57:45,140
+in hexadecimal a 32 bit value that represents same unsigned number in big Indian little
+
+660
+00:57:45,140 --> 00:57:51,540
+Indian okay so you can see that look at this on this value this is the 32 bit value okay
+
+661
+00:57:51,540 --> 00:57:55,500
+And in the little end in the big Indian, this will represent the same
+
+662
+00:57:55,700 --> 00:57:57,580
+same unsigned number, because in the little Indian
+
+663
+00:57:57,580 --> 00:58:03,380
+also, this will be what this will be A B A B A B A B, ok.
+
+664
+00:58:03,500 --> 00:58:05,540
+Because in the little Indian, you will start with the little
+
+665
+00:58:05,540 --> 00:58:08,780
+hand. Ok, in the big Indian, you will start with the big end.
+
+666
+00:58:09,100 --> 00:58:11,860
+So, in the little Indian in the big Indian in both of them
+
+667
+00:58:13,420 --> 00:58:15,660
+this will represent the same unsigned value.
+
+668
+00:58:15,740 --> 00:58:18,060
+You can see this is same as this.
+
+669
+00:58:18,060 --> 00:58:37,850
+Okay, they are same. Correct. Yes or no. So you can notice they are same. Now they once has given FF 0000 FF that is also correct. Okay, so this answer is correct. Another alternative answer, another answer, another answer.
+
+670
+00:58:37,850 --> 00:58:47,370
+answer. Devans has given another answer that is ff in the hexadecimal ff 0000 ff yeah this
+
+671
+00:58:47,370 --> 00:58:54,170
+is also correct okay this so can anyone tell me can anyone tell me general answer can anyone
+
+672
+00:58:54,170 --> 00:59:00,470
+tell me general answer anyone want to tell me the general answer like give me some something
+
+673
+00:59:00,470 --> 00:59:06,690
+generalized answer basically in the generalized answer in the hexadecimal you tell me I can
+
+674
+00:59:06,690 --> 00:59:14,650
+simply say that the first byte must be same as the last byte. Yes or no? Do you agree?
+
+675
+00:59:14,650 --> 00:59:19,770
+Basically this byte. Okay, just consider what I'm saying. Basically this byte must
+
+676
+00:59:19,770 --> 00:59:26,450
+be same as this byte. And and and what should happen? This byte must be same as this byte.
+
+677
+00:59:26,450 --> 00:59:32,730
+Right? Do you agree? Please tell me. And this byte must be same as this byte. Okay, here
+
+678
+00:59:32,730 --> 00:59:41,370
+And where this is a byte where this is a byte okay this is a byte is this understood please
+
+679
+00:59:41,370 --> 00:59:48,210
+tell me do you agree yes or no this is the general answer right okay this byte must be
+
+680
+00:59:48,210 --> 00:59:52,130
+same as this byte and this byte must be same as this byte.
+
+681
+00:59:52,130 --> 00:59:56,850
+Now you can see this is a 32 bit value in the little Indian in the big Indian this will
+
+682
+00:59:56,850 --> 01:00:02,450
+represent the same unsigned value yes or no is this clear so this is your general answer
+
+683
+01:00:02,450 --> 01:00:08,130
+for this question. Okay, so that's it. You can see here, the answer is already available
+
+684
+01:00:08,130 --> 01:00:13,970
+in this Washington University, this midterm, this is a midterm question answer is available.
+
+685
+01:00:13,970 --> 01:00:19,810
+Many answers are available. For example, ff 0000 ff. Basically, what should happen
+
+686
+01:00:19,810 --> 01:00:24,370
+that this byte, this byte must be same, this byte, this byte must be same. Yes or no, this
+
+687
+01:00:24,370 --> 01:00:29,930
+is already given the general answer is already given here, you can read this. Okay, so that's
+
+688
+01:00:29,930 --> 01:00:34,330
+it. So, we have done all the Washington University questions. Please tell me, did you like these
+
+689
+01:00:34,330 --> 01:00:40,490
+questions? Let me know. We have done all the Washington University questions we have done.
+
+690
+01:00:40,490 --> 01:00:46,970
+Okay, you can see all of them we have done. Please tell me, did you understand? Let me know.
+
+691
+01:00:47,530 --> 01:00:52,570
+Now, let's move on now. Tell me the answer for this question. This is a question from
+
+692
+01:00:52,570 --> 01:00:58,010
+University of New Hampshire. You can see University of New Hampshire question on
+
+693
+01:00:58,010 --> 01:01:04,170
+Indianness and this is a very beautiful question. Let's solve it. You tell me the answer. Read
+
+694
+01:01:04,170 --> 01:01:10,090
+the question carefully and tell me the answer. This is a beautiful standard question. I want
+
+695
+01:01:10,090 --> 01:01:16,290
+correct answer from you. Read the question and tell me the answer. How would the following
+
+696
+01:01:16,290 --> 01:01:23,330
+C string null terminated? This string is given to you that is null terminated. Okay. A C string
+
+697
+01:01:23,330 --> 01:01:28,850
+that is given to you. Okay, so this is the C string that is null terminated. So what
+
+698
+01:01:28,850 --> 01:01:37,400
+is this string? Tell me anyone voted this string in C language, what is this string?
+
+699
+01:01:37,400 --> 01:01:43,840
+This string is basically X, Y, Z and it will be null terminated, right? Yes or no? This
+
+700
+01:01:43,840 --> 01:01:51,120
+is your string, correct? This is the string. Okay, because you can see how would the following
+
+701
+01:01:51,120 --> 01:01:56,800
+C string this C string is given to you and this is null terminated so this is terminated
+
+702
+01:01:56,800 --> 01:02:03,600
+by null so basically this is your C string this is a string okay so how this string be
+
+703
+01:02:03,600 --> 01:02:09,000
+represented using ASCII in memory read this question this is a very beautiful question
+
+704
+01:02:09,000 --> 01:02:15,600
+very nice question see this question okay this string you have how this string be represented
+
+705
+01:02:15,600 --> 01:02:22,080
+using ASCII in the memory of little indian system of little indian machine
+
+706
+01:02:22,080 --> 01:02:25,520
+your system is little indian with byte addressable memory
+
+707
+01:02:26,720 --> 01:02:31,520
+okay because when you have byte addressable memory then this indianness will come into picture
+
+708
+01:02:31,520 --> 01:02:37,120
+do you agree with me when you have byte addressable memory i told you this that when you have byte
+
+709
+01:02:37,120 --> 01:02:42,720
+addressable memory then the concept of indianness will come into picture okay so you can see here
+
+710
+01:02:42,720 --> 01:02:47,360
+you have byte addressable memory and your system, your machine is little Indian machine.
+
+711
+01:02:47,360 --> 01:02:51,920
+Now, how this will be represented in the memory. This is what the question is asking,
+
+712
+01:02:51,920 --> 01:02:58,240
+how you will represent this in the main memory. Now, what the question is saying the bytes are
+
+713
+01:02:58,240 --> 01:03:06,260
+shown. Okay, so forget about this one. Forget actually some options are given. I don't want
+
+714
+01:03:06,260 --> 01:03:10,820
+to show you the options. Okay, actually what this line is saying, let me tell you what this line is
+
+715
+01:03:10,820 --> 01:03:15,780
+saying actually some options are given, some options are given, but I don't want to give
+
+716
+01:03:15,780 --> 01:03:20,860
+you the options. Okay, so forget about this line. Don't worry. This will make sense once
+
+717
+01:03:20,860 --> 01:03:27,060
+you have the options. Okay. If I give you the options, then this line will make sense.
+
+718
+01:03:27,060 --> 01:03:31,500
+Okay. So don't worry about this statement. This is statement. Don't worry about this
+
+719
+01:03:31,500 --> 01:03:36,100
+statement because I did not give you the options. Actually, in this question, there
+
+720
+01:03:36,100 --> 01:03:42,660
+are some options. Okay. Now tell me the ASCII of X is given to you. That is the ASCII of
+
+721
+01:03:42,660 --> 01:03:50,820
+this is a zero X 78. The ASCII of this is given to you that is zero X 79. The ASCII
+
+722
+01:03:50,820 --> 01:03:59,820
+of this is a zero X 7 a. Okay. And this is your null. This is zero X 00. This is your
+
+723
+01:03:59,820 --> 01:04:04,220
+null. So now tell me the answer in the little Indian system, what your answer will be and
+
+724
+01:04:04,220 --> 01:04:06,700
+And in the big Indian system, what your answer will be?
+
+725
+01:04:06,700 --> 01:04:09,860
+You tell me the answer for little Indian also big Indian also.
+
+726
+01:04:09,860 --> 01:04:15,580
+So this is your C string X, Y, Z, null.
+
+727
+01:04:15,580 --> 01:04:21,700
+Now you tell me how this will be represented in little Indian machine in big Indian machine.
+
+728
+01:04:21,700 --> 01:04:31,540
+You tell me in little Indian machine in big Indian machine, anyone in the little Indian
+
+729
+01:04:31,540 --> 01:04:34,580
+machine in the big Indian machine, how it will be represented.
+
+730
+01:04:34,580 --> 01:04:39,620
+So in the little Indian can I say that you will start with the little and in the little
+
+731
+01:04:39,620 --> 01:04:45,060
+Indian you will start with the little and so you will start with the little and yes
+
+732
+01:04:45,060 --> 01:04:51,940
+or no then you will put this Z that is nothing but 7A then you will put 7A then you will
+
+733
+01:04:51,940 --> 01:04:57,380
+put this Y which is nothing but 79 and then 78.
+
+734
+01:04:57,380 --> 01:04:59,740
+So can I say this is correct?
+
+735
+01:04:59,740 --> 01:05:01,880
+Can I say this is correct?
+
+736
+01:05:01,880 --> 01:05:06,680
+In the little andian, can I say this is correct, please tell me can I say this is correct?
+
+737
+01:05:06,680 --> 01:05:08,080
+Is this correct answer?
+
+738
+01:05:08,080 --> 01:05:13,700
+How many of you are thinking this is correct answer?
+
+739
+01:05:13,700 --> 01:05:16,740
+This is absolutely wrong, why?
+
+740
+01:05:16,740 --> 01:05:19,980
+This is absolutely wrong, what is the reason?
+
+741
+01:05:19,980 --> 01:05:23,660
+Andianness does not apply to the strings, I told you.
+
+742
+01:05:23,660 --> 01:05:26,020
+Andianness does not apply to the strings.
+
+743
+01:05:26,020 --> 01:05:31,820
+I told you andian concept, this andianness, this byte ordering concept does not apply
+
+744
+01:05:31,820 --> 01:05:40,880
+to strings yes or no please tell me did you understand so this is actually wrong this
+
+745
+01:05:40,880 --> 01:05:50,040
+is actually wrong why because if you remember I told you this concept of and DNS this and
+
+746
+01:05:50,040 --> 01:06:03,270
+DNS concept does not apply to strings yes or no two strings this does not apply to strings
+
+747
+01:06:03,270 --> 01:06:14,530
+instructs ok next arrays is this clear please tell me so remember the concept of ndns cannot
+
+748
+01:06:14,530 --> 01:06:20,550
+change the order of these elements whatever ndns you tell you take see please understand
+
+749
+01:06:20,550 --> 01:06:32,080
+whatever ndns whatever ndns you take whatever ndns you consider whatever ndns you consider
+
+750
+01:06:32,080 --> 01:06:40,340
+does not matter the order of these elements will not change yes or no order of elements
+
+751
+01:06:40,340 --> 01:06:53,680
+in a string cannot change order of elements in a string or array or structure cannot change
+
+752
+01:06:53,680 --> 01:07:03,170
+cannot change is this clear please tell me yes or no okay so that cannot change so in
+
+753
+01:07:03,170 --> 01:07:07,130
+in the little Indian also in the big Indian also what your answer will be and you can
+
+754
+01:07:07,130 --> 01:07:15,010
+see the individual items are one byte or not tell me the individual items the individual
+
+755
+01:07:15,010 --> 01:07:21,920
+items are one byte C I told you this point that if you have a string okay if I give
+
+756
+01:07:21,920 --> 01:07:28,400
+you a string okay some string I give you ABCD if I give you this string now in this string
+
+757
+01:07:59,740 --> 01:08:05,500
+the individual element and a nest will apply is this clear okay for this and a nest will
+
+758
+01:08:05,500 --> 01:08:15,860
+apply yes or no for this I can say for this primitive for this primitive data item for
+
+759
+01:08:15,860 --> 01:08:25,380
+this primitive data item and a nest will apply yes or no and a nest applies and a nest applies
+
+760
+01:08:25,380 --> 01:08:27,880
+if it is multi byte, yes or no?
+
+761
+01:08:28,380 --> 01:08:34,920
+if it is multi byte, if it is multi byte data, is this clear?
+
+762
+01:08:34,920 --> 01:08:36,920
+Please tell me, are you getting my point?
+
+763
+01:08:37,520 --> 01:08:37,720
+Okay.
+
+764
+01:08:37,720 --> 01:08:40,620
+So for this, for this also, the same thing will happen.
+
+765
+01:08:42,220 --> 01:08:45,520
+For this also, if this is multi byte data, then and DNS will apply.
+
+766
+01:08:45,920 --> 01:08:46,220
+Okay.
+
+767
+01:08:46,220 --> 01:08:46,820
+Is this clear?
+
+768
+01:08:46,920 --> 01:08:51,420
+So very simple point, what I'm telling you that this is a string.
+
+769
+01:08:52,120 --> 01:08:52,520
+Okay.
+
+770
+01:08:52,520 --> 01:08:55,820
+Whether you take little Indian machine, big Indian machine does not matter.
+
+771
+01:08:55,820 --> 01:09:18,820
+this order of these elements will not change x y z null this order will not change and can I say tell me this is a one by data or not let me know please tell me this is a one by data or not this is just a one by data item so because this is just a one by data item so it will be same in both the
+
+772
+01:09:18,820 --> 01:09:25,660
+both the indianness okay because this is only one byte data item right yes or no this is
+
+773
+01:09:25,660 --> 01:09:31,860
+just a one byte data item please tell me did you understand so these are just one byte
+
+774
+01:09:31,860 --> 01:09:36,580
+data item and because they are one byte data item so there is no concept of byte ordering
+
+775
+01:09:36,580 --> 01:09:41,420
+do you agree with me if you have only one byte can you do byte ordering if you have
+
+776
+01:09:41,420 --> 01:09:46,900
+only one byte then can you do byte ordering no you cannot do yes or no so very simple
+
+777
+01:09:46,900 --> 01:09:50,980
+so tell me the final answer now tell me the final answer so in the little
+
+778
+01:09:50,980 --> 01:09:57,580
+Indian what your answer will be that will be 0x first you write x okay first you
+
+779
+01:09:57,580 --> 01:10:07,980
+write the ask you of x that is 7 8 7 9 7 a 0 0 so your answer will be 7 8 7 9 7 a
+
+780
+01:10:07,980 --> 01:10:12,180
+0 0 this will be your answer in the little Indian and the same answer in the
+
+781
+01:10:12,180 --> 01:10:21,140
+big Indian please tell me understood or not the same answer the same the same answer in
+
+782
+01:10:21,140 --> 01:10:29,280
+little Indian big Indian the same answer because for string and DNS concept will not apply
+
+783
+01:10:29,280 --> 01:10:36,040
+understood please tell me for a string I told you this note that this and DNS concept only
+
+784
+01:10:36,040 --> 01:10:44,480
+applies to multi byte primitive data okay this concept this and DNS concept only applies
+
+785
+01:10:44,480 --> 01:10:49,280
+only applies where it will apply it will apply to multi byte primitive data item.
+
+786
+01:10:50,120 --> 01:10:56,000
+Okay, and remember this will not apply to whom this will not apply to whom this
+
+787
+01:10:56,000 --> 01:10:58,160
+will not apply to strings area and destruct.
+
+788
+01:10:59,280 --> 01:11:00,360
+This we have already seen.
+
+789
+01:11:01,120 --> 01:11:02,000
+Okay, so very simple.
+
+790
+01:11:02,680 --> 01:11:03,680
+So you can see that's it.
+
+791
+01:11:03,760 --> 01:11:08,240
+So actually the answer will be seven eight seven nine seven eight zero zero.
+
+792
+01:11:08,960 --> 01:11:11,280
+I told you that there are options in this question, right?
+
+793
+01:11:11,280 --> 01:11:11,800
+Yes or no.
+
+794
+01:11:11,800 --> 01:11:37,240
+I told you there are some options in this question these are the options so you can see this will be the answer in little indian system in the little indian machine as well as in big indian machine as well as as in big indian machine in both the machines this will be the answer okay understood please tell me did you understand let me know
+
+795
+01:11:37,240 --> 01:11:45,240
+Is this question clear to everyone? So this will be your answer in little Indian machine, in big Indian machine, in both the machines, this will be the answer.
+
+796
+01:11:45,240 --> 01:11:56,240
+Okay, so this is a beautiful question, right? Students can make mistake. Yes or no? The very common mistake will be this. If you put this, this will be a very common mistake.
+
+797
+01:11:56,240 --> 01:12:05,240
+This will be a very common mistake if you take this one. The first option, if you take this, then that will be your common mistake.
+
+798
+01:12:05,240 --> 01:12:11,520
+mistake. Okay. So the answer will be actually option D. I hope you understood. Now let's
+
+799
+01:12:11,520 --> 01:12:19,550
+move on. Okay. Now let's solve this ISRO 2020 question. This is a beautiful question in
+
+800
+01:12:19,550 --> 01:12:26,150
+the ISRO exam. Okay. So let's read the question and let's solve it. There are four options
+
+801
+01:12:26,150 --> 01:12:31,030
+A, B, C, D. These are the four options in this question. And this is very beautiful question.
+
+802
+01:12:31,030 --> 01:12:32,670
+Let's solve it.
+
+803
+01:12:32,670 --> 01:12:41,350
+So let's solve this is wrote 2020 question and array what do you have your array of two
+
+804
+01:12:41,350 --> 01:12:44,150
+two byte integers.
+
+805
+01:12:44,150 --> 01:12:45,590
+So tell me what you have.
+
+806
+01:12:45,590 --> 01:12:51,950
+Let me know you basically have array this array you have where you have two two byte
+
+807
+01:12:51,950 --> 01:12:52,950
+integers.
+
+808
+01:12:52,950 --> 01:12:53,950
+Okay.
+
+809
+01:12:53,950 --> 01:12:55,910
+There are two two byte integers.
+
+810
+01:12:55,910 --> 01:12:59,880
+So here you have two byte integer.
+
+811
+01:12:59,880 --> 01:13:08,560
+you have two byte integer and here you have two byte integer is this clear okay so this
+
+812
+01:13:08,560 --> 01:13:17,280
+is your array this is your array which contains two two byte integers okay and array is stored
+
+813
+01:13:17,280 --> 01:13:24,560
+now this array you are storing this array we are storing in the big indian machine okay
+
+814
+01:13:24,560 --> 01:13:29,320
+So this array, this array we are storing in the big Indian machine.
+
+815
+01:13:29,320 --> 01:13:34,280
+Let's assume this first integer, okay, just let's call it the first integer.
+
+816
+01:13:34,280 --> 01:13:35,400
+Let's call it Ivan.
+
+817
+01:13:35,400 --> 01:13:36,840
+Let's call it I2.
+
+818
+01:13:36,840 --> 01:13:37,840
+This is your array.
+
+819
+01:13:37,840 --> 01:13:43,920
+Now, we are storing this array in the big Indian machine in byte addresses at shown
+
+820
+01:13:43,920 --> 01:13:44,920
+below.
+
+821
+01:13:44,920 --> 01:13:45,920
+Okay.
+
+822
+01:13:45,920 --> 01:13:51,440
+So this is the shown below what will be the storage pattern in little Indian machine.
+
+823
+01:13:51,440 --> 01:13:55,040
+So this is the memory layout in the big Indian machine.
+
+824
+01:13:55,040 --> 01:14:00,920
+In the big Indian machine, in big Indian machine, this is how your memory will look like.
+
+825
+01:14:00,920 --> 01:14:02,280
+Is this clear?
+
+826
+01:14:02,280 --> 01:14:06,230
+This is the memory looks like.
+
+827
+01:14:06,230 --> 01:14:08,230
+This is the memory looks like.
+
+828
+01:14:08,230 --> 01:14:09,230
+Okay.
+
+829
+01:14:09,230 --> 01:14:16,700
+Is this clear for for array looks like for given array.
+
+830
+01:14:16,700 --> 01:14:23,340
+Now in the little Indian machine, how it will look like options are already given to you.
+
+831
+01:14:23,340 --> 01:14:24,340
+These are the options.
+
+832
+01:14:24,340 --> 01:14:29,620
+CD. Tell me the answer. First you write your answer in the copy and then I will show you
+
+833
+01:14:29,620 --> 01:14:37,860
+the options. Tell me the answer. This is a beautiful question from the ISRO exam. A
+
+834
+01:14:37,860 --> 01:14:43,340
+very nice question in ISRO 2020. What the question is saying that in the big Indian
+
+835
+01:14:43,340 --> 01:14:49,580
+machine, this is how your memory looks like in the big Indian machine for the given array.
+
+836
+01:14:49,580 --> 01:14:54,500
+Okay, you are storing this array. This is array you are storing in the big Indian machine.
+
+837
+01:14:54,500 --> 01:14:56,900
+This is how your main memory looks like.
+
+838
+01:14:56,900 --> 01:15:05,370
+Now you tell me, in the little indian machine, how the memory will look like in the little
+
+839
+01:15:05,370 --> 01:15:06,930
+indian machine.
+
+840
+01:15:06,930 --> 01:15:09,010
+So have you written your answer?
+
+841
+01:15:09,010 --> 01:15:11,250
+Now I am showing you the options.
+
+842
+01:15:11,250 --> 01:15:12,250
+These are the options.
+
+843
+01:15:12,250 --> 01:15:13,410
+Tell me.
+
+844
+01:15:13,410 --> 01:15:20,690
+Option A, B, C, D. Tell me quickly, which is correct, which of them is correct.
+
+845
+01:15:20,690 --> 01:15:25,650
+All the students are saying option C. Okay, let me check option C or not.
+
+846
+01:15:25,650 --> 01:15:32,090
+Let me check so you can see first of all this is array you are remember what you are you
+
+847
+01:15:32,090 --> 01:15:38,170
+have your data is array right okay you have this array this array you have let's assume
+
+848
+01:15:38,170 --> 01:15:44,330
+this is I1 this is I2 okay this is your array now you tell me whether you take little and
+
+849
+01:15:44,330 --> 01:15:49,690
+then big Indian can this order change the order of these elements can it change tell
+
+850
+01:15:49,690 --> 01:15:57,090
+me this is your array where this is a two byte integer this is a two byte integer this
+
+851
+01:15:57,090 --> 01:16:04,890
+is a two byte integer okay now you tell me is it possible that their order can change
+
+852
+01:16:04,890 --> 01:16:09,250
+in the little and big engine machine is it possible their order can change no I told
+
+853
+01:16:09,250 --> 01:16:15,090
+you that on the array this concept of and ns does not apply this we have already seen
+
+854
+01:16:15,090 --> 01:16:21,010
+The concept of and ns only applies to multi byte primitive data items.
+
+855
+01:16:21,370 --> 01:16:22,810
+This does not apply.
+
+856
+01:16:22,850 --> 01:16:26,450
+Please understand this does not apply to strings area or struct.
+
+857
+01:16:27,090 --> 01:16:27,770
+Yes or no.
+
+858
+01:16:27,970 --> 01:16:32,290
+So the concept of and ns cannot change the order of area elements.
+
+859
+01:16:32,530 --> 01:16:33,610
+This is what I can say.
+
+860
+01:16:34,250 --> 01:16:34,810
+Yes or no.
+
+861
+01:16:34,930 --> 01:16:36,930
+So this we have already seen this note.
+
+862
+01:16:36,930 --> 01:16:44,490
+We have already seen that and ns whatever and ns you take and ns does not
+
+863
+01:16:44,490 --> 01:16:57,450
+change does not change order of array elements order of elements in array in array correct
+
+864
+01:16:57,450 --> 01:17:03,690
+okay so this is the main point here that this is the array whatever ndns you take whatever
+
+865
+01:17:03,690 --> 01:17:09,410
+ndns you take big ndn little ndn in both the situations what will happen whether you take
+
+866
+01:17:09,410 --> 01:17:15,090
+big ndn or whether you take little ndn in both the situations this order will not change
+
+867
+01:17:15,090 --> 01:17:19,290
+First I1 will come then I2 will come first I1 will come then I2 will come
+
+868
+01:17:19,490 --> 01:17:20,590
+Okay, is this clear?
+
+869
+01:17:20,890 --> 01:17:21,890
+Very simple point, right?
+
+870
+01:17:22,190 --> 01:17:24,090
+But you can see this is a multi byte data
+
+871
+01:17:24,690 --> 01:17:25,490
+Okay, yes or no?
+
+872
+01:17:25,690 --> 01:17:26,890
+So this is your array
+
+873
+01:17:27,390 --> 01:17:28,690
+And in this array, there are
+
+874
+01:17:29,290 --> 01:17:30,390
+There are two elements
+
+875
+01:17:30,690 --> 01:17:32,790
+This I1, this I2 two integers
+
+876
+01:17:32,990 --> 01:17:34,990
+Now you can see this is two byte integer
+
+877
+01:17:36,490 --> 01:17:38,190
+Okay, because this is a two byte integer
+
+878
+01:17:38,190 --> 01:17:41,090
+So this is your multi byte primitive data item
+
+879
+01:17:41,190 --> 01:17:41,690
+Can I see?
+
+880
+01:17:42,190 --> 01:17:42,790
+Please tell me
+
+881
+01:17:42,790 --> 01:17:51,250
+This is your multi byte primitive data item, primitive data item, yes or no?
+
+882
+01:17:51,250 --> 01:17:56,050
+Similarly, this is also multi byte primitive data item, this is also two byte integer.
+
+883
+01:17:56,050 --> 01:17:59,970
+Okay, which is nothing but multi byte primitive data item.
+
+884
+01:17:59,970 --> 01:18:07,060
+Okay, so for these and ns will apply multi byte data item.
+
+885
+01:18:07,060 --> 01:18:15,620
+So, I can simply say that for these, for both of them, for both of them, I can say here and ns applies.
+
+886
+01:18:15,620 --> 01:18:23,020
+Okay, here the and DNS will apply and DNS applies simple.
+
+887
+01:18:23,020 --> 01:18:31,100
+Okay, so here and DNS will apply what it means, it means that in the big Indian already it
+
+888
+01:18:31,100 --> 01:18:32,100
+is given to you.
+
+889
+01:18:32,100 --> 01:18:39,480
+Okay, what is given it is given to you that in the big Indian in the big Indian your photo,
+
+890
+01:18:39,480 --> 01:18:43,760
+the memory photo is already given to you in the big Indian, the memory photo, how it looks
+
+891
+01:18:43,760 --> 01:18:50,760
+like that looks like these are the addresses okay 101102103104 these are the addresses
+
+892
+01:18:50,760 --> 01:18:59,080
+101102103104 remember addresses are going like this in this order addresses are put
+
+893
+01:18:59,080 --> 01:19:13,080
+now you can see 12345678 okay so in the end in the big Indian this is already given to
+
+894
+01:19:13,080 --> 01:19:18,020
+you now you tell me what is your array can you tell me once you have this then can you
+
+895
+01:19:18,020 --> 01:19:27,460
+find the array from this, can you write your array? What is your array? Can you write that?
+
+896
+01:19:27,460 --> 01:19:34,100
+Tell me your array. Can you write your array? What is your array that you have stored? So you
+
+897
+01:19:34,100 --> 01:19:39,700
+can see your stock. Okay, remember, this is your lowest address. This is your lowest address,
+
+898
+01:19:39,700 --> 01:19:46,580
+right? Okay, so basically, this is your, I can say that this is your I one. Okay, this is the
+
+899
+01:19:46,580 --> 01:19:53,860
+i1 and this is your i2 is this clear please tell me so this is your i1 this is your i2 right
+
+900
+01:19:53,860 --> 01:20:01,860
+yes or no this is your i2 okay because you can see this order cannot change i1 then i2
+
+901
+01:20:01,860 --> 01:20:06,500
+this order cannot change the order of array elements cannot change whether you take little
+
+902
+01:20:06,500 --> 01:20:12,420
+and big and whatever you take you take little and you take big and this order cannot change
+
+903
+01:20:12,420 --> 01:20:18,420
+first i1 will be there then i2 will be there this order cannot change okay yes or no so you can
+
+904
+01:20:18,420 --> 01:20:24,500
+see the addresses are going in this order the addresses are increasing from low to from bottom
+
+905
+01:20:24,500 --> 01:20:30,340
+to top from bottom to top addresses are increasing so you can see this is actually your i1 this is
+
+906
+01:20:30,340 --> 01:20:36,900
+actually your i2 so tell me what is i1 because this is big andian because this is big andian so
+
+907
+01:20:36,900 --> 01:20:41,900
+So in the big Indian now if I ask you what is Ivan then what to do you can see in the
+
+908
+01:20:41,900 --> 01:20:46,700
+big Indian we start with the big and this is the big end of Ivan right can I say this
+
+909
+01:20:46,700 --> 01:20:58,740
+is the big end of Ivan can I say this is big end of Ivan yes or no this is big end of Ivan
+
+910
+01:20:58,740 --> 01:21:05,340
+Ivan so I can say your Ivan is actually like this this is your Ivan okay in the hexadecimal
+
+911
+01:21:05,340 --> 01:21:12,380
+this is in the hexadecimal. So this is your Ivan and what is your right to tell me what is your
+
+912
+01:21:12,380 --> 01:21:20,620
+I2 you can see for I2 for I2 remember again we start with the big end. So this is the big
+
+913
+01:21:20,620 --> 01:21:28,700
+end of I2 right. Can I say this is the big end of I2 this is the big end of I2. So you can see
+
+914
+01:21:28,700 --> 01:21:34,860
+that will be 56 78. Okay. Is this clear? Please tell me did you understand because in the big
+
+915
+01:21:34,860 --> 01:21:40,500
+Indian what we do you already know this in the big Indian in the big Indian system what
+
+916
+01:21:40,500 --> 01:21:45,540
+we do on the lowest address what you will get just tell me this on the lowest memory
+
+917
+01:21:45,540 --> 01:21:52,130
+address what you will get on the lowest memory address what you will get you will get the
+
+918
+01:21:52,130 --> 01:22:02,170
+most significant bite yes or no of data item clear okay on the lowest address on the lowest
+
+919
+01:22:02,170 --> 01:22:07,050
+address you will get more significant byte of the data item okay so you can see here
+
+920
+01:22:07,050 --> 01:22:13,650
+this is the lowest address this is the lowest address 101 so here this is your most significant
+
+921
+01:22:13,650 --> 01:22:22,810
+byte of I1 okay this you can see this is the most significant byte of I1 because I told
+
+922
+01:22:22,810 --> 01:22:27,570
+you that on the lowest address on the lowest memory address you will get a more significant
+
+923
+01:22:27,570 --> 01:22:33,610
+byte of data item. Okay, similarly here, this is the most significant byte of the data item
+
+924
+01:22:33,610 --> 01:22:40,810
+I2. Okay, is this clear? So very simple. So your array you got, what is your array? Finally,
+
+925
+01:22:40,810 --> 01:22:47,410
+I can say that from here, you can get the array, the array actually, your array is basically
+
+926
+01:22:47,410 --> 01:22:55,570
+this I1, I2, this is the array. And here you have one, two, three, four in the hexadecimal.
+
+927
+01:22:55,570 --> 01:23:01,090
+is in the hexadecimal. Okay, five, six, seven, eight. Now tell me in the little Indian,
+
+928
+01:23:01,090 --> 01:23:06,090
+what your answer will be in little Indian, how the photo will look like, how the memory
+
+929
+01:23:06,090 --> 01:23:12,330
+will look like in the little Indian one, zero, one. These are the addresses one, zero, two,
+
+930
+01:23:12,330 --> 01:23:17,690
+one, zero, three, one, zero, four. Again, you can notice the order of I1 I2 will not change
+
+931
+01:23:17,690 --> 01:23:22,970
+the order of I1 I2 that cannot change. Okay. So first you will put I1. So here you will
+
+932
+01:23:22,970 --> 01:23:29,810
+put I1 and here you will put I2 that cannot change now let's put the I1 now I will put
+
+933
+01:23:29,810 --> 01:23:35,450
+the I1 okay so when I put I1 then I will start with the little end so first I will start
+
+934
+01:23:35,450 --> 01:23:40,690
+with the little end then 1 2 okay yes or no that's it so I will start with the little
+
+935
+01:23:40,690 --> 01:23:47,950
+end very simple and similarly here also I will start with the little end so 7 8 and
+
+936
+01:23:47,950 --> 01:23:54,010
+then finally five six so answer will be five six seven eight one two three four this will
+
+937
+01:23:54,010 --> 01:24:02,230
+be your answer okay so which option is correct let's see the answer will be chappanathantar
+
+938
+01:24:02,230 --> 01:24:08,850
+barachontis chappanathantar barachontis so answer will be option C that's it yes or no
+
+939
+01:24:08,850 --> 01:24:15,330
+so this is your answer option C is the answer is this clear please tell me okay so this
+
+940
+01:24:15,330 --> 01:24:21,770
+option. See, this is the final answer. Okay. So this is a good question. Yes or no? In
+
+941
+01:24:21,770 --> 01:24:26,370
+the ISRO exam, this is a nice question. Okay. Tell me what are the most common mistakes
+
+942
+01:24:26,370 --> 01:24:31,530
+in this question? Anyone? What are the most common mistake? Most common mistake in this
+
+943
+01:24:31,530 --> 01:24:35,770
+question. Anyone? See, this is the most common mistake that many students, what they will
+
+944
+01:24:35,770 --> 01:24:41,650
+do? They will just change the entire order. Yes or no? They will change the entire order.
+
+945
+01:24:41,650 --> 01:24:46,130
+So 12, 34, 56, 78, they will change the entire order.
+
+946
+01:24:46,130 --> 01:24:49,330
+So if you notice, this is actually the most common mistake.
+
+947
+01:24:49,330 --> 01:24:52,020
+Correct?
+
+948
+01:24:52,020 --> 01:24:53,260
+Yes or no?
+
+949
+01:24:53,260 --> 01:24:56,660
+See many strengths what they will do, they will change the entire order.
+
+950
+01:24:56,660 --> 01:24:57,780
+They will change the entire order.
+
+951
+01:24:57,780 --> 01:25:00,380
+I think this will be the most common mistake.
+
+952
+01:25:00,380 --> 01:25:03,900
+Do you agree with me?
+
+953
+01:25:03,900 --> 01:25:10,160
+Because many strengths what they will do, they will just change the entire order.
+
+954
+01:25:10,160 --> 01:25:15,740
+So I think this will be the most common mistake in this question.
+
+955
+01:25:15,740 --> 01:25:16,740
+Okay.
+
+956
+01:25:16,740 --> 01:25:28,300
+answer will be option C. This is the correct answer. Okay, let's move on now. Tell me the
+
+957
+01:25:28,300 --> 01:25:37,340
+answer for this question. This is another ISRO exam question, ISRO 2007. Okay. In a big Indian
+
+958
+01:25:37,340 --> 01:25:42,780
+system, the computer stores, the question is asking if you have a big Indian system,
+
+959
+01:25:42,780 --> 01:25:50,300
+then the computer stores, which of them is correct? Let me know. The most significant bite,
+
+960
+01:25:50,300 --> 01:25:55,260
+the most significant see this means much significant bite this does not mean
+
+961
+01:25:55,260 --> 01:26:02,420
+more significant bit this means most significant bite bite okay is this
+
+962
+01:26:02,420 --> 01:26:08,260
+clear this means most significant bite similarly this means less significant
+
+963
+01:26:08,260 --> 01:26:18,800
+bite least significant bite okay so the question is asking that in a big
+
+964
+01:26:18,800 --> 01:26:25,440
+Indian system the most significant byte of data where that will go that will go to the lowest
+
+965
+01:26:25,440 --> 01:26:32,080
+memory address yeah that is correct option a is correct option a is correct but option d is also
+
+966
+01:26:32,080 --> 01:26:37,040
+correct the least significant byte of data that will go to the highest memory address yeah that
+
+967
+01:26:37,040 --> 01:26:42,880
+is also correct so for this question answer will be a comma d okay both the options are correct
+
+968
+01:26:42,880 --> 01:26:43,580
+Is this clear?
+
+969
+01:26:43,580 --> 01:26:48,380
+Please tell me we have already seen this in the big Indian system.
+
+970
+01:26:48,380 --> 01:26:49,980
+What happens in the little Indian system?
+
+971
+01:26:49,980 --> 01:26:52,380
+What happens in the big Indian system?
+
+972
+01:26:52,380 --> 01:26:53,180
+I told you this.
+
+973
+01:26:53,180 --> 01:26:56,280
+You can see we have already seen in the little Indian system.
+
+974
+01:26:56,280 --> 01:26:58,880
+What we do in the little Indian system?
+
+975
+01:26:59,480 --> 01:27:00,280
+Just read this.
+
+976
+01:27:00,280 --> 01:27:01,180
+It is given here.
+
+977
+01:27:01,580 --> 01:27:06,680
+See in the little Indian system, the low order bite at the low address, high
+
+978
+01:27:06,680 --> 01:27:08,180
+order bite at the high address.
+
+979
+01:27:08,780 --> 01:27:09,480
+Yes or no.
+
+980
+01:27:09,980 --> 01:27:10,180
+Okay.
+
+981
+01:27:10,180 --> 01:27:14,840
+Okay, similarly in the big Indian system, in the big Indian system, the high order byte
+
+982
+01:27:14,840 --> 01:27:17,860
+at the low address and low order byte at the high address.
+
+983
+01:27:17,860 --> 01:27:20,740
+Okay, so this is the answer.
+
+984
+01:27:20,740 --> 01:27:21,740
+Okay.
+
+985
+01:27:21,740 --> 01:27:23,860
+Yes or no in the little and in the big Indian.
+
+986
+01:27:23,860 --> 01:27:29,860
+So remember in big Indian, what happens in big Indian system?
+
+987
+01:27:29,860 --> 01:27:35,420
+If you have big Indian system, then in big Indian system, what happens that the most
+
+988
+01:27:35,420 --> 01:27:43,620
+significant bite, most significant bite. Okay. Of data where that will go. Please tell
+
+989
+01:27:43,620 --> 01:27:51,740
+me most significant bite of data where that goes most in this means MSB. This means MSB,
+
+990
+01:27:51,740 --> 01:27:57,460
+but remember this B actually means bite here. This actually means bite. Okay. So tell me
+
+991
+01:27:57,460 --> 01:28:03,580
+most significant bite of data where that will go. That will go to the lowest address.
+
+992
+01:28:03,580 --> 01:28:11,520
+will go to the lowest memory address that will go to lowest memory address and where
+
+993
+01:28:11,520 --> 01:28:22,640
+the least significant byte of data will go that will go to highest memory address highest
+
+994
+01:28:22,640 --> 01:28:28,880
+memory address. Okay, very simple. So this is the same thing you can see here in the
+
+995
+01:28:28,880 --> 01:28:34,400
+big Indian what we do the high order byte will go to the low address and low order byte will
+
+996
+01:28:34,400 --> 01:28:39,840
+go to high address. Okay, so most significant byte will go to the low address lowest address
+
+997
+01:28:39,840 --> 01:28:44,480
+and least significant byte will go to the highest memory address. Okay, so tell me the answer for
+
+998
+01:28:44,480 --> 01:28:51,440
+this question, that will be option a,d. Okay, in the ISRO, actually, this is MCQ question.
+
+999
+01:28:52,080 --> 01:28:56,800
+So there is a mistake, right? In this question, actually, this is a MCQ question. In the ISRO
+
+1000
+01:28:56,800 --> 01:29:03,440
+exam, you have only MCQ questions. There are no MSQ questions. Okay, so, but actually, the correct
+
+1001
+01:29:03,440 --> 01:29:08,160
+answer is this, let me tell you this a,d. This is the correct answer. You can see this already,
+
+1002
+01:29:08,160 --> 01:29:14,240
+it is given here we have already seen this you can see this okay so you can see the answer
+
+1003
+01:29:14,240 --> 01:29:19,120
+actually will be option a comedy this is the correct answer this is the correct answer
+
+1004
+01:29:19,840 --> 01:29:27,200
+but the question maker maybe the question maker does not know these things okay so maybe you know
+
+1005
+01:29:27,200 --> 01:29:33,920
+so tell me if you are in the ISRO exam which option you will take if you are in the ISRO exam
+
+1006
+01:29:33,920 --> 01:29:39,760
+which option you will take anyone if you are if you are present in the israel exam in those
+
+1007
+01:29:39,760 --> 01:29:44,960
+three hours which option you will take see it does not matter both are correct option a option d
+
+1008
+01:29:44,960 --> 01:29:49,920
+both are correct if this is a gate exam question you can challenge it in the gate exam they will
+
+1009
+01:29:49,920 --> 01:29:55,440
+give you marks for a also d also if this is mcq okay in the gate exam that is the beauty of gate
+
+1010
+01:29:55,440 --> 01:30:01,680
+exam let me tell you if this question comes in the gate exam and let's assume this is mcq question
+
+1011
+01:30:01,680 --> 01:30:05,840
+then they will give you marks for option A also, they will give you marks for option D also.
+
+1012
+01:30:07,280 --> 01:30:13,200
+Okay, is this clear? But in the ISRO exam, okay, that is, I can say that is not a good exam,
+
+1013
+01:30:13,200 --> 01:30:19,360
+let me tell you. The questions are, I can say many questions are very poorly framed. Okay,
+
+1014
+01:30:19,360 --> 01:30:24,400
+very few, very rarely, you know, I can say good questions come in the ISRO exam. ISRO is a,
+
+1015
+01:30:24,400 --> 01:30:29,360
+I can say ISRO, if you see the institute, the institution is great. Okay, in our,
+
+1016
+01:30:29,360 --> 01:30:34,800
+I guess I can say in our country this is the greatest I can say one of the very nice institution
+
+1017
+01:30:34,800 --> 01:30:41,440
+but the exam is very poor the questions are very poor so you can see here in this question answer
+
+1018
+01:30:41,440 --> 01:30:47,760
+will be option a comma d okay if this is a gate exam question and let's assume this is mcq question
+
+1019
+01:30:47,760 --> 01:30:52,880
+then they will give you marks for option a also they will give you marks for option d also for
+
+1020
+01:30:52,880 --> 01:30:58,080
+both of them they will give you the marks and if this is msq question multiple select question
+
+1021
+01:30:58,080 --> 01:31:05,600
+then answer will be ad okay in the isro exam they gave marks for option a only okay in the isro
+
+1022
+01:31:05,600 --> 01:31:12,080
+exam because this is mcq question they gave i think i think they gave the answer for option a
+
+1023
+01:31:12,080 --> 01:31:18,560
+but remember the correct answer is option a comma d is this clear the correct answer that is option
+
+1024
+01:31:18,560 --> 01:31:24,640
+a comma d so your answer will be option a also option d also that is the correct answer you focus
+
+1025
+01:31:24,640 --> 01:31:30,000
+Focus on the correct logic. Okay. Don't, don't worry about which answer ISRO gave. Don't
+
+1026
+01:31:30,000 --> 01:31:33,880
+worry about it. You just focus on the correct logic. What are the correct logic? What are
+
+1027
+01:31:33,880 --> 01:31:40,710
+the correct answer? The correct answer is AD. That's it. Okay. Now let's move on. Let's
+
+1028
+01:31:40,710 --> 01:31:47,350
+solve this question. This, this is another question from University of New Hampshire on
+
+1029
+01:31:47,350 --> 01:31:54,720
+the concept of endearness. Tell me the answer. This is from University of New Hampshire,
+
+1030
+01:31:54,720 --> 01:31:58,080
+a question based on endianness and twos compliment.
+
+1031
+01:31:59,240 --> 01:32:01,360
+Okay, let's see what are the answer for this question.
+
+1032
+01:32:04,150 --> 01:32:12,710
+What would minus 73 look like as a 32 bit twos compliment integer in memory of big
+
+1033
+01:32:12,710 --> 01:32:13,390
+Indian machine?
+
+1034
+01:32:14,110 --> 01:32:17,590
+Okay, how it will look like in the memory of big Indian machine.
+
+1035
+01:32:19,390 --> 01:32:22,190
+Is this clear in the memory of big Indian machine?
+
+1036
+01:32:22,230 --> 01:32:26,790
+How it will look like, how the minus 73 look like as a 32 bit
+
+1037
+01:32:26,870 --> 01:32:30,590
+two's complement integer in the memory of big Indian machine.
+
+1038
+01:32:31,390 --> 01:32:36,790
+The Kioskini saying the bytes are shown below in increasing memory address order
+
+1039
+01:32:36,870 --> 01:32:38,910
+left to right. Okay.
+
+1040
+01:32:39,590 --> 01:32:44,710
+So basically in all these options, the bytes are shown below in increasing
+
+1041
+01:32:44,710 --> 01:32:48,630
+memory address order from left to right. So tell me what are the answer?
+
+1042
+01:32:49,470 --> 01:32:54,110
+First of all, you convert this 70 minus 73 in 32 bit two's complement.
+
+1043
+01:32:54,110 --> 01:32:56,830
+What it will be? First, let's find out.
+
+1044
+01:32:56,870 --> 01:33:14,440
+minus 73, in 32 bits, in 32 bits, 2s complement, okay so tell me representation, so tell me
+
+1045
+01:33:14,440 --> 01:33:20,240
+this minus 73, what it will be in 32 bits, 2s complement representation, so how to find
+
+1046
+01:33:20,240 --> 01:33:27,760
+that, first you find plus 73, yes or no, first you find plus 73 in 32 bits, 2s complement
+
+1047
+01:33:27,760 --> 01:33:35,680
+representation so what that will be what this plus 73 will be let me know what is plus 73 see
+
+1048
+01:33:35,680 --> 01:33:41,920
+plus 73 that is actually like this okay you will start with the zero there will be many zeros
+
+1049
+01:33:41,920 --> 01:33:49,120
+there will be many zeros okay and at some point of time you will put one and then what you will do
+
+1050
+01:33:49,120 --> 01:33:57,680
+so because you want 73 so I can say this will give me I need six space this so this
+
+1051
+01:33:57,680 --> 01:34:04,400
+will give me 64 this will give me two power six that that will give me 64 right okay now
+
+1052
+01:34:04,400 --> 01:34:13,000
+I want what 73 so 73 minus 64 that is I still need nine yes or no I need nine so that will
+
+1053
+01:34:13,000 --> 01:34:20,440
+be 1001 that will be nine okay the remaining will be zero so this is your plus 73 is this
+
+1054
+01:34:20,440 --> 01:34:30,500
+clear. Please tell me this is the plus 73 in 32 bits. These are the 32 bits. Okay. So
+
+1055
+01:34:30,500 --> 01:34:37,660
+in 32 bits, your plus 73 is this. So tell me what will be your minus 73 32 bits to
+
+1056
+01:34:37,660 --> 01:34:48,180
+compliment representation. Okay. Now you tell me what will be minus 73 in to compliment
+
+1057
+01:34:48,180 --> 01:34:57,220
+representation what that will be minus 73 so for that what you need to do very
+
+1058
+01:34:57,220 --> 01:35:02,660
+simple you just go from left to right see you just go from left to right until
+
+1059
+01:35:02,660 --> 01:35:07,980
+the first one until the first one everything will be same okay the rest
+
+1060
+01:35:07,980 --> 01:35:12,380
+the remaining you will what you will do for the remaining what you will do you
+
+1061
+01:35:12,380 --> 01:35:16,100
+will compliment the remaining the remaining you will compliment so the
+
+1062
+01:35:16,100 --> 01:35:24,580
+remaining you will compliment okay one one and so on one okay all the remaining will
+
+1063
+01:35:24,580 --> 01:35:31,740
+be one like this so tell me this will be your minus seventy three this will be the minus
+
+1064
+01:35:31,740 --> 01:35:38,940
+seventy three so in hexadecimal what I can write it in hexadecimal tell me in the hexadecimal
+
+1065
+01:35:38,940 --> 01:35:44,140
+okay just go like this and tell me in the hexadecimal so you can see that is seven
+
+1066
+01:35:44,140 --> 01:35:52,460
+this is seven in the hexadecimal vote this in the hexadecimal that is a B. Yes or no.
+
+1067
+01:35:52,460 --> 01:35:57,940
+This is B. And what about this? This will be F, right? Because actually this will be
+
+1068
+01:35:57,940 --> 01:36:08,480
+one, one, one, one, one, and so on. So like this. Okay. So it will be this will be F.
+
+1069
+01:36:08,480 --> 01:36:15,800
+And finally all will be F F F F F. Okay. So this will be your minus 73. Is this clear?
+
+1070
+01:36:15,800 --> 01:36:21,480
+tell me did you understand this this is minus seventy three in two's compliment so minus seventy
+
+1071
+01:36:21,480 --> 01:36:27,080
+three remember minus seventy three in two's compliment what that will be what that will be
+
+1072
+01:36:30,970 --> 01:36:46,730
+so that will be in hexadecimal i'm writing that will be ff ff ff b seven correct yes or no
+
+1073
+01:36:47,450 --> 01:36:53,370
+is this clear did you understand so this is your minus seventy three in 32 bits two's compliment
+
+1074
+01:36:53,370 --> 01:36:56,330
+Now you tell me in big Indian what it will look like.
+
+1075
+01:36:56,970 --> 01:36:57,690
+In big Indian.
+
+1076
+01:36:57,750 --> 01:37:02,450
+What it is going to look like, so you can see that this in big Indian.
+
+1077
+01:37:04,170 --> 01:37:07,310
+If you have a big Indian machine, in Birgandian machine, what do you will do?
+
+1078
+01:37:07,650 --> 01:37:08,930
+You will start with the big end?
+
+1079
+01:37:09,450 --> 01:37:11,110
+You will start with the big end.
+
+1080
+01:37:11,250 --> 01:37:12,710
+So just start with the big end.
+
+1081
+01:37:12,970 --> 01:37:15,790
+So in the big Indian machine, it will look the type.
+
+1082
+01:37:17,090 --> 01:37:17,350
+Okay.
+
+1083
+01:37:17,350 --> 01:37:19,170
+In little Indian machine, what it will look like.
+
+1084
+01:37:19,170 --> 01:37:24,530
+like in little indian machine what it will look like remember addresses are increasing
+
+1085
+01:37:24,530 --> 01:37:29,210
+like this okay in this order addresses are increasing in the little indian machine you
+
+1086
+01:37:29,210 --> 01:37:36,960
+will start with the little end you will start with the little end okay so that's it so tell
+
+1087
+01:37:36,960 --> 01:37:41,440
+me which option is correct so the question is asking for big indian the answer will be
+
+1088
+01:37:41,440 --> 01:37:50,480
+ff ff ff b7 so which option is correct ff ff ff b7 which option is correct none of
+
+1089
+01:37:50,480 --> 01:37:56,400
+them is correct, right? Yes or no? None of the options are correct. No, no, actually,
+
+1090
+01:37:56,400 --> 01:38:00,840
+there is one more option. I did not show you if you see this original question, there
+
+1091
+01:38:00,840 --> 01:38:05,720
+is one more option, none of the above in this University of Hampshire question. There is
+
+1092
+01:38:05,720 --> 01:38:10,520
+none of the above option also. I did not show you. Is this clear? So the answer will be
+
+1093
+01:38:10,520 --> 01:38:17,920
+none of the above. Okay, I did not show basically none of them is correct. Not correct, not
+
+1094
+01:38:17,920 --> 01:38:22,320
+correct, not correct, not correct, not correct. So the answer actually will be none of the
+
+1095
+01:38:22,320 --> 01:38:28,520
+above you can see here. Okay, is this clear? But you can see in the big Indian answer will
+
+1096
+01:38:28,520 --> 01:38:36,200
+be this in the little Indian answer will be this. I hope this point is clear. Okay, correct.
+
+1097
+01:38:36,200 --> 01:38:45,040
+So let's move on now. Now let's solve this gate exam question gate 2021. This is another
+
+1098
+01:38:45,040 --> 01:38:51,920
+nice question in the gate exam in gate computer science 2021 set to this is a two mark question
+
+1099
+01:38:51,920 --> 01:38:59,360
+you can see so let's solve it can you take your copy pan and solve it this is a nice question so
+
+1100
+01:38:59,360 --> 01:39:06,150
+let's solve what this question is saying read this question carefully if the numerical value
+
+1101
+01:39:06,790 --> 01:39:13,430
+of a two byte unsigned integer two byte means this is multi byte data right yes or no
+
+1102
+01:39:13,430 --> 01:39:23,510
+this is multi byte data so you can see if the numerical value of a 2 byte unsigned integer
+
+1103
+01:39:23,510 --> 01:39:32,110
+on a little indian machine is 255 more than that of on a big indian machine which of the
+
+1104
+01:39:32,110 --> 01:39:41,910
+following choices represent the unsigned integer on little indian machine okay see the question
+
+1105
+01:39:41,910 --> 01:39:47,550
+is actually I can say it might be confusing read the question carefully what the question
+
+1106
+01:39:47,550 --> 01:39:52,670
+is telling you just read the question carefully what this question is telling you so tell
+
+1107
+01:39:52,670 --> 01:39:57,830
+me what this question is saying the question is saying that the numerical value of a two
+
+1108
+01:39:57,830 --> 01:40:03,750
+byte unsigned integer so there is a two byte data please understand there is a two byte
+
+1109
+01:40:03,750 --> 01:40:13,350
+data yes or no unsigned data there is a 2 byte data that is unsigned integer okay that
+
+1110
+01:40:13,350 --> 01:40:18,590
+is a unsigned integer data now anyway so you can see there is a 2 byte data now what this
+
+1111
+01:40:18,590 --> 01:40:22,710
+question is saying this question is saying that this is your 2 byte data whatever data
+
+1112
+01:40:22,710 --> 01:40:31,590
+you have and this data in little and your machine this data on little and your machine
+
+1113
+01:40:31,590 --> 01:40:38,190
+on little indian machine this is actually 255 more than big indian machine on big indian
+
+1114
+01:40:38,190 --> 01:40:44,750
+machine this is what the question is saying did you understand the first line of the question
+
+1115
+01:40:44,750 --> 01:40:50,750
+did you understand please tell me see the question read the question carefully nothing
+
+1116
+01:40:50,750 --> 01:40:56,710
+else this is a very simple question just read the question carefully the question is saying
+
+1117
+01:40:56,710 --> 01:41:04,390
+the numerical value of 2 byte unsigned integer. There is a 2 byte data unsigned data. Now
+
+1118
+01:41:04,390 --> 01:41:12,030
+the numerical value of this data on a little and n machine is 255 more than that on big
+
+1119
+01:41:12,030 --> 01:41:18,350
+and n machine. So this data that you have on little and n machine, the numerical value
+
+1120
+01:41:18,350 --> 01:41:25,470
+that is 255 more than numerical value on big and n machine. This is the equation. Is this
+
+1121
+01:41:25,470 --> 01:41:31,950
+clear now what is the next line what is the next line which of the following choices which
+
+1122
+01:41:31,950 --> 01:41:40,030
+of them represent the unsigned integer on little indian machine okay all these options
+
+1123
+01:41:40,030 --> 01:41:46,710
+these are actually on little indian machine this is interesting tell me tell me tell me
+
+1124
+01:41:46,710 --> 01:41:54,150
+is this your unsigned data is this your data is this your data no this is your unsigned
+
+1125
+01:41:54,150 --> 01:42:02,120
+data on little indian machine is this clear please tell me see all these options that
+
+1126
+01:42:02,120 --> 01:42:10,460
+are given to you these are unsigned integer on little indian computer did you understand
+
+1127
+01:42:10,460 --> 01:42:17,900
+what I am trying to tell you so okay see let's see this option a focus on this option a 0x6665
+
+1128
+01:42:17,900 --> 01:42:28,780
+that is 0x6665 ok hexadecimal is given to you now actually what is this this is actually
+
+1129
+01:42:28,780 --> 01:42:34,500
+this is how your data looks on little indian machine yes or no the question is saying this
+
+1130
+01:42:34,500 --> 01:42:46,620
+is how your data looks on little indian machine agree or not this is what the question is saying
+
+1131
+01:42:46,620 --> 01:42:51,620
+read the question carefully very simple question the question is saying which of the following
+
+1132
+01:42:51,620 --> 01:42:57,180
+choices some options are given you which of the following choices represent the unsigned
+
+1133
+01:42:57,180 --> 01:43:02,820
+data on little indian computer all these are all these options these are nothing but your
+
+1134
+01:43:02,820 --> 01:43:09,740
+data on little indian computer so this option look at this option a this is actually what
+
+1135
+01:43:09,740 --> 01:43:16,640
+Tell me this is what so this is how your data looks on little Indian machine.
+
+1136
+01:43:16,640 --> 01:43:18,040
+Okay. Is this clear?
+
+1137
+01:43:18,040 --> 01:43:20,240
+So what is your data?
+
+1138
+01:43:20,240 --> 01:43:23,040
+If so, what is your unsigned data?
+
+1139
+01:43:23,040 --> 01:43:25,640
+So our unsigned data, what is that?
+
+1140
+01:43:25,640 --> 01:43:27,840
+Tell me.
+
+1141
+01:43:27,840 --> 01:43:30,240
+Let me know.
+
+1142
+01:43:30,240 --> 01:43:32,040
+What is our unsigned data?
+
+1143
+01:43:32,040 --> 01:43:33,240
+Our, our two byte data.
+
+1144
+01:43:33,240 --> 01:43:34,840
+What is that?
+
+1145
+01:43:34,840 --> 01:43:36,540
+Our two byte unsigned data.
+
+1146
+01:43:36,540 --> 01:43:37,640
+What is that?
+
+1147
+01:43:37,640 --> 01:43:42,290
+Please tell me what that will be.
+
+1148
+01:43:42,290 --> 01:43:51,540
+Let me know. Let me know on little Indian machine. It looks like this. Okay. So our data that actually
+
+1149
+01:43:51,540 --> 01:43:59,670
+will be what that actually will be 6566. Okay. Yes or no. Is this clear? Did you understand or did
+
+1150
+01:43:59,670 --> 01:44:05,510
+you not understand? Okay. Let me let him explain. See the question is saying that this is how your
+
+1151
+01:44:05,510 --> 01:44:11,430
+data looks on little Indian machine. What it means that on the little Indian machine.
+
+1152
+01:44:11,430 --> 01:44:17,870
+in. Okay, let's assume this is address one zero zero. This is address one zero one. Then
+
+1153
+01:44:17,870 --> 01:44:25,070
+tell me in the little Indian machine, your data is looking like this. Okay. This is how
+
+1154
+01:44:25,070 --> 01:44:29,990
+your data is looking on little Indian machine. I can say on little Indian machine, this is
+
+1155
+01:44:29,990 --> 01:44:39,310
+how the data on little Indian machine. This is the photo. Okay. This is the photo. Is
+
+1156
+01:44:39,310 --> 01:44:46,790
+this clear? Okay. So is this clear? So tell me, this is how your data looks on the little
+
+1157
+01:44:46,790 --> 01:44:53,470
+Indian machine. So what is your data? It simply means what on the little Indian machine, this
+
+1158
+01:44:53,470 --> 01:44:58,270
+is how your data looks. It means what in the little Indian machine, we start with the little
+
+1159
+01:44:58,270 --> 01:45:03,630
+end. So can I say this is the little end of our data? Can I say, can I say that this is
+
+1160
+01:45:03,630 --> 01:45:10,530
+the little end of our data. Yes or no? Please tell me. Let me know. Did you understand?
+
+1161
+01:45:10,530 --> 01:45:16,790
+This is the little end of our data because in a little Indian machine on the lower address,
+
+1162
+01:45:16,790 --> 01:45:28,980
+we put the little end. So this is the little end of our data. Little end of our data. Okay,
+
+1163
+01:45:28,980 --> 01:45:32,940
+because you already know, please understand, you already know in little Indian machine,
+
+1164
+01:45:32,940 --> 01:45:41,940
+happens in little and Indian system what happens in little and Indian system I can say the
+
+1165
+01:45:41,940 --> 01:45:53,580
+most or I can say on lower address on lower memory address what we put on lower memory
+
+1166
+01:45:53,580 --> 01:45:58,820
+address what we put please tell me on lower address actually what we put on the lower
+
+1167
+01:45:58,820 --> 01:46:06,460
+memory address. We put the little and we put the little and means we put little and of our
+
+1168
+01:46:06,460 --> 01:46:16,730
+data of our data item. Correct. Okay. And what this little and means little and what
+
+1169
+01:46:16,730 --> 01:46:29,060
+this means, this means the least significant bite of our data least significant bite least
+
+1170
+01:46:29,060 --> 01:46:33,620
+significant bite of our data item. So on the lower address actually what we are putting
+
+1171
+01:46:33,620 --> 01:46:39,980
+okay on the lower address this is the lower address you can see this is the lower address
+
+1172
+01:46:39,980 --> 01:46:48,340
+this is the lower address so on lower address what we are putting we are putting the little
+
+1173
+01:46:48,340 --> 01:46:54,740
+end this 66 is the little end means this is the least significant bite of our data this
+
+1174
+01:46:54,740 --> 01:47:01,660
+is the least significant bite you can see this is the least significant bite of our data of our
+
+1175
+01:47:01,660 --> 01:47:08,980
+data. This is the least significant byte. So our data is basically 666566. I hope you
+
+1176
+01:47:08,980 --> 01:47:15,660
+understood. Okay, so remember in option a, in option a what we what I can say on little
+
+1177
+01:47:15,660 --> 01:47:23,380
+Indian machine, on little Indian machine, this is how it looks 6665. But our data will
+
+1178
+01:47:23,380 --> 01:47:31,220
+be what? So our data will be what our data will be actually 6566. Correct. Yes or no,
+
+1179
+01:47:31,220 --> 01:47:37,380
+data will be 6566 on big Indian machine how it will look like on big Indian machine how
+
+1180
+01:47:37,380 --> 01:47:44,100
+it will look like tell me on big Indian machine how it will look like let me know on big Indian
+
+1181
+01:47:44,100 --> 01:47:50,580
+machine this this data if you put on the big Indian machine if you put this data if you
+
+1182
+01:47:50,580 --> 01:47:57,780
+put this data on the big Indian machine then it will look like 6566 okay now the question
+
+1183
+01:47:57,780 --> 01:48:04,260
+is asking that's it what the question is asking the question is asking let's call it le and
+
+1184
+01:48:04,260 --> 01:48:11,860
+let's call it be the question is asking is this equation satisfied is this equation satisfied
+
+1185
+01:48:11,860 --> 01:48:18,500
+which equation is this equation satisfied which equation the question is asking this
+
+1186
+01:48:18,500 --> 01:48:27,870
+le is equal to 255 plus be is this equation satisfied yes or no because the question is
+
+1187
+01:48:27,870 --> 01:48:33,450
+is asking this see the question is asking on little indian machine the numerical value
+
+1188
+01:48:33,450 --> 01:48:40,410
+is a 255 plus big indian machine okay so the question what the question is asking is this
+
+1189
+01:48:40,410 --> 01:48:50,050
+equation satisfied le equal to 6255 plus big indian is this satisfied okay what is le what
+
+1190
+01:48:50,050 --> 01:49:02,670
+What is LE? LE is 0x6665. Okay. And what is BE? BE is 0x6566. Okay. So you calculate
+
+1191
+01:49:02,670 --> 01:49:08,710
+first you calculate the decimal in decimal what it will become. Okay. Tell me in decimal
+
+1192
+01:49:08,710 --> 01:49:13,790
+what it will become in decimal you tell me in decimal you tell me what it will become
+
+1193
+01:49:13,790 --> 01:49:21,180
+and what it will become quickly. Tell me in decimal what they will become. See this
+
+1194
+01:49:21,180 --> 01:49:30,100
+6665 what it will become in decimal 6665 first you convert into binary let's first convert
+
+1195
+01:49:30,100 --> 01:49:43,620
+into binary in the binary it will be it will be 0110 0110 0110 0101 this is in the binary
+
+1196
+01:49:43,620 --> 01:49:48,660
+now you tell me in the decimal what it will become anyone please tell me in the decimal
+
+1197
+01:49:48,660 --> 01:49:58,940
+what it will become take the calculator in the decimal what it is going to become 26213
+
+1198
+01:49:58,940 --> 01:50:07,970
+right because tell me what are the weightage of this what are the weightage of this or what you
+
+1199
+01:50:07,970 --> 01:50:14,610
+can do see you don't have to convert into binary you don't have to convert into binary this this
+
+1200
+01:50:14,610 --> 01:50:20,610
+you can directly convert into decimal if you have this in the base this is the base 16 right
+
+1201
+01:50:20,610 --> 01:50:27,490
+six six six five in the base sixteen you can directly convert it into decimal okay so in the
+
+1202
+01:50:27,490 --> 01:50:36,530
+decimal what will happen this six multiplied by sixteen power three plus plus this six multiplied
+
+1203
+01:50:36,530 --> 01:50:45,650
+by sixteen power two plus this six multiplied by sixteen and plus this is five multiplied by
+
+1204
+01:50:45,650 --> 01:50:53,290
+is 16 power zero. Okay. So that's it. So tell me what it is. If you solve it, what you
+
+1205
+01:50:53,290 --> 01:51:00,710
+will get six multiplied by 16 power three plus six multiplied by 16 power two plus six multiplied
+
+1206
+01:51:00,710 --> 01:51:08,710
+by 16 power one plus five multiplied by 16 power zero, that will be 26213 very good 26213.
+
+1207
+01:51:08,710 --> 01:51:21,240
+Okay. What about the next one? What about this one? 6566. What about this one? 6566. Okay.
+
+1208
+01:51:21,240 --> 01:51:27,840
+So this is your in the base 16. Now in the base 10, what it will become in the base 10,
+
+1209
+01:51:27,840 --> 01:51:38,710
+very simple. This six multiplied by 16 power three plus five multiplied by 16 power two plus six
+
+1210
+01:51:38,710 --> 01:51:44,830
+multiplied by sixteen power one plus six okay so what that will become that will become
+
+1211
+01:51:44,830 --> 01:51:53,030
+two five nine five two very good okay two five nine five eight two five nine five eight
+
+1212
+01:51:53,030 --> 01:51:58,470
+so this will become now tell me is the equation satisfied so here you have two six two one
+
+1213
+01:51:58,470 --> 01:52:08,030
+three okay here you have two six two one three and here you have two five nine five
+
+1214
+01:52:08,030 --> 01:52:16,110
+eight two five nine five eight the equation satisfied or not okay yes the equation is
+
+1215
+01:52:16,110 --> 01:52:23,590
+satisfied right okay you can see le is equal to two five five plus be okay so the equation
+
+1216
+01:52:23,590 --> 01:52:31,040
+is satisfied. So because the question is satisfied, so option A is the answer. I can
+
+1217
+01:52:31,040 --> 01:52:38,720
+say option A is correct answer. Option A is correct answer. But, but this is a msqq
+
+1218
+01:52:38,720 --> 01:52:45,760
+question. Okay. Option A is correct answer, but this is msqq question. Did you understand
+
+1219
+01:52:45,760 --> 01:52:49,840
+the question? Did you understand? Now I can say option A is correct. Now you can check
+
+1220
+01:52:49,840 --> 01:52:56,600
+the remaining let's check the remaining what about this option be 00001 you have understood
+
+1221
+01:52:56,600 --> 01:53:01,160
+the question that is the most important part okay once you have understood the question
+
+1222
+01:53:01,160 --> 01:53:06,360
+now you can solve any question so what the question is saying in the option be on little
+
+1223
+01:53:06,360 --> 01:53:12,800
+Indian machine on little Indian machine what what your data looks like on little Indian
+
+1224
+01:53:12,800 --> 01:53:19,400
+machine your data looks like 00001 so tell me what is your data.
+
+1225
+01:53:19,400 --> 01:53:24,480
+So tell me what is your data on the little engine machine. This is your data looks like
+
+1226
+01:53:24,480 --> 01:53:29,760
+on the little engine machine. So what is your data? Your data is actually what your data
+
+1227
+01:53:29,760 --> 01:53:35,960
+is actually this on the big engine machine. What your data will look like on big engine
+
+1228
+01:53:35,960 --> 01:53:41,000
+machine. If this data you store in the big engine machine, then what that will look like
+
+1229
+01:53:41,000 --> 01:53:48,120
+that will look like the same. Yes or no. Now is the equation satisfied? Let's call it
+
+1230
+01:53:48,120 --> 01:54:00,870
+le let's call it be is the equation satisfied this equation is this equation satisfied is
+
+1231
+01:54:00,870 --> 01:54:12,670
+this equation satisfied which equation the equation le equal to 255 plus be this is the
+
+1232
+01:54:12,670 --> 01:54:19,030
+equation is this equation satisfied you tell me this equation is not satisfied you can
+
+1233
+01:54:19,030 --> 01:54:26,070
+check. Okay, you can check this equation will not be satisfied, because what is le? le is
+
+1234
+01:54:26,070 --> 01:54:35,190
+actually 0x 0001. If you convert into decimal, what you will get? If you convert into decimal,
+
+1235
+01:54:35,190 --> 01:54:44,550
+what you are going to get? You will get one only in the decimal. And what is be? b is 0x 0100.
+
+1236
+01:54:44,550 --> 01:54:51,390
+0 if you convert into decimal what you will get if you convert this then this basically
+
+1237
+01:54:51,390 --> 01:54:56,910
+in the decimal what you will get 1 multiplied by 16 power 2 ok so what you will get you
+
+1238
+01:54:56,910 --> 01:55:05,070
+will get 256 so actually if you notice BE is actually 256 LE is actually 1 so can I
+
+1239
+01:55:05,070 --> 01:55:16,230
+say L is equal to BE plus 255 can I say can I say no correct okay so this option B is
+
+1240
+01:55:16,230 --> 01:55:23,810
+not correct option B is not correct I can simply say that option B is gone okay what
+
+1241
+01:55:23,810 --> 01:55:33,710
+about option C what about option C 4 to 4 3 let's check it 4 to 4 3 option C on the
+
+1242
+01:55:33,710 --> 01:55:38,410
+little Indian machine how your data looks like on little Indian machine your data is looking
+
+1243
+01:55:38,410 --> 01:55:48,390
+like 4243 write yes or no 4243 on the little Indian machine this is remember on little
+
+1244
+01:55:48,390 --> 01:55:51,810
+Indian machine this is how your data looks like 4243.
+
+1245
+01:55:51,810 --> 01:55:53,970
+Now you tell me.
+
+1246
+01:55:53,970 --> 01:55:56,770
+So what is your data?
+
+1247
+01:55:56,770 --> 01:56:02,350
+What is your data let me know on the little Indian machine this is how your data looks.
+
+1248
+01:56:02,350 --> 01:56:08,230
+So what is your data, your data is actually 4342 on the big Indian machine, what your
+
+1249
+01:56:08,230 --> 01:56:14,030
+data will look like on big Indian machine, your data will look like what your data will
+
+1250
+01:56:14,030 --> 01:56:23,630
+look like 4342. Let's call it LE, let's call it BE. Now tell me convert them into decimal
+
+1251
+01:56:23,630 --> 01:56:32,330
+and tell me is this equation satisfied? LE equal to BE plus 255. Is this equation satisfied?
+
+1252
+01:56:32,330 --> 01:56:34,930
+this equation, I think it will not be satisfied, right?
+
+1253
+01:56:34,930 --> 01:56:36,490
+Yes or no?
+
+1254
+01:56:36,490 --> 01:56:37,330
+Okay.
+
+1255
+01:56:37,330 --> 01:56:40,210
+Because you can convert into, in decimal,
+
+1256
+01:56:40,210 --> 01:56:41,290
+what it will become?
+
+1257
+01:56:42,410 --> 01:56:43,930
+In decimal, what it will become?
+
+1258
+01:56:43,930 --> 01:56:44,930
+Tell me.
+
+1259
+01:56:44,930 --> 01:56:51,340
+This L E, that is four, two, four, three.
+
+1260
+01:56:51,580 --> 01:56:52,420
+Okay.
+
+1261
+01:56:52,420 --> 01:56:56,500
+So in decimal, what it will become?
+
+1262
+01:56:56,500 --> 01:56:58,820
+It will become very simple.
+
+1263
+01:56:58,820 --> 01:57:03,820
+Four multiplied by 16 power three plus, plus.
+
+1264
+01:57:03,820 --> 01:57:16,500
+2 multiplied by 16 power 2 plus plus 4 multiplied by 16 power 1 plus plus 3 multiplied by 16
+
+1265
+01:57:16,500 --> 01:57:26,260
+power 0. Okay, so you tell me if you calculate this value, then you will get 16963 16963 in
+
+1266
+01:57:26,260 --> 01:57:35,620
+the decimal. What about BE? What about BE? That is 4342. What about that in the decimal?
+
+1267
+01:57:35,620 --> 01:57:43,540
+In the decimal, that is 17218. Okay, so this equation is clearly not satisfied. Ali equal
+
+1268
+01:57:43,540 --> 01:57:52,300
+to 255 plus BE. This equation, this equation is not satisfied. So this option is not correct.
+
+1269
+01:57:52,300 --> 01:57:56,300
+Okay, option A is correct, option B not correct, option C not correct.
+
+1270
+01:57:56,300 --> 01:57:58,300
+Finally, what about option D?
+
+1271
+01:57:58,300 --> 01:58:00,300
+Option D will be correct.
+
+1272
+01:58:00,300 --> 01:58:04,300
+Option D, you can check option D, that is 0100.
+
+1273
+01:58:04,300 --> 01:58:07,300
+Okay, let's just quickly check the option D.
+
+1274
+01:58:07,300 --> 01:58:08,300
+What option D is?
+
+1275
+01:58:08,300 --> 01:58:11,300
+All little Indian machine.
+
+1276
+01:58:11,300 --> 01:58:12,300
+All little Indian machine.
+
+1277
+01:58:12,300 --> 01:58:14,300
+What your data looks like?
+
+1278
+01:58:14,300 --> 01:58:18,300
+Your data looks like 0100.
+
+1279
+01:58:18,300 --> 01:58:19,300
+0100.
+
+1280
+01:58:19,300 --> 01:58:20,300
+Yes or no?
+
+1281
+01:58:20,300 --> 01:58:27,260
+on the little engine machine so what is your data so what is your data your data is actually
+
+1282
+01:58:27,260 --> 01:58:34,300
+00001 so on big engine machine what is your data look like on the big engine machine what
+
+1283
+01:58:34,300 --> 01:58:41,420
+your data looks like on the big engine machine your data looks like this okay now if you convert
+
+1284
+01:58:41,420 --> 01:58:52,280
+it in let's call it le let's call it be so what is le le is zero x zero one zero zero
+
+1285
+01:58:52,280 --> 01:58:58,340
+if you convert into decimal what you will get you will get two five six okay what is
+
+1286
+01:58:58,340 --> 01:59:07,260
+be what is be be is zero x zero zero zero one if you convert into decimal you will get
+
+1287
+01:59:07,260 --> 01:59:17,260
+one so this equation is satisfied le equal to two five five plus be this equation is satisfied
+
+1288
+01:59:17,260 --> 01:59:22,540
+yes or no so this is correct so finally answer will be ad so for this question the answer
+
+1289
+01:59:22,540 --> 01:59:32,210
+will be what the answer will be ad did you understand please tell me let me know what
+
+1290
+01:59:32,210 --> 01:59:38,810
+is the most common mistake in this question what are the most common mistake in this question
+
+1291
+01:59:38,810 --> 01:59:43,090
+Students can make a mistake of interpretation, yes or no?
+
+1292
+01:59:43,090 --> 01:59:47,730
+In this question, you can make a mistake during interpretation.
+
+1293
+01:59:47,730 --> 01:59:48,730
+What are these options?
+
+1294
+01:59:48,730 --> 01:59:54,330
+Are these options your data or these options are data on the little Indian computer?
+
+1295
+01:59:54,330 --> 01:59:55,330
+Yes or no?
+
+1296
+01:59:55,330 --> 01:59:56,330
+Yes or no?
+
+1297
+01:59:56,330 --> 01:59:57,330
+Is this clear?
+
+1298
+01:59:57,330 --> 02:00:01,330
+See, most common mistake is students will take this as a data.
+
+1299
+02:00:01,330 --> 02:00:02,330
+Okay.
+
+1300
+02:00:02,330 --> 02:00:03,330
+Yes or no?
+
+1301
+02:00:03,330 --> 02:00:08,570
+This is the most common mistake that students will take this as a data, as a data.
+
+1302
+02:00:08,570 --> 02:00:13,010
+Okay, they will think that this is the data, but actually what is this?
+
+1303
+02:00:13,010 --> 02:00:14,770
+This is on the little Indian computer.
+
+1304
+02:00:14,770 --> 02:00:18,730
+How the data looks like on the little Indian computer.
+
+1305
+02:00:18,730 --> 02:00:20,650
+How your data looks like.
+
+1306
+02:00:20,650 --> 02:00:21,890
+Okay.
+
+1307
+02:00:21,890 --> 02:00:22,890
+Is this clear?
+
+1308
+02:00:22,890 --> 02:00:23,890
+Did you understand this question?
+
+1309
+02:00:23,890 --> 02:00:26,840
+Please tell me.
+
+1310
+02:00:26,840 --> 02:00:27,840
+Please tell me.
+
+1311
+02:00:27,840 --> 02:00:29,800
+Did you clearly understand this question?
+
+1312
+02:00:29,800 --> 02:00:33,840
+What this question is saying and the answer is option A, D. Okay.
+
+1313
+02:00:33,840 --> 02:00:34,840
+So very simple.
+
+1314
+02:00:34,840 --> 02:00:35,840
+Right.
+
+1315
+02:00:35,840 --> 02:00:41,250
+So the answer, final answer will be option A, D. Now let's move on.
+
+1316
+02:00:41,250 --> 02:00:46,930
+Tell me the answer for these three questions quickly. These are standard questions from
+
+1317
+02:00:46,930 --> 02:00:53,330
+university from a standard university. Okay. So quickly tell me the answers for these questions.
+
+1318
+02:00:53,330 --> 02:00:59,610
+Little Indian versus big Indian comes into play when it will come into play. Little Indian
+
+1319
+02:00:59,610 --> 02:01:05,570
+comma big Indian. These concepts, basically the concept of byte ordering when the concept
+
+1320
+02:01:05,570 --> 02:01:11,230
+of byte ordering comes into play, little Indian versus big Indian that simply means byte order
+
+1321
+02:01:11,230 --> 02:01:18,230
+right that means byte ordering so when this byte ordering will come into play
+
+1322
+02:01:18,230 --> 02:01:24,550
+this byte ordering will come into play when word your memory is byte addressable
+
+1323
+02:01:24,550 --> 02:01:31,330
+and word contains multiple bytes yes or no agree with me correct or not so option
+
+1324
+02:01:31,330 --> 02:01:35,590
+be yes or no because byte ordering when the byte ordering will come into picture
+
+1325
+02:01:35,590 --> 02:01:44,310
+Byte ordering comes into picture when? Byte ordering when? When you multi byte data? When
+
+1326
+02:01:44,310 --> 02:01:58,240
+you multi byte data? And byte addressable memory? And byte addressable memory? Correct
+
+1327
+02:01:58,240 --> 02:02:03,440
+or not? Yes or no? So answer will be option B. What about the next question? Please tell
+
+1328
+02:02:03,440 --> 02:02:11,580
+me in Little Indian system, the big end of binary integer, where that will go in little
+
+1329
+02:02:11,580 --> 02:02:17,960
+Indian system. The little end will come first. Yes, or no, in the little Indian system, the
+
+1330
+02:02:17,960 --> 02:02:24,580
+little and will come first. So the big Indian will come last option B. Yes or no, because
+
+1331
+02:02:24,580 --> 02:02:32,720
+in the little Indian system, little and comes first, little and comes first. Okay. So the
+
+1332
+02:02:32,720 --> 02:02:37,720
+The big end will come last. What about the next? Which is better way to address memory?
+
+1333
+02:02:37,720 --> 02:02:41,720
+Which is better? Little Indian or big Indian? Which is better? Tell me.
+
+1334
+02:02:41,720 --> 02:02:45,720
+Little Indian, big Indian, which is better? I told you, none of them is better.
+
+1335
+02:02:45,720 --> 02:02:49,720
+In some situation, little Indian is good. In some situation, big Indian is good.
+
+1336
+02:02:49,720 --> 02:02:53,720
+But overall, overall, overall, no one is better.
+
+1337
+02:02:53,720 --> 02:02:59,720
+Okay, means basically, we cannot compare. We cannot say that one of them is better than other.
+
+1338
+02:02:59,720 --> 02:03:19,540
+Okay, yes or no, I told you remember some systems use little Indian sub systems use big Indian I told you Intel uses little Indian right little Indian used by Intel correct I told you this Intel uses little Indian and big Indian used by Motorola correct agree.
+
+1339
+02:03:20,540 --> 02:03:27,540
+So remember some systems they use little Indian some systems they use big Indian but none of them is better.
+
+1340
+02:03:27,540 --> 02:03:30,540
+Okay, so these are the three questions we have done.
+
+1341
+02:03:30,540 --> 02:03:34,380
+Tell me the answer for this question also.
+
+1342
+02:03:34,380 --> 02:03:37,780
+This question is also from standard university.
+
+1343
+02:03:37,780 --> 02:03:43,100
+Why is it necessary to know whether a computer is big and in or little and in?
+
+1344
+02:03:43,100 --> 02:03:47,100
+Means basically when little and in big and in matters for a programmer.
+
+1345
+02:03:47,100 --> 02:03:53,100
+Tell me in which situation little and in big and in matters to you.
+
+1346
+02:03:53,100 --> 02:03:57,380
+The question is see read the question what the question is asking the question is asking
+
+1347
+02:03:57,380 --> 02:04:07,600
+in which situation little Indian big Indian matters in which situation does it matter
+
+1348
+02:04:07,600 --> 02:04:17,510
+whether your system is little Indian or big Indian tell me what the answer the answer is
+
+1349
+02:04:17,510 --> 02:04:23,270
+see because some programs write integers to memory in certain order this does not matter
+
+1350
+02:04:23,270 --> 02:04:28,910
+yes or no tell me as a programmer did you ever worry about big Indian little Indian did you
+
+1351
+02:04:28,910 --> 02:04:33,470
+ever worry about little Indian big Indian as a programmer. You never worry about little
+
+1352
+02:04:33,470 --> 02:04:38,390
+Indian big Indian. Yes or no. So some programs write integers to memory in certain order
+
+1353
+02:04:38,390 --> 02:04:45,710
+does not matter. Okay. Here actually we don't care. Here we don't care about Indianness.
+
+1354
+02:04:45,710 --> 02:04:54,480
+Here we don't care about Indianness. Who will take care of this? Tell me. Who will take
+
+1355
+02:04:54,480 --> 02:04:59,480
+care of this? I told you that you don't have to as a programmer, you don't have to worry
+
+1356
+02:04:59,480 --> 02:05:04,640
+about and DNS because it will be taken care for you. Okay. Software plus hardware, they
+
+1357
+02:05:04,640 --> 02:05:09,160
+will take care for you. Compiler, assembler, hardware. Okay. All of them will take care
+
+1358
+02:05:09,160 --> 02:05:14,160
+for you. So here you don't have to worry as a programmer. When do you have to worry about
+
+1359
+02:05:14,160 --> 02:05:19,760
+and DNS? I told you this as a programmer as a quarter. When do you have to worry about
+
+1360
+02:05:19,760 --> 02:05:25,680
+and DNS when the end in this will affect you when and DNS will affect your answer. Tell
+
+1361
+02:05:25,680 --> 02:05:32,520
+the reason I told you when you store the data in a different way and access the data in
+
+1362
+02:05:32,520 --> 02:05:37,040
+a different way yes or no you are storing the data in the integer format and you are
+
+1363
+02:05:37,040 --> 02:05:43,160
+accessing the same data in the character format yes or no is this clear you store the data
+
+1364
+02:05:43,160 --> 02:05:49,560
+as an integer but you are accessing the same data as a character in this situation and DNS
+
+1365
+02:05:49,560 --> 02:05:55,800
+will matter, yes or no, so as a programmer, when and DNS matters, when different and DNS
+
+1366
+02:05:55,800 --> 02:06:00,360
+can give you different answer, when it will happen, it will happen when you access the
+
+1367
+02:06:00,360 --> 02:06:06,400
+data in different amount, then you have stored it, okay, you are storing the integer data,
+
+1368
+02:06:06,400 --> 02:06:11,440
+but you are accessing the character data, okay, you store the variable, let's assume
+
+1369
+02:06:11,440 --> 02:06:16,440
+you have some variable I, you store the variable as a integer, but you are accessing the variable,
+
+1370
+02:06:16,440 --> 02:06:21,880
+the same variable you are accessing as a character in this situation and in this matters I told
+
+1371
+02:06:21,880 --> 02:06:26,760
+you this and what was the another situation the other situation was when you transfer
+
+1372
+02:06:26,760 --> 02:06:33,000
+files or data between different computers over a network so here and in this will matter
+
+1373
+02:06:33,000 --> 02:06:38,360
+okay and here and in this does not matter okay yes or no so very simple so for this
+
+1374
+02:06:38,360 --> 02:06:44,200
+question the answer will be option C did you understand this let me know I told you that
+
+1375
+02:06:44,200 --> 02:06:49,560
+But there are two situations in two situations, the end in this matters, the different, different
+
+1376
+02:06:49,560 --> 02:06:52,600
+end in this, you have to take care about end in this.
+
+1377
+02:06:52,600 --> 02:06:53,600
+Okay.
+
+1378
+02:06:53,600 --> 02:06:55,040
+Yes or no, there are two situations.
+
+1379
+02:06:55,040 --> 02:06:59,440
+The first situation is when you share the data over a network, when you are transferring
+
+1380
+02:06:59,440 --> 02:07:03,560
+the data from one computer to another computer over a network, then you have to take care
+
+1381
+02:07:03,560 --> 02:07:05,760
+of end in this.
+
+1382
+02:07:05,760 --> 02:07:11,360
+And the another reason is you, you are accessing the data in different amounts, then you stored
+
+1383
+02:07:11,360 --> 02:07:12,360
+it.
+
+1384
+02:07:12,360 --> 02:07:17,400
+the variable as an integer, but you are accessing the same variable as a character in this type
+
+1385
+02:07:17,400 --> 02:07:21,840
+of situation, and in this will matter. Okay. So anyway, so for this question, the answer
+
+1386
+02:07:21,840 --> 02:07:28,240
+will be option C. That's it. This is your chapter. A lot of questions we have done, right?
+
+1387
+02:07:28,240 --> 02:07:33,640
+I don't think that they can ask you any question out of our lecture. What do you think? What
+
+1388
+02:07:33,640 --> 02:07:38,800
+do you feel? All the questions that we have seen, do you think they can ask you something
+
+1389
+02:07:38,800 --> 02:07:43,760
+out of our lecture I don't think okay whatever they will ask in the gate exam in any exam
+
+1390
+02:07:44,320 --> 02:07:48,800
+whatever question they ask you whether they ask you complicated question tricky question easy question
+
+1391
+02:07:48,800 --> 02:07:54,720
+whatever they ask you that will definitely be I can say coming from our lectures okay we have
+
+1392
+02:07:54,720 --> 02:07:59,920
+covered everything okay all the type of questions we have covered the gate question isro question
+
+1393
+02:07:59,920 --> 02:08:04,960
+washington university question new hamsire university question everything we have covered
+
+1394
+02:08:04,960 --> 02:08:10,080
+Okay. So that's it. So this is your chapter. Please tell me, did you understand whatever
+
+1395
+02:08:10,080 --> 02:08:16,160
+question comes in the gate exam in future? Are you confident that you can solve it in the gate
+
+1396
+02:08:16,160 --> 02:08:21,280
+exam in future from little Indian, big Indian based on this byte ordering concept, whatever
+
+1397
+02:08:21,280 --> 02:08:26,880
+question comes, are you confident that yes, you will be able to solve. Okay. So just pray that
+
+1398
+02:08:26,880 --> 02:08:31,600
+a question comes. Yes or no, a good quality, a nice tricky questions would come in the gate exam
+
+1399
+02:08:31,600 --> 02:08:38,800
+that will benefit you okay just pray that some tricky some complicated question from this topic
+
+1400
+02:08:38,800 --> 02:08:47,360
+comes in the gate exam next year okay if it comes then it will benefit you okay so thank you everyone
+
+1401
+02:08:47,360 --> 02:08:52,400
+so did you understand this topic clearly please let me know in the comments okay okay thank you
+
+1402
+02:08:52,400 --> 02:08:54,080
+Thank you everyone see you in the next lecture tomorrow.
+

@@ -1,0 +1,888 @@
+1
+00:00:27,440 --> 00:01:01,300
+Hi everyone. Welcome to Go Classes. In this lecture we will study addressing modes. Basically in the previous lectures we have already seen what is addressing mode and now almost all the addressing modes we have already discussed. Now the remaining addressing modes we will see in this lecture. Okay. So let's start. So far we have seen most of the addressing modes we have seen. We have seen your direct addressing mode, indirect addressing mode.
+
+2
+00:01:01,610 --> 00:01:31,140
+We have also seen indexed addressing mode, PC relative addressing mode. So these topics we have already seen. Now in this lecture, we will study three more addressing modes. Okay, so let's start. So what are the topics we will discuss? You can see, we will discuss this concept of relocatable code. We have already seen this concept in the previous lecture. What is relocatable code? That means position independent code. That means position independent code.
+
+3
+00:01:32,100 --> 00:02:01,440
+position independent code. Okay, so this concept actually we have already seen in the previous lecture. So we will just continue this concept. We will see how we can create relocatable code using base register. Okay, so there is a concept of base register. So we will see how we can create how we can write relocatable code, how we can write position independent code with the help of base register. This base register concept we will study.
+
+4
+00:02:01,710 --> 00:02:30,670
+then we will see what is base register addressing mode okay then two more addressing modes we will see those are auto increment auto decrement addressing modes okay so let's start the discussion now in the previous lecture we have already seen that relative addressing mode you can use to write relocatable code yes or no please tell me so you can see in the previous lecture this we have already seen that relate this relative addressing mode means PC relative addressing mode you can use it to write
+
+5
+00:02:31,090 --> 00:03:00,680
+you can use it to write relocatable code okay so this we have already seen if you remember for example look at this program is this program relocatable tell me look at this code okay this is your code see these are the memory addresses these are the memory addresses right okay so I can say these are the physical addresses physical addresses means memory addresses okay so these are your physical addresses remember physical address means physical address that means
+
+6
+00:03:00,990 --> 00:03:30,740
+memory address okay physical address that is same as memory address your memory that is also called physical memory okay main memory that is also called physical memory so that is a simple point so physical address means memory address because your main memory that is also called physical memory okay so you can see this is your code right I can say this is your code this is the code now in this code which addressing mode we are using please tell me
+
+7
+00:03:30,940 --> 00:04:00,170
+you can see in this code which addressing mode you are using these are the memory addresses you can see these are the memory addresses so you can see we are putting the memory address in the instruction we are putting the memory address in the instruction yes or no what we are doing remember we are putting the memory address in the instruction we are putting the memory address in the instruction we are putting the memory address in the instruction so this is called direct addressing mode yes or no so I can say this is your code
+
+8
+00:04:00,570 --> 00:04:30,290
+with direct addressing mode with direct addressing mode or I can say absolute addressing mode so I can say this is your code with absolute absolute addressing mode now tell me is this code relocatable this code is this code relocatable so you can see this code if you notice this is a code with absolute addressing mode this is not relocatable right okay this is a not relocatable means in the main memory
+
+9
+00:04:30,560 --> 00:04:59,320
+you cannot put it at some other place yes or no ok your operating system remember one thing very simple thing that your operating system normally what happens your operating system will run the process will run this process ok and if some new process you want to run then what the operating system will do operating system will suspend this ok basically operating system will put this in the I can say backing store and operating system will bring a new process in the main memory then
+
+10
+00:04:59,580 --> 00:05:24,960
+when this new process execution is over then what the operating system will do operating system will again bring this program in the main memory but remember when you again bring this program in the main memory when the operating system will again bring this program in the main memory then it is not necessary that you will bring it at the same address yes or no when the operating system will bring this program
+
+11
+00:05:25,640 --> 00:05:53,160
+Again in the main memory then it is not necessary that operating system will bring this program at these addresses Okay, so that is called relocation Basically operating system can do the relocation of the program This is your code Operating system can do the relocation of this code Means this code operating system can load at some other address Okay, this program your operating system can load at some other address But you can notice here one thing that
+
+12
+00:05:53,440 --> 00:06:21,000
+This code, if you look at this code, which is using absolute addressing mode, you are using direct addressing mode. So this code, if you can notice, this is not relocatable. Okay, because what is the problem? If you relocate, then there will be problem. We have already seen in the previous lecture, you can watch the previous lecture there. I told you, like if you try to relocate, assume, assume, assume operating system has relocated. So this code, you can notice this code you have loaded at this address 200.
+
+13
+00:06:21,400 --> 00:06:50,820
+if operating system assume operating system reloads this same code at address 400 then you can notice there will be problem yes or no there will be problem because what will happen you can see this code it should jump to address 411 if you look at this branch instruction this branch instruction should jump here okay means this branch instruction should jump to 411 but it will jump to 211 okay but this branch instruction will jump to 211 and remember
+
+14
+00:06:51,280 --> 00:07:18,530
+at the location 211 we don't know what is there okay because your program this is your program and your program is loaded at this address okay your program is loaded at this address so we don't know at this address 211 what is there we don't know okay so there is a problem so you can easily see that this code look at this code which is using the absolute addressing mode this code is not relocatable okay this code is non relocatable is this clear
+
+15
+00:07:18,940 --> 00:07:49,860
+so very simple this code is non relocatable another name for this non relocatable code that is absolute code this code is absolute code because it is using the absolute addresses yes or no this is using the absolute addresses so this is called absolute code remember this non relocatable code this non relocatable code this is also called absolute code what we call it we call it absolute code because here what we are doing
+
+16
+00:07:50,270 --> 00:08:18,500
+here in this relocatable code or absolute code what we are doing we are using we use memory absolute addresses or I can say memory addresses yes or no we use absolute addresses absolute memory addresses okay so we use absolute memory addresses in the code in the code okay so that is the reason remember this non relocatable code this is also called absolute code
+
+17
+00:08:18,790 --> 00:08:48,340
+okay so these codes these absolute code or non-relocatable codes these codes they they cannot be relocated yes or no they cannot be relocated you cannot relocate them they cannot be relocated at some at some other memory address at some other physical address at some other physical address during runtime yes or no okay once I can say they cannot be relocated
+
+18
+00:08:48,810 --> 00:09:15,000
+at other physical address okay at runtime at runtime you cannot you cannot just keep relocating them okay remember very simple so these non relocatable code these cannot be relocated at some other physical address okay at runtime at runtime you cannot relocate them is this clear very simple point right okay now let's see let's see can we make it relocatable
+
+19
+00:09:15,310 --> 00:09:43,450
+Can you make this program relocatable? Your previous program. Can you make it relocatable? Yes, we can make it relocatable with the relative addressing mode. Okay, if you use the PC relative addressing mode, then your program will become relocatable. Okay, you can see. So you can see, now I am putting offset here. This is not the physical address, right? Yes or no? This is not physical address. This is not physical address, correct? Yes or no?
+
+20
+00:09:43,730 --> 00:10:12,990
+this is not the physical address this is just an offset with respect to home this is just an offset with respect to home with respect to home tell me with respect to home let me know this is an offset with respect to program counter right yes or no so this is an offset with respect to let me write here this is an offset with respect to program counter
+
+21
+00:10:13,180 --> 00:10:38,600
+okay with respect to program counter yes or no very simple so you can see this is a offset with respect to program counter similarly this is also offset with respect to program counter this is also offset with respect to program counter okay so very simple all these things you already know now tell me is this program relocatable yes this program is relocatable okay you can relocate this program in the main memory at any address okay
+
+22
+00:10:38,880 --> 00:11:06,980
+you can relocate this program now you can relocate at any address whatever address you want for example I can relocate this program in the main memory in the physical memory at this address 400 okay you can easily see okay because remember I am not using the direct addresses I am not using the absolute addresses I am not using the physical addresses in my code this is my code in my code I am not using the physical addresses I am just simply using the offset okay now what will happen you can easily see
+
+23
+00:11:07,210 --> 00:11:34,170
+when you face this instruction then program counter will have value 404 when I face this instruction then the program counter will point to the next instruction so the program counter has the value 404 now what you will do 404 plus 7 so you can see the branch target the branch target address that will be 411 and yes that is correct 411 that is the correct branch 411 that is the correct branch target address yes or no so very simple so you can see
+
+24
+00:11:34,350 --> 00:12:02,990
+this instruction should jump to 411 and yes it is jumping to 411 so there is no problem there is no problem so remember very simple point that relative addressing mode this relative addressing mode you can use to write relocatable code okay so now this is a relocatable code you can relocate this this code you can put in the main memory at any point of at any physical address your operating system at the runtime your operating system can put this
+
+25
+00:12:03,320 --> 00:12:34,540
+code in the physical memory okay at any address so very simple okay very simple so this is relocatable tell me the answer for this question can direct addressing mode be used for writing relocatable codes let me know can direct addressing be used can I use direct addressing direct addressing means absolute addresses you are using absolute memory addresses memory addresses you are using okay absolute memory addresses you are using so
+
+26
+00:12:34,800 --> 00:13:04,070
+Can I use direct addressing mode to write relocatable code and the answer is no. Okay. The answer is no. Is this clear? Very simple. So this is a simple point. This we have already seen this point. We have already seen whatever I told you that is written here. Okay. You can read this after the class is over. You can read this from the annotated notes or you can pause the video and you can read this. Okay. Basically, whatever I told you that is already written here, you can easily see in direct addressing mode. What happens?
+
+27
+00:13:04,410 --> 00:13:31,630
+Read this. In direct address mode, operands are specified by providing the memory address, the physical memory address directly in the instruction, the physical address, the actual memory address you are putting in the instruction. So, this means that instruction will rely on fixed memory location. Yes or no? Instruction will rely on fixed memory location. Now, it will make it difficult, making it difficult to move the code at a different location in the main memory. Yes or no? Is this clear? So, very simple.
+
+28
+00:13:32,260 --> 00:13:56,860
+if you want to relocate then what you will have to do just tell me if you want to relocate let's assume you have a absolute code then if you want to relocate then what you will have to do you will have to modify the instructions right yes or no you will have to modify the instructions this is written here so very simple point so remember very simple point so for relatable relocatable code what is a relocatable code
+
+29
+00:13:57,070 --> 00:14:24,490
+relocatable code means you can relocate this in the physical memory at any address okay remember relocatable code that means that is position independent code okay so that is independent of the memory addresses so relocatable code these are independent of the memory addresses allowing it to be placed at different locations in the main memory without changing the code itself without changing the code you can put it in the main memory at different locations
+
+30
+00:14:24,870 --> 00:14:51,510
+ok very simple so for relocated for if you want this facility relocatable code if you want then you can use relative addressing mode base register addressing mode these addressing modes you can use if you want to achieve relocatability ok is this clear so very simple point so direct addressing cannot give you relocatable code if you want relocatable code then these addressing modes you have to use
+
+31
+00:14:51,790 --> 00:15:20,790
+okay very simple I hope you understood tell me the answer for this question can relative addressing mode be used to write relocatable code this we have already seen the answer is yes okay the answer is yes this is the answer so you can use relative addressing mode to write relocatable code okay and how you will do that we have seen in the last class if you remember okay for example if this code is given to you how to make it relocatable very simple here instead of this address just put the offset
+
+32
+00:15:21,050 --> 00:15:50,320
+yes or no yes or no so basically instead of this just put offset okay the offset you put right is this clear instead of this put offset instead of this put offset okay so basically now this is your pc relative addressing this is your pc relative addressing mode okay now this is your pc relative addressing mode so you can make it relocatable okay so you can see basically just put the offset this is a offset with respect to pc this is a offset
+
+33
+00:15:50,810 --> 00:16:20,490
+With respect to home with respect to program counter. Okay. So this is the this is the idea. So just put the offset. Okay. We have seen how relative addressing mode can be used to write relocatable code. This point is clear to everyone. Please tell me. Please tell me how to use how to use relative addressing mode. How to use relative addressing mode to write to write relocatable code that we have seen. Now let's see another way. Okay. Now I will tell you another way.
+
+34
+00:16:20,700 --> 00:16:48,920
+and this is better way actually this is easier way better way and easier way let me tell you better and easier way to write relocatable code okay now we will see another way to write relocatable code if you want to write relocatable code then there is a better way there is a easier way and that is and that is that is that is using base register that is using base register
+
+35
+00:16:49,220 --> 00:17:18,780
+okay don't worry you will understand this this is very simple so using base register you can write relocatable code very easily very easily okay so let's see this our next concept that is writing relocatable code using base register i will write relocatable code i will write in front of you i will write okay using base register now let me tell you what are the concept see the concept is like this now remember our topic is what our topic is we want to write relocatable code
+
+36
+00:17:19,170 --> 00:17:48,730
+with the help of base register. Okay, so there is a base register in the CPU. In the CPU, there is a CPU, you know, your CPU. In the CPU, there is a base register. Okay, you have a base register. This is your base register, BR. Let me call it BR. Okay, what is BR? Please tell me what is BR. That is your base register. Okay, that is your base register. So in the CPU, there is a base register. Okay, now, now what will happen? See, you will write your code in the high level language, right? Okay.
+
+37
+00:17:49,320 --> 00:18:13,580
+you will write your code in the high level language you tell me one thing when you are writing your code in the C language for example in C language do you give the line number in your code do you give the line number like do you write the line number do you give the addresses when you write a high level language code in your C language if you write a code do you write the line number will you write the line number do you write the addresses no
+
+38
+00:18:13,840 --> 00:18:42,800
+okay you have a very simple simple code okay man something something something something so this is your code now what who will come who will convert this who will convert this you can see you will compile it so what the compiler will do now this is interesting what the compiler will do now remember our target is to write relocatable code okay with the help of base register now what the compiler will do okay notice what the compiler will do compiler will do something like this actually compiler will
+
+39
+00:18:43,180 --> 00:19:10,990
+you can see you will have instructions okay compiler will convert convert your code into assembly language agree with me compiler will convert your code into assembly language so compiler converts into assembly language okay into assembly language so you can see what will happen this compiler will convert your code into assembly language and what this compiler will do
+
+40
+00:19:11,390 --> 00:19:40,360
+what this compiler will do remember what this compiler will do when this is converting to assembly language this will give only labels like this is the line number zero this is the line number one this is the line number two line number three line number four line number five and so on are you getting my point please tell me i2 i3 i4 i5 and so on okay is this clear so what you want your compiler will do this is what your compiler will do is this clear remember
+
+41
+00:19:40,800 --> 00:20:08,620
+you have a high level language code whatever code you have your compiler what it will do it will convert your code into assembly language code what it will do it will give line numbers see these are simple line numbers are these physical addresses tell me are these main memory addresses this 0 1 2 3 4 5 are these main memory addresses these are not physical addresses right these are not physical addresses these are not physical memory addresses yes or no
+
+42
+00:20:09,510 --> 00:20:38,870
+These are not addresses. These are not addresses. What are these things? What are these things? These are simple labels. Can I call them labels? These things, what I will call them? These things, simply I can call them labels. Okay. You can call them labels. You can call them. You can call them labels or you can call them some, you can call them offset. No problem. Okay. So remember, these are just labels offset line number, whatever you want to call, you can call. So this is what the compiler will do. Is this understood so far?
+
+43
+00:20:39,280 --> 00:21:06,580
+okay so far is this understood so basically your compiler is going to do this so remember your code your code your high level language code okay your C language code that will be converted by whom by compiler the compiler will convert it into the assembly language code and this compiler is going to do this that it will write like this that okay it will write like this is starting from zero
+
+44
+00:21:06,780 --> 00:21:34,420
+Line number zero at line number zero. Let's assume some instruction. Ivan is there at line number one. Let's assume some branch instruction is there. Okay. Let me put let me put let me put some jump instruction there. Let's assume you want to jump to low case in line number five. Tell me where you want to jump where you want to jump at the physical address or at the line number five at the physical address or at the line number five. This is line number five. Okay. Means at this line number five you want to jump. Okay. You want to jump to line number five.
+
+45
+00:21:34,620 --> 00:22:01,700
+okay because everything compiler is doing this program we are so far we did not load in the main memory yes or no this program so far this is not even in the main memory if this is not in the main memory how can you have these physical addresses here so these are not physical addresses because you are just doing the compilation your code your compiler is doing the compilation so these line numbers will be given okay remember
+
+46
+00:22:02,060 --> 00:22:30,500
+There is no, right now there is no physical address. Okay, so you will jump to 5. Let's assume at this, let's assume you have I3. Okay, at this, let's assume you have another jump instruction. Okay, another branch instruction. Let's assume, let's assume there is some branch instruction means, okay, branch if 0. Okay, branch if 0 to location, to location 0. Okay, to location 0. Is this clear? Now, you can see. After that, let's assume line number 4 is some other instruction, maybe I5.
+
+47
+00:22:31,480 --> 00:23:00,660
+So let me start with i0. Okay, just for simplicity. Let me start with i0 that this is your instruction i0. This is your instruction i2. This is your instruction i4. Okay, at five, there is another some instruction i5. There is some instruction i5. Is this clear? And so on and so on. Okay, at this, at this step, let's assume there is some data also. Okay, let me put some data also. Interesting. Let's make it interesting that add, okay, add at location
+
+48
+00:23:01,280 --> 00:23:31,480
+at location 6 ok at location 456 ok let me do like this what it means tell me what it means let me know what this instruction means what this instruction means here let's assume you have data here you have operand ok operand here you have operand 1 operand 2 operand 3 ok now this is correct is this clear please tell me ok so far understood
+
+49
+00:23:32,230 --> 00:24:00,860
+Tell me. So your compiler will basically give this. This is what your compiler will generate. So these are just labels. These are not physical addresses. You know, these are just labels. Or you can simply you can call them offsets. You can simply call them line numbers, whatever. Okay, line numbers. So this is this is what compiler will generate. And what is this one? What is this five? Again, this is a line number. Yes or no. Again, this is a label. This is not a physical address. This is just a label.
+
+50
+00:24:01,340 --> 00:24:34,990
+okay this is just a label not physical address this is not your memory address this is not your memory address this is just a label okay or I can say line number this is just your line number this is just your line number now what this instruction means let me just tell you you might be thinking sir what this instruction means this instruction means what okay this instruction means operand 1 let's call it x operand 2 let's call it y operand 3 let's call it z so this instruction simply means that in x
+
+51
+00:24:35,290 --> 00:25:04,490
+you have to put y plus z okay this is what you have to do is this clear please tell me okay so this instruction simply means that at address what you have at address five comma six what you have at line five comma six add these two add these two and put in the line number four okay so this is what you have to do is this clear means this instruction simply means what you have at line number five plus what you have at line number six put that in the line number five
+
+52
+00:25:04,650 --> 00:25:36,580
+okay so this means content at line number content at line five okay so this is what you do is this understood please tell me let me know is this understood now now let me just write these branches that see this is going where this should go to where so let me instead of this five instead of this five let me write it is jumping to let's assume somewhere else okay so
+
+53
+00:25:36,980 --> 00:26:12,330
+for simplicity let me jump it to let me jump it to so at 7 ok take 7 also so anyway so where should I make it jump see I should make it jump to some instruction right ok I should make it jump to some instruction some instruction I should make it jump so let's assume I am making it jump to 3 ok no problem ok just forget about just jump it to 3 is this clear randomly I am writing see ok just to explain the concept I am writing this ok
+
+54
+00:26:12,670 --> 00:26:41,780
+so you tell me now just to explain the concept because remember you are jumping to you have to jump to some instruction right yes or no the jump instruction it will jump to some instruction okay it will jump to some location where you have instruction okay right add instruction it will jump to some location where you are operating see this instruction will jump basically this instruction will will take operands but this will jump to some location where you have instruction okay now let me just give you this give you this that this will point to basically
+
+55
+00:26:42,190 --> 00:27:11,540
+remember this should jump to or I can say this should jump to this location okay remember this three should jump to where this should jump to where this should jump to the here okay clear and where this ad instruction will go where this ad instruction will basically fetch this ad instruction will fetch from here okay ad instruction will point to these okay is this clear please tell me now
+
+56
+00:27:11,850 --> 00:27:35,740
+okay now let me tell you why now i'm telling you that this is your relocatable code okay now this is your relocatable code this is your relocatable code why this is relocatable code i will tell you why this is a relocatable code okay first of all you tell me just tell me one thing this is much easier than the pc relative addressing mode do you agree with me
+
+57
+00:27:35,930 --> 00:28:01,060
+that this is much easier than PC relative addressing mode in the PC relative addressing mode you have to make the calculation okay what will be the PC value then offset you will have to calculate the offset right this is very simple just put 0 1 2 3 4 5 6 yes or no just put the line number yes or no please tell me did you understand let me know did you do you agree with me that this is much easier than
+
+58
+00:28:01,330 --> 00:28:25,110
+PC relative addressing mode see in the PC relative addressing mode you have to calculate what is the offset with respect to PC means if you are calculating the offset for this instruction then you will have to calculate with respect to this instruction right because program counter will have value 2 when you face this instruction program counter will point to this instruction so you will have to calculate displacement
+
+59
+00:28:25,570 --> 00:28:55,070
+From this instruction, you will have to calculate displacement or offset from this instruction. Okay. So this is what I'm telling you that in the PC relative addressing mode, you have to do a lot of calculation, all those things you have to do. But this is very simple. I'm saying that this is relocatable code. Okay. And I will prove it to you that this is relocatable code. Just one thing I need. Just one thing I need. See, now let's assume operating system has loaded this program at some address. Now what operating system will do?
+
+60
+00:28:55,450 --> 00:29:26,490
+now this is your compiled code okay now this is your compiled code okay yes or no now this is your compiled code with labeled addresses yes or no you have just labeled addresses you don't have physical addresses you just have labeled addresses yes or no so this compiled code now let's assume you are loading this okay you are finally you are loading this in the main memory finally you are loading this in the main memory okay
+
+61
+00:29:26,850 --> 00:29:53,210
+so in the main memory now you are loading this okay so the operating system can load this at any address at any physical address okay yes or no operating system will load this at any physical address some physical address let's assume let's start with 200 okay at physical address you will you will load this program right okay now let me put this at the 200 now you tell me if you put it at the 200 now what will happen now what will happen
+
+62
+00:29:53,610 --> 00:30:22,970
+these will become physical addresses yes or no these things will become physical addresses or not please tell me these things will become physical addresses or not let me know because now you are loading in the main memory now your program is in the main memory remember now where is your program now your program in now program in main memory now program is in main memory is this clear now program is in the main memory
+
+63
+00:30:23,260 --> 00:30:51,340
+so if this program is in the main memory then all the instructions they will be at the physical addresses okay yes or no is this clear see now your program is in the main memory so all these instructions all these instructions plus data these are instructions plus data so these will be in the main memory this will be at some memory location this will be at some memory location this will be at some memory location so basically now you will have physical addresses here okay now what you will have
+
+64
+00:30:51,550 --> 00:31:20,720
+you will have physical addresses here like if you are loading at 200 let's assume I am loading at 200 okay now this is a physical address 201 202 203 204 205 206 okay now these are these things are the line number or physical addresses these things are the line number or their physical addresses these things these things are actual physical addresses
+
+65
+00:31:21,320 --> 00:31:42,840
+actual physical memory addresses these are not line numbers these are actual physical memory addresses means in the main memory at this location i0 is there in the main memory at this location i0 is there in the main memory at this location jump instruction is there these are actual physical addresses
+
+66
+00:31:51,960 --> 00:32:21,670
+something is not making sense yes or no do you agree with me something is not making sense you have to you have to jump like this instruction should jump to this instruction right yes or no notice this instruction this instruction should jump to this instruction so what should we do anyone has any idea see remember remember this instruction you can see this arrow look at this arrow this instruction should actually jump to this instruction right so
+
+67
+00:32:21,950 --> 00:32:52,300
+But this 3 is there. So what is the idea? What is the idea? If I actually put 203, will it make sense? If I actually put 203, now will it be correct? If I actually put 203, will it be correct? But if I actually put 203, then will it be relocatable? Please tell me. If I put the physical address here, will it be relocatable?
+
+68
+00:32:52,660 --> 00:33:20,200
+our target is to make relocatable or not please tell me if I put 203 here if if if I put 203 here then then this is not relocatable now this is not relocatable so I cannot put 203 okay yes or no I cannot put 203 because this is not relocatable also also also can you put 203 once you are in the main memory once your program is in the main memory can you change your instruction
+
+69
+00:33:21,100 --> 00:33:50,780
+Please tell me once once once your program is in the main memory. Can you change your instruction? You cannot change it. When can you change your instruction? Who can change your instruction? Who has the power to change the instruction? Who has the power to change your code? Either you or the compiler. Yes or no, because the compiler will generate these labels. These labels, all these things are generated by the compiler. Okay. So remember you or the compiler has the power. So you can't even change it. So don't think about changing the code.
+
+70
+00:33:51,080 --> 00:34:19,790
+do not think about changing the code remember you cannot change the code no you cannot change the code so how to make everything right because this will jump to three yes or no because this will actually jump to three but it should jump to two zero three so how to make it right any suggestion anyone you understood my concern right yes or no you understood my question you understood my doubt okay because remember when you load this program this was your nice program
+
+71
+00:34:20,610 --> 00:34:44,630
+After the compilation This is a nice program These are the line numbers This is a nice program But once you load it in the main memory Your code Once you load it in the main memory Then everything will be at a physical address Then everything will be at a physical address Everything will be at a physical address Yes or no? Okay, everything will be at a physical address
+
+72
+00:34:45,000 --> 00:35:13,920
+So these things, this instruction will be at address 200, this instruction will be at address 201. Now what to do? Yes, very good, very good, very good, very good. Just small thing you do, what you do? Where you are loading your program, just put this in the base register. That's it, that's it, that's it. Okay, just put this in the base register. Okay, where you are loading your program, just put this in the base register. Only this small thing you do, that's it.
+
+73
+00:35:14,110 --> 00:35:45,300
+only the small thing you do that's it ok now now what will happen in the base register you put the code you put the address you put the physical address this is actual physical address this is the physical address where program is stored this is the physical address remember this is the actual physical address this is the actual physical address where program is loaded where program is loaded where program is loaded
+
+74
+00:35:46,470 --> 00:36:19,580
+is this clear this is the actual physical address where program is loaded very simple so just put this in the 200 now what CPU will do now what CPU will do now what the CPU will do now now CPU does this now CPU does this okay CPU what what the CPU will do CPU will do this for every address for every address generated by the instruction okay given by the instruction for every address
+
+75
+00:36:20,350 --> 00:36:48,990
+off in the instruction inside instruction okay for every address inside instruction in the instruction there is a address okay so remember for every address inside instruction okay let's assume this is your address actually that address that is offset okay address inside the instruction that is actually offset yes or no that is actually offset let's call it a let's call it a but that is actually offset so you can see for every address
+
+76
+00:36:50,040 --> 00:37:25,350
+inside the instruction what your cp will do cp will do this base register value the base register content plus a plus a this will be effective address this is going to be effective address that's it very simple means what you do means means means what it means it simply means that now this is going to happen see now what the cp will do now let me remove this now very simple now what this three will mean
+
+77
+00:37:25,950 --> 00:37:52,840
+what this 3 will actually mean what this 3 will actually mean this 3 will actually mean 200 plus 3 that is correct right now it is correct or not that is correct or not this 3 will actually mean 203 okay what this 6 will actually mean what this 6 will actually mean please tell me what this 6 will actually mean this 6 will actually mean 200 plus 6 okay what this 0 actually mean
+
+78
+00:37:53,230 --> 00:38:23,120
+What this will actually mean? This will actually mean 200. Everything is perfect or not? Just tell me. Everything is perfect or not? Let me know. Everything is perfect or not? Please tell me. Yes. That's it. Your program has become relocatable. Now you can relocate at any address. C C C C. Okay. I am relocating. I am relocating. Tell me at which address I should relocate. Okay. I am relocating. You can relocate at any address. Let me relocate at 400. Let me relocate.
+
+79
+00:38:23,490 --> 00:38:55,680
+at 400 no problem no problem let me relocate I am relocating at 400 okay relocation now we have done the relocate relocate program at 400 at memory address 400 which changes you have to make just tell me all the changes that you have to make no changes no changes operating system is relocating who is relocating tell me who is relocating
+
+80
+00:38:56,020 --> 00:39:24,600
+operating system is relocating yes or no so this change who will make this change who will make operating system will make so this 400 you will put here operating system will make this change okay because operating system is doing the relocation so the operating system will put 400 in the base register now everything is very again very simple put basically every address will be calculated like this every address will be calculated like this 400 plus 3 that is 403
+
+81
+00:39:25,050 --> 00:39:53,790
+yes or no every address will be calculated like this 400 plus this 400 plus this so everything is perfect so this has become relocatable code or not just tell me just tell me this has become relocatable code or not so that's it this is the idea I hope you understood okay so this is the final conclusion I am giving you basically how to make we are writing relocatable code using base register writing relocatable code
+
+82
+00:39:54,030 --> 00:40:27,120
+this concept did you understand we are writing relocatable code using base register the name itself is telling you or not base register the name itself is telling you base register it will contain the base address where program is relocated okay this will contain this will contain what it will contain this will contain base address this will contain base address of program okay where
+
+83
+00:40:28,320 --> 00:41:01,060
+OS has relocated the program where OS has loaded or relocated the program. Yes or no. Okay, very simple. So the base address will this base register will contain the base address. Now everything is very simple. Remember, you have a base register. This is your base register. Here you will have the base address. For example, let's assume 200. Now you have your code. Your code is something like this at 200 you have instruction one at 201 you have instruction to
+
+84
+00:41:01,450 --> 00:41:31,020
+at 200 okay you have instruction 3 and so on okay these are actual physical addresses these are actual memory addresses memory addresses okay and remember if you have some some kind of thing for example if you have here let's assume you have jump instruction jump instruction 9 now what you will do here then what it will mean what is the target address tell me for this what is the target address
+
+85
+00:41:31,610 --> 00:42:02,250
+What will be the branch target? What will be the branch target? The branch target will be 200 plus 9, that's it. That will be to, sorry, 200 to, sorry, you can see. Yeah, yeah, yeah. Okay, with respect to everything will be with respect to this branch register. Remember, everything will be with respect to this. Okay, every address of the code will be with respect to this. Is this clear? So that will be 200 plus 9. Okay, is this clear? Please tell me.
+
+86
+00:42:02,850 --> 00:42:30,810
+let me know because actually what this means okay if you did not understand because actually what this means actually what this means actually this means like this that you have your code is something like this 0 1 and so 9 you are jumping to 9 okay and at line 2 what you have at line 2 you have jumped 9 this was your code yes or no this was your code at compile time okay this was your code after compilation
+
+87
+00:42:32,010 --> 00:43:01,550
+This was our code after compilation. After compilation. Okay. This is our code after compilation. Is this clear? So you can easily see that you will jump to 209. Very simple. So this is the idea. Understood. So the branch target address also we have calculated. So very simple. Everything will be with respect to branch register. So this is very easy. Yes or no. Is this clear? Did you understand? Did you understand this?
+
+88
+00:43:01,900 --> 00:43:28,550
+So making relocatable code is very easy now. Agree? If you want to create relocatable code, if you want to write relocatable code, that is very easy now. That is very easy. Okay. Is this clear? So remember, very simple. You can see here. When the operating system will load the program, read this. When the operating system will load the program, what it will do? What operating system will do? When operating system will load the program, what it will do?
+
+89
+00:43:29,200 --> 00:43:59,810
+will load the program it will set the base register to the physical address where the program should start and the CPU will add and what the CPU will do the CPU will add this value to every address that the process will use okay is this clear so very simple remember in this base register in this base register code okay I can say relook in this base register addressing mode in this base register addressing mode actually what happens let me tell you
+
+90
+00:44:00,160 --> 00:44:29,000
+in this addressing mode remember one thing what will happen your instruction let's assume you have instruction I am telling you what is base register addressing mode let's assume this is your instruction and in this instruction this value you have this value you have tell me what is this value anyone want to tell me what is this value this value what is this value this is simply offset okay this is simply offset with respect to home with respect to home with respect to
+
+91
+00:44:29,390 --> 00:45:01,910
+base register with respect to base address okay with respect to base address in base register in base register okay so you can see this is offset with respect to base address in base register so this is the idea understood or not so remember what will be the effective address the effective address will be content of base register plus this value a okay plus this value a so there is a base register
+
+92
+00:45:02,260 --> 00:45:34,700
+there is a base register okay and it has the content of base register that is the base address of program that is the base address of program okay here you have the actual physical address yes or no here you have the actual physical address here you have the actual physical address okay and that is the base address of the program in main memory in main memory so is this clear what is base register addressing mode
+
+93
+00:45:35,150 --> 00:46:05,150
+will you forget it in your lifetime will you forget it in your lifetime what is base register addressing mode so very simple right yes or no base register that's very simple base register base register addressing mode okay base register will contain what just tell me one thing this base register what it will contain this base register will actually contain the physical actual address right this is the actual
+
+94
+00:46:05,910 --> 00:46:38,930
+physical memory address physical memory means main memory this is the actual main memory address okay where program has been loaded where program is loaded in a memory where program is loaded in memory okay so that's it now very simple I hope you understood so this is the concept and did you understand the application of base register addressing mode very simple
+
+95
+00:46:39,210 --> 00:47:08,630
+using the base register you can create relocatable code we can create relocatable code okay so this is the simple idea one question I want to ask one difference you tell me in the PC relative addressing mode in the PC relative addressing mode and in the base register addressing mode you tell me the difference of offset you tell me the difference of offset in the PC relative addressing mode and in this in this addressing mode
+
+96
+00:47:09,010 --> 00:47:38,350
+you tell me the difference of offset means here tell me the offset was unsigned or signed what was this and here this offset should be signed or unsigned in the PC relative addressing mode remember this is PC relative addressing mode okay or I can say relative addressing mode in this addressing mode if you want to jump at some location let's assume you want to jump at this location let's assume you want to jump at this location okay from here basically
+
+97
+00:47:38,720 --> 00:48:11,400
+you want to jump at this location okay you want to jump at this location now you tell me what your offset value will be what your offset value will be this offset value this offset value what that will be you can see that will be 201 201 minus 190 201 minus 190 that is 11 minus 11 yes or no that will be minus 11 yes or no is this clear
+
+98
+00:48:11,710 --> 00:48:40,000
+that will be minus 11 so this offset should be signed this should be signed number in 2's complement okay because signed numbers mostly we represent in 2's complement remember signed numbers we mostly represent in 2's complement by default we represent in 2's complement what do you think in base register will you ever need negative offset just think about it and tell me will you ever need negative offset
+
+99
+00:48:40,360 --> 00:49:10,120
+will you ever ever ever need negative offset no no no because your fast instruction is here just think about it your fast instruction is here okay your fast instruction itself is here so you can see your fast instruction itself is here and so on and so on and your base address base register contains this address 200 okay this address is in the base register so you can see and the effective address will be what
+
+100
+00:49:10,280 --> 00:49:37,960
+the effective address will be this 200 plus this value a whatever value a you have okay whatever value a you have for example if I write here jump jump a so the whatever value a you have effective address will be 200 plus a this is fixed so offset will be usually unsigned okay so if nothing is given this is very simple this is unsigned understood
+
+101
+00:49:38,440 --> 00:50:07,460
+So all these simple simple concepts you are understanding, right? You don't have to buy hard. See every simple thing, every small thing I'm telling you that you can easily understand. You don't have to buy hard that in the PC relative addressing mode offset will be signed number in the base register addressing mode offset will be unsigned number. These things do you have to buy hard or can you understand? Now you can understand, right? Also this thing can you understand that we can use this to write relocatable code. We can also write
+
+102
+00:50:07,720 --> 00:50:37,760
+we can also use this addressing mode to write relocatable code we have also seen how to write relocatable code using this mode and how to write relocatable code using this mode so both we have seen which is more easier to write relocatable code of course both are fine but which is more better which is more better approach this is a better approach yes or no is this clear so remember to write relocatable code to write relocatable code if you want to write
+
+103
+00:50:38,030 --> 00:51:09,500
+relocatable code to write relocatable code to write relocatable code remember this you can use relative addressing mode also you can use relative addressing mode also we have already seen how to write relocatable code using relative addressing mode we have already seen you can also use base register addressing mode that also we have seen how to write relocatable code with help of base register addressing mode which is more relevant
+
+104
+00:51:09,900 --> 00:51:40,060
+which is more relevant this is better yes or no I can say this is more better approach better or more relevant okay this is more relevant or I can say better but yeah this is also fine so you can use this also you can use this also to write relocatable code but remember this base register addressing mode this is much easier approach this is much easier approach so I can say this is mostly used okay this is mostly used
+
+105
+00:51:40,380 --> 00:52:10,860
+and for branch instructions we mostly use relative addressing mode okay for branch instructions remember for branch instructions we mostly use relative addressing mode so so remember remember which is more popular if someone ask you for branch instruction who is more popular for branch instructions who is more popular for branch instructions if you have jump instructions then for these instructions I can say relative addressing mode more popular more popular
+
+106
+00:52:13,210 --> 00:52:45,110
+more popular okay so you can see relative addressing mode that is more popular than base addressing mode then that is base register addressing mode and if you want to write relocatable code then if you want to write relocatable code then if you want to write relocatable code of course both you can use remember I am just saying which is more popular I am just saying which is more popular of course you can use both of them of course you can use both of them
+
+107
+00:52:45,380 --> 00:53:15,160
+Okay, so for relocatable code, I can say this base register addressing mode is more popular. Okay, addressing mode more popular. This is more popular. Okay, so I hope you understood. Of course, you can use both of them. Of course, you can use both of them that we have already seen. Okay, so everything you understood, you don't have to buy hard anything. Okay, this code with the help of base add now you convert this. This is my question. This is my question. You just take this question.
+
+108
+00:53:16,430 --> 00:53:51,010
+convert make it relocatable with help of base make it relocatable relocatable make it relocatable using base register addressing mode how you will do using base register addressing mode how you will do in this code just focus on the branch instructions okay in this code just focus on the branch instructions so when I say make it relocatable then I am talking about these branch instructions okay
+
+109
+00:53:51,390 --> 00:54:21,440
+I am talking about these branch instructions these branch instructions I am talking about is this clear so make it relocatable let's make it relocatable using base register addressing mode how you will make it please tell me how are you going to make it using base register addressing mode so in the base register what you will put just tell me that point in the base register what you will put in the base register you will put 200 very simple very simple okay now
+
+110
+00:54:21,790 --> 00:54:53,410
+what you will do instead of this 211 what you will put instead of this 211 you will just put 11 that's it yes or no isn't it very simple okay instead of this 202 you will just put 2 you will just put 2 okay and you can see instead of this 235 you will just put 35 can you feel that this is much easier can you feel this is much much much easier yes or no so you tell me what is this this is offset
+
+111
+00:54:53,740 --> 00:55:26,870
+with respect to home this is offset with respect to with respect to 200 with respect to base register content base register content is this clear this is with respect to base register content okay simple right so very easily you can do this this is what I am telling you so this is offset with respect to base register content so quite easy
+
+112
+00:55:27,140 --> 00:55:55,820
+and this 200 you will put here this actual physical address this you will put in the base register okay now this is much easier and the same code using PC relative in the last lecture we have done it using PC relative you have to use your brain right yes or no using PC relative using PC relative you have to use your brain in the last class we have done this if you remember in the last class we have done this so here you will have value 7
+
+113
+00:55:56,880 --> 00:56:25,920
+In the last class, we have already done this. Here you will have value seven here minus nine and here nine. Okay. This we have done in the last class. This we have done in the last class. So using PC relative, this is what you will get. And using base register addressing mode. This is what you will get. Now you have become expert. Okay. Now you have become expert. Is this clear? Very simple. You have already become expert. Okay. So I hope you understood. So this is the point when the operating system will load the program.
+
+114
+00:56:26,190 --> 00:56:56,500
+It will set the base register to the physical address to the physical address where the programs would start. Okay. So remember where the programs are and see if you will add this value to every address that the process will use while execution. Okay. Very simple. So this is the base address. It will contain the physical address. So we have seen this. Now let's move on. So this is your base register. What is base register? The base register will hold the physical address. It will hold the physical address.
+
+115
+00:56:56,950 --> 00:57:27,820
+of the location where the program is located in the physical memory and thus it will allow for relocation of the program in the physical memory this is the definition of base register if someone ask you what is base register you can say this that the base register will hold the physical address where the program is located in the main memory and it will allow for relocation of the program in the physical memory so this base register addressing mode we have already seen in this what your instruction will be
+
+116
+00:57:28,680 --> 00:57:58,900
+this is your base register addressing mode your instruction will be what? your instruction will have some value A yes or no? your instruction your instruction will have some value A okay your instruction will have value A in this situation what I am assuming if you have only value A then in this situation it means it means your your base address is explicit special purpose or
+
+117
+00:58:00,160 --> 00:58:29,490
+special purpose or general purpose when base register is implicit yes or no when base register is implicit or I can say special purpose okay so when the base register is implicit or I can say special purpose register then you don't have to mention it then you don't have to mention it so you can see when the base register is implicit in this situation you don't have to mention it in this situation you can just say what are the effective address
+
+118
+00:58:30,010 --> 00:59:01,240
+tell me the effective address will be this value plus the content of base register plus the content of base register and this will be your offset and this will be your offset this will be your offset with respect to content base register content with respect to base register content so quite easily so quite easily you can do okay and the same thing if that is explicit if that is explicit when
+
+119
+00:59:01,530 --> 00:59:31,260
+that is a general purpose register okay when that is a general purpose register in this situation you have to mention it in this situation you have to mention this register okay this register or you have to mention okay so this R is your base register now this R is your base register now in this situation very simple just do this okay so this is the idea I hope you understood so this is your concept you can see
+
+120
+00:59:31,520 --> 01:00:00,380
+base register addressing mode in this address in this addressing mode what we will do base register addressing mode the interpretation what are the interpretation that is basically the content of address plus the displacement okay just add both of them so you can see you can read this we have already seen this and you can use this for what purpose the base register addressing mode is used for what purpose okay to facilitate relocation of program in main memory
+
+121
+01:00:00,780 --> 01:00:27,650
+is this clear so you can see very simple so this we have already seen you can read this we have already seen this everything we have seen and with very clarity see everything that I've taught you remember whether I taught you PC relative addressing mode indexed addressing mode and base register addressing mode I want to tell you one thing these three things many students they they know these things no but they don't understand these things they buy hard
+
+122
+01:00:28,060 --> 01:00:56,360
+Okay many students I have seen majority of the students what they do they buy hard these addressing modes they think they know they understand but actually they don't understand for example Every student knows let me tell you every gate aspirant knows that this relative addressing mode you can use For writing relocatable code, but they don't understand what this means means how to write the relocatable code with the help of peace with with help of relative addressing mode how to do that what it means, okay
+
+123
+01:00:56,660 --> 01:01:25,900
+So basically these things many shows they don't understand that is the reason I have made my I can say I have done my best to make you understand everything what is relocatable code what is non relocatable code how can you write relocatable code with help of relative addressing mode how can you write relocatable code with help of base register addressing mode okay so basically all these things with very clarity I have taught you please tell me did you enjoy this these three concepts base register addressing mode relative addressing mode
+
+124
+01:01:26,070 --> 01:01:56,600
+and indexed addressing mode and these are very important. Okay. Many questions, majority of the questions in the gate exam, they will come from these, from these three. Okay. So did you understand everything? Let me know. Now you can solve all the questions based on addressing modes. Okay. Is this clear? Now, now, uh, these, these addressing modes also let me teach you. These are not much important, but yeah, these are also, uh, in the, our syllabus. So let's see auto increment and auto decrement addressing modes.
+
+125
+01:01:56,970 --> 01:02:27,310
+okay now we will study auto increment auto decrement addressing modes so what are these the name itself is telling you this will auto increment and this will auto decrement okay so actually auto increment auto decrement what are these addressing modes let me teach you in auto increment addressing modes what will happen and in auto decrement addressing mode what will happen auto increment addressing mode okay in this what will happen so let's see
+
+126
+01:02:27,670 --> 01:02:56,370
+this is actually exactly similar to register addressing mode first of all you tell let me tell you the notation let me tell you the notation the notation is something like this that you have a register and you will write plus this is the notation okay now you might be thinking why this notation let me tell you why this notation because this is exactly similar to register addressing mode this is exactly exactly same as register addressing mode
+
+127
+01:02:57,070 --> 01:03:30,480
+register indirect addressing mode register indirect addressing mode register indirect addressing mode what are the difference only difference is what are the only difference only difference only difference is that after calculating after calculating effective address okay this R will be incremented
+
+128
+01:03:30,750 --> 01:04:02,400
+okay this r will be incremented content of r will be incremented content of r will be incremented is this clear see very simple this is exactly same as your as your register indirect this is exactly same as register indirect mode yes or no register indirect addressing mode this is exactly same as register indirect addressing mode the only difference is after calculating
+
+129
+01:04:02,900 --> 01:04:32,940
+this effective address the content of R will be incremented what that means let me tell you this means that first of all you can see did you understand why this symbol is used why we are using this symbol because this symbol means registry indirect this symbol means register indirect correct agree this symbol means register indirect and this symbol means auto increment this symbol means increment okay so very simple so remember this is what it will do
+
+130
+01:04:33,130 --> 01:05:01,500
+when you write in the instruction in the instruction if you write if you write let's assume let's assume this is you have written okay then what it will mean it will mean this what it will do let me tell you it will do two things the first thing you will calculate the effective address tell me what the effective address remember first you will calculate the effective address first effective address will be calculated what is that that is your register indirect
+
+131
+01:05:02,030 --> 01:05:34,260
+Ok, effective address will be content of R. Content of R will be effective address. Yes or no? In the register indirect, this happens or not? Please tell me. If you remember register indirect. In the register indirect, what happens? Let me know. Register indirect. In this what happens? In this R has the effective address. Your register has the effective address. Ok, if you go to that address in the mere memory, you will find your data. You will find your operand.
+
+132
+01:05:34,730 --> 01:06:06,270
+agree yes or no in the main memory this is your register indirect agree please tell me understood so very simple so the same thing is happening here in the auto increment addressing mode you can see what this will do see this will do two things this will do two things first register indirect means effective address will be calculated then increment will happen then increment will happen then what will happen then increment are then increment are
+
+133
+01:06:06,580 --> 01:06:35,850
+by how much then increment are by how much like plus 1 plus 2 plus how many tell me plus plus 1 plus 2 plus how many tell me plus 1 plus 2 how many so increment are by operand size ok by operand size if operand size is 1 byte then plus 1 if operand size is 2 byte then plus 2 if operand size is 8 byte plus 8 so that's it is this clear
+
+134
+01:06:36,780 --> 01:07:07,630
+so effective address is the content of R that is the effective address content of R is that the operand please tell me content of R is that operand no that is not operand I am saying content of R is effective address in the register indirect in the register indirect the content of R is effective address if you go to that address you will find your operand your operand is not in R your operand is not in R in R you have register
+
+135
+01:07:07,960 --> 01:07:34,360
+sorry in R you have address memory address so effective address is same as content of R then you increment R by operand size so this is your auto increment addressing mode please tell me is this clear let me know a student is asking in gate exam these notations will be given or not actually these are very standard notations so you should remember also okay is this clear but yes they will be given
+
+136
+01:07:34,570 --> 01:08:03,050
+in the gate exam if you check all the gate exam questions all the previous year gate exam questions if you check then in most of the questions everything is defined these notations are also defined everything is defined there is no ambiguity but remember you should remember these notations okay these notations for example this notation you should remember this notation so did you understand auto increment or not please tell me did you understand auto increment or not okay very simple now let's see auto decrement but remember auto increment
+
+137
+01:08:03,550 --> 01:08:36,090
+please understand the symbol auto increment symbol is this r plus so which thing will happen first which thing will happen first first thing will happen this this is register indirect first this will happen okay then this will happen then this will happen increment r increment r so remember when you write like this then what actually will happen here two things will happen
+
+138
+01:08:36,470 --> 01:09:09,510
+first thing effective address will be content of r content of r okay that is same as content of r and the second thing will be you will increment r by how much you will increment r by how much by operand size okay by operand size so very simple this is your auto increment now let me tell you auto decrement now let me tell you auto decrement
+
+139
+01:09:10,350 --> 01:09:43,690
+the symbol of auto decrement let me tell you the symbol of auto decrement is minus and then this now you already understood what it means you understood or not you already understood what this means first you decrement are first you decrement are okay in this addressing mode first you decrement are and then what you will do and then what you will do then register indirect so just think about it what it means so
+
+140
+01:10:22,280 --> 01:10:50,720
+Tell me what this will mean auto decrement addressing mode. So what this will mean. So remember when you write like this, then what will happen? Two things will happen. Okay. Two things will happen. What are the first thing? Two things will happen. What are the first thing? The first thing is you will decrement are okay. This is the first thing that will happen. You will decrement are by how much you will first decrement are remember first you will decrement are by how much
+
+141
+01:10:51,160 --> 01:11:24,380
+by operand size by operand size okay first you will decrement R and then then the effective address will be content of R then that will be content of R is this clear please tell me let me know did you understand this please let me know is this clear so remember this is your auto decrement so auto decrement in the auto decrement first we decrement R remember in the auto decrement first we decrement R
+
+142
+01:11:24,660 --> 01:11:54,720
+and in auto increment what we do and in auto increment what we do in auto increment addressing what we do first we point the effective address then we increment R okay so understand the difference I hope you understood now what are their applications what are their applications what do you think what do you think in which case you will do the increment like you are incrementing
+
+143
+01:11:55,000 --> 01:12:23,910
+okay you are incrementing in which case you will do increment like first you will access this then you will access this then you will access this then you will access this then you will access this in which case you will increment please tell me so you can increment in case of if data is at the successive locations yes or no applications applications used when data is at the successive locations can I say when data presented successive
+
+144
+01:12:24,930 --> 01:12:53,650
+data at successive locations agree with me yes or no agree or not like in array like in array yes or no so you can see but the point is very simple like list like a list so remember applications like remember you are incrementing or you are decrementing means when your data is at the successive locations your data is at the successive locations then at that point you can use auto decrement auto increment
+
+145
+01:12:54,030 --> 01:13:21,790
+so this is used when data at successive locations this is also used tell me in your C language in the high level language when have you used this increment pre increment post increment these type of things pre increment sorry post increase post increment pre decrement when have you used in the loops yes or no okay in the loops so for loops yes or no is this clear so remember
+
+146
+01:13:22,650 --> 01:13:50,020
+in loop implementation in loop implementation you can use it okay in the loop implementation you can use it because when you write a loop then what you do if you remember in the high level language like in the C level language when you write a loop if you are writing a for loop then in the for loop if you remember three things you will write okay there is something like I plus plus something like that yes or no okay there is something like that
+
+147
+01:13:50,600 --> 01:14:20,380
+i is less than equal to n and there is something like that i++ so you can see is this clear so in the C language this type of code you have written okay agree or not so very simple the same thing I am writing here so remember for it's not it's not for loop it means loops okay so in loop implementation in loop implementation so you can see this is a used for loops okay I can say this is used
+
+148
+01:14:20,810 --> 01:14:50,860
+for loops so i can write like this that this is used for loops you can use it for while loop also okay you can use it for any loop so basically in the loop implementation you can use it that's it this is your chapter so we have seen auto increment addressing mode we have seen auto decrement addressing mode one thing you can notice how much you will increment tell me how much you will increment how much you will increment the size of data the size of operand for example
+
+149
+01:14:51,230 --> 01:15:18,410
+if your operand size is one byte if your operand size is one byte increment by one if your operand size is two byte increment by two if your operand size is four byte increment by four okay so very simple so all these things we have already seen so we have seen auto increment we have seen auto decrement everything we have seen okay so this is your chapter everything is over your chapter is over this really this addressing mode chapter is over so please tell me did you understand
+
+150
+01:15:20,210 --> 01:15:49,130
+Okay, so we have seen all the addressing modes. Every addressing mode we have seen each and every addressing mode we have seen. Okay. Now just a small topic that is how will you specify addressing mode in the instruction? You might be thinking, right? Like in the instruction, how will you know what the addressing mode? Okay. How the control unit will know how the CPU will know what the addressing mode for any operand for for any operand what the addressing mode how the CPU will know how the control unit will know.
+
+151
+01:15:49,310 --> 01:16:18,760
+So remember specifying what is the addressing mode of the operand in the instruction, specifying addressing mode in the instruction. Okay, so you can see tell me these symbols will they tell the control unit can will these symbols tell the control unit like for example this has symbol will it tell the control unit that this is the immediate addressing mode. I am asking how the CPU will know what the addressing mode how the CPU will know.
+
+152
+01:16:18,900 --> 01:16:46,170
+how the control unit will know what is the addressing mode of an operand so tell me will these symbols tell the CPU these symbols will they tell the CPU these symbols will they tell the CPU no no no these are only for us okay these symbols we only use for us remember these are just assembler syntax these notations are for us not for the CPU yes or no
+
+153
+01:16:46,610 --> 01:17:26,060
+These notations are for us, not for the CPU. These are assembly notations. These are just assembly notations. These symbol will tell us what is the addressing mode. Yes or no? They tell us. They tell us. Us. Okay, humans. They tell us what are the addressing modes. So, they tell us what are addressing modes. Which addressing mode? Okay, what are addressing mode? What is addressing mode?
+
+154
+01:17:26,210 --> 01:17:58,530
+okay so these symbols will tell us what is addressing mode but remember inside your CPU everything is binary yes or no yes or no inside memory inside the inside the computer everything is binary inside computer your instruction your instruction that is just binary that is a sequence of 0 comma ones yes correct that is a sequence of 0 comma ones yes or no so this is just a binary
+
+155
+01:18:00,370 --> 01:18:27,590
+this is a binary sequence nothing else now here there are no symbols here we don't have no such symbols okay yes or no we don't have no hashtag no these things yes or no is this clear no these things so these things are not there here these things will not help you so now you tell me now you tell me how the control unit will know now you tell me how the control unit will know what the addressing mode
+
+156
+01:18:28,500 --> 01:19:05,610
+Okay. What the addressing mode is specifying addressing mode in the instruction means how the control unit knows how the control unit or I can say how the CPU knows the addressing mode of a operand knows addressing mode of operand. So there are two ways. Okay. There are two ways. There are two ways. Remember. Okay. If you want to specify addressing mode in the instruction, there are two ways.
+
+157
+01:19:06,010 --> 01:19:36,550
+either it will be implicit means control unit already knows it okay control unit already knows it or you have to mention in the instruction so there are two ways there are two ways there are two ways what are those the first thing addressing mode is implicit okay the first thing that is implicit means control unit already knows means control unit knows control unit already knows okay means control unit already knows
+
+158
+01:19:37,050 --> 01:20:05,930
+or the second way or the second way either you can do this means addressing mode is implicit you don't have to do anything we don't have to do anything okay in the instruction you don't have to mention anything in the instruction you don't have to mention anything means the control unit already knows what are the addressing modes of every operand in any instruction add addition subtraction load jump whatever instruction you take for every instruction control unit already knows what the addressing mode
+
+159
+01:20:06,300 --> 01:20:35,190
+the second thing is the second thing is put a mode field put a mode field in the instruction is this clear put a mode field in the instruction in the instruction okay so these are the two ways is this clear so either you put a mode field in the instruction or you just assume that control unit already knows means the opcode will means the opcode will tell what the addressing mode so remember
+
+160
+01:20:35,600 --> 01:21:07,460
+If you want to specify How to specify addressing mode? Specifying addressing mode in instruction In the instruction What are the two ways? What are the two ways? Specifying addressing mode in the instruction Okay, wave one What is the wave one? The wave one is That opcode itself will tell you addressing mode Okay, once opcode itself indicates addressing mode Indicates
+
+161
+01:21:08,680 --> 01:21:38,740
+opcode itself indicates addressing mode to the CPU to the control unit okay is this clear means your opcode itself will tell what are the what are the addressing mode so very simple opcode itself indicates the addressing mode to control unit this is wave 1 so in this wave 1 I can say no no need to explicitly put in the instruction okay no need to put
+
+162
+01:21:40,080 --> 01:22:08,990
+Addressing mode in 4 In 4 In instruction In the instruction Okay, yes or no? In the instruction you don't have to put Addressing mode information, there is no need Because opcode itself Will tell control unit what is the addressing mode What is way to? What is way to? The way to is that Put a mode field Your instruction has opcode Opcode will tell what is the operation
+
+163
+01:22:09,430 --> 01:22:43,440
+and this mode field will tell what the addressing mode okay is this clear so very simple so very simple remember this mode field will tell you what the this will indicate addressing mode this indicate addressing mode this indicate operation this indicate operation and this is your operand okay is this clear so you can easily see this will indicate what the what the addressing mode you tell me
+
+164
+01:22:44,050 --> 01:23:13,190
+how many bits we need let's assume assume there are nine addressing modes assume nine addressing modes available assume nine addressing modes are available there are nine addressing modes available then how many bits you need here in the mode field to specify one mode assume nine addressing modes are there total nine addressing modes are there let's assume immediate direct addressing mode indirect addressing mode base register addressing mode
+
+165
+01:23:13,420 --> 01:23:45,220
+relative addressing mode index addressing mode like this so assume 9 addressing modes are available so in the mode field you need 4 bits you need 4 bits yes or no is this clear you need 4 bits so that's it very simple so you can see this mode field you can have like this you can see if you have only 2 addressing modes then what even happen okay assume only 2 addressing modes assume only 2 addressing modes 2 addressing modes
+
+166
+01:23:45,620 --> 01:24:18,010
+in my CPU in my CPU now tell me in my CPU I have only two addressing modes how many bits you need for the mode field how many bits you need only only one bit is required right okay so you can see addressing mode this will require one bit for mode for mode field okay is this clear so you can see one bit for mode field only one bit is required for mode field right so very simple and this is opcode
+
+167
+01:24:18,630 --> 01:24:46,290
+if you have 3 bits then how many opcodes are possible if you have 3 bits then total 8 opcodes are possible okay very simple let's move on now tell me the answer for this question quickly tell me the answer the memory unit of a computer has 256k words of 32 bits each the memory unit okay your physical memory your main memory has 256k words of
+
+168
+01:24:46,460 --> 01:25:15,990
+32 bits each word size is already given to you that is 32 bits the computer has instruction format with four fields there are four fields in the instruction format okay in the instruction format this is your instruction there are four fields what are those you can see there is opcode field there is a mode field to specify one of the seven addressing modes okay so remember there is a opcode field there is a mode field
+
+169
+01:25:17,050 --> 01:25:46,970
+Okay, in the mode field, for mode field, how many bits you will need? For mode field, how many bits you will need? Remember, seven addressing modes you want to specify. There is a mode field. Read this line. There is a mode field to specify one of the seven addressing modes. You want to specify one of the seven addressing modes. You want to specify one of the seven addressing modes. So three bits are enough. Okay, for the mode field.
+
+170
+01:25:47,310 --> 01:26:16,800
+three bits are enough what about the what about this register field you can see there is a register field to specify one of the 60 registers there is a register field where you want to specify one of the 60 registers so here you will need six bits okay and there is a memory address field how much how many bits you will need for the memory address field how many bits you will need for the memory address field
+
+171
+01:26:18,630 --> 01:26:54,710
+how many bits you will need for the memory address field your memory if you remember by default memory is byte addressable only don't consider word addressable by default your memory is always word addressable memory by default by default that is always byte addressable okay yes or no byte addressable so you can see byte addressable is this clear so tell me
+
+172
+01:26:54,990 --> 01:27:28,040
+your main memory size what is that? your main memory size that is 256k into 4 bytes so that is how much? that is 2 power 10 so that is 20 right? okay these many bytes so total will be 2 power 20 bytes okay total will be 2 power 20 bytes means 1 MB RAM you have 1 MB RAM so how many bits? 4 address field 20 bits
+
+173
+01:27:29,010 --> 01:27:58,850
+20 bits. And what is the opcode size? What is the opcode size? Tell me. Instruction size is given to you, that is 32. Instruction size is 32, that is given to you. Instruction size is 32. Okay, here you have register, here you have memory. So you can, so you can notice here 6 bits, here 20 bits. So this will be what? This will be 32 minus 3 minus 6 minus 20. How much is that?
+
+174
+01:27:59,570 --> 01:28:27,230
+that is 3 bits ok so that will be 3 bits very simple ok let's move on now tell me the answer for this question quickly suppose a computer has 32 bit instruction format instruction size is given to you ok with 4 fixed length field there are 4 fields there are 4 fields opcode field to specify 1 of 11 operation codes so how many bits you need
+
+175
+01:28:27,640 --> 01:28:57,430
+In the opcode field, how many bits you need? You need total 7 bits. Okay. What about the address field? Address field. Address field. To specify... Sorry. Addressing mode field. This is addressing mode field. This is address mode field. Addressing mode. Addressing mode. Okay. You want to specify one of the 16 addressing modes. So that for that you need 4 bits. You want to specify one of the 16 addressing modes. You need only 4 bits.
+
+176
+01:28:57,840 --> 01:29:28,860
+register address field register address field to specify one of the 70 available registers so you need how much you need 7 bits okay for memory for memory how much you will need that will be 32 minus 7 minus 4 minus 7 how much is that how much is that tell me that is 14 14 bits that will be 14 bits right
+
+177
+01:29:29,220 --> 01:29:57,190
+So you can see this question we have done this question we have done this question we have done what are the answer for this question please tell me what are the answer for the last question given that memory is byte addressable memory is already given to you that is byte addressable how much memory is there how much memory is there so how much memory that is a 2 power 14 locations 2 power 14 bytes okay so that is your 16 kilobyte
+
+178
+01:29:58,500 --> 01:30:28,890
+16 kilobyte memory, 16 kb memory. Let's move on. Tell me the answer for this question. A processor uses, there is a processor which uses fixed length 32 bit instruction format. Instruction size is given to you. Instruction size is already given to you. The processor has 98 instructions in the instruction set, right? The processor has 98 instructions. Means processor has 98 instructions means in your instruction set.
+
+179
+01:30:29,120 --> 01:30:59,780
+you have 98 instructions instructions can have 0 or 1 or 2 or 3 operands ok your instruction it can have 0 or 1 or 2 or 3 operands the instruction format is given to you anyone want to tell me why this type of format why this type of format makes sense why this format makes sense because different operands can have different addressing mode yes or no different operand can have different addressing mode
+
+180
+01:31:00,530 --> 01:31:30,220
+different operand can have different addressing mode yes or no this operand can have register addressing mode this operand can have memory addressing mode this operand can have relative addressing mode so you can see different operands they can have different addressing mode so this is the instruction format that is given to you assume there are 10 addressing modes total you have 10 addressing modes in the system you want to use 3 operands okay you want to use 3 operands you want to use
+
+181
+01:31:30,660 --> 01:32:01,010
+The operands must all be in the registers. Every operand must all be in the registers. How many registers should your processor have? This is the question. How many registers your processor can have? Tell me. This is the question. Did you understand the question? Instruction format is given to you. This is the instruction format. There is 32 bits. Instruction format is 32 bits. Instruction size is 32 bits.
+
+182
+01:32:01,580 --> 01:32:31,590
+okay there is opcode how many bits for opcode just tell me this point how many bits for opcode you need how many bits for opcode processor has 98 instructions read this processor has 98 instructions means your instruction set has 98 operations your instruction set has 98 instructions so opcode needs how much that will need log 98 seal and that is 7 bits
+
+183
+01:32:33,330 --> 01:33:06,690
+then there is operand 1 operand 1 mod 1 ok there is operand 2 mod 2 there is operand 2 mod 2 there is operand 3 mod 3 mod 3 now tell me for mod how many bits you need for addressing mode how many bits you need for this addressing mode how many bits you need there are 10 addressing modes there are 10 addressing modes
+
+184
+01:33:07,110 --> 01:33:38,480
+Okay, so for this you need log base 210 seal That will be 4 bits 4 bits here 4 bits here 4 bits here Okay For operand It must be a register operand The question is already telling you Operand must be register yes or no Operand must be in the register means addressing Okay, tell me tell me tell me What this line means Just tell me what this line means
+
+185
+01:33:39,180 --> 01:34:09,840
+The operands must all be in the register. Operand is in the register. Your operand is in the register. In the register you have operand. Your operand in the register. Which addressing mode is this? Your operand is in the register. Your operand is in the register. This is a register addressing mode. Okay. This is a register addressing mode. Correct. So you can see. Put this what you will do.
+
+186
+01:34:10,120 --> 01:34:41,560
+in the instruction you will put the register address in the instruction you will put register address yes or no so here what you will do very simple the register address you will put here so how many bits you need for register how many bits you need i don't know let me say x bits let me say x bits let me say x bits okay so you tell me basically for these three operands how many bits are remaining see i'm asking
+
+187
+01:34:42,060 --> 01:35:14,320
+For these three operands, how many bits are remaining for operand 1, for operand 2, for operand 3? How many bits are remaining? How many bits are remaining? That will be 32 minus. That will be 32 minus 7 minus 4 minus 4 minus 4. How much is that? That is 13 bits. Okay. In 13 bits, you have to put 4 registers. So tell me here, how many bits must be there?
+
+188
+01:35:14,830 --> 01:35:43,880
+how many bits must be there so only 4 bits right only 4 bits yes or no okay so because this is the value of x this is x this is x so this x will be 4 bits is this clear one bit will be one bit wasted one bit unused yes or no one bit is unused is this clear one bit will be unused so very simple okay so remember 4 bits
+
+189
+01:35:44,130 --> 01:36:17,040
+So how many registers? With 4 bits, how many registers you can have? Okay, if your register address bits, register address is 4 bits. So how many registers you can have? So maximum 16 registers I can have. I can have maximum 16 registers. Is this clear? So for this question, the answer is how many registers we can have? Maximum 16 registers I can have. Maximum 16 registers.
+
+190
+01:36:17,620 --> 01:36:46,960
+is this understood please tell me please let me know okay so this question is interesting or not see this question is telling you many things this question is telling you many things that different operand can have different addressing mode okay this operand can have direct addressing mode this operand can have register addressing mode so that is the reason this instruction format makes sense this instruction format makes sense so this type of instruction format also they can give you okay let's move on
+
+191
+01:36:47,340 --> 01:37:16,000
+tell me the answer for this question quickly this question is related to PC relative addressing mode consider a PC relative PC relative branch branch instruction is there okay your branch instruction which is stored in the main memory at address 250 okay this branch instruction you have stored at there is a jump instruction right okay there is jump instruction and some
+
+192
+01:37:16,270 --> 01:37:48,670
+offset value let's call it a and this you have this is located at 250 this is the memory this is located at 250 this is the memory the question is saying that the relative address field contains value 200 address field contains remember the address field contains value 200 so this a is 200 this a is 200 what is the possible pc value immediately after execution phase of branch instruction
+
+193
+01:37:49,620 --> 01:38:21,190
+tell me so you can see when you fetch it when I fetch it then what will happen if I fetch it what will happen if I fetch it if I face this then what will happen then the program counter value will be incremented once I face this then the program counter value will become 251 yes or no it will become 251 okay now after that after that decoding will happen after that decoding will happen
+
+194
+01:38:22,540 --> 01:38:52,910
+Yes or no? After that decoding will happen. See, everything I'm telling you one by one. First instruction fetch will happen. First instruction fetch will happen. Correct. Second decoding will happen. In the decoding, you will find out, okay, this is the jump instruction, right? Yes or no? In the decoding, you will find out that this is the jump instruction because this is the jump instruction. So what are the third thing will happen? So what are the third thing will happen? Tell me. Tell me what are the third thing that will happen?
+
+195
+01:38:53,580 --> 01:39:26,150
+the third thing the third thing will happen is update pc update pc ok so the third thing that will happen that will be update pc so update pc by what update pc by what that will be update pc by 200 plus 251 yes or no so that will be 451 that will be 451 is this clear ok is this clear please tell me did you understand this question did you understand this question let me know
+
+196
+01:39:26,890 --> 01:40:00,530
+let me know ok this question can become more interesting let me tell you this question can become more more more interesting if I say this branch instruction is a conditional branch instruction this question can become more interesting if I say this is conditional branch instruction this is a conditional branch instruction ok now this question can become more interesting now tell me the answer because the question is asking what are the possible PC value
+
+197
+01:40:01,520 --> 01:40:32,290
+okay after the execution after the after the execution of branch instruction after the execution of branch instruction now the possible values remember either they can be 451 or they can be just 251 okay yes or no either 451 or 251 451 if branch taken yes or no if branch taken and this value
+
+198
+01:40:32,680 --> 01:41:06,740
+if a branch not taken yes or no if a branch not taken if a branch not taken so very simple is this clear please tell me okay so this is very easy question now let's move on tell me the answer for this question quickly a pc relative addressing mode branch instruction is there pc relative addressing mode there is a branch instruction and the instruction size is two bytes the instruction size is given to you that is two bytes okay
+
+199
+01:41:07,200 --> 01:41:37,450
+the address of instruction in the decimal that is given to you determine the branch target address we have to find the branch target address if the signed displacement in the instruction is this okay in the hexadecimal displacement is given this displacement is given in the hexadecimal format now what will be the answer see very simple in the question this is your memory your you have a jump instruction where is your jump instruction
+
+200
+01:41:39,000 --> 01:42:11,650
+where is your jump instruction you have jump instruction okay so at which location at this address 56028 at this address okay you have a jump instruction and what are the offset value jump a okay jump a what is this a this a is already given to you in the hexadecimal this is given in hexadecimal this value is given this value is given in the hexadecimal
+
+201
+01:42:12,070 --> 01:42:43,050
+okay and remember this instruction size is 2 bytes yes or no this instruction size that is 2 bytes so the PC will point to where when you fetch it when you fetch this instruction the PC will point to where please tell me when I fetch this instruction I am fetching this instruction if I fetch this instruction now the PC will point to where PC will have what address PC will have 5 6 0 3 0 this address PC will have right yes or no
+
+202
+01:42:43,290 --> 01:43:13,110
+So very simple. Okay. And this is already given to you. This is the, this is the signed offset. Remember, this is the signed value. This is the signed offset. How much is this in the decimal? How much is this in the decimal age? Hexadecimal is given to you. That is 0f82. Okay. 0f82. Okay. So tell me how much it will be? How much it will be?
+
+203
+01:43:13,800 --> 01:43:40,680
+you just calculate in the decimal just convert in the decimal so what that will be in the decimal if you convert then what that will be this you multiply with 16 power zero yes or no okay just convert into decimal let's convert into decimal so what you will do if you want to convert this into decimal then what you will do this too you will multiply with 16 power zero
+
+204
+01:43:41,710 --> 01:44:14,500
+this 8 you will multiply with 16 power 1 this f, f means 15 this you will multiply with 16 power 2 so that's it okay so what this will be? anyone? anyone what is this value? how much value I will get? can you tell me in the decimal? how much value we are getting? 3970 3970 so this is the displacement this is your offset A in decimal so now you tell me the answer
+
+205
+01:44:15,780 --> 01:44:53,930
+3970 so final answer is what 3970 so your final answer will be what tell me so now you have the value age 3970 okay so branch target address what that will be branch target address what that will be that will be just add these two just add these two five six zero three zero plus plus plus plus 3970
+
+206
+01:44:54,410 --> 01:45:27,000
+okay plus 3970 is this clear that's it so very easy so this will be your final answer okay let's move on one interesting question I want to ask you if this A if this was FFA2 now what will be the answer if this A was FFA2 now what will be the answer let me ask you this variation if A is if A is this
+
+207
+01:45:28,180 --> 01:46:09,450
+ok if A is this if A is this then answer then answer will be what please tell me then answer will be what remember this is a signed number this is signed number now this will be negative now you cannot blindly convert yes or no see this is just I am telling you that now you cannot blindly convert if you directly do this this will be a huge mistake yes or no
+
+208
+01:46:09,810 --> 01:46:37,370
+If you do this 15 x 16 power 3 plus 15 x 16 power 2 plus 8 x 16 power 1 plus 2 If you do this, this will be a huge mistake, yes or no? Agree with me? A small point I am making I am just making this small point, did you understand? Okay, don't worry about the answer I am just making a small point Did you understand the point that I am trying to make?
+
+209
+01:46:38,140 --> 01:47:10,490
+I am just trying to make a small point. Okay. Just tell me what are the A in decimal. Is this clear? Is this clear that the point I'm making, did you understand? So here, remember, this is a signed number in tools compliment. Now, what you will do? So now how to find in decimal? Now, if you want to find this in decimal, then what you will have to do? First, you expand this. It is one, one, one, one. One, one, one, one.
+
+210
+01:47:10,920 --> 01:47:40,200
+then what is 8? what is 8? 8 is 10000 and what is 2? that is 0010 tell me what is this value in 2's compliment this is signed value in 2's compliment what is this value? if you remember from my 2's compliment lecture these ones you can ignore so far these ones you can ignore right if you remember from my 2's compliment in the 2's compliment
+
+211
+01:47:40,580 --> 01:48:11,830
+these extra ones you can ignore if you remember okay, do you remember this? in 2's compliment in 2's compliment these leading ones do not matter for example if you have this value this will be same as these leading one will not matter okay this one will matter of course this one will matter but the remaining ones will not matter for example only this will matter only this matters only this matters
+
+212
+01:48:12,190 --> 01:48:42,340
+Other than this, if you are putting 111111111111111111 does not matter Other than this, if you are putting Okay, this will be same as what? This will be same as if you are putting this If you remember, do you remember this? From my 2's compliment lecture in the digital logic In the digital logic, we have seen this We have seen this, yes or no? Okay, so now you tell me What is this value? This value will be same as if you calculate this value
+
+213
+01:48:42,650 --> 01:49:12,910
+one triple zero this and what this will be the weight of this will be minus two power eight minus two power seven plus and this will be two so how much is this so that will be minus twenty eight plus two that is minus twenty minus one twenty six that is minus one twenty six okay so your final answer will be what then you tell me the branch target
+
+214
+01:49:14,090 --> 01:49:59,570
+Then tell me the branch target tell me what will the branch target address your final answer you tell me now the final answer so the final answer your branch target address branch target address will be the PC value that is 560 30 560 30 ok the PC value that is 560 30 plus plus this value this minus 126
+
+215
+01:49:59,830 --> 01:50:31,030
+Okay. Is this clear? Please tell me. Did you understand this point? This is very important point, right? Okay. Many students, they can make mistake. Many students, they can make mistake. Yes or no? Is this clear? Please tell me. So remember this, because this is a signed value in tools complement. So you have to take care that the sign bit should not be one. Okay. If you are converting to decimal, you should take care. That's it. Okay. So I hope you understood everything.
+
+216
+01:50:31,430 --> 01:51:02,980
+so this is your addressing mode all the variety of questions I have taken please tell me did you enjoy one thing I want to tell you every variety of question I have taken in these sessions in these lectures every variation every small small point I have told you so did you understand addressing mode from addressing mode whatever question they ask you okay they ask you any question they ask you can you solve it please tell me so this is your addressing mode chapter okay thank you everyone thank you
+
+217
+01:51:03,340 --> 01:51:33,150
+And one more thing, these addressing mode lectures I am uploading on the Go Classes YouTube channel, please comment there, okay, please comment your feedback there because I think one thing I can promise you, you can study from any other coaching institute, okay, or you can study from YouTube, okay, basically you can study from any video lectures other than the NPTEL, of course, I am not talking about NPTEL or the standard lectures, I am not talking about those, I am talking about
+
+218
+01:51:33,400 --> 01:52:02,900
+coaching institutes okay if you study from any video lectures you will never you will never get this much i can say understanding of addressing modes okay this much clear understanding crystal clear understanding of addressing modes you will not get okay so that is what i have done basically i have tried my best to give you crystal clear understanding of addressing modes you can explain what is program relocation how how the relative addressing mode can be used
+
+219
+01:52:03,390 --> 01:52:31,760
+for program relocation how program relocation can be done using base register addressing mode what is index addressing mode how to implement array how to implement pointer okay so basically everything in a detailed way I have told you so please I have a request to everyone who is watching this video please comment on the go classes YouTube channel under this video okay please comment please put a comment so that we can reach more restraints okay so basically you can see
+
+220
+01:52:32,160 --> 01:52:56,210
+We are providing this quality content from the standard resources, but still there are a lot of students, there are a lot of great CSE experience who don't know about Go classes. Okay. They don't know about Go classes and they keep enrolling in some, I can say in poor resources in poor institutes. So basically I want to ask you one thing that if you like the content of Go classes,
+
+221
+01:52:56,690 --> 01:53:25,210
+Then please put a comment so that we can reach our video can reach more restraints. So please comment and like. Okay. And if you can share that is also very good. If you can share, you can share in the WhatsApp telegram groups where get aspirants are there. Okay. If there is a telegram group, if there is a WhatsApp group in which you have joined, please share these videos. If someone is asking from where to study addressing mode, if someone is asking addressing mode question, then you can share our go classes addressing more lectures you can share. Okay. So thank you, everyone.
+
+222
+01:53:25,850 --> 01:53:26,510
+Thank you so much.
+

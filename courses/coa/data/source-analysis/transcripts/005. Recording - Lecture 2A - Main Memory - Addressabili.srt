@@ -1,0 +1,6044 @@
+1
+00:00:08,300 --> 00:00:17,580
+Hi everyone, very welcome to Go classes. In this lecture, we will study the main memory.
+
+2
+00:00:17,580 --> 00:00:25,580
+We will study the memory organization. Basically, we will discuss the addressing of RAM, Random Access Memory.
+
+3
+00:00:25,580 --> 00:00:32,580
+So this is our lecture number two in computer organization. In this computer organization, we have already seen the overview.
+
+4
+00:00:32,580 --> 00:00:34,580
+Did you watch the lecture overview?
+
+5
+00:00:34,580 --> 00:00:39,780
+overview of computer organization. Basically, what we study in computer organization, why
+
+6
+00:00:39,780 --> 00:00:44,860
+we study computer organization? Okay, so these topics, the overview we have already seen.
+
+7
+00:00:44,860 --> 00:00:50,860
+Now what we will do, we will one by one, we will discuss each component. I told you that
+
+8
+00:00:50,860 --> 00:00:57,100
+there are some components in the in your computer. There are some components. So one by one,
+
+9
+00:00:57,100 --> 00:01:01,980
+we will discuss each component. And today we will discuss main memory. This component
+
+10
+00:01:01,980 --> 00:01:34,160
+we will discuss today. Is there any lagging? Please tell me. Okay. So one by one, we will
+
+11
+00:01:34,160 --> 00:01:40,980
+discuss each component and today we will discuss man memory. Okay. So let's start now. But
+
+12
+00:01:40,980 --> 00:01:46,180
+before that, please tell me, is there any lagging? Is there any lagging still? Is there
+
+13
+00:01:46,180 --> 00:01:53,700
+any issue in the internet? Let me know. Is it fine now? If there is any lagging or any
+
+14
+00:01:53,700 --> 00:02:00,550
+issue. Please let me know. Okay. Please let me know immediately. Okay. So let's start now.
+
+15
+00:02:00,550 --> 00:02:09,480
+So let's start. So let's see the recap. So far what we have seen, we have seen the overview
+
+16
+00:02:09,480 --> 00:02:14,400
+of computer architecture and organization. So what we have seen, we have seen these are
+
+17
+00:02:14,400 --> 00:02:19,280
+the main parts of a computer system in your computer system. You have processor that is
+
+18
+00:02:19,280 --> 00:02:24,000
+your I can say CPU. Okay. That is your brain of computer. So that will execute all the
+
+19
+00:02:24,000 --> 00:02:28,920
+programs. Basically the work will be done by the processor. Okay. So this processor,
+
+20
+00:02:28,920 --> 00:02:34,200
+will do all the work now man memory this will hold the program and the data so this is your
+
+21
+00:02:34,200 --> 00:02:40,280
+memory storage basically okay next i o devices these are used for communication with the outside
+
+22
+00:02:40,280 --> 00:02:45,960
+world for example i can say keyboard mouse okay these are the i o devices input output devices
+
+23
+00:02:45,960 --> 00:02:50,920
+now we have also seen what is machine instruction this machine instruction we have seen these are
+
+24
+00:02:50,920 --> 00:02:57,880
+basically the primitive instructions which are hardwired in your computer okay means basically
+
+25
+00:02:57,880 --> 00:03:02,920
+Remember machine instructions, these are the primitive operations. These are the primitive
+
+26
+00:03:02,920 --> 00:03:08,360
+operations that machine hardware is able to execute. Okay, means they are hardwired. These are
+
+27
+00:03:08,360 --> 00:03:13,080
+basically they are implemented in the hardware. Okay, they are implemented in the hardware.
+
+28
+00:03:13,080 --> 00:03:17,960
+For example, add addition hardware, you know, adder. So remember what is a machine instruction?
+
+29
+00:03:17,960 --> 00:03:24,120
+Let me tell you this machine instruction, these are the operations which your hardware can perform.
+
+30
+00:03:24,120 --> 00:03:29,320
+okay which your hardware can perform so remember for example let's assume that this hardware you
+
+31
+00:03:29,320 --> 00:03:34,120
+have in your computer in your computer let's assume this hardware you have that you have adder
+
+32
+00:03:34,120 --> 00:03:39,560
+okay we have already seen adder in the digital logic right yes or no half adder full adder carry
+
+33
+00:03:39,560 --> 00:03:43,960
+look ahead adder ripple carry adder so different different type of adder we have already seen
+
+34
+00:03:43,960 --> 00:03:48,440
+don't worry that information is not needed okay if you don't know how to implement the adder
+
+35
+00:03:48,440 --> 00:03:53,160
+that is not required for us in this subject but I'm telling you that in the hardware let's assume
+
+36
+00:03:53,160 --> 00:03:58,280
+there is a hardware adder okay this hardware you have okay your logic gates okay you have all
+
+37
+00:03:58,280 --> 00:04:03,720
+the logic gates and all these things okay logic gates you have your multiplexer your multiplexer
+
+38
+00:04:03,720 --> 00:04:09,320
+and all these things okay let's assume that you have your circuit for subtraction also okay
+
+39
+00:04:09,320 --> 00:04:14,760
+basically you have subtractor also you have so these are some I can say these are some primitive
+
+40
+00:04:15,320 --> 00:04:20,760
+sorry actually these are adder this will perform the see these are the hardware right yes or no
+
+41
+00:04:20,760 --> 00:04:25,160
+these are the hardware and they will perform some operations for example you can perform
+
+42
+00:04:25,160 --> 00:04:30,040
+addition operation using this adder using this adder you can perform addition operations so
+
+43
+00:04:30,040 --> 00:04:35,000
+let's assume these are the operations which your hardware can perform these are the primitive
+
+44
+00:04:35,000 --> 00:04:41,320
+operations let me call them basic operations these are the primitive operations which hardware
+
+45
+00:04:41,320 --> 00:04:49,320
+can perform which hardware your hardware can perform okay so your hardware can perform let's
+
+46
+00:04:49,320 --> 00:04:55,680
+let's assume addition occasion, subtraction operation, OK, Said comparison, so for comparison
+
+47
+00:04:55,680 --> 00:05:01,200
+there is a comparator circuit. Okay, so comparison, okay, let's assume your hardware, your comparator
+
+48
+00:05:01,200 --> 00:05:05,780
+circuit, also, there is a comparator circuit. There is a comparator circuit, OK, and so
+
+49
+00:05:05,780 --> 00:05:10,060
+on, so let's assume that these are the hardware you have, and they will perform some operation.
+
+50
+00:05:10,060 --> 00:05:14,560
+So let's assume, these are some basic operations that your hardware can perform, For example,
+
+51
+00:05:14,560 --> 00:05:19,120
+addition, subtraction, comparison, okay, and some basic operations. Okay. Now you tell
+
+52
+00:05:19,120 --> 00:05:23,880
+me let's assume there is no multiplication hardware in your computer in your hardware
+
+53
+00:05:23,880 --> 00:05:29,200
+let's assume there is no multiplication hardware basically there is no circuit to multiply
+
+54
+00:05:29,200 --> 00:05:35,480
+two numbers now you tell me so basically I can say that your primitive operation does
+
+55
+00:05:35,480 --> 00:05:40,680
+not include multiplication ok means multiplication is not a primitive operation then can I say
+
+56
+00:05:40,680 --> 00:05:45,960
+that your computer cannot perform the multiplication please tell me can I say your computer cannot
+
+57
+00:05:45,960 --> 00:05:52,040
+perform multiplication your computer can still perform multiplication right yes or no so how
+
+58
+00:05:52,040 --> 00:05:56,280
+to perform the multiplication let's assume in the primitive operations let's assume there is no
+
+59
+00:05:56,280 --> 00:06:01,880
+multiplication okay so basically these are the primitive or I can say these are the machine
+
+60
+00:06:01,880 --> 00:06:07,800
+instructions these are the machine instructions machine instructions the definition did you
+
+61
+00:06:07,800 --> 00:06:13,160
+understand we have already seen in the overview what is a machine instruction the machine instruction
+
+62
+00:06:13,160 --> 00:06:18,040
+basically, these are the primitive operations. What is a machine instruction? Machine instruction,
+
+63
+00:06:18,040 --> 00:06:22,920
+these are the primitive operations. These are the primitive operations that your hardware can
+
+64
+00:06:22,920 --> 00:06:28,360
+perform that your hardware is able to execute. Okay, for example, you can say addition subtraction,
+
+65
+00:06:28,360 --> 00:06:34,200
+comparison, some basic operations that your hardware can perform. Okay, means you have hardware for
+
+66
+00:06:34,200 --> 00:06:39,080
+those operations, okay, for these operations for these primitive operations, or I can say for
+
+67
+00:06:39,080 --> 00:06:44,360
+these machine instructions you have hardware in your computer okay so as I told you for addition
+
+68
+00:06:44,360 --> 00:06:49,640
+you have adder hardware okay for comparison you have comparator okay for subtraction you have
+
+69
+00:06:49,640 --> 00:06:54,440
+subtractor so like this so basically these are the primitive operations and these primitive
+
+70
+00:06:54,440 --> 00:06:59,800
+operations your hardware can perform right yes or no so I can say yes these are inbuilt in your
+
+71
+00:06:59,800 --> 00:07:05,080
+hardware okay basically these primitive operations these primitive operations these are hardwired
+
+72
+00:07:05,080 --> 00:07:11,640
+in your hardware or you can say these are inbuilt these are inbuilt in the hardware in hardware
+
+73
+00:07:11,640 --> 00:07:16,280
+okay now you can see that so what is the machine instruction that you already know
+
+74
+00:07:16,280 --> 00:07:21,240
+that machine instruction this is a set of primitive operations so I can say this is a
+
+75
+00:07:21,240 --> 00:07:30,760
+or I can say this is a this is a primitive operation this is a primitive operation executed by hardware
+
+76
+00:07:30,760 --> 00:07:40,900
+Okay, or I can say so this is a primitive operation executed by hardware executed by hardware okay your
+
+77
+00:07:40,900 --> 00:07:46,420
+hardware can perform this operation now let's assume that let's just assume just assume that assume
+
+78
+00:07:46,420 --> 00:07:52,740
+that multiplication is not a primitive operation okay you don't have multiplication operation
+
+79
+00:07:52,740 --> 00:07:57,140
+basically let's assume that you don't have multiplication hardware this multiplication
+
+80
+00:07:57,140 --> 00:08:02,260
+assume multiplication is not primitive okay I'm assuming this I'm assuming this okay I'm not saying
+
+81
+00:08:02,260 --> 00:08:07,300
+that you cannot have multiplication hardware of course you can put multiplication hardware also
+
+82
+00:08:07,300 --> 00:08:11,620
+that is your choice but let's assume that multiplication is not primitive operation
+
+83
+00:08:11,620 --> 00:08:16,580
+now if this is not primitive operation then then still you can perform this multiplication right
+
+84
+00:08:16,580 --> 00:08:21,940
+okay still still what we can do still we can perform this multiplication how to do that
+
+85
+00:08:22,500 --> 00:08:28,420
+still we can perform multiplication operation still we can perform this operation this multiplication
+
+86
+00:08:28,420 --> 00:08:33,260
+on operation, we can still perform. We can multiply two numbers and how to do that and
+
+87
+00:08:33,260 --> 00:08:38,820
+how to do that. Tell me with the help of program. Yes or no, with the help of program by writing
+
+88
+00:08:38,820 --> 00:08:46,770
+program by writing program by writing program. Yes. Yes or no. So very simple by writing
+
+89
+00:08:46,770 --> 00:08:51,130
+program. What do you can do? You can write a program for multiplication for multiplication
+
+90
+00:08:51,130 --> 00:08:55,570
+operation. You can write a program. What do you can do? Okay. You can just write a multiplication
+
+91
+00:08:55,570 --> 00:09:00,370
+program you can write okay some multiplication program you will write let's assume this is
+
+92
+00:09:00,370 --> 00:09:05,410
+your multiplication program and then what you can do you can just execute this yes or no is this
+
+93
+00:09:05,410 --> 00:09:10,210
+clear so very simple point you can still perform the multiplication operation by writing a program
+
+94
+00:09:10,210 --> 00:09:16,050
+for multiplication by writing a program for this multiplication okay so this is the simple idea
+
+95
+00:09:16,050 --> 00:09:20,530
+we have already seen what is machine instruction machine instruction is basically a primitive
+
+96
+00:09:20,530 --> 00:09:26,530
+operation which your machine hardware can perform. Okay, which your machine hardware can execute.
+
+97
+00:09:26,530 --> 00:09:31,410
+Now what is instruction set? What is instruction set? Instruction set is basically the collection
+
+98
+00:09:31,410 --> 00:09:35,970
+of all the operations. Yes or no, basically the collection of all the instructions or all
+
+99
+00:09:35,970 --> 00:09:42,690
+all the operations with your hardware can process. Basically, for which you have built your hardware
+
+100
+00:09:42,690 --> 00:09:47,330
+means you have inbuilt hardware for those instructions. So what is the instruction set?
+
+101
+00:09:47,330 --> 00:09:51,890
+instruction set is basically a complete specification of all the kind of instructions,
+
+102
+00:09:51,890 --> 00:09:57,490
+operations that the processor hardware was built to execute. Is this clear? Please tell me.
+
+103
+00:09:58,050 --> 00:10:02,370
+Let me know. So what is instruction set? Instruction set is basically the set of all
+
+104
+00:10:02,370 --> 00:10:08,450
+the instructions, the set of all the operations that you have that for which you have created
+
+105
+00:10:08,450 --> 00:10:14,770
+the hardware. Okay, I can say that the processor hardware was built to execute. Okay, so very
+
+106
+00:10:14,770 --> 00:10:19,210
+very simple point. So these things we have already seen in the previous lecture also.
+
+107
+00:10:19,210 --> 00:10:24,370
+We have also seen what is this program. Okay, this program, what this program is this program
+
+108
+00:10:24,370 --> 00:10:32,780
+this is nothing but a sequence of what is this, this is nothing but a sequence of primitive
+
+109
+00:10:32,780 --> 00:10:37,860
+primitive instructions. Yes or no, this is just a sequence of primitive instructions.
+
+110
+00:10:37,860 --> 00:10:44,580
+Okay, these primitive instructions from instruction set from instruction set. Okay, so every computer
+
+111
+00:10:44,580 --> 00:10:49,700
+has an instruction set every hardware basically every CPU that has an instruction set. So I can
+
+112
+00:10:49,700 --> 00:10:55,860
+say this is from instruction set. Okay, so very simple. Now let's move on. We have also seen
+
+113
+00:10:55,860 --> 00:11:01,860
+this is overall the I can say the organization of computer. So in your computer, you have memory,
+
+114
+00:11:01,860 --> 00:11:07,300
+you have CPU in the CPU, there are some there are some components in the CPU within the CPU,
+
+115
+00:11:07,300 --> 00:11:11,220
+there is registers, there are some special purpose register, there are some general purpose
+
+116
+00:11:11,220 --> 00:11:16,660
+register we will study don't worry for example today we will study memory okay one by one we will
+
+117
+00:11:16,660 --> 00:11:22,500
+study then we will study registers we will study alu we will study control unit so one by one all
+
+118
+00:11:22,500 --> 00:11:27,540
+these components everything we will study so remember overall this is your computer organization
+
+119
+00:11:27,540 --> 00:11:31,860
+in this computer organization there are some components these are the four components there
+
+120
+00:11:31,860 --> 00:11:38,740
+are io devices like your keyboard scanner printer okay your display okay so basically there are some
+
+121
+00:11:38,740 --> 00:11:43,980
+IO devices in these IO devices there is secondary memory also yes or no in these IO devices
+
+122
+00:11:43,980 --> 00:11:49,340
+there is hard disk also your hard drive your hard drive okay so you can see that is also
+
+123
+00:11:49,340 --> 00:11:54,100
+your IO device so remember there are some IO devices in your computer there is main
+
+124
+00:11:54,100 --> 00:11:59,660
+memory in your computer there is CPU in this CPU there is ALU arithmetic logical unit don't
+
+125
+00:11:59,660 --> 00:12:04,580
+worry about it we will discuss okay we will have a separate chapter for ALU this means
+
+126
+00:12:04,580 --> 00:12:10,260
+arithmetic logical unit this will perform all the arithmetic operations addition subtraction
+
+127
+00:12:10,260 --> 00:12:15,460
+comparison okay whatever arithmetic or logical operation you want to perform this ALU will
+
+128
+00:12:15,460 --> 00:12:21,060
+do that okay there are registers basically within this CPU there is memory we have already seen
+
+129
+00:12:21,060 --> 00:12:26,980
+registers in our in our digital logic yes or no registers what are these registers these are
+
+130
+00:12:26,980 --> 00:12:32,340
+basically a set I can say these are what tell me a set of flip-flops yes or no basically register
+
+131
+00:12:32,340 --> 00:12:36,980
+what is that that is basically you okay you have some flip-flops and using those flip-flops you
+
+132
+00:12:36,980 --> 00:12:42,260
+can create the register right so anyway don't worry these components we will discuss one by one
+
+133
+00:12:42,260 --> 00:12:47,940
+okay so and this is your system bus what is your system bus this is basically the transmission
+
+134
+00:12:47,940 --> 00:12:53,940
+media okay if you want to communicate if these two i can say cpu and memory if they want to
+
+135
+00:12:53,940 --> 00:12:59,460
+communicate then they can communicate via system bus so remember this is your system bus this is
+
+136
+00:12:59,460 --> 00:13:05,660
+your transmission media. This is nothing but your transmission media. Okay, this is nothing
+
+137
+00:13:05,660 --> 00:13:10,460
+but transmission media means two components of a computer, how they will communicate with
+
+138
+00:13:10,460 --> 00:13:15,620
+each other. Okay, so this is your transmission media or medium. So very simple point, if
+
+139
+00:13:15,620 --> 00:13:21,500
+two components want to communicate, okay, if CPU memory or I can say CPU IO or memory
+
+140
+00:13:21,500 --> 00:13:26,620
+IO, if two components want to communicate with each other, they want to transfer data,
+
+141
+00:13:26,620 --> 00:13:31,900
+okay or they want to transfer some signals then they can do it via transmission media
+
+142
+00:13:31,900 --> 00:13:36,940
+that is your system bus so this is called system bus okay this bus this bus is called
+
+143
+00:13:36,940 --> 00:13:42,780
+system bus we call it system bus okay anyway so this is the overall organization of a computer
+
+144
+00:13:42,780 --> 00:13:48,700
+now our focus in this lecture that will be for memory okay that is our focus in this lecture
+
+145
+00:13:48,700 --> 00:13:55,820
+now let's move on now let me tell you something the journey of a program okay over some overview
+
+146
+00:13:55,820 --> 00:14:02,060
+of journey of a program that let me tell you see when you write a C program or a Java program,
+
+147
+00:14:02,060 --> 00:14:07,300
+then what you do, you compile it. Yes or no. So you have a C program and then let's assume
+
+148
+00:14:07,300 --> 00:14:12,260
+you compile then what will happen, you will get a machine language, this machine, sorry,
+
+149
+00:14:12,260 --> 00:14:15,780
+you will get assembly language code you will get. So remember, you have this C program
+
+150
+00:14:15,780 --> 00:14:21,420
+or Java program, if you compile them, if you compile them, so there is a compiler. Okay.
+
+151
+00:14:21,420 --> 00:14:25,060
+So when you compile your C program, you have written a C program, when you compile the C
+
+152
+00:14:25,060 --> 00:14:29,420
+program then you will get an assembly language code. This type of assembly language code
+
+153
+00:14:29,420 --> 00:14:35,440
+you will get. And then there is a assembler. There is a assembler. Okay, so basically this
+
+154
+00:14:35,440 --> 00:14:39,340
+assembly language code, it will go through the assembler, and what this assembler will
+
+155
+00:14:39,340 --> 00:14:44,740
+do? It will convert this assembly language code into a sequence of 0 comma ones, okay,
+
+156
+00:14:44,740 --> 00:14:49,780
+basically, you will get machine code. Is this clear? Now, what this operating system
+
+157
+00:14:49,780 --> 00:14:54,360
+will do? Okay, what this operating system will do? This operating system, it will basically
+
+158
+00:14:54,360 --> 00:14:59,720
+load it will load this program okay this machine code that you have this operating system what
+
+159
+00:14:59,720 --> 00:15:05,560
+it will do this operating system will load this machine code okay you are basically this 0 comma
+
+160
+00:15:05,560 --> 00:15:11,000
+one sequence this sequence of 0 comma ones so this operating system will load this in your memory
+
+161
+00:15:11,000 --> 00:15:17,400
+in your main memory okay is this clear and from the main memory one by one all the instructions
+
+162
+00:15:17,400 --> 00:15:23,320
+will be executed by the CPU okay so this is the overall this I can say this is the overall
+
+163
+00:15:23,320 --> 00:15:28,200
+road map you can see this is the road map overall road map when you write a program you are writing
+
+164
+00:15:28,200 --> 00:15:32,760
+your program then you compile it when you compile it then you will get a assembly language code
+
+165
+00:15:32,760 --> 00:15:37,880
+then there is assembler which will convert this assembly language code into a sequence of 0 comma
+
+166
+00:15:37,880 --> 00:15:43,000
+one this is this sequence of 0 comma ones this is called machine code then what your operating
+
+167
+00:15:43,000 --> 00:15:48,360
+system will do your operating system will load this machine code this program okay it will this
+
+168
+00:15:48,360 --> 00:15:53,560
+operating system will load it in your main memory ok from the main memory once you are
+
+169
+00:15:53,560 --> 00:15:58,200
+in the main memory your program once it is in the main memory then what will happen then
+
+170
+00:15:58,200 --> 00:16:03,480
+your CPU will execute each instruction one by one in a sequence ok one after one each
+
+171
+00:16:03,480 --> 00:16:09,880
+instruction will be executed ok so this is the overall roadmap of a program now this
+
+172
+00:16:09,880 --> 00:16:15,440
+diagram we have already seen in the previous lecture ok for example you have this you have
+
+173
+00:16:15,440 --> 00:16:22,040
+this. Mozilla Firefox Yes or no. So this Firefox tell me this firefox.exe. Have you seen this
+
+174
+00:16:22,040 --> 00:16:27,240
+file in your computer? In your computer you may have seen when you install this this Mozilla
+
+175
+00:16:27,240 --> 00:16:32,160
+Firefox. Okay, when you install this in your computer, then you will get this icon You will
+
+176
+00:16:32,160 --> 00:16:39,780
+get and below this icon, you will see this Firefox.exe Yes or no. Okay, so tell me. Right now when
+
+177
+00:16:39,780 --> 00:16:44,940
+you see this, when you see this icon and below this icon, you will see this Firefox.exe, where
+
+178
+00:16:44,940 --> 00:16:50,300
+it is residing in your computer where it is residing is it in the main memory is it in the
+
+179
+00:16:50,300 --> 00:16:55,660
+secondary memory it is in the secondary memory right yes or no this is in your hard drive so
+
+180
+00:16:55,660 --> 00:17:04,060
+secondary memory that is your basically that is your hard disk okay so your this this Firefox.exe
+
+181
+00:17:04,060 --> 00:17:10,860
+this is executable file okay exe that means this is executable file okay this .exe this means this
+
+182
+00:17:10,860 --> 00:17:15,820
+This is executable file. So this file is in the secondary memory. Now when you double
+
+183
+00:17:15,820 --> 00:17:20,100
+click this, then what will happen when you double click, okay, you double click on this
+
+184
+00:17:20,100 --> 00:17:25,500
+icon, then what will happen then operating system. Okay, there is a loader program in
+
+185
+00:17:25,500 --> 00:17:29,660
+the operating system in your operating system. There is a loader program, right? Yes or no.
+
+186
+00:17:29,660 --> 00:17:34,140
+Anyway, don't worry about that. So you can see that your operating system, okay, your
+
+187
+00:17:34,140 --> 00:17:38,180
+operating system, what it will do, what it will do, it will put this program, you have
+
+188
+00:17:38,180 --> 00:17:43,220
+program. What your operating system will do, it will put this program in your man memory.
+
+189
+00:17:43,220 --> 00:17:49,180
+So it will load this in the man memory. So basically this will be done by operating system.
+
+190
+00:17:49,180 --> 00:17:54,460
+In operating system there is a program that is loader. So this loader, what it will do?
+
+191
+00:17:54,460 --> 00:18:00,140
+It will load this program into the man memory. Now let me tell you something that when you
+
+192
+00:18:00,140 --> 00:18:04,580
+load this program in the man memory when this operating system will load this program into
+
+193
+00:18:04,580 --> 00:18:10,020
+the main memory now this program in the main memory this is called process okay this program
+
+194
+00:18:10,020 --> 00:18:16,140
+in main memory this program under execution basically now you are executing it so this
+
+195
+00:18:16,140 --> 00:18:22,460
+program under execution okay this is called process the another name is process and this
+
+196
+00:18:22,460 --> 00:18:28,460
+process has some structure there is a certain structure this process every process whatever
+
+197
+00:18:28,460 --> 00:18:33,340
+program you have okay whether you have this Firefox or Google Chrome or your I can say
+
+198
+00:18:33,340 --> 00:18:37,980
+hello dot c. Okay, so whatever program you have, when you execute it, then what will
+
+199
+00:18:37,980 --> 00:18:43,340
+happen then operating system will put this program in the main memory in the main memory,
+
+200
+00:18:43,340 --> 00:18:47,620
+you will put this program, okay. And this program, when you put it in the main memory
+
+201
+00:18:47,620 --> 00:18:52,460
+for execution, okay, for execution, when you put the program in the main memory, then it
+
+202
+00:18:52,460 --> 00:18:57,980
+will be called a process and process has a certain structure, you can see every process
+
+203
+00:18:57,980 --> 00:19:02,020
+has a certain structure. Okay, there is a certain structure, there is heap area, stake
+
+204
+00:19:02,020 --> 00:19:07,340
+area, data, static, global variables, okay, text. So basically, you have a certain structure,
+
+205
+00:19:07,340 --> 00:19:11,500
+this structure, you will study in the operating system, you have already seen this, yes or
+
+206
+00:19:11,500 --> 00:19:17,020
+no? Okay, so basically, this process has a certain structure. Now, in this structure,
+
+207
+00:19:17,020 --> 00:19:21,500
+you can see there is a text portion. Okay, there is a text portion, you can see text.
+
+208
+00:19:21,500 --> 00:19:25,940
+And here you have all the instructions. So basically, this is the sequence of instructions.
+
+209
+00:19:25,940 --> 00:19:30,420
+Now, what this operating system will do? Okay, what this operating system will do, it will
+
+210
+00:19:30,420 --> 00:19:36,340
+tell the CPU, it will tell the CPU that now you execute all these instructions one by one.
+
+211
+00:19:36,340 --> 00:19:40,740
+Okay, basically this operating system, it will give the starting address. It will give
+
+212
+00:19:40,740 --> 00:19:47,580
+the starting address. This is starting address of this sequence. Okay, basically I can say
+
+213
+00:19:47,580 --> 00:19:52,780
+the starting address of this sequence of instruction. Okay, so I can say Firefox. Okay,
+
+214
+00:19:52,780 --> 00:20:00,410
+I can say Firefox. So this is starting address of Firefox. This Firefox process, Firefox
+
+215
+00:20:00,410 --> 00:20:08,940
+process instructions. Okay, so there is a this I can say text person. So this starting address
+
+216
+00:20:08,940 --> 00:20:14,700
+will be provided by the operating system to the CPU and what the CPU will do, it will execute.
+
+217
+00:20:14,700 --> 00:20:19,100
+Okay, all these instructions, it will execute one by one in a sequence in a sequence, it will
+
+218
+00:20:19,100 --> 00:20:23,900
+execute all the instructions one by one. Okay, so anyway, one thing you can notice overall,
+
+219
+00:20:23,900 --> 00:20:28,220
+this is the point that whenever you want to execute any program, then what you will do,
+
+220
+00:20:28,220 --> 00:20:32,780
+what is the first thing you will do if you want to execute any program then you have
+
+221
+00:20:32,780 --> 00:20:37,660
+to load it in the main memory yes or no so basically remember this is the one point that
+
+222
+00:20:37,660 --> 00:20:42,500
+if you want to execute any program whatever program you have first you will load it in
+
+223
+00:20:42,500 --> 00:20:48,260
+the main memory okay then in the main memory this program will be called process and this
+
+224
+00:20:48,260 --> 00:20:52,700
+process will have a certain structure in this structure you can see there is a data portion
+
+225
+00:20:52,700 --> 00:20:58,460
+there is text portion, there is stay heap. Okay. And now you can see this operating system will
+
+226
+00:20:58,460 --> 00:21:03,180
+execute your program. What it will do, your operating system will provide the starting
+
+227
+00:21:03,180 --> 00:21:08,780
+address of this text portion. So the starting address will be provided to the CPU and then
+
+228
+00:21:08,780 --> 00:21:13,500
+you will execute one by one. Okay, all these instructions, they will be executed one by one
+
+229
+00:21:13,500 --> 00:21:18,300
+in a sequence. So anyway, so you can see this main memory is very important. Okay, this main
+
+230
+00:21:18,300 --> 00:21:24,380
+memory will hold everything this will hold data also instructions yes or no your main
+
+231
+00:21:24,380 --> 00:21:29,300
+memory will hold data also instruction also so all these things will be present in the
+
+232
+00:21:29,300 --> 00:21:33,980
+main memory and this main memory we need to discuss okay so you can see this is your
+
+233
+00:21:33,980 --> 00:21:40,020
+main memory this is your CPU what the CPU will do this CPU will take instructions from
+
+234
+00:21:40,020 --> 00:21:45,300
+the main memory one by one the CPU will fetch the instructions from main memory okay and
+
+235
+00:21:45,300 --> 00:21:50,700
+if data is required, then this CPU can face the data also. And this data, this CPU can
+
+236
+00:21:50,700 --> 00:21:55,300
+write in the main memory also. Okay, so you can see these instructions will be faced by
+
+237
+00:21:55,300 --> 00:22:00,300
+the CPU. Okay, and this data is two way. Okay, you basically, if data is required by the
+
+238
+00:22:00,300 --> 00:22:06,100
+CPU, then CPU will face the data and and after the computation. Okay, for example, let's
+
+239
+00:22:06,100 --> 00:22:09,700
+assume the instruction is add instruction that do the addition of two numbers. Then
+
+240
+00:22:09,700 --> 00:22:15,020
+after the instructions, after this instruction is executed, then that data that computation,
+
+241
+00:22:15,020 --> 00:22:19,580
+result of the computation can be put in the main memory. Okay, so anyway, this is the overall
+
+242
+00:22:19,580 --> 00:22:26,220
+point. Now you can see, so CPU will execute all the instructions, memory will, memory will
+
+243
+00:22:26,220 --> 00:22:31,820
+store the data. This memory will store instruction also data also, you can see instruction also
+
+244
+00:22:31,820 --> 00:22:37,020
+here. Okay, in your main memory, your instruction also, and your data also in the main memory,
+
+245
+00:22:37,020 --> 00:22:42,060
+you have both of them, instruction also data also. So you can see the overall execution
+
+246
+00:22:42,060 --> 00:22:46,860
+goes like this okay this is very intuitive the overall execution will go like this what
+
+247
+00:22:46,860 --> 00:22:51,380
+this CPU will do it will face the instruction okay first instruction it will face you can
+
+248
+00:22:51,380 --> 00:22:57,140
+see this first instruction this I1 this instruction will go to CPU so it will face the first instruction
+
+249
+00:22:57,140 --> 00:23:02,380
+okay face one instruction then what it will do now it will execute this instruction okay
+
+250
+00:23:02,380 --> 00:23:07,220
+now this will execute the instruction now when you are executing this instruction when
+
+251
+00:23:07,220 --> 00:23:11,380
+you are executing this instruction this I1 instruction when you are executing this instruction
+
+252
+00:23:11,380 --> 00:23:26,740
+Then if you need some data from the main memory, you are okay. So remember this Ivan will go this Ivan will go here. Now when the CPU is executing this Ivan, then if if you need some data from the main memory, then what you can do, you can face the data also used by the instruction.
+
+253
+00:23:27,340 --> 00:23:37,900
+Okay. And then finally, what will happen? This CPU will perform the operation. Okay, this CPU will execute the instruction. Okay. And then finally, you can see the result may be put in the main memory.
+
+254
+00:23:37,900 --> 00:23:45,900
+Okay, so you can see which may result in writing data back to main memory. So this is the overall execution. Okay, this is very intuitive, right? Yes or no?
+
+255
+00:23:45,900 --> 00:23:59,900
+You have instruction and data in the main memory. What your CPU will do? CPU will fetch instructions one by one. Okay, CPU will one by one. It will fetch the instruction instruction I1, then instruction I2, then instruction I3 in a sequence one by one.
+
+256
+00:23:59,900 --> 00:24:05,420
+your CPU will execute the instructions. So what your CPU will do, it will fetch the instruction.
+
+257
+00:24:06,060 --> 00:24:12,300
+And if this instruction needs some data, then that data also will be fetched. Okay, this instruction,
+
+258
+00:24:12,300 --> 00:24:18,300
+if this instruction needs some data, that data also will be fetched by the CPU, then the execution
+
+259
+00:24:18,300 --> 00:24:23,740
+will happen. After the execution, after the execution, it is possible that the result can
+
+260
+00:24:23,740 --> 00:24:28,220
+be stored in the main memory. Again, the result can be stored in the main memory. So this is the
+
+261
+00:24:28,220 --> 00:24:34,300
+the overall execution this is the overall execution of a program is this clear please tell me this
+
+262
+00:24:34,300 --> 00:24:40,620
+overall execution of a program is this clear don't worry we will revisit this there is a separate
+
+263
+00:24:40,620 --> 00:24:45,740
+chapter for this instruction execution okay there is a separate chapter in that we will revisit
+
+264
+00:24:47,100 --> 00:24:52,300
+how the CPU will execute the instructions okay that we will revisit now let's come to our point
+
+265
+00:24:52,300 --> 00:24:57,500
+that is main memory our purpose is to discuss main memory this memory we want to discuss and this
+
+266
+00:24:57,500 --> 00:24:59,900
+This memory will hold instruction and data.
+
+267
+00:24:59,900 --> 00:25:04,380
+So we want to discuss this memory organization, how this memory is organized.
+
+268
+00:25:04,380 --> 00:25:05,380
+Okay.
+
+269
+00:25:05,380 --> 00:25:09,340
+So that is what we want to discuss in this lecture now.
+
+270
+00:25:09,340 --> 00:25:12,760
+So let's see this man memory.
+
+271
+00:25:12,760 --> 00:25:15,260
+So you can see your man memory.
+
+272
+00:25:15,260 --> 00:25:21,420
+Let me tell you how it is organized this man memory.
+
+273
+00:25:21,420 --> 00:25:24,840
+This man memory is nothing but a sequence of cells.
+
+274
+00:25:24,840 --> 00:25:32,760
+is a sequence of this is a sequence of cells and every cell has equal size. Okay, so remember
+
+275
+00:25:32,760 --> 00:25:38,400
+you can see your main memory that is equally divided into small units that are called cells.
+
+276
+00:25:38,400 --> 00:25:43,840
+So your main memory you have this is your main memory and this main memory this is equally
+
+277
+00:25:43,840 --> 00:25:49,360
+divided this is equally divided into cells. So for example, this is your cell number zero.
+
+278
+00:25:49,360 --> 00:25:53,760
+This is your cell number one cell number two and so on and so on. So you can see your main
+
+279
+00:25:53,760 --> 00:25:59,060
+memory is equally divided into cells. Is this clear? This is your main memory. So you can
+
+280
+00:25:59,060 --> 00:26:03,820
+easily see that main memory that is equally divided into cells. So these are the cells
+
+281
+00:26:03,820 --> 00:26:08,260
+and remember the size of two cells that is same. Okay, the size of two cells that is
+
+282
+00:26:08,260 --> 00:26:12,580
+same. For example, maybe, maybe, for example, maybe the cell zero, maybe this can be eight
+
+283
+00:26:12,580 --> 00:26:17,300
+bit or four bit, maybe this can be four bits. Let's assume, assume this is four bit, assume
+
+284
+00:26:17,300 --> 00:26:22,500
+this is four bit. So you can see in these four bits in this cell, you can put four bits,
+
+285
+00:26:22,500 --> 00:26:27,420
+You can put 4 bits, you can put here, you can put 4 bits like this, okay, anyway.
+
+286
+00:26:27,420 --> 00:26:30,380
+So this is the idea, this is your main memory.
+
+287
+00:26:30,380 --> 00:26:33,860
+For example, look at this memory, look at this main memory.
+
+288
+00:26:33,860 --> 00:26:35,540
+In this main memory, what will happen?
+
+289
+00:26:35,540 --> 00:26:41,620
+You can see this main memory, this is divided into equals, equal size cells.
+
+290
+00:26:41,620 --> 00:26:45,700
+So for example, this is your cell zero, how many bits are there in the cell zero, how
+
+291
+00:26:45,700 --> 00:26:51,260
+many bits are there in the cell zero, there are total 8 bits, yes or no, okay.
+
+292
+00:26:51,260 --> 00:26:56,620
+this is your cell one now here also you have 8 bits so you can see your main memory that is
+
+293
+00:26:56,620 --> 00:27:03,260
+divided into equal size units and those are called cells okay now the size of cell can be anything
+
+294
+00:27:03,260 --> 00:27:08,940
+remember the size of cell can be anything so overall if you look at your main memory if you
+
+295
+00:27:08,940 --> 00:27:14,060
+look at your main memory that is like this overall the main memory is like this that your cells
+
+296
+00:27:16,060 --> 00:27:19,660
+okay and there is some cell capacity for example let's assume this is
+
+297
+00:27:19,660 --> 00:27:26,300
+I can say sale capacity ok sale capacity in a sale how many bits you can put this sale capacity
+
+298
+00:27:26,940 --> 00:27:32,620
+ok so this sale capacity can be let's assume x bits x bits and let's assume there are total
+
+299
+00:27:32,620 --> 00:27:40,140
+n cells or maybe let's assume there are total 2 power k cells now you tell me so what is the
+
+300
+00:27:40,700 --> 00:27:48,460
+main memory size tell me what are the main memory size let me know what are the main memory size
+
+301
+00:27:48,460 --> 00:27:55,340
+you have total two power k cells in each cell you can put x bits in every cell this is your cell zero
+
+302
+00:27:56,300 --> 00:28:00,140
+this is your cell one okay so in every cell you can put
+
+303
+00:28:01,420 --> 00:28:06,300
+x bits you can put in one cell and there are two power k cells so what are the size of your
+
+304
+00:28:06,300 --> 00:28:12,620
+storage what are the size of this main memory okay so that will be two power k multiplied by x bits
+
+305
+00:28:12,620 --> 00:28:18,940
+yes or no that will be 2 power k multiplied by x bits let me tell you this is how main
+
+306
+00:28:18,940 --> 00:28:24,780
+memory will be represented this is how we represent the main memory so this is a very
+
+307
+00:28:24,780 --> 00:28:31,340
+I can say standard representation so this is the standard representation this is the
+
+308
+00:28:31,340 --> 00:28:39,460
+standard representation of main memory of main memory mm that means main memory ok whenever
+
+309
+00:28:39,460 --> 00:28:46,720
+I write men that means man memory. Now, what are the standard representation? The standard
+
+310
+00:28:46,720 --> 00:28:51,680
+representation is like this. That what you will say you will say how many cells are there?
+
+311
+00:28:51,680 --> 00:28:56,760
+OK, number of cells multiplied by what are the capacity of each cell? OK, so this is
+
+312
+00:28:56,760 --> 00:29:02,440
+how you will do how many cells are there? Number of cells number of cells, multiplied
+
+313
+00:29:02,440 --> 00:29:09,380
+by multiplied by what are the cell capacity? What are the cell capacity? Each cell capacity.
+
+314
+00:29:09,380 --> 00:29:17,140
+one cell capacity. Is this clear? Very simple. Okay. Now some students are asking memory will
+
+315
+00:29:17,140 --> 00:29:23,300
+be bytes or bits. Okay. Everything will be clear. Don't worry. Overall, you can see that this is
+
+316
+00:29:23,300 --> 00:29:29,140
+your main memory where you have some cells. Okay. Some locations are there. This is location. This
+
+317
+00:29:29,140 --> 00:29:33,540
+is location. You can call it cell. You can call it location. Okay. These are different different
+
+318
+00:29:33,540 --> 00:29:38,980
+names. You can call it location also memory location. Okay. You can call it a memory location.
+
+319
+00:29:38,980 --> 00:29:44,340
+Anyway, so you can see that in this cell, in this cell, there are some X number of bits.
+
+320
+00:29:44,340 --> 00:29:50,260
+Is this clear? Every cell will have X number of bits. Now we will see this X. What is this X?
+
+321
+00:29:50,260 --> 00:29:57,300
+Okay, this X can be anything. This X can be 4, 8, 16, 32, 64. Okay, this can be anything.
+
+322
+00:29:57,860 --> 00:30:03,860
+Now tell me when this X will be decided. Can anyone tell me when this X will be decided at
+
+323
+00:30:03,860 --> 00:30:08,660
+which point of time this X will be decided that how many bits must be there in the cell?
+
+324
+00:30:08,980 --> 00:30:15,380
+In a cell how many bits must be there see this is your overall memory this is your main memory in this main memory
+
+325
+00:30:15,380 --> 00:30:20,180
+There are two power k cells. These are the two power k cells every cell has x bits
+
+326
+00:30:20,180 --> 00:30:27,540
+So when you will decide this x when you will decide this x that will be decided during the
+
+327
+00:30:28,180 --> 00:30:34,300
+Manufacturing of this main memory. Yes or this main memory is a cheap, right? Yes or no this main memory is a cheap nothing else
+
+328
+00:30:34,300 --> 00:30:45,550
+this man memory, this man memory this is just a semiconductor chip okay so this is just a chip
+
+329
+00:30:45,550 --> 00:30:56,580
+yes or no semiconductor memory chip so when you manufacture it okay when you manufacture this
+
+330
+00:30:56,580 --> 00:31:03,810
+man memory during the manufacture time when you are manufacturing this okay during the
+
+331
+00:31:03,810 --> 00:31:09,550
+manufacturing time it will be decided it will be decided the capacity of cell yes or no the
+
+332
+00:31:09,550 --> 00:31:15,290
+the capacity of cell will be decided is this clear the capacity of cell what the capacity
+
+333
+00:31:15,290 --> 00:31:21,230
+of cell so anyway so very simple point that when you when you manufacture this this main
+
+334
+00:31:21,230 --> 00:31:26,270
+memory this this is cheaper this is nothing but a chip have you seen this this chip have
+
+335
+00:31:26,270 --> 00:31:31,070
+you seen in your computer okay maybe you have seen this okay this main memory this is just
+
+336
+00:31:31,070 --> 00:31:35,710
+a chip so very simple that when you manufacture this main memory at that point of time you
+
+337
+00:31:35,710 --> 00:31:41,110
+You can see there are some cells, there are some locations, there are some memory location.
+
+338
+00:31:41,110 --> 00:31:44,390
+Every memory location or I can say every cell has X bits.
+
+339
+00:31:44,390 --> 00:31:45,390
+Is this clear?
+
+340
+00:31:45,390 --> 00:31:46,390
+Very simple.
+
+341
+00:31:46,390 --> 00:31:47,390
+Okay.
+
+342
+00:31:47,390 --> 00:31:50,390
+And this X will be decided when you manufacture this main memory.
+
+343
+00:31:50,390 --> 00:31:55,750
+If you are the manufacturer, if you have a, I can say factory, okay, to create the,
+
+344
+00:31:55,750 --> 00:32:01,630
+I can say main memory, then you can decide how many bits must be there in each cell.
+
+345
+00:32:01,630 --> 00:32:03,550
+In one cell, how many bits will be there?
+
+346
+00:32:03,550 --> 00:32:04,550
+Is this clear?
+
+347
+00:32:04,550 --> 00:32:10,630
+main memory is equally divided into small units called cells. Okay, each cell has a address.
+
+348
+00:32:10,630 --> 00:32:16,790
+Now you can see once you have these cells, once you have these cells, for example, let's
+
+349
+00:32:16,790 --> 00:32:21,550
+assume this is your main memory and let's assume there are total four cells you have
+
+350
+00:32:21,550 --> 00:32:25,910
+in your main memory. Let's assume there are total four cells. Okay, so this is your cell
+
+351
+00:32:25,910 --> 00:32:32,910
+number zero cell number one cell number two cell number three. Okay, so now let's assume
+
+352
+00:32:32,910 --> 00:32:39,650
+CPU wants some data then how to identify from where you you will get the data tell me just
+
+353
+00:32:39,650 --> 00:32:45,530
+think about it this is your main memory this is your main memory now if CPU wants some
+
+354
+00:32:45,530 --> 00:32:52,410
+data CPU wants some data CPU wants then what CPU will do how will CPU tell you that okay
+
+355
+00:32:52,410 --> 00:32:57,970
+this is the data I want so CPU will generate a address CPU will generate address okay so
+
+356
+00:32:57,970 --> 00:33:03,410
+So basically every sale, every sale has address has a unique address.
+
+357
+00:33:03,410 --> 00:33:05,610
+Okay So there is a unique address for example.
+
+358
+00:33:05,610 --> 00:33:08,070
+Let's assume there is a address.
+
+359
+00:33:08,070 --> 00:33:12,370
+This is let's assume address maybe one zero zero.
+
+360
+00:33:12,370 --> 00:33:17,150
+Maybe this sale has address one zero one death head has address or maybe you can just simply
+
+361
+00:33:17,150 --> 00:33:21,210
+you can just simply say the address of this show is double zero this address of this sale
+
+362
+00:33:21,210 --> 00:33:25,450
+is this the address of it say is this and the address of the cell in this you can simply
+
+363
+00:33:25,450 --> 00:33:26,890
+say the address is zero one.
+
+364
+00:33:26,890 --> 00:33:34,190
+123 is this clear now if you want this data let's assume you want this data CPU wants
+
+365
+00:33:34,190 --> 00:33:39,690
+this data here you have x bits here you have x bits now if the CPU wants this data then
+
+366
+00:33:39,690 --> 00:33:46,730
+what CPU will do CPU will generate CPU will generate this address CPU will generate this
+
+367
+00:33:46,730 --> 00:33:52,090
+address and once you generate this address then this data will go to the CPU is this
+
+368
+00:33:52,090 --> 00:33:57,850
+clear please tell me so very simple that in the main memory every cell has a unique address
+
+369
+00:33:57,850 --> 00:34:03,370
+is this clear so you can see every cell you can identify uniquely you can identify with
+
+370
+00:34:03,370 --> 00:34:08,690
+the help of address is this clear every cell you can uniquely identify with the help of
+
+371
+00:34:08,690 --> 00:34:13,730
+address and this representation of memory that that also we have seen now you tell me
+
+372
+00:34:13,730 --> 00:34:19,290
+for example here look at this how many cells are there look at this diagram look at this
+
+373
+00:34:19,290 --> 00:34:25,130
+memory chip this is the memory chip look at this memory chip here every cell has 8 bits
+
+374
+00:34:25,130 --> 00:34:30,450
+total how many cells you have please tell me total how many cells you have in this from
+
+375
+00:34:30,450 --> 00:34:37,730
+0000 to 1111 there are total 16 cells yes or no there are total 16 cells so tell me
+
+376
+00:34:37,730 --> 00:34:44,730
+one thing if you have 16 cells and you want to address these cells you want to uniquely
+
+377
+00:34:44,730 --> 00:34:51,610
+identify these cells then how many bits you want in the address in the address how many
+
+378
+00:34:51,610 --> 00:34:57,650
+bits you need in the address how many bits you need see these are the cells actually
+
+379
+00:34:57,650 --> 00:35:01,810
+this is the address of this cell for this cell this is the address actually these are
+
+380
+00:35:01,810 --> 00:35:08,370
+the addresses actually these are the what these are the addresses these are the addresses
+
+381
+00:35:08,370 --> 00:35:13,490
+so you can see so this is the address this is the address for this cell this is the address
+
+382
+00:35:13,490 --> 00:35:20,570
+for this cell. Okay. All zero. That means zero. All ones. That means 15. Okay. So you
+
+383
+00:35:20,570 --> 00:35:25,930
+can see these are the cells. So for example, the address of this will be 1110. So this
+
+384
+00:35:25,930 --> 00:35:30,970
+means this is your cell number. This is your cell number. What if this is your cell number
+
+385
+00:35:30,970 --> 00:35:36,370
+zero, then this will be your cell number 14. Is this clear? Okay. So if you are starting
+
+386
+00:35:36,370 --> 00:35:40,570
+with cell number zero, then this will be your cell number 14. And this last will be cell
+
+387
+00:35:40,570 --> 00:35:45,850
+number 15 so you can see there are four bits required yes or no if there are 16 cells to
+
+388
+00:35:45,850 --> 00:35:51,290
+uniquely identify these 16 cells in the address how many bits will be required in the address
+
+389
+00:35:51,290 --> 00:35:57,570
+so there will be four bits yes or no address will need four bits agree four bits are enough
+
+390
+00:35:57,570 --> 00:36:03,650
+can you have more than four bits can you have more than four bits yeah that is also fine
+
+391
+00:36:03,650 --> 00:36:08,090
+yes or no that is also fine no problem okay some bits will be wasted yes or no if you
+
+392
+00:36:08,090 --> 00:36:13,210
+for example, if you have five bits, if you have five bits, then this bit will be wasted.
+
+393
+00:36:13,210 --> 00:36:18,770
+I can say this bit will be wasted because if you want to uniquely identify these cells
+
+394
+00:36:18,770 --> 00:36:23,810
+in this main memory, if you want to uniquely identify a cell, then four bits are enough.
+
+395
+00:36:23,810 --> 00:36:28,730
+Okay, can I say three bits are enough? Can I say three bits are enough? Can I say three
+
+396
+00:36:28,730 --> 00:36:33,250
+bits are enough? No, three bits are not enough. Yes or no. So I can say this address, I can
+
+397
+00:36:33,250 --> 00:36:39,050
+say I can say that minimum minimum four bits you need yes or no I can say minimum four
+
+398
+00:36:39,050 --> 00:36:47,670
+bits are required and four bits are enough also minimum four bits are required okay so
+
+399
+00:36:47,670 --> 00:36:51,350
+anyway don't worry what I'm telling you I'm telling you that if you have five bits in
+
+400
+00:36:51,350 --> 00:36:56,510
+your address okay basically if in the address when the CPU is generating the address the
+
+401
+00:36:56,510 --> 00:37:00,590
+CPU will generate the address so when the CPU is generating the address if your five
+
+402
+00:37:00,590 --> 00:37:07,470
+bits address then that is also fine okay because using five bits also you can uniquely identify
+
+403
+00:37:07,470 --> 00:37:12,590
+these cells but I can say that one bit waste basically will be wasted yes or no there will
+
+404
+00:37:12,590 --> 00:37:19,550
+be waste of one bit okay but anyway the overall point is if you have 16 cells then you need four
+
+405
+00:37:19,550 --> 00:37:25,550
+bits if you want to uniquely identify these bits these cells then you need four bits very simple
+
+406
+00:37:25,550 --> 00:37:31,070
+okay so let's move on now so overall you tell me now you tell me if you have this main memory
+
+407
+00:37:31,710 --> 00:37:38,110
+which has total two power k cells let's assume there are two power k cells let's assume there are
+
+408
+00:37:38,110 --> 00:37:48,030
+two power k cells and every cell has let's assume x bits x bits here x bits here and so on now you
+
+409
+00:37:48,030 --> 00:37:54,430
+tell me how many address how many bits for address are required tell me how many bits are required
+
+410
+00:37:54,430 --> 00:38:06,610
+for address how many bits how many bits required how many bits are required to address required
+
+411
+00:38:06,610 --> 00:38:15,770
+to address to address this memory chip this memory chip if you want to address this memory
+
+412
+00:38:15,770 --> 00:38:20,330
+chip then how many bits will be required so remember how many bits are required to address
+
+413
+00:38:20,330 --> 00:38:25,270
+this memory chip you want to address this memory chip okay so the answer will be K only
+
+414
+00:38:25,270 --> 00:38:31,910
+yes or no k bits is this clear k bits because you have two power k cells there are two power k cells
+
+415
+00:38:31,910 --> 00:38:36,790
+if you want to address these two power k cells if you want to uniquely identify these cells
+
+416
+00:38:36,790 --> 00:38:42,950
+then you need k bits in your address okay is this clear so very simple if you have two power k cells
+
+417
+00:38:42,950 --> 00:38:50,310
+then there will be k bits for address k bits are required for address so this is a simple point
+
+418
+00:38:50,310 --> 00:38:55,990
+Now let's move on now. So here you can notice if you have four cells, then two bits you
+
+419
+00:38:55,990 --> 00:39:00,950
+required for address. There are two bits. These are the two bits required for address.
+
+420
+00:39:00,950 --> 00:39:07,630
+Okay. Is this clear? So very simple. Now let's move on now. So you can see main memory that
+
+421
+00:39:07,630 --> 00:39:11,950
+is your storage unit. That is a collection of storage locations. Yes or no, that is
+
+422
+00:39:11,950 --> 00:39:18,390
+a collection of storage locations. Next, every location has a, I can say unique address.
+
+423
+00:39:18,390 --> 00:39:25,990
+okay each location can be identified with the address very simple program and data sorry data
+
+424
+00:39:25,990 --> 00:39:31,270
+instruction data and instruction both will be stored in the main memory next total number of
+
+425
+00:39:31,270 --> 00:39:38,870
+uniquely identifiable locations in your main memory how many cells are there how many identifiable
+
+426
+00:39:38,870 --> 00:39:44,070
+locations are there basically how many locations you have in the main memory that is your address
+
+427
+00:39:44,070 --> 00:39:51,450
+space okay anyway let's move on now so you can see here you can look at it here tell
+
+428
+00:39:51,450 --> 00:39:56,550
+me if you have K bit address if you have K bit address then how many cells how many
+
+429
+00:39:56,550 --> 00:40:01,830
+cells you can address if you have K bit address then how many cells you can address to power
+
+430
+00:40:01,830 --> 00:40:06,670
+K cells you can address yes or no very simple so if you have K equal to one if your address
+
+431
+00:40:06,670 --> 00:40:12,150
+address has only one bit then you can you can address two locations if k equal to two
+
+432
+00:40:12,150 --> 00:40:18,470
+then you can you can address four locations if k equal to three you can address eight locations
+
+433
+00:40:18,470 --> 00:40:26,030
+for example if I put this address 00100 then what this means the address 100 this denotes
+
+434
+00:40:26,030 --> 00:40:33,790
+this location okay is this clear is this clear let me know so you can see the address 100
+
+435
+00:40:33,790 --> 00:40:39,150
+will denote the memory location at this okay this memory location very simple now you tell
+
+436
+00:40:39,150 --> 00:40:46,070
+me one thing you tell me one thing for these addresses do we require some I can say some
+
+437
+00:40:46,070 --> 00:40:52,110
+memory do we require please tell me like are these stored these addresses are they stored
+
+438
+00:40:52,110 --> 00:40:58,750
+this is my question are they stored in the main memory see in the main memory you can
+
+439
+00:40:58,750 --> 00:41:04,110
+store the data right? This is your main memory. This is your main memory. You will store the
+
+440
+00:41:04,110 --> 00:41:08,570
+data. For example, here you can put some data. Let's assume this is your cell. Let's assume
+
+441
+00:41:08,570 --> 00:41:15,910
+this is your cell zero. And let's assume cell capacity is four bits. Let's assume cell capacity
+
+442
+00:41:15,910 --> 00:41:22,750
+is 4 bits. Okay. So you can put 4 bits here. You can put four bits here. Okay. This can
+
+443
+00:41:22,750 --> 00:41:27,110
+be instruction. This can be data, whatever. So let's assume there are four bits like this
+
+444
+00:41:27,110 --> 00:41:34,570
+and so on. Okay. Now you tell me let's assume that sale zero to last is a sale. Last is
+
+445
+00:41:34,570 --> 00:41:41,570
+sale 15. Okay. So now if you have total 16 sales, then how many bits you need for address?
+
+446
+00:41:41,570 --> 00:41:46,750
+Tell me if you have total 16 sales, then how many bits you need for address? Four bits
+
+447
+00:41:46,750 --> 00:41:50,930
+you need for address. Okay. Four bits you need for address. But my question is this
+
+448
+00:41:50,930 --> 00:41:56,730
+is my question. Please understand. Are we storing these address? I'm asking like physically
+
+449
+00:41:56,730 --> 00:42:01,290
+physically are we storing these address like for address, do we have some kind of I can
+
+450
+00:42:01,290 --> 00:42:08,530
+say some kind of memory, please tell me are we physically are we physically storing these
+
+451
+00:42:08,530 --> 00:42:14,630
+addresses. Tell me are we physically storing these addresses? No, these addresses we are
+
+452
+00:42:14,630 --> 00:42:20,130
+not physically storing is this clear? These addresses we are not physically storing. So
+
+453
+00:42:20,130 --> 00:42:25,770
+remember these addresses, these are generated by the CPU and at the end I will tell you
+
+454
+00:42:25,770 --> 00:42:55,690
+In this lecture, I will tell you that these addresses will be generated by the CPU, okay, and there will be a decoder, there will be a decoder which will activate one of these lines, so there will be a decoder, when the CPU will generate the address, then after generating the address, there will be a decoder, okay, I will tell you, don't worry, there will be a decoder, and that decoder, what it will do, with the help of that decoder, one of these lines will be activated, okay, is this clear, let me know, please tell me,
+
+455
+00:42:55,690 --> 00:42:59,410
+So remember these addresses, all these addresses, these are not physically stored.
+
+456
+00:42:59,730 --> 00:43:01,250
+You are not storing them physically.
+
+457
+00:43:01,650 --> 00:43:02,090
+Okay.
+
+458
+00:43:02,290 --> 00:43:05,170
+So this is your overall, this is your main memory.
+
+459
+00:43:05,370 --> 00:43:09,650
+And these addresses, these are just used to identify the location.
+
+460
+00:43:10,610 --> 00:43:10,890
+Okay.
+
+461
+00:43:10,890 --> 00:43:15,010
+To identify the location, these addresses are used.
+
+462
+00:43:15,090 --> 00:43:15,730
+Is this clear?
+
+463
+00:43:15,810 --> 00:43:18,330
+So for example, the CPU will generate this CPU.
+
+464
+00:43:18,410 --> 00:43:19,610
+Let's assume this generate.
+
+465
+00:43:21,130 --> 00:43:24,650
+Let's assume this generates this address 1111.
+
+466
+00:43:24,650 --> 00:43:29,810
+Okay, let's on the CPU generating this address, this address CPU generating, then what it
+
+467
+00:43:29,810 --> 00:43:30,810
+means?
+
+468
+00:43:30,810 --> 00:43:33,290
+It means this location will be activated.
+
+469
+00:43:33,290 --> 00:43:34,410
+Is this clear?
+
+470
+00:43:34,410 --> 00:43:39,130
+This location, this will be activated.
+
+471
+00:43:39,130 --> 00:43:40,330
+This will be activated.
+
+472
+00:43:40,330 --> 00:43:41,330
+Is this clear?
+
+473
+00:43:41,330 --> 00:43:42,330
+Let me know.
+
+474
+00:43:42,330 --> 00:43:43,330
+Okay, so very simple.
+
+475
+00:43:43,330 --> 00:43:44,330
+So there will be a decoder.
+
+476
+00:43:44,330 --> 00:43:45,330
+Don't worry.
+
+477
+00:43:45,330 --> 00:43:46,330
+I will tell you at the end.
+
+478
+00:43:46,330 --> 00:43:47,330
+I will tell you.
+
+479
+00:43:47,330 --> 00:43:48,330
+Okay.
+
+480
+00:43:48,330 --> 00:43:49,330
+When you generate the address, then there will be a decoder.
+
+481
+00:43:49,330 --> 00:43:50,730
+There will be a decoder here.
+
+482
+00:43:50,730 --> 00:43:51,730
+Okay.
+
+483
+00:43:51,730 --> 00:43:56,330
+There will be a decoder and with the help of that decoder, this location will be will
+
+484
+00:43:56,330 --> 00:44:01,810
+be activated. Okay, so anyway, this we will see at the end. Now let's move on now. Okay,
+
+485
+00:44:01,810 --> 00:44:07,250
+so this we have seen. Now let's see what is byte addressable memory and what is word addressable
+
+486
+00:44:07,250 --> 00:44:12,010
+memory. So far I was telling you that every cell has x bits. Now let's see the mystery
+
+487
+00:44:12,010 --> 00:44:16,890
+of this x. So far what we have seen that every cell has x bits. Yes or no, I was telling
+
+488
+00:44:16,890 --> 00:44:22,610
+you x bits. This x can be four bit, eight bit, 16 bit, anything, it can be anything.
+
+489
+00:44:22,610 --> 00:44:27,810
+Now let me tell you now let me tell you what this x actually is. So let's see the concept
+
+490
+00:44:27,810 --> 00:44:33,410
+of byte addressable memory. Okay, byte addressable memory, the name itself is telling you the
+
+491
+00:44:33,410 --> 00:44:39,250
+name itself is telling you byte addressable. What that means? Tell me byte addressable
+
+492
+00:44:39,250 --> 00:44:45,810
+means every byte is addressable. Yes or no byte addressable memory that means every byte
+
+493
+00:44:45,810 --> 00:44:53,010
+is addressable every byte is addressable is this clear the name itself is telling you
+
+494
+00:44:53,010 --> 00:44:59,490
+every byte is addressable now what that means okay now what that means every byte is addressable
+
+495
+00:44:59,490 --> 00:45:05,290
+what that means that means for every byte there is a address yes or no that means for
+
+496
+00:45:05,290 --> 00:45:12,370
+every byte for every byte there is a address for every byte there is a address there is
+
+497
+00:45:12,370 --> 00:45:18,130
+an address is this clear for every byte there is an address okay is this clear now what is
+
+498
+00:45:18,130 --> 00:45:25,010
+the byte what is the byte byte means x bits sorry 8 bits byte means 8 bits is this clear
+
+499
+00:45:25,810 --> 00:45:33,090
+byte one byte means remember one byte one byte means 8 bits okay so you can see byte addressable
+
+500
+00:45:33,090 --> 00:45:39,010
+memory the name itself is telling you that every byte is addressable now what this means addressable
+
+501
+00:45:39,010 --> 00:45:44,530
+what this means that for every byte there is a address for every byte there is an address is this
+
+502
+00:45:44,530 --> 00:45:50,770
+clear in the memory for every byte there is an address this is your main memory this is your
+
+503
+00:45:50,770 --> 00:45:56,610
+main memory for every byte there is address is this clear means for eight bits for eight bits
+
+504
+00:45:56,610 --> 00:46:01,890
+there is address okay there will be address there will be okay there will be address for eight bits
+
+505
+00:46:01,890 --> 00:46:07,810
+there will be address so there will be let's assume address zero for these eight bits there is address
+
+506
+00:46:07,810 --> 00:46:14,650
+one for these eight bits there is a address to okay and so on is this clear let me know
+
+507
+00:46:14,650 --> 00:46:20,570
+so every bite is addressable is this understood please tell me every bite is addressable means
+
+508
+00:46:20,570 --> 00:46:27,090
+for every bite there is address okay for every bite okay I can say okay or in simple words
+
+509
+00:46:27,090 --> 00:46:33,250
+let me tell you in simple words I can say that your value of x is equal to eight okay
+
+510
+00:46:33,250 --> 00:46:40,210
+see your value of x is equal to it see i told you this is the general i told you this is
+
+511
+00:46:40,210 --> 00:46:47,250
+the general structure of of main memory what the general structure of main memory tell me
+
+512
+00:46:47,250 --> 00:46:49,490
+the general structure the general structure is like this
+
+513
+00:46:51,330 --> 00:46:59,010
+that your sales and every sale has x bits yes or no there are x bits here there are x bits here
+
+514
+00:46:59,010 --> 00:47:06,050
+Okay, yes or no, there are X bits here and there are two power K cells. There are two
+
+515
+00:47:06,050 --> 00:47:13,210
+power K cells and every cell has X bits. Yes or no, one cell has X bit. One cell is equal
+
+516
+00:47:13,210 --> 00:47:19,250
+to X bits. Is this clear? Please tell me. So this is your main memory in general. This
+
+517
+00:47:19,250 --> 00:47:25,810
+is your memory. I can say this is your two power K multiplied by X bits. Okay, is this
+
+518
+00:47:25,810 --> 00:47:31,210
+clear to power k locations are there and every location has x bits is this clear so this
+
+519
+00:47:31,210 --> 00:47:36,610
+is the general structure now when can I say it will be byte addressable when can I say
+
+520
+00:47:36,610 --> 00:47:43,770
+this memory will be byte addressable now see if x is equal to 8 if x is equal to 8 bits
+
+521
+00:47:43,770 --> 00:47:50,050
+that's it then this memory will be called byte addressable then this memory then this
+
+522
+00:47:50,050 --> 00:47:57,290
+memory what we will call it then this memory will be called is called byte addressable
+
+523
+00:47:57,290 --> 00:48:04,330
+is called byte addressable please tell me did you understand let me know is this clear
+
+524
+00:48:04,330 --> 00:48:12,090
+let me know okay see this is the general structure of main memory this is the general structure
+
+525
+00:48:12,090 --> 00:48:18,110
+now if you are the manufacturer can you put x equal to four if you are the manufacturer
+
+526
+00:48:18,110 --> 00:48:28,110
+Let's assume you have your own company, you can manufacture these memory chips, okay, you have a factory and you can manufacture these memory chips.
+
+527
+00:48:28,110 --> 00:48:36,110
+Then can you put x equal to 3? Please tell me, can you put x equal to 3? Means 3 bits in one location, 3 bits in one cell.
+
+528
+00:48:36,110 --> 00:48:43,110
+Can you put x equal to 3? Means 3 bits in first cell, then 3 bits in the next cell. Every cell has 3 bits. Can you do that?
+
+529
+00:48:43,110 --> 00:48:49,070
+please tell me can you do that of course you can do maybe you are psycho yes or no maybe
+
+530
+00:48:49,070 --> 00:48:54,070
+you don't want to earn anything okay maybe you you just want to ruin everything then
+
+531
+00:48:54,070 --> 00:48:59,150
+what you can do you can create this type of chips you can create no one will purchase
+
+532
+00:48:59,150 --> 00:49:04,910
+but you can do that yes or no are you getting my point if you do this for example 3 bits
+
+533
+00:49:04,910 --> 00:49:10,270
+here 3 bits here every sale has 3 bits means to every 3 bits you are giving one address
+
+534
+00:49:10,270 --> 00:49:16,270
+Can you do that means, means, means to every three bits you are giving one address to every
+
+535
+00:49:16,270 --> 00:49:17,270
+three bits.
+
+536
+00:49:17,270 --> 00:49:18,270
+Okay.
+
+537
+00:49:18,270 --> 00:49:19,630
+These three bits have some address.
+
+538
+00:49:19,630 --> 00:49:21,470
+These three bits have some address.
+
+539
+00:49:21,470 --> 00:49:23,310
+These three bits have some address.
+
+540
+00:49:23,310 --> 00:49:24,310
+Can you do that?
+
+541
+00:49:24,310 --> 00:49:25,310
+Yes.
+
+542
+00:49:25,310 --> 00:49:26,310
+You can do that.
+
+543
+00:49:26,310 --> 00:49:27,310
+Okay.
+
+544
+00:49:27,310 --> 00:49:28,310
+Yes.
+
+545
+00:49:28,310 --> 00:49:29,310
+You can do that.
+
+546
+00:49:29,310 --> 00:49:30,310
+Right.
+
+547
+00:49:30,310 --> 00:49:31,310
+Yes or no.
+
+548
+00:49:31,310 --> 00:49:32,310
+Is this clear?
+
+549
+00:49:32,310 --> 00:49:33,430
+Please tell me now.
+
+550
+00:49:33,430 --> 00:49:34,430
+So you can do that.
+
+551
+00:49:34,430 --> 00:49:35,430
+That is possible.
+
+552
+00:49:35,430 --> 00:49:36,430
+Now this is what I'm telling you.
+
+553
+00:49:36,430 --> 00:49:42,950
+X equal to 8 means to every 8 bit if you are giving address these are 8 bits and you have
+
+554
+00:49:42,950 --> 00:49:48,070
+some address these are 8 bits and you have some address so if X equal to 8 then this
+
+555
+00:49:48,070 --> 00:49:53,070
+type of memory will be called byte addressable is this understood anyone has any doubt in
+
+556
+00:49:53,070 --> 00:49:59,630
+this what is byte addressable memory anyone has any doubt in this please tell me Kapis
+
+557
+00:49:59,630 --> 00:50:06,150
+is asking it means the smallest uniquely identified memory location is a byte yes that's correct
+
+558
+00:50:06,150 --> 00:50:12,230
+copies that is correct, byte addressable memory, that means if you want to identify,
+
+559
+00:50:12,230 --> 00:50:17,350
+if you want to smallest identifiable memory location that is a byte, yes that is correct.
+
+560
+00:50:17,350 --> 00:50:21,400
+Anyone has any other doubt?
+
+561
+00:50:21,400 --> 00:50:28,960
+MSG is asking in byte addressable memory, x is 8 bits, yes that is correct, okay.
+
+562
+00:50:28,960 --> 00:50:30,360
+Any other doubt?
+
+563
+00:50:30,360 --> 00:50:36,880
+Every byte is addressable, memory, Siddharth, every byte is addressable that means for every
+
+564
+00:50:36,880 --> 00:50:43,660
+byte there is address for every byte there is address means basically to these eight
+
+565
+00:50:43,660 --> 00:50:49,120
+I can say basically I am saying this that to these eight bits you are giving this address
+
+566
+00:50:49,120 --> 00:50:53,340
+to the next eight bits you are giving this address and to the next bits eight bits you
+
+567
+00:50:53,340 --> 00:50:58,680
+are giving this address. Okay. So this is what it means. Is this clear? Please tell me.
+
+568
+00:50:58,680 --> 00:51:03,000
+So what is a byte addressable memory? You can see if the size of each memory location
+
+569
+00:51:03,000 --> 00:51:08,120
+is one byte, then this is called byte addressable. Is this clear? Let me know. Please tell me
+
+570
+00:51:08,120 --> 00:51:13,640
+if the size of each memory location is one byte, the size of each memory location is
+
+571
+00:51:13,640 --> 00:51:18,920
+one byte, then this type of memory will be called byte addressable memory. Okay. Is
+
+572
+00:51:18,920 --> 00:51:24,640
+this understood? So quite simple. This concept. Now let's move on. Now let's see the concept
+
+573
+00:51:24,640 --> 00:51:29,760
+of word. What is this concept? See, you already know the concept of bit, right? The concept
+
+574
+00:51:29,760 --> 00:51:35,120
+of bit bite these concepts we already know okay what is a bit one bit that is either
+
+575
+00:51:35,120 --> 00:51:40,720
+zero or one that is either zero or one what is a bite that also you know bite is basically
+
+576
+00:51:40,720 --> 00:51:47,240
+eight bits yes or no a sequence of eight bits one bite is equal to a sequence of eight bits
+
+577
+00:51:47,240 --> 00:51:55,440
+okay so if you have eight bits this will be called a bite a sequence of eight bits that
+
+578
+00:51:55,440 --> 00:52:02,440
+is called a byte. So what is a byte byte is sequence of eight bits. This is a sequence
+
+579
+00:52:02,440 --> 00:52:07,440
+of eight bits or I can say collection of eight bits. That is your one byte. Okay. That is
+
+580
+00:52:07,440 --> 00:52:12,080
+fixed. Now let's see the concept of word. What is this word in computer architecture
+
+581
+00:52:12,080 --> 00:52:17,880
+in computer organization in this subject, this word. Okay. This word word what it means.
+
+582
+00:52:17,880 --> 00:52:23,080
+So let me tell you this is property of your CPU. This is the property of your CPU. Tell
+
+583
+00:52:23,080 --> 00:52:24,080
+Tell me one thing.
+
+584
+00:52:24,080 --> 00:52:31,080
+When you purchase your computer, have you seen this type of thing that 64-bit CPU, 32-bit
+
+585
+00:52:31,080 --> 00:52:33,490
+CPU?
+
+586
+00:52:33,490 --> 00:52:34,490
+Tell me.
+
+587
+00:52:34,490 --> 00:52:35,490
+Have you seen this?
+
+588
+00:52:35,490 --> 00:52:36,490
+Have you seen this?
+
+589
+00:52:36,490 --> 00:52:37,490
+Let me know.
+
+590
+00:52:37,490 --> 00:52:40,490
+64-bit CPU, 32-bit CPU.
+
+591
+00:52:40,490 --> 00:52:41,490
+Now what is this?
+
+592
+00:52:41,490 --> 00:52:42,490
+Let me know.
+
+593
+00:52:42,490 --> 00:52:43,490
+Anyone want to tell me?
+
+594
+00:52:43,490 --> 00:52:46,490
+When you purchase some computer, when you purchase, you will see this.
+
+595
+00:52:46,490 --> 00:52:48,490
+64-bit CPU, 32-bit CPU.
+
+596
+00:52:48,490 --> 00:52:49,490
+What are these?
+
+597
+00:52:49,490 --> 00:52:52,490
+For example, what is this 32-bit CPU?
+
+598
+00:52:52,490 --> 00:52:58,010
+This simply means that from the processor point of view from the processor point of
+
+599
+00:52:58,010 --> 00:53:02,090
+view 32 bit that is the unit of data.
+
+600
+00:53:02,090 --> 00:53:02,410
+Okay.
+
+601
+00:53:02,410 --> 00:53:08,810
+See what this 32 bit means that means that from CPU point of view from CPU point of view
+
+602
+00:53:10,010 --> 00:53:22,440
+from CPU point of view is 32 bit is the unit of data is the unit of data data access.
+
+603
+00:53:22,440 --> 00:53:30,090
+or I can say the unit of data access so anyway so is this clear means your CPU is thinking
+
+604
+00:53:30,090 --> 00:53:35,050
+remember who is thinking your CPU is thinking that if I access some data from the memory how
+
+605
+00:53:35,050 --> 00:53:41,610
+many bits will come your CPU is thinking if I generate some address and if I access from main
+
+606
+00:53:41,610 --> 00:53:48,010
+memory if I access some data how many bits will come to me in one in one go I can say are you
+
+607
+00:53:48,010 --> 00:53:53,050
+getting my point if I generate one address CPU will generate one address CPU will generate
+
+608
+00:53:53,050 --> 00:54:00,090
+okay now the memory will give give how many bits cpu is thinking i will get 32 bits yes or no is
+
+609
+00:54:00,090 --> 00:54:07,930
+this clear please tell me let me know so in one go cpu will get 32 bits similarly what this 64 bit
+
+610
+00:54:07,930 --> 00:54:14,250
+means let me know what this 64 bit means this means that cpu is thinking who is thinking cpu is
+
+611
+00:54:14,250 --> 00:54:20,250
+thinking cpu is thinking that if i generate one address then main memory will give me 64 bits of
+
+612
+00:54:20,250 --> 00:54:26,850
+data. Okay, then memory will give me 64 bits of data. Is this clear? So what is this word?
+
+613
+00:54:26,850 --> 00:54:31,810
+Did you understand what this word? So here you can see this is actually word. This is
+
+614
+00:54:31,810 --> 00:54:38,890
+the word length of CPU. Okay, so this is the property of CPU. Is this clear? This word,
+
+615
+00:54:38,890 --> 00:54:43,850
+this concept word, this is the property of CPU. So you can see word. What is a word?
+
+616
+00:54:43,850 --> 00:54:48,250
+This word is a property of the processor. This is the property of CPU. Is this clear?
+
+617
+00:54:48,250 --> 00:54:55,250
+first point is this clear so every CPU is thinking that when I access the main memory
+
+618
+00:54:55,250 --> 00:55:01,570
+I will get this amount of these many these many bits I will get okay so that is basically
+
+619
+00:55:01,570 --> 00:55:08,170
+the property of CPU you can see word is a fixed size data it is a fixed size data that
+
+620
+00:55:08,170 --> 00:55:15,170
+is considered by the processor as a unit is this clear who is considering it as a unit
+
+621
+00:55:15,170 --> 00:55:21,070
+Who is considering processor is considering processor is thinking that this word, this
+
+622
+00:55:21,070 --> 00:55:22,070
+is the unit of data.
+
+623
+00:55:22,870 --> 00:55:23,270
+Okay.
+
+624
+00:55:23,470 --> 00:55:24,070
+Is this clear?
+
+625
+00:55:24,670 --> 00:55:25,870
+So this is the idea.
+
+626
+00:55:25,870 --> 00:55:31,670
+So you can see word size, word size refers to the number of bits processed by a computer
+
+627
+00:55:31,670 --> 00:55:33,570
+CPU in one go.
+
+628
+00:55:35,270 --> 00:55:35,670
+Okay.
+
+629
+00:55:35,870 --> 00:55:37,670
+In one go, see what I'm telling you.
+
+630
+00:55:38,170 --> 00:55:38,870
+It will be clear.
+
+631
+00:55:38,870 --> 00:55:39,270
+Don't worry.
+
+632
+00:55:39,270 --> 00:55:39,970
+It will be clear.
+
+633
+00:55:41,070 --> 00:55:42,070
+See, it will be clear.
+
+634
+00:55:42,170 --> 00:55:43,870
+Now, see, notice what will happen.
+
+635
+00:55:43,870 --> 00:55:49,590
+let's assume you have the main memory tell me one thing main memory you can manufacture
+
+636
+00:55:49,590 --> 00:55:55,710
+maybe maybe Kapis is manufacturer of main memory okay and let's assume Intel creates
+
+637
+00:55:55,710 --> 00:56:01,590
+the CPU okay now you tell me will you when you are create when you are manufacturing
+
+638
+00:56:01,590 --> 00:56:06,670
+the RAM when you are manufacturing the main memory you will not manufacture according
+
+639
+00:56:06,670 --> 00:56:11,550
+to different different CPU yes or no let me ask you another question let me ask you
+
+640
+00:56:11,550 --> 00:56:17,390
+another question. When you go and purchase, when you are saying that my computer has 4 GB RAM,
+
+641
+00:56:17,390 --> 00:56:24,990
+okay, I want to extend, I want to extend to 8 GB. I want 4 GB more. Now you tell me at that
+
+642
+00:56:24,990 --> 00:56:30,270
+point of time, are you thinking what should be the word length in your real life in the in the
+
+643
+00:56:30,270 --> 00:56:35,310
+real life? Are we thinking that when you are purchasing the RAM, when you are purchasing the
+
+644
+00:56:35,310 --> 00:56:40,510
+RAM, you are you don't think you don't think yes or no. If you go and go to the market and you
+
+645
+00:56:40,510 --> 00:56:46,190
+purchase the RAM you will not think about it that ok my processor is how many bits ok
+
+646
+00:56:46,190 --> 00:56:51,050
+so before purchasing the RAM you will not check ok your processor is how many I can
+
+647
+00:56:51,050 --> 00:56:56,030
+say your processor has a word length is equal to how many bits yes or no so this is the
+
+648
+00:56:56,030 --> 00:57:00,990
+point see what I am telling you this is the point that this is your main memory let's
+
+649
+00:57:00,990 --> 00:57:06,070
+assume that main memory is byte addressable ok just assume for a moment let's assume that
+
+650
+00:57:06,070 --> 00:57:13,950
+that main memory is byte addressable means what it means for every address I can say
+
+651
+00:57:13,950 --> 00:57:16,830
+for every 8 bits there is one address is this clear?
+
+652
+00:57:16,830 --> 00:57:22,960
+So let's assume the main memory is byte addressable let's assume let's assume your main memory
+
+653
+00:57:22,960 --> 00:57:27,800
+is byte addressable what that means please tell me what that means means on every location
+
+654
+00:57:27,800 --> 00:57:33,600
+you are putting 8 bits yes or no on every location you are putting 8 bits and every
+
+655
+00:57:33,600 --> 00:57:39,720
+location has a address yes or no every location has a address has address this is address
+
+656
+00:57:39,720 --> 00:57:49,240
+00 may be this is the address 00000010010 okay and so on yes or no and let's assume
+
+657
+00:57:49,240 --> 00:57:54,400
+this is 111 so like this is this clear so let's assume this is the main memory now let's
+
+658
+00:57:54,400 --> 00:58:03,040
+assume you have a 32 bit CPU you have a 32 bit CPU now what that means first of all what
+
+659
+00:58:03,040 --> 00:58:11,120
+that means you have a 32 bit CPU what that means your CPU is thinking that for your CPU
+
+660
+00:58:11,120 --> 00:58:19,240
+the word length is equal to 32 bits is this clear for your CPU word length is a 32 bits
+
+661
+00:58:19,240 --> 00:58:25,780
+is this clear please tell me word length that is 32 bits okay word length that is 32 bits
+
+662
+00:58:25,780 --> 00:58:32,280
+now what the CPU is thinking see this CPU is thinking that if I generate this address
+
+663
+00:58:32,280 --> 00:58:39,480
+If I generate this address 0 0 0, if I generate this address 0 0 0, now tell me, will you
+
+664
+00:58:39,480 --> 00:58:41,840
+get these 8 bits?
+
+665
+00:58:41,840 --> 00:58:46,480
+If you generate this address, then will CPU get these 8 bits?
+
+666
+00:58:46,480 --> 00:58:49,040
+Will CPU get these 8 bits?
+
+667
+00:58:49,040 --> 00:58:53,080
+No, CPU will actually get 32 bits.
+
+668
+00:58:53,080 --> 00:58:55,120
+CPU will actually get 32 bits.
+
+669
+00:58:55,120 --> 00:58:56,200
+Is this clear?
+
+670
+00:58:56,200 --> 00:58:58,760
+There are 8 bits here.
+
+671
+00:58:58,760 --> 00:59:00,280
+There are 8 bits here.
+
+672
+00:59:00,280 --> 00:59:01,280
+So what will happen?
+
+673
+00:59:01,280 --> 00:59:06,520
+the CPU will generate this triple zero when the CPU will generate this this this address
+
+674
+00:59:06,520 --> 00:59:13,760
+the CPU is generating this address but you can see I can say these many I can say these
+
+675
+00:59:13,760 --> 00:59:19,280
+32 bits they will go to the CPU okay there is something called data line there is something
+
+676
+00:59:19,280 --> 00:59:27,160
+called data bus system bus data bus and these 32 bits they will go these 32 bits will go
+
+677
+00:59:27,160 --> 00:59:33,240
+to the CPU is this clear in one go is this understood now now is this understood please
+
+678
+00:59:33,240 --> 00:59:40,640
+tell me these 32 bits will go to the CPU in one go these 32 bits will go to the CPU in
+
+679
+00:59:40,640 --> 00:59:47,080
+one go from main memory to CPU via data bus there is a data bus transmission media okay
+
+680
+00:59:47,080 --> 00:59:52,120
+from main memory if you want to go to CPU then you need to go by via bus so there is
+
+681
+00:59:52,120 --> 00:59:56,880
+a data bus and these 32 bits will go to the CPU so did you understand the concept of
+
+682
+00:59:56,880 --> 01:00:02,960
+word please tell me did you understand the concept of word this word is property of what
+
+683
+01:00:02,960 --> 01:00:08,280
+let me know this word this is property of processor is this clear word is property
+
+684
+01:00:08,280 --> 01:00:14,580
+of processor from processor point of view processor is considering this word as the
+
+685
+01:00:14,580 --> 01:00:21,980
+unit of data okay is this clear so what processor is thinking word size refers to the number
+
+686
+01:00:21,980 --> 01:00:28,740
+of bits processed by the computer CPU in one go in one go how many bits your computer
+
+687
+01:00:28,740 --> 01:00:34,740
+your CPU will process is this clear please tell me now this can be 32 bits this can be
+
+688
+01:00:34,740 --> 01:00:41,820
+64 bits this can be this can be 16 bits also this can be 8 bits also okay so nowadays you
+
+689
+01:00:41,820 --> 01:00:48,940
+can see these days the word size is 32 bits 64 bits like that okay is this clear please
+
+690
+01:00:48,940 --> 01:00:55,940
+tell me let me know if this understood this concept is this clear so you can see if you
+
+691
+01:00:55,940 --> 01:01:01,620
+generate the address this CPU you have now this CPU does not know your memory is byte
+
+692
+01:01:01,620 --> 01:01:07,420
+addressable or word addressable yes or no your CPU does not know your memory is byte
+
+693
+01:01:07,420 --> 01:01:12,820
+addressable or word addressable your CPU does not care please understand your CPU does not
+
+694
+01:01:12,820 --> 01:01:18,460
+know how many bits you are have here yes or no for example if you have 4 bits here then
+
+695
+01:01:18,460 --> 01:01:23,260
+then how many locations will go to the cpu? let's assume you have 4 bits here, 4 bits
+
+696
+01:01:23,260 --> 01:01:29,420
+here, 4 bits here, 4 bits here, every location has 4 bits, then also 32 bits will go, is
+
+697
+01:01:29,420 --> 01:01:36,060
+this clear? then also 32 bits will go to cpu, so your cpu does not care, your cpu does not
+
+698
+01:01:36,060 --> 01:01:41,900
+care how many bits per location is there, is this clear? your cpu does not care how
+
+699
+01:01:41,900 --> 01:01:48,420
+How many bits per location you have, your simple is simply saying that I want 32 bits
+
+700
+01:01:48,420 --> 01:01:49,420
+in one go.
+
+701
+01:01:49,420 --> 01:01:50,420
+Okay.
+
+702
+01:01:50,420 --> 01:01:54,740
+When I generate some address, then give me 32 bits in one go.
+
+703
+01:01:54,740 --> 01:01:55,740
+Is this clear?
+
+704
+01:01:55,740 --> 01:01:56,740
+So this is the concept of word.
+
+705
+01:01:56,740 --> 01:01:57,740
+Please tell me.
+
+706
+01:01:57,740 --> 01:01:58,740
+Did you understand?
+
+707
+01:01:58,740 --> 01:01:59,740
+Please tell me.
+
+708
+01:01:59,740 --> 01:02:00,740
+Did you understand this?
+
+709
+01:02:00,740 --> 01:02:01,740
+Okay.
+
+710
+01:02:01,740 --> 01:02:07,220
+So you can see from the main memory, this data will go via bus, there is a data bus.
+
+711
+01:02:07,220 --> 01:02:09,460
+Don't worry that we will see in the next lecture.
+
+712
+01:02:09,460 --> 01:02:14,680
+system bus, data bus, control bus, address bus, all these concepts we will see in the
+
+713
+01:02:14,680 --> 01:02:15,680
+next lecture.
+
+714
+01:02:15,680 --> 01:02:16,680
+Okay.
+
+715
+01:02:16,680 --> 01:02:19,120
+But right now you understood the concept.
+
+716
+01:02:19,120 --> 01:02:20,120
+Did you understand?
+
+717
+01:02:20,120 --> 01:02:21,120
+Please tell me.
+
+718
+01:02:21,120 --> 01:02:23,620
+Let me know.
+
+719
+01:02:23,620 --> 01:02:24,620
+Let me know.
+
+720
+01:02:24,620 --> 01:02:29,580
+So you can see a word can be stored and retrieved in single operation.
+
+721
+01:02:29,580 --> 01:02:30,660
+So this is the point.
+
+722
+01:02:30,660 --> 01:02:35,340
+A word can be stored and it can be retrieved in a single operation.
+
+723
+01:02:35,340 --> 01:02:37,340
+This is the point.
+
+724
+01:02:37,340 --> 01:02:38,340
+Okay.
+
+725
+01:02:38,340 --> 01:02:39,340
+Is this clear?
+
+726
+01:02:39,340 --> 01:02:41,620
+Let me know.
+
+727
+01:02:41,620 --> 01:02:49,820
+this is the statement now let's move on tell me one more thing why this concept of word
+
+728
+01:02:49,820 --> 01:02:55,340
+came this concept of word why did why it came please tell me just think about it and tell
+
+729
+01:02:55,340 --> 01:03:05,230
+me this concept of word why this concept of word came why this concept of word came to
+
+730
+01:03:05,230 --> 01:03:09,950
+make the CPU faster yes or no to make the CPU faster for example just think about it
+
+731
+01:03:09,950 --> 01:03:16,750
+let's assume that in one go you are accessing only one bit okay this type of CPU will be
+
+732
+01:03:16,750 --> 01:03:22,750
+fast or slow means I am saying that let's assume CPU is getting one bit in one go this CPU will
+
+733
+01:03:22,750 --> 01:03:28,190
+generate some address one bit will come only one bit will come okay only one bit will come
+
+734
+01:03:28,190 --> 01:03:32,830
+this type of CPU will be very slow yes or no so what is the best thing what is the best thing the
+
+735
+01:03:32,830 --> 01:03:39,070
+best thing is what you do see the best thing what is the best thing that is that in one go you get
+
+736
+01:03:39,070 --> 01:03:45,950
+a lot of data yes or no a lot of data you get in one go is this clear please tell me
+
+737
+01:03:45,950 --> 01:03:50,750
+okay so very simple point so this is the concept of word actually this the concept of word
+
+738
+01:03:50,750 --> 01:03:57,070
+why it came you can see here you can read this this is from the amateur book call amateur book
+
+739
+01:03:57,070 --> 01:04:02,830
+so because a single bit represents a very small amount of information okay read this because a
+
+740
+01:04:02,830 --> 01:04:07,790
+single bit represents a very small amount of information so we never access a bit a single
+
+741
+01:04:07,790 --> 01:04:13,710
+bit we will never access okay you will never access a single bit so what we do usually
+
+742
+01:04:14,510 --> 01:04:21,390
+usually what we do we pair them and we will make a group of n bits yes or no we will make a group
+
+743
+01:04:21,390 --> 01:04:29,150
+of n bits okay so very simple we will make a group of n bits to retrieve and to store and this is
+
+744
+01:04:29,150 --> 01:04:37,390
+called word this is called word length okay is this clear so from the cpu point of view the memory
+
+745
+01:04:37,390 --> 01:04:43,310
+it looks like this. Is this clear from the CPU point of view, your memory will look like
+
+746
+01:04:43,310 --> 01:04:49,870
+this from CPU point of view. Do you do you agree from CPU point of view, your memory
+
+747
+01:04:49,870 --> 01:04:56,710
+looks like this CPU is thinking that your memory has words, first word, second word
+
+748
+01:04:56,710 --> 01:05:01,470
+and so on. So this is from CPU point of view. Is this clear? Let me know. Please, please
+
+749
+01:05:01,470 --> 01:05:07,070
+tell me. Did you understand? So from CPU point of view, your memory looks like this.
+
+750
+01:05:07,070 --> 01:05:13,550
+So, let's move on now. Now let's see the next concept that is word addressable memory.
+
+751
+01:05:13,550 --> 01:05:19,230
+The name itself is telling you what is that. Please tell me what addressable memory word
+
+752
+01:05:19,230 --> 01:05:27,910
+addressable memory means every word is addressable. Every word is addressable. The name itself
+
+753
+01:05:27,910 --> 01:05:34,050
+is telling you that every word is addressable. What that means? What that means? Every word
+
+754
+01:05:34,050 --> 01:05:40,890
+is addressable what that means that means one address has one word yes or no yes or
+
+755
+01:05:40,890 --> 01:05:49,330
+no is this clear so I can say at any word at any address location at any address location
+
+756
+01:05:49,330 --> 01:05:53,930
+if you go to any address location what you will find please tell me how many bits you
+
+757
+01:05:53,930 --> 01:06:03,890
+will find let's assume one word has x bits let's assume one word has x bits assume assume
+
+758
+01:06:03,890 --> 01:06:10,410
+one word has x bits so at any address location okay at any address location how many bits
+
+759
+01:06:10,410 --> 01:06:17,090
+you will find you will get x bits yes or no you will find x bits will be there x bits
+
+760
+01:06:17,090 --> 01:06:22,330
+will be there is this is this understood please tell me so word addressable means basically
+
+761
+01:06:22,330 --> 01:06:27,730
+every word has a address okay every word has a address for example if your word size is
+
+762
+01:06:27,730 --> 01:06:33,970
+Let's assume 16 bit. Then on every address location, these are the addresses. These are
+
+763
+01:06:33,970 --> 01:06:39,490
+the addresses. These are the address. So you can see if you go to this address number zero,
+
+764
+01:06:39,490 --> 01:06:45,130
+then you will get 16 bits. If you go to address number one, you will get 16 bits. Similarly,
+
+765
+01:06:45,130 --> 01:06:50,250
+let's assume you have word equal to word sizes 32 bits. Then if you go to this address location,
+
+766
+01:06:50,250 --> 01:06:55,770
+these are the address. If you go to address zero, you will get 32 bits. Is this clear?
+
+767
+01:06:55,770 --> 01:07:00,890
+What is word addressable please tell me what addressable means what is a word addressable
+
+768
+01:07:00,890 --> 01:07:11,130
+memory let me tell you word addressable memory word addressable memory that is like this
+
+769
+01:07:11,130 --> 01:07:17,210
+that you are manufacturing the main memory and every sale the sale capacity for example
+
+770
+01:07:17,210 --> 01:07:22,490
+let's say this is the sale 0 sale 1 and so on every sale has a address yes or no every
+
+771
+01:07:22,490 --> 01:07:28,890
+sale has a address and the sale capacity is equal to one word the sale capacity that
+
+772
+01:07:28,890 --> 01:07:35,890
+is equal to one word. Is this clear? Let me know. So on every cell, you are getting one
+
+773
+01:07:35,890 --> 01:07:40,490
+word. So basically, if you have these addresses, let's assume these are the addresses, for
+
+774
+01:07:40,490 --> 01:07:47,890
+example, 01 and so on. These are the addresses. Let's assume then every address has one word
+
+775
+01:07:47,890 --> 01:07:53,610
+of data. Okay. Is this clear? Every address has one word of data, every address, every
+
+776
+01:07:53,610 --> 01:07:59,610
+address has one word of data. Okay. Is this clear? Please tell me. Let me know. Is this
+
+777
+01:07:59,610 --> 01:08:06,370
+understood? So quite simple. Now you tell me by default, so do you have word addressable
+
+778
+01:08:06,370 --> 01:08:12,610
+or byte addressable? Please tell me by default. Let's assume. Okay. I'm asking one question
+
+779
+01:08:12,610 --> 01:08:18,610
+that let's assume you are the manufacturer of main memory. You have a factory. Then will
+
+780
+01:08:18,610 --> 01:08:23,770
+will you manufacture byte addressable memory or will you manufacture word addressable memory
+
+781
+01:08:23,770 --> 01:08:30,330
+please tell me or will you factor some random like 3 bits okay see are you getting my question
+
+782
+01:08:30,330 --> 01:08:37,530
+that you are the manufacturer you are manufacturing the main memory now you tell me on one cell
+
+783
+01:08:37,530 --> 01:08:42,930
+or I can say on one address this is one address okay this is one address on one address how
+
+784
+01:08:42,930 --> 01:08:48,810
+how many bits you will put on one address this is address number zero this is address
+
+785
+01:08:48,810 --> 01:08:53,350
+number one this is address number two and so on okay this is address number two power
+
+786
+01:08:53,350 --> 01:09:01,650
+k minus one so I am asking that you will put x bits here you will put x bits here yes
+
+787
+01:09:01,650 --> 01:09:07,170
+or no now what this x should be by default what this x should be this x bits what this
+
+788
+01:09:07,170 --> 01:09:14,470
+should be you are the manufacturer you have to decide you tell me can you put for example
+
+789
+01:09:14,470 --> 01:09:19,190
+will you put three, will you put five in one location, in one address location, will you
+
+790
+01:09:19,190 --> 01:09:24,230
+put five bits? No. Okay. It makes sense in the computer. It makes sense that you do everything
+
+791
+01:09:24,230 --> 01:09:30,310
+in the power of two. Yes or no. In the computers, things are done in power of two. Okay. So
+
+792
+01:09:30,310 --> 01:09:34,910
+anyway, so you can see, I'm asking that by default, will you put word addressable or
+
+793
+01:09:34,910 --> 01:09:40,230
+byte addressable? The answer is byte addressable. Why? What are the reason? Because word will
+
+794
+01:09:40,230 --> 01:09:46,670
+depend on the CPU yes or no see word length will depend on the CPU that is property of
+
+795
+01:09:46,670 --> 01:09:53,870
+the computers that is the property of the CPU okay is this clear for example let's assume
+
+796
+01:09:53,870 --> 01:09:59,270
+you create main memory and let's assume this is word addressable okay let's assume this
+
+797
+01:09:59,270 --> 01:10:04,550
+is word addressable means on every location you are putting let's assume 64 bits okay
+
+798
+01:10:04,550 --> 01:10:10,070
+but I have my my computer has let's assume word size equal to 32 bits when I purchase
+
+799
+01:10:10,070 --> 01:10:16,830
+your RAM will I purchase your main memory please tell me did you understand the point
+
+800
+01:10:16,830 --> 01:10:23,630
+did you understand the point that by default by default that is a byte addressable byte
+
+801
+01:10:23,630 --> 01:10:30,070
+addressable is the best you can see here the most practical assignment that is byte addressable
+
+802
+01:10:30,070 --> 01:10:35,550
+this is the most practical assignment is this understood please tell me okay did you understand
+
+803
+01:10:35,550 --> 01:10:41,230
+the reason because the word length that will depend on the CPU, the word length that will
+
+804
+01:10:41,230 --> 01:10:46,430
+depend on the CPU. So the based design, what is that? The best design is byte addressable
+
+805
+01:10:46,430 --> 01:10:52,350
+memory. So this is the best design means your memory will be like this on one address, eight
+
+806
+01:10:52,350 --> 01:10:58,470
+bits will be there. Okay, on one address, one byte will be present on every address,
+
+807
+01:10:58,470 --> 01:11:04,170
+one byte will be present. Is this clear on every address on every address, one byte will
+
+808
+01:11:04,170 --> 01:11:09,790
+be present is this understood please tell me now you can see one thing now if I have
+
+809
+01:11:09,790 --> 01:11:16,770
+let's assume CPU is 32 bit now let's do my CPU is 32 bit I have 32 bit CPU then now what
+
+810
+01:11:16,770 --> 01:11:22,990
+will happen now no problem these four locations these four locations will go in one go yes
+
+811
+01:11:22,990 --> 01:11:30,750
+or no via data bus is this clear if you generate some address see CPU wants 32 bits please understand
+
+812
+01:11:30,750 --> 01:11:32,590
+CPU wants 32 bits.
+
+813
+01:11:32,950 --> 01:11:35,990
+This CPU wants 32 bits when it generates the address.
+
+814
+01:11:36,630 --> 01:11:37,910
+Wants 32 bits.
+
+815
+01:11:39,670 --> 01:11:41,270
+When it generates address.
+
+816
+01:11:42,710 --> 01:11:44,670
+When it generates an address.
+
+817
+01:11:45,390 --> 01:11:46,070
+Yes or no?
+
+818
+01:11:47,270 --> 01:11:47,910
+Is this clear?
+
+819
+01:11:48,350 --> 01:11:52,030
+So when the CPU will generate the address, then CPU wants 32 bits.
+
+820
+01:11:52,750 --> 01:11:54,710
+This CPU, it wants 32 bits.
+
+821
+01:11:55,910 --> 01:11:57,310
+Okay, so what will happen?
+
+822
+01:11:57,310 --> 01:11:58,270
+Very simple, no problem.
+
+823
+01:11:58,590 --> 01:12:00,030
+Okay, these four locations.
+
+824
+01:12:00,750 --> 01:12:07,230
+these four locations or I can say these 32 bits they will go to the CPU in one go okay via data bus
+
+825
+01:12:08,430 --> 01:12:13,070
+so this is the concept is this clear so by default remember that is byte addressable
+
+826
+01:12:14,030 --> 01:12:27,230
+okay now let's move on okay so you can see these slides you can read okay these are very simple
+
+827
+01:12:27,230 --> 01:12:32,030
+what is byte addressable what is word addressable so please tell me quickly what is byte addressable
+
+828
+01:12:32,670 --> 01:12:37,470
+byte addressable means in one cell how many bits you have in byte addressable
+
+829
+01:12:37,470 --> 01:12:43,070
+see byte addressable what that means that means in one cell you have 8 bits in one cell you have
+
+830
+01:12:43,070 --> 01:12:50,190
+8 bits means on every address you have 8 bits is this clear see when data space in a cell is 8 bits
+
+831
+01:12:50,190 --> 01:12:56,430
+then the corresponding address space is byte address okay similarly when I can say when the
+
+832
+01:12:56,430 --> 01:13:02,350
+one cell has one one word then that is your word addressable okay is this clear so quite simple
+
+833
+01:13:02,350 --> 01:13:07,630
+Now, for example, consider this, if you have this chip, you are designing a chip.
+
+834
+01:13:07,630 --> 01:13:08,630
+What this means?
+
+835
+01:13:08,630 --> 01:13:17,790
+Can anyone tell me 64k multiplied by 8, 64k multiplied by 8, this chip you have, this
+
+836
+01:13:17,790 --> 01:13:18,790
+chip you have.
+
+837
+01:13:18,790 --> 01:13:19,790
+Please tell me one thing.
+
+838
+01:13:19,790 --> 01:13:25,750
+I am asking one thing, is this 8 byte or bit, what is this?
+
+839
+01:13:25,750 --> 01:13:26,990
+This is byte or bit.
+
+840
+01:13:26,990 --> 01:13:37,150
+I am asking is this byte or bit means is this 64k x 8 byte or is this 64k x 8 bit what is
+
+841
+01:13:37,150 --> 01:13:44,070
+this let me know this is bit I told you again and again I am telling you that every location
+
+842
+01:13:44,070 --> 01:13:52,640
+has x bits please understand the general structure of the general layout of main memory I am
+
+843
+01:13:52,640 --> 01:13:58,200
+telling you again and again that your main memory simply has locations and every location
+
+844
+01:13:58,200 --> 01:14:05,160
+has x bits this x can be 8 if this x is equal to 8 then what this type of memory we will
+
+845
+01:14:05,160 --> 01:14:11,280
+call it please tell me let me know if this x equal to 8 this type of memory will be called
+
+846
+01:14:11,280 --> 01:14:22,390
+what 2 power k locations or I can say addresses 2 power k locations or I can say addresses
+
+847
+01:14:22,390 --> 01:14:30,950
+there are 2 power k addresses every address has x bits okay now this main memory what
+
+848
+01:14:30,950 --> 01:14:35,830
+I can say look at this main memory and this main memory I can say that this has two power
+
+849
+01:14:35,830 --> 01:14:41,430
+k locations multiplied by every location has these many bits.
+
+850
+01:14:41,430 --> 01:14:49,430
+You tell me one thing if this x equal to 8 then what we will call it then this memory
+
+851
+01:14:49,430 --> 01:14:57,550
+will be called byte addressable yes or no if this x is equal to 8 bits then this memory
+
+852
+01:14:57,550 --> 01:15:08,480
+will be called byte addressable, and if this x is equal to one word. If this x is equal
+
+853
+01:15:08,480 --> 01:15:16,240
+to number of bits in a word number of bits in a word, I can say one word. Okay. If this
+
+854
+01:15:16,240 --> 01:15:26,870
+x, that is equal to number of bits in one word, number of bits in one word. Now tell
+
+855
+01:15:26,870 --> 01:15:33,420
+me. So if this x is number of bits in one word, then this type of memory that will be
+
+856
+01:15:33,420 --> 01:15:39,260
+code word addressable ok yes or no so very simple so remember if I give you this chip
+
+857
+01:15:39,260 --> 01:15:46,620
+64k into 8 if I give you this chip then this is 64 locations and every location has 8 bits
+
+858
+01:15:46,620 --> 01:15:56,060
+is this clear so there are 64k addresses there are 64k addresses and this is the 8 bits on
+
+859
+01:15:56,060 --> 01:16:05,500
+every address 8 bits on every address on every address okay is this clear 8 bits on every address
+
+860
+01:16:06,300 --> 01:16:13,420
+so very simple is this clear please tell me okay so remember by default this is the I told you
+
+861
+01:16:13,420 --> 01:16:21,780
+this is the memory representation I told you this is the memory representation memory representation
+
+862
+01:16:21,780 --> 01:16:29,740
+what that memory representation is how many addresses are there number of locations number
+
+863
+01:16:29,740 --> 01:16:38,140
+of memory addresses memory locations or I can say memory addresses or I can say memory
+
+864
+01:16:38,140 --> 01:16:45,300
+addresses how many addresses are there multiplied by number of bits per location number of bits
+
+865
+01:16:45,300 --> 01:16:54,420
+per location number of bits per location okay per address or I can say per location on one
+
+866
+01:16:54,420 --> 01:16:59,220
+location how many bits you have okay anyway let's move on so you can see this example
+
+867
+01:16:59,220 --> 01:17:05,660
+if your memory chip is 64k into 8 this is your chip then address will have how many bits
+
+868
+01:17:05,660 --> 01:17:10,740
+please tell me how many bits for address your address memory address will have how many
+
+869
+01:17:10,740 --> 01:17:17,220
+bits your main memory address will have how many bits so that will be your decided by
+
+870
+01:17:17,220 --> 01:17:25,500
+64k yes or no that will be decided by 64k so if you have 64k into 8 bits ok this is
+
+871
+01:17:25,500 --> 01:17:31,500
+your chip this is your chip now here you can see this will decide how many address bits
+
+872
+01:17:31,500 --> 01:17:39,380
+are required what is this 64k this is 64 multiplied by 2 power 10 ok let me tell you let me tell
+
+873
+01:17:39,380 --> 01:17:47,380
+you this K this means 2 power 10 this M this means 2 power 20 this G this means 2 power 30
+
+874
+01:17:47,380 --> 01:17:55,780
+okay K means kilo K means kilo M means mega and this G means giga is this clear okay so
+
+875
+01:17:55,780 --> 01:18:01,860
+these we use them frequently we will use them okay so K means 2 power 10 M means 2 power 20 G
+
+876
+01:18:01,860 --> 01:18:07,460
+means 2 power 30 so you can see this is your memory chip memory chip means these many addresses you
+
+877
+01:18:07,460 --> 01:18:14,020
+you have these many addresses you have. So if you have these many addresses, then how
+
+878
+01:18:14,020 --> 01:18:25,130
+many bits per address? Tell me, then how many bits per address? How many bits per address?
+
+879
+01:18:25,130 --> 01:18:33,310
+For address, how many bits for address? So for address, you need how many bits? That
+
+880
+01:18:33,310 --> 01:18:39,710
+will be 16 bits. Yes or no, that will be 16 bits because ultimately if you look at this,
+
+881
+01:18:39,710 --> 01:18:47,390
+your to power 16. Okay, that is your to power 16. So your answer will be 16 bits. This will
+
+882
+01:18:47,390 --> 01:18:53,310
+be your answer. Okay, yes or no. Is this clear? Please tell me. So very simple. So you can see
+
+883
+01:18:53,310 --> 01:18:59,630
+the address size that will be 16 bits and the sale size that is eight bits. So it means your
+
+884
+01:19:00,670 --> 01:19:05,390
+I can say main memory that is byte addressable. Similarly here, what this means, can anyone
+
+885
+01:19:05,390 --> 01:19:13,310
+tell me if I write like this 64k multiplied by 16 this means 16 bits yes or no this means 16 bits
+
+886
+01:19:14,110 --> 01:19:20,910
+so please understand what this means let me know what this means what this means please tell me
+
+887
+01:19:26,740 --> 01:19:32,740
+16 bit CPU that means word size is equal to 16 bit yes or no that means word size
+
+888
+01:19:32,740 --> 01:19:42,100
+is that means word length of CPU of CPU that is 16 bit okay and your main memory that is
+
+889
+01:19:42,100 --> 01:19:47,820
+also word addressable yes or no your main memory is word addressable can you notice
+
+890
+01:19:47,820 --> 01:19:52,740
+your main memory is word addressable so here your main memory is word addressable this is
+
+891
+01:19:52,740 --> 01:20:03,830
+word addressable main memory okay so like this anyway let's move on so you can see this
+
+892
+01:20:03,830 --> 01:20:13,850
+easily you can see now let's move on now tell me the answer for this question tell me the
+
+893
+01:20:13,850 --> 01:20:21,350
+answer for this question how many address and data lines will be there for this type
+
+894
+01:20:21,350 --> 01:20:28,500
+of memory system for this memory system how many address lines must be there ok address
+
+895
+01:20:28,500 --> 01:20:33,100
+lines data lines let me tell you these are the system bus these are part of system bus
+
+896
+01:20:33,100 --> 01:20:37,940
+let me tell you these are part of system bus so you can see this diagram don't worry this
+
+897
+01:20:37,940 --> 01:20:42,020
+this we will study in the next lecture we will study in the next lecture I will tell
+
+898
+01:20:42,020 --> 01:20:47,100
+you all about the system bus okay means what are address lines what are data lines what
+
+899
+01:20:47,100 --> 01:20:52,020
+are control lines okay anyway the idea is very simple this is very intuitive that this
+
+900
+01:20:52,020 --> 01:20:56,420
+CPU will generate the addresses okay the CPU will generate the addresses so there should
+
+901
+01:20:56,420 --> 01:21:02,460
+be address line on one address line one bit will go okay on one address line one bit will
+
+902
+01:21:02,460 --> 01:21:07,740
+will go. Yes or no? So you can see there are address lines, address lines means, on one
+
+903
+01:21:07,740 --> 01:21:15,560
+address line, on one line, remember, on one line, one bit will go, on one line, one bit
+
+904
+01:21:15,560 --> 01:21:21,720
+or travels, one bit of travels. Okay. Is this clear? So you can see.
+
+905
+01:21:21,720 --> 01:21:26,700
+So if you have four address lines, what that means, if you have four address lines, what
+
+906
+01:21:26,700 --> 01:21:34,910
+that means? If you have four address lines, then how many memory locations you can address
+
+907
+01:21:34,910 --> 01:21:40,750
+address if you have four address lines then it simply means that how many memory locations
+
+908
+01:21:40,750 --> 01:21:48,150
+you can address so we can address two power four memory locations yes or no there are
+
+909
+01:21:48,150 --> 01:21:53,830
+these many memory locations okay very simple so two power four memory locations are there
+
+910
+01:21:53,830 --> 01:22:00,150
+now tell me what this data line means again on one line one bit will travel remember one
+
+911
+01:22:00,150 --> 01:22:02,790
+One line, one bit remember one line.
+
+912
+01:22:02,790 --> 01:22:04,510
+One bit.
+
+913
+01:22:04,510 --> 01:22:06,110
+One line is equal to one bit.
+
+914
+01:22:06,110 --> 01:22:09,130
+Okay, so on one line, one beat will travel.
+
+915
+01:22:09,130 --> 01:22:11,590
+Now, you can see here.
+
+916
+01:22:11,590 --> 01:22:13,650
+Now tell me how many data lines will be there?
+
+917
+01:22:13,650 --> 01:22:19,230
+It will depend on whom it will depend on CPU or it will depend on the memory.
+
+918
+01:22:19,230 --> 01:22:21,250
+How many data lines will be there?
+
+919
+01:22:21,250 --> 01:22:23,650
+How many data lines will be there?
+
+920
+01:22:23,650 --> 01:22:25,990
+It will depend on CPU or main memory.
+
+921
+01:22:25,990 --> 01:22:27,490
+It will depend on the CPU.
+
+922
+01:22:27,490 --> 01:22:31,490
+actually it will be same as the word size yes or no
+
+923
+01:22:31,490 --> 01:22:34,490
+see CPU is thinking that I will get 32 bits
+
+924
+01:22:34,490 --> 01:22:36,490
+let's assume CPU is okay
+
+925
+01:22:36,490 --> 01:22:39,490
+or maybe let's assume CPU is 8 bits
+
+926
+01:22:39,490 --> 01:22:41,490
+see are you getting my point
+
+927
+01:22:41,490 --> 01:22:45,490
+these data lines I can say these will be same as
+
+928
+01:22:45,490 --> 01:22:49,490
+these will be same as your word length yes or no
+
+929
+01:22:49,490 --> 01:22:53,490
+is this clear? number of data lines
+
+930
+01:22:53,490 --> 01:22:56,490
+how many data lines you have that will be same as
+
+931
+01:22:56,490 --> 01:23:03,850
+word length okay because remember one thing that CPU is thinking that if let's assume if CPU is 32 bits
+
+932
+01:23:04,490 --> 01:23:10,410
+CPU is 32 bits then what CPU is thinking CPU is thinking that in one go I will get 32 bits
+
+933
+01:23:10,970 --> 01:23:17,530
+how it will get yes or no see CPU is thinking in one go if I generate address then in one go in
+
+934
+01:23:17,530 --> 01:23:23,610
+one transfer I will get 32 bits so if you want 32 bits how many lines must be there please tell me
+
+935
+01:23:23,610 --> 01:23:31,130
+one line means one bit one line means one bit so if you want 32 bits if you want 32 bits how
+
+936
+01:23:31,130 --> 01:23:41,130
+many lines must be there 32 lines yes or no see one line means one bit one line will on one line
+
+937
+01:23:41,130 --> 01:23:49,250
+you can you can put one bit I'm asking this CPU this CPU needs 32 bits let's assume this is 32
+
+938
+01:23:49,250 --> 01:23:55,970
+bit CPU let's assume this is 32 bits CPU okay what this means it means that when you generate
+
+939
+01:23:55,970 --> 01:24:02,810
+the address then from the main memory 32 bits will come yes or no 32 bits will come in one
+
+940
+01:24:02,810 --> 01:24:12,090
+go in one go okay so if you want 32 bits to go you want these many bits to travel from
+
+941
+01:24:12,090 --> 01:24:19,050
+main memory to CPU these many bits will travel in one go okay in one go these many bits will
+
+942
+01:24:19,050 --> 01:24:27,470
+travel to the CPU to the CPU. So now you tell me 32 bits are traveling 32 bits are traveling
+
+943
+01:24:27,470 --> 01:24:35,310
+to the CPU in one go. So it means here I need 32 data lines. Yes or no. Is this clear?
+
+944
+01:24:35,310 --> 01:24:41,750
+I need 32 data lines because remember one line means one bit. Is this clear? One system
+
+945
+01:24:41,750 --> 01:24:50,190
+system bus line equal to one bit okay so this is the idea is this clear so anyway let's
+
+946
+01:24:50,190 --> 01:24:55,750
+come to this question don't worry about system bus the basic idea this is the basic idea
+
+947
+01:24:55,750 --> 01:25:00,470
+but don't worry we will discuss what are this address line data line but these are very
+
+948
+01:25:00,470 --> 01:25:06,030
+intuitive concept on the address line you will send the address CPU will send the address
+
+949
+01:25:06,030 --> 01:25:10,190
+who is generating the address please tell me who is generating the address CPU or the
+
+950
+01:25:10,190 --> 01:25:15,630
+man memory who will generate the address CPU will generate the address right yes or no
+
+951
+01:25:15,630 --> 01:25:20,590
+so you can see CPU will send the address to the man memory this CPU will generate the
+
+952
+01:25:20,590 --> 01:25:24,990
+address and it will it will send the address to the man memory so can you see address lines
+
+953
+01:25:24,990 --> 01:25:30,750
+are one way in this diagram can you see address lines are one way address lines are one way
+
+954
+01:25:30,750 --> 01:25:37,310
+because CPU will generate the address CPU will send the address to the man memory okay can it
+
+955
+01:25:37,310 --> 01:25:43,750
+ever happen that man memory will send address to the CPU. Can it ever happen that man memory
+
+956
+01:25:43,750 --> 01:25:49,390
+is ask sending the address to the CPU? No, it will never happen. Okay, CPU will generate
+
+957
+01:25:49,390 --> 01:25:55,550
+the address and then that address will go to the man memory. But data can have data
+
+958
+01:25:55,550 --> 01:26:01,030
+transmission can happen in two ways. Yes or no. For example, CPU can take data from man
+
+959
+01:26:01,030 --> 01:26:06,110
+memory. Let's assume you want to add five plus six, you want to do five plus six. So
+
+960
+01:26:06,110 --> 01:26:12,950
+is five comma six, the CPU can take from main memory. And then after performing the addition
+
+961
+01:26:12,950 --> 01:26:17,950
+operation, the result will be 11 that 11 can go to the main memory. So you can see data
+
+962
+01:26:17,950 --> 01:26:23,470
+lines are two ways. Can you notice? Can you notice data lines are two ways? Data lines,
+
+963
+01:26:23,470 --> 01:26:29,950
+these are two ways. Can you notice address lines are one ways? Okay, so anyway, don't
+
+964
+01:26:29,950 --> 01:26:34,230
+worry in the next lecture, we will discuss this in the detailed way. But this is very
+
+965
+01:26:34,230 --> 01:26:38,710
+intuitive concept. I hope you understood. I hope you got some idea. Okay. Don't worry
+
+966
+01:26:38,710 --> 01:26:43,750
+about it. We will discuss it in the next lecture. We will discuss, but I hope you got some idea.
+
+967
+01:26:43,750 --> 01:26:48,150
+Okay. Let's move on. So tell me the answer for this question. How many address lines
+
+968
+01:26:48,150 --> 01:26:53,190
+and how many data lines are needed if you have this memory? So first of all, what this
+
+969
+01:26:53,190 --> 01:26:59,230
+memory means? Let me know. This memory means that these many locations you have these many
+
+970
+01:26:59,230 --> 01:27:08,350
+locations you have and 32 bits on every location on every location yes or no per location is
+
+971
+01:27:08,350 --> 01:27:14,990
+this clear let me know so very simple this is what it means that you have 60 16 million
+
+972
+01:27:14,990 --> 01:27:21,590
+I can say million 16 million locations you have 16 million or I can say mega okay so
+
+973
+01:27:21,590 --> 01:27:27,390
+these many locations you have on every location there are 32 bits there are 32 bits now you
+
+974
+01:27:27,390 --> 01:27:34,670
+tell me so this will decide how many data lines will be there yes or no this is your word size
+
+975
+01:27:37,610 --> 01:27:44,170
+this is your word size okay and I can say that this will be your data lines so I can say you need
+
+976
+01:27:44,170 --> 01:27:52,890
+32 data lines 32 data lines you need what else what about this one please tell me okay so these
+
+977
+01:27:52,890 --> 01:27:58,770
+many addresses are there. These many addresses are there. That means two power four into two
+
+978
+01:27:58,770 --> 01:28:05,730
+power 20. That is two power 24. These many locations are there. These many locations
+
+979
+01:28:05,730 --> 01:28:12,890
+or I can say addresses. These many addresses are there. So if you want these many addresses,
+
+980
+01:28:12,890 --> 01:28:22,050
+then you need 24 bits for address for address, you need 24 bits. Okay. So these 24 bits will
+
+981
+01:28:22,050 --> 01:28:28,370
+go on the address lines. So number of address lines that will be 24 and number of data lines
+
+982
+01:28:28,370 --> 01:28:38,640
+that will be 32. Okay, so quite simple. Okay, let's move on now. So you can see here the
+
+983
+01:28:38,640 --> 01:28:43,920
+number of data lines will be 32 and the number of address lines will be 24. This is your
+
+984
+01:28:43,920 --> 01:28:55,810
+answer. Now let's see all these four questions, four questions. Let's see. Let's solve this.
+
+985
+01:28:55,810 --> 01:29:04,400
+me what the answer for this question see msg is asking here I have what addressable memory
+
+986
+01:29:04,400 --> 01:29:11,040
+see here actually nothing is given okay in this question actually you let me tell you
+
+987
+01:29:11,040 --> 01:29:15,000
+look at this question in this question no information is given what addressable byte
+
+988
+01:29:15,000 --> 01:29:19,960
+addressable okay yes or no no information is given agree but you can see look at this
+
+989
+01:29:19,960 --> 01:29:26,660
+memory system this memory system is like this see the the information is not given what
+
+990
+01:29:26,660 --> 01:29:30,640
+addressable byte addressable this type of information is not given but look at the memory
+
+991
+01:29:30,640 --> 01:29:37,840
+system in the memory system there are 16 million locations there are 16 million locations
+
+992
+01:29:37,840 --> 01:29:45,040
+and on every location there are 32 bits okay yes or no on every location there are 32 bits
+
+993
+01:29:45,040 --> 01:29:51,680
+is this clear so tell me one thing minimum how many bits will go to the CPU just tell
+
+994
+01:29:51,680 --> 01:29:57,640
+see this is the manufactured yes or no this memory you are manufactured you have manufactured
+
+995
+01:29:57,640 --> 01:30:03,960
+that I will put 32 bits in one location on every location you are putting 32 bits okay
+
+996
+01:30:03,960 --> 01:30:08,520
+so this location has some address there is address this location has some address this
+
+997
+01:30:08,520 --> 01:30:12,880
+location has some address on every address there is 32 bits now you tell me minimum
+
+998
+01:30:12,880 --> 01:30:19,600
+how many bits will go to the CPU minimum how many bits will go to the CPU minimum these
+
+999
+01:30:19,600 --> 01:30:24,880
+many bits will go to the CPU yes or no minimum 32 bits will go to the CPU agree yes or no
+
+1000
+01:30:24,880 --> 01:30:30,720
+because on every location see on this address there are 32 bits on this address there are
+
+1001
+01:30:30,720 --> 01:30:35,960
+32 bits on this address there are 32 bits can you do this that only 8 bits can go can
+
+1002
+01:30:35,960 --> 01:30:41,560
+you do this if the if you generate this address 0 if you generate this address 0 can you do
+
+1003
+01:30:41,560 --> 01:30:46,920
+this that only this will go no it will not happen yes or no so minimum 32 bits will go
+
+1004
+01:30:46,920 --> 01:30:53,520
+to the CPU is this clear please tell me minimum these many bits will go to the CPU so that
+
+1005
+01:30:53,520 --> 01:30:57,880
+is the reason I am saying that okay and no other data is given in this question no other
+
+1006
+01:30:57,880 --> 01:31:04,000
+data is given so the data lines you can take equal to 32 okay because minimum these many
+
+1007
+01:31:04,000 --> 01:31:11,560
+data lines you need yes or no minimum 32 data lines are needed these many data lines
+
+1008
+01:31:11,560 --> 01:31:19,600
+are needed. Okay, is this clear? So minimum, these many data lines are needed 32 minimum,
+
+1009
+01:31:19,600 --> 01:31:25,400
+these many data lines you need. I hope this point is clear. Okay, let's move on now. Now
+
+1010
+01:31:25,400 --> 01:31:31,480
+let's see these four questions. These are, I can say if you can solve these four questions,
+
+1011
+01:31:31,480 --> 01:31:35,000
+then you have understood word addressable, byte addressable, all these things you have
+
+1012
+01:31:35,000 --> 01:31:40,360
+understood. So let's see this first question, please tell me the answer for the first question.
+
+1013
+01:31:40,360 --> 01:31:46,600
+A computer system has word addressable memory, your memory is word addressable, every word
+
+1014
+01:31:46,600 --> 01:31:54,920
+has 32 bits, okay, one word equal to 32 bits, there are 24 memory address lines, okay, how
+
+1015
+01:31:54,920 --> 01:31:57,120
+many address lines are there?
+
+1016
+01:31:57,120 --> 01:32:03,600
+On one line, you will send one bit, so 24 address lines are there, what the maximum available
+
+1017
+01:32:03,600 --> 01:32:09,080
+system memory, tell me the answer, see the question is very simple, what addressable
+
+1018
+01:32:09,080 --> 01:32:14,800
+memory you have what memory you have you have word addressable memory okay on one address
+
+1019
+01:32:14,800 --> 01:32:21,120
+how many bits are there please tell me this is your address okay address is zero address
+
+1020
+01:32:21,120 --> 01:32:27,040
+is one and so on okay so on one address how many bits how many bits are there because
+
+1021
+01:32:27,040 --> 01:32:33,240
+your word addressable word addressable for every word there is address means on one word
+
+1022
+01:32:33,240 --> 01:32:42,480
+or one address. There are one word there is one word and that is equal to 32 bits. That
+
+1023
+01:32:42,480 --> 01:32:49,840
+is equal to 32 bits. Okay. And how many total addresses are there? How many total addresses
+
+1024
+01:32:49,840 --> 01:32:59,570
+are there? Total addresses, total number of addresses, total number of, I can say locations,
+
+1025
+01:32:59,570 --> 01:33:05,730
+how many locations are there? Total number of locations. That will be two power number
+
+1026
+01:33:05,730 --> 01:33:08,790
+number of address lines yes or no.
+
+1027
+01:33:08,790 --> 01:33:11,590
+2 power number of address lines agree.
+
+1028
+01:33:11,590 --> 01:33:12,850
+Is this clear?
+
+1029
+01:33:12,850 --> 01:33:17,830
+2 power number of address lines because there are 24 address lines.
+
+1030
+01:33:17,830 --> 01:33:19,630
+There are 24 address lines.
+
+1031
+01:33:19,630 --> 01:33:22,250
+So, your address has 24 bits.
+
+1032
+01:33:22,250 --> 01:33:23,250
+Okay?
+
+1033
+01:33:23,250 --> 01:33:25,870
+Your address size is 24 bits.
+
+1034
+01:33:25,870 --> 01:33:29,490
+Your address size if you look at your address size that is 24 bits.
+
+1035
+01:33:29,490 --> 01:33:32,130
+This is the address size.
+
+1036
+01:33:32,130 --> 01:33:34,010
+One address size.
+
+1037
+01:33:34,010 --> 01:33:35,070
+Okay?
+
+1038
+01:33:35,070 --> 01:33:41,550
+this clear so you can see tell me how many locations will be there address lines are
+
+1039
+01:33:41,550 --> 01:33:48,310
+already given to you 24 address lines are there these many address lines are there so
+
+1040
+01:33:48,310 --> 01:33:56,110
+how many locations you can address how many locations you can identify to power 24 these
+
+1041
+01:33:56,110 --> 01:34:03,710
+many locations will be there okay on every location there is 32 bits so finally how much
+
+1042
+01:34:03,710 --> 01:34:09,590
+total memory you have how much total memory you have finally please tell me so the answer
+
+1043
+01:34:09,590 --> 01:34:18,590
+will be memory size main memory size that will be 2 power 24 locations these many locations
+
+1044
+01:34:18,590 --> 01:34:27,860
+you have multiplied by 32 bits per location 32 bits per location on every location there
+
+1045
+01:34:27,860 --> 01:34:35,580
+are 32 bits. So now you tell me per location, there are 32 bits on one location. So your
+
+1046
+01:34:35,580 --> 01:34:42,380
+answer will be to power 24 multiplied by in bits. The answer will be in bits. If you
+
+1047
+01:34:42,380 --> 01:34:47,460
+do this, okay, then answer will be bits. For example, to power five, these many bits you
+
+1048
+01:34:47,460 --> 01:34:53,020
+will get. Okay. And the answer is given in which the answer is given in bytes. Can you
+
+1049
+01:34:53,020 --> 01:34:58,580
+notice the answer is given in bytes. Okay. So let's see, because the answer is given
+
+1050
+01:34:58,580 --> 01:35:04,900
+in bytes. So what I can say, the same thing I can say that two power 24 multiplied by
+
+1051
+01:35:04,900 --> 01:35:13,980
+32 bits. That is how many bytes that is four bytes. Yes or no, that is four bytes. If you
+
+1052
+01:35:13,980 --> 01:35:22,220
+want to convert into bytes, I can convert into bytes. So that will be two power 26 bytes.
+
+1053
+01:35:22,220 --> 01:35:37,740
+that is a 64 64 MB is this clear 64 MB please tell me 64 megabytes so this is your memory
+
+1054
+01:35:37,740 --> 01:35:42,780
+64 megabytes so the answer will be option C what about the next question please tell
+
+1055
+01:35:42,780 --> 01:35:50,320
+me the answer for the next question so this question we have done the answer was C now
+
+1056
+01:35:50,320 --> 01:35:54,160
+Now let's see option number 19.
+
+1057
+01:35:54,160 --> 01:35:58,480
+How many data lines are required for the system in the previous question?
+
+1058
+01:35:58,480 --> 01:36:02,700
+Data lines that will depend on the word, word size that will be 32 bits.
+
+1059
+01:36:02,700 --> 01:36:03,700
+So the answer is 32.
+
+1060
+01:36:03,700 --> 01:36:06,520
+What is the answer for the next question?
+
+1061
+01:36:06,520 --> 01:36:09,600
+This question done, this question done.
+
+1062
+01:36:09,600 --> 01:36:12,280
+What is the answer for the next question?
+
+1063
+01:36:12,280 --> 01:36:17,200
+If the system in the previous question was byte addressable, the system in the previous
+
+1064
+01:36:17,200 --> 01:36:23,380
+question was byte addressable and you want to retain the same total number of bytes in
+
+1065
+01:36:23,380 --> 01:36:30,540
+the main memory. Then how many address lines will you require? Did you understand? Means
+
+1066
+01:36:30,540 --> 01:36:36,020
+see in the first question, the answer was 64 megabytes. See the question is saying you
+
+1067
+01:36:36,020 --> 01:36:41,740
+want to retain the same size, the same total number of bytes in the memory. That is your
+
+1068
+01:36:41,740 --> 01:36:48,180
+64 megabytes. Okay, that is your 64 megabytes. Now the question is asking how many address
+
+1069
+01:36:48,180 --> 01:36:54,140
+lines you need? Did you understand? So your memory capacity, see this is your main memory.
+
+1070
+01:36:54,140 --> 01:37:00,760
+Now this is byte addressable on one location. There is there are eight bits. Is this clear
+
+1071
+01:37:00,760 --> 01:37:08,200
+on one location? If you look at the address on one location, there are there are eight
+
+1072
+01:37:08,200 --> 01:37:13,000
+bits and total memory size that is given to you. Main memory size that is given to you
+
+1073
+01:37:13,000 --> 01:37:19,080
+in the question. What is that? Man memory size is given to you in the question that you are
+
+1074
+01:37:19,080 --> 01:37:24,600
+retaining the same previous total number of bytes of memory and you can see the answer
+
+1075
+01:37:24,600 --> 01:37:30,840
+for the previous question was 64 MB. So that is 64 MB. You want this, this size you want.
+
+1076
+01:37:31,720 --> 01:37:36,520
+Okay. So tell me how many locations you need. Tell me how many locations you need.
+
+1077
+01:37:36,520 --> 01:37:42,680
+This is the question. Let me know on one location, you have one byte, right? On one location,
+
+1078
+01:37:42,680 --> 01:37:49,000
+you have one byte on one location you have one byte now tell me how many locations you need
+
+1079
+01:37:49,000 --> 01:37:55,400
+if you want total this type of memory total this this much memory you want mega bytes
+
+1080
+01:37:56,200 --> 01:38:02,840
+okay mega bytes so how many locations must be there 64 mega locations yes or no
+
+1081
+01:38:03,720 --> 01:38:09,240
+these many locations must be there see this is very simple this is the memory size
+
+1082
+01:38:09,240 --> 01:38:17,820
+is okay one location has one byte you can do like this see one location has how many
+
+1083
+01:38:17,820 --> 01:38:31,180
+bytes or I can say one byte equal to one byte means one location one byte means one location
+
+1084
+01:38:31,180 --> 01:38:40,760
+so tell me 64 m bytes how many locations please tell me one byte one location one byte has
+
+1085
+01:38:40,760 --> 01:38:46,160
+one location. Now tell me. These many bytes will have how many location? There will be
+
+1086
+01:38:46,160 --> 01:38:54,790
+64am locations. Yes or no, there will be these many locations. Now if you have these many
+
+1087
+01:38:54,790 --> 01:39:01,850
+locations that means two power, 26 locations. If you have these many locations, then how
+
+1088
+01:39:01,850 --> 01:39:06,830
+many address lines you need? If you have these many locations, then how many address lines
+
+1089
+01:39:06,830 --> 01:39:15,710
+you need so address size is equal to address size that is equal to 26 bits okay so that will
+
+1090
+01:39:15,710 --> 01:39:23,760
+be your number of address lines that will be your number of address lines is this clear
+
+1091
+01:39:23,760 --> 01:39:29,520
+so for this question the answer will be what that will be 26 is this understood please tell me
+
+1092
+01:39:30,560 --> 01:39:36,720
+is this question clear let me know what about the next question so this question done done done
+
+1093
+01:39:36,720 --> 01:39:45,310
+okay so these are the answers now tell me the answer for this question over 21 given a very
+
+1094
+01:39:45,310 --> 01:39:55,630
+peculiar memory system okay that uses 22 bit addressing 22 bit addressing what that means
+
+1095
+01:39:56,350 --> 01:40:04,910
+22 bit addressing one address has 22 bits okay one address has basically when you generate the
+
+1096
+01:40:04,910 --> 01:40:12,250
+the address, address size is 22 bits, remember address size is 22 bits, address size, your
+
+1097
+01:40:12,250 --> 01:40:18,890
+address size is given to you, that is 22 bits, this is the address size, CP will generate
+
+1098
+01:40:18,890 --> 01:40:27,370
+22 bit address, okay, and 3 bit addressable, this is 3 bit addressable, what that means?
+
+1099
+01:40:27,370 --> 01:40:33,890
+That means every location has 3 bits, now this is your 3 bit addressable, 3 bit addressable,
+
+1100
+01:40:33,890 --> 01:40:39,930
+you have three bits here you have three bits is this clear on every address there are three
+
+1101
+01:40:39,930 --> 01:40:46,920
+bits is this clear please tell me on every address there are three bits okay so very
+
+1102
+01:40:46,920 --> 01:40:51,980
+simple so this is three bit addressable that means every location has three bits how many
+
+1103
+01:40:51,980 --> 01:41:01,320
+bits of storage does the memory have total so total what the memory main memory size
+
+1104
+01:41:01,320 --> 01:41:06,680
+how much storage this main memory has please tell me that will be how many locations you
+
+1105
+01:41:06,680 --> 01:41:12,800
+you have tell me how many locations you have to power 22 locations you have right these
+
+1106
+01:41:12,800 --> 01:41:20,100
+many locations are there multiplied by every location has 3 bits this will be your answer
+
+1107
+01:41:20,100 --> 01:41:26,800
+okay every location has 3 bits so your answer will be what the question answer is asking
+
+1108
+01:41:26,800 --> 01:41:36,400
+in the bits so that will become what it will become it will become 12 megabits yes or no
+
+1109
+01:41:36,400 --> 01:41:37,840
+It will become 12 megabits.
+
+1110
+01:41:38,140 --> 01:41:39,160
+So you can check it out.
+
+1111
+01:41:39,640 --> 01:41:41,080
+The answer will be 12 megabits.
+
+1112
+01:41:41,120 --> 01:41:42,040
+Answer will be obscenity.
+
+1113
+01:41:42,480 --> 01:41:44,240
+So all these four questions are the clear.
+
+1114
+01:41:44,240 --> 01:41:49,840
+Please tell me, you know, in these four questions, all your concepts are
+
+1115
+01:41:49,880 --> 01:41:54,520
+revived, I can say every concept that we have seen in these four questions we have
+
+1116
+01:41:54,520 --> 01:41:57,400
+used every concept is this understood.
+
+1117
+01:41:57,640 --> 01:41:59,360
+Please tell me, let me know.
+
+1118
+01:42:00,040 --> 01:42:03,040
+So is there any confusion in the word addressable, byte addressable?
+
+1119
+01:42:03,040 --> 01:42:05,640
+What is a word from where this word came?
+
+1120
+01:42:05,640 --> 01:42:11,160
+The word is a property of CPU, okay, byte addressable memory, word addressable memory,
+
+1121
+01:42:11,160 --> 01:42:14,720
+all these points are they clear, please tell me.
+
+1122
+01:42:14,720 --> 01:42:21,840
+Let me know if this understood a similar question I have here, okay, you know, here
+
+1123
+01:42:21,840 --> 01:42:25,840
+you have four questions, right, agree, here you have four questions.
+
+1124
+01:42:25,840 --> 01:42:28,400
+Similarly four questions are here.
+
+1125
+01:42:28,400 --> 01:42:31,600
+The same type of four questions, okay, the data is changed.
+
+1126
+01:42:31,600 --> 01:42:33,160
+So can I give you as a homework?
+
+1127
+01:42:33,160 --> 01:42:35,280
+The answers are also given.
+
+1128
+01:42:35,280 --> 01:42:37,240
+I'm not sure these answers are correct or not.
+
+1129
+01:42:37,280 --> 01:42:38,160
+I have not checked.
+
+1130
+01:42:38,640 --> 01:42:38,920
+Okay.
+
+1131
+01:42:38,920 --> 01:42:39,680
+I did not check.
+
+1132
+01:42:39,760 --> 01:42:44,160
+So remember, I'm not sure that these answers are correct or not.
+
+1133
+01:42:44,280 --> 01:42:45,120
+I'm not sure.
+
+1134
+01:42:45,600 --> 01:42:45,840
+Okay.
+
+1135
+01:42:45,840 --> 01:42:46,680
+You can check it.
+
+1136
+01:42:47,600 --> 01:42:50,040
+Most probably these are correct answer, but you can check it.
+
+1137
+01:42:50,680 --> 01:42:51,200
+Is this clear?
+
+1138
+01:42:51,200 --> 01:42:52,320
+Please tell me, let me know.
+
+1139
+01:42:52,680 --> 01:42:54,400
+So these four questions we have done.
+
+1140
+01:42:54,640 --> 01:42:59,680
+Similarly, these four questions I'm giving you as a homework, you can
+
+1141
+01:42:59,680 --> 01:43:01,280
+discuss in the private telegram group.
+
+1142
+01:43:01,640 --> 01:43:02,280
+Is this clear?
+
+1143
+01:43:02,280 --> 01:43:02,840
+Please tell me.
+
+1144
+01:43:03,440 --> 01:43:05,240
+You can discuss in the private telegram group.
+
+1145
+01:43:05,280 --> 01:43:10,880
+Okay, Divyanshu is asking sir question number 20, can you repeat?
+
+1146
+01:43:10,880 --> 01:43:16,440
+In this question number 20, what is the problem, can you tell me, did you understand the question?
+
+1147
+01:43:16,440 --> 01:43:22,280
+If the system is byte addressable, means your system is byte addressable, on every location
+
+1148
+01:43:22,280 --> 01:43:24,800
+there are 8 bits, is this clear?
+
+1149
+01:43:24,800 --> 01:43:26,320
+This first point, is this clear?
+
+1150
+01:43:26,320 --> 01:43:33,360
+Please tell me, Divyanshu, see the system is byte addressable, system is byte addressable,
+
+1151
+01:43:33,360 --> 01:43:40,040
+system is byte address means on every address there is one byte on every address there are
+
+1152
+01:43:40,040 --> 01:43:45,840
+eight bits. Okay. Now the second point the second point is saying that in the previous
+
+1153
+01:43:45,840 --> 01:43:52,040
+question basically you want to retain the same total number of bytes of the memory.
+
+1154
+01:43:52,040 --> 01:43:57,280
+See this is nothing but see for the first question the answer was 64 megabytes. This
+
+1155
+01:43:57,280 --> 01:44:02,200
+is saying that if you want this much amount of memory then how many address lines you
+
+1156
+01:44:02,200 --> 01:44:08,560
+need did you understand the question see the question is simply saying that if you want
+
+1157
+01:44:08,560 --> 01:44:16,960
+64 megabytes if this is the memory you want 64 megabytes memory you want then how many
+
+1158
+01:44:16,960 --> 01:44:24,020
+address lines you need is this clear please tell me so you can see on one location how
+
+1159
+01:44:24,020 --> 01:44:30,800
+many on one location you can notice one byte on one location okay on one location you have
+
+1160
+01:44:30,800 --> 01:44:38,360
+one byte. So these many bytes, how many locations you need? That will be 64 m and that is nothing
+
+1161
+01:44:38,360 --> 01:44:44,260
+but two power 26 locations. So it means address size is 26 bits. It means address lines that
+
+1162
+01:44:44,260 --> 01:44:51,120
+will be 26. Okay. So let's move on now. So this question, can I give you as a homework?
+
+1163
+01:44:51,120 --> 01:44:56,840
+You can do it. You can discuss in the private telegram group. Let's move on. Let's solve
+
+1164
+01:44:56,840 --> 01:45:05,800
+this gate exam question. Can you try? This is gate compute science 2016 question. A processor
+
+1165
+01:45:05,800 --> 01:45:13,680
+can support a maximum memory of 4 GB. Where the memory is word addressable. A word contains
+
+1166
+01:45:13,680 --> 01:45:19,600
+two bytes. The size of address bus of the processor is at least these many bits. See
+
+1167
+01:45:19,600 --> 01:45:24,440
+the question is saying that you have a memory which is word addressable. What that means?
+
+1168
+01:45:24,440 --> 01:45:28,360
+If your memory is word addressable, what that means, anyone?
+
+1169
+01:45:28,360 --> 01:45:32,160
+You have this main memory, this main memory is word addressable.
+
+1170
+01:45:32,160 --> 01:45:38,880
+That means that in this main memory, on every address, there is one word, yes or no?
+
+1171
+01:45:38,880 --> 01:45:44,680
+In this main memory, on every address, if you go to any address in this main memory,
+
+1172
+01:45:44,680 --> 01:45:47,760
+if you go to any address, then what will happen?
+
+1173
+01:45:47,760 --> 01:45:53,920
+Then you will find one word, that means two bytes, that means 16 bits, okay?
+
+1174
+01:45:53,920 --> 01:45:58,480
+you will find one word. That means two bytes. It is given in the question that one word
+
+1175
+01:45:58,480 --> 01:46:04,760
+is equal to two bytes and that is same as 16 bits. Okay. So remember on every location,
+
+1176
+01:46:04,760 --> 01:46:12,240
+16 bits of data is present. You can put 16 bits of data. Okay. So very simple point that
+
+1177
+01:46:12,240 --> 01:46:18,000
+on every address, 16 bits of data is there on every address. Is this clear? Let me know.
+
+1178
+01:46:18,000 --> 01:46:23,560
+So every location has a capacity of 16 bits. Very simple. So this is the point. So word
+
+1179
+01:46:23,560 --> 01:46:27,960
+addressable memory you have and one word is equal to two bytes. Now the question is saying
+
+1180
+01:46:27,960 --> 01:46:33,760
+that memory, the maximum supported memory that is four GB. Okay, so the question is saying
+
+1181
+01:46:33,760 --> 01:46:44,080
+this main memory size that is a four GB, four gigabytes. What is Giga? What is Giga? Giga
+
+1182
+01:46:44,080 --> 01:46:48,760
+that is equal to two power 30. Yes or no. So it's like two power two multiplied by two
+
+1183
+01:46:48,760 --> 01:46:59,810
+power 30 bytes. Okay. So remember this capital B, that means byte, this capital B, please
+
+1184
+01:46:59,810 --> 01:47:05,490
+understand this capital B, this is used for bytes. And this is a small B, this is used
+
+1185
+01:47:05,490 --> 01:47:12,410
+for bits. Is this clear? This capital B is used for byte. Okay. So most of the time you
+
+1186
+01:47:12,410 --> 01:47:17,090
+will see this in the in your practical life also in the real life. Also you will see this
+
+1187
+01:47:17,090 --> 01:47:22,310
+that this capital B, this is used for byte and this small b, this is used for bit.
+
+1188
+01:47:22,310 --> 01:47:27,590
+So here you can see that your computer, your processor can support a maximum memory of
+
+1189
+01:47:27,590 --> 01:47:28,590
+4 GB.
+
+1190
+01:47:28,590 --> 01:47:33,550
+Okay, so these many bytes, this is the memory size, this is the main memory size.
+
+1191
+01:47:33,550 --> 01:47:39,070
+Now the question is asking, what is the number of address lines or I can say the size of
+
+1192
+01:47:39,070 --> 01:47:45,190
+address bus means what is the size of address, please tell me, first of all, you tell me
+
+1193
+01:47:45,190 --> 01:47:47,410
+Only how many locations are there?
+
+1194
+01:47:47,410 --> 01:47:48,870
+This is my first question.
+
+1195
+01:47:48,870 --> 01:47:51,590
+How many locations you have in this main memory?
+
+1196
+01:47:51,590 --> 01:47:53,710
+How many addresses are there?
+
+1197
+01:47:53,710 --> 01:47:56,190
+How many addressable locations are there?
+
+1198
+01:47:56,190 --> 01:48:01,650
+I am asking this question, how many addressable locations are there?
+
+1199
+01:48:01,650 --> 01:48:05,590
+Addressable locations.
+
+1200
+01:48:05,590 --> 01:48:11,820
+How many addressable locations are there in these main memory.
+
+1201
+01:48:11,820 --> 01:48:13,560
+So that will be equal to what?
+
+1202
+01:48:13,560 --> 01:48:19,020
+See, on every location you have two bytes and em total you have these many bytes.
+
+1203
+01:48:19,020 --> 01:48:48,020
+So tell me how many locations must be there see very simple point two bytes are there on one location yes or no on one location there are two bytes is this clear two bytes are present on one location so one byte will be present in how many locations one byte will be present in how many locations half location yes or no and now tell me these many bytes for GB I am asking four gigabytes
+
+1204
+01:48:49,020 --> 01:48:55,880
+bytes, they must be present in how many locations, that will be half multiplied by 4g, these
+
+1205
+01:48:55,880 --> 01:49:02,980
+many locations, yes or no, this we have done in the school life, this type of thing, have
+
+1206
+01:49:02,980 --> 01:49:08,100
+you done in the school life, please tell me that two bytes are present in one location,
+
+1207
+01:49:08,100 --> 01:49:12,680
+so one byte is present in half location, so four gigabytes, these are present in these
+
+1208
+01:49:12,680 --> 01:49:20,160
+many locations yes or no so how many locations finally tell me how many locations so that
+
+1209
+01:49:20,160 --> 01:49:29,720
+will be 2 giga locations that will be 2 giga locations that means that means 2 power 31
+
+1210
+01:49:29,720 --> 01:49:37,400
+locations these many locations are there ok 2 power 31 locations is this clear because
+
+1211
+01:49:37,400 --> 01:49:43,320
+What this G means this G that means to power 30 G means to power 30.
+
+1212
+01:49:43,520 --> 01:49:50,560
+So remember here you have to G locations that simply means you have to power 31 locations.
+
+1213
+01:49:50,760 --> 01:49:52,240
+So you have these many locations.
+
+1214
+01:49:52,240 --> 01:49:55,120
+So how many locations to power 31 locations?
+
+1215
+01:49:55,200 --> 01:50:00,000
+Now you tell me so these many locations you have to power 31 locations you have.
+
+1216
+01:50:00,480 --> 01:50:01,680
+So what are the address size?
+
+1217
+01:50:02,640 --> 01:50:03,880
+What should be the address size?
+
+1218
+01:50:03,880 --> 01:50:11,240
+these many locations you have 2 power 31 locations you have if you want to identify one of these
+
+1219
+01:50:11,240 --> 01:50:19,160
+locations if you want to identify one of these locations then how many bits are required so
+
+1220
+01:50:19,160 --> 01:50:26,360
+that will be address size address size will be what address size that will be at least 31 bits
+
+1221
+01:50:26,360 --> 01:50:31,960
+are required yes or no do you agree with me see at least 31 bits you need please tell me one thing
+
+1222
+01:50:31,960 --> 01:50:39,040
+Can you address these many locations, 2 power 31 locations, you have 2 power 31 locations,
+
+1223
+01:50:39,040 --> 01:50:46,840
+can you address these locations with 30 bits, can you address these many locations, can
+
+1224
+01:50:46,840 --> 01:50:56,120
+you identify these many locations using 30 bits, no, but can you identify using 32 bits,
+
+1225
+01:50:56,120 --> 01:51:02,880
+you identify can you identify these many locations using 32 bits yeah that can be done so at
+
+1226
+01:51:02,880 --> 01:51:09,080
+least I can say address size will be 31 bits at least 31 bits are required okay at least
+
+1227
+01:51:09,080 --> 01:51:14,740
+31 bits are required okay so your answer will be address size will be 31 bits that is same
+
+1228
+01:51:14,740 --> 01:51:21,200
+as your size of address bus size of address bus that is same as that is same as address
+
+1229
+01:51:21,200 --> 01:51:29,280
+size. That is same as number of address lines, number of address lines. So how many address
+
+1230
+01:51:29,280 --> 01:51:36,280
+lines are there at least 31 address lines must be there. Okay. At least 31 address lines
+
+1231
+01:51:36,280 --> 01:51:42,280
+must be there. Is this clear? So quite simple. So address size that must be at least 30,
+
+1232
+01:51:42,280 --> 01:51:48,700
+31 bits. So this is your gate exam Cousin. Let's move on. Now one last small topic is
+
+1233
+01:51:48,700 --> 01:51:55,100
+there this is a very small topic this is memory decoder this is memory decoder see I told you
+
+1234
+01:51:55,100 --> 01:52:01,140
+that CPU will generate the address yes or no this is let's assume this is the CPU let's
+
+1235
+01:52:01,140 --> 01:52:06,060
+assume this is the CPU CPU will generate the address agree and this address will go to
+
+1236
+01:52:06,060 --> 01:52:11,020
+the main memory okay let's assume this is the main memory in the main memory let's assume
+
+1237
+01:52:11,020 --> 01:52:18,220
+you have only four cells okay so let's assume this is the address 000011011 these are the
+
+1238
+01:52:18,220 --> 01:52:26,320
+addresses. These are the addresses. This is your main memory. Okay. Now you tell me one thing.
+
+1239
+01:52:28,240 --> 01:52:34,000
+This CPU will generate the address, right? Yes or no? Okay. So this CPU, this will generate the address
+
+1240
+01:52:34,000 --> 01:52:40,320
+and there are address lines also, your address lines also. So let me tell you what happens in a
+
+1241
+01:52:40,320 --> 01:52:46,560
+CPU. In a CPU, there is a register that is called MAR. In a CPU, actually there are many things.
+
+1242
+01:52:46,560 --> 01:52:52,880
+in a CPU there is ALU okay there is ALU there is control unit there are many things control unit
+
+1243
+01:52:52,880 --> 01:52:58,560
+okay there is cache there is cache you know cache memory so in a CPU there are many things
+
+1244
+01:52:58,560 --> 01:53:03,280
+now there is a register in a CPU there is a register this register is called MAR
+
+1245
+01:53:04,800 --> 01:53:10,480
+okay so don't worry we will discuss this in detail we will discuss so this MAR this is called
+
+1246
+01:53:10,480 --> 01:53:18,120
+called memory address register, the name itself is telling you memory address register, memory
+
+1247
+01:53:18,120 --> 01:53:20,400
+address register, is this clear?
+
+1248
+01:53:20,400 --> 01:53:25,800
+The name itself is telling you that this is memory address register, so this is a register,
+
+1249
+01:53:25,800 --> 01:53:26,800
+okay.
+
+1250
+01:53:26,800 --> 01:53:30,080
+Now, this register, this is connected to the address lines.
+
+1251
+01:53:30,080 --> 01:53:33,520
+For example, let's assume there are four locations.
+
+1252
+01:53:33,520 --> 01:53:38,240
+If there are 4 locations, how many address lines are there, please tell me.
+
+1253
+01:53:38,240 --> 01:53:39,660
+If there are 4 addresses.
+
+1254
+01:53:39,660 --> 01:53:45,100
+there are four locations. So how many address lines are there? Please tell me how many address
+
+1255
+01:53:45,100 --> 01:53:49,260
+lines are there? If you have four locations, how many address lines will be there? There
+
+1256
+01:53:49,260 --> 01:53:54,900
+will be two address lines. Agree? Yes or no. So remember this M. A. R. The size of M.
+
+1257
+01:53:54,900 --> 01:54:00,740
+A. R. Okay, this actually this M. A. R. Is connected to address lines. This M. A. R. This
+
+1258
+01:54:00,740 --> 01:54:06,620
+is actually connected to address lines. This is connected to address lines. Is this clear?
+
+1259
+01:54:06,620 --> 01:54:08,260
+So let's assume these are the address lines.
+
+1260
+01:54:08,260 --> 01:54:09,260
+This is A1.
+
+1261
+01:54:09,260 --> 01:54:10,260
+This is A0.
+
+1262
+01:54:10,260 --> 01:54:11,260
+What are these?
+
+1263
+01:54:11,260 --> 01:54:12,260
+These are address lines.
+
+1264
+01:54:12,260 --> 01:54:13,260
+Is this clear?
+
+1265
+01:54:13,260 --> 01:54:14,260
+Please tell me.
+
+1266
+01:54:14,260 --> 01:54:17,830
+So these are address lines.
+
+1267
+01:54:17,830 --> 01:54:21,730
+So these are your address lines.
+
+1268
+01:54:21,730 --> 01:54:23,270
+So see what will happen?
+
+1269
+01:54:23,270 --> 01:54:27,950
+This CPU will generate address and the CPU will put in this MAR, this memory address
+
+1270
+01:54:27,950 --> 01:54:28,950
+register.
+
+1271
+01:54:28,950 --> 01:54:32,190
+For example, let's assume this CPU is generating this address.
+
+1272
+01:54:32,190 --> 01:54:33,190
+Okay.
+
+1273
+01:54:33,190 --> 01:54:34,750
+So what the CPU will do?
+
+1274
+01:54:34,750 --> 01:54:40,310
+CPU will generate the address, it will put in this MAR, memory address register, okay,
+
+1275
+01:54:40,310 --> 01:54:41,550
+is this clear?
+
+1276
+01:54:41,550 --> 01:54:46,590
+This memory address register, this is connected to address lines, is this clear?
+
+1277
+01:54:46,590 --> 01:54:49,910
+All these small, small points, are they clear?
+
+1278
+01:54:49,910 --> 01:54:56,190
+So this memory address register, this is connected to address lines, okay, now something interesting.
+
+1279
+01:54:56,190 --> 01:55:04,030
+Now how to make this connection, okay, so A1, you can see A1 has 1 and A0 has 0.
+
+1280
+01:55:04,030 --> 01:55:07,150
+So you know which locations will be activated.
+
+1281
+01:55:07,150 --> 01:55:08,150
+In the main memory.
+
+1282
+01:55:08,150 --> 01:55:13,150
+Which location will be activated which location will be activated.
+
+1283
+01:55:13,150 --> 01:55:15,670
+Please tell me a1 a0.
+
+1284
+01:55:15,670 --> 01:55:20,790
+which location will be activated if you have this address if I give this address which
+
+1285
+01:55:20,790 --> 01:55:24,950
+location will be activated let's assume this is msb.
+
+1286
+01:55:24,950 --> 01:55:26,430
+Let's assume this is msb.
+
+1287
+01:55:26,430 --> 01:55:29,710
+Now you tell me, so you know that this line will be activated.
+
+1288
+01:55:29,710 --> 01:55:32,010
+Sorry this location will be activated.
+
+1289
+01:55:32,010 --> 01:55:35,310
+Okay now you tell me how to make the connection.
+
+1290
+01:55:35,310 --> 01:55:39,410
+Anyone has any idea how to make the connection see how to make the connection.
+
+1291
+01:55:39,410 --> 01:55:40,210
+Right.
+
+1292
+01:55:40,210 --> 01:55:41,810
+I'm asking that how to activate.
+
+1293
+01:55:41,810 --> 01:55:43,810
+I want to activate this.
+
+1294
+01:55:43,810 --> 01:55:45,110
+I know this will be activated.
+
+1295
+01:55:45,110 --> 01:55:49,010
+I want to activate this how to make the connection very good.
+
+1296
+01:55:49,010 --> 01:55:51,810
+Just put a decoder very good very good very good.
+
+1297
+01:55:51,810 --> 01:55:52,010
+Okay.
+
+1298
+01:55:52,010 --> 01:55:52,910
+Yes or no.
+
+1299
+01:55:52,910 --> 01:55:55,110
+See I am saying that this will be activated.
+
+1300
+01:55:55,110 --> 01:55:56,310
+So what should we hear?
+
+1301
+01:55:56,310 --> 01:55:57,710
+What should I put here?
+
+1302
+01:55:57,710 --> 01:55:58,410
+Yes.
+
+1303
+01:55:58,410 --> 01:55:59,510
+Agree.
+
+1304
+01:55:59,510 --> 01:56:00,610
+What should I put here?
+
+1305
+01:56:01,310 --> 01:56:03,810
+So very simple point here you will put a decoder.
+
+1306
+01:56:04,110 --> 01:56:04,910
+Is this clear?
+
+1307
+01:56:05,210 --> 01:56:07,310
+Please tell me here you will put a decoder.
+
+1308
+01:56:07,610 --> 01:56:09,110
+So there will be a decoder here.
+
+1309
+01:56:09,910 --> 01:56:11,510
+This is your decoder.
+
+1310
+01:56:14,100 --> 01:56:14,900
+Is this understood?
+
+1311
+01:56:15,000 --> 01:56:15,500
+Please tell me.
+
+1312
+01:56:15,600 --> 01:56:17,000
+So there will be a decoder here.
+
+1313
+01:56:17,400 --> 01:56:21,800
+This decoder we have studied in the digital logic in the digital logic subject.
+
+1314
+01:56:22,000 --> 01:56:23,300
+This decoder we have seen.
+
+1315
+01:56:23,700 --> 01:56:25,800
+Let me just revise this decoder.
+
+1316
+01:56:26,200 --> 01:56:29,100
+If you did not study digital logic, we have already seen this decoder.
+
+1317
+01:56:29,100 --> 01:56:31,700
+Let me tell you decoder is a circuit.
+
+1318
+01:56:31,700 --> 01:56:36,380
+This is a digital circuit and this circuit is like this that if you have for example,
+
+1319
+01:56:36,380 --> 01:56:40,620
+if you have an lines, okay, let me tell you in this decoder, what happens?
+
+1320
+01:56:40,620 --> 01:56:44,980
+For example, if you have three input lines, then there will be eight output lines.
+
+1321
+01:56:44,980 --> 01:56:46,260
+Is this clear?
+
+1322
+01:56:46,260 --> 01:56:51,500
+If there are three input lines, these are the input lines.
+
+1323
+01:56:51,500 --> 01:56:55,700
+These are the input lines and these are the output lines.
+
+1324
+01:56:55,700 --> 01:56:56,980
+Okay.
+
+1325
+01:56:56,980 --> 01:56:57,980
+These are the input lines.
+
+1326
+01:56:57,980 --> 01:56:59,240
+These are the output lines.
+
+1327
+01:56:59,240 --> 01:57:04,920
+is your decoder. This is a digital circuit. This decoder is a digital circuit in your
+
+1328
+01:57:04,920 --> 01:57:11,480
+computer. You have this. This is a digital circuit. Okay. This digital circuit has, if
+
+1329
+01:57:11,480 --> 01:57:15,920
+there are three input lines, then there will be eight output lines. What it means if input
+
+1330
+01:57:15,920 --> 01:57:23,600
+lines are three, then output lines will be eight. So if input lines are N, let's assume
+
+1331
+01:57:23,600 --> 01:57:28,640
+N input lines are there, then how many output lines will be there? If there are N input
+
+1332
+01:57:28,640 --> 01:57:33,520
+lines, then there will be two power and output lines. Is this clear? Please tell me, is this
+
+1333
+01:57:33,520 --> 01:57:38,720
+understood? Okay. And it, it works like this. For example, let's do your two by two power
+
+1334
+01:57:38,720 --> 01:57:44,640
+two decoder. Yes or no. So remember, ultimately, I can say this decoder, if you notice this
+
+1335
+01:57:44,640 --> 01:57:51,600
+decoder, I can say this is your n multiplied by two power and decoder. Okay. Because n
+
+1336
+01:57:51,600 --> 01:57:56,360
+input lines to power and output lines is this clear? There are n input lines and there are
+
+1337
+01:57:56,360 --> 01:58:01,800
+power and output lines. So this is your decoder. Now let's assume you have this decoder 2 into
+
+1338
+01:58:01,800 --> 01:58:08,760
+2 power 2 decoder. Okay, let's assume this is your decoder 2 by 4 decoder. Now you tell me
+
+1339
+01:58:08,760 --> 01:58:15,080
+in this decoder, there will be this will happen. Okay, now let's assume that this line in the input
+
+1340
+01:58:15,080 --> 01:58:20,600
+also in the input, let's assume this line is MSB and this line is this input line is LSB.
+
+1341
+01:58:20,600 --> 01:58:26,500
+be this input line let's assume this input line is MSB ok and these are the output lines
+
+1342
+01:58:26,500 --> 01:58:32,880
+is this clear for example this is output line let's assume this is Output line let's assume
+
+1343
+01:58:32,880 --> 01:58:39,740
+this is your Y zero Y one Y two Y three these are the output lines is this clear these are
+
+1344
+01:58:39,740 --> 01:58:44,920
+the output lines all of them these are output line now you tell me quickly you tell me quickly
+
+1345
+01:58:44,920 --> 01:58:50,440
+if the input if I apply this input zero zero what will be the which line will be activated
+
+1346
+01:58:50,440 --> 01:58:59,320
+if I apply I 1 I 0, if I apply this 00, then which line will be activated? Which line will
+
+1347
+01:58:59,320 --> 01:59:03,920
+be activated? Why 0 will be activated, is this clear? In this situation, remember, which
+
+1348
+01:59:03,920 --> 01:59:09,720
+line will be activated? In this situation, this Y 0 will be activated and remaining will
+
+1349
+01:59:09,720 --> 01:59:16,080
+be deactivated. For example, Y 1 will be deactivated. Y 2 will be deactivated. But
+
+1350
+01:59:16,080 --> 01:59:22,640
+this will be activated, I can say this will be activated. Okay, what this means activated
+
+1351
+01:59:22,640 --> 01:59:28,600
+what this means, this means this y zero will become one. Okay, all of them all the remaining
+
+1352
+01:59:28,600 --> 01:59:33,760
+will become zero. All the remaining will become zero. Is this clear? Please tell me. So this
+
+1353
+01:59:33,760 --> 01:59:38,360
+is what decoder does. So if you apply this zero zero, then this y zero will become one
+
+1354
+01:59:38,360 --> 01:59:43,760
+and the remaining will become zero zero. If you apply this zero one, now you tell me if
+
+1355
+01:59:43,760 --> 01:59:49,440
+if you apply this now what will happen let me know if you apply this then what will happen
+
+1356
+01:59:49,440 --> 01:59:55,560
+then this will be activated and these will be deactivated I can say this is activated
+
+1357
+01:59:55,560 --> 02:00:03,000
+I can say that this has this is activated who is activated this output why one this output
+
+1358
+02:00:03,000 --> 02:00:07,840
+why one is activated okay the remaining are zero zero so like this I hope you understood
+
+1359
+02:00:07,840 --> 02:00:16,720
+if I do this one zero now now tell me if I do this one zero so remember I one I zero
+
+1360
+02:00:16,720 --> 02:00:23,960
+remember I one is MSB remember I one is MSB this is MSB so if this is one zero then what
+
+1361
+02:00:23,960 --> 02:00:28,880
+will happen in this situation what will happen in this situation you can see that this Y
+
+1362
+02:00:28,880 --> 02:00:33,920
+two will be because this is equal to two yes or no this is equal to two so this Y two will
+
+1363
+02:00:33,920 --> 02:00:39,760
+be activated, all the remaining, they will be zero. Okay. So here this will be one, all
+
+1364
+02:00:39,760 --> 02:00:46,840
+the remaining will be zero. So I can say this is activated. Okay. Is this clear? And if
+
+1365
+02:00:46,840 --> 02:00:50,760
+you have one, one, then who will be activated? Then this will be one, the remaining will
+
+1366
+02:00:50,760 --> 02:00:55,120
+be zero. So this is the concept of decoder. I hope you understood. Now let's come back
+
+1367
+02:00:55,120 --> 02:01:02,120
+to our concept. Let's come back to our concept. So I was asking you that what connection to
+
+1368
+02:01:02,120 --> 02:01:09,280
+make here so you can make decoder yes or no is this clear you can put a decoder now what
+
+1369
+02:01:09,280 --> 02:01:16,640
+this decoder will do now what this decoder will do please tell me if you put if the CPU
+
+1370
+02:01:16,640 --> 02:01:24,160
+generates this address then which which memory location will be activated if the CPU generates
+
+1371
+02:01:24,160 --> 02:01:31,480
+this address then which memory location will be activated CPU generating this address okay
+
+1372
+02:01:31,480 --> 02:01:36,960
+even even this address CPU generating this address this address CPU generating notice
+
+1373
+02:01:36,960 --> 02:01:42,200
+here this address CPU generating so you can see this location will be activated okay this
+
+1374
+02:01:42,200 --> 02:01:46,520
+clear so basically there will be a decoder okay this decoder connection will be happen
+
+1375
+02:01:46,520 --> 02:01:51,800
+like this okay is this clear please tell me understood let me know so this decoder will
+
+1376
+02:01:51,800 --> 02:01:58,840
+be there in the between in between I can say main memory and this address lines is this
+
+1377
+02:01:58,840 --> 02:02:04,000
+this understood. Please tell me, address lines, between address lines and this main memory
+
+1378
+02:02:04,000 --> 02:02:06,880
+there is a decoder is this concept clear?
+
+1379
+02:02:06,880 --> 02:02:13,380
+Please. Tell me, so you can see between address lies and memory, man memory, there is a decoder
+
+1380
+02:02:13,380 --> 02:02:16,080
+there is a decoder here, there is a decoder.
+
+1381
+02:02:16,080 --> 02:02:22,780
+Okay, so you can see here, you can see here. So this man, this man, this register is there,
+
+1382
+02:02:22,780 --> 02:02:29,560
+This is the register, this MAR, this means memory address register, okay, this is used
+
+1383
+02:02:29,560 --> 02:02:33,440
+to store the address to access the main memory.
+
+1384
+02:02:33,440 --> 02:02:41,160
+So this register, remember this register, this we use to store the address to access
+
+1385
+02:02:41,160 --> 02:02:42,160
+the main memory.
+
+1386
+02:02:42,160 --> 02:02:43,160
+Is this clear?
+
+1387
+02:02:43,160 --> 02:02:44,160
+Please tell me.
+
+1388
+02:02:44,160 --> 02:02:47,120
+So you can see this is connected to address lines, yes or no?
+
+1389
+02:02:47,120 --> 02:02:50,520
+This MAR, this is connected to address lines.
+
+1390
+02:02:50,520 --> 02:02:58,400
+Okay, so you can see this MIR, it is connected to address lines of the system bus, okay,
+
+1391
+02:02:58,400 --> 02:03:05,760
+it specifies the address of the memory, okay, it specifies the address of the memory, very
+
+1392
+02:03:05,760 --> 02:03:06,760
+simple.
+
+1393
+02:03:06,760 --> 02:03:08,720
+So I hope you understood all these points.
+
+1394
+02:03:08,720 --> 02:03:12,600
+So now can we solve this question?
+
+1395
+02:03:12,600 --> 02:03:15,160
+But before we solve this question, just tell me quickly.
+
+1396
+02:03:15,160 --> 02:03:19,880
+So what size of decoder you need, tell me if you have let's assume this is your main
+
+1397
+02:03:19,880 --> 02:03:25,640
+memory and there are, let's assume two power K locations. Let's assume there are two power
+
+1398
+02:03:25,640 --> 02:03:33,240
+K locations are there. Okay. So these are the locations on every location. Let's assume
+
+1399
+02:03:33,240 --> 02:03:39,400
+you have X bits on every location you have X bits. Okay. On every location you have X
+
+1400
+02:03:39,400 --> 02:03:46,240
+bits. This is your main memory. Now you tell me, so what is the size of decoder you need?
+
+1401
+02:03:46,240 --> 02:03:52,000
+are the size of Decoder? You need very simple, very, very, very simple. See, see the input
+
+1402
+02:03:52,000 --> 02:03:57,500
+of Decoder, what these will be the input of Decoder will be address lines. Yes or no.
+
+1403
+02:03:57,500 --> 02:04:03,460
+The input of Decoder will be address lines. Agree with me? Do you agree with me that input
+
+1404
+02:04:03,460 --> 02:04:07,620
+of Decorder will be address lines? Yes or no. Very simple. So how many address lines
+
+1405
+02:04:07,620 --> 02:04:14,540
+you need? That will be K. So there will be K address lines. Okay, there will be K address
+
+1406
+02:04:14,540 --> 02:04:19,640
+lines. So you have K address lines. So if you have K address lines, then automatically
+
+1407
+02:04:19,640 --> 02:04:25,840
+you have two power K output lines. Yes or no. Then automatically you have two power
+
+1408
+02:04:25,840 --> 02:04:32,240
+K output lines. So this is the size of the decoder you need. Understood. This is a quite
+
+1409
+02:04:32,240 --> 02:04:37,840
+simple concept, right? Yes or no. Okay. And tell me one more thing. These address lines,
+
+1410
+02:04:37,840 --> 02:04:42,680
+these are connected to what in the CPU, in the CPU, these are connected to what in the
+
+1411
+02:04:42,680 --> 02:04:50,300
+CPU. In the CPU, these are connected to what? In the CPU, these are connected to MAR in
+
+1412
+02:04:50,300 --> 02:04:59,680
+the CPU. Okay, this, this is in the CPU. This is inside CPU. This is inside CPU. Okay, anyway,
+
+1413
+02:04:59,680 --> 02:05:05,080
+so that you understood inside CPU, this MAR is inside the CPU. These bus, are they inside
+
+1414
+02:05:05,080 --> 02:05:11,280
+the CPU? These buses, these buses, are they inside the CPU? No, they are not inside the
+
+1415
+02:05:11,280 --> 02:05:16,400
+CPU. They are communication. They are the transmission media between CPU and memory.
+
+1416
+02:05:17,200 --> 02:05:23,600
+They are not inside the CPU. Okay. These buses, these address lines, data lines, these system bus,
+
+1417
+02:05:23,600 --> 02:05:28,480
+these are transmission media. Okay. These are transmission lines. Remember, these are transmission
+
+1418
+02:05:28,480 --> 02:05:34,480
+wires. So these are between CPU and main memory. Okay. So anyway, so I hope you understood all
+
+1419
+02:05:34,480 --> 02:05:38,880
+these points. So let's solve this question quickly. Tell me the answer for this question.
+
+1420
+02:05:38,880 --> 02:05:46,680
+And this is gate 2020 question if there are M input lines and output lines for a decoder
+
+1421
+02:05:46,680 --> 02:05:53,520
+that is used to uniquely address a byte addressable one one KB RAM, then what is the minimum
+
+1422
+02:05:53,520 --> 02:06:08,630
+value of M plus and tell me the question is asking that tell me the answer for this question.
+
+1423
+02:06:08,630 --> 02:06:10,830
+So this is a gate 2020 question.
+
+1424
+02:06:10,830 --> 02:06:13,190
+You can see there are M input lines.
+
+1425
+02:06:13,190 --> 02:06:18,030
+There are an output lines for a decoder that is used to uniquely address a byte addressable
+
+1426
+02:06:18,030 --> 02:06:20,910
+one KB memory.
+
+1427
+02:06:20,910 --> 02:06:25,710
+So what memory you have please tell me quickly tell me what memory you have your memory is
+
+1428
+02:06:25,710 --> 02:06:31,230
+byte addressable right yes or no your memory is byte addressable so on one location how
+
+1429
+02:06:31,230 --> 02:06:36,550
+many bits are there this is your main memory and this is byte addressable the question
+
+1430
+02:06:36,550 --> 02:06:41,590
+is saying this is byte addressable so tell me on one location how many bits are there
+
+1431
+02:06:41,590 --> 02:06:48,150
+on one location one byte is there, on one location one byte is there, okay, total memory
+
+1432
+02:06:48,150 --> 02:06:54,390
+size is already given to you, total memory size that is total memory size that is one
+
+1433
+02:06:54,390 --> 02:07:03,110
+kb, one kb, this is the total memory size, remember capital B that means byte, capital
+
+1434
+02:07:03,110 --> 02:07:09,870
+B means byte and small b means bit, okay, so you can see your memory size, your main
+
+1435
+02:07:09,870 --> 02:07:16,630
+memory size that is that is one K bytes that is one KB these B means bytes
+
+1436
+02:07:16,630 --> 02:07:21,650
+Okay so tell me how many locations will be there in the main memory in the main memory
+
+1437
+02:07:21,650 --> 02:07:28,890
+how many addressable locations are there, how many addressable locations means how many
+
+1438
+02:07:28,890 --> 02:07:34,750
+locations have address, how many addressable locations are there please tell me so that
+
+1439
+02:07:34,750 --> 02:07:41,430
+will be one K yes or no that will be one K very simple because this is the memory size
+
+1440
+02:07:41,430 --> 02:07:46,070
+one byte is present in one location one byte is present in one location that you already
+
+1441
+02:07:46,070 --> 02:07:52,310
+know because the question is saying that your memory is byte addressable okay your memory
+
+1442
+02:07:52,310 --> 02:07:58,310
+is byte addressable that means on one location one byte is present so tell me these many
+
+1443
+02:07:58,310 --> 02:08:06,070
+bytes they need how many locations these many bytes they need how many locations 1k locations
+
+1444
+02:08:06,070 --> 02:08:13,830
+yes or no 1k locations that means 2 power 10 locations so these many locations are there
+
+1445
+02:08:13,830 --> 02:08:22,990
+is this clear so there are 2 power 10 locations now you tell me if you want to identify these
+
+1446
+02:08:22,990 --> 02:08:27,710
+these many locations then what are the size of the decoder we have already seen there is
+
+1447
+02:08:27,710 --> 02:08:34,370
+a decoder. Okay, the input of decoder will be address lines. So how many address lines?
+
+1448
+02:08:34,370 --> 02:08:40,150
+The input of the decoder will be address lines will be address lines. How many address lines
+
+1449
+02:08:40,150 --> 02:08:46,350
+are needed? If there are two power 10 locations, then 10 address lines are needed. Okay, so
+
+1450
+02:08:46,350 --> 02:08:51,150
+the input of this decoder will be address lines. These are the input of this decoder.
+
+1451
+02:08:51,150 --> 02:08:56,590
+Okay, yes or no, these address lines, for example, maybe this is a nine, this is a zero.
+
+1452
+02:08:56,590 --> 02:09:03,150
+Okay. This is a eight and so on. So like this. So finally, this decoder, what are the size of
+
+1453
+02:09:03,150 --> 02:09:11,150
+this decoder that will be 10 multiplied by, of course, if you have 10, if you have 10 lines,
+
+1454
+02:09:11,150 --> 02:09:16,830
+okay, 10 input lines are there for this decoder, then this decoder will have two power 10,
+
+1455
+02:09:16,830 --> 02:09:22,670
+these many output lines you can already see. You can already see that there are two power 10
+
+1456
+02:09:22,670 --> 02:09:27,310
+locations in the main memory, in the main memory, there are two power 10 locations.
+
+1457
+02:09:27,310 --> 02:09:32,030
+So this is your decoder size 10 into two power 10 10 into two power 10.
+
+1458
+02:09:32,030 --> 02:09:33,030
+This is the decoder size.
+
+1459
+02:09:33,030 --> 02:09:38,750
+So we got the decoder size that is 10 into two power 10 10 into two power 10.
+
+1460
+02:09:38,750 --> 02:09:39,750
+Okay.
+
+1461
+02:09:39,750 --> 02:09:44,990
+And the question is saying that this 10, this 10 is your M and the question is saying that
+
+1462
+02:09:44,990 --> 02:09:50,410
+this two power 10, this is your N because N output lines M input lines.
+
+1463
+02:09:50,410 --> 02:09:58,330
+So finally the answer will be 10 plus 2 power 10, okay, and that will be 10 plus 1024.
+
+1464
+02:09:58,330 --> 02:10:02,680
+So your final answer will be 1034.
+
+1465
+02:10:02,680 --> 02:10:03,680
+Is this understood?
+
+1466
+02:10:03,680 --> 02:10:04,680
+Please tell me.
+
+1467
+02:10:04,680 --> 02:10:05,920
+Is this clear?
+
+1468
+02:10:05,920 --> 02:10:11,120
+So 10 plus 2 power 10, so 10 plus 1024, that will be 1034.
+
+1469
+02:10:11,120 --> 02:10:13,080
+Your final answer will be 1034.
+
+1470
+02:10:13,080 --> 02:10:15,000
+Okay, so that's it.
+
+1471
+02:10:15,000 --> 02:10:16,000
+Did you understand?
+
+1472
+02:10:16,000 --> 02:10:17,000
+Please tell me.
+
+1473
+02:10:17,000 --> 02:10:20,360
+Every concept that we have seen in this lecture, did you understand?
+
+1474
+02:10:20,360 --> 02:10:22,760
+There are some more concepts that we need to study.
+
+1475
+02:10:22,760 --> 02:10:28,880
+We need to in the main memory, in the memory, in this memory, we need to study something
+
+1476
+02:10:28,880 --> 02:10:34,680
+called endianness, something called this chapter we need to study, okay, this topic we need
+
+1477
+02:10:34,680 --> 02:10:35,680
+to study.
+
+1478
+02:10:35,680 --> 02:10:41,360
+We need to study how to expand, expansion, okay, we need to study this concept.
+
+1479
+02:10:41,360 --> 02:10:48,960
+And finally, okay, so I think, okay, and finally, we need to study DRM versus RM.
+
+1480
+02:10:48,960 --> 02:10:54,120
+So these concepts we need to study and these we will study in the next lecture, please
+
+1481
+02:10:54,120 --> 02:11:00,040
+tell me in this lecture, did you understand everything so far in the in the computer organization,
+
+1482
+02:11:00,040 --> 02:11:04,600
+so far everything that we have seen, did you understand in this computer organization,
+
+1483
+02:11:04,600 --> 02:11:09,640
+the overview lecture and this lecture, don't worry about the future, don't worry about
+
+1484
+02:11:09,640 --> 02:11:10,640
+the future.
+
+1485
+02:11:10,640 --> 02:11:14,760
+So far everything that we have seen, are you confident that if any question comes based
+
+1486
+02:11:14,760 --> 02:11:19,840
+on word addressable, byte addressable or this decoder logic, you know, there is a decoder.
+
+1487
+02:11:19,840 --> 02:11:25,840
+So if any question comes on these concepts, can you, can you handle? Please tell me. Okay.
+
+1488
+02:11:25,840 --> 02:11:32,080
+Okay. Thank you, everyone. See you tomorrow. In the next class, these concepts we will
+
+1489
+02:11:32,080 --> 02:11:39,280
+study. Okay. Anyone has any doubt you can ask. Now, Neeth is asking, sir, explain why
+
+1490
+02:11:39,280 --> 02:11:46,600
+we don't use 120 bit processor instead of 64 for fast. Now need these things, maybe you
+
+1491
+02:11:46,600 --> 02:11:54,160
+can Google, okay, these things I can say, these are not exactly related to, I can say
+
+1492
+02:11:54,160 --> 02:11:58,600
+what we study, basically the concepts that we study, maybe you can Google these things,
+
+1493
+02:11:58,600 --> 02:12:02,720
+these are curious, you know, these are, I can say, these are the doubts related to curiosity.
+
+1494
+02:12:02,720 --> 02:12:08,160
+Okay, so there are some restrictions, of course, see, we, of course, we want that,
+
+1495
+02:12:08,160 --> 02:12:14,700
+Okay, we can use, I can say many, the word size we want to use 128 bits, maybe there
+
+1496
+02:12:14,700 --> 02:12:20,820
+are some restriction, okay, because if you want 128 bit address, sorry, this word size
+
+1497
+02:12:20,820 --> 02:12:26,440
+equal to 128 bit, if you want, then how many data lines you need?
+
+1498
+02:12:26,440 --> 02:12:32,700
+If you want word size equal to 128 bit, because you are asking that, explain why we don't
+
+1499
+02:12:32,700 --> 02:12:34,880
+use 128 bit processor.
+
+1500
+02:12:34,880 --> 02:12:39,880
+So if you want word size equal to 128 bit, then how many data lines you need?
+
+1501
+02:12:39,880 --> 02:12:42,560
+You need 128 data lines.
+
+1502
+02:12:42,560 --> 02:12:47,000
+Maybe there is some, in the, maybe there are some restrictions because of that, these things
+
+1503
+02:12:47,000 --> 02:12:48,000
+are not needed.
+
+1504
+02:12:48,000 --> 02:12:49,000
+Yes or no.
+
+1505
+02:12:49,000 --> 02:12:53,560
+MSG is asking CPU will always generate fixed size of address in bits.
+
+1506
+02:12:53,560 --> 02:12:54,560
+Yes.
+
+1507
+02:12:54,560 --> 02:13:00,520
+CPU will always generate fixed size of address, okay.
+
+1508
+02:13:00,520 --> 02:13:03,440
+Any other doubt?
+
+1509
+02:13:03,440 --> 02:13:33,240
+Divyansu is asking sir after practicing lecture questions, say we go for PYQ, actually Divyansu, I am thinking to take all the PYQ in the lectures, okay, so this is what I am doing, you will see this, in the future also you will see this, that all the PYQs we will take within the lectures, okay, for the computer organization, for this subject, okay, so every gate PYQ we will take in the lectures, so if you want to do some practice, then just wait, I will provide you the practice questions, okay.
+
+1510
+02:13:33,440 --> 02:13:38,440
+Within the lectures, we will take all the gate PYQs.
+
+1511
+02:13:38,440 --> 02:13:40,440
+Okay. Thank you everyone.
+

@@ -1,0 +1,708 @@
+1
+00:00:00,340 --> 00:00:29,680
+Hi, everyone. How are you doing? Okay, so let's get started. Today, we are going to see more questions on all type of cases, right? So specifically, I have taken almost all the good pbqs here. So let's just let's just start with the pbqs and a few questions, okay, which I have taken from a standard university. So if I if I talk about the gate pbqs, then I have divided gate pbqs on cash, okay, obviously on cash.
+
+2
+00:00:31,880 --> 00:00:59,450
+on cache memory in certain types, right? So one type of question is basically related with the tag bit index bit and offset and so on, right? So all of all of these pbqs, okay, all of these pbqs we have already done all of these pbqs we have already done. Now, this is going to be focus of our today. Okay. So today, we are going to do this. So today,
+
+3
+00:00:59,900 --> 00:01:22,260
+I mean we have already covered the basics but today we are going to solve few questions on the and with respect to PYQ we will solve all the questions on the on the loops and array and with related to cache okay I will talk about it and then I have noticed that I mean in the PYQ also they have asked these type of questions which are related to effective time to exercise so we will solve them tomorrow
+
+4
+00:01:22,670 --> 00:01:55,190
+And then one, two questions are of some different type. We will see them also. Okay. So, but today we are going to see this because this is a very, very important topic. Okay. Let's get started. Now, let's see this example, which is locality example where I'm told, I'm saying, okay, suppose that I write a for loop here. Okay. Just focus on this for loop, which is having, this is a nested for loop, right? Which is basically, basically accessing this particular array. Now, how many elements do you have in this array?
+
+5
+00:01:57,070 --> 00:02:27,890
+So assume that you have m m into n elements right in this array assume that you have m into n elements in this array So you are going to access all of them. How many times each element one time, right? So you are going to access all of the elements one by one So which is the first element you will get access? What is the first element that you will access as per the loop 0 0 and then 0 1 and and so on, right? Okay. Now you just tell me You just tell me that in the memory
+
+6
+00:02:28,270 --> 00:02:50,380
+How do they look like in the memory? See, in the memory in C programming, we store in the row major order, which means 00, then 01, then 02, then 03. In the memory, it will just look like a one-dimensional array, isn't it? If you have seen C programming lectures, you might know this. Otherwise, don't worry about it. So basically memory is just one-dimensional array, right?
+
+7
+00:02:51,260 --> 00:03:21,690
+You can say memory just one dimensional error bytes. So basically this is this is how it will look like in memory So what is what is the next thing that that you have in the memory? The next things that you have in the memory is basically these these elements, right? So which means which means particularly you can say you have a10 a11 a12 like this in the memory, right? What are the what are the next things you have in the memory? You have these things. So this is how they look in the memory. Is this okay to everyone?
+
+8
+00:03:24,170 --> 00:03:54,320
+look of memory okay now you tell me okay just forget about this for loop phone now you tell me if I want to access these elements suppose if I access this element first and then I access some something random then I access something random then is this a good idea or I should be accessing everything in sequential order I mean which one if I add if I need to add let's suppose all of these all of these numbers okay should I be accessing this first and then this then maybe this then this or should I be accessing I mean adding like this
+
+9
+00:03:54,560 --> 00:04:23,000
+which one is good adding sequential is good why let me just tell you why can anyone tell me why that is good because because this is this is how your memory look like but let's suppose this is how your cache look like right this your cache right this is basically one block of memory suppose in one block you are having four elements this is one block of memory you can you can say that this is second block this is third block right now
+
+10
+00:04:23,310 --> 00:04:46,120
+now let's suppose this cache is just a very small cache it is maybe having okay so here let's just assume maybe not not four elements let's just assume maybe two elements okay two elements in one block I mean block sizes maybe if element is four bytes then block size maybe eight bytes only okay suppose these are the blocks okay and then let's suppose that your cache lines
+
+11
+00:04:46,540 --> 00:05:15,890
+are just four lines you have or maybe two lines you have okay which means in cash cash is very very small just for just to make sure that you understand the example so let me say that cash is very small and it is having just two lines okay which means just two lines of cash so now tell me whenever you are accessing this element what will happen will this element only be going to the cash or the whole block will be going to the cash see this is a miswrite
+
+12
+00:05:16,280 --> 00:05:45,140
+this is a miss because cache is initially empty now tell me only this element will be moved to the cache or the whole block will move to the cache whole block will move to the cache right so so once you access this particular element then can you tell me after this access how does the cache look like cache will look like this a00 a01 isn't it now suppose suppose after you access this you immediately access this can't you find that in the cache
+
+13
+00:05:46,220 --> 00:06:15,040
+You can find right you can find that in the cash. So basically basically intuitively you can say that if you're accessing this next element immediately after then it is better because that's already in the cash But suppose suppose you are not accessing this you access this that's good. So how many miss you have you you got miss miss here, right? Because initially cash was empty. So that's why you got miss here. Now suppose suppose that this is mapping to this is mapping to the line number zero. Then can you tell me the line number that it will map to
+
+14
+00:06:16,110 --> 00:06:43,840
+Line number one, then line number zero, then line number one, then line number zero, then line number one, and so on, right? Okay. Now, suppose I access something randomly, okay? But doesn't matter, maybe I access this. Now, how does the cache look like after this access? It will look like this, A12 and A13, isn't it? Isn't it because it is mapping to one? Let me know if that is fine to everyone. So how many miss you had till now?
+
+15
+00:06:44,730 --> 00:07:13,970
+to miss because because this was the axis this was miss this was miss in terms of percentage can anyone tell me how many miss we have till now in terms of percentage you can say 100% why because two two axis I did out of this all of them were missed right okay not an issue I'm just saying let me just let me just convey some intuitive idea then we will see it very formally okay now suppose now suppose instead of accessing this okay see if we access this now will there be hit or miss
+
+16
+00:07:14,260 --> 00:07:45,590
+tell me it will be hit right but suppose instead of accessing this you are accessing anything random maybe maybe this one then then it will get replaced and you are going to have a 22 a 23 agent it so it is also miss that's fine but okay now suppose now you access this is this beneficial to access this now since it is going to already replace then if we access this then the how how does the cache look like it will be again having a 12 and a 13
+
+17
+00:07:46,170 --> 00:08:13,980
+right a12 and a13 so basically basically if you just check here that we if we access randomly then is it might be the case that that we are not taking advantage of locality which is called a special locality right most probably right if we are accessing randomly is this okay everyone see what I'm trying to say that if you access the access this and immediately after you access this then then it will be hit
+
+18
+00:08:14,270 --> 00:08:45,250
+but let's suppose if we access this then you access this and then you access uh let's suppose if we access this then you access this then you access this will it be hit or miss on this it will be it will be miss right because it is also mapping to the it is also mapping to the line number zero so that's why that's why the line number zero will replace with this block and it will be miss this particular will be miss again so it seems like that if we if we access in the sequential manner and it's a good idea right it's a good idea
+
+19
+00:08:45,970 --> 00:09:13,590
+So, so if I give you two choices, whether given all of these elements, whether to randomly randomly access or to access, you know, in a more meaningful way, then which will, which will you, where you to, you will take, you will say that, okay, it's better to access sequentially, right? Okay, this is something that I wanted to convey that it is, it is obviously better to access something in, in a sequence, because that's how you can take advantage of special locality, right?
+
+20
+00:09:13,960 --> 00:09:43,370
+okay don't worry we will see numericals but for now i'm just trying to convey some idea okay don't worry so now let's suppose now let's suppose that uh this particular group okay that i have written ij is something is something like this j and i is something like this suppose this is j this is i am i adding all the elements now also or i'm leaving out something i think now also we are adding all the elements right
+
+21
+00:09:43,690 --> 00:10:14,820
+Now also I am adding all the elements see this loop which was having i and j and this loop which is having j and i let me just call it locality example 2 okay so there are two loops I want to compare one is that I have i and j another one is that I have j first and i next will this will this be faster or will this be slower or it will be same can anyone guess it let's just check let's just check see earlier what we were doing
+
+22
+00:10:15,200 --> 00:10:42,700
+you are accessing which element first? a00 right? i0, j0 since i is still 0, j is 1 so once you access a0 then you are accessing a01 then you are accessing i is still 0, j is 2 let's suppose then you are accessing a02 then you are accessing a03 so earlier you are accessing in sequence, isn't it? isn't it? now if you if you have this j and i can you tell me how you are doing? now let's suppose again cache is just having two lines
+
+23
+00:10:43,730 --> 00:11:16,140
+Now you are saying that okay, let's just first access Okay, so here Yeah, so what we are doing we are saying that first we are accessing which element a J fix which means this zero is fixed then you are saying a 0 0 a 1 0 a 2 0 a 3 0 right something like this agent it let me know okay, so
+
+24
+00:11:16,550 --> 00:11:48,180
+so maybe let's suppose till 20 I have so what you are saying that you are accessing this first then you are accessing one zero and then you are accessing maybe two zero where is two zero this is two zero right so you are accessing first you are accessing this element then you are accessing this element then you are accessing this element tell me tell me will this be beneficial see earlier earlier you were accessing this then you are accessing this but now you are accessing this and the moment you access this
+
+25
+00:11:48,520 --> 00:12:16,870
+you think it's a good idea it will miss again right it will miss again and then you are accessing this so it will miss again then you are accessing you will see it is one then you are accessing this so don't you think that uh that it will miss on every element right on every element it will miss so it is a hundred percent miss rate why it is miss every on every element
+
+26
+00:12:17,150 --> 00:12:46,440
+like this don't worry about this percentage and all first try to understand intuitively see what is happening if you are accessing this then line number zero will be containing 0001 then line number zero will get replaced with one zero right this is a miss this is a miss then again again since you are accessing this first time it will be miss again now you are going to access this right now you are accessing this tell me has this block has been replaced or not in line zero it is already replaced right
+
+27
+00:12:47,850 --> 00:13:18,550
+since it is already replaced you will get miss again on here also then you are accessing which element then you are saying that if this is 1 this is 1 then 0 1 then 1 1 right then you are accessing this tell me tell me will this be hit or miss if we access this it will be miss again why can anyone tell me at this point in time when you are accessing this at this point in time line 0 contains what this is line 0 this is line 1 line 0 contains which block
+
+28
+00:13:18,980 --> 00:13:49,000
+let's suppose this is block number one block number zero block number one block number two block number three block number four block number five line zero contains which block the moment you access this block number zero right because last you have access this right last you have access this basically so line zero will be containing this particular this particular block right now if you access this now if you access this want to be again getting miss yes right now now let's suppose you access this one is fixed zero one two okay
+
+29
+00:13:49,140 --> 00:14:13,640
+to one now you access this want to get want to be getting miss again so it seems like this is not a good way I mean if you write j and i it seems like it is not a good way and if you write i and j then you are accessing sequentially I don't want to compare with the data in the sense that how much will be hit rate miss rate we will do it very soon in the today's lecture only but today sorry but but for now have you understood that what I'm trying to say
+
+30
+00:14:14,140 --> 00:14:40,820
+that this particular loop ij is basically faster why because we are we are getting good good hit here right if you if you get miss on this then you are going to get hit on this then again you will get miss on this but at least hit on this right so it seems like on half of the element we are getting hit half of the element we are getting miss i will i will calculate the eject eject numbers later on but but here here if you're hitting missing on this the next you are getting hit right
+
+31
+00:14:41,370 --> 00:15:07,870
+But here, here in this example, this is miss, then again, this is miss, this is miss. So it's a very cultured, right? Here and there, if you, if you go on, it's not a good idea. Understood that as a programmer, what is your responsibility to write ij not ji, right? As a programmer, at least you can understand that just by the way of writing, you are, you are making your program slow or you are making your program fast, right? Understood. Okay. Okay.
+
+32
+00:15:08,070 --> 00:15:37,390
+So basically, don't worry about the hit rate and miss rate. I mean, in the sense that don't worry about the exact numbers. But I hope you understood that if we if we access sequentially, then it's a if it's a definitely a good idea, because we can take advantage of the cash. But if we are accessing, let's suppose something here and there, it's not a good idea, right? So today, we are going to solve many questions on such type. And there has been five to six questions. I think that that gate has asked, okay, we will solve all of them and some university questions.
+
+33
+00:15:37,920 --> 00:16:04,540
+So it's going to be very interesting class. Right. So let's just get started with our very first question, which I have taken from some university. Let's just see what they are saying. So they're asking the miss rate. Okay. Miss rate is what number of miss upon total total access. Okay. Number of miss upon total access for a cash off size. So cash size is given to us, which is 512 bytes.
+
+34
+00:16:06,680 --> 00:16:42,150
+That is a direct mapped cache and has 16 byte block size So block size is also given to us It is 16 bytes or 2 power 4 2 power 4 bytes This is cache size is how much 2 power 9 bytes So how many lines we have? We can say 2 power 5 lines Is this fine to everyone? Great Now what they are saying? So in this particular code, let's just see that how many miss we are going to get
+
+35
+00:16:42,740 --> 00:17:17,490
+see what is the size of the array 128 right and size of a arrays you can say array size is 128 elements or in other words you can say 2 power 7 into 2 power 2 bytes which is which is basically 2 power 9 bytes is this okay to everyone so your arrays are big array can this array be in the in just one block tell me can this array be in just one block
+
+36
+00:17:19,000 --> 00:17:53,030
+Obviously no, right? It is spanning across the blocks, right? How many blocks it will take? What do you think? This area will be taking how many blocks? Can anyone tell me? Block size is 2 power 4 bytes. This is 2 power 9 bytes. So how many blocks it will be taking? 32 blocks, right? Or 2 power 5 blocks, you can say. Anyway, so this block size is in the bytes I'm writing. Okay, maybe I can also write in terms of elements. So how many elements can come in a block? What do you think? You need to divide by
+
+37
+00:17:53,420 --> 00:18:27,150
+4 right 2 power 2 so I think 2 power 2 elements can come in a block and array is having 2 power 7 elements okay not an issue so basically let me just draw the array here it will be it will be something like this right it will be x 0 then x 1 till x so let me write few elements here x 2 x 3 till x how much
+
+38
+00:18:38,020 --> 00:19:09,240
+127 because 0 to 127. Okay. Now each block is containing four elements, right? So this will be one block. This will be one block zero, right? This will be block zero. Okay, that's great. So each block is containing four elements. Now, how many blocks it will be? So as you can see that there are 128 elements. So 128 elements, each block is having four elements. How many blocks are able to take? I think we have found out, right?
+
+39
+00:19:09,560 --> 00:19:44,000
+Okay. Can you tell me how many blocks it will take? 2 power 7 upon 2 power 2, I think it will take 32 blocks, right? I think we found it out just now. Okay. So it will be taking 32 block. Now, that's why since this error is going to take 32 block, so let me just ask you that what is this block number? 32 or 31? 31, right? Great. Okay. Now, how many blocks you have in the, in the
+
+40
+00:19:44,370 --> 00:20:06,190
+cash you have 2.5 okay so which means what I think this this whole array will be will be going to the cash side I mean this cash can have the whole array is this so cash size is 2.9 bytes and array size is also 2.9 bytes okay cash can hold whole array that's that's great okay not an issue so
+
+41
+00:20:06,800 --> 00:20:33,820
+So, basically this is a block 0 and this is block 31. Is this fine to everyone that I have just written the array and I told you that this much is block 0, this much is block 1 and so on and so forth and basically this much is block 31. Okay, there will be one more element which I am not writing but anyway that's fine. This much is block 31. Now, can you tell me just using the mod operation, can you tell me that this block will be going to which line?
+
+42
+00:20:35,950 --> 00:20:51,910
+since there are 32 lines so you need to tell me this will be going to line number 0 then again line number 1 this block will be going to line number 31 right so I think the block number and line number are same here doesn't matter now now tell me what this loop is doing
+
+43
+00:20:52,110 --> 00:21:21,840
+Okay. So first I have done what I have seen, how does array look like in memory and what is my block boundary at least, right? So that I can get to know that, okay, whenever I'm accessing the element, then how it is doing. So what is my block boundary and so on that that's, I have understood. Okay. Now what, which element, this array is accessing. Now you come to the code. Okay. So this was my first step where I have just seen that, okay, how, how the array look in the memory. Now tell me which element it is accessing.
+
+44
+00:21:22,270 --> 00:21:52,840
+It is accessing x0 first, isn't it? So since it is accessing x0 first, it will be hit or miss. It will be miss, right? Obviously, it will miss here. Now, now, interestingly, all of this, all of this block, I mean, the whole block will get copied. So that's why on this particular element, it will be hit or miss. It will be hit, it will be hit, it will be hit, right? So out of four elements, we have observed that it will be just miss on one, right? That's fine. Now you come to the next block.
+
+45
+00:21:53,130 --> 00:22:22,540
+want the same story repeat that on this particular element it will miss because that element you are accessing first time although you are going to access I mean you are going to store okay see you are going to store this into the line number zero this into the line number one and so on till line number 31 total is 32 so this will sit in the line number zero this will sit in the line number one but agent at the same story that this is miss here and three hit and one miss right so
+
+46
+00:22:23,340 --> 00:22:53,880
+so this pattern is repeating so can you tell me so if the pattern is repeating you can you can just break on on wherever it is repeating or maybe you can take the whole thing doesn't matter so by the way can you tell me out of four elements how many it is miss miss on one so what is the miss rate one upon four right this this this answer miss rate is one upon four okay understood or not let me know see
+
+47
+00:22:54,200 --> 00:23:25,750
+each block, each block element you are accessing very first time that's why it is a miss but again it will be hit, hit, hit, right? Understood? Now, now if you have understood this then can you tell me if, if, okay? Now don't get confused I'm just asking you if you have let's suppose, let's suppose if you have 16 lines here in the cache, 16 lines what is the answer? Instead of 32 lines if you, if you have half of the cache then what is the answer?
+
+48
+00:23:25,920 --> 00:24:07,640
+What is the miss rate? If you have 16 lines only, see, this will be miss again, right? I mean, if you have just 16 lines, then also it will be miss, these all will be hit, right? Then it is miss, these all will be hit. So you will be basically saying, if you have 16 lines, then you will be saying that, see, now I have just 16 lines, right? So this will be mapping to, can you tell me the line number? The last block will be mapping to.
+
+49
+00:24:09,930 --> 00:24:39,120
+15 right line number 15 this will be mapping to line number 15 because mod 16 is 15 actually so 0 1 so basically this is block 0 0 I mean 0 will be mapping here 1 1 2 here and till 15 till 15 there until block number 15 they will be mapping like this from block number 16 it will be again mapping to 0 right it will be again mapping to 0 but that's okay I mean as long as you are getting miss here and everything else is hit right this is miss everything else is hit so so
+
+50
+00:24:39,530 --> 00:25:07,800
+it doesn't matter whether whether now when 16 is coming then it is getting replaced see earlier earlier it was not replaced right i mean 16 the block number 16 is mapping to whom since it is 32 that's why it is mapping to 16 only right so earlier it was not replaced earlier it was not replaced now i'm saying it is getting replaced but that's fine that's fine i mean this 16 is getting replaced anyway i have access all of these elements right i don't need to access them again so that's fine
+
+51
+00:25:08,060 --> 00:25:39,240
+So here also even though you are decreasing the cash size your miss rate is not getting increased or decreased. So here if the cash size is 16 lines then also miss rate is 1 by 4. Let me know if you have understood this. See
+
+52
+00:25:40,050 --> 00:26:08,280
+first you should understand this that if you have 32 lines, then what is happening? This is going to line number zero, line number one and so on. Right. So, so here it will miss on this. Okay. Miss on this. Right. Now, now let's just continue on this, this example. Okay. Maybe, maybe you can understand more now. So let's just see that what is happening. See, let's just continue on this example only. You need to tell me that how does the area look like?
+
+53
+00:26:08,610 --> 00:26:44,350
+sorry how does the cache look like after all of the access can you say the cache look like this 0 1 2 3 I mean x of 0 x 3 and then x 4 2 x 7 and so on right and finally this will be the last line which is having x 127 I mean this whole thing right isn't it the cache is completely full with the complete array tell me
+
+54
+00:26:44,740 --> 00:27:17,550
+Agented cache completely filled with the complete array. Let me know if you have understood this. See the cache size and the array size is same. So it so happened that we are the way we are accessing. Basically, the cache will be completely full, right? And anyway, like however you access it, I don't think it will matter. The cache will be at the end of the day. It will be completely filled, right? If you are accessing all the elements, let me know if that is fine or there is an issue. Okay, understood, right? Now, if I just ask you the question that
+
+55
+00:27:18,130 --> 00:28:00,560
+Can you tell me miss rate, miss rate on second iteration of the same loop? What is the miss rate on the second iteration? This is zero, absolutely zero, because there is no miss at all, right? There is no miss at all. Cash is full, right? No miss. Cash has complete array. Okay, understood this? Okay.
+
+56
+00:28:01,630 --> 00:28:27,410
+I know it might be overwhelming, but let me know if you have any doubt. See, let's just have the cache lines to be 32 lines only. Let's just forget about this particular example. For now, we need to understand this one first. If cache is having 32 lines, then on the first axis, what is happening? And on the next axis, what is happening? On both of the iteration, you should understand. On the first iteration, it is missed, but everything is hit. So that's why 1 by 4.
+
+57
+00:28:28,270 --> 00:28:58,100
+But on the next iteration, everything is hit, right? This is miss rate on the first iteration. Zero is the miss rate on the second iteration. Okay. Cool. So, so let's just do more examples. Probably you will get to understand more. Okay. Let's see this particular question, which I have taken from CMU University. But before I go to this question, I need to make sure that you understood this, this example on both of the iteration. Have you, have you understood this on both of the iterations?
+
+58
+00:29:02,210 --> 00:29:31,150
+Okay. If you have understood this, then we can go to the next one, right? Or don't worry, you will get to understand more with the next one, even if you have not understood the previous one. Now, let's just see this question, which I have taken from very reputed university, which is CMU university. Let's just see what they are saying. So they are saying in this problem, you will perform cash analysis of the code for the three course weekends. Okay. I have taken just one of the code, but don't worry about it. Okay. For the course code given, assume a very small direct map, 16 byte.
+
+59
+00:29:31,450 --> 00:30:00,920
+data cache with two cache lines so what is the cache size that is given to us 16 bytes and two cache lines so basically two lines are given to us so line size seems to be 8 bytes we assume inter required 4 bytes so assume that inter required 4 bytes that's fine so size of integer is generally 4 only drawing the cache health so for given course you can we assume
+
+60
+00:30:01,210 --> 00:30:37,790
+a cold cache cold cache means empty cache initially empty okay empty empty initially empty cold cache actually means initially empty initially empty cache we assume which is having two lines okay by the way uh one line is basically seems to be how many bytes eight eight bytes right so it it may contain two integers right i mean one block can contain two integers okay that's fine now what they're saying next let's just see okay
+
+61
+00:30:38,070 --> 00:31:06,550
+this array an image X that is cache aligned okay so what does this cache align mean can anyone guess cache align or block align it basically generally mean that let's suppose you have array X0 okay X1 right let's suppose let's suppose this is this is basically your main memory which is one block second block third block and so on so whenever I say block align cache align it actually means that
+
+62
+00:31:06,860 --> 00:31:32,160
+your first element is actually starting with the one of the block I mean it's not the case that x0 is here okay it's not the case which means I will assume that my x0 is at the block boundary okay it is aligned with the block is this fine because because if I assume x0 is here then actually the analysis will be unnecessarily ugly okay so let's just assume that x0 is here
+
+63
+00:31:32,250 --> 00:32:05,930
+That's I mean that's what it is given in the question that actually starting with the blog that's called blog online case line. Okay, good. Okay, I will ask one question later on. Okay, I will ask one question later on. Okay, so let's just continue for now. That is, okay, that is beginning of the first question. Now they're asking number of cash measures here. Okay, let's just let's just go to the next page. Let's just see that what is happening here. So they are saying you have a cash.
+
+64
+00:32:06,730 --> 00:32:38,950
+You have a cache of how much size which is having two lines right which is having two lines each is having how many elements Each is basically eight bytes. So it can have two two elements basically, okay? It can have two elements. Okay, each each each can have two elements. Anyway, this is eight bytes This is line number zero. This is line number one. Let's just write the area. How do the area will look like? This is x zero. This is x one. This is x two This is x three
+
+65
+00:32:39,550 --> 00:33:12,920
+and so on right 6 same what is the size of block if you remember the size of block was 8 bytes right because these are 16 bytes and 2 blocks only so it is 8 bytes so which means which means the block will be containing 2 elements only right so these are the blocks so if these are the 8 elements and block is containing 2 elements then this is block number 0 then how many total blocks are here by the way
+
+66
+00:33:13,220 --> 00:33:42,350
+If there are eight elements and each block is containing two elements, then how many total blocks will be there? I think four blocks, right? Four blocks. So this is block number zero. This is block number one. This is block number three. So this is my first step, right? This is always my first step that I see that how does array look in memory? Okay, this is how I will look in the memory. Now, what is the next step that we need to perform? Just look at the code. Okay, what is given? Now, let's just see that how they're accessing the elements.
+
+67
+00:33:42,810 --> 00:34:12,850
+they are saying that you need to access all of the elements once and then again okay so you are accessing twice all of the elements twice basically so if you access this first can you tell me in which block it will be mapping I mean in which block of the cache in which cache block it will be 0 this will be 1 then this will be 0 1 and this will be can anyone tell me this will be from block number 0 1 what do you think 1 right 1 okay
+
+68
+00:34:13,530 --> 00:34:55,250
+Cool, so you know that what is the line number, right? So if you access this it will be hit or miss Miss definitely then it is a hit then on this it will be Miss and then it is a hit, right? So miss hit miss it which means out of two elements one miss message one hit, okay on on the next one. What do you think? x4 and x5 Let me write it completely. I think there is just one more that I need to write. Okay on the next one this is
+
+69
+00:34:55,770 --> 00:35:25,540
+another block right so i think this pattern will repeat see this is a miss then this is a hit obviously because the cache line line zero is containing this the line one is containing this then since line zero is containing this you will replace that right you will replace them and now line zero is containing this so miss hit now again miss it so on the first iteration it seems like on the first iteration half of them are miss half of them are hit but they're not asking separately they're asking combinedly now if you do it again so by the way by the end of first iteration can anyone tell you what does the cache have
+
+70
+00:35:27,910 --> 00:36:17,270
+Cas has which this line number zero is less about this zero one two three. Okay. This is this these are the block numbers This line number zero is having which block number. Can I even tell me by the end of the first iteration? Yeah, so why the end of the first iteration? Basically, it contains the block number two and block number three, right? So which means which means end of first iteration it has x four x five and then
+
+71
+00:36:17,530 --> 00:36:34,990
+it has x6 and x7 right by the end of first iteration now you when you begin your second iteration does your first iteration help you i mean the previous iteration helped you or you are again going to get the uh miss and then hit and then miss and then hit and then miss and then hit and miss and then hit right
+
+72
+00:36:36,350 --> 00:37:09,140
+So it seems like the previous iteration is not helping, but that's fine. So I think the pattern is again repeating hit, miss, hit, miss, hit. So basically out of two elements, out of two elements, you are getting one hit only or one miss, whatever you want to say. So this is your miss ratio, right? In both iterations, combinedly, if this understood, this is end of first iteration and then end of second iteration will look like same, right? End of second iteration will also look like I'm in the same thing. Okay.
+
+73
+00:37:11,230 --> 00:37:42,350
+Let me know if you have understood. Should I repeat this? Am I okay? Maybe maybe you just need to give me a feedback if I'm going too fast. Is it too fast or it's okay? Okay, I think I'm going too fast, right? Okay, so maybe I can quickly repeat that what I'm trying to say. See at the first iteration, you are going to access this, right? So since it is not in the cache, you will store the whole block, not only one element, right? You will store the whole block. So that's why you will store this particular block.
+
+74
+00:37:42,680 --> 00:38:04,200
+so this will be miss but again hit then you will store this so that's why it is miss here then hit then you will you will replace right then miss hit miss hit so by the end of first iteration you will look like this I mean the cache will look like this okay then if you access again this x0 so this cache is not containing x0 so that's why again miss and then hit so that's why 1 by 2 is the miss ratio
+
+75
+00:38:04,490 --> 00:38:36,270
+Okay, so let's just see the answer which which what is the answer that they have the answer is 50% right in terms of percentage Answer is 50% which I've also taken the official answer from the CM University only Understood. Okay. Now, let's just modify. Okay, let's just modify the same question little bit and let me just ask you something else Suppose I just modify little. Okay. The little thing is that that I want to modify is
+
+76
+00:38:36,620 --> 00:39:15,960
+Now the number of cache lines Okay, the number of cache lines are let's suppose more Okay are basically more or maybe let's suppose if it is less Suppose it is just one line Then can you tell me what's going to happen? Let's just first solve for the one line So this is variation, right? We are number of cache lines So on two on two loop what is happening? It is miss hit, miss hit, miss hit, miss hit Then again miss hit
+
+77
+00:39:16,130 --> 00:39:57,050
+so how much it is going to change what is the miss rate now what is the miss rate now on on these two loops combinedly on the two iterations again 1 by 2 right yes again 1 by 2 or 50 percent okay there is no change here okay this is same yeah great now let's have a little other variation okay suppose I say number of cash lines now are four
+
+78
+00:40:06,600 --> 00:40:39,240
+Okay, let's suppose these are the four lines. Then on the first loop, it is one by two. On the second loop, what's going to happen? It is zero, right? So you can say, you can say, if they ask you, combinedly, okay, if they ask you, combinedly, out of how many, how many, like every element you are accessing, how many access you are doing, how many memory access you are doing, basically 16, right, 16 out of them, out of them, I think
+
+79
+00:40:40,260 --> 00:41:04,600
+on how much is the miss? How much is the miss? 1, 2, 3 and 4. So 4 is the miss. So that's why 1 by 4 is your miss issue. So it seems like increasing the cash line is good. Increasing the cash line is good. But even if you decrease it, it is not changing. For this example, it is not changing even the miss rate. Even if you decrease it, it's okay.
+
+80
+00:41:05,110 --> 00:41:38,700
+I mean, if you keep it 2, if you keep it 1, both are giving the same answer. But if you increase it to 4, it's reduced. Now the miss rate is actually reduced. Or in other way, you can say, if you have one line, then making it 2 is not helping you. Making it 2 is actually not helping you. It is still 50%. But making it 4 is helping you. And it is actually reduced to 25%. It is reduced to 25%. So have you understood this example which I have taken from CMU?
+
+81
+00:41:41,370 --> 00:42:08,920
+Now, now let's just see more examples because we need to understand these kinds of questions more. And then we will, we will see the gate be like you also, right? Okay. So what they're saying that in this particular question, right? Less. Okay. Thus, I think from the same university I've taken from CMU only. So they are, they're again asking you. Okay. The question is on the next page. So maybe I can just copy this code, right?
+
+82
+00:42:12,940 --> 00:42:47,830
+So they're asking you that what is the miss ratio? If it is direct map 16 by block size, the number of cash misses, if it if it is two way set associative, then what is the number of cash misses? Okay, so let's do one by one. Let's do for direct map that what is the answer we are getting here. So what is the answer that you will be getting for direct map? Let's just see. So they are saying the cash is direct map, right? So before before even I look at the cash, maybe I can just look at the
+
+83
+00:42:48,050 --> 00:43:18,010
+array that how does array look like in memory or interestingly it is a two dimensional array which is good so I think a 0 0 right what is the block size 16 byte block and four blocks we have in the case that's okay so 16 byte block and one element size is basically okay in these examples I am assuming that integer is of four bytes okay so so so basically
+
+84
+00:43:19,500 --> 00:43:56,610
+One block will be containing how many elements if it is 16 wide block then four elements right four elements, okay, so a 0 0 a 0 1 so I think till a 0 3 only it will be containing okay a 0 1 a 0 2 a 0 3 a 0 4 like that right a 1 0 and so on okay
+
+85
+00:43:57,610 --> 00:44:31,410
+So our block will be containing only this much till 0 3 not not till 0 4 till 0 3 will be containing Now we have four blocks, right? We have four blocks 1 2 3 and 4 Okay, so first you access this then are you going to get hit or miss? You are going to get miss right initially. I mean initially Initially, this will be miss, right? So first you access this then it will be miss Okay
+
+86
+00:44:31,720 --> 00:45:01,960
+so it will be miss and then for these three it will be hit right okay now if we access this it will be again miss and for next three it will be hit right so I think I think it's a fairly it's a fairly simple question so on every four you are getting one of them is right that's fine but I think here the number of area elements has 25 so basically what will happen that
+
+87
+00:45:03,340 --> 00:45:34,360
+Till till I can say till 24 elements. It's okay because that's in the block now There will be a last block actually, but it will be just containing just one of that element, right? Whichever is last one. What is the last one here? Okay, and there is no air element here. Is this block boundary okay to everyone? See each block will be containing four elements. So four four four four so multiple of four
+
+88
+00:45:34,900 --> 00:46:03,660
+where it will end, where will it end at 24, right? Then 25th element, whatever is the index, let's not worry about it. But the 25th element will be left alone in one of the block, right? At the start of this. And then rest of this is not an error element, not the error elements. Is this okay to even, that how does the error fit into the blocks at least in the main memory? Okay. So till 24, you observe that, that, that maybe, maybe,
+
+89
+00:46:04,070 --> 00:46:35,940
+how many misses you got till 24 how many misses you got and every four you are getting one so i think six misses you got right and every four you are getting one right so one by four is the miss rate till 24 but six missed still 24 but one more miss here right one more miss here so total seven misses you are going to get is this fine to everyone let me know see here here the array elements are given in such a way that there are
+
+90
+00:46:36,220 --> 00:47:04,930
+there are 25 elements right okay five into five 25 elements we have from zero to four is the index but but that's okay so if we have 25 elements then what's going to happen that the last element will will be alone I mean each block can contain only four so four four four so where it is ending the multiple of four near to 25 at 24 it is ending so the last element which is 25th element whatever is the index let's not worry about it but
+
+91
+00:47:05,160 --> 00:47:36,560
+but the 25th element will be left alone in one of the block and there is no other elements which are accompanying that particular element. So that's why 6 misses till these this block but here, here there is one more missus, save and miss, understood. So let's just see the answer maybe. Save and missus is the answer. Let me know what was it too difficult to understand.
+
+92
+00:47:41,120 --> 00:48:09,220
+just because they have given the array boundary in such a way that it is the last I mean the last block is not containing the all the elements are not array elements of the last block right only only just one or two elements are there so that's why this question is little twist but the fundamentals are same which means you just need to see that how array is in the main memory and then how you are accessing it right so you are accessing in the sequential way because this is i and j so you are accessing in the sequential way so I think that's fine right
+
+93
+00:48:10,230 --> 00:48:42,430
+Now, let's just move to the next question here, which is, which is this one? Okay. I mean, if it is two-way set associative, then how things are going to be changed. So let's just move to this one. Two-way set associative means what? It means how many, they're saying, do you have two sets? Okay. How many sets we have? Two sets. Two sets we have. Each set is containing how many lines? These are two sets. Each set is containing two lines, right? So
+
+94
+00:48:42,820 --> 00:49:24,510
+This is one set. You can say set zero. This is set one. Okay, eight byte block size. So block size is eight bytes, which means each block will be containing how many elements, just two elements. So let's just look at how array will look like in main memory. So basically, since each block is containing two elements, again, I think the last element or the last block will be just containing the 25th element whatever the index but
+
+95
+00:49:24,650 --> 00:50:05,750
+Yeah, it will be not containing two elements. It will be just containing one element, right? Other than the last block, I think everyone will be containing two elements. Is this fine to everyone? What I'm saying here? So this is how your array look like in the main main main memory, right? This is our first step. Then then we see that how we are accessing. Okay, zero one, zero one. Now, can you tell me the set number? Don't tell me the line number. Can you tell me the set number for this block? The set number set number is zero, right?
+
+96
+00:50:06,220 --> 00:50:38,860
+Then this is one. Oh, will this be the same set? Tell me if there's sequentially, then it is the same set or the can you tell me the set number here? It will be one, right? It is always always in the modulus function, right? Always repeating. So it is zero, then one. And if if there are multiple sets, then zero, one, two, three, like that and so on. Okay. So it is miss here, and then you will put it, then it is, you will put this here. Okay, then the next thing you will put it here. Okay. And the next thing you will put it here.
+
+97
+00:50:39,050 --> 00:51:11,410
+So you can put 1, 2, 3, 4, 4 blocks. So basically, whenever you are accessing any element, whenever you are accessing any element, you are going to get miss and then you are going to get hit. Miss and hit. Will this pattern anyway at any time, can it change? See, whenever you are accessing any element first time, it will miss and the next will definitely be hit. So, can you tell me till this point?
+
+98
+00:51:12,360 --> 00:51:40,890
+it doesn't actually I don't think it matters that how many sets we have or how many sets we don't have even if we have just one of the line even there are four lines right even if we have just one line then then it is miss and hit right miss and hit so it is always going to be miss and hit right irrespective of what is the size of the cache it is always going to be miss and hit okay so till this point if these are 24 elements till this point can you tell me how many miss we have till this point
+
+99
+00:51:42,680 --> 00:52:13,900
+12 miss and then one more miss which is this one right so total 13 misses understood if even if we have just one line just forget about two sets forget about four four lines even if we have just one line then also it is miss and hit miss and hit this pattern is not changing based on the cash size right whatever the cash size since this is the very first time I'm accessing it is miss next it will miss because it is a one block and one block will get transferred okay
+
+100
+00:52:16,310 --> 00:52:46,470
+Understood this question. So I think 13 should be the answer, right? So I hope now you, you are getting the intuition that how to solve these questions. So how to solve, you first need to look at that. Okay. How the arrow look in the main memory. What is the block boundary? A block is containing how much of the area elements then, then, okay, just see that. Okay. You are transferring it and so on, right? Very easy. It's not a rocket science. You just need to look at that. Okay. How are it is in the main memory?
+
+101
+00:52:47,070 --> 00:53:16,430
+and what is the block is containing and then okay you just keep on transferring the block okay it will get transferred it will get transferred and so on right understood should we move to the next question now okay these two questions are done i think right now let's look at the same question this is the same question and this is part b in part b they are saying that now they are saying the iterations are are two okay if iterations are two
+
+102
+00:53:17,090 --> 00:53:46,940
+And now they're saying if direct map is used and to assess it to be used, then what are the misses here? So do we solve this or it will be too much? I think it will be easy once you understand the things, right? So we are just trying to solve difficult questions such that when whenever, you know, you need to face any any difficult question later on, you should be able to solve it, right? So let's just solve this also. This is also from the same CM University. So let's just try to solve.
+
+103
+00:53:48,750 --> 00:54:24,880
+in this part first so they are saying it is direct mapped 64 byte block size and two sets okay so sometimes people call it set but it is just lines okay so it is also two lines basically basically set size is just one line so you can understand it is in direct map you can say it is line only okay so this is direct mapped and they are saying two lines are only there 64 byte line
+
+104
+00:54:26,380 --> 00:54:58,500
+If it is 64 byte line, how many error elements it can contain? I think it can contain 16 elements, right? This time. So one of the line can contain 16 elements. So maybe you can say that that first 16 elements, whatever is the index will be just one block, right? A002, whatever is the index, but yeah, first 16 elements is one block. And I don't think we even have the 16 elements, but yeah, remaining whatever nine elements, I think, right? Remaining nine.
+
+105
+00:54:58,730 --> 00:55:31,080
+So these are the nine elements will be in the another block. Is this fine to everyone that how the area look like? I'm not writing the indexes because it's not too much useful. Okay. But the area orientation look like this that there will be 16 elements in one block and then remaining nine elements in another block. Let me know if this this particular diagram is okay to everyone. Okay. Now we can try solving it. See they are accessing this first. So one miss out of 16 here.
+
+106
+00:55:31,570 --> 00:56:02,090
+because this will get fit into just one of the line and one miss here. So how many misses we have? Two miss, right? Is this fine? Two miss in first iteration and in the next iteration, how many miss you have? In the next iteration, what do you think? Zero misses, right? Because cash will completely contain this array. So zero miss in the next iteration. So that's why I think two should be the final answer here, okay? Two misses. Understood?
+
+107
+00:56:03,540 --> 00:56:31,840
+See what I'm saying that first you need to look at the area orientation that how to look in the main memory Once you understand that okay, this is how it look it is going to look in the main memory Then I think later part is easy, right? So I'm not even writing the indexes Okay, we will keep on reducing the complexity as per we understand the things more Okay, because because see even if I write the index it is not helping me to solve the question, right? So I'm just saying okay first 16 elements and then nine elements. That's all right good
+
+108
+00:56:35,150 --> 00:57:20,790
+So it is coming out to be two misses and now let's just solve Let's just solve the next question, right? So now they are saying You have just one set Which is having two lines Each line is containing 32 bytes, right? Which means how many elements? Eight elements, right? Eight elements, okay So this is just one set Set zero, okay Now eight elements you are going to contain which means first eight elements
+
+109
+00:57:21,360 --> 00:57:59,960
+So how many elements you have? You have 25 elements right? So it will look like this right? 4 blocks you are going to use and then there will be one element which is 25th element which is going to be here These are the 8 elements block right? 8 elements This is some last element Let's not worry about the indices right? I am going to access this Then there will be miss here, there is miss here And everything is set 0 by the way right? Everything is set 0 This is 0, this is 0
+
+110
+00:58:01,210 --> 00:58:34,810
+This is zero, this is zero. Okay. There's a miss here. And let's suppose we are using LRU. Okay. I mean, it, it, it should be given, but, but if this is not given, then we are going to use the LRU. Okay. Okay. So this is miss here, miss here. And then it will be the set will be containing these two, then it is miss here again. Now you tell me which one you will be replacing. You will replace the first one, right? And then it will miss here again, then you will be replacing this one.
+
+111
+00:58:34,990 --> 00:59:19,220
+So, how many misses you have in the first iteration? Four misses in the first iteration, right? Then, since your cache is containing this, I don't think it is going to be beneficial because now you are going to replace that with this. So, again one miss, then second miss, then third miss and fourth miss, right? Understood? Then again four misses. So, in the second iteration also, again you are going to have four misses. So, total eight misses you are going to have. Understood? Let me know.
+
+112
+00:59:31,380 --> 00:59:49,440
+Yeah, so so why I'm saying that that we are using LRU or let's just see see we are going to keep this then we are going to keep this and then Whenever this is coming then one has to be replaced right one of them one of them has to be replaced because there's in the same set Then which one will you you will be replacing?
+
+113
+00:59:50,000 --> 01:00:11,760
+Okay, even though you don't use LRU or maybe something some other technique then also probably the answer is same right probably the answer most probably I don't know it might also depend on the on the replacement technique But since I need to replace one of them, that's why I'm saying that let's just assume that we are using LRU Understood. So your question is that why LRU need to be mentioned
+
+114
+01:00:12,490 --> 01:00:46,590
+only one set and same thing is happening. No, but we need to replace one of them. So that's why I'm saying let's just assume that we are we are using LRU. Okay, whichever is the least recently used, we are just replacing that. Now let's see this question, which I have taken from. Okay, one and only MIT. So let's just see this question, what they are trying to say. This problem evaluates the cache performance for the different loop ordering. You need to consider the following two loops written in C.
+
+115
+01:00:46,890 --> 01:01:16,320
+which calculate the sum of the integer 128 by 64 matrix of 32 bit integers okay so 128 into 64 is some LA size and of 32 bit integer which means okay integer size is basically 4 byte only okay some usual things are they they have given okay now they they are saying their two loops are given integer size is just four bytes only and two loops are given consider a direct map cache memory with uh with
+
+116
+01:01:16,730 --> 01:01:54,030
+2 power 12 bytes right 2 power 12 bytes and 32 byte cache line so 2 power 5 byte is cache line so cache sizes 2 power 12 bytes line sizes so each line will be containing how many elements 2 power 2 you need to divide I think 2 power 3 elements right okay 4 you need to divide so which means if you have 128 into 64 let's just convert that also 2 power 7 and 2 power 6
+
+117
+01:01:54,620 --> 01:02:33,570
+2 power 13. So you have 2 power 13 elements, right? Okay. So total you have 2 power 13 elements. So this is how your array will look like. Okay. So maybe I can also write the numbers. So let's suppose this is, what is the name of the array? Capital A. Okay. Capital A 0 0 1. Capital A 0 1. Each line is containing 8 elements. Okay. So
+
+118
+01:02:34,030 --> 01:03:23,140
+there will be let's suppose this is one block suppose this is one block and so on right so there will be there will be many blocks and then I think there will be a10 also and then then it will be eight elements right eight element block basically and if you have if you have how many elements you have 128 into 64 so 128 into 64 elements you have and each block is containing eight elements so how many blocks you have 2 power 10 right
+
+119
+01:03:23,420 --> 01:04:00,150
+So total 2 power 10 blocks, is this okay everyone? So this is how array will look like in the memory. Okay, total you have 2 power 10 blocks. I mean, in 2 power 10 blocks, your array will spin, right? You're in 2 power 10 blocks. Now, they are saying that you have how many lines you have, you have a cache size is this, so number of lines is basically how much 2 power 7 lines, right? So here,
+
+120
+01:04:01,220 --> 01:04:44,200
+Here let me also draw the cash to power seven lines. We have total by the way These are the two power 10 blocks. Do you think the complete area can decide in the in the cash? The complete area can decide No, right? Okay. So, so basically here, this is our first step that we will see that. Okay. How the array is looking like. What is the what is the bird boundary? What is the block boundary and so on. So this is how air is going to look like. Okay. Now
+
+121
+01:04:44,510 --> 01:05:19,300
+we have they're saying there are two loops we have and for both of the loops we need to analyze the number of misses right so maybe we can analyze one by one let's just see that in what order we are accessing in the first loop and in what order we are accessing in the second loop and then what is the number of misses in the both of the cases right okay so here we are accessing in ig order which means we are accessing sequentially so it will be hit or miss here tell me miss right
+
+122
+01:05:19,580 --> 01:05:39,030
+so out of eight elements how many you will get only one miss here right so you will get one miss and there are two power ten blocks so basically how many miss you will you will get here can you tell me can anyone tell me how many miss you will get in the loop one for every block just one miss right
+
+123
+01:05:39,420 --> 01:06:09,060
+and then it will it will reside in one of the one of the cash line doesn't matter I don't think even if the number of the lines are lesser or more it won't matter right generally generally it matters if you're if you're accessing twice right if you're accessing twice then if it is more let's suppose the cash can contain the whole array then if you're if you're accessing twice if and the cash can contain the whole whole array then what is the miss rate in the next iteration generally it is zero right because if the cash is basically let's suppose filled with the whole array then it is zero but anyway if you're accessing just once
+
+124
+01:06:09,330 --> 01:06:36,500
+Then miss, no one can avoid this miss, right? Because this is the very first time you are accessing this. So no one can leave out this miss. This is also called as compulsory miss. These kinds of miss are also called as compulsory miss. So this is compulsory miss because that's going to happen and then hit, hit, hit. And similarly, so for every block, I think just one miss. So 2 power 10 misses here, right? Is this understood to everyone?
+
+125
+01:06:37,700 --> 01:07:08,150
+Very easy question. You just need to see that how does the array look in the main memory and how we are accessing it? Let us now see this particular loop that how this particular loop is getting executed. Okay. So let me do one thing. Let me just copy this on the next page and then we will see, right? So let me just copy this on the next page. So this loop interestingly is saying that instead of ij, so instead of i and j, they are saying j and i. So what does this mean?
+
+126
+01:07:08,400 --> 01:07:36,460
+that j is fixed which means this particular index is fixed this is zero and then it will be zero only then you will be accessing first like you will be accessing in this manner which means first a 00 then then a 10 right so let me just tell you that how you are going to access see this is going to be the order in which you are going to access the elements this will be the first element is a 00 then a 10 then a 20 then a 30 and so on
+
+127
+01:07:36,880 --> 01:08:08,560
+So as you as you know from the previous diagram, let me just copy this also Okay See array is spinning over 2 power 10 blocks, right? So let's just do one thing Let's just write it here. So as you can as you can see that array is spinning over 2 power 10 blocks, right? That's what we already know. Okay, great now now here if array is spinning over 2 power 10 blocks then
+
+128
+01:08:09,140 --> 01:08:38,000
+In the cache, how many blocks we have? In the cache, I think we have only 2 power 7 blocks, right? So, let's just see. See, suppose this is your cache memory and you have 2 power 7 blocks, right? 0 to 2 power 7 minus 1 and total 2 power 7 blocks we have, right? Okay. So, let's just see the access pattern in which the array is getting accessed. So, first you are going to access A00 and then you are going to access
+
+129
+01:08:38,410 --> 01:09:02,980
+then you are going to access A10 right so A00 you are going to access and then you are going to access A10 cool so as a first step what we should notice here see this is this is going to be in the block 0 right block number 0 I mean the number of elements whatever is the number of elements in one block but yeah this is going to be in the block 0 so this A00 is going to map to the block 0
+
+130
+01:09:03,260 --> 01:09:33,250
+so which means the block number let me write the block numbers you are going to first access here the block number 0 and then you are going to access this a10 can you tell me what is the block number of this let's just see let's just see what is the block number of this see this a00 is going to be a00 then a01 till till what is the j this is basically 64 so till a0 63 or something right a0 63 or something
+
+131
+01:09:33,580 --> 01:10:01,160
+So basically you can say you can say this is going to be one block and then then there are multiple blocks and A063 will be the last element before you access this A10 I mean before before A10 in the memory this is A063. My question to you is that let me just do one thing let me just write the steps here see what I am doing here is that I want to just figure out so my question to you is that
+
+132
+01:10:01,730 --> 01:10:23,740
+What is the block number of A10? So basically step 1 is basically you can say that first block, first block number and then what is the second block number? So first block number we know it is the block 0, block number 0 and what is the second block number? So what is the block number of this particular element? That's what we are interested in.
+
+133
+01:10:24,420 --> 01:10:52,750
+So one block as we know can contain eight elements and there are 64 elements So how many blocks you have till now? So from from here to here before this you have 64 elements and divided by eight elements You have eight blocks, right? You have eight blocks from here to here starting from here to here. You have eight blocks in this region, right? So what I'm saying here is that Let's see you have let me just go to the next page. You have one block which is having eight elements, right?
+
+134
+01:10:53,120 --> 01:11:23,760
+Let me not write the indices. I'm not very very interested in the indices. I'm just interested, let's suppose in the block number. But yeah, there are eight elements. Maybe if you want, you can write a 0 7. I'm in the index if you want, but we are not very particular about the index, right? So there are eight, eight elements in one block. Okay, eight elements. Now, my question was that before you see this particular this particular element, which happens to be a 1 0.
+
+135
+01:11:24,810 --> 01:11:49,640
+How many blocks you have till this point? How many blocks are they? So as you know that there are 64 elements right 64 elements So how many blocks you have if one block is containing eight elements then you have basically eight blocks Can you tell me the block numbers also if eight blocks are there then this must be from 0 to 7 blocks block number basically Then what is the block number of this?
+
+136
+01:11:50,250 --> 01:12:13,480
+the block number of this particular element is basically block number 8 because block number 0 to 7 is before it and then block number 8 so if I ask you the axis pattern okay the axis pattern in terms of the block number axis pattern pattern of block numbers block numbers then it is going to be
+
+137
+01:12:14,000 --> 01:12:38,880
+block number 0 you are accessing because you are accessing this particular element then you are interested in block number 8 directly you are not interested in block number 0 again you are not interested in this element you are not interested in this element neither you are interested in this element so once you access the block number 0 then you are accessing block number 8 and then it will be plus it plus it then you are accessing block number 16 then you are accessing block number 32
+
+138
+01:12:39,160 --> 01:13:07,900
+sorry not 32, 24 then you are accessing block number 32 and then you are going to access these blocks side by side, right? So that's what you are going to do. I mean, these are the access pattern of the block numbers basically 0, 8, 16, 24, 32 and so on, right? These are the access patterns. I hope you understood. Okay. So if this is the access pattern, which means now, now let's not worry about anything else, right? We got our access pattern and then
+
+139
+01:13:08,100 --> 01:13:38,960
+Uh, let's just write the access pattern directly. So this is our access pattern basically, right? Of the blocks. So block number zero, you access then eight, you access then 16, you access and so on. Okay. Now, if cash is having, if cash is having two power seven blocks, then can you tell me the line numbers also of each of this block number? So access pattern of block numbers, you can say block numbers. Now, can you tell me the line numbers of each of this block number?
+
+140
+01:13:42,920 --> 01:14:05,330
+The line numbers right to which they map to see it is going to map to obviously 0 because you are going to take mod 128 So this is 2 power 7 blocks right? Not to power 7 lines. So you can say this is 8 then this is 16 Then since you are going to access 0 8 0 8 16 then
+
+141
+01:14:05,830 --> 01:14:33,900
+what's your what is the next one then it will be I think 24 then 32 so basically you can say in the first go okay in the first go you are only accessing multiple of 8 which is fine this is 32 then then 40 then 48 then 56 then 64 and so on right you are going to access in this way okay so before I ask you even before I ask you that what is the line number
+
+142
+01:14:34,170 --> 01:15:04,960
+Can you tell me that what kind of pattern it is? It is plus 8, right? It is plus 8, plus 8, plus 8. I mean, this is the excess pattern of the block numbers, okay? Suppose randomly, randomly, if someone asks you that are you going to, are you going to excess? Are you going to excess this? Let's suppose 120, okay? Are you going to excess this block number 120? Then what you will say? If it is divisible by 8, if it is divisible by 8, then you are going to excess, otherwise you are not going to excess, right?
+
+143
+01:15:05,430 --> 01:15:31,970
+So if it is divisible yet, then you will access because you are accessing in the first iteration. Okay. In the first iteration, you are saying, okay, block number zero, block number eight, block number 16 and so on. Right. So in the first iteration, you are accessing 0 8 16. So is this divisible yet? Let's just check it. Right. So, uh, I think it is digital. Right. It is. So you will access it somewhere, maybe 120 somewhere. Right. Someone asked you, are you going to access this 130? Let's suppose, uh, 136 somewhere. Okay.
+
+144
+01:15:32,230 --> 01:16:01,110
+then maybe you will check is this july 8 is this block number july 8 let's just check right so it will be it will be july 8 right it is since it is also july 8 that's why you will say that yes you are somewhere somewhere you will access 136 if someone asks you are you going to are you going to access this block number in this particular first iteration then you will say let me check is this july 8 so since this this is not july 8 this is not july 8 so that's why you will see this 132 want to come right
+
+145
+01:16:01,510 --> 01:16:33,960
+maybe maybe 120 will come then after that 128 will come then after that this 136 directly will come so 132 won't come in this particular iteration right so you are not going to access this not going to access this right so you are going to access only whichever is multiple of 8 right you are going to access whichever is multiple of 8 I hope that is fine to everyone now now if I ask you that what is the line number of this particular block 0
+
+146
+01:16:34,290 --> 01:17:03,690
+then what is the line number of 8, 8, 16 then till I think you are going to access 120 also so 120 so for 128 what is the line number can you tell me see this is interesting now if I ask you what is the line number for block number 120 which you will access right you are going to access 120, 128, 136 and so on right 128 you are going to access 136 you are going to access and so on right since there are there are this arrays containing actually 2 power 10 blocks
+
+147
+01:17:04,400 --> 01:17:31,620
+The whole array is containing 2 power 10 blocks. So I think you are going to access many blocks. I mean, this is 1024. Till 1024 block number, whatever is a multiple of 8, you are going to access. Till 1024 block number, whatever is a multiple of 8. Now, first you will access block number 0, which means this particular line will be containing block 0. Then, will the line 1 contain anything? No, because line 1
+
+148
+01:17:31,810 --> 01:18:01,670
+is I mean there is no block which is mapping to line one then directly you will go to the you will go to the block number okay I am talking about the numbering you will go to the block number or line number eight that will that will get mapped then then so basically if you if you talk about the cache if you talk about the cache also then you can say that if this is the access pattern then in the cache how you are going to fill the numbers let me just tell you see in the cache the numbers will be something like this okay the numbers will be something like this
+
+149
+01:18:02,090 --> 01:18:31,900
+So you will say you are first going to have in the cache you are first going to have this line number zero line number zero will be filled right because line number zero is here line number eight will be filled so line number zero will be filled okay by block number zero by some quantity then line number eight will be filled then line number sixteen will be filled and so on right and so on so so you are going to access these these elements in that order
+
+150
+01:18:32,130 --> 01:19:01,770
+So obviously it will be miss I mean at at the first go it is definitely miss right it is definitely miss so for for the first iteration it is definitely miss now now interestingly this 128 is again mapping to block number or line number 0 this 128 is again mapping to the line number 0 it means what it means that in the first iteration itself this this was containing block 0 then then this will contain block number 128 again right
+
+151
+01:19:02,300 --> 01:19:32,790
+and then probably 128 plus 128 which is 256 then and so on so basically this particular line will get replaced multiple times by different block numbers by block number 0, by block number 128, by block number 256 and I am only talking about the first iteration right first iteration see in the first iteration you are going to access A00 and then somewhere somewhere A01 then somewhere sorry A10
+
+152
+01:19:33,950 --> 01:20:01,090
+A1 0 then somewhere A2 0 and so on. So as a first step what I did I was just just interested that what is the gap between two axis. So I found out the gap is 8 blocks which means if this is the block number 0 then the next is block number 8. So once I found out the gap this is my most crucial step okay once I found out the gap I made the axis pattern itself.
+
+153
+01:20:01,850 --> 01:20:29,270
+I got to know the axis pattern just by finding out the gap okay gap which means that okay I'm going to access this block then I'm going to access this block then certainly I'm going to access block number 16 then block number 24 and so on so in the first iteration itself I'm going to access till till so the last element will be I think this I is varying I is varying till 128 right I mean 127 will be there okay
+
+154
+01:20:29,670 --> 01:20:55,630
+So whatever is the block number, let's not worry about it. I'm not very interested in the block number of every, every, every element. Okay. Whatever is the block number, let's not even worry about it. Okay. Because it's not been asked. So what is being asked? We are just focusing on that. And for that, we don't need the block number of everything. We are just seeing that. Okay. The gap is eight blocks, which means in every eight, eight, eight, you are going to access. This is the first observation. The second observation is that this particular zero will get replaced.
+
+155
+01:20:55,940 --> 01:21:25,460
+And by symmetricity, I mean everything will get replaced. This 8 will get replaced with 8 plus 128 block number and so on, right? So everything will get replaced. It's not like that. So what I'm saying that in the first iteration anyway, it is missed by everyone. In the second iteration, you are going to access A01. At that time, my question is that at that time, do this line contain the block number 0 or not? Do this line contain block number 0? So what is your answer?
+
+156
+01:21:26,200 --> 01:21:58,590
+No, because it has been replaced. See, there is some block number which we are going to access again, which is block number 128. And what is the element index? Maybe we can find out, but we are not very, very interested. If you want, we can find out. See, see that this A00 and then we have A, A10, right? So we are first going to access this, then we are going to access this. How many elements are there?
+
+157
+01:21:58,930 --> 01:22:27,040
+these till now these are 64 elements right 64 elements which means 8 block so so I can say for this the block number was 0 for this the block number was 8 right okay so which means if I if I want to find out that for what what index the block number will be let's suppose 128
+
+158
+01:22:27,420 --> 01:22:54,820
+then probably if you notice then I can divide by 8 if I divide by 8 I get this index or maybe vice versa if you multiply by 8 let's suppose if someone asks you given this index a10 what is the block number this is 8 a00 what is the block number this is 0 so basically if someone asks you what is the block number for let's suppose a20 then you will say this is 16 because 16 is the block number here
+
+159
+01:22:55,930 --> 01:23:22,370
+Similarly, if someone asks you what is the block number of 820 0, then you multiply by 8, it will be 160, but 160 is not the total blocks in the cache itself. I mean, okay, for the block number, it is 160, but it will map to, it will map to 160 mod 128, right? But a block number will be 160, that's correct. So basically, you can multiply by 8 with this index, right? Or vice versa, if someone give you the block number, then what is the first index that it is storing divided by 8?
+
+160
+01:23:22,550 --> 01:23:52,470
+so it is 2 power 7 divided by 2 power 3 it is 2 power 5 so probably you can say sorry 2 power 4 right so probably you can say a 16 0 a 16 0 is the index y which if we access this index the moment we access this index it means we are going to replace with this particular block so basically this particular block is having block number 0 or this particular line is having block number 0 then block number 128 so when I say block number 0 it is
+
+161
+01:23:52,700 --> 01:24:21,900
+it is because of a 0 0 when I say block number 128 it is because of a 16 0 okay when I say this is 256 it is because of divide by if you divide by 8 it is 2 power 8 2 power 3 so a 32 0 right so when you access a 32 0 you are going to replace this particular line but that's okay that's okay don't make things very complicated what I am saying is that what I am saying is that the moment you access this again in the second iteration this is already replaced right
+
+162
+01:24:22,470 --> 01:24:51,910
+So that is my only concern. So here we are not making use of this locality because the moment I access this next element again, this is already replaced. So there is no use of this particular access pattern. I hope you're getting. See, just to summarize what I'm saying that there is a miss on every point because this was the compulsory miss because definitely this is getting access first time, this block is getting access first time. So it is a compulsory miss.
+
+163
+01:24:52,870 --> 01:25:20,810
+But unfortunately, the moment I access this next element of the same block, this block is getting replaced, right? Because my access pattern is 08 and something like that. And then by the moment I access this block number 128, I will basically replace this particular line. So just to sum up what I'm saying, let me go to the next page. So what I'm trying to say here is that, see, this is the loop which is given to us, right? This is the loop which is given to us. And now, what is the very first step that you did?
+
+164
+01:25:21,070 --> 01:25:50,380
+the step one as you always do that how does array look in the main memory right so array looks like this in the main memory a 0 0 a 0 0 is the first element and then a 0 1 is the next element and so on right now we got to know that okay each block is containing eight elements that's fine so these are the eight elements that each block is containing right so each block is containing eight elements now there is some block which is
+
+165
+01:25:50,720 --> 01:26:16,060
+which is obviously having eight elements and then which is having let's suppose a10 and so on. So our first step is that how does array look like in main memory and how does cache look like. So cache is having 128 blocks or 128 lines. So two power seven lines this cache is having. Now we got to know that okay, we are accessing this element and then we are accessing this element.
+
+166
+01:26:16,700 --> 01:26:44,580
+Which means what is the block number we are accessing? Okay, so we are first accessing the block number 0 then we are accessing this block number 8 Okay, then then since we are accessing with the with the block numbers and we will be accessing with the block number 16 then then everything which is multiple of 8 right everything which is multiple of 8 So which means what that that now we need to check as a next step that this is basically these are the total 2 power 10 blocks that this array has right 2 power 10 blocks
+
+167
+01:26:45,660 --> 01:27:13,950
+Now we just need to check whether whether the moment we access this again That you already have this particular block in the main memory or it has been replaced. That's the simple thing that we need to check So can you check this? Yes, see something is if this is mapping to block number 0 then something else will map to block number 0 And what is that block number block number 128 will map to the to the block block 0 of the cache and Are we accessing this 128? This is the next question
+
+168
+01:27:14,390 --> 01:27:45,690
+then yes yes we are accessing because we are accessing in the first iteration everything that is a multiple of 128 right so that's why we are going to access this 128 also so which means this will get replaced first first it will be having 0 then 128 then 256 and then this is 256 then you can say 256 plus 128 right 256 plus 128 which is 384 and this will get replaced with 384 and so on so is this developed yet
+
+169
+01:27:45,850 --> 01:28:15,400
+Yes, it has to be digital yet because everything which which we are accessing in the first iteration is digital yet, right? So yes, it will also do it. So anyway, so basically, it will it will get replaced. And and that's how we are getting our answer that okay, it is going to get replaced. Then the moment you access this next, which means the moment you access this age, you won the second iteration. Since this is already been replaced, that's why that's why there is a miss on every element, right? So, so there's a miss on every every element. So that's why the total number of misses.
+
+170
+01:28:15,710 --> 01:28:43,570
+is basically total number of elements itself which means 64 into 128 is the total number of elements which is 2 power 6 into 2 power 7 which is 2 power 13 right so these many messages will be there because these many elements are there by the way if I just ask you if I if I also ask you so let's suppose if I also ask you on the next page that what is the axis pattern for the next iteration see this is the axis pattern for the first iteration but what is the axis pattern of the next iteration
+
+171
+01:28:43,980 --> 01:29:17,500
+So let me just ask you. So you can say this is the axis pattern of first iteration patterns of main memory block block in first iteration. What is that axis pattern? You got to know that this is this is going to be 0 0 8 16 24 and so on right in the second iteration. Can you tell me what is going to be the axis pattern in the second iteration also you are going to access this right
+
+172
+01:29:17,830 --> 01:29:47,460
+so since this is also going to the block number zero and then you are going to access this then again the block number eight in the second iteration also the access pattern is like this so in in which iteration so this is a 0 7 because this is eight elements in which iteration the access pattern will change see in the first iteration it will be like this in the second iteration also it will be like this in the third iteration it will be like this in the eighth iteration it will be like this okay in the eighth iteration it will be again because in the eighth iteration you will be accessing this one
+
+173
+01:29:47,680 --> 01:30:09,680
+right because this is a number eight right number eight element so in the eighth iteration also access pattern is like this now in the ninth iteration in the ninth iteration the access pattern will be block number one and then plus eight plus eight because here we are you are shifting plus eight right so here you are going to access this then you are going to access this so plus eight plus eight so which means then nine then eight plus nine
+
+174
+01:30:09,920 --> 01:30:39,810
+which is 17 and so on okay in the ninth iteration you are going to get axis pattern like this because of what was going to happen in the ninth iteration you are going to fill this then you are going to fill basically 9 the line number 9 then the number 17 and so on right okay so anyway it is a miss on every element that's why total number of misses is 2 power 13 and 2 power 13 is 8192 okay because 2 power 13 elements are here and these many misses are here
+
+175
+01:30:42,350 --> 01:31:16,590
+Okay. I hope you understood this particular question. It was very nice question. The only thing that you need to see that what is the access pattern of the blocks, right? From that, you can definitely solve this question. Okay. Now, there is one very interesting question. Do you want to try this question as a number? Like there are different, different variations and each of this variation basically asking you for the miss rate. Do you want to try this? So just try this particular question. Okay. Just definitely try this particular question as a number.
+
+176
+01:31:17,430 --> 01:31:50,790
+Okay. There are, uh, there are different, different variations and they're asking for the misread solution is given on the next page. Okay. But you try at your own. You try this particular question as in homework, right? And then, then there are, there are some P by Qs. You also try them, but we will solve all of the P by Qs. Okay. We will solve all of the P by Qs tomorrow, but you also try them. Okay. So just try out all of these P by Qs. If let's just see how many of you can, uh, can do how much P by Q is. Okay.
+
+177
+01:31:51,250 --> 01:32:05,530
+So just try out all of these PYQs which are listed here. Cool. Okay. So thank you everyone. We will be doing the PYQs tomorrow. All of these PYQs we will do tomorrow. Okay. Thank you. Take care. Bye bye.
+

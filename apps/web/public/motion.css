@@ -1,0 +1,26 @@
+:root{--motion-fast:140ms;--motion-base:240ms;--motion-ease:cubic-bezier(.22,1,.36,1)}
+.btn,.icon-button,.theme-toggle,.goal-option,.catalog-filter,.tile,.choice,.match-tile,.mux-selector{transition:transform var(--motion-fast) var(--motion-ease),background-color var(--motion-base),border-color var(--motion-base),color var(--motion-base),box-shadow var(--motion-base)}
+.nav-item,.mobile-nav a{transition:background-color var(--motion-base),color var(--motion-base)}
+.nav-item .icon,.mobile-nav .icon,.theme-toggle .icon{transition:transform var(--motion-base) var(--motion-ease)}
+.nav-item.selected .icon,.mobile-nav .selected .icon{transform:scale(1.08)}
+.theme-toggle:active .icon{transform:rotate(-18deg) scale(.9)}
+.btn:active:not(:disabled),.icon-button:active:not(:disabled),.tile:active:not(:disabled),.choice:active:not(:disabled),.match-tile:active:not(:disabled),.goal-option:active{transform:translateY(2px) scale(.985)}
+.subject-card,.practice-mode,.roadmap-card{transition:box-shadow var(--motion-base),border-color var(--motion-base),translate var(--motion-base) var(--motion-ease)}
+@media(hover:hover) and (pointer:fine){
+ .subject-card:has(button:not(:disabled)):hover,.practice-mode:has(button:not(:disabled)):hover,.roadmap-card:hover{translate:0 -3px;box-shadow:0 8px 20px #00000012}
+ .btn:not(:disabled):hover .icon{translate:2px 0}
+ .theme-toggle:hover .icon{transform:rotate(12deg)}
+}
+.btn .icon{transition:translate var(--motion-base) var(--motion-ease)}
+.path-node{transition:transform var(--motion-fast) var(--motion-ease),filter var(--motion-base)}
+.start-bubble{animation:bubble 2.4s ease-in-out 3}
+.buddy-body{animation:float 3.2s ease-in-out 3}
+.lesson-progress>div{transition:none}
+.progress-track>div{transition:width 380ms var(--motion-ease)}
+dialog:not(.lesson-dialog)[open]{animation:dialog-arrive 220ms var(--motion-ease)}
+dialog::backdrop{animation:backdrop-arrive 180ms ease-out}
+@keyframes dialog-arrive{from{opacity:0;translate:0 8px;scale:.98}to{opacity:1;translate:0 0;scale:1}}
+@keyframes backdrop-arrive{from{opacity:0}to{opacity:1}}
+/* Neither local preferences nor the OS should leave an animated transform behind. */
+[data-motion=reduced] *,[data-motion=reduced] *::before,[data-motion=reduced] *::after,[data-motion=reduced] dialog::backdrop{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after,dialog::backdrop{animation:none!important;transition:none!important;scroll-behavior:auto!important}}

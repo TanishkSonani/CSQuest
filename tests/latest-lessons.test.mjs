@@ -1,0 +1,9 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {authoredLectures} from '../courses/dl/authoring/authored-lectures.mjs';
+import {grade,correctAnswer} from '../packages/learning/engine.js';
+const questions=id=>authoredLectures.get(id).stages.flatMap(s=>s.questions);
+test('mux routes require the correct selector word',()=>{for(const id of [42,43,44])for(const q of questions(id).filter(q=>q.type==='mux')){assert.ok(q.answer>=0&&q.answer<q.inputs.length);assert.equal(grade(q,q.answer),true);for(let value=0;value<q.inputs.length;value++)assert.equal(grade(q,value),value===q.answer);assert.match(correctAnswer(q),new RegExp(`I${q.answer}$`));assert.equal(grade(q,String(q.answer)),false);}});
+test('mux cofactors reconstruct the stated three-input function',()=>{const pins=[C=>C,()=>1,()=>0,C=>1-C];for(let A=0;A<2;A++)for(let B=0;B<2;B++)for(let C=0;C<2;C++)assert.equal(pins[2*A+B](C),(B&(1-C))|((1-A)&C));});
+test('tree component counts and serial depths differ',()=>{const find=prefix=>questions(44).find(q=>q.prompt.startsWith(prefix));assert.equal(find('2-to-1 mux components').answer,8-1);assert.equal(find('Serial mux stages').answer,Math.log2(16));assert.equal(find('Total 4-to-1').answer,(64-1)/(4-1));assert.equal(find('8-to-1 binary tree').answer,Math.log2(8)*12);});
+test('enable and demux tables match their explicit Boolean rules',()=>{for(const id of [45,46])for(const q of questions(id).filter(q=>q.type==='truth')){const expected=q.rows.map(([a,b])=>q.prompt.includes("'")?((1-a)&b):(a&b));assert.deepEqual(q.answer,expected,q.prompt);}});
+test('ordinary encoder OR equations encode one-hot requests but not priority',()=>{for(let active=0;active<4;active++){const x=Array.from({length:4},(_,i)=>Number(i===active));assert.equal(((x[2]|x[3])<<1)|(x[1]|x[3]),active);}const requests=[0,1,1,0];const raw=((requests[2]|requests[3])<<1)|(requests[1]|requests[3]);assert.equal(raw,3);assert.equal(requests[raw],0);});
