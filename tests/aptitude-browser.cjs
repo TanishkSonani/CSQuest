@@ -24,6 +24,7 @@ const fs=require('node:fs');
   const card=page.locator('[data-catalog-subject="aptitude"]');
   await card.locator('[data-subject="aptitude"]:enabled').waitFor();
   assert.match(await card.innerText(),/45 levels/);
+  assert.deepEqual(await page.locator('[data-catalog-subject]').evaluateAll(cards=>cards.slice(0,3).map(card=>card.dataset.catalogSubject)),['coa','dl','aptitude']);
   await page.locator('[data-catalog-filter="available"]').click();assert.equal(await card.isVisible(),true);
   await card.locator('[data-subject="aptitude"]').click();
   await page.locator('[data-lesson="0"]:not(.locked)').click();await page.locator('.aptitude-lab').waitFor();
