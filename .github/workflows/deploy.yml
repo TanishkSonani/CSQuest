@@ -1,0 +1,85 @@
+name: Test and deploy CSQuest
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: csquest-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_USER: csquest_test
+          POSTGRES_PASSWORD: ci_test_only
+          POSTGRES_DB: csquest_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U csquest_test -d csquest_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DATABASE_URL: postgresql://csquest_test:ci_test_only@127.0.0.1:5432/csquest_test
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '22.23.3'
+          cache: npm
+      - run: npm ci
+      - name: Check browser and server syntax
+        run: |
+          node --check apps/web/public/app.js
+          node --check apps/web/public/learning-path.js
+          node --check scripts/server.mjs
+          node --check src/platform/server.mjs
+          bash -n deploy/deploy-release.sh
+          bash -n deploy/configure-pipeline.sh
+      - run: npm run validate
+      - run: npm test
+
+  deploy:
+    needs: test
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment:
+      name: production
+      url: https://130.162.38.87/
+    steps:
+      - name: Deploy the tested commit
+        env:
+          DEPLOY_KEY: ${{ secrets.CSQUEST_DEPLOY_KEY }}
+          DEPLOY_COMMIT: ${{ github.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$DEPLOY_KEY"
+          install -d -m 700 "$RUNNER_TEMP/csquest-ssh"
+          printf '%s\n' "$DEPLOY_KEY" > "$RUNNER_TEMP/csquest-ssh/key"
+          chmod 600 "$RUNNER_TEMP/csquest-ssh/key"
+          printf '%s\n' '130.162.38.87 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEPkyD3csBh5zRPEwQ/vAY2uPHsABhDvUpSsi3WTbaXP' > "$RUNNER_TEMP/csquest-ssh/known_hosts"
+          ssh -i "$RUNNER_TEMP/csquest-ssh/key" \
+            -o BatchMode=yes -o ConnectTimeout=20 \
+            -o ServerAliveInterval=15 -o ServerAliveCountMax=4 \
+            -o StrictHostKeyChecking=yes \
+            -o UserKnownHostsFile="$RUNNER_TEMP/csquest-ssh/known_hosts" \
+            csquest-deploy@130.162.38.87 "$DEPLOY_COMMIT"
+      - name: Check public HTTPS
+        run: curl --fail --retry 5 --retry-connrefused https://130.162.38.87/api/account/session

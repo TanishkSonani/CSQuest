@@ -38,6 +38,8 @@ Node.js **20.12 or newer**, npm dependencies, and PostgreSQL are required. The s
 
 Run the Node.js application as a persistent systemd service behind Nginx, with PostgreSQL on the VM or a separate database host. The repository includes service and proxy templates in `deploy/`. See [Oracle Cloud deployment](docs/ORACLE_CLOUD.md) for Ubuntu VM setup, HTTPS, data transfer, updates and backups.
 
+Pushes to `main` run GitHub Actions checks and deploy passing commits to the VM. See [the automatic deployment pipeline](docs/PIPELINE.md) for release behavior, credentials, backups and recovery.
+
 Set `DATABASE_URL`, migrate the database, and import course content before starting the service. For production, set `NODE_ENV=production` and terminate HTTPS at Nginx. Keep Node.js and PostgreSQL bound to loopback when running on the same VM.
 
 | Command | Purpose |

@@ -138,6 +138,8 @@ From a workstation with Playwright installed, `node tests/deployment-browser.cjs
 
 ## 5. Updates and backups
 
+For the configured VM, normal updates now use [the GitHub Actions pipeline](PIPELINE.md): commit and push to `main`. It prepares a release, backs up the database, applies migrations/course updates and verifies HTTPS. Its systemd drop-in chooses the active release, so pulling only `/opt/csquest` no longer switches the running app. The manual commands below describe the original deployment layout before release automation.
+
 Back up PostgreSQL before schema updates, using `pg_dump -Fc` and storing a copy off the VM. `.env` is private configuration, not a database backup. For updates:
 
 ```bash
