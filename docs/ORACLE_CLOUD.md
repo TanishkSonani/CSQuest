@@ -2,6 +2,8 @@
 
 This guide assumes an Ubuntu VM with sudo access and a public IP. A custom domain is optional. The app runs directly from the repository: Nginx handles HTTPS, systemd keeps Node.js running, and PostgreSQL stores the content and learner data. No frontend build is needed. Templates are in `deploy/`.
 
+The current deployment is **https://130.162.38.87/** on `Jellyfin-instance`. The 2026-10-11 local snapshot was restored and verified against all 16 application tables before startup. Existing accounts use their original login credentials. Subsequent local changes need another deliberate migration; do not restore an older snapshot over live learner data.
+
 For the existing Oracle VM, a 150 GB block volume named `CSQuest-data` is mounted at `/srv/csquest-data`, in addition to its 50 GB boot volume. PostgreSQL 18's dedicated `csquest` cluster stores data at `/srv/csquest-data/postgresql/18/csquest` and listens on loopback port **5433**. Backups live at `/srv/csquest-data/backups`. Use that port in this VM's `DATABASE_URL`; the generic setup below uses 5432.
 
 `deploy/provision-ubuntu.sh` installs prerequisites, clones the repository, and creates this dedicated cluster after the volume is mounted. It does not restore a backup or start the web app. `deploy/prepare-data-volume.sh` is only for a newly created, blank 150 GB disk; do not run it on an existing data volume.
@@ -73,7 +75,7 @@ node scripts/verify-db-transfer.mjs runtime/backups/cutover.dump
 scp runtime/backups/cutover.dump runtime/backups/cutover.dump.json YOUR_SSH_USER@YOUR_VM_IP:~/
 ```
 
-The export reads credentials from your private `.env` and produces a custom-format dump plus a manifest with its SHA-256 and each table's row count/content fingerprint. The optional local verification command creates a temporary database, restores the full snapshot, checks every table, and removes only that temporary database; it requires database-creation privileges. Keep both backup files private and out of Git.
+The export reads credentials from your private `.env` and produces a custom-format dump plus a manifest with its SHA-256 and each table's row count/content fingerprint. New snapshots fingerprint timestamps in UTC so source and destination time zones do not cause false differences. The optional local verification command creates a temporary database, restores the full snapshot, checks every table, and removes only that temporary database; it requires database-creation privileges. Keep both backup files private and out of Git.
 
 On the VM, create the role and empty database and configure `.env` as in section 2, **skipping** initial Alembic migration/course import. Stop any running CSQuest service, then place the uploaded files where the app user can read them:
 
@@ -131,6 +133,8 @@ sudo certbot renew --dry-run
 The proxy overwrites forwarding headers with the actual connection protocol and client address. The app uses the protocol for same-origin checks and sets secure session cookies in production. Log in and test learning saves through **HTTPS**; production cookies will not persist over plain HTTP. See [Nginx proxy headers](https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_set_header).
 
 Verify registration/login, a lesson, saved progress after refresh, and social pages. Check logs with `sudo journalctl -u csquest -n 100 --no-pager`. The startup check confirms that courses exist before the server listens.
+
+From a workstation with Playwright installed, `node tests/deployment-browser.cjs https://130.162.38.87` verifies trusted TLS, private course access, secure cookies, persistent account saves, and desktop/mobile pages using a disposable account that it deletes after the check. The test does not change existing learner records.
 
 ## 5. Updates and backups
 

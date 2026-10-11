@@ -83,5 +83,5 @@ TIMER
 systemctl daemon-reload
 systemctl disable --now certbot.timer 2>/dev/null || true
 systemctl enable --now csquest-certbot.timer
-/opt/csquest-certbot/bin/certbot renew --dry-run
+/opt/csquest-certbot/bin/certbot renew --dry-run --no-random-sleep-on-renew
 printf 'CSQuest HTTPS ready: https://%s/\n' "$public_ip"
