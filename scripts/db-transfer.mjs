@@ -37,12 +37,13 @@ export async function exportDatabase(file,url=process.env.DATABASE_URL){
   client=await pool.connect();
   const reservation=await fs.open(file,'wx',0o600);await reservation.close();reservedDump=true;
   const manifestReservation=await fs.open(manifestFile,'wx',0o600);await manifestReservation.close();reservedManifest=true;
+  await client.query("SET TIME ZONE 'UTC'");
   await client.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');
   const snapshot=(await client.query('SELECT pg_export_snapshot() AS snapshot')).rows[0].snapshot;
   const serverVersion=Number((await client.query('SHOW server_version_num')).rows[0].server_version_num);
   const tables=await inventory(client);
   await run('pg_dump',['--format=custom','--exclude-schema=csquest_test_*','--no-owner','--no-acl','--no-password',`--snapshot=${snapshot}`,`--file=${file}`],url);
-  const manifest={version:1,createdAt:new Date().toISOString(),serverVersion,sha256:await checksum(file),tables};
+  const manifest={version:1,createdAt:new Date().toISOString(),serverVersion,fingerprintTimezone:'UTC',sha256:await checksum(file),tables};
   await fs.writeFile(manifestFile,JSON.stringify(manifest,null,2)+'\n',{mode:0o600});
   await client.query('COMMIT');return manifest;
  }catch(error){if(client)await client.query('ROLLBACK');if(reservedDump)await fs.rm(file,{force:true});if(reservedManifest)await fs.rm(manifestFile,{force:true});throw error;}
@@ -53,6 +54,7 @@ export async function verifyDatabase(file,url=process.env.DATABASE_URL){
  if(manifest.version!==1||await checksum(file)!==manifest.sha256)throw new Error('Backup checksum mismatch; do not restore this file.');
  const pool=createPool(url,{statement_timeout:0}),client=await pool.connect();
  try{
+  await client.query("SELECT set_config('TimeZone',$1,false)",[manifest.fingerprintTimezone||'UTC']);
   await client.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');
   const actual=await inventory(client);
   if(JSON.stringify(actual)!==JSON.stringify(manifest.tables))throw new Error('Database does not match the backup: table names, row counts or content differ.');

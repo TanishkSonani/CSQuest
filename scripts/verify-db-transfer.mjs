@@ -14,7 +14,7 @@ try{
  for(const name of external?names.slice(1):names){await admin.query(`CREATE DATABASE "${name}"`);created.push(name);}
  if(!external){
  const source=createPool(urls[0]);
- try{await source.query("CREATE TABLE example (id int PRIMARY KEY, value jsonb); INSERT INTO example VALUES (1, '{\"progress\":42,\"name\":\"learner\"}'), (2, '{\"friends\":[1,2]}')");}finally{await source.end();}
+ try{await source.query("CREATE TABLE example (id int PRIMARY KEY, value jsonb, saved_at timestamptz DEFAULT now()); INSERT INTO example(id,value) VALUES (1, '{\"progress\":42,\"name\":\"learner\"}'), (2, '{\"friends\":[1,2]}')");await admin.query(`ALTER DATABASE "${names[0]}" SET timezone TO 'Asia/Calcutta'`);}finally{await source.end();}
  await exportDatabase(file,urls[0]);
  }
  await restoreDatabase(file,urls[1]);

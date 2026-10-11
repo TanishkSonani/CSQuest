@@ -1,6 +1,10 @@
 # Oracle Cloud VM deployment
 
-This guide assumes an Ubuntu VM with sudo access, a public IP and a domain pointing to that IP. The app runs directly from the repository: Nginx handles HTTPS, systemd keeps Node.js running, and PostgreSQL stores the content and learner data. No frontend build is needed. Templates are in `deploy/`.
+This guide assumes an Ubuntu VM with sudo access and a public IP. A custom domain is optional. The app runs directly from the repository: Nginx handles HTTPS, systemd keeps Node.js running, and PostgreSQL stores the content and learner data. No frontend build is needed. Templates are in `deploy/`.
+
+For the existing Oracle VM, a 150 GB block volume named `CSQuest-data` is mounted at `/srv/csquest-data`, in addition to its 50 GB boot volume. PostgreSQL 18's dedicated `csquest` cluster stores data at `/srv/csquest-data/postgresql/18/csquest` and listens on loopback port **5433**. Backups live at `/srv/csquest-data/backups`. Use that port in this VM's `DATABASE_URL`; the generic setup below uses 5432.
+
+`deploy/provision-ubuntu.sh` installs prerequisites, clones the repository, and creates this dedicated cluster after the volume is mounted. It does not restore a backup or start the web app. `deploy/prepare-data-volume.sh` is only for a newly created, blank 150 GB disk; do not run it on an existing data volume.
 
 ## 1. Prepare the VM
 
@@ -88,6 +92,21 @@ Restore refuses a populated database, checks the dump checksum and target Postgr
 Static images, fonts and application code travel with the repository. Ignored speech models, source videos, development tools, process logs and `.env` credentials are not needed to run the web app. PostgreSQL learner records are transferred through the private backup, not Git. Users may need to log in again because browser cookies are specific to the site's hostname.
 
 ## 4. Enable the service and HTTPS
+
+For **public IP deployment without a domain**, enable the application service after restoring and verifying the database, then run:
+
+```bash
+sudo cp deploy/csquest.service /etc/systemd/system/csquest.service
+sudo systemctl daemon-reload
+sudo systemctl enable --now csquest
+sudo bash deploy/enable-ip-https.sh YOUR_VM_IP
+```
+
+The script configures Nginx, obtains a trusted IP certificate using Certbot 5.4+ and Let's Encrypt's `shortlived` profile, redirects HTTP to HTTPS, and installs a six-hour renewal timer plus Nginx reload hook. Certificates last about six days, so keep `csquest-certbot.timer` enabled and validate renewal with `/opt/csquest-certbot/bin/certbot renew --dry-run`. See [Let's Encrypt's IP certificate instructions](https://letsencrypt.org/2026/03/11/shorter-certs-certbot.html). OCI's network rules must permit 80 and 443 before running the script. It preserves existing OS firewall rules and adds web ports.
+
+The VM's public IP must remain assigned for access and renewals. If it changes, update the Nginx configuration and request a certificate for the new IP.
+
+For a **custom domain**, use the following alternative:
 
 ```bash
 sudo cp deploy/csquest.service /etc/systemd/system/csquest.service
