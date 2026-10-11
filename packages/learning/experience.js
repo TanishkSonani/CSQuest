@@ -96,7 +96,8 @@ export function restoreRound(draft,subjectId,lessons){
    if(q.type==='mux'&&(!Number.isInteger(v)||v<0||v>=q.inputs.length))return null;
    if(q.type==='bits'&&(!Number.isInteger(v)||v<0||v>q.total))return null;
    if(['number','visual-number','hex'].includes(q.type)&&typeof v!=='string'&&typeof v!=='number')return null;
-   if(['truth','match','cache','order','kmap'].includes(q.type)&&!Array.isArray(v))return null;
+   if(['truth','match','cache','order','kmap','c-program'].includes(q.type)&&!Array.isArray(v))return null;
+   if(q.type==='c-program'&&(v.length!==q.answer.length||v.some(token=>token!==null&&!q.tokens.includes(token))))return null;
    if(q.type==='match'&&(v.length!==q.pairs.length||v.some(n=>n!==null&&(!Number.isInteger(n)||n<0||n>=q.pairs.length))))return null;
    if(q.type==='truth'&&(v.length!==q.answer.length||v.some(n=>n!==null&&n!==0&&n!==1)))return null;
    if(q.type==='cache'&&(v.length!==q.accesses.length||v.some(n=>n!==null&&typeof n!=='boolean')))return null;

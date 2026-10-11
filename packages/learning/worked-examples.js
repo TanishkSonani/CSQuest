@@ -4,6 +4,7 @@ export function createWorkedExample(lesson,question=lesson.questions[0]){
  const q=question,headings={choice:'Reason through a decision',number:'Work through the calculation',hex:'Interpret the bit pattern',match:'Key relationships',order:'Follow the process',truth:'Read the truth table',cpu:'Trace the accumulator',cache:'Trace cache accesses',bits:'Split instruction fields',mux:'Route a data input',kmap:'Read and group K-map cells'};
  const out={type:q.type,title:headings[q.type],prompt:q.prompt,explanation:q.explanation,facts:[],terms:[],inputTable:null,solutionTable:null,solutionList:[],answer:correctAnswer(q)};
  switch(q.type){
+ case 'c-program':out.title='Build a complete program';out.answer=q.template.replace(/\{\{(\d+)\}\}/g,(_,i)=>q.answer[Number(i)]);break;
  case 'choice':out.facts=q.options.map(option=>String(option));break;
  case 'visual-number':out.title='Work through a visual calculation';
  case 'number':out.answer=String(q.answer)+(q.unit?' '+q.unit:'');break;
