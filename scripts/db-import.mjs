@@ -4,6 +4,7 @@ import {fileURLToPath,pathToFileURL} from 'node:url';
 import {subjects,platformRoot} from '../config/courses.mjs';
 import {createPool,transaction,saveUser} from '../src/platform/database.mjs';
 import {migrate} from './db-migrate.mjs';
+import {courseBundle} from './course-bundle.mjs';
 
 async function jsonFiles(directory,prefix=''){
  const output=[];
@@ -21,6 +22,11 @@ export async function importCourses(pool){
    await client.query(`INSERT INTO csquest_courses(id,manifest,sort_order,storage_key) VALUES($1,$2,$3,$4)
     ON CONFLICT(id) DO UPDATE SET manifest=excluded.manifest,sort_order=excluded.sort_order,storage_key=excluded.storage_key`,[course.id,course,course.order??100,course.storageKey]);
    const content=path.join(platformRoot,course.contentDirectory);
+   if(course.status==='available'){
+    const bundle=await courseBundle(course.id,content);
+    await client.query(`INSERT INTO csquest_course_documents(course_id,path,data) VALUES($1,'learning.json',$2)
+     ON CONFLICT(course_id,path) DO UPDATE SET data=excluded.data`,[course.id,JSON.stringify(bundle)]);documents++;
+   }
    for(const filename of (await fs.readdir(content)).filter(name=>name.endsWith('.js'))){
     await client.query(`INSERT INTO csquest_course_modules(course_id,filename,source) VALUES($1,$2,$3)
      ON CONFLICT(course_id,filename) DO UPDATE SET source=excluded.source`,[course.id,filename,await fs.readFile(path.join(content,filename),'utf8')]);modules++;

@@ -5,6 +5,9 @@ import {fileURLToPath} from 'node:url';
 import {createAccounts} from './accounts.mjs';
 import {createStore} from './database.mjs';
 import {handleSocial} from './social.mjs';
+import {gzip as gzipCallback} from 'node:zlib';
+import {promisify} from 'node:util';
+const gzip=promisify(gzipCallback);
 
 const root=fileURLToPath(new URL('../../',import.meta.url));
 const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.json':'application/json','.woff2':'font/woff2'};
@@ -15,6 +18,12 @@ export function createServer({store:providedStore}={}){
   const send=(code,value,type='application/json')=>{res.writeHead(code,{'Content-Type':type,'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});res.end(req.method==='HEAD'?undefined:typeof value==='string'?value:JSON.stringify(value));};
   try{
    const url=new URL(req.url,'http://127.0.0.1');
+   const sendContent=async(value,type)=>{
+    let content=Buffer.from(typeof value==='string'?value:JSON.stringify(value));
+    const compressed=content.length>1024&&(req.headers['accept-encoding']||'').split(',').some(entry=>{const [encoding,...params]=entry.trim().split(';');return encoding==='gzip'&&!params.some(p=>/^\s*q\s*=\s*0(?:\.0*)?\s*$/.test(p));});
+    if(compressed)content=await gzip(content);
+    res.writeHead(200,{'Content-Type':type,'Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Vary':'Accept-Encoding','Content-Length':content.length,...(compressed?{'Content-Encoding':'gzip'}:{})});res.end(req.method==='HEAD'?undefined:content);
+   };
    const dynamic=url.pathname==='/subjects.js'||url.pathname.startsWith('/api/')||url.pathname.startsWith('/courses/')||url.pathname==='/shared/worked-examples.js';
    if(dynamic){
     const courses=await store.courses(),accounts=createAccounts({store,courses});
@@ -28,6 +37,11 @@ export function createServer({store:providedStore}={}){
     if(url.pathname.startsWith('/api/')){
      const course=courses.find(c=>c.id===(url.searchParams.get('subject')||'coa'));
      if(!course){send(400,{error:'Unknown subject'});return;}
+     if(url.pathname==='/api/course-content'){
+      const bundle=course.status==='available'&&await store.document(course.id,'learning.json');
+      if(!bundle){send(404,{error:'Course content is not available yet.'});return;}
+      await sendContent(bundle,'application/json; charset=utf-8');return;
+     }
      if(url.pathname==='/api/status'){
       const status=await store.status(course.id);
       send(200,status||{checkedAt:null,sourceAvailable:false,phase:course.status==='planned'?'planned':'stopped',total:course.lectureCount,completed:0,imported:0,lessonSources:[]});return;

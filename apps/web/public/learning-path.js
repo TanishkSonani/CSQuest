@@ -1,7 +1,7 @@
 import {icon,mascot} from './icons.js';
 import {available,escapeHtml as h} from '/shared/engine.js';
 
-let observer,frame;
+let observer,frame,visibilityObserver,jumpFrame,pendingJump=false;
 const expressions=['welcome','thinking','happy','encouraging'];
 const messages=['One bit at a time!','Curiosity looks good on you.','Small steps. Big ideas.','You have got this!'];
 const cheers=new WeakMap();
@@ -24,12 +24,18 @@ export function learningPathView({unit,lessons,lecturePlans,progress,current}){
   return `<section class="path-topic ${topic%2?'bend-right':'bend-left'}" aria-label="${h(lecturePlans[lecture][0])}"><div class="path-divider"><span class="topic-number">${String(topic+1).padStart(2,'0')}</span><span>${h(lecturePlans[lecture][0])}</span><span class="topic-count ${done===3?'finished':''}">${done===3?icon('check'):`${done} / 3`}</span></div><div class="topic-path">${steps}<button type="button" class="path-sidekick" data-action="sidekick" data-message-index="${topic%messages.length}" aria-label="Byte says: ${h(messages[topic%messages.length])}. Tap for encouragement."><span class="buddy-spark spark-one" aria-hidden="true">✦</span><span class="buddy-spark spark-two" aria-hidden="true">✧</span><span class="path-sidekick-avatar">${mascot(expressions[topic%expressions.length])}</span><span class="path-sidekick-note">${h(messages[topic%messages.length])}</span></button></div>${topic<topics-1?`<div class="path-reward ${done===3?'earned':''}"><div class="chest-halo"><img class="chest-3d" src="/assets/chest-3d.svg" alt="${done===3?'Completed':'Upcoming'} topic treasure chest" width="128" height="116"></div><span>${done===3?'Topic complete. Look at you go!':'Three small wins. One big idea.'}</span></div>`:''}</section>`;
  }).join('');
  const done=progress.completed.filter(id=>id>=begin&&id<begin+topics*3).length;
- return `<div class="learning-path ${unit.color}">${groups}<div class="unit-finish">${icon('trophy')}<span class="page-eyebrow">YOUR NEXT MILESTONE</span><h3>${done===topics*3?'Foundation built!':'Keep your curiosity going.'}</h3><p>${h(unit.goal)}</p></div></div>`;
+ return `<div class="learning-path ${unit.color}">${groups}<div class="unit-finish">${icon('trophy')}<span class="page-eyebrow">YOUR NEXT MILESTONE</span><h3>${done===topics*3?'Foundation built!':'Keep your curiosity going.'}</h3><p>${h(unit.goal)}</p></div></div>${current&&!progress.completed.includes(current.id)?`<button type="button" class="jump-current btn primary" data-action="jump-current" aria-label="Scroll to your current lesson" hidden>${icon('arrow')} CURRENT LESSON</button>`:''}`;
 }
 
-export function clearLearningPath(){observer?.disconnect();cancelAnimationFrame(frame);}
+export function clearLearningPath(){observer?.disconnect();visibilityObserver?.disconnect();cancelAnimationFrame(frame);cancelAnimationFrame(jumpFrame);}
 
-export function decorateLearningPath(){
+export function scrollToCurrentLesson(focus=false){
+ const node=document.querySelector('.path-node.current');if(!node)return;
+ const reduced=document.documentElement.dataset.motion==='reduced'||matchMedia('(prefers-reduced-motion: reduce)').matches;
+ node.scrollIntoView({block:'center',behavior:focus&&!reduced?'smooth':'auto'});if(focus)node.focus({preventScroll:true});
+}
+
+export function decorateLearningPath({autoScroll=false}={}){
  clearLearningPath();
  const root=document.querySelector('.learning-path');if(!root)return;
  const groups=[...root.querySelectorAll('.topic-path')];
@@ -38,4 +44,13 @@ export function decorateLearningPath(){
   group.querySelector('.path-sidekick').style.setProperty('--sidekick-y',`${middle.top-box.top+middle.height/2}px`);
  });
  layout();observer=new ResizeObserver(()=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(layout);});groups.forEach(group=>observer.observe(group));
+ const current=root.querySelector('.path-node.current'),jump=document.querySelector('.jump-current');
+ if(jump){
+  if(!current)jump.hidden=false;
+  else{visibilityObserver=new IntersectionObserver(entries=>{const entry=entries[0];jump.hidden=entry.isIntersecting;jump.classList.toggle('points-down',entry.boundingClientRect.top>innerHeight/2);},{rootMargin:'-100px 0px -100px 0px',threshold:.5});visibilityObserver.observe(current);}
+ }
+ // A hash change can render the same path again before the first frame runs.
+ // Carry its scroll intent forward until the current node has been positioned.
+ pendingJump=current&&(pendingJump||autoScroll);
+ if(pendingJump)jumpFrame=requestAnimationFrame(()=>{jumpFrame=requestAnimationFrame(()=>{if(root.isConnected){scrollToCurrentLesson();pendingJump=false;}});});
 }

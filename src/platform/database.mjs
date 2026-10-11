@@ -33,6 +33,12 @@ export async function saveUser(client,user){
 export function createStore(pool=createPool()){
  return {
   pool,
+  async sessionUser(sessionHash){
+   const row=(await pool.query(`SELECT u.id,u.username,u.display_name,u.avatar,u.created_at,u.last_login_at
+    FROM csquest_sessions s JOIN csquest_users u ON u.id=s.user_id
+    WHERE s.hash=$1 AND s.expires_at>$2`,[sessionHash,Date.now()])).rows[0];
+   return row&&{id:row.id,username:row.username,displayName:row.display_name,avatar:row.avatar,createdAt:Number(row.created_at),lastLoginAt:row.last_login_at===null?null:Number(row.last_login_at)};
+  },
   async courses(){return (await pool.query('SELECT manifest FROM csquest_courses ORDER BY sort_order,id')).rows.map(row=>row.manifest);},
   async module(courseId,filename){return (await pool.query('SELECT source FROM csquest_course_modules WHERE course_id=$1 AND filename=$2',[courseId,filename])).rows[0]?.source;},
   async document(courseId,path){return (await pool.query('SELECT data FROM csquest_course_documents WHERE course_id=$1 AND path=$2',[courseId,path])).rows[0]?.data;},
