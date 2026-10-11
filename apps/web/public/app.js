@@ -22,7 +22,7 @@ import {icon,mascot} from './icons.js';
 const $=s=>document.querySelector(s);
 let uiPrefs=preferences(readStorage('csquest-preferences',{})),dialogFocusKey=null,subjectQuery='',subjectFilter='all';
 let progress;try{progress=experience(JSON.parse(store.getItem(storageKey)));}catch{progress=emptyProgress();}
-let route=location.hash.slice(1)||'learn',activeUnit=0,status=null,session=null,toastTimer,catalogRefresh=null,pathEntryKey=null;
+let route=location.hash.slice(1)||'learn',activeUnit=0,status=null,session=null,toastTimer,catalogRefresh=null,pathEntryKey=null,pendingUnit=null;
 await initializeAccounts(subjects);uiPrefs=preferences(readStorage('csquest-preferences',{}));try{progress=experience(JSON.parse(store.getItem(storageKey)));}catch{progress=emptyProgress();}
 const todayXP=()=>progress.daily[localDate()]||0;
 const nextLesson=()=>lessons.find(l=>l.ready&&available(l.id,lessons,progress)&&!progress.completed.includes(l.id))||lessons.find(l=>l.ready)||lessons[0];
@@ -135,7 +135,7 @@ document.addEventListener('click',e=>{const b=e.target.closest('button,a[data-ac
  if(b.dataset.practiceMode){startPractice(null,b.dataset.practiceMode);return;}
  if(b.dataset.catalogFilter){subjectFilter=b.dataset.catalogFilter;filterCatalog();return;}
  if(b.dataset.lesson!==undefined){startLesson(Number(b.dataset.lesson));return;}
- if(b.dataset.unit!==undefined){activeUnit=Number(b.dataset.unit);closeDialog();if(route!=='learn')location.hash='learn';else render();window.scrollTo(0,0);return;}
+ if(b.dataset.unit!==undefined){activeUnit=Number(b.dataset.unit);closeDialog();if(route!=='learn'){pendingUnit=activeUnit;location.hash='learn';}else render();window.scrollTo(0,0);return;}
  if(b.dataset.retryKey!==undefined){startPractice([b.dataset.retryKey]);return;}
  if(b.dataset.cacheStep!==undefined&&session&&session.feedback===null){session.value[Number(b.dataset.cacheStep)]=b.dataset.cacheHit==='true';renderSession();return;}
  if(b.dataset.action==='reveal-coach'){sound('tap');session.coachRevealed=!session.coachRevealed;renderSession();return;}
@@ -166,7 +166,7 @@ document.addEventListener('click',e=>{const b=e.target.closest('button,a[data-ac
 document.addEventListener('input',e=>{if(['number-answer','hex-answer'].includes(e.target.id)&&session){session.value=e.target.value;const check=$('[data-action="check-answer"]');if(check)check.disabled=!canCheck(session.queue[session.index].q,session.value);persistSession();}});
 document.addEventListener('change',async e=>{
  if(e.target.id==='import-progress'){try{const raw=JSON.parse(await e.target.files[0].text());if((raw.subjectId&&raw.subjectId!==selectedSubject.id)||raw.version!==1||!Array.isArray(raw.completed)||!Number.isFinite(raw.xp)||raw.xp<0)throw new Error('That file is not a valid CS Quest progress backup.');const restored=experience(raw);await restoreAccountBackup({[storageKey]:JSON.stringify(restored)});progress=restored;activeUnit=nextUnit(lessons,progress,units);render();toast('Your learning progress has been restored.');}catch(error){toast(error.message||'That file is not a valid CS Quest progress backup.');}}});
-window.addEventListener('hashchange',()=>{if(document.querySelector('.navigation-dialog'))closeDialog();route=location.hash.slice(1)||'learn';render();window.scrollTo(0,0);$('#main')?.focus({preventScroll:true});});
+window.addEventListener('hashchange',()=>{if(document.querySelector('.navigation-dialog'))closeDialog();const nextRoute=location.hash.slice(1)||'learn';if(nextRoute==='learn'&&route!=='learn'&&!loadingSubject)activeUnit=pendingUnit??nextUnit(lessons,progress,units);pendingUnit=null;route=nextRoute;render();window.scrollTo(0,0);$('#main')?.focus({preventScroll:true});});
 async function pollStatus(){if(!authenticated()||loadingSubject)return;const requestSubject=selectedSubject.id,requestEpoch=subjectEpoch;try{const res=await fetch('/api/status?subject='+selectedSubject.id,{signal:AbortSignal.timeout(5000)});if(res.status===401){lockAccount();return;}if(!res.ok)throw new Error('Status unavailable');const previous=status;const received=await res.json();if(requestSubject!==selectedSubject.id||requestEpoch!==subjectEpoch)return;status=received;const previouslyReady=lessons.filter(l=>l.ready).length;const previousVersions=lessons.map(l=>l.contentVersion||0).join(',');for(const source of status.lessonSources||[]){const l=lessons.find(l=>l.id===source.id);if(l)Object.assign(l,source,{ready:l.ready||source.ready===true});}if(!previous&&!session)activeUnit=nextUnit(lessons,progress,units);if(!session&&(lessons.filter(l=>l.ready).length!==previouslyReady||previousVersions!==lessons.map(l=>l.contentVersion||0).join(',')))render();if(route==='roadmap'&&!session)$('#main').innerHTML=roadmapView();if(previous&&status.completed>previous.completed)toast('New learning material is available.');}catch{if(requestSubject!==selectedSubject.id||requestEpoch!==subjectEpoch)return;status={...status,connectionError:true};}}
 if(authenticated())await switchSubject(store.getItem('csquest-subject')||'coa',true);else render();setInterval(pollStatus,60000);
 setInterval(()=>document.querySelectorAll('.live-dot').forEach(dot=>dot.classList.toggle('running',status?.phase==='running'&&status?.sourceAvailable!==false)),1000);
