@@ -29,7 +29,7 @@ export async function buildReviewed(base=courseRoot){
    if(!references.length)throw new Error(`Lecture ${transcript.id}, ${s.title}: no matching transcript evidence`);
    if(s.questions.length!==4)throw new Error(`Lecture ${transcript.id} stage ${part}: expected four exercises`);
    const questions=s.questions.map((q,i)=>{if(q.type!=='choice')return q;const shift=(transcript.id+part+i)%q.options.length;return {...q,options:[...q.options.slice(shift),...q.options.slice(0,shift)],answer:(q.answer-shift+q.options.length)%q.options.length};});
-   return {id:transcript.id*3+part,lecture:transcript.id,title:s.title,lectureTitle:definition.label,start:references[0].start,concept:definition.intro+' '+s.steps.join(' '),teachingSteps:s.steps,anchors:s.anchors,questions,minutes:4,ready:true,contentStatus:'Lecture-specific teaching reviewed against completed machine transcript',contentVersion:2,sourceFile:transcript.file,sourceReferences:references,excerpt:references[0].text};
+   return {id:transcript.id*3+part,lecture:transcript.id,title:s.title,lectureTitle:definition.label,start:references[0].start,concept:definition.intro,teachingSteps:s.steps,anchors:s.anchors,questions,minutes:4,ready:true,contentStatus:'Lecture-specific teaching reviewed against completed machine transcript',contentVersion:2,sourceFile:transcript.file,sourceReferences:references,excerpt:references[0].text};
   });
   reviewed.push(...stages);coverage.push({lecture:transcript.id,title:transcript.title,lessonIds:stages.map(s=>s.id),questions:12,sourceCompletedAt:transcript.sourceCompletedAt});
  }

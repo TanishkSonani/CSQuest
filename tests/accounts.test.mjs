@@ -1,8 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import fs from 'node:fs/promises';
-import os from 'node:os';
-import path from 'node:path';
+import {testStore} from './database-helper.mjs';
 import {createServer} from '../src/platform/server.mjs';
 import {courseCompletion,completeRound} from '../packages/learning/experience.js';
 import {avatars,avatarIds} from '../packages/learning/avatars.js';
@@ -24,7 +22,7 @@ test('round history and activity retain personal learning metrics',()=>{
  assert.equal(progress.history[0].xp,30);assert.equal(progress.history[0].title,'Computer components');assert.equal(Object.values(progress.dailyStats)[0].studySeconds,65);
 });
 test('accounts isolate data, persist across restart, reject stale updates and support recovery and deletion',async()=>{
- const directory=await fs.mkdtemp(path.join(os.tmpdir(),'csquest-accounts-'));let server=createServer({accountDirectory:directory});
+ const fixture=await testStore();let server=createServer({store:fixture.store});
  const start=async()=>{await new Promise(r=>server.listen(0,'127.0.0.1',r));return 'http://127.0.0.1:'+server.address().port;};let base=await start();
  const client=()=>({cookie:'',async request(route,body,extra={}){
   const res=await fetch(base+'/api/account/'+route,{method:body?'POST':'GET',headers:{...(body?{'Content-Type':'application/json','X-CSQuest-Request':'1'}:{}),...(this.cookie?{Cookie:this.cookie}:{}),...extra},body:body?JSON.stringify(body):undefined});
@@ -45,9 +43,9 @@ test('accounts isolate data, persist across restart, reject stale updates and su
   assert.equal((await a.request('data',{revision:1,changes:{'../../escape':'bad'}})).status,400);
   assert.equal((await a.request('data',{revision:1,changes:{'coa-quest-v1':'invalid'}})).status,400);
   assert.deepEqual((await b.request('session')).data.data,{});
-  const stored=JSON.parse(await fs.readFile(path.join(directory,'accounts.json'),'utf8'));
+  const stored={users:(await fixture.store.pool.query('SELECT password FROM csquest_users')).rows,sessions:(await fixture.store.pool.query('SELECT hash FROM csquest_sessions')).rows};
   assert.ok(!JSON.stringify(stored).includes(password));assert.ok(stored.users[0].password.salt);assert.equal(stored.sessions[0].hash.length,64);
-  await new Promise(r=>server.close(r));server=createServer({accountDirectory:directory});base=await start();
+  await new Promise(r=>server.close(r));server=createServer({store:fixture.store});base=await start();
   assert.equal(JSON.parse((await a.request('session')).data.data['coa-quest-v1']).xp,120);
   const other=client();assert.equal((await other.request('login',{username:'test_a',password:'incorrect'})).status,401);
   assert.equal((await other.request('login',{username:'test_a',password})).status,200);
@@ -64,5 +62,5 @@ test('accounts isolate data, persist across restart, reject stale updates and su
   assert.equal((await other.request('delete',{username:'test_a',password})).status,200);
   assert.equal((await other.request('export')).status,401);
   assert.deepEqual((await b.request('session')).data.data,{});
- }finally{await new Promise(r=>server.close(r));await fs.rm(directory,{recursive:true,force:true});}
+ }finally{await new Promise(r=>server.close(r));await fixture.dispose();}
 });

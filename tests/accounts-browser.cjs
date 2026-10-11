@@ -1,8 +1,9 @@
 const {chromium}=require('../tooling/browser-qa/node_modules/playwright');
-const assert=require('node:assert/strict'),fs=require('node:fs/promises'),os=require('node:os'),path=require('node:path'),{pathToFileURL}=require('node:url');
+const assert=require('node:assert/strict'),fs=require('node:fs/promises'),path=require('node:path'),{pathToFileURL}=require('node:url');
 (async()=>{
  const {createServer}=await import('../src/platform/server.mjs');
- const directory=await fs.mkdtemp(path.join(os.tmpdir(),'csquest-account-ui-')),server=createServer({accountDirectory:directory});
+ const {testStore}=await import('./database-helper.mjs');
+ const fixture=await testStore({courses:true}),server=createServer({store:fixture.store});
  await new Promise(r=>server.listen(0,'127.0.0.1',r));const base='http://127.0.0.1:'+server.address().port;
  const browser=await chromium.launch({headless:true,executablePath:'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe',args:['--disable-gpu']});
  try{
@@ -71,5 +72,5 @@ const assert=require('node:assert/strict'),fs=require('node:fs/promises'),os=req
  await other.goto(base+'/#learn');await other.waitForSelector('.chest-3d');assert.ok(await other.locator('.chest-3d').first().evaluate(el=>el.complete&&el.naturalWidth>0));
  await other.goto(base+'/#account');await other.locator('[data-account="logout"]').click();await other.waitForSelector('[data-account-form="login"]');await other.locator('[data-account="tab"][data-tab="recover"]').click();const recover=other.locator('[data-account-form="recover"]');await recover.locator('[name=username]').fill('learner_one');await recover.locator('[name=recoveryCode]').fill(recoveryCode);await recover.locator('[name=password]').fill('a recovered account passphrase');await recover.locator('[type=submit]').click();await other.waitForSelector('.recovery-dialog');await other.locator('[data-action="close"]').click();assert.equal(await other.locator('.personal-stats .card').first().locator('strong').innerText(),'120');
  assert.deepEqual(errors,[]);console.log('Account migration, profile, Enter submissions, server saves, cross-browser login, private progress, exports, recovery, deletion, percentages and responsive themes passed.');
- }finally{await browser.close();await new Promise(r=>server.close(r));await fs.rm(directory,{recursive:true,force:true});}
+ }finally{await browser.close();await new Promise(r=>server.close(r));await fixture.dispose();}
 })().catch(e=>{console.error(e);process.exit(1);});

@@ -48,6 +48,6 @@ test('master phase choices and simplified delayed toggles give the stated result
  slave=master;assert.equal(slave,1);
  assert.equal(qs(79).find(q=>q.prompt.includes('External Q starts 0')).answer,slave);
  const completed=Array.from({length:4},(_,i)=>(i+1)*2).filter(time=>time<7).length;
- assert.equal(qs(80).find(q=>q.prompt.includes('Completed toggles')).answer,completed);
+ assert.equal(qs(80).find(q=>q.prompt.includes('How many toggles complete')).answer,completed);
  assert.equal(qs(80).find(q=>q.prompt.includes('disabled at 7 ns')).answer,completed%2);
 });

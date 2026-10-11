@@ -1,8 +1,5 @@
-import fs from 'node:fs/promises';
-import path from 'node:path';
 import {randomBytes,randomUUID,createHash,scrypt as derive,timingSafeEqual} from 'node:crypto';
 import {promisify} from 'node:util';
-import {atomicJson} from './io.mjs';
 import {avatarIds} from '../../packages/learning/avatars.js';
 const scrypt=promisify(derive),digest=value=>createHash('sha256').update(value).digest('hex');
 const fail=(status,message,code)=>{throw Object.assign(new Error(message),{status,code});};
@@ -24,53 +21,18 @@ async function verifies(password,stored){
  const hash=await scrypt(password,stored.salt,64,{N:131072,r:8,p:1,maxmem:192*1024*1024});
  return timingSafeEqual(hash,Buffer.from(stored.hash,'hex'));
 }
-async function readBody(req){
+export async function readBody(req){
  if(!req.headers['content-type']?.startsWith('application/json'))fail(415,'Send JSON data.');
  let bytes=0,chunks=[];
  for await(const chunk of req){bytes+=chunk.length;if(bytes>4*1024*1024)fail(413,'Account data is too large.');chunks.push(chunk);}
  try{const value=JSON.parse(Buffer.concat(chunks).toString('utf8'));if(!value||typeof value!=='object'||Array.isArray(value))throw Error();return value;}catch{fail(400,'Invalid JSON data.');}
 }
-export function createAccounts({directory,courses}){
- const file=path.join(directory,'accounts.json');let chain=Promise.resolve(),database;
- const redisUrl=process.env.UPSTASH_REDIS_REST_URL||process.env.KV_REST_API_URL;
- const redisToken=process.env.UPSTASH_REDIS_REST_TOKEN||process.env.KV_REST_API_TOKEN;
- const redisKey=process.env.CSQUEST_REDIS_KEY||'csquest:accounts:v1';
- const redisEnabled=Boolean(redisUrl&&redisToken);
- const redisCommand=async command=>{
-  const response=await fetch(redisUrl,{method:'POST',headers:{Authorization:`Bearer ${redisToken}`,'Content-Type':'application/json'},body:JSON.stringify(command)});
-  const result=await response.json();
-  if(!response.ok||result.error)throw new Error('Account database is unavailable.');
-  return result.result;
- };
- const redisRead=async()=>{
-  const value=await redisCommand(['GET',redisKey]);
-  if(value===null)return null;
-  const parsed=typeof value==='string'?JSON.parse(value):value;
-  if(parsed.version!==1||!Array.isArray(parsed.users)||!Array.isArray(parsed.sessions))throw new Error('Invalid account database');
-  return parsed;
- };
- const redisCompareAndSet=async(expected,value)=>{
-  const script="local current=redis.call('GET',KEYS[1]); if ARGV[1]=='MISSING' then if current then return 0 end else if not current then return 0 end; local ok,decoded=pcall(cjson.decode,current); if not ok or tostring(decoded._revision or 0)~=ARGV[1] then return 0 end end; redis.call('SET',KEYS[1],ARGV[2]); return 1";
-  return Number(await redisCommand(['EVAL',script,'1',redisKey,expected,JSON.stringify(value)]))===1;
- };
+export function assertSameOrigin(req){
+ const origin=req.headers.origin,expectedOrigin=`${process.env.VERCEL?'https':(req.headers['x-forwarded-proto']||'http').split(',')[0]}://${req.headers.host}`;
+ if(req.headers['x-csquest-request']!=='1'||(origin&&origin!==expectedOrigin)||req.headers['sec-fetch-site']==='cross-site')fail(403,'This request must come from CSQuest.');
+}
+export function createAccounts({store,courses}){
  const keys=new Set(['csquest-subject','csquest-theme','csquest-preferences',...courses.flatMap(c=>[c.storageKey,'csquest-drafts-'+c.id])]);
- const transact=(task,readOnly=false)=>{const job=chain.then(async()=>{
-  if(redisEnabled){
-   for(let attempt=0;attempt<8;attempt++){
-    const original=await redisRead(),expected=original?String(original._revision||0):'MISSING';
-    const working=original?structuredClone(original):{version:1,users:[],sessions:[]},result=await task(working);
-    if(readOnly)return result;
-    working._revision=expected==='MISSING'?1:Number(expected)+1;
-    if(await redisCompareAndSet(expected,working))return result;
-   }
-   throw new Error('Account database is busy. Please try again.');
-  }
-  if(process.env.VERCEL)throw new Error('Connect an Upstash Redis database to enable accounts.');
-  if(!database){await fs.mkdir(directory,{recursive:true});try{database=JSON.parse(await fs.readFile(file,'utf8'));if(database.version!==1||!Array.isArray(database.users)||!Array.isArray(database.sessions))throw Error('Invalid account database');}catch(e){if(e.code!=='ENOENT')throw e;database={version:1,users:[],sessions:[]};}}
-  // Commit only after the operation succeeds. Rejected requests never partly mutate records.
-  const working=structuredClone(database),result=await task(working);
-  if(!readOnly){await atomicJson(file,working);database=working;}return result;
- });chain=job.catch(()=>{});return job;};
  const publicUser=user=>({id:user.id,username:user.username,displayName:user.displayName,avatar:user.avatar,createdAt:user.createdAt,lastLoginAt:user.lastLoginAt});
  const snapshot=user=>({user:publicUser(user),data:user.data,revision:user.revision,updatedAt:user.updatedAt});
  const tokenOf=req=>{const raw=(req.headers.cookie||'').split(';').map(s=>s.trim()).find(s=>s.startsWith('csquest_session='));return raw?raw.slice('csquest_session='.length):'';};
@@ -93,16 +55,9 @@ export function createAccounts({directory,courses}){
    output[key]=value;
   }return output;
  };
- const attempts=new Map();
  const limit=async req=>{
   const address=req.headers['x-forwarded-for']?.split(',')[0].trim()||req.socket.remoteAddress||'local';
-  if(redisEnabled){
-   const key=`${redisKey}:attempts:${digest(address)}`;
-   const count=Number(await redisCommand(['EVAL',"local n=redis.call('INCR',KEYS[1]); if n==1 then redis.call('EXPIRE',KEYS[1],900) end; return n",'1',key]));
-   if(count>20)fail(429,'Too many attempts. Try again in 15 minutes.');
-   return;
-  }
-  const now=Date.now(),record=attempts.get(address);if(record&&record.until>now&&record.count>=20)fail(429,'Too many attempts. Try again in 15 minutes.');attempts.set(address,record&&record.until>now?{...record,count:record.count+1}:{count:1,until:now+15*60000});
+  if(await store.limit(digest(address))>20)fail(429,'Too many attempts. Try again in 15 minutes.');
  };
  const unknownPassword={salt:'0'.repeat(32),hash:'0'.repeat(128)};
  const handle=async function(req,res,url,send){
@@ -110,14 +65,10 @@ export function createAccounts({directory,courses}){
   try{
    const route=url.pathname.slice('/api/account/'.length),write=req.method==='POST';
    if(!write&&req.method!=='GET'){send(405,{error:'Method not allowed'});return true;}
-   if(write){
-    const origin=req.headers.origin;
-    const expectedOrigin=`${process.env.VERCEL?'https':(req.headers['x-forwarded-proto']||'http').split(',')[0]}://${req.headers.host}`;
-    if(req.headers['x-csquest-request']!=='1'||(origin&&origin!==expectedOrigin)||req.headers['sec-fetch-site']==='cross-site')fail(403,'This request must come from CSQuest.');
-   }
+   if(write)assertSameOrigin(req);
    const body=write?await readBody(req):{};
    if(['register','login','recover'].includes(route)&&write)await limit(req);
-   const result=await transact(async db=>{
+   const result=await store.accounts(async db=>{
     if(route==='session'&&!write){try{const {user}=authenticate(db,req);return snapshot(user);}catch(e){if(e.status!==401)throw e;return {user:null};}}
     if(route==='register'&&write){
      const username=usernameOf(body.username);if(!/^[a-z0-9_]{3,32}$/.test(username))fail(400,'Use 3–32 letters, numbers or underscores for your username.');
@@ -158,10 +109,10 @@ export function createAccounts({directory,courses}){
      db.sessions=db.sessions.filter(s=>s.userId!==user.id);clearCookie(res);return {ok:true};
     }
     fail(404,'Account action not found.');
-   });send(200,result);
+   },{username:['register','login','recover'].includes(route)?usernameOf(body.username):undefined,sessionHash:digest(tokenOf(req)),readOnly:!write,scoreLearning:route==='data'&&write&&body.source!=='backup',courses});send(200,result);
   }catch(e){send(e.status||500,{error:e.status?e.message:'Account storage is unavailable. Your browser copy has been kept.',...(e.code==='AUTH_REQUIRED'?{code:e.code}:{})});}
   return true;
  };
- handle.authorize=req=>transact(db=>{authenticate(db,req);return true;},true);
+ handle.authorize=req=>store.accounts(db=>publicUser(authenticate(db,req).user),{sessionHash:digest(tokenOf(req)),readOnly:true});
  return handle;
 }

@@ -91,6 +91,12 @@ export async function loadLatest(){
  const result=await accountRequest('session');if(!result.user)throw Error('Log in again to load your account.');
  localStorage.removeItem(prefix()+'pending');install(result);notify();
 }
+export async function restoreAccountBackup(data){
+ await flushAccount();
+ if(Object.keys(pending).length)throw Error('Save or resolve your pending progress before restoring a backup.');
+ const changes=validateBackupData(data),result=await accountRequest('data',{changes,revision:account.revision,source:'backup'});
+ install({user:account.user,data:{...learningData(),...changes},revision:result.revision,updatedAt:result.updatedAt});notify();
+}
 window.addEventListener('online',()=>{if(account.user&&!account.conflict)flushAccount();});
 window.addEventListener('pagehide',()=>{
  if(!account.user||account.conflict||inflight||!Object.keys(pending).length)return;

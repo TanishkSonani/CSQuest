@@ -1,7 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {subjects,publicSubjects} from '../config/courses.mjs';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const output=path.join(root,'.vercel','output');
@@ -22,33 +21,25 @@ await copyDirectory(path.join(root,'apps','web','public'),staticOutput);
 await fs.mkdir(path.join(staticOutput,'shared'),{recursive:true});
 for(const name of ['engine','worked-examples','experience','avatars'])
   await fs.copyFile(path.join(root,'packages','learning',`${name}.js`),path.join(staticOutput,'shared',`${name}.js`));
-await fs.writeFile(path.join(staticOutput,'subjects.js'),`export const subjects=${JSON.stringify(publicSubjects())};\n`);
-for(const subject of subjects)
-  await copyDirectory(path.join(root,'courses',subject.id,'content'),path.join(staticOutput,'courses',subject.id));
 
 await fs.mkdir(path.join(staticOutput,'vendor'),{recursive:true});
 await fs.copyFile(path.join(root,'node_modules','@vercel','analytics','dist','index.mjs'),path.join(staticOutput,'vendor','vercel-analytics.mjs'));
 const appFile=path.join(staticOutput,'app.js'),appSource=await fs.readFile(appFile,'utf8');
 await fs.writeFile(appFile,`import {inject} from '/vendor/vercel-analytics.mjs';\ninject({mode:'production'});\n${appSource}`);
 
-const functionPaths=['account','status'];
-const functionSource=`import {createServer} from './src/platform/server.mjs';\nconst server=createServer();\nexport default function handler(request,response){if(request.url?.startsWith('/api/account?')){const url=new URL(request.url,'http://vercel.invalid'),action=url.searchParams.get('__action')||'';url.searchParams.delete('__action');request.url='/api/account/'+encodeURIComponent(action)+url.search;}server.emit('request',request,response);}\n`;
+const functionPaths=['app'];
+const functionSource=`import {createServer} from './src/platform/server.mjs';\nconst server=createServer();\nexport default function handler(request,response){const url=new URL(request.url,'http://vercel.invalid'),pathname=url.searchParams.get('__path');if(pathname){url.searchParams.delete('__path');request.url='/'+pathname+url.search;}server.emit('request',request,response);}\n`;
 for(const functionPath of functionPaths){
   const functionDirectory=path.join(functionsOutput,'api',`${functionPath}.func`);
   await fs.mkdir(functionDirectory,{recursive:true});
   await fs.writeFile(path.join(functionDirectory,'index.mjs'),functionSource);
   await fs.writeFile(path.join(functionDirectory,'package.json'),'{"type":"module"}');
   await fs.writeFile(path.join(functionDirectory,'.vc-config.json'),JSON.stringify({runtime:'nodejs22.x',handler:'index.mjs',launcherType:'Nodejs',maxDuration:30}));
-  await copyDirectory(path.join(root,'src','platform'),path.join(functionDirectory,'src','platform'));
-  await fs.mkdir(path.join(functionDirectory,'config'),{recursive:true});
-  await fs.copyFile(path.join(root,'config','courses.mjs'),path.join(functionDirectory,'config','courses.mjs'));
+  await fs.mkdir(path.join(functionDirectory,'src','platform'),{recursive:true});
+  for(const name of ['server','accounts','database','env','social','social-metrics'])await fs.copyFile(path.join(root,'src','platform',name+'.mjs'),path.join(functionDirectory,'src','platform',name+'.mjs'));
+  await copyDirectory(path.join(root,'node_modules'),path.join(functionDirectory,'node_modules'));
   await fs.mkdir(path.join(functionDirectory,'packages','learning'),{recursive:true});
-  await fs.copyFile(path.join(root,'packages','learning','avatars.js'),path.join(functionDirectory,'packages','learning','avatars.js'));
-  for(const subject of subjects){
-    const manifestDirectory=path.join(functionDirectory,'courses',subject.id);
-    await fs.mkdir(manifestDirectory,{recursive:true});
-    await fs.copyFile(path.join(root,'courses',subject.id,'course.json'),path.join(manifestDirectory,'course.json'));
-  }
+  for(const name of ['engine','worked-examples','experience','avatars'])await fs.copyFile(path.join(root,'packages','learning',name+'.js'),path.join(functionDirectory,'packages','learning',name+'.js'));
 }
-await fs.writeFile(path.join(output,'config.json'),JSON.stringify({version:3,routes:[{src:'^/api/account/([^/]+)$',dest:'/api/account?__action=$1'},{handle:'filesystem'}]},null,2));
-console.log(`Prepared ${subjects.length} courses, Analytics, and ${functionPaths.length} serverless API functions in .vercel/output/.`);
+await fs.writeFile(path.join(output,'config.json'),JSON.stringify({version:3,routes:[{src:'^/(api/.*|courses/.*|subjects\\.js|shared/worked-examples\\.js)$',dest:'/api/app?__path=$1'},{handle:'filesystem'}]},null,2));
+console.log(`Prepared the UI, Analytics, and ${functionPaths.length} PostgreSQL-backed serverless function in .vercel/output/.`);

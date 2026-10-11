@@ -64,8 +64,8 @@ test('ripple timings distinguish SOP carry from two-half-adder implementation',(
   const p=1,g=1;sums.push(Math.max(p,carry)+1);
   carry=Math.max(g,Math.max(p,carry)+1)+1;carries.push(carry);
  }
- for(const [prefix,expected] of [['Four-bit two-half-adder',sums[2]],['Same chain: final',carries[3]],['Same chain but',sums[3]*2],['Eight-bit chain',carries[7]]])
-  assert.equal(qs(61).find(q=>q.prompt.startsWith(prefix)).answer,expected);
+ for(const [output,expected] of [['S2-valid',sums[2]],['C4-valid',carries[3]],['S3-valid',sums[3]*2],['C8-valid',carries[7]]])
+  assert.equal(qs(61).find(q=>q.prompt.includes(output)).answer,expected);
  assert.equal(qs(55).find(q=>q.prompt.includes('Latest top sum')).answer,3*2+3);
 });
 test('signed representations and look-ahead counts match independent calculations',()=>{

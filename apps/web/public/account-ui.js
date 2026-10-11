@@ -1,6 +1,6 @@
 import {avatarMarkup,avatarPicker} from './avatar-ui.js';
 import {avatars,avatarCategories} from '/shared/avatars.js';
-import {account,store,accountRequest,learningData,guestData,signIn,signOut,flushAccount,updateProfile,clearDeletedAccount,loadLatest,validateBackupData} from './account-client.js';
+import {account,store,accountRequest,learningData,guestData,signIn,signOut,flushAccount,updateProfile,clearDeletedAccount,loadLatest,validateBackupData,restoreAccountBackup} from './account-client.js';
 import {escapeHtml as h,localDate,dayDifference} from '/shared/engine.js';
 import {experience,courseCompletion} from '/shared/experience.js';
 import {icon,mascot} from './icons.js';
@@ -86,7 +86,7 @@ export async function accountAction(button){
   else if(action==='latest'){
    download(backup(),'csquest-before-sync-backup.json');await loadLatest();await hooks.reloadUser();hooks.toast('Latest server data loaded. A backup of this browser’s data was downloaded.');
   }else if(action==='restore-backup'){
-   for(const [key,value] of Object.entries(pendingImport.data))store.setItem(key,value);pendingImport=null;hooks.closeDialog();await flushAccount();await hooks.reloadUser();hooks.toast(syncText());
+   await restoreAccountBackup(pendingImport.data);pendingImport=null;hooks.closeDialog();await hooks.reloadUser();hooks.toast(syncText());
   }
  }catch(e){hooks.toast(e.message);}finally{button.disabled=false;}
  return true;

@@ -6,7 +6,7 @@ export const reviewedLessons=[
     "title": "Signals become bits",
     "lectureTitle": "Why digital logic uses two states",
     "start": 2531.26,
-    "concept": "Connect physical voltage levels to abstract Boolean values. Transistors implement physical circuits; Boolean logic describes their input/output behavior independently of that implementation. A physical wire carries a voltage, not a printed zero or one. A logic convention assigns accepted low and high voltage ranges to Boolean values. A transition region is not a third valid Boolean value.",
+    "concept": "Connect physical voltage levels to abstract Boolean values. Transistors implement physical circuits; Boolean logic describes their input/output behavior independently of that implementation.",
     "teachingSteps": [
       "A physical wire carries a voltage, not a printed zero or one.",
       "A logic convention assigns accepted low and high voltage ranges to Boolean values.",
@@ -105,7 +105,7 @@ export const reviewedLessons=[
     "title": "From a circuit to a rule",
     "lectureTitle": "Why digital logic uses two states",
     "start": 58.35,
-    "concept": "Connect physical voltage levels to abstract Boolean values. Transistors implement physical circuits; Boolean logic describes their input/output behavior independently of that implementation. Describe the input/output behavior independently of its transistor layout. A Boolean expression represents that behavior. An equivalent implementation must agree on every allowed input combination.",
+    "concept": "Connect physical voltage levels to abstract Boolean values. Transistors implement physical circuits; Boolean logic describes their input/output behavior independently of that implementation.",
     "teachingSteps": [
       "Describe the input/output behavior independently of its transistor layout.",
       "A Boolean expression represents that behavior.",
@@ -226,7 +226,7 @@ export const reviewedLessons=[
     "title": "Read the abstraction correctly",
     "lectureTitle": "Why digital logic uses two states",
     "start": 495.85,
-    "concept": "Connect physical voltage levels to abstract Boolean values. Transistors implement physical circuits; Boolean logic describes their input/output behavior independently of that implementation. The same physical state can represent a bit under a defined convention. A binary number uses positional weights to represent a quantity. Boolean OR and ordinary arithmetic addition have different meanings.",
+    "concept": "Connect physical voltage levels to abstract Boolean values. Transistors implement physical circuits; Boolean logic describes their input/output behavior independently of that implementation.",
     "teachingSteps": [
       "The same physical state can represent a bit under a defined convention.",
       "A binary number uses positional weights to represent a quantity.",
@@ -303,7 +303,7 @@ export const reviewedLessons=[
     "title": "Meet NOT, AND, OR",
     "lectureTitle": "Boolean operations and circuits",
     "start": 234.16,
-    "concept": "Use NOT, AND, and OR to build expressions. Series switches model AND; parallel switches model OR. A truth table evaluates every possible input assignment. NOT swaps zero and one. AND is one only when all its inputs are one. OR is one when at least one input is one.",
+    "concept": "Use NOT, AND, and OR to build expressions. Series switches model AND; parallel switches model OR. A truth table evaluates every possible input assignment.",
     "teachingSteps": [
       "NOT swaps zero and one.",
       "AND is one only when all its inputs are one.",
@@ -420,7 +420,7 @@ export const reviewedLessons=[
     "title": "Switches tell a story",
     "lectureTitle": "Boolean operations and circuits",
     "start": 1094.57,
-    "concept": "Use NOT, AND, and OR to build expressions. Series switches model AND; parallel switches model OR. A truth table evaluates every possible input assignment. In a series path, both switches must close for current to pass. Parallel paths need only one closed branch. An inverted output corresponds to NOT applied after the circuit rule.",
+    "concept": "Use NOT, AND, and OR to build expressions. Series switches model AND; parallel switches model OR. A truth table evaluates every possible input assignment.",
     "teachingSteps": [
       "In a series path, both switches must close for current to pass.",
       "Parallel paths need only one closed branch.",
@@ -505,7 +505,7 @@ export const reviewedLessons=[
     "title": "Compose an expression",
     "lectureTitle": "Boolean operations and circuits",
     "start": 1251.49,
-    "concept": "Use NOT, AND, and OR to build expressions. Series switches model AND; parallel switches model OR. A truth table evaluates every possible input assignment. Parentheses make the intended grouping explicit. Compute inner gates before the outer gate. Use a complete truth table to check the composed function.",
+    "concept": "Use NOT, AND, and OR to build expressions. Series switches model AND; parallel switches model OR. A truth table evaluates every possible input assignment.",
     "teachingSteps": [
       "Parentheses make the intended grouping explicit.",
       "Compute inner gates before the outer gate.",
@@ -608,7 +608,7 @@ export const reviewedLessons=[
     "title": "Read powers of two",
     "lectureTitle": "Binary place values and conversion",
     "start": 1445.76,
-    "concept": "The transcript derives positional weights and repeated division by two. Convert using weights or remainders, then verify that the binary representation preserves the quantity. From right to left, integer binary weights are 1, 2, 4, 8, and so on. Only positions containing a one contribute to the value. Leading zeros do not change the represented unsigned number.",
+    "concept": "Binary is a base-two number system: each position has twice the weight of the position to its right. Convert using weights or remainders, then verify that the binary representation preserves the quantity.",
     "teachingSteps": [
       "From right to left, integer binary weights are 1, 2, 4, 8, and so on.",
       "Only positions containing a one contribute to the value.",
@@ -673,7 +673,7 @@ export const reviewedLessons=[
     "title": "Divide and collect remainders",
     "lectureTitle": "Binary place values and conversion",
     "start": 2074.34,
-    "concept": "The transcript derives positional weights and repeated division by two. Convert using weights or remainders, then verify that the binary representation preserves the quantity. Divide the integer by two and record its remainder. Repeat on the quotient until it becomes zero. Read the recorded remainders in reverse order.",
+    "concept": "Binary is a base-two number system: each position has twice the weight of the position to its right. Convert using weights or remainders, then verify that the binary representation preserves the quantity.",
     "teachingSteps": [
       "Divide the integer by two and record its remainder.",
       "Repeat on the quotient until it becomes zero.",
@@ -746,7 +746,7 @@ export const reviewedLessons=[
     "title": "Use nearby powers",
     "lectureTitle": "Binary place values and conversion",
     "start": 576.08,
-    "concept": "The transcript derives positional weights and repeated division by two. Convert using weights or remainders, then verify that the binary representation preserves the quantity. Choose the largest power of two not exceeding the remaining value. Subtract that weight and continue. Place zeros in unused positions rather than skipping them.",
+    "concept": "Binary is a base-two number system: each position has twice the weight of the position to its right. Convert using weights or remainders, then verify that the binary representation preserves the quantity.",
     "teachingSteps": [
       "Choose the largest power of two not exceeding the remaining value.",
       "Subtract that weight and continue.",
@@ -811,7 +811,7 @@ export const reviewedLessons=[
     "title": "Break down 600",
     "lectureTitle": "Fast decimal/binary practice",
     "start": 0.94,
-    "concept": "Convert decimal values by choosing the largest remaining binary weight first. For example, 600 equals 512 + 64 + 16 + 8. Powers of two and all-one patterns make conversion faster. The largest binary weight at most 600 is 512. The remainder 88 breaks into 64 + 16 + 8. The included bit positions are 9, 6, 4, and 3.",
+    "concept": "Convert decimal values by choosing the largest remaining binary weight first. For example, 600 equals 512 + 64 + 16 + 8. Powers of two and all-one patterns make conversion faster.",
     "teachingSteps": [
       "The largest binary weight at most 600 is 512.",
       "The remainder 88 breaks into 64 + 16 + 8.",
@@ -871,7 +871,7 @@ export const reviewedLessons=[
     "title": "Keep every position",
     "lectureTitle": "Fast decimal/binary practice",
     "start": 30.78,
-    "concept": "Convert decimal values by choosing the largest remaining binary weight first. For example, 600 equals 512 + 64 + 16 + 8. Powers of two and all-one patterns make conversion faster. An unused weight still needs a zero bit. Check the highest weight to determine representation length. Recompute the decimal value to catch missing positions.",
+    "concept": "Convert decimal values by choosing the largest remaining binary weight first. For example, 600 equals 512 + 64 + 16 + 8. Powers of two and all-one patterns make conversion faster.",
     "teachingSteps": [
       "An unused weight still needs a zero bit.",
       "Check the highest weight to determine representation length.",
@@ -936,7 +936,7 @@ export const reviewedLessons=[
     "title": "Recognize useful patterns",
     "lectureTitle": "Fast decimal/binary practice",
     "start": 414.08,
-    "concept": "Convert decimal values by choosing the largest remaining binary weight first. For example, 600 equals 512 + 64 + 16 + 8. Powers of two and all-one patterns make conversion faster. 2^n is a one followed by n zeros. 2^n - 1 is a row of n ones. Use these patterns to convert values near a power of two quickly.",
+    "concept": "Convert decimal values by choosing the largest remaining binary weight first. For example, 600 equals 512 + 64 + 16 + 8. Powers of two and all-one patterns make conversion faster.",
     "teachingSteps": [
       "2^n is a one followed by n zeros.",
       "2^n - 1 is a row of n ones.",
@@ -996,7 +996,7 @@ export const reviewedLessons=[
     "title": "Invert gate outputs",
     "lectureTitle": "NAND, NOR, XOR, XNOR and literals",
     "start": 204.61,
-    "concept": "NAND, NOR, XOR, and XNOR extend the basic gate operations. A standard truth table lists input assignments in binary order. XOR means exactly one of two inputs is one; XNOR means the inputs agree. NAND is NOT applied to an AND output. NOR is NOT applied to an OR output. Complement the output column, not the input labels.",
+    "concept": "NAND, NOR, XOR, and XNOR extend the basic gate operations. A standard truth table lists input assignments in binary order. XOR means exactly one of two inputs is one; XNOR means the inputs agree.",
     "teachingSteps": [
       "NAND is NOT applied to an AND output.",
       "NOR is NOT applied to an OR output.",
@@ -1121,7 +1121,7 @@ export const reviewedLessons=[
     "title": "Different or equal?",
     "lectureTitle": "NAND, NOR, XOR, XNOR and literals",
     "start": 204.61,
-    "concept": "NAND, NOR, XOR, and XNOR extend the basic gate operations. A standard truth table lists input assignments in binary order. XOR means exactly one of two inputs is one; XNOR means the inputs agree. Two-input XOR is one when the inputs differ. XNOR is the complement of XOR. OR includes the all-one case; XOR excludes it.",
+    "concept": "NAND, NOR, XOR, and XNOR extend the basic gate operations. A standard truth table lists input assignments in binary order. XOR means exactly one of two inputs is one; XNOR means the inputs agree.",
     "teachingSteps": [
       "Two-input XOR is one when the inputs differ.",
       "XNOR is the complement of XOR.",
@@ -1246,7 +1246,7 @@ export const reviewedLessons=[
     "title": "Count rows and literals",
     "lectureTitle": "NAND, NOR, XOR, XNOR and literals",
     "start": 1450.94,
-    "concept": "NAND, NOR, XOR, and XNOR extend the basic gate operations. A standard truth table lists input assignments in binary order. XOR means exactly one of two inputs is one; XNOR means the inputs agree. Use input rows 00, 01, 10, 11 for two variables. Three variables use indices zero through seven. Each appearance of a variable or its complement is a literal.",
+    "concept": "NAND, NOR, XOR, and XNOR extend the basic gate operations. A standard truth table lists input assignments in binary order. XOR means exactly one of two inputs is one; XNOR means the inputs agree.",
     "teachingSteps": [
       "Use input rows 00, 01, 10, 11 for two variables.",
       "Three variables use indices zero through seven.",
@@ -1315,7 +1315,7 @@ export const reviewedLessons=[
     "title": "A function is a mapping",
     "lectureTitle": "Boolean functions and laws",
     "start": 505.66,
-    "concept": "A Boolean function maps each binary input assignment to one output. Prove identities by considering input cases or comparing truth tables. Complement and algebraic laws provide equivalent ways to describe a function. The domain is the set of input combinations. Each input combination gets one output bit. Different expressions can describe the same truth table.",
+    "concept": "A Boolean function maps each binary input assignment to one output. Prove identities by considering input cases or comparing truth tables. Complement and algebraic laws provide equivalent ways to describe a function.",
     "teachingSteps": [
       "The domain is the set of input combinations.",
       "Each input combination gets one output bit.",
@@ -1414,7 +1414,7 @@ export const reviewedLessons=[
     "title": "Prove by cases",
     "lectureTitle": "Boolean functions and laws",
     "start": 445.99,
-    "concept": "A Boolean function maps each binary input assignment to one output. Prove identities by considering input cases or comparing truth tables. Complement and algebraic laws provide equivalent ways to describe a function. Fix A=0 and simplify the expression. Fix A=1 and simplify again. Agreement in both cases proves a one-variable identity.",
+    "concept": "A Boolean function maps each binary input assignment to one output. Prove identities by considering input cases or comparing truth tables. Complement and algebraic laws provide equivalent ways to describe a function.",
     "teachingSteps": [
       "Fix A=0 and simplify the expression.",
       "Fix A=1 and simplify again.",
@@ -1495,7 +1495,7 @@ export const reviewedLessons=[
     "title": "Apply De Morgan",
     "lectureTitle": "Boolean functions and laws",
     "start": 3280.06,
-    "concept": "A Boolean function maps each binary input assignment to one output. Prove identities by considering input cases or comparing truth tables. Complement and algebraic laws provide equivalent ways to describe a function. Complementing AND changes it to OR of complements. Complementing OR changes it to AND of complements. Boolean distributivity includes A + BC = (A+B)(A+C).",
+    "concept": "A Boolean function maps each binary input assignment to one output. Prove identities by considering input cases or comparing truth tables. Complement and algebraic laws provide equivalent ways to describe a function.",
     "teachingSteps": [
       "Complementing AND changes it to OR of complements.",
       "Complementing OR changes it to AND of complements.",
@@ -1576,7 +1576,7 @@ export const reviewedLessons=[
     "title": "Find the complement",
     "lectureTitle": "Complement versus dual",
     "start": 145.61,
-    "concept": "The transcript explicitly distinguishes complementing an expression from taking its dual. Expand XOR/XNOR into AND/OR/NOT form before using the operator-substitution shortcut. Swap AND and OR throughout an AND/OR/NOT expression. Swap constants zero and one. Complement each literal, simplifying double complements.",
+    "concept": "Complementing a Boolean expression reverses its output; taking its dual exchanges AND with OR and zero with one while leaving its literals unchanged. Expand XOR/XNOR into AND/OR/NOT form before using the operator-substitution shortcut.",
     "teachingSteps": [
       "Swap AND and OR throughout an AND/OR/NOT expression.",
       "Swap constants zero and one.",
@@ -1679,7 +1679,7 @@ export const reviewedLessons=[
     "title": "Find the dual",
     "lectureTitle": "Complement versus dual",
     "start": 1943.82,
-    "concept": "The transcript explicitly distinguishes complementing an expression from taking its dual. Expand XOR/XNOR into AND/OR/NOT form before using the operator-substitution shortcut. Swap AND and OR. Swap constants zero and one. Leave each literal unchanged, including its existing complement.",
+    "concept": "Complementing a Boolean expression reverses its output; taking its dual exchanges AND with OR and zero with one while leaving its literals unchanged. Expand XOR/XNOR into AND/OR/NOT form before using the operator-substitution shortcut.",
     "teachingSteps": [
       "Swap AND and OR.",
       "Swap constants zero and one.",
@@ -1760,7 +1760,7 @@ export const reviewedLessons=[
     "title": "Check the difference",
     "lectureTitle": "Complement versus dual",
     "start": 912.2,
-    "concept": "The transcript explicitly distinguishes complementing an expression from taking its dual. Expand XOR/XNOR into AND/OR/NOT form before using the operator-substitution shortcut. Complement and dual are separate operations. For some functions they coincide; that does not make the operations identical. Check the complete truth table when unsure.",
+    "concept": "Complementing a Boolean expression reverses its output; taking its dual exchanges AND with OR and zero with one while leaving its literals unchanged. Expand XOR/XNOR into AND/OR/NOT form before using the operator-substitution shortcut.",
     "teachingSteps": [
       "Complement and dual are separate operations.",
       "For some functions they coincide; that does not make the operations identical.",
@@ -1841,7 +1841,7 @@ export const reviewedLessons=[
     "title": "Absorb redundant terms",
     "lectureTitle": "Simplify and justify",
     "start": 452.29,
-    "concept": "Absorption, factoring, and case analysis simplify Boolean expressions. An equivalent simpler expression can require a smaller circuit while preserving every truth-table output. A larger product can be redundant next to a smaller product. Factor common literals before applying complement identities. Keep the result equivalent on every input.",
+    "concept": "Absorption, factoring, and case analysis simplify Boolean expressions. An equivalent simpler expression can require a smaller circuit while preserving every truth-table output.",
     "teachingSteps": [
       "A larger product can be redundant next to a smaller product.",
       "Factor common literals before applying complement identities.",
@@ -1922,7 +1922,7 @@ export const reviewedLessons=[
     "title": "Prove an identity",
     "lectureTitle": "Simplify and justify",
     "start": 3144.29,
-    "concept": "Absorption, factoring, and case analysis simplify Boolean expressions. An equivalent simpler expression can require a smaller circuit while preserving every truth-table output. Case analysis can avoid long symbolic manipulation. For A=0, compare the two sides. For A=1, compare them again and simplify.",
+    "concept": "Absorption, factoring, and case analysis simplify Boolean expressions. An equivalent simpler expression can require a smaller circuit while preserving every truth-table output.",
     "teachingSteps": [
       "Case analysis can avoid long symbolic manipulation.",
       "For A=0, compare the two sides.",
@@ -2025,7 +2025,7 @@ export const reviewedLessons=[
     "title": "Shrink the implementation",
     "lectureTitle": "Simplify and justify",
     "start": 2467.76,
-    "concept": "Absorption, factoring, and case analysis simplify Boolean expressions. An equivalent simpler expression can require a smaller circuit while preserving every truth-table output. Fewer literal occurrences can reduce circuit complexity. A one-variable function has only two rows. The four one-variable functions are 0, 1, A, and NOT A.",
+    "concept": "Absorption, factoring, and case analysis simplify Boolean expressions. An equivalent simpler expression can require a smaller circuit while preserving every truth-table output.",
     "teachingSteps": [
       "Fewer literal occurrences can reduce circuit complexity.",
       "A one-variable function has only two rows.",
@@ -2102,7 +2102,7 @@ export const reviewedLessons=[
     "title": "Recognize terms",
     "lectureTitle": "SOP and POS standard forms",
     "start": 759.66,
-    "concept": "Sum terms and product terms form SOP and POS expressions. Count Boolean functions by the independent output choices in a truth table. Standard form does not necessarily mean canonical form. A product term is AND of literals. A sum term is OR of literals. A literal can also stand alone as a term.",
+    "concept": "Sum terms and product terms form SOP and POS expressions. Count Boolean functions by the independent output choices in a truth table. Standard form does not necessarily mean canonical form.",
     "teachingSteps": [
       "A product term is AND of literals.",
       "A sum term is OR of literals.",
@@ -2179,7 +2179,7 @@ export const reviewedLessons=[
     "title": "Recognize whole forms",
     "lectureTitle": "SOP and POS standard forms",
     "start": 1.39,
-    "concept": "Sum terms and product terms form SOP and POS expressions. Count Boolean functions by the independent output choices in a truth table. Standard form does not necessarily mean canonical form. SOP is OR of product terms. POS is AND of sum terms. Not every term must contain every variable unless the form is canonical.",
+    "concept": "Sum terms and product terms form SOP and POS expressions. Count Boolean functions by the independent output choices in a truth table. Standard form does not necessarily mean canonical form.",
     "teachingSteps": [
       "SOP is OR of product terms.",
       "POS is AND of sum terms.",
@@ -2260,7 +2260,7 @@ export const reviewedLessons=[
     "title": "Count functions",
     "lectureTitle": "SOP and POS standard forms",
     "start": 261.2,
-    "concept": "Sum terms and product terms form SOP and POS expressions. Count Boolean functions by the independent output choices in a truth table. Standard form does not necessarily mean canonical form. n variables give 2^n input rows. Every row independently chooses zero or one as its output. Hence the number of functions is 2 raised to 2^n.",
+    "concept": "Sum terms and product terms form SOP and POS expressions. Count Boolean functions by the independent output choices in a truth table. Standard form does not necessarily mean canonical form.",
     "teachingSteps": [
       "n variables give 2^n input rows.",
       "Every row independently chooses zero or one as its output.",
@@ -2325,7 +2325,7 @@ export const reviewedLessons=[
     "title": "Construct a minterm",
     "lectureTitle": "Minterm and maxterm row selectors",
     "start": 182.2,
-    "concept": "A minterm is one on exactly one row. A maxterm is zero on exactly one row. Their literal polarities depend on the explicitly stated variable order. Include every input variable exactly once. Use a complemented literal for a zero input. Use an uncomplemented literal for a one input.",
+    "concept": "A minterm is one on exactly one row. A maxterm is zero on exactly one row. Their literal polarities depend on the explicitly stated variable order.",
     "teachingSteps": [
       "Include every input variable exactly once.",
       "Use a complemented literal for a zero input.",
@@ -2402,7 +2402,7 @@ export const reviewedLessons=[
     "title": "Construct a maxterm",
     "lectureTitle": "Minterm and maxterm row selectors",
     "start": 0.94,
-    "concept": "A minterm is one on exactly one row. A maxterm is zero on exactly one row. Their literal polarities depend on the explicitly stated variable order. Include every variable exactly once in an OR term. Use an uncomplemented literal for a zero input. Use a complemented literal for a one input, making the term zero on that row.",
+    "concept": "A minterm is one on exactly one row. A maxterm is zero on exactly one row. Their literal polarities depend on the explicitly stated variable order.",
     "teachingSteps": [
       "Include every variable exactly once in an OR term.",
       "Use an uncomplemented literal for a zero input.",
@@ -2471,7 +2471,7 @@ export const reviewedLessons=[
     "title": "Respect index order",
     "lectureTitle": "Minterm and maxterm row selectors",
     "start": 748.78,
-    "concept": "A minterm is one on exactly one row. A maxterm is zero on exactly one row. Their literal polarities depend on the explicitly stated variable order. Convert the index to a fixed-width binary pattern. Assign bits to variables in the declared order. Changing the variable order changes the literal interpretation.",
+    "concept": "A minterm is one on exactly one row. A maxterm is zero on exactly one row. Their literal polarities depend on the explicitly stated variable order.",
     "teachingSteps": [
       "Convert the index to a fixed-width binary pattern.",
       "Assign bits to variables in the declared order.",
@@ -2570,7 +2570,7 @@ export const reviewedLessons=[
     "title": "One selected row",
     "lectureTitle": "Properties of canonical terms",
     "start": 17.78,
-    "concept": "Corresponding minterms and maxterms select the same input row with opposite output values. Use their complement relationship to move between one-row and zero-row descriptions. A minterm selects one input row with output one. Different minterms cannot both be one on the same assignment. OR of selected minterms specifies a set of one rows.",
+    "concept": "Corresponding minterms and maxterms select the same input row with opposite output values. Use their complement relationship to move between one-row and zero-row descriptions.",
     "teachingSteps": [
       "A minterm selects one input row with output one.",
       "Different minterms cannot both be one on the same assignment.",
@@ -2643,7 +2643,7 @@ export const reviewedLessons=[
     "title": "Complement a term",
     "lectureTitle": "Properties of canonical terms",
     "start": 108.57,
-    "concept": "Corresponding minterms and maxterms select the same input row with opposite output values. Use their complement relationship to move between one-row and zero-row descriptions. For the same index i, NOT mi equals Mi. NOT Mi equals mi. De Morgan converts literal polarity and swaps AND with OR.",
+    "concept": "Corresponding minterms and maxterms select the same input row with opposite output values. Use their complement relationship to move between one-row and zero-row descriptions.",
     "teachingSteps": [
       "For the same index i, NOT mi equals Mi.",
       "NOT Mi equals mi.",
@@ -2716,7 +2716,7 @@ export const reviewedLessons=[
     "title": "Read a row set",
     "lectureTitle": "Properties of canonical terms",
     "start": 108.57,
-    "concept": "Corresponding minterms and maxterms select the same input row with opposite output values. Use their complement relationship to move between one-row and zero-row descriptions. Minterm notation lists one rows. Maxterm notation lists zero rows. The two canonical descriptions of the same function use complementary index sets.",
+    "concept": "Corresponding minterms and maxterms select the same input row with opposite output values. Use their complement relationship to move between one-row and zero-row descriptions.",
     "teachingSteps": [
       "Minterm notation lists one rows.",
       "Maxterm notation lists zero rows.",
@@ -2841,7 +2841,7 @@ export const reviewedLessons=[
     "title": "Build canonical SOP",
     "lectureTitle": "Express any function canonically",
     "start": 585.12,
-    "concept": "Canonical SOP uses true minterms; canonical POS uses false maxterms. Both represent the same function. They are equivalent descriptions rather than dual functions. Evaluate the function on all rows. For every one row, write its minterm. OR those minterms to obtain canonical SOP.",
+    "concept": "Canonical SOP uses true minterms; canonical POS uses false maxterms. Both represent the same function. They are equivalent descriptions rather than dual functions.",
     "teachingSteps": [
       "Evaluate the function on all rows.",
       "For every one row, write its minterm.",
@@ -2944,7 +2944,7 @@ export const reviewedLessons=[
     "title": "Build canonical POS",
     "lectureTitle": "Express any function canonically",
     "start": 9408.49,
-    "concept": "Canonical SOP uses true minterms; canonical POS uses false maxterms. Both represent the same function. They are equivalent descriptions rather than dual functions. Find the rows where the function is zero. Write the corresponding maxterm for each zero row. AND those maxterms to obtain canonical POS.",
+    "concept": "Canonical SOP uses true minterms; canonical POS uses false maxterms. Both represent the same function. They are equivalent descriptions rather than dual functions.",
     "teachingSteps": [
       "Find the rows where the function is zero.",
       "Write the corresponding maxterm for each zero row.",
@@ -3017,7 +3017,7 @@ export const reviewedLessons=[
     "title": "Equivalent, not dual",
     "lectureTitle": "Express any function canonically",
     "start": 8576.03,
-    "concept": "Canonical SOP uses true minterms; canonical POS uses false maxterms. Both represent the same function. They are equivalent descriptions rather than dual functions. Canonical SOP and canonical POS represent the same output column. Their listed row sets are complements. Taking a dual is a different operation and generally changes the function.",
+    "concept": "Canonical SOP uses true minterms; canonical POS uses false maxterms. Both represent the same function. They are equivalent descriptions rather than dual functions.",
     "teachingSteps": [
       "Canonical SOP and canonical POS represent the same output column.",
       "Their listed row sets are complements.",
@@ -3116,7 +3116,7 @@ export const reviewedLessons=[
     "title": "Translate names",
     "lectureTitle": "Canonical revision and set operations",
     "start": 844.46,
-    "concept": "The transcript connects SOP/POS to DNF/CNF and treats canonical minterm indices as sets. Combining functions with OR takes a union; AND takes an intersection. DNF corresponds to SOP. CNF corresponds to POS. Canonical versions additionally require every variable in each term.",
+    "concept": "A sum of products (SOP), also called disjunctive normal form (DNF), joins AND terms with OR. A product of sums (POS), also called conjunctive normal form (CNF), joins OR terms with AND. Minterm indices identify input rows where the function is one. Combining functions with OR takes a union; AND takes an intersection.",
     "teachingSteps": [
       "DNF corresponds to SOP.",
       "CNF corresponds to POS.",
@@ -3201,7 +3201,7 @@ export const reviewedLessons=[
     "title": "Combine one-row sets",
     "lectureTitle": "Canonical revision and set operations",
     "start": 2109.46,
-    "concept": "The transcript connects SOP/POS to DNF/CNF and treats canonical minterm indices as sets. Combining functions with OR takes a union; AND takes an intersection. For OR, include any row where either function is one. For AND, include only rows where both functions are one. For complement, take the remaining rows in the full domain.",
+    "concept": "A sum of products (SOP), also called disjunctive normal form (DNF), joins AND terms with OR. A product of sums (POS), also called conjunctive normal form (CNF), joins OR terms with AND. Minterm indices identify input rows where the function is one. Combining functions with OR takes a union; AND takes an intersection.",
     "teachingSteps": [
       "For OR, include any row where either function is one.",
       "For AND, include only rows where both functions are one.",
@@ -3274,7 +3274,7 @@ export const reviewedLessons=[
     "title": "Expand missing variables",
     "lectureTitle": "Canonical revision and set operations",
     "start": 978.43,
-    "concept": "The transcript connects SOP/POS to DNF/CNF and treats canonical minterm indices as sets. Combining functions with OR takes a union; AND takes an intersection. A missing variable represents both of its possible assignments. Expand X as X(Y + NOT Y). Check that all expanded indices use the same variable order.",
+    "concept": "A sum of products (SOP), also called disjunctive normal form (DNF), joins AND terms with OR. A product of sums (POS), also called conjunctive normal form (CNF), joins OR terms with AND. Minterm indices identify input rows where the function is one. Combining functions with OR takes a union; AND takes an intersection.",
     "teachingSteps": [
       "A missing variable represents both of its possible assignments.",
       "Expand X as X(Y + NOT Y).",
@@ -3373,7 +3373,7 @@ export const reviewedLessons=[
     "title": "Find zeros from POS",
     "lectureTitle": "Convert POS and complement safely",
     "start": 321.21,
-    "concept": "Convert a POS expression by finding its false maxterms directly, or by complementing it into SOP and taking the remaining row indices. Both methods must produce the same truth table. A product is zero if at least one factor is zero. For each sum factor, find the assignments making all its literals zero. Take the union of those zero-row sets.",
+    "concept": "Convert a POS expression by finding its false maxterms directly, or by complementing it into SOP and taking the remaining row indices. Both methods must produce the same truth table.",
     "teachingSteps": [
       "A product is zero if at least one factor is zero.",
       "For each sum factor, find the assignments making all its literals zero.",
@@ -3476,7 +3476,7 @@ export const reviewedLessons=[
     "title": "Complement into SOP",
     "lectureTitle": "Convert POS and complement safely",
     "start": 1.04,
-    "concept": "Convert a POS expression by finding its false maxterms directly, or by complementing it into SOP and taking the remaining row indices. Both methods must produce the same truth table. De Morgan turns a product of sums into a sum of products. Find the one rows of the complemented function. These are precisely the zero rows of the original function.",
+    "concept": "Convert a POS expression by finding its false maxterms directly, or by complementing it into SOP and taking the remaining row indices. Both methods must produce the same truth table.",
     "teachingSteps": [
       "De Morgan turns a product of sums into a sum of products.",
       "Find the one rows of the complemented function.",
@@ -3549,7 +3549,7 @@ export const reviewedLessons=[
     "title": "Check both routes",
     "lectureTitle": "Convert POS and complement safely",
     "start": 178.64,
-    "concept": "Convert a POS expression by finding its false maxterms directly, or by complementing it into SOP and taking the remaining row indices. Both methods must produce the same truth table. Direct POS and complemented-SOP routes must agree. Never confuse the one rows of F with those of its complement. Use the full truth-table domain when taking a set complement.",
+    "concept": "Convert a POS expression by finding its false maxterms directly, or by complementing it into SOP and taking the remaining row indices. Both methods must produce the same truth table.",
     "teachingSteps": [
       "Direct POS and complemented-SOP routes must agree.",
       "Never confuse the one rows of F with those of its complement.",
@@ -3648,7 +3648,7 @@ export const reviewedLessons=[
     "title": "Explore a Gray-ordered map",
     "lectureTitle": "K-map adjacency and cubes",
     "start": 1679.16,
-    "concept": "K-maps provide systematic Boolean minimization. Arrange rows and columns in Gray order so adjacent cells differ in one variable, then combine power-of-two cubes. A four-variable map uses Gray order 00,01,11,10 on both axes. Horizontal and vertical neighbors differ in exactly one bit. Opposite edges wrap around and remain adjacent.",
+    "concept": "K-maps provide systematic Boolean minimization. Arrange rows and columns in Gray order so adjacent cells differ in one variable, then combine power-of-two cubes.",
     "teachingSteps": [
       "A four-variable map uses Gray order 00,01,11,10 on both axes.",
       "Horizontal and vertical neighbors differ in exactly one bit.",
@@ -3731,7 +3731,7 @@ export const reviewedLessons=[
     "title": "Combine one changing literal",
     "lectureTitle": "K-map adjacency and cubes",
     "start": 1368.2,
-    "concept": "K-maps provide systematic Boolean minimization. Arrange rows and columns in Gray order so adjacent cells differ in one variable, then combine power-of-two cubes. Adjacent minterms differ in exactly one literal polarity. Factor the common literals. The changing variable disappears because X + NOT X = 1.",
+    "concept": "K-maps provide systematic Boolean minimization. Arrange rows and columns in Gray order so adjacent cells differ in one variable, then combine power-of-two cubes.",
     "teachingSteps": [
       "Adjacent minterms differ in exactly one literal polarity.",
       "Factor the common literals.",
@@ -3808,7 +3808,7 @@ export const reviewedLessons=[
     "title": "Make legal cubes",
     "lectureTitle": "K-map adjacency and cubes",
     "start": 3098.01,
-    "concept": "K-maps provide systematic Boolean minimization. Arrange rows and columns in Gray order so adjacent cells differ in one variable, then combine power-of-two cubes. Legal cube sizes are powers of two. In a group of 2^m cells, m variables change and disappear. Use groups that preserve the specified truth table.",
+    "concept": "K-maps provide systematic Boolean minimization. Arrange rows and columns in Gray order so adjacent cells differ in one variable, then combine power-of-two cubes.",
     "teachingSteps": [
       "Legal cube sizes are powers of two.",
       "In a group of 2^m cells, m variables change and disappear.",
@@ -3885,7 +3885,7 @@ export const reviewedLessons=[
     "title": "Use the largest useful group",
     "lectureTitle": "Choose large groups and permit overlap",
     "start": 2258.12,
-    "concept": "Power-of-two cubes eliminate changing variables. Larger valid groups yield shorter product terms. Cover all required ones; overlapping groups are allowed. Larger cubes eliminate more variables. Each product term must stay within allowed one cells. A smaller group may be unnecessary when contained in a larger valid group.",
+    "concept": "Power-of-two cubes eliminate changing variables. Larger valid groups yield shorter product terms. Cover all required ones; overlapping groups are allowed.",
     "teachingSteps": [
       "Larger cubes eliminate more variables.",
       "Each product term must stay within allowed one cells.",
@@ -3964,7 +3964,7 @@ export const reviewedLessons=[
     "title": "Overlap is useful",
     "lectureTitle": "Choose large groups and permit overlap",
     "start": 595.3,
-    "concept": "Power-of-two cubes eliminate changing variables. Larger valid groups yield shorter product terms. Cover all required ones; overlapping groups are allowed. Groups may share one cells. Overlap can allow two larger groups instead of several small ones. The final expression is OR of the selected product terms.",
+    "concept": "Power-of-two cubes eliminate changing variables. Larger valid groups yield shorter product terms. Cover all required ones; overlapping groups are allowed.",
     "teachingSteps": [
       "Groups may share one cells.",
       "Overlap can allow two larger groups instead of several small ones.",
@@ -4041,7 +4041,7 @@ export const reviewedLessons=[
     "title": "Wrap around the map",
     "lectureTitle": "Choose large groups and permit overlap",
     "start": 210.98,
-    "concept": "Power-of-two cubes eliminate changing variables. Larger valid groups yield shorter product terms. Cover all required ones; overlapping groups are allowed. Left and right edges are neighbors. Top and bottom edges are neighbors. Corners can form a legal wrapped four-cell group.",
+    "concept": "Power-of-two cubes eliminate changing variables. Larger valid groups yield shorter product terms. Cover all required ones; overlapping groups are allowed.",
     "teachingSteps": [
       "Left and right edges are neighbors.",
       "Top and bottom edges are neighbors.",
@@ -4128,7 +4128,7 @@ export const reviewedLessons=[
     "title": "Place indices correctly",
     "lectureTitle": "Four-variable maps and POS minimization",
     "start": 91.1,
-    "concept": "Four-variable K-maps use Gray-order numbering. Minimize SOP by grouping ones into product terms; minimize POS by grouping zeros into sum terms. Use AB for rows and CD for columns. Both axes follow 00,01,11,10. A cell index comes from the binary assignment ABCD, not its screen position.",
+    "concept": "Four-variable K-maps use Gray-order numbering. Minimize SOP by grouping ones into product terms; minimize POS by grouping zeros into sum terms.",
     "teachingSteps": [
       "Use AB for rows and CD for columns.",
       "Both axes follow 00,01,11,10.",
@@ -4197,7 +4197,7 @@ export const reviewedLessons=[
     "title": "Read fixed literals for SOP",
     "lectureTitle": "Four-variable maps and POS minimization",
     "start": 91.1,
-    "concept": "Four-variable K-maps use Gray-order numbering. Minimize SOP by grouping ones into product terms; minimize POS by grouping zeros into sum terms. Only variables that are constant throughout a group survive. A fixed zero becomes a complemented product literal. A fixed one becomes an uncomplemented product literal.",
+    "concept": "Four-variable K-maps use Gray-order numbering. Minimize SOP by grouping ones into product terms; minimize POS by grouping zeros into sum terms.",
     "teachingSteps": [
       "Only variables that are constant throughout a group survive.",
       "A fixed zero becomes a complemented product literal.",
@@ -4288,7 +4288,7 @@ export const reviewedLessons=[
     "title": "Group zeros for POS",
     "lectureTitle": "Four-variable maps and POS minimization",
     "start": 513.02,
-    "concept": "Four-variable K-maps use Gray-order numbering. Minimize SOP by grouping ones into product terms; minimize POS by grouping zeros into sum terms. POS groups zeros rather than ones. Build a sum term that is zero throughout the group. A fixed zero contributes an uncomplemented literal; a fixed one contributes a complemented literal.",
+    "concept": "Four-variable K-maps use Gray-order numbering. Minimize SOP by grouping ones into product terms; minimize POS by grouping zeros into sum terms.",
     "teachingSteps": [
       "POS groups zeros rather than ones.",
       "Build a sum term that is zero throughout the group.",
@@ -4369,7 +4369,7 @@ export const reviewedLessons=[
     "title": "Choose dont-cares deliberately",
     "lectureTitle": "Dont-cares and prime implicants",
     "start": 376.99,
-    "concept": "A dont-care is an unspecified output, not a mandatory one. Use it only when it improves a grouping. Prime implicants are valid cubes that cannot be enlarged. Specified one and zero outputs must remain correct. A dont-care can be assigned zero or one as convenient. You do not have to cover every dont-care.",
+    "concept": "A dont-care is an unspecified output, not a mandatory one. Use it only when it improves a grouping. Prime implicants are valid cubes that cannot be enlarged.",
     "teachingSteps": [
       "Specified one and zero outputs must remain correct.",
       "A dont-care can be assigned zero or one as convenient.",
@@ -4442,7 +4442,7 @@ export const reviewedLessons=[
     "title": "Enlarge a useful cube",
     "lectureTitle": "Dont-cares and prime implicants",
     "start": 406.3,
-    "concept": "A dont-care is an unspecified output, not a mandatory one. Use it only when it improves a grouping. Prime implicants are valid cubes that cannot be enlarged. Include a dont-care to enlarge a group when it removes a literal. Do not include a specified zero in an SOP cube. Omit dont-cares that provide no benefit.",
+    "concept": "A dont-care is an unspecified output, not a mandatory one. Use it only when it improves a grouping. Prime implicants are valid cubes that cannot be enlarged.",
     "teachingSteps": [
       "Include a dont-care to enlarge a group when it removes a literal.",
       "Do not include a specified zero in an SOP cube.",
@@ -4519,7 +4519,7 @@ export const reviewedLessons=[
     "title": "Recognize a prime implicant",
     "lectureTitle": "Dont-cares and prime implicants",
     "start": 8226.06,
-    "concept": "A dont-care is an unspecified output, not a mandatory one. Use it only when it improves a grouping. Prime implicants are valid cubes that cannot be enlarged. An implicant is a valid product term implying the function. A prime implicant cannot be enlarged into a bigger valid cube. Prime does not automatically mean essential.",
+    "concept": "A dont-care is an unspecified output, not a mandatory one. Use it only when it improves a grouping. Prime implicants are valid cubes that cannot be enlarged.",
     "teachingSteps": [
       "An implicant is a valid product term implying the function.",
       "A prime implicant cannot be enlarged into a bigger valid cube.",
@@ -4600,7 +4600,7 @@ export const reviewedLessons=[
     "title": "Prime versus essential",
     "lectureTitle": "Essential prime implicants and minimum covers",
     "start": 567.5,
-    "concept": "The transcript distinguishes all implicants, prime implicants, and essential prime implicants. A required one covered by only one prime implicant makes that prime implicant mandatory. List maximal valid cubes to identify prime implicants. Inspect each required one and ask how many prime implicants cover it. A prime implicant uniquely covering a required one is essential.",
+    "concept": "An implicant covers only input rows where a function may be one. A prime implicant cannot be enlarged without covering a required zero. An essential prime implicant is the only prime that covers at least one required one. A required one covered by only one prime implicant makes that prime implicant mandatory.",
     "teachingSteps": [
       "List maximal valid cubes to identify prime implicants.",
       "Inspect each required one and ask how many prime implicants cover it.",
@@ -4677,7 +4677,7 @@ export const reviewedLessons=[
     "title": "Choose a complete cover",
     "lectureTitle": "Essential prime implicants and minimum covers",
     "start": 480.57,
-    "concept": "The transcript distinguishes all implicants, prime implicants, and essential prime implicants. A required one covered by only one prime implicant makes that prime implicant mandatory. Include every essential prime implicant. Mark the one cells they cover. Cover remaining required ones with an economical choice of other prime implicants.",
+    "concept": "An implicant covers only input rows where a function may be one. A prime implicant cannot be enlarged without covering a required zero. An essential prime implicant is the only prime that covers at least one required one. A required one covered by only one prime implicant makes that prime implicant mandatory.",
     "teachingSteps": [
       "Include every essential prime implicant.",
       "Mark the one cells they cover.",
@@ -4754,7 +4754,7 @@ export const reviewedLessons=[
     "title": "Interpret implication",
     "lectureTitle": "Essential prime implicants and minimum covers",
     "start": 7374.71,
-    "concept": "The transcript distinguishes all implicants, prime implicants, and essential prime implicants. A required one covered by only one prime implicant makes that prime implicant mandatory. An implicant P satisfies P=1 implies F=1. Removing a product literal enlarges its covered set. A prime cannot lose a literal while remaining valid.",
+    "concept": "An implicant covers only input rows where a function may be one. A prime implicant cannot be enlarged without covering a required zero. An essential prime implicant is the only prime that covers at least one required one. A required one covered by only one prime implicant makes that prime implicant mandatory.",
     "teachingSteps": [
       "An implicant P satisfies P=1 implies F=1.",
       "Removing a product literal enlarges its covered set.",
@@ -4835,7 +4835,7 @@ export const reviewedLessons=[
     "title": "Compute the dual output column",
     "lectureTitle": "Dual functions and self-duality",
     "start": 3207.44,
-    "concept": "For a function of n variables, duality complements the output at the complemented input. Complementary row pairs explain row-index reversal, self-duality, and the count of self-dual functions. Use Fd(x) = NOT F(NOT x). Complementing all input bits reverses the standard row order. Then complement the corresponding output bit.",
+    "concept": "For a function of n variables, duality complements the output at the complemented input. Complementary row pairs explain row-index reversal, self-duality, and the count of self-dual functions.",
     "teachingSteps": [
       "Use Fd(x) = NOT F(NOT x).",
       "Complementing all input bits reverses the standard row order.",
@@ -4930,7 +4930,7 @@ export const reviewedLessons=[
     "title": "Test self-duality",
     "lectureTitle": "Dual functions and self-duality",
     "start": 43.29,
-    "concept": "For a function of n variables, duality complements the output at the complemented input. Complementary row pairs explain row-index reversal, self-duality, and the count of self-dual functions. Self-dual means F(x) equals NOT F(NOT x). Each complementary input pair must have opposite outputs. Exactly half the output rows are one, but that condition alone is insufficient.",
+    "concept": "For a function of n variables, duality complements the output at the complemented input. Complementary row pairs explain row-index reversal, self-duality, and the count of self-dual functions.",
     "teachingSteps": [
       "Self-dual means F(x) equals NOT F(NOT x).",
       "Each complementary input pair must have opposite outputs.",
@@ -5011,7 +5011,7 @@ export const reviewedLessons=[
     "title": "Count by complementary pairs",
     "lectureTitle": "Dual functions and self-duality",
     "start": 7565.34,
-    "concept": "For a function of n variables, duality complements the output at the complemented input. Complementary row pairs explain row-index reversal, self-duality, and the count of self-dual functions. For n at least one, there are 2^(n-1) complementary row pairs. Choose one output in each pair; the other is forced opposite. The number of self-dual functions is 2 raised to 2^(n-1).",
+    "concept": "For a function of n variables, duality complements the output at the complemented input. Complementary row pairs explain row-index reversal, self-duality, and the count of self-dual functions.",
     "teachingSteps": [
       "For n at least one, there are 2^(n-1) complementary row pairs.",
       "Choose one output in each pair; the other is forced opposite.",
@@ -5076,7 +5076,7 @@ export const reviewedLessons=[
     "title": "XOR cancels pairs",
     "lectureTitle": "XOR algebra and parity",
     "start": 244.21,
-    "concept": "XOR supports cancellation and parity calculation. Multi-input XOR reports odd parity. Analyze chained two-input XNOR one stage at a time; it does not always complement the corresponding XOR chain. X XOR 0 = X. X XOR X = 0. X XOR 1 = NOT X.",
+    "concept": "XOR supports cancellation and parity calculation. Multi-input XOR reports odd parity. Analyze chained two-input XNOR one stage at a time; it does not always complement the corresponding XOR chain.",
     "teachingSteps": [
       "X XOR 0 = X.",
       "X XOR X = 0.",
@@ -5196,7 +5196,7 @@ export const reviewedLessons=[
     "title": "Read parity",
     "lectureTitle": "XOR algebra and parity",
     "start": 705.22,
-    "concept": "XOR supports cancellation and parity calculation. Multi-input XOR reports odd parity. Analyze chained two-input XNOR one stage at a time; it does not always complement the corresponding XOR chain. An XOR chain is one for an odd count of one inputs. Zero inputs do not change the parity. Two extra one inputs cancel one another.",
+    "concept": "XOR supports cancellation and parity calculation. Multi-input XOR reports odd parity. Analyze chained two-input XNOR one stage at a time; it does not always complement the corresponding XOR chain.",
     "teachingSteps": [
       "An XOR chain is one for an odd count of one inputs.",
       "Zero inputs do not change the parity.",
@@ -5261,7 +5261,7 @@ export const reviewedLessons=[
     "title": "Track XNOR chains",
     "lectureTitle": "XOR algebra and parity",
     "start": 1342,
-    "concept": "XOR supports cancellation and parity calculation. Multi-input XOR reports odd parity. Analyze chained two-input XNOR one stage at a time; it does not always complement the corresponding XOR chain. Two-input XNOR is NOT XOR. Each binary XNOR stage contributes an inversion. For three inputs, (A XNOR B) XNOR C equals A XOR B XOR C.",
+    "concept": "XOR supports cancellation and parity calculation. Multi-input XOR reports odd parity. Analyze chained two-input XNOR one stage at a time; it does not always complement the corresponding XOR chain.",
     "teachingSteps": [
       "Two-input XNOR is NOT XOR.",
       "Each binary XNOR stage contributes an inversion.",
@@ -5334,7 +5334,7 @@ export const reviewedLessons=[
     "title": "Assign levels to values",
     "lectureTitle": "Positive and negative logic conventions",
     "start": 28.54,
-    "concept": "Positive and negative logic assign opposite Boolean labels to physical voltage levels. Changing both input and output conventions gives the dual logical function of the same physical circuit. Positive logic assigns high to one and low to zero. Negative logic assigns high to zero and low to one. The electrical circuit can stay the same while its logical interpretation changes.",
+    "concept": "Positive and negative logic assign opposite Boolean labels to physical voltage levels. Changing both input and output conventions gives the dual logical function of the same physical circuit.",
     "teachingSteps": [
       "Positive logic assigns high to one and low to zero.",
       "Negative logic assigns high to zero and low to one.",
@@ -5423,7 +5423,7 @@ export const reviewedLessons=[
     "title": "Reinterpret a physical gate",
     "lectureTitle": "Positive and negative logic conventions",
     "start": 262.39,
-    "concept": "Positive and negative logic assign opposite Boolean labels to physical voltage levels. Changing both input and output conventions gives the dual logical function of the same physical circuit. Relabel every physical input with the new convention. Relabel the physical output too. A positive-logic AND circuit becomes negative-logic OR.",
+    "concept": "Positive and negative logic assign opposite Boolean labels to physical voltage levels. Changing both input and output conventions gives the dual logical function of the same physical circuit.",
     "teachingSteps": [
       "Relabel every physical input with the new convention.",
       "Relabel the physical output too.",
@@ -5504,7 +5504,7 @@ export const reviewedLessons=[
     "title": "Connect conventions to duality",
     "lectureTitle": "Positive and negative logic conventions",
     "start": 0.72,
-    "concept": "Positive and negative logic assign opposite Boolean labels to physical voltage levels. Changing both input and output conventions gives the dual logical function of the same physical circuit. The new logical rule is NOT F(NOT inputs). That is the dual function, not simply the output complement. Keep physical voltage behavior separate from logical names.",
+    "concept": "Positive and negative logic assign opposite Boolean labels to physical voltage levels. Changing both input and output conventions gives the dual logical function of the same physical circuit.",
     "teachingSteps": [
       "The new logical rule is NOT F(NOT inputs).",
       "That is the dual function, not simply the output complement.",
@@ -5607,7 +5607,7 @@ export const reviewedLessons=[
     "title": "Understand radix weights",
     "lectureTitle": "Radix, octal, hex and fractions",
     "start": 1106.52,
-    "concept": "The transcript generalizes positional weights to any base and derives integer division and fractional multiplication conversion methods. Integer and fractional digit sequences are read in different directions. A radix r system has r different digit symbols. Integer weights are r^0, r^1, r^2 from the radix point leftwards. Fractional weights are r^-1, r^-2 to the right.",
+    "concept": "In a base-r numeral, each position has r times the weight of the position to its right. Convert an integer by repeated division by the target base; convert a fraction by repeated multiplication. Integer and fractional digit sequences are read in different directions.",
     "teachingSteps": [
       "A radix r system has r different digit symbols.",
       "Integer weights are r^0, r^1, r^2 from the radix point leftwards.",
@@ -5672,7 +5672,7 @@ export const reviewedLessons=[
     "title": "Convert integer parts",
     "lectureTitle": "Radix, octal, hex and fractions",
     "start": 2797.29,
-    "concept": "The transcript generalizes positional weights to any base and derives integer division and fractional multiplication conversion methods. Integer and fractional digit sequences are read in different directions. Repeated division by the target base yields low-order digits first. Continue with the quotient. Read remainders in reverse order.",
+    "concept": "In a base-r numeral, each position has r times the weight of the position to its right. Convert an integer by repeated division by the target base; convert a fraction by repeated multiplication. Integer and fractional digit sequences are read in different directions.",
     "teachingSteps": [
       "Repeated division by the target base yields low-order digits first.",
       "Continue with the quotient.",
@@ -5740,7 +5740,7 @@ export const reviewedLessons=[
     "title": "Convert fractional parts",
     "lectureTitle": "Radix, octal, hex and fractions",
     "start": 4142.14,
-    "concept": "The transcript generalizes positional weights to any base and derives integer division and fractional multiplication conversion methods. Integer and fractional digit sequences are read in different directions. Multiply the remaining fraction by the target base. Record the integer part as the next fractional digit. Repeat on the leftover fraction and read digits in generation order.",
+    "concept": "In a base-r numeral, each position has r times the weight of the position to its right. Convert an integer by repeated division by the target base; convert a fraction by repeated multiplication. Integer and fractional digit sequences are read in different directions.",
     "teachingSteps": [
       "Multiply the remaining fraction by the target base.",
       "Record the integer part as the next fractional digit.",
@@ -5809,7 +5809,7 @@ export const reviewedLessons=[
     "title": "Three-bit octal groups",
     "lectureTitle": "Group bits into octal and hex",
     "start": 152,
-    "concept": "Bases eight and sixteen provide convenient binary shorthand. Group integer bits from the radix point leftwards and fractional bits from the radix point rightwards. Eight equals 2^3, so an octal digit corresponds to three bits. Group integer bits from right to left. Pad only the outermost group with leading zeros if needed.",
+    "concept": "Bases eight and sixteen provide convenient binary shorthand. Group integer bits from the radix point leftwards and fractional bits from the radix point rightwards.",
     "teachingSteps": [
       "Eight equals 2^3, so an octal digit corresponds to three bits.",
       "Group integer bits from right to left.",
@@ -5874,7 +5874,7 @@ export const reviewedLessons=[
     "title": "Four-bit hexadecimal groups",
     "lectureTitle": "Group bits into octal and hex",
     "start": 272.71,
-    "concept": "Bases eight and sixteen provide convenient binary shorthand. Group integer bits from the radix point leftwards and fractional bits from the radix point rightwards. Sixteen equals 2^4, so each hex digit corresponds to four bits. Group each integer nibble from the radix point towards the left. Preserve zeros inside the number.",
+    "concept": "Bases eight and sixteen provide convenient binary shorthand. Group integer bits from the radix point leftwards and fractional bits from the radix point rightwards.",
     "teachingSteps": [
       "Sixteen equals 2^4, so each hex digit corresponds to four bits.",
       "Group each integer nibble from the radix point towards the left.",
@@ -5936,7 +5936,7 @@ export const reviewedLessons=[
     "title": "Handle the radix point",
     "lectureTitle": "Group bits into octal and hex",
     "start": 369.12,
-    "concept": "Bases eight and sixteen provide convenient binary shorthand. Group integer bits from the radix point leftwards and fractional bits from the radix point rightwards. Keep integer and fractional groups separate. Fraction groups extend rightwards; pad their outer edge with trailing zeros. Never insert zeros beside the radix point, where they change weights.",
+    "concept": "Bases eight and sixteen provide convenient binary shorthand. Group integer bits from the radix point leftwards and fractional bits from the radix point rightwards.",
     "teachingSteps": [
       "Keep integer and fractional groups separate.",
       "Fraction groups extend rightwards; pad their outer edge with trailing zeros.",
@@ -6013,7 +6013,7 @@ export const reviewedLessons=[
     "title": "Two-bit arithmetic",
     "lectureTitle": "Binary addition and carry",
     "start": 64.96,
-    "concept": "Boolean OR differs from arithmetic binary addition. For each arithmetic column, sum all participating bits, write total modulo two, and carry the integer quotient by two. Binary arithmetic is base two. One plus one has value two, written 10 in binary. The low bit is zero and the carry is one.",
+    "concept": "Boolean OR differs from arithmetic binary addition. For each arithmetic column, sum all participating bits, write total modulo two, and carry the integer quotient by two.",
     "teachingSteps": [
       "Binary arithmetic is base two.",
       "One plus one has value two, written 10 in binary.",
@@ -6104,7 +6104,7 @@ export const reviewedLessons=[
     "title": "Include incoming carry",
     "lectureTitle": "Binary addition and carry",
     "start": 96.08,
-    "concept": "Boolean OR differs from arithmetic binary addition. For each arithmetic column, sum all participating bits, write total modulo two, and carry the integer quotient by two. A column can include two operand bits and a carry-in. Three ones total three, binary 11. Sum is total modulo two; carry is floor(total/2).",
+    "concept": "Boolean OR differs from arithmetic binary addition. For each arithmetic column, sum all participating bits, write total modulo two, and carry the integer quotient by two.",
     "teachingSteps": [
       "A column can include two operand bits and a carry-in.",
       "Three ones total three, binary 11.",
@@ -6169,7 +6169,7 @@ export const reviewedLessons=[
     "title": "Propagate across columns",
     "lectureTitle": "Binary addition and carry",
     "start": 96.08,
-    "concept": "Boolean OR differs from arithmetic binary addition. For each arithmetic column, sum all participating bits, write total modulo two, and carry the integer quotient by two. Start at the least significant column. Carry-out becomes the next column carry-in. Keep a final carry when computing an unrestricted unsigned sum.",
+    "concept": "Boolean OR differs from arithmetic binary addition. For each arithmetic column, sum all participating bits, write total modulo two, and carry the integer quotient by two.",
     "teachingSteps": [
       "Start at the least significant column.",
       "Carry-out becomes the next column carry-in.",
@@ -6238,7 +6238,7 @@ export const reviewedLessons=[
     "title": "Define both complements",
     "lectureTitle": "Radix complements and subtraction",
     "start": 507.93,
-    "concept": "At a fixed digit width, r-minus-one and r complements turn subtraction into addition. Treat zero modulo the fixed-width range and apply the carry rule for the chosen complement. With n digits in radix r, diminished complement is r^n - 1 - N. For nonzero N, radix complement is r^n - N. The fixed-width radix complement of zero is zero modulo r^n.",
+    "concept": "At a fixed digit width, r-minus-one and r complements turn subtraction into addition. Treat zero modulo the fixed-width range and apply the carry rule for the chosen complement.",
     "teachingSteps": [
       "With n digits in radix r, diminished complement is r^n - 1 - N.",
       "For nonzero N, radix complement is r^n - N.",
@@ -6303,7 +6303,7 @@ export const reviewedLessons=[
     "title": "Complement bits efficiently",
     "lectureTitle": "Radix complements and subtraction",
     "start": 1448.08,
-    "concept": "At a fixed digit width, r-minus-one and r complements turn subtraction into addition. Treat zero modulo the fixed-width range and apply the carry rule for the chosen complement. Binary ones complement flips every bit. Binary twos complement flips bits and adds one. Equivalently, copy from the right through the first one, then flip remaining higher bits.",
+    "concept": "At a fixed digit width, r-minus-one and r complements turn subtraction into addition. Treat zero modulo the fixed-width range and apply the carry rule for the chosen complement.",
     "teachingSteps": [
       "Binary ones complement flips every bit.",
       "Binary twos complement flips bits and adds one.",
@@ -6372,7 +6372,7 @@ export const reviewedLessons=[
     "title": "Subtract using addition",
     "lectureTitle": "Radix complements and subtraction",
     "start": 387.73,
-    "concept": "At a fixed digit width, r-minus-one and r complements turn subtraction into addition. Treat zero modulo the fixed-width range and apply the carry rule for the chosen complement. Compute M plus the radix complement of N. A final carry is discarded in radix-complement subtraction. Without a carry, complement the stored result to recover the negative magnitude.",
+    "concept": "At a fixed digit width, r-minus-one and r complements turn subtraction into addition. Treat zero modulo the fixed-width range and apply the carry rule for the chosen complement.",
     "teachingSteps": [
       "Compute M plus the radix complement of N.",
       "A final carry is discarded in radix-complement subtraction.",
@@ -6441,7 +6441,7 @@ export const reviewedLessons=[
     "title": "Align operand widths",
     "lectureTitle": "Practice radix-complement subtraction",
     "start": 0.82,
-    "concept": "Radix-complement subtraction requires aligned operand widths and correct final-carry handling. Pad operands before taking a complement, and interpret a negative result in the same representation. Choose a width large enough for both operands. Pad an unsigned shorter operand with leading zeros. Take its radix complement at that same width.",
+    "concept": "Radix-complement subtraction requires aligned operand widths and correct final-carry handling. Pad operands before taking a complement, and interpret a negative result in the same representation.",
     "teachingSteps": [
       "Choose a width large enough for both operands.",
       "Pad an unsigned shorter operand with leading zeros.",
@@ -6510,7 +6510,7 @@ export const reviewedLessons=[
     "title": "Handle a final carry",
     "lectureTitle": "Practice radix-complement subtraction",
     "start": 89.5,
-    "concept": "Radix-complement subtraction requires aligned operand widths and correct final-carry handling. Pad operands before taking a complement, and interpret a negative result in the same representation. At fixed width, keep only the low n digits of a radix-complement sum. A carry indicates the unsigned minuend was at least the nonzero subtrahend. The retained value is the nonnegative difference in that case.",
+    "concept": "Radix-complement subtraction requires aligned operand widths and correct final-carry handling. Pad operands before taking a complement, and interpret a negative result in the same representation.",
     "teachingSteps": [
       "At fixed width, keep only the low n digits of a radix-complement sum.",
       "A carry indicates the unsigned minuend was at least the nonzero subtrahend.",
@@ -6575,7 +6575,7 @@ export const reviewedLessons=[
     "title": "Read negative results",
     "lectureTitle": "Practice radix-complement subtraction",
     "start": 0.82,
-    "concept": "Radix-complement subtraction requires aligned operand widths and correct final-carry handling. Pad operands before taking a complement, and interpret a negative result in the same representation. Without a final carry, the unsigned difference is negative. The stored value is the radix-complement encoding of its magnitude. Complement again and apply a minus sign to recover the arithmetic difference.",
+    "concept": "Radix-complement subtraction requires aligned operand widths and correct final-carry handling. Pad operands before taking a complement, and interpret a negative result in the same representation.",
     "teachingSteps": [
       "Without a final carry, the unsigned difference is negative.",
       "The stored value is the radix-complement encoding of its magnitude.",
@@ -6644,7 +6644,7 @@ export const reviewedLessons=[
     "title": "Use the diminished complement",
     "lectureTitle": "Diminished-complement subtraction",
     "start": 0,
-    "concept": "Unlike radix-complement subtraction, r-minus-one complement subtraction uses an end-around carry. Add the carry to the retained low digits to restore the correct difference. Binary uses ones complement; decimal uses nines complement. The diminished complement is one less than the radix complement for a nonzero operand. This difference explains the carry correction.",
+    "concept": "Unlike radix-complement subtraction, r-minus-one complement subtraction uses an end-around carry. Add the carry to the retained low digits to restore the correct difference.",
     "teachingSteps": [
       "Binary uses ones complement; decimal uses nines complement.",
       "The diminished complement is one less than the radix complement for a nonzero operand.",
@@ -6709,7 +6709,7 @@ export const reviewedLessons=[
     "title": "Apply end-around carry",
     "lectureTitle": "Diminished-complement subtraction",
     "start": 97.41,
-    "concept": "Unlike radix-complement subtraction, r-minus-one complement subtraction uses an end-around carry. Add the carry to the retained low digits to restore the correct difference. Add M and the diminished complement of N. If there is a carry, add that carry to the retained low digits. Do not simply discard it as in twos-complement subtraction.",
+    "concept": "Unlike radix-complement subtraction, r-minus-one complement subtraction uses an end-around carry. Add the carry to the retained low digits to restore the correct difference.",
     "teachingSteps": [
       "Add M and the diminished complement of N.",
       "If there is a carry, add that carry to the retained low digits.",
@@ -6774,7 +6774,7 @@ export const reviewedLessons=[
     "title": "No carry and negative zero",
     "lectureTitle": "Diminished-complement subtraction",
     "start": 774.18,
-    "concept": "Unlike radix-complement subtraction, r-minus-one complement subtraction uses an end-around carry. Add the carry to the retained low digits to restore the correct difference. Without a carry, complement the result to obtain the negative magnitude. Equal operands may produce the all-one representation of negative zero. Signed ones complement has two zero patterns.",
+    "concept": "Unlike radix-complement subtraction, r-minus-one complement subtraction uses an end-around carry. Add the carry to the retained low digits to restore the correct difference.",
     "teachingSteps": [
       "Without a carry, complement the result to obtain the negative magnitude.",
       "Equal operands may produce the all-one representation of negative zero.",
@@ -6843,7 +6843,7 @@ export const reviewedLessons=[
     "title": "Sign and magnitude",
     "lectureTitle": "Interpret signed bit patterns",
     "start": 118.15,
-    "concept": "Sign-magnitude, ones complement, twos complement, and unsigned notation assign different meanings to bit patterns. State the representation before decoding a numerical value. In sign-magnitude, the top bit chooses the sign. The remaining bits give the magnitude. Both positive and negative zero are representable.",
+    "concept": "Sign-magnitude, ones complement, twos complement, and unsigned notation assign different meanings to bit patterns. State the representation before decoding a numerical value.",
     "teachingSteps": [
       "In sign-magnitude, the top bit chooses the sign.",
       "The remaining bits give the magnitude.",
@@ -6908,7 +6908,7 @@ export const reviewedLessons=[
     "title": "Decode complement forms",
     "lectureTitle": "Interpret signed bit patterns",
     "start": 683.42,
-    "concept": "Sign-magnitude, ones complement, twos complement, and unsigned notation assign different meanings to bit patterns. State the representation before decoding a numerical value. For a negative ones-complement pattern, invert to obtain its magnitude. For twos complement, subtract 2^n from the unsigned value when the top bit is one. Nonnegative patterns agree across the three signed conventions.",
+    "concept": "Sign-magnitude, ones complement, twos complement, and unsigned notation assign different meanings to bit patterns. State the representation before decoding a numerical value.",
     "teachingSteps": [
       "For a negative ones-complement pattern, invert to obtain its magnitude.",
       "For twos complement, subtract 2^n from the unsigned value when the top bit is one.",
@@ -6973,7 +6973,7 @@ export const reviewedLessons=[
     "title": "Ask for the representation",
     "lectureTitle": "Interpret signed bit patterns",
     "start": 2.46,
-    "concept": "Sign-magnitude, ones complement, twos complement, and unsigned notation assign different meanings to bit patterns. State the representation before decoding a numerical value. A bit pattern without a representation does not determine a signed quantity. Unsigned interpretation uses all bits as positive positional weights. Distinguish an unsigned bit-pattern value from its signed meaning.",
+    "concept": "Sign-magnitude, ones complement, twos complement, and unsigned notation assign different meanings to bit patterns. State the representation before decoding a numerical value.",
     "teachingSteps": [
       "A bit pattern without a representation does not determine a signed quantity.",
       "Unsigned interpretation uses all bits as positive positional weights.",
@@ -7046,7 +7046,7 @@ export const reviewedLessons=[
     "title": "Symmetric signed ranges",
     "lectureTitle": "Ranges and zero representations",
     "start": 1790.42,
-    "concept": "Signed ranges follow from the available bit patterns and zero representations. Sign-magnitude and ones complement use two zero patterns; twos complement has one extra negative value. n-bit sign-magnitude uses n-1 magnitude bits. Its range is -(2^(n-1)-1) through +(2^(n-1)-1). Ones complement has the same range and also two zero representations.",
+    "concept": "Signed ranges follow from the available bit patterns and zero representations. Sign-magnitude and ones complement use two zero patterns; twos complement has one extra negative value.",
     "teachingSteps": [
       "n-bit sign-magnitude uses n-1 magnitude bits.",
       "Its range is -(2^(n-1)-1) through +(2^(n-1)-1).",
@@ -7111,7 +7111,7 @@ export const reviewedLessons=[
     "title": "Twos-complement asymmetry",
     "lectureTitle": "Ranges and zero representations",
     "start": 1861.4,
-    "concept": "Signed ranges follow from the available bit patterns and zero representations. Sign-magnitude and ones complement use two zero patterns; twos complement has one extra negative value. The top bit has negative weight -2^(n-1). Lower bits have the ordinary positive weights. The range is -2^(n-1) through 2^(n-1)-1.",
+    "concept": "Signed ranges follow from the available bit patterns and zero representations. Sign-magnitude and ones complement use two zero patterns; twos complement has one extra negative value.",
     "teachingSteps": [
       "The top bit has negative weight -2^(n-1).",
       "Lower bits have the ordinary positive weights.",
@@ -7176,7 +7176,7 @@ export const reviewedLessons=[
     "title": "Patterns versus numbers",
     "lectureTitle": "Ranges and zero representations",
     "start": 1726.94,
-    "concept": "Signed ranges follow from the available bit patterns and zero representations. Sign-magnitude and ones complement use two zero patterns; twos complement has one extra negative value. n bits always have 2^n patterns. Distinct numerical values depend on whether any patterns share a value. Check the representation before calling the all-one pattern a minimum.",
+    "concept": "Signed ranges follow from the available bit patterns and zero representations. Sign-magnitude and ones complement use two zero patterns; twos complement has one extra negative value.",
     "teachingSteps": [
       "n bits always have 2^n patterns.",
       "Distinct numerical values depend on whether any patterns share a value.",
@@ -7245,7 +7245,7 @@ export const reviewedLessons=[
     "title": "Handle sign-magnitude cases",
     "lectureTitle": "Add signed values in different systems",
     "start": 0.94,
-    "concept": "Sign-magnitude addition requires separate sign and magnitude handling. In twos complement, add the stored patterns, discard carry-out, then check that the true result fits the signed range. Same signs: add magnitudes and retain the common sign. Different signs: subtract smaller magnitude from larger. The result takes the sign of the larger magnitude.",
+    "concept": "Sign-magnitude addition requires separate sign and magnitude handling. In twos complement, add the stored patterns, discard carry-out, then check that the true result fits the signed range.",
     "teachingSteps": [
       "Same signs: add magnitudes and retain the common sign.",
       "Different signs: subtract smaller magnitude from larger.",
@@ -7310,7 +7310,7 @@ export const reviewedLessons=[
     "title": "Add twos-complement patterns",
     "lectureTitle": "Add signed values in different systems",
     "start": 1837.39,
-    "concept": "Sign-magnitude addition requires separate sign and magnitude handling. In twos complement, add the stored patterns, discard carry-out, then check that the true result fits the signed range. Encode both operands at the same width. Add the patterns as binary numbers. Discard the carry beyond the field, but inspect signed overflow separately.",
+    "concept": "Sign-magnitude addition requires separate sign and magnitude handling. In twos complement, add the stored patterns, discard carry-out, then check that the true result fits the signed range.",
     "teachingSteps": [
       "Encode both operands at the same width.",
       "Add the patterns as binary numbers.",
@@ -7375,7 +7375,7 @@ export const reviewedLessons=[
     "title": "Keep range in view",
     "lectureTitle": "Add signed values in different systems",
     "start": 2179.43,
-    "concept": "Sign-magnitude addition requires separate sign and magnitude handling. In twos complement, add the stored patterns, discard carry-out, then check that the true result fits the signed range. A low-bit result can wrap when the true value is out of range. Discarding carry does not repair signed overflow. Compare the mathematical sum with the representable range.",
+    "concept": "Sign-magnitude addition requires separate sign and magnitude handling. In twos complement, add the stored patterns, discard carry-out, then check that the true result fits the signed range.",
     "teachingSteps": [
       "A low-bit result can wrap when the true value is out of range.",
       "Discarding carry does not repair signed overflow.",
@@ -7452,7 +7452,7 @@ export const reviewedLessons=[
     "title": "Ones-complement addition",
     "lectureTitle": "Addition, subtraction and end-around carry",
     "start": 56.25,
-    "concept": "The transcript practices ones-complement addition and twos-complement subtraction. Preserve the representation across encoding, arithmetic, and final interpretation. Encode negative numbers by inverting their positive patterns. Add the operands as binary patterns. Add any end-around carry back into the retained low bits.",
+    "concept": "Ones-complement encoding forms a negative value by flipping every bit of its positive magnitude; twos complement also adds one. These encodings use different carry-handling rules. Preserve the representation across encoding, arithmetic, and final interpretation.",
     "teachingSteps": [
       "Encode negative numbers by inverting their positive patterns.",
       "Add the operands as binary patterns.",
@@ -7517,7 +7517,7 @@ export const reviewedLessons=[
     "title": "Twos-complement subtraction",
     "lectureTitle": "Addition, subtraction and end-around carry",
     "start": 1152.76,
-    "concept": "The transcript practices ones-complement addition and twos-complement subtraction. Preserve the representation across encoding, arithmetic, and final interpretation. Compute A-B by adding A to the twos complement of B. Keep the chosen width. Read the retained result as twos complement.",
+    "concept": "Ones-complement encoding forms a negative value by flipping every bit of its positive magnitude; twos complement also adds one. These encodings use different carry-handling rules. Preserve the representation across encoding, arithmetic, and final interpretation.",
     "teachingSteps": [
       "Compute A-B by adding A to the twos complement of B.",
       "Keep the chosen width.",
@@ -7582,7 +7582,7 @@ export const reviewedLessons=[
     "title": "Compare carry rules",
     "lectureTitle": "Addition, subtraction and end-around carry",
     "start": 56.25,
-    "concept": "The transcript practices ones-complement addition and twos-complement subtraction. Preserve the representation across encoding, arithmetic, and final interpretation. Twos complement discards a carry beyond the field. Ones complement feeds that carry back to the low bits. Use a range check to identify overflow, whichever signed encoding is used.",
+    "concept": "Ones-complement encoding forms a negative value by flipping every bit of its positive magnitude; twos complement also adds one. These encodings use different carry-handling rules. Preserve the representation across encoding, arithmetic, and final interpretation.",
     "teachingSteps": [
       "Twos complement discards a carry beyond the field.",
       "Ones complement feeds that carry back to the low bits.",
@@ -7663,7 +7663,7 @@ export const reviewedLessons=[
     "title": "Compare with the allowed range",
     "lectureTitle": "Define overflow using the representation",
     "start": 207.34,
-    "concept": "Overflow means the true arithmetic result is outside the range of the chosen representation. The same stored bits can overflow as signed arithmetic and remain valid as unsigned arithmetic, or vice versa. Choose the width and representation first. Compute the mathematical result. Overflow occurs precisely when that result cannot be represented.",
+    "concept": "Overflow means the true arithmetic result is outside the range of the chosen representation. The same stored bits can overflow as signed arithmetic and remain valid as unsigned arithmetic, or vice versa.",
     "teachingSteps": [
       "Choose the width and representation first.",
       "Compute the mathematical result.",
@@ -7736,7 +7736,7 @@ export const reviewedLessons=[
     "title": "Unsigned carry versus signed sign",
     "lectureTitle": "Define overflow using the representation",
     "start": 1641.91,
-    "concept": "Overflow means the true arithmetic result is outside the range of the chosen representation. The same stored bits can overflow as signed arithmetic and remain valid as unsigned arithmetic, or vice versa. An unsigned addition carry-out indicates a result above 2^n-1. Signed overflow uses the signed range. A carry bit is not a universal overflow flag.",
+    "concept": "Overflow means the true arithmetic result is outside the range of the chosen representation. The same stored bits can overflow as signed arithmetic and remain valid as unsigned arithmetic, or vice versa.",
     "teachingSteps": [
       "An unsigned addition carry-out indicates a result above 2^n-1.",
       "Signed overflow uses the signed range.",
@@ -7809,7 +7809,7 @@ export const reviewedLessons=[
     "title": "Use operand signs",
     "lectureTitle": "Define overflow using the representation",
     "start": 2165.91,
-    "concept": "Overflow means the true arithmetic result is outside the range of the chosen representation. The same stored bits can overflow as signed arithmetic and remain valid as unsigned arithmetic, or vice versa. Opposite-sign signed addition cannot overflow. Two positives overflow if the retained result is negative. Two negatives overflow if the retained result is nonnegative.",
+    "concept": "Overflow means the true arithmetic result is outside the range of the chosen representation. The same stored bits can overflow as signed arithmetic and remain valid as unsigned arithmetic, or vice versa.",
     "teachingSteps": [
       "Opposite-sign signed addition cannot overflow.",
       "Two positives overflow if the retained result is negative.",
@@ -7886,7 +7886,7 @@ export const reviewedLessons=[
     "title": "Inspect the three signs",
     "lectureTitle": "Detect signed overflow correctly",
     "start": 243.77,
-    "concept": "Sign tests and carry comparisons detect signed overflow. For twos-complement addition, overflow is carry into the sign bit XOR carry out of it. Other encodings require their own arithmetic rules. Add two positives: a negative retained sum signals overflow. Add two negatives: a nonnegative retained sum signals overflow. Different operand signs cannot overflow in addition.",
+    "concept": "Sign tests and carry comparisons detect signed overflow. For twos-complement addition, overflow is carry into the sign bit XOR carry out of it. Other encodings require their own arithmetic rules.",
     "teachingSteps": [
       "Add two positives: a negative retained sum signals overflow.",
       "Add two negatives: a nonnegative retained sum signals overflow.",
@@ -7959,7 +7959,7 @@ export const reviewedLessons=[
     "title": "Compare sign-bit carries",
     "lectureTitle": "Detect signed overflow correctly",
     "start": 1102.94,
-    "concept": "Sign tests and carry comparisons detect signed overflow. For twos-complement addition, overflow is carry into the sign bit XOR carry out of it. Other encodings require their own arithmetic rules. Track the carry entering the top bit. Track the carry leaving the top bit. For twos complement, different carries indicate overflow.",
+    "concept": "Sign tests and carry comparisons detect signed overflow. For twos-complement addition, overflow is carry into the sign bit XOR carry out of it. Other encodings require their own arithmetic rules.",
     "teachingSteps": [
       "Track the carry entering the top bit.",
       "Track the carry leaving the top bit.",
@@ -8024,7 +8024,7 @@ export const reviewedLessons=[
     "title": "Keep encodings separate",
     "lectureTitle": "Detect signed overflow correctly",
     "start": 1574.75,
-    "concept": "Sign tests and carry comparisons detect signed overflow. For twos-complement addition, overflow is carry into the sign bit XOR carry out of it. Other encodings require their own arithmetic rules. Ones-complement arithmetic first applies its end-around carry rule. Sign-magnitude uses magnitude arithmetic and its own range. The twos-complement carry-XOR shortcut belongs to twos-complement addition.",
+    "concept": "Sign tests and carry comparisons detect signed overflow. For twos-complement addition, overflow is carry into the sign bit XOR carry out of it. Other encodings require their own arithmetic rules.",
     "teachingSteps": [
       "Ones-complement arithmetic first applies its end-around carry rule.",
       "Sign-magnitude uses magnitude arithmetic and its own range.",
@@ -8101,7 +8101,7 @@ export const reviewedLessons=[
     "title": "Unsigned zero extension",
     "lectureTitle": "Extend signed values without changing them",
     "start": 147.05,
-    "concept": "Unsigned, sign-magnitude, ones complement, and twos complement have different widening rules. A widening operation must preserve the numerical value, not merely the old bit pattern. Unsigned widening adds zeros on the left. The original positive place values remain unchanged. Do not treat an unsigned top one as a sign bit.",
+    "concept": "Unsigned, sign-magnitude, ones complement, and twos complement have different widening rules. A widening operation must preserve the numerical value, not merely the old bit pattern.",
     "teachingSteps": [
       "Unsigned widening adds zeros on the left.",
       "The original positive place values remain unchanged.",
@@ -8170,7 +8170,7 @@ export const reviewedLessons=[
     "title": "Complement-form sign extension",
     "lectureTitle": "Extend signed values without changing them",
     "start": 0.11,
-    "concept": "Unsigned, sign-magnitude, ones complement, and twos complement have different widening rules. A widening operation must preserve the numerical value, not merely the old bit pattern. For ones complement and twos complement, replicate the old sign bit on the left. A nonnegative number receives zeros. A negative number receives ones, preserving its complement encoding.",
+    "concept": "Unsigned, sign-magnitude, ones complement, and twos complement have different widening rules. A widening operation must preserve the numerical value, not merely the old bit pattern.",
     "teachingSteps": [
       "For ones complement and twos complement, replicate the old sign bit on the left.",
       "A nonnegative number receives zeros.",
@@ -8240,7 +8240,7 @@ export const reviewedLessons=[
     "title": "Sign-magnitude is different",
     "lectureTitle": "Extend signed values without changing them",
     "start": 382.09,
-    "concept": "Unsigned, sign-magnitude, ones complement, and twos complement have different widening rules. A widening operation must preserve the numerical value, not merely the old bit pattern. Keep the sign as the new top bit. Insert zeros between the sign and the old magnitude bits. Simply replicating a one sign bit would change the magnitude.",
+    "concept": "Unsigned, sign-magnitude, ones complement, and twos complement have different widening rules. A widening operation must preserve the numerical value, not merely the old bit pattern.",
     "teachingSteps": [
       "Keep the sign as the new top bit.",
       "Insert zeros between the sign and the old magnitude bits.",
@@ -8313,7 +8313,7 @@ export const reviewedLessons=[
     "title": "Assign distinguishable words",
     "lectureTitle": "Binary codes and minimum width",
     "start": 0,
-    "concept": "A code assigns a bit pattern to each item in a finite set. Minimum fixed width follows from the number of available patterns. A one-hot encoding uses redundancy to detect single-bit errors. Each item needs a distinct codeword for unambiguous decoding. A codeword need not equal the numerical value of its item. Unused codewords are permitted.",
+    "concept": "A code assigns a bit pattern to each item in a finite set. Minimum fixed width follows from the number of available patterns. A one-hot encoding uses redundancy to detect single-bit errors.",
     "teachingSteps": [
       "Each item needs a distinct codeword for unambiguous decoding.",
       "A codeword need not equal the numerical value of its item.",
@@ -8382,7 +8382,7 @@ export const reviewedLessons=[
     "title": "Count available patterns",
     "lectureTitle": "Binary codes and minimum width",
     "start": 858.57,
-    "concept": "A code assigns a bit pattern to each item in a finite set. Minimum fixed width follows from the number of available patterns. A one-hot encoding uses redundancy to detect single-bit errors. n bits provide 2^n distinct patterns. For m items, choose the smallest n with 2^n at least m. Thus n equals ceil(log2 m), with zero bits sufficient for a single known item.",
+    "concept": "A code assigns a bit pattern to each item in a finite set. Minimum fixed width follows from the number of available patterns. A one-hot encoding uses redundancy to detect single-bit errors.",
     "teachingSteps": [
       "n bits provide 2^n distinct patterns.",
       "For m items, choose the smallest n with 2^n at least m.",
@@ -8447,7 +8447,7 @@ export const reviewedLessons=[
     "title": "Spend redundancy to detect errors",
     "lectureTitle": "Binary codes and minimum width",
     "start": 0,
-    "concept": "A code assigns a bit pattern to each item in a finite set. Minimum fixed width follows from the number of available patterns. A one-hot encoding uses redundancy to detect single-bit errors. A one-hot codeword contains exactly one one. One changed bit makes either zero ones or two ones, which is invalid. Detecting an invalid word does not automatically identify the intended word.",
+    "concept": "A code assigns a bit pattern to each item in a finite set. Minimum fixed width follows from the number of available patterns. A one-hot encoding uses redundancy to detect single-bit errors.",
     "teachingSteps": [
       "A one-hot codeword contains exactly one one.",
       "One changed bit makes either zero ones or two ones, which is invalid.",
@@ -8520,7 +8520,7 @@ export const reviewedLessons=[
     "title": "Encode each decimal digit",
     "lectureTitle": "BCD, weighted codes and self-complementarity",
     "start": 1818.22,
-    "concept": "Digit-wise BCD differs from whole-number binary. Weighted codes assign positional weights; ASCII assigns codes to characters. Excess-three is a self-complementary decimal code. 8421 BCD assigns a four-bit word to each decimal digit. Encode digits separately; do not convert the entire number to binary. Four-bit words 1010 through 1111 are invalid decimal digits in 8421 BCD.",
+    "concept": "Digit-wise BCD differs from whole-number binary. Weighted codes assign positional weights; ASCII assigns codes to characters. Excess-three is a self-complementary decimal code.",
     "teachingSteps": [
       "8421 BCD assigns a four-bit word to each decimal digit.",
       "Encode digits separately; do not convert the entire number to binary.",
@@ -8589,7 +8589,7 @@ export const reviewedLessons=[
     "title": "Weighted codes and character codes",
     "lectureTitle": "BCD, weighted codes and self-complementarity",
     "start": 174.3,
-    "concept": "Digit-wise BCD differs from whole-number binary. Weighted codes assign positional weights; ASCII assigns codes to characters. Excess-three is a self-complementary decimal code. A weighted code adds the fixed weights at one-bit positions. Different weighted-code tables may choose different patterns for a digit. ASCII is a character encoding; ordinary seven-bit ASCII has 128 code points.",
+    "concept": "Digit-wise BCD differs from whole-number binary. Weighted codes assign positional weights; ASCII assigns codes to characters. Excess-three is a self-complementary decimal code.",
     "teachingSteps": [
       "A weighted code adds the fixed weights at one-bit positions.",
       "Different weighted-code tables may choose different patterns for a digit.",
@@ -8654,7 +8654,7 @@ export const reviewedLessons=[
     "title": "Excess-three and self-complementary codes",
     "lectureTitle": "BCD, weighted codes and self-complementarity",
     "start": 3669.76,
-    "concept": "Digit-wise BCD differs from whole-number binary. Weighted codes assign positional weights; ASCII assigns codes to characters. Excess-three is a self-complementary decimal code. Excess-three encodes a decimal digit by adding three and writing four-bit binary. In a self-complementary decimal code, bit inversion encodes the nines complement of the digit. For excess-three, inversion changes d+3 into 15-(d+3) = (9-d)+3.",
+    "concept": "Digit-wise BCD differs from whole-number binary. Weighted codes assign positional weights; ASCII assigns codes to characters. Excess-three is a self-complementary decimal code.",
     "teachingSteps": [
       "Excess-three encodes a decimal digit by adding three and writing four-bit binary.",
       "In a self-complementary decimal code, bit inversion encodes the nines complement of the digit.",
@@ -8731,7 +8731,7 @@ export const reviewedLessons=[
     "title": "One-bit transitions",
     "lectureTitle": "Reflected Gray codes",
     "start": 477.72,
-    "concept": "The transcript motivates one-bit transitions, constructs reflected Gray sequences, and derives conversion by XOR of neighboring binary bits. Gray words are codes rather than ordinary positional representations. Neighboring entries in a reflected Gray sequence differ by one bit. This includes the wraparound pair in a complete reflected cycle. Ordinary binary counting can change several bits at once.",
+    "concept": "A reflected Gray code orders bit patterns so adjacent entries differ in just one bit. Build the next width by reflecting the previous sequence and adding a prefix; convert binary to Gray using neighboring-bit XOR. Gray words are codes rather than ordinary positional representations.",
     "teachingSteps": [
       "Neighboring entries in a reflected Gray sequence differ by one bit.",
       "This includes the wraparound pair in a complete reflected cycle.",
@@ -8800,7 +8800,7 @@ export const reviewedLessons=[
     "title": "Reflect the shorter sequence",
     "lectureTitle": "Reflected Gray codes",
     "start": 716,
-    "concept": "The transcript motivates one-bit transitions, constructs reflected Gray sequences, and derives conversion by XOR of neighboring binary bits. Gray words are codes rather than ordinary positional representations. Write the previous Gray sequence forwards with prefix zero. Write it backwards with prefix one. Joining those halves gives the next-width reflected sequence.",
+    "concept": "A reflected Gray code orders bit patterns so adjacent entries differ in just one bit. Build the next width by reflecting the previous sequence and adding a prefix; convert binary to Gray using neighboring-bit XOR. Gray words are codes rather than ordinary positional representations.",
     "teachingSteps": [
       "Write the previous Gray sequence forwards with prefix zero.",
       "Write it backwards with prefix one.",
@@ -8869,7 +8869,7 @@ export const reviewedLessons=[
     "title": "Convert binary to Gray",
     "lectureTitle": "Reflected Gray codes",
     "start": 1750.9,
-    "concept": "The transcript motivates one-bit transitions, constructs reflected Gray sequences, and derives conversion by XOR of neighboring binary bits. Gray words are codes rather than ordinary positional representations. Copy the most significant binary bit unchanged. Each lower Gray bit is XOR of the corresponding binary bit and its left neighbor. Keep the same bit width throughout the conversion.",
+    "concept": "A reflected Gray code orders bit patterns so adjacent entries differ in just one bit. Build the next width by reflecting the previous sequence and adding a prefix; convert binary to Gray using neighboring-bit XOR. Gray words are codes rather than ordinary positional representations.",
     "teachingSteps": [
       "Copy the most significant binary bit unchanged.",
       "Each lower Gray bit is XOR of the corresponding binary bit and its left neighbor.",
@@ -8946,7 +8946,7 @@ export const reviewedLessons=[
     "title": "Shift one place",
     "lectureTitle": "Compute Gray using a shift and XOR",
     "start": 189.04,
-    "concept": "Convert an unsigned binary value to reflected Gray by XOR with itself shifted right by one bit. Hamming distance measures the number of differing bit positions between codewords. A logical right shift of an unsigned value inserts a leading zero. Shifting by one computes floor(value/2). The shifted word aligns each bit with its original left neighbor.",
+    "concept": "Convert an unsigned binary value to reflected Gray by XOR with itself shifted right by one bit. Hamming distance measures the number of differing bit positions between codewords.",
     "teachingSteps": [
       "A logical right shift of an unsigned value inserts a leading zero.",
       "Shifting by one computes floor(value/2).",
@@ -9010,7 +9010,7 @@ export const reviewedLessons=[
     "title": "Apply the XOR shortcut",
     "lectureTitle": "Compute Gray using a shift and XOR",
     "start": 0,
-    "concept": "Convert an unsigned binary value to reflected Gray by XOR with itself shifted right by one bit. Hamming distance measures the number of differing bit positions between codewords. Compute G = B XOR (B shifted right by one). The leading zero in the shifted word preserves the original top bit. Other positions implement the adjacent-bit XOR rule.",
+    "concept": "Convert an unsigned binary value to reflected Gray by XOR with itself shifted right by one bit. Hamming distance measures the number of differing bit positions between codewords.",
     "teachingSteps": [
       "Compute G = B XOR (B shifted right by one).",
       "The leading zero in the shifted word preserves the original top bit.",
@@ -9075,7 +9075,7 @@ export const reviewedLessons=[
     "title": "Measure bit differences",
     "lectureTitle": "Compute Gray using a shift and XOR",
     "start": 520.34,
-    "concept": "Convert an unsigned binary value to reflected Gray by XOR with itself shifted right by one bit. Hamming distance measures the number of differing bit positions between codewords. Hamming distance counts differing bit positions. XOR produces ones exactly where the words differ. Count the ones in the XOR result to obtain the distance.",
+    "concept": "Convert an unsigned binary value to reflected Gray by XOR with itself shifted right by one bit. Hamming distance measures the number of differing bit positions between codewords.",
     "teachingSteps": [
       "Hamming distance counts differing bit positions.",
       "XOR produces ones exactly where the words differ.",
@@ -9139,7 +9139,7 @@ export const reviewedLessons=[
     "title": "Read a compact row",
     "lectureTitle": "Compact truth tables and cofactors",
     "start": 1140.02,
-    "concept": "Compact truth tables fix selector variables and express the output as a function of remaining inputs. Expand each selected row with its minterm to reconstruct the complete function. A compact row fixes only the selector variables. Its output may be zero, one, C, or NOT C rather than one constant bit. Substitute the remaining input to recover an ordinary truth-table output.",
+    "concept": "Compact truth tables fix selector variables and express the output as a function of remaining inputs. Expand each selected row with its minterm to reconstruct the complete function.",
     "teachingSteps": [
       "A compact row fixes only the selector variables.",
       "Its output may be zero, one, C, or NOT C rather than one constant bit.",
@@ -9216,7 +9216,7 @@ export const reviewedLessons=[
     "title": "Reconstruct the expression",
     "lectureTitle": "Compact truth tables and cofactors",
     "start": 563.01,
-    "concept": "Compact truth tables fix selector variables and express the output as a function of remaining inputs. Expand each selected row with its minterm to reconstruct the complete function. With selectors A,B, form the four selector minterms. Multiply each selector minterm by its row output function. OR the terms: F=A'B'f00 + A'Bf01 + AB'f10 + ABf11.",
+    "concept": "Compact truth tables fix selector variables and express the output as a function of remaining inputs. Expand each selected row with its minterm to reconstruct the complete function.",
     "teachingSteps": [
       "With selectors A,B, form the four selector minterms.",
       "Multiply each selector minterm by its row output function.",
@@ -9297,7 +9297,7 @@ export const reviewedLessons=[
     "title": "Expand and verify",
     "lectureTitle": "Compact truth tables and cofactors",
     "start": 1084.19,
-    "concept": "Compact truth tables fix selector variables and express the output as a function of remaining inputs. Expand each selected row with its minterm to reconstruct the complete function. Each compact row with one remaining bit represents two full input rows. Evaluate its output function at both zero and one. Compare the resulting full table with the reconstructed expression.",
+    "concept": "Compact truth tables fix selector variables and express the output as a function of remaining inputs. Expand each selected row with its minterm to reconstruct the complete function.",
     "teachingSteps": [
       "Each compact row with one remaining bit represents two full input rows.",
       "Evaluate its output function at both zero and one.",
@@ -9350,7 +9350,7 @@ export const reviewedLessons=[
       },
       {
         "type": "truth",
-        "prompt": "For the stated compact outputs, fix C=1 and fill F(A,B).",
+        "prompt": "Compact outputs f00=C, f01=0, f10=1, f11=C, selected by A,B. Fix C=1 and fill F(A,B).",
         "labels": [
           "A",
           "B"
@@ -9414,7 +9414,7 @@ export const reviewedLessons=[
     "title": "Choose the data route",
     "lectureTitle": "Multiplexers select one data input",
     "start": 88.51,
-    "concept": "A multiplexer is a many-to-one data selector. Binary select lines identify an input. Mutually exclusive selector terms give its AND/OR implementation. A multiplexer has multiple data inputs and one output. Binary select lines identify the chosen input index. A select line controls routing; it is distinct from a data input.",
+    "concept": "A multiplexer is a many-to-one data selector. Binary select lines identify an input. Mutually exclusive selector terms give its AND/OR implementation.",
     "teachingSteps": [
       "A multiplexer has multiple data inputs and one output.",
       "Binary select lines identify the chosen input index.",
@@ -9483,7 +9483,7 @@ export const reviewedLessons=[
     "title": "Write a 2-to-1 rule",
     "lectureTitle": "Multiplexers select one data input",
     "start": 177.4,
-    "concept": "A multiplexer is a many-to-one data selector. Binary select lines identify an input. Mutually exclusive selector terms give its AND/OR implementation. S=0 chooses I0 and S=1 chooses I1. The Boolean expression is F=S'I0 + SI1. Only one selector product term can be enabled at a time.",
+    "concept": "A multiplexer is a many-to-one data selector. Binary select lines identify an input. Mutually exclusive selector terms give its AND/OR implementation.",
     "teachingSteps": [
       "S=0 chooses I0 and S=1 chooses I1.",
       "The Boolean expression is F=S'I0 + SI1.",
@@ -9564,7 +9564,7 @@ export const reviewedLessons=[
     "title": "Build the four branches",
     "lectureTitle": "Multiplexers select one data input",
     "start": 2479.59,
-    "concept": "A multiplexer is a many-to-one data selector. Binary select lines identify an input. Mutually exclusive selector terms give its AND/OR implementation. For a 4-to-1 mux, form the four minterms of S1,S0. AND each selector minterm with its corresponding data input. OR the four branch outputs to obtain the routed output.",
+    "concept": "A multiplexer is a many-to-one data selector. Binary select lines identify an input. Mutually exclusive selector terms give its AND/OR implementation.",
     "teachingSteps": [
       "For a 4-to-1 mux, form the four minterms of S1,S0.",
       "AND each selector minterm with its corresponding data input.",
@@ -9641,7 +9641,7 @@ export const reviewedLessons=[
     "title": "Tie data pins to constants",
     "lectureTitle": "Realize Boolean functions with a mux",
     "start": 331.66,
-    "concept": "Realize Boolean functions by assigning constants and remaining variables to mux data pins. Select a variable, compute its two cofactors, and connect them to the zero and one branches. A grounded data pin represents constant zero. A defined high data pin represents constant one. With I0=0 and I1=1, a 2-to-1 mux outputs its selector.",
+    "concept": "Realize Boolean functions by assigning constants and remaining variables to mux data pins. Select a variable, compute its two cofactors, and connect them to the zero and one branches.",
     "teachingSteps": [
       "A grounded data pin represents constant zero.",
       "A defined high data pin represents constant one.",
@@ -9714,7 +9714,7 @@ export const reviewedLessons=[
     "title": "Use the selector cofactors",
     "lectureTitle": "Realize Boolean functions with a mux",
     "start": 0,
-    "concept": "Realize Boolean functions by assigning constants and remaining variables to mux data pins. Select a variable, compute its two cofactors, and connect them to the zero and one branches. Choose A as the selector. Set I0 to F with A=0. Set I1 to F with A=1; the remaining variables become data-pin functions.",
+    "concept": "Realize Boolean functions by assigning constants and remaining variables to mux data pins. Select a variable, compute its two cofactors, and connect them to the zero and one branches.",
     "teachingSteps": [
       "Choose A as the selector.",
       "Set I0 to F with A=0.",
@@ -9839,7 +9839,7 @@ export const reviewedLessons=[
     "title": "Check a nontrivial gate",
     "lectureTitle": "Realize Boolean functions with a mux",
     "start": 0,
-    "concept": "Realize Boolean functions by assigning constants and remaining variables to mux data pins. Select a variable, compute its two cofactors, and connect them to the zero and one branches. A XOR B has cofactor B at A=0. Its cofactor at A=1 is NOT B. A mux plus an inverter can therefore implement XOR.",
+    "concept": "Realize Boolean functions by assigning constants and remaining variables to mux data pins. Select a variable, compute its two cofactors, and connect them to the zero and one branches.",
     "teachingSteps": [
       "A XOR B has cofactor B at A=0.",
       "Its cofactor at A=1 is NOT B.",
@@ -9942,7 +9942,7 @@ export const reviewedLessons=[
     "title": "Route and read an input",
     "lectureTitle": "Mux practice: choose the right cofactors",
     "start": 267,
-    "concept": "Truth tables, canonical row sets, and compact tables determine mux data inputs. Work in the stated selector order and distinguish remaining input functions from constants. The binary selector word names the chosen data input. For two-variable XOR, use A,B as selectors and connect data bits 0,1,1,0. A constant data pin is a fixed zero or one, not a new selector.",
+    "concept": "Truth tables, canonical row sets, and compact tables determine mux data inputs. Work in the stated selector order and distinguish remaining input functions from constants.",
     "teachingSteps": [
       "The binary selector word names the chosen data input.",
       "For two-variable XOR, use A,B as selectors and connect data bits 0,1,1,0.",
@@ -10042,7 +10042,7 @@ export const reviewedLessons=[
     "title": "Solve a Boolean function",
     "lectureTitle": "Mux practice: choose the right cofactors",
     "start": 527.57,
-    "concept": "Truth tables, canonical row sets, and compact tables determine mux data inputs. Work in the stated selector order and distinguish remaining input functions from constants. Take F=BC' + A'C and use A,B as selectors. Substitute each selector assignment while leaving C symbolic. The resulting data-pin functions are C,1,0,C'.",
+    "concept": "Truth tables, canonical row sets, and compact tables determine mux data inputs. Work in the stated selector order and distinguish remaining input functions from constants.",
     "teachingSteps": [
       "Take F=BC' + A'C and use A,B as selectors.",
       "Substitute each selector assignment while leaving C symbolic.",
@@ -10167,7 +10167,7 @@ export const reviewedLessons=[
     "title": "Derive branches from minterms",
     "lectureTitle": "Mux practice: choose the right cofactors",
     "start": 30.89,
-    "concept": "Truth tables, canonical row sets, and compact tables determine mux data inputs. Work in the stated selector order and distinguish remaining input functions from constants. For F(A,B,C)=sum m(1,2,6,7), split indices by their AB prefix. Within each branch inspect outputs at C=0 and C=1. Output pairs 00,11,01,10 mean 0,1,C,C' respectively.",
+    "concept": "Truth tables, canonical row sets, and compact tables determine mux data inputs. Work in the stated selector order and distinguish remaining input functions from constants.",
     "teachingSteps": [
       "For F(A,B,C)=sum m(1,2,6,7), split indices by their AB prefix.",
       "Within each branch inspect outputs at C=0 and C=1.",
@@ -10244,7 +10244,7 @@ export const reviewedLessons=[
     "title": "Use the complete output column",
     "lectureTitle": "How small a mux can realize a function?",
     "start": 62.68,
-    "concept": "Using all variables as selectors permits constant data pins. Leaving one variable on data pins gives a smaller mux that may need an inverter. State which signals and extra gates are available. Any n-variable Boolean function can use a 2^n-to-1 mux with all variables as selectors. Connect the truth-table output values as constant data inputs. No remaining input variables need to be processed on the data pins.",
+    "concept": "Using all variables as selectors permits constant data pins. Leaving one variable on data pins gives a smaller mux that may need an inverter. State which signals and extra gates are available.",
     "teachingSteps": [
       "Any n-variable Boolean function can use a 2^n-to-1 mux with all variables as selectors.",
       "Connect the truth-table output values as constant data inputs.",
@@ -10322,7 +10322,7 @@ export const reviewedLessons=[
     "title": "Leave one variable on data pins",
     "lectureTitle": "How small a mux can realize a function?",
     "start": 1.01,
-    "concept": "Using all variables as selectors permits constant data pins. Leaving one variable on data pins gives a smaller mux that may need an inverter. State which signals and extra gates are available. With n-1 selectors, each branch is a one-variable function. The four possible branch functions are 0,1,X,X'. One shared inverter can supply X' to multiple data pins.",
+    "concept": "Using all variables as selectors permits constant data pins. Leaving one variable on data pins gives a smaller mux that may need an inverter. State which signals and extra gates are available.",
     "teachingSteps": [
       "With n-1 selectors, each branch is a one-variable function.",
       "The four possible branch functions are 0,1,X,X'.",
@@ -10395,7 +10395,7 @@ export const reviewedLessons=[
     "title": "Recognize the hardware constraint",
     "lectureTitle": "How small a mux can realize a function?",
     "start": 29.53,
-    "concept": "Using all variables as selectors permits constant data pins. Leaving one variable on data pins gives a smaller mux that may need an inverter. State which signals and extra gates are available. One 2-to-1 mux can realize every two-variable function if the remaining input and its complement are available. Without any complement-generating hardware, XOR is a counterexample to universal realization. State the allowed signals before judging a minimum-hardware claim.",
+    "concept": "Using all variables as selectors permits constant data pins. Leaving one variable on data pins gives a smaller mux that may need an inverter. State which signals and extra gates are available.",
     "teachingSteps": [
       "One 2-to-1 mux can realize every two-variable function if the remaining input and its complement are available.",
       "Without any complement-generating hardware, XOR is a counterexample to universal realization.",
@@ -10476,7 +10476,7 @@ export const reviewedLessons=[
     "title": "Combine two levels",
     "lectureTitle": "Build large muxes from smaller muxes",
     "start": 92.6,
-    "concept": "Mux trees combine smaller selectors into a larger selector. Count components separately from serial stages. Low-order bits select within a group; high-order bits select the group. Two first-stage 2-to-1 muxes select within pairs of inputs. A final 2-to-1 mux chooses between the pair outputs. A 4-to-1 mux therefore needs three 2-to-1 components.",
+    "concept": "Mux trees combine smaller selectors into a larger selector. Count components separately from serial stages. Low-order bits select within a group; high-order bits select the group.",
     "teachingSteps": [
       "Two first-stage 2-to-1 muxes select within pairs of inputs.",
       "A final 2-to-1 mux chooses between the pair outputs.",
@@ -10546,7 +10546,7 @@ export const reviewedLessons=[
     "title": "Count components and depth",
     "lectureTitle": "Build large muxes from smaller muxes",
     "start": 183.81,
-    "concept": "Mux trees combine smaller selectors into a larger selector. Count components separately from serial stages. Low-order bits select within a group; high-order bits select the group. A full N-input binary mux tree has N-1 two-input muxes. For N a power of two, its serial depth is log2 N. Gate count measures components; depth measures the longest selection path.",
+    "concept": "Mux trees combine smaller selectors into a larger selector. Count components separately from serial stages. Low-order bits select within a group; high-order bits select the group.",
     "teachingSteps": [
       "A full N-input binary mux tree has N-1 two-input muxes.",
       "For N a power of two, its serial depth is log2 N.",
@@ -10611,7 +10611,7 @@ export const reviewedLessons=[
     "title": "Assign selector groups",
     "lectureTitle": "Build large muxes from smaller muxes",
     "start": 490.8,
-    "concept": "Mux trees combine smaller selectors into a larger selector. Count components separately from serial stages. Low-order bits select within a group; high-order bits select the group. Low-order selector bits choose within a group at the first stage. Higher-order bits choose the group in later stages. For a 16-to-1 built from 4-to-1 muxes, use S1,S0 locally and S3,S2 at the final mux.",
+    "concept": "Mux trees combine smaller selectors into a larger selector. Count components separately from serial stages. Low-order bits select within a group; high-order bits select the group.",
     "teachingSteps": [
       "Low-order selector bits choose within a group at the first stage.",
       "Higher-order bits choose the group in later stages.",
@@ -10684,7 +10684,7 @@ export const reviewedLessons=[
     "title": "Enable versus select",
     "lectureTitle": "Enable inputs and active levels",
     "start": 174.52,
-    "concept": "An enable input controls whether normal mux selection is permitted. In an AND-gated mux, the disabled output is zero. Active-high and active-low conventions specify the level that enables operation. Selectors decide which data input to route. Enable decides whether normal routing is permitted. For the shown AND-gated circuit, disabling forces the output to zero.",
+    "concept": "An enable input controls whether normal mux selection is permitted. In an AND-gated mux, the disabled output is zero. Active-high and active-low conventions specify the level that enables operation.",
     "teachingSteps": [
       "Selectors decide which data input to route.",
       "Enable decides whether normal routing is permitted.",
@@ -10765,7 +10765,7 @@ export const reviewedLessons=[
     "title": "Active-high enable",
     "lectureTitle": "Enable inputs and active levels",
     "start": 731.13,
-    "concept": "An enable input controls whether normal mux selection is permitted. In an AND-gated mux, the disabled output is zero. Active-high and active-low conventions specify the level that enables operation. Active-high enable permits operation at E=1. Let R be the ordinary selected mux output. The enabled output is F=E AND R.",
+    "concept": "An enable input controls whether normal mux selection is permitted. In an AND-gated mux, the disabled output is zero. Active-high and active-low conventions specify the level that enables operation.",
     "teachingSteps": [
       "Active-high enable permits operation at E=1.",
       "Let R be the ordinary selected mux output.",
@@ -10868,7 +10868,7 @@ export const reviewedLessons=[
     "title": "Active-low enable",
     "lectureTitle": "Enable inputs and active levels",
     "start": 698.71,
-    "concept": "An enable input controls whether normal mux selection is permitted. In an AND-gated mux, the disabled output is zero. Active-high and active-low conventions specify the level that enables operation. Active-low enable permits operation at E=0. Invert E before AND-gating the normal result. For the shown circuit, F=NOT E AND R.",
+    "concept": "An enable input controls whether normal mux selection is permitted. In an AND-gated mux, the disabled output is zero. Active-high and active-low conventions specify the level that enables operation.",
     "teachingSteps": [
       "Active-low enable permits operation at E=0.",
       "Invert E before AND-gating the normal result.",
@@ -10971,7 +10971,7 @@ export const reviewedLessons=[
     "title": "One in, many out",
     "lectureTitle": "Demultiplexers distribute one input",
     "start": 1.14,
-    "concept": "A demultiplexer sends one data input to one selected output. In an active-high demux, each unselected output stays zero while the selected output follows the data. A mux chooses many inputs for one output. A demux directs one input to one of many outputs. The select word chooses the destination output.",
+    "concept": "A demultiplexer sends one data input to one selected output. In an active-high demux, each unselected output stays zero while the selected output follows the data.",
     "teachingSteps": [
       "A mux chooses many inputs for one output.",
       "A demux directs one input to one of many outputs.",
@@ -11048,7 +11048,7 @@ export const reviewedLessons=[
     "title": "Write each output rule",
     "lectureTitle": "Demultiplexers distribute one input",
     "start": 619.05,
-    "concept": "A demultiplexer sends one data input to one selected output. In an active-high demux, each unselected output stays zero while the selected output follows the data. For a 1-to-2 demux, Y0=D AND NOT S. Y1=D AND S. Exactly one destination is selected, but it becomes one only when D is one.",
+    "concept": "A demultiplexer sends one data input to one selected output. In an active-high demux, each unselected output stays zero while the selected output follows the data.",
     "teachingSteps": [
       "For a 1-to-2 demux, Y0=D AND NOT S.",
       "Y1=D AND S.",
@@ -11173,7 +11173,7 @@ export const reviewedLessons=[
     "title": "Follow the data value",
     "lectureTitle": "Demultiplexers distribute one input",
     "start": 214.7,
-    "concept": "A demultiplexer sends one data input to one selected output. In an active-high demux, each unselected output stays zero while the selected output follows the data. With D=1, the selected output is one and other outputs are zero. With D=0, all active-high outputs are zero. Selecting an output does not create a one independently of the data.",
+    "concept": "A demultiplexer sends one data input to one selected output. In an active-high demux, each unselected output stays zero while the selected output follows the data.",
     "teachingSteps": [
       "With D=1, the selected output is one and other outputs are zero.",
       "With D=0, all active-high outputs are zero.",
@@ -11250,7 +11250,7 @@ export const reviewedLessons=[
     "title": "Encode an active input index",
     "lectureTitle": "Binary encoders and one-hot assumptions",
     "start": 263.1,
-    "concept": "An ordinary binary encoder reports the index of one active input and assumes exactly one request is high. Its simple OR equations do not resolve simultaneous requests as a priority encoder would. A 4-to-2 encoder has four request inputs and two binary outputs. Exactly one request is active in the ordinary one-hot model. The output word names the index of that request.",
+    "concept": "An ordinary binary encoder reports the index of one active input and assumes exactly one request is high. Its simple OR equations do not resolve simultaneous requests as a priority encoder would.",
     "teachingSteps": [
       "A 4-to-2 encoder has four request inputs and two binary outputs.",
       "Exactly one request is active in the ordinary one-hot model.",
@@ -11323,7 +11323,7 @@ export const reviewedLessons=[
     "title": "Derive output bits",
     "lectureTitle": "Binary encoders and one-hot assumptions",
     "start": 675.57,
-    "concept": "An ordinary binary encoder reports the index of one active input and assumes exactly one request is high. Its simple OR equations do not resolve simultaneous requests as a priority encoder would. Y1 is one for active inputs I2 or I3. Y0 is one for active inputs I1 or I3. Thus Y1=I2 OR I3 and Y0=I1 OR I3 on the valid input domain.",
+    "concept": "An ordinary binary encoder reports the index of one active input and assumes exactly one request is high. Its simple OR equations do not resolve simultaneous requests as a priority encoder would.",
     "teachingSteps": [
       "Y1 is one for active inputs I2 or I3.",
       "Y0 is one for active inputs I1 or I3.",
@@ -11404,7 +11404,7 @@ export const reviewedLessons=[
     "title": "Respect the valid domain",
     "lectureTitle": "Binary encoders and one-hot assumptions",
     "start": 450.7,
-    "concept": "An ordinary binary encoder reports the index of one active input and assumes exactly one request is high. Its simple OR equations do not resolve simultaneous requests as a priority encoder would. Multiple active inputs violate the ordinary binary encoder assumption. Its OR equations can then produce an index that does not identify an active request. An all-zero input also needs a separate valid indication if it must be distinguished from input zero.",
+    "concept": "An ordinary binary encoder reports the index of one active input and assumes exactly one request is high. Its simple OR equations do not resolve simultaneous requests as a priority encoder would.",
     "teachingSteps": [
       "Multiple active inputs violate the ordinary binary encoder assumption.",
       "Its OR equations can then produce an index that does not identify an active request.",
@@ -11481,7 +11481,7 @@ export const reviewedLessons=[
     "title": "Choose the winning request",
     "lectureTitle": "Priority encoders",
     "start": 31.92,
-    "concept": "A priority encoder selects the highest-priority asserted input even when several requests arrive together. A separate valid output distinguishes a request for index zero from no request. Use the explicitly stated priority order. Among asserted inputs, choose the highest-priority one. Encode its index; lower-priority requests do not change the winner.",
+    "concept": "A priority encoder selects the highest-priority asserted input even when several requests arrive together. A separate valid output distinguishes a request for index zero from no request.",
     "teachingSteps": [
       "Use the explicitly stated priority order.",
       "Among asserted inputs, choose the highest-priority one.",
@@ -11554,7 +11554,7 @@ export const reviewedLessons=[
     "title": "Separate validity from the code",
     "lectureTitle": "Priority encoders",
     "start": 470.97,
-    "concept": "A priority encoder selects the highest-priority asserted input even when several requests arrive together. A separate valid output distinguishes a request for index zero from no request. Valid Z is the OR of all active-high requests. Code 00 can represent input W0. When Z is zero, no input is asserted and the encoded index is not a valid request.",
+    "concept": "A priority encoder selects the highest-priority asserted input even when several requests arrive together. A separate valid output distinguishes a request for index zero from no request.",
     "teachingSteps": [
       "Valid Z is the OR of all active-high requests.",
       "Code 00 can represent input W0.",
@@ -11636,7 +11636,7 @@ export const reviewedLessons=[
     "title": "Build priority-aware equations",
     "lectureTitle": "Priority encoders",
     "start": 1016.84,
-    "concept": "A priority encoder selects the highest-priority asserted input even when several requests arrive together. A separate valid output distinguishes a request for index zero from no request. For W3 > W2 > W1 > W0, Y1 = W3 + W2. Y0 = W3 + W2′W1 suppresses W1 when W2 wins. Z = W3 + W2 + W1 + W0.",
+    "concept": "A priority encoder selects the highest-priority asserted input even when several requests arrive together. A separate valid output distinguishes a request for index zero from no request.",
     "teachingSteps": [
       "For W3 > W2 > W1 > W0, Y1 = W3 + W2.",
       "Y0 = W3 + W2′W1 suppresses W1 when W2 wins.",
@@ -11710,7 +11710,7 @@ export const reviewedLessons=[
     "title": "Decode an address",
     "lectureTitle": "Binary decoders",
     "start": 1210.38,
-    "concept": "A decoder maps a binary address to a selected output line. An enabled active-high decoder asserts exactly one output; its output equations are the address minterms. n address bits distinguish 2^n output lines. Read addresses in the stated most-to-least significant order. For active-high outputs, the addressed line is one and all others are zero.",
+    "concept": "A decoder maps a binary address to a selected output line. An enabled active-high decoder asserts exactly one output; its output equations are the address minterms.",
     "teachingSteps": [
       "n address bits distinguish 2^n output lines.",
       "Read addresses in the stated most-to-least significant order.",
@@ -11780,7 +11780,7 @@ export const reviewedLessons=[
     "title": "Wire the minterms",
     "lectureTitle": "Binary decoders",
     "start": 1092.18,
-    "concept": "A decoder maps a binary address to a selected output line. An enabled active-high decoder asserts exactly one output; its output equations are the address minterms. A zero address bit requires a complemented literal. A one address bit requires an uncomplemented literal. AND the address literals to form each active-high output.",
+    "concept": "A decoder maps a binary address to a selected output line. An enabled active-high decoder asserts exactly one output; its output equations are the address minterms.",
     "teachingSteps": [
       "A zero address bit requires a complemented literal.",
       "A one address bit requires an uncomplemented literal.",
@@ -11896,7 +11896,7 @@ export const reviewedLessons=[
     "title": "Control decoding with enable",
     "lectureTitle": "Binary decoders",
     "start": 1799.05,
-    "concept": "A decoder maps a binary address to a selected output line. An enabled active-high decoder asserts exactly one output; its output equations are the address minterms. An active-high enable permits decoding at E=1. An active-low enable permits decoding at E=0. For the active-high output model here, disabling makes every output zero.",
+    "concept": "A decoder maps a binary address to a selected output line. An enabled active-high decoder asserts exactly one output; its output equations are the address minterms.",
     "teachingSteps": [
       "An active-high enable permits decoding at E=1.",
       "An active-low enable permits decoding at E=0.",
@@ -11970,7 +11970,7 @@ export const reviewedLessons=[
     "title": "Read one-low output vectors",
     "lectureTitle": "Active-low decoders",
     "start": 120.48,
-    "concept": "Output polarity and enable polarity are separate choices. A NAND decoder asserts the selected output at zero; the unselected outputs remain one. Active-low means asserted at zero. An enabled complete active-low decoder has exactly one low output. Specify the output-vector order before finding the selected line.",
+    "concept": "Output polarity and enable polarity are separate choices. A NAND decoder asserts the selected output at zero; the unselected outputs remain one.",
     "teachingSteps": [
       "Active-low means asserted at zero.",
       "An enabled complete active-low decoder has exactly one low output.",
@@ -12044,7 +12044,7 @@ export const reviewedLessons=[
     "title": "Use NAND minterms",
     "lectureTitle": "Active-low decoders",
     "start": 605.02,
-    "concept": "Output polarity and enable polarity are separate choices. A NAND decoder asserts the selected output at zero; the unselected outputs remain one. An active-high decoder output is an address minterm. Complement that minterm to get an active-low output. A NAND gate performs that complement directly.",
+    "concept": "Output polarity and enable polarity are separate choices. A NAND decoder asserts the selected output at zero; the unselected outputs remain one.",
     "teachingSteps": [
       "An active-high decoder output is an address minterm.",
       "Complement that minterm to get an active-low output.",
@@ -12144,7 +12144,7 @@ export const reviewedLessons=[
     "title": "Keep enable polarity independent",
     "lectureTitle": "Active-low decoders",
     "start": 120.48,
-    "concept": "Output polarity and enable polarity are separate choices. A NAND decoder asserts the selected output at zero; the unselected outputs remain one. The enable input decides when decoding is permitted. Output polarity decides the level of an asserted line. For the NAND-output model here, disabling leaves every output high.",
+    "concept": "Output polarity and enable polarity are separate choices. A NAND decoder asserts the selected output at zero; the unselected outputs remain one.",
     "teachingSteps": [
       "The enable input decides when decoding is permitted.",
       "Output polarity decides the level of an asserted line.",
@@ -12222,7 +12222,7 @@ export const reviewedLessons=[
     "title": "Select the true minterms",
     "lectureTitle": "Realize Boolean functions with decoders",
     "start": 784.16,
-    "concept": "A decoder supplies minterm signals. Combining the required minterms realizes a Boolean function; the combining gate must match the decoder output polarity. List the input rows where the function is one. Take the decoder outputs with those indices. For active-high outputs, OR the selected lines.",
+    "concept": "A decoder supplies minterm signals. Combining the required minterms realizes a Boolean function; the combining gate must match the decoder output polarity.",
     "teachingSteps": [
       "List the input rows where the function is one.",
       "Take the decoder outputs with those indices.",
@@ -12322,7 +12322,7 @@ export const reviewedLessons=[
     "title": "Match the combining gate to polarity",
     "lectureTitle": "Realize Boolean functions with decoders",
     "start": 493.26,
-    "concept": "A decoder supplies minterm signals. Combining the required minterms realizes a Boolean function; the combining gate must match the decoder output polarity. Active-high minterms combine through OR. Active-low complemented minterms combine through NAND. De Morgan gives the same SOP function using the same selected indices.",
+    "concept": "A decoder supplies minterm signals. Combining the required minterms realizes a Boolean function; the combining gate must match the decoder output polarity.",
     "teachingSteps": [
       "Active-high minterms combine through OR.",
       "Active-low complemented minterms combine through NAND.",
@@ -12400,7 +12400,7 @@ export const reviewedLessons=[
     "title": "Plan the implementation",
     "lectureTitle": "Realize Boolean functions with decoders",
     "start": 1132.49,
-    "concept": "A decoder supplies minterm signals. Combining the required minterms realizes a Boolean function; the combining gate must match the decoder output polarity. A complete n-variable realization uses an n-to-2^n decoder. Choose the output indices from the truth table. Count decoder output lines separately from extra combining gates.",
+    "concept": "A decoder supplies minterm signals. Combining the required minterms realizes a Boolean function; the combining gate must match the decoder output polarity.",
     "teachingSteps": [
       "A complete n-variable realization uses an n-to-2^n decoder.",
       "Choose the output indices from the truth table.",
@@ -12473,7 +12473,7 @@ export const reviewedLessons=[
     "title": "Shift a transition in time",
     "lectureTitle": "Propagation delay and timing",
     "start": 381.63,
-    "concept": "Gate outputs respond after a delay. Timing diagrams shift transitions through the circuit, and the largest accumulated path delay determines when all outputs can be trusted. Find the ideal output value after an input change. Add the stated propagation delay to the change time. Assume isolated, sufficiently separated transitions and equal rise/fall delays unless specified otherwise.",
+    "concept": "Gate outputs respond after a delay. Timing diagrams shift transitions through the circuit, and the largest accumulated path delay determines when all outputs can be trusted.",
     "teachingSteps": [
       "Find the ideal output value after an input change.",
       "Add the stated propagation delay to the change time.",
@@ -12547,7 +12547,7 @@ export const reviewedLessons=[
     "title": "Accumulate serial delays",
     "lectureTitle": "Propagation delay and timing",
     "start": 1050.6,
-    "concept": "Gate outputs respond after a delay. Timing diagrams shift transitions through the circuit, and the largest accumulated path delay determines when all outputs can be trusted. For a serial path, add each gate delay. Two inversions restore the original polarity but still add delay. Follow each transition through the intermediate outputs.",
+    "concept": "Gate outputs respond after a delay. Timing diagrams shift transitions through the circuit, and the largest accumulated path delay determines when all outputs can be trusted.",
     "teachingSteps": [
       "For a serial path, add each gate delay.",
       "Two inversions restore the original polarity but still add delay.",
@@ -12629,7 +12629,7 @@ export const reviewedLessons=[
     "title": "Find the critical path",
     "lectureTitle": "Propagation delay and timing",
     "start": 2875.34,
-    "concept": "Gate outputs respond after a delay. Timing diagrams shift transitions through the circuit, and the largest accumulated path delay determines when all outputs can be trusted. Compute input-to-output path delays. At a gate, wait for its latest required input and then add the gate delay. The maximum path delay is the critical-path delay, not the sum of parallel branches.",
+    "concept": "Gate outputs respond after a delay. Timing diagrams shift transitions through the circuit, and the largest accumulated path delay determines when all outputs can be trusted.",
     "teachingSteps": [
       "Compute input-to-output path delays.",
       "At a gate, wait for its latest required input and then add the gate delay.",
@@ -12699,7 +12699,7 @@ export const reviewedLessons=[
     "title": "Split the result into sum and carry",
     "lectureTitle": "Half adders",
     "start": 962.75,
-    "concept": "A half adder adds two single bits and produces a sum bit and a carry bit. It has no carry-in input, so it cannot alone handle a column that also receives an incoming carry. For inputs A and B, the sum bit is A XOR B. The carry bit is AB. The numerical result is 2C + S.",
+    "concept": "A half adder adds two single bits and produces a sum bit and a carry bit. It has no carry-in input, so it cannot alone handle a column that also receives an incoming carry.",
     "teachingSteps": [
       "For inputs A and B, the sum bit is A XOR B.",
       "The carry bit is AB.",
@@ -12821,7 +12821,7 @@ export const reviewedLessons=[
     "title": "Recognize the missing input",
     "lectureTitle": "Half adders",
     "start": 846.7,
-    "concept": "A half adder adds two single bits and produces a sum bit and a carry bit. It has no carry-in input, so it cannot alone handle a column that also receives an incoming carry. A half adder has two data inputs. It produces two outputs: sum and carry. A column with two operand bits and a variable incoming carry needs a full adder.",
+    "concept": "A half adder adds two single bits and produces a sum bit and a carry bit. It has no carry-in input, so it cannot alone handle a column that also receives an incoming carry.",
     "teachingSteps": [
       "A half adder has two data inputs.",
       "It produces two outputs: sum and carry.",
@@ -12907,7 +12907,7 @@ export const reviewedLessons=[
     "title": "Time the implementation",
     "lectureTitle": "Half adders",
     "start": 1268.98,
-    "concept": "A half adder adds two single bits and produces a sum bit and a carry bit. It has no carry-in input, so it cannot alone handle a column that also receives an incoming carry. With an XOR primitive, sum delay is the XOR delay. For SOP XOR A′B + AB′, count NOT, AND, and OR levels. Available complemented inputs remove the input NOT delay from that model.",
+    "concept": "A half adder adds two single bits and produces a sum bit and a carry bit. It has no carry-in input, so it cannot alone handle a column that also receives an incoming carry.",
     "teachingSteps": [
       "With an XOR primitive, sum delay is the XOR delay.",
       "For SOP XOR A′B + AB′, count NOT, AND, and OR levels.",
@@ -12935,7 +12935,7 @@ export const reviewedLessons=[
       },
       {
         "type": "number",
-        "prompt": "Same SOP half-adder sum, complements available at time zero; AND and OR each 2 ns. Sum delay in ns?",
+        "prompt": "Half-adder sum A′B+AB′: inputs and their complements are available at time zero; AND and OR each take 2 ns. Sum delay in ns?",
         "answer": 4,
         "tolerance": 1e-8,
         "explanation": "Only AND then OR remain on the longest path, so four ns."
@@ -12973,7 +12973,7 @@ export const reviewedLessons=[
     "title": "Add three bits",
     "lectureTitle": "Full adders",
     "start": 30.34,
-    "concept": "A full adder adds two operand bits and an incoming carry. Its sum is odd parity of the three inputs; its carry is one when at least two inputs are one. Compute total A + B + Cin as ordinary integer addition. S is total modulo two. Cout is one for totals two or three.",
+    "concept": "A full adder adds two operand bits and an incoming carry. Its sum is odd parity of the three inputs; its carry is one when at least two inputs are one.",
     "teachingSteps": [
       "Compute total A + B + Cin as ordinary integer addition.",
       "S is total modulo two.",
@@ -13153,7 +13153,7 @@ export const reviewedLessons=[
     "title": "Combine two half adders",
     "lectureTitle": "Full adders",
     "start": 2585.87,
-    "concept": "A full adder adds two operand bits and an incoming carry. Its sum is odd parity of the three inputs; its carry is one when at least two inputs are one. First half adder gives P=A XOR B and G=AB. Second half adder adds P and Cin. OR the two half-adder carries to produce Cout = G + PCin.",
+    "concept": "A full adder adds two operand bits and an incoming carry. Its sum is odd parity of the three inputs; its carry is one when at least two inputs are one.",
     "teachingSteps": [
       "First half adder gives P=A XOR B and G=AB.",
       "Second half adder adds P and Cin.",
@@ -13226,7 +13226,7 @@ export const reviewedLessons=[
     "title": "Distinguish parity and majority",
     "lectureTitle": "Full adders",
     "start": 500.78,
-    "concept": "A full adder adds two operand bits and an incoming carry. Its sum is odd parity of the three inputs; its carry is one when at least two inputs are one. S detects odd parity; Cout detects at least two ones. Cout can also be written AB + ACin + BCin. Timing depends on the chosen implementation and gate delays.",
+    "concept": "A full adder adds two operand bits and an incoming carry. Its sum is odd parity of the three inputs; its carry is one when at least two inputs are one.",
     "teachingSteps": [
       "S detects odd parity; Cout detects at least two ones.",
       "Cout can also be written AB + ACin + BCin.",
@@ -13258,7 +13258,7 @@ export const reviewedLessons=[
       },
       {
         "type": "number",
-        "prompt": "Same full adder: XOR 2 ns, AND 1 ns, OR 1 ns. Worst-case Cout delay in ns?",
+        "prompt": "Full adder made from two half adders and an OR: XOR 2 ns, AND 1 ns, OR 1 ns; inputs ready at zero. Worst-case Cout delay in ns?",
         "answer": 4,
         "tolerance": 1e-8,
         "explanation": "The longest path is XOR then AND then OR: 2 + 1 + 1 = 4 ns."
@@ -13300,7 +13300,7 @@ export const reviewedLessons=[
     "title": "Connect the columns",
     "lectureTitle": "Ripple carry adders",
     "start": 293.22,
-    "concept": "A ripple carry adder connects a full-adder carry-out to the next column. Carries move from the least significant position upward, making the worst-case delay grow with word width. Column i adds Ai, Bi, and Ci. Its carry output Ci+1 feeds column i+1. Set C0 explicitly; ordinary addition often uses zero.",
+    "concept": "A ripple carry adder connects a full-adder carry-out to the next column. Carries move from the least significant position upward, making the worst-case delay grow with word width.",
     "teachingSteps": [
       "Column i adds Ai, Bi, and Ci.",
       "Its carry output Ci+1 feeds column i+1.",
@@ -13382,7 +13382,7 @@ export const reviewedLessons=[
     "title": "Trace an addition",
     "lectureTitle": "Ripple carry adders",
     "start": 788.58,
-    "concept": "A ripple carry adder connects a full-adder carry-out to the next column. Carries move from the least significant position upward, making the worst-case delay grow with word width. Start at the least significant bits. Compute sum and outgoing carry for each column. Do not discard the final carry when interpreting an unsigned widened result.",
+    "concept": "A ripple carry adder connects a full-adder carry-out to the next column. Carries move from the least significant position upward, making the worst-case delay grow with word width.",
     "teachingSteps": [
       "Start at the least significant bits.",
       "Compute sum and outgoing carry for each column.",
@@ -13456,7 +13456,7 @@ export const reviewedLessons=[
     "title": "Follow the carry delay",
     "lectureTitle": "Ripple carry adders",
     "start": 34.79,
-    "concept": "A ripple carry adder connects a full-adder carry-out to the next column. Carries move from the least significant position upward, making the worst-case delay grow with word width. Timing depends on the full-adder implementation. In the stated two-level majority carry model, each carry stage adds two gate delays. For a three-level SOP sum model, the last sum arrives three gate delays after its incoming carry.",
+    "concept": "A ripple carry adder connects a full-adder carry-out to the next column. Carries move from the least significant position upward, making the worst-case delay grow with word width.",
     "teachingSteps": [
       "Timing depends on the full-adder implementation.",
       "In the stated two-level majority carry model, each carry stage adds two gate delays.",
@@ -13526,7 +13526,7 @@ export const reviewedLessons=[
     "title": "Classify each operand pair",
     "lectureTitle": "Generate, propagate, and kill",
     "start": 912.44,
-    "concept": "For a bit position, operand bits determine whether a carry is generated, propagated, or killed. These local properties can be calculated without waiting for the incoming carry. 11 generates an outgoing carry regardless of incoming carry. 01 and 10 propagate the incoming carry unchanged. 00 kills the carry and produces outgoing zero.",
+    "concept": "For a bit position, operand bits determine whether a carry is generated, propagated, or killed. These local properties can be calculated without waiting for the incoming carry.",
     "teachingSteps": [
       "11 generates an outgoing carry regardless of incoming carry.",
       "01 and 10 propagate the incoming carry unchanged.",
@@ -13608,7 +13608,7 @@ export const reviewedLessons=[
     "title": "Compute local G and P",
     "lectureTitle": "Generate, propagate, and kill",
     "start": 1166.41,
-    "concept": "For a bit position, operand bits determine whether a carry is generated, propagated, or killed. These local properties can be calculated without waiting for the incoming carry. Use XOR propagation: Gi = AiBi and Pi = Ai XOR Bi. G and P depend only on the operand bits. All bit positions can compute these local signals in parallel.",
+    "concept": "For a bit position, operand bits determine whether a carry is generated, propagated, or killed. These local properties can be calculated without waiting for the incoming carry.",
     "teachingSteps": [
       "Use XOR propagation: Gi = AiBi and Pi = Ai XOR Bi.",
       "G and P depend only on the operand bits.",
@@ -13730,7 +13730,7 @@ export const reviewedLessons=[
     "title": "Time the local logic",
     "lectureTitle": "Generate, propagate, and kill",
     "start": 1199.02,
-    "concept": "For a bit position, operand bits determine whether a carry is generated, propagated, or killed. These local properties can be calculated without waiting for the incoming carry. An AND computes G in one gate delay. SOP XOR needs NOT, AND, and OR when complements are unavailable. An XOR primitive or supplied complements changes the timing model.",
+    "concept": "For a bit position, operand bits determine whether a carry is generated, propagated, or killed. These local properties can be calculated without waiting for the incoming carry.",
     "teachingSteps": [
       "An AND computes G in one gate delay.",
       "SOP XOR needs NOT, AND, and OR when complements are unavailable.",
@@ -13758,7 +13758,7 @@ export const reviewedLessons=[
       },
       {
         "type": "number",
-        "prompt": "Same P expression, complements supplied at zero, AND/OR each 2 ns. P delay in ns?",
+        "prompt": "P=A′B+AB′, inputs and complements supplied at zero, AND/OR each 2 ns. P delay in ns?",
         "answer": 4,
         "tolerance": 1e-8,
         "explanation": "The remaining AND-OR path has two levels."
@@ -13796,7 +13796,7 @@ export const reviewedLessons=[
     "title": "Use the carry recurrence",
     "lectureTitle": "Carry look-ahead equations",
     "start": 896.43,
-    "concept": "Carry look-ahead expands carry dependencies into expressions using operand generate/propagate signals and the initial carry. Parallel carry logic removes the serial ripple dependency. With XOR propagation, Ci+1 = Gi + PiCi. The generated term sets carry regardless of Ci. The propagation term forwards Ci when the operand pair differs.",
+    "concept": "Carry look-ahead expands carry dependencies into expressions using operand generate/propagate signals and the initial carry. Parallel carry logic removes the serial ripple dependency.",
     "teachingSteps": [
       "With XOR propagation, Ci+1 = Gi + PiCi.",
       "The generated term sets carry regardless of Ci.",
@@ -13866,7 +13866,7 @@ export const reviewedLessons=[
     "title": "Expand away the ripple dependency",
     "lectureTitle": "Carry look-ahead equations",
     "start": 146.09,
-    "concept": "Carry look-ahead expands carry dependencies into expressions using operand generate/propagate signals and the initial carry. Parallel carry logic removes the serial ripple dependency. C1 = G0 + P0C0. C2 = G1 + P1G0 + P1P0C0. Each expansion substitutes the previous carry until only G, P, and C0 remain.",
+    "concept": "Carry look-ahead expands carry dependencies into expressions using operand generate/propagate signals and the initial carry. Parallel carry logic removes the serial ripple dependency.",
     "teachingSteps": [
       "C1 = G0 + P0C0.",
       "C2 = G1 + P1G0 + P1P0C0.",
@@ -13940,7 +13940,7 @@ export const reviewedLessons=[
     "title": "Count the two-level network",
     "lectureTitle": "Carry look-ahead equations",
     "start": 146.09,
-    "concept": "Carry look-ahead expands carry dependencies into expressions using operand generate/propagate signals and the initial carry. Parallel carry logic removes the serial ripple dependency. With unrestricted fan-in, each expanded carry is an AND-OR network. Ck needs k product-term AND gates plus one OR, excluding the bare G term from the AND count. These counts exclude G/P generation and sum logic.",
+    "concept": "Carry look-ahead expands carry dependencies into expressions using operand generate/propagate signals and the initial carry. Parallel carry logic removes the serial ripple dependency.",
     "teachingSteps": [
       "With unrestricted fan-in, each expanded carry is an AND-OR network.",
       "Ck needs k product-term AND gates plus one OR, excluding the bare G term from the AND count.",
@@ -13961,7 +13961,7 @@ export const reviewedLessons=[
       },
       {
         "type": "number",
-        "prompt": "Expanded C4 above: unrestricted-fan-in final OR input count?",
+        "prompt": "C4 = G3 + P3G2 + P3P2G1 + P3P2P1G0 + P3P2P1P0C0. How many inputs does the final unrestricted-fan-in OR need?",
         "answer": 5,
         "tolerance": 1e-8,
         "explanation": "There are five terms to combine, including G3."
@@ -14010,7 +14010,7 @@ export const reviewedLessons=[
     "title": "Keep the initial carry explicit",
     "lectureTitle": "Look-ahead timing and fan-in",
     "start": 1.39,
-    "concept": "Look-ahead timing must include generate/propagate logic, carry generation, and sum generation. Constant logical depth assumes unrestricted fan-in; a limited-input gate network needs additional levels. C0 is an input, not an automatic constant zero. Set C0=0 for ordinary independent addition if specified. A chained block can receive carry from a lower block.",
+    "concept": "Look-ahead timing must include generate/propagate logic, carry generation, and sum generation. Constant logical depth assumes unrestricted fan-in; a limited-input gate network needs additional levels.",
     "teachingSteps": [
       "C0 is an input, not an automatic constant zero.",
       "Set C0=0 for ordinary independent addition if specified.",
@@ -14084,7 +14084,7 @@ export const reviewedLessons=[
     "title": "Add all timing stages",
     "lectureTitle": "Look-ahead timing and fan-in",
     "start": 309.81,
-    "concept": "Look-ahead timing must include generate/propagate logic, carry generation, and sum generation. Constant logical depth assumes unrestricted fan-in; a limited-input gate network needs additional levels. For SOP XOR from NOT/AND/OR, local P takes three equal gate delays. Unrestricted-fan-in AND-OR carry generation adds two delays. A three-level SOP sum XOR then adds three more delays: total eight under this model.",
+    "concept": "Look-ahead timing must include generate/propagate logic, carry generation, and sum generation. Constant logical depth assumes unrestricted fan-in; a limited-input gate network needs additional levels.",
     "teachingSteps": [
       "For SOP XOR from NOT/AND/OR, local P takes three equal gate delays.",
       "Unrestricted-fan-in AND-OR carry generation adds two delays.",
@@ -14105,7 +14105,7 @@ export const reviewedLessons=[
       },
       {
         "type": "number",
-        "prompt": "Same model: carry at 5 ns, final SOP sum XOR adds 3 ns. All sum bits valid by what time, in ns?",
+        "prompt": "Carry is valid at 5 ns and the final SOP sum XOR adds 3 ns. All other sum inputs are ready. All sum bits are valid by what time, in ns?",
         "answer": 8,
         "tolerance": 1e-8,
         "explanation": "The final sum settles at 5 + 3 = 8 ns."
@@ -14154,7 +14154,7 @@ export const reviewedLessons=[
     "title": "Respect the fan-in limit",
     "lectureTitle": "Look-ahead timing and fan-in",
     "start": 875.74,
-    "concept": "Look-ahead timing must include generate/propagate logic, carry generation, and sum generation. Constant logical depth assumes unrestricted fan-in; a limited-input gate network needs additional levels. Fan-in is the number of inputs a gate accepts. A balanced 2-input tree combining k terms needs ceil(log2 k) levels. Separate gate depth from the number of gates used.",
+    "concept": "Look-ahead timing must include generate/propagate logic, carry generation, and sum generation. Constant logical depth assumes unrestricted fan-in; a limited-input gate network needs additional levels.",
     "teachingSteps": [
       "Fan-in is the number of inputs a gate accepts.",
       "A balanced 2-input tree combining k terms needs ceil(log2 k) levels.",
@@ -14224,7 +14224,7 @@ export const reviewedLessons=[
     "title": "Define the counting boundary",
     "lectureTitle": "Count a look-ahead carry generator",
     "start": 30.91,
-    "concept": "Count only the explicitly requested carry-generation network. A two-level unshared implementation has one OR per expanded carry and a triangular total of product-term AND gates. Assume G/P signals and C0 are already available. Generate C1 through C4 with separate expanded AND-OR networks. Exclude sum gates, G/P logic, and C0 itself from the requested count.",
+    "concept": "Count only the explicitly requested carry-generation network. A two-level unshared implementation has one OR per expanded carry and a triangular total of product-term AND gates.",
     "teachingSteps": [
       "Assume G/P signals and C0 are already available.",
       "Generate C1 through C4 with separate expanded AND-OR networks.",
@@ -14264,14 +14264,14 @@ export const reviewedLessons=[
       },
       {
         "type": "number",
-        "prompt": "In this count, how many gates are needed to generate the already supplied C0?",
+        "prompt": "In a carry-generator-only gate count, C0 is supplied as an external input. How many gates are needed to generate C0?",
         "answer": 0,
         "tolerance": 1e-8,
         "explanation": "C0 is an external input, so no generator gate is counted for it."
       },
       {
         "type": "choice",
-        "prompt": "Does this carry-generator-only count include final sum XOR gates?",
+        "prompt": "Does a count restricted to the carry generator include final sum XOR gates?",
         "options": [
           "Only the top sum gate",
           "No",
@@ -14306,7 +14306,7 @@ export const reviewedLessons=[
     "title": "Count AND products per carry",
     "lectureTitle": "Count a look-ahead carry generator",
     "start": 30.91,
-    "concept": "Count only the explicitly requested carry-generation network. A two-level unshared implementation has one OR per expanded carry and a triangular total of product-term AND gates. C1 has one product AND; C2 has two. C3 has three product ANDs; C4 has four. Each bare G term feeds the OR directly.",
+    "concept": "Count only the explicitly requested carry-generation network. A two-level unshared implementation has one OR per expanded carry and a triangular total of product-term AND gates.",
     "teachingSteps": [
       "C1 has one product AND; C2 has two.",
       "C3 has three product ANDs; C4 has four.",
@@ -14327,7 +14327,7 @@ export const reviewedLessons=[
       },
       {
         "type": "number",
-        "prompt": "Same networks: total final OR gates?",
+        "prompt": "Separate two-level networks generate C1 through C4 with unrestricted fan-in and no sharing. How many final OR gates are needed?",
         "answer": 4,
         "tolerance": 1e-8,
         "explanation": "Each of the four carry equations needs one unrestricted-fan-in OR gate."
@@ -14376,7 +14376,7 @@ export const reviewedLessons=[
     "title": "Generalize the count carefully",
     "lectureTitle": "Count a look-ahead carry generator",
     "start": 0,
-    "concept": "Count only the explicitly requested carry-generation network. A two-level unshared implementation has one OR per expanded carry and a triangular total of product-term AND gates. For unshared two-level C1 through Cn, the AND total is n(n+1)/2. The final OR count is n when unrestricted fan-in is allowed. Sharing products or restricting fan-in changes the component count.",
+    "concept": "Count only the explicitly requested carry-generation network. A two-level unshared implementation has one OR per expanded carry and a triangular total of product-term AND gates.",
     "teachingSteps": [
       "For unshared two-level C1 through Cn, the AND total is n(n+1)/2.",
       "The final OR count is n when unrestricted fan-in is allowed.",
@@ -14446,7 +14446,7 @@ export const reviewedLessons=[
     "title": "Separate the stages",
     "lectureTitle": "Bounded-fan-in look-ahead scaling",
     "start": 1.04,
-    "concept": "With gates of fan-in at most two, parallel carry operations require logarithmic-depth networks. Local generate/propagate logic and final sum logic add constant depth. Compute each local generate/propagate pair in parallel. The work at one bit position uses a fixed-size circuit. Increasing word width adds parallel local circuits rather than serial local stages.",
+    "concept": "With gates of fan-in at most two, parallel carry operations require logarithmic-depth networks. Local generate/propagate logic and final sum logic add constant depth.",
     "teachingSteps": [
       "Compute each local generate/propagate pair in parallel.",
       "The work at one bit position uses a fixed-size circuit.",
@@ -14532,7 +14532,7 @@ export const reviewedLessons=[
     "title": "Reduce terms through binary trees",
     "lectureTitle": "Bounded-fan-in look-ahead scaling",
     "start": 31.66,
-    "concept": "With gates of fan-in at most two, parallel carry operations require logarithmic-depth networks. Local generate/propagate logic and final sum logic add constant depth. A two-input gate combines at most two signals. A balanced tree doubles its combining capacity per level. Combining n signals therefore needs about log2 n levels.",
+    "concept": "With gates of fan-in at most two, parallel carry operations require logarithmic-depth networks. Local generate/propagate logic and final sum logic add constant depth.",
     "teachingSteps": [
       "A two-input gate combines at most two signals.",
       "A balanced tree doubles its combining capacity per level.",
@@ -14602,7 +14602,7 @@ export const reviewedLessons=[
     "title": "Compare growth rates",
     "lectureTitle": "Bounded-fan-in look-ahead scaling",
     "start": 1.04,
-    "concept": "With gates of fan-in at most two, parallel carry operations require logarithmic-depth networks. Local generate/propagate logic and final sum logic add constant depth. Constant local preprocessing plus logarithmic carry depth plus constant final logic remains logarithmic. A ripple dependency chain instead grows linearly with word width. Asymptotic growth describes scaling, not an exact nanosecond value.",
+    "concept": "With gates of fan-in at most two, parallel carry operations require logarithmic-depth networks. Local generate/propagate logic and final sum logic add constant depth.",
     "teachingSteps": [
       "Constant local preprocessing plus logarithmic carry depth plus constant final logic remains logarithmic.",
       "A ripple dependency chain instead grows linearly with word width.",
@@ -14680,7 +14680,7 @@ export const reviewedLessons=[
     "title": "Time one full adder",
     "lectureTitle": "Timing a two-half-adder ripple chain",
     "start": 4.94,
-    "concept": "For a full adder made from two half adders and one OR, distinguish the first carry delay from later increments. Operand-only XOR and AND signals are prepared in parallel before the carry arrives. Assume XOR, AND, and OR each have delay T, and all external inputs arrive at zero. The first half adder produces P and G at T. Sum arrives at 2T; carry through XOR-AND-OR arrives at 3T.",
+    "concept": "For a full adder made from two half adders and one OR, distinguish the first carry delay from later increments. Operand-only XOR and AND signals are prepared in parallel before the carry arrives.",
     "teachingSteps": [
       "Assume XOR, AND, and OR each have delay T, and all external inputs arrive at zero.",
       "The first half adder produces P and G at T.",
@@ -14701,7 +14701,7 @@ export const reviewedLessons=[
       },
       {
         "type": "number",
-        "prompt": "Same full adder and delays. Carry-valid time in ns?",
+        "prompt": "Full adder made from two half adders and one OR, every gate 1 ns, all inputs ready at zero. Carry-valid time in ns?",
         "answer": 3,
         "tolerance": 1e-8,
         "explanation": "The longest carry path traverses XOR, then AND, then OR."
@@ -14750,7 +14750,7 @@ export const reviewedLessons=[
     "title": "Advance through the carry chain",
     "lectureTitle": "Timing a two-half-adder ripple chain",
     "start": 992.52,
-    "concept": "For a full adder made from two half adders and one OR, distinguish the first carry delay from later increments. Operand-only XOR and AND signals are prepared in parallel before the carry arrives. For columns after the first, operand P and G are already prepared. An arriving carry needs one more XOR delay for sum. It needs AND then OR, two more gate delays, for the next carry.",
+    "concept": "For a full adder made from two half adders and one OR, distinguish the first carry delay from later increments. Operand-only XOR and AND signals are prepared in parallel before the carry arrives.",
     "teachingSteps": [
       "For columns after the first, operand P and G are already prepared.",
       "An arriving carry needs one more XOR delay for sum.",
@@ -14793,7 +14793,7 @@ export const reviewedLessons=[
       },
       {
         "type": "choice",
-        "prompt": "Why is multiplying every full-adder carry delay by 3T too pessimistic for this chain?",
+        "prompt": "Why is multiplying every full-adder carry delay by 3T too pessimistic for a two-half-adder ripple chain with all operand bits ready at zero?",
         "options": [
           "Carries travel backward",
           "Later operand XOR signals are already computed",
@@ -14828,7 +14828,7 @@ export const reviewedLessons=[
     "title": "Find the requested sum time",
     "lectureTitle": "Timing a two-half-adder ripple chain",
     "start": 901.8,
-    "concept": "For a full adder made from two half adders and one OR, distinguish the first carry delay from later increments. Operand-only XOR and AND signals are prepared in parallel before the carry arrives. Under this model, C1=3T, C2=5T, C3=7T. S0=2T, S1=4T, S2=6T, S3=8T. Read column indices and requested output carefully; final carry is later than the top sum.",
+    "concept": "For a full adder made from two half adders and one OR, distinguish the first carry delay from later increments. Operand-only XOR and AND signals are prepared in parallel before the carry arrives.",
     "teachingSteps": [
       "Under this model, C1=3T, C2=5T, C3=7T.",
       "S0=2T, S1=4T, S2=6T, S3=8T.",
@@ -14849,21 +14849,21 @@ export const reviewedLessons=[
       },
       {
         "type": "number",
-        "prompt": "Same chain: final C4-valid time in ns?",
+        "prompt": "Four-bit two-half-adder ripple chain, every XOR/AND/OR gate 1 ns, all inputs ready at zero. Final C4-valid time in ns?",
         "answer": 9,
         "tolerance": 1e-8,
         "explanation": "C1 is three ns, then three increments of two ns give C4 at nine ns."
       },
       {
         "type": "number",
-        "prompt": "Same chain but each gate delay 2 ns. S3-valid time in ns?",
+        "prompt": "Four-bit two-half-adder ripple chain, every XOR/AND/OR gate 2 ns, all inputs ready at zero. S3-valid time in ns?",
         "answer": 16,
         "tolerance": 1e-8,
         "explanation": "S3 takes eight gate-delay units; 8 times 2 ns = 16 ns."
       },
       {
         "type": "number",
-        "prompt": "Eight-bit chain with the same 1 ns gates. Final carry C8-valid time in ns?",
+        "prompt": "Eight-bit two-half-adder ripple chain, every XOR/AND/OR gate 1 ns, all inputs ready at zero. Final carry C8-valid time in ns?",
         "answer": 17,
         "tolerance": 1e-8,
         "explanation": "First carry costs three ns; seven later stages add fourteen ns."
@@ -14894,7 +14894,7 @@ export const reviewedLessons=[
     "title": "Encode before adding",
     "lectureTitle": "Signed addition and carry handling",
     "start": 150.94,
-    "concept": "Signed addition requires a stated encoding and width. Twos-complement addition retains the low-width sum, while ones-complement addition applies an end-around carry. Specify the width and signed representation first. For a negative ones-complement value, invert the same-width positive magnitude. For a negative twos-complement value, invert and add one within the width.",
+    "concept": "Signed addition requires a stated encoding and width. Twos-complement addition retains the low-width sum, while ones-complement addition applies an end-around carry.",
     "teachingSteps": [
       "Specify the width and signed representation first.",
       "For a negative ones-complement value, invert the same-width positive magnitude.",
@@ -14972,7 +14972,7 @@ export const reviewedLessons=[
     "title": "Apply the end-around carry",
     "lectureTitle": "Signed addition and carry handling",
     "start": 1162.46,
-    "concept": "Signed addition requires a stated encoding and width. Twos-complement addition retains the low-width sum, while ones-complement addition applies an end-around carry. In ones complement, add the encoded words. If there is a final carry, add it to the low-width result. Interpret the corrected word in ones complement; all ones is negative zero.",
+    "concept": "Signed addition requires a stated encoding and width. Twos-complement addition retains the low-width sum, while ones-complement addition applies an end-around carry.",
     "teachingSteps": [
       "In ones complement, add the encoded words.",
       "If there is a final carry, add it to the low-width result.",
@@ -15050,7 +15050,7 @@ export const reviewedLessons=[
     "title": "Retain the twos-complement sum",
     "lectureTitle": "Signed addition and carry handling",
     "start": 33.54,
-    "concept": "Signed addition requires a stated encoding and width. Twos-complement addition retains the low-width sum, while ones-complement addition applies an end-around carry. For twos-complement addition, retain the low n bits. Do not apply the ones-complement end-around correction. A carry-out and signed overflow are different; check the signed range.",
+    "concept": "Signed addition requires a stated encoding and width. Twos-complement addition retains the low-width sum, while ones-complement addition applies an end-around carry.",
     "teachingSteps": [
       "For twos-complement addition, retain the low n bits.",
       "Do not apply the ones-complement end-around correction.",
@@ -15128,7 +15128,7 @@ export const reviewedLessons=[
     "title": "Classify by dependence",
     "lectureTitle": "Combinational versus sequential circuits",
     "start": 612.49,
-    "concept": "A settled combinational output depends on current inputs. A sequential circuit also retains state, so the same current input can produce different results after different histories. Compare settled outputs for the same current inputs. Combinational logic has no stored history affecting its settled function. Sequential behavior depends on stored state as well as applicable inputs.",
+    "concept": "A settled combinational output depends on current inputs. A sequential circuit also retains state, so the same current input can produce different results after different histories.",
     "teachingSteps": [
       "Compare settled outputs for the same current inputs.",
       "Combinational logic has no stored history affecting its settled function.",
@@ -15218,7 +15218,7 @@ export const reviewedLessons=[
     "title": "Trace state updates",
     "lectureTitle": "Combinational versus sequential circuits",
     "start": 197.26,
-    "concept": "A settled combinational output depends on current inputs. A sequential circuit also retains state, so the same current input can produce different results after different histories. Keep the initial state explicit. Apply one stated transition at a time. The resulting state becomes the starting state for the next transition.",
+    "concept": "A settled combinational output depends on current inputs. A sequential circuit also retains state, so the same current input can produce different results after different histories.",
     "teachingSteps": [
       "Keep the initial state explicit.",
       "Apply one stated transition at a time.",
@@ -15295,7 +15295,7 @@ export const reviewedLessons=[
     "title": "Read time-indexed notation",
     "lectureTitle": "Combinational versus sequential circuits",
     "start": 1324.14,
-    "concept": "A settled combinational output depends on current inputs. A sequential circuit also retains state, so the same current input can produce different results after different histories. Define what each symbol means before tracing. If Q(t) is current state, Q(t+1) is next state. Different time indices can describe one physical signal at different times.",
+    "concept": "A settled combinational output depends on current inputs. A sequential circuit also retains state, so the same current input can produce different results after different histories.",
     "teachingSteps": [
       "Define what each symbol means before tracing.",
       "If Q(t) is current state, Q(t+1) is next state.",
@@ -15335,7 +15335,7 @@ export const reviewedLessons=[
       },
       {
         "type": "number",
-        "prompt": "Same update Qnext = X XOR Qcurrent, X=1 and Qcurrent=1. Qnext?",
+        "prompt": "For Qnext = X XOR Qcurrent, X=1 and Qcurrent=1. What is Qnext?",
         "answer": 0,
         "tolerance": 1e-8,
         "explanation": "XOR of two ones is zero, so the same input toggles a different current state downward."
@@ -15377,7 +15377,7 @@ export const reviewedLessons=[
     "title": "Identify stable feedback states",
     "lectureTitle": "One-bit storage with feedback",
     "start": 129.72,
-    "concept": "Cross-coupled inverters have two complementary stable states. Feedback can retain a bit, but the two output nodes do not provide two independent stored bits. Each inverter output must complement its input. With cross-coupling, the two nodes must be complements in a stable state. The stable pairs are 0,1 and 1,0.",
+    "concept": "Cross-coupled inverters have two complementary stable states. Feedback can retain a bit, but the two output nodes do not provide two independent stored bits.",
     "teachingSteps": [
       "Each inverter output must complement its input.",
       "With cross-coupling, the two nodes must be complements in a stable state.",
@@ -15455,7 +15455,7 @@ export const reviewedLessons=[
     "title": "Count independent stored information",
     "lectureTitle": "One-bit storage with feedback",
     "start": 766.91,
-    "concept": "Cross-coupled inverters have two complementary stable states. Feedback can retain a bit, but the two output nodes do not provide two independent stored bits. Observing Q and its complement reveals the same stored information twice. Two stable alternatives encode one independent bit. Two independent bits would require four independently selectable states.",
+    "concept": "Cross-coupled inverters have two complementary stable states. Feedback can retain a bit, but the two output nodes do not provide two independent stored bits.",
     "teachingSteps": [
       "Observing Q and its complement reveals the same stored information twice.",
       "Two stable alternatives encode one independent bit.",
@@ -15537,7 +15537,7 @@ export const reviewedLessons=[
     "title": "Distinguish retention from control",
     "lectureTitle": "One-bit storage with feedback",
     "start": 1361.02,
-    "concept": "Cross-coupled inverters have two complementary stable states. Feedback can retain a bit, but the two output nodes do not provide two independent stored bits. Feedback provides retention of a stable state. Bare cross-coupled inverters have no ordinary set/reset input for choosing a new state. Replacing the inverters with controllable gates introduces user inputs for the storage circuit.",
+    "concept": "Cross-coupled inverters have two complementary stable states. Feedback can retain a bit, but the two output nodes do not provide two independent stored bits.",
     "teachingSteps": [
       "Feedback provides retention of a stable state.",
       "Bare cross-coupled inverters have no ordinary set/reset input for choosing a new state.",
@@ -15615,7 +15615,7 @@ export const reviewedLessons=[
     "title": "Set, reset, and hold",
     "lectureTitle": "Active-high NOR SR latches",
     "start": 1560.62,
-    "concept": "A cross-coupled NOR SR latch stores one bit with active-high set and reset controls. The hold input is S=R=0; simultaneous set and reset is forbidden for normal storage operation. For a NOR SR latch, S=1,R=0 sets Q to one. S=0,R=1 resets Q to zero. S=R=0 retains the previous Q state.",
+    "concept": "A cross-coupled NOR SR latch stores one bit with active-high set and reset controls. The hold input is S=R=0; simultaneous set and reset is forbidden for normal storage operation.",
     "teachingSteps": [
       "For a NOR SR latch, S=1,R=0 sets Q to one.",
       "S=0,R=1 resets Q to zero.",
@@ -15697,7 +15697,7 @@ export const reviewedLessons=[
     "title": "Trace controlled storage",
     "lectureTitle": "Active-high NOR SR latches",
     "start": 494.24,
-    "concept": "A cross-coupled NOR SR latch stores one bit with active-high set and reset controls. The hold input is S=R=0; simultaneous set and reset is forbidden for normal storage operation. State the initial Q before a hold step. Set or reset changes the bit regardless of its previous valid state. A following hold preserves the newly stored value.",
+    "concept": "A cross-coupled NOR SR latch stores one bit with active-high set and reset controls. The hold input is S=R=0; simultaneous set and reset is forbidden for normal storage operation.",
     "teachingSteps": [
       "State the initial Q before a hold step.",
       "Set or reset changes the bit regardless of its previous valid state.",
@@ -15771,7 +15771,7 @@ export const reviewedLessons=[
     "title": "Avoid simultaneous controls",
     "lectureTitle": "Active-high NOR SR latches",
     "start": 1903.45,
-    "concept": "A cross-coupled NOR SR latch stores one bit with active-high set and reset controls. The hold input is S=R=0; simultaneous set and reset is forbidden for normal storage operation. With S=R=1, both NOR outputs are forced to zero. The outputs cease being complements, so this is not a valid stored-bit pair. Releasing both controls from that condition does not guarantee which valid state is reached.",
+    "concept": "A cross-coupled NOR SR latch stores one bit with active-high set and reset controls. The hold input is S=R=0; simultaneous set and reset is forbidden for normal storage operation.",
     "teachingSteps": [
       "With S=R=1, both NOR outputs are forced to zero.",
       "The outputs cease being complements, so this is not a valid stored-bit pair.",
@@ -15853,7 +15853,7 @@ export const reviewedLessons=[
     "title": "Interpret active-low controls",
     "lectureTitle": "Active-low NAND SR latches",
     "start": 340.71,
-    "concept": "A cross-coupled NAND latch uses active-low set and reset controls. State the input polarities explicitly: the hold pair is one-one, and the forbidden pair is zero-zero. Call the active-low inputs Sbar and Rbar. Sbar=0,Rbar=1 sets Q to one; Sbar=1,Rbar=0 resets Q to zero. Sbar=Rbar=1 holds the previous valid state.",
+    "concept": "A cross-coupled NAND latch uses active-low set and reset controls. State the input polarities explicitly: the hold pair is one-one, and the forbidden pair is zero-zero.",
     "teachingSteps": [
       "Call the active-low inputs Sbar and Rbar.",
       "Sbar=0,Rbar=1 sets Q to one; Sbar=1,Rbar=0 resets Q to zero.",
@@ -15935,7 +15935,7 @@ export const reviewedLessons=[
     "title": "Compare NOR and NAND conventions",
     "lectureTitle": "Active-low NAND SR latches",
     "start": 1.87,
-    "concept": "A cross-coupled NAND latch uses active-low set and reset controls. State the input polarities explicitly: the hold pair is one-one, and the forbidden pair is zero-zero. Active-high NOR controls hold at zero-zero. Active-low NAND controls hold at one-one. The stored meaning of set and reset is unchanged: Q becomes one or zero respectively.",
+    "concept": "A cross-coupled NAND latch uses active-low set and reset controls. State the input polarities explicitly: the hold pair is one-one, and the forbidden pair is zero-zero.",
     "teachingSteps": [
       "Active-high NOR controls hold at zero-zero.",
       "Active-low NAND controls hold at one-one.",
@@ -16013,7 +16013,7 @@ export const reviewedLessons=[
     "title": "Identify the forbidden condition",
     "lectureTitle": "Active-low NAND SR latches",
     "start": 398.51,
-    "concept": "A cross-coupled NAND latch uses active-low set and reset controls. State the input polarities explicitly: the hold pair is one-one, and the forbidden pair is zero-zero. Sbar=Rbar=0 forces both NAND outputs high. This pair violates normal complementary storage outputs. Simultaneously releasing both controls to one-one does not guarantee the resulting stored bit.",
+    "concept": "A cross-coupled NAND latch uses active-low set and reset controls. State the input polarities explicitly: the hold pair is one-one, and the forbidden pair is zero-zero.",
     "teachingSteps": [
       "Sbar=Rbar=0 forces both NAND outputs high.",
       "This pair violates normal complementary storage outputs.",
@@ -16095,7 +16095,7 @@ export const reviewedLessons=[
     "title": "Trace set, hold, and reset",
     "lectureTitle": "Latch timing and clock signals",
     "start": 507.49,
-    "concept": "Latch timing traces must include the stored state. A periodic clock provides high and low intervals separated by rising and falling edges; its frequency is the reciprocal of its period. Start from an explicit stored Q. For an active-high NOR SR latch, 10 sets, 01 resets, and 00 holds. Exclude forbidden 11 and allow each operation to settle before tracing the next.",
+    "concept": "Latch timing traces must include the stored state. A periodic clock provides high and low intervals separated by rising and falling edges; its frequency is the reciprocal of its period.",
     "teachingSteps": [
       "Start from an explicit stored Q.",
       "For an active-high NOR SR latch, 10 sets, 01 resets, and 00 holds.",
@@ -16172,7 +16172,7 @@ export const reviewedLessons=[
     "title": "Read the clock waveform",
     "lectureTitle": "Latch timing and clock signals",
     "start": 3501.37,
-    "concept": "Latch timing traces must include the stored state. A periodic clock provides high and low intervals separated by rising and falling edges; its frequency is the reciprocal of its period. A rising edge is a zero-to-one clock transition. A falling edge is a one-to-zero transition. High and low levels are intervals, while edges are transitions.",
+    "concept": "Latch timing traces must include the stored state. A periodic clock provides high and low intervals separated by rising and falling edges; its frequency is the reciprocal of its period.",
     "teachingSteps": [
       "A rising edge is a zero-to-one clock transition.",
       "A falling edge is a one-to-zero transition.",
@@ -16258,7 +16258,7 @@ export const reviewedLessons=[
     "title": "Convert period and frequency",
     "lectureTitle": "Latch timing and clock signals",
     "start": 4023.18,
-    "concept": "Latch timing traces must include the stored state. A periodic clock provides high and low intervals separated by rising and falling edges; its frequency is the reciprocal of its period. One period is one complete repeating clock cycle. Frequency in hertz is cycles per second: f=1/T with T in seconds. For T in nanoseconds, frequency in MHz is 1000/T.",
+    "concept": "Latch timing traces must include the stored state. A periodic clock provides high and low intervals separated by rising and falling edges; its frequency is the reciprocal of its period.",
     "teachingSteps": [
       "One period is one complete repeating clock cycle.",
       "Frequency in hertz is cycles per second: f=1/T with T in seconds.",
@@ -16324,7 +16324,7 @@ export const reviewedLessons=[
     "title": "Compute the SR next state",
     "lectureTitle": "SR storage and excitation",
     "start": 2409.35,
-    "concept": "An SR storage element sets, resets, or holds a bit. Its characteristic table gives the next state from controls and current state; its excitation table solves the reverse problem of finding controls for a desired transition. At a permitted update, SR=10 sets Q, 01 resets Q, and 00 holds. SR=11 is forbidden for the normal active-high SR behavior. For valid inputs, Qnext = S + R′Q.",
+    "concept": "An SR storage element sets, resets, or holds a bit. Its characteristic table gives the next state from controls and current state; its excitation table solves the reverse problem of finding controls for a desired transition.",
     "teachingSteps": [
       "At a permitted update, SR=10 sets Q, 01 resets Q, and 00 holds.",
       "SR=11 is forbidden for the normal active-high SR behavior.",
@@ -16437,7 +16437,7 @@ export const reviewedLessons=[
     "title": "Respect the clock control",
     "lectureTitle": "SR storage and excitation",
     "start": 585.86,
-    "concept": "An SR storage element sets, resets, or holds a bit. Its characteristic table gives the next state from controls and current state; its excitation table solves the reverse problem of finding controls for a desired transition. For the specified positive-level gated SR model, controls act while clock is one. While clock is zero, the state holds. A gate implementation and an input convention must be stated explicitly.",
+    "concept": "An SR storage element sets, resets, or holds a bit. Its characteristic table gives the next state from controls and current state; its excitation table solves the reverse problem of finding controls for a desired transition.",
     "teachingSteps": [
       "For the specified positive-level gated SR model, controls act while clock is one.",
       "While clock is zero, the state holds.",
@@ -16458,7 +16458,7 @@ export const reviewedLessons=[
       },
       {
         "type": "number",
-        "prompt": "Same positive-level model, Q=1, clock=1, S=0,R=1 held until settled. Q?",
+        "prompt": "Active-high SR storage enabled while clock=1: Q starts at 1; clock=1, S=0,R=1 held until settled. Final Q?",
         "answer": 0,
         "tolerance": 1e-8,
         "explanation": "The enabled reset control stores zero."
@@ -16507,7 +16507,7 @@ export const reviewedLessons=[
     "title": "Choose controls for a desired transition",
     "lectureTitle": "SR storage and excitation",
     "start": 551.25,
-    "concept": "An SR storage element sets, resets, or holds a bit. Its characteristic table gives the next state from controls and current state; its excitation table solves the reverse problem of finding controls for a desired transition. To change 0 to 1, use S=1,R=0. To change 1 to 0, use S=0,R=1. For 0 to 0 or 1 to 1, hold is one valid choice; X in an excitation table means either bit value is allowed.",
+    "concept": "An SR storage element sets, resets, or holds a bit. Its characteristic table gives the next state from controls and current state; its excitation table solves the reverse problem of finding controls for a desired transition.",
     "teachingSteps": [
       "To change 0 to 1, use S=1,R=0.",
       "To change 1 to 0, use S=0,R=1.",
@@ -16601,7 +16601,7 @@ export const reviewedLessons=[
     "title": "Copy the data at an update",
     "lectureTitle": "D storage elements",
     "start": 642.97,
-    "concept": "A D element stores its data input at the permitted update. Qnext=D gives a simple characteristic rule, and D equals the desired next state in its excitation table. At an allowed update, Qnext equals D. The previous Q does not change the value captured from D. Between allowed updates, the stored state holds according to the specified clock model.",
+    "concept": "A D element stores its data input at the permitted update. Qnext=D gives a simple characteristic rule, and D equals the desired next state in its excitation table.",
     "teachingSteps": [
       "At an allowed update, Qnext equals D.",
       "The previous Q does not change the value captured from D.",
@@ -16615,7 +16615,7 @@ export const reviewedLessons=[
     "questions": [
       {
         "type": "truth",
-        "prompt": "At an allowed D update, fill Qnext for the shown D and previous Q.",
+        "prompt": "A D flip-flop updates when its trigger is active. Complete its next-state table using input D and previous state Q.",
         "labels": [
           "D",
           "Q"
@@ -16644,7 +16644,7 @@ export const reviewedLessons=[
           1,
           1
         ],
-        "explanation": "Qnext equals D on every row, independently of previous Q."
+        "explanation": "At an allowed update, Qnext equals D regardless of the previous Q."
       },
       {
         "type": "number",
@@ -16697,7 +16697,7 @@ export const reviewedLessons=[
     "title": "Derive D from SR controls",
     "lectureTitle": "D storage elements",
     "start": 261.1,
-    "concept": "A D element stores its data input at the permitted update. Qnext=D gives a simple characteristic rule, and D equals the desired next state in its excitation table. A D element can use SR controls S=D and R=D′. Those complementary controls never form the forbidden SR pair 11. The clock convention of the underlying element still determines when capture is allowed.",
+    "concept": "A D element stores its data input at the permitted update. Qnext=D gives a simple characteristic rule, and D equals the desired next state in its excitation table.",
     "teachingSteps": [
       "A D element can use SR controls S=D and R=D′.",
       "Those complementary controls never form the forbidden SR pair 11.",
@@ -16779,7 +16779,7 @@ export const reviewedLessons=[
     "title": "Find excitation and capture sequences",
     "lectureTitle": "D storage elements",
     "start": 1027.7,
-    "concept": "A D element stores its data input at the permitted update. Qnext=D gives a simple characteristic rule, and D equals the desired next state in its excitation table. To produce any desired next state, set D to that value. For rising-edge capture, use only data values at rising edges. Assume D is stable around each stated edge and ignore propagation delay in ideal traces.",
+    "concept": "A D element stores its data input at the permitted update. Qnext=D gives a simple characteristic rule, and D equals the desired next state in its excitation table.",
     "teachingSteps": [
       "To produce any desired next state, set D to that value.",
       "For rising-edge capture, use only data values at rising edges.",
@@ -16865,7 +16865,7 @@ export const reviewedLessons=[
     "title": "Classify four clock responses",
     "lectureTitle": "Clock levels and active edges",
     "start": 179.82,
-    "concept": "Level-sensitive storage responds throughout the active clock interval. Edge-triggered storage updates only at its specified transition, even if data changes between transitions. Positive-level means enabled while clock is one. Negative-level means enabled while clock is zero. Positive edge is 0 to 1; negative edge is 1 to 0.",
+    "concept": "Level-sensitive storage responds throughout the active clock interval. Edge-triggered storage updates only at its specified transition, even if data changes between transitions.",
     "teachingSteps": [
       "Positive-level means enabled while clock is one.",
       "Negative-level means enabled while clock is zero.",
@@ -16959,7 +16959,7 @@ export const reviewedLessons=[
     "title": "Sample at the right edge",
     "lectureTitle": "Clock levels and active edges",
     "start": 179.82,
-    "concept": "Level-sensitive storage responds throughout the active clock interval. Edge-triggered storage updates only at its specified transition, even if data changes between transitions. List only the active edges for the specified element. Read D at each of those edges. Keep Q unchanged at inactive edges and between active edges.",
+    "concept": "Level-sensitive storage responds throughout the active clock interval. Edge-triggered storage updates only at its specified transition, even if data changes between transitions.",
     "teachingSteps": [
       "List only the active edges for the specified element.",
       "Read D at each of those edges.",
@@ -17032,7 +17032,7 @@ export const reviewedLessons=[
     "title": "Distinguish transparency from sampling",
     "lectureTitle": "Clock levels and active edges",
     "start": 1088.26,
-    "concept": "Level-sensitive storage responds throughout the active clock interval. Edge-triggered storage updates only at its specified transition, even if data changes between transitions. Data may change at any time; triggering describes when the storage element responds. A level-sensitive element may change multiple times in its active interval. An ideal single-edge element gets one capture opportunity per full clock cycle.",
+    "concept": "Level-sensitive storage responds throughout the active clock interval. Edge-triggered storage updates only at its specified transition, even if data changes between transitions.",
     "teachingSteps": [
       "Data may change at any time; triggering describes when the storage element responds.",
       "A level-sensitive element may change multiple times in its active interval.",
@@ -17110,7 +17110,7 @@ export const reviewedLessons=[
     "title": "Use all four JK operations",
     "lectureTitle": "JK flip-flops",
     "start": 337.39,
-    "concept": "At a permitted update, JK=00 holds, 01 resets, 10 sets, and 11 toggles. Its next-state equation is JQ′ + K′Q, and its excitation table offers input freedom for each desired transition. 00 holds the current bit. 01 resets and 10 sets. 11 complements the current bit rather than being forbidden as in SR behavior.",
+    "concept": "At a permitted update, JK=00 holds, 01 resets, 10 sets, and 11 toggles. Its next-state equation is JQ′ + K′Q, and its excitation table offers input freedom for each desired transition.",
     "teachingSteps": [
       "00 holds the current bit.",
       "01 resets and 10 sets.",
@@ -17196,7 +17196,7 @@ export const reviewedLessons=[
     "title": "Evaluate the JK state equation",
     "lectureTitle": "JK flip-flops",
     "start": 1055.8,
-    "concept": "At a permitted update, JK=00 holds, 01 resets, 10 sets, and 11 toggles. Its next-state equation is JQ′ + K′Q, and its excitation table offers input freedom for each desired transition. Qnext = JQ′ + K′Q. When Q=0, Qnext is J. When Q=1, Qnext is K′.",
+    "concept": "At a permitted update, JK=00 holds, 01 resets, 10 sets, and 11 toggles. Its next-state equation is JQ′ + K′Q, and its excitation table offers input freedom for each desired transition.",
     "teachingSteps": [
       "Qnext = JQ′ + K′Q.",
       "When Q=0, Qnext is J.",
@@ -17321,7 +17321,7 @@ export const reviewedLessons=[
     "title": "Find JK excitation controls",
     "lectureTitle": "JK flip-flops",
     "start": 337.39,
-    "concept": "At a permitted update, JK=00 holds, 01 resets, 10 sets, and 11 toggles. Its next-state equation is JQ′ + K′Q, and its excitation table offers input freedom for each desired transition. For current Q=0, choose J to equal the target Qnext; K is a dont-care. For current Q=1, choose K to equal the complement of target Qnext; J is a dont-care. X means either value can achieve the desired transition.",
+    "concept": "At a permitted update, JK=00 holds, 01 resets, 10 sets, and 11 toggles. Its next-state equation is JQ′ + K′Q, and its excitation table offers input freedom for each desired transition.",
     "teachingSteps": [
       "For current Q=0, choose J to equal the target Qnext; K is a dont-care.",
       "For current Q=1, choose K to equal the complement of target Qnext; J is a dont-care.",
@@ -17411,7 +17411,7 @@ export const reviewedLessons=[
     "title": "Hold or toggle a stored bit",
     "lectureTitle": "T flip-flops",
     "start": 29.66,
-    "concept": "At a permitted update, T=0 holds and T=1 toggles. The rule Qnext=T XOR Q makes T a compact way to control state changes. T=0 keeps the current Q. T=1 complements Q. Specify the active clock event before counting toggles.",
+    "concept": "At a permitted update, T=0 holds and T=1 toggles. The rule Qnext=T XOR Q makes T a compact way to control state changes.",
     "teachingSteps": [
       "T=0 keeps the current Q.",
       "T=1 complements Q.",
@@ -17507,7 +17507,7 @@ export const reviewedLessons=[
     "title": "Choose T and implement it with JK",
     "lectureTitle": "T flip-flops",
     "start": 0,
-    "concept": "At a permitted update, T=0 holds and T=1 toggles. The rule Qnext=T XOR Q makes T a compact way to control state changes. T equals Q XOR Qnext for a desired transition. An unchanged bit needs T=0; a changing bit needs T=1. Connecting J=K=T gives JK hold or toggle behavior.",
+    "concept": "At a permitted update, T=0 holds and T=1 toggles. The rule Qnext=T XOR Q makes T a compact way to control state changes.",
     "teachingSteps": [
       "T equals Q XOR Qnext for a desired transition.",
       "An unchanged bit needs T=0; a changing bit needs T=1.",
@@ -17593,7 +17593,7 @@ export const reviewedLessons=[
     "title": "Trace toggles and unknown controls",
     "lectureTitle": "T flip-flops",
     "start": 1103.42,
-    "concept": "At a permitted update, T=0 holds and T=1 toggles. The rule Qnext=T XOR Q makes T a compact way to control state changes. Use the T value at each specified active edge. An even number of toggles restores the initial bit; an odd number complements it. If a control is unknown, evaluate all allowed cases before claiming a definite state.",
+    "concept": "At a permitted update, T=0 holds and T=1 toggles. The rule Qnext=T XOR Q makes T a compact way to control state changes.",
     "teachingSteps": [
       "Use the T value at each specified active edge.",
       "An even number of toggles restores the initial bit; an odd number complements it.",
@@ -17667,7 +17667,7 @@ export const reviewedLessons=[
     "title": "Read the actual circuit behavior",
     "lectureTitle": "Storage terminology and clock response",
     "start": 100.84,
-    "concept": "Analyze storage from its actual controls and timing behavior. Level sensitivity and edge sensitivity describe how a storage element responds to the clock; different elements can share the same clock waveform. Cross-coupled NAND storage with no clock input is an unclocked active-low SR latch. Level-sensitive gated storage responds throughout its enabled interval. Edge-triggered storage samples at a clock transition.",
+    "concept": "Analyze storage from its actual controls and timing behavior. Level sensitivity and edge sensitivity describe how a storage element responds to the clock; different elements can share the same clock waveform.",
     "teachingSteps": [
       "Cross-coupled NAND storage with no clock input is an unclocked active-low SR latch.",
       "Level-sensitive gated storage responds throughout its enabled interval.",
@@ -17757,7 +17757,7 @@ export const reviewedLessons=[
     "title": "Share one clock across different elements",
     "lectureTitle": "Storage terminology and clock response",
     "start": 348.57,
-    "concept": "Analyze storage from its actual controls and timing behavior. Level sensitivity and edge sensitivity describe how a storage element responds to the clock; different elements can share the same clock waveform. The clock waveform contains both levels and both edge types. Each storage element selects its own active condition. A rising-edge element and a falling-edge element can use the same clock signal.",
+    "concept": "Analyze storage from its actual controls and timing behavior. Level sensitivity and edge sensitivity describe how a storage element responds to the clock; different elements can share the same clock waveform.",
     "teachingSteps": [
       "The clock waveform contains both levels and both edge types.",
       "Each storage element selects its own active condition.",
@@ -17843,7 +17843,7 @@ export const reviewedLessons=[
     "title": "Use precise timing descriptions",
     "lectureTitle": "Storage terminology and clock response",
     "start": 161.94,
-    "concept": "Analyze storage from its actual controls and timing behavior. Level sensitivity and edge sensitivity describe how a storage element responds to the clock; different elements can share the same clock waveform. Say which element is sensitive to which level or edge. Specify whether data can pass during an entire interval or only at a transition. A state change away from every active edge contradicts an ideal edge-triggered model with no asynchronous controls.",
+    "concept": "Analyze storage from its actual controls and timing behavior. Level sensitivity and edge sensitivity describe how a storage element responds to the clock; different elements can share the same clock waveform.",
     "teachingSteps": [
       "Say which element is sensitive to which level or edge.",
       "Specify whether data can pass during an entire interval or only at a transition.",
@@ -17925,7 +17925,7 @@ export const reviewedLessons=[
     "title": "Follow the conversion method",
     "lectureTitle": "Convert flip-flop behavior",
     "start": 685.81,
-    "concept": "Conversion adds combinational input logic around an available storage element. Derive that logic from the desired next-state rule and the excitation requirements of the available element. Write the target behavior as a function of target inputs and current Q. Use the excitation requirements of the available element to choose its inputs. Verify the resulting next state for every target-input and current-state combination.",
+    "concept": "Conversion adds combinational input logic around an available storage element. Derive that logic from the desired next-state rule and the excitation requirements of the available element.",
     "teachingSteps": [
       "Write the target behavior as a function of target inputs and current Q.",
       "Use the excitation requirements of the available element to choose its inputs.",
@@ -18007,7 +18007,7 @@ export const reviewedLessons=[
     "title": "Convert between D and T",
     "lectureTitle": "Convert flip-flop behavior",
     "start": 1002.49,
-    "concept": "Conversion adds combinational input logic around an available storage element. Derive that logic from the desired next-state rule and the excitation requirements of the available element. For available D storage implementing T behavior, drive D=T XOR Q. For available T storage implementing D behavior, drive T=D XOR Q. The XOR is a function of the external target input and the current stored bit.",
+    "concept": "Conversion adds combinational input logic around an available storage element. Derive that logic from the desired next-state rule and the excitation requirements of the available element.",
     "teachingSteps": [
       "For available D storage implementing T behavior, drive D=T XOR Q.",
       "For available T storage implementing D behavior, drive T=D XOR Q.",
@@ -18129,7 +18129,7 @@ export const reviewedLessons=[
     "title": "Implement JK with available D storage",
     "lectureTitle": "Convert flip-flop behavior",
     "start": 1630.65,
-    "concept": "Conversion adds combinational input logic around an available storage element. Derive that logic from the desired next-state rule and the excitation requirements of the available element. For target JK behavior, drive D=JQ′+K′Q. The expression is a 2-to-1 mux with selector Q. Its data inputs are I0=J and I1=K′.",
+    "concept": "Conversion adds combinational input logic around an available storage element. Derive that logic from the desired next-state rule and the excitation requirements of the available element.",
     "teachingSteps": [
       "For target JK behavior, drive D=JQ′+K′Q.",
       "The expression is a 2-to-1 mux with selector Q.",
@@ -18215,7 +18215,7 @@ export const reviewedLessons=[
     "title": "Decode the four PN operations",
     "lectureTitle": "PN storage behavior and conversion",
     "start": 1.26,
-    "concept": "A PN element has the explicit operations 00 clear, 01 hold, 10 complement, and 11 set. Its characteristic equation is Qnext=PQ′+NQ. PN=00 clears Q to zero; 01 holds Q. PN=10 complements Q; 11 sets Q to one. The input order is P then N throughout these examples.",
+    "concept": "A PN element has the explicit operations 00 clear, 01 hold, 10 complement, and 11 set. Its characteristic equation is Qnext=PQ′+NQ.",
     "teachingSteps": [
       "PN=00 clears Q to zero; 01 holds Q.",
       "PN=10 complements Q; 11 sets Q to one.",
@@ -18301,7 +18301,7 @@ export const reviewedLessons=[
     "title": "Derive the PN state equation",
     "lectureTitle": "PN storage behavior and conversion",
     "start": 267.66,
-    "concept": "A PN element has the explicit operations 00 clear, 01 hold, 10 complement, and 11 set. Its characteristic equation is Qnext=PQ′+NQ. For current Q=0, Qnext=P. For current Q=1, Qnext=N. Combining these cases gives Qnext=PQ′+NQ.",
+    "concept": "A PN element has the explicit operations 00 clear, 01 hold, 10 complement, and 11 set. Its characteristic equation is Qnext=PQ′+NQ.",
     "teachingSteps": [
       "For current Q=0, Qnext=P.",
       "For current Q=1, Qnext=N.",
@@ -18377,7 +18377,7 @@ export const reviewedLessons=[
       },
       {
         "type": "choice",
-        "prompt": "Correct characteristic equation for this PN element?",
+        "prompt": "A PN element has Qnext=P when current Q=0 and Qnext=N when current Q=1. Which characteristic equation describes it?",
         "options": [
           "P XOR N",
           "PQ′ + NQ",
@@ -18426,7 +18426,7 @@ export const reviewedLessons=[
     "title": "Find PN excitation and D conversion",
     "lectureTitle": "PN storage behavior and conversion",
     "start": 1.26,
-    "concept": "A PN element has the explicit operations 00 clear, 01 hold, 10 complement, and 11 set. Its characteristic equation is Qnext=PQ′+NQ. For Q=0, choose P equal to the target next state; N is a dont-care. For Q=1, choose N equal to the target next state; P is a dont-care. To implement D behavior for both current states, connect P=N=D.",
+    "concept": "A PN element has the explicit operations 00 clear, 01 hold, 10 complement, and 11 set. Its characteristic equation is Qnext=PQ′+NQ.",
     "teachingSteps": [
       "For Q=0, choose P equal to the target next state; N is a dont-care.",
       "For Q=1, choose N equal to the target next state; P is a dont-care.",
@@ -18512,7 +18512,7 @@ export const reviewedLessons=[
     "title": "Make SR storage toggle",
     "lectureTitle": "Convert between SR and T behavior",
     "start": 203.51,
-    "concept": "A conversion must reproduce the target next state using the available device. Current-state feedback lets an SR element toggle or lets a T element set, reset, and hold. For target T=0, drive an available active-high SR element to hold. For target T=1, set if Q=0 and reset if Q=1. One valid implementation is S=TQ′ and R=TQ.",
+    "concept": "A conversion must reproduce the target next state using the available device. Current-state feedback lets an SR element toggle or lets a T element set, reset, and hold.",
     "teachingSteps": [
       "For target T=0, drive an available active-high SR element to hold.",
       "For target T=1, set if Q=0 and reset if Q=1.",
@@ -18556,7 +18556,7 @@ export const reviewedLessons=[
       },
       {
         "type": "number",
-        "prompt": "Same conversion, target T=1,current Q=1. Physical R?",
+        "prompt": "SR-to-T conversion uses S=TQ′ and R=TQ. With target T=1 and current Q=1, what is physical R?",
         "answer": 1,
         "tolerance": 1e-8,
         "explanation": "TQ equals one, resetting the stored one."
@@ -18598,7 +18598,7 @@ export const reviewedLessons=[
     "title": "Make T storage act like SR",
     "lectureTitle": "Convert between SR and T behavior",
     "start": 517.4,
-    "concept": "A conversion must reproduce the target next state using the available device. Current-state feedback lets an SR element toggle or lets a T element set, reset, and hold. For valid SR inputs, choose physical T=S Q′ + RQ. The T input asserts exactly when the target SR behavior must change Q. SR=11 is excluded from the target domain; it is not a permitted storage operation.",
+    "concept": "A conversion must reproduce the target next state using the available device. Current-state feedback lets an SR element toggle or lets a T element set, reset, and hold.",
     "teachingSteps": [
       "For valid SR inputs, choose physical T=S Q′ + RQ.",
       "The T input asserts exactly when the target SR behavior must change Q.",
@@ -18676,7 +18676,7 @@ export const reviewedLessons=[
       },
       {
         "type": "choice",
-        "prompt": "Why may SR=11 rows be dont-cares when simplifying this conversion?",
+        "prompt": "When T storage is used to implement valid active-high SR behavior, why may SR=11 rows be dont-cares during simplification?",
         "options": [
           "They are required toggle operations",
           "The target forbids those input rows",
@@ -18711,7 +18711,7 @@ export const reviewedLessons=[
     "title": "Implement the state-dependent choice",
     "lectureTitle": "Convert between SR and T behavior",
     "start": 1351.53,
-    "concept": "A conversion must reproduce the target next state using the available device. Current-state feedback lets an SR element toggle or lets a T element set, reset, and hold. T=S Q′+RQ is a mux expression. With selector Q, connect I0=S and I1=R. Verify both current states for every valid SR input.",
+    "concept": "A conversion must reproduce the target next state using the available device. Current-state feedback lets an SR element toggle or lets a T element set, reset, and hold.",
     "teachingSteps": [
       "T=S Q′+RQ is a mux expression.",
       "With selector Q, connect I0=S and I1=R.",
@@ -18797,7 +18797,7 @@ export const reviewedLessons=[
     "title": "Decode active-low direct controls",
     "lectureTitle": "Asynchronous preset and clear",
     "start": 747.46,
-    "concept": "Direct preset and clear inputs can force a stored state without a clock edge. Their polarity and forbidden simultaneous-assertion condition must be stated separately from the normal clocked behavior. For active-low PREbar and CLRbar, a zero asserts the control. PREbar=0,CLRbar=1 forces Q=1; PREbar=1,CLRbar=0 forces Q=0. Both one releases direct controls; both zero is forbidden in the model here.",
+    "concept": "Direct preset and clear inputs can force a stored state without a clock edge. Their polarity and forbidden simultaneous-assertion condition must be stated separately from the normal clocked behavior.",
     "teachingSteps": [
       "For active-low PREbar and CLRbar, a zero asserts the control.",
       "PREbar=0,CLRbar=1 forces Q=1; PREbar=1,CLRbar=0 forces Q=0.",
@@ -18883,7 +18883,7 @@ export const reviewedLessons=[
     "title": "Apply direct-input priority",
     "lectureTitle": "Asynchronous preset and clear",
     "start": 1773.5,
-    "concept": "Direct preset and clear inputs can force a stored state without a clock edge. Their polarity and forbidden simultaneous-assertion condition must be stated separately from the normal clocked behavior. An asserted direct input overrides the normal data/clock update in this model. Asynchronous means its action does not wait for the clock edge. When both direct controls are inactive, use the normal storage rule and trigger condition.",
+    "concept": "Direct preset and clear inputs can force a stored state without a clock edge. Their polarity and forbidden simultaneous-assertion condition must be stated separately from the normal clocked behavior.",
     "teachingSteps": [
       "An asserted direct input overrides the normal data/clock update in this model.",
       "Asynchronous means its action does not wait for the clock edge.",
@@ -18957,7 +18957,7 @@ export const reviewedLessons=[
     "title": "Initialize and then resume normal operation",
     "lectureTitle": "Asynchronous preset and clear",
     "start": 177.48,
-    "concept": "Direct preset and clear inputs can force a stored state without a clock edge. Their polarity and forbidden simultaneous-assertion condition must be stated separately from the normal clocked behavior. Use direct controls to establish a known initial bit or state vector. Release those controls before normal clocked operation. Do not assert preset and clear together; no priority is assumed for that forbidden pair.",
+    "concept": "Direct preset and clear inputs can force a stored state without a clock edge. Their polarity and forbidden simultaneous-assertion condition must be stated separately from the normal clocked behavior.",
     "teachingSteps": [
       "Use direct controls to establish a known initial bit or state vector.",
       "Release those controls before normal clocked operation.",
@@ -19031,7 +19031,7 @@ export const reviewedLessons=[
     "title": "Trace JK with direct overrides",
     "lectureTitle": "Practice clocked and asynchronous updates",
     "start": 1.01,
-    "concept": "A timing problem combines update opportunities, storage rules, and direct controls. Data must also remain stable around an active edge for a specified capture to be reliable. Check direct preset or clear before applying the normal edge rule. If neither is asserted, use JK only at the active clock edge. Carry the resulting stored bit forward to the next event.",
+    "concept": "A timing problem combines update opportunities, storage rules, and direct controls. Data must also remain stable around an active edge for a specified capture to be reliable.",
     "teachingSteps": [
       "Check direct preset or clear before applying the normal edge rule.",
       "If neither is asserted, use JK only at the active clock edge.",
@@ -19105,7 +19105,7 @@ export const reviewedLessons=[
     "title": "Allow setup time before capture",
     "lectureTitle": "Practice clocked and asynchronous updates",
     "start": 462.61,
-    "concept": "A timing problem combines update opportunities, storage rules, and direct controls. Data must also remain stable around an active edge for a specified capture to be reliable. Setup time requires data stability before the active edge. Subtract the stated setup time from the active-edge time to find the start of the required pre-edge stable interval. A data transition inside that required interval does not justify a guaranteed captured value.",
+    "concept": "A timing problem combines update opportunities, storage rules, and direct controls. Data must also remain stable around an active edge for a specified capture to be reliable.",
     "teachingSteps": [
       "Setup time requires data stability before the active edge.",
       "Subtract the stated setup time from the active-edge time to find the start of the required pre-edge stable interval.",
@@ -19187,7 +19187,7 @@ export const reviewedLessons=[
     "title": "Identify operations from controls",
     "lectureTitle": "Practice clocked and asynchronous updates",
     "start": 218.15,
-    "concept": "A timing problem combines update opportunities, storage rules, and direct controls. Data must also remain stable around an active edge for a specified capture to be reliable. JK=10 sets, 01 resets, 00 holds, and 11 toggles at a permitted update. A D element captures its data at the specified active condition. Keep an operation code separate from its resulting state.",
+    "concept": "A timing problem combines update opportunities, storage rules, and direct controls. Data must also remain stable around an active edge for a specified capture to be reliable.",
     "teachingSteps": [
       "JK=10 sets, 01 resets, 00 holds, and 11 toggles at a permitted update.",
       "A D element captures its data at the specified active condition.",
@@ -19273,7 +19273,7 @@ export const reviewedLessons=[
     "title": "Separate the two phases",
     "lectureTitle": "Master–slave storage",
     "start": 0.18,
-    "concept": "Two level-sensitive storage stages with opposite clock phases separate data collection from output transfer. For ideal D stages, a high-transparent master and low-transparent slave give falling-edge capture behavior. Connect the master stored output to the slave data input. In this model, master follows D during clock high while slave holds. During clock low, master holds while slave receives the master value; assume ideal complementary, non-overlapping phases.",
+    "concept": "Two level-sensitive storage stages with opposite clock phases separate data collection from output transfer. For ideal D stages, a high-transparent master and low-transparent slave give falling-edge capture behavior.",
     "teachingSteps": [
       "Connect the master stored output to the slave data input.",
       "In this model, master follows D during clock high while slave holds.",
@@ -19310,7 +19310,7 @@ export const reviewedLessons=[
       },
       {
         "type": "choice",
-        "prompt": "During clock high, D changes with ample settling time. Which stage can follow it in this model?",
+        "prompt": "A D master-slave pair has a high-transparent master and low-transparent slave. During clock high, D changes with ample settling time. Which stage follows D?",
         "options": [
           "Both stages at once",
           "The master",
@@ -19363,7 +19363,7 @@ export const reviewedLessons=[
     "title": "Find the effective capture edge",
     "lectureTitle": "Master–slave storage",
     "start": 2658.17,
-    "concept": "Two level-sensitive storage stages with opposite clock phases separate data collection from output transfer. For ideal D stages, a high-transparent master and low-transparent slave give falling-edge capture behavior. The high-transparent master closes when clock falls. The low-transparent slave then transfers the held master value. With stable data around that transition, the external D behavior is falling-edge capture.",
+    "concept": "Two level-sensitive storage stages with opposite clock phases separate data collection from output transfer. For ideal D stages, a high-transparent master and low-transparent slave give falling-edge capture behavior.",
     "teachingSteps": [
       "The high-transparent master closes when clock falls.",
       "The low-transparent slave then transfers the held master value.",
@@ -19398,7 +19398,7 @@ export const reviewedLessons=[
       },
       {
         "type": "number",
-        "prompt": "External Q starts 0. Stable D is 1 around the falling edge in this pair. External Q after transfer settles?",
+        "prompt": "A D pair has a high-transparent master and low-transparent slave. External Q starts 0; D is stable at 1 around the falling edge. What is external Q after transfer settles?",
         "answer": 1,
         "tolerance": 1e-8,
         "explanation": "The master captures one at closure and the slave transfers it."
@@ -19440,7 +19440,7 @@ export const reviewedLessons=[
     "title": "Reverse the phase order",
     "lectureTitle": "Master–slave storage",
     "start": 0.18,
-    "concept": "Two level-sensitive storage stages with opposite clock phases separate data collection from output transfer. For ideal D stages, a high-transparent master and low-transparent slave give falling-edge capture behavior. A low-transparent master collects data while clock is zero. A high-transparent slave transfers it when clock rises. Master–slave is a circuit structure; the phase arrangement and storage type determine its behavior.",
+    "concept": "Two level-sensitive storage stages with opposite clock phases separate data collection from output transfer. For ideal D stages, a high-transparent master and low-transparent slave give falling-edge capture behavior.",
     "teachingSteps": [
       "A low-transparent master collects data while clock is zero.",
       "A high-transparent slave transfers it when clock rises.",
@@ -19487,7 +19487,7 @@ export const reviewedLessons=[
       },
       {
         "type": "choice",
-        "prompt": "Must every edge-triggered storage circuit use this two-stage structure?",
+        "prompt": "Must every edge-triggered storage circuit use a master-slave pair of latches?",
         "options": [
           "No",
           "Yes",
@@ -19522,7 +19522,7 @@ export const reviewedLessons=[
     "title": "Recognize repeated toggling",
     "lectureTitle": "Race-around in level-sensitive toggle storage",
     "start": 863.48,
-    "concept": "A level-sensitive feedback circuit can toggle repeatedly while its toggle control and active clock level persist. An edge-triggered update or properly isolated master–slave arrangement avoids repeated changes within one active interval. JK=11 requests toggle; T=1 requests toggle. In a directly fed-back level-sensitive model, the changed output can request another change while enabled. A sufficiently long active interval permits repeated toggles; edge-triggered storage gets one update opportunity per active edge.",
+    "concept": "A level-sensitive feedback circuit can toggle repeatedly while its toggle control and active clock level persist. An edge-triggered update or properly isolated master–slave arrangement avoids repeated changes within one active interval.",
     "teachingSteps": [
       "JK=11 requests toggle; T=1 requests toggle.",
       "In a directly fed-back level-sensitive model, the changed output can request another change while enabled.",
@@ -19559,7 +19559,7 @@ export const reviewedLessons=[
       },
       {
         "type": "choice",
-        "prompt": "Which situation permits race-around in the stated direct-feedback model?",
+        "prompt": "Which situation permits repeated toggling (race-around) when the output feeds directly back into a storage element?",
         "options": [
           "Level-sensitive JK=11 with a long active clock interval",
           "Edge-triggered JK with one isolated active edge",
@@ -19612,7 +19612,7 @@ export const reviewedLessons=[
     "title": "Trace a delayed toggle loop",
     "lectureTitle": "Race-around in level-sensitive toggle storage",
     "start": 122.98,
-    "concept": "A level-sensitive feedback circuit can toggle repeatedly while its toggle control and active clock level persist. An edge-triggered update or properly isolated master–slave arrangement avoids repeated changes within one active interval. For an explicitly simplified model, one toggle completes every stated loop delay while enabled. Count only completed toggles before disabling. The parity of that count determines whether the starting bit is retained or complemented.",
+    "concept": "A level-sensitive feedback circuit can toggle repeatedly while its toggle control and active clock level persist. An edge-triggered update or properly isolated master–slave arrangement avoids repeated changes within one active interval.",
     "teachingSteps": [
       "For an explicitly simplified model, one toggle completes every stated loop delay while enabled.",
       "Count only completed toggles before disabling.",
@@ -19636,14 +19636,14 @@ export const reviewedLessons=[
       },
       {
         "type": "number",
-        "prompt": "Same 2 ns toggle-loop model: enabled for 7 ns, initially Q=0, no other delays. Completed toggles?",
+        "prompt": "A simplified toggle loop completes one toggle every 2 ns while enabled. It is enabled for 7 ns, initially Q=0, with no other delays. How many toggles complete?",
         "answer": 3,
         "tolerance": 1e-8,
         "explanation": "Toggles complete at two, four, and six ns; the next would be at eight."
       },
       {
         "type": "number",
-        "prompt": "Same simplified model, initially Q=0, disabled at 7 ns. Final Q?",
+        "prompt": "A simplified toggle loop starts Q=0 and completes one toggle every 2 ns while enabled. It is disabled at 7 ns, with no other delays. Final Q?",
         "answer": 1,
         "tolerance": 1e-8,
         "explanation": "Three completed toggles is odd, so the final bit is one."
@@ -19685,7 +19685,7 @@ export const reviewedLessons=[
     "title": "Control the update opportunity",
     "lectureTitle": "Race-around in level-sensitive toggle storage",
     "start": 1192.56,
-    "concept": "A level-sensitive feedback circuit can toggle repeatedly while its toggle control and active clock level persist. An edge-triggered update or properly isolated master–slave arrangement avoids repeated changes within one active interval. An ideal edge-triggered element updates only at its active edge. Master–slave phase isolation can prevent final-output feedback from repeatedly updating during one active phase. Do not replace a physical timing analysis with an unspecified pulse-width assumption.",
+    "concept": "A level-sensitive feedback circuit can toggle repeatedly while its toggle control and active clock level persist. An edge-triggered update or properly isolated master–slave arrangement avoids repeated changes within one active interval.",
     "teachingSteps": [
       "An ideal edge-triggered element updates only at its active edge.",
       "Master–slave phase isolation can prevent final-output feedback from repeatedly updating during one active phase.",
@@ -19763,7 +19763,7 @@ export const reviewedLessons=[
     "title": "Follow a predetermined sequence",
     "lectureTitle": "Counters and their state sequences",
     "start": 27.37,
-    "concept": "A counter follows a specified sequence of stored states. Its modulus counts the distinct stable states in the cycle; synchronous and ripple implementations differ in how the storage elements receive their clocks. Start from the stated initial state. Apply the specified next-state sequence on count events. For ordinary binary up counting, increment modulo the available range.",
+    "concept": "A counter follows a specified sequence of stored states. Its modulus counts the distinct stable states in the cycle; synchronous and ripple implementations differ in how the storage elements receive their clocks.",
     "teachingSteps": [
       "Start from the stated initial state.",
       "Apply the specified next-state sequence on count events.",
@@ -19837,7 +19837,7 @@ export const reviewedLessons=[
     "title": "Count states and stored bits",
     "lectureTitle": "Counters and their state sequences",
     "start": 0.53,
-    "concept": "A counter follows a specified sequence of stored states. Its modulus counts the distinct stable states in the cycle; synchronous and ripple implementations differ in how the storage elements receive their clocks. The modulus is the number of distinct stable states in the repeating cycle. n independent storage bits allow at most 2^n binary states. A custom counter need not use every representable bit pattern.",
+    "concept": "A counter follows a specified sequence of stored states. Its modulus counts the distinct stable states in the cycle; synchronous and ripple implementations differ in how the storage elements receive their clocks.",
     "teachingSteps": [
       "The modulus is the number of distinct stable states in the repeating cycle.",
       "n independent storage bits allow at most 2^n binary states.",
@@ -19919,7 +19919,7 @@ export const reviewedLessons=[
     "title": "Distinguish common and ripple clocks",
     "lectureTitle": "Counters and their state sequences",
     "start": 745.43,
-    "concept": "A counter follows a specified sequence of stored states. Its modulus counts the distinct stable states in the cycle; synchronous and ripple implementations differ in how the storage elements receive their clocks. Synchronous counters apply a common clock to their storage elements. In ripple counters, a preceding output clocks a later element. Ripple updates propagate through stages and need time to settle.",
+    "concept": "A counter follows a specified sequence of stored states. Its modulus counts the distinct stable states in the cycle; synchronous and ripple implementations differ in how the storage elements receive their clocks.",
     "teachingSteps": [
       "Synchronous counters apply a common clock to their storage elements.",
       "In ripple counters, a preceding output clocks a later element.",
@@ -20005,7 +20005,7 @@ export const reviewedLessons=[
     "title": "Configure one toggling bit",
     "lectureTitle": "Divide a clock frequency by two",
     "start": 85.98,
-    "concept": "An edge-triggered storage bit configured to toggle on every active input edge completes one output cycle for every two input cycles. Its output frequency is therefore half the input clock frequency. An edge-triggered T element toggles on each active edge when T=1. The sequence alternates between zero and one. It takes two toggles for the output to complete a full cycle.",
+    "concept": "An edge-triggered storage bit configured to toggle on every active input edge completes one output cycle for every two input cycles. Its output frequency is therefore half the input clock frequency.",
     "teachingSteps": [
       "An edge-triggered T element toggles on each active edge when T=1.",
       "The sequence alternates between zero and one.",
@@ -20066,7 +20066,7 @@ export const reviewedLessons=[
       },
       {
         "type": "choice",
-        "prompt": "Should this divider use a continuously transparent toggle loop for clean edge-based counting?",
+        "prompt": "Should a divide-by-two counter that must toggle once per input edge use a continuously transparent toggle loop?",
         "options": [
           "Yes, always",
           "Only with T=0",
@@ -20101,7 +20101,7 @@ export const reviewedLessons=[
     "title": "Use equivalent D and JK dividers",
     "lectureTitle": "Divide a clock frequency by two",
     "start": 1674.96,
-    "concept": "An edge-triggered storage bit configured to toggle on every active input edge completes one output cycle for every two input cycles. Its output frequency is therefore half the input clock frequency. For JK storage, J=K=1 supplies toggle behavior. For D storage, feed Q complement back to D. Both constructions use the same stated active-edge convention.",
+    "concept": "An edge-triggered storage bit configured to toggle on every active input edge completes one output cycle for every two input cycles. Its output frequency is therefore half the input clock frequency.",
     "teachingSteps": [
       "For JK storage, J=K=1 supplies toggle behavior.",
       "For D storage, feed Q complement back to D.",
@@ -20183,7 +20183,7 @@ export const reviewedLessons=[
     "title": "Convert divider frequencies",
     "lectureTitle": "Divide a clock frequency by two",
     "start": 583.19,
-    "concept": "An edge-triggered storage bit configured to toggle on every active input edge completes one output cycle for every two input cycles. Its output frequency is therefore half the input clock frequency. For one toggle divider, fout=fin/2. Output period is twice the input period. Initial Q affects phase but does not change the steady-state divide ratio.",
+    "concept": "An edge-triggered storage bit configured to toggle on every active input edge completes one output cycle for every two input cycles. Its output frequency is therefore half the input clock frequency.",
     "teachingSteps": [
       "For one toggle divider, fout=fin/2.",
       "Output period is twice the input period.",
@@ -20253,7 +20253,7 @@ export const reviewedLessons=[
     "title": "Cascade the frequency division",
     "lectureTitle": "Two-stage ripple division and counting",
     "start": 81.77,
-    "concept": "Cascading two toggle stages gives divide-by-four frequency division. Count direction depends on the active clock edge and which previous-stage signal drives the next clock; state traces must use an explicit bit order. Each edge-triggered toggle stage halves its own clock frequency. A second stage clocked by the first output divides the original input by four. Its stable state cycle has four distinct binary states.",
+    "concept": "Cascading two toggle stages gives divide-by-four frequency division. Count direction depends on the active clock edge and which previous-stage signal drives the next clock; state traces must use an explicit bit order.",
     "teachingSteps": [
       "Each edge-triggered toggle stage halves its own clock frequency.",
       "A second stage clocked by the first output divides the original input by four.",
@@ -20331,7 +20331,7 @@ export const reviewedLessons=[
     "title": "Trace rising-edge Q-linked down counting",
     "lectureTitle": "Two-stage ripple division and counting",
     "start": 490.52,
-    "concept": "Cascading two toggle stages gives divide-by-four frequency division. Count direction depends on the active clock edge and which previous-stage signal drives the next clock; state traces must use an explicit bit order. Both stages here toggle on rising edges and have T=1. Q0 receives the external clock; Q0 directly clocks Q1. Write settled states as Q1Q0: starting 00, the sequence is 00,11,10,01,00.",
+    "concept": "Cascading two toggle stages gives divide-by-four frequency division. Count direction depends on the active clock edge and which previous-stage signal drives the next clock; state traces must use an explicit bit order.",
     "teachingSteps": [
       "Both stages here toggle on rising edges and have T=1.",
       "Q0 receives the external clock; Q0 directly clocks Q1.",
@@ -20356,14 +20356,14 @@ export const reviewedLessons=[
       },
       {
         "type": "number",
-        "prompt": "This direct-Q rising-edge two-bit down counter is at 10. Next settled state as decimal?",
+        "prompt": "Two rising-edge T=1 stages form a down counter, with Q0 directly clocking Q1. Current Q1Q0=10. What is the next settled state in decimal?",
         "answer": 1,
         "tolerance": 1e-8,
         "explanation": "The down sequence continues from binary ten, value two, to binary one, value one."
       },
       {
         "type": "choice",
-        "prompt": "In this circuit, Q1 toggles when Q0...",
+        "prompt": "Two rising-edge T=1 stages have Q0 directly connected to the clock of Q1. Q1 toggles when Q0...",
         "options": [
           "Stays at 1",
           "Rises from 0 to 1",
@@ -20409,7 +20409,7 @@ export const reviewedLessons=[
     "title": "Include the ripple transit state",
     "lectureTitle": "Two-stage ripple division and counting",
     "start": 1716.1,
-    "concept": "Cascading two toggle stages gives divide-by-four frequency division. Count direction depends on the active clock edge and which previous-stage signal drives the next clock; state traces must use an explicit bit order. Q0 changes first, after its own clock-to-output delay. A resulting Q0 active edge triggers Q1 after another delay. Distinguish intermediate patterns from settled count states.",
+    "concept": "Cascading two toggle stages gives divide-by-four frequency division. Count direction depends on the active clock edge and which previous-stage signal drives the next clock; state traces must use an explicit bit order.",
     "teachingSteps": [
       "Q0 changes first, after its own clock-to-output delay.",
       "A resulting Q0 active edge triggers Q1 after another delay.",
@@ -20423,7 +20423,7 @@ export const reviewedLessons=[
     "questions": [
       {
         "type": "order",
-        "prompt": "Same rising-edge direct-Q counter: Q1Q0 starts 00, both stages delay 2 ns. Order one external-edge transition.",
+        "prompt": "Two rising-edge T=1 stages: the external clock drives Q0, and Q0 directly clocks Q1. Q1Q0 starts 00; each stage delays 2 ns. Order one external rising-edge transition.",
         "items": [
           "At 0 ns: external rising edge, state still 00",
           "At 2 ns: Q0 rises, intermediate state 01",
@@ -20440,7 +20440,7 @@ export const reviewedLessons=[
       },
       {
         "type": "choice",
-        "prompt": "For settled 00 to 11 in this down counter, which temporary pattern appears when Q0 changes first?",
+        "prompt": "A two-bit ripple down counter changes from Q1Q0=00 to 11. Q0 changes before Q1. Which temporary pattern appears?",
         "options": [
           "01",
           "10",
@@ -20451,7 +20451,7 @@ export const reviewedLessons=[
       },
       {
         "type": "choice",
-        "prompt": "Should that temporary 01 be counted as an additional stable modulus state?",
+        "prompt": "A ripple counter briefly passes through 01 while settling from 00 to 11. Should that transient add an extra state to its stable count cycle?",
         "options": [
           "Yes",
           "Only if observed by a decoder",
@@ -20486,7 +20486,7 @@ export const reviewedLessons=[
     "title": "Choose clocks for down counting",
     "lectureTitle": "Binary down ripple counters",
     "start": 977.05,
-    "concept": "A full n-bit binary down counter visits all values from 2^n-1 to zero and wraps. Interstage clock choices must make each higher bit toggle when the preceding bit rises during a borrow ripple. For rising-edge toggle stages, use the preceding Q to clock the next stage. For falling-edge toggle stages, use the preceding Q complement for the same down-counting behavior. Q0 is the least significant bit; write the state with the most significant bit first.",
+    "concept": "A full n-bit binary down counter visits all values from 2^n-1 to zero and wraps. Interstage clock choices must make each higher bit toggle when the preceding bit rises during a borrow ripple.",
     "teachingSteps": [
       "For rising-edge toggle stages, use the preceding Q to clock the next stage.",
       "For falling-edge toggle stages, use the preceding Q complement for the same down-counting behavior.",
@@ -20568,7 +20568,7 @@ export const reviewedLessons=[
     "title": "Trace borrow propagation",
     "lectureTitle": "Binary down ripple counters",
     "start": 3977.31,
-    "concept": "A full n-bit binary down counter visits all values from 2^n-1 to zero and wraps. Interstage clock choices must make each higher bit toggle when the preceding bit rises during a borrow ripple. A binary decrement changes the trailing zeros to ones. The ripple proceeds from the least significant bit upward. Intermediate states can appear between these changes.",
+    "concept": "A full n-bit binary down counter visits all values from 2^n-1 to zero and wraps. Interstage clock choices must make each higher bit toggle when the preceding bit rises during a borrow ripple.",
     "teachingSteps": [
       "A binary decrement changes the trailing zeros to ones.",
       "The ripple proceeds from the least significant bit upward.",
@@ -20641,7 +20641,7 @@ export const reviewedLessons=[
     "title": "Compute capacity, frequency, and delay",
     "lectureTitle": "Binary down ripple counters",
     "start": 1099.38,
-    "concept": "A full n-bit binary down counter visits all values from 2^n-1 to zero and wraps. Interstage clock choices must make each higher bit toggle when the preceding bit rises during a borrow ripple. A full n-bit counter has modulus 2^n. Ideal Qk frequency is fin/2^(k+1), with zero-based bit indices. A transition rippling through n equal-delay stages takes n times the stage delay.",
+    "concept": "A full n-bit binary down counter visits all values from 2^n-1 to zero and wraps. Interstage clock choices must make each higher bit toggle when the preceding bit rises during a borrow ripple.",
     "teachingSteps": [
       "A full n-bit counter has modulus 2^n.",
       "Ideal Qk frequency is fin/2^(k+1), with zero-based bit indices.",
@@ -20707,7 +20707,7 @@ export const reviewedLessons=[
     "title": "Choose clocks for up counting",
     "lectureTitle": "Binary up and truncated ripple counters",
     "start": 260.65,
-    "concept": "A binary up ripple counter toggles higher bits on carries from lower bits. A truncated modulo-M cycle can reset at a decoded terminal pattern so its stable sequence runs from zero through M-1. For falling-edge toggle stages, direct preceding Q supplies the carry trigger. For rising-edge toggle stages, use preceding Q complement. These choices make the settled sequence increment in binary.",
+    "concept": "A binary up ripple counter toggles higher bits on carries from lower bits. A truncated modulo-M cycle can reset at a decoded terminal pattern so its stable sequence runs from zero through M-1.",
     "teachingSteps": [
       "For falling-edge toggle stages, direct preceding Q supplies the carry trigger.",
       "For rising-edge toggle stages, use preceding Q complement.",
@@ -20785,7 +20785,7 @@ export const reviewedLessons=[
     "title": "Trace carry and settling",
     "lectureTitle": "Binary up and truncated ripple counters",
     "start": 968.35,
-    "concept": "A binary up ripple counter toggles higher bits on carries from lower bits. A truncated modulo-M cycle can reset at a decoded terminal pattern so its stable sequence runs from zero through M-1. An increment changes trailing ones to zeros. The next higher zero then becomes one. Ripple delays create temporary patterns while these changes propagate.",
+    "concept": "A binary up ripple counter toggles higher bits on carries from lower bits. A truncated modulo-M cycle can reset at a decoded terminal pattern so its stable sequence runs from zero through M-1.",
     "teachingSteps": [
       "An increment changes trailing ones to zeros.",
       "The next higher zero then becomes one.",
@@ -20816,7 +20816,7 @@ export const reviewedLessons=[
       },
       {
         "type": "number",
-        "prompt": "Three stages each have delay 4 ns during this full ripple. Final settling time in ns?",
+        "prompt": "A three-bit ripple up counter changes 011 to 100. All three stages change in sequence, each with delay 4 ns. Final settling time in ns?",
         "answer": 12,
         "tolerance": 1e-8,
         "explanation": "Three dependent stage changes take twelve ns."
@@ -20858,7 +20858,7 @@ export const reviewedLessons=[
     "title": "Truncate the stable cycle",
     "lectureTitle": "Binary up and truncated ripple counters",
     "start": 1934.65,
-    "concept": "A binary up ripple counter toggles higher bits on carries from lower bits. A truncated modulo-M cycle can reset at a decoded terminal pattern so its stable sequence runs from zero through M-1. For M smaller than 2^n, detect count M and asynchronously clear to zero. Stable count states are zero through M-1; the detected reset pattern is only a transient. Use enough bits to represent the required count and reset logic, and state the clear polarity.",
+    "concept": "A binary up ripple counter toggles higher bits on carries from lower bits. A truncated modulo-M cycle can reset at a decoded terminal pattern so its stable sequence runs from zero through M-1.",
     "teachingSteps": [
       "For M smaller than 2^n, detect count M and asynchronously clear to zero.",
       "Stable count states are zero through M-1; the detected reset pattern is only a transient.",
@@ -20932,7 +20932,7 @@ export const reviewedLessons=[
     "title": "Multiply the moduli",
     "lectureTitle": "Cascade counters and division ratios",
     "start": 1.39,
-    "concept": "When a completed cycle of one counter advances the next, their division ratios multiply. Use one cycle pulse per full first-counter cycle, rather than assuming every output pin has that rate. A modulo-M stage repeats after M input events. Its one-per-cycle pulse advances a modulo-N stage. The combined cycle repeats after MN original input events.",
+    "concept": "When a completed cycle of one counter advances the next, their division ratios multiply. Use one cycle pulse per full first-counter cycle, rather than assuming every output pin has that rate.",
     "teachingSteps": [
       "A modulo-M stage repeats after M input events.",
       "Its one-per-cycle pulse advances a modulo-N stage.",
@@ -21014,7 +21014,7 @@ export const reviewedLessons=[
     "title": "Compute output frequencies",
     "lectureTitle": "Cascade counters and division ratios",
     "start": 62.17,
-    "concept": "When a completed cycle of one counter advances the next, their division ratios multiply. Use one cycle pulse per full first-counter cycle, rather than assuming every output pin has that rate. A one-per-cycle pulse from modulo-M has frequency fin/M. The final cycle-pulse frequency after M then N is fin/(MN). Count-event rate and full-cycle rate are separate quantities.",
+    "concept": "When a completed cycle of one counter advances the next, their division ratios multiply. Use one cycle pulse per full first-counter cycle, rather than assuming every output pin has that rate.",
     "teachingSteps": [
       "A one-per-cycle pulse from modulo-M has frequency fin/M.",
       "The final cycle-pulse frequency after M then N is fin/(MN).",
@@ -21080,7 +21080,7 @@ export const reviewedLessons=[
     "title": "Build a slow timebase",
     "lectureTitle": "Cascade counters and division ratios",
     "start": 247.4,
-    "concept": "When a completed cycle of one counter advances the next, their division ratios multiply. Use one cycle pulse per full first-counter cycle, rather than assuming every output pin has that rate. A modulo-60 stage can turn a one-Hz event stream into one event per minute. Another modulo-60 stage turns minute events into hour events. The two stages together divide the original event rate by 3600.",
+    "concept": "When a completed cycle of one counter advances the next, their division ratios multiply. Use one cycle pulse per full first-counter cycle, rather than assuming every output pin has that rate.",
     "teachingSteps": [
       "A modulo-60 stage can turn a one-Hz event stream into one event per minute.",
       "Another modulo-60 stage turns minute events into hour events.",
@@ -21149,7 +21149,7 @@ export const reviewedLessons=[
     "title": "Define the stable range",
     "lectureTitle": "Count through a selected range",
     "start": 1.2,
-    "concept": "A custom up counter can reload a chosen starting pattern at the first unwanted count. Distinguish states held for a count interval from the terminal pattern that triggers the reload. State the intended inclusive stable range A through B. Its stable-cycle length is B-A+1. For the example 3,4,5, detect 6 and reload 3 immediately after it appears.",
+    "concept": "A custom up counter can reload a chosen starting pattern at the first unwanted count. Distinguish states held for a count interval from the terminal pattern that triggers the reload.",
     "teachingSteps": [
       "State the intended inclusive stable range A through B.",
       "Its stable-cycle length is B-A+1.",
@@ -21223,7 +21223,7 @@ export const reviewedLessons=[
     "title": "Reload the starting bit pattern",
     "lectureTitle": "Count through a selected range",
     "start": 271.64,
-    "concept": "A custom up counter can reload a chosen starting pattern at the first unwanted count. Distinguish states held for a count interval from the terminal pattern that triggers the reload. To load 011, clear Q2 and preset Q1 and Q0. Use the explicitly stated direct-input polarity. For active-low controls, drive the required clear/preset inputs low while leaving their opposites inactive high.",
+    "concept": "A custom up counter can reload a chosen starting pattern at the first unwanted count. Distinguish states held for a count interval from the terminal pattern that triggers the reload.",
     "teachingSteps": [
       "To load 011, clear Q2 and preset Q1 and Q0.",
       "Use the explicitly stated direct-input polarity.",
@@ -21309,7 +21309,7 @@ export const reviewedLessons=[
     "title": "Decode and initialize deliberately",
     "lectureTitle": "Count through a selected range",
     "start": 30.14,
-    "concept": "A custom up counter can reload a chosen starting pattern at the first unwanted count. Distinguish states held for a count interval from the terminal pattern that triggers the reload. The exact detector for 110 uses Q2Q1Q0 complement. A NAND of that product supplies an active-low reload trigger. Apply explicit initialization so the first stable value is known.",
+    "concept": "A custom up counter can reload a chosen starting pattern at the first unwanted count. Distinguish states held for a count interval from the terminal pattern that triggers the reload.",
     "teachingSteps": [
       "The exact detector for 110 uses Q2Q1Q0 complement.",
       "A NAND of that product supplies an active-low reload trigger.",
@@ -21383,7 +21383,7 @@ export const reviewedLessons=[
     "title": "Configure D toggle stages",
     "lectureTitle": "Realize a modulo-six ripple counter",
     "start": 65.56,
-    "concept": "Edge-triggered D elements become toggle stages with D=Q complement. A three-bit up ripple chain can be truncated to six stable states by detecting 110 and asserting clear. Connect each D to its own Q complement. For falling-edge up-counting stages, direct Q clocks the next stage. Specify Q2Q1Q0 with Q2 the most significant bit.",
+    "concept": "Edge-triggered D elements become toggle stages with D=Q complement. A three-bit up ripple chain can be truncated to six stable states by detecting 110 and asserting clear.",
     "teachingSteps": [
       "Connect each D to its own Q complement.",
       "For falling-edge up-counting stages, direct Q clocks the next stage.",
@@ -21465,7 +21465,7 @@ export const reviewedLessons=[
     "title": "Exclude the reset-triggering pattern",
     "lectureTitle": "Realize a modulo-six ripple counter",
     "start": 95.05,
-    "concept": "Edge-triggered D elements become toggle stages with D=Q complement. A three-bit up ripple chain can be truncated to six stable states by detecting 110 and asserting clear. The stable sequence is 000 through 101. Pattern 110 triggers reset rather than remaining for a count interval. The reset returns all three stored bits to zero.",
+    "concept": "Edge-triggered D elements become toggle stages with D=Q complement. A three-bit up ripple chain can be truncated to six stable states by detecting 110 and asserting clear.",
     "teachingSteps": [
       "The stable sequence is 000 through 101.",
       "Pattern 110 triggers reset rather than remaining for a count interval.",
@@ -21539,7 +21539,7 @@ export const reviewedLessons=[
     "title": "Choose clear polarity correctly",
     "lectureTitle": "Realize a modulo-six ripple counter",
     "start": 123.43,
-    "concept": "Edge-triggered D elements become toggle stages with D=Q complement. A three-bit up ripple chain can be truncated to six stable states by detecting 110 and asserting clear. An exact active-high detector is Q2Q1Q0′. An exact active-low detector is its complement. Connect the detector to direct controls with the matching assertion level.",
+    "concept": "Edge-triggered D elements become toggle stages with D=Q complement. A three-bit up ripple chain can be truncated to six stable states by detecting 110 and asserting clear.",
     "teachingSteps": [
       "An exact active-high detector is Q2Q1Q0′.",
       "An exact active-low detector is its complement.",
@@ -21613,7 +21613,7 @@ export const reviewedLessons=[
     "title": "Accumulate the stage delays",
     "lectureTitle": "Ripple-counter maximum clock rate",
     "start": 30.59,
-    "concept": "Under the simplified ripple-settling model, an n-stage transition needs n times the stage propagation delay. The next count event must wait at least that long; additional setup or logic constraints are excluded unless stated. Count the stages that can be traversed by a full ripple. Add their propagation delays in series. Use equal stage delays only when the problem explicitly gives them.",
+    "concept": "Under the simplified ripple-settling model, an n-stage transition needs n times the stage propagation delay. The next count event must wait at least that long; additional setup or logic constraints are excluded unless stated.",
     "teachingSteps": [
       "Count the stages that can be traversed by a full ripple.",
       "Add their propagation delays in series.",
@@ -21683,7 +21683,7 @@ export const reviewedLessons=[
     "title": "Convert delay to maximum frequency",
     "lectureTitle": "Ripple-counter maximum clock rate",
     "start": 30.59,
-    "concept": "Under the simplified ripple-settling model, an n-stage transition needs n times the stage propagation delay. The next count event must wait at least that long; additional setup or logic constraints are excluded unless stated. In this model Tmin=n tpd. Then fmax=1/Tmin with consistent units. For a period in ns, frequency in MHz is 1000 divided by that period.",
+    "concept": "Under the simplified ripple-settling model, an n-stage transition needs n times the stage propagation delay. The next count event must wait at least that long; additional setup or logic constraints are excluded unless stated.",
     "teachingSteps": [
       "In this model Tmin=n tpd.",
       "Then fmax=1/Tmin with consistent units.",
@@ -21718,7 +21718,7 @@ export const reviewedLessons=[
       },
       {
         "type": "choice",
-        "prompt": "Can the input period be shorter than the worst-case settling delay in this model?",
+        "prompt": "A ripple counter must settle fully before the next input edge. Can its input period be shorter than its worst-case settling delay?",
         "options": [
           "No",
           "Yes, always",
@@ -21753,7 +21753,7 @@ export const reviewedLessons=[
     "title": "Compare a clock against the bound",
     "lectureTitle": "Ripple-counter maximum clock rate",
     "start": 66.08,
-    "concept": "Under the simplified ripple-settling model, an n-stage transition needs n times the stage propagation delay. The next count event must wait at least that long; additional setup or logic constraints are excluded unless stated. Convert the given frequency to an input period. Compare that period with the full-chain delay. Treat this as the explicitly simplified model, not a complete physical timing specification.",
+    "concept": "Under the simplified ripple-settling model, an n-stage transition needs n times the stage propagation delay. The next count event must wait at least that long; additional setup or logic constraints are excluded unless stated.",
     "teachingSteps": [
       "Convert the given frequency to an input period.",
       "Compare that period with the full-chain delay.",
@@ -21831,7 +21831,7 @@ export const reviewedLessons=[
     "title": "Find the number of stages",
     "lectureTitle": "Budget propagation delay per ripple stage",
     "start": 58.2,
-    "concept": "A clock-rate limit can be rearranged to find the allowed delay per stage. The number of stages comes from the counter width, not directly from its decimal modulus. A full binary counter with modulus 2^n uses n one-bit stages. Find n before applying the timing inequality. A truncated counter may use more patterns than its stable modulus, so distinguish capacity from cycle length.",
+    "concept": "A clock-rate limit can be rearranged to find the allowed delay per stage. The number of stages comes from the counter width, not directly from its decimal modulus.",
     "teachingSteps": [
       "A full binary counter with modulus 2^n uses n one-bit stages.",
       "Find n before applying the timing inequality.",
@@ -21896,7 +21896,7 @@ export const reviewedLessons=[
     "title": "Rearrange the timing inequality",
     "lectureTitle": "Budget propagation delay per ripple stage",
     "start": 58.2,
-    "concept": "A clock-rate limit can be rearranged to find the allowed delay per stage. The number of stages comes from the counter width, not directly from its decimal modulus. Under the simplified equal-delay ripple model, f <= 1/(n tpd). Rearrange to tpd <= 1/(n f). With f in MHz, the allowed tpd in ns is 1000/(n f).",
+    "concept": "A clock-rate limit can be rearranged to find the allowed delay per stage. The number of stages comes from the counter width, not directly from its decimal modulus.",
     "teachingSteps": [
       "Under the simplified equal-delay ripple model, f <= 1/(n tpd).",
       "Rearrange to tpd <= 1/(n f).",
@@ -21966,7 +21966,7 @@ export const reviewedLessons=[
     "title": "Check the units and the total budget",
     "lectureTitle": "Budget propagation delay per ripple stage",
     "start": 147.5,
-    "concept": "A clock-rate limit can be rearranged to find the allowed delay per stage. The number of stages comes from the counter width, not directly from its decimal modulus. One microsecond equals one thousand nanoseconds. A one-MHz clock has period one microsecond. Multiply the chosen stage delay by stage count to check the full-chain budget.",
+    "concept": "A clock-rate limit can be rearranged to find the allowed delay per stage. The number of stages comes from the counter width, not directly from its decimal modulus.",
     "teachingSteps": [
       "One microsecond equals one thousand nanoseconds.",
       "A one-MHz clock has period one microsecond.",
@@ -22043,7 +22043,7 @@ export const reviewedLessons=[
     "title": "Find the last stable and first unwanted values",
     "lectureTitle": "Reload a selected down-count range",
     "start": 61.69,
-    "concept": "A down counter can return to a chosen upper value by decoding the first unwanted low count and using preset or clear controls. Count only the stable intended range when determining its modulus. For a stable down range H through L inclusive, the modulus is H-L+1. Detect L-1 and reload H immediately. For stable 7,6,5,4,3, detect 2 and reload 7.",
+    "concept": "A down counter can return to a chosen upper value by decoding the first unwanted low count and using preset or clear controls. Count only the stable intended range when determining its modulus.",
     "teachingSteps": [
       "For a stable down range H through L inclusive, the modulus is H-L+1.",
       "Detect L-1 and reload H immediately.",
@@ -22118,7 +22118,7 @@ export const reviewedLessons=[
     "title": "Detect and preset the upper endpoint",
     "lectureTitle": "Reload a selected down-count range",
     "start": 31.98,
-    "concept": "A down counter can return to a chosen upper value by decoding the first unwanted low count and using preset or clear controls. Count only the stable intended range when determining its modulus. To reload 111, preset all three bits. The exact detector for 010 is Q2′Q1Q0′. A NAND of that product provides an active-low preset trigger.",
+    "concept": "A down counter can return to a chosen upper value by decoding the first unwanted low count and using preset or clear controls. Count only the stable intended range when determining its modulus.",
     "teachingSteps": [
       "To reload 111, preset all three bits.",
       "The exact detector for 010 is Q2′Q1Q0′.",
@@ -22192,7 +22192,7 @@ export const reviewedLessons=[
     "title": "Verify count direction and wrap",
     "lectureTitle": "Reload a selected down-count range",
     "start": 61.69,
-    "concept": "A down counter can return to a chosen upper value by decoding the first unwanted low count and using preset or clear controls. Count only the stable intended range when determining its modulus. Rising-edge toggle stages with direct previous Q form the stated down ripple chain. Check the reload detector separately from the ordinary decrement behavior. After terminal detection, apply the next count from the reloaded value.",
+    "concept": "A down counter can return to a chosen upper value by decoding the first unwanted low count and using preset or clear controls. Count only the stable intended range when determining its modulus.",
     "teachingSteps": [
       "Rising-edge toggle stages with direct previous Q form the stated down ripple chain.",
       "Check the reload detector separately from the ordinary decrement behavior.",
@@ -22274,7 +22274,7 @@ export const reviewedLessons=[
     "title": "Use the old state for every stage",
     "lectureTitle": "Analyze synchronous next-state equations",
     "start": 2089.6,
-    "concept": "All stages of a synchronous counter use the same active clock edge. Evaluate every input equation from the current state, then update the entire state vector together. For the example T0=1,T1=Q0,T2=Q1, all Q symbols mean current-state values. A T stage uses Qnext=Q XOR T. Compute the three next bits before replacing any current bit.",
+    "concept": "All stages of a synchronous counter use the same active clock edge. Evaluate every input equation from the current state, then update the entire state vector together.",
     "teachingSteps": [
       "For the example T0=1,T1=Q0,T2=Q1, all Q symbols mean current-state values.",
       "A T stage uses Qnext=Q XOR T.",
@@ -22356,7 +22356,7 @@ export const reviewedLessons=[
     "title": "Find the reachable cycle",
     "lectureTitle": "Analyze synchronous next-state equations",
     "start": 28.17,
-    "concept": "All stages of a synchronous counter use the same active clock edge. Evaluate every input equation from the current state, then update the entire state vector together. Trace the next-state map from the given initial state. For this model, 000→001→010→111→000. A circuit can have more than one separate cycle, so the starting state matters.",
+    "concept": "All stages of a synchronous counter use the same active clock edge. Evaluate every input equation from the current state, then update the entire state vector together.",
     "teachingSteps": [
       "Trace the next-state map from the given initial state.",
       "For this model, 000→001→010→111→000.",
@@ -22430,7 +22430,7 @@ export const reviewedLessons=[
     "title": "Analyze another initial state",
     "lectureTitle": "Analyze synchronous next-state equations",
     "start": 607.95,
-    "concept": "All stages of a synchronous counter use the same active clock edge. Evaluate every input equation from the current state, then update the entire state vector together. A complete analysis lists the next state for every binary pattern. This model also has cycle 011→100→101→110→011. Use cycle length to reduce a large number of update events.",
+    "concept": "All stages of a synchronous counter use the same active clock edge. Evaluate every input equation from the current state, then update the entire state vector together.",
     "teachingSteps": [
       "A complete analysis lists the next state for every binary pattern.",
       "This model also has cycle 011→100→101→110→011.",
@@ -22504,7 +22504,7 @@ export const reviewedLessons=[
     "title": "Extract the JK input functions",
     "lectureTitle": "Analyze a synchronous JK counter",
     "start": 654.87,
-    "concept": "A wired JK counter is analyzed by substituting current-state bits into its J/K equations. The JK characteristic rule then produces each next bit at the common active clock edge. Use J0=Q2+Q1,K0=1; J1=Q2,K1=Q0′; J2=Q1′Q0′,K2=1. All three storage elements share an active clock edge. The characteristic rule is Qnext=JQ′+K′Q.",
+    "concept": "A wired JK counter is analyzed by substituting current-state bits into its J/K equations. The JK characteristic rule then produces each next bit at the common active clock edge.",
     "teachingSteps": [
       "Use J0=Q2+Q1,K0=1; J1=Q2,K1=Q0′; J2=Q1′Q0′,K2=1.",
       "All three storage elements share an active clock edge.",
@@ -22590,7 +22590,7 @@ export const reviewedLessons=[
     "title": "Trace the reachable five-state cycle",
     "lectureTitle": "Analyze a synchronous JK counter",
     "start": 210.41,
-    "concept": "A wired JK counter is analyzed by substituting current-state bits into its J/K equations. The JK characteristic rule then produces each next bit at the common active clock edge. For the stated wiring, 000→100→011→010→001→000. Every transition evaluates all J/K inputs from the current state. This initial trajectory has a five-state period.",
+    "concept": "A wired JK counter is analyzed by substituting current-state bits into its J/K equations. The JK characteristic rule then produces each next bit at the common active clock edge.",
     "teachingSteps": [
       "For the stated wiring, 000→100→011→010→001→000.",
       "Every transition evaluates all J/K inputs from the current state.",
@@ -22661,7 +22661,7 @@ export const reviewedLessons=[
     "title": "Check transitions outside the cycle",
     "lectureTitle": "Analyze a synchronous JK counter",
     "start": 1305.48,
-    "concept": "A wired JK counter is analyzed by substituting current-state bits into its J/K equations. The JK characteristic rule then produces each next bit at the common active clock edge. A full table includes all eight possible current states. A state not in the main cycle may enter it after one or more updates. Count only recurring states when finding the period after initialization transients.",
+    "concept": "A wired JK counter is analyzed by substituting current-state bits into its J/K equations. The JK characteristic rule then produces each next bit at the common active clock edge.",
     "teachingSteps": [
       "A full table includes all eight possible current states.",
       "A state not in the main cycle may enter it after one or more updates.",
@@ -22693,14 +22693,14 @@ export const reviewedLessons=[
       },
       {
         "type": "choice",
-        "prompt": "Does every representable state need to lie on the same cycle?",
+        "prompt": "In a finite-state circuit, do all representable states have to form one repeating cycle?",
         "options": [
-          "Yes",
-          "Only for JK circuits",
-          "No"
+          "Yes, every state must belong to one cycle",
+          "Only synchronous circuits can have cycles",
+          "No, the transition rules can create several cycles and transient states"
         ],
         "answer": 2,
-        "explanation": "Some states can lead into a cycle without recurring themselves."
+        "explanation": "A finite state machine can have distinct cycles and transient states."
       },
       {
         "type": "number",
@@ -22735,7 +22735,7 @@ export const reviewedLessons=[
     "title": "Apply the T inputs simultaneously",
     "lectureTitle": "Trace a custom synchronous T counter",
     "start": 89.84,
-    "concept": "For the defined three-bit state PQR, use TP=R,TQ=P′,TR=Q′. All next bits use the pre-edge state, and trajectories can include both cycles and transient entries. The state order is P,Q,R, with P most significant. Inputs are TP=R,TQ=P′,TR=Q′. The next bits are P XOR TP, Q XOR TQ, and R XOR TR.",
+    "concept": "For the defined three-bit state PQR, use TP=R,TQ=P′,TR=Q′. All next bits use the pre-edge state, and trajectories can include both cycles and transient entries.",
     "teachingSteps": [
       "The state order is P,Q,R, with P most significant.",
       "Inputs are TP=R,TQ=P′,TR=Q′.",
@@ -22813,7 +22813,7 @@ export const reviewedLessons=[
     "title": "Use the reachable period",
     "lectureTitle": "Trace a custom synchronous T counter",
     "start": 0,
-    "concept": "For the defined three-bit state PQR, use TP=R,TQ=P′,TR=Q′. All next bits use the pre-edge state, and trajectories can include both cycles and transient entries. From 000, the recurring sequence is 000→011→101→000. The reachable period is three active clock edges. Reduce a long edge count modulo three for that starting cycle.",
+    "concept": "For the defined three-bit state PQR, use TP=R,TQ=P′,TR=Q′. All next bits use the pre-edge state, and trajectories can include both cycles and transient entries.",
     "teachingSteps": [
       "From 000, the recurring sequence is 000→011→101→000.",
       "The reachable period is three active clock edges.",
@@ -22886,7 +22886,7 @@ export const reviewedLessons=[
     "title": "Distinguish transients and fixed points",
     "lectureTitle": "Trace a custom synchronous T counter",
     "start": 0,
-    "concept": "For the defined three-bit state PQR, use TP=R,TQ=P′,TR=Q′. All next bits use the pre-edge state, and trajectories can include both cycles and transient entries. Analyze the entire next-state map if the initial state is unspecified. Here 111 enters 011, while 110 maps to itself. A fixed point is a one-state recurring cycle, not part of the three-state trajectory.",
+    "concept": "For the defined three-bit state PQR, use TP=R,TQ=P′,TR=Q′. All next bits use the pre-edge state, and trajectories can include both cycles and transient entries.",
     "teachingSteps": [
       "Analyze the entire next-state map if the initial state is unspecified.",
       "Here 111 enters 011, while 110 maps to itself.",
@@ -22900,14 +22900,14 @@ export const reviewedLessons=[
     "questions": [
       {
         "type": "choice",
-        "prompt": "For this model, 111→011→101→000→011. Which state is an initial transient?",
+        "prompt": "A state machine follows 111→011→101→000→011, then repeats 011→101→000. Which state is an initial transient?",
         "options": [
           "111",
           "011",
           "101"
         ],
         "answer": 0,
-        "explanation": "111 appears before the recurring three-state cycle and does not return."
+        "explanation": "111 appears once before the recurring three-state cycle and never returns."
       },
       {
         "type": "number",
@@ -22960,7 +22960,7 @@ export const reviewedLessons=[
     "title": "Derive toggle enables",
     "lectureTitle": "Design synchronous binary counters",
     "start": 208.39,
-    "concept": "Counter design starts with the desired state transitions and derives the required storage inputs. T or D input equations can implement binary up counting, while the maximum clock rate depends on the register-to-register critical path. In binary up counting, Q0 changes at every update, so T0=1. Q1 changes when current Q0=1, so T1=Q0. Q2 changes when both lower bits are one, so T2=Q1Q0.",
+    "concept": "Counter design starts with the desired state transitions and derives the required storage inputs. T or D input equations can implement binary up counting, while the maximum clock rate depends on the register-to-register critical path.",
     "teachingSteps": [
       "In binary up counting, Q0 changes at every update, so T0=1.",
       "Q1 changes when current Q0=1, so T1=Q0.",
@@ -23042,7 +23042,7 @@ export const reviewedLessons=[
     "title": "Choose T or D storage equations",
     "lectureTitle": "Design synchronous binary counters",
     "start": 771.98,
-    "concept": "Counter design starts with the desired state transitions and derives the required storage inputs. T or D input equations can implement binary up counting, while the maximum clock rate depends on the register-to-register critical path. For two-bit up counting, T0=1 and T1=Q0. Equivalent D equations are D0=Q0′ and D1=Q1 XOR Q0. Verify every present-state row against the intended next state.",
+    "concept": "Counter design starts with the desired state transitions and derives the required storage inputs. T or D input equations can implement binary up counting, while the maximum clock rate depends on the register-to-register critical path.",
     "teachingSteps": [
       "For two-bit up counting, T0=1 and T1=Q0.",
       "Equivalent D equations are D0=Q0′ and D1=Q1 XOR Q0.",
@@ -23142,7 +23142,7 @@ export const reviewedLessons=[
     "title": "Budget the synchronous critical path",
     "lectureTitle": "Design synchronous binary counters",
     "start": 4363.98,
-    "concept": "Counter design starts with the desired state transitions and derives the required storage inputs. T or D input equations can implement binary up counting, while the maximum clock rate depends on the register-to-register critical path. With zero clock skew, a simplified setup bound is Tclk >= tCQ + tlogic,max + tsetup. Parallel register stages do not add n serial flip-flop delays. Hold requirements are separate from this maximum-period setup calculation.",
+    "concept": "Counter design starts with the desired state transitions and derives the required storage inputs. T or D input equations can implement binary up counting, while the maximum clock rate depends on the register-to-register critical path.",
     "teachingSteps": [
       "With zero clock skew, a simplified setup bound is Tclk >= tCQ + tlogic,max + tsetup.",
       "Parallel register stages do not add n serial flip-flop delays.",
@@ -23216,7 +23216,7 @@ export const reviewedLessons=[
     "title": "Rotate the one-hot pattern",
     "lectureTitle": "Ring counters and one-hot timing",
     "start": 28.78,
-    "concept": "A ring counter recirculates a shift-register bit pattern. With one-hot initialization, an n-stage ring visits n states and provides one active timing output per step; an alternative uses a binary counter and decoder. Here ABCD is written left to right, with A most significant. Use next ABCD = DABC, recirculating the last bit to the first position. Start at 1000 so exactly one output remains asserted throughout the valid cycle.",
+    "concept": "A ring counter recirculates a shift-register bit pattern. With one-hot initialization, an n-stage ring visits n states and provides one active timing output per step; an alternative uses a binary counter and decoder.",
     "teachingSteps": [
       "Here ABCD is written left to right, with A most significant.",
       "Use next ABCD = DABC, recirculating the last bit to the first position.",
@@ -23290,7 +23290,7 @@ export const reviewedLessons=[
     "title": "Initialize and preserve one-hot state",
     "lectureTitle": "Ring counters and one-hot timing",
     "start": 2365.54,
-    "concept": "A ring counter recirculates a shift-register bit pattern. With one-hot initialization, an n-stage ring visits n states and provides one active timing output per step; an alternative uses a binary counter and decoder. Preset one stage and clear all the others to start the desired cycle. Pure rotation preserves the number of ones. An all-zero ring stays zero and does not start the desired one-hot timing sequence by itself.",
+    "concept": "A ring counter recirculates a shift-register bit pattern. With one-hot initialization, an n-stage ring visits n states and provides one active timing output per step; an alternative uses a binary counter and decoder.",
     "teachingSteps": [
       "Preset one stage and clear all the others to start the desired cycle.",
       "Pure rotation preserves the number of ones.",
@@ -23368,7 +23368,7 @@ export const reviewedLessons=[
     "title": "Compare two timing-signal implementations",
     "lectureTitle": "Ring counters and one-hot timing",
     "start": 1680.21,
-    "concept": "A ring counter recirculates a shift-register bit pattern. With one-hot initialization, an n-stage ring visits n states and provides one active timing output per step; an alternative uses a binary counter and decoder. A direct n-output one-hot ring uses n storage bits. For n=2^k, a k-bit binary counter plus a k-to-n decoder can produce the same cyclic one-active-output sequence. Compare storage-bit count separately from the added decoding logic.",
+    "concept": "A ring counter recirculates a shift-register bit pattern. With one-hot initialization, an n-stage ring visits n states and provides one active timing output per step; an alternative uses a binary counter and decoder.",
     "teachingSteps": [
       "A direct n-output one-hot ring uses n storage bits.",
       "For n=2^k, a k-bit binary counter plus a k-to-n decoder can produce the same cyclic one-active-output sequence.",
@@ -23446,7 +23446,7 @@ export const reviewedLessons=[
     "title": "Trace complemented feedback",
     "lectureTitle": "Twisted-ring and Johnson timing counters",
     "start": 31.02,
-    "concept": "A twisted-ring register feeds the complement of its last bit back to its first stage. Initialized to all zeros, n stages visit 2n states; decoding that valid cycle produces one-hot Johnson timing signals. Use four bits ABCD with next ABCD=(D complement)ABC. Starting at 0000, ones fill the register, then zeros replace them. The valid initialized cycle has eight states rather than sixteen.",
+    "concept": "A twisted-ring register feeds the complement of its last bit back to its first stage. Initialized to all zeros, n stages visit 2n states; decoding that valid cycle produces one-hot Johnson timing signals.",
     "teachingSteps": [
       "Use four bits ABCD with next ABCD=(D complement)ABC.",
       "Starting at 0000, ones fill the register, then zeros replace them.",
@@ -23524,7 +23524,7 @@ export const reviewedLessons=[
     "title": "Decode one timing signal per state",
     "lectureTitle": "Twisted-ring and Johnson timing counters",
     "start": 1712.43,
-    "concept": "A twisted-ring register feeds the complement of its last bit back to its first stage. Initialized to all zeros, n stages visit 2n states; decoding that valid cycle produces one-hot Johnson timing signals. Raw twisted-ring bits are not generally one-hot. Within the valid four-stage cycle, detect 0000 using A′D′ and 1111 using AD. Other cycle states can be detected by the adjacent 10 or 01 boundary; assume complements are available.",
+    "concept": "A twisted-ring register feeds the complement of its last bit back to its first stage. Initialized to all zeros, n stages visit 2n states; decoding that valid cycle produces one-hot Johnson timing signals.",
     "teachingSteps": [
       "Raw twisted-ring bits are not generally one-hot.",
       "Within the valid four-stage cycle, detect 0000 using A′D′ and 1111 using AD.",
@@ -23610,7 +23610,7 @@ export const reviewedLessons=[
     "title": "Compare ring and twisted-ring capacity",
     "lectureTitle": "Twisted-ring and Johnson timing counters",
     "start": 321.45,
-    "concept": "A twisted-ring register feeds the complement of its last bit back to its first stage. Initialized to all zeros, n stages visit 2n states; decoding that valid cycle produces one-hot Johnson timing signals. A one-hot n-stage ring has n valid states. An all-zero-initialized n-stage twisted ring has 2n valid-cycle states. Storage capacity 2^n is distinct from the number of states used by either initialized cycle.",
+    "concept": "A twisted-ring register feeds the complement of its last bit back to its first stage. Initialized to all zeros, n stages visit 2n states; decoding that valid cycle produces one-hot Johnson timing signals.",
     "teachingSteps": [
       "A one-hot n-stage ring has n valid states.",
       "An all-zero-initialized n-stage twisted ring has 2n valid-cycle states.",
@@ -23643,17 +23643,17 @@ export const reviewedLessons=[
       },
       {
         "type": "number",
-        "prompt": "A valid twisted-ring cycle needs twelve phases. Minimum stage count for this 2n-state construction?",
+        "prompt": "A Johnson (twisted-ring) counter with n storage stages has 2n states in its valid cycle. If twelve phases are needed, what is the minimum stage count?",
         "answer": 6,
         "tolerance": 1e-8,
-        "explanation": "Twelve phases require n=12/2 = six stages."
+        "explanation": "2n=12, so n=6 storage stages."
       },
       {
         "type": "number",
-        "prompt": "Four-stage twisted-ring cycle starts 0000. After ten updates, decimal ABCD?",
+        "prompt": "A four-stage Johnson counter shifts ABC right and feeds complemented D into A: next ABCD=(D complement)ABC. Starting at 0000, what is decimal ABCD after ten updates?",
         "answer": 12,
         "tolerance": 1e-8,
-        "explanation": "Ten modulo eight is two steps: 0000→1000→1100, decimal twelve."
+        "explanation": "Four stages have an eight-state valid cycle. Ten updates equal two steps: 0000→1000→1100, which is decimal twelve."
       },
       {
         "type": "choice",

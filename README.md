@@ -4,9 +4,11 @@ A local computer-science learning platform with topic-specific teaching, worked 
 
 Saved rounds let you pause and continue after reloading. A practice hub offers quick warm-ups, mistake recovery, spaced review and weaker topics. Shared daily goals, weekly activity, earned milestones and reduced-motion settings help make learning a sustainable habit. See [learning experience improvements](docs/UX_IMPROVEMENTS.md).
 
-**Login is required** to access lessons, transcripts and the learning portal. **My profile** adds local accounts, automatic server saves, private progress tracking, 3D character avatars, recovery codes and full learning backups. Course completion is shown as a percentage. Existing guest progress can be brought into a new account. See [accounts and keyboard controls](docs/ACCOUNTS.md). Private account records live in ignored `data/accounts`, independently of runtime logs.
+**Social** adds friend requests, side-by-side learner comparisons, friends/community weekly leaderboards, Bronze-to-Diamond leagues, XP races, shared team goals, invitations and activity updates. Public league participation is optional; private learning fields are never returned by social APIs. See [friends and competitions](docs/SOCIAL.md).
 
-Double-click **Start CSQuest.cmd**, then visit **http://localhost:4173**. The launcher starts one shared server and one watcher that checks every subject once per minute. Access remains restricted to this PC.
+**Login is required** to access lessons, transcripts and the learning portal. **My profile** adds accounts, automatic server saves, private progress tracking, 3D character avatars, recovery codes and full learning backups. Course completion is shown as a percentage. Existing guest progress can be brought into a new account. See [accounts and keyboard controls](docs/ACCOUNTS.md). PostgreSQL stores accounts, password hashes, sessions, progress, settings, drafts, course catalogs, lessons, transcripts and course status.
+
+Run `npm install` and `npm run db:setup` once, then double-click **Start CSQuest.cmd** and visit **http://localhost:4173**. Setup creates an isolated local PostgreSQL database and imports existing data. The launcher starts PostgreSQL, one shared server and one watcher that checks every subject once per minute. Access remains restricted to this PC. See [PostgreSQL setup and migration](docs/POSTGRESQL.md).
 
 The repository contains scaffolds for all **11 subjects / 864 recordings** discovered under `K:\Gate\GO CSE`, including videos inside nested `Done` folders. COA and Digital Logic are available; the remaining subjects appear as **Coming Soon** until transcription and reviewed lessons are ready.
 
@@ -30,17 +32,22 @@ runtime/              Ignored process IDs, logs, and live progress snapshots
 tooling/              Ignored downloaded dependencies, models, and archives
 ```
 
-Node.js **20 or newer** is required. The local server has no npm runtime dependencies; the Vercel build bundles its Analytics client.
+Node.js **20.12 or newer**, npm dependencies, and PostgreSQL are required. The server uses the `pg` connection pool; the Vercel build bundles its Analytics client.
 
 ## Deploying on Vercel
 
-Keep the Vercel **Root Directory** at the repository root. `vercel.json` runs `npm run build:vercel`, which assembles the browser UI, shared modules, subject list, course lessons, and serverless API routes in Vercel's Build Output format.
+Keep the Vercel **Root Directory** at the repository root. `vercel.json` runs `npm run build:vercel`, which assembles the browser UI, shared modules and one PostgreSQL-backed function in Vercel's Build Output format. Subject catalogs, lessons and transcripts are read from the database rather than bundled as static course data.
 
-To enable accounts and saved progress, connect an Upstash Redis database to the Vercel project through the Vercel Marketplace. The integration must provide `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` (or `KV_REST_API_URL` and `KV_REST_API_TOKEN`). No local recording-drive paths are needed in Vercel. The hosted app serves committed course lessons; local transcription and watcher updates remain available only on the local server.
+For a future deployment, configure a hosted PostgreSQL `DATABASE_URL` (or `POSTGRES_URL`), migrate that database, and import course data before deploying. Redis variables are no longer used. The local database on `127.0.0.1:55432` is for this PC. Local restructuring does not change the existing deployed site.
 
 | Command | Purpose |
 |---|---|
 | `npm start` | Run the localhost server |
+| `npm run db:setup` | Create local PostgreSQL, migrate schema, import existing data |
+| `npm run db:local` | Start the isolated local database |
+| `npm run db:stop` | Stop the isolated local database |
+| `npm run db:migrate` | Apply pending PostgreSQL schema migrations |
+| `npm run db:import` | Publish course files and import legacy accounts without overwriting users |
 | `npm run watch` | Periodically import all registered subjects |
 | `npm run sync` | Import every subject once |
 | `npm run sync -- dl` | Import one subject |

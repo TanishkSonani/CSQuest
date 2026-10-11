@@ -9,7 +9,7 @@ export const units=[
       21
     ],
     "subtitle": "Learn the rule. Build the circuit. Make it stick.",
-    "goal": "Apply the lecture concepts to original Digital Logic puzzles."
+    "goal": "Describe logic gates, simplify Boolean expressions and group truth-table rows using Karnaugh maps."
   },
   {
     "id": 1,
@@ -21,7 +21,7 @@ export const units=[
       38
     ],
     "subtitle": "Learn the rule. Build the circuit. Make it stick.",
-    "goal": "Apply the lecture concepts to original Digital Logic puzzles."
+    "goal": "Convert number bases, encode signed values and distinguish binary, BCD and Gray codes."
   },
   {
     "id": 2,
@@ -33,7 +33,7 @@ export const units=[
       51
     ],
     "subtitle": "Learn the rule. Build the circuit. Make it stick.",
-    "goal": "Apply the lecture concepts to original Digital Logic puzzles."
+    "goal": "Build selection and routing functions with multiplexers, decoders and encoders."
   },
   {
     "id": 3,
@@ -45,7 +45,7 @@ export const units=[
       62
     ],
     "subtitle": "Learn the rule. Build the circuit. Make it stick.",
-    "goal": "Apply the lecture concepts to original Digital Logic puzzles."
+    "goal": "Add binary values, follow carries and calculate delay through arithmetic circuits."
   },
   {
     "id": 4,
@@ -57,7 +57,7 @@ export const units=[
       80
     ],
     "subtitle": "Learn the rule. Build the circuit. Make it stick.",
-    "goal": "Apply the lecture concepts to original Digital Logic puzzles."
+    "goal": "Predict stored bits using latches, flip-flops and their clock or direct-control inputs."
   },
   {
     "id": 5,
@@ -69,597 +69,597 @@ export const units=[
       97
     ],
     "subtitle": "Learn the rule. Build the circuit. Make it stick.",
-    "goal": "Apply the lecture concepts to original Digital Logic puzzles."
+    "goal": "Trace counter states, calculate division ratios and compare ripple and synchronous designs."
   }
 ];
 export const lecturePlans=[
   [
-    "Introduction to Digital Logic & Boolean Algebra",
-    "Explore · Introduction to Digital Logic & Boolean Algebra",
-    "Build & trace",
-    "Logic checkpoint"
+    "Why digital logic uses two states",
+    "Signals become bits",
+    "From a circuit to a rule",
+    "Read the abstraction correctly"
   ],
   [
-    "Boolean Algebra",
-    "Explore · Boolean Algebra",
-    "Build & trace",
-    "Logic checkpoint"
+    "Boolean operations and circuits",
+    "Meet NOT, AND, OR",
+    "Switches tell a story",
+    "Compose an expression"
   ],
   [
-    "Binary & Decimal Number System",
-    "Explore · Binary & Decimal Number System",
-    "Build & trace",
-    "Logic checkpoint"
+    "Binary place values and conversion",
+    "Read powers of two",
+    "Divide and collect remainders",
+    "Use nearby powers"
   ],
   [
-    "Practice Decimal & Binary Number System",
-    "Explore · Practice Decimal & Binary Number System",
-    "Build & trace",
-    "Logic checkpoint"
+    "Fast decimal/binary practice",
+    "Break down 600",
+    "Keep every position",
+    "Recognize useful patterns"
   ],
   [
-    "Boolean Algebra Continued",
-    "Explore · Boolean Algebra Continued",
-    "Build & trace",
-    "Logic checkpoint"
+    "NAND, NOR, XOR, XNOR and literals",
+    "Invert gate outputs",
+    "Different or equal?",
+    "Count rows and literals"
   ],
   [
-    "Boolean Expressions & Boolean Algebra Law",
-    "Explore · Boolean Expressions & Boolean Algebra Law",
-    "Build & trace",
-    "Logic checkpoint"
+    "Boolean functions and laws",
+    "A function is a mapping",
+    "Prove by cases",
+    "Apply De Morgan"
   ],
   [
-    "Complement & Dual of Boolean Expressions",
-    "Explore · Complement & Dual of Boolean Expressions",
-    "Build & trace",
-    "Logic checkpoint"
+    "Complement versus dual",
+    "Find the complement",
+    "Find the dual",
+    "Check the difference"
   ],
   [
-    "Algebraic Simplification",
-    "Explore · Algebraic Simplification",
-    "Build & trace",
-    "Logic checkpoint"
+    "Simplify and justify",
+    "Absorb redundant terms",
+    "Prove an identity",
+    "Shrink the implementation"
   ],
   [
-    "Standard Forms of Boolean Expressions",
-    "Explore · Standard Forms of Boolean Expressions",
-    "Build & trace",
-    "Logic checkpoint"
+    "SOP and POS standard forms",
+    "Recognize terms",
+    "Recognize whole forms",
+    "Count functions"
   ],
   [
-    "Minterm, Maxterm",
-    "Explore · Minterm, Maxterm",
-    "Build & trace",
-    "Logic checkpoint"
+    "Minterm and maxterm row selectors",
+    "Construct a minterm",
+    "Construct a maxterm",
+    "Respect index order"
   ],
   [
-    "Sum of Minterms, Product of Max",
-    "Explore · Sum of Minterms, Product of Max",
-    "Build & trace",
-    "Logic checkpoint"
+    "Properties of canonical terms",
+    "One selected row",
+    "Complement a term",
+    "Read a row set"
   ],
   [
-    "Expressing Boolean Function usi",
-    "Explore · Expressing Boolean Function usi",
-    "Build & trace",
-    "Logic checkpoint"
+    "Express any function canonically",
+    "Build canonical SOP",
+    "Build canonical POS",
+    "Equivalent, not dual"
   ],
   [
-    "Revision & Practice Standard Forms of Boo",
-    "Explore · Revision & Practice Standard Forms of Boo",
-    "Build & trace",
-    "Logic checkpoint"
+    "Canonical revision and set operations",
+    "Translate names",
+    "Combine one-row sets",
+    "Expand missing variables"
   ],
   [
-    "Practice Questions Sum of Minterms, Produ",
-    "Explore · Practice Questions Sum of Minterms, Produ",
-    "Build & trace",
-    "Logic checkpoint"
+    "Convert POS and complement safely",
+    "Find zeros from POS",
+    "Complement into SOP",
+    "Check both routes"
   ],
   [
-    "K Map Part 1 Boolean Function Minimizatio",
-    "Explore · K Map Part 1 Boolean Function Minimizatio",
-    "Build & trace",
-    "Logic checkpoint"
+    "K-map adjacency and cubes",
+    "Explore a Gray-ordered map",
+    "Combine one changing literal",
+    "Make legal cubes"
   ],
   [
-    "K Map Part 2 Minimization of Boolean Expr",
-    "Explore · K Map Part 2 Minimization of Boolean Expr",
-    "Build & trace",
-    "Logic checkpoint"
+    "Choose large groups and permit overlap",
+    "Use the largest useful group",
+    "Overlap is useful",
+    "Wrap around the map"
   ],
   [
-    "K Map Part 3 Minimization of Boolean Expr",
-    "Explore · K Map Part 3 Minimization of Boolean Expr",
-    "Build & trace",
-    "Logic checkpoint"
+    "Four-variable maps and POS minimization",
+    "Place indices correctly",
+    "Read fixed literals for SOP",
+    "Group zeros for POS"
   ],
   [
-    "K Map Part 4 Don't Cares, Prime Implicant",
-    "Explore · K Map Part 4 Don't Cares, Prime Implicant",
-    "Build & trace",
-    "Logic checkpoint"
+    "Dont-cares and prime implicants",
+    "Choose dont-cares deliberately",
+    "Enlarge a useful cube",
+    "Recognize a prime implicant"
   ],
   [
-    "K Map Part 5 Prime Implicant, Essential P",
-    "Explore · K Map Part 5 Prime Implicant, Essential P",
-    "Build & trace",
-    "Logic checkpoint"
+    "Essential prime implicants and minimum covers",
+    "Prime versus essential",
+    "Choose a complete cover",
+    "Interpret implication"
   ],
   [
-    "Dual of a Boolean Function, Self",
-    "Explore · Dual of a Boolean Function, Self",
-    "Build & trace",
-    "Logic checkpoint"
+    "Dual functions and self-duality",
+    "Compute the dual output column",
+    "Test self-duality",
+    "Count by complementary pairs"
   ],
   [
-    "ExOr, ExNor Functions & Their Properties",
-    "Explore · ExOr, ExNor Functions & Their Properties",
-    "Build & trace",
-    "Logic checkpoint"
+    "XOR algebra and parity",
+    "XOR cancels pairs",
+    "Read parity",
+    "Track XNOR chains"
   ],
   [
-    "OPTIONAL Positive Level Logic System, Negative Level",
-    "Explore · OPTIONAL Positive Level Logic System, Negative Level",
-    "Build & trace",
-    "Logic checkpoint"
+    "Positive and negative logic conventions",
+    "Assign levels to values",
+    "Reinterpret a physical gate",
+    "Connect conventions to duality"
   ],
   [
-    "Octal, Hexadecimal Number Systems",
-    "Explore · Octal, Hexadecimal Number Systems",
-    "Build & trace",
-    "Logic checkpoint"
+    "Radix, octal, hex and fractions",
+    "Understand radix weights",
+    "Convert integer parts",
+    "Convert fractional parts"
   ],
   [
-    "Why Octal, Hexadecimal Number Systems are",
-    "Explore · Why Octal, Hexadecimal Number Systems are",
-    "Build & trace",
-    "Logic checkpoint"
+    "Group bits into octal and hex",
+    "Three-bit octal groups",
+    "Four-bit hexadecimal groups",
+    "Handle the radix point"
   ],
   [
-    "Binary Addition",
-    "Explore · Binary Addition",
-    "Build & trace",
-    "Logic checkpoint"
+    "Binary addition and carry",
+    "Two-bit arithmetic",
+    "Include incoming carry",
+    "Propagate across columns"
   ],
   [
-    "Complement of a number, Subtraction using",
-    "Explore · Complement of a number, Subtraction using",
-    "Build & trace",
-    "Logic checkpoint"
+    "Radix complements and subtraction",
+    "Define both complements",
+    "Complement bits efficiently",
+    "Subtract using addition"
   ],
   [
-    "Practice Questions Subtraction using r's",
-    "Explore · Practice Questions Subtraction using r's",
-    "Build & trace",
-    "Logic checkpoint"
+    "Practice radix-complement subtraction",
+    "Align operand widths",
+    "Handle a final carry",
+    "Read negative results"
   ],
   [
-    "Subtraction using r-1's complement",
-    "Explore · Subtraction using r-1's complement",
-    "Build & trace",
-    "Logic checkpoint"
+    "Diminished-complement subtraction",
+    "Use the diminished complement",
+    "Apply end-around carry",
+    "No carry and negative zero"
   ],
   [
-    "Signed Binary Numbers Representations",
-    "Explore · Signed Binary Numbers Representations",
-    "Build & trace",
-    "Logic checkpoint"
+    "Interpret signed bit patterns",
+    "Sign and magnitude",
+    "Decode complement forms",
+    "Ask for the representation"
   ],
   [
-    "Range of Signed Binary Numbers in Various",
-    "Explore · Range of Signed Binary Numbers in Various",
-    "Build & trace",
-    "Logic checkpoint"
+    "Ranges and zero representations",
+    "Symmetric signed ranges",
+    "Twos-complement asymmetry",
+    "Patterns versus numbers"
   ],
   [
-    "Addition of Signed Binary Numbers in Vari",
-    "Explore · Addition of Signed Binary Numbers in Vari",
-    "Build & trace",
-    "Logic checkpoint"
+    "Add signed values in different systems",
+    "Handle sign-magnitude cases",
+    "Add twos-complement patterns",
+    "Keep range in view"
   ],
   [
-    "Addition, Subtraction of Signed Binary Nu",
-    "Explore · Addition, Subtraction of Signed Binary Nu",
-    "Build & trace",
-    "Logic checkpoint"
+    "Addition, subtraction and end-around carry",
+    "Ones-complement addition",
+    "Twos-complement subtraction",
+    "Compare carry rules"
   ],
   [
-    "Overflow Definition, Overflow Detection i",
-    "Explore · Overflow Definition, Overflow Detection i",
-    "Build & trace",
-    "Logic checkpoint"
+    "Define overflow using the representation",
+    "Compare with the allowed range",
+    "Unsigned carry versus signed sign",
+    "Use operand signs"
   ],
   [
-    "Overflow in Addition of Signed Binary Num",
-    "Explore · Overflow in Addition of Signed Binary Num",
-    "Build & trace",
-    "Logic checkpoint"
+    "Detect signed overflow correctly",
+    "Inspect the three signs",
+    "Compare sign-bit carries",
+    "Keep encodings separate"
   ],
   [
-    "Sign Extension in Various Representatio",
-    "Explore · Sign Extension in Various Representatio",
-    "Build & trace",
-    "Logic checkpoint"
+    "Extend signed values without changing them",
+    "Unsigned zero extension",
+    "Complement-form sign extension",
+    "Sign-magnitude is different"
   ],
   [
-    "Binary Codes Introduction",
-    "Explore · Binary Codes Introduction",
-    "Build & trace",
-    "Logic checkpoint"
+    "Binary codes and minimum width",
+    "Assign distinguishable words",
+    "Count available patterns",
+    "Spend redundancy to detect errors"
   ],
   [
-    "BCD Code, 2421 Code, Self Complementary B",
-    "Explore · BCD Code, 2421 Code, Self Complementary B",
-    "Build & trace",
-    "Logic checkpoint"
+    "BCD, weighted codes and self-complementarity",
+    "Encode each decimal digit",
+    "Weighted codes and character codes",
+    "Excess-three and self-complementary codes"
   ],
   [
-    "Gray Codes",
-    "Explore · Gray Codes",
-    "Build & trace",
-    "Logic checkpoint"
+    "Reflected Gray codes",
+    "One-bit transitions",
+    "Reflect the shorter sequence",
+    "Convert binary to Gray"
   ],
   [
-    "Finding Gray Code - An Easy Alternate",
-    "Explore · Finding Gray Code - An Easy Alternate",
-    "Build & trace",
-    "Logic checkpoint"
+    "Compute Gray using a shift and XOR",
+    "Shift one place",
+    "Apply the XOR shortcut",
+    "Measure bit differences"
   ],
   [
-    "Compact Truth Table Representation",
-    "Explore · Compact Truth Table Representation",
-    "Build & trace",
-    "Logic checkpoint"
+    "Compact truth tables and cofactors",
+    "Read a compact row",
+    "Reconstruct the expression",
+    "Expand and verify"
   ],
   [
-    "Multiplexer",
-    "Explore · Multiplexer",
-    "Build & trace",
-    "Logic checkpoint"
+    "Multiplexers select one data input",
+    "Choose the data route",
+    "Write a 2-to-1 rule",
+    "Build the four branches"
   ],
   [
-    "Realization of Boolean Functions using Mu",
-    "Explore · Realization of Boolean Functions using Mu",
-    "Build & trace",
-    "Logic checkpoint"
+    "Realize Boolean functions with a mux",
+    "Tie data pins to constants",
+    "Use the selector cofactors",
+    "Check a nontrivial gate"
   ],
   [
-    "Practice Questions - Multiplexer",
-    "Explore · Practice Questions - Multiplexer",
-    "Build & trace",
-    "Logic checkpoint"
+    "Mux practice: choose the right cofactors",
+    "Route and read an input",
+    "Solve a Boolean function",
+    "Derive branches from minterms"
   ],
   [
-    "Function Realization using Multiplexer",
-    "Explore · Function Realization using Multiplexer",
-    "Build & trace",
-    "Logic checkpoint"
+    "How small a mux can realize a function?",
+    "Use the complete output column",
+    "Leave one variable on data pins",
+    "Recognize the hardware constraint"
   ],
   [
-    "Building Large Mux using Small Mux",
-    "Explore · Building Large Mux using Small Mux",
-    "Build & trace",
-    "Logic checkpoint"
+    "Build large muxes from smaller muxes",
+    "Combine two levels",
+    "Count components and depth",
+    "Assign selector groups"
   ],
   [
-    "Multiplexer with Enable Input",
-    "Explore · Multiplexer with Enable Input",
-    "Build & trace",
-    "Logic checkpoint"
+    "Enable inputs and active levels",
+    "Enable versus select",
+    "Active-high enable",
+    "Active-low enable"
   ],
   [
-    "Demultiplexer",
-    "Explore · Demultiplexer",
-    "Build & trace",
-    "Logic checkpoint"
+    "Demultiplexers distribute one input",
+    "One in, many out",
+    "Write each output rule",
+    "Follow the data value"
   ],
   [
-    "Encoder - Binary Encoder",
-    "Explore · Encoder - Binary Encoder",
-    "Build & trace",
-    "Logic checkpoint"
+    "Binary encoders and one-hot assumptions",
+    "Encode an active input index",
+    "Derive output bits",
+    "Respect the valid domain"
   ],
   [
-    "Encoder - Priority Encoder",
-    "Explore · Encoder - Priority Encoder",
-    "Build & trace",
-    "Logic checkpoint"
+    "Priority encoders",
+    "Choose the winning request",
+    "Separate validity from the code",
+    "Build priority-aware equations"
   ],
   [
-    "Decoder",
-    "Explore · Decoder",
-    "Build & trace",
-    "Logic checkpoint"
+    "Binary decoders",
+    "Decode an address",
+    "Wire the minterms",
+    "Control decoding with enable"
   ],
   [
-    "Active Low Decoder i.e. NAND gate Deco",
-    "Explore · Active Low Decoder i.e. NAND gate Deco",
-    "Build & trace",
-    "Logic checkpoint"
+    "Active-low decoders",
+    "Read one-low output vectors",
+    "Use NAND minterms",
+    "Keep enable polarity independent"
   ],
   [
-    "Function Realization using Decoder",
-    "Explore · Function Realization using Decoder",
-    "Build & trace",
-    "Logic checkpoint"
+    "Realize Boolean functions with decoders",
+    "Select the true minterms",
+    "Match the combining gate to polarity",
+    "Plan the implementation"
   ],
   [
-    "Propagation Delay & Timing Diagrams",
-    "Explore · Propagation Delay & Timing Diagrams",
-    "Build & trace",
-    "Logic checkpoint"
+    "Propagation delay and timing",
+    "Shift a transition in time",
+    "Accumulate serial delays",
+    "Find the critical path"
   ],
   [
-    "Adder - Half Adder",
-    "Explore · Adder - Half Adder",
-    "Build & trace",
-    "Logic checkpoint"
+    "Half adders",
+    "Split the result into sum and carry",
+    "Recognize the missing input",
+    "Time the implementation"
   ],
   [
-    "Adder - Full Adder",
-    "Explore · Adder - Full Adder",
-    "Build & trace",
-    "Logic checkpoint"
+    "Full adders",
+    "Add three bits",
+    "Combine two half adders",
+    "Distinguish parity and majority"
   ],
   [
-    "Adder - Ripple Carry Adder",
-    "Explore · Adder - Ripple Carry Adder",
-    "Build & trace",
-    "Logic checkpoint"
+    "Ripple carry adders",
+    "Connect the columns",
+    "Trace an addition",
+    "Follow the carry delay"
   ],
   [
-    "Carry Look Ahead Adder Part 1 Carry Gener",
-    "Explore · Carry Look Ahead Adder Part 1 Carry Gener",
-    "Build & trace",
-    "Logic checkpoint"
+    "Generate, propagate, and kill",
+    "Classify each operand pair",
+    "Compute local G and P",
+    "Time the local logic"
   ],
   [
-    "Carry Look Ahead Adder Part 2 Carry Gener",
-    "Explore · Carry Look Ahead Adder Part 2 Carry Gener",
-    "Build & trace",
-    "Logic checkpoint"
+    "Carry look-ahead equations",
+    "Use the carry recurrence",
+    "Expand away the ripple dependency",
+    "Count the two-level network"
   ],
   [
-    "Carry Look Ahead Adder Part 3 Few Questio",
-    "Explore · Carry Look Ahead Adder Part 3 Few Questio",
-    "Build & trace",
-    "Logic checkpoint"
+    "Look-ahead timing and fan-in",
+    "Keep the initial carry explicit",
+    "Add all timing stages",
+    "Respect the fan-in limit"
   ],
   [
-    "GATE CSE 2007 Question 35 Look Ahead Carry Generator",
-    "Explore · GATE CSE 2007 Question 35 Look Ahead Carry Generator",
-    "Build & trace",
-    "Logic checkpoint"
+    "Count a look-ahead carry generator",
+    "Define the counting boundary",
+    "Count AND products per carry",
+    "Generalize the count carefully"
   ],
   [
-    "GATE CSE 2016 Question 33 - Carry Look-Ahead Adder",
-    "Explore · GATE CSE 2016 Question 33 - Carry Look-Ahead Adder",
-    "Build & trace",
-    "Logic checkpoint"
+    "Bounded-fan-in look-ahead scaling",
+    "Separate the stages",
+    "Reduce terms through binary trees",
+    "Compare growth rates"
   ],
   [
-    "GRE Computer Science Ripple Carry Adder Delay Questi",
-    "Explore · GRE Computer Science Ripple Carry Adder Delay Questi",
-    "Build & trace",
-    "Logic checkpoint"
+    "Timing a two-half-adder ripple chain",
+    "Time one full adder",
+    "Advance through the carry chain",
+    "Find the requested sum time"
   ],
   [
-    "Adder for Signed Addition",
-    "Explore · Adder for Signed Addition",
-    "Build & trace",
-    "Logic checkpoint"
+    "Signed addition and carry handling",
+    "Encode before adding",
+    "Apply the end-around carry",
+    "Retain the twos-complement sum"
   ],
   [
-    "Introduction Combinational Circuits Vs Seq",
-    "Explore · Introduction Combinational Circuits Vs Seq",
-    "Build & trace",
-    "Logic checkpoint"
+    "Combinational versus sequential circuits",
+    "Classify by dependence",
+    "Trace state updates",
+    "Read time-indexed notation"
   ],
   [
-    "One Bit Storage Device Cross Coupled Inve",
-    "Explore · One Bit Storage Device Cross Coupled Inve",
-    "Build & trace",
-    "Logic checkpoint"
+    "One-bit storage with feedback",
+    "Identify stable feedback states",
+    "Count independent stored information",
+    "Distinguish retention from control"
   ],
   [
-    "SR Latch - Cross Coupled NOR gates",
-    "Explore · SR Latch - Cross Coupled NOR gates",
-    "Build & trace",
-    "Logic checkpoint"
+    "Active-high NOR SR latches",
+    "Set, reset, and hold",
+    "Trace controlled storage",
+    "Avoid simultaneous controls"
   ],
   [
-    "S'R' Latch Cross Coupled NAND gates",
-    "Explore · S'R' Latch Cross Coupled NAND gates",
-    "Build & trace",
-    "Logic checkpoint"
+    "Active-low NAND SR latches",
+    "Interpret active-low controls",
+    "Compare NOR and NAND conventions",
+    "Identify the forbidden condition"
   ],
   [
-    "Timing Diagram of SR Latch, Clock",
-    "Explore · Timing Diagram of SR Latch, Clock",
-    "Build & trace",
-    "Logic checkpoint"
+    "Latch timing and clock signals",
+    "Trace set, hold, and reset",
+    "Read the clock waveform",
+    "Convert period and frequency"
   ],
   [
-    "Flipflops - SR Flipflop",
-    "Explore · Flipflops - SR Flipflop",
-    "Build & trace",
-    "Logic checkpoint"
+    "SR storage and excitation",
+    "Compute the SR next state",
+    "Respect the clock control",
+    "Choose controls for a desired transition"
   ],
   [
-    "D Flipflop",
-    "Explore · D Flipflop",
-    "Build & trace",
-    "Logic checkpoint"
+    "D storage elements",
+    "Copy the data at an update",
+    "Derive D from SR controls",
+    "Find excitation and capture sequences"
   ],
   [
-    "Clock Triggering of flipflops",
-    "Explore · Clock Triggering of flipflops",
-    "Build & trace",
-    "Logic checkpoint"
+    "Clock levels and active edges",
+    "Classify four clock responses",
+    "Sample at the right edge",
+    "Distinguish transparency from sampling"
   ],
   [
-    "JK flipflop",
-    "Explore · JK flipflop",
-    "Build & trace",
-    "Logic checkpoint"
+    "JK flip-flops",
+    "Use all four JK operations",
+    "Evaluate the JK state equation",
+    "Find JK excitation controls"
   ],
   [
-    "T flipflop",
-    "Explore · T flipflop",
-    "Build & trace",
-    "Logic checkpoint"
+    "T flip-flops",
+    "Hold or toggle a stored bit",
+    "Choose T and implement it with JK",
+    "Trace toggles and unknown controls"
   ],
   [
-    "Few Important Notes for Flipflops",
-    "Explore · Few Important Notes for Flipflops",
-    "Build & trace",
-    "Logic checkpoint"
+    "Storage terminology and clock response",
+    "Read the actual circuit behavior",
+    "Share one clock across different elements",
+    "Use precise timing descriptions"
   ],
   [
-    "Flipflop Conversion",
-    "Explore · Flipflop Conversion",
-    "Build & trace",
-    "Logic checkpoint"
+    "Convert flip-flop behavior",
+    "Follow the conversion method",
+    "Convert between D and T",
+    "Implement JK with available D storage"
   ],
   [
-    "Morris Mano PN Flip-flop Question",
-    "Explore · Morris Mano PN Flip-flop Question",
-    "Build & trace",
-    "Logic checkpoint"
+    "PN storage behavior and conversion",
+    "Decode the four PN operations",
+    "Derive the PN state equation",
+    "Find PN excitation and D conversion"
   ],
   [
-    "Flipflop Conversion - SR to T flipflop",
-    "Explore · Flipflop Conversion - SR to T flipflop",
-    "Build & trace",
-    "Logic checkpoint"
+    "Convert between SR and T behavior",
+    "Make SR storage toggle",
+    "Make T storage act like SR",
+    "Implement the state-dependent choice"
   ],
   [
-    "Direct Inputs in flipflops Preset & Clea",
-    "Explore · Direct Inputs in flipflops Preset & Clea",
-    "Build & trace",
-    "Logic checkpoint"
+    "Asynchronous preset and clear",
+    "Decode active-low direct controls",
+    "Apply direct-input priority",
+    "Initialize and then resume normal operation"
   ],
   [
-    "Practice Questions on Flipflops",
-    "Explore · Practice Questions on Flipflops",
-    "Build & trace",
-    "Logic checkpoint"
+    "Practice clocked and asynchronous updates",
+    "Trace JK with direct overrides",
+    "Allow setup time before capture",
+    "Identify operations from controls"
   ],
   [
-    "Master Slave Flipflops to Implement Edge",
-    "Explore · Master Slave Flipflops to Implement Edge",
-    "Build & trace",
-    "Logic checkpoint"
+    "Master–slave storage",
+    "Separate the two phases",
+    "Find the effective capture edge",
+    "Reverse the phase order"
   ],
   [
-    "Race Around Condition in JK Flipflops",
-    "Explore · Race Around Condition in JK Flipflops",
-    "Build & trace",
-    "Logic checkpoint"
+    "Race-around in level-sensitive toggle storage",
+    "Recognize repeated toggling",
+    "Trace a delayed toggle loop",
+    "Control the update opportunity"
   ],
   [
-    "Counters Introduction Asynchronous Count",
-    "Explore · Counters Introduction Asynchronous Count",
-    "Build & trace",
-    "Logic checkpoint"
+    "Counters and their state sequences",
+    "Follow a predetermined sequence",
+    "Count states and stored bits",
+    "Distinguish common and ripple clocks"
   ],
   [
-    "Asynchronous Counters Part 1 Divide by 2",
-    "Explore · Asynchronous Counters Part 1 Divide by 2",
-    "Build & trace",
-    "Logic checkpoint"
+    "Divide a clock frequency by two",
+    "Configure one toggling bit",
+    "Use equivalent D and JK dividers",
+    "Convert divider frequencies"
   ],
   [
-    "Asynchronous Counters Part 2 Mod 4 Async",
-    "Explore · Asynchronous Counters Part 2 Mod 4 Async",
-    "Build & trace",
-    "Logic checkpoint"
+    "Two-stage ripple division and counting",
+    "Cascade the frequency division",
+    "Trace rising-edge Q-linked down counting",
+    "Include the ripple transit state"
   ],
   [
-    "Asynchronous Counters Part 3 Binary Ripp",
-    "Explore · Asynchronous Counters Part 3 Binary Ripp",
-    "Build & trace",
-    "Logic checkpoint"
+    "Binary down ripple counters",
+    "Choose clocks for down counting",
+    "Trace borrow propagation",
+    "Compute capacity, frequency, and delay"
   ],
   [
-    "Asynchronous Counters Part 4 Binary Up R",
-    "Explore · Asynchronous Counters Part 4 Binary Up R",
-    "Build & trace",
-    "Logic checkpoint"
+    "Binary up and truncated ripple counters",
+    "Choose clocks for up counting",
+    "Trace carry and settling",
+    "Truncate the stable cycle"
   ],
   [
-    "Asynchronous Counters Part 5 Cascading C",
-    "Explore · Asynchronous Counters Part 5 Cascading C",
-    "Build & trace",
-    "Logic checkpoint"
+    "Cascade counters and division ratios",
+    "Multiply the moduli",
+    "Compute output frequencies",
+    "Build a slow timebase"
   ],
   [
-    "Asynchronous Counters Part 6 Counting fr",
-    "Explore · Asynchronous Counters Part 6 Counting fr",
-    "Build & trace",
-    "Logic checkpoint"
+    "Count through a selected range",
+    "Define the stable range",
+    "Reload the starting bit pattern",
+    "Decode and initialize deliberately"
   ],
   [
-    "GATE ECE 1987 - Ripple Counter Question",
-    "Explore · GATE ECE 1987 - Ripple Counter Question",
-    "Build & trace",
-    "Logic checkpoint"
+    "Realize a modulo-six ripple counter",
+    "Configure D toggle stages",
+    "Exclude the reset-triggering pattern",
+    "Choose clear polarity correctly"
   ],
   [
-    "GATE ECE 1990 - Ripple Counter Question",
-    "Explore · GATE ECE 1990 - Ripple Counter Question",
-    "Build & trace",
-    "Logic checkpoint"
+    "Ripple-counter maximum clock rate",
+    "Accumulate the stage delays",
+    "Convert delay to maximum frequency",
+    "Compare a clock against the bound"
   ],
   [
-    "GATE ECE 1993 - Ripple Counter Question",
-    "Explore · GATE ECE 1993 - Ripple Counter Question",
-    "Build & trace",
-    "Logic checkpoint"
+    "Budget propagation delay per ripple stage",
+    "Find the number of stages",
+    "Rearrange the timing inequality",
+    "Check the units and the total budget"
   ],
   [
-    "GATE ECE 1999 - Ripple Counter Question",
-    "Explore · GATE ECE 1999 - Ripple Counter Question",
-    "Build & trace",
-    "Logic checkpoint"
+    "Reload a selected down-count range",
+    "Find the last stable and first unwanted values",
+    "Detect and preset the upper endpoint",
+    "Verify count direction and wrap"
   ],
   [
-    "Synchronous Counters - The Analysis",
-    "Explore · Synchronous Counters - The Analysis",
-    "Build & trace",
-    "Logic checkpoint"
+    "Analyze synchronous next-state equations",
+    "Use the old state for every stage",
+    "Find the reachable cycle",
+    "Analyze another initial state"
   ],
   [
-    "GATE CSE 1990 Synchronous Counter Questi",
-    "Explore · GATE CSE 1990 Synchronous Counter Questi",
-    "Build & trace",
-    "Logic checkpoint"
+    "Analyze a synchronous JK counter",
+    "Extract the JK input functions",
+    "Trace the reachable five-state cycle",
+    "Check transitions outside the cycle"
   ],
   [
-    "GATE CSE 2021 - Synchronous Counter Question",
-    "Explore · GATE CSE 2021 - Synchronous Counter Question",
-    "Build & trace",
-    "Logic checkpoint"
+    "Trace a custom synchronous T counter",
+    "Apply the T inputs simultaneously",
+    "Use the reachable period",
+    "Distinguish transients and fixed points"
   ],
   [
-    "Synchronous Counters - Design",
-    "Explore · Synchronous Counters - Design",
-    "Build & trace",
-    "Logic checkpoint"
+    "Design synchronous binary counters",
+    "Derive toggle enables",
+    "Choose T or D storage equations",
+    "Budget the synchronous critical path"
   ],
   [
-    "Ring Counter - Synchronous Counters",
-    "Explore · Ring Counter - Synchronous Counters",
-    "Build & trace",
-    "Logic checkpoint"
+    "Ring counters and one-hot timing",
+    "Rotate the one-hot pattern",
+    "Initialize and preserve one-hot state",
+    "Compare two timing-signal implementations"
   ],
   [
-    "Johnson Counter - Synchronous Counter",
-    "Explore · Johnson Counter - Synchronous Counter",
-    "Build & trace",
-    "Logic checkpoint"
+    "Twisted-ring and Johnson timing counters",
+    "Trace complemented feedback",
+    "Decode one timing signal per state",
+    "Compare ring and twisted-ring capacity"
   ]
 ];
 export const unitForLecture=index=>units.find(u=>index>=u.range[0]&&index<=u.range[1]);

@@ -3,7 +3,8 @@
 ```text
 apps/web/public/          Shared browser UI, styles, icons, and font assets
 packages/learning/       Shared grading, progress, practice history, worked examples
-src/platform/            Shared HTTP server, transcript import, evidence links, JSON I/O
+src/platform/            HTTP server, PostgreSQL storage, transcript authoring/import
+migrations/              Versioned PostgreSQL schema
 config/                  Manifest discovery and course schema
 courses/<subject>/
   course.json            Identity, publication status, source folder, optional builder
@@ -19,13 +20,14 @@ scripts/                 Thin CLI commands, Windows launcher, shared transcripti
 tests/                   Platform integration, learning engine, subject content, browser QA
 docs/                    Architecture, authoring policy, source records, study guides
 runtime/                 Ignored process IDs, service logs, live course progress
-data/accounts/           Ignored durable profiles, authentication and learner progress
+data/accounts/           Legacy account import source and migration backup
+.local-postgres/         Ignored isolated local PostgreSQL database cluster
 tooling/                 Local downloaded dependencies, models, historical artifacts
 ```
 
-Course folders are discovered from `course.json`; there is no second subject registry to maintain. The server supplies a public catalog at `/api/subjects` and `/subjects.js`. Source-drive locations and builder paths stay on the server. Each subject has the same URL namespace, independent data directory, and persistent storage key.
+Authoring tools discover course folders from `course.json` and publish their output to PostgreSQL. The running server reads its course registry from PostgreSQL and supplies a catalog at `/api/subjects` and `/subjects.js`. Source-drive locations and builder paths stay on the server. Each subject retains its URL namespace and persistent storage key.
 
-The browser loads curriculum and lessons through `/courses/<id>/*.js`; shared puzzle modules use `/shared/*.js`. Only files under a registered subject's `content` directory are served through its module route. Manifests, authoring code, raw analysis, runtime files, and model weights are outside the static web root. Status and numbered imported transcripts have dedicated read-only API endpoints.
+The browser loads curriculum and lessons from PostgreSQL through `/courses/<id>/*.js`; shared puzzle code uses `/shared/*.js`. Status and numbered imported transcripts have dedicated database-backed read-only API endpoints. Manifests, authoring code, raw analysis, runtime files and model weights are outside the static web root.
 
 A single watcher sequentially imports every registered subject once per minute. An error in one subject is recorded without stopping the others. Transcription uses a separate shared Python worker; `--all` processes subjects sequentially with one speech model. The watcher never starts speech recognition or authors new material.
 
@@ -47,6 +49,6 @@ Raw `.jsonl` and `.srt` output may be incomplete while a worker is running. Only
 
 Runtime state is separate from course data. The supported Windows launcher starts one localhost server and one shared watcher. Access remains restricted to `127.0.0.1:4173`.
 
-Account APIs use a shared private store in `data/accounts`. User records, credentials and sessions are outside the web root; writes are serialized and atomic. Browser storage is scoped per authenticated user, with guest keys preserved. See [personal accounts](ACCOUNTS.md) for sync, recovery and backup behavior.
+Account APIs use separate PostgreSQL tables for users, saved learning fields, sessions and authentication limits. Writes are transactional and lock the relevant user across app instances. Browser storage is a retry cache scoped per authenticated user, with guest keys preserved. See [PostgreSQL storage](POSTGRESQL.md) and [personal accounts](ACCOUNTS.md).
 
 Live progress snapshots live in `runtime/courses/<id>/progress.json`, so periodic checks do not dirty versioned course files. A fresh checkout regenerates missing snapshots from local source analysis on its first status request or sync. Generated lesson modules and build coverage reports are written only when their content changes.

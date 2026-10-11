@@ -5,6 +5,11 @@
   "type": "module",
   "scripts": {
     "start": "node scripts/server.mjs",
+    "db:local": "node scripts/db-local.mjs",
+    "db:stop": "node scripts/db-local.mjs stop",
+    "db:migrate": "node scripts/db-migrate.mjs",
+    "db:import": "node scripts/db-import.mjs",
+    "db:setup": "npm run db:local && npm run db:migrate && npm run db:import",
     "build:vercel": "node scripts/build-vercel.mjs",
     "watch": "node scripts/watch.mjs",
     "sync": "node scripts/sync.mjs",
@@ -14,9 +19,10 @@
     "test": "node --test tests/*.test.mjs"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=20.12"
   },
   "dependencies": {
-    "@vercel/analytics": "^2.0.1"
+    "@vercel/analytics": "^2.0.1",
+    "pg": "^8.23.1"
   }
 }

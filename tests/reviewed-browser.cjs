@@ -17,7 +17,7 @@ const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('n
    await page.locator(`[data-lesson="${id}"]`).click();
    assert.equal(await page.locator('.lecture-teaching li').count(),3);
    assert.equal(await page.locator('.lesson-intro h1').innerText(),reviewedLessons.find(l=>l.id===id).title);
-   assert.ok(await page.locator('.lecture-teaching small').innerText().then(s=>/[1-9] transcript passages/.test(s)));
+   assert.match(await page.locator('.lecture-teaching small').innerText(),/reason through the puzzles/);
    assert.equal(await page.evaluate(()=>document.querySelector('dialog').scrollWidth<=innerWidth),true);
   }
   await open(0);await page.screenshot({path:'qa-results/dl-teaching-dark-mobile.png',fullPage:true});
@@ -31,7 +31,7 @@ const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('n
   await page.locator('a[href="#errors"]').last().click();await page.waitForSelector('.error-card');
   assert.ok((await page.locator('.error-card').innerText()).includes(first.prompt));
   for(const id of [42,102,108,114]){await open(id);await page.locator('.lesson-theme-toggle').click();assert.equal(await page.evaluate(()=>document.documentElement.dataset.theme),'light');await page.locator('[data-action="begin"]').click();const q=reviewedLessons.find(l=>l.id===id).questions[0];if(q.type==='kmap')for(const cell of q.answer)await page.locator(`[data-kmap-cell="${cell}"]`).click();else if(q.type==='number')await page.locator('#number-answer').fill(String(q.answer));else if(q.type==='choice')await page.locator(`[data-choice="${q.answer}"]`).click();else throw Error('Unexpected test question type '+q.type);await page.locator('[data-action="check-answer"]').click();await page.waitForSelector('.answer-footer.correct');await page.locator('[data-action="exit"]').click();await page.locator('[data-action="leave"]').click();}
-  await page.locator('a[href="#roadmap"]').last().click();assert.match(await page.locator('.lesson-build-detail').innerText(),/lecture-specific levels/);
+  await page.locator('a[href="#roadmap"]').last().click();assert.match(await page.locator('.page-description').innerText(),/topics/);
   assert.equal((await page.request.get('http://127.0.0.1:4173/courses/dl/reviewed-lessons.js')).status(),200);
   assert.deepEqual(errors,[]);fs.writeFileSync('qa-results/reviewed-lessons-report.json',JSON.stringify({passed:true,checks:['teaching steps','worked example reveal','mobile dark and light','wrong-answer practice history','K-map grading','sign-extension grading','BCD grading','Gray grading','source module serving','course build status'],errors},null,2));
   console.log('Lecture-specific browser checks passed.');

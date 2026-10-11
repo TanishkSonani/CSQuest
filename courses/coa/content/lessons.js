@@ -1,3 +1,4 @@
+import {topicGuideFor} from './topic-guides.js';
 import {advancedLessons} from './advanced-lessons.js';
 const choice=(prompt,options,answer,explanation)=>({type:'choice',prompt,options,answer,explanation});
 const number=(prompt,answer,explanation,unit='')=>({type:'number',prompt,answer,explanation,unit});
@@ -9,7 +10,7 @@ const make=(id,title,lecture,start,concept,questions)=>({id,title,lecture,start,
 export const lessons=[
   make(0,'Hardware foundations',0,74,'Every application runs on physical hardware. COA asks how that hardware works, how its behavior is designed, and how its parts are put together.',[
     choice('Which description best defines computer organization?',['How hardware components implement an architecture','Designing website colors','Writing application documentation'],0,'Computer organization describes the hardware components and connections that implement the defined architecture.'),
-    match('Pair the idea with its role.',[['Architecture','Defines the intended behavior'],['Organization','Connects hardware to implement it']], 'The introduction separates the functional design from the arrangement of physical components.'),
+    match('Pair the idea with its role.',[['Architecture','Defines the intended behavior'],['Organization','Connects hardware to implement it']], 'Architecture specifies what the machine does; organization describes how hardware implements that behavior.'),
     choice('Choosing which instructions a computer supports belongs to…',['Computer organization','Computer architecture','An input device'],1,'The instruction set is part of the machine behavior being defined.'),
     choice('Why can COA help a software developer?',['It replaces every programming language','It helps explain performance on real hardware','It removes the need for an operating system'],1,'Understanding the machine can help you reason about application performance and efficiency.')]),
   make(1,'Build an instruction',0,526,'An instruction specifies an operation and the operand it acts on. A machine needs a defined binary format so it knows which bits mean what.',[
@@ -30,7 +31,7 @@ export const lessons=[
   make(4,'A program is a recipe',1,273,'A program is a sequence of instructions that performs a task. A stored-program computer can keep a program in memory and execute it when needed.',[
     choice('What is a computer program?',['A sequence of instructions for a task','Only a physical CPU chip','The color of an application icon'],0,'A program combines instructions into a sequence to carry out a task.'),
     match('Match each building block.',[['Instruction','A primitive step'],['Program','A sequence of steps'],['Stored-program computer','Keeps a program for execution']], 'Instructions are individual operations; programs combine them and can be stored for later execution.'),
-    choice('In a stored-program computer, what is held in main memory?',['Only screenshots','Instructions and associated data','Only keyboard signals'],1,'The lecturer describes programs using instructions and the data associated with them.'),
+    choice('In a stored-program computer, what is held in main memory?',['Only screenshots','Instructions and associated data','Only keyboard signals'],1,'Main memory holds program instructions and the data those instructions read or change.'),
     choice('How can a rich application use a small instruction set?',['By combining many simple instructions','By giving the CPU a new physical chip for every screen','By storing all code in the monitor'],0,'An application may execute many instructions drawn from a much smaller collection of instruction types.')]),
   make(5,'Program checkpoint',1,348,'Programmability lets you express a new task as a new sequence of existing instructions. You do not need a separate instruction for every complete application.',[
     cpu('Calculate 5 × 3 using repeated ADD operations, starting with 5.',5,[5,5],15,'Starting with 5, two additions of 5 produce 15.'),
@@ -40,16 +41,16 @@ export const lessons=[
   make(6,'Meet the components',2,160,'A computer system has four basic components in this model: CPU, main memory, I/O devices, and system bus. They work together to execute programs and communicate with the outside world.',[
     match('Give each component its job.',[['CPU','Executes instructions'],['Main memory','Holds active instructions and data'],['System bus','Carries signals between components']], 'The CPU processes instructions, memory stores active information, and the bus enables communication.'),
     choice('Which item completes the list: CPU, memory, system bus, and…',['I/O devices','A web browser theme','A compiler warning'],0,'Input and output devices form the fourth component in the introductory computer model.'),
-    choice('How do components communicate in this model?',['Through the system bus','By reading the monitor','Only by using the keyboard'],0,'The system bus acts as the transmission medium between components.'),
-    number('How many major components are introduced in the basic model?',4,'CPU, main memory, I/O devices, and system bus.','components')]),
+    choice('The CPU exchanges addresses, data and control signals with memory through…',['The system bus','A display cable','Only the keyboard'],0,'The system bus carries the signals that let the CPU and memory communicate.'),
+    number('In a model with CPU, main memory, I/O devices and a system bus, how many major components are there?',4,'CPU, main memory, I/O devices, and system bus.','components')]),
   make(7,'From code to execution',2,844,'In the simplified compilation path, the compiler translates source code, the linker combines required code, and the loader places the executable in main memory. The CPU then executes instructions.',[
     order('Arrange the simplified program journey.',['Compile source code','Link the executable','Load into main memory','Execute on the CPU'],'Compilation and linking create an executable. The loader brings it into memory so the CPU can execute it.'),
     match('Pair the tool with its job.',[['Compiler','Translates high-level source'],['Linker','Combines required code'],['Loader','Places the program in memory']], 'Compilation translates source code, linking creates an executable, loading places it in memory, and the CPU executes its instructions.'),
     choice('A program in execution is called a…',['Process','Keyboard','Cache line'],0,'A process is a program in execution.'),
-    choice('In the introduced process layout, which section holds instructions?',['Text section','The keyboard buffer','The monitor'],0,'The text section contains executable instructions in the process layout shown.')]),
+    choice('In a process memory layout with text, data, heap and stack sections, which section holds executable instructions?',['Text section','The keyboard buffer','The monitor'],0,'The text section contains executable instructions in a process memory layout.')]),
   make(8,'Computer checkpoint',2,626,'The introductory stored-program model brings instructions into main memory for execution. The CPU follows them in sequence unless a control-flow instruction changes that sequence.',[
     order('Launch the stored application.',['Read executable from storage','Load program into RAM','Give CPU the starting instruction','Fetch and execute instructions'],'The operating system loads the executable and supplies a starting point for execution.'),
-    choice('Which instruction can change the ordinary sequential path?',['A jump instruction','An instruction format label','A monitor resolution'],0,'The lecturer explicitly notes jumps as an exception to sequential instruction flow.'),
+    choice('Which instruction can change the ordinary sequential path?',['A jump instruction','An instruction format label','A monitor resolution'],0,'A jump replaces the next sequential instruction address with a target address, changing which instruction runs next.'),
     match('Separate storage from execution.',[['Secondary storage','Keeps the saved executable'],['Main memory','Holds the executing program'],['CPU','Fetches and executes instructions']], 'The saved executable is on secondary storage; active execution uses memory and the CPU.'),
     choice('What is the system bus doing while the CPU communicates with memory?',['Carrying information between them','Compiling C code','Displaying pixels itself'],0,'The bus is the communication path between computer components.')]),
   make(9,'Input or output?',3,43,'Input devices bring information into the computer. Output devices present information from the computer. Always think about the direction of the data.',[
@@ -84,3 +85,5 @@ export const lessons=[
     choice('Which statement is the useful memory distinction?',['RAM is working memory; secondary storage persists files','RAM and disk are always the same component','The monitor stores every program'],0,'RAM supports active execution, while secondary storage keeps files across power cycles.')])
 ];
 lessons.push(...advancedLessons);
+
+for(const lesson of lessons)lesson.foundation=topicGuideFor(lesson.lecture);

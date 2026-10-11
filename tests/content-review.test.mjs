@@ -1,7 +1,15 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';
 import {lessons as coa} from '../courses/coa/content/lessons.js';import {lessons as dl} from '../courses/dl/content/lessons.js';
 import {createWorkedExample} from '../packages/learning/worked-examples.js';import {grade,traceCache} from '../packages/learning/engine.js';
-const metadata=/\b(course|lecture|video|instructor|recording|mentioned|taught)\b/i;
+const metadata=/\b(course|lectures?|lecturer|videos?|instructor|recordings?|transcripts?|mentioned|taught)\b/i;
+test('all lessons include standalone topic foundations and examples',()=>{
+ for(const [subject,lessons] of [['coa',coa],['dl',dl]])for(const lesson of lessons){
+  const guide=lesson.foundation;assert.ok(guide,`${subject} ${lesson.id}: missing foundations`);
+  assert.ok(guide.title&&guide.idea&&guide.example);assert.equal(guide.terms.length,3);
+  for(const text of [guide.title,guide.idea,guide.example,...guide.terms])assert.doesNotMatch(text,metadata);
+  for(const q of lesson.questions)assert.doesNotMatch(q.prompt,/\b(same (?:model|chain|full adder|expression|conversion|simplified)|above:|stated compact outputs)|\w\?\w/i,`${subject} ${lesson.id}: ${q.prompt}`);
+ }
+});
 test('both subjects teach topics without quizzing or narrating recording metadata',()=>{for(const [subject,ls] of [['coa',coa],['dl',dl]])for(const l of ls){assert.doesNotMatch(l.title,metadata,`${subject} ${l.id} title`);assert.doesNotMatch(l.concept,metadata,`${subject} ${l.id} concept`);for(const step of l.teachingSteps||[])assert.doesNotMatch(step,metadata);for(const q of l.questions)for(const text of [q.prompt,q.explanation,...q.options||[],...q.items||[],...(q.pairs||[]).flat()])assert.doesNotMatch(text,metadata,`${subject} ${l.id}: ${text}`);}});
 test('all 399 opening cards provide complete examples and correct solutions',()=>{
  const report=[];for(const [subject,ls] of [['coa',coa],['dl',dl]])for(const lesson of ls){const q=lesson.questions[0],card=createWorkedExample(lesson);assert.ok(card.title&&card.prompt&&card.explanation);assert.ok(card.answer||card.solutionTable||card.solutionList.length);assert.doesNotMatch(JSON.stringify(card),/undefined|No answer/);assert.doesNotMatch(card.prompt,metadata);if(q.type==='match')assert.deepEqual(card.terms,card.solutionTable.rows.map(r=>r[0]));if(q.type==='truth')assert.deepEqual(card.solutionTable.rows.map(r=>r.at(-1)),q.answer);if(q.type==='cache'){assert.equal(card.inputTable.rows.length,q.accesses.length);assert.deepEqual(card.solutionTable.rows.map(r=>r[3]),traceCache(q).map(r=>r.hit?'HIT':'MISS'));}if(q.type==='cpu')assert.equal(card.solutionTable.rows.at(-1).at(-1),q.target);const answer=q.type==='match'?q.pairs.map((_,i)=>i):q.type==='order'?q.items:q.type==='cache'?traceCache(q).map(r=>r.hit):q.type==='cpu'?{steps:q.steps.length,accumulator:q.target}:q.type==='bits'?q.opcode:q.answer;assert.ok(grade(q,answer));report.push({subject,lesson:lesson.id,type:card.type,title:lesson.title,front:card.prompt,complete:true});}assert.equal(report.length,399);fs.writeFileSync(new URL('../qa-results/flip-card-review.json',import.meta.url),JSON.stringify({cardsReviewed:report.length,subjectCounts:{coa:coa.length,dl:dl.length},cards:report},null,2));

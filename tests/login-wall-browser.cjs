@@ -1,8 +1,9 @@
 const {chromium}=require('../tooling/browser-qa/node_modules/playwright');
-const assert=require('node:assert/strict'),fs=require('node:fs/promises'),os=require('node:os'),path=require('node:path');
+const assert=require('node:assert/strict'),fs=require('node:fs/promises');
 (async()=>{
  const {createServer}=await import('../src/platform/server.mjs');
- const directory=await fs.mkdtemp(path.join(os.tmpdir(),'csquest-login-wall-')),server=createServer({accountDirectory:directory});
+ const {testStore}=await import('./database-helper.mjs');
+ const fixture=await testStore({courses:true}),server=createServer({store:fixture.store});
  await new Promise(r=>server.listen(0,'127.0.0.1',r));const base=`http://127.0.0.1:${server.address().port}`;
  const browser=await chromium.launch({headless:true,executablePath:'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'});
  try{
@@ -44,5 +45,5 @@ const assert=require('node:assert/strict'),fs=require('node:fs/promises'),os=req
   await page.evaluate(async()=>{await(await import('/account-client.js')).checkSession();});await page.waitForSelector('.login-wall');
   assert.equal(await page.locator('.sidebar').count(),0);assert.deepEqual(errors,[]);
   console.log('Login wall: private routes, direct API access, login/logout, revoked sessions, mobile layouts and theme controls passed.');
- }finally{await browser.close();await new Promise(r=>server.close(r));assert.equal(path.dirname(directory),os.tmpdir());assert.ok(path.basename(directory).startsWith('csquest-login-wall-'));await fs.rm(directory,{recursive:true,force:true});}
+ }finally{await browser.close();await new Promise(r=>server.close(r));await fixture.dispose();}
 })().catch(e=>{console.error(e);process.exit(1);});

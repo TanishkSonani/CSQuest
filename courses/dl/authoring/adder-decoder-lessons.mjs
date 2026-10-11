@@ -102,7 +102,7 @@ entry(53,'Half adders','A half adder adds two single bits and produces a sum bit
  s('Time the implementation',['delay','basic','complementary'],['With an XOR primitive, sum delay is the XOR delay.','For SOP XOR A\u2032B + AB\u2032, count NOT, AND, and OR levels.','Available complemented inputs remove the input NOT delay from that model.'],[
   n('Half adder: XOR delay 6 ns, AND delay 2 ns. Time until both outputs are valid, in ns?',6,'The sum takes six ns and the carry two; wait for the maximum, six ns.'),
   n('Half-adder sum A\u2032B+AB\u2032 uses NOT/AND/OR, each 2 ns, no complements supplied. Worst-case sum delay in ns?',6,'The longest path has NOT, AND, OR: three times two ns.'),
-  n('Same SOP half-adder sum, complements available at time zero; AND and OR each 2 ns. Sum delay in ns?',4,'Only AND then OR remain on the longest path, so four ns.'),
+  n('Half-adder sum A′B+AB′: inputs and their complements are available at time zero; AND and OR each take 2 ns. Sum delay in ns?',4,'Only AND then OR remain on the longest path, so four ns.'),
   n('Half-adder carry AB uses one AND gate of delay 2 ns. Carry delay in ns?',2,'The carry output traverses a single AND gate.')])]),
 entry(54,'Full adders','A full adder adds two operand bits and an incoming carry. Its sum is odd parity of the three inputs; its carry is one when at least two inputs are one.',[
  s('Add three bits',['full','inputs','carry'],['Compute total A + B + Cin as ordinary integer addition.','S is total modulo two.','Cout is one for totals two or three.'],[
@@ -118,7 +118,7 @@ entry(54,'Full adders','A full adder adds two operand bits and an incoming carry
  s('Distinguish parity and majority',['exclusive','at least','delay'],['S detects odd parity; Cout detects at least two ones.','Cout can also be written AB + ACin + BCin.','Timing depends on the chosen implementation and gate delays.'],[
   c('Why does Cout = AB + ACin + BCin work?',['It detects any pair of one inputs','It detects odd parity only','It is one only for three ones'],'A total of at least two has at least one asserted pair.'),
   n('Two-half-adder full adder: XOR 2 ns, AND 1 ns, OR 1 ns, inputs ready at zero. Worst-case sum delay in ns?',4,'The sum passes through two serial XOR gates, giving four ns.'),
-  n('Same full adder: XOR 2 ns, AND 1 ns, OR 1 ns. Worst-case Cout delay in ns?',4,'The longest path is XOR then AND then OR: 2 + 1 + 1 = 4 ns.'),
+  n('Full adder made from two half adders and an OR: XOR 2 ns, AND 1 ns, OR 1 ns; inputs ready at zero. Worst-case Cout delay in ns?',4,'The longest path is XOR then AND then OR: 2 + 1 + 1 = 4 ns.'),
   c('For A=B=Cin=1, is sum parity equal to carry majority?',['Both are 1 in this case','Both are always identical','Sum is always zero'],'Three ones have odd parity and also satisfy majority, but the two outputs differ on other rows.')])]),
 entry(55,'Ripple carry adders','A ripple carry adder connects a full-adder carry-out to the next column. Carries move from the least significant position upward, making the worst-case delay grow with word width.',[
  s('Connect the columns',['ripple','full','least'],['Column i adds Ai, Bi, and Ci.','Its carry output Ci+1 feeds column i+1.','Set C0 explicitly; ordinary addition often uses zero.'],[
@@ -150,7 +150,7 @@ entry(56,'Generate, propagate, and kill','For a bit position, operand bits deter
  s('Time the local logic',['delay','basic','complementary'],['An AND computes G in one gate delay.','SOP XOR needs NOT, AND, and OR when complements are unavailable.','An XOR primitive or supplied complements changes the timing model.'],[
   n('G=AB uses one AND of delay 3 ns. G arrival time in ns?',3,'Both inputs are ready at zero, and a single AND takes three ns.'),
   n('P=A\u2032B+AB\u2032, NOT/AND/OR each 2 ns, no complements supplied. P delay in ns?',6,'The longest path traverses three basic gates, giving six ns.'),
-  n('Same P expression, complements supplied at zero, AND/OR each 2 ns. P delay in ns?',4,'The remaining AND-OR path has two levels.'),
+  n('P=A′B+AB′, inputs and complements supplied at zero, AND/OR each 2 ns. P delay in ns?',4,'The remaining AND-OR path has two levels.'),
   n('P computed by one XOR primitive with delay 2 ns. P delay in ns?',2,'The primitive XOR is one gate under the stated timing assumption.')])]),
 entry(57,'Carry look-ahead equations','Carry look-ahead expands carry dependencies into expressions using operand generate/propagate signals and the initial carry. Parallel carry logic removes the serial ripple dependency.',[
  s('Use the carry recurrence',['generate','propagate','equation'],['With XOR propagation, Ci+1 = Gi + PiCi.','The generated term sets carry regardless of Ci.','The propagation term forwards Ci when the operand pair differs.'],[
@@ -165,7 +165,7 @@ entry(57,'Carry look-ahead equations','Carry look-ahead expands carry dependenci
   c('Why expand carry equations?',['To compute carries from initial signals without serial carry waiting','To guess carries probabilistically','To remove the sum bits'],'Look-ahead calculates exact carries using the operand signals and C0.')]),
  s('Count the two-level network',['gate','level','c4'],['With unrestricted fan-in, each expanded carry is an AND-OR network.','Ck needs k product-term AND gates plus one OR, excluding the bare G term from the AND count.','These counts exclude G/P generation and sum logic.'],[
   n('Expanded C4 = G3 + P3G2 + P3P2G1 + P3P2P1G0 + P3P2P1P0C0. Product-term AND gate count?',4,'The four terms containing products each use one AND; bare G3 needs no AND.'),
-  n('Expanded C4 above: unrestricted-fan-in final OR input count?',5,'There are five terms to combine, including G3.'),
+  n('C4 = G3 + P3G2 + P3P2G1 + P3P2P1G0 + P3P2P1P0C0. How many inputs does the final unrestricted-fan-in OR need?',5,'There are five terms to combine, including G3.'),
   n('After G/P are available, two-level AND-OR carry logic has AND=2 ns, OR=2 ns. Extra delay in ns?',4,'The longest remaining path traverses one AND and one OR.'),
   c('Does the two-level count guarantee fixed delay for arbitrary width with only 2-input gates?',['No, restricted fan-in requires extra levels','Yes, any width has two physical gates','Only sum gates change'],'Large products and ORs must be decomposed when fan-in is restricted.')])]),
 entry(58,'Look-ahead timing and fan-in','Look-ahead timing must include generate/propagate logic, carry generation, and sum generation. Constant logical depth assumes unrestricted fan-in; a limited-input gate network needs additional levels.',[
@@ -176,7 +176,7 @@ entry(58,'Look-ahead timing and fan-in','Look-ahead timing must include generate
   c('To chain a low four-bit adder into a high four-bit adder, connect...',['Low block carry-out to high block carry-in','High sum to low carry-in','Both carry inputs permanently to zero'],'The high block must include any carry generated by the low block.')]),
  s('Add all timing stages',['delay','delta','valid'],['For SOP XOR from NOT/AND/OR, local P takes three equal gate delays.','Unrestricted-fan-in AND-OR carry generation adds two delays.','A three-level SOP sum XOR then adds three more delays: total eight under this model.'],[
   n('Unrestricted fan-in, equal basic-gate delay 1 ns, SOP P needs 3 levels and carry logic 2. Carry-valid time in ns?',5,'Three ns for P plus two ns for the carry network is five ns.'),
-  n('Same model: carry at 5 ns, final SOP sum XOR adds 3 ns. All sum bits valid by what time, in ns?',8,'The final sum settles at 5 + 3 = 8 ns.'),
+  n('Carry is valid at 5 ns and the final SOP sum XOR adds 3 ns. All other sum inputs are ready. All sum bits are valid by what time, in ns?',8,'The final sum settles at 5 + 3 = 8 ns.'),
   n('P from XOR primitives takes 1 ns; carry AND-OR adds 2 ns; final XOR adds 1 ns. Sum-valid time in ns?',4,'The assumed primitive-gate model totals 1 + 2 + 1 = 4 ns.'),
   c('Can the 8-gate-delay estimate be used unchanged for every XOR implementation?',['No, gate models and input availability affect delay','Yes, XOR always takes three gates','Only word width matters'],'SOP basic gates and primitive XOR timing give different totals.')]),
  s('Respect the fan-in limit',['fan','levels','log'],['Fan-in is the number of inputs a gate accepts.','A balanced 2-input tree combining k terms needs ceil(log2 k) levels.','Separate gate depth from the number of gates used.'],[
@@ -188,11 +188,11 @@ entry(59,'Count a look-ahead carry generator','Count only the explicitly request
  s('Define the counting boundary',['generator','given','AND'],['Assume G/P signals and C0 are already available.','Generate C1 through C4 with separate expanded AND-OR networks.','Exclude sum gates, G/P logic, and C0 itself from the requested count.'],[
   m('Match signals to their role in a four-bit carry-generator count.',[['G0 through G3 and P0 through P3','Already supplied inputs'],['C0','Initial carry input'],['C1 through C4','Generated carry outputs']],'Count the carry network itself, keeping supplied and generated signals separate.'),
   n('Four-bit carry generator produces C1 through C4. How many carry outputs?',4,'There is one generated carry after each of four operand positions.'),
-  n('In this count, how many gates are needed to generate the already supplied C0?',0,'C0 is an external input, so no generator gate is counted for it.'),
-  c('Does this carry-generator-only count include final sum XOR gates?',['No','Yes','Only the top sum gate'],'The requested circuit generates carries; sum logic is outside its boundary.')]),
+  n('In a carry-generator-only gate count, C0 is supplied as an external input. How many gates are needed to generate C0?',0,'C0 is an external input, so no generator gate is counted for it.'),
+  c('Does a count restricted to the carry generator include final sum XOR gates?',['No','Yes','Only the top sum gate'],'The requested circuit generates carries; sum logic is outside its boundary.')]),
  s('Count AND products per carry',['four','three','two'],['C1 has one product AND; C2 has two.','C3 has three product ANDs; C4 has four.','Each bare G term feeds the OR directly.'],[
   n('Separate two-level C1 through C4 networks, unrestricted fan-in and no shared product gates: total AND gates?',10,'Add 1 + 2 + 3 + 4 = 10 product-term AND gates.'),
-  n('Same networks: total final OR gates?',4,'Each of the four carry equations needs one unrestricted-fan-in OR gate.'),
+  n('Separate two-level networks generate C1 through C4 with unrestricted fan-in and no sharing. How many final OR gates are needed?',4,'Each of the four carry equations needs one unrestricted-fan-in OR gate.'),
   n('C3 = G2 + P2G1 + P2P1G0 + P2P1P0C0. AND gates for the product terms?',3,'Three terms are products; the bare G2 term needs no AND gate.'),
   c('Does the bare term G3 in C4 require a new AND gate?',['No, G3 is already supplied','Yes, a one-input AND must be counted','Only when C0 is zero'],'G3 connects directly to the final OR in the stated implementation.')]),
  s('Generalize the count carefully',['number','level','inputs'],['For unshared two-level C1 through Cn, the AND total is n(n+1)/2.','The final OR count is n when unrestricted fan-in is allowed.','Sharing products or restricting fan-in changes the component count.'],[
@@ -222,19 +222,19 @@ entry(60,'Bounded-fan-in look-ahead scaling','With gates of fan-in at most two, 
 entry(61,'Timing a two-half-adder ripple chain','For a full adder made from two half adders and one OR, distinguish the first carry delay from later increments. Operand-only XOR and AND signals are prepared in parallel before the carry arrives.',[
  s('Time one full adder',['half','XOR','OR'],['Assume XOR, AND, and OR each have delay T, and all external inputs arrive at zero.','The first half adder produces P and G at T.','Sum arrives at 2T; carry through XOR-AND-OR arrives at 3T.'],[
   n('Two-half-adder full adder, all gates 1 ns, inputs ready at zero. Sum-valid time in ns?',2,'The sum traverses first XOR and second XOR.'),
-  n('Same full adder and delays. Carry-valid time in ns?',3,'The longest carry path traverses XOR, then AND, then OR.'),
+  n('Full adder made from two half adders and one OR, every gate 1 ns, all inputs ready at zero. Carry-valid time in ns?',3,'The longest carry path traverses XOR, then AND, then OR.'),
   n('Every XOR/AND/OR has delay T. At what multiple of T is P=A XOR B ready?',1,'P uses only the operand bits and one XOR gate.'),
   c('Does the first half adder in each column wait for incoming carry?',['No','Yes','Only when operands are equal'],'It computes operand-only P and G independently of carry.')]),
  s('Advance through the carry chain',['previous','extra','valid'],['For columns after the first, operand P and G are already prepared.','An arriving carry needs one more XOR delay for sum.','It needs AND then OR, two more gate delays, for the next carry.'],[
   m('Every gate delay is T; operand-only signals are already valid. Match paths to their extra delay.',[['Incoming carry to sum','T'],['Incoming carry to next carry','2T']],'The carry-to-sum path crosses one XOR; the carry-to-carry path crosses AND then OR.'),
   n('C1 valid at 3 ns; next-column XOR delay 1 ns, its P already ready. S1 validity time in ns?',4,'The late carry passes through one XOR, giving 3 + 1 = 4 ns.'),
   n('C1 valid at 3 ns; next carry passes through AND then OR, each 1 ns. C2 validity time in ns?',5,'The carry path adds two ns, giving five ns.'),
-  c('Why is multiplying every full-adder carry delay by 3T too pessimistic for this chain?',['Later operand XOR signals are already computed','Later gates have zero delay','Carries travel backward'],'Later columns do not repeat the operand-preprocessing wait after the carry arrives.')]),
+  c('Why is multiplying every full-adder carry delay by 3T too pessimistic for a two-half-adder ripple chain with all operand bits ready at zero?',['Later operand XOR signals are already computed','Later gates have zero delay','Carries travel backward'],'Later columns do not repeat the operand-preprocessing wait after the carry arrives.')]),
  s('Find the requested sum time',['s2','c2','delay'],['Under this model, C1=3T, C2=5T, C3=7T.','S0=2T, S1=4T, S2=6T, S3=8T.','Read column indices and requested output carefully; final carry is later than the top sum.'],[
   n('Four-bit two-half-adder ripple chain, every gate 1 ns, inputs at zero. S2-valid time in ns?',6,'C2 arrives at five ns; one final XOR yields S2 at six ns.'),
-  n('Same chain: final C4-valid time in ns?',9,'C1 is three ns, then three increments of two ns give C4 at nine ns.'),
-  n('Same chain but each gate delay 2 ns. S3-valid time in ns?',16,'S3 takes eight gate-delay units; 8 times 2 ns = 16 ns.'),
-  n('Eight-bit chain with the same 1 ns gates. Final carry C8-valid time in ns?',17,'First carry costs three ns; seven later stages add fourteen ns.')])]),
+  n('Four-bit two-half-adder ripple chain, every XOR/AND/OR gate 1 ns, all inputs ready at zero. Final C4-valid time in ns?',9,'C1 is three ns, then three increments of two ns give C4 at nine ns.'),
+  n('Four-bit two-half-adder ripple chain, every XOR/AND/OR gate 2 ns, all inputs ready at zero. S3-valid time in ns?',16,'S3 takes eight gate-delay units; 8 times 2 ns = 16 ns.'),
+  n('Eight-bit two-half-adder ripple chain, every XOR/AND/OR gate 1 ns, all inputs ready at zero. Final carry C8-valid time in ns?',17,'First carry costs three ns; seven later stages add fourteen ns.')])]),
 entry(62,'Signed addition and carry handling','Signed addition requires a stated encoding and width. Twos-complement addition retains the low-width sum, while ones-complement addition applies an end-around carry.',[
  s('Encode before adding',['input','representation','compliment'],['Specify the width and signed representation first.','For a negative ones-complement value, invert the same-width positive magnitude.','For a negative twos-complement value, invert and add one within the width.'],[
   c('Four-bit twos-complement representation of -6?',['1010','1001','0110'],'Positive six is 0110; invert to 1001 and add one to get 1010.'),
@@ -265,7 +265,7 @@ entry(63,'Combinational versus sequential circuits','A settled combinational out
  s('Read time-indexed notation',['time','output','next'],['Define what each symbol means before tracing.','If Q(t) is current state, Q(t+1) is next state.','Different time indices can describe one physical signal at different times.'],[
   m('Q(t) denotes the current state. Match the expressions.',[['Q(t-1)','Previous state'],['Q(t)','Current state'],['Q(t+1)','Next state']],'Time indices distinguish values at successive times.'),
   n('For the explicit binary update Qnext = X XOR Qcurrent, X=1 and Qcurrent=0. Qnext?',1,'XOR of one and zero is one; the stored state toggles.'),
-  n('Same update Qnext = X XOR Qcurrent, X=1 and Qcurrent=1. Qnext?',0,'XOR of two ones is zero, so the same input toggles a different current state downward.'),
+  n('For Qnext = X XOR Qcurrent, X=1 and Qcurrent=1. What is Qnext?',0,'XOR of two ones is zero, so the same input toggles a different current state downward.'),
   c('Q(0), Q(1), Q(2) name one signal at successive times. How many physical signal lines does this notation itself specify?',['One','Three','Six'],'The parenthesized indices denote time samples of the same Q signal.')])]),
 entry(64,'One-bit storage with feedback','Cross-coupled inverters have two complementary stable states. Feedback can retain a bit, but the two output nodes do not provide two independent stored bits.',[
  s('Identify stable feedback states',['inverter','zero','one'],['Each inverter output must complement its input.','With cross-coupling, the two nodes must be complements in a stable state.','The stable pairs are 0,1 and 1,0.'],[

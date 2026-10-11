@@ -3,6 +3,10 @@ $platformRoot=Split-Path -Parent $PSScriptRoot
 $node=(Get-Command node -ErrorAction Stop).Source
 $runtime=Join-Path $platformRoot 'runtime'
 New-Item -ItemType Directory -Path $runtime -Force | Out-Null
+if (Test-Path -LiteralPath (Join-Path $platformRoot '.local-postgres\cluster\PG_VERSION')) {
+  & $node "$PSScriptRoot\db-local.mjs"
+  if ($LASTEXITCODE -ne 0) { throw 'Unable to start local PostgreSQL.' }
+}
 & $node "$PSScriptRoot\sync.mjs"
 if ($LASTEXITCODE -ne 0) { throw 'Unable to sync course data.' }
 $watcher=$null
@@ -28,5 +32,5 @@ if (!$server) {
 }
 $serverId=if ($server.Id) { $server.Id } else { $server.ProcessId }
 @{server=$serverId;watcher=$watcherId;started=(Get-Date).ToString('o')} | ConvertTo-Json | Set-Content -LiteralPath $servicesFile -Encoding UTF8
-Write-Output 'CS Quest is running at http://localhost:4173 (this PC only).'
+Write-Output 'CS Quest is running with PostgreSQL at http://localhost:4173 (this PC only).'
 Write-Output 'One shared watcher checks every registered subject once per minute.'

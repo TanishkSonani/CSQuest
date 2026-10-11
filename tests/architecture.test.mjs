@@ -7,6 +7,7 @@ import {pathToFileURL} from 'node:url';
 import {subjects,platformRoot,readCourses,publicSubjects} from '../config/courses.mjs';
 import {createServer} from '../src/platform/server.mjs';
 import {syncCourse} from '../src/platform/sync.mjs';
+import {testStore} from './database-helper.mjs';
 
 test('source subjects have isolated, uniform course roots with honest publication status',async()=>{
  for(const id of ['coa','dl','c','ds','algo','os','dbms','cn','toc','cd','aptitude'])assert.ok(subjects.some(c=>c.id===id));
@@ -40,7 +41,7 @@ test('registry discovers a new course without platform edits and rejects unsafe 
 });
 
 test('shared server serves both subjects and shared modules while isolating private data',async()=>{
- const directory=await fs.mkdtemp(path.join(os.tmpdir(),'csquest-wall-'));const server=createServer({accountDirectory:directory});await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const base=`http://127.0.0.1:${server.address().port}`;
+ const fixture=await testStore({courses:true});const server=createServer({store:fixture.store});await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const base=`http://127.0.0.1:${server.address().port}`;
  try{
   for(const route of ['/api/subjects','/api/status','/courses/coa/lessons.js','/courses/dl/lessons.js','/api/transcript/0','/shared/worked-examples.js'])assert.equal((await fetch(base+route)).status,401,route);
   const registration=await fetch(base+'/api/account/register',{method:'POST',headers:{'Content-Type':'application/json','X-CSQuest-Request':'1'},body:JSON.stringify({username:'wall_test',displayName:'Wall Test',avatar:'chip',password:'a memorable test passphrase'})});assert.equal(registration.status,200);
@@ -57,7 +58,7 @@ test('shared server serves both subjects and shared modules while isolating priv
   assert.equal((await signedFetch(base+'/api/status?subject=missing')).status,400);
   for(const route of ['/courses/dl/course.json','/courses/dl/data/progress.json','/runtime/services.json','/config/courses.mjs','/api/video/0','/shared/../config/courses.mjs'])assert.equal((await signedFetch(base+route)).status,404,route);
   assert.equal((await signedFetch(base+'/api/status',{method:'POST'})).status,405);
- }finally{await new Promise(resolve=>server.close(resolve));await fs.rm(directory,{recursive:true,force:true});}
+ }finally{await new Promise(resolve=>server.close(resolve));await fixture.dispose();}
 });
 
 test('one importer supports planned subjects and duplicate recording basenames independently',async()=>{
