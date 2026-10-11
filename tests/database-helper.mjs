@@ -5,7 +5,7 @@ import {importCourses} from '../scripts/db-import.mjs';
 import {subjects} from '../config/courses.mjs';
 
 export async function testStore({courses=false}={}){
- const url=process.env.TEST_DATABASE_URL||process.env.DATABASE_URL||process.env.POSTGRES_URL;
+ const url=process.env.TEST_DATABASE_URL||process.env.DATABASE_URL;
  const admin=createPool(url),schema='csquest_test_'+randomUUID().replaceAll('-','');
  await admin.query(`CREATE SCHEMA "${schema}"`);
  const pool=createPool(url,{options:`-c search_path=${schema}`});

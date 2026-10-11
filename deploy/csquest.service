@@ -1,0 +1,25 @@
+[Unit]
+Description=CSQuest learning platform
+After=network.target postgresql.service
+RequiresMountsFor=/srv/csquest-data
+
+[Service]
+Type=simple
+User=csquest
+Group=csquest
+WorkingDirectory=/opt/csquest
+Environment=NODE_ENV=production
+Environment=APP_HOST=127.0.0.1
+Environment=APP_PORT=4173
+EnvironmentFile=/opt/csquest/.env
+ExecStart=/usr/local/bin/node /opt/csquest/scripts/server.mjs
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target

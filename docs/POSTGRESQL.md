@@ -30,6 +30,10 @@ npm run db:import -- runtime/accounts/accounts.json
 
 Do not publish private account files or `.env`. To transfer browser-only progress, use the existing account creation/import UI in the same browser.
 
+## Hosted database deployment with Alembic
+
+For a new hosted database, install the Python dependencies from `requirements.txt`, set `DATABASE_URL`, then run `npm run db:deploy`. Alembic creates and versions the schema; the command then imports course content and any available legacy account file. See [the Alembic deployment guide](../alembic/README.md) for new and existing-database instructions, and [Oracle Cloud deployment](ORACLE_CLOUD.md) for VM setup. Do not run the initial Alembic revisions against a database that already has the CSQuest schema; back it up and baseline it deliberately.
+
 Authoring and transcription tools still prepare local source files. `npm run sync`, the watcher and `npm run build:lessons` publish completed output to PostgreSQL when configured. Direct file edits require `npm run db:import`. Serving lessons, transcripts or status does not read these source files or start transcription.
 
 ## Tables and consistency
@@ -50,4 +54,4 @@ Account transactions lock only the relevant user. Registration also locks the no
 
 `node tests/login-wall-browser.cjs` verifies database-backed registration, login, private course requests, logout and session revocation through Playwright with isolated test records.
 
-The Vercel build contains one function for dynamic database routes. Building does not create, import or modify a database. A future hosted deployment needs a hosted PostgreSQL connection string with TLS configured by the provider, schema migration and course import. The localhost database cannot be used by Vercel. No deployment is part of this local migration.
+The VM runs the same Node.js server used locally. Database creation, migrations and course imports are explicit deployment steps. Use TLS when connecting to a remote database according to its provider's requirements. The database on this PC is separate from the VM database; transfer a PostgreSQL backup to retain existing learner accounts and progress.

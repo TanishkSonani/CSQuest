@@ -47,6 +47,13 @@ export function animateCelebration(dialog){
  move(dialog.querySelector('.celebration h1'),[{opacity:0,translate:'0 12px'},{opacity:1,translate:'0 0'}],{duration:400});
  dialog.querySelectorAll('.result-stats>div,.earned-notice').forEach((el,i)=>move(el,[{opacity:0,translate:'0 12px',scale:'.96'},{opacity:1,translate:'0 0',scale:'1'}],{delay:100+i*90,duration:420}));
  move(dialog.querySelector('.celebration>.mascot'),[{scale:'.9'},{scale:'1.04',offset:.65},{scale:'1'}],{duration:500});
+ move(dialog.querySelector('.trophy-art'),[{scale:'.55',rotate:'-14deg'},{scale:'1.12',rotate:'8deg',offset:.68},{scale:'1',rotate:'0deg'}],{duration:620,delay:80});
+ move(dialog.querySelector('.streak-celebration'),[{opacity:0,translate:'0 14px',scale:'.9'},{opacity:1,translate:'0 0',scale:'1.03',offset:.72},{opacity:1,translate:'0 0',scale:'1'}],{duration:520,delay:240});
+}
+export function animateRewardGain(previousXP,earned,streakIncreased){
+ const xp=document.querySelector('.topbar .stat.gold b'),streak=document.querySelector('.topbar .stat.orange b');
+ move(xp,[{scale:1},{scale:1.38,offset:.55},{scale:1}],{duration:520});
+ if(streakIncreased)move(streak,[{scale:1,rotate:'0deg'},{scale:1.42,rotate:'-8deg',offset:.55},{scale:1,rotate:'0deg'}],{duration:600});
 }
 // A preference change also stops animations that were already running.
 function stopIfReduced(){if(!motionEnabled())document.getAnimations().forEach(animation=>{try{animation.finish();}catch{animation.cancel();}});}

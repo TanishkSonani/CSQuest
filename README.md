@@ -32,13 +32,13 @@ runtime/              Ignored process IDs, logs, and live progress snapshots
 tooling/              Ignored downloaded dependencies, models, and archives
 ```
 
-Node.js **20.12 or newer**, npm dependencies, and PostgreSQL are required. The server uses the `pg` connection pool; the Vercel build bundles its Analytics client.
+Node.js **20.12 or newer**, npm dependencies, and PostgreSQL are required. The server uses the `pg` connection pool and serves browser assets directly. No frontend build is required.
 
-## Deploying on Vercel
+## Deploying on an Oracle Cloud VM
 
-Keep the Vercel **Root Directory** at the repository root. `vercel.json` runs `npm run build:vercel`, which assembles the browser UI, shared modules and one PostgreSQL-backed function in Vercel's Build Output format. Subject catalogs, lessons and transcripts are read from the database rather than bundled as static course data.
+Run the Node.js application as a persistent systemd service behind Nginx, with PostgreSQL on the VM or a separate database host. The repository includes service and proxy templates in `deploy/`. See [Oracle Cloud deployment](docs/ORACLE_CLOUD.md) for Ubuntu VM setup, HTTPS, data transfer, updates and backups.
 
-For a future deployment, configure a hosted PostgreSQL `DATABASE_URL` (or `POSTGRES_URL`), migrate that database, and import course data before deploying. Redis variables are no longer used. The local database on `127.0.0.1:55432` is for this PC. Local restructuring does not change the existing deployed site.
+Set `DATABASE_URL`, migrate the database, and import course content before starting the service. For production, set `NODE_ENV=production` and terminate HTTPS at Nginx. Keep Node.js and PostgreSQL bound to loopback when running on the same VM.
 
 | Command | Purpose |
 |---|---|
@@ -48,6 +48,9 @@ For a future deployment, configure a hosted PostgreSQL `DATABASE_URL` (or `POSTG
 | `npm run db:stop` | Stop the isolated local database |
 | `npm run db:migrate` | Apply pending PostgreSQL schema migrations |
 | `npm run db:import` | Publish course files and import legacy accounts without overwriting users |
+| `npm run db:export -- path/backup.dump` | Export all application data with checksums and table fingerprints |
+| `npm run db:restore -- path/backup.dump` | Restore into an empty database and verify transferred data |
+| `npm run db:verify -- path/backup.dump` | Compare restored table contents against the backup manifest |
 | `npm run watch` | Periodically import all registered subjects |
 | `npm run sync` | Import every subject once |
 | `npm run sync -- dl` | Import one subject |

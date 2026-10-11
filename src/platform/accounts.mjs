@@ -28,7 +28,7 @@ export async function readBody(req){
  try{const value=JSON.parse(Buffer.concat(chunks).toString('utf8'));if(!value||typeof value!=='object'||Array.isArray(value))throw Error();return value;}catch{fail(400,'Invalid JSON data.');}
 }
 export function assertSameOrigin(req){
- const origin=req.headers.origin,expectedOrigin=`${process.env.VERCEL?'https':(req.headers['x-forwarded-proto']||'http').split(',')[0]}://${req.headers.host}`;
+ const origin=req.headers.origin,expectedOrigin=`${(req.headers['x-forwarded-proto']||(req.socket.encrypted?'https':'http')).split(',')[0].trim()}://${req.headers.host}`;
  if(req.headers['x-csquest-request']!=='1'||(origin&&origin!==expectedOrigin)||req.headers['sec-fetch-site']==='cross-site')fail(403,'This request must come from CSQuest.');
 }
 export function createAccounts({store,courses}){
@@ -37,8 +37,8 @@ export function createAccounts({store,courses}){
  const snapshot=user=>({user:publicUser(user),data:user.data,revision:user.revision,updatedAt:user.updatedAt});
  const tokenOf=req=>{const raw=(req.headers.cookie||'').split(';').map(s=>s.trim()).find(s=>s.startsWith('csquest_session='));return raw?raw.slice('csquest_session='.length):'';};
  const authenticate=(db,req)=>{const session=db.sessions.find(s=>s.hash===digest(tokenOf(req))&&s.expiresAt>Date.now()),user=session&&db.users.find(u=>u.id===session.userId);if(!user)fail(401,'Please log in to your account.','AUTH_REQUIRED');return {user,session};};
- const cookie=(res,token,remember=false)=>res.setHeader('Set-Cookie',`csquest_session=${token}; Path=/; HttpOnly; SameSite=Strict${process.env.VERCEL?'; Secure':''}${remember?'; Max-Age=2592000':''}`);
- const clearCookie=res=>res.setHeader('Set-Cookie',`csquest_session=; Path=/; HttpOnly; SameSite=Strict${process.env.VERCEL?'; Secure':''}; Max-Age=0`);
+ const cookie=(res,token,remember=false)=>res.setHeader('Set-Cookie',`csquest_session=${token}; Path=/; HttpOnly; SameSite=Strict${process.env.NODE_ENV==='production'?'; Secure':''}${remember?'; Max-Age=2592000':''}`);
+ const clearCookie=res=>res.setHeader('Set-Cookie',`csquest_session=; Path=/; HttpOnly; SameSite=Strict${process.env.NODE_ENV==='production'?'; Secure':''}; Max-Age=0`);
  const startSession=(db,user,res,remember)=>{const token=randomBytes(32).toString('hex'),now=Date.now();db.sessions=db.sessions.filter(s=>s.expiresAt>now);db.sessions.push({hash:digest(token),userId:user.id,createdAt:now,expiresAt:now+(remember?30:1)*86400000});user.lastLoginAt=now;cookie(res,token,remember);};
  const cleanData=input=>{
   if(!input||typeof input!=='object'||Array.isArray(input))fail(400,'Invalid learning data.');

@@ -2,9 +2,9 @@ import './env.mjs';
 import pg from 'pg';
 import {freshActivity} from './social-metrics.mjs';
 
-export function createPool(connectionString=process.env.DATABASE_URL||process.env.POSTGRES_URL,options={}){
+export function createPool(connectionString=process.env.DATABASE_URL,options={}){
  if(!connectionString)throw new Error('Set DATABASE_URL in .env, then run npm run db:migrate and npm run db:import.');
- const pool=new pg.Pool({connectionString,max:process.env.VERCEL?3:8,connectionTimeoutMillis:10000,idleTimeoutMillis:10000,statement_timeout:15000,...options});
+ const pool=new pg.Pool({connectionString,max:8,connectionTimeoutMillis:10000,idleTimeoutMillis:10000,statement_timeout:15000,...options});
  pool.on('error',error=>console.error('PostgreSQL connection interrupted:',error.code||error.name));
  return pool;
 }

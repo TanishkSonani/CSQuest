@@ -9,8 +9,12 @@
     "db:stop": "node scripts/db-local.mjs stop",
     "db:migrate": "node scripts/db-migrate.mjs",
     "db:import": "node scripts/db-import.mjs",
+    "db:export": "node scripts/db-transfer.mjs export",
+    "db:restore": "node scripts/db-transfer.mjs restore",
+    "db:verify": "node scripts/db-transfer.mjs verify",
+    "db:alembic": "python -m alembic upgrade head",
+    "db:deploy": "python -m alembic upgrade head && npm run db:import",
     "db:setup": "npm run db:local && npm run db:migrate && npm run db:import",
-    "build:vercel": "node scripts/build-vercel.mjs",
     "watch": "node scripts/watch.mjs",
     "sync": "node scripts/sync.mjs",
     "catalog": "node scripts/catalog.mjs",
@@ -22,7 +26,6 @@
     "node": ">=20.12"
   },
   "dependencies": {
-    "@vercel/analytics": "^2.0.1",
     "pg": "^8.23.1"
   }
 }

@@ -22,11 +22,25 @@ const fs=require('node:fs');
    for(const route of ['learn','subjects','practice','errors','roadmap','progress','social','account','settings']){
     await page.goto(base+'/#'+route);await page.locator('main h1').waitFor();
     if(route==='social')await page.locator('.social-stats').waitFor();
+    if(route==='learn'){
+     await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+     const overlaps=await page.evaluate(()=>[...document.querySelectorAll('.path-sidekick')].flatMap(buddy=>{
+      const a=buddy.getBoundingClientRect();return [...document.querySelectorAll('.path-node,.node-title,.node-meta,.chest-3d')].filter(item=>{const b=item.getBoundingClientRect();return a.left<b.right-2&&a.right>b.left+2&&a.top<b.bottom-2&&a.bottom>b.top+2;}).map(item=>item.className);
+     }));assert.deepEqual(overlaps,[],`Mascot overlaps learning content at ${width}px`);
+     if([1440,390].includes(width))await page.locator('.path-topic').first().screenshot({path:`qa-results/review-path-topic-${width}.png`});
+    }
     const overflow=await page.evaluate(()=>Array.from(document.querySelectorAll('main *,header *')).filter(el=>el.getBoundingClientRect().right>innerWidth+1).map(el=>({class:el.className,right:el.getBoundingClientRect().right})).slice(0,12));
     assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`${route} overflows at ${width}: ${JSON.stringify(overflow)}`);
     if([1440,390].includes(width)&&['learn','subjects','practice','progress','social','account'].includes(route))await page.screenshot({path:`qa-results/review-${route}-${width}.png`,fullPage:true});
    }
   }
+  await page.goto(base+'/#learn');await page.locator('.path-sidekick').first().waitFor();
+  const buddy=page.locator('.path-sidekick').first(),oldMessage=await buddy.locator('.path-sidekick-note').innerText();
+  await buddy.click();assert.notEqual(await buddy.locator('.path-sidekick-note').innerText(),oldMessage);assert.equal(await buddy.locator('.byte-mascot').getAttribute('data-mascot-state'),'celebrate');
+  await page.setViewportSize({width:900,height:900});
+  await page.waitForFunction(()=>{const buddy=document.querySelector('.path-sidekick'),node=buddy.parentElement.querySelectorAll('.path-node')[1],a=buddy.getBoundingClientRect(),b=node.getBoundingClientRect();return Math.abs(a.top+a.height/2-b.top-b.height/2)<2;});
+  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Path overflows after resizing without navigation');
+  await page.setViewportSize({width:320,height:900});
   await page.locator('[data-action=theme]').first().click();
   await page.goto(base+'/#social');await page.locator('.social-stats').waitFor();
   await page.screenshot({path:'qa-results/review-dark-320.png',fullPage:true});
