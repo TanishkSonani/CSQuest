@@ -10,9 +10,25 @@ const fs=require('node:fs');
   browser=await chromium.launch({headless:true,executablePath:'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'});
   const context=await browser.newContext({viewport:{width:390,height:844},reducedMotion:'reduce'}),headers={'X-CSQuest-Request':'1'};
   assert.equal((await context.request.post(base+'/api/account/register',{headers,data:{username:'aptitude_browser',displayName:'Aptitude Learner',avatar:'chip',password:'a memorable test passphrase'}})).status(),200);
-  await context.request.post(base+'/api/account/data',{headers,data:{revision:0,changes:{'csquest-subject':'aptitude'}}});
   const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
+  // Simulate a tab opened before Aptitude was published. The subjects page
+  // must refresh its catalog and let the learner enter without editing storage.
+  await page.route('**/subjects.js',async route=>{
+   const response=await route.fetch(),body=await response.text();
+   const catalog=JSON.parse(body.slice(body.indexOf('=')+1).trim().replace(/;$/,''));
+   catalog.find(subject=>subject.id==='aptitude').status='planned';
+   await route.fulfill({response,body:`export const subjects=${JSON.stringify(catalog)};`});
+  });
   await page.goto(base+'/#learn');await page.locator('main h1').waitFor();fs.mkdirSync('qa-results',{recursive:true});
+  await page.locator('.subject-picker').click();
+  const card=page.locator('[data-catalog-subject="aptitude"]');
+  await card.locator('[data-subject="aptitude"]:enabled').waitFor();
+  assert.match(await card.innerText(),/45 levels/);
+  await page.locator('[data-catalog-filter="available"]').click();assert.equal(await card.isVisible(),true);
+  await card.locator('[data-subject="aptitude"]').click();
+  await page.locator('[data-lesson="0"]:not(.locked)').click();await page.locator('.aptitude-lab').waitFor();
+  await page.locator('[data-action="exit"]').click();await page.locator('[data-action="leave"]').click();
+  await page.unroute('**/subjects.js');
   const values=await page.evaluate(async()=>{
    const {labModel}=await import('/aptitude-labs.js');return {interest:labModel('interest',2),work:labModel('work',6,3),sets:labModel('sets',5),rounding:labModel('rounding',-1.2),absolute:labModel('absolute',-3)};
   });

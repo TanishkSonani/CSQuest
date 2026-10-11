@@ -16,7 +16,7 @@ import {icon,mascot} from './icons.js';
 const $=s=>document.querySelector(s);
 let uiPrefs=preferences(readStorage('csquest-preferences',{})),dialogFocusKey=null,subjectQuery='',subjectFilter='all';
 let progress;try{progress=experience(JSON.parse(store.getItem(storageKey)));}catch{progress=emptyProgress();}
-let route=location.hash.slice(1)||'learn',activeUnit=0,status=null,session=null,toastTimer;
+let route=location.hash.slice(1)||'learn',activeUnit=0,status=null,session=null,toastTimer,catalogRefresh=null;
 await initializeAccounts(subjects);uiPrefs=preferences(readStorage('csquest-preferences',{}));try{progress=experience(JSON.parse(store.getItem(storageKey)));}catch{progress=emptyProgress();}
 const todayXP=()=>progress.daily[localDate()]||0;
 const nextLesson=()=>lessons.find(l=>l.ready&&available(l.id,lessons,progress)&&!progress.completed.includes(l.id))||lessons.find(l=>l.ready)||lessons[0];
@@ -47,7 +47,7 @@ function render(){
   $('#app').innerHTML=`<aside class="sidebar"><a class="brand" href="#learn">${icon('chip')}<span>cs<span class="brand-quest">quest</span></span></a><div class="brand-tag">YOUR COMPUTER SCIENCE ADVENTURE</div><nav aria-label="Main navigation">${navItems.map(([id,i,name])=>`<a class="nav-item ${route===id?'selected':''}" href="#${id}" ${route===id?'aria-current="page"':''}>${icon(i)}<span>${name}</span>${['practice','errors'].includes(id)&&progress.mistakes.filter(m=>m.due<=Date.now()&&m.status!=='resolved').length?'<span class="nav-dot"></span>':''}</a>`).join('')}</nav><div class="sidebar-bottom">${mascot('happy','mini-buddy')}<p>Big ideas start<br>with little bits.</p><a class="nav-item account-sidebar ${route==='account'?'selected':''}" href="#account">${avatarMarkup(account.user?.avatar||'chip',true)}<span>${account.user?'My profile':'Log in'}</span></a><a class="nav-item ${route==='settings'?'selected':''}" href="#settings">${icon('settings')}<span>Settings</span></a></div></aside>
   <div class="workspace"><header class="topbar"><button class="course-label plain subject-picker" data-action="subjects" title="Choose a subject"><span class="course-flag">${icon('chip')}</span><span>${h(selectedSubject.shortName.toUpperCase())}<br><b>CS QUEST</b></span>${icon('arrow')}</button><div class="top-stats">${accountButton()}${themeButton()}<span class="stat orange" title="Study-day streak">${icon('flame')}<b>${uxContext().habit.streak}</b><span>day streak</span></span><span class="stat gold" title="Total earned XP">${icon('bolt')}<b>${progress.xp}</b><span>XP</span></span><button class="stat red plain" data-action="hearts" title="Learning hearts">${icon('heart')}<b>5</b></button></div></header><div class="mobile-save-status"><span class="account-sync" role="status">${h(syncText())}</span><a href="#account">${account.user?'MY PROFILE':'SAVE MY PROGRESS'}</a></div>
   <div class="content-layout page-${route}"><main id="main" tabindex="-1">${route==='subjects'?subjectsView():route==='learn'?learnView():route==='practice'?practiceView():route==='errors'?errorsView():route==='roadmap'?roadmapView():route==='settings'?settingsView():route==='progress'?progressView(uxContext(),courseProgressCard(selectedSubject,progress,lessons.length)):route==='social'?socialView():route==='account'?accountView(subjects):learnView()}</main><aside class="rightbar">${rightbar()}</aside></div>${mobileNavigation()}</div>`;
- if(route==='subjects')filterCatalog();
+ if(route==='subjects'){filterCatalog();refreshSubjects();}
  if(route==='social')mountSocial();
  if(route==='learn')decorateLearningPath();
  animatePage($('#main'),selectedSubject.id+':'+route+':'+(route==='learn'?activeUnit:''));
@@ -189,6 +189,21 @@ function kmapExercise(q){const gray=[0,1,3,2],s=session,disabled=s.feedback!==nu
 function exampleTable(table){return table?`<div class="example-table-wrap"><table class="example-table"><thead><tr>${table.headers.map(v=>`<th scope="col">${h(v)}</th>`).join('')}</tr></thead><tbody>${table.rows.map(row=>`<tr>${row.map(v=>`<td>${h(v)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`:'';}
 function workedExampleCard(s){const example=createWorkedExample(s.lesson,s.queue[0].q);return `<div class="teaching-card worked-example" data-example-type="${h(example.type)}"><span class="tag blue">WORKED EXAMPLE</span><h3>${h(example.title)}</h3><p>${h(example.prompt)}</p>${example.terms.length?`<div class="example-terms">${example.terms.map(v=>`<span>${h(v)}</span>`).join('')}</div>`:''}${example.facts.length?`<ul class="example-facts">${example.facts.map(v=>`<li>${h(v)}</li>`).join('')}</ul>`:''}${exampleTable(example.inputTable)}<button class="btn secondary" data-action="reveal-coach" aria-expanded="${Boolean(s.coachRevealed)}">${s.coachRevealed?'HIDE SOLUTION':'SHOW SOLUTION'} ${icon('arrow')}</button>${s.coachRevealed?`<div class="coach-answer">${example.answer?`<b class="example-result">${h(example.answer)}</b>`:''}${exampleTable(example.solutionTable)}${example.solutionList.length?`<ol class="example-steps">${example.solutionList.map(v=>`<li>${h(v)}</li>`).join('')}</ol>`:''}<p>${h(example.explanation)}</p></div>`:'<p class="muted">Study the given information, then reveal the solution and explanation. This example earns no XP.</p>'}</div>`;}
 
+function refreshSubjects(){
+ if(!authenticated())return Promise.resolve();
+ if(catalogRefresh)return catalogRefresh;
+ catalogRefresh=(async()=>{
+  try{
+   const response=await fetch('/api/subjects',{cache:'no-store',signal:AbortSignal.timeout(5000)});
+   if(!response.ok)return;
+   const latest=await response.json();
+   if(!Array.isArray(latest)||JSON.stringify(latest)===JSON.stringify(subjects))return;
+   subjects.splice(0,subjects.length,...latest);
+   if(route==='subjects'&&!session)render();
+  }catch{}finally{catalogRefresh=null;}
+ })();
+ return catalogRefresh;
+}
 function readStorage(key,fallback){try{const value=JSON.parse(store.getItem(key));return value??fallback;}catch{return fallback;}}
 function savePreferences(){uiPrefs=preferences(uiPrefs);try{store.setItem('csquest-preferences',JSON.stringify(uiPrefs));}catch{toast('Your browser could not save settings.');}}
 function uxContext(){const habit=habitSummary(subjects.filter(s=>s.status==='available').map(s=>s.id===selectedSubject.id?progress:readStorage(s.storageKey,null)));return {accountUser:account.user,progress:experience(progress),prefs:uiPrefs,habit,summary:practiceSummary(progress,lessons),latestDraft:readDrafts()[0],next:nextLesson(),subject:selectedSubject,allComplete:lessons.filter(l=>l.ready).every(l=>progress.completed.includes(l.id))};}
@@ -203,6 +218,7 @@ function filterCatalog(){const cards=[...document.querySelectorAll('[data-catalo
 document.addEventListener('input',e=>{if(e.target.id==='subject-search'){subjectQuery=e.target.value;filterCatalog();}});
 window.addEventListener('pagehide',persistSession);
 window.addEventListener('online',pollStatus);
+setInterval(refreshSubjects,60000);
 document.addEventListener('keydown',e=>{if(!session||session.finished||session.intro||e.isComposing||e.repeat||e.defaultPrevented)return;if(e.key==='Enter'&&e.ctrlKey&&!e.altKey&&!e.metaKey){const button=document.querySelector('[data-action="'+(session.feedback===null?'check-answer':'next-question')+'"]');if(button&&!button.disabled){e.preventDefault();button.click();}return;}if(e.altKey||e.ctrlKey||e.metaKey)return;const editable=e.target.matches('input,textarea,[contenteditable=true]');if(!editable&&session.feedback===null&&session.queue[session.index].q.type==='choice'&&/^[1-9]$/.test(e.key)){const button=document.querySelector('[data-choice="'+(Number(e.key)-1)+'"]');if(button){e.preventDefault();button.click();}}else if(e.key==='Enter'&&!e.defaultPrevented&&(!e.target.closest('button,a')||e.target.matches('[data-choice],[data-action="check-answer"],[data-action="next-question"]'))&&!e.target.matches('a,[data-action="concept-hint"],[data-source-info],[data-action="exit"],[data-action="resume"],[data-action="leave"],[data-action="theme"]')){const button=document.querySelector('[data-action="'+(session.feedback===null?'check-answer':'next-question')+'"]');if(button&&!button.disabled){e.preventDefault();button.click();}}});
 
 async function reloadUser(){session=null;closeDialog();uiPrefs=preferences(readStorage('csquest-preferences',{}));await switchSubject(store.getItem('csquest-subject')||'coa',true);render();}
