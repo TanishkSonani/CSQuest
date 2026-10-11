@@ -8,7 +8,7 @@ export function grade(question,value){
   if(question.type==='truth')return Array.isArray(value)&&value.length===question.answer.length&&value.every((v,i)=>v===question.answer[i]);
   if(question.type==='kmap')return Array.isArray(value)&&value.length===question.answer.length&&new Set(value).size===value.length&&value.every(v=>question.answer.includes(v));
   if(question.type==='choice')return value===question.answer;
-  if(question.type==='number')return String(value).trim()!==''&&Number.isFinite(Number(value))&&Math.abs(Number(value)-question.answer)<=(question.tolerance||0);
+  if(question.type==='number'||question.type==='visual-number')return value!==null&&value!==undefined&&String(value).trim()!==''&&Number.isFinite(Number(value))&&(question.type!=='visual-number'||Number(value)>=question.min&&Number(value)<=question.max)&&Math.abs(Number(value)-question.answer)<=(question.tolerance||0);
   if(question.type==='hex'){const clean=s=>String(s??'').trim().replace(/^0x/i,'').replace(/\s/g,'').toUpperCase();return /^[0-9A-F]+$/.test(clean(value))&&clean(value).replace(/^0+/,'')===clean(question.answer).replace(/^0+/,'');}
   if(question.type==='cache')return Array.isArray(value)&&value.length===question.accesses.length&&value.every((v,i)=>v===traceCache(question)[i].hit);
   if(question.type==='bits')return Number(value)===question.opcode;

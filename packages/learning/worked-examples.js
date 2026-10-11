@@ -5,6 +5,7 @@ export function createWorkedExample(lesson,question=lesson.questions[0]){
  const out={type:q.type,title:headings[q.type],prompt:q.prompt,explanation:q.explanation,facts:[],terms:[],inputTable:null,solutionTable:null,solutionList:[],answer:correctAnswer(q)};
  switch(q.type){
  case 'choice':out.facts=q.options.map(option=>String(option));break;
+ case 'visual-number':out.title='Work through a visual calculation';
  case 'number':out.answer=String(q.answer)+(q.unit?' '+q.unit:'');break;
  case 'hex':out.answer='0x'+q.answer;break;
  case 'match':out.terms=q.pairs.map(p=>p[0]);out.solutionTable={headers:['Term','Meaning or role'],rows:q.pairs};out.answer='';break;

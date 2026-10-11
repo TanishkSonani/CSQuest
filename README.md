@@ -10,12 +10,15 @@ Saved rounds let you pause and continue after reloading. A practice hub offers q
 
 Run `npm install` and `npm run db:setup` once, then double-click **Start CSQuest.cmd** and visit **http://localhost:4173**. Setup creates an isolated local PostgreSQL database and imports existing data. The launcher starts PostgreSQL, one shared server and one watcher that checks every subject once per minute. Access remains restricted to this PC. See [PostgreSQL setup and migration](docs/POSTGRESQL.md).
 
-The repository contains scaffolds for all **11 subjects / 864 recordings** discovered under `K:\Gate\GO CSE`, including videos inside nested `Done` folders. COA and Digital Logic are available; the remaining subjects appear as **Coming Soon** until transcription and reviewed lessons are ready.
+The repository contains scaffolds for all **11 subjects / 864 recordings** discovered under `K:\Gate\GO CSE`, including videos inside nested `Done` folders. COA, Digital Logic and General Aptitude are available; the remaining subjects appear as **Coming Soon** until transcription and reviewed lessons are ready.
 
 | Available subject | Completed transcripts | Developed levels | Challenges |
 |---|---:|---:|---:|
 | Computer Organization & Architecture | 35 / 35 | 105 | 420 |
 | Digital Logic | 98 / 98 | 294 | 1,176 |
+| General Aptitude | 15 / 15 | 45 | 180 |
+
+Aptitude includes interactive growth and price charts, percentage grids, ratio shares, work-rate bars, a moving journey, factor tiles, shape rotation/reflection, Venn diagrams, arrangement checks, number lines, and sentence/evidence explorers. Visual number puzzles support both sliders and typed answers. See [Aptitude content and verification](docs/APTITUDE.md).
 
 Existing COA and Digital Logic browser storage keys are preserved. The selected subject, global theme, XP, streaks, completed lessons, and practice errors continue to work. Original recordings remain on K:. Completed transcripts and lessons are local; existing material works without the recording drive or speech model. Machine transcripts can mishear numbers and formulas, so problems state explicit assumptions. The portal has no video player or lecture notebook.
 

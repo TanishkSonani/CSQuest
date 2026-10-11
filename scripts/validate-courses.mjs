@@ -3,7 +3,7 @@ import path from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {subjects,platformRoot} from '../config/courses.mjs';
 import {grade,traceCache} from '../packages/learning/engine.js';
-const types=new Set(['choice','number','match','order','bits','cpu','hex','cache','truth','kmap','mux']);
+const types=new Set(['choice','number','visual-number','match','order','bits','cpu','hex','cache','truth','kmap','mux']);
 const metadata=/\b(course|lecture|video|instructor|recording|mentioned|taught)\b/i;
 function require(value,message){if(!value)throw new Error(message);}
 for(const course of subjects){
