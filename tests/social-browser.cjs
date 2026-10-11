@@ -28,7 +28,10 @@ const assert=require('node:assert/strict');
  try{
   const a=await learner('social_browser_alice','Alice Learner'),b=await learner('social_browser_bob','Bob Learner');
   await a.page.locator('#social-search').fill(b.user.username);await a.page.locator('[data-social-form="search"] button[type=submit]').click();
-  await a.page.locator('[data-social="friend-request"]').click();await a.page.getByText('Waiting for their reply',{exact:false}).waitFor();await waitIdle(a.page);
+  await waitIdle(a.page);
+  assert.match(await a.page.locator('.social-suggestions').innerText(),/Bob Learner/);
+  await a.page.locator(`.social-suggestions [data-social="friend-request"][data-user-id="${b.user.id}"]`).click();await a.page.getByText('Waiting for their reply',{exact:false}).waitFor();await waitIdle(a.page);
+  assert.equal(await a.page.locator(`.social-suggestions [data-user-id="${b.user.id}"]`).count(),0);
   await b.page.reload();await b.page.locator('[data-social="friend-respond"][data-response="accept"]').click();await b.page.locator('.social-friend').waitFor();await waitIdle(b.page);
   await a.page.locator('[data-social="tab"][data-tab="leaderboards"]').click();await a.page.locator('[data-social="refresh"]').click();await waitIdle(a.page);
   await a.page.locator('[data-social="tab"][data-tab="friends"]').click();await a.page.locator('[data-social="compare"]').click();await a.page.locator('.social-comparison').waitFor();await waitIdle(a.page);

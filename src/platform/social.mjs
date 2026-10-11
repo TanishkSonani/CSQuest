@@ -86,7 +86,12 @@ export async function handleSocial({store,actor,req,url,send,courses,now=Date.no
    for(const row of (await pool.query(`SELECT m.challenge_id FROM csquest_challenge_members m JOIN csquest_challenges c ON c.id=m.challenge_id WHERE m.user_id=$1 AND m.state!='declined' ORDER BY c.ends_at DESC LIMIT 20`,[id])).rows)challenges.push(await challenge(pool,row.challenge_id,id,now));
    const ids=friends.map(friend=>friend.id);
    const feed=(await pool.query(`SELECT u.id,u.username,u.display_name,u.avatar,a.course_id AS "courseId",sum(a.xp)::integer AS xp,date_trunc('day',a.created_at) AS day FROM csquest_activity_events a JOIN csquest_users u ON u.id=a.user_id WHERE a.user_id=ANY($1::uuid[]) AND a.created_at>=$2 GROUP BY u.id,a.course_id,date_trunc('day',a.created_at) ORDER BY day DESC,xp DESC LIMIT 12`,[ids,new Date(now-7*86400000).toISOString()])).rows.map(row=>({...identity(row),courseId:row.courseId,xp:row.xp,day:row.day}));
-   result={self,profile,friends,requests,notifications,challenges,feed,week:weekBounds(now),leagues:LEAGUES};
+   const suggestions=(await pool.query(`SELECT u.id,u.username,u.display_name,u.avatar FROM csquest_users u
+    JOIN csquest_social_profiles p ON p.user_id=u.id AND p.discoverable
+    WHERE u.id!=$1 AND NOT EXISTS(SELECT 1 FROM csquest_friendships f
+     WHERE f.user_low=least(u.id,$1::uuid) AND f.user_high=greatest(u.id,$1::uuid))
+    ORDER BY u.last_login_at DESC NULLS LAST,u.username LIMIT 12`,[id])).rows.map(identity);
+   result={self,profile,friends,requests,suggestions,notifications,challenges,feed,week:weekBounds(now),leagues:LEAGUES};
   }else if(action==='search'&&!write){
    const query=(url.searchParams.get('q')||'').trim().toLowerCase();
    if(!/^[a-z0-9_]{3,32}$/.test(query))fail(400,'Enter at least 3 letters, numbers or underscores.');
