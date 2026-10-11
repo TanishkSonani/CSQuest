@@ -61,6 +61,7 @@ function drawing(kind,a,b){
   default:return {art:'',text:''};
  }
 }
+export function aptitudeIllustration(lesson){const d=definitions[lesson.lab];return drawing(lesson.lab,d[2][0][5],d[2][1]?.[5]||0);}
 export function aptitudeLab(lesson){
  const d=definitions[lesson.lab];if(!d)return '';
  const a=d[2][0][5],b=d[2][1]?.[5]||0,view=drawing(lesson.lab,a,b);
