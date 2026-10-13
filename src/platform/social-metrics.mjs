@@ -7,7 +7,7 @@ export function weekBounds(now=Date.now()){
 export function learnerMetrics(data,courses,now=Date.now(),{timeZone='UTC'}={}){
  let xp=0,levels=0,totalLevels=0,questions=0,correct=0,seconds=0,rounds=0;const daily={},courseStats=[];
  for(const course of courses.filter(course=>course.status==='available')){
-  const progress=parse(data[course.storageKey]),total=course.lectureCount*3;
+  const progress=parse(data[course.storageKey]),total=(course.publishedLectureCount??course.lectureCount)*3;
   const completed=new Set((Array.isArray(progress.completed)?progress.completed:[]).filter(id=>Number.isInteger(id)&&id>=0&&id<total)).size;
   const courseXP=number(progress.xp);xp+=courseXP;levels+=completed;totalLevels+=total;
   for(const [date,value] of Object.entries(progress.daily||{}))if(/^\d{4}-\d{2}-\d{2}$/.test(date))daily[date]=(daily[date]||0)+number(value);
@@ -37,7 +37,7 @@ export function freshActivity(before,after,courses,now=Date.now()){
   const history=(Array.isArray(next.history)?next.history:[]).filter(Boolean).sort((a,b)=>a.at-b.at);
   for(const event of history){
    const key=eventKey(event);
-   if(seen.has(key)||!Number.isInteger(event.at)||event.at<now-86400000||event.at>now+300000||!Number.isInteger(event.lessonId)||event.lessonId<0||event.lessonId>=course.lectureCount*3||!Number.isInteger(event.questions)||event.questions<1||event.questions>16||!Number.isInteger(event.correct)||event.correct<0||event.correct>event.questions||!Number.isInteger(event.xp)||event.xp!==20+event.questions*5+event.correct*5||event.xp>200||event.xp>budget)continue;
+   if(seen.has(key)||!Number.isInteger(event.at)||event.at<now-86400000||event.at>now+300000||!Number.isInteger(event.lessonId)||event.lessonId<0||event.lessonId>=(course.publishedLectureCount??course.lectureCount)*3||!Number.isInteger(event.questions)||event.questions<1||event.questions>16||!Number.isInteger(event.correct)||event.correct<0||event.correct>event.questions||!Number.isInteger(event.xp)||event.xp!==20+event.questions*5+event.correct*5||event.xp>200||event.xp>budget)continue;
    seen.add(key);budget-=event.xp;events.push({courseId:course.id,key,xp:event.xp});
   }
  }

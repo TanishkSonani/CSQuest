@@ -9,10 +9,11 @@ export function readCourses(directory=coursesRoot){
     const file=path.join(directory,d.name,'course.json');
     const course=JSON.parse(fs.readFileSync(file,'utf8'));
     if(course.schemaVersion!==1||course.id!==d.name||!/^[-a-z0-9]+$/.test(course.id))throw new Error(`Invalid course identity: ${file}`);
-    const allowed=new Set(['schemaVersion','id','name','shortName','description','icon','color','order','status','sourceFolder','lectureCount','storageKey','builder']);
+    const allowed=new Set(['schemaVersion','id','name','shortName','description','icon','color','order','status','sourceFolder','lectureCount','publishedLectureCount','storageKey','builder']);
     const requiredStrings=['name','shortName','description','icon','storageKey','sourceFolder'];
     if(Object.keys(course).some(key=>!allowed.has(key))||requiredStrings.some(key=>typeof course[key]!=='string'||!course[key].trim())||!['available','planned'].includes(course.status)||!['green','blue','purple','orange','teal','pink'].includes(course.color)||!Number.isInteger(course.lectureCount)||course.lectureCount<0||(course.order!==undefined&&(!Number.isInteger(course.order)||course.order<0)))throw new Error(`Invalid course manifest: ${file}`);
     if(/[\\/]/.test(course.sourceFolder)||['.','..'].includes(course.sourceFolder))throw new Error(`Invalid source folder: ${file}`);
+    if(course.publishedLectureCount!==undefined&&(!Number.isInteger(course.publishedLectureCount)||course.publishedLectureCount<0||course.publishedLectureCount>course.lectureCount))throw new Error(`Invalid published topic count: ${file}`);
     if(course.builder&&!/^authoring\/[a-z0-9-]+\.mjs$/.test(course.builder))throw new Error(`Invalid lesson builder: ${file}`);
     return {...course,moduleBase:`/courses/${course.id}/`,dataDirectory:`courses/${course.id}/data`,contentDirectory:`courses/${course.id}/content`};
   }).sort((a,b)=>(a.order??100)-(b.order??100)||a.id.localeCompare(b.id));

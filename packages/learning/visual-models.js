@@ -7,6 +7,7 @@ export function diagramKind(subject,lesson){
  if(subject==='dl')return dl[lesson.lecture];
  if(subject==='c')return ({2:'binary',3:'radix',4:'radix',5:'signed',6:'promotion',7:'promotion',8:'signed',9:'conversion',11:'switch',23:'computer',24:'computer',28:'linkage',29:'linkage',30:'linkage',31:'linkage',42:'c-size',43:'c-size',45:'pointer-stride',46:'pointer-stride',47:'endian',48:'array-parameter',53:'row-pointer',54:'pointer-table',55:'row-pointer',56:'row-pointer',57:'declaration',58:'declaration',59:'void-pointer',60:'pointer-stride',67:'pointer-stride'})[lesson.lecture]||'c:'+lesson.cLab;
  if(subject==='aptitude')return 'aptitude:'+lesson.lab;
+ if(subject==='ds')return 'ds:'+lesson.dsLab;
  throw Error('No visual subject: '+subject);
 }
 const controls={

@@ -12,7 +12,7 @@ for(const course of subjects){
  require(Array.isArray(units)&&Array.isArray(lecturePlans)&&Array.isArray(lessons),`${course.id}: invalid content exports`);
  if(course.status==='available'){
   require(units.length&&lecturePlans.length&&lessons.length,`${course.id}: published course has empty content`);
-  require(lecturePlans.length===course.lectureCount,`${course.id}: curriculum does not cover every recording`);
+  require(lecturePlans.length===(course.publishedLectureCount??course.lectureCount),`${course.id}: curriculum does not cover the declared published topics`);
   require(lessons.length===lecturePlans.length*3,`${course.id}: expected three stages per recording`);
   const coverage=units.flatMap(unit=>Array.from({length:unit.range[1]-unit.range[0]+1},(_,i)=>unit.range[0]+i));
   require(JSON.stringify(coverage)===JSON.stringify(lecturePlans.map((_,i)=>i)),`${course.id}: unit coverage has gaps or duplicates`);
