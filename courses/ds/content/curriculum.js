@@ -130,6 +130,66 @@ export const units=[
     "color": "teal",
     "icon": "chip",
     "goal": "Complete shapes, priority operations and linear building. Use a diagram and a small example to justify each answer."
+  },
+  {
+    "id": 11,
+    "title": "Heaps in practice",
+    "subtitle": "Counting, sorting, merging and priority scheduling",
+    "range": [
+      73,
+      82
+    ],
+    "color": "teal",
+    "icon": "chip",
+    "goal": "Counting, sorting, merging and priority scheduling. Use a diagram and a small example to justify each answer."
+  },
+  {
+    "id": 12,
+    "title": "Hash tables",
+    "subtitle": "Key mapping, collisions, probing and safe deletion",
+    "range": [
+      83,
+      89
+    ],
+    "color": "teal",
+    "icon": "chip",
+    "goal": "Key mapping, collisions, probing and safe deletion. Use a diagram and a small example to justify each answer."
+  },
+  {
+    "id": 13,
+    "title": "Hashing and probability",
+    "subtitle": "Indicators, expectations and honest cost models",
+    "range": [
+      90,
+      93
+    ],
+    "color": "teal",
+    "icon": "chip",
+    "goal": "Indicators, expectations and honest cost models. Use a diagram and a small example to justify each answer."
+  },
+  {
+    "id": 14,
+    "title": "Array memory layouts",
+    "subtitle": "Storage order, dimension strides and byte addresses",
+    "range": [
+      94,
+      96
+    ],
+    "color": "teal",
+    "icon": "chip",
+    "goal": "Storage order, dimension strides and byte addresses. Use a diagram and a small example to justify each answer."
+  },
+  {
+    "id": 15,
+    "title": "DS challenge workshop",
+    "subtitle": "Operation accounting, insertion orders and safe list updates",
+    "range": [
+      97,
+      100
+    ],
+    "color": "teal",
+    "icon": "chip",
+    "goal": "Operation accounting, insertion orders and safe list updates. Use a diagram and a small example to justify each answer."
   }
 ];
 export const lecturePlans=[
@@ -570,5 +630,173 @@ export const lecturePlans=[
     "Save the root value",
     "Preserve completeness with the last key",
     "Restore order with sift-down"
+  ],
+  [
+    "Counting distinct min-heaps",
+    "Fix the complete tree shape",
+    "Choose subtree key sets",
+    "Multiply recursive arrangement counts"
+  ],
+  [
+    "Counting ordered binary trees",
+    "Split nodes around a root",
+    "Sum the Catalan recurrence",
+    "Separate shapes from labels"
+  ],
+  [
+    "Random-node height and insertion averages",
+    "Define a random experiment",
+    "Weight heights by probability",
+    "Check what an average really proves"
+  ],
+  [
+    "Heap operation costs",
+    "Match operations to touched paths",
+    "Separate search from priority access",
+    "Compare logarithmic and linear work"
+  ],
+  [
+    "In-place heapsort",
+    "Build an explicit max-heap",
+    "Grow a final sorted suffix",
+    "Repair only the active prefix"
+  ],
+  [
+    "Merging heaps and choosing structures",
+    "Distinguish heaps from BSTs",
+    "Concatenate without assuming order",
+    "Rebuild the combined heap"
+  ],
+  [
+    "Priority queues for a job scheduler",
+    "State the urgency convention",
+    "Serve the highest-priority job",
+    "Handle ties and an empty queue"
+  ],
+  [
+    "Heap rank and search challenges",
+    "Read rank independently of position",
+    "Trace successive minima",
+    "Separate guaranteed and possible locations"
+  ],
+  [
+    "Heap repair challenges",
+    "Verify the child-subheap precondition",
+    "Follow a smaller-child path",
+    "Count actual swaps in the given state"
+  ],
+  [
+    "Maximum deletion and boundary cases",
+    "Name min-heap or max-heap explicitly",
+    "Shrink before downward repair",
+    "Handle the final live key"
+  ],
+  [
+    "Direct addressing and its space tradeoff",
+    "Allocate for the key universe",
+    "Map each key to its own slot",
+    "Compare live records with reserved space"
+  ],
+  [
+    "Hash functions and collisions",
+    "Map a full key to a bucket",
+    "Retain colliding records",
+    "Look up using full-key equality"
+  ],
+  [
+    "Collision resolution choices",
+    "Separate buckets from table slots",
+    "Compare chaining and probing",
+    "Define exactly what a collision count means"
+  ],
+  [
+    "Chaining performance",
+    "Measure load as keys per bucket",
+    "Trace comparisons within a chain",
+    "Distinguish expected from worst-case work"
+  ],
+  [
+    "Linear probing and safe deletion",
+    "Probe consecutive slots with wraparound",
+    "Stop at a never-used empty slot",
+    "Continue past a deletion tombstone"
+  ],
+  [
+    "Quadratic probing and double hashing",
+    "Generate a quadratic probe sequence",
+    "Choose a coprime double-hash step",
+    "Check coverage instead of assuming it"
+  ],
+  [
+    "Counting possible probe orders",
+    "Treat probes as slot permutations",
+    "Count starts and step choices",
+    "Recognize repeated-slot cycles"
+  ],
+  [
+    "Unsuccessful open-address searches",
+    "State the uniform-hashing model",
+    "Compute the occupancy-sensitive bound",
+    "Interpret high-load probe growth"
+  ],
+  [
+    "Successful open-address searches",
+    "Average insertion histories",
+    "Evaluate the logarithmic bound",
+    "Keep implementation and ideal model distinct"
+  ],
+  [
+    "Bernoulli indicators and binomial counts",
+    "Represent a yes or no event",
+    "Sum independent indicators",
+    "Read a probability distribution"
+  ],
+  [
+    "Expected bucket occupancy and collisions",
+    "Count empty-bucket indicators",
+    "Convert empty counts to occupied counts",
+    "Distinguish extra items from colliding pairs"
+  ],
+  [
+    "Row-major and column-major arrays",
+    "Flatten a two-dimensional grid",
+    "Identify the fastest varying index",
+    "Convert element offsets to byte addresses"
+  ],
+  [
+    "Multidimensional array strides",
+    "Multiply dimensions into strides",
+    "Compute an offset in either order",
+    "Apply element width once"
+  ],
+  [
+    "Array bounds and address puzzles",
+    "Normalize every lower bound",
+    "Choose the declared storage order",
+    "Check units and the final address"
+  ],
+  [
+    "Queue implementation cost puzzles",
+    "Count a burst of enqueues",
+    "Charge each transfer once",
+    "Explain amortized versus individual work"
+  ],
+  [
+    "Stack residence-time puzzles",
+    "Define entry and exit timestamps",
+    "Trace last-in first-out departures",
+    "Average with a stated target distribution"
+  ],
+  [
+    "BST insertion-order challenges",
+    "Keep the root first",
+    "Interleave independent subtree orders",
+    "Count permutations for one fixed tree"
+  ],
+  [
+    "Circular doubly linked list review",
+    "Retain head and tail identities",
+    "Initialize and connect a new node",
+    "Publish the updated head safely"
   ]
 ];

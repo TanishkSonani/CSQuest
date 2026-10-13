@@ -24820,5 +24820,10831 @@ export const lessons=[
       ],
       "example": "Deleting from 1,4,2,9,6,3,8 returns 1 and can leave 2,4,3,9,6,8."
     }
+  },
+  {
+    "id": 219,
+    "lecture": 73,
+    "title": "Fix the complete tree shape",
+    "concept": "Counting min-heaps with distinct keys means counting valid key assignments to one complete binary shape. The smallest key is forced into the root; choosing left-subtree keys and arranging the two subheaps accounts for the remaining freedom.",
+    "teachingSteps": [
+      "Find the left and right subtree sizes from the complete shape.",
+      "Choose which nonroot keys belong to the left subtree.",
+      "Multiply that choice count by both recursive heap counts."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which freedom is counted for a fixed n-key heap?",
+        "options": [
+          "All arbitrary binary-tree shapes",
+          "Memory addresses only",
+          "Key assignments to a complete shape"
+        ],
+        "answer": 2,
+        "explanation": "Completeness fixes occupied positions."
+      },
+      {
+        "type": "match",
+        "prompt": "Match the terms for counting distinct min-heaps.",
+        "pairs": [
+          [
+            "Complete shape",
+            "occupied positions are fixed by n."
+          ],
+          [
+            "Combination",
+            "choose a key set without ordering it."
+          ],
+          [
+            "Base count",
+            "an empty or one-key heap has one arrangement."
+          ]
+        ],
+        "explanation": "Use the stated definitions to distinguish these roles."
+      },
+      {
+        "type": "number",
+        "prompt": "Use distinct keys 1 through 7 assigned to a complete min-heap shape. How many real nodes belong to the root left subtree?",
+        "answer": 3,
+        "tolerance": 1e-8,
+        "explanation": "Complete shape fixes three left positions.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "tree",
+            "nodes": [
+              {
+                "key": 1,
+                "left": 1,
+                "right": 2
+              },
+              {
+                "key": 4,
+                "left": 3,
+                "right": 4
+              },
+              {
+                "key": 2,
+                "left": 5,
+                "right": 6
+              },
+              {
+                "key": 9,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 6,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 3,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 8,
+                "left": null,
+                "right": null
+              }
+            ],
+            "active": [],
+            "indexed": true
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Use distinct keys 1 through 7 assigned to a complete min-heap shape. How many belong to the root right subtree?",
+        "answer": 3,
+        "tolerance": 1e-8,
+        "explanation": "Three right positions remain.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "tree",
+            "nodes": [
+              {
+                "key": 1,
+                "left": 1,
+                "right": 2
+              },
+              {
+                "key": 4,
+                "left": 3,
+                "right": 4
+              },
+              {
+                "key": 2,
+                "left": 5,
+                "right": 6
+              },
+              {
+                "key": 9,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 6,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 3,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 8,
+                "left": null,
+                "right": null
+              }
+            ],
+            "active": [],
+            "indexed": true
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heap-count",
+    "start": 2.26,
+    "sourceReferences": [
+      {
+        "lecture": 73,
+        "file": "073. 18 a. Number of Min Heaps _ GATE 2018 _ TIFR 2014.mp4",
+        "start": 2.26,
+        "end": 28.8,
+        "text": "Now let's look at one combinatoric problem in heaps. It will turn out to be very interesting problem Let me first state the problem which says that number of heaps possible So by default in this video when I am saying heaps I mean min heaps Okay, like you can apply the same thing for the max heaps does not matter but for now I am saying min heaps Now if someone asks you that suppose one node is given to you and how many heaps are possible with one node?"
+      },
+      {
+        "lecture": 73,
+        "file": "073. 18 a. Number of Min Heaps _ GATE 2018 _ TIFR 2014.mp4",
+        "start": 29.31,
+        "end": 57.09,
+        "text": "Obviously, let's suppose that one number that is one is given to you, then how many heaps are possible with this number? Only one heap is possible. And how does this heap look like? Just like this, right? And if someone gives you two nodes, then how many heaps are possible? If someone give you one and two numbers or two nodes, then how many heaps are possible? See, you know the structure of the heap will look like this. Because heap, at the end of day, it is a complete binary tree, right? Because of the structural property, it should look like a complete binary tree. Now, the structure is this."
+      },
+      {
+        "lecture": 73,
+        "file": "073. 18 a. Number of Min Heaps _ GATE 2018 _ TIFR 2014.mp4",
+        "start": 57.38,
+        "end": 86,
+        "text": "and obviously one has to come here then two will come here only right so that's why number of heaps possible with one and two is just one heap so that is okay now if i ask you number of heaps possible with three nodes which which means suppose if i give you one two three and if i ask you that how many heaps are possible with three nodes so you will say that okay structural look like this and now it is my job to fill these three nodes with these three numbers which means one will come here because it is a mini heap"
+      }
+    ],
+    "foundation": {
+      "title": "Counting distinct min-heaps",
+      "idea": "Counting min-heaps with distinct keys means counting valid key assignments to one complete binary shape. The smallest key is forced into the root; choosing left-subtree keys and arranging the two subheaps accounts for the remaining freedom.",
+      "terms": [
+        "Complete shape: occupied positions are fixed by n.",
+        "Combination: choose a key set without ordering it.",
+        "Base count: an empty or one-key heap has one arrangement."
+      ],
+      "example": "Seven keys give subtree sizes three and three. H(7)=C(6,3)*H(3)*H(3)=20*2*2=80."
+    }
+  },
+  {
+    "id": 220,
+    "lecture": 73,
+    "title": "Choose subtree key sets",
+    "concept": "Counting min-heaps with distinct keys means counting valid key assignments to one complete binary shape. The smallest key is forced into the root; choosing left-subtree keys and arranging the two subheaps accounts for the remaining freedom.",
+    "teachingSteps": [
+      "Find the left and right subtree sizes from the complete shape.",
+      "Choose which nonroot keys belong to the left subtree.",
+      "Multiply that choice count by both recursive heap counts."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Why multiply both subtree counts?",
+        "options": [
+          "The root may be chosen arbitrarily",
+          "Every left arrangement combines with every right arrangement",
+          "Only one subtree may contain keys"
+        ],
+        "answer": 1,
+        "explanation": "The independent subtree choices combine."
+      },
+      {
+        "type": "number",
+        "prompt": "Use distinct keys 1 through 7 assigned to a complete min-heap shape. How many ways select the three left keys from six nonroot keys?",
+        "answer": 20,
+        "tolerance": 1e-8,
+        "explanation": "C(6,3)=20.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "tree",
+            "nodes": [
+              {
+                "key": 1,
+                "left": 1,
+                "right": 2
+              },
+              {
+                "key": 4,
+                "left": 3,
+                "right": 4
+              },
+              {
+                "key": 2,
+                "left": 5,
+                "right": 6
+              },
+              {
+                "key": 9,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 6,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 3,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 8,
+                "left": null,
+                "right": null
+              }
+            ],
+            "active": [],
+            "indexed": true
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Use distinct keys 1 through 7 assigned to a complete min-heap shape. How many distinct min-heap arrangements exist on any chosen three-key set?",
+        "answer": 2,
+        "tolerance": 1e-8,
+        "explanation": "Its minimum is root, and the two remaining keys can swap sides.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "tree",
+            "nodes": [
+              {
+                "key": 1,
+                "left": 1,
+                "right": 2
+              },
+              {
+                "key": 4,
+                "left": 3,
+                "right": 4
+              },
+              {
+                "key": 2,
+                "left": 5,
+                "right": 6
+              },
+              {
+                "key": 9,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 6,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 3,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 8,
+                "left": null,
+                "right": null
+              }
+            ],
+            "active": [],
+            "indexed": true
+          }
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange this procedure for counting distinct min-heaps.",
+        "items": [
+          "Fix the complete shape and its subtree sizes",
+          "Choose the left-subtree key set",
+          "Count each subtree arrangement recursively",
+          "Multiply the three independent counts"
+        ],
+        "explanation": "Follow this stated procedure so each later stage has its required input."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heap-count",
+    "start": 2.26,
+    "sourceReferences": [
+      {
+        "lecture": 73,
+        "file": "073. 18 a. Number of Min Heaps _ GATE 2018 _ TIFR 2014.mp4",
+        "start": 2.26,
+        "end": 28.8,
+        "text": "Now let's look at one combinatoric problem in heaps. It will turn out to be very interesting problem Let me first state the problem which says that number of heaps possible So by default in this video when I am saying heaps I mean min heaps Okay, like you can apply the same thing for the max heaps does not matter but for now I am saying min heaps Now if someone asks you that suppose one node is given to you and how many heaps are possible with one node?"
+      },
+      {
+        "lecture": 73,
+        "file": "073. 18 a. Number of Min Heaps _ GATE 2018 _ TIFR 2014.mp4",
+        "start": 29.31,
+        "end": 57.09,
+        "text": "Obviously, let's suppose that one number that is one is given to you, then how many heaps are possible with this number? Only one heap is possible. And how does this heap look like? Just like this, right? And if someone gives you two nodes, then how many heaps are possible? If someone give you one and two numbers or two nodes, then how many heaps are possible? See, you know the structure of the heap will look like this. Because heap, at the end of day, it is a complete binary tree, right? Because of the structural property, it should look like a complete binary tree. Now, the structure is this."
+      },
+      {
+        "lecture": 73,
+        "file": "073. 18 a. Number of Min Heaps _ GATE 2018 _ TIFR 2014.mp4",
+        "start": 57.38,
+        "end": 86,
+        "text": "and obviously one has to come here then two will come here only right so that's why number of heaps possible with one and two is just one heap so that is okay now if i ask you number of heaps possible with three nodes which which means suppose if i give you one two three and if i ask you that how many heaps are possible with three nodes so you will say that okay structural look like this and now it is my job to fill these three nodes with these three numbers which means one will come here because it is a mini heap"
+      }
+    ],
+    "foundation": {
+      "title": "Counting distinct min-heaps",
+      "idea": "Counting min-heaps with distinct keys means counting valid key assignments to one complete binary shape. The smallest key is forced into the root; choosing left-subtree keys and arranging the two subheaps accounts for the remaining freedom.",
+      "terms": [
+        "Complete shape: occupied positions are fixed by n.",
+        "Combination: choose a key set without ordering it.",
+        "Base count: an empty or one-key heap has one arrangement."
+      ],
+      "example": "Seven keys give subtree sizes three and three. H(7)=C(6,3)*H(3)*H(3)=20*2*2=80."
+    }
+  },
+  {
+    "id": 221,
+    "lecture": 73,
+    "title": "Multiply recursive arrangement counts",
+    "concept": "Counting min-heaps with distinct keys means counting valid key assignments to one complete binary shape. The smallest key is forced into the root; choosing left-subtree keys and arranging the two subheaps accounts for the remaining freedom.",
+    "teachingSteps": [
+      "Find the left and right subtree sizes from the complete shape.",
+      "Choose which nonroot keys belong to the left subtree.",
+      "Multiply that choice count by both recursive heap counts."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What is H(0) for this recurrence?",
+        "options": [
+          "1",
+          "0",
+          "An undefined negative count"
+        ],
+        "answer": 0,
+        "explanation": "The empty arrangement supplies the multiplicative base."
+      },
+      {
+        "type": "number",
+        "prompt": "Use distinct keys 1 through 7 assigned to a complete min-heap shape. How many full seven-key min-heap assignments exist?",
+        "answer": 80,
+        "tolerance": 1e-8,
+        "explanation": "Multiply 20 choices by two left and two right arrangements.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "tree",
+            "nodes": [
+              {
+                "key": 1,
+                "left": 1,
+                "right": 2
+              },
+              {
+                "key": 4,
+                "left": 3,
+                "right": 4
+              },
+              {
+                "key": 2,
+                "left": 5,
+                "right": 6
+              },
+              {
+                "key": 9,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 6,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 3,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 8,
+                "left": null,
+                "right": null
+              }
+            ],
+            "active": [],
+            "indexed": true
+          }
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "Can equal-key inputs use this distinct-key count unchanged?",
+        "options": [
+          "Only if array length is odd",
+          "No; indistinguishable labels change counting",
+          "Yes in all cases"
+        ],
+        "answer": 1,
+        "explanation": "The recurrence here assigns distinct keys."
+      },
+      {
+        "type": "number",
+        "prompt": "Use distinct keys 1 through 7 assigned to a complete min-heap shape. What key is forced into the root?",
+        "answer": 1,
+        "tolerance": 1e-8,
+        "explanation": "The global minimum is the min-heap root.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "tree",
+            "nodes": [
+              {
+                "key": 1,
+                "left": 1,
+                "right": 2
+              },
+              {
+                "key": 4,
+                "left": 3,
+                "right": 4
+              },
+              {
+                "key": 2,
+                "left": 5,
+                "right": 6
+              },
+              {
+                "key": 9,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 6,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 3,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 8,
+                "left": null,
+                "right": null
+              }
+            ],
+            "active": [],
+            "indexed": true
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heap-count",
+    "start": 2.26,
+    "sourceReferences": [
+      {
+        "lecture": 73,
+        "file": "073. 18 a. Number of Min Heaps _ GATE 2018 _ TIFR 2014.mp4",
+        "start": 2.26,
+        "end": 28.8,
+        "text": "Now let's look at one combinatoric problem in heaps. It will turn out to be very interesting problem Let me first state the problem which says that number of heaps possible So by default in this video when I am saying heaps I mean min heaps Okay, like you can apply the same thing for the max heaps does not matter but for now I am saying min heaps Now if someone asks you that suppose one node is given to you and how many heaps are possible with one node?"
+      },
+      {
+        "lecture": 73,
+        "file": "073. 18 a. Number of Min Heaps _ GATE 2018 _ TIFR 2014.mp4",
+        "start": 29.31,
+        "end": 57.09,
+        "text": "Obviously, let's suppose that one number that is one is given to you, then how many heaps are possible with this number? Only one heap is possible. And how does this heap look like? Just like this, right? And if someone gives you two nodes, then how many heaps are possible? If someone give you one and two numbers or two nodes, then how many heaps are possible? See, you know the structure of the heap will look like this. Because heap, at the end of day, it is a complete binary tree, right? Because of the structural property, it should look like a complete binary tree. Now, the structure is this."
+      },
+      {
+        "lecture": 73,
+        "file": "073. 18 a. Number of Min Heaps _ GATE 2018 _ TIFR 2014.mp4",
+        "start": 57.38,
+        "end": 86,
+        "text": "and obviously one has to come here then two will come here only right so that's why number of heaps possible with one and two is just one heap so that is okay now if i ask you number of heaps possible with three nodes which which means suppose if i give you one two three and if i ask you that how many heaps are possible with three nodes so you will say that okay structural look like this and now it is my job to fill these three nodes with these three numbers which means one will come here because it is a mini heap"
+      }
+    ],
+    "foundation": {
+      "title": "Counting distinct min-heaps",
+      "idea": "Counting min-heaps with distinct keys means counting valid key assignments to one complete binary shape. The smallest key is forced into the root; choosing left-subtree keys and arranging the two subheaps accounts for the remaining freedom.",
+      "terms": [
+        "Complete shape: occupied positions are fixed by n.",
+        "Combination: choose a key set without ordering it.",
+        "Base count: an empty or one-key heap has one arrangement."
+      ],
+      "example": "Seven keys give subtree sizes three and three. H(7)=C(6,3)*H(3)*H(3)=20*2*2=80."
+    }
+  },
+  {
+    "id": 222,
+    "lecture": 74,
+    "title": "Split nodes around a root",
+    "concept": "Ordered binary-tree shapes distinguish left and right child positions. Splitting n-1 remaining nodes between the two subtrees gives the Catalan recurrence. Shape counts, arbitrary labeled-tree counts and strict BST labelings are different questions.",
+    "teachingSteps": [
+      "Use one empty-tree shape as the base case.",
+      "For every possible left size, multiply left and right shape counts.",
+      "Sum all split contributions; add a labeling factor only when requested."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "A single child on the left versus right gives what?",
+        "options": [
+          "A forbidden tree",
+          "Different ordered shapes",
+          "The same ordered shape always"
+        ],
+        "answer": 1,
+        "explanation": "The child position is part of an ordered shape."
+      },
+      {
+        "type": "match",
+        "prompt": "Match the terms for counting ordered binary trees.",
+        "pairs": [
+          [
+            "Ordered shape",
+            "left and right positions differ."
+          ],
+          [
+            "Catalan recurrence",
+            "C(n)=sum C(i)C(n-1-i)."
+          ],
+          [
+            "Arbitrary labels",
+            "n distinct labels can be assigned in n! ways per shape."
+          ]
+        ],
+        "explanation": "Use the stated definitions to distinguish these roles."
+      },
+      {
+        "type": "number",
+        "prompt": "Count ordered binary-tree shapes, with left and right positions distinct; arbitrary labels are distinct when requested. How many shapes have three nodes?",
+        "answer": 5,
+        "tolerance": 1e-8,
+        "explanation": "Root-split contributions are two, one and two."
+      },
+      {
+        "type": "number",
+        "prompt": "Count ordered binary-tree shapes, with left and right positions distinct; arbitrary labels are distinct when requested. How many shapes have four nodes?",
+        "answer": 14,
+        "tolerance": 1e-8,
+        "explanation": "The Catalan recurrence gives 14."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "tree-shapes",
+    "start": 1.04,
+    "sourceReferences": [
+      {
+        "lecture": 74,
+        "file": "074. 18 b. Number of Binary tees.mp4",
+        "start": 1.04,
+        "end": 28.4,
+        "text": "Now let's see a question which is saying number of shapes of binary tree possible Which means that suppose n nodes are given to you and in that n nodes how many shapes of binary tree possible? For example, let's suppose two nodes are given to you with these two nodes How many binary trees are possible just a shapes? Okay, which means you will say for just two nodes You may be having something like this or you make a you may have something like this, right?"
+      },
+      {
+        "lecture": 74,
+        "file": "074. 18 b. Number of Binary tees.mp4",
+        "start": 28.84,
+        "end": 58.66,
+        "text": "Is there any other possibility just with two nodes? No. Okay, so that is why with two nodes only two shapes are possible, right? What about three nodes? With three nodes, how many shapes are possible? You may say that one shape is this, another shape will be something like this, another shape might be something like this, another shape might be something like this, and another shape might be something like this, right? So there are one, two, three, four, five possibilities are there with three nodes."
+      },
+      {
+        "lecture": 74,
+        "file": "074. 18 b. Number of Binary tees.mp4",
+        "start": 59.5,
+        "end": 90.78,
+        "text": "So if in general n nodes are given to you then how many possibilities are there which means how many shapes are possible and Answer of this question is given by Catalan number, right? So given n nodes we have 2n factorial upon n plus 1 factorial into n factorial These many shapes are possible these many shapes of binary tree are possible of binary tree So for n equal to 3, let's just check what it is giving"
+      }
+    ],
+    "foundation": {
+      "title": "Counting ordered binary trees",
+      "idea": "Ordered binary-tree shapes distinguish left and right child positions. Splitting n-1 remaining nodes between the two subtrees gives the Catalan recurrence. Shape counts, arbitrary labeled-tree counts and strict BST labelings are different questions.",
+      "terms": [
+        "Ordered shape: left and right positions differ.",
+        "Catalan recurrence: C(n)=sum C(i)C(n-1-i).",
+        "Arbitrary labels: n distinct labels can be assigned in n! ways per shape."
+      ],
+      "example": "For three nodes, split contributions are 2+1+2=5 shapes. Arbitrary labels give 5*3!=30 labeled trees."
+    }
+  },
+  {
+    "id": 223,
+    "lecture": 74,
+    "title": "Sum the Catalan recurrence",
+    "concept": "Ordered binary-tree shapes distinguish left and right child positions. Splitting n-1 remaining nodes between the two subtrees gives the Catalan recurrence. Shape counts, arbitrary labeled-tree counts and strict BST labelings are different questions.",
+    "teachingSteps": [
+      "Use one empty-tree shape as the base case.",
+      "For every possible left size, multiply left and right shape counts.",
+      "Sum all split contributions; add a labeling factor only when requested."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "How do split contributions combine?",
+        "options": [
+          "Multiply within each split, then add across splits",
+          "Add all subtrees then divide by n",
+          "Choose only the balanced split"
+        ],
+        "answer": 0,
+        "explanation": "Different root splits describe disjoint possibilities."
+      },
+      {
+        "type": "number",
+        "prompt": "Count ordered binary-tree shapes, with left and right positions distinct; arbitrary labels are distinct when requested. How many ways assign three arbitrary distinct labels to one shape?",
+        "answer": 6,
+        "tolerance": 1e-8,
+        "explanation": "Three factorial is six."
+      },
+      {
+        "type": "number",
+        "prompt": "Count ordered binary-tree shapes, with left and right positions distinct; arbitrary labels are distinct when requested. How many arbitrarily labeled ordered trees have three distinct keys?",
+        "answer": 30,
+        "tolerance": 1e-8,
+        "explanation": "Five shapes times six labelings."
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange this procedure for counting ordered binary trees.",
+        "items": [
+          "Choose a left-subtree node count",
+          "Find the complementary right-subtree count",
+          "Multiply the two Catalan subtree counts",
+          "Add contributions over every possible split"
+        ],
+        "explanation": "Follow this stated procedure so each later stage has its required input."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "tree-shapes",
+    "start": 1.04,
+    "sourceReferences": [
+      {
+        "lecture": 74,
+        "file": "074. 18 b. Number of Binary tees.mp4",
+        "start": 1.04,
+        "end": 28.4,
+        "text": "Now let's see a question which is saying number of shapes of binary tree possible Which means that suppose n nodes are given to you and in that n nodes how many shapes of binary tree possible? For example, let's suppose two nodes are given to you with these two nodes How many binary trees are possible just a shapes? Okay, which means you will say for just two nodes You may be having something like this or you make a you may have something like this, right?"
+      },
+      {
+        "lecture": 74,
+        "file": "074. 18 b. Number of Binary tees.mp4",
+        "start": 28.84,
+        "end": 58.66,
+        "text": "Is there any other possibility just with two nodes? No. Okay, so that is why with two nodes only two shapes are possible, right? What about three nodes? With three nodes, how many shapes are possible? You may say that one shape is this, another shape will be something like this, another shape might be something like this, another shape might be something like this, and another shape might be something like this, right? So there are one, two, three, four, five possibilities are there with three nodes."
+      },
+      {
+        "lecture": 74,
+        "file": "074. 18 b. Number of Binary tees.mp4",
+        "start": 59.5,
+        "end": 90.78,
+        "text": "So if in general n nodes are given to you then how many possibilities are there which means how many shapes are possible and Answer of this question is given by Catalan number, right? So given n nodes we have 2n factorial upon n plus 1 factorial into n factorial These many shapes are possible these many shapes of binary tree are possible of binary tree So for n equal to 3, let's just check what it is giving"
+      }
+    ],
+    "foundation": {
+      "title": "Counting ordered binary trees",
+      "idea": "Ordered binary-tree shapes distinguish left and right child positions. Splitting n-1 remaining nodes between the two subtrees gives the Catalan recurrence. Shape counts, arbitrary labeled-tree counts and strict BST labelings are different questions.",
+      "terms": [
+        "Ordered shape: left and right positions differ.",
+        "Catalan recurrence: C(n)=sum C(i)C(n-1-i).",
+        "Arbitrary labels: n distinct labels can be assigned in n! ways per shape."
+      ],
+      "example": "For three nodes, split contributions are 2+1+2=5 shapes. Arbitrary labels give 5*3!=30 labeled trees."
+    }
+  },
+  {
+    "id": 224,
+    "lecture": 74,
+    "title": "Separate shapes from labels",
+    "concept": "Ordered binary-tree shapes distinguish left and right child positions. Splitting n-1 remaining nodes between the two subtrees gives the Catalan recurrence. Shape counts, arbitrary labeled-tree counts and strict BST labelings are different questions.",
+    "teachingSteps": [
+      "Use one empty-tree shape as the base case.",
+      "For every possible left size, multiply left and right shape counts.",
+      "Sum all split contributions; add a labeling factor only when requested."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Does a shape count already include arbitrary labels?",
+        "options": [
+          "Yes, it includes n! automatically",
+          "Only for negative keys",
+          "No"
+        ],
+        "answer": 2,
+        "explanation": "Shape and labeling counts are separate."
+      },
+      {
+        "type": "number",
+        "prompt": "Count ordered binary-tree shapes, with left and right positions distinct; arbitrary labels are distinct when requested. How many empty-tree shapes are used as the recurrence base?",
+        "answer": 1,
+        "tolerance": 1e-8,
+        "explanation": "There is one empty arrangement."
+      },
+      {
+        "type": "choice",
+        "prompt": "Can preorder and postorder alone always identify one counted shape?",
+        "options": [
+          "No; a single-child side may be ambiguous",
+          "Yes for all binary trees",
+          "Only array indices matter"
+        ],
+        "answer": 0,
+        "explanation": "The shape count includes these distinct orientations."
+      },
+      {
+        "type": "number",
+        "prompt": "Count ordered binary-tree shapes, with left and right positions distinct; arbitrary labels are distinct when requested. For a fixed shape and fixed distinct keys, how many labelings satisfy strict BST order?",
+        "answer": 1,
+        "tolerance": 1e-8,
+        "explanation": "Increasing inorder fixes every label position."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "tree-shapes",
+    "start": 1.04,
+    "sourceReferences": [
+      {
+        "lecture": 74,
+        "file": "074. 18 b. Number of Binary tees.mp4",
+        "start": 1.04,
+        "end": 28.4,
+        "text": "Now let's see a question which is saying number of shapes of binary tree possible Which means that suppose n nodes are given to you and in that n nodes how many shapes of binary tree possible? For example, let's suppose two nodes are given to you with these two nodes How many binary trees are possible just a shapes? Okay, which means you will say for just two nodes You may be having something like this or you make a you may have something like this, right?"
+      },
+      {
+        "lecture": 74,
+        "file": "074. 18 b. Number of Binary tees.mp4",
+        "start": 28.84,
+        "end": 58.66,
+        "text": "Is there any other possibility just with two nodes? No. Okay, so that is why with two nodes only two shapes are possible, right? What about three nodes? With three nodes, how many shapes are possible? You may say that one shape is this, another shape will be something like this, another shape might be something like this, another shape might be something like this, and another shape might be something like this, right? So there are one, two, three, four, five possibilities are there with three nodes."
+      },
+      {
+        "lecture": 74,
+        "file": "074. 18 b. Number of Binary tees.mp4",
+        "start": 59.5,
+        "end": 90.78,
+        "text": "So if in general n nodes are given to you then how many possibilities are there which means how many shapes are possible and Answer of this question is given by Catalan number, right? So given n nodes we have 2n factorial upon n plus 1 factorial into n factorial These many shapes are possible these many shapes of binary tree are possible of binary tree So for n equal to 3, let's just check what it is giving"
+      }
+    ],
+    "foundation": {
+      "title": "Counting ordered binary trees",
+      "idea": "Ordered binary-tree shapes distinguish left and right child positions. Splitting n-1 remaining nodes between the two subtrees gives the Catalan recurrence. Shape counts, arbitrary labeled-tree counts and strict BST labelings are different questions.",
+      "terms": [
+        "Ordered shape: left and right positions differ.",
+        "Catalan recurrence: C(n)=sum C(i)C(n-1-i).",
+        "Arbitrary labels: n distinct labels can be assigned in n! ways per shape."
+      ],
+      "example": "For three nodes, split contributions are 2+1+2=5 shapes. Arbitrary labels give 5*3!=30 labeled trees."
+    }
+  },
+  {
+    "id": 225,
+    "lecture": 75,
+    "title": "Define a random experiment",
+    "concept": "An average is meaningful only after stating the random experiment. Choosing an existing node uniformly from a perfect tree weights small subtree heights heavily. That experiment is not identical to choosing a new insertion key or averaging over heap inputs.",
+    "teachingSteps": [
+      "Count nodes at each subtree height.",
+      "Divide each group count by the total and weight its height.",
+      "Keep this expectation separate from worst-case bubble-up and any unprovided insertion distribution."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What must an average-case claim state?",
+        "options": [
+          "A random input or selection model",
+          "Only the largest payload",
+          "Only a heap color"
+        ],
+        "answer": 0,
+        "explanation": "Different experiments have different distributions."
+      },
+      {
+        "type": "match",
+        "prompt": "Match the terms for random-node height and insertion averages.",
+        "pairs": [
+          [
+            "Random experiment",
+            "what is selected and with what probability."
+          ],
+          [
+            "Expected value",
+            "sum of value times probability."
+          ],
+          [
+            "Worst-case insertion",
+            "a new minimum can climb the full depth."
+          ]
+        ],
+        "explanation": "Use the stated definitions to distinguish these roles."
+      },
+      {
+        "type": "number",
+        "prompt": "Choose one existing node uniformly from a perfect binary tree of edge-height 3, containing 15 nodes. How many selected-node candidates are leaves?",
+        "answer": 8,
+        "tolerance": 1e-8,
+        "explanation": "The deepest level has eight leaves."
+      },
+      {
+        "type": "number",
+        "prompt": "Choose one existing node uniformly from a perfect binary tree of edge-height 3, containing 15 nodes. What is the probability of choosing a leaf? Round to 2 decimal places.",
+        "answer": 0.53,
+        "tolerance": 0.005,
+        "explanation": "Eight of 15 equally likely nodes are leaves. Rounded result: 0.53."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heap-average",
+    "start": 30.8,
+    "sourceReferences": [
+      {
+        "lecture": 75,
+        "file": "075_18_c_Optional_Average_Time_complexity_in_heap_insertion.mp4",
+        "start": 30.8,
+        "end": 60.37,
+        "text": "how many nodes are there here you will you will say n by 2q and so on and so forth right that's how you can find out the number of nodes i mean there will be placement management somewhere here and there but that's okay right so these are the approximately number of nodes in the leaf and then n by 2 square at the level up at the level up it will be n upon 2q and so on and so forth okay now suppose if i pick a node randomly from any level okay so i'm picking a node randomly from any level tell me"
+      },
+      {
+        "lecture": 75,
+        "file": "075_18_c_Optional_Average_Time_complexity_in_heap_insertion.mp4",
+        "start": 60.6,
+        "end": 96.42,
+        "text": "that what is the probability it is from this whatever level you want to call this is from level h or something it is from this level what is the probability that it is from this level what is the probability that it is from this level what is the probability so my question is that you pick pick a random node a random node from a complete binary tree and complete or maybe you can say perfect binary tree perfect binary tree and then"
+      },
+      {
+        "lecture": 75,
+        "file": "075_18_c_Optional_Average_Time_complexity_in_heap_insertion.mp4",
+        "start": 96.67,
+        "end": 128.94,
+        "text": "they are asking pick a random node from perfect penalty then they are asking what is the probability that it is a leaf node it is leaf node or maybe they can also ask to some other level maybe they can ask what is the probability it is from this node right this is from this level so let me just copy this on the next page and let me explain you this is actually very very simple but still let me just explain you see what is the probability that it is from leaf node see how many nodes are there at the leaf at the leaf there are n by 2 nodes right"
+      }
+    ],
+    "foundation": {
+      "title": "Random-node height and insertion averages",
+      "idea": "An average is meaningful only after stating the random experiment. Choosing an existing node uniformly from a perfect tree weights small subtree heights heavily. That experiment is not identical to choosing a new insertion key or averaging over heap inputs.",
+      "terms": [
+        "Random experiment: what is selected and with what probability.",
+        "Expected value: sum of value times probability.",
+        "Worst-case insertion: a new minimum can climb the full depth."
+      ],
+      "example": "A perfect height-three tree has height-group counts 8,4,2,1. Mean subtree height is (0+4+4+3)/15=11/15."
+    }
+  },
+  {
+    "id": 226,
+    "lecture": 75,
+    "title": "Weight heights by probability",
+    "concept": "An average is meaningful only after stating the random experiment. Choosing an existing node uniformly from a perfect tree weights small subtree heights heavily. That experiment is not identical to choosing a new insertion key or averaging over heap inputs.",
+    "teachingSteps": [
+      "Count nodes at each subtree height.",
+      "Divide each group count by the total and weight its height.",
+      "Keep this expectation separate from worst-case bubble-up and any unprovided insertion distribution."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Does this uniform existing-node experiment prove all new-key insertions constant time?",
+        "options": [
+          "Yes automatically",
+          "Only for even-sized heaps",
+          "No"
+        ],
+        "answer": 2,
+        "explanation": "Insertion chooses a new key and follows a different experiment."
+      },
+      {
+        "type": "number",
+        "prompt": "Choose one existing node uniformly from a perfect binary tree of edge-height 3, containing 15 nodes. How many candidates have subtree height one?",
+        "answer": 4,
+        "tolerance": 1e-8,
+        "explanation": "The level immediately above leaves has four nodes."
+      },
+      {
+        "type": "number",
+        "prompt": "Choose one existing node uniformly from a perfect binary tree of edge-height 3, containing 15 nodes. What is the largest possible selected subtree height?",
+        "answer": 3,
+        "tolerance": 1e-8,
+        "explanation": "Only the root has height three."
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange this procedure for random-node height and insertion averages.",
+        "items": [
+          "State uniform selection among existing nodes",
+          "Count nodes in each subtree-height group",
+          "Multiply height by its selection probability",
+          "Sum and interpret only this declared experiment"
+        ],
+        "explanation": "Follow this stated procedure so each later stage has its required input."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heap-average",
+    "start": 30.8,
+    "sourceReferences": [
+      {
+        "lecture": 75,
+        "file": "075_18_c_Optional_Average_Time_complexity_in_heap_insertion.mp4",
+        "start": 30.8,
+        "end": 60.37,
+        "text": "how many nodes are there here you will you will say n by 2q and so on and so forth right that's how you can find out the number of nodes i mean there will be placement management somewhere here and there but that's okay right so these are the approximately number of nodes in the leaf and then n by 2 square at the level up at the level up it will be n upon 2q and so on and so forth okay now suppose if i pick a node randomly from any level okay so i'm picking a node randomly from any level tell me"
+      },
+      {
+        "lecture": 75,
+        "file": "075_18_c_Optional_Average_Time_complexity_in_heap_insertion.mp4",
+        "start": 60.6,
+        "end": 96.42,
+        "text": "that what is the probability it is from this whatever level you want to call this is from level h or something it is from this level what is the probability that it is from this level what is the probability that it is from this level what is the probability so my question is that you pick pick a random node a random node from a complete binary tree and complete or maybe you can say perfect binary tree perfect binary tree and then"
+      },
+      {
+        "lecture": 75,
+        "file": "075_18_c_Optional_Average_Time_complexity_in_heap_insertion.mp4",
+        "start": 96.67,
+        "end": 128.94,
+        "text": "they are asking pick a random node from perfect penalty then they are asking what is the probability that it is a leaf node it is leaf node or maybe they can also ask to some other level maybe they can ask what is the probability it is from this node right this is from this level so let me just copy this on the next page and let me explain you this is actually very very simple but still let me just explain you see what is the probability that it is from leaf node see how many nodes are there at the leaf at the leaf there are n by 2 nodes right"
+      }
+    ],
+    "foundation": {
+      "title": "Random-node height and insertion averages",
+      "idea": "An average is meaningful only after stating the random experiment. Choosing an existing node uniformly from a perfect tree weights small subtree heights heavily. That experiment is not identical to choosing a new insertion key or averaging over heap inputs.",
+      "terms": [
+        "Random experiment: what is selected and with what probability.",
+        "Expected value: sum of value times probability.",
+        "Worst-case insertion: a new minimum can climb the full depth."
+      ],
+      "example": "A perfect height-three tree has height-group counts 8,4,2,1. Mean subtree height is (0+4+4+3)/15=11/15."
+    }
+  },
+  {
+    "id": 227,
+    "lecture": 75,
+    "title": "Check what an average really proves",
+    "concept": "An average is meaningful only after stating the random experiment. Choosing an existing node uniformly from a perfect tree weights small subtree heights heavily. That experiment is not identical to choosing a new insertion key or averaging over heap inputs.",
+    "teachingSteps": [
+      "Count nodes at each subtree height.",
+      "Divide each group count by the total and weight its height.",
+      "Keep this expectation separate from worst-case bubble-up and any unprovided insertion distribution."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "How is a discrete expectation computed?",
+        "options": [
+          "Always use the maximum",
+          "Sum value times its probability",
+          "Choose only the most common value"
+        ],
+        "answer": 1,
+        "explanation": "Every possible outcome contributes its weighted value."
+      },
+      {
+        "type": "number",
+        "prompt": "Choose one existing node uniformly from a perfect binary tree of edge-height 3, containing 15 nodes. What is the sum of subtree heights over all 15 nodes?",
+        "answer": 11,
+        "tolerance": 1e-8,
+        "explanation": "8*0+4*1+2*2+1*3=11."
+      },
+      {
+        "type": "choice",
+        "prompt": "A newly inserted global minimum can do what?",
+        "options": [
+          "Never leave its appended position",
+          "Always take zero swaps",
+          "Bubble up its entire ancestor path"
+        ],
+        "answer": 2,
+        "explanation": "Worst-case repair remains height-sized."
+      },
+      {
+        "type": "number",
+        "prompt": "Choose one existing node uniformly from a perfect binary tree of edge-height 3, containing 15 nodes. What is the expected selected-node subtree height? Round to 2 decimal places.",
+        "answer": 0.73,
+        "tolerance": 0.005,
+        "explanation": "Divide the total height weight 11 by 15 candidates. Rounded result: 0.73."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heap-average",
+    "start": 30.8,
+    "sourceReferences": [
+      {
+        "lecture": 75,
+        "file": "075_18_c_Optional_Average_Time_complexity_in_heap_insertion.mp4",
+        "start": 30.8,
+        "end": 60.37,
+        "text": "how many nodes are there here you will you will say n by 2q and so on and so forth right that's how you can find out the number of nodes i mean there will be placement management somewhere here and there but that's okay right so these are the approximately number of nodes in the leaf and then n by 2 square at the level up at the level up it will be n upon 2q and so on and so forth okay now suppose if i pick a node randomly from any level okay so i'm picking a node randomly from any level tell me"
+      },
+      {
+        "lecture": 75,
+        "file": "075_18_c_Optional_Average_Time_complexity_in_heap_insertion.mp4",
+        "start": 60.6,
+        "end": 96.42,
+        "text": "that what is the probability it is from this whatever level you want to call this is from level h or something it is from this level what is the probability that it is from this level what is the probability that it is from this level what is the probability so my question is that you pick pick a random node a random node from a complete binary tree and complete or maybe you can say perfect binary tree perfect binary tree and then"
+      },
+      {
+        "lecture": 75,
+        "file": "075_18_c_Optional_Average_Time_complexity_in_heap_insertion.mp4",
+        "start": 96.67,
+        "end": 128.94,
+        "text": "they are asking pick a random node from perfect penalty then they are asking what is the probability that it is a leaf node it is leaf node or maybe they can also ask to some other level maybe they can ask what is the probability it is from this node right this is from this level so let me just copy this on the next page and let me explain you this is actually very very simple but still let me just explain you see what is the probability that it is from leaf node see how many nodes are there at the leaf at the leaf there are n by 2 nodes right"
+      }
+    ],
+    "foundation": {
+      "title": "Random-node height and insertion averages",
+      "idea": "An average is meaningful only after stating the random experiment. Choosing an existing node uniformly from a perfect tree weights small subtree heights heavily. That experiment is not identical to choosing a new insertion key or averaging over heap inputs.",
+      "terms": [
+        "Random experiment: what is selected and with what probability.",
+        "Expected value: sum of value times probability.",
+        "Worst-case insertion: a new minimum can climb the full depth."
+      ],
+      "example": "A perfect height-three tree has height-group counts 8,4,2,1. Mean subtree height is (0+4+4+3)/15=11/15."
+    }
+  },
+  {
+    "id": 228,
+    "lecture": 76,
+    "title": "Match operations to touched paths",
+    "concept": "Binary heaps expose one priority extremum efficiently, but do not partition keys into searchable left and right ranges. Operation cost depends on the path or set of entries touched: a root read, an ancestor path, a downward path or a full scan.",
+    "teachingSteps": [
+      "Find-min reads the root in constant time.",
+      "Insertion and deletion repair a height-sized path; bottom-up building processes the batch in linear work.",
+      "An arbitrary-key search may inspect every entry; name the operation before quoting a complexity."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What is the worst-case binary-heap insertion bound?",
+        "options": [
+          "Theta(n squared) always",
+          "Theta(1) for every input",
+          "Theta(log n)"
+        ],
+        "answer": 2,
+        "explanation": "A new minimum may traverse full complete-tree depth."
+      },
+      {
+        "type": "match",
+        "prompt": "Match the terms for heap operation costs.",
+        "pairs": [
+          [
+            "Priority access",
+            "inspect the guaranteed root extremum."
+          ],
+          [
+            "Path repair",
+            "at most logarithmic height in a complete shape."
+          ],
+          [
+            "Full scan",
+            "linear work when no key partition can discard a branch."
+          ]
+        ],
+        "explanation": "Use the stated definitions to distinguish these roles."
+      },
+      {
+        "type": "number",
+        "prompt": "Use a perfect binary heap with 15 real keys; measure height in edges. How many root-to-deepest-leaf edges exist?",
+        "answer": 3,
+        "tolerance": 1e-8,
+        "explanation": "Levels zero through three contain 15 nodes."
+      },
+      {
+        "type": "number",
+        "prompt": "Use a perfect binary heap with 15 real keys; measure height in edges. How many leaf nodes exist?",
+        "answer": 8,
+        "tolerance": 1e-8,
+        "explanation": "The deepest level has eight nodes."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heap-complexity",
+    "start": 0.27,
+    "sourceReferences": [
+      {
+        "lecture": 76,
+        "file": "076. 19 a. Heap Time Complexities.mp4",
+        "start": 0.27,
+        "end": 28.39,
+        "text": "Let's now see time complexities in heap. So when you talk about heap, essentially there are three or four operations we are doing. Insertion, deletion or heapify, right? So these three or four operations are just doing one or two things. One is that either you are moving some node to the up or you are moving some node to the down. Which means suppose you are inserting, then in that case you are moving this node to up maybe, right?"
+      },
+      {
+        "lecture": 76,
+        "file": "076. 19 a. Heap Time Complexities.mp4",
+        "start": 28.67,
+        "end": 58.19,
+        "text": "and then up then up right so this is in case of insertion what if you're deleting in case if you're deleting then you will be first like you're deleting the min right so here i'm talking about the time complexity of min heap because i'm having delete min find min these kind of things right so if you're deleting the min which means first you you will be replacing this node and with this node and then you will be saying that okay let me apply the heapify on it so basically delete min and heapify are almost same just one one extra operation in the delete min"
+      },
+      {
+        "lecture": 76,
+        "file": "076. 19 a. Heap Time Complexities.mp4",
+        "start": 58.37,
+        "end": 81.82,
+        "text": "So if you're deleting min or if you're heapifying then you are moving things down So you're saying that okay, let me compare this with all of this three then let me move it down Let me move it down. Let me move it down like that, right? So you are moving things down in case of delete and In case of insertion you are moving things up, right? So that's what you're actually doing. So in case of insertion"
+      }
+    ],
+    "foundation": {
+      "title": "Heap operation costs",
+      "idea": "Binary heaps expose one priority extremum efficiently, but do not partition keys into searchable left and right ranges. Operation cost depends on the path or set of entries touched: a root read, an ancestor path, a downward path or a full scan.",
+      "terms": [
+        "Priority access: inspect the guaranteed root extremum.",
+        "Path repair: at most logarithmic height in a complete shape.",
+        "Full scan: linear work when no key partition can discard a branch."
+      ],
+      "example": "A perfect 15-key heap has height three. Its minimum is at root, but an absent arbitrary key may require checking all 15 entries."
+    }
+  },
+  {
+    "id": 229,
+    "lecture": 76,
+    "title": "Separate search from priority access",
+    "concept": "Binary heaps expose one priority extremum efficiently, but do not partition keys into searchable left and right ranges. Operation cost depends on the path or set of entries touched: a root read, an ancestor path, a downward path or a full scan.",
+    "teachingSteps": [
+      "Find-min reads the root in constant time.",
+      "Insertion and deletion repair a height-sized path; bottom-up building processes the batch in linear work.",
+      "An arbitrary-key search may inspect every entry; name the operation before quoting a complexity."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What is bottom-up batch building complexity?",
+        "options": [
+          "Always Theta(n squared)",
+          "Theta(n)",
+          "Theta(1)"
+        ],
+        "answer": 1,
+        "explanation": "Height-weighted subheap work sums linearly."
+      },
+      {
+        "type": "number",
+        "prompt": "Use a perfect binary heap with 15 real keys; measure height in edges. How many internal nodes exist?",
+        "answer": 7,
+        "tolerance": 1e-8,
+        "explanation": "15 minus eight leaves."
+      },
+      {
+        "type": "number",
+        "prompt": "Use a perfect binary heap with 15 real keys; measure height in edges. In the worst case, how many stored keys can an arbitrary absent-key scan inspect?",
+        "answer": 15,
+        "tolerance": 1e-8,
+        "explanation": "Heap order supplies no full BST partition."
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange this procedure for heap operation costs.",
+        "items": [
+          "Name the requested heap operation",
+          "Identify which positions can be discarded safely",
+          "Count the path or entries that remain relevant",
+          "State a bound with its worst-case or model assumptions"
+        ],
+        "explanation": "Follow this stated procedure so each later stage has its required input."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heap-complexity",
+    "start": 0.27,
+    "sourceReferences": [
+      {
+        "lecture": 76,
+        "file": "076. 19 a. Heap Time Complexities.mp4",
+        "start": 0.27,
+        "end": 28.39,
+        "text": "Let's now see time complexities in heap. So when you talk about heap, essentially there are three or four operations we are doing. Insertion, deletion or heapify, right? So these three or four operations are just doing one or two things. One is that either you are moving some node to the up or you are moving some node to the down. Which means suppose you are inserting, then in that case you are moving this node to up maybe, right?"
+      },
+      {
+        "lecture": 76,
+        "file": "076. 19 a. Heap Time Complexities.mp4",
+        "start": 28.67,
+        "end": 58.19,
+        "text": "and then up then up right so this is in case of insertion what if you're deleting in case if you're deleting then you will be first like you're deleting the min right so here i'm talking about the time complexity of min heap because i'm having delete min find min these kind of things right so if you're deleting the min which means first you you will be replacing this node and with this node and then you will be saying that okay let me apply the heapify on it so basically delete min and heapify are almost same just one one extra operation in the delete min"
+      },
+      {
+        "lecture": 76,
+        "file": "076. 19 a. Heap Time Complexities.mp4",
+        "start": 58.37,
+        "end": 81.82,
+        "text": "So if you're deleting min or if you're heapifying then you are moving things down So you're saying that okay, let me compare this with all of this three then let me move it down Let me move it down. Let me move it down like that, right? So you are moving things down in case of delete and In case of insertion you are moving things up, right? So that's what you're actually doing. So in case of insertion"
+      }
+    ],
+    "foundation": {
+      "title": "Heap operation costs",
+      "idea": "Binary heaps expose one priority extremum efficiently, but do not partition keys into searchable left and right ranges. Operation cost depends on the path or set of entries touched: a root read, an ancestor path, a downward path or a full scan.",
+      "terms": [
+        "Priority access: inspect the guaranteed root extremum.",
+        "Path repair: at most logarithmic height in a complete shape.",
+        "Full scan: linear work when no key partition can discard a branch."
+      ],
+      "example": "A perfect 15-key heap has height three. Its minimum is at root, but an absent arbitrary key may require checking all 15 entries."
+    }
+  },
+  {
+    "id": 230,
+    "lecture": 76,
+    "title": "Compare logarithmic and linear work",
+    "concept": "Binary heaps expose one priority extremum efficiently, but do not partition keys into searchable left and right ranges. Operation cost depends on the path or set of entries touched: a root read, an ancestor path, a downward path or a full scan.",
+    "teachingSteps": [
+      "Find-min reads the root in constant time.",
+      "Insertion and deletion repair a height-sized path; bottom-up building processes the batch in linear work.",
+      "An arbitrary-key search may inspect every entry; name the operation before quoting a complexity."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Does an ordinary heap guarantee logarithmic arbitrary-key search?",
+        "options": [
+          "No",
+          "Yes because its shape is complete",
+          "Only the root parity decides"
+        ],
+        "answer": 0,
+        "explanation": "It orders priorities without searchable left/right partitions."
+      },
+      {
+        "type": "number",
+        "prompt": "Use a perfect binary heap with 15 real keys; measure height in edges. How many key values does find-min need to read at its guaranteed position?",
+        "answer": 1,
+        "tolerance": 1e-8,
+        "explanation": "The minimum is at the min-heap root."
+      },
+      {
+        "type": "choice",
+        "prompt": "Which operation is constant-time on a nonempty min-heap?",
+        "options": [
+          "Sort all entries",
+          "Peek at its minimum",
+          "Find every matching arbitrary key"
+        ],
+        "answer": 1,
+        "explanation": "Reading the root suffices for peek."
+      },
+      {
+        "type": "number",
+        "prompt": "Use a perfect binary heap with 15 real keys; measure height in edges. A full traversal must emit how many real keys?",
+        "answer": 15,
+        "tolerance": 1e-8,
+        "explanation": "Outputting all stored keys is linear work."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heap-complexity",
+    "start": 0.27,
+    "sourceReferences": [
+      {
+        "lecture": 76,
+        "file": "076. 19 a. Heap Time Complexities.mp4",
+        "start": 0.27,
+        "end": 28.39,
+        "text": "Let's now see time complexities in heap. So when you talk about heap, essentially there are three or four operations we are doing. Insertion, deletion or heapify, right? So these three or four operations are just doing one or two things. One is that either you are moving some node to the up or you are moving some node to the down. Which means suppose you are inserting, then in that case you are moving this node to up maybe, right?"
+      },
+      {
+        "lecture": 76,
+        "file": "076. 19 a. Heap Time Complexities.mp4",
+        "start": 28.67,
+        "end": 58.19,
+        "text": "and then up then up right so this is in case of insertion what if you're deleting in case if you're deleting then you will be first like you're deleting the min right so here i'm talking about the time complexity of min heap because i'm having delete min find min these kind of things right so if you're deleting the min which means first you you will be replacing this node and with this node and then you will be saying that okay let me apply the heapify on it so basically delete min and heapify are almost same just one one extra operation in the delete min"
+      },
+      {
+        "lecture": 76,
+        "file": "076. 19 a. Heap Time Complexities.mp4",
+        "start": 58.37,
+        "end": 81.82,
+        "text": "So if you're deleting min or if you're heapifying then you are moving things down So you're saying that okay, let me compare this with all of this three then let me move it down Let me move it down. Let me move it down like that, right? So you are moving things down in case of delete and In case of insertion you are moving things up, right? So that's what you're actually doing. So in case of insertion"
+      }
+    ],
+    "foundation": {
+      "title": "Heap operation costs",
+      "idea": "Binary heaps expose one priority extremum efficiently, but do not partition keys into searchable left and right ranges. Operation cost depends on the path or set of entries touched: a root read, an ancestor path, a downward path or a full scan.",
+      "terms": [
+        "Priority access: inspect the guaranteed root extremum.",
+        "Path repair: at most logarithmic height in a complete shape.",
+        "Full scan: linear work when no key partition can discard a branch."
+      ],
+      "example": "A perfect 15-key heap has height three. Its minimum is at root, but an absent arbitrary key may require checking all 15 entries."
+    }
+  },
+  {
+    "id": 231,
+    "lecture": 77,
+    "title": "Build an explicit max-heap",
+    "concept": "Ascending in-place heapsort builds a max-heap, swaps its root into the last active slot, shrinks the active heap and repairs only that prefix. A growing suffix is final output and must never reenter the heap repair.",
+    "teachingSteps": [
+      "Build a max-heap so the active root is a largest key.",
+      "Swap root with the final active entry and shrink the active range.",
+      "Sift down through larger children inside that range; repeat until sorted."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which heap direction gives an ascending suffix-based in-place sort?",
+        "options": [
+          "A BST is required",
+          "Max-heap",
+          "Min-heap with the same maximum-to-end procedure"
+        ],
+        "answer": 1,
+        "explanation": "Successive maxima are placed at the right end."
+      },
+      {
+        "type": "match",
+        "prompt": "Match the terms for in-place heapsort.",
+        "pairs": [
+          [
+            "Active prefix",
+            "entries still maintained as a max-heap."
+          ],
+          [
+            "Sorted suffix",
+            "final entries excluded from later repairs."
+          ],
+          [
+            "Stability",
+            "ordinary in-place heapsort does not preserve every equal-key arrival order."
+          ]
+        ],
+        "explanation": "Use the stated definitions to distinguish these roles."
+      },
+      {
+        "type": "number",
+        "prompt": "Sort array 7,2,6,1,5,3 into ascending order using an in-place max-heap and a final sorted suffix. What maximum is put into the suffix first?",
+        "answer": 7,
+        "tolerance": 1e-8,
+        "explanation": "The max-heap root is the largest input.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "heap-sort",
+            "values": [
+              7,
+              2,
+              6,
+              1,
+              5,
+              3
+            ],
+            "size": 6
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Sort array 7,2,6,1,5,3 into ascending order using an in-place max-heap and a final sorted suffix. What zero-based array index receives that first maximum?",
+        "answer": 5,
+        "tolerance": 1e-8,
+        "explanation": "Six entries occupy indices zero through five.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "heap-sort",
+            "values": [
+              7,
+              2,
+              6,
+              1,
+              5,
+              3
+            ],
+            "size": 6
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heap-sort",
+    "start": 0.14,
+    "sourceReferences": [
+      {
+        "lecture": 77,
+        "file": "077. 19 b. Heap Sort.mp4",
+        "start": 0.14,
+        "end": 36.72,
+        "text": "Let's now see one of the very simple algorithm to sort an unsorted array So suppose that your input is an unsorted array an unsorted array A Okay, that is from 0 to n-1 or let's say from 1 to n does not matter So suppose you have an unsorted array and what you want as an output is in sorted array Okay, so this is this is a desired"
+      },
+      {
+        "lecture": 77,
+        "file": "077. 19 b. Heap Sort.mp4",
+        "start": 37.18,
+        "end": 71.95,
+        "text": "input and input and to fulfill this purpose what you can do you can use a heap sort basically you can use heap to convert this input to output which means given an unsorted array you can convert that to a sorted array how very easily what you can do as an step one you just build a heap out of the array given to you this is just step one and as a step two"
+      },
+      {
+        "lecture": 77,
+        "file": "077. 19 b. Heap Sort.mp4",
+        "start": 72.29,
+        "end": 108.09,
+        "text": "you just delete min repeatedly right delete min repeatedly which means if you're deleting the min n times for i equal to 1 to n if you're deleting min then you are actually getting the sorted things right suppose you're deleting min from this array and this is a heap delete min right so you will be getting the sorted output so let's suppose you're printing this or you're storing this does not matter so you you will be getting in the sorted fashion"
+      }
+    ],
+    "foundation": {
+      "title": "In-place heapsort",
+      "idea": "Ascending in-place heapsort builds a max-heap, swaps its root into the last active slot, shrinks the active heap and repairs only that prefix. A growing suffix is final output and must never reenter the heap repair.",
+      "terms": [
+        "Active prefix: entries still maintained as a max-heap.",
+        "Sorted suffix: final entries excluded from later repairs.",
+        "Stability: ordinary in-place heapsort does not preserve every equal-key arrival order."
+      ],
+      "example": "For 7,2,6,1,5,3, the first extracted maximum 7 goes to index five. The final ascending array is 1,2,3,5,6,7."
+    }
+  },
+  {
+    "id": 232,
+    "lecture": 77,
+    "title": "Grow a final sorted suffix",
+    "concept": "Ascending in-place heapsort builds a max-heap, swaps its root into the last active slot, shrinks the active heap and repairs only that prefix. A growing suffix is final output and must never reenter the heap repair.",
+    "teachingSteps": [
+      "Build a max-heap so the active root is a largest key.",
+      "Swap root with the final active entry and shrink the active range.",
+      "Sift down through larger children inside that range; repeat until sorted."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What entries must be excluded from later sift-down?",
+        "options": [
+          "The final sorted suffix",
+          "The current active root",
+          "Every child of the root"
+        ],
+        "answer": 0,
+        "explanation": "Repair must not disturb already placed maxima."
+      },
+      {
+        "type": "number",
+        "prompt": "Sort array 7,2,6,1,5,3 into ascending order using an in-place max-heap and a final sorted suffix. How many active heap entries remain immediately after that first placement?",
+        "answer": 5,
+        "tolerance": 1e-8,
+        "explanation": "Shrink the active range by one.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "heap-sort",
+            "values": [
+              7,
+              2,
+              6,
+              1,
+              5,
+              3
+            ],
+            "size": 6
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Sort array 7,2,6,1,5,3 into ascending order using an in-place max-heap and a final sorted suffix. How many final suffix entries exist after the first placement?",
+        "answer": 1,
+        "tolerance": 1e-8,
+        "explanation": "Exactly one maximum has been placed.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "heap-sort",
+            "values": [
+              7,
+              2,
+              6,
+              1,
+              5,
+              3
+            ],
+            "size": 6
+          }
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange this procedure for in-place heapsort.",
+        "items": [
+          "Build a max-heap over the input",
+          "Swap its maximum into the final active slot",
+          "Shrink the active heap before repair",
+          "Sift down inside the remaining prefix and repeat"
+        ],
+        "explanation": "Follow this stated procedure so each later stage has its required input."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heap-sort",
+    "start": 0.14,
+    "sourceReferences": [
+      {
+        "lecture": 77,
+        "file": "077. 19 b. Heap Sort.mp4",
+        "start": 0.14,
+        "end": 36.72,
+        "text": "Let's now see one of the very simple algorithm to sort an unsorted array So suppose that your input is an unsorted array an unsorted array A Okay, that is from 0 to n-1 or let's say from 1 to n does not matter So suppose you have an unsorted array and what you want as an output is in sorted array Okay, so this is this is a desired"
+      },
+      {
+        "lecture": 77,
+        "file": "077. 19 b. Heap Sort.mp4",
+        "start": 37.18,
+        "end": 71.95,
+        "text": "input and input and to fulfill this purpose what you can do you can use a heap sort basically you can use heap to convert this input to output which means given an unsorted array you can convert that to a sorted array how very easily what you can do as an step one you just build a heap out of the array given to you this is just step one and as a step two"
+      },
+      {
+        "lecture": 77,
+        "file": "077. 19 b. Heap Sort.mp4",
+        "start": 72.29,
+        "end": 108.09,
+        "text": "you just delete min repeatedly right delete min repeatedly which means if you're deleting the min n times for i equal to 1 to n if you're deleting min then you are actually getting the sorted things right suppose you're deleting min from this array and this is a heap delete min right so you will be getting the sorted output so let's suppose you're printing this or you're storing this does not matter so you you will be getting in the sorted fashion"
+      }
+    ],
+    "foundation": {
+      "title": "In-place heapsort",
+      "idea": "Ascending in-place heapsort builds a max-heap, swaps its root into the last active slot, shrinks the active heap and repairs only that prefix. A growing suffix is final output and must never reenter the heap repair.",
+      "terms": [
+        "Active prefix: entries still maintained as a max-heap.",
+        "Sorted suffix: final entries excluded from later repairs.",
+        "Stability: ordinary in-place heapsort does not preserve every equal-key arrival order."
+      ],
+      "example": "For 7,2,6,1,5,3, the first extracted maximum 7 goes to index five. The final ascending array is 1,2,3,5,6,7."
+    }
+  },
+  {
+    "id": 233,
+    "lecture": 77,
+    "title": "Repair only the active prefix",
+    "concept": "Ascending in-place heapsort builds a max-heap, swaps its root into the last active slot, shrinks the active heap and repairs only that prefix. A growing suffix is final output and must never reenter the heap repair.",
+    "teachingSteps": [
+      "Build a max-heap so the active root is a largest key.",
+      "Swap root with the final active entry and shrink the active range.",
+      "Sift down through larger children inside that range; repeat until sorted."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Is ordinary in-place heapsort stable?",
+        "options": [
+          "Yes for every equal-key input",
+          "Only the base address matters",
+          "No"
+        ],
+        "answer": 2,
+        "explanation": "Ordinary heap swaps can change equal-key relative order."
+      },
+      {
+        "type": "number",
+        "prompt": "Sort array 7,2,6,1,5,3 into ascending order using an in-place max-heap and a final sorted suffix. What key is at index zero in the fully sorted array?",
+        "answer": 1,
+        "tolerance": 1e-8,
+        "explanation": "The final ascending array begins with its minimum.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "heap-sort",
+            "values": [
+              7,
+              2,
+              6,
+              1,
+              5,
+              3
+            ],
+            "size": 6
+          }
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "What is its worst-case time bound?",
+        "options": [
+          "Theta(n log n)",
+          "Theta(1)",
+          "Theta(log n) including all output"
+        ],
+        "answer": 0,
+        "explanation": "Building plus successive height-sized repairs yields this bound."
+      },
+      {
+        "type": "number",
+        "prompt": "Sort array 7,2,6,1,5,3 into ascending order using an in-place max-heap and a final sorted suffix. What sum of keys must be preserved throughout sorting?",
+        "answer": 24,
+        "tolerance": 1e-8,
+        "explanation": "7+2+6+1+5+3=24.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "heap-sort",
+            "values": [
+              7,
+              2,
+              6,
+              1,
+              5,
+              3
+            ],
+            "size": 6
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heap-sort",
+    "start": 0.14,
+    "sourceReferences": [
+      {
+        "lecture": 77,
+        "file": "077. 19 b. Heap Sort.mp4",
+        "start": 0.14,
+        "end": 36.72,
+        "text": "Let's now see one of the very simple algorithm to sort an unsorted array So suppose that your input is an unsorted array an unsorted array A Okay, that is from 0 to n-1 or let's say from 1 to n does not matter So suppose you have an unsorted array and what you want as an output is in sorted array Okay, so this is this is a desired"
+      },
+      {
+        "lecture": 77,
+        "file": "077. 19 b. Heap Sort.mp4",
+        "start": 37.18,
+        "end": 71.95,
+        "text": "input and input and to fulfill this purpose what you can do you can use a heap sort basically you can use heap to convert this input to output which means given an unsorted array you can convert that to a sorted array how very easily what you can do as an step one you just build a heap out of the array given to you this is just step one and as a step two"
+      },
+      {
+        "lecture": 77,
+        "file": "077. 19 b. Heap Sort.mp4",
+        "start": 72.29,
+        "end": 108.09,
+        "text": "you just delete min repeatedly right delete min repeatedly which means if you're deleting the min n times for i equal to 1 to n if you're deleting min then you are actually getting the sorted things right suppose you're deleting min from this array and this is a heap delete min right so you will be getting the sorted output so let's suppose you're printing this or you're storing this does not matter so you you will be getting in the sorted fashion"
+      }
+    ],
+    "foundation": {
+      "title": "In-place heapsort",
+      "idea": "Ascending in-place heapsort builds a max-heap, swaps its root into the last active slot, shrinks the active heap and repairs only that prefix. A growing suffix is final output and must never reenter the heap repair.",
+      "terms": [
+        "Active prefix: entries still maintained as a max-heap.",
+        "Sorted suffix: final entries excluded from later repairs.",
+        "Stability: ordinary in-place heapsort does not preserve every equal-key arrival order."
+      ],
+      "example": "For 7,2,6,1,5,3, the first extracted maximum 7 goes to index five. The final ascending array is 1,2,3,5,6,7."
+    }
+  },
+  {
+    "id": 234,
+    "lecture": 78,
+    "title": "Distinguish heaps from BSTs",
+    "concept": "Two individually valid heaps may stop satisfying parent order after their arrays are concatenated. A linear batch merge concatenates all keys and performs bottom-up build. A heap supports priority access; a balanced BST supports ordered key search and ranges.",
+    "teachingSteps": [
+      "Retain every input key during concatenation.",
+      "Check the new complete-tree parent relations instead of assuming they survived.",
+      "Run bottom-up build on all n+m entries."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Is raw concatenation always a valid heap merge?",
+        "options": [
+          "No",
+          "Yes regardless of values",
+          "Only when both input arrays are nonempty"
+        ],
+        "answer": 0,
+        "explanation": "New parent-child relations can violate heap order."
+      },
+      {
+        "type": "match",
+        "prompt": "Match the terms for merging heaps and choosing structures.",
+        "pairs": [
+          [
+            "Concatenation",
+            "preserve input values without promising heap order."
+          ],
+          [
+            "Batch merge",
+            "build once on the combined array."
+          ],
+          [
+            "Structure choice",
+            "match priority access or ordered search to the needed operation."
+          ]
+        ],
+        "explanation": "Use the stated definitions to distinguish these roles."
+      },
+      {
+        "type": "number",
+        "prompt": "Merge min-heap arrays A=1,4,3 and B=2,8,5 by concatenation followed by bottom-up build. How many total entries must the result preserve?",
+        "answer": 6,
+        "tolerance": 1e-8,
+        "explanation": "Each input has three entries.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "A",
+              "B"
+            ],
+            "rows": [
+              [
+                "1,4,3",
+                "2,8,5"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Merge min-heap arrays A=1,4,3 and B=2,8,5 by concatenation followed by bottom-up build. What is the result minimum?",
+        "answer": 1,
+        "tolerance": 1e-8,
+        "explanation": "The minimum of both input key sets.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "A",
+              "B"
+            ],
+            "rows": [
+              [
+                "1,4,3",
+                "2,8,5"
+              ]
+            ]
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heap-merge",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 78,
+        "file": "078. 19 c. Heap vs BST _ Merging two heaps.mp4",
+        "start": 0,
+        "end": 29.32,
+        "text": "Now that we have seen heave and balanced vines such tree, which is just like AVL trees So let's just compare these two trees and let's see which one is better for what So as you know that heap is good at find min or find max So let's suppose I'm talking about only min heap I mean if you talk about min heap it is find min if you talk about max heap it is find max So heap is good at find min and find max while balance vines such tree or the AVL tree is good at all the finds which means in the heap"
+      },
+      {
+        "lecture": 78,
+        "file": "078. 19 c. Heap vs BST _ Merging two heaps.mp4",
+        "start": 29.55,
+        "end": 40.65,
+        "text": "if i want to do in general if i want to just find some element then i may have to search in the entire heap because i do not know where is that element in the heap right so i may have to search in the entire heap because all"
+      },
+      {
+        "lecture": 78,
+        "file": "078. 19 c. Heap vs BST _ Merging two heaps.mp4",
+        "start": 41.02,
+        "end": 62.4,
+        "text": "all of the heap elements are not like that okay like let's suppose if I want to search for some particular element so I do not know where is that particular element if I want to search for minimum just then I know yes this minimum is here if I want to search for second minimum then I know it is it is it is it is still this level third minimum is still until this level and like just just like log n the height is log n so"
+      }
+    ],
+    "foundation": {
+      "title": "Merging heaps and choosing structures",
+      "idea": "Two individually valid heaps may stop satisfying parent order after their arrays are concatenated. A linear batch merge concatenates all keys and performs bottom-up build. A heap supports priority access; a balanced BST supports ordered key search and ranges.",
+      "terms": [
+        "Concatenation: preserve input values without promising heap order.",
+        "Batch merge: build once on the combined array.",
+        "Structure choice: match priority access or ordered search to the needed operation."
+      ],
+      "example": "Heaps 1,4,3 and 2,8,5 concatenate to 1,4,3,2,8,5; 2 violates its new parent 4. Building yields 1,2,3,4,8,5."
+    }
+  },
+  {
+    "id": 235,
+    "lecture": 78,
+    "title": "Concatenate without assuming order",
+    "concept": "Two individually valid heaps may stop satisfying parent order after their arrays are concatenated. A linear batch merge concatenates all keys and performs bottom-up build. A heap supports priority access; a balanced BST supports ordered key search and ranges.",
+    "teachingSteps": [
+      "Retain every input key during concatenation.",
+      "Check the new complete-tree parent relations instead of assuming they survived.",
+      "Run bottom-up build on all n+m entries."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What is a batch build bound on n+m combined entries?",
+        "options": [
+          "Theta(1)",
+          "Always Theta((n+m) squared)",
+          "Theta(n+m)"
+        ],
+        "answer": 2,
+        "explanation": "Bottom-up building is linear in the combined size."
+      },
+      {
+        "type": "number",
+        "prompt": "Merge min-heap arrays A=1,4,3 and B=2,8,5 by concatenation followed by bottom-up build. What is the zero-based parent of concatenated index three?",
+        "answer": 1,
+        "tolerance": 1e-8,
+        "explanation": "floor((3-1)/2)=1.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "A",
+              "B"
+            ],
+            "rows": [
+              [
+                "1,4,3",
+                "2,8,5"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Merge min-heap arrays A=1,4,3 and B=2,8,5 by concatenation followed by bottom-up build. What key at concatenated index three violates parent key four?",
+        "answer": 2,
+        "tolerance": 1e-8,
+        "explanation": "The first B key moves below A index one.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "A",
+              "B"
+            ],
+            "rows": [
+              [
+                "1,4,3",
+                "2,8,5"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange this procedure for merging heaps and choosing structures.",
+        "items": [
+          "Concatenate both heap arrays without dropping keys",
+          "Identify the last internal node of the combined shape",
+          "Repair internal nodes from right to left",
+          "Verify parent order and the combined key multiset"
+        ],
+        "explanation": "Follow this stated procedure so each later stage has its required input."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heap-merge",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 78,
+        "file": "078. 19 c. Heap vs BST _ Merging two heaps.mp4",
+        "start": 0,
+        "end": 29.32,
+        "text": "Now that we have seen heave and balanced vines such tree, which is just like AVL trees So let's just compare these two trees and let's see which one is better for what So as you know that heap is good at find min or find max So let's suppose I'm talking about only min heap I mean if you talk about min heap it is find min if you talk about max heap it is find max So heap is good at find min and find max while balance vines such tree or the AVL tree is good at all the finds which means in the heap"
+      },
+      {
+        "lecture": 78,
+        "file": "078. 19 c. Heap vs BST _ Merging two heaps.mp4",
+        "start": 29.55,
+        "end": 40.65,
+        "text": "if i want to do in general if i want to just find some element then i may have to search in the entire heap because i do not know where is that element in the heap right so i may have to search in the entire heap because all"
+      },
+      {
+        "lecture": 78,
+        "file": "078. 19 c. Heap vs BST _ Merging two heaps.mp4",
+        "start": 41.02,
+        "end": 62.4,
+        "text": "all of the heap elements are not like that okay like let's suppose if I want to search for some particular element so I do not know where is that particular element if I want to search for minimum just then I know yes this minimum is here if I want to search for second minimum then I know it is it is it is it is still this level third minimum is still until this level and like just just like log n the height is log n so"
+      }
+    ],
+    "foundation": {
+      "title": "Merging heaps and choosing structures",
+      "idea": "Two individually valid heaps may stop satisfying parent order after their arrays are concatenated. A linear batch merge concatenates all keys and performs bottom-up build. A heap supports priority access; a balanced BST supports ordered key search and ranges.",
+      "terms": [
+        "Concatenation: preserve input values without promising heap order.",
+        "Batch merge: build once on the combined array.",
+        "Structure choice: match priority access or ordered search to the needed operation."
+      ],
+      "example": "Heaps 1,4,3 and 2,8,5 concatenate to 1,4,3,2,8,5; 2 violates its new parent 4. Building yields 1,2,3,4,8,5."
+    }
+  },
+  {
+    "id": 236,
+    "lecture": 78,
+    "title": "Rebuild the combined heap",
+    "concept": "Two individually valid heaps may stop satisfying parent order after their arrays are concatenated. A linear batch merge concatenates all keys and performs bottom-up build. A heap supports priority access; a balanced BST supports ordered key search and ranges.",
+    "teachingSteps": [
+      "Retain every input key during concatenation.",
+      "Check the new complete-tree parent relations instead of assuming they survived.",
+      "Run bottom-up build on all n+m entries."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which structure naturally supports ordered key ranges?",
+        "options": [
+          "Only an unsorted linked list",
+          "A suitable BST",
+          "A binary heap with no extra index"
+        ],
+        "answer": 1,
+        "explanation": "BST subtree key partitions support range pruning."
+      },
+      {
+        "type": "number",
+        "prompt": "Merge min-heap arrays A=1,4,3 and B=2,8,5 by concatenation followed by bottom-up build. At what final internal index does a six-entry bottom-up build start?",
+        "answer": 2,
+        "tolerance": 1e-8,
+        "explanation": "floor(6/2)-1=2.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "A",
+              "B"
+            ],
+            "rows": [
+              [
+                "1,4,3",
+                "2,8,5"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "Does merging heaps require globally sorting the result?",
+        "options": [
+          "Yes, a heap is always a sorted array",
+          "Only if all keys are distinct",
+          "No"
+        ],
+        "answer": 2,
+        "explanation": "Parent order is weaker than global array order."
+      },
+      {
+        "type": "number",
+        "prompt": "Merge min-heap arrays A=1,4,3 and B=2,8,5 by concatenation followed by bottom-up build. What sum of all input keys must remain?",
+        "answer": 23,
+        "tolerance": 1e-8,
+        "explanation": "8 in A plus 15 in B gives 23.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "A",
+              "B"
+            ],
+            "rows": [
+              [
+                "1,4,3",
+                "2,8,5"
+              ]
+            ]
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heap-merge",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 78,
+        "file": "078. 19 c. Heap vs BST _ Merging two heaps.mp4",
+        "start": 0,
+        "end": 29.32,
+        "text": "Now that we have seen heave and balanced vines such tree, which is just like AVL trees So let's just compare these two trees and let's see which one is better for what So as you know that heap is good at find min or find max So let's suppose I'm talking about only min heap I mean if you talk about min heap it is find min if you talk about max heap it is find max So heap is good at find min and find max while balance vines such tree or the AVL tree is good at all the finds which means in the heap"
+      },
+      {
+        "lecture": 78,
+        "file": "078. 19 c. Heap vs BST _ Merging two heaps.mp4",
+        "start": 29.55,
+        "end": 40.65,
+        "text": "if i want to do in general if i want to just find some element then i may have to search in the entire heap because i do not know where is that element in the heap right so i may have to search in the entire heap because all"
+      },
+      {
+        "lecture": 78,
+        "file": "078. 19 c. Heap vs BST _ Merging two heaps.mp4",
+        "start": 41.02,
+        "end": 62.4,
+        "text": "all of the heap elements are not like that okay like let's suppose if I want to search for some particular element so I do not know where is that particular element if I want to search for minimum just then I know yes this minimum is here if I want to search for second minimum then I know it is it is it is it is still this level third minimum is still until this level and like just just like log n the height is log n so"
+      }
+    ],
+    "foundation": {
+      "title": "Merging heaps and choosing structures",
+      "idea": "Two individually valid heaps may stop satisfying parent order after their arrays are concatenated. A linear batch merge concatenates all keys and performs bottom-up build. A heap supports priority access; a balanced BST supports ordered key search and ranges.",
+      "terms": [
+        "Concatenation: preserve input values without promising heap order.",
+        "Batch merge: build once on the combined array.",
+        "Structure choice: match priority access or ordered search to the needed operation."
+      ],
+      "example": "Heaps 1,4,3 and 2,8,5 concatenate to 1,4,3,2,8,5; 2 violates its new parent 4. Building yields 1,2,3,4,8,5."
+    }
+  },
+  {
+    "id": 237,
+    "lecture": 79,
+    "title": "State the urgency convention",
+    "concept": "A priority queue selects by a declared priority rule rather than by arrival time. A min-heap can serve jobs when smaller numbers mean greater urgency. Equal priorities require an explicit tie policy; heap order alone does not promise first-in first-out ties.",
+    "teachingSteps": [
+      "State whether smaller or larger numbers are more urgent.",
+      "Read and remove the root priority, restoring heap order afterward.",
+      "Check an empty queue before access and state how ties are resolved."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Does this queue promise arrival-order service?",
+        "options": [
+          "Yes even when urgency differs",
+          "Only the job name length matters",
+          "No; it uses the stated priorities"
+        ],
+        "answer": 2,
+        "explanation": "Arrival order and urgency are different policies."
+      },
+      {
+        "type": "match",
+        "prompt": "Match the terms for priority queues for a job scheduler.",
+        "pairs": [
+          [
+            "Priority",
+            "application-specific urgency rank."
+          ],
+          [
+            "Peek",
+            "inspect the next job without removing it."
+          ],
+          [
+            "Tie policy",
+            "an additional rule for equal priorities."
+          ]
+        ],
+        "explanation": "Use the stated definitions to distinguish these roles."
+      },
+      {
+        "type": "number",
+        "prompt": "Jobs arrive Backup(priority 7), Alert(priority 1), Report(priority 3); smaller priority numbers mean greater urgency. Which priority is served first?",
+        "answer": 1,
+        "tolerance": 1e-8,
+        "explanation": "Alert is most urgent.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Job",
+              "Given priority"
+            ],
+            "rows": [
+              [
+                "Backup",
+                7
+              ],
+              [
+                "Alert",
+                1
+              ],
+              [
+                "Report",
+                3
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Jobs arrive Backup(priority 7), Alert(priority 1), Report(priority 3); smaller priority numbers mean greater urgency. After the first service, what next priority becomes minimum?",
+        "answer": 3,
+        "tolerance": 1e-8,
+        "explanation": "Report is next.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Job",
+              "Given priority"
+            ],
+            "rows": [
+              [
+                "Backup",
+                7
+              ],
+              [
+                "Alert",
+                1
+              ],
+              [
+                "Report",
+                3
+              ]
+            ]
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "priority-queue",
+    "start": 0.5,
+    "sourceReferences": [
+      {
+        "lecture": 79,
+        "file": "079. 27b. Video From DS Course_ Priority Queues.mp4",
+        "start": 0.5,
+        "end": 27.62,
+        "text": "Let us now look at one of the most widely used data structure, which is priority queue. So let's just answer first question, which is what are the priority queues, right? So we have seen queues. Queues are basically first in first out, which means whatever is going in the queue that will come out first, right? This is followed by the FIFO feature. So queues are following the FIFO, which means first in first out."
+      },
+      {
+        "lecture": 79,
+        "file": "079. 27b. Video From DS Course_ Priority Queues.mp4",
+        "start": 28.23,
+        "end": 56.21,
+        "text": "However, this is possible. There are some tasks which are more important and it like we do not want the first in first out which means suppose that there is some task here and I I do not want first in first out I want to delete or I want to dequeue this task or this this job instead of you know first dequeue these three and then dequeue this I first want to dequeue this even though I have just inserted this right So prior to give supported so prior to give stores"
+      },
+      {
+        "lecture": 79,
+        "file": "079. 27b. Video From DS Course_ Priority Queues.mp4",
+        "start": 56.58,
+        "end": 77.38,
+        "text": "like the stores task using a partial order based on the priority, which means it basically stores based on the priority. It does not, it does not store the data randomly. It stores based on the priority and ensures that highest priority task is at the head of queue. So let's just see like what are those priority queues, right? So for example, in real life,"
+      }
+    ],
+    "foundation": {
+      "title": "Priority queues for a job scheduler",
+      "idea": "A priority queue selects by a declared priority rule rather than by arrival time. A min-heap can serve jobs when smaller numbers mean greater urgency. Equal priorities require an explicit tie policy; heap order alone does not promise first-in first-out ties.",
+      "terms": [
+        "Priority: application-specific urgency rank.",
+        "Peek: inspect the next job without removing it.",
+        "Tie policy: an additional rule for equal priorities."
+      ],
+      "example": "Jobs Backup=7, Alert=1 and Report=3 are served Alert, Report, Backup under smaller-is-more-urgent ordering."
+    }
+  },
+  {
+    "id": 238,
+    "lecture": 79,
+    "title": "Serve the highest-priority job",
+    "concept": "A priority queue selects by a declared priority rule rather than by arrival time. A min-heap can serve jobs when smaller numbers mean greater urgency. Equal priorities require an explicit tie policy; heap order alone does not promise first-in first-out ties.",
+    "teachingSteps": [
+      "State whether smaller or larger numbers are more urgent.",
+      "Read and remove the root priority, restoring heap order afterward.",
+      "Check an empty queue before access and state how ties are resolved."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What must be declared for equal priorities?",
+        "options": [
+          "Only table size parity",
+          "A tie-breaking policy",
+          "A false claim that every heap is stable"
+        ],
+        "answer": 1,
+        "explanation": "A heap alone does not define FIFO ties."
+      },
+      {
+        "type": "number",
+        "prompt": "Jobs arrive Backup(priority 7), Alert(priority 1), Report(priority 3); smaller priority numbers mean greater urgency. After exactly one service, how many jobs remain?",
+        "answer": 2,
+        "tolerance": 1e-8,
+        "explanation": "Two of the three jobs are still queued.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Job",
+              "Given priority"
+            ],
+            "rows": [
+              [
+                "Backup",
+                7
+              ],
+              [
+                "Alert",
+                1
+              ],
+              [
+                "Report",
+                3
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Jobs arrive Backup(priority 7), Alert(priority 1), Report(priority 3); smaller priority numbers mean greater urgency. Which priority is served last?",
+        "answer": 7,
+        "tolerance": 1e-8,
+        "explanation": "Backup is least urgent.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Job",
+              "Given priority"
+            ],
+            "rows": [
+              [
+                "Backup",
+                7
+              ],
+              [
+                "Alert",
+                1
+              ],
+              [
+                "Report",
+                3
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange this procedure for priority queues for a job scheduler.",
+        "items": [
+          "Declare the priority convention",
+          "Inspect the root of the nonempty priority heap",
+          "Remove that job and repair the heap",
+          "Repeat or handle the now-empty queue"
+        ],
+        "explanation": "Follow this stated procedure so each later stage has its required input."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "priority-queue",
+    "start": 0.5,
+    "sourceReferences": [
+      {
+        "lecture": 79,
+        "file": "079. 27b. Video From DS Course_ Priority Queues.mp4",
+        "start": 0.5,
+        "end": 27.62,
+        "text": "Let us now look at one of the most widely used data structure, which is priority queue. So let's just answer first question, which is what are the priority queues, right? So we have seen queues. Queues are basically first in first out, which means whatever is going in the queue that will come out first, right? This is followed by the FIFO feature. So queues are following the FIFO, which means first in first out."
+      },
+      {
+        "lecture": 79,
+        "file": "079. 27b. Video From DS Course_ Priority Queues.mp4",
+        "start": 28.23,
+        "end": 56.21,
+        "text": "However, this is possible. There are some tasks which are more important and it like we do not want the first in first out which means suppose that there is some task here and I I do not want first in first out I want to delete or I want to dequeue this task or this this job instead of you know first dequeue these three and then dequeue this I first want to dequeue this even though I have just inserted this right So prior to give supported so prior to give stores"
+      },
+      {
+        "lecture": 79,
+        "file": "079. 27b. Video From DS Course_ Priority Queues.mp4",
+        "start": 56.58,
+        "end": 77.38,
+        "text": "like the stores task using a partial order based on the priority, which means it basically stores based on the priority. It does not, it does not store the data randomly. It stores based on the priority and ensures that highest priority task is at the head of queue. So let's just see like what are those priority queues, right? So for example, in real life,"
+      }
+    ],
+    "foundation": {
+      "title": "Priority queues for a job scheduler",
+      "idea": "A priority queue selects by a declared priority rule rather than by arrival time. A min-heap can serve jobs when smaller numbers mean greater urgency. Equal priorities require an explicit tie policy; heap order alone does not promise first-in first-out ties.",
+      "terms": [
+        "Priority: application-specific urgency rank.",
+        "Peek: inspect the next job without removing it.",
+        "Tie policy: an additional rule for equal priorities."
+      ],
+      "example": "Jobs Backup=7, Alert=1 and Report=3 are served Alert, Report, Backup under smaller-is-more-urgent ordering."
+    }
+  },
+  {
+    "id": 239,
+    "lecture": 79,
+    "title": "Handle ties and an empty queue",
+    "concept": "A priority queue selects by a declared priority rule rather than by arrival time. A min-heap can serve jobs when smaller numbers mean greater urgency. Equal priorities require an explicit tie policy; heap order alone does not promise first-in first-out ties.",
+    "teachingSteps": [
+      "State whether smaller or larger numbers are more urgent.",
+      "Read and remove the root priority, restoring heap order afterward.",
+      "Check an empty queue before access and state how ties are resolved."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What must happen before removing from an empty priority queue?",
+        "options": [
+          "Handle the empty condition",
+          "Read an absent root",
+          "Return a random stored value"
+        ],
+        "answer": 0,
+        "explanation": "An empty queue has no available extremum."
+      },
+      {
+        "type": "number",
+        "prompt": "Jobs arrive Backup(priority 7), Alert(priority 1), Report(priority 3); smaller priority numbers mean greater urgency. After all three are served, how many jobs remain?",
+        "answer": 0,
+        "tolerance": 1e-8,
+        "explanation": "Every original job was removed once.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Job",
+              "Given priority"
+            ],
+            "rows": [
+              [
+                "Backup",
+                7
+              ],
+              [
+                "Alert",
+                1
+              ],
+              [
+                "Report",
+                3
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "What does peek do?",
+        "options": [
+          "Globally sort the whole array",
+          "Inspect the next priority without deleting it",
+          "Remove every urgent job"
+        ],
+        "answer": 1,
+        "explanation": "Peek leaves the structure unchanged."
+      },
+      {
+        "type": "number",
+        "prompt": "Jobs arrive Backup(priority 7), Alert(priority 1), Report(priority 3); smaller priority numbers mean greater urgency. Peeking at the root without removal changes job count by how much?",
+        "answer": 0,
+        "tolerance": 1e-8,
+        "explanation": "Peek does not delete a job.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Job",
+              "Given priority"
+            ],
+            "rows": [
+              [
+                "Backup",
+                7
+              ],
+              [
+                "Alert",
+                1
+              ],
+              [
+                "Report",
+                3
+              ]
+            ]
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "priority-queue",
+    "start": 0.5,
+    "sourceReferences": [
+      {
+        "lecture": 79,
+        "file": "079. 27b. Video From DS Course_ Priority Queues.mp4",
+        "start": 0.5,
+        "end": 27.62,
+        "text": "Let us now look at one of the most widely used data structure, which is priority queue. So let's just answer first question, which is what are the priority queues, right? So we have seen queues. Queues are basically first in first out, which means whatever is going in the queue that will come out first, right? This is followed by the FIFO feature. So queues are following the FIFO, which means first in first out."
+      },
+      {
+        "lecture": 79,
+        "file": "079. 27b. Video From DS Course_ Priority Queues.mp4",
+        "start": 28.23,
+        "end": 56.21,
+        "text": "However, this is possible. There are some tasks which are more important and it like we do not want the first in first out which means suppose that there is some task here and I I do not want first in first out I want to delete or I want to dequeue this task or this this job instead of you know first dequeue these three and then dequeue this I first want to dequeue this even though I have just inserted this right So prior to give supported so prior to give stores"
+      },
+      {
+        "lecture": 79,
+        "file": "079. 27b. Video From DS Course_ Priority Queues.mp4",
+        "start": 56.58,
+        "end": 77.38,
+        "text": "like the stores task using a partial order based on the priority, which means it basically stores based on the priority. It does not, it does not store the data randomly. It stores based on the priority and ensures that highest priority task is at the head of queue. So let's just see like what are those priority queues, right? So for example, in real life,"
+      }
+    ],
+    "foundation": {
+      "title": "Priority queues for a job scheduler",
+      "idea": "A priority queue selects by a declared priority rule rather than by arrival time. A min-heap can serve jobs when smaller numbers mean greater urgency. Equal priorities require an explicit tie policy; heap order alone does not promise first-in first-out ties.",
+      "terms": [
+        "Priority: application-specific urgency rank.",
+        "Peek: inspect the next job without removing it.",
+        "Tie policy: an additional rule for equal priorities."
+      ],
+      "example": "Jobs Backup=7, Alert=1 and Report=3 are served Alert, Report, Backup under smaller-is-more-urgent ordering."
+    }
+  },
+  {
+    "id": 240,
+    "lecture": 80,
+    "title": "Read rank independently of position",
+    "concept": "Heap puzzles often mix array position, sorted rank, depth and arbitrary-key search. Ancestors provide priority guarantees, while unrelated branches need not be sorted. Trace the supplied state and stated operation instead of importing an unstated BST property.",
+    "teachingSteps": [
+      "Read root priority and existing parent-child constraints.",
+      "Use successive extractions to determine sorted ranks.",
+      "For unrelated keys, distinguish possible locations from guaranteed ones."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Does array index two always hold the third-smallest key?",
+        "options": [
+          "Only negative keys break it",
+          "No",
+          "Yes in every complete heap"
+        ],
+        "answer": 1,
+        "explanation": "Index and rank are separate."
+      },
+      {
+        "type": "match",
+        "prompt": "Match the terms for heap rank and search challenges.",
+        "pairs": [
+          [
+            "Rank",
+            "place in sorted order rather than array position."
+          ],
+          [
+            "Ancestor",
+            "a node whose priority constrains its descendants."
+          ],
+          [
+            "Unspecified position",
+            "multiple legal heaps can place a key differently."
+          ]
+        ],
+        "explanation": "Use the stated definitions to distinguish these roles."
+      },
+      {
+        "type": "number",
+        "prompt": "Use the pictured distinct-key min-heap array 1,4,2,9,6,3,8. What is its third-smallest key?",
+        "answer": 3,
+        "tolerance": 1e-8,
+        "explanation": "Increasing order begins 1,2,3.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "tree",
+            "nodes": [
+              {
+                "key": 1,
+                "left": 1,
+                "right": 2
+              },
+              {
+                "key": 4,
+                "left": 3,
+                "right": 4
+              },
+              {
+                "key": 2,
+                "left": 5,
+                "right": 6
+              },
+              {
+                "key": 9,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 6,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 3,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 8,
+                "left": null,
+                "right": null
+              }
+            ],
+            "active": [],
+            "indexed": true
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Use the pictured distinct-key min-heap array 1,4,2,9,6,3,8. What zero-based index stores that third-smallest key?",
+        "answer": 5,
+        "tolerance": 1e-8,
+        "explanation": "Array order is not rank order.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "tree",
+            "nodes": [
+              {
+                "key": 1,
+                "left": 1,
+                "right": 2
+              },
+              {
+                "key": 4,
+                "left": 3,
+                "right": 4
+              },
+              {
+                "key": 2,
+                "left": 5,
+                "right": 6
+              },
+              {
+                "key": 9,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 6,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 3,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 8,
+                "left": null,
+                "right": null
+              }
+            ],
+            "active": [],
+            "indexed": true
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heap-challenges",
+    "start": 123.76,
+    "sourceReferences": [
+      {
+        "lecture": 80,
+        "file": "080. Recording - LIVE Heap_ Practice Set Discussion.mp4",
+        "start": 123.76,
+        "end": 151.8,
+        "text": "So now let's start. So here this, in the question number one, I was saying that this 25 is not minimum. Since this is not minimum, that is why this is not a min heap, obviously, right? That's why this is the wrong choice. And similarly, this minus eight is minimum, but is this a min heap? Let's just quickly check it. So minus eight is minimum. This 22 is minimum 48. Yeah, that is okay. I think that is okay, right? So this B is a min heap. C is a min heap."
+      },
+      {
+        "lecture": 80,
+        "file": "080. Recording - LIVE Heap_ Practice Set Discussion.mp4",
+        "start": 152.56,
+        "end": 177.72,
+        "text": "is this D is a main heap let's just quickly check so here this 25 should be here right I mean this is not a main heap this this particular subtree is not a main heap so that's why this is not a main heap this is a main heap I think okay so f is not a main heap because 3 is here cool so that's why f is not a main heap okay and why this is not a main heap because okay why this was not a main heap because"
+      },
+      {
+        "lecture": 80,
+        "file": "080. Recording - LIVE Heap_ Practice Set Discussion.mp4",
+        "start": 178.6,
+        "end": 201.63,
+        "text": "17 was here. Why this is not a main heap because this because I mean, at least this is one of the reason there might be some other reason. Okay, cool. So the series of the step that would take place in adding a node containing 17 to the heap. So if we add 17 to the heap, then they are saying what are the series of the steps. So I hope you must have able to do it right. So if you're adding 17, it must be here."
+      }
+    ],
+    "foundation": {
+      "title": "Heap rank and search challenges",
+      "idea": "Heap puzzles often mix array position, sorted rank, depth and arbitrary-key search. Ancestors provide priority guarantees, while unrelated branches need not be sorted. Trace the supplied state and stated operation instead of importing an unstated BST property.",
+      "terms": [
+        "Rank: place in sorted order rather than array position.",
+        "Ancestor: a node whose priority constrains its descendants.",
+        "Unspecified position: multiple legal heaps can place a key differently."
+      ],
+      "example": "In min-heap 1,4,2,9,6,3,8, key 3 is third-smallest at index five; key 9 is the maximum, whose position is not fixed in general."
+    }
+  },
+  {
+    "id": 241,
+    "lecture": 80,
+    "title": "Trace successive minima",
+    "concept": "Heap puzzles often mix array position, sorted rank, depth and arbitrary-key search. Ancestors provide priority guarantees, while unrelated branches need not be sorted. Trace the supplied state and stated operation instead of importing an unstated BST property.",
+    "teachingSteps": [
+      "Read root priority and existing parent-child constraints.",
+      "Use successive extractions to determine sorted ranks.",
+      "For unrelated keys, distinguish possible locations from guaranteed ones."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Where must the second-smallest distinct key lie?",
+        "options": [
+          "At an existing root child",
+          "Always at the final array slot",
+          "At any arbitrary leaf"
+        ],
+        "answer": 0,
+        "explanation": "Its only possible smaller ancestor is root."
+      },
+      {
+        "type": "number",
+        "prompt": "Use the pictured distinct-key min-heap array 1,4,2,9,6,3,8. What is the largest stored key?",
+        "answer": 9,
+        "tolerance": 1e-8,
+        "explanation": "Compare the given values rather than assuming a root maximum.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "tree",
+            "nodes": [
+              {
+                "key": 1,
+                "left": 1,
+                "right": 2
+              },
+              {
+                "key": 4,
+                "left": 3,
+                "right": 4
+              },
+              {
+                "key": 2,
+                "left": 5,
+                "right": 6
+              },
+              {
+                "key": 9,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 6,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 3,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 8,
+                "left": null,
+                "right": null
+              }
+            ],
+            "active": [],
+            "indexed": true
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Use the pictured distinct-key min-heap array 1,4,2,9,6,3,8. After one delete-min, what is the new minimum?",
+        "answer": 2,
+        "tolerance": 1e-8,
+        "explanation": "Restoring the heap places two at root.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "tree",
+            "nodes": [
+              {
+                "key": 1,
+                "left": 1,
+                "right": 2
+              },
+              {
+                "key": 4,
+                "left": 3,
+                "right": 4
+              },
+              {
+                "key": 2,
+                "left": 5,
+                "right": 6
+              },
+              {
+                "key": 9,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 6,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 3,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 8,
+                "left": null,
+                "right": null
+              }
+            ],
+            "active": [],
+            "indexed": true
+          }
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange this procedure for heap rank and search challenges.",
+        "items": [
+          "Inspect the given heap convention and values",
+          "Extract the current minimum while retaining its value",
+          "Repair the remaining heap",
+          "Repeat until the requested sorted rank is returned"
+        ],
+        "explanation": "Follow this stated procedure so each later stage has its required input."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heap-challenges",
+    "start": 123.76,
+    "sourceReferences": [
+      {
+        "lecture": 80,
+        "file": "080. Recording - LIVE Heap_ Practice Set Discussion.mp4",
+        "start": 123.76,
+        "end": 151.8,
+        "text": "So now let's start. So here this, in the question number one, I was saying that this 25 is not minimum. Since this is not minimum, that is why this is not a min heap, obviously, right? That's why this is the wrong choice. And similarly, this minus eight is minimum, but is this a min heap? Let's just quickly check it. So minus eight is minimum. This 22 is minimum 48. Yeah, that is okay. I think that is okay, right? So this B is a min heap. C is a min heap."
+      },
+      {
+        "lecture": 80,
+        "file": "080. Recording - LIVE Heap_ Practice Set Discussion.mp4",
+        "start": 152.56,
+        "end": 177.72,
+        "text": "is this D is a main heap let's just quickly check so here this 25 should be here right I mean this is not a main heap this this particular subtree is not a main heap so that's why this is not a main heap this is a main heap I think okay so f is not a main heap because 3 is here cool so that's why f is not a main heap okay and why this is not a main heap because okay why this was not a main heap because"
+      },
+      {
+        "lecture": 80,
+        "file": "080. Recording - LIVE Heap_ Practice Set Discussion.mp4",
+        "start": 178.6,
+        "end": 201.63,
+        "text": "17 was here. Why this is not a main heap because this because I mean, at least this is one of the reason there might be some other reason. Okay, cool. So the series of the step that would take place in adding a node containing 17 to the heap. So if we add 17 to the heap, then they are saying what are the series of the steps. So I hope you must have able to do it right. So if you're adding 17, it must be here."
+      }
+    ],
+    "foundation": {
+      "title": "Heap rank and search challenges",
+      "idea": "Heap puzzles often mix array position, sorted rank, depth and arbitrary-key search. Ancestors provide priority guarantees, while unrelated branches need not be sorted. Trace the supplied state and stated operation instead of importing an unstated BST property.",
+      "terms": [
+        "Rank: place in sorted order rather than array position.",
+        "Ancestor: a node whose priority constrains its descendants.",
+        "Unspecified position: multiple legal heaps can place a key differently."
+      ],
+      "example": "In min-heap 1,4,2,9,6,3,8, key 3 is third-smallest at index five; key 9 is the maximum, whose position is not fixed in general."
+    }
+  },
+  {
+    "id": 242,
+    "lecture": 80,
+    "title": "Separate guaranteed and possible locations",
+    "concept": "Heap puzzles often mix array position, sorted rank, depth and arbitrary-key search. Ancestors provide priority guarantees, while unrelated branches need not be sorted. Trace the supplied state and stated operation instead of importing an unstated BST property.",
+    "teachingSteps": [
+      "Read root priority and existing parent-child constraints.",
+      "Use successive extractions to determine sorted ranks.",
+      "For unrelated keys, distinguish possible locations from guaranteed ones."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Can arbitrary-key search inspect all entries in the worst case?",
+        "options": [
+          "No, all heap searches are binary searches",
+          "Only if siblings match",
+          "Yes"
+        ],
+        "answer": 2,
+        "explanation": "Heap partitions do not discard arbitrary-key regions like a BST."
+      },
+      {
+        "type": "number",
+        "prompt": "Use the pictured distinct-key min-heap array 1,4,2,9,6,3,8. After one delete-min, how many real entries remain?",
+        "answer": 6,
+        "tolerance": 1e-8,
+        "explanation": "Remove one of seven keys.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "tree",
+            "nodes": [
+              {
+                "key": 1,
+                "left": 1,
+                "right": 2
+              },
+              {
+                "key": 4,
+                "left": 3,
+                "right": 4
+              },
+              {
+                "key": 2,
+                "left": 5,
+                "right": 6
+              },
+              {
+                "key": 9,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 6,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 3,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 8,
+                "left": null,
+                "right": null
+              }
+            ],
+            "active": [],
+            "indexed": true
+          }
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "Which guarantee survives each correct delete-min?",
+        "options": [
+          "Complete shape and min-heap order",
+          "Every index is globally sorted",
+          "All survivors keep their original indices"
+        ],
+        "answer": 0,
+        "explanation": "Repair restores heap invariants, not fixed positions."
+      },
+      {
+        "type": "number",
+        "prompt": "Use the pictured distinct-key min-heap array 1,4,2,9,6,3,8. For a third-smallest distinct heap key, what maximum depth follows from its smaller ancestors?",
+        "answer": 2,
+        "tolerance": 1e-8,
+        "explanation": "Depth cannot exceed rank minus one.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "tree",
+            "nodes": [
+              {
+                "key": 1,
+                "left": 1,
+                "right": 2
+              },
+              {
+                "key": 4,
+                "left": 3,
+                "right": 4
+              },
+              {
+                "key": 2,
+                "left": 5,
+                "right": 6
+              },
+              {
+                "key": 9,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 6,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 3,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 8,
+                "left": null,
+                "right": null
+              }
+            ],
+            "active": [],
+            "indexed": true
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heap-challenges",
+    "start": 123.76,
+    "sourceReferences": [
+      {
+        "lecture": 80,
+        "file": "080. Recording - LIVE Heap_ Practice Set Discussion.mp4",
+        "start": 123.76,
+        "end": 151.8,
+        "text": "So now let's start. So here this, in the question number one, I was saying that this 25 is not minimum. Since this is not minimum, that is why this is not a min heap, obviously, right? That's why this is the wrong choice. And similarly, this minus eight is minimum, but is this a min heap? Let's just quickly check it. So minus eight is minimum. This 22 is minimum 48. Yeah, that is okay. I think that is okay, right? So this B is a min heap. C is a min heap."
+      },
+      {
+        "lecture": 80,
+        "file": "080. Recording - LIVE Heap_ Practice Set Discussion.mp4",
+        "start": 152.56,
+        "end": 177.72,
+        "text": "is this D is a main heap let's just quickly check so here this 25 should be here right I mean this is not a main heap this this particular subtree is not a main heap so that's why this is not a main heap this is a main heap I think okay so f is not a main heap because 3 is here cool so that's why f is not a main heap okay and why this is not a main heap because okay why this was not a main heap because"
+      },
+      {
+        "lecture": 80,
+        "file": "080. Recording - LIVE Heap_ Practice Set Discussion.mp4",
+        "start": 178.6,
+        "end": 201.63,
+        "text": "17 was here. Why this is not a main heap because this because I mean, at least this is one of the reason there might be some other reason. Okay, cool. So the series of the step that would take place in adding a node containing 17 to the heap. So if we add 17 to the heap, then they are saying what are the series of the steps. So I hope you must have able to do it right. So if you're adding 17, it must be here."
+      }
+    ],
+    "foundation": {
+      "title": "Heap rank and search challenges",
+      "idea": "Heap puzzles often mix array position, sorted rank, depth and arbitrary-key search. Ancestors provide priority guarantees, while unrelated branches need not be sorted. Trace the supplied state and stated operation instead of importing an unstated BST property.",
+      "terms": [
+        "Rank: place in sorted order rather than array position.",
+        "Ancestor: a node whose priority constrains its descendants.",
+        "Unspecified position: multiple legal heaps can place a key differently."
+      ],
+      "example": "In min-heap 1,4,2,9,6,3,8, key 3 is third-smallest at index five; key 9 is the maximum, whose position is not fixed in general."
+    }
+  },
+  {
+    "id": 243,
+    "lecture": 81,
+    "title": "Verify the child-subheap precondition",
+    "concept": "A local sift-down puzzle starts from a particular misplaced root with valid child subheaps. The smaller-child choice and every swap must be traced on that input. A worst-case height bound is not the same as the exact observed swap count.",
+    "teachingSteps": [
+      "Confirm that both child subtrees are already min-heaps.",
+      "Choose the smaller existing child and swap only if needed.",
+      "Count actual swaps and preserve all original keys."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What local precondition is supplied?",
+        "options": [
+          "Both child subtrees are heaps",
+          "Every descendant may be arbitrarily invalid",
+          "The whole input must already be sorted"
+        ],
+        "answer": 0,
+        "explanation": "A single sift-down relies on valid child subheaps."
+      },
+      {
+        "type": "match",
+        "prompt": "Match the terms for heap repair challenges.",
+        "pairs": [
+          [
+            "Local precondition",
+            "the child subheaps are valid."
+          ],
+          [
+            "Exact trace",
+            "operations observed on the given values."
+          ],
+          [
+            "Multiset invariant",
+            "repair changes positions, not keys."
+          ]
+        ],
+        "explanation": "Use the stated definitions to distinguish these roles."
+      },
+      {
+        "type": "number",
+        "prompt": "Sift down at root index zero in array 20,4,2,9,6,3,8; both child subtrees are valid min-heaps. What smaller child key swaps with the root first?",
+        "answer": 2,
+        "tolerance": 1e-8,
+        "explanation": "The root children are four and two.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "tree",
+            "nodes": [
+              {
+                "key": 20,
+                "left": 1,
+                "right": 2
+              },
+              {
+                "key": 4,
+                "left": 3,
+                "right": 4
+              },
+              {
+                "key": 2,
+                "left": 5,
+                "right": 6
+              },
+              {
+                "key": 9,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 6,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 3,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 8,
+                "left": null,
+                "right": null
+              }
+            ],
+            "active": [],
+            "indexed": true
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Sift down at root index zero in array 20,4,2,9,6,3,8; both child subtrees are valid min-heaps. How many swaps occur in the complete repair?",
+        "answer": 2,
+        "tolerance": 1e-8,
+        "explanation": "20 moves through index two then five.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "tree",
+            "nodes": [
+              {
+                "key": 20,
+                "left": 1,
+                "right": 2
+              },
+              {
+                "key": 4,
+                "left": 3,
+                "right": 4
+              },
+              {
+                "key": 2,
+                "left": 5,
+                "right": 6
+              },
+              {
+                "key": 9,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 6,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 3,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 8,
+                "left": null,
+                "right": null
+              }
+            ],
+            "active": [],
+            "indexed": true
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heap-repair",
+    "start": 9.84,
+    "sourceReferences": [
+      {
+        "lecture": 81,
+        "file": "081. Recording - LIVE Heap_ Practice Set Discussion (Part 2).mp4",
+        "start": 9.84,
+        "end": 47.74,
+        "text": "Hi everyone, how are you doing? Okay, so I hope everyone is doing great. Yeah, let me know if everything is fine. You can hear me, right? Okay. So, let's just start continuing our discussion, which is on the heap questions. So, hello, hi, Sathya. Hello, Twinkle. Okay. So, hi, Sangeet. Let's just get started. So, let's see this question. What they're saying."
+      },
+      {
+        "lecture": 81,
+        "file": "081. Recording - LIVE Heap_ Practice Set Discussion (Part 2).mp4",
+        "start": 48.02,
+        "end": 75.27,
+        "text": "that suppose you have an array right and that is a representation of heap so they are saying that if that is the case then will it be sorted so tell me if age true or false if you have a heap then array representation of a heap then will it be sorted need not to be right reason being is that there is no relationship between left and right let's suppose this is the main heap then there is no relationship between left and right you can write"
+      },
+      {
+        "lecture": 81,
+        "file": "081. Recording - LIVE Heap_ Practice Set Discussion (Part 2).mp4",
+        "start": 105.79,
+        "end": 136.68,
+        "text": "so it will be 1 2 3 this is the error representation of this heap and now tell me what is the error representation of this heap this is 1 3 2 because of this region it is very obvious that it is not necessary that you will be having I mean you will be having sorted right if this is heap then it need not to be sorted so I think this a is killer to everyone that if it is heap then the error representation may be sorted may not be sorted right so here this is heap"
+      }
+    ],
+    "foundation": {
+      "title": "Heap repair challenges",
+      "idea": "A local sift-down puzzle starts from a particular misplaced root with valid child subheaps. The smaller-child choice and every swap must be traced on that input. A worst-case height bound is not the same as the exact observed swap count.",
+      "terms": [
+        "Local precondition: the child subheaps are valid.",
+        "Exact trace: operations observed on the given values.",
+        "Multiset invariant: repair changes positions, not keys."
+      ],
+      "example": "Root 20 in 20,4,2,9,6,3,8 moves through indices zero, two and five, taking two swaps and producing 2,4,3,9,6,20,8."
+    }
+  },
+  {
+    "id": 244,
+    "lecture": 81,
+    "title": "Follow a smaller-child path",
+    "concept": "A local sift-down puzzle starts from a particular misplaced root with valid child subheaps. The smaller-child choice and every swap must be traced on that input. A worst-case height bound is not the same as the exact observed swap count.",
+    "teachingSteps": [
+      "Confirm that both child subtrees are already min-heaps.",
+      "Choose the smaller existing child and swap only if needed.",
+      "Count actual swaps and preserve all original keys."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Why choose the smaller child?",
+        "options": [
+          "The larger child always sorts the array",
+          "Only child indices matter",
+          "The promoted parent must satisfy both child comparisons"
+        ],
+        "answer": 2,
+        "explanation": "Promoting the larger child can leave an immediate min-heap violation."
+      },
+      {
+        "type": "number",
+        "prompt": "Sift down at root index zero in array 20,4,2,9,6,3,8; both child subtrees are valid min-heaps. What final index holds the original key 20?",
+        "answer": 5,
+        "tolerance": 1e-8,
+        "explanation": "The old root ends at the left child of index two.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "tree",
+            "nodes": [
+              {
+                "key": 20,
+                "left": 1,
+                "right": 2
+              },
+              {
+                "key": 4,
+                "left": 3,
+                "right": 4
+              },
+              {
+                "key": 2,
+                "left": 5,
+                "right": 6
+              },
+              {
+                "key": 9,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 6,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 3,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 8,
+                "left": null,
+                "right": null
+              }
+            ],
+            "active": [],
+            "indexed": true
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Sift down at root index zero in array 20,4,2,9,6,3,8; both child subtrees are valid min-heaps. What final key becomes the root minimum?",
+        "answer": 2,
+        "tolerance": 1e-8,
+        "explanation": "The promoted smaller child reaches root.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "tree",
+            "nodes": [
+              {
+                "key": 20,
+                "left": 1,
+                "right": 2
+              },
+              {
+                "key": 4,
+                "left": 3,
+                "right": 4
+              },
+              {
+                "key": 2,
+                "left": 5,
+                "right": 6
+              },
+              {
+                "key": 9,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 6,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 3,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 8,
+                "left": null,
+                "right": null
+              }
+            ],
+            "active": [],
+            "indexed": true
+          }
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange this procedure for heap repair challenges.",
+        "items": [
+          "Verify the two child-subheap preconditions",
+          "Compare the root with its smaller existing child",
+          "Swap and continue at the displaced key",
+          "Stop at a leaf or an ordered parent"
+        ],
+        "explanation": "Follow this stated procedure so each later stage has its required input."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heap-repair",
+    "start": 9.84,
+    "sourceReferences": [
+      {
+        "lecture": 81,
+        "file": "081. Recording - LIVE Heap_ Practice Set Discussion (Part 2).mp4",
+        "start": 9.84,
+        "end": 47.74,
+        "text": "Hi everyone, how are you doing? Okay, so I hope everyone is doing great. Yeah, let me know if everything is fine. You can hear me, right? Okay. So, let's just start continuing our discussion, which is on the heap questions. So, hello, hi, Sathya. Hello, Twinkle. Okay. So, hi, Sangeet. Let's just get started. So, let's see this question. What they're saying."
+      },
+      {
+        "lecture": 81,
+        "file": "081. Recording - LIVE Heap_ Practice Set Discussion (Part 2).mp4",
+        "start": 48.02,
+        "end": 75.27,
+        "text": "that suppose you have an array right and that is a representation of heap so they are saying that if that is the case then will it be sorted so tell me if age true or false if you have a heap then array representation of a heap then will it be sorted need not to be right reason being is that there is no relationship between left and right let's suppose this is the main heap then there is no relationship between left and right you can write"
+      },
+      {
+        "lecture": 81,
+        "file": "081. Recording - LIVE Heap_ Practice Set Discussion (Part 2).mp4",
+        "start": 105.79,
+        "end": 136.68,
+        "text": "so it will be 1 2 3 this is the error representation of this heap and now tell me what is the error representation of this heap this is 1 3 2 because of this region it is very obvious that it is not necessary that you will be having I mean you will be having sorted right if this is heap then it need not to be sorted so I think this a is killer to everyone that if it is heap then the error representation may be sorted may not be sorted right so here this is heap"
+      }
+    ],
+    "foundation": {
+      "title": "Heap repair challenges",
+      "idea": "A local sift-down puzzle starts from a particular misplaced root with valid child subheaps. The smaller-child choice and every swap must be traced on that input. A worst-case height bound is not the same as the exact observed swap count.",
+      "terms": [
+        "Local precondition: the child subheaps are valid.",
+        "Exact trace: operations observed on the given values.",
+        "Multiset invariant: repair changes positions, not keys."
+      ],
+      "example": "Root 20 in 20,4,2,9,6,3,8 moves through indices zero, two and five, taking two swaps and producing 2,4,3,9,6,20,8."
+    }
+  },
+  {
+    "id": 245,
+    "lecture": 81,
+    "title": "Count actual swaps in the given state",
+    "concept": "A local sift-down puzzle starts from a particular misplaced root with valid child subheaps. The smaller-child choice and every swap must be traced on that input. A worst-case height bound is not the same as the exact observed swap count.",
+    "teachingSteps": [
+      "Confirm that both child subtrees are already min-heaps.",
+      "Choose the smaller existing child and swap only if needed.",
+      "Count actual swaps and preserve all original keys."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Must a height bound equal this exact swap count?",
+        "options": [
+          "Only for even heights",
+          "No",
+          "Yes for every input"
+        ],
+        "answer": 1,
+        "explanation": "Already ordered paths can stop sooner."
+      },
+      {
+        "type": "number",
+        "prompt": "Sift down at root index zero in array 20,4,2,9,6,3,8; both child subtrees are valid min-heaps. How many keys remain after repair?",
+        "answer": 7,
+        "tolerance": 1e-8,
+        "explanation": "Repair inserts or removes nothing.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "tree",
+            "nodes": [
+              {
+                "key": 20,
+                "left": 1,
+                "right": 2
+              },
+              {
+                "key": 4,
+                "left": 3,
+                "right": 4
+              },
+              {
+                "key": 2,
+                "left": 5,
+                "right": 6
+              },
+              {
+                "key": 9,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 6,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 3,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 8,
+                "left": null,
+                "right": null
+              }
+            ],
+            "active": [],
+            "indexed": true
+          }
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "Which values may repair change?",
+        "options": [
+          "The set of key values",
+          "The number of stored records",
+          "Positions only"
+        ],
+        "answer": 2,
+        "explanation": "Sift-down swaps intact keys."
+      },
+      {
+        "type": "number",
+        "prompt": "Sift down at root index zero in array 20,4,2,9,6,3,8; both child subtrees are valid min-heaps. What total key sum remains?",
+        "answer": 52,
+        "tolerance": 1e-8,
+        "explanation": "All original keys are preserved by swaps.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "tree",
+            "nodes": [
+              {
+                "key": 20,
+                "left": 1,
+                "right": 2
+              },
+              {
+                "key": 4,
+                "left": 3,
+                "right": 4
+              },
+              {
+                "key": 2,
+                "left": 5,
+                "right": 6
+              },
+              {
+                "key": 9,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 6,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 3,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 8,
+                "left": null,
+                "right": null
+              }
+            ],
+            "active": [],
+            "indexed": true
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heap-repair",
+    "start": 9.84,
+    "sourceReferences": [
+      {
+        "lecture": 81,
+        "file": "081. Recording - LIVE Heap_ Practice Set Discussion (Part 2).mp4",
+        "start": 9.84,
+        "end": 47.74,
+        "text": "Hi everyone, how are you doing? Okay, so I hope everyone is doing great. Yeah, let me know if everything is fine. You can hear me, right? Okay. So, let's just start continuing our discussion, which is on the heap questions. So, hello, hi, Sathya. Hello, Twinkle. Okay. So, hi, Sangeet. Let's just get started. So, let's see this question. What they're saying."
+      },
+      {
+        "lecture": 81,
+        "file": "081. Recording - LIVE Heap_ Practice Set Discussion (Part 2).mp4",
+        "start": 48.02,
+        "end": 75.27,
+        "text": "that suppose you have an array right and that is a representation of heap so they are saying that if that is the case then will it be sorted so tell me if age true or false if you have a heap then array representation of a heap then will it be sorted need not to be right reason being is that there is no relationship between left and right let's suppose this is the main heap then there is no relationship between left and right you can write"
+      },
+      {
+        "lecture": 81,
+        "file": "081. Recording - LIVE Heap_ Practice Set Discussion (Part 2).mp4",
+        "start": 105.79,
+        "end": 136.68,
+        "text": "so it will be 1 2 3 this is the error representation of this heap and now tell me what is the error representation of this heap this is 1 3 2 because of this region it is very obvious that it is not necessary that you will be having I mean you will be having sorted right if this is heap then it need not to be sorted so I think this a is killer to everyone that if it is heap then the error representation may be sorted may not be sorted right so here this is heap"
+      }
+    ],
+    "foundation": {
+      "title": "Heap repair challenges",
+      "idea": "A local sift-down puzzle starts from a particular misplaced root with valid child subheaps. The smaller-child choice and every swap must be traced on that input. A worst-case height bound is not the same as the exact observed swap count.",
+      "terms": [
+        "Local precondition: the child subheaps are valid.",
+        "Exact trace: operations observed on the given values.",
+        "Multiset invariant: repair changes positions, not keys."
+      ],
+      "example": "Root 20 in 20,4,2,9,6,3,8 moves through indices zero, two and five, taking two swaps and producing 2,4,3,9,6,20,8."
+    }
+  },
+  {
+    "id": 246,
+    "lecture": 82,
+    "title": "Name min-heap or max-heap explicitly",
+    "concept": "Deleting an extremum requires the heap direction to be explicit. A max-heap removes its maximum root and repairs through larger children; a min-heap uses smaller children. Removing the last occupied array slot preserves the complete shape.",
+    "teachingSteps": [
+      "Save the maximum root before overwriting it.",
+      "Move the final key into the root and shrink the array.",
+      "Sift down using larger existing children, handling empty and one-key heaps separately."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What comparison direction repairs a max-heap?",
+        "options": [
+          "Always promote the smaller child",
+          "Ignore child keys",
+          "Promote the larger existing child"
+        ],
+        "answer": 2,
+        "explanation": "Max-heap order is parent greater than or equal to child."
+      },
+      {
+        "type": "match",
+        "prompt": "Match the terms for maximum deletion and boundary cases.",
+        "pairs": [
+          [
+            "Max-heap",
+            "every parent is at least its children."
+          ],
+          [
+            "Saved result",
+            "the root value returned to the caller."
+          ],
+          [
+            "Boundary case",
+            "the final-key deletion needs no downward repair."
+          ]
+        ],
+        "explanation": "Use the stated definitions to distinguish these roles."
+      },
+      {
+        "type": "number",
+        "prompt": "Delete the maximum from explicit max-heap array 9,6,8,1,4,3,2; replace root from the last slot and choose larger children. What value is returned?",
+        "answer": 9,
+        "tolerance": 1e-8,
+        "explanation": "Save the original maximum root.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "tree",
+            "nodes": [
+              {
+                "key": 9,
+                "left": 1,
+                "right": 2
+              },
+              {
+                "key": 6,
+                "left": 3,
+                "right": 4
+              },
+              {
+                "key": 8,
+                "left": 5,
+                "right": 6
+              },
+              {
+                "key": 1,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 4,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 3,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 2,
+                "left": null,
+                "right": null
+              }
+            ],
+            "active": [],
+            "indexed": true
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Delete the maximum from explicit max-heap array 9,6,8,1,4,3,2; replace root from the last slot and choose larger children. What last value initially moves to root?",
+        "answer": 2,
+        "tolerance": 1e-8,
+        "explanation": "Index six stores two.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "tree",
+            "nodes": [
+              {
+                "key": 9,
+                "left": 1,
+                "right": 2
+              },
+              {
+                "key": 6,
+                "left": 3,
+                "right": 4
+              },
+              {
+                "key": 8,
+                "left": 5,
+                "right": 6
+              },
+              {
+                "key": 1,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 4,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 3,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 2,
+                "left": null,
+                "right": null
+              }
+            ],
+            "active": [],
+            "indexed": true
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "max-priority-delete",
+    "start": 58.7,
+    "sourceReferences": [
+      {
+        "lecture": 82,
+        "file": "082. Recording - LIVE Heap_ Practice Set Discussion (Part 3).mp4",
+        "start": 58.7,
+        "end": 97.84,
+        "text": "Hi everyone. How are you all? Okay. Hello Satyam. Hi Tinkal. Hello Sangeet. So let's get started. So now start with this question. What they're saying is that what is the minimum number of items? Minimum number of item exchanges during the delete, during the delete, the maximum operation in our 15 element binary heap containing keys from 1 to 15. So you are having"
+      },
+      {
+        "lecture": 82,
+        "file": "082. Recording - LIVE Heap_ Practice Set Discussion (Part 3).mp4",
+        "start": 98.1,
+        "end": 136.96,
+        "text": "a binary heap which is having 1 to 15 keys, right? So, delete the minimum operation in the, okay, delete when you want to delete the minimum. What is the minimum number of item action during the delete the, okay, maximum operations. I mean, I'm just checking whether they have given it is max heap or not. But I think by default, this should be max heap. So this is 15. Okay. And then we will be having other items here, right? So what they're saying is that"
+      },
+      {
+        "lecture": 82,
+        "file": "082. Recording - LIVE Heap_ Practice Set Discussion (Part 3).mp4",
+        "start": 138.9,
+        "end": 168.6,
+        "text": "By default means like since they have not given they should be specifying first of all since they have not given and they are saying that delete the maximum so Generally we I mean we use the heap to delete the root only okay, so delete the maximum means they must be talking about this 15 or delete the root so that's why I've assumed it but As a question it is incomplete question. I can say okay. I mean they must be given I mean it must be given there is no way that you can infer it must be given Okay, so this is 15"
+      }
+    ],
+    "foundation": {
+      "title": "Maximum deletion and boundary cases",
+      "idea": "Deleting an extremum requires the heap direction to be explicit. A max-heap removes its maximum root and repairs through larger children; a min-heap uses smaller children. Removing the last occupied array slot preserves the complete shape.",
+      "terms": [
+        "Max-heap: every parent is at least its children.",
+        "Saved result: the root value returned to the caller.",
+        "Boundary case: the final-key deletion needs no downward repair."
+      ],
+      "example": "Deleting 9 from max-heap 9,6,8,1,4,3,2 promotes 8 then 3, leaving 8,6,3,1,4,2 after two swaps."
+    }
+  },
+  {
+    "id": 247,
+    "lecture": 82,
+    "title": "Shrink before downward repair",
+    "concept": "Deleting an extremum requires the heap direction to be explicit. A max-heap removes its maximum root and repairs through larger children; a min-heap uses smaller children. Removing the last occupied array slot preserves the complete shape.",
+    "teachingSteps": [
+      "Save the maximum root before overwriting it.",
+      "Move the final key into the root and shrink the array.",
+      "Sift down using larger existing children, handling empty and one-key heaps separately."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Can deletion direction be inferred from an unspecified heap name alone?",
+        "options": [
+          "Only numeric base decides",
+          "No; state min or max convention",
+          "Yes, all heaps are max-heaps"
+        ],
+        "answer": 1,
+        "explanation": "The extremum convention must be explicit."
+      },
+      {
+        "type": "number",
+        "prompt": "Delete the maximum from explicit max-heap array 9,6,8,1,4,3,2; replace root from the last slot and choose larger children. How many keys remain afterward?",
+        "answer": 6,
+        "tolerance": 1e-8,
+        "explanation": "One key is removed.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "tree",
+            "nodes": [
+              {
+                "key": 9,
+                "left": 1,
+                "right": 2
+              },
+              {
+                "key": 6,
+                "left": 3,
+                "right": 4
+              },
+              {
+                "key": 8,
+                "left": 5,
+                "right": 6
+              },
+              {
+                "key": 1,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 4,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 3,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 2,
+                "left": null,
+                "right": null
+              }
+            ],
+            "active": [],
+            "indexed": true
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Delete the maximum from explicit max-heap array 9,6,8,1,4,3,2; replace root from the last slot and choose larger children. How many downward swaps occur in this given repair?",
+        "answer": 2,
+        "tolerance": 1e-8,
+        "explanation": "Promote eight, then three.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "tree",
+            "nodes": [
+              {
+                "key": 9,
+                "left": 1,
+                "right": 2
+              },
+              {
+                "key": 6,
+                "left": 3,
+                "right": 4
+              },
+              {
+                "key": 8,
+                "left": 5,
+                "right": 6
+              },
+              {
+                "key": 1,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 4,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 3,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 2,
+                "left": null,
+                "right": null
+              }
+            ],
+            "active": [],
+            "indexed": true
+          }
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange this procedure for maximum deletion and boundary cases.",
+        "items": [
+          "Save the root maximum of a nonempty heap",
+          "Move the last key to root and shrink the active array",
+          "Repair with larger children if any keys remain",
+          "Return the saved key"
+        ],
+        "explanation": "Follow this stated procedure so each later stage has its required input."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "max-priority-delete",
+    "start": 58.7,
+    "sourceReferences": [
+      {
+        "lecture": 82,
+        "file": "082. Recording - LIVE Heap_ Practice Set Discussion (Part 3).mp4",
+        "start": 58.7,
+        "end": 97.84,
+        "text": "Hi everyone. How are you all? Okay. Hello Satyam. Hi Tinkal. Hello Sangeet. So let's get started. So now start with this question. What they're saying is that what is the minimum number of items? Minimum number of item exchanges during the delete, during the delete, the maximum operation in our 15 element binary heap containing keys from 1 to 15. So you are having"
+      },
+      {
+        "lecture": 82,
+        "file": "082. Recording - LIVE Heap_ Practice Set Discussion (Part 3).mp4",
+        "start": 98.1,
+        "end": 136.96,
+        "text": "a binary heap which is having 1 to 15 keys, right? So, delete the minimum operation in the, okay, delete when you want to delete the minimum. What is the minimum number of item action during the delete the, okay, maximum operations. I mean, I'm just checking whether they have given it is max heap or not. But I think by default, this should be max heap. So this is 15. Okay. And then we will be having other items here, right? So what they're saying is that"
+      },
+      {
+        "lecture": 82,
+        "file": "082. Recording - LIVE Heap_ Practice Set Discussion (Part 3).mp4",
+        "start": 138.9,
+        "end": 168.6,
+        "text": "By default means like since they have not given they should be specifying first of all since they have not given and they are saying that delete the maximum so Generally we I mean we use the heap to delete the root only okay, so delete the maximum means they must be talking about this 15 or delete the root so that's why I've assumed it but As a question it is incomplete question. I can say okay. I mean they must be given I mean it must be given there is no way that you can infer it must be given Okay, so this is 15"
+      }
+    ],
+    "foundation": {
+      "title": "Maximum deletion and boundary cases",
+      "idea": "Deleting an extremum requires the heap direction to be explicit. A max-heap removes its maximum root and repairs through larger children; a min-heap uses smaller children. Removing the last occupied array slot preserves the complete shape.",
+      "terms": [
+        "Max-heap: every parent is at least its children.",
+        "Saved result: the root value returned to the caller.",
+        "Boundary case: the final-key deletion needs no downward repair."
+      ],
+      "example": "Deleting 9 from max-heap 9,6,8,1,4,3,2 promotes 8 then 3, leaving 8,6,3,1,4,2 after two swaps."
+    }
+  },
+  {
+    "id": 248,
+    "lecture": 82,
+    "title": "Handle the final live key",
+    "concept": "Deleting an extremum requires the heap direction to be explicit. A max-heap removes its maximum root and repairs through larger children; a min-heap uses smaller children. Removing the last occupied array slot preserves the complete shape.",
+    "teachingSteps": [
+      "Save the maximum root before overwriting it.",
+      "Move the final key into the root and shrink the array.",
+      "Sift down using larger existing children, handling empty and one-key heaps separately."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Why shrink before repair?",
+        "options": [
+          "The last slot is no longer an active heap entry",
+          "To discard every leaf",
+          "To make child comparisons optional"
+        ],
+        "answer": 0,
+        "explanation": "The removed slot must be excluded from the child bounds."
+      },
+      {
+        "type": "number",
+        "prompt": "Delete the maximum from explicit max-heap array 9,6,8,1,4,3,2; replace root from the last slot and choose larger children. What is the repaired root maximum?",
+        "answer": 8,
+        "tolerance": 1e-8,
+        "explanation": "Eight is the largest surviving key.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "tree",
+            "nodes": [
+              {
+                "key": 9,
+                "left": 1,
+                "right": 2
+              },
+              {
+                "key": 6,
+                "left": 3,
+                "right": 4
+              },
+              {
+                "key": 8,
+                "left": 5,
+                "right": 6
+              },
+              {
+                "key": 1,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 4,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 3,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 2,
+                "left": null,
+                "right": null
+              }
+            ],
+            "active": [],
+            "indexed": true
+          }
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "What happens when the final live key is removed?",
+        "options": [
+          "At least two swaps are required",
+          "The heap becomes empty",
+          "A duplicate root must be created"
+        ],
+        "answer": 1,
+        "explanation": "A one-key heap needs no downward repair."
+      },
+      {
+        "type": "number",
+        "prompt": "Delete the maximum from explicit max-heap array 9,6,8,1,4,3,2; replace root from the last slot and choose larger children. A separate one-key max-heap deletion performs how many downward swaps?",
+        "answer": 0,
+        "tolerance": 1e-8,
+        "explanation": "No key or child remains after removing the final entry.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "tree",
+            "nodes": [
+              {
+                "key": 9,
+                "left": 1,
+                "right": 2
+              },
+              {
+                "key": 6,
+                "left": 3,
+                "right": 4
+              },
+              {
+                "key": 8,
+                "left": 5,
+                "right": 6
+              },
+              {
+                "key": 1,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 4,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 3,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 2,
+                "left": null,
+                "right": null
+              }
+            ],
+            "active": [],
+            "indexed": true
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "max-priority-delete",
+    "start": 58.7,
+    "sourceReferences": [
+      {
+        "lecture": 82,
+        "file": "082. Recording - LIVE Heap_ Practice Set Discussion (Part 3).mp4",
+        "start": 58.7,
+        "end": 97.84,
+        "text": "Hi everyone. How are you all? Okay. Hello Satyam. Hi Tinkal. Hello Sangeet. So let's get started. So now start with this question. What they're saying is that what is the minimum number of items? Minimum number of item exchanges during the delete, during the delete, the maximum operation in our 15 element binary heap containing keys from 1 to 15. So you are having"
+      },
+      {
+        "lecture": 82,
+        "file": "082. Recording - LIVE Heap_ Practice Set Discussion (Part 3).mp4",
+        "start": 98.1,
+        "end": 136.96,
+        "text": "a binary heap which is having 1 to 15 keys, right? So, delete the minimum operation in the, okay, delete when you want to delete the minimum. What is the minimum number of item action during the delete the, okay, maximum operations. I mean, I'm just checking whether they have given it is max heap or not. But I think by default, this should be max heap. So this is 15. Okay. And then we will be having other items here, right? So what they're saying is that"
+      },
+      {
+        "lecture": 82,
+        "file": "082. Recording - LIVE Heap_ Practice Set Discussion (Part 3).mp4",
+        "start": 138.9,
+        "end": 168.6,
+        "text": "By default means like since they have not given they should be specifying first of all since they have not given and they are saying that delete the maximum so Generally we I mean we use the heap to delete the root only okay, so delete the maximum means they must be talking about this 15 or delete the root so that's why I've assumed it but As a question it is incomplete question. I can say okay. I mean they must be given I mean it must be given there is no way that you can infer it must be given Okay, so this is 15"
+      }
+    ],
+    "foundation": {
+      "title": "Maximum deletion and boundary cases",
+      "idea": "Deleting an extremum requires the heap direction to be explicit. A max-heap removes its maximum root and repairs through larger children; a min-heap uses smaller children. Removing the last occupied array slot preserves the complete shape.",
+      "terms": [
+        "Max-heap: every parent is at least its children.",
+        "Saved result: the root value returned to the caller.",
+        "Boundary case: the final-key deletion needs no downward repair."
+      ],
+      "example": "Deleting 9 from max-heap 9,6,8,1,4,3,2 promotes 8 then 3, leaving 8,6,3,1,4,2 after two swaps."
+    }
+  },
+  {
+    "id": 249,
+    "lecture": 83,
+    "title": "Allocate for the key universe",
+    "concept": "Direct addressing allocates one record slot for every possible key in a bounded integer universe. The key is its own index, so valid keys do not collide. Space depends on the whole universe, even when only a few records are currently stored.",
+    "teachingSteps": [
+      "State the complete valid key range.",
+      "Allocate a slot for every possible key and mark absent records.",
+      "Read, insert or remove at that key index; compare allocated space with live records."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What controls allocated direct-address space?",
+        "options": [
+          "Only key insertion order",
+          "The complete key universe",
+          "Only the number of currently live keys"
+        ],
+        "answer": 1,
+        "explanation": "Every possible valid key gets its own slot."
+      },
+      {
+        "type": "match",
+        "prompt": "Match the terms for direct addressing and its space tradeoff.",
+        "pairs": [
+          [
+            "Universe",
+            "all keys the table must support."
+          ],
+          [
+            "Present slot",
+            "a stored record at its unique key index."
+          ],
+          [
+            "Space tradeoff",
+            "reserved slots can greatly outnumber live keys."
+          ]
+        ],
+        "explanation": "Use the stated definitions to distinguish these roles."
+      },
+      {
+        "type": "number",
+        "prompt": "Direct-address universe is integers 0 through 9; keys 2,5,9 are present and each allocated slot consumes eight bytes. How many slots are allocated?",
+        "answer": 10,
+        "tolerance": 1e-8,
+        "explanation": "The universe includes ten possible keys.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "hash-table",
+            "cells": [
+              null,
+              null,
+              2,
+              null,
+              null,
+              5,
+              null,
+              null,
+              null,
+              9
+            ],
+            "active": []
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Direct-address universe is integers 0 through 9; keys 2,5,9 are present and each allocated slot consumes eight bytes. What is the largest valid slot index?",
+        "answer": 9,
+        "tolerance": 1e-8,
+        "explanation": "Zero-based indices end at nine.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "hash-table",
+            "cells": [
+              null,
+              null,
+              2,
+              null,
+              null,
+              5,
+              null,
+              null,
+              null,
+              9
+            ],
+            "active": []
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "direct-address",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 83,
+        "file": "083. 20a. Motivation to hashing and Direct address table.mp4",
+        "start": 0,
+        "end": 25.69,
+        "text": "Let us now start one of the most widely used mechanism called hashing or one of the most widely used data structure called hash table, right? So before I go into details, let me first tell you about that what is hashing hashing is basically a super fast mechanism to search insert or delete super fast method for searching"
+      },
+      {
+        "lecture": 83,
+        "file": "083. 20a. Motivation to hashing and Direct address table.mp4",
+        "start": 27.34,
+        "end": 58.34,
+        "text": "If you can search, then you can also actually delete or you can also insert or delete, right? Insert or delete. It is so fast that it can do searching on an average in just order of one, right? So when to prefer this hashing, whenever like let me just write here when to prefer hashing, whenever the order of data does not matter, which means that in whatever order you are inserting,"
+      },
+      {
+        "lecture": 83,
+        "file": "083. 20a. Motivation to hashing and Direct address table.mp4",
+        "start": 148.52,
+        "end": 175.4,
+        "text": "Key is matters. So suppose that you do not have these kind of constraints which means that you do not have any relationship between keys you do not want to maintain any order or something like that then you can go for the hashing and hashing is very very fast method is it can actually search in just order of one and There are many many usage of the hashing like if you go for the Google search the page rank algorithm itself uses the hashing"
+      }
+    ],
+    "foundation": {
+      "title": "Direct addressing and its space tradeoff",
+      "idea": "Direct addressing allocates one record slot for every possible key in a bounded integer universe. The key is its own index, so valid keys do not collide. Space depends on the whole universe, even when only a few records are currently stored.",
+      "terms": [
+        "Universe: all keys the table must support.",
+        "Present slot: a stored record at its unique key index.",
+        "Space tradeoff: reserved slots can greatly outnumber live keys."
+      ],
+      "example": "Keys zero through nine require ten slots. If only keys 2,5,9 are present, seven slots remain unused; eight bytes per slot reserve 80 bytes."
+    }
+  },
+  {
+    "id": 250,
+    "lecture": 83,
+    "title": "Map each key to its own slot",
+    "concept": "Direct addressing allocates one record slot for every possible key in a bounded integer universe. The key is its own index, so valid keys do not collide. Space depends on the whole universe, even when only a few records are currently stored.",
+    "teachingSteps": [
+      "State the complete valid key range.",
+      "Allocate a slot for every possible key and mark absent records.",
+      "Read, insert or remove at that key index; compare allocated space with live records."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Do distinct valid keys collide in direct addressing?",
+        "options": [
+          "No",
+          "Yes whenever the table is sparse",
+          "Only odd keys collide"
+        ],
+        "answer": 0,
+        "explanation": "Different valid key indices are distinct slots."
+      },
+      {
+        "type": "number",
+        "prompt": "Direct-address universe is integers 0 through 9; keys 2,5,9 are present and each allocated slot consumes eight bytes. How many slots are unused?",
+        "answer": 7,
+        "tolerance": 1e-8,
+        "explanation": "Ten slots minus three live records.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "hash-table",
+            "cells": [
+              null,
+              null,
+              2,
+              null,
+              null,
+              5,
+              null,
+              null,
+              null,
+              9
+            ],
+            "active": []
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Direct-address universe is integers 0 through 9; keys 2,5,9 are present and each allocated slot consumes eight bytes. How many bytes are reserved for all slots?",
+        "answer": 80,
+        "tolerance": 1e-8,
+        "explanation": "Ten times eight bytes.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "hash-table",
+            "cells": [
+              null,
+              null,
+              2,
+              null,
+              null,
+              5,
+              null,
+              null,
+              null,
+              9
+            ],
+            "active": []
+          }
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange this procedure for direct addressing and its space tradeoff.",
+        "items": [
+          "Declare the bounded integer key universe",
+          "Allocate and initialize one slot per possible key",
+          "Check that a supplied key is inside the universe",
+          "Access its corresponding record slot"
+        ],
+        "explanation": "Follow this stated procedure so each later stage has its required input."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "direct-address",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 83,
+        "file": "083. 20a. Motivation to hashing and Direct address table.mp4",
+        "start": 0,
+        "end": 25.69,
+        "text": "Let us now start one of the most widely used mechanism called hashing or one of the most widely used data structure called hash table, right? So before I go into details, let me first tell you about that what is hashing hashing is basically a super fast mechanism to search insert or delete super fast method for searching"
+      },
+      {
+        "lecture": 83,
+        "file": "083. 20a. Motivation to hashing and Direct address table.mp4",
+        "start": 27.34,
+        "end": 58.34,
+        "text": "If you can search, then you can also actually delete or you can also insert or delete, right? Insert or delete. It is so fast that it can do searching on an average in just order of one, right? So when to prefer this hashing, whenever like let me just write here when to prefer hashing, whenever the order of data does not matter, which means that in whatever order you are inserting,"
+      },
+      {
+        "lecture": 83,
+        "file": "083. 20a. Motivation to hashing and Direct address table.mp4",
+        "start": 148.52,
+        "end": 175.4,
+        "text": "Key is matters. So suppose that you do not have these kind of constraints which means that you do not have any relationship between keys you do not want to maintain any order or something like that then you can go for the hashing and hashing is very very fast method is it can actually search in just order of one and There are many many usage of the hashing like if you go for the Google search the page rank algorithm itself uses the hashing"
+      }
+    ],
+    "foundation": {
+      "title": "Direct addressing and its space tradeoff",
+      "idea": "Direct addressing allocates one record slot for every possible key in a bounded integer universe. The key is its own index, so valid keys do not collide. Space depends on the whole universe, even when only a few records are currently stored.",
+      "terms": [
+        "Universe: all keys the table must support.",
+        "Present slot: a stored record at its unique key index.",
+        "Space tradeoff: reserved slots can greatly outnumber live keys."
+      ],
+      "example": "Keys zero through nine require ten slots. If only keys 2,5,9 are present, seven slots remain unused; eight bytes per slot reserve 80 bytes."
+    }
+  },
+  {
+    "id": 251,
+    "lecture": 83,
+    "title": "Compare live records with reserved space",
+    "concept": "Direct addressing allocates one record slot for every possible key in a bounded integer universe. The key is its own index, so valid keys do not collide. Space depends on the whole universe, even when only a few records are currently stored.",
+    "teachingSteps": [
+      "State the complete valid key range.",
+      "Allocate a slot for every possible key and mark absent records.",
+      "Read, insert or remove at that key index; compare allocated space with live records."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What should happen for a key outside the declared universe?",
+        "options": [
+          "Index outside allocated memory",
+          "Silently overwrite slot zero",
+          "Reject or use an explicitly different structure"
+        ],
+        "answer": 2,
+        "explanation": "Bounds checking protects the fixed allocation."
+      },
+      {
+        "type": "number",
+        "prompt": "Direct-address universe is integers 0 through 9; keys 2,5,9 are present and each allocated slot consumes eight bytes. After deleting key five, how many records remain?",
+        "answer": 2,
+        "tolerance": 1e-8,
+        "explanation": "One of three records leaves.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "hash-table",
+            "cells": [
+              null,
+              null,
+              2,
+              null,
+              null,
+              5,
+              null,
+              null,
+              null,
+              9
+            ],
+            "active": []
+          }
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "When can direct addressing waste substantial space?",
+        "options": [
+          "When the universe is large but few keys are live",
+          "Only when every slot is live",
+          "Never"
+        ],
+        "answer": 0,
+        "explanation": "Allocated capacity and live count can differ greatly."
+      },
+      {
+        "type": "number",
+        "prompt": "Direct-address universe is integers 0 through 9; keys 2,5,9 are present and each allocated slot consumes eight bytes. Which index directly stores key nine?",
+        "answer": 9,
+        "tolerance": 1e-8,
+        "explanation": "The valid key is its own index.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "hash-table",
+            "cells": [
+              null,
+              null,
+              2,
+              null,
+              null,
+              5,
+              null,
+              null,
+              null,
+              9
+            ],
+            "active": []
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "direct-address",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 83,
+        "file": "083. 20a. Motivation to hashing and Direct address table.mp4",
+        "start": 0,
+        "end": 25.69,
+        "text": "Let us now start one of the most widely used mechanism called hashing or one of the most widely used data structure called hash table, right? So before I go into details, let me first tell you about that what is hashing hashing is basically a super fast mechanism to search insert or delete super fast method for searching"
+      },
+      {
+        "lecture": 83,
+        "file": "083. 20a. Motivation to hashing and Direct address table.mp4",
+        "start": 27.34,
+        "end": 58.34,
+        "text": "If you can search, then you can also actually delete or you can also insert or delete, right? Insert or delete. It is so fast that it can do searching on an average in just order of one, right? So when to prefer this hashing, whenever like let me just write here when to prefer hashing, whenever the order of data does not matter, which means that in whatever order you are inserting,"
+      },
+      {
+        "lecture": 83,
+        "file": "083. 20a. Motivation to hashing and Direct address table.mp4",
+        "start": 148.52,
+        "end": 175.4,
+        "text": "Key is matters. So suppose that you do not have these kind of constraints which means that you do not have any relationship between keys you do not want to maintain any order or something like that then you can go for the hashing and hashing is very very fast method is it can actually search in just order of one and There are many many usage of the hashing like if you go for the Google search the page rank algorithm itself uses the hashing"
+      }
+    ],
+    "foundation": {
+      "title": "Direct addressing and its space tradeoff",
+      "idea": "Direct addressing allocates one record slot for every possible key in a bounded integer universe. The key is its own index, so valid keys do not collide. Space depends on the whole universe, even when only a few records are currently stored.",
+      "terms": [
+        "Universe: all keys the table must support.",
+        "Present slot: a stored record at its unique key index.",
+        "Space tradeoff: reserved slots can greatly outnumber live keys."
+      ],
+      "example": "Keys zero through nine require ten slots. If only keys 2,5,9 are present, seven slots remain unused; eight bytes per slot reserve 80 bytes."
+    }
+  },
+  {
+    "id": 252,
+    "lecture": 84,
+    "title": "Map a full key to a bucket",
+    "concept": "A hash function maps keys from a potentially large universe into a smaller set of bucket indices. Two unequal keys can map to the same index. Store full keys and compare them during lookup; equality of hash values alone does not identify a record.",
+    "teachingSteps": [
+      "Apply the declared hash function to a full key.",
+      "Resolve a shared bucket without overwriting earlier keys.",
+      "Compare full keys within the chosen bucket during lookup."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Does equal hash imply equal full keys?",
+        "options": [
+          "No",
+          "Yes in all hash tables",
+          "Only for even hashes"
+        ],
+        "answer": 0,
+        "explanation": "Many unequal keys can share a bucket."
+      },
+      {
+        "type": "match",
+        "prompt": "Match the terms for hash functions and collisions.",
+        "pairs": [
+          [
+            "Hash value",
+            "bucket index, not proof of key equality."
+          ],
+          [
+            "Collision",
+            "unequal keys share a hash value."
+          ],
+          [
+            "Chaining",
+            "keep a collection of records in each bucket."
+          ]
+        ],
+        "explanation": "Use the stated definitions to distinguish these roles."
+      },
+      {
+        "type": "number",
+        "prompt": "Use h(k)=k mod five with bucket one storing 1,6,11 in that order and bucket two storing 2,7; other buckets are empty. What is h(11)?",
+        "answer": 1,
+        "tolerance": 1e-8,
+        "explanation": "Eleven modulo five is one.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "hash-buckets",
+            "buckets": [
+              [],
+              [
+                1,
+                6,
+                11
+              ],
+              [
+                2,
+                7
+              ],
+              [],
+              []
+            ],
+            "active": -1
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Use h(k)=k mod five with bucket one storing 1,6,11 in that order and bucket two storing 2,7; other buckets are empty. How many keys are in bucket one?",
+        "answer": 3,
+        "tolerance": 1e-8,
+        "explanation": "The given chain has three keys.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "hash-buckets",
+            "buckets": [
+              [],
+              [
+                1,
+                6,
+                11
+              ],
+              [
+                2,
+                7
+              ],
+              [],
+              []
+            ],
+            "active": -1
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "hash-buckets",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 84,
+        "file": "084. 20b. Introduction to hashing.mp4",
+        "start": 0,
+        "end": 29.79,
+        "text": "Let us now start hashing and let's see that how hashing can overcome the limitations of direct access table. Okay. So suppose that you have couple of keys which are represented by this set which is K and in this set you have couple of keys which are K1, K2, K3, K4, K5 like that, right? And you have a universe of keys. So what is difference between universe of keys and the couple of keys that you have is that these are the couple of keys that you may likely to"
+      },
+      {
+        "lecture": 84,
+        "file": "084. 20b. Introduction to hashing.mp4",
+        "start": 84.77,
+        "end": 118.03,
+        "text": "So let's suppose that these are the keys that you are actually going to deal with. And then what we are going to do, we are going to store the data corresponding to these keys in the table. So there is a table. This table is called hash table. And the function which maps from this key to the table index is basically hk1. If k1 is mapped to hk1, this function is called hash function. Now there are couple of terminologies. One is hash table. Let me write hash table."
+      },
+      {
+        "lecture": 84,
+        "file": "084. 20b. Introduction to hashing.mp4",
+        "start": 119.8,
+        "end": 153.09,
+        "text": "Another one is hash function. And another one is universe of keys. And the last one is actual keys. Right. So there are there are a couple of terms. Now I hope you got every one of them. What is a hash table? Hashtable is a table in which we are actually going to store the data has function maps from the key cable to the hash hash function or the or the table index, which is as given, which means"
+      }
+    ],
+    "foundation": {
+      "title": "Hash functions and collisions",
+      "idea": "A hash function maps keys from a potentially large universe into a smaller set of bucket indices. Two unequal keys can map to the same index. Store full keys and compare them during lookup; equality of hash values alone does not identify a record.",
+      "terms": [
+        "Hash value: bucket index, not proof of key equality.",
+        "Collision: unequal keys share a hash value.",
+        "Chaining: keep a collection of records in each bucket."
+      ],
+      "example": "With h(k)=k mod five, keys 1,6,11 share bucket one, while 2 and 7 share bucket two. All five records must remain retrievable."
+    }
+  },
+  {
+    "id": 253,
+    "lecture": 84,
+    "title": "Retain colliding records",
+    "concept": "A hash function maps keys from a potentially large universe into a smaller set of bucket indices. Two unequal keys can map to the same index. Store full keys and compare them during lookup; equality of hash values alone does not identify a record.",
+    "teachingSteps": [
+      "Apply the declared hash function to a full key.",
+      "Resolve a shared bucket without overwriting earlier keys.",
+      "Compare full keys within the chosen bucket during lookup."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What must lookup compare after choosing a bucket?",
+        "options": [
+          "Only the hash again",
+          "Only record ages",
+          "Full keys"
+        ],
+        "answer": 2,
+        "explanation": "Hashing selects candidates; equality identifies a record."
+      },
+      {
+        "type": "number",
+        "prompt": "Use h(k)=k mod five with bucket one storing 1,6,11 in that order and bucket two storing 2,7; other buckets are empty. How many are in bucket two?",
+        "answer": 2,
+        "tolerance": 1e-8,
+        "explanation": "Two full keys are stored there.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "hash-buckets",
+            "buckets": [
+              [],
+              [
+                1,
+                6,
+                11
+              ],
+              [
+                2,
+                7
+              ],
+              [],
+              []
+            ],
+            "active": -1
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Use h(k)=k mod five with bucket one storing 1,6,11 in that order and bucket two storing 2,7; other buckets are empty. How many buckets are occupied?",
+        "answer": 2,
+        "tolerance": 1e-8,
+        "explanation": "Only buckets one and two are nonempty.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "hash-buckets",
+            "buckets": [
+              [],
+              [
+                1,
+                6,
+                11
+              ],
+              [
+                2,
+                7
+              ],
+              [],
+              []
+            ],
+            "active": -1
+          }
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange this procedure for hash functions and collisions.",
+        "items": [
+          "Compute the requested key hash",
+          "Locate its bucket",
+          "Compare full stored keys inside that bucket",
+          "Return the matching record or report absence"
+        ],
+        "explanation": "Follow this stated procedure so each later stage has its required input."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "hash-buckets",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 84,
+        "file": "084. 20b. Introduction to hashing.mp4",
+        "start": 0,
+        "end": 29.79,
+        "text": "Let us now start hashing and let's see that how hashing can overcome the limitations of direct access table. Okay. So suppose that you have couple of keys which are represented by this set which is K and in this set you have couple of keys which are K1, K2, K3, K4, K5 like that, right? And you have a universe of keys. So what is difference between universe of keys and the couple of keys that you have is that these are the couple of keys that you may likely to"
+      },
+      {
+        "lecture": 84,
+        "file": "084. 20b. Introduction to hashing.mp4",
+        "start": 84.77,
+        "end": 118.03,
+        "text": "So let's suppose that these are the keys that you are actually going to deal with. And then what we are going to do, we are going to store the data corresponding to these keys in the table. So there is a table. This table is called hash table. And the function which maps from this key to the table index is basically hk1. If k1 is mapped to hk1, this function is called hash function. Now there are couple of terminologies. One is hash table. Let me write hash table."
+      },
+      {
+        "lecture": 84,
+        "file": "084. 20b. Introduction to hashing.mp4",
+        "start": 119.8,
+        "end": 153.09,
+        "text": "Another one is hash function. And another one is universe of keys. And the last one is actual keys. Right. So there are there are a couple of terms. Now I hope you got every one of them. What is a hash table? Hashtable is a table in which we are actually going to store the data has function maps from the key cable to the hash hash function or the or the table index, which is as given, which means"
+      }
+    ],
+    "foundation": {
+      "title": "Hash functions and collisions",
+      "idea": "A hash function maps keys from a potentially large universe into a smaller set of bucket indices. Two unequal keys can map to the same index. Store full keys and compare them during lookup; equality of hash values alone does not identify a record.",
+      "terms": [
+        "Hash value: bucket index, not proof of key equality.",
+        "Collision: unequal keys share a hash value.",
+        "Chaining: keep a collection of records in each bucket."
+      ],
+      "example": "With h(k)=k mod five, keys 1,6,11 share bucket one, while 2 and 7 share bucket two. All five records must remain retrievable."
+    }
+  },
+  {
+    "id": 254,
+    "lecture": 84,
+    "title": "Look up using full-key equality",
+    "concept": "A hash function maps keys from a potentially large universe into a smaller set of bucket indices. Two unequal keys can map to the same index. Store full keys and compare them during lookup; equality of hash values alone does not identify a record.",
+    "teachingSteps": [
+      "Apply the declared hash function to a full key.",
+      "Resolve a shared bucket without overwriting earlier keys.",
+      "Compare full keys within the chosen bucket during lookup."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "How must an inserted colliding key be handled?",
+        "options": [
+          "Reject every collision in all hash tables",
+          "Retain it with the existing keys using the resolution policy",
+          "Overwrite the first unequal key"
+        ],
+        "answer": 1,
+        "explanation": "Resolution keeps distinct records retrievable."
+      },
+      {
+        "type": "number",
+        "prompt": "Use h(k)=k mod five with bucket one storing 1,6,11 in that order and bucket two storing 2,7; other buckets are empty. How many buckets are empty?",
+        "answer": 3,
+        "tolerance": 1e-8,
+        "explanation": "Five total minus two occupied.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "hash-buckets",
+            "buckets": [
+              [],
+              [
+                1,
+                6,
+                11
+              ],
+              [
+                2,
+                7
+              ],
+              [],
+              []
+            ],
+            "active": -1
+          }
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "Can a finite smaller table avoid all collisions for every larger universe?",
+        "options": [
+          "Yes with modulo alone",
+          "Only if all keys are sorted",
+          "No"
+        ],
+        "answer": 2,
+        "explanation": "More possible keys than buckets force some shared indices."
+      },
+      {
+        "type": "number",
+        "prompt": "Use h(k)=k mod five with bucket one storing 1,6,11 in that order and bucket two storing 2,7; other buckets are empty. What is the load factor n/m?",
+        "answer": 1,
+        "tolerance": 1e-8,
+        "explanation": "Five live keys divided by five buckets.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "hash-buckets",
+            "buckets": [
+              [],
+              [
+                1,
+                6,
+                11
+              ],
+              [
+                2,
+                7
+              ],
+              [],
+              []
+            ],
+            "active": -1
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "hash-buckets",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 84,
+        "file": "084. 20b. Introduction to hashing.mp4",
+        "start": 0,
+        "end": 29.79,
+        "text": "Let us now start hashing and let's see that how hashing can overcome the limitations of direct access table. Okay. So suppose that you have couple of keys which are represented by this set which is K and in this set you have couple of keys which are K1, K2, K3, K4, K5 like that, right? And you have a universe of keys. So what is difference between universe of keys and the couple of keys that you have is that these are the couple of keys that you may likely to"
+      },
+      {
+        "lecture": 84,
+        "file": "084. 20b. Introduction to hashing.mp4",
+        "start": 84.77,
+        "end": 118.03,
+        "text": "So let's suppose that these are the keys that you are actually going to deal with. And then what we are going to do, we are going to store the data corresponding to these keys in the table. So there is a table. This table is called hash table. And the function which maps from this key to the table index is basically hk1. If k1 is mapped to hk1, this function is called hash function. Now there are couple of terminologies. One is hash table. Let me write hash table."
+      },
+      {
+        "lecture": 84,
+        "file": "084. 20b. Introduction to hashing.mp4",
+        "start": 119.8,
+        "end": 153.09,
+        "text": "Another one is hash function. And another one is universe of keys. And the last one is actual keys. Right. So there are there are a couple of terms. Now I hope you got every one of them. What is a hash table? Hashtable is a table in which we are actually going to store the data has function maps from the key cable to the hash hash function or the or the table index, which is as given, which means"
+      }
+    ],
+    "foundation": {
+      "title": "Hash functions and collisions",
+      "idea": "A hash function maps keys from a potentially large universe into a smaller set of bucket indices. Two unequal keys can map to the same index. Store full keys and compare them during lookup; equality of hash values alone does not identify a record.",
+      "terms": [
+        "Hash value: bucket index, not proof of key equality.",
+        "Collision: unequal keys share a hash value.",
+        "Chaining: keep a collection of records in each bucket."
+      ],
+      "example": "With h(k)=k mod five, keys 1,6,11 share bucket one, while 2 and 7 share bucket two. All five records must remain retrievable."
+    }
+  },
+  {
+    "id": 255,
+    "lecture": 85,
+    "title": "Separate buckets from table slots",
+    "concept": "Collision resolution determines where unequal keys with the same home bucket remain stored. Chaining keeps a bucket collection; open addressing searches table slots. A collision statistic needs a definition: extra items beyond the first and colliding key pairs are different counts.",
+    "teachingSteps": [
+      "Choose chaining or a stated probing rule.",
+      "Preserve all live records when home indices collide.",
+      "Define a collision count before applying a formula."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which resolution stores multiple keys in one bucket?",
+        "options": [
+          "Open addressing with one key per slot",
+          "Direct addressing without collision handling",
+          "Chaining"
+        ],
+        "answer": 2,
+        "explanation": "A chain is a bucket collection."
+      },
+      {
+        "type": "match",
+        "prompt": "Match the terms for collision resolution choices.",
+        "pairs": [
+          [
+            "Chaining",
+            "potentially multiple keys in a bucket."
+          ],
+          [
+            "Open addressing",
+            "at most one live key per table slot."
+          ],
+          [
+            "Colliding pair",
+            "an unordered pair of distinct keys with the same home bucket."
+          ]
+        ],
+        "explanation": "Use the stated definitions to distinguish these roles."
+      },
+      {
+        "type": "number",
+        "prompt": "Use h(k)=k mod five with bucket one storing 1,6,11 in that order and bucket two storing 2,7; other buckets are empty. How many extra items beyond the first in occupied buckets exist?",
+        "answer": 3,
+        "tolerance": 1e-8,
+        "explanation": "(3-1)+(2-1)=3.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "hash-buckets",
+            "buckets": [
+              [],
+              [
+                1,
+                6,
+                11
+              ],
+              [
+                2,
+                7
+              ],
+              [],
+              []
+            ],
+            "active": -1
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Use h(k)=k mod five with bucket one storing 1,6,11 in that order and bucket two storing 2,7; other buckets are empty. How many unordered colliding key pairs exist?",
+        "answer": 4,
+        "tolerance": 1e-8,
+        "explanation": "C(3,2)+C(2,2)=4.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "hash-buckets",
+            "buckets": [
+              [],
+              [
+                1,
+                6,
+                11
+              ],
+              [
+                2,
+                7
+              ],
+              [],
+              []
+            ],
+            "active": -1
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "hash-collisions",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 85,
+        "file": "085. 20c. Collision resolution techniques.mp4",
+        "start": 0,
+        "end": 29.56,
+        "text": "now suppose you are mapping some of your keys to the hash table then what may show happen is that some of the keys let's suppose k2 and k5 are mapping to the same index right this is very much possible so this scenario is called collision collision is a scenario where one like more than one keys maps to the same index in the hash table so this is the hash table and more than one keys are mapping to the same index that is called collision"
+      },
+      {
+        "lecture": 85,
+        "file": "085. 20c. Collision resolution techniques.mp4",
+        "start": 30.82,
+        "end": 58.96,
+        "text": "Now your universe size which is you is obviously like this is obviously greater than m if it is lesser than m then then there's a huge waste of memory, right? Because you will end up allocating many many cells so that is why generally the universe size is greater than m and There must be two keys that have the same hash value, right? So there may be two keys that are that are getting to the same hash value So this is what is called collision a well-designed random output function"
+      },
+      {
+        "lecture": 85,
+        "file": "085. 20c. Collision resolution techniques.mp4",
+        "start": 59.48,
+        "end": 94.36,
+        "text": "output hash function may minimize the collision, but we need a mechanism to handle this collision altogether. Let's just see how to handle this collision. There are ways. One way is called separate chaining or just chaining. And another way is called open addressing. So these are the three types of open addressing. So this way is called open addressing. And we also call it closed hashing. And this separate chaining is called"
+      }
+    ],
+    "foundation": {
+      "title": "Collision resolution choices",
+      "idea": "Collision resolution determines where unequal keys with the same home bucket remain stored. Chaining keeps a bucket collection; open addressing searches table slots. A collision statistic needs a definition: extra items beyond the first and colliding key pairs are different counts.",
+      "terms": [
+        "Chaining: potentially multiple keys in a bucket.",
+        "Open addressing: at most one live key per table slot.",
+        "Colliding pair: an unordered pair of distinct keys with the same home bucket."
+      ],
+      "example": "Bucket sizes three and two contain (3-1)+(2-1)=3 extra items, but C(3,2)+C(2,2)=4 colliding pairs."
+    }
+  },
+  {
+    "id": 256,
+    "lecture": 85,
+    "title": "Compare chaining and probing",
+    "concept": "Collision resolution determines where unequal keys with the same home bucket remain stored. Chaining keeps a bucket collection; open addressing searches table slots. A collision statistic needs a definition: extra items beyond the first and colliding key pairs are different counts.",
+    "teachingSteps": [
+      "Choose chaining or a stated probing rule.",
+      "Preserve all live records when home indices collide.",
+      "Define a collision count before applying a formula."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Does a hash collision justify overwriting an earlier unequal key?",
+        "options": [
+          "Only when the key is positive",
+          "No",
+          "Yes, equal hashes prove equal keys"
+        ],
+        "answer": 1,
+        "explanation": "Full keys remain distinct records."
+      },
+      {
+        "type": "number",
+        "prompt": "Use h(k)=k mod five with bucket one storing 1,6,11 in that order and bucket two storing 2,7; other buckets are empty. How many pairs come from bucket one alone?",
+        "answer": 3,
+        "tolerance": 1e-8,
+        "explanation": "Choose two among three keys.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "hash-buckets",
+            "buckets": [
+              [],
+              [
+                1,
+                6,
+                11
+              ],
+              [
+                2,
+                7
+              ],
+              [],
+              []
+            ],
+            "active": -1
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Use h(k)=k mod five with bucket one storing 1,6,11 in that order and bucket two storing 2,7; other buckets are empty. How many come from bucket two alone?",
+        "answer": 1,
+        "tolerance": 1e-8,
+        "explanation": "Choose two among two keys.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "hash-buckets",
+            "buckets": [
+              [],
+              [
+                1,
+                6,
+                11
+              ],
+              [
+                2,
+                7
+              ],
+              [],
+              []
+            ],
+            "active": -1
+          }
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange this procedure for collision resolution choices.",
+        "items": [
+          "State the home hash and resolution policy",
+          "Inspect the occupied home bucket or slot",
+          "Follow that policy without overwriting another key",
+          "Verify that every inserted key remains retrievable"
+        ],
+        "explanation": "Follow this stated procedure so each later stage has its required input."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "hash-collisions",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 85,
+        "file": "085. 20c. Collision resolution techniques.mp4",
+        "start": 0,
+        "end": 29.56,
+        "text": "now suppose you are mapping some of your keys to the hash table then what may show happen is that some of the keys let's suppose k2 and k5 are mapping to the same index right this is very much possible so this scenario is called collision collision is a scenario where one like more than one keys maps to the same index in the hash table so this is the hash table and more than one keys are mapping to the same index that is called collision"
+      },
+      {
+        "lecture": 85,
+        "file": "085. 20c. Collision resolution techniques.mp4",
+        "start": 30.82,
+        "end": 58.96,
+        "text": "Now your universe size which is you is obviously like this is obviously greater than m if it is lesser than m then then there's a huge waste of memory, right? Because you will end up allocating many many cells so that is why generally the universe size is greater than m and There must be two keys that have the same hash value, right? So there may be two keys that are that are getting to the same hash value So this is what is called collision a well-designed random output function"
+      },
+      {
+        "lecture": 85,
+        "file": "085. 20c. Collision resolution techniques.mp4",
+        "start": 59.48,
+        "end": 94.36,
+        "text": "output hash function may minimize the collision, but we need a mechanism to handle this collision altogether. Let's just see how to handle this collision. There are ways. One way is called separate chaining or just chaining. And another way is called open addressing. So these are the three types of open addressing. So this way is called open addressing. And we also call it closed hashing. And this separate chaining is called"
+      }
+    ],
+    "foundation": {
+      "title": "Collision resolution choices",
+      "idea": "Collision resolution determines where unequal keys with the same home bucket remain stored. Chaining keeps a bucket collection; open addressing searches table slots. A collision statistic needs a definition: extra items beyond the first and colliding key pairs are different counts.",
+      "terms": [
+        "Chaining: potentially multiple keys in a bucket.",
+        "Open addressing: at most one live key per table slot.",
+        "Colliding pair: an unordered pair of distinct keys with the same home bucket."
+      ],
+      "example": "Bucket sizes three and two contain (3-1)+(2-1)=3 extra items, but C(3,2)+C(2,2)=4 colliding pairs."
+    }
+  },
+  {
+    "id": 257,
+    "lecture": 85,
+    "title": "Define exactly what a collision count means",
+    "concept": "Collision resolution determines where unequal keys with the same home bucket remain stored. Chaining keeps a bucket collection; open addressing searches table slots. A collision statistic needs a definition: extra items beyond the first and colliding key pairs are different counts.",
+    "teachingSteps": [
+      "Choose chaining or a stated probing rule.",
+      "Preserve all live records when home indices collide.",
+      "Define a collision count before applying a formula."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Are extra-item collisions identical to unordered colliding pairs?",
+        "options": [
+          "No",
+          "Yes in every occupancy pattern",
+          "Only for prime bucket counts"
+        ],
+        "answer": 0,
+        "explanation": "A bucket of three gives two extra items but three pairs."
+      },
+      {
+        "type": "number",
+        "prompt": "Use h(k)=k mod five with bucket one storing 1,6,11 in that order and bucket two storing 2,7; other buckets are empty. If all five keys were stored in five open-address slots, how many free slots would remain?",
+        "answer": 0,
+        "tolerance": 1e-8,
+        "explanation": "One live key per slot fills all five.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "hash-buckets",
+            "buckets": [
+              [],
+              [
+                1,
+                6,
+                11
+              ],
+              [
+                2,
+                7
+              ],
+              [],
+              []
+            ],
+            "active": -1
+          }
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "Open addressing requires what occupancy constraint?",
+        "options": [
+          "No hash function",
+          "At most one live key per slot",
+          "An unlimited linked chain in each slot by definition"
+        ],
+        "answer": 1,
+        "explanation": "Its resolution finds alternative array slots."
+      },
+      {
+        "type": "number",
+        "prompt": "Use h(k)=k mod five with bucket one storing 1,6,11 in that order and bucket two storing 2,7; other buckets are empty. How many distinct full keys are retained by the shown chaining state?",
+        "answer": 5,
+        "tolerance": 1e-8,
+        "explanation": "Collision resolution must preserve every record.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "hash-buckets",
+            "buckets": [
+              [],
+              [
+                1,
+                6,
+                11
+              ],
+              [
+                2,
+                7
+              ],
+              [],
+              []
+            ],
+            "active": -1
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "hash-collisions",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 85,
+        "file": "085. 20c. Collision resolution techniques.mp4",
+        "start": 0,
+        "end": 29.56,
+        "text": "now suppose you are mapping some of your keys to the hash table then what may show happen is that some of the keys let's suppose k2 and k5 are mapping to the same index right this is very much possible so this scenario is called collision collision is a scenario where one like more than one keys maps to the same index in the hash table so this is the hash table and more than one keys are mapping to the same index that is called collision"
+      },
+      {
+        "lecture": 85,
+        "file": "085. 20c. Collision resolution techniques.mp4",
+        "start": 30.82,
+        "end": 58.96,
+        "text": "Now your universe size which is you is obviously like this is obviously greater than m if it is lesser than m then then there's a huge waste of memory, right? Because you will end up allocating many many cells so that is why generally the universe size is greater than m and There must be two keys that have the same hash value, right? So there may be two keys that are that are getting to the same hash value So this is what is called collision a well-designed random output function"
+      },
+      {
+        "lecture": 85,
+        "file": "085. 20c. Collision resolution techniques.mp4",
+        "start": 59.48,
+        "end": 94.36,
+        "text": "output hash function may minimize the collision, but we need a mechanism to handle this collision altogether. Let's just see how to handle this collision. There are ways. One way is called separate chaining or just chaining. And another way is called open addressing. So these are the three types of open addressing. So this way is called open addressing. And we also call it closed hashing. And this separate chaining is called"
+      }
+    ],
+    "foundation": {
+      "title": "Collision resolution choices",
+      "idea": "Collision resolution determines where unequal keys with the same home bucket remain stored. Chaining keeps a bucket collection; open addressing searches table slots. A collision statistic needs a definition: extra items beyond the first and colliding key pairs are different counts.",
+      "terms": [
+        "Chaining: potentially multiple keys in a bucket.",
+        "Open addressing: at most one live key per table slot.",
+        "Colliding pair: an unordered pair of distinct keys with the same home bucket."
+      ],
+      "example": "Bucket sizes three and two contain (3-1)+(2-1)=3 extra items, but C(3,2)+C(2,2)=4 colliding pairs."
+    }
+  },
+  {
+    "id": 258,
+    "lecture": 86,
+    "title": "Measure load as keys per bucket",
+    "concept": "Chaining search cost combines bucket access with full-key comparisons in a bucket list. Independent uniform bucket hashing gives expected list occupancy alpha=n/m, but a bad distribution may still put every key in one chain. An average comparison count requires a target model.",
+    "teachingSteps": [
+      "Compute alpha from live keys and bucket count.",
+      "Trace full-key comparisons in the given chain order.",
+      "Keep uniform-hashing expectations distinct from worst-case collisions."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Can chaining alpha exceed one?",
+        "options": [
+          "Only if keys are deleted",
+          "Yes",
+          "No in any chaining table"
+        ],
+        "answer": 1,
+        "explanation": "A bucket can hold multiple records."
+      },
+      {
+        "type": "match",
+        "prompt": "Match the terms for chaining performance.",
+        "pairs": [
+          [
+            "Load factor",
+            "n/m and it may exceed one with chaining."
+          ],
+          [
+            "Expected occupancy",
+            "average keys per bucket under uniform hashing."
+          ],
+          [
+            "Worst chain",
+            "all n keys can share one bucket."
+          ]
+        ],
+        "explanation": "Use the stated definitions to distinguish these roles."
+      },
+      {
+        "type": "number",
+        "prompt": "Use h(k)=k mod five with bucket one storing 1,6,11 in that order and bucket two storing 2,7; other buckets are empty. How many full-key comparisons find 11 in its given chain order?",
+        "answer": 3,
+        "tolerance": 1e-8,
+        "explanation": "Compare one, six, then 11.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "hash-buckets",
+            "buckets": [
+              [],
+              [
+                1,
+                6,
+                11
+              ],
+              [
+                2,
+                7
+              ],
+              [],
+              []
+            ],
+            "active": -1
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Use h(k)=k mod five with bucket one storing 1,6,11 in that order and bucket two storing 2,7; other buckets are empty. How many comparisons prove absent key 16 is missing from its given bucket?",
+        "answer": 3,
+        "tolerance": 1e-8,
+        "explanation": "16 hashes to bucket one and its complete chain must be checked.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "hash-buckets",
+            "buckets": [
+              [],
+              [
+                1,
+                6,
+                11
+              ],
+              [
+                2,
+                7
+              ],
+              [],
+              []
+            ],
+            "active": -1
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "hash-chaining",
+    "start": 0.4,
+    "sourceReferences": [
+      {
+        "lecture": 86,
+        "file": "086. 20d. Avg case performance chaining.mp4",
+        "start": 0.4,
+        "end": 29.72,
+        "text": "Let us now analyze average case time complexity in search and I am talking about the chaining. So I will be assuming that our hash functions are following simple uniform hashing which means that for any given key that is equally probable to go to any of the slot. So suppose there are many slots. So this key can go here, this key can go here, here or here. So that's the 1 by m probability. Any given key can go to any of the slot. This is simple uniform hashing."
+      },
+      {
+        "lecture": 86,
+        "file": "086. 20d. Avg case performance chaining.mp4",
+        "start": 30.19,
+        "end": 57.66,
+        "text": "Now let's just analyze the average cache time complexity. So this is the theorem I have taken this screenshot from Corman and it says that in a hash table in which the collisions are resolved by chaining, an unsuccessful search, okay they're talking about the unsuccessful search, takes average cache time of theta of 1 plus alpha under the assumption of simple uniform hashing. So they are saying unsuccessful search in case of chaining an average time complexity is theta of 1 plus alpha."
+      },
+      {
+        "lecture": 86,
+        "file": "086. 20d. Avg case performance chaining.mp4",
+        "start": 58.19,
+        "end": 89.64,
+        "text": "Let's just see if it is if it is intuitive or not See unsuccessful search means what that you are having some hash table and in this hash table Let's suppose the chain length is some something right and on an average the chain length is alpha So that's how alpha is defined alpha is an opponent where n is number of elements number of elements and m is number of slots number of slots"
+      }
+    ],
+    "foundation": {
+      "title": "Chaining performance",
+      "idea": "Chaining search cost combines bucket access with full-key comparisons in a bucket list. Independent uniform bucket hashing gives expected list occupancy alpha=n/m, but a bad distribution may still put every key in one chain. An average comparison count requires a target model.",
+      "terms": [
+        "Load factor: n/m and it may exceed one with chaining.",
+        "Expected occupancy: average keys per bucket under uniform hashing.",
+        "Worst chain: all n keys can share one bucket."
+      ],
+      "example": "Bucket one stores 1,6,11 in this order. Looking for 11 takes three key comparisons; equally likely successful targets within this chain average two."
+    }
+  },
+  {
+    "id": 259,
+    "lecture": 86,
+    "title": "Trace comparisons within a chain",
+    "concept": "Chaining search cost combines bucket access with full-key comparisons in a bucket list. Independent uniform bucket hashing gives expected list occupancy alpha=n/m, but a bad distribution may still put every key in one chain. An average comparison count requires a target model.",
+    "teachingSteps": [
+      "Compute alpha from live keys and bucket count.",
+      "Trace full-key comparisons in the given chain order.",
+      "Keep uniform-hashing expectations distinct from worst-case collisions."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What assumption supports expected balanced bucket occupancy?",
+        "options": [
+          "Independent uniform bucket hashing",
+          "A guarantee that every actual bucket has the same length",
+          "Only positive keys"
+        ],
+        "answer": 0,
+        "explanation": "An expectation is not a per-run guarantee."
+      },
+      {
+        "type": "number",
+        "prompt": "Use h(k)=k mod five with bucket one storing 1,6,11 in that order and bucket two storing 2,7; other buckets are empty. For a separate uniform-hashing table with ten keys and five buckets, what is expected occupancy per bucket?",
+        "answer": 2,
+        "tolerance": 1e-8,
+        "explanation": "Expected occupancy equals ten divided by five.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "hash-buckets",
+            "buckets": [
+              [],
+              [
+                1,
+                6,
+                11
+              ],
+              [
+                2,
+                7
+              ],
+              [],
+              []
+            ],
+            "active": -1
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Use h(k)=k mod five with bucket one storing 1,6,11 in that order and bucket two storing 2,7; other buckets are empty. For a specified one of those ten keys, how many other keys are expected to share its bucket? Round to 2 decimal places.",
+        "answer": 1.8,
+        "tolerance": 0.005,
+        "explanation": "Each of the other nine keys collides with probability one fifth. Rounded result: 1.8.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "hash-buckets",
+            "buckets": [
+              [],
+              [
+                1,
+                6,
+                11
+              ],
+              [
+                2,
+                7
+              ],
+              [],
+              []
+            ],
+            "active": -1
+          }
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange this procedure for chaining performance.",
+        "items": [
+          "Compute the key hash and select its chain",
+          "Compare with the first stored full key",
+          "Advance only while the key has not matched",
+          "Stop at a match or at the end of the chain"
+        ],
+        "explanation": "Follow this stated procedure so each later stage has its required input."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "hash-chaining",
+    "start": 0.4,
+    "sourceReferences": [
+      {
+        "lecture": 86,
+        "file": "086. 20d. Avg case performance chaining.mp4",
+        "start": 0.4,
+        "end": 29.72,
+        "text": "Let us now analyze average case time complexity in search and I am talking about the chaining. So I will be assuming that our hash functions are following simple uniform hashing which means that for any given key that is equally probable to go to any of the slot. So suppose there are many slots. So this key can go here, this key can go here, here or here. So that's the 1 by m probability. Any given key can go to any of the slot. This is simple uniform hashing."
+      },
+      {
+        "lecture": 86,
+        "file": "086. 20d. Avg case performance chaining.mp4",
+        "start": 30.19,
+        "end": 57.66,
+        "text": "Now let's just analyze the average cache time complexity. So this is the theorem I have taken this screenshot from Corman and it says that in a hash table in which the collisions are resolved by chaining, an unsuccessful search, okay they're talking about the unsuccessful search, takes average cache time of theta of 1 plus alpha under the assumption of simple uniform hashing. So they are saying unsuccessful search in case of chaining an average time complexity is theta of 1 plus alpha."
+      },
+      {
+        "lecture": 86,
+        "file": "086. 20d. Avg case performance chaining.mp4",
+        "start": 58.19,
+        "end": 89.64,
+        "text": "Let's just see if it is if it is intuitive or not See unsuccessful search means what that you are having some hash table and in this hash table Let's suppose the chain length is some something right and on an average the chain length is alpha So that's how alpha is defined alpha is an opponent where n is number of elements number of elements and m is number of slots number of slots"
+      }
+    ],
+    "foundation": {
+      "title": "Chaining performance",
+      "idea": "Chaining search cost combines bucket access with full-key comparisons in a bucket list. Independent uniform bucket hashing gives expected list occupancy alpha=n/m, but a bad distribution may still put every key in one chain. An average comparison count requires a target model.",
+      "terms": [
+        "Load factor: n/m and it may exceed one with chaining.",
+        "Expected occupancy: average keys per bucket under uniform hashing.",
+        "Worst chain: all n keys can share one bucket."
+      ],
+      "example": "Bucket one stores 1,6,11 in this order. Looking for 11 takes three key comparisons; equally likely successful targets within this chain average two."
+    }
+  },
+  {
+    "id": 260,
+    "lecture": 86,
+    "title": "Distinguish expected from worst-case work",
+    "concept": "Chaining search cost combines bucket access with full-key comparisons in a bucket list. Independent uniform bucket hashing gives expected list occupancy alpha=n/m, but a bad distribution may still put every key in one chain. An average comparison count requires a target model.",
+    "teachingSteps": [
+      "Compute alpha from live keys and bucket count.",
+      "Trace full-key comparisons in the given chain order.",
+      "Keep uniform-hashing expectations distinct from worst-case collisions."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What worst-case chain length remains possible?",
+        "options": [
+          "Always one",
+          "Always log2 n",
+          "n"
+        ],
+        "answer": 2,
+        "explanation": "All keys may collide."
+      },
+      {
+        "type": "number",
+        "prompt": "Use h(k)=k mod five with bucket one storing 1,6,11 in that order and bucket two storing 2,7; other buckets are empty. In that separate ten-key table, what is the possible worst-case chain length?",
+        "answer": 10,
+        "tolerance": 1e-8,
+        "explanation": "Every key can map to the same bucket.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "hash-buckets",
+            "buckets": [
+              [],
+              [
+                1,
+                6,
+                11
+              ],
+              [
+                2,
+                7
+              ],
+              [],
+              []
+            ],
+            "active": -1
+          }
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "What does a successful-chain average require?",
+        "options": [
+          "A target probability model",
+          "Only a pointer color",
+          "Only table capacity"
+        ],
+        "answer": 0,
+        "explanation": "Equally likely stored targets give the mean of their positions."
+      },
+      {
+        "type": "number",
+        "prompt": "Use h(k)=k mod five with bucket one storing 1,6,11 in that order and bucket two storing 2,7; other buckets are empty. Choose a successful target uniformly from the shown three-key bucket-one chain. What is the mean comparison count?",
+        "answer": 2,
+        "tolerance": 1e-8,
+        "explanation": "Average one, two and three comparisons.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "hash-buckets",
+            "buckets": [
+              [],
+              [
+                1,
+                6,
+                11
+              ],
+              [
+                2,
+                7
+              ],
+              [],
+              []
+            ],
+            "active": -1
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "hash-chaining",
+    "start": 0.4,
+    "sourceReferences": [
+      {
+        "lecture": 86,
+        "file": "086. 20d. Avg case performance chaining.mp4",
+        "start": 0.4,
+        "end": 29.72,
+        "text": "Let us now analyze average case time complexity in search and I am talking about the chaining. So I will be assuming that our hash functions are following simple uniform hashing which means that for any given key that is equally probable to go to any of the slot. So suppose there are many slots. So this key can go here, this key can go here, here or here. So that's the 1 by m probability. Any given key can go to any of the slot. This is simple uniform hashing."
+      },
+      {
+        "lecture": 86,
+        "file": "086. 20d. Avg case performance chaining.mp4",
+        "start": 30.19,
+        "end": 57.66,
+        "text": "Now let's just analyze the average cache time complexity. So this is the theorem I have taken this screenshot from Corman and it says that in a hash table in which the collisions are resolved by chaining, an unsuccessful search, okay they're talking about the unsuccessful search, takes average cache time of theta of 1 plus alpha under the assumption of simple uniform hashing. So they are saying unsuccessful search in case of chaining an average time complexity is theta of 1 plus alpha."
+      },
+      {
+        "lecture": 86,
+        "file": "086. 20d. Avg case performance chaining.mp4",
+        "start": 58.19,
+        "end": 89.64,
+        "text": "Let's just see if it is if it is intuitive or not See unsuccessful search means what that you are having some hash table and in this hash table Let's suppose the chain length is some something right and on an average the chain length is alpha So that's how alpha is defined alpha is an opponent where n is number of elements number of elements and m is number of slots number of slots"
+      }
+    ],
+    "foundation": {
+      "title": "Chaining performance",
+      "idea": "Chaining search cost combines bucket access with full-key comparisons in a bucket list. Independent uniform bucket hashing gives expected list occupancy alpha=n/m, but a bad distribution may still put every key in one chain. An average comparison count requires a target model.",
+      "terms": [
+        "Load factor: n/m and it may exceed one with chaining.",
+        "Expected occupancy: average keys per bucket under uniform hashing.",
+        "Worst chain: all n keys can share one bucket."
+      ],
+      "example": "Bucket one stores 1,6,11 in this order. Looking for 11 takes three key comparisons; equally likely successful targets within this chain average two."
+    }
+  },
+  {
+    "id": 261,
+    "lecture": 87,
+    "title": "Probe consecutive slots with wraparound",
+    "concept": "Linear probing inspects consecutive table slots modulo table size. A never-used empty slot can terminate a lookup, while a deletion tombstone cannot: later keys may have been displaced beyond it. Insertions must also respect duplicates and bounded probing.",
+    "teachingSteps": [
+      "Start at h(k) and advance one slot modulo m.",
+      "On lookup, compare keys and continue past tombstones.",
+      "For insertion, remember a reusable tombstone while checking for an existing key."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which slot state safely ends an unsuccessful lookup?",
+        "options": [
+          "A never-used empty slot",
+          "A tombstone",
+          "Every different full key"
+        ],
+        "answer": 0,
+        "explanation": "A never-used empty slot proves no later displacement on this probe path."
+      },
+      {
+        "type": "match",
+        "prompt": "Match the terms for linear probing and safe deletion.",
+        "pairs": [
+          [
+            "Never-used empty",
+            "ends an unsuccessful lookup."
+          ],
+          [
+            "Tombstone",
+            "deleted marker that preserves the search path."
+          ],
+          [
+            "Primary clustering",
+            "contiguous occupied runs lengthen probes."
+          ]
+        ],
+        "explanation": "Use the stated definitions to distinguish these roles."
+      },
+      {
+        "type": "number",
+        "prompt": "Use seven open-address slots, h(k)=k mod seven, linear probing from i=0, and insert 10 then 17 then 24. What home index is h(10)?",
+        "answer": 3,
+        "tolerance": 1e-8,
+        "explanation": "Ten modulo seven is three.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "hash-table",
+            "cells": [
+              null,
+              null,
+              null,
+              10,
+              17,
+              24,
+              null
+            ],
+            "active": []
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Use seven open-address slots, h(k)=k mod seven, linear probing from i=0, and insert 10 then 17 then 24. What index stores 17 after resolving its collision?",
+        "answer": 4,
+        "tolerance": 1e-8,
+        "explanation": "Home three is occupied, so advance to four.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "hash-table",
+            "cells": [
+              null,
+              null,
+              null,
+              10,
+              17,
+              24,
+              null
+            ],
+            "active": []
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "hash-linear",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 87,
+        "file": "087. 21a. Linear Probing.mp4",
+        "start": 0,
+        "end": 31.2,
+        "text": "Now that we have seen chaining which is one of the most popular method to resolve the collision right so like we started with the collision resolution technique and we have said that there are a couple of resolution techniques one of them is chaining and other techniques falls under a category which is called open addressing now in this open addressing we are going to see multiple techniques one is called linear proving another one is called"
+      },
+      {
+        "lecture": 87,
+        "file": "087. 21a. Linear Probing.mp4",
+        "start": 31.48,
+        "end": 58.16,
+        "text": "quadratic probing and another one is called double hashing so anyway I'm not writing it because that's only there in the next slide so that's why I'm not writing it okay so before I go about telling it let's have a terminology alert and I have to already told you that this terminology does not important but if you want you can just quickly revise it that either I say open addressing or I say close hashing both are the same thing or I say open hashing or I say separate channeling both are the same thing"
+      },
+      {
+        "lecture": 87,
+        "file": "087. 21a. Linear Probing.mp4",
+        "start": 197.84,
+        "end": 227.15,
+        "text": "So, the crucial difference is that there is no change and every element has to be stored within the hash table itself. There will be no external change something like this. Now, then what to do whenever you are having a collision? Then we will be finding another bucket. This is a very crucial point that how to do that, right? So, how to find another bucket that is free? We do probing. And what do I mean by that? Let's just see this. I hope everything else is clear apart from this that how do we go about probing."
+      }
+    ],
+    "foundation": {
+      "title": "Linear probing and safe deletion",
+      "idea": "Linear probing inspects consecutive table slots modulo table size. A never-used empty slot can terminate a lookup, while a deletion tombstone cannot: later keys may have been displaced beyond it. Insertions must also respect duplicates and bounded probing.",
+      "terms": [
+        "Never-used empty: ends an unsuccessful lookup.",
+        "Tombstone: deleted marker that preserves the search path.",
+        "Primary clustering: contiguous occupied runs lengthen probes."
+      ],
+      "example": "Insert 10,17,24 into seven slots with h(k)=k mod seven: slots 3,4,5 fill. Deleting 10 must leave a tombstone so a lookup for 24 reaches slot five."
+    }
+  },
+  {
+    "id": 262,
+    "lecture": 87,
+    "title": "Stop at a never-used empty slot",
+    "concept": "Linear probing inspects consecutive table slots modulo table size. A never-used empty slot can terminate a lookup, while a deletion tombstone cannot: later keys may have been displaced beyond it. Insertions must also respect duplicates and bounded probing.",
+    "teachingSteps": [
+      "Start at h(k) and advance one slot modulo m.",
+      "On lookup, compare keys and continue past tombstones.",
+      "For insertion, remember a reusable tombstone while checking for an existing key."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Why not erase a deleted slot into never-used empty?",
+        "options": [
+          "It makes the key larger",
+          "All hashes would change",
+          "Later displaced keys may become unreachable"
+        ],
+        "answer": 2,
+        "explanation": "A tombstone preserves continued lookup."
+      },
+      {
+        "type": "number",
+        "prompt": "Use seven open-address slots, h(k)=k mod seven, linear probing from i=0, and insert 10 then 17 then 24. What index stores 24?",
+        "answer": 5,
+        "tolerance": 1e-8,
+        "explanation": "Slots three and four are occupied.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "hash-table",
+            "cells": [
+              null,
+              null,
+              null,
+              10,
+              17,
+              24,
+              null
+            ],
+            "active": []
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Use seven open-address slots, h(k)=k mod seven, linear probing from i=0, and insert 10 then 17 then 24. How many inspected slots find 24 from home?",
+        "answer": 3,
+        "tolerance": 1e-8,
+        "explanation": "Inspect three, four and five.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "hash-table",
+            "cells": [
+              null,
+              null,
+              null,
+              10,
+              17,
+              24,
+              null
+            ],
+            "active": []
+          }
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange this procedure for linear probing and safe deletion.",
+        "items": [
+          "Compute the home slot",
+          "Inspect the current slot and compare any live key",
+          "Continue past a different key or tombstone with wraparound",
+          "Finish at a match or a never-used empty slot"
+        ],
+        "explanation": "Follow this stated procedure so each later stage has its required input."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "hash-linear",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 87,
+        "file": "087. 21a. Linear Probing.mp4",
+        "start": 0,
+        "end": 31.2,
+        "text": "Now that we have seen chaining which is one of the most popular method to resolve the collision right so like we started with the collision resolution technique and we have said that there are a couple of resolution techniques one of them is chaining and other techniques falls under a category which is called open addressing now in this open addressing we are going to see multiple techniques one is called linear proving another one is called"
+      },
+      {
+        "lecture": 87,
+        "file": "087. 21a. Linear Probing.mp4",
+        "start": 31.48,
+        "end": 58.16,
+        "text": "quadratic probing and another one is called double hashing so anyway I'm not writing it because that's only there in the next slide so that's why I'm not writing it okay so before I go about telling it let's have a terminology alert and I have to already told you that this terminology does not important but if you want you can just quickly revise it that either I say open addressing or I say close hashing both are the same thing or I say open hashing or I say separate channeling both are the same thing"
+      },
+      {
+        "lecture": 87,
+        "file": "087. 21a. Linear Probing.mp4",
+        "start": 197.84,
+        "end": 227.15,
+        "text": "So, the crucial difference is that there is no change and every element has to be stored within the hash table itself. There will be no external change something like this. Now, then what to do whenever you are having a collision? Then we will be finding another bucket. This is a very crucial point that how to do that, right? So, how to find another bucket that is free? We do probing. And what do I mean by that? Let's just see this. I hope everything else is clear apart from this that how do we go about probing."
+      }
+    ],
+    "foundation": {
+      "title": "Linear probing and safe deletion",
+      "idea": "Linear probing inspects consecutive table slots modulo table size. A never-used empty slot can terminate a lookup, while a deletion tombstone cannot: later keys may have been displaced beyond it. Insertions must also respect duplicates and bounded probing.",
+      "terms": [
+        "Never-used empty: ends an unsuccessful lookup.",
+        "Tombstone: deleted marker that preserves the search path.",
+        "Primary clustering: contiguous occupied runs lengthen probes."
+      ],
+      "example": "Insert 10,17,24 into seven slots with h(k)=k mod seven: slots 3,4,5 fill. Deleting 10 must leave a tombstone so a lookup for 24 reaches slot five."
+    }
+  },
+  {
+    "id": 263,
+    "lecture": 87,
+    "title": "Continue past a deletion tombstone",
+    "concept": "Linear probing inspects consecutive table slots modulo table size. A never-used empty slot can terminate a lookup, while a deletion tombstone cannot: later keys may have been displaced beyond it. Insertions must also respect duplicates and bounded probing.",
+    "teachingSteps": [
+      "Start at h(k) and advance one slot modulo m.",
+      "On lookup, compare keys and continue past tombstones.",
+      "For insertion, remember a reusable tombstone while checking for an existing key."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What clustering does linear probing tend to create?",
+        "options": [
+          "Only disconnected singleton slots",
+          "Contiguous occupied runs",
+          "Guaranteed equal bucket lengths"
+        ],
+        "answer": 1,
+        "explanation": "Adjacent probes reinforce runs."
+      },
+      {
+        "type": "number",
+        "prompt": "Use seven open-address slots, h(k)=k mod seven, linear probing from i=0, and insert 10 then 17 then 24. After replacing deleted key 10 with a tombstone, how many probes still find 24?",
+        "answer": 3,
+        "tolerance": 1e-8,
+        "explanation": "Continue past the tombstone at three.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "hash-table",
+            "cells": [
+              null,
+              null,
+              null,
+              10,
+              17,
+              24,
+              null
+            ],
+            "active": []
+          }
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "Why scan beyond a reusable tombstone during duplicate-safe insertion?",
+        "options": [
+          "The tombstone must never be reused",
+          "All keys must be globally sorted first",
+          "An existing equal key may lie later on the probe path"
+        ],
+        "answer": 2,
+        "explanation": "Locate a possible duplicate before creating another copy."
+      },
+      {
+        "type": "number",
+        "prompt": "Use seven open-address slots, h(k)=k mod seven, linear probing from i=0, and insert 10 then 17 then 24. After that tombstone deletion, duplicate-safe insertion of 31 scans through the first never-used empty slot before reusing the tombstone. How many slots are inspected?",
+        "answer": 4,
+        "tolerance": 1e-8,
+        "explanation": "Inspect tombstone three, live four and five, then empty six.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "hash-table",
+            "cells": [
+              null,
+              null,
+              null,
+              10,
+              17,
+              24,
+              null
+            ],
+            "active": []
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "hash-linear",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 87,
+        "file": "087. 21a. Linear Probing.mp4",
+        "start": 0,
+        "end": 31.2,
+        "text": "Now that we have seen chaining which is one of the most popular method to resolve the collision right so like we started with the collision resolution technique and we have said that there are a couple of resolution techniques one of them is chaining and other techniques falls under a category which is called open addressing now in this open addressing we are going to see multiple techniques one is called linear proving another one is called"
+      },
+      {
+        "lecture": 87,
+        "file": "087. 21a. Linear Probing.mp4",
+        "start": 31.48,
+        "end": 58.16,
+        "text": "quadratic probing and another one is called double hashing so anyway I'm not writing it because that's only there in the next slide so that's why I'm not writing it okay so before I go about telling it let's have a terminology alert and I have to already told you that this terminology does not important but if you want you can just quickly revise it that either I say open addressing or I say close hashing both are the same thing or I say open hashing or I say separate channeling both are the same thing"
+      },
+      {
+        "lecture": 87,
+        "file": "087. 21a. Linear Probing.mp4",
+        "start": 197.84,
+        "end": 227.15,
+        "text": "So, the crucial difference is that there is no change and every element has to be stored within the hash table itself. There will be no external change something like this. Now, then what to do whenever you are having a collision? Then we will be finding another bucket. This is a very crucial point that how to do that, right? So, how to find another bucket that is free? We do probing. And what do I mean by that? Let's just see this. I hope everything else is clear apart from this that how do we go about probing."
+      }
+    ],
+    "foundation": {
+      "title": "Linear probing and safe deletion",
+      "idea": "Linear probing inspects consecutive table slots modulo table size. A never-used empty slot can terminate a lookup, while a deletion tombstone cannot: later keys may have been displaced beyond it. Insertions must also respect duplicates and bounded probing.",
+      "terms": [
+        "Never-used empty: ends an unsuccessful lookup.",
+        "Tombstone: deleted marker that preserves the search path.",
+        "Primary clustering: contiguous occupied runs lengthen probes."
+      ],
+      "example": "Insert 10,17,24 into seven slots with h(k)=k mod seven: slots 3,4,5 fill. Deleting 10 must leave a tombstone so a lookup for 24 reaches slot five."
+    }
+  },
+  {
+    "id": 264,
+    "lecture": 88,
+    "title": "Generate a quadratic probe sequence",
+    "concept": "Quadratic probing adds a quadratic offset, whereas double hashing uses a second hash as a step. Neither an arbitrary coefficient nor an arbitrary step automatically visits every slot. A double-hash step coprime to table size covers all positions in its cycle.",
+    "teachingSteps": [
+      "Generate probes from i=0 using the exact formula.",
+      "For double hashing, check that the step and table size are coprime.",
+      "Track repeated positions and cap probes instead of assuming an unused slot must be reachable."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which condition gives full coverage for a fixed double-hash step?",
+        "options": [
+          "The step equals m",
+          "The step is merely positive",
+          "The step is coprime to m"
+        ],
+        "answer": 2,
+        "explanation": "A noncoprime step forms a shorter cycle."
+      },
+      {
+        "type": "match",
+        "prompt": "Match the terms for quadratic probing and double hashing.",
+        "pairs": [
+          [
+            "Quadratic probe",
+            "(h+i squared) mod m in this example."
+          ],
+          [
+            "Double hash",
+            "(h1+i*h2) mod m."
+          ],
+          [
+            "Coprime step",
+            "gcd(h2,m)=1 gives full cyclic coverage."
+          ]
+        ],
+        "explanation": "Use the stated definitions to distinguish these roles."
+      },
+      {
+        "type": "number",
+        "prompt": "Use m=7 and home h(k)=k mod seven; compare quadratic (h+i squared) mod seven with double hashing (h+3i) mod seven, starting i=0. What is the second double-hash index from home three?",
+        "answer": 6,
+        "tolerance": 1e-8,
+        "explanation": "Three plus three modulo seven.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Given home for keys 10,17,24",
+              "Quadratic offset",
+              "Double-hash step"
+            ],
+            "rows": [
+              [
+                3,
+                "i squared",
+                3
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Use m=7 and home h(k)=k mod seven; compare quadratic (h+i squared) mod seven with double hashing (h+3i) mod seven, starting i=0. What is the third double-hash index from home three?",
+        "answer": 2,
+        "tolerance": 1e-8,
+        "explanation": "Three plus six wraps to two.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Given home for keys 10,17,24",
+              "Quadratic offset",
+              "Double-hash step"
+            ],
+            "rows": [
+              [
+                3,
+                "i squared",
+                3
+              ]
+            ]
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "hash-double",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 88,
+        "file": "088. 21 b. Quadratic probing and Double hashing.mp4",
+        "start": 0,
+        "end": 27.91,
+        "text": "Let's now see other hashing technique which is still under the open addressing and it is called quadratic hashing. So in the quadratic hashing what we do differently from the linear probing is that we have the quadratic square here I mean like the quadratic number here which means instead of just having hk plus i we have hk plus c1i plus c2i square and obviously c2 is not zero because if it is zero then it is just a linear probe, right?"
+      },
+      {
+        "lecture": 88,
+        "file": "088. 21 b. Quadratic probing and Double hashing.mp4",
+        "start": 87.08,
+        "end": 116.3,
+        "text": "and what is that problem? Problem is primary clusters which means you do clusters a lot which means if you are mapping some key to here then next key is also mapping here then you will go here if next key is also mapping here you will go here and then you will make a cluster like this right you will make a cluster here so that is called primary cluster and that same problem is being resolved by the quadratic hashing but it has its own problem I will tell you later so for now let's just do one example let's see that how to do the insertion in case of"
+      },
+      {
+        "lecture": 88,
+        "file": "088. 21 b. Quadratic probing and Double hashing.mp4",
+        "start": 116.52,
+        "end": 145.85,
+        "text": "quadratic problem and I'm using the hash function which is hk plus i square Okay, so initially i is 0 and if I'm saying that okay hk this is this hk is basically mod 7 So if I'm having this as 6 then I will map it to 6 which means 76 I will write here and then if I'm having this to 5 then I will say that okay Okay, let me do one thing. Let me just copy this and let me erase these and let me actually try to insert some numbers right instead of already having the numbers here"
+      }
+    ],
+    "foundation": {
+      "title": "Quadratic probing and double hashing",
+      "idea": "Quadratic probing adds a quadratic offset, whereas double hashing uses a second hash as a step. Neither an arbitrary coefficient nor an arbitrary step automatically visits every slot. A double-hash step coprime to table size covers all positions in its cycle.",
+      "terms": [
+        "Quadratic probe: (h+i squared) mod m in this example.",
+        "Double hash: (h1+i*h2) mod m.",
+        "Coprime step: gcd(h2,m)=1 gives full cyclic coverage."
+      ],
+      "example": "With home three and m=7, quadratic offsets visit 3,4,0,5,5,0,4. Step three instead visits 3,6,2,5,1,4,0."
+    }
+  },
+  {
+    "id": 265,
+    "lecture": 88,
+    "title": "Choose a coprime double-hash step",
+    "concept": "Quadratic probing adds a quadratic offset, whereas double hashing uses a second hash as a step. Neither an arbitrary coefficient nor an arbitrary step automatically visits every slot. A double-hash step coprime to table size covers all positions in its cycle.",
+    "teachingSteps": [
+      "Generate probes from i=0 using the exact formula.",
+      "For double hashing, check that the step and table size are coprime.",
+      "Track repeated positions and cap probes instead of assuming an unused slot must be reachable."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Does this quadratic rule visit every slot in seven probes?",
+        "options": [
+          "Only full-key magnitude matters",
+          "No",
+          "Yes for every home"
+        ],
+        "answer": 1,
+        "explanation": "Quadratic residues repeat."
+      },
+      {
+        "type": "number",
+        "prompt": "Use m=7 and home h(k)=k mod seven; compare quadratic (h+i squared) mod seven with double hashing (h+3i) mod seven, starting i=0. How many distinct slots does the coprime step-three cycle visit?",
+        "answer": 7,
+        "tolerance": 1e-8,
+        "explanation": "gcd(3,7)=1 gives full coverage.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Given home for keys 10,17,24",
+              "Quadratic offset",
+              "Double-hash step"
+            ],
+            "rows": [
+              [
+                3,
+                "i squared",
+                3
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Use m=7 and home h(k)=k mod seven; compare quadratic (h+i squared) mod seven with double hashing (h+3i) mod seven, starting i=0. How many distinct slots occur in the first seven quadratic probes from home three?",
+        "answer": 4,
+        "tolerance": 1e-8,
+        "explanation": "Indices are 3,4,0,5,5,0,4.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Given home for keys 10,17,24",
+              "Quadratic offset",
+              "Double-hash step"
+            ],
+            "rows": [
+              [
+                3,
+                "i squared",
+                3
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange this procedure for quadratic probing and double hashing.",
+        "items": [
+          "State the home hash and offset rule",
+          "Generate the next modular probe index",
+          "Inspect that slot for a key match or free position",
+          "Stop on success or the declared bounded probe limit"
+        ],
+        "explanation": "Follow this stated procedure so each later stage has its required input."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "hash-double",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 88,
+        "file": "088. 21 b. Quadratic probing and Double hashing.mp4",
+        "start": 0,
+        "end": 27.91,
+        "text": "Let's now see other hashing technique which is still under the open addressing and it is called quadratic hashing. So in the quadratic hashing what we do differently from the linear probing is that we have the quadratic square here I mean like the quadratic number here which means instead of just having hk plus i we have hk plus c1i plus c2i square and obviously c2 is not zero because if it is zero then it is just a linear probe, right?"
+      },
+      {
+        "lecture": 88,
+        "file": "088. 21 b. Quadratic probing and Double hashing.mp4",
+        "start": 87.08,
+        "end": 116.3,
+        "text": "and what is that problem? Problem is primary clusters which means you do clusters a lot which means if you are mapping some key to here then next key is also mapping here then you will go here if next key is also mapping here you will go here and then you will make a cluster like this right you will make a cluster here so that is called primary cluster and that same problem is being resolved by the quadratic hashing but it has its own problem I will tell you later so for now let's just do one example let's see that how to do the insertion in case of"
+      },
+      {
+        "lecture": 88,
+        "file": "088. 21 b. Quadratic probing and Double hashing.mp4",
+        "start": 116.52,
+        "end": 145.85,
+        "text": "quadratic problem and I'm using the hash function which is hk plus i square Okay, so initially i is 0 and if I'm saying that okay hk this is this hk is basically mod 7 So if I'm having this as 6 then I will map it to 6 which means 76 I will write here and then if I'm having this to 5 then I will say that okay Okay, let me do one thing. Let me just copy this and let me erase these and let me actually try to insert some numbers right instead of already having the numbers here"
+      }
+    ],
+    "foundation": {
+      "title": "Quadratic probing and double hashing",
+      "idea": "Quadratic probing adds a quadratic offset, whereas double hashing uses a second hash as a step. Neither an arbitrary coefficient nor an arbitrary step automatically visits every slot. A double-hash step coprime to table size covers all positions in its cycle.",
+      "terms": [
+        "Quadratic probe: (h+i squared) mod m in this example.",
+        "Double hash: (h1+i*h2) mod m.",
+        "Coprime step: gcd(h2,m)=1 gives full cyclic coverage."
+      ],
+      "example": "With home three and m=7, quadratic offsets visit 3,4,0,5,5,0,4. Step three instead visits 3,6,2,5,1,4,0."
+    }
+  },
+  {
+    "id": 266,
+    "lecture": 88,
+    "title": "Check coverage instead of assuming it",
+    "concept": "Quadratic probing adds a quadratic offset, whereas double hashing uses a second hash as a step. Neither an arbitrary coefficient nor an arbitrary step automatically visits every slot. A double-hash step coprime to table size covers all positions in its cycle.",
+    "teachingSteps": [
+      "Generate probes from i=0 using the exact formula.",
+      "For double hashing, check that the step and table size are coprime.",
+      "Track repeated positions and cap probes instead of assuming an unused slot must be reachable."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Why bound the number of generated probes?",
+        "options": [
+          "Repeated indices or a full table must not loop forever",
+          "To skip key equality checks",
+          "Because modulo never wraps"
+        ],
+        "answer": 0,
+        "explanation": "An insertion may fail even with unreachable free slots."
+      },
+      {
+        "type": "number",
+        "prompt": "Use m=7 and home h(k)=k mod seven; compare quadratic (h+i squared) mod seven with double hashing (h+3i) mod seven, starting i=0. Insert 10,17,24 using double hashing in an initially empty table. Where does 24 land?",
+        "answer": 2,
+        "tolerance": 1e-8,
+        "explanation": "The first two keys occupy three and six.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Given home for keys 10,17,24",
+              "Quadratic offset",
+              "Double-hash step"
+            ],
+            "rows": [
+              [
+                3,
+                "i squared",
+                3
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "What distinguishes double hashing from the quadratic rule?",
+        "options": [
+          "It never uses modular arithmetic",
+          "A key-dependent second hash supplies the step in general",
+          "It always uses the same i squared offset"
+        ],
+        "answer": 1,
+        "explanation": "The example fixes a step to demonstrate one such sequence."
+      },
+      {
+        "type": "number",
+        "prompt": "Use m=7 and home h(k)=k mod seven; compare quadratic (h+i squared) mod seven with double hashing (h+3i) mod seven, starting i=0. Insert that same sequence using the stated quadratic rule in a separate empty table. Where does 24 land?",
+        "answer": 0,
+        "tolerance": 1e-8,
+        "explanation": "The first two occupy three and four; the third uses zero.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Given home for keys 10,17,24",
+              "Quadratic offset",
+              "Double-hash step"
+            ],
+            "rows": [
+              [
+                3,
+                "i squared",
+                3
+              ]
+            ]
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "hash-double",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 88,
+        "file": "088. 21 b. Quadratic probing and Double hashing.mp4",
+        "start": 0,
+        "end": 27.91,
+        "text": "Let's now see other hashing technique which is still under the open addressing and it is called quadratic hashing. So in the quadratic hashing what we do differently from the linear probing is that we have the quadratic square here I mean like the quadratic number here which means instead of just having hk plus i we have hk plus c1i plus c2i square and obviously c2 is not zero because if it is zero then it is just a linear probe, right?"
+      },
+      {
+        "lecture": 88,
+        "file": "088. 21 b. Quadratic probing and Double hashing.mp4",
+        "start": 87.08,
+        "end": 116.3,
+        "text": "and what is that problem? Problem is primary clusters which means you do clusters a lot which means if you are mapping some key to here then next key is also mapping here then you will go here if next key is also mapping here you will go here and then you will make a cluster like this right you will make a cluster here so that is called primary cluster and that same problem is being resolved by the quadratic hashing but it has its own problem I will tell you later so for now let's just do one example let's see that how to do the insertion in case of"
+      },
+      {
+        "lecture": 88,
+        "file": "088. 21 b. Quadratic probing and Double hashing.mp4",
+        "start": 116.52,
+        "end": 145.85,
+        "text": "quadratic problem and I'm using the hash function which is hk plus i square Okay, so initially i is 0 and if I'm saying that okay hk this is this hk is basically mod 7 So if I'm having this as 6 then I will map it to 6 which means 76 I will write here and then if I'm having this to 5 then I will say that okay Okay, let me do one thing. Let me just copy this and let me erase these and let me actually try to insert some numbers right instead of already having the numbers here"
+      }
+    ],
+    "foundation": {
+      "title": "Quadratic probing and double hashing",
+      "idea": "Quadratic probing adds a quadratic offset, whereas double hashing uses a second hash as a step. Neither an arbitrary coefficient nor an arbitrary step automatically visits every slot. A double-hash step coprime to table size covers all positions in its cycle.",
+      "terms": [
+        "Quadratic probe: (h+i squared) mod m in this example.",
+        "Double hash: (h1+i*h2) mod m.",
+        "Coprime step: gcd(h2,m)=1 gives full cyclic coverage."
+      ],
+      "example": "With home three and m=7, quadratic offsets visit 3,4,0,5,5,0,4. Step three instead visits 3,6,2,5,1,4,0."
+    }
+  },
+  {
+    "id": 267,
+    "lecture": 89,
+    "title": "Treat probes as slot permutations",
+    "concept": "A probe order is a sequence of slot indices, not a permutation of input keys. The ideal uniform-hashing analysis allows all m! slot permutations. Actual linear, quadratic or double-hash rules form particular families, which may include cycles before visiting every slot.",
+    "teachingSteps": [
+      "Specify the number of table slots.",
+      "Count all slot permutations only for the idealized permutation model.",
+      "For an actual rule, inspect distinct home choices, step choices and coverage."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What is permuted in the ideal m! probe-order count?",
+        "options": [
+          "The byte width",
+          "The m slot indices",
+          "Only incoming record names"
+        ],
+        "answer": 1,
+        "explanation": "Every slot may occur in each permutation position."
+      },
+      {
+        "type": "match",
+        "prompt": "Match the terms for counting possible probe orders.",
+        "pairs": [
+          [
+            "Permutation order",
+            "every slot appears exactly once."
+          ],
+          [
+            "Rule family",
+            "probe orders realizable by one formula."
+          ],
+          [
+            "Cycle",
+            "repeating positions before all slots are reached."
+          ]
+        ],
+        "explanation": "Use the stated definitions to distinguish these roles."
+      },
+      {
+        "type": "number",
+        "prompt": "Probe-order counts refer to slot orders; all slots are distinct. Use the explicitly stated model in each question. For four slots, how many arbitrary permutation probe orders exist?",
+        "answer": 24,
+        "tolerance": 1e-8,
+        "explanation": "Four factorial is 24."
+      },
+      {
+        "type": "number",
+        "prompt": "Probe-order counts refer to slot orders; all slots are distinct. Use the explicitly stated model in each question. For four slots, how many cyclic linear-probe orders arise from all possible homes?",
+        "answer": 4,
+        "tolerance": 1e-8,
+        "explanation": "One order per starting slot."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "probe-permutations",
+    "start": 0.08,
+    "sourceReferences": [
+      {
+        "lecture": 89,
+        "file": "089. 21c. Possible Number of probes.mp4",
+        "start": 0.08,
+        "end": 33.06,
+        "text": "So let's continue our discussion on linear probing where I was just finding number of possible sequences So let's go to the next page and here let me write for linear probing How many total probes are possible? number of probes possible for a given key For a given key, right? So you will say that the sequence will look like this You will say that first there is a hash function which is HK"
+      },
+      {
+        "lecture": 89,
+        "file": "089. 21c. Possible Number of probes.mp4",
+        "start": 33.44,
+        "end": 62.96,
+        "text": "and then next probe will go to HK plus one then HK plus two like that right and so on and so forth now at last you will be you will be treating all the probes so at last you will be having HK plus M minus one or something like that right so at last you will be having HK plus M minus one something like that right so anyway like let's not worry about this last term so tell me how many possible values of HK are there see HK is going to map you or map the key"
+      },
+      {
+        "lecture": 89,
+        "file": "089. 21c. Possible Number of probes.mp4",
+        "start": 63.24,
+        "end": 91.8,
+        "text": "from like this key to one of the possible slot right so this is my hash function which is going to map to one of the possible slot so basically how many possible values of hks are there m possible values maybe it is three right maybe it is 10 maybe it is 20 something like that right so there are m possible values at this first place so this first place will be taking m possible values isn't it now tell me how many possible values this second place will be taking"
+      }
+    ],
+    "foundation": {
+      "title": "Counting possible probe orders",
+      "idea": "A probe order is a sequence of slot indices, not a permutation of input keys. The ideal uniform-hashing analysis allows all m! slot permutations. Actual linear, quadratic or double-hash rules form particular families, which may include cycles before visiting every slot.",
+      "terms": [
+        "Permutation order: every slot appears exactly once.",
+        "Rule family: probe orders realizable by one formula.",
+        "Cycle: repeating positions before all slots are reached."
+      ],
+      "example": "Four slots have 4!=24 permutation orders, but linear probing has only four possible cyclic orders. Step two in six slots visits only three distinct positions."
+    }
+  },
+  {
+    "id": 268,
+    "lecture": 89,
+    "title": "Count starts and step choices",
+    "concept": "A probe order is a sequence of slot indices, not a permutation of input keys. The ideal uniform-hashing analysis allows all m! slot permutations. Actual linear, quadratic or double-hash rules form particular families, which may include cycles before visiting every slot.",
+    "teachingSteps": [
+      "Specify the number of table slots.",
+      "Count all slot permutations only for the idealized permutation model.",
+      "For an actual rule, inspect distinct home choices, step choices and coverage."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Does linear probing realize all m! orders in general?",
+        "options": [
+          "No",
+          "Yes for every m",
+          "Only occupied slots matter"
+        ],
+        "answer": 0,
+        "explanation": "It realizes m cyclic shifts of one fixed step-one order."
+      },
+      {
+        "type": "number",
+        "prompt": "Probe-order counts refer to slot orders; all slots are distinct. Use the explicitly stated model in each question. In prime-sized table m=5, how many nonzero steps from one through four are coprime to m?",
+        "answer": 4,
+        "tolerance": 1e-8,
+        "explanation": "Every such step is coprime to five."
+      },
+      {
+        "type": "number",
+        "prompt": "Probe-order counts refer to slot orders; all slots are distinct. Use the explicitly stated model in each question. For m=5, how many distinct home-and-nonzero-step choices exist?",
+        "answer": 20,
+        "tolerance": 1e-8,
+        "explanation": "Five homes times four steps."
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange this procedure for counting possible probe orders.",
+        "items": [
+          "Define the slots and probe-order model",
+          "Count permitted first-slot choices",
+          "Count remaining choices under that model",
+          "Compare the resulting family with the actual probing rule"
+        ],
+        "explanation": "Follow this stated procedure so each later stage has its required input."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "probe-permutations",
+    "start": 0.08,
+    "sourceReferences": [
+      {
+        "lecture": 89,
+        "file": "089. 21c. Possible Number of probes.mp4",
+        "start": 0.08,
+        "end": 33.06,
+        "text": "So let's continue our discussion on linear probing where I was just finding number of possible sequences So let's go to the next page and here let me write for linear probing How many total probes are possible? number of probes possible for a given key For a given key, right? So you will say that the sequence will look like this You will say that first there is a hash function which is HK"
+      },
+      {
+        "lecture": 89,
+        "file": "089. 21c. Possible Number of probes.mp4",
+        "start": 33.44,
+        "end": 62.96,
+        "text": "and then next probe will go to HK plus one then HK plus two like that right and so on and so forth now at last you will be you will be treating all the probes so at last you will be having HK plus M minus one or something like that right so at last you will be having HK plus M minus one something like that right so anyway like let's not worry about this last term so tell me how many possible values of HK are there see HK is going to map you or map the key"
+      },
+      {
+        "lecture": 89,
+        "file": "089. 21c. Possible Number of probes.mp4",
+        "start": 63.24,
+        "end": 91.8,
+        "text": "from like this key to one of the possible slot right so this is my hash function which is going to map to one of the possible slot so basically how many possible values of hks are there m possible values maybe it is three right maybe it is 10 maybe it is 20 something like that right so there are m possible values at this first place so this first place will be taking m possible values isn't it now tell me how many possible values this second place will be taking"
+      }
+    ],
+    "foundation": {
+      "title": "Counting possible probe orders",
+      "idea": "A probe order is a sequence of slot indices, not a permutation of input keys. The ideal uniform-hashing analysis allows all m! slot permutations. Actual linear, quadratic or double-hash rules form particular families, which may include cycles before visiting every slot.",
+      "terms": [
+        "Permutation order: every slot appears exactly once.",
+        "Rule family: probe orders realizable by one formula.",
+        "Cycle: repeating positions before all slots are reached."
+      ],
+      "example": "Four slots have 4!=24 permutation orders, but linear probing has only four possible cyclic orders. Step two in six slots visits only three distinct positions."
+    }
+  },
+  {
+    "id": 269,
+    "lecture": 89,
+    "title": "Recognize repeated-slot cycles",
+    "concept": "A probe order is a sequence of slot indices, not a permutation of input keys. The ideal uniform-hashing analysis allows all m! slot permutations. Actual linear, quadratic or double-hash rules form particular families, which may include cycles before visiting every slot.",
+    "teachingSteps": [
+      "Specify the number of table slots.",
+      "Count all slot permutations only for the idealized permutation model.",
+      "For an actual rule, inspect distinct home choices, step choices and coverage."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "A repeating fixed-step cycle means what?",
+        "options": [
+          "All table slots were necessarily inspected",
+          "The key was found automatically",
+          "Some positions may never be visited"
+        ],
+        "answer": 2,
+        "explanation": "Coverage depends on gcd(step,m)."
+      },
+      {
+        "type": "number",
+        "prompt": "Probe-order counts refer to slot orders; all slots are distinct. Use the explicitly stated model in each question. Starting at zero with step two in six slots, how many distinct positions are reached?",
+        "answer": 3,
+        "tolerance": 1e-8,
+        "explanation": "The cycle is zero, two, four."
+      },
+      {
+        "type": "choice",
+        "prompt": "Is uniform hashing an exact description of every deterministic probing formula?",
+        "options": [
+          "No; it is an idealized analysis model",
+          "Yes, every formula is uniform by definition",
+          "Only equal keys qualify"
+        ],
+        "answer": 0,
+        "explanation": "Real formulas can create structured probe families."
+      },
+      {
+        "type": "number",
+        "prompt": "Probe-order counts refer to slot orders; all slots are distinct. Use the explicitly stated model in each question. For (0+i squared) mod seven over i=0 through six, how many distinct slots appear?",
+        "answer": 4,
+        "tolerance": 1e-8,
+        "explanation": "Quadratic residues are zero, one, two and four."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "probe-permutations",
+    "start": 0.08,
+    "sourceReferences": [
+      {
+        "lecture": 89,
+        "file": "089. 21c. Possible Number of probes.mp4",
+        "start": 0.08,
+        "end": 33.06,
+        "text": "So let's continue our discussion on linear probing where I was just finding number of possible sequences So let's go to the next page and here let me write for linear probing How many total probes are possible? number of probes possible for a given key For a given key, right? So you will say that the sequence will look like this You will say that first there is a hash function which is HK"
+      },
+      {
+        "lecture": 89,
+        "file": "089. 21c. Possible Number of probes.mp4",
+        "start": 33.44,
+        "end": 62.96,
+        "text": "and then next probe will go to HK plus one then HK plus two like that right and so on and so forth now at last you will be you will be treating all the probes so at last you will be having HK plus M minus one or something like that right so at last you will be having HK plus M minus one something like that right so anyway like let's not worry about this last term so tell me how many possible values of HK are there see HK is going to map you or map the key"
+      },
+      {
+        "lecture": 89,
+        "file": "089. 21c. Possible Number of probes.mp4",
+        "start": 63.24,
+        "end": 91.8,
+        "text": "from like this key to one of the possible slot right so this is my hash function which is going to map to one of the possible slot so basically how many possible values of hks are there m possible values maybe it is three right maybe it is 10 maybe it is 20 something like that right so there are m possible values at this first place so this first place will be taking m possible values isn't it now tell me how many possible values this second place will be taking"
+      }
+    ],
+    "foundation": {
+      "title": "Counting possible probe orders",
+      "idea": "A probe order is a sequence of slot indices, not a permutation of input keys. The ideal uniform-hashing analysis allows all m! slot permutations. Actual linear, quadratic or double-hash rules form particular families, which may include cycles before visiting every slot.",
+      "terms": [
+        "Permutation order: every slot appears exactly once.",
+        "Rule family: probe orders realizable by one formula.",
+        "Cycle: repeating positions before all slots are reached."
+      ],
+      "example": "Four slots have 4!=24 permutation orders, but linear probing has only four possible cyclic orders. Step two in six slots visits only three distinct positions."
+    }
+  },
+  {
+    "id": 270,
+    "lecture": 90,
+    "title": "State the uniform-hashing model",
+    "concept": "Expected unsuccessful open-address search depends on the hashing model and occupancy. With uniform hashing, no deletion tombstones and alpha below one, the expected probe count is bounded by 1/(1-alpha). This upper bound is not an exact measured cost for every linear-probing table.",
+    "teachingSteps": [
+      "State uniform hashing and alpha=n/m less than one.",
+      "Evaluate the reciprocal empty fraction.",
+      "Interpret the result as an expected upper bound and account for high-load growth."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What does the stated probe expression represent?",
+        "options": [
+          "An expected upper bound under the model",
+          "An exact count for every linear-probing query",
+          "A count of all stored keys"
+        ],
+        "answer": 0,
+        "explanation": "The assumptions govern an average bound."
+      },
+      {
+        "type": "match",
+        "prompt": "Match the terms for unsuccessful open-address searches.",
+        "pairs": [
+          [
+            "Alpha",
+            "fraction of occupied live slots for this model."
+          ],
+          [
+            "Unsuccessful search",
+            "requested key is absent."
+          ],
+          [
+            "Expected upper bound",
+            "controls a mean under stated assumptions, not every execution."
+          ]
+        ],
+        "explanation": "Use the stated definitions to distinguish these roles."
+      },
+      {
+        "type": "number",
+        "prompt": "Assume ideal uniform hashing with no deletion tombstones and alpha=n/m<1; successful targets are equally likely among stored keys. Report expected upper bounds, not exact execution timings. At alpha=0.5, what is 1/(1-alpha)?",
+        "answer": 2,
+        "tolerance": 1e-8,
+        "explanation": "The empty fraction is one half."
+      },
+      {
+        "type": "number",
+        "prompt": "Assume ideal uniform hashing with no deletion tombstones and alpha=n/m<1; successful targets are equally likely among stored keys. Report expected upper bounds, not exact execution timings. At alpha=0.75, what unsuccessful-search bound results?",
+        "answer": 4,
+        "tolerance": 1e-8,
+        "explanation": "One divided by one quarter."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "hash-unsuccessful",
+    "start": 1.01,
+    "sourceReferences": [
+      {
+        "lecture": 90,
+        "file": "090_22a_Optional_but_please_watch_UnSucessfull_search_time_open.mp4",
+        "start": 1.01,
+        "end": 30.8,
+        "text": "let us now start our analysis of open addressing so first you need to understand that this analysis is going to be with respect to uniform hashing which means I am not assuming any linear probing okay so I am not saying it is analysis with respect to linear probing no I am not saying this no I am not saying it is with respect to chaotic probing okay so I am not saying this I am not saying it is with respect to double hashing or whatever right so I am not saying any of this"
+      },
+      {
+        "lecture": 90,
+        "file": "090_22a_Optional_but_please_watch_UnSucessfull_search_time_open.mp4",
+        "start": 30.97,
+        "end": 59.6,
+        "text": "what i am saying this is with respect to this is with respect to this analysis this analysis is with respect to what this is with respect to uniform hashing so what do i mean by that it means that once you hit once you hit some of the location and if that location is already filled then again you are going to hit to any of the location with equal probability okay so"
+      },
+      {
+        "lecture": 90,
+        "file": "090_22a_Optional_but_please_watch_UnSucessfull_search_time_open.mp4",
+        "start": 59.99,
+        "end": 94.55,
+        "text": "like i'm not saying that you will go to subsequent location neither i'm saying that you will you will follow quality can neither hashing neither double hashing i'm saying this is with respect to uniform hashing only okay so basically it means that any of this m factorial permutation is possible any of the m factorial permutation is possible okay so our analysis is going to be with respect to this which means we are going to use uniform hashing in this case now let's see how much"
+      }
+    ],
+    "foundation": {
+      "title": "Unsuccessful open-address searches",
+      "idea": "Expected unsuccessful open-address search depends on the hashing model and occupancy. With uniform hashing, no deletion tombstones and alpha below one, the expected probe count is bounded by 1/(1-alpha). This upper bound is not an exact measured cost for every linear-probing table.",
+      "terms": [
+        "Alpha: fraction of occupied live slots for this model.",
+        "Unsuccessful search: requested key is absent.",
+        "Expected upper bound: controls a mean under stated assumptions, not every execution."
+      ],
+      "example": "At alpha=0.75 the bound is 1/(1-0.75)=4 probes. A specific table may finish earlier or take more than four on one query."
+    }
+  },
+  {
+    "id": 271,
+    "lecture": 90,
+    "title": "Compute the occupancy-sensitive bound",
+    "concept": "Expected unsuccessful open-address search depends on the hashing model and occupancy. With uniform hashing, no deletion tombstones and alpha below one, the expected probe count is bounded by 1/(1-alpha). This upper bound is not an exact measured cost for every linear-probing table.",
+    "teachingSteps": [
+      "State uniform hashing and alpha=n/m less than one.",
+      "Evaluate the reciprocal empty fraction.",
+      "Interpret the result as an expected upper bound and account for high-load growth."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What alpha condition is required here?",
+        "options": [
+          "alpha must exceed one",
+          "alpha is always exactly one",
+          "alpha<1"
+        ],
+        "answer": 2,
+        "explanation": "A spare fraction is required for the open-address bound."
+      },
+      {
+        "type": "number",
+        "prompt": "Assume ideal uniform hashing with no deletion tombstones and alpha=n/m<1; successful targets are equally likely among stored keys. Report expected upper bounds, not exact execution timings. At alpha=0.9, what bound results?",
+        "answer": 10,
+        "tolerance": 1e-8,
+        "explanation": "Only one tenth remains empty."
+      },
+      {
+        "type": "number",
+        "prompt": "Assume ideal uniform hashing with no deletion tombstones and alpha=n/m<1; successful targets are equally likely among stored keys. Report expected upper bounds, not exact execution timings. For 12 live keys in 16 slots, what is alpha? Round to 2 decimal places.",
+        "answer": 0.75,
+        "tolerance": 0.005,
+        "explanation": "Twelve divided by 16. Rounded result: 0.75."
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange this procedure for unsuccessful open-address searches.",
+        "items": [
+          "State the uniform-hashing assumptions",
+          "Compute occupancy alpha=n/m",
+          "Compute the empty fraction 1-alpha",
+          "Take its reciprocal and label it an expected upper bound"
+        ],
+        "explanation": "Follow this stated procedure so each later stage has its required input."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "hash-unsuccessful",
+    "start": 1.01,
+    "sourceReferences": [
+      {
+        "lecture": 90,
+        "file": "090_22a_Optional_but_please_watch_UnSucessfull_search_time_open.mp4",
+        "start": 1.01,
+        "end": 30.8,
+        "text": "let us now start our analysis of open addressing so first you need to understand that this analysis is going to be with respect to uniform hashing which means I am not assuming any linear probing okay so I am not saying it is analysis with respect to linear probing no I am not saying this no I am not saying it is with respect to chaotic probing okay so I am not saying this I am not saying it is with respect to double hashing or whatever right so I am not saying any of this"
+      },
+      {
+        "lecture": 90,
+        "file": "090_22a_Optional_but_please_watch_UnSucessfull_search_time_open.mp4",
+        "start": 30.97,
+        "end": 59.6,
+        "text": "what i am saying this is with respect to this is with respect to this analysis this analysis is with respect to what this is with respect to uniform hashing so what do i mean by that it means that once you hit once you hit some of the location and if that location is already filled then again you are going to hit to any of the location with equal probability okay so"
+      },
+      {
+        "lecture": 90,
+        "file": "090_22a_Optional_but_please_watch_UnSucessfull_search_time_open.mp4",
+        "start": 59.99,
+        "end": 94.55,
+        "text": "like i'm not saying that you will go to subsequent location neither i'm saying that you will you will follow quality can neither hashing neither double hashing i'm saying this is with respect to uniform hashing only okay so basically it means that any of this m factorial permutation is possible any of the m factorial permutation is possible okay so our analysis is going to be with respect to this which means we are going to use uniform hashing in this case now let's see how much"
+      }
+    ],
+    "foundation": {
+      "title": "Unsuccessful open-address searches",
+      "idea": "Expected unsuccessful open-address search depends on the hashing model and occupancy. With uniform hashing, no deletion tombstones and alpha below one, the expected probe count is bounded by 1/(1-alpha). This upper bound is not an exact measured cost for every linear-probing table.",
+      "terms": [
+        "Alpha: fraction of occupied live slots for this model.",
+        "Unsuccessful search: requested key is absent.",
+        "Expected upper bound: controls a mean under stated assumptions, not every execution."
+      ],
+      "example": "At alpha=0.75 the bound is 1/(1-0.75)=4 probes. A specific table may finish earlier or take more than four on one query."
+    }
+  },
+  {
+    "id": 272,
+    "lecture": 90,
+    "title": "Interpret high-load probe growth",
+    "concept": "Expected unsuccessful open-address search depends on the hashing model and occupancy. With uniform hashing, no deletion tombstones and alpha below one, the expected probe count is bounded by 1/(1-alpha). This upper bound is not an exact measured cost for every linear-probing table.",
+    "teachingSteps": [
+      "State uniform hashing and alpha=n/m less than one.",
+      "Evaluate the reciprocal empty fraction.",
+      "Interpret the result as an expected upper bound and account for high-load growth."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Can one actual search take more probes than the expected upper bound?",
+        "options": [
+          "Only if key values are negative",
+          "Yes",
+          "No, expectation is a per-query cap"
+        ],
+        "answer": 1,
+        "explanation": "A mean bound is not a bound on every individual execution."
+      },
+      {
+        "type": "number",
+        "prompt": "Assume ideal uniform hashing with no deletion tombstones and alpha=n/m<1; successful targets are equally likely among stored keys. Report expected upper bounds, not exact execution timings. For that 12-of-16 table, what is the empty fraction? Round to 2 decimal places.",
+        "answer": 0.25,
+        "tolerance": 0.005,
+        "explanation": "One minus three quarters. Rounded result: 0.25."
+      },
+      {
+        "type": "choice",
+        "prompt": "What happens to the unsuccessful bound as alpha approaches one?",
+        "options": [
+          "It falls to zero",
+          "It stays exactly one",
+          "It grows without bound"
+        ],
+        "answer": 2,
+        "explanation": "The reciprocal empty fraction diverges."
+      },
+      {
+        "type": "number",
+        "prompt": "Assume ideal uniform hashing with no deletion tombstones and alpha=n/m<1; successful targets are equally likely among stored keys. Report expected upper bounds, not exact execution timings. For ten keys in 20 slots, what unsuccessful upper bound results?",
+        "answer": 2,
+        "tolerance": 1e-8,
+        "explanation": "Alpha is one half."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "hash-unsuccessful",
+    "start": 1.01,
+    "sourceReferences": [
+      {
+        "lecture": 90,
+        "file": "090_22a_Optional_but_please_watch_UnSucessfull_search_time_open.mp4",
+        "start": 1.01,
+        "end": 30.8,
+        "text": "let us now start our analysis of open addressing so first you need to understand that this analysis is going to be with respect to uniform hashing which means I am not assuming any linear probing okay so I am not saying it is analysis with respect to linear probing no I am not saying this no I am not saying it is with respect to chaotic probing okay so I am not saying this I am not saying it is with respect to double hashing or whatever right so I am not saying any of this"
+      },
+      {
+        "lecture": 90,
+        "file": "090_22a_Optional_but_please_watch_UnSucessfull_search_time_open.mp4",
+        "start": 30.97,
+        "end": 59.6,
+        "text": "what i am saying this is with respect to this is with respect to this analysis this analysis is with respect to what this is with respect to uniform hashing so what do i mean by that it means that once you hit once you hit some of the location and if that location is already filled then again you are going to hit to any of the location with equal probability okay so"
+      },
+      {
+        "lecture": 90,
+        "file": "090_22a_Optional_but_please_watch_UnSucessfull_search_time_open.mp4",
+        "start": 59.99,
+        "end": 94.55,
+        "text": "like i'm not saying that you will go to subsequent location neither i'm saying that you will you will follow quality can neither hashing neither double hashing i'm saying this is with respect to uniform hashing only okay so basically it means that any of this m factorial permutation is possible any of the m factorial permutation is possible okay so our analysis is going to be with respect to this which means we are going to use uniform hashing in this case now let's see how much"
+      }
+    ],
+    "foundation": {
+      "title": "Unsuccessful open-address searches",
+      "idea": "Expected unsuccessful open-address search depends on the hashing model and occupancy. With uniform hashing, no deletion tombstones and alpha below one, the expected probe count is bounded by 1/(1-alpha). This upper bound is not an exact measured cost for every linear-probing table.",
+      "terms": [
+        "Alpha: fraction of occupied live slots for this model.",
+        "Unsuccessful search: requested key is absent.",
+        "Expected upper bound: controls a mean under stated assumptions, not every execution."
+      ],
+      "example": "At alpha=0.75 the bound is 1/(1-0.75)=4 probes. A specific table may finish earlier or take more than four on one query."
+    }
+  },
+  {
+    "id": 273,
+    "lecture": 91,
+    "title": "Average insertion histories",
+    "concept": "Successful-search analysis averages the costs incurred at earlier insertion occupancies, under uniform hashing, no deletion tombstones and equally likely stored targets with 0<alpha<1. The standard expected upper bound is ln(1/(1-alpha))/alpha. It must not be presented as exact for a specific probing rule.",
+    "teachingSteps": [
+      "State the ideal hashing and target-likelihood assumptions.",
+      "Average insertion-history probe bounds as occupancy rises.",
+      "Evaluate the natural-log expression and compare it with the unsuccessful bound."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What does the stated probe expression represent?",
+        "options": [
+          "An exact count for every linear-probing query",
+          "A count of all stored keys",
+          "An expected upper bound under the model"
+        ],
+        "answer": 2,
+        "explanation": "The assumptions govern an average bound."
+      },
+      {
+        "type": "match",
+        "prompt": "Match the terms for successful open-address searches.",
+        "pairs": [
+          [
+            "Natural logarithm",
+            "ln rather than base-two log."
+          ],
+          [
+            "Insertion history",
+            "earlier keys entered at lower occupancies."
+          ],
+          [
+            "Target model",
+            "stored keys are equally likely in this bound."
+          ]
+        ],
+        "explanation": "Use the stated definitions to distinguish these roles."
+      },
+      {
+        "type": "number",
+        "prompt": "Assume ideal uniform hashing with no deletion tombstones and alpha=n/m satisfying 0<alpha<1; successful targets are equally likely among stored keys. Report expected upper bounds, not exact execution timings. At alpha=0.5, evaluate ln(1/(1-alpha))/alpha. Round to 2 decimal places.",
+        "answer": 1.39,
+        "tolerance": 0.005,
+        "explanation": "Use natural log of two divided by one half. Rounded result: 1.39."
+      },
+      {
+        "type": "number",
+        "prompt": "Assume ideal uniform hashing with no deletion tombstones and alpha=n/m satisfying 0<alpha<1; successful targets are equally likely among stored keys. Report expected upper bounds, not exact execution timings. At alpha=0.75, evaluate the successful bound. Round to 2 decimal places.",
+        "answer": 1.85,
+        "tolerance": 0.005,
+        "explanation": "Natural log of four divided by three quarters. Rounded result: 1.85."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "hash-successful",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 91,
+        "file": "091_22b_Optional_but_please_watch_Successful_search_time_open_addressing.mp4",
+        "start": 0,
+        "end": 31.36,
+        "text": "So just to summarize for unsuccessful search it will take one upon one minus alpha right where alpha is load factor so if you have if you have n items then average like or the expected number of hits or attempts attempts or maybe search for unsuccessful search"
+      },
+      {
+        "lecture": 91,
+        "file": "091_22b_Optional_but_please_watch_Successful_search_time_open_addressing.mp4",
+        "start": 37,
+        "end": 66.46,
+        "text": "will be 1 upon 1 minus alpha which is 1 upon 1 minus n upon n why because if there are n items in the hash table then it will be n upon n n items in hash table I hope this derivation is also fine because it is very easy now let's go to successful search okay so if you remember that what is successive search then successive search is basically that you hit some slot"
+      },
+      {
+        "lecture": 91,
+        "file": "091_22b_Optional_but_please_watch_Successful_search_time_open_addressing.mp4",
+        "start": 66.87,
+        "end": 89.57,
+        "text": "and you say that okay if it is full then this is matching with the key right so it may not be possible with the first attempt maybe maybe you are going here the next and then you keep on going then how many attempts you are making before declaring that or like till the point that you are declaring that the search is successful right so if you remember from our previous discussion let me just have that slide again"
+      }
+    ],
+    "foundation": {
+      "title": "Successful open-address searches",
+      "idea": "Successful-search analysis averages the costs incurred at earlier insertion occupancies, under uniform hashing, no deletion tombstones and equally likely stored targets with 0<alpha<1. The standard expected upper bound is ln(1/(1-alpha))/alpha. It must not be presented as exact for a specific probing rule.",
+      "terms": [
+        "Natural logarithm: ln rather than base-two log.",
+        "Insertion history: earlier keys entered at lower occupancies.",
+        "Target model: stored keys are equally likely in this bound."
+      ],
+      "example": "At alpha=0.5 the successful bound is ln(2)/0.5, about 1.386 probes; the unsuccessful bound is two."
+    }
+  },
+  {
+    "id": 274,
+    "lecture": 91,
+    "title": "Evaluate the logarithmic bound",
+    "concept": "Successful-search analysis averages the costs incurred at earlier insertion occupancies, under uniform hashing, no deletion tombstones and equally likely stored targets with 0<alpha<1. The standard expected upper bound is ln(1/(1-alpha))/alpha. It must not be presented as exact for a specific probing rule.",
+    "teachingSteps": [
+      "State the ideal hashing and target-likelihood assumptions.",
+      "Average insertion-history probe bounds as occupancy rises.",
+      "Evaluate the natural-log expression and compare it with the unsuccessful bound."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What alpha condition is required here?",
+        "options": [
+          "alpha is always exactly one",
+          "alpha<1",
+          "alpha must exceed one"
+        ],
+        "answer": 1,
+        "explanation": "A spare fraction is required for the open-address bound."
+      },
+      {
+        "type": "number",
+        "prompt": "Assume ideal uniform hashing with no deletion tombstones and alpha=n/m satisfying 0<alpha<1; successful targets are equally likely among stored keys. Report expected upper bounds, not exact execution timings. At alpha=0.9, evaluate the successful bound. Round to 2 decimal places.",
+        "answer": 2.56,
+        "tolerance": 0.005,
+        "explanation": "Natural log of ten divided by nine tenths. Rounded result: 2.56."
+      },
+      {
+        "type": "number",
+        "prompt": "Assume ideal uniform hashing with no deletion tombstones and alpha=n/m satisfying 0<alpha<1; successful targets are equally likely among stored keys. Report expected upper bounds, not exact execution timings. At alpha=0.5, what unsuccessful bound is used for comparison?",
+        "answer": 2,
+        "tolerance": 1e-8,
+        "explanation": "One divided by the empty fraction."
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange this procedure for successful open-address searches.",
+        "items": [
+          "State uniform hashing and equally likely stored targets",
+          "Use the earlier insertion-occupancy bounds",
+          "Average those costs into the natural-log expression",
+          "Evaluate and report an expected upper bound"
+        ],
+        "explanation": "Follow this stated procedure so each later stage has its required input."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "hash-successful",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 91,
+        "file": "091_22b_Optional_but_please_watch_Successful_search_time_open_addressing.mp4",
+        "start": 0,
+        "end": 31.36,
+        "text": "So just to summarize for unsuccessful search it will take one upon one minus alpha right where alpha is load factor so if you have if you have n items then average like or the expected number of hits or attempts attempts or maybe search for unsuccessful search"
+      },
+      {
+        "lecture": 91,
+        "file": "091_22b_Optional_but_please_watch_Successful_search_time_open_addressing.mp4",
+        "start": 37,
+        "end": 66.46,
+        "text": "will be 1 upon 1 minus alpha which is 1 upon 1 minus n upon n why because if there are n items in the hash table then it will be n upon n n items in hash table I hope this derivation is also fine because it is very easy now let's go to successful search okay so if you remember that what is successive search then successive search is basically that you hit some slot"
+      },
+      {
+        "lecture": 91,
+        "file": "091_22b_Optional_but_please_watch_Successful_search_time_open_addressing.mp4",
+        "start": 66.87,
+        "end": 89.57,
+        "text": "and you say that okay if it is full then this is matching with the key right so it may not be possible with the first attempt maybe maybe you are going here the next and then you keep on going then how many attempts you are making before declaring that or like till the point that you are declaring that the search is successful right so if you remember from our previous discussion let me just have that slide again"
+      }
+    ],
+    "foundation": {
+      "title": "Successful open-address searches",
+      "idea": "Successful-search analysis averages the costs incurred at earlier insertion occupancies, under uniform hashing, no deletion tombstones and equally likely stored targets with 0<alpha<1. The standard expected upper bound is ln(1/(1-alpha))/alpha. It must not be presented as exact for a specific probing rule.",
+      "terms": [
+        "Natural logarithm: ln rather than base-two log.",
+        "Insertion history: earlier keys entered at lower occupancies.",
+        "Target model: stored keys are equally likely in this bound."
+      ],
+      "example": "At alpha=0.5 the successful bound is ln(2)/0.5, about 1.386 probes; the unsuccessful bound is two."
+    }
+  },
+  {
+    "id": 275,
+    "lecture": 91,
+    "title": "Keep implementation and ideal model distinct",
+    "concept": "Successful-search analysis averages the costs incurred at earlier insertion occupancies, under uniform hashing, no deletion tombstones and equally likely stored targets with 0<alpha<1. The standard expected upper bound is ln(1/(1-alpha))/alpha. It must not be presented as exact for a specific probing rule.",
+    "teachingSteps": [
+      "State the ideal hashing and target-likelihood assumptions.",
+      "Average insertion-history probe bounds as occupancy rises.",
+      "Evaluate the natural-log expression and compare it with the unsuccessful bound."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Can one actual search take more probes than the expected upper bound?",
+        "options": [
+          "Yes",
+          "No, expectation is a per-query cap",
+          "Only if key values are negative"
+        ],
+        "answer": 0,
+        "explanation": "A mean bound is not a bound on every individual execution."
+      },
+      {
+        "type": "number",
+        "prompt": "Assume ideal uniform hashing with no deletion tombstones and alpha=n/m satisfying 0<alpha<1; successful targets are equally likely among stored keys. Report expected upper bounds, not exact execution timings. For 15 keys in 20 slots, what is alpha? Round to 2 decimal places.",
+        "answer": 0.75,
+        "tolerance": 0.005,
+        "explanation": "Fifteen divided by 20. Rounded result: 0.75."
+      },
+      {
+        "type": "choice",
+        "prompt": "Which logarithm belongs in this successful bound?",
+        "options": [
+          "No logarithm is used",
+          "Natural logarithm",
+          "Always base two"
+        ],
+        "answer": 1,
+        "explanation": "The insertion-history averaging expression uses ln."
+      },
+      {
+        "type": "number",
+        "prompt": "Assume ideal uniform hashing with no deletion tombstones and alpha=n/m satisfying 0<alpha<1; successful targets are equally likely among stored keys. Report expected upper bounds, not exact execution timings. For that 15-of-20 table, evaluate the successful bound. Round to 2 decimal places.",
+        "answer": 1.85,
+        "tolerance": 0.005,
+        "explanation": "Use alpha three quarters in the natural-log expression. Rounded result: 1.85."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "hash-successful",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 91,
+        "file": "091_22b_Optional_but_please_watch_Successful_search_time_open_addressing.mp4",
+        "start": 0,
+        "end": 31.36,
+        "text": "So just to summarize for unsuccessful search it will take one upon one minus alpha right where alpha is load factor so if you have if you have n items then average like or the expected number of hits or attempts attempts or maybe search for unsuccessful search"
+      },
+      {
+        "lecture": 91,
+        "file": "091_22b_Optional_but_please_watch_Successful_search_time_open_addressing.mp4",
+        "start": 37,
+        "end": 66.46,
+        "text": "will be 1 upon 1 minus alpha which is 1 upon 1 minus n upon n why because if there are n items in the hash table then it will be n upon n n items in hash table I hope this derivation is also fine because it is very easy now let's go to successful search okay so if you remember that what is successive search then successive search is basically that you hit some slot"
+      },
+      {
+        "lecture": 91,
+        "file": "091_22b_Optional_but_please_watch_Successful_search_time_open_addressing.mp4",
+        "start": 66.87,
+        "end": 89.57,
+        "text": "and you say that okay if it is full then this is matching with the key right so it may not be possible with the first attempt maybe maybe you are going here the next and then you keep on going then how many attempts you are making before declaring that or like till the point that you are declaring that the search is successful right so if you remember from our previous discussion let me just have that slide again"
+      }
+    ],
+    "foundation": {
+      "title": "Successful open-address searches",
+      "idea": "Successful-search analysis averages the costs incurred at earlier insertion occupancies, under uniform hashing, no deletion tombstones and equally likely stored targets with 0<alpha<1. The standard expected upper bound is ln(1/(1-alpha))/alpha. It must not be presented as exact for a specific probing rule.",
+      "terms": [
+        "Natural logarithm: ln rather than base-two log.",
+        "Insertion history: earlier keys entered at lower occupancies.",
+        "Target model: stored keys are equally likely in this bound."
+      ],
+      "example": "At alpha=0.5 the successful bound is ln(2)/0.5, about 1.386 probes; the unsuccessful bound is two."
+    }
+  },
+  {
+    "id": 276,
+    "lecture": 92,
+    "title": "Represent a yes or no event",
+    "concept": "An indicator variable equals one when an event happens and zero otherwise. Its expectation is the event probability. Adding independent identical indicators gives a binomial count; adding indicator expectations works by linearity even when independence is not supplied.",
+    "teachingSteps": [
+      "Define the event represented by one.",
+      "Use E[X]=p for a Bernoulli indicator.",
+      "For independent trials, use the binomial mass C(n,k)p^k(1-p)^(n-k)."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What values can a Bernoulli indicator take?",
+        "options": [
+          "Only its expectation",
+          "Zero and one",
+          "Every real number"
+        ],
+        "answer": 1,
+        "explanation": "It records whether a defined event happens."
+      },
+      {
+        "type": "match",
+        "prompt": "Match the terms for bernoulli indicators and binomial counts.",
+        "pairs": [
+          [
+            "Bernoulli indicator",
+            "one yes or no trial."
+          ],
+          [
+            "Binomial count",
+            "successes in n independent identical trials."
+          ],
+          [
+            "Linearity",
+            "expectation of a sum is the sum of expectations."
+          ]
+        ],
+        "explanation": "Use the stated definitions to distinguish these roles."
+      },
+      {
+        "type": "number",
+        "prompt": "Use four independent fair trials, each succeeding with probability p=0.5; X counts successes, while I is one trial success indicator. What is E[I]? Round to 2 decimal places.",
+        "answer": 0.5,
+        "tolerance": 0.005,
+        "explanation": "A Bernoulli expectation is its success probability. Rounded result: 0.5.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Trials",
+              "Success probability",
+              "Independence"
+            ],
+            "rows": [
+              [
+                4,
+                0.5,
+                "Yes"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Use four independent fair trials, each succeeding with probability p=0.5; X counts successes, while I is one trial success indicator. What is Var(I)? Round to 2 decimal places.",
+        "answer": 0.25,
+        "tolerance": 0.005,
+        "explanation": "p(1-p)=one quarter. Rounded result: 0.25.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Trials",
+              "Success probability",
+              "Independence"
+            ],
+            "rows": [
+              [
+                4,
+                0.5,
+                "Yes"
+              ]
+            ]
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "bernoulli",
+    "start": 94.32,
+    "sourceReferences": [
+      {
+        "lecture": 92,
+        "file": "092_23_a_Probability_Background_video_from_Probability_course_Bernoulli.mp4",
+        "start": 94.32,
+        "end": 122,
+        "text": "then there are some other topics which are looking like uniform random variable, right? Uniform random variable, exponential, normal, position, binomial distribution and these kind of things. So just see here that this random variable topic has been covered. I hope you have understood that what is a random variable, right? So can you just tell me what is a random variable? Random variable is something which maps an outcome to and even real value, right? So that's what random variable is."
+      },
+      {
+        "lecture": 92,
+        "file": "092_23_a_Probability_Background_video_from_Probability_course_Bernoulli.mp4",
+        "start": 140.15,
+        "end": 167.35,
+        "text": "I mean if you see that probability and aesthetic is a topic name and then probability is a major area which means 95 or maybe 96% of the area is probability. Recently only just at one two years back they have they have added this mean mode median okay these terms here like specifically specifically this mode and median okay mean is just expectation and standard deviation is just a square root of variance that we know. So specifically they have added two terms which is median and mode"
+      },
+      {
+        "lecture": 92,
+        "file": "092_23_a_Probability_Background_video_from_Probability_course_Bernoulli.mp4",
+        "start": 167.8,
+        "end": 196.74,
+        "text": "Actually, I don't remember that if they have asked any question from median and mode till now, from the gateway queue, it means probably they have not asked anything. But we will see this, like how to find the median, what is the median and mode later, okay? But now, what I'm going to cover is basically discrete random variable. And inside the discrete random variable, whatever you can see as an underline, which means the uniform random variable, the position random variable and binomial distribution, these are specifically in the syllabus of discrete random variable."
+      }
+    ],
+    "foundation": {
+      "title": "Bernoulli indicators and binomial counts",
+      "idea": "An indicator variable equals one when an event happens and zero otherwise. Its expectation is the event probability. Adding independent identical indicators gives a binomial count; adding indicator expectations works by linearity even when independence is not supplied.",
+      "terms": [
+        "Bernoulli indicator: one yes or no trial.",
+        "Binomial count: successes in n independent identical trials.",
+        "Linearity: expectation of a sum is the sum of expectations."
+      ],
+      "example": "Four independent fair trials have expected count two, variance one and probability of exactly two successes C(4,2)/16=0.375."
+    }
+  },
+  {
+    "id": 277,
+    "lecture": 92,
+    "title": "Sum independent indicators",
+    "concept": "An indicator variable equals one when an event happens and zero otherwise. Its expectation is the event probability. Adding independent identical indicators gives a binomial count; adding indicator expectations works by linearity even when independence is not supplied.",
+    "teachingSteps": [
+      "Define the event represented by one.",
+      "Use E[X]=p for a Bernoulli indicator.",
+      "For independent trials, use the binomial mass C(n,k)p^k(1-p)^(n-k)."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What extra assumption supports this binomial model?",
+        "options": [
+          "Independent identical trials",
+          "No stated trial probabilities",
+          "Guaranteed exactly one success"
+        ],
+        "answer": 0,
+        "explanation": "The product probability uses independence."
+      },
+      {
+        "type": "number",
+        "prompt": "Use four independent fair trials, each succeeding with probability p=0.5; X counts successes, while I is one trial success indicator. What is E[X]?",
+        "answer": 2,
+        "tolerance": 1e-8,
+        "explanation": "n times p.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Trials",
+              "Success probability",
+              "Independence"
+            ],
+            "rows": [
+              [
+                4,
+                0.5,
+                "Yes"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Use four independent fair trials, each succeeding with probability p=0.5; X counts successes, while I is one trial success indicator. What is Var(X)?",
+        "answer": 1,
+        "tolerance": 1e-8,
+        "explanation": "Independent binomial variance is np(1-p).",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Trials",
+              "Success probability",
+              "Independence"
+            ],
+            "rows": [
+              [
+                4,
+                0.5,
+                "Yes"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange this procedure for bernoulli indicators and binomial counts.",
+        "items": [
+          "Define the indicator event and probability",
+          "State independence for a binomial count",
+          "Count ways to choose the successful trials",
+          "Multiply by the success and failure probabilities"
+        ],
+        "explanation": "Follow this stated procedure so each later stage has its required input."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "bernoulli",
+    "start": 94.32,
+    "sourceReferences": [
+      {
+        "lecture": 92,
+        "file": "092_23_a_Probability_Background_video_from_Probability_course_Bernoulli.mp4",
+        "start": 94.32,
+        "end": 122,
+        "text": "then there are some other topics which are looking like uniform random variable, right? Uniform random variable, exponential, normal, position, binomial distribution and these kind of things. So just see here that this random variable topic has been covered. I hope you have understood that what is a random variable, right? So can you just tell me what is a random variable? Random variable is something which maps an outcome to and even real value, right? So that's what random variable is."
+      },
+      {
+        "lecture": 92,
+        "file": "092_23_a_Probability_Background_video_from_Probability_course_Bernoulli.mp4",
+        "start": 140.15,
+        "end": 167.35,
+        "text": "I mean if you see that probability and aesthetic is a topic name and then probability is a major area which means 95 or maybe 96% of the area is probability. Recently only just at one two years back they have they have added this mean mode median okay these terms here like specifically specifically this mode and median okay mean is just expectation and standard deviation is just a square root of variance that we know. So specifically they have added two terms which is median and mode"
+      },
+      {
+        "lecture": 92,
+        "file": "092_23_a_Probability_Background_video_from_Probability_course_Bernoulli.mp4",
+        "start": 167.8,
+        "end": 196.74,
+        "text": "Actually, I don't remember that if they have asked any question from median and mode till now, from the gateway queue, it means probably they have not asked anything. But we will see this, like how to find the median, what is the median and mode later, okay? But now, what I'm going to cover is basically discrete random variable. And inside the discrete random variable, whatever you can see as an underline, which means the uniform random variable, the position random variable and binomial distribution, these are specifically in the syllabus of discrete random variable."
+      }
+    ],
+    "foundation": {
+      "title": "Bernoulli indicators and binomial counts",
+      "idea": "An indicator variable equals one when an event happens and zero otherwise. Its expectation is the event probability. Adding independent identical indicators gives a binomial count; adding indicator expectations works by linearity even when independence is not supplied.",
+      "terms": [
+        "Bernoulli indicator: one yes or no trial.",
+        "Binomial count: successes in n independent identical trials.",
+        "Linearity: expectation of a sum is the sum of expectations."
+      ],
+      "example": "Four independent fair trials have expected count two, variance one and probability of exactly two successes C(4,2)/16=0.375."
+    }
+  },
+  {
+    "id": 278,
+    "lecture": 92,
+    "title": "Read a probability distribution",
+    "concept": "An indicator variable equals one when an event happens and zero otherwise. Its expectation is the event probability. Adding independent identical indicators gives a binomial count; adding indicator expectations works by linearity even when independence is not supplied.",
+    "teachingSteps": [
+      "Define the event represented by one.",
+      "Use E[X]=p for a Bernoulli indicator.",
+      "For independent trials, use the binomial mass C(n,k)p^k(1-p)^(n-k)."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Does linearity of expectation require independence?",
+        "options": [
+          "Yes for every sum",
+          "Only for positive indicators",
+          "No"
+        ],
+        "answer": 2,
+        "explanation": "Expectation of a sum is the sum of expectations without that requirement."
+      },
+      {
+        "type": "number",
+        "prompt": "Use four independent fair trials, each succeeding with probability p=0.5; X counts successes, while I is one trial success indicator. What is P(X=2)? Round to 2 decimal places.",
+        "answer": 0.38,
+        "tolerance": 0.005,
+        "explanation": "C(4,2) times (one half) to the fourth power. Rounded result: 0.38.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Trials",
+              "Success probability",
+              "Independence"
+            ],
+            "rows": [
+              [
+                4,
+                0.5,
+                "Yes"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "Must an expected success count be an integer in general?",
+        "options": [
+          "No",
+          "Yes, because each realized count is an integer",
+          "Only for fair trials"
+        ],
+        "answer": 0,
+        "explanation": "A weighted average may be fractional."
+      },
+      {
+        "type": "number",
+        "prompt": "Use four independent fair trials, each succeeding with probability p=0.5; X counts successes, while I is one trial success indicator. How many possible success-count values are there?",
+        "answer": 5,
+        "tolerance": 1e-8,
+        "explanation": "X can be zero, one, two, three or four.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Trials",
+              "Success probability",
+              "Independence"
+            ],
+            "rows": [
+              [
+                4,
+                0.5,
+                "Yes"
+              ]
+            ]
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "bernoulli",
+    "start": 94.32,
+    "sourceReferences": [
+      {
+        "lecture": 92,
+        "file": "092_23_a_Probability_Background_video_from_Probability_course_Bernoulli.mp4",
+        "start": 94.32,
+        "end": 122,
+        "text": "then there are some other topics which are looking like uniform random variable, right? Uniform random variable, exponential, normal, position, binomial distribution and these kind of things. So just see here that this random variable topic has been covered. I hope you have understood that what is a random variable, right? So can you just tell me what is a random variable? Random variable is something which maps an outcome to and even real value, right? So that's what random variable is."
+      },
+      {
+        "lecture": 92,
+        "file": "092_23_a_Probability_Background_video_from_Probability_course_Bernoulli.mp4",
+        "start": 140.15,
+        "end": 167.35,
+        "text": "I mean if you see that probability and aesthetic is a topic name and then probability is a major area which means 95 or maybe 96% of the area is probability. Recently only just at one two years back they have they have added this mean mode median okay these terms here like specifically specifically this mode and median okay mean is just expectation and standard deviation is just a square root of variance that we know. So specifically they have added two terms which is median and mode"
+      },
+      {
+        "lecture": 92,
+        "file": "092_23_a_Probability_Background_video_from_Probability_course_Bernoulli.mp4",
+        "start": 167.8,
+        "end": 196.74,
+        "text": "Actually, I don't remember that if they have asked any question from median and mode till now, from the gateway queue, it means probably they have not asked anything. But we will see this, like how to find the median, what is the median and mode later, okay? But now, what I'm going to cover is basically discrete random variable. And inside the discrete random variable, whatever you can see as an underline, which means the uniform random variable, the position random variable and binomial distribution, these are specifically in the syllabus of discrete random variable."
+      }
+    ],
+    "foundation": {
+      "title": "Bernoulli indicators and binomial counts",
+      "idea": "An indicator variable equals one when an event happens and zero otherwise. Its expectation is the event probability. Adding independent identical indicators gives a binomial count; adding indicator expectations works by linearity even when independence is not supplied.",
+      "terms": [
+        "Bernoulli indicator: one yes or no trial.",
+        "Binomial count: successes in n independent identical trials.",
+        "Linearity: expectation of a sum is the sum of expectations."
+      ],
+      "example": "Four independent fair trials have expected count two, variance one and probability of exactly two successes C(4,2)/16=0.375."
+    }
+  },
+  {
+    "id": 279,
+    "lecture": 93,
+    "title": "Count empty-bucket indicators",
+    "concept": "For independent uniform bucket choices, occupancy questions can be expressed using indicators. Each key enters a specified bucket with probability 1/m. Each bucket remains empty with probability (1-1/m)^n. Defining the counted event prevents ambiguous collision formulas.",
+    "teachingSteps": [
+      "Use n/m for expected items in a specified bucket.",
+      "Add empty-bucket indicators to obtain m*(1-1/m)^n.",
+      "Compute occupied buckets, extra colliding items or colliding pairs using their own definitions."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Why is a specified bucket empty with probability (1-1/m)^n?",
+        "options": [
+          "Every independent key must avoid it",
+          "Exactly one key must choose it",
+          "Buckets must all stay empty"
+        ],
+        "answer": 0,
+        "explanation": "Multiply the avoidance probabilities across keys."
+      },
+      {
+        "type": "match",
+        "prompt": "Match the terms for expected bucket occupancy and collisions.",
+        "pairs": [
+          [
+            "Empty indicator",
+            "one if a specified bucket receives no key."
+          ],
+          [
+            "Extra item",
+            "a key beyond the first in an occupied bucket."
+          ],
+          [
+            "Pair collision",
+            "two distinct keys choosing the same bucket."
+          ]
+        ],
+        "explanation": "Use the stated definitions to distinguish these roles."
+      },
+      {
+        "type": "number",
+        "prompt": "Three distinct keys independently choose one of four buckets uniformly. Collision definitions are explicitly stated per question. What is expected items in a specified bucket? Round to 2 decimal places.",
+        "answer": 0.75,
+        "tolerance": 0.005,
+        "explanation": "n/m=three quarters. Rounded result: 0.75.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Keys n",
+              "Buckets m",
+              "Model"
+            ],
+            "rows": [
+              [
+                3,
+                4,
+                "Independent uniform choices"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Three distinct keys independently choose one of four buckets uniformly. Collision definitions are explicitly stated per question. What is expected number of empty buckets? Round to 2 decimal places.",
+        "answer": 1.69,
+        "tolerance": 0.005,
+        "explanation": "Four times (three quarters) cubed. Rounded result: 1.69.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Keys n",
+              "Buckets m",
+              "Model"
+            ],
+            "rows": [
+              [
+                3,
+                4,
+                "Independent uniform choices"
+              ]
+            ]
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "hash-expectation",
+    "start": 1.1,
+    "sourceReferences": [
+      {
+        "lecture": 93,
+        "file": "093. 23b. Three popular expectation questions in hashing.mp4",
+        "start": 1.1,
+        "end": 31.8,
+        "text": "Okay, now let's just move to some hashing questions that we have already solved but but I want to just dissolve them because these are related to binomial and Bernoulli distributions Okay, let's first solve the first question which is expected number of items per slot I want to find out the expected number of items per slot now whenever they are asking some expectation of something Okay, then take that as a random variable x as number of items per slot number of items"
+      },
+      {
+        "lecture": 93,
+        "file": "093. 23b. Three popular expectation questions in hashing.mp4",
+        "start": 33.4,
+        "end": 62.95,
+        "text": "items per slot and they are asking about expected items per slot so it means they are asking about EX the one thing is sure that they are asking about EX ok and where EX is number of items per slot ok so instead of first slot let me just say number of items in slot 1 ok and then we will just say if that is the case for slot 1 that is the case for every slot so just to make you understand I am just saying number of items"
+      },
+      {
+        "lecture": 93,
+        "file": "093. 23b. Three popular expectation questions in hashing.mp4",
+        "start": 63.32,
+        "end": 94.53,
+        "text": "in slot 1 slot 1 and they are asking about expectation of x which means number expected number of items in slot 1 okay and this will happen for slot 2 also so same thing will happen for slot 3 also okay so these are the number of items in slot 1 okay now let's define a random variable since since this is a random variable x which is likely to follow like I will I will show you how but it seems that it likely to follow binomial random variable binomial distribution"
+      }
+    ],
+    "foundation": {
+      "title": "Expected bucket occupancy and collisions",
+      "idea": "For independent uniform bucket choices, occupancy questions can be expressed using indicators. Each key enters a specified bucket with probability 1/m. Each bucket remains empty with probability (1-1/m)^n. Defining the counted event prevents ambiguous collision formulas.",
+      "terms": [
+        "Empty indicator: one if a specified bucket receives no key.",
+        "Extra item: a key beyond the first in an occupied bucket.",
+        "Pair collision: two distinct keys choosing the same bucket."
+      ],
+      "example": "For three independent keys and four buckets: expected empty buckets=1.6875, occupied=2.3125, extra items=0.6875 and colliding pairs=0.75."
+    }
+  },
+  {
+    "id": 280,
+    "lecture": 93,
+    "title": "Convert empty counts to occupied counts",
+    "concept": "For independent uniform bucket choices, occupancy questions can be expressed using indicators. Each key enters a specified bucket with probability 1/m. Each bucket remains empty with probability (1-1/m)^n. Defining the counted event prevents ambiguous collision formulas.",
+    "teachingSteps": [
+      "Use n/m for expected items in a specified bucket.",
+      "Add empty-bucket indicators to obtain m*(1-1/m)^n.",
+      "Compute occupied buckets, extra colliding items or colliding pairs using their own definitions."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "How are expected empty buckets obtained?",
+        "options": [
+          "Multiply by n factorial",
+          "Assume every run has the same count",
+          "Add the m empty-indicator expectations"
+        ],
+        "answer": 2,
+        "explanation": "Linearity sums all bucket indicators."
+      },
+      {
+        "type": "number",
+        "prompt": "Three distinct keys independently choose one of four buckets uniformly. Collision definitions are explicitly stated per question. What is expected number of occupied buckets? Round to 2 decimal places.",
+        "answer": 2.31,
+        "tolerance": 0.005,
+        "explanation": "Four minus expected empty buckets. Rounded result: 2.31.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Keys n",
+              "Buckets m",
+              "Model"
+            ],
+            "rows": [
+              [
+                3,
+                4,
+                "Independent uniform choices"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Three distinct keys independently choose one of four buckets uniformly. Collision definitions are explicitly stated per question. What is expected extra items beyond the first in each occupied bucket? Round to 2 decimal places.",
+        "answer": 0.69,
+        "tolerance": 0.005,
+        "explanation": "Three keys minus expected occupied buckets. Rounded result: 0.69.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Keys n",
+              "Buckets m",
+              "Model"
+            ],
+            "rows": [
+              [
+                3,
+                4,
+                "Independent uniform choices"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange this procedure for expected bucket occupancy and collisions.",
+        "items": [
+          "Define exactly which occupancy quantity is counted",
+          "Write its indicator probability under independent uniform choices",
+          "Add the indicator expectations",
+          "Check whether collision means extra items or unordered pairs"
+        ],
+        "explanation": "Follow this stated procedure so each later stage has its required input."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "hash-expectation",
+    "start": 1.1,
+    "sourceReferences": [
+      {
+        "lecture": 93,
+        "file": "093. 23b. Three popular expectation questions in hashing.mp4",
+        "start": 1.1,
+        "end": 31.8,
+        "text": "Okay, now let's just move to some hashing questions that we have already solved but but I want to just dissolve them because these are related to binomial and Bernoulli distributions Okay, let's first solve the first question which is expected number of items per slot I want to find out the expected number of items per slot now whenever they are asking some expectation of something Okay, then take that as a random variable x as number of items per slot number of items"
+      },
+      {
+        "lecture": 93,
+        "file": "093. 23b. Three popular expectation questions in hashing.mp4",
+        "start": 33.4,
+        "end": 62.95,
+        "text": "items per slot and they are asking about expected items per slot so it means they are asking about EX the one thing is sure that they are asking about EX ok and where EX is number of items per slot ok so instead of first slot let me just say number of items in slot 1 ok and then we will just say if that is the case for slot 1 that is the case for every slot so just to make you understand I am just saying number of items"
+      },
+      {
+        "lecture": 93,
+        "file": "093. 23b. Three popular expectation questions in hashing.mp4",
+        "start": 63.32,
+        "end": 94.53,
+        "text": "in slot 1 slot 1 and they are asking about expectation of x which means number expected number of items in slot 1 okay and this will happen for slot 2 also so same thing will happen for slot 3 also okay so these are the number of items in slot 1 okay now let's define a random variable since since this is a random variable x which is likely to follow like I will I will show you how but it seems that it likely to follow binomial random variable binomial distribution"
+      }
+    ],
+    "foundation": {
+      "title": "Expected bucket occupancy and collisions",
+      "idea": "For independent uniform bucket choices, occupancy questions can be expressed using indicators. Each key enters a specified bucket with probability 1/m. Each bucket remains empty with probability (1-1/m)^n. Defining the counted event prevents ambiguous collision formulas.",
+      "terms": [
+        "Empty indicator: one if a specified bucket receives no key.",
+        "Extra item: a key beyond the first in an occupied bucket.",
+        "Pair collision: two distinct keys choosing the same bucket."
+      ],
+      "example": "For three independent keys and four buckets: expected empty buckets=1.6875, occupied=2.3125, extra items=0.6875 and colliding pairs=0.75."
+    }
+  },
+  {
+    "id": 281,
+    "lecture": 93,
+    "title": "Distinguish extra items from colliding pairs",
+    "concept": "For independent uniform bucket choices, occupancy questions can be expressed using indicators. Each key enters a specified bucket with probability 1/m. Each bucket remains empty with probability (1-1/m)^n. Defining the counted event prevents ambiguous collision formulas.",
+    "teachingSteps": [
+      "Use n/m for expected items in a specified bucket.",
+      "Add empty-bucket indicators to obtain m*(1-1/m)^n.",
+      "Compute occupied buckets, extra colliding items or colliding pairs using their own definitions."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which pair-collision probability applies to two independent uniform keys?",
+        "options": [
+          "Always one",
+          "1/m",
+          "Always zero"
+        ],
+        "answer": 1,
+        "explanation": "Condition on one key bucket; the other matches with probability one over m."
+      },
+      {
+        "type": "number",
+        "prompt": "Three distinct keys independently choose one of four buckets uniformly. Collision definitions are explicitly stated per question. What is expected number of unordered colliding key pairs? Round to 2 decimal places.",
+        "answer": 0.75,
+        "tolerance": 0.005,
+        "explanation": "C(3,2)/4=three quarters. Rounded result: 0.75.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Keys n",
+              "Buckets m",
+              "Model"
+            ],
+            "rows": [
+              [
+                3,
+                4,
+                "Independent uniform choices"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "Are occupied bucket indicators independent in general?",
+        "options": [
+          "Yes because keys are distinct",
+          "Linearity cannot apply",
+          "No, but their expectations can still be added"
+        ],
+        "answer": 2,
+        "explanation": "One bucket occupancy can constrain others, without blocking linearity."
+      },
+      {
+        "type": "number",
+        "prompt": "Three distinct keys independently choose one of four buckets uniformly. Collision definitions are explicitly stated per question. What is the probability a specified bucket remains empty? Round to 2 decimal places.",
+        "answer": 0.42,
+        "tolerance": 0.005,
+        "explanation": "Each independent key avoids it with probability three quarters. Rounded result: 0.42.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Keys n",
+              "Buckets m",
+              "Model"
+            ],
+            "rows": [
+              [
+                3,
+                4,
+                "Independent uniform choices"
+              ]
+            ]
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "hash-expectation",
+    "start": 1.1,
+    "sourceReferences": [
+      {
+        "lecture": 93,
+        "file": "093. 23b. Three popular expectation questions in hashing.mp4",
+        "start": 1.1,
+        "end": 31.8,
+        "text": "Okay, now let's just move to some hashing questions that we have already solved but but I want to just dissolve them because these are related to binomial and Bernoulli distributions Okay, let's first solve the first question which is expected number of items per slot I want to find out the expected number of items per slot now whenever they are asking some expectation of something Okay, then take that as a random variable x as number of items per slot number of items"
+      },
+      {
+        "lecture": 93,
+        "file": "093. 23b. Three popular expectation questions in hashing.mp4",
+        "start": 33.4,
+        "end": 62.95,
+        "text": "items per slot and they are asking about expected items per slot so it means they are asking about EX the one thing is sure that they are asking about EX ok and where EX is number of items per slot ok so instead of first slot let me just say number of items in slot 1 ok and then we will just say if that is the case for slot 1 that is the case for every slot so just to make you understand I am just saying number of items"
+      },
+      {
+        "lecture": 93,
+        "file": "093. 23b. Three popular expectation questions in hashing.mp4",
+        "start": 63.32,
+        "end": 94.53,
+        "text": "in slot 1 slot 1 and they are asking about expectation of x which means number expected number of items in slot 1 okay and this will happen for slot 2 also so same thing will happen for slot 3 also okay so these are the number of items in slot 1 okay now let's define a random variable since since this is a random variable x which is likely to follow like I will I will show you how but it seems that it likely to follow binomial random variable binomial distribution"
+      }
+    ],
+    "foundation": {
+      "title": "Expected bucket occupancy and collisions",
+      "idea": "For independent uniform bucket choices, occupancy questions can be expressed using indicators. Each key enters a specified bucket with probability 1/m. Each bucket remains empty with probability (1-1/m)^n. Defining the counted event prevents ambiguous collision formulas.",
+      "terms": [
+        "Empty indicator: one if a specified bucket receives no key.",
+        "Extra item: a key beyond the first in an occupied bucket.",
+        "Pair collision: two distinct keys choosing the same bucket."
+      ],
+      "example": "For three independent keys and four buckets: expected empty buckets=1.6875, occupied=2.3125, extra items=0.6875 and colliding pairs=0.75."
+    }
+  },
+  {
+    "id": 282,
+    "lecture": 94,
+    "title": "Flatten a two-dimensional grid",
+    "concept": "Memory is a one-dimensional sequence of element slots. Row-major layout varies the final index fastest; column-major varies the first index fastest. An element offset counts slots, while a byte address also needs the element width and base address.",
+    "teachingSteps": [
+      "For zero-based A[R][C], row offset=i*C+j and column offset=j*R+i.",
+      "Check that the selected indices are inside the declared dimensions.",
+      "Multiply the element offset by width and add the byte base."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which index changes fastest in row-major storage?",
+        "options": [
+          "Always the first subscript",
+          "Only the largest-valued subscript",
+          "The last subscript"
+        ],
+        "answer": 2,
+        "explanation": "Dimensions to the right supply the row-major strides."
+      },
+      {
+        "type": "match",
+        "prompt": "Match the terms for row-major and column-major arrays.",
+        "pairs": [
+          [
+            "Stride",
+            "element slots skipped when an index advances once."
+          ],
+          [
+            "Element offset",
+            "distance from base in stored elements."
+          ],
+          [
+            "Byte address",
+            "base plus width times element offset."
+          ]
+        ],
+        "explanation": "Use the stated definitions to distinguish these roles."
+      },
+      {
+        "type": "number",
+        "prompt": "Array dimensions are 3 x 4, all lower bounds are zero, and target indices are 1, 2. Base byte address is 1000 and each element is four bytes. What is its row-major element offset?",
+        "answer": 6,
+        "tolerance": 1e-8,
+        "explanation": "Weight each normalized coordinate by dimensions to its right.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Given dimensions",
+              "Lower bounds",
+              "Target indices",
+              "Base bytes",
+              "Width bytes"
+            ],
+            "rows": [
+              [
+                "3, 4",
+                "0, 0",
+                "1, 2",
+                1000,
+                4
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Array dimensions are 3 x 4, all lower bounds are zero, and target indices are 1, 2. Base byte address is 1000 and each element is four bytes. What is its column-major element offset?",
+        "answer": 7,
+        "tolerance": 1e-8,
+        "explanation": "Weight each normalized coordinate by dimensions to its left.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Given dimensions",
+              "Lower bounds",
+              "Target indices",
+              "Base bytes",
+              "Width bytes"
+            ],
+            "rows": [
+              [
+                "3, 4",
+                "0, 0",
+                "1, 2",
+                1000,
+                4
+              ]
+            ]
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "array-layout",
+    "start": 0.02,
+    "sourceReferences": [
+      {
+        "lecture": 94,
+        "file": "094. 24a. Row major and Column major 2D Arrays.mp4",
+        "start": 0.02,
+        "end": 32.14,
+        "text": "Hi everyone, in this video we are going to discuss row measure and column measure arrangement of arrays. So let's just discuss it. Let's suppose that we have one array and let's suppose this is a 2D array. Because for 1D array everything is same. Now let's suppose this is a at least 2D array and I have few elements there. Maybe my elements are ABC, DEF,"
+      },
+      {
+        "lecture": 94,
+        "file": "094. 24a. Row major and Column major 2D Arrays.mp4",
+        "start": 33.29,
+        "end": 62.12,
+        "text": "G as I and I want to store this 2D array into memory. Now whenever you want to store some 2D array or higher dimensional array into the memory then you need to flatten the array. Why? Because memory is always one dimension. Memory looks like this. So now you have the choice like how to store this array into the memory. There could be various and various arrangements possible which means you may store A first."
+      },
+      {
+        "lecture": 94,
+        "file": "094. 24a. Row major and Column major 2D Arrays.mp4",
+        "start": 62.46,
+        "end": 91.5,
+        "text": "and then you may store e then you may store i or there could be any any other arrangement whichever you like are possible but there are two very very popular arrangements that few of the programming language follows which are row measure and column measure. Row measure arrangement says that you store this array such that you store row first which means you are storing a then b then c and then you are storing d e f and then you are storing g h i."
+      }
+    ],
+    "foundation": {
+      "title": "Row-major and column-major arrays",
+      "idea": "Memory is a one-dimensional sequence of element slots. Row-major layout varies the final index fastest; column-major varies the first index fastest. An element offset counts slots, while a byte address also needs the element width and base address.",
+      "terms": [
+        "Stride: element slots skipped when an index advances once.",
+        "Element offset: distance from base in stored elements.",
+        "Byte address: base plus width times element offset."
+      ],
+      "example": "For A[3][4], A[1][2] has row offset six and column offset seven. Base 1000 and four-byte elements give addresses 1024 and 1028."
+    }
+  },
+  {
+    "id": 283,
+    "lecture": 94,
+    "title": "Identify the fastest varying index",
+    "concept": "Memory is a one-dimensional sequence of element slots. Row-major layout varies the final index fastest; column-major varies the first index fastest. An element offset counts slots, while a byte address also needs the element width and base address.",
+    "teachingSteps": [
+      "For zero-based A[R][C], row offset=i*C+j and column offset=j*R+i.",
+      "Check that the selected indices are inside the declared dimensions.",
+      "Multiply the element offset by width and add the byte base."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which changes fastest in column-major storage?",
+        "options": [
+          "Every subscript simultaneously",
+          "The first subscript",
+          "Always the last subscript"
+        ],
+        "answer": 1,
+        "explanation": "Dimensions to the left supply column-major strides."
+      },
+      {
+        "type": "number",
+        "prompt": "Array dimensions are 3 x 4, all lower bounds are zero, and target indices are 1, 2. Base byte address is 1000 and each element is four bytes. What is its row-major byte address?",
+        "answer": 1024,
+        "tolerance": 1e-8,
+        "explanation": "Base plus four times the element offset.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Given dimensions",
+              "Lower bounds",
+              "Target indices",
+              "Base bytes",
+              "Width bytes"
+            ],
+            "rows": [
+              [
+                "3, 4",
+                "0, 0",
+                "1, 2",
+                1000,
+                4
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Array dimensions are 3 x 4, all lower bounds are zero, and target indices are 1, 2. Base byte address is 1000 and each element is four bytes. What is its column-major byte address?",
+        "answer": 1028,
+        "tolerance": 1e-8,
+        "explanation": "Apply the different storage-order offset before converting units.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Given dimensions",
+              "Lower bounds",
+              "Target indices",
+              "Base bytes",
+              "Width bytes"
+            ],
+            "rows": [
+              [
+                "3, 4",
+                "0, 0",
+                "1, 2",
+                1000,
+                4
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange this procedure for row-major and column-major arrays.",
+        "items": [
+          "Check dimensions and index bounds",
+          "Identify the fastest-varying subscript",
+          "Compute the offset in elements",
+          "Multiply by byte width and add the byte base"
+        ],
+        "explanation": "Follow this stated procedure so each later stage has its required input."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "array-layout",
+    "start": 0.02,
+    "sourceReferences": [
+      {
+        "lecture": 94,
+        "file": "094. 24a. Row major and Column major 2D Arrays.mp4",
+        "start": 0.02,
+        "end": 32.14,
+        "text": "Hi everyone, in this video we are going to discuss row measure and column measure arrangement of arrays. So let's just discuss it. Let's suppose that we have one array and let's suppose this is a 2D array. Because for 1D array everything is same. Now let's suppose this is a at least 2D array and I have few elements there. Maybe my elements are ABC, DEF,"
+      },
+      {
+        "lecture": 94,
+        "file": "094. 24a. Row major and Column major 2D Arrays.mp4",
+        "start": 33.29,
+        "end": 62.12,
+        "text": "G as I and I want to store this 2D array into memory. Now whenever you want to store some 2D array or higher dimensional array into the memory then you need to flatten the array. Why? Because memory is always one dimension. Memory looks like this. So now you have the choice like how to store this array into the memory. There could be various and various arrangements possible which means you may store A first."
+      },
+      {
+        "lecture": 94,
+        "file": "094. 24a. Row major and Column major 2D Arrays.mp4",
+        "start": 62.46,
+        "end": 91.5,
+        "text": "and then you may store e then you may store i or there could be any any other arrangement whichever you like are possible but there are two very very popular arrangements that few of the programming language follows which are row measure and column measure. Row measure arrangement says that you store this array such that you store row first which means you are storing a then b then c and then you are storing d e f and then you are storing g h i."
+      }
+    ],
+    "foundation": {
+      "title": "Row-major and column-major arrays",
+      "idea": "Memory is a one-dimensional sequence of element slots. Row-major layout varies the final index fastest; column-major varies the first index fastest. An element offset counts slots, while a byte address also needs the element width and base address.",
+      "terms": [
+        "Stride: element slots skipped when an index advances once.",
+        "Element offset: distance from base in stored elements.",
+        "Byte address: base plus width times element offset."
+      ],
+      "example": "For A[3][4], A[1][2] has row offset six and column offset seven. Base 1000 and four-byte elements give addresses 1024 and 1028."
+    }
+  },
+  {
+    "id": 284,
+    "lecture": 94,
+    "title": "Convert element offsets to byte addresses",
+    "concept": "Memory is a one-dimensional sequence of element slots. Row-major layout varies the final index fastest; column-major varies the first index fastest. An element offset counts slots, while a byte address also needs the element width and base address.",
+    "teachingSteps": [
+      "For zero-based A[R][C], row offset=i*C+j and column offset=j*R+i.",
+      "Check that the selected indices are inside the declared dimensions.",
+      "Multiply the element offset by width and add the byte base."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What must happen to a nonzero lower bound?",
+        "options": [
+          "Subtract it from that coordinate before applying strides",
+          "Ignore it",
+          "Multiply the base by it"
+        ],
+        "answer": 0,
+        "explanation": "The base element corresponds to all lower bounds."
+      },
+      {
+        "type": "number",
+        "prompt": "Array dimensions are 3 x 4, all lower bounds are zero, and target indices are 1, 2. Base byte address is 1000 and each element is four bytes. How many total element slots are allocated?",
+        "answer": 12,
+        "tolerance": 1e-8,
+        "explanation": "Multiply all dimension sizes.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Given dimensions",
+              "Lower bounds",
+              "Target indices",
+              "Base bytes",
+              "Width bytes"
+            ],
+            "rows": [
+              [
+                "3, 4",
+                "0, 0",
+                "1, 2",
+                1000,
+                4
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "How many times is element width applied when converting an element offset to bytes?",
+        "options": [
+          "Never",
+          "Once",
+          "Once per dimension"
+        ],
+        "answer": 1,
+        "explanation": "Strides here are in elements, so convert units exactly once."
+      },
+      {
+        "type": "number",
+        "prompt": "Array dimensions are 3 x 4, all lower bounds are zero, and target indices are 1, 2. Base byte address is 1000 and each element is four bytes. What is the largest zero-based element offset in the whole allocation?",
+        "answer": 11,
+        "tolerance": 1e-8,
+        "explanation": "The last occupied position is total slots minus one.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Given dimensions",
+              "Lower bounds",
+              "Target indices",
+              "Base bytes",
+              "Width bytes"
+            ],
+            "rows": [
+              [
+                "3, 4",
+                "0, 0",
+                "1, 2",
+                1000,
+                4
+              ]
+            ]
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "array-layout",
+    "start": 0.02,
+    "sourceReferences": [
+      {
+        "lecture": 94,
+        "file": "094. 24a. Row major and Column major 2D Arrays.mp4",
+        "start": 0.02,
+        "end": 32.14,
+        "text": "Hi everyone, in this video we are going to discuss row measure and column measure arrangement of arrays. So let's just discuss it. Let's suppose that we have one array and let's suppose this is a 2D array. Because for 1D array everything is same. Now let's suppose this is a at least 2D array and I have few elements there. Maybe my elements are ABC, DEF,"
+      },
+      {
+        "lecture": 94,
+        "file": "094. 24a. Row major and Column major 2D Arrays.mp4",
+        "start": 33.29,
+        "end": 62.12,
+        "text": "G as I and I want to store this 2D array into memory. Now whenever you want to store some 2D array or higher dimensional array into the memory then you need to flatten the array. Why? Because memory is always one dimension. Memory looks like this. So now you have the choice like how to store this array into the memory. There could be various and various arrangements possible which means you may store A first."
+      },
+      {
+        "lecture": 94,
+        "file": "094. 24a. Row major and Column major 2D Arrays.mp4",
+        "start": 62.46,
+        "end": 91.5,
+        "text": "and then you may store e then you may store i or there could be any any other arrangement whichever you like are possible but there are two very very popular arrangements that few of the programming language follows which are row measure and column measure. Row measure arrangement says that you store this array such that you store row first which means you are storing a then b then c and then you are storing d e f and then you are storing g h i."
+      }
+    ],
+    "foundation": {
+      "title": "Row-major and column-major arrays",
+      "idea": "Memory is a one-dimensional sequence of element slots. Row-major layout varies the final index fastest; column-major varies the first index fastest. An element offset counts slots, while a byte address also needs the element width and base address.",
+      "terms": [
+        "Stride: element slots skipped when an index advances once.",
+        "Element offset: distance from base in stored elements.",
+        "Byte address: base plus width times element offset."
+      ],
+      "example": "For A[3][4], A[1][2] has row offset six and column offset seven. Base 1000 and four-byte elements give addresses 1024 and 1028."
+    }
+  },
+  {
+    "id": 285,
+    "lecture": 95,
+    "title": "Multiply dimensions into strides",
+    "concept": "Multidimensional offsets generalize the same stride rule: in row-major order, an index is weighted by the product of dimensions to its right; column-major uses dimensions to its left. The logical shape remains unchanged while storage order changes.",
+    "teachingSteps": [
+      "Normalize indices and state all dimension sizes.",
+      "Multiply by the appropriate products of faster-varying dimensions.",
+      "Sum element contributions, then apply byte width and base."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which index changes fastest in row-major storage?",
+        "options": [
+          "Only the largest-valued subscript",
+          "The last subscript",
+          "Always the first subscript"
+        ],
+        "answer": 1,
+        "explanation": "Dimensions to the right supply the row-major strides."
+      },
+      {
+        "type": "match",
+        "prompt": "Match the terms for multidimensional array strides.",
+        "pairs": [
+          [
+            "Row stride",
+            "product of dimensions to the right."
+          ],
+          [
+            "Column stride",
+            "product of dimensions to the left."
+          ],
+          [
+            "Normalized coordinate",
+            "an index after subtracting its lower bound."
+          ]
+        ],
+        "explanation": "Use the stated definitions to distinguish these roles."
+      },
+      {
+        "type": "number",
+        "prompt": "Array dimensions are 2 x 3 x 4, all lower bounds are zero, and target indices are 1, 1, 2. Base byte address is 1000 and each element is four bytes. What is its row-major element offset?",
+        "answer": 18,
+        "tolerance": 1e-8,
+        "explanation": "Weight each normalized coordinate by dimensions to its right.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Given dimensions",
+              "Lower bounds",
+              "Target indices",
+              "Base bytes",
+              "Width bytes"
+            ],
+            "rows": [
+              [
+                "2, 3, 4",
+                "0, 0, 0",
+                "1, 1, 2",
+                1000,
+                4
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Array dimensions are 2 x 3 x 4, all lower bounds are zero, and target indices are 1, 1, 2. Base byte address is 1000 and each element is four bytes. What is its column-major element offset?",
+        "answer": 15,
+        "tolerance": 1e-8,
+        "explanation": "Weight each normalized coordinate by dimensions to its left.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Given dimensions",
+              "Lower bounds",
+              "Target indices",
+              "Base bytes",
+              "Width bytes"
+            ],
+            "rows": [
+              [
+                "2, 3, 4",
+                "0, 0, 0",
+                "1, 1, 2",
+                1000,
+                4
+              ]
+            ]
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "array-nd",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 95,
+        "file": "095. 24b. ND Arrays.mp4",
+        "start": 0,
+        "end": 27.02,
+        "text": "In the last video we have talked about row measure and column measure for 2D. So where we said like if you have one 2D array then you can represent this 2D array in two ways one way is row measure another way is column measure and how you can calculate the addresses is like this. So basically if you want to calculate the address for row measure then you can see that for to reach A12 I am skipping one row completely and I am skipping two elements. So basically to reach Aij I am skipping"
+      },
+      {
+        "lecture": 95,
+        "file": "095. 24b. ND Arrays.mp4",
+        "start": 27.39,
+        "end": 53.51,
+        "text": "i rows and j elements. So, that is why this is the offset. Similarly, for column measure in 2D, I am skipping j columns. So, if I want to reach to 1, 2, a, 1, 2, then I am skipping two columns and then I am skipping one element. So, number of elements are i, number of columns are j. So, that is why my offset is this. Now, in this video, we will see for nd, which means what if we beyond, we talk about beyond 2D. So, n dimensional induction."
+      },
+      {
+        "lecture": 95,
+        "file": "095. 24b. ND Arrays.mp4",
+        "start": 53.88,
+        "end": 82.64,
+        "text": "So when we talk about 3D and beyond then then it's best to leave row or column notation in the matrix behind. So basically now we will not say that this is the row this is the column because in 3D and over in 4D like we cannot visualize things right. So that is why we will not talk about the visual notations but we will talk about the mathematical notations. So in the four dimension and above we lose any purely visual intuition to describe multiple dimension in entities anyway. So it's best to stick a consistent mathematical notation instead."
+      }
+    ],
+    "foundation": {
+      "title": "Multidimensional array strides",
+      "idea": "Multidimensional offsets generalize the same stride rule: in row-major order, an index is weighted by the product of dimensions to its right; column-major uses dimensions to its left. The logical shape remains unchanged while storage order changes.",
+      "terms": [
+        "Row stride: product of dimensions to the right.",
+        "Column stride: product of dimensions to the left.",
+        "Normalized coordinate: an index after subtracting its lower bound."
+      ],
+      "example": "For dimensions 2,3,4 at index 1,1,2: row offset=1*12+1*4+2=18; column offset=1+1*2+2*6=15."
+    }
+  },
+  {
+    "id": 286,
+    "lecture": 95,
+    "title": "Compute an offset in either order",
+    "concept": "Multidimensional offsets generalize the same stride rule: in row-major order, an index is weighted by the product of dimensions to its right; column-major uses dimensions to its left. The logical shape remains unchanged while storage order changes.",
+    "teachingSteps": [
+      "Normalize indices and state all dimension sizes.",
+      "Multiply by the appropriate products of faster-varying dimensions.",
+      "Sum element contributions, then apply byte width and base."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which changes fastest in column-major storage?",
+        "options": [
+          "The first subscript",
+          "Always the last subscript",
+          "Every subscript simultaneously"
+        ],
+        "answer": 0,
+        "explanation": "Dimensions to the left supply column-major strides."
+      },
+      {
+        "type": "number",
+        "prompt": "Array dimensions are 2 x 3 x 4, all lower bounds are zero, and target indices are 1, 1, 2. Base byte address is 1000 and each element is four bytes. What is its row-major byte address?",
+        "answer": 1072,
+        "tolerance": 1e-8,
+        "explanation": "Base plus four times the element offset.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Given dimensions",
+              "Lower bounds",
+              "Target indices",
+              "Base bytes",
+              "Width bytes"
+            ],
+            "rows": [
+              [
+                "2, 3, 4",
+                "0, 0, 0",
+                "1, 1, 2",
+                1000,
+                4
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Array dimensions are 2 x 3 x 4, all lower bounds are zero, and target indices are 1, 1, 2. Base byte address is 1000 and each element is four bytes. What is its column-major byte address?",
+        "answer": 1060,
+        "tolerance": 1e-8,
+        "explanation": "Apply the different storage-order offset before converting units.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Given dimensions",
+              "Lower bounds",
+              "Target indices",
+              "Base bytes",
+              "Width bytes"
+            ],
+            "rows": [
+              [
+                "2, 3, 4",
+                "0, 0, 0",
+                "1, 1, 2",
+                1000,
+                4
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange this procedure for multidimensional array strides.",
+        "items": [
+          "State every dimension and coordinate",
+          "Compute the storage-order strides",
+          "Sum coordinate times stride for all axes",
+          "Convert the element offset into a byte address"
+        ],
+        "explanation": "Follow this stated procedure so each later stage has its required input."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "array-nd",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 95,
+        "file": "095. 24b. ND Arrays.mp4",
+        "start": 0,
+        "end": 27.02,
+        "text": "In the last video we have talked about row measure and column measure for 2D. So where we said like if you have one 2D array then you can represent this 2D array in two ways one way is row measure another way is column measure and how you can calculate the addresses is like this. So basically if you want to calculate the address for row measure then you can see that for to reach A12 I am skipping one row completely and I am skipping two elements. So basically to reach Aij I am skipping"
+      },
+      {
+        "lecture": 95,
+        "file": "095. 24b. ND Arrays.mp4",
+        "start": 27.39,
+        "end": 53.51,
+        "text": "i rows and j elements. So, that is why this is the offset. Similarly, for column measure in 2D, I am skipping j columns. So, if I want to reach to 1, 2, a, 1, 2, then I am skipping two columns and then I am skipping one element. So, number of elements are i, number of columns are j. So, that is why my offset is this. Now, in this video, we will see for nd, which means what if we beyond, we talk about beyond 2D. So, n dimensional induction."
+      },
+      {
+        "lecture": 95,
+        "file": "095. 24b. ND Arrays.mp4",
+        "start": 53.88,
+        "end": 82.64,
+        "text": "So when we talk about 3D and beyond then then it's best to leave row or column notation in the matrix behind. So basically now we will not say that this is the row this is the column because in 3D and over in 4D like we cannot visualize things right. So that is why we will not talk about the visual notations but we will talk about the mathematical notations. So in the four dimension and above we lose any purely visual intuition to describe multiple dimension in entities anyway. So it's best to stick a consistent mathematical notation instead."
+      }
+    ],
+    "foundation": {
+      "title": "Multidimensional array strides",
+      "idea": "Multidimensional offsets generalize the same stride rule: in row-major order, an index is weighted by the product of dimensions to its right; column-major uses dimensions to its left. The logical shape remains unchanged while storage order changes.",
+      "terms": [
+        "Row stride: product of dimensions to the right.",
+        "Column stride: product of dimensions to the left.",
+        "Normalized coordinate: an index after subtracting its lower bound."
+      ],
+      "example": "For dimensions 2,3,4 at index 1,1,2: row offset=1*12+1*4+2=18; column offset=1+1*2+2*6=15."
+    }
+  },
+  {
+    "id": 287,
+    "lecture": 95,
+    "title": "Apply element width once",
+    "concept": "Multidimensional offsets generalize the same stride rule: in row-major order, an index is weighted by the product of dimensions to its right; column-major uses dimensions to its left. The logical shape remains unchanged while storage order changes.",
+    "teachingSteps": [
+      "Normalize indices and state all dimension sizes.",
+      "Multiply by the appropriate products of faster-varying dimensions.",
+      "Sum element contributions, then apply byte width and base."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What must happen to a nonzero lower bound?",
+        "options": [
+          "Ignore it",
+          "Multiply the base by it",
+          "Subtract it from that coordinate before applying strides"
+        ],
+        "answer": 2,
+        "explanation": "The base element corresponds to all lower bounds."
+      },
+      {
+        "type": "number",
+        "prompt": "Array dimensions are 2 x 3 x 4, all lower bounds are zero, and target indices are 1, 1, 2. Base byte address is 1000 and each element is four bytes. How many total element slots are allocated?",
+        "answer": 24,
+        "tolerance": 1e-8,
+        "explanation": "Multiply all dimension sizes.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Given dimensions",
+              "Lower bounds",
+              "Target indices",
+              "Base bytes",
+              "Width bytes"
+            ],
+            "rows": [
+              [
+                "2, 3, 4",
+                "0, 0, 0",
+                "1, 1, 2",
+                1000,
+                4
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "How many times is element width applied when converting an element offset to bytes?",
+        "options": [
+          "Once",
+          "Once per dimension",
+          "Never"
+        ],
+        "answer": 0,
+        "explanation": "Strides here are in elements, so convert units exactly once."
+      },
+      {
+        "type": "number",
+        "prompt": "Array dimensions are 2 x 3 x 4, all lower bounds are zero, and target indices are 1, 1, 2. Base byte address is 1000 and each element is four bytes. What is the largest zero-based element offset in the whole allocation?",
+        "answer": 23,
+        "tolerance": 1e-8,
+        "explanation": "The last occupied position is total slots minus one.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Given dimensions",
+              "Lower bounds",
+              "Target indices",
+              "Base bytes",
+              "Width bytes"
+            ],
+            "rows": [
+              [
+                "2, 3, 4",
+                "0, 0, 0",
+                "1, 1, 2",
+                1000,
+                4
+              ]
+            ]
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "array-nd",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 95,
+        "file": "095. 24b. ND Arrays.mp4",
+        "start": 0,
+        "end": 27.02,
+        "text": "In the last video we have talked about row measure and column measure for 2D. So where we said like if you have one 2D array then you can represent this 2D array in two ways one way is row measure another way is column measure and how you can calculate the addresses is like this. So basically if you want to calculate the address for row measure then you can see that for to reach A12 I am skipping one row completely and I am skipping two elements. So basically to reach Aij I am skipping"
+      },
+      {
+        "lecture": 95,
+        "file": "095. 24b. ND Arrays.mp4",
+        "start": 27.39,
+        "end": 53.51,
+        "text": "i rows and j elements. So, that is why this is the offset. Similarly, for column measure in 2D, I am skipping j columns. So, if I want to reach to 1, 2, a, 1, 2, then I am skipping two columns and then I am skipping one element. So, number of elements are i, number of columns are j. So, that is why my offset is this. Now, in this video, we will see for nd, which means what if we beyond, we talk about beyond 2D. So, n dimensional induction."
+      },
+      {
+        "lecture": 95,
+        "file": "095. 24b. ND Arrays.mp4",
+        "start": 53.88,
+        "end": 82.64,
+        "text": "So when we talk about 3D and beyond then then it's best to leave row or column notation in the matrix behind. So basically now we will not say that this is the row this is the column because in 3D and over in 4D like we cannot visualize things right. So that is why we will not talk about the visual notations but we will talk about the mathematical notations. So in the four dimension and above we lose any purely visual intuition to describe multiple dimension in entities anyway. So it's best to stick a consistent mathematical notation instead."
+      }
+    ],
+    "foundation": {
+      "title": "Multidimensional array strides",
+      "idea": "Multidimensional offsets generalize the same stride rule: in row-major order, an index is weighted by the product of dimensions to its right; column-major uses dimensions to its left. The logical shape remains unchanged while storage order changes.",
+      "terms": [
+        "Row stride: product of dimensions to the right.",
+        "Column stride: product of dimensions to the left.",
+        "Normalized coordinate: an index after subtracting its lower bound."
+      ],
+      "example": "For dimensions 2,3,4 at index 1,1,2: row offset=1*12+1*4+2=18; column offset=1+1*2+2*6=15."
+    }
+  },
+  {
+    "id": 288,
+    "lecture": 96,
+    "title": "Normalize every lower bound",
+    "concept": "Array-address questions may specify nonzero or negative lower bounds. The base belongs to the element at all lower bounds. Subtract each lower bound before applying strides; otherwise a correct-looking formula can point outside the intended storage.",
+    "teachingSteps": [
+      "Compute each dimension as upper-lower+1 when inclusive bounds are supplied.",
+      "Subtract lower bounds from the target coordinates.",
+      "Apply the declared row or column order, then convert units exactly once."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which index changes fastest in row-major storage?",
+        "options": [
+          "The last subscript",
+          "Always the first subscript",
+          "Only the largest-valued subscript"
+        ],
+        "answer": 0,
+        "explanation": "Dimensions to the right supply the row-major strides."
+      },
+      {
+        "type": "match",
+        "prompt": "Match the terms for array bounds and address puzzles.",
+        "pairs": [
+          [
+            "Inclusive bounds",
+            "both endpoints are valid indices."
+          ],
+          [
+            "Base element",
+            "the element at all stated lower bounds."
+          ],
+          [
+            "Normalization",
+            "target index minus the corresponding lower bound."
+          ]
+        ],
+        "explanation": "Use the stated definitions to distinguish these roles."
+      },
+      {
+        "type": "number",
+        "prompt": "Array A[-1..1][1..4] has inclusive bounds; target is A[0][3]. Base element A[-1][1] has byte address 1000; each element is four bytes. What is its row-major element offset?",
+        "answer": 6,
+        "tolerance": 1e-8,
+        "explanation": "Weight each normalized coordinate by dimensions to its right.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Given dimensions",
+              "Lower bounds",
+              "Target indices",
+              "Base bytes",
+              "Width bytes"
+            ],
+            "rows": [
+              [
+                "3, 4",
+                "-1, 1",
+                "0, 3",
+                1000,
+                4
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Array A[-1..1][1..4] has inclusive bounds; target is A[0][3]. Base element A[-1][1] has byte address 1000; each element is four bytes. What is its column-major element offset?",
+        "answer": 7,
+        "tolerance": 1e-8,
+        "explanation": "Weight each normalized coordinate by dimensions to its left.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Given dimensions",
+              "Lower bounds",
+              "Target indices",
+              "Base bytes",
+              "Width bytes"
+            ],
+            "rows": [
+              [
+                "3, 4",
+                "-1, 1",
+                "0, 3",
+                1000,
+                4
+              ]
+            ]
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "array-bounds",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 96,
+        "file": "096. 24c. Examples and GATE PYQs 1998, 94.mp4",
+        "start": 0,
+        "end": 30.42,
+        "text": "in this video we are going to see examples of row measure and column measure but before that let me quickly summarize what we have done in row measure and column measure so suppose that you have some array which is a of n1, n2, n3 this dimension and they ask you to find out the offset for a of small n1, small n2 and small n3 then what you will do you will say first what is the layout for the row measure suppose they are asking for the row measure then you will see"
+      },
+      {
+        "lecture": 96,
+        "file": "096. 24c. Examples and GATE PYQs 1998, 94.mp4",
+        "start": 30.73,
+        "end": 60.37,
+        "text": "that you will say that there are n1 arrays of n2 into n3 size so there are n1 arrays of n2 rows and n3 columns so this is n3 this is n2 right and there are n1 rows like that there are n1 arrays like that so this is n2 this is n3 now just take some concrete example let's suppose you are taking a123 which means you are saying that this is a0 and this is a1 which means you are saying you want to go"
+      },
+      {
+        "lecture": 96,
+        "file": "096. 24c. Examples and GATE PYQs 1998, 94.mp4",
+        "start": 60.76,
+        "end": 89.86,
+        "text": "you want to go to this array and to second row and third column which means this is basically A2 and this is third column this is the third column so basically this is A0 like the second index is 0 second index is 1 here second index is 2 now the third index is 0 first second and third so you want to reach here now to reach here you will say that you if it is row measure then you are skipping N2 into N3 completely"
+      }
+    ],
+    "foundation": {
+      "title": "Array bounds and address puzzles",
+      "idea": "Array-address questions may specify nonzero or negative lower bounds. The base belongs to the element at all lower bounds. Subtract each lower bound before applying strides; otherwise a correct-looking formula can point outside the intended storage.",
+      "terms": [
+        "Inclusive bounds: both endpoints are valid indices.",
+        "Base element: the element at all stated lower bounds.",
+        "Normalization: target index minus the corresponding lower bound."
+      ],
+      "example": "A[-1..1][1..4] has dimensions three by four. Target A[0][3] normalizes to 1,2 and has row offset six, or address 1024 for base 1000 and width four."
+    }
+  },
+  {
+    "id": 289,
+    "lecture": 96,
+    "title": "Choose the declared storage order",
+    "concept": "Array-address questions may specify nonzero or negative lower bounds. The base belongs to the element at all lower bounds. Subtract each lower bound before applying strides; otherwise a correct-looking formula can point outside the intended storage.",
+    "teachingSteps": [
+      "Compute each dimension as upper-lower+1 when inclusive bounds are supplied.",
+      "Subtract lower bounds from the target coordinates.",
+      "Apply the declared row or column order, then convert units exactly once."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which changes fastest in column-major storage?",
+        "options": [
+          "Always the last subscript",
+          "Every subscript simultaneously",
+          "The first subscript"
+        ],
+        "answer": 2,
+        "explanation": "Dimensions to the left supply column-major strides."
+      },
+      {
+        "type": "number",
+        "prompt": "Array A[-1..1][1..4] has inclusive bounds; target is A[0][3]. Base element A[-1][1] has byte address 1000; each element is four bytes. What is its row-major byte address?",
+        "answer": 1024,
+        "tolerance": 1e-8,
+        "explanation": "Base plus four times the element offset.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Given dimensions",
+              "Lower bounds",
+              "Target indices",
+              "Base bytes",
+              "Width bytes"
+            ],
+            "rows": [
+              [
+                "3, 4",
+                "-1, 1",
+                "0, 3",
+                1000,
+                4
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Array A[-1..1][1..4] has inclusive bounds; target is A[0][3]. Base element A[-1][1] has byte address 1000; each element is four bytes. What is its column-major byte address?",
+        "answer": 1028,
+        "tolerance": 1e-8,
+        "explanation": "Apply the different storage-order offset before converting units.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Given dimensions",
+              "Lower bounds",
+              "Target indices",
+              "Base bytes",
+              "Width bytes"
+            ],
+            "rows": [
+              [
+                "3, 4",
+                "-1, 1",
+                "0, 3",
+                1000,
+                4
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange this procedure for array bounds and address puzzles.",
+        "items": [
+          "Determine dimension sizes from inclusive bounds",
+          "Normalize the selected indices against lower bounds",
+          "Apply row-major or column-major strides",
+          "Multiply by element width and add base"
+        ],
+        "explanation": "Follow this stated procedure so each later stage has its required input."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "array-bounds",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 96,
+        "file": "096. 24c. Examples and GATE PYQs 1998, 94.mp4",
+        "start": 0,
+        "end": 30.42,
+        "text": "in this video we are going to see examples of row measure and column measure but before that let me quickly summarize what we have done in row measure and column measure so suppose that you have some array which is a of n1, n2, n3 this dimension and they ask you to find out the offset for a of small n1, small n2 and small n3 then what you will do you will say first what is the layout for the row measure suppose they are asking for the row measure then you will see"
+      },
+      {
+        "lecture": 96,
+        "file": "096. 24c. Examples and GATE PYQs 1998, 94.mp4",
+        "start": 30.73,
+        "end": 60.37,
+        "text": "that you will say that there are n1 arrays of n2 into n3 size so there are n1 arrays of n2 rows and n3 columns so this is n3 this is n2 right and there are n1 rows like that there are n1 arrays like that so this is n2 this is n3 now just take some concrete example let's suppose you are taking a123 which means you are saying that this is a0 and this is a1 which means you are saying you want to go"
+      },
+      {
+        "lecture": 96,
+        "file": "096. 24c. Examples and GATE PYQs 1998, 94.mp4",
+        "start": 60.76,
+        "end": 89.86,
+        "text": "you want to go to this array and to second row and third column which means this is basically A2 and this is third column this is the third column so basically this is A0 like the second index is 0 second index is 1 here second index is 2 now the third index is 0 first second and third so you want to reach here now to reach here you will say that you if it is row measure then you are skipping N2 into N3 completely"
+      }
+    ],
+    "foundation": {
+      "title": "Array bounds and address puzzles",
+      "idea": "Array-address questions may specify nonzero or negative lower bounds. The base belongs to the element at all lower bounds. Subtract each lower bound before applying strides; otherwise a correct-looking formula can point outside the intended storage.",
+      "terms": [
+        "Inclusive bounds: both endpoints are valid indices.",
+        "Base element: the element at all stated lower bounds.",
+        "Normalization: target index minus the corresponding lower bound."
+      ],
+      "example": "A[-1..1][1..4] has dimensions three by four. Target A[0][3] normalizes to 1,2 and has row offset six, or address 1024 for base 1000 and width four."
+    }
+  },
+  {
+    "id": 290,
+    "lecture": 96,
+    "title": "Check units and the final address",
+    "concept": "Array-address questions may specify nonzero or negative lower bounds. The base belongs to the element at all lower bounds. Subtract each lower bound before applying strides; otherwise a correct-looking formula can point outside the intended storage.",
+    "teachingSteps": [
+      "Compute each dimension as upper-lower+1 when inclusive bounds are supplied.",
+      "Subtract lower bounds from the target coordinates.",
+      "Apply the declared row or column order, then convert units exactly once."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What must happen to a nonzero lower bound?",
+        "options": [
+          "Multiply the base by it",
+          "Subtract it from that coordinate before applying strides",
+          "Ignore it"
+        ],
+        "answer": 1,
+        "explanation": "The base element corresponds to all lower bounds."
+      },
+      {
+        "type": "number",
+        "prompt": "Array A[-1..1][1..4] has inclusive bounds; target is A[0][3]. Base element A[-1][1] has byte address 1000; each element is four bytes. How many total element slots are allocated?",
+        "answer": 12,
+        "tolerance": 1e-8,
+        "explanation": "Multiply all dimension sizes.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Given dimensions",
+              "Lower bounds",
+              "Target indices",
+              "Base bytes",
+              "Width bytes"
+            ],
+            "rows": [
+              [
+                "3, 4",
+                "-1, 1",
+                "0, 3",
+                1000,
+                4
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "How many times is element width applied when converting an element offset to bytes?",
+        "options": [
+          "Once per dimension",
+          "Never",
+          "Once"
+        ],
+        "answer": 2,
+        "explanation": "Strides here are in elements, so convert units exactly once."
+      },
+      {
+        "type": "number",
+        "prompt": "Array A[-1..1][1..4] has inclusive bounds; target is A[0][3]. Base element A[-1][1] has byte address 1000; each element is four bytes. What is the largest zero-based element offset in the whole allocation?",
+        "answer": 11,
+        "tolerance": 1e-8,
+        "explanation": "The last occupied position is total slots minus one.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Given dimensions",
+              "Lower bounds",
+              "Target indices",
+              "Base bytes",
+              "Width bytes"
+            ],
+            "rows": [
+              [
+                "3, 4",
+                "-1, 1",
+                "0, 3",
+                1000,
+                4
+              ]
+            ]
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "array-bounds",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 96,
+        "file": "096. 24c. Examples and GATE PYQs 1998, 94.mp4",
+        "start": 0,
+        "end": 30.42,
+        "text": "in this video we are going to see examples of row measure and column measure but before that let me quickly summarize what we have done in row measure and column measure so suppose that you have some array which is a of n1, n2, n3 this dimension and they ask you to find out the offset for a of small n1, small n2 and small n3 then what you will do you will say first what is the layout for the row measure suppose they are asking for the row measure then you will see"
+      },
+      {
+        "lecture": 96,
+        "file": "096. 24c. Examples and GATE PYQs 1998, 94.mp4",
+        "start": 30.73,
+        "end": 60.37,
+        "text": "that you will say that there are n1 arrays of n2 into n3 size so there are n1 arrays of n2 rows and n3 columns so this is n3 this is n2 right and there are n1 rows like that there are n1 arrays like that so this is n2 this is n3 now just take some concrete example let's suppose you are taking a123 which means you are saying that this is a0 and this is a1 which means you are saying you want to go"
+      },
+      {
+        "lecture": 96,
+        "file": "096. 24c. Examples and GATE PYQs 1998, 94.mp4",
+        "start": 60.76,
+        "end": 89.86,
+        "text": "you want to go to this array and to second row and third column which means this is basically A2 and this is third column this is the third column so basically this is A0 like the second index is 0 second index is 1 here second index is 2 now the third index is 0 first second and third so you want to reach here now to reach here you will say that you if it is row measure then you are skipping N2 into N3 completely"
+      }
+    ],
+    "foundation": {
+      "title": "Array bounds and address puzzles",
+      "idea": "Array-address questions may specify nonzero or negative lower bounds. The base belongs to the element at all lower bounds. Subtract each lower bound before applying strides; otherwise a correct-looking formula can point outside the intended storage.",
+      "terms": [
+        "Inclusive bounds: both endpoints are valid indices.",
+        "Base element: the element at all stated lower bounds.",
+        "Normalization: target index minus the corresponding lower bound."
+      ],
+      "example": "A[-1..1][1..4] has dimensions three by four. Target A[0][3] normalizes to 1,2 and has row offset six, or address 1024 for base 1000 and width four."
+    }
+  },
+  {
+    "id": 291,
+    "lecture": 97,
+    "title": "Count a burst of enqueues",
+    "concept": "A queue made from two stacks can have a costly individual dequeue and cheap amortized operation sequences. Count only the primitive operations requested by the question and only new work after the stated starting state. Already completed transfers must not be charged again.",
+    "teachingSteps": [
+      "Enqueue by pushing to IN.",
+      "If OUT is empty, transfer each IN item using one pop and one push.",
+      "Serve from OUT and reuse its surviving contents without another transfer."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "When may the lazy implementation transfer IN to OUT?",
+        "options": [
+          "Before every dequeue regardless of older OUT survivors",
+          "After every enqueue automatically",
+          "When OUT is empty and service needs a key"
+        ],
+        "answer": 2,
+        "explanation": "Transferring newer items above older survivors can break FIFO."
+      },
+      {
+        "type": "match",
+        "prompt": "Match the terms for queue implementation cost puzzles.",
+        "pairs": [
+          [
+            "Primitive operation",
+            "one stated stack push or pop."
+          ],
+          [
+            "Amortized accounting",
+            "total work across a complete sequence."
+          ],
+          [
+            "Starting state",
+            "fixes which earlier work has already happened."
+          ]
+        ],
+        "explanation": "Use the stated definitions to distinguish these roles."
+      },
+      {
+        "type": "number",
+        "prompt": "An initially empty lazy two-stack queue receives four enqueues (keys 1,2,3,4), then four dequeues with no new arrivals. Count every stack push or pop as one operation. How many IN pushes do the enqueues perform?",
+        "answer": 4,
+        "tolerance": 1e-8,
+        "explanation": "One per arrival."
+      },
+      {
+        "type": "number",
+        "prompt": "An initially empty lazy two-stack queue receives four enqueues (keys 1,2,3,4), then four dequeues with no new arrivals. Count every stack push or pop as one operation. How many transfer pops and pushes occur before the first dequeue can serve?",
+        "answer": 8,
+        "tolerance": 1e-8,
+        "explanation": "Each of four items costs an IN pop and OUT push."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "queue-costs",
+    "start": 223.53,
+    "sourceReferences": [
+      {
+        "lecture": 97,
+        "file": "097. Recording - Stack and Queue PYQs.mp4",
+        "start": 223.53,
+        "end": 267.56,
+        "text": "So today as you know that we are going to solve stack and queue PYQs, right? Okay. Can you, can everyone turn off their videos? Let me just do it from my end. Just a second. Okay. Let's get started. So we are going to start stack and queue PYQs. Okay. Have you attempted some of the PYQs that I have shared in the group? So maybe like there is, I don't know whether it is ER wise or what."
+      },
+      {
+        "lecture": 97,
+        "file": "097. Recording - Stack and Queue PYQs.mp4",
+        "start": 268.64,
+        "end": 299.14,
+        "text": "Okay. I think this is in the random order. Okay. So let's see some of the PYQs that we have. So generally these PYQs are little turkey. Uh, let's just see. Okay. These are in the random order, but that's okay. So, uh, let's see this first question. They're saying an implementation of a queue using two stacks is given to you. Okay. Let's just read out this implementation that what they're saying. I'm audible, right? If there is any issue, you can let me know. So they're saying that, uh, you want to implement a queue using two stacks. So maybe, uh, let me just"
+      },
+      {
+        "lecture": 97,
+        "file": "097. Recording - Stack and Queue PYQs.mp4",
+        "start": 299.37,
+        "end": 325.87,
+        "text": "do it let's suppose that you want to implement a queue as all of you know that how does this queue look like right so still let me just tell you that if you're talking about a queue then it looks something like this so basically there will be some element that you are going to insert let's suppose you're inserting one two three four five then one will be here two will be here three will be here like that right"
+      }
+    ],
+    "foundation": {
+      "title": "Queue implementation cost puzzles",
+      "idea": "A queue made from two stacks can have a costly individual dequeue and cheap amortized operation sequences. Count only the primitive operations requested by the question and only new work after the stated starting state. Already completed transfers must not be charged again.",
+      "terms": [
+        "Primitive operation: one stated stack push or pop.",
+        "Amortized accounting: total work across a complete sequence.",
+        "Starting state: fixes which earlier work has already happened."
+      ],
+      "example": "Four enqueues followed by four dequeues cost four IN pushes, eight transfer operations and four OUT pops: 16 stack operations total."
+    }
+  },
+  {
+    "id": 292,
+    "lecture": 97,
+    "title": "Charge each transfer once",
+    "concept": "A queue made from two stacks can have a costly individual dequeue and cheap amortized operation sequences. Count only the primitive operations requested by the question and only new work after the stated starting state. Already completed transfers must not be charged again.",
+    "teachingSteps": [
+      "Enqueue by pushing to IN.",
+      "If OUT is empty, transfer each IN item using one pop and one push.",
+      "Serve from OUT and reuse its surviving contents without another transfer."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Does a constant amortized cost make every individual operation constant time?",
+        "options": [
+          "Only if keys are consecutive",
+          "No",
+          "Yes by definition"
+        ],
+        "answer": 1,
+        "explanation": "A costly burst can be spread across a longer sequence."
+      },
+      {
+        "type": "number",
+        "prompt": "An initially empty lazy two-stack queue receives four enqueues (keys 1,2,3,4), then four dequeues with no new arrivals. Count every stack push or pop as one operation. Including its final OUT pop, how many new stack operations does the first dequeue perform?",
+        "answer": 9,
+        "tolerance": 1e-8,
+        "explanation": "Eight transfer operations plus one service."
+      },
+      {
+        "type": "number",
+        "prompt": "An initially empty lazy two-stack queue receives four enqueues (keys 1,2,3,4), then four dequeues with no new arrivals. Count every stack push or pop as one operation. How many new stack operations does the second dequeue perform?",
+        "answer": 1,
+        "tolerance": 1e-8,
+        "explanation": "OUT already contains older survivors."
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange this procedure for queue implementation cost puzzles.",
+        "items": [
+          "Push the batch of arrivals to IN",
+          "On first service transfer IN only because OUT is empty",
+          "Serve by popping OUT until the batch is exhausted",
+          "Sum each new primitive push and pop exactly once"
+        ],
+        "explanation": "Follow this stated procedure so each later stage has its required input."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "queue-costs",
+    "start": 223.53,
+    "sourceReferences": [
+      {
+        "lecture": 97,
+        "file": "097. Recording - Stack and Queue PYQs.mp4",
+        "start": 223.53,
+        "end": 267.56,
+        "text": "So today as you know that we are going to solve stack and queue PYQs, right? Okay. Can you, can everyone turn off their videos? Let me just do it from my end. Just a second. Okay. Let's get started. So we are going to start stack and queue PYQs. Okay. Have you attempted some of the PYQs that I have shared in the group? So maybe like there is, I don't know whether it is ER wise or what."
+      },
+      {
+        "lecture": 97,
+        "file": "097. Recording - Stack and Queue PYQs.mp4",
+        "start": 268.64,
+        "end": 299.14,
+        "text": "Okay. I think this is in the random order. Okay. So let's see some of the PYQs that we have. So generally these PYQs are little turkey. Uh, let's just see. Okay. These are in the random order, but that's okay. So, uh, let's see this first question. They're saying an implementation of a queue using two stacks is given to you. Okay. Let's just read out this implementation that what they're saying. I'm audible, right? If there is any issue, you can let me know. So they're saying that, uh, you want to implement a queue using two stacks. So maybe, uh, let me just"
+      },
+      {
+        "lecture": 97,
+        "file": "097. Recording - Stack and Queue PYQs.mp4",
+        "start": 299.37,
+        "end": 325.87,
+        "text": "do it let's suppose that you want to implement a queue as all of you know that how does this queue look like right so still let me just tell you that if you're talking about a queue then it looks something like this so basically there will be some element that you are going to insert let's suppose you're inserting one two three four five then one will be here two will be here three will be here like that right"
+      }
+    ],
+    "foundation": {
+      "title": "Queue implementation cost puzzles",
+      "idea": "A queue made from two stacks can have a costly individual dequeue and cheap amortized operation sequences. Count only the primitive operations requested by the question and only new work after the stated starting state. Already completed transfers must not be charged again.",
+      "terms": [
+        "Primitive operation: one stated stack push or pop.",
+        "Amortized accounting: total work across a complete sequence.",
+        "Starting state: fixes which earlier work has already happened."
+      ],
+      "example": "Four enqueues followed by four dequeues cost four IN pushes, eight transfer operations and four OUT pops: 16 stack operations total."
+    }
+  },
+  {
+    "id": 293,
+    "lecture": 97,
+    "title": "Explain amortized versus individual work",
+    "concept": "A queue made from two stacks can have a costly individual dequeue and cheap amortized operation sequences. Count only the primitive operations requested by the question and only new work after the stated starting state. Already completed transfers must not be charged again.",
+    "teachingSteps": [
+      "Enqueue by pushing to IN.",
+      "If OUT is empty, transfer each IN item using one pop and one push.",
+      "Serve from OUT and reuse its surviving contents without another transfer."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Should the second dequeue repeat the first transfer cost?",
+        "options": [
+          "No",
+          "Yes, earlier work is charged again",
+          "Only when OUT is nonempty"
+        ],
+        "answer": 0,
+        "explanation": "Count only new operations after the given starting state."
+      },
+      {
+        "type": "number",
+        "prompt": "An initially empty lazy two-stack queue receives four enqueues (keys 1,2,3,4), then four dequeues with no new arrivals. Count every stack push or pop as one operation. What is the complete burst total including enqueues and all dequeues?",
+        "answer": 16,
+        "tolerance": 1e-8,
+        "explanation": "Four IN pushes, eight transfer operations and four OUT pops."
+      },
+      {
+        "type": "choice",
+        "prompt": "How many times does each item transfer IN to OUT in this implementation?",
+        "options": [
+          "An unbounded number automatically",
+          "At most once",
+          "Once per later dequeue"
+        ],
+        "answer": 1,
+        "explanation": "Each arrival moves to OUT only when needed, then is served there."
+      },
+      {
+        "type": "number",
+        "prompt": "An initially empty lazy two-stack queue receives four enqueues (keys 1,2,3,4), then four dequeues with no new arrivals. Count every stack push or pop as one operation. What mean counted cost per queue operation occurs across the eight operations?",
+        "answer": 2,
+        "tolerance": 1e-8,
+        "explanation": "Divide total 16 by eight enqueue/dequeue operations."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "queue-costs",
+    "start": 223.53,
+    "sourceReferences": [
+      {
+        "lecture": 97,
+        "file": "097. Recording - Stack and Queue PYQs.mp4",
+        "start": 223.53,
+        "end": 267.56,
+        "text": "So today as you know that we are going to solve stack and queue PYQs, right? Okay. Can you, can everyone turn off their videos? Let me just do it from my end. Just a second. Okay. Let's get started. So we are going to start stack and queue PYQs. Okay. Have you attempted some of the PYQs that I have shared in the group? So maybe like there is, I don't know whether it is ER wise or what."
+      },
+      {
+        "lecture": 97,
+        "file": "097. Recording - Stack and Queue PYQs.mp4",
+        "start": 268.64,
+        "end": 299.14,
+        "text": "Okay. I think this is in the random order. Okay. So let's see some of the PYQs that we have. So generally these PYQs are little turkey. Uh, let's just see. Okay. These are in the random order, but that's okay. So, uh, let's see this first question. They're saying an implementation of a queue using two stacks is given to you. Okay. Let's just read out this implementation that what they're saying. I'm audible, right? If there is any issue, you can let me know. So they're saying that, uh, you want to implement a queue using two stacks. So maybe, uh, let me just"
+      },
+      {
+        "lecture": 97,
+        "file": "097. Recording - Stack and Queue PYQs.mp4",
+        "start": 299.37,
+        "end": 325.87,
+        "text": "do it let's suppose that you want to implement a queue as all of you know that how does this queue look like right so still let me just tell you that if you're talking about a queue then it looks something like this so basically there will be some element that you are going to insert let's suppose you're inserting one two three four five then one will be here two will be here three will be here like that right"
+      }
+    ],
+    "foundation": {
+      "title": "Queue implementation cost puzzles",
+      "idea": "A queue made from two stacks can have a costly individual dequeue and cheap amortized operation sequences. Count only the primitive operations requested by the question and only new work after the stated starting state. Already completed transfers must not be charged again.",
+      "terms": [
+        "Primitive operation: one stated stack push or pop.",
+        "Amortized accounting: total work across a complete sequence.",
+        "Starting state: fixes which earlier work has already happened."
+      ],
+      "example": "Four enqueues followed by four dequeues cost four IN pushes, eight transfer operations and four OUT pops: 16 stack operations total."
+    }
+  },
+  {
+    "id": 294,
+    "lecture": 98,
+    "title": "Define entry and exit timestamps",
+    "concept": "Residence-time puzzles need precise timing endpoints. Here a key enters when its push completes and leaves when its pop completes. After pushing all keys and then popping all, LIFO makes early arrivals wait longer. A mean also requires the target-selection probabilities.",
+    "teachingSteps": [
+      "Mark completion time of each push as the entry time.",
+      "Find the matching pop completion in reverse arrival order.",
+      "Subtract entry from exit and average only under the declared target model."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which item is popped first after all four pushes?",
+        "options": [
+          "An arbitrary minimum",
+          "Key four",
+          "Key one"
+        ],
+        "answer": 1,
+        "explanation": "A stack is LIFO."
+      },
+      {
+        "type": "match",
+        "prompt": "Match the terms for stack residence-time puzzles.",
+        "pairs": [
+          [
+            "Entry endpoint",
+            "completion of the item push."
+          ],
+          [
+            "Exit endpoint",
+            "completion of its matching pop."
+          ],
+          [
+            "Uniform target mean",
+            "every stored item is equally likely."
+          ]
+        ],
+        "explanation": "Use the stated definitions to distinguish these roles."
+      },
+      {
+        "type": "number",
+        "prompt": "Push keys 1,2,3,4 into an empty stack, then pop all. Each push takes two ticks and each pop three ticks. Residence starts at push completion and ends at its pop completion; targets are equally likely. At what time does key one enter?",
+        "answer": 2,
+        "tolerance": 1e-8,
+        "explanation": "Its first push completes at time two.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Push order",
+              "Push ticks",
+              "Pop ticks",
+              "Lifetime endpoints"
+            ],
+            "rows": [
+              [
+                "1,2,3,4",
+                2,
+                3,
+                "Push completion to pop completion"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Push keys 1,2,3,4 into an empty stack, then pop all. Each push takes two ticks and each pop three ticks. Residence starts at push completion and ends at its pop completion; targets are equally likely. At what time does key four enter?",
+        "answer": 8,
+        "tolerance": 1e-8,
+        "explanation": "Four pushes of two ticks have completed.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Push order",
+              "Push ticks",
+              "Pop ticks",
+              "Lifetime endpoints"
+            ],
+            "rows": [
+              [
+                "1,2,3,4",
+                2,
+                3,
+                "Push completion to pop completion"
+              ]
+            ]
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "stack-lifetime",
+    "start": 31.98,
+    "sourceReferences": [
+      {
+        "lecture": 98,
+        "file": "098. Recording - Stack and Queue PYQs Part 2.mp4",
+        "start": 31.98,
+        "end": 59.63,
+        "text": "this is also you know one of the popular question as it has got a quite nice number of upwards so let's see this question what this question is saying let s be the stack of size and greater than equal to one starting with the empty stack suppose we push the first and natural numbers in the sequence and then the then we perform and pop operations so what they are doing they are starting with the empty stack and then they are pushing one"
+      },
+      {
+        "lecture": 98,
+        "file": "098. Recording - Stack and Queue PYQs Part 2.mp4",
+        "start": 59.96,
+        "end": 92.92,
+        "text": "to i mean first n natural numbers and then they are popping those natural numbers right that's what they are doing okay and then they are saying assume that push and pop operations are taking uh x seconds and by seconds are the elapsed between the end of each of the stack operation okay so which means whenever you are pushing it how much time it is taking it is taking x seconds it is given in the question and before you push the next element how much it is taking"
+      },
+      {
+        "lecture": 98,
+        "file": "098. Recording - Stack and Queue PYQs Part 2.mp4",
+        "start": 94.06,
+        "end": 107.46,
+        "text": "it is taking y as an elapsed time which means that before you push the next element you have to wait for the y and then x is the next amount of time that the next push is taking"
+      }
+    ],
+    "foundation": {
+      "title": "Stack residence-time puzzles",
+      "idea": "Residence-time puzzles need precise timing endpoints. Here a key enters when its push completes and leaves when its pop completes. After pushing all keys and then popping all, LIFO makes early arrivals wait longer. A mean also requires the target-selection probabilities.",
+      "terms": [
+        "Entry endpoint: completion of the item push.",
+        "Exit endpoint: completion of its matching pop.",
+        "Uniform target mean: every stored item is equally likely."
+      ],
+      "example": "Push four keys at two ticks each, then pop each at three ticks: lifetimes are 18,13,8,3 ticks, averaging 10.5."
+    }
+  },
+  {
+    "id": 295,
+    "lecture": 98,
+    "title": "Trace last-in first-out departures",
+    "concept": "Residence-time puzzles need precise timing endpoints. Here a key enters when its push completes and leaves when its pop completes. After pushing all keys and then popping all, LIFO makes early arrivals wait longer. A mean also requires the target-selection probabilities.",
+    "teachingSteps": [
+      "Mark completion time of each push as the entry time.",
+      "Find the matching pop completion in reverse arrival order.",
+      "Subtract entry from exit and average only under the declared target model."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Why state lifetime endpoints?",
+        "options": [
+          "Including or excluding push time changes the measured quantity",
+          "Every definition gives the same number",
+          "Only colors affect timing"
+        ],
+        "answer": 0,
+        "explanation": "Entry at push completion is a particular explicit convention."
+      },
+      {
+        "type": "number",
+        "prompt": "Push keys 1,2,3,4 into an empty stack, then pop all. Each push takes two ticks and each pop three ticks. Residence starts at push completion and ends at its pop completion; targets are equally likely. At what time does key four leave?",
+        "answer": 11,
+        "tolerance": 1e-8,
+        "explanation": "The first pop completes three ticks after time eight.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Push order",
+              "Push ticks",
+              "Pop ticks",
+              "Lifetime endpoints"
+            ],
+            "rows": [
+              [
+                "1,2,3,4",
+                2,
+                3,
+                "Push completion to pop completion"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Push keys 1,2,3,4 into an empty stack, then pop all. Each push takes two ticks and each pop three ticks. Residence starts at push completion and ends at its pop completion; targets are equally likely. What is key one residence time?",
+        "answer": 18,
+        "tolerance": 1e-8,
+        "explanation": "It leaves at time 20 after entering at two.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Push order",
+              "Push ticks",
+              "Pop ticks",
+              "Lifetime endpoints"
+            ],
+            "rows": [
+              [
+                "1,2,3,4",
+                2,
+                3,
+                "Push completion to pop completion"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange this procedure for stack residence-time puzzles.",
+        "items": [
+          "Mark when the selected push completes",
+          "Find its LIFO pop position after the batch",
+          "Compute when that pop completes",
+          "Subtract entry time and average if a target model is given"
+        ],
+        "explanation": "Follow this stated procedure so each later stage has its required input."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "stack-lifetime",
+    "start": 31.98,
+    "sourceReferences": [
+      {
+        "lecture": 98,
+        "file": "098. Recording - Stack and Queue PYQs Part 2.mp4",
+        "start": 31.98,
+        "end": 59.63,
+        "text": "this is also you know one of the popular question as it has got a quite nice number of upwards so let's see this question what this question is saying let s be the stack of size and greater than equal to one starting with the empty stack suppose we push the first and natural numbers in the sequence and then the then we perform and pop operations so what they are doing they are starting with the empty stack and then they are pushing one"
+      },
+      {
+        "lecture": 98,
+        "file": "098. Recording - Stack and Queue PYQs Part 2.mp4",
+        "start": 59.96,
+        "end": 92.92,
+        "text": "to i mean first n natural numbers and then they are popping those natural numbers right that's what they are doing okay and then they are saying assume that push and pop operations are taking uh x seconds and by seconds are the elapsed between the end of each of the stack operation okay so which means whenever you are pushing it how much time it is taking it is taking x seconds it is given in the question and before you push the next element how much it is taking"
+      },
+      {
+        "lecture": 98,
+        "file": "098. Recording - Stack and Queue PYQs Part 2.mp4",
+        "start": 94.06,
+        "end": 107.46,
+        "text": "it is taking y as an elapsed time which means that before you push the next element you have to wait for the y and then x is the next amount of time that the next push is taking"
+      }
+    ],
+    "foundation": {
+      "title": "Stack residence-time puzzles",
+      "idea": "Residence-time puzzles need precise timing endpoints. Here a key enters when its push completes and leaves when its pop completes. After pushing all keys and then popping all, LIFO makes early arrivals wait longer. A mean also requires the target-selection probabilities.",
+      "terms": [
+        "Entry endpoint: completion of the item push.",
+        "Exit endpoint: completion of its matching pop.",
+        "Uniform target mean: every stored item is equally likely."
+      ],
+      "example": "Push four keys at two ticks each, then pop each at three ticks: lifetimes are 18,13,8,3 ticks, averaging 10.5."
+    }
+  },
+  {
+    "id": 296,
+    "lecture": 98,
+    "title": "Average with a stated target distribution",
+    "concept": "Residence-time puzzles need precise timing endpoints. Here a key enters when its push completes and leaves when its pop completes. After pushing all keys and then popping all, LIFO makes early arrivals wait longer. A mean also requires the target-selection probabilities.",
+    "teachingSteps": [
+      "Mark completion time of each push as the entry time.",
+      "Find the matching pop completion in reverse arrival order.",
+      "Subtract entry from exit and average only under the declared target model."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which probability assumption gives the simple mean here?",
+        "options": [
+          "Only the first key can be selected",
+          "No target model is needed",
+          "Each key is equally likely to be selected"
+        ],
+        "answer": 2,
+        "explanation": "Other target probabilities give a weighted mean."
+      },
+      {
+        "type": "number",
+        "prompt": "Push keys 1,2,3,4 into an empty stack, then pop all. Each push takes two ticks and each pop three ticks. Residence starts at push completion and ends at its pop completion; targets are equally likely. What is key four residence time?",
+        "answer": 3,
+        "tolerance": 1e-8,
+        "explanation": "It leaves at 11 after entering at eight.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Push order",
+              "Push ticks",
+              "Pop ticks",
+              "Lifetime endpoints"
+            ],
+            "rows": [
+              [
+                "1,2,3,4",
+                2,
+                3,
+                "Push completion to pop completion"
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "Do early arrivals remain longer in this push-all then pop-all scenario?",
+        "options": [
+          "Yes",
+          "No, every lifetime must match",
+          "Only odd keys do"
+        ],
+        "answer": 0,
+        "explanation": "They wait through later pushes and more pops."
+      },
+      {
+        "type": "number",
+        "prompt": "Push keys 1,2,3,4 into an empty stack, then pop all. Each push takes two ticks and each pop three ticks. Residence starts at push completion and ends at its pop completion; targets are equally likely. What is the mean residence time over the four equally likely keys? Round to 2 decimal places.",
+        "answer": 10.5,
+        "tolerance": 0.005,
+        "explanation": "Average 18,13,8,3. Rounded result: 10.5.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "table",
+            "headers": [
+              "Push order",
+              "Push ticks",
+              "Pop ticks",
+              "Lifetime endpoints"
+            ],
+            "rows": [
+              [
+                "1,2,3,4",
+                2,
+                3,
+                "Push completion to pop completion"
+              ]
+            ]
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "stack-lifetime",
+    "start": 31.98,
+    "sourceReferences": [
+      {
+        "lecture": 98,
+        "file": "098. Recording - Stack and Queue PYQs Part 2.mp4",
+        "start": 31.98,
+        "end": 59.63,
+        "text": "this is also you know one of the popular question as it has got a quite nice number of upwards so let's see this question what this question is saying let s be the stack of size and greater than equal to one starting with the empty stack suppose we push the first and natural numbers in the sequence and then the then we perform and pop operations so what they are doing they are starting with the empty stack and then they are pushing one"
+      },
+      {
+        "lecture": 98,
+        "file": "098. Recording - Stack and Queue PYQs Part 2.mp4",
+        "start": 59.96,
+        "end": 92.92,
+        "text": "to i mean first n natural numbers and then they are popping those natural numbers right that's what they are doing okay and then they are saying assume that push and pop operations are taking uh x seconds and by seconds are the elapsed between the end of each of the stack operation okay so which means whenever you are pushing it how much time it is taking it is taking x seconds it is given in the question and before you push the next element how much it is taking"
+      },
+      {
+        "lecture": 98,
+        "file": "098. Recording - Stack and Queue PYQs Part 2.mp4",
+        "start": 94.06,
+        "end": 107.46,
+        "text": "it is taking y as an elapsed time which means that before you push the next element you have to wait for the y and then x is the next amount of time that the next push is taking"
+      }
+    ],
+    "foundation": {
+      "title": "Stack residence-time puzzles",
+      "idea": "Residence-time puzzles need precise timing endpoints. Here a key enters when its push completes and leaves when its pop completes. After pushing all keys and then popping all, LIFO makes early arrivals wait longer. A mean also requires the target-selection probabilities.",
+      "terms": [
+        "Entry endpoint: completion of the item push.",
+        "Exit endpoint: completion of its matching pop.",
+        "Uniform target mean: every stored item is equally likely."
+      ],
+      "example": "Push four keys at two ticks each, then pop each at three ticks: lifetimes are 18,13,8,3 ticks, averaging 10.5."
+    }
+  },
+  {
+    "id": 297,
+    "lecture": 99,
+    "title": "Keep the root first",
+    "concept": "Different insertion permutations can build the same ordinary distinct-key BST. The root must be first; left and right subsequences must each build their own fixed subtree. Their relative internal orders stay intact while the subsequences may interleave.",
+    "teachingSteps": [
+      "Count nodes in the left and right subtrees.",
+      "Choose which nonroot insertion positions hold the left subsequence.",
+      "Multiply interleavings by the two recursive subtree counts."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Can an arbitrary permutation start with key two and still create root six in an ordinary BST?",
+        "options": [
+          "No",
+          "Yes without rotations",
+          "Only if all keys are positive"
+        ],
+        "answer": 0,
+        "explanation": "The root is fixed by the first insertion."
+      },
+      {
+        "type": "match",
+        "prompt": "Match the terms for bst insertion-order challenges.",
+        "pairs": [
+          [
+            "Fixed tree",
+            "the exact target shape and keys."
+          ],
+          [
+            "Interleaving",
+            "preserve each subsequence internal order."
+          ],
+          [
+            "Root first",
+            "the first insertion fixes the ordinary BST root."
+          ]
+        ],
+        "explanation": "Use the stated definitions to distinguish these roles."
+      },
+      {
+        "type": "number",
+        "prompt": "Build the pictured ordinary BST by inserting distinct keys 2,4,6,8,10: root 6, left chain 4 then 2, right chain 8 then 10. Which key must be inserted first?",
+        "answer": 6,
+        "tolerance": 1e-8,
+        "explanation": "The first inserted key becomes the ordinary BST root.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "tree",
+            "nodes": [
+              {
+                "key": 6,
+                "left": 1,
+                "right": 3
+              },
+              {
+                "key": 4,
+                "left": 2,
+                "right": null
+              },
+              {
+                "key": 2,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 8,
+                "left": null,
+                "right": 4
+              },
+              {
+                "key": 10,
+                "left": null,
+                "right": null
+              }
+            ],
+            "active": []
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Build the pictured ordinary BST by inserting distinct keys 2,4,6,8,10: root 6, left chain 4 then 2, right chain 8 then 10. How many keys belong to its left subtree?",
+        "answer": 2,
+        "tolerance": 1e-8,
+        "explanation": "Four and two.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "tree",
+            "nodes": [
+              {
+                "key": 6,
+                "left": 1,
+                "right": 3
+              },
+              {
+                "key": 4,
+                "left": 2,
+                "right": null
+              },
+              {
+                "key": 2,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 8,
+                "left": null,
+                "right": 4
+              },
+              {
+                "key": 10,
+                "left": null,
+                "right": null
+              }
+            ],
+            "active": []
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "bst-interleavings",
+    "start": 128.55,
+    "sourceReferences": [
+      {
+        "lecture": 99,
+        "file": "099. Recording - DS Test Series Test 4 Discussion.mp4",
+        "start": 128.55,
+        "end": 168.27,
+        "text": "given a BST binary search tree is given to you and they're saying that if you if you're inserting some key which is basically distinct from those who have already inserted just a second so yeah okay so basically they are saying that you are inserting some keys and and the keys that you are that you want to insert are basically the keys that that is apart from the keys that is given here which means"
+      },
+      {
+        "lecture": 99,
+        "file": "099. Recording - DS Test Series Test 4 Discussion.mp4",
+        "start": 582.11,
+        "end": 621.22,
+        "text": "Yes, yes man see that is correct. So it is 4i 3. So that is why a is the correct answer here, right? Okay, so a is the correct answer. I hope you understood this Now let's talk about this question So they're saying that you have full binary tree, right in the full binary tree. Do you remember one nice relation between? between the number of leaves number of leaves and number of internal nodes so see see"
+      },
+      {
+        "lecture": 99,
+        "file": "099. Recording - DS Test Series Test 4 Discussion.mp4",
+        "start": 621.64,
+        "end": 645.9,
+        "text": "What is the number of leaves here to number of internal node is just one. So basically it is plus one number of leaves equal to number of internal nodes plus one, right? This is the case in the full binary tree. I think in the graph theory, you must have seen the proof, but in the data structure also, we talked about it and we have given the entity to prove. Do you remember one entity to prove? I think I've given that if you add two nodes, then actually you are decreasing one leaf and you are increasing."
+      }
+    ],
+    "foundation": {
+      "title": "BST insertion-order challenges",
+      "idea": "Different insertion permutations can build the same ordinary distinct-key BST. The root must be first; left and right subsequences must each build their own fixed subtree. Their relative internal orders stay intact while the subsequences may interleave.",
+      "terms": [
+        "Fixed tree: the exact target shape and keys.",
+        "Interleaving: preserve each subsequence internal order.",
+        "Root first: the first insertion fixes the ordinary BST root."
+      ],
+      "example": "Root six with left chain 4->2 and right chain 8->10 requires six first. Interleave 4,2 with 8,10 in C(4,2)=6 ways."
+    }
+  },
+  {
+    "id": 298,
+    "lecture": 99,
+    "title": "Interleave independent subtree orders",
+    "concept": "Different insertion permutations can build the same ordinary distinct-key BST. The root must be first; left and right subsequences must each build their own fixed subtree. Their relative internal orders stay intact while the subsequences may interleave.",
+    "teachingSteps": [
+      "Count nodes in the left and right subtrees.",
+      "Choose which nonroot insertion positions hold the left subsequence.",
+      "Multiply interleavings by the two recursive subtree counts."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What must interleaving preserve?",
+        "options": [
+          "The global sorted order",
+          "All left keys before all right keys",
+          "The internal order of each subtree subsequence"
+        ],
+        "answer": 2,
+        "explanation": "Independent subtree operations can mix without reordering their own dependencies."
+      },
+      {
+        "type": "number",
+        "prompt": "Build the pictured ordinary BST by inserting distinct keys 2,4,6,8,10: root 6, left chain 4 then 2, right chain 8 then 10. How many belong to its right subtree?",
+        "answer": 2,
+        "tolerance": 1e-8,
+        "explanation": "Eight and ten.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "tree",
+            "nodes": [
+              {
+                "key": 6,
+                "left": 1,
+                "right": 3
+              },
+              {
+                "key": 4,
+                "left": 2,
+                "right": null
+              },
+              {
+                "key": 2,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 8,
+                "left": null,
+                "right": 4
+              },
+              {
+                "key": 10,
+                "left": null,
+                "right": null
+              }
+            ],
+            "active": []
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Build the pictured ordinary BST by inserting distinct keys 2,4,6,8,10: root 6, left chain 4 then 2, right chain 8 then 10. How many interleavings preserve left order 4,2 and right order 8,10?",
+        "answer": 6,
+        "tolerance": 1e-8,
+        "explanation": "Choose two of four positions for the left sequence.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "tree",
+            "nodes": [
+              {
+                "key": 6,
+                "left": 1,
+                "right": 3
+              },
+              {
+                "key": 4,
+                "left": 2,
+                "right": null
+              },
+              {
+                "key": 2,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 8,
+                "left": null,
+                "right": 4
+              },
+              {
+                "key": 10,
+                "left": null,
+                "right": null
+              }
+            ],
+            "active": []
+          }
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange this procedure for bst insertion-order challenges.",
+        "items": [
+          "Insert the target root first",
+          "Count valid orders within each target subtree",
+          "Choose left-sequence positions among remaining slots",
+          "Multiply the interleaving and recursive counts"
+        ],
+        "explanation": "Follow this stated procedure so each later stage has its required input."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "bst-interleavings",
+    "start": 128.55,
+    "sourceReferences": [
+      {
+        "lecture": 99,
+        "file": "099. Recording - DS Test Series Test 4 Discussion.mp4",
+        "start": 128.55,
+        "end": 168.27,
+        "text": "given a BST binary search tree is given to you and they're saying that if you if you're inserting some key which is basically distinct from those who have already inserted just a second so yeah okay so basically they are saying that you are inserting some keys and and the keys that you are that you want to insert are basically the keys that that is apart from the keys that is given here which means"
+      },
+      {
+        "lecture": 99,
+        "file": "099. Recording - DS Test Series Test 4 Discussion.mp4",
+        "start": 582.11,
+        "end": 621.22,
+        "text": "Yes, yes man see that is correct. So it is 4i 3. So that is why a is the correct answer here, right? Okay, so a is the correct answer. I hope you understood this Now let's talk about this question So they're saying that you have full binary tree, right in the full binary tree. Do you remember one nice relation between? between the number of leaves number of leaves and number of internal nodes so see see"
+      },
+      {
+        "lecture": 99,
+        "file": "099. Recording - DS Test Series Test 4 Discussion.mp4",
+        "start": 621.64,
+        "end": 645.9,
+        "text": "What is the number of leaves here to number of internal node is just one. So basically it is plus one number of leaves equal to number of internal nodes plus one, right? This is the case in the full binary tree. I think in the graph theory, you must have seen the proof, but in the data structure also, we talked about it and we have given the entity to prove. Do you remember one entity to prove? I think I've given that if you add two nodes, then actually you are decreasing one leaf and you are increasing."
+      }
+    ],
+    "foundation": {
+      "title": "BST insertion-order challenges",
+      "idea": "Different insertion permutations can build the same ordinary distinct-key BST. The root must be first; left and right subsequences must each build their own fixed subtree. Their relative internal orders stay intact while the subsequences may interleave.",
+      "terms": [
+        "Fixed tree: the exact target shape and keys.",
+        "Interleaving: preserve each subsequence internal order.",
+        "Root first: the first insertion fixes the ordinary BST root."
+      ],
+      "example": "Root six with left chain 4->2 and right chain 8->10 requires six first. Interleave 4,2 with 8,10 in C(4,2)=6 ways."
+    }
+  },
+  {
+    "id": 299,
+    "lecture": 99,
+    "title": "Count permutations for one fixed tree",
+    "concept": "Different insertion permutations can build the same ordinary distinct-key BST. The root must be first; left and right subsequences must each build their own fixed subtree. Their relative internal orders stay intact while the subsequences may interleave.",
+    "teachingSteps": [
+      "Count nodes in the left and right subtrees.",
+      "Choose which nonroot insertion positions hold the left subsequence.",
+      "Multiply interleavings by the two recursive subtree counts."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Does this count equal all arbitrary labeled-tree counts?",
+        "options": [
+          "Only tree color matters",
+          "No",
+          "Yes in every case"
+        ],
+        "answer": 1,
+        "explanation": "It counts permutations producing one fixed BST."
+      },
+      {
+        "type": "number",
+        "prompt": "Build the pictured ordinary BST by inserting distinct keys 2,4,6,8,10: root 6, left chain 4 then 2, right chain 8 then 10. How many insertion permutations produce exactly this target BST?",
+        "answer": 6,
+        "tolerance": 1e-8,
+        "explanation": "Each chain has one valid internal order, so the interleaving count is the full count.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "tree",
+            "nodes": [
+              {
+                "key": 6,
+                "left": 1,
+                "right": 3
+              },
+              {
+                "key": 4,
+                "left": 2,
+                "right": null
+              },
+              {
+                "key": 2,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 8,
+                "left": null,
+                "right": 4
+              },
+              {
+                "key": 10,
+                "left": null,
+                "right": null
+              }
+            ],
+            "active": []
+          }
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "Why multiply recursive subtree counts by the interleaving count?",
+        "options": [
+          "Only the left subtree matters",
+          "The root can be moved to any position",
+          "Any valid pair of subtree orders combines with every permitted interleaving"
+        ],
+        "answer": 2,
+        "explanation": "These independent choices exhaust the valid orders."
+      },
+      {
+        "type": "number",
+        "prompt": "Build the pictured ordinary BST by inserting distinct keys 2,4,6,8,10: root 6, left chain 4 then 2, right chain 8 then 10. Immediately after root six, how many choices for the next key can still produce this tree?",
+        "answer": 2,
+        "tolerance": 1e-8,
+        "explanation": "Choose the next left root four or the next right root eight.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "tree",
+            "nodes": [
+              {
+                "key": 6,
+                "left": 1,
+                "right": 3
+              },
+              {
+                "key": 4,
+                "left": 2,
+                "right": null
+              },
+              {
+                "key": 2,
+                "left": null,
+                "right": null
+              },
+              {
+                "key": 8,
+                "left": null,
+                "right": 4
+              },
+              {
+                "key": 10,
+                "left": null,
+                "right": null
+              }
+            ],
+            "active": []
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "bst-interleavings",
+    "start": 128.55,
+    "sourceReferences": [
+      {
+        "lecture": 99,
+        "file": "099. Recording - DS Test Series Test 4 Discussion.mp4",
+        "start": 128.55,
+        "end": 168.27,
+        "text": "given a BST binary search tree is given to you and they're saying that if you if you're inserting some key which is basically distinct from those who have already inserted just a second so yeah okay so basically they are saying that you are inserting some keys and and the keys that you are that you want to insert are basically the keys that that is apart from the keys that is given here which means"
+      },
+      {
+        "lecture": 99,
+        "file": "099. Recording - DS Test Series Test 4 Discussion.mp4",
+        "start": 582.11,
+        "end": 621.22,
+        "text": "Yes, yes man see that is correct. So it is 4i 3. So that is why a is the correct answer here, right? Okay, so a is the correct answer. I hope you understood this Now let's talk about this question So they're saying that you have full binary tree, right in the full binary tree. Do you remember one nice relation between? between the number of leaves number of leaves and number of internal nodes so see see"
+      },
+      {
+        "lecture": 99,
+        "file": "099. Recording - DS Test Series Test 4 Discussion.mp4",
+        "start": 621.64,
+        "end": 645.9,
+        "text": "What is the number of leaves here to number of internal node is just one. So basically it is plus one number of leaves equal to number of internal nodes plus one, right? This is the case in the full binary tree. I think in the graph theory, you must have seen the proof, but in the data structure also, we talked about it and we have given the entity to prove. Do you remember one entity to prove? I think I've given that if you add two nodes, then actually you are decreasing one leaf and you are increasing."
+      }
+    ],
+    "foundation": {
+      "title": "BST insertion-order challenges",
+      "idea": "Different insertion permutations can build the same ordinary distinct-key BST. The root must be first; left and right subsequences must each build their own fixed subtree. Their relative internal orders stay intact while the subsequences may interleave.",
+      "terms": [
+        "Fixed tree: the exact target shape and keys.",
+        "Interleaving: preserve each subsequence internal order.",
+        "Root first: the first insertion fixes the ordinary BST root."
+      ],
+      "example": "Root six with left chain 4->2 and right chain 8->10 requires six first. Interleave 4,2 with 8,10 in C(4,2)=6 ways."
+    }
+  },
+  {
+    "id": 300,
+    "lecture": 100,
+    "title": "Retain head and tail identities",
+    "concept": "A circular doubly linked list supports insertion before a supplied nonempty head without traversing for its tail: head.prev already identifies it. Update both directions around the new node before publishing its head reference, preserving node identities independently of payloads.",
+    "teachingSteps": [
+      "Retain old head and old tail=head.prev.",
+      "Initialize new.next and new.prev, then reconnect both old neighbors.",
+      "Publish the new head and check next/prev round-trip consistency."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What identifies the original tail without a traversal?",
+        "options": [
+          "Always head.next",
+          "An arbitrary payload comparison",
+          "head.prev"
+        ],
+        "answer": 2,
+        "explanation": "The circular doubly linked invariant retains the tail reference."
+      },
+      {
+        "type": "match",
+        "prompt": "Match the terms for circular doubly linked list review.",
+        "pairs": [
+          [
+            "Head reference",
+            "chosen starting node in the ring."
+          ],
+          [
+            "Tail reference",
+            "head.prev in a valid circular doubly linked ring."
+          ],
+          [
+            "Bidirectional invariant",
+            "next.prev and prev.next return to the same live node."
+          ]
+        ],
+        "explanation": "Use the stated definitions to distinguish these roles."
+      },
+      {
+        "type": "number",
+        "prompt": "Start with nonempty circular doubly linked ring N0(1), N1(2), N2(3), head=N0 and tail=N2. Insert new X(99) immediately before the old head using the supplied head. How many live nodes exist after insertion?",
+        "answer": 4,
+        "tolerance": 1e-8,
+        "explanation": "One new allocation joins the three-node ring.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "pointer-ring",
+            "head": "N0",
+            "active": [],
+            "nodes": [
+              {
+                "id": "N0",
+                "value": 1,
+                "next": "N1",
+                "prev": "N2"
+              },
+              {
+                "id": "N1",
+                "value": 2,
+                "next": "N2",
+                "prev": "N0"
+              },
+              {
+                "id": "N2",
+                "value": 3,
+                "next": "N0",
+                "prev": "N1"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Start with nonempty circular doubly linked ring N0(1), N1(2), N2(3), head=N0 and tail=N2. Insert new X(99) immediately before the old head using the supplied head. How many next and prev fields must be initialized in X?",
+        "answer": 2,
+        "tolerance": 1e-8,
+        "explanation": "X has these two link fields.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "pointer-ring",
+            "head": "N0",
+            "active": [],
+            "nodes": [
+              {
+                "id": "N0",
+                "value": 1,
+                "next": "N1",
+                "prev": "N2"
+              },
+              {
+                "id": "N1",
+                "value": 2,
+                "next": "N2",
+                "prev": "N0"
+              },
+              {
+                "id": "N2",
+                "value": 3,
+                "next": "N0",
+                "prev": "N1"
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "list-splice",
+    "start": 138.86,
+    "sourceReferences": [
+      {
+        "lecture": 100,
+        "file": "100_Recording_DS_Test_Series_Test_1_Discussion_Linked_List.mp4",
+        "start": 138.86,
+        "end": 178.07,
+        "text": "Hi everyone. Hello Satyam. Hi Piyush. Hello Sriraj. Okay. So let's get started. Right. So by the way, have you attempted this test? Okay. Great. So even if you have not attempted that is okay. Like we can start. Okay. Not an issue. So let's see this question. What they're saying is that what is runtime time complexity of inserting a node at the beginning of circular doubly linked, which means"
+      },
+      {
+        "lecture": 100,
+        "file": "100_Recording_DS_Test_Series_Test_1_Discussion_Linked_List.mp4",
+        "start": 178.45,
+        "end": 221.21,
+        "text": "that you have circular I mean circular and also doubly linked list right so let me okay just a second yeah so you have circular and doubly linked list which means how does this linked list look like the linked list will look like something like this let me let me draw the linked list itself so it will look like this since it is doubly linked list but at the same time it is circular also right so which means"
+      },
+      {
+        "lecture": 100,
+        "file": "100_Recording_DS_Test_Series_Test_1_Discussion_Linked_List.mp4",
+        "start": 227.15,
+        "end": 262.88,
+        "text": "So this is going to point here and this something is going to point this also, right? Okay. So I hope you are understanding that what I'm trying to draw. Now, if you want to add any, any number here, let's suppose this is one, this is two, this is three, you want to add, let's suppose five, then what do you need to do? You basically see, you have the pointer to this head, right? You have the pointer to this head and suppose you want to add at the beginning, then how much time you are going to take? Order of one, right? How?"
+      }
+    ],
+    "foundation": {
+      "title": "Circular doubly linked list review",
+      "idea": "A circular doubly linked list supports insertion before a supplied nonempty head without traversing for its tail: head.prev already identifies it. Update both directions around the new node before publishing its head reference, preserving node identities independently of payloads.",
+      "terms": [
+        "Head reference: chosen starting node in the ring.",
+        "Tail reference: head.prev in a valid circular doubly linked ring.",
+        "Bidirectional invariant: next.prev and prev.next return to the same live node."
+      ],
+      "example": "For ring N0(1),N1(2),N2(3), inserting X(99) before N0 links X.next=N0, X.prev=N2, N2.next=X, N0.prev=X, then head=X."
+    }
+  },
+  {
+    "id": 301,
+    "lecture": 100,
+    "title": "Initialize and connect a new node",
+    "concept": "A circular doubly linked list supports insertion before a supplied nonempty head without traversing for its tail: head.prev already identifies it. Update both directions around the new node before publishing its head reference, preserving node identities independently of payloads.",
+    "teachingSteps": [
+      "Retain old head and old tail=head.prev.",
+      "Initialize new.next and new.prev, then reconnect both old neighbors.",
+      "Publish the new head and check next/prev round-trip consistency."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Should the new head be published before neighbors are reconnected?",
+        "options": [
+          "Only if payload is odd",
+          "No",
+          "Yes, before initializing any links"
+        ],
+        "answer": 1,
+        "explanation": "Publish a coherent ring after link initialization."
+      },
+      {
+        "type": "number",
+        "prompt": "Start with nonempty circular doubly linked ring N0(1), N1(2), N2(3), head=N0 and tail=N2. Insert new X(99) immediately before the old head using the supplied head. How many original neighbor link fields are changed?",
+        "answer": 2,
+        "tolerance": 1e-8,
+        "explanation": "N2.next and N0.prev reconnect to X.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "pointer-ring",
+            "head": "N0",
+            "active": [],
+            "nodes": [
+              {
+                "id": "N0",
+                "value": 1,
+                "next": "N1",
+                "prev": "N2"
+              },
+              {
+                "id": "N1",
+                "value": 2,
+                "next": "N2",
+                "prev": "N0"
+              },
+              {
+                "id": "N2",
+                "value": 3,
+                "next": "N0",
+                "prev": "N1"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Start with nonempty circular doubly linked ring N0(1), N1(2), N2(3), head=N0 and tail=N2. Insert new X(99) immediately before the old head using the supplied head. With a valid head supplied, how many prev dereferences reach the old tail?",
+        "answer": 1,
+        "tolerance": 1e-8,
+        "explanation": "head.prev identifies N2 directly.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "pointer-ring",
+            "head": "N0",
+            "active": [],
+            "nodes": [
+              {
+                "id": "N0",
+                "value": 1,
+                "next": "N1",
+                "prev": "N2"
+              },
+              {
+                "id": "N1",
+                "value": 2,
+                "next": "N2",
+                "prev": "N0"
+              },
+              {
+                "id": "N2",
+                "value": 3,
+                "next": "N0",
+                "prev": "N1"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange this procedure for circular doubly linked list review.",
+        "items": [
+          "Retain the original head and its previous tail",
+          "Initialize the new node next and prev fields",
+          "Reconnect both original neighbors to the new node",
+          "Publish the new head and check the ring invariants"
+        ],
+        "explanation": "Follow this stated procedure so each later stage has its required input."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "list-splice",
+    "start": 138.86,
+    "sourceReferences": [
+      {
+        "lecture": 100,
+        "file": "100_Recording_DS_Test_Series_Test_1_Discussion_Linked_List.mp4",
+        "start": 138.86,
+        "end": 178.07,
+        "text": "Hi everyone. Hello Satyam. Hi Piyush. Hello Sriraj. Okay. So let's get started. Right. So by the way, have you attempted this test? Okay. Great. So even if you have not attempted that is okay. Like we can start. Okay. Not an issue. So let's see this question. What they're saying is that what is runtime time complexity of inserting a node at the beginning of circular doubly linked, which means"
+      },
+      {
+        "lecture": 100,
+        "file": "100_Recording_DS_Test_Series_Test_1_Discussion_Linked_List.mp4",
+        "start": 178.45,
+        "end": 221.21,
+        "text": "that you have circular I mean circular and also doubly linked list right so let me okay just a second yeah so you have circular and doubly linked list which means how does this linked list look like the linked list will look like something like this let me let me draw the linked list itself so it will look like this since it is doubly linked list but at the same time it is circular also right so which means"
+      },
+      {
+        "lecture": 100,
+        "file": "100_Recording_DS_Test_Series_Test_1_Discussion_Linked_List.mp4",
+        "start": 227.15,
+        "end": 262.88,
+        "text": "So this is going to point here and this something is going to point this also, right? Okay. So I hope you are understanding that what I'm trying to draw. Now, if you want to add any, any number here, let's suppose this is one, this is two, this is three, you want to add, let's suppose five, then what do you need to do? You basically see, you have the pointer to this head, right? You have the pointer to this head and suppose you want to add at the beginning, then how much time you are going to take? Order of one, right? How?"
+      }
+    ],
+    "foundation": {
+      "title": "Circular doubly linked list review",
+      "idea": "A circular doubly linked list supports insertion before a supplied nonempty head without traversing for its tail: head.prev already identifies it. Update both directions around the new node before publishing its head reference, preserving node identities independently of payloads.",
+      "terms": [
+        "Head reference: chosen starting node in the ring.",
+        "Tail reference: head.prev in a valid circular doubly linked ring.",
+        "Bidirectional invariant: next.prev and prev.next return to the same live node."
+      ],
+      "example": "For ring N0(1),N1(2),N2(3), inserting X(99) before N0 links X.next=N0, X.prev=N2, N2.next=X, N0.prev=X, then head=X."
+    }
+  },
+  {
+    "id": 302,
+    "lecture": 100,
+    "title": "Publish the updated head safely",
+    "concept": "A circular doubly linked list supports insertion before a supplied nonempty head without traversing for its tail: head.prev already identifies it. Update both directions around the new node before publishing its head reference, preserving node identities independently of payloads.",
+    "teachingSteps": [
+      "Retain old head and old tail=head.prev.",
+      "Initialize new.next and new.prev, then reconnect both old neighbors.",
+      "Publish the new head and check next/prev round-trip consistency."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Does changing a stored payload alone change node identity?",
+        "options": [
+          "No",
+          "Yes, it allocates a new node",
+          "Only if the payload is negative"
+        ],
+        "answer": 0,
+        "explanation": "References point to allocations independently of values."
+      },
+      {
+        "type": "number",
+        "prompt": "Start with nonempty circular doubly linked ring N0(1), N1(2), N2(3), head=N0 and tail=N2. Insert new X(99) immediately before the old head using the supplied head. After publishing head=X, what stored payload is at the head?",
+        "answer": 99,
+        "tolerance": 1e-8,
+        "explanation": "Head now references the new node.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "pointer-ring",
+            "head": "N0",
+            "active": [],
+            "nodes": [
+              {
+                "id": "N0",
+                "value": 1,
+                "next": "N1",
+                "prev": "N2"
+              },
+              {
+                "id": "N1",
+                "value": 2,
+                "next": "N2",
+                "prev": "N0"
+              },
+              {
+                "id": "N2",
+                "value": 3,
+                "next": "N0",
+                "prev": "N1"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "What is insertion-before-head pointer work for this supplied nonempty ring?",
+        "options": [
+          "Theta(n squared)",
+          "Theta(1)",
+          "Theta(n) traversal is always required"
+        ],
+        "answer": 1,
+        "explanation": "The required endpoints are available directly."
+      },
+      {
+        "type": "number",
+        "prompt": "Start with nonempty circular doubly linked ring N0(1), N1(2), N2(3), head=N0 and tail=N2. Insert new X(99) immediately before the old head using the supplied head. How many directed next and prev links does the finished four-node ring contain?",
+        "answer": 8,
+        "tolerance": 1e-8,
+        "explanation": "Two link fields per live node.",
+        "dsVisual": {
+          "kind": "final-state",
+          "art": {
+            "type": "pointer-ring",
+            "head": "N0",
+            "active": [],
+            "nodes": [
+              {
+                "id": "N0",
+                "value": 1,
+                "next": "N1",
+                "prev": "N2"
+              },
+              {
+                "id": "N1",
+                "value": 2,
+                "next": "N2",
+                "prev": "N0"
+              },
+              {
+                "id": "N2",
+                "value": 3,
+                "next": "N0",
+                "prev": "N1"
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "list-splice",
+    "start": 138.86,
+    "sourceReferences": [
+      {
+        "lecture": 100,
+        "file": "100_Recording_DS_Test_Series_Test_1_Discussion_Linked_List.mp4",
+        "start": 138.86,
+        "end": 178.07,
+        "text": "Hi everyone. Hello Satyam. Hi Piyush. Hello Sriraj. Okay. So let's get started. Right. So by the way, have you attempted this test? Okay. Great. So even if you have not attempted that is okay. Like we can start. Okay. Not an issue. So let's see this question. What they're saying is that what is runtime time complexity of inserting a node at the beginning of circular doubly linked, which means"
+      },
+      {
+        "lecture": 100,
+        "file": "100_Recording_DS_Test_Series_Test_1_Discussion_Linked_List.mp4",
+        "start": 178.45,
+        "end": 221.21,
+        "text": "that you have circular I mean circular and also doubly linked list right so let me okay just a second yeah so you have circular and doubly linked list which means how does this linked list look like the linked list will look like something like this let me let me draw the linked list itself so it will look like this since it is doubly linked list but at the same time it is circular also right so which means"
+      },
+      {
+        "lecture": 100,
+        "file": "100_Recording_DS_Test_Series_Test_1_Discussion_Linked_List.mp4",
+        "start": 227.15,
+        "end": 262.88,
+        "text": "So this is going to point here and this something is going to point this also, right? Okay. So I hope you are understanding that what I'm trying to draw. Now, if you want to add any, any number here, let's suppose this is one, this is two, this is three, you want to add, let's suppose five, then what do you need to do? You basically see, you have the pointer to this head, right? You have the pointer to this head and suppose you want to add at the beginning, then how much time you are going to take? Order of one, right? How?"
+      }
+    ],
+    "foundation": {
+      "title": "Circular doubly linked list review",
+      "idea": "A circular doubly linked list supports insertion before a supplied nonempty head without traversing for its tail: head.prev already identifies it. Update both directions around the new node before publishing its head reference, preserving node identities independently of payloads.",
+      "terms": [
+        "Head reference: chosen starting node in the ring.",
+        "Tail reference: head.prev in a valid circular doubly linked ring.",
+        "Bidirectional invariant: next.prev and prev.next return to the same live node."
+      ],
+      "example": "For ring N0(1),N1(2),N2(3), inserting X(99) before N0 links X.next=N0, X.prev=N2, N2.next=X, N0.prev=X, then head=X."
+    }
   }
 ];

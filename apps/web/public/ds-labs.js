@@ -1,8 +1,26 @@
 import {dsModel} from '/shared/ds-models.js';
 import {escapeHtml as h} from '/shared/engine.js';
 import {advancedDSKinds} from '/shared/ds-advanced.js';
+import {finalDSKinds,arrayOffset} from '/shared/ds-final.js';
 const value=v=>typeof v==='number'?Number(v.toFixed(4)):v;
 export function dsArt(art,interactive=false){
+ if(art.type==='hash-table')return `<div class="ds-array ds-hash-table">${art.cells.map((key,i)=>`<div class="ds-node ${art.active.includes(i)?'ds-active':''} ${key==='DELETED'?'ds-tombstone':''}"><small>slot ${i}</small><strong>${h(key===null?'FREE':key==='DELETED'?'DEL':key)}</strong><span>${key===null?'never used':key==='DELETED'?'keep probing':'live key'}</span></div>`).join('')}</div>`;
+ if(art.type==='hash-buckets')return `<div class="ds-bucket-grid">${art.buckets.map((keys,i)=>`<section class="ds-bucket ${art.active===i?'ds-active':''}" aria-label="Bucket ${i}"><h5>BUCKET ${i}</h5><div>${keys.map(key=>`<span class="ds-bucket-key">${h(key)}</span>`).join('')||'<small>empty</small>'}</div></section>`).join('')}</div><small>Each bucket retains full keys in the shown chain order.</small>`;
+ if(art.type==='heap-sort')return `${art.size?dsArt({type:'tree',nodes:art.values.slice(0,art.size).map((key,i)=>({key,left:2*i+1<art.size?2*i+1:null,right:2*i+2<art.size?2*i+2:null})),active:[],indexed:true}):'<p class="ds-state-label">No active heap remains.</p>'}<p class="ds-state-label">Active heap: ${art.size} entries · final suffix: ${art.values.length-art.size}</p><div class="ds-array">${art.values.map((key,i)=>`<div class="ds-node ${i>=art.size?'ds-sorted':''}"><small>index ${i}</small><strong>${h(key)}</strong><span>${i>=art.size?'FINAL':'active'}</span></div>`).join('')}</div>`;
+ if(art.type==='distribution'){
+  const width=Math.max(280,art.values.length*52),X=i=>35+i*(width-45)/art.values.length,barWidth=(width-45)/art.values.length-8;
+  return `<div class="ds-chart-wrap"><svg class="ds-probability" viewBox="0 0 ${width} 205" style="min-width:${width}px" role="img" aria-label="Probability distribution"><title>Probability for each labeled outcome</title>${[0,.5,1].map(p=>`<path class="ds-gridline" d="M30 ${160-p*120}H${width}"/><text x="24" y="${164-p*120}" text-anchor="end">${p}</text>`).join('')}${art.values.map((p,i)=>`<g><rect x="${X(i)}" y="${160-p*120}" width="${barWidth}" height="${p*120}"/><text x="${X(i)+barWidth/2}" y="${150-p*120}" text-anchor="middle">${h(p>0&&p<.001?'<0.001':Number(p.toFixed(3)))}</text><text x="${X(i)+barWidth/2}" y="181" text-anchor="middle">${h(art.labels[i])}</text></g>`).join('')}</svg></div><small>Bar height is probability, on a fixed zero-to-one scale. Swipe wider charts sideways.</small>`;
+ }
+ if(art.type==='array-layout'){
+  const coordinates=[];function enumerate(prefix){if(prefix.length===art.dimensions.length){coordinates.push(prefix);return;}const axis=prefix.length;for(let i=0;i<art.dimensions[axis];i++)enumerate([...prefix,i+art.lower[axis]]);}enumerate([]);
+  const selected=coords=>coords.every((v,i)=>v===art.indices[i]),ordered=coordinates.slice().sort((a,b)=>arrayOffset(art.dimensions,a,art.order,art.lower)-arrayOffset(art.dimensions,b,art.order,art.lower));
+  return `<p class="ds-state-label">${h(art.dimensions.join(' × '))} logical shape · selected [${h(art.indices.join(', '))}]</p><div class="ds-coordinate-grid" style="--ds-columns:${art.dimensions.at(-1)}">${coordinates.map(coords=>`<div class="${selected(coords)?'ds-active':''}"><strong>[${h(coords.join(','))}]</strong><small>offset ${arrayOffset(art.dimensions,coords,art.order,art.lower)}</small></div>`).join('')}</div><p class="ds-state-label">${h(art.order)}-major memory order</p><div class="ds-memory-order">${ordered.map((coords,i)=>`<span class="${selected(coords)?'ds-active':''}"><small>offset ${i}</small>[${h(coords.join(','))}]</span>`).join('')}</div><small>The selected element is highlighted. Swipe the coordinate grid and memory strip sideways when needed.</small>`;
+ }
+ if(art.type==='residency'){
+  const width=320,height=55+art.rows.length*45,X=t=>65+t/art.total*240;
+  return `<div class="ds-chart-wrap"><svg class="ds-residency" viewBox="0 0 ${width} ${height}" style="min-width:${width}px" role="img" aria-label="Stack item residence after push completion"><title>Residence intervals from push completion to pop completion</title>${[0,art.total/2,art.total].map(t=>`<text x="${X(t)}" y="18" text-anchor="middle">t=${h(t)}</text>`).join('')}${art.rows.map((row,i)=>`<g><text x="8" y="${47+i*45}">key ${h(row.key)}</text><rect x="${X(row.start)}" y="${32+i*45}" width="${X(row.end)-X(row.start)}" height="20" rx="6"/><text x="${X(row.start)}" y="${67+i*45}">${h(row.lifetime)} ticks</text></g>`).join('')}</svg></div><small>Intervals exclude the item's own push and include its own pop. Swipe sideways for the full timeline.</small>`;
+ }
+ if(art.type==='pointer-ring')return `<p class="ds-state-label">Head = ${h(art.head)}</p><div class="ds-pointer-cards">${art.nodes.map(node=>`<div class="ds-node ${art.active.includes(node.id)?'ds-active':''}"><small>node ${h(node.id)}</small><strong>${h(node.value)}</strong><span>next → ${h(node.next)}</span><span>prev → ${h(node.prev)}</span></div>`).join('')}</div><small>Read link identities separately from stored values. The intermediate steps show wiring still in progress.</small>`;
  if(art.type==='tree'){
   const positions=new Map(),nodes=art.nodes;let rank=0,maxDepth=0;
   function place(i,depth){if(i===null||!nodes[i])return;place(nodes[i].left,depth+1);positions.set(i,{rank:rank++,depth});maxDepth=Math.max(maxDepth,depth);place(nodes[i].right,depth+1);}place(nodes.length?0:null,0);
@@ -30,7 +48,8 @@ export function dsArt(art,interactive=false){
 export function dsIllustration(lesson){const model=dsModel(lesson.dsLab),step=model.steps[0];return {art:dsArt(step.art),text:['growth','bounds','theta','ratio'].includes(lesson.dsLab)?'Samples on linear axes illustrate the comparison. Use the formulas and their ratios to justify eventual growth; a finite plot alone is not a proof.':step.caption};}
 export function dsPuzzleIllustration(q){
  const v=q.dsVisual;if(!v)return '';let special;
- if(v.kind==='tree')special={type:'tree',nodes:v.nodes,active:[]};
+ if(v.kind==='final-state')special=v.art;
+ else if(v.kind==='tree')special={type:'tree',nodes:v.nodes,active:[]};
  else if(v.kind==='heap-tree')special={type:'tree',indexed:true,nodes:v.values.map((key,i)=>({key,left:2*i+1<v.values.length?2*i+1:null,right:2*i+2<v.values.length?2*i+2:null})),active:[]};
  else if(v.kind==='ring-array')special={type:'ring-array',cells:v.cells,front:v.front,rear:v.rear};
  else if(v.kind==='tokens')special={type:'table',headers:['Given postfix tokens'],rows:[[v.tokens.join(' ')]]};
@@ -41,7 +60,7 @@ export function dsPuzzleIllustration(q){
  return `<figure class="ds-puzzle-visual"><figcaption>GIVEN STARTING STATE</figcaption>${dsArt(art)}<small>Use the operations in the question to find the result.</small></figure>`;
 }
 export function dsLab(lesson){
- if(!lesson.dsLab)return '';const kind=lesson.dsLab,model=dsModel(kind),step=model.steps[0],power=['log','loops'].includes(kind),controlLabel=power?'Power-of-two exponent':advancedDSKinds.includes(kind)?'Example variant':'Example size';
+ if(!lesson.dsLab)return '';const kind=lesson.dsLab,model=dsModel(kind),step=model.steps[0],power=['log','loops'].includes(kind),controlLabel=power?'Power-of-two exponent':advancedDSKinds.includes(kind)||finalDSKinds.includes(kind)?'Example variant':'Example size';
  return `<section class="ds-lab" data-ds-lab="${h(kind)}" data-ds-step="0"><span class="tag green">EXPLORE · TRACE · EXPLAIN</span><h3>${h(lesson.foundation.title)}</h3><p>A separate example you can change and replay. Your puzzle answers stay yours.</p><div class="lab-controls"><label><span>${controlLabel} <output data-ds-output="n">4</output></span><input type="range" data-ds-control="n" aria-label="${controlLabel}" min="3" max="6" value="4"></label>${kind==='search'?'<label><span>Target index (size means absent) <output data-ds-output="target">3</output></span><input type="range" data-ds-control="target" aria-label="Target index" min="0" max="4" value="3"></label>':''}</div><div class="ds-stage"><h4>${h(step.title)}</h4><div class="ds-art">${dsArt(step.art,kind==='search')}</div><p class="ds-insight" aria-live="polite">${h(step.caption)}</p></div><div class="ds-playback"><button class="btn secondary" type="button" data-ds-back disabled aria-label="Previous visual step">BACK</button><button class="btn primary" type="button" data-ds-next>${model.steps.length===1?'REPLAY':'NEXT STEP'}</button><button class="text-button" type="button" data-ds-play aria-pressed="false">PLAY</button><span class="ds-step-count" role="status">1 / ${model.steps.length}</span></div><small>No timer and no XP here. Try a small case before solving a puzzle.</small></section>`;
 }
 const playback=new WeakMap();
