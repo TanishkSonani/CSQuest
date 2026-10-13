@@ -8,9 +8,9 @@ import {dsKinds,dsModel,validStackPermutation} from '../packages/learning/ds-mod
 import {subjects} from '../config/courses.mjs';
 import {learnerMetrics,freshActivity} from '../src/platform/social-metrics.mjs';
 
-test('DS publishes 40 reviewed topics with 120 source-backed lessons and 480 puzzles',()=>{
- const course=subjects.find(s=>s.id==='ds');assert.equal(course.lectureCount,101);assert.equal(course.publishedLectureCount,40);assert.equal(course.status,'available');assert.equal(lessons.length,120);assert.equal(lecturePlans.length,40);assert.equal(new Set(lessons.map(l=>l.dsLab)).size,29);
- assert.deepEqual(units.flatMap(u=>Array.from({length:u.range[1]-u.range[0]+1},(_,i)=>u.range[0]+i)),Array.from({length:40},(_,i)=>i));
+test('DS publishes 73 reviewed topics with 219 source-backed lessons and 876 puzzles',()=>{
+ const course=subjects.find(s=>s.id==='ds');assert.equal(course.lectureCount,101);assert.equal(course.publishedLectureCount,73);assert.equal(course.status,'available');assert.equal(lessons.length,219);assert.equal(lecturePlans.length,73);assert.equal(new Set(lessons.map(l=>l.dsLab)).size,60);
+ assert.deepEqual(units.flatMap(u=>Array.from({length:u.range[1]-u.range[0]+1},(_,i)=>u.range[0]+i)),Array.from({length:73},(_,i)=>i));
  for(const [i,l] of lessons.entries()){
   assert.equal(l.id,i);assert.equal(l.lecture,Math.floor(i/3));assert.equal(l.questions.length,4);assert.equal(l.ready,true);assert.ok(l.foundation.idea.length>100);assert.equal(l.teachingSteps.length,3);assert.ok(dsKinds.includes(l.dsLab));
   const transcript=JSON.parse(fs.readFileSync(new URL(`../courses/ds/data/transcripts/${l.lecture}.json`,import.meta.url)));assert.ok(transcript.sourceCompletedAt);assert.ok(l.sourceReferences.length);
@@ -42,6 +42,6 @@ test('DS growth plots, loop counts, search and endpoint models agree with indepe
  for(const output of [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,2,1]])assert.equal(validStackPermutation([1,2,3],output),true);assert.equal(validStackPermutation([1,2,3],[3,1,2]),false);assert.equal(validStackPermutation([1,2,3],[1,1,3]),false);
 });
 test('Partial publication limits profile completion and eligible DS round identities',()=>{
- const courses=[subjects.find(s=>s.id==='ds')];const data={'ds-quest-v1':JSON.stringify({version:1,xp:10,completed:[0,119,120,302]})};const metrics=learnerMetrics(data,courses);assert.equal(metrics.courses[0].total,120);assert.equal(metrics.courses[0].completed,2);
- const now=Date.now(),progress={version:1,xp:60,history:[{at:now,lessonId:120,questions:4,correct:4,xp:60,practice:false}]};assert.equal(freshActivity({}, {'ds-quest-v1':JSON.stringify(progress)},courses,now).length,0);
+ const courses=[subjects.find(s=>s.id==='ds')];const data={'ds-quest-v1':JSON.stringify({version:1,xp:10,completed:[0,218,219,302]})};const metrics=learnerMetrics(data,courses);assert.equal(metrics.courses[0].total,219);assert.equal(metrics.courses[0].completed,2);
+ const now=Date.now(),progress={version:1,xp:60,history:[{at:now,lessonId:219,questions:4,correct:4,xp:60,practice:false}]};assert.equal(freshActivity({}, {'ds-quest-v1':JSON.stringify(progress)},courses,now).length,0);
 });

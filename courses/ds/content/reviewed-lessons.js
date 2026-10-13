@@ -12573,5 +12573,12252 @@ export const lessons=[
       ],
       "example": "Enqueue 3,6,9, then dequeue once: 3 leaves and the queue is 6,9 from front to rear."
     }
+  },
+  {
+    "id": 120,
+    "lecture": 40,
+    "title": "State the index convention",
+    "concept": "A circular queue reuses a fixed array by advancing indices modulo its capacity. The meaning of front and rear must be stated before using a size, empty or full formula. This example reserves one slot to distinguish full from empty.",
+    "teachingSteps": [
+      "Here F is the next removal slot and R is the next insertion slot.",
+      "Enqueue writes at R then advances R; dequeue reads F then advances F.",
+      "Empty is F=R; full is (R+1) mod C=F; size is (R-F+C) mod C."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "With next-removal F, next-insertion R and one reserved slot, what is full?",
+        "options": [
+          "F always equals R",
+          "R always equals C",
+          "(R+1) mod C equals F"
+        ],
+        "answer": 2,
+        "explanation": "The unused slot distinguishes full from empty."
+      },
+      {
+        "type": "match",
+        "prompt": "Match each term with its stated role.",
+        "pairs": [
+          [
+            "F",
+            "Next removal position in this stated convention"
+          ],
+          [
+            "R",
+            "Next insertion position in this stated convention"
+          ],
+          [
+            "Modulo C",
+            "Wrap a position inside the array"
+          ]
+        ],
+        "explanation": "Distinguish the operations, structural conditions and units in the definitions."
+      },
+      {
+        "type": "number",
+        "prompt": "A six-slot circular queue reserves one slot. How many items can it hold?",
+        "answer": 5,
+        "explanation": "Usable capacity is C-1.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "ring-array",
+          "capacity": 6,
+          "front": 4,
+          "rear": 1,
+          "cells": [
+            3,
+            null,
+            null,
+            null,
+            1,
+            2
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "F=4 names the next removal slot; R=1 names the next insertion slot. What is its size?",
+        "answer": 3,
+        "explanation": "Size=(1-4+6) mod 6=3.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "ring-array",
+          "capacity": 6,
+          "front": 4,
+          "rear": 1,
+          "cells": [
+            3,
+            null,
+            null,
+            null,
+            1,
+            2
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "circular-queue",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 40,
+        "file": "040. 9b. Implementation of Queue using Array.mp4",
+        "start": 0,
+        "end": 30.14,
+        "text": "So in this video we are going to see the actual implementation of our queue. Now this is the initialization part where I am saying let's suppose where n could be some size like I can define that to be 15 or anything okay 15 16 anything and important point is that here I will be having front and rear to be initialized to be minus 1. Why that is the case that I will tell you okay and this array or like you want to say into queue or whatever the array name you want to write you can write it like that and n."
+      },
+      {
+        "lecture": 40,
+        "file": "040. 9b. Implementation of Queue using Array.mp4",
+        "start": 59.21,
+        "end": 87.91,
+        "text": "Front and rear are pointing to minus one which means front is minus one initially and rear is minus one initially So what I need to do to push one element so first element whenever I'm pushing so this is this is just for the convention I'm writing it minus one minus one We can have some other initialization also. I will discuss about it later. So whenever I'm enqueue first element Okay, first element enqueue is participation whenever I'm enqueue first element You will say that initially f and r both are minus one the moment I enqueue first element"
+      },
+      {
+        "lecture": 40,
+        "file": "040. 9b. Implementation of Queue using Array.mp4",
+        "start": 88.26,
+        "end": 111.9,
+        "text": "F and R, I will set both to be 0 and I will enqueue my first element. What about the next element? If I enqueue next element, then F will remain at the same place, R will get incremented to this, right? Let's suppose this is B. So, F will remain at the same place. So, first enqueue is just a bit special where I am saying that initially it is minus 1, minus 1. At first enqueue, I will set both of them to be 0."
+      }
+    ],
+    "foundation": {
+      "title": "Circular array queues",
+      "idea": "A circular queue reuses a fixed array by advancing indices modulo its capacity. The meaning of front and rear must be stated before using a size, empty or full formula. This example reserves one slot to distinguish full from empty.",
+      "terms": [
+        "Capacity C: allocated array slots.",
+        "Usable capacity: C-1 in this reserved-slot convention.",
+        "Modulo: wrap an index back to zero."
+      ],
+      "example": "With C=6, F=4 and R=1, the queue occupies slots 4,5,0 and holds three items."
+    }
+  },
+  {
+    "id": 121,
+    "lecture": 40,
+    "title": "Advance with wraparound",
+    "concept": "A circular queue reuses a fixed array by advancing indices modulo its capacity. The meaning of front and rear must be stated before using a size, empty or full formula. This example reserves one slot to distinguish full from empty.",
+    "teachingSteps": [
+      "Here F is the next removal slot and R is the next insertion slot.",
+      "Enqueue writes at R then advances R; dequeue reads F then advances F.",
+      "Empty is F=R; full is (R+1) mod C=F; size is (R-F+C) mod C."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What must be stated before using a queue-index formula?",
+        "options": [
+          "That all payloads are positive",
+          "What each index points to",
+          "Only the array color"
+        ],
+        "answer": 1,
+        "explanation": "Different valid implementations use different index meanings."
+      },
+      {
+        "type": "number",
+        "prompt": "After enqueue at old R=1, what is the new rear index?",
+        "answer": 2,
+        "explanation": "Advance (1+1) mod 6.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "ring-array",
+          "capacity": 6,
+          "front": 4,
+          "rear": 1,
+          "cells": [
+            3,
+            null,
+            null,
+            null,
+            1,
+            2
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "After dequeue at old F=4, what is the new front index?",
+        "answer": 5,
+        "explanation": "Advance (4+1) mod 6.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "ring-array",
+          "capacity": 6,
+          "front": 4,
+          "rear": 1,
+          "cells": [
+            3,
+            null,
+            null,
+            null,
+            1,
+            2
+          ]
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange the dependent steps of this procedure.",
+        "items": [
+          "Check that the reserved-slot queue is not full",
+          "Write the item at the current R",
+          "Advance R modulo capacity",
+          "Retain F until an actual dequeue"
+        ],
+        "explanation": "Follow this order so every step receives a valid state."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "circular-queue",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 40,
+        "file": "040. 9b. Implementation of Queue using Array.mp4",
+        "start": 0,
+        "end": 30.14,
+        "text": "So in this video we are going to see the actual implementation of our queue. Now this is the initialization part where I am saying let's suppose where n could be some size like I can define that to be 15 or anything okay 15 16 anything and important point is that here I will be having front and rear to be initialized to be minus 1. Why that is the case that I will tell you okay and this array or like you want to say into queue or whatever the array name you want to write you can write it like that and n."
+      },
+      {
+        "lecture": 40,
+        "file": "040. 9b. Implementation of Queue using Array.mp4",
+        "start": 59.21,
+        "end": 87.91,
+        "text": "Front and rear are pointing to minus one which means front is minus one initially and rear is minus one initially So what I need to do to push one element so first element whenever I'm pushing so this is this is just for the convention I'm writing it minus one minus one We can have some other initialization also. I will discuss about it later. So whenever I'm enqueue first element Okay, first element enqueue is participation whenever I'm enqueue first element You will say that initially f and r both are minus one the moment I enqueue first element"
+      },
+      {
+        "lecture": 40,
+        "file": "040. 9b. Implementation of Queue using Array.mp4",
+        "start": 88.26,
+        "end": 111.9,
+        "text": "F and R, I will set both to be 0 and I will enqueue my first element. What about the next element? If I enqueue next element, then F will remain at the same place, R will get incremented to this, right? Let's suppose this is B. So, F will remain at the same place. So, first enqueue is just a bit special where I am saying that initially it is minus 1, minus 1. At first enqueue, I will set both of them to be 0."
+      }
+    ],
+    "foundation": {
+      "title": "Circular array queues",
+      "idea": "A circular queue reuses a fixed array by advancing indices modulo its capacity. The meaning of front and rear must be stated before using a size, empty or full formula. This example reserves one slot to distinguish full from empty.",
+      "terms": [
+        "Capacity C: allocated array slots.",
+        "Usable capacity: C-1 in this reserved-slot convention.",
+        "Modulo: wrap an index back to zero."
+      ],
+      "example": "With C=6, F=4 and R=1, the queue occupies slots 4,5,0 and holds three items."
+    }
+  },
+  {
+    "id": 122,
+    "lecture": 40,
+    "title": "Check empty and full states",
+    "concept": "A circular queue reuses a fixed array by advancing indices modulo its capacity. The meaning of front and rear must be stated before using a size, empty or full formula. This example reserves one slot to distinguish full from empty.",
+    "teachingSteps": [
+      "Here F is the next removal slot and R is the next insertion slot.",
+      "Enqueue writes at R then advances R; dequeue reads F then advances F.",
+      "Empty is F=R; full is (R+1) mod C=F; size is (R-F+C) mod C."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Does wrapping a rear index to zero change FIFO order?",
+        "options": [
+          "No",
+          "Yes; zero-indexed items become older automatically",
+          "Only when payloads are odd"
+        ],
+        "answer": 0,
+        "explanation": "FIFO follows the occupied circular interval."
+      },
+      {
+        "type": "number",
+        "prompt": "If R=5, an enqueue writes there then advances R modulo six. What new R results?",
+        "answer": 0,
+        "explanation": "Modulo wraps six to zero.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "ring-array",
+          "capacity": 6,
+          "front": 4,
+          "rear": 1,
+          "cells": [
+            3,
+            null,
+            null,
+            null,
+            1,
+            2
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "What should happen before enqueue to a full fixed queue?",
+        "options": [
+          "Advance both indices and claim no removal",
+          "Handle the full condition without overwriting a live item",
+          "Overwrite the front silently"
+        ],
+        "answer": 1,
+        "explanation": "Capacity checks prevent unintended data loss."
+      },
+      {
+        "type": "number",
+        "prompt": "In this convention F=R=2. How many items wait?",
+        "answer": 0,
+        "explanation": "Equal indices mean empty in the reserved-slot convention.",
+        "tolerance": 1e-8
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "circular-queue",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 40,
+        "file": "040. 9b. Implementation of Queue using Array.mp4",
+        "start": 0,
+        "end": 30.14,
+        "text": "So in this video we are going to see the actual implementation of our queue. Now this is the initialization part where I am saying let's suppose where n could be some size like I can define that to be 15 or anything okay 15 16 anything and important point is that here I will be having front and rear to be initialized to be minus 1. Why that is the case that I will tell you okay and this array or like you want to say into queue or whatever the array name you want to write you can write it like that and n."
+      },
+      {
+        "lecture": 40,
+        "file": "040. 9b. Implementation of Queue using Array.mp4",
+        "start": 59.21,
+        "end": 87.91,
+        "text": "Front and rear are pointing to minus one which means front is minus one initially and rear is minus one initially So what I need to do to push one element so first element whenever I'm pushing so this is this is just for the convention I'm writing it minus one minus one We can have some other initialization also. I will discuss about it later. So whenever I'm enqueue first element Okay, first element enqueue is participation whenever I'm enqueue first element You will say that initially f and r both are minus one the moment I enqueue first element"
+      },
+      {
+        "lecture": 40,
+        "file": "040. 9b. Implementation of Queue using Array.mp4",
+        "start": 88.26,
+        "end": 111.9,
+        "text": "F and R, I will set both to be 0 and I will enqueue my first element. What about the next element? If I enqueue next element, then F will remain at the same place, R will get incremented to this, right? Let's suppose this is B. So, F will remain at the same place. So, first enqueue is just a bit special where I am saying that initially it is minus 1, minus 1. At first enqueue, I will set both of them to be 0."
+      }
+    ],
+    "foundation": {
+      "title": "Circular array queues",
+      "idea": "A circular queue reuses a fixed array by advancing indices modulo its capacity. The meaning of front and rear must be stated before using a size, empty or full formula. This example reserves one slot to distinguish full from empty.",
+      "terms": [
+        "Capacity C: allocated array slots.",
+        "Usable capacity: C-1 in this reserved-slot convention.",
+        "Modulo: wrap an index back to zero."
+      ],
+      "example": "With C=6, F=4 and R=1, the queue occupies slots 4,5,0 and holds three items."
+    }
+  },
+  {
+    "id": 123,
+    "lecture": 41,
+    "title": "Compare front and rear meanings",
+    "concept": "An index name alone does not determine whether it points at a live item, the next free slot or the last removed item. Two correct queue implementations can therefore use different updates. We use an explicit next-removal/next-insertion convention throughout this example.",
+    "teachingSteps": [
+      "Start with F=R=0 for an empty queue.",
+      "Write at old R before advancing it; read at old F before advancing it.",
+      "Reserve one slot and test full before writing; never infer a formula from names alone."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "With next-removal F, next-insertion R and one reserved slot, what is full?",
+        "options": [
+          "R always equals C",
+          "(R+1) mod C equals F",
+          "F always equals R"
+        ],
+        "answer": 1,
+        "explanation": "The unused slot distinguishes full from empty."
+      },
+      {
+        "type": "match",
+        "prompt": "Match each term with its stated role.",
+        "pairs": [
+          [
+            "F",
+            "Next removal position in this stated convention"
+          ],
+          [
+            "R",
+            "Next insertion position in this stated convention"
+          ],
+          [
+            "Modulo C",
+            "Wrap a position inside the array"
+          ]
+        ],
+        "explanation": "Distinguish the operations, structural conditions and units in the definitions."
+      },
+      {
+        "type": "number",
+        "prompt": "A six-slot circular queue reserves one slot. How many items can it hold?",
+        "answer": 5,
+        "explanation": "Usable capacity is C-1.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "ring-array",
+          "capacity": 6,
+          "front": 4,
+          "rear": 1,
+          "cells": [
+            3,
+            null,
+            null,
+            null,
+            1,
+            2
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "F=4 names the next removal slot; R=1 names the next insertion slot. What is its size?",
+        "answer": 3,
+        "explanation": "Size=(1-4+6) mod 6=3.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "ring-array",
+          "capacity": 6,
+          "front": 4,
+          "rear": 1,
+          "cells": [
+            3,
+            null,
+            null,
+            null,
+            1,
+            2
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "queue-offset",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 41,
+        "file": "041_9c_Queue_another_Implementation_using_Array_with_F=R=0_GATE.mp4",
+        "start": 0,
+        "end": 28.14,
+        "text": "Now let's see another implementation of q where instead of you know front equal to rear equal to minus one I will be initializing front to zero and rear to also be zero. Let's just see this implementation. So let's consider an array where the array sizes of some something maybe let's suppose n and now I'm saying that front and rear both are initialized to zero which means they are not initialized to minus one here they're initialized to zero."
+      },
+      {
+        "lecture": 41,
+        "file": "041_9c_Queue_another_Implementation_using_Array_with_F=R=0_GATE.mp4",
+        "start": 58.96,
+        "end": 85.63,
+        "text": "Put the data first and then increment this rear, right? See earlier what I was doing, earlier front and rear both were pointing to occupied locations. So earlier, let me just write here, earlier, earlier we were doing something like this. We were first incrementing this r, I mean r plus 1 mod n and then we were saying that array of r equal to our data, right? This was the earlier story."
+      },
+      {
+        "lecture": 41,
+        "file": "041_9c_Queue_another_Implementation_using_Array_with_F=R=0_GATE.mp4",
+        "start": 85.93,
+        "end": 115.33,
+        "text": "let's not worry about it because we have already completely analyzed this situation now let's see now what's going to happen if I want to enqueue something now see now this is this is here which is pointing to the empty location right so I will do what I will first put the data so I will say that array of r equal to data and then I'm going to increment this r plus 1 mod n right so this is what I'm going to do now so that's the only difference"
+      }
+    ],
+    "foundation": {
+      "title": "Queue index conventions",
+      "idea": "An index name alone does not determine whether it points at a live item, the next free slot or the last removed item. Two correct queue implementations can therefore use different updates. We use an explicit next-removal/next-insertion convention throughout this example.",
+      "terms": [
+        "Index convention: the precise meaning of each stored position.",
+        "Occupied interval: positions from F up to, but excluding, R around the circle.",
+        "Reserved slot: the gap used to distinguish full from empty."
+      ],
+      "example": "In a five-slot reserved-slot queue, F=3 and R=1 occupy indices 3,4,0; size is three."
+    }
+  },
+  {
+    "id": 124,
+    "lecture": 41,
+    "title": "Trace a zero-initialized queue",
+    "concept": "An index name alone does not determine whether it points at a live item, the next free slot or the last removed item. Two correct queue implementations can therefore use different updates. We use an explicit next-removal/next-insertion convention throughout this example.",
+    "teachingSteps": [
+      "Start with F=R=0 for an empty queue.",
+      "Write at old R before advancing it; read at old F before advancing it.",
+      "Reserve one slot and test full before writing; never infer a formula from names alone."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What must be stated before using a queue-index formula?",
+        "options": [
+          "What each index points to",
+          "Only the array color",
+          "That all payloads are positive"
+        ],
+        "answer": 0,
+        "explanation": "Different valid implementations use different index meanings."
+      },
+      {
+        "type": "number",
+        "prompt": "After enqueue at old R=1, what is the new rear index?",
+        "answer": 2,
+        "explanation": "Advance (1+1) mod 6.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "ring-array",
+          "capacity": 6,
+          "front": 4,
+          "rear": 1,
+          "cells": [
+            3,
+            null,
+            null,
+            null,
+            1,
+            2
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "After dequeue at old F=4, what is the new front index?",
+        "answer": 5,
+        "explanation": "Advance (4+1) mod 6.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "ring-array",
+          "capacity": 6,
+          "front": 4,
+          "rear": 1,
+          "cells": [
+            3,
+            null,
+            null,
+            null,
+            1,
+            2
+          ]
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange the dependent steps of this procedure.",
+        "items": [
+          "Check that the reserved-slot queue is not full",
+          "Write the item at the current R",
+          "Advance R modulo capacity",
+          "Retain F until an actual dequeue"
+        ],
+        "explanation": "Follow this order so every step receives a valid state."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "queue-offset",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 41,
+        "file": "041_9c_Queue_another_Implementation_using_Array_with_F=R=0_GATE.mp4",
+        "start": 0,
+        "end": 28.14,
+        "text": "Now let's see another implementation of q where instead of you know front equal to rear equal to minus one I will be initializing front to zero and rear to also be zero. Let's just see this implementation. So let's consider an array where the array sizes of some something maybe let's suppose n and now I'm saying that front and rear both are initialized to zero which means they are not initialized to minus one here they're initialized to zero."
+      },
+      {
+        "lecture": 41,
+        "file": "041_9c_Queue_another_Implementation_using_Array_with_F=R=0_GATE.mp4",
+        "start": 58.96,
+        "end": 85.63,
+        "text": "Put the data first and then increment this rear, right? See earlier what I was doing, earlier front and rear both were pointing to occupied locations. So earlier, let me just write here, earlier, earlier we were doing something like this. We were first incrementing this r, I mean r plus 1 mod n and then we were saying that array of r equal to our data, right? This was the earlier story."
+      },
+      {
+        "lecture": 41,
+        "file": "041_9c_Queue_another_Implementation_using_Array_with_F=R=0_GATE.mp4",
+        "start": 85.93,
+        "end": 115.33,
+        "text": "let's not worry about it because we have already completely analyzed this situation now let's see now what's going to happen if I want to enqueue something now see now this is this is here which is pointing to the empty location right so I will do what I will first put the data so I will say that array of r equal to data and then I'm going to increment this r plus 1 mod n right so this is what I'm going to do now so that's the only difference"
+      }
+    ],
+    "foundation": {
+      "title": "Queue index conventions",
+      "idea": "An index name alone does not determine whether it points at a live item, the next free slot or the last removed item. Two correct queue implementations can therefore use different updates. We use an explicit next-removal/next-insertion convention throughout this example.",
+      "terms": [
+        "Index convention: the precise meaning of each stored position.",
+        "Occupied interval: positions from F up to, but excluding, R around the circle.",
+        "Reserved slot: the gap used to distinguish full from empty."
+      ],
+      "example": "In a five-slot reserved-slot queue, F=3 and R=1 occupy indices 3,4,0; size is three."
+    }
+  },
+  {
+    "id": 125,
+    "lecture": 41,
+    "title": "Count occupied slots safely",
+    "concept": "An index name alone does not determine whether it points at a live item, the next free slot or the last removed item. Two correct queue implementations can therefore use different updates. We use an explicit next-removal/next-insertion convention throughout this example.",
+    "teachingSteps": [
+      "Start with F=R=0 for an empty queue.",
+      "Write at old R before advancing it; read at old F before advancing it.",
+      "Reserve one slot and test full before writing; never infer a formula from names alone."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Does wrapping a rear index to zero change FIFO order?",
+        "options": [
+          "Yes; zero-indexed items become older automatically",
+          "Only when payloads are odd",
+          "No"
+        ],
+        "answer": 2,
+        "explanation": "FIFO follows the occupied circular interval."
+      },
+      {
+        "type": "number",
+        "prompt": "If R=5, an enqueue writes there then advances R modulo six. What new R results?",
+        "answer": 0,
+        "explanation": "Modulo wraps six to zero.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "ring-array",
+          "capacity": 6,
+          "front": 4,
+          "rear": 1,
+          "cells": [
+            3,
+            null,
+            null,
+            null,
+            1,
+            2
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "What should happen before enqueue to a full fixed queue?",
+        "options": [
+          "Handle the full condition without overwriting a live item",
+          "Overwrite the front silently",
+          "Advance both indices and claim no removal"
+        ],
+        "answer": 0,
+        "explanation": "Capacity checks prevent unintended data loss."
+      },
+      {
+        "type": "number",
+        "prompt": "In this convention F=R=2. How many items wait?",
+        "answer": 0,
+        "explanation": "Equal indices mean empty in the reserved-slot convention.",
+        "tolerance": 1e-8
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "queue-offset",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 41,
+        "file": "041_9c_Queue_another_Implementation_using_Array_with_F=R=0_GATE.mp4",
+        "start": 0,
+        "end": 28.14,
+        "text": "Now let's see another implementation of q where instead of you know front equal to rear equal to minus one I will be initializing front to zero and rear to also be zero. Let's just see this implementation. So let's consider an array where the array sizes of some something maybe let's suppose n and now I'm saying that front and rear both are initialized to zero which means they are not initialized to minus one here they're initialized to zero."
+      },
+      {
+        "lecture": 41,
+        "file": "041_9c_Queue_another_Implementation_using_Array_with_F=R=0_GATE.mp4",
+        "start": 58.96,
+        "end": 85.63,
+        "text": "Put the data first and then increment this rear, right? See earlier what I was doing, earlier front and rear both were pointing to occupied locations. So earlier, let me just write here, earlier, earlier we were doing something like this. We were first incrementing this r, I mean r plus 1 mod n and then we were saying that array of r equal to our data, right? This was the earlier story."
+      },
+      {
+        "lecture": 41,
+        "file": "041_9c_Queue_another_Implementation_using_Array_with_F=R=0_GATE.mp4",
+        "start": 85.93,
+        "end": 115.33,
+        "text": "let's not worry about it because we have already completely analyzed this situation now let's see now what's going to happen if I want to enqueue something now see now this is this is here which is pointing to the empty location right so I will do what I will first put the data so I will say that array of r equal to data and then I'm going to increment this r plus 1 mod n right so this is what I'm going to do now so that's the only difference"
+      }
+    ],
+    "foundation": {
+      "title": "Queue index conventions",
+      "idea": "An index name alone does not determine whether it points at a live item, the next free slot or the last removed item. Two correct queue implementations can therefore use different updates. We use an explicit next-removal/next-insertion convention throughout this example.",
+      "terms": [
+        "Index convention: the precise meaning of each stored position.",
+        "Occupied interval: positions from F up to, but excluding, R around the circle.",
+        "Reserved slot: the gap used to distinguish full from empty."
+      ],
+      "example": "In a five-slot reserved-slot queue, F=3 and R=1 occupy indices 3,4,0; size is three."
+    }
+  },
+  {
+    "id": 126,
+    "lecture": 42,
+    "title": "Enqueue through rear",
+    "concept": "A singly linked queue can retain both a front reference and a rear reference. Inserting after the rear and removing from the front avoid searching for a predecessor, while preserving first-in first-out order.",
+    "teachingSteps": [
+      "Initialize the new final node with next=NULL.",
+      "Connect it through the old rear, or set front too if the queue was empty.",
+      "On removal retain the successor; when the last item leaves, set both endpoints to NULL."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which endpoints permit constant-time singly linked enqueue/dequeue, given both references?",
+        "options": [
+          "Enqueue at rear and dequeue at front",
+          "Delete at rear using only its own reference",
+          "Search all predecessors on every enqueue"
+        ],
+        "answer": 0,
+        "explanation": "The supplied endpoints avoid a tail predecessor search."
+      },
+      {
+        "type": "match",
+        "prompt": "Match each term with its stated role.",
+        "pairs": [
+          [
+            "FIFO",
+            "Serve the oldest waiting item"
+          ],
+          [
+            "LIFO",
+            "Serve the latest saved item"
+          ],
+          [
+            "Transfer",
+            "Move a payload through the stated primitive operations"
+          ]
+        ],
+        "explanation": "Distinguish the operations, structural conditions and units in the definitions."
+      },
+      {
+        "type": "number",
+        "prompt": "Initially the linked queue holds 1 through 3 front-to-rear, unless a one-node case is stated. A linked queue holds 3 nodes. Enqueue one, then dequeue one. How many nodes remain?",
+        "answer": 3,
+        "explanation": "The net count change is zero.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "queue",
+          "values": [
+            1,
+            2,
+            3
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Initially the linked queue holds 1 through 3 front-to-rear, unless a one-node case is stated. The starting front-to-rear payloads are 1 through n. What does one dequeue return?",
+        "answer": 1,
+        "explanation": "The oldest item is at front.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "queue",
+          "values": [
+            1,
+            2,
+            3
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "linked-queue",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 42,
+        "file": "042. 9d. Implementing Queue using Linked List.mp4",
+        "start": 0,
+        "end": 29.42,
+        "text": "Now, in this video, we are going to see how to implement a queue using linked list. So, suppose a linked list is given to you. Let me pose a problem in this way where a linked list is given to you. And this is the situation. And you have two options. Let's suppose this is pointing to null and it is ahead. You have two options. Suppose that these datas are 1, 2, 3, 4 like that. Now, you want to insert some element, maybe a."
+      },
+      {
+        "lecture": 42,
+        "file": "042. 9d. Implementing Queue using Linked List.mp4",
+        "start": 29.64,
+        "end": 53.86,
+        "text": "or maybe maybe 12 let's suppose you want to insert 12 now you have two options either you insert this 12 at this end or at this end okay so here basically i i mean to say that you have two options where the whether you can choose this this end as a front or you can choose this end as a front so in this case like whenever i'm implementing a queue then in this case i will say"
+      },
+      {
+        "lecture": 42,
+        "file": "042. 9d. Implementing Queue using Linked List.mp4",
+        "start": 54.09,
+        "end": 82.62,
+        "text": "that this is let's suppose like I have two options this is I can treat this is a front or this is a rear so I will be maintaining two pointers or second option is that I can say that this is rear or this is front right this is front so I will be maintaining two pointers here suppose I want to insert 12 and this is the option one so in the option one I am saying that rear is pointing here and front is pointing here okay so the option two is that"
+      }
+    ],
+    "foundation": {
+      "title": "Linked queues with two endpoints",
+      "idea": "A singly linked queue can retain both a front reference and a rear reference. Inserting after the rear and removing from the front avoid searching for a predecessor, while preserving first-in first-out order.",
+      "terms": [
+        "Front: next removal node.",
+        "Rear: most recently appended node.",
+        "Empty invariant: front and rear are both NULL."
+      ],
+      "example": "Enqueue 4 into 1->2->3: rear becomes 4. Dequeue once: front becomes 2 and rear remains 4."
+    }
+  },
+  {
+    "id": 127,
+    "lecture": 42,
+    "title": "Dequeue through front",
+    "concept": "A singly linked queue can retain both a front reference and a rear reference. Inserting after the rear and removing from the front avoid searching for a predecessor, while preserving first-in first-out order.",
+    "teachingSteps": [
+      "Initialize the new final node with next=NULL.",
+      "Connect it through the old rear, or set front too if the queue was empty.",
+      "On removal retain the successor; when the last item leaves, set both endpoints to NULL."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "When the final node leaves, which references need the empty state?",
+        "options": [
+          "Only an unrelated cursor",
+          "Neither endpoint",
+          "Both front and rear"
+        ],
+        "answer": 2,
+        "explanation": "The empty queue must not retain a dangling rear."
+      },
+      {
+        "type": "number",
+        "prompt": "Initially the linked queue holds 1 through 3 front-to-rear, unless a one-node case is stated. After one dequeue, what is the new front payload?",
+        "answer": 2,
+        "explanation": "The former second node becomes first.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "queue",
+          "values": [
+            1,
+            2,
+            3
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Initially the linked queue holds 1 through 3 front-to-rear, unless a one-node case is stated. Enqueue 99 after the initial rear. What becomes the rear payload?",
+        "answer": 99,
+        "explanation": "The newly appended node is the rear.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "queue",
+          "values": [
+            1,
+            2,
+            3
+          ]
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange the dependent steps of this procedure.",
+        "items": [
+          "Retain the front payload and successor",
+          "Move front to the surviving successor",
+          "If now empty, set rear to NULL",
+          "Release the detached original front"
+        ],
+        "explanation": "Follow this order so every step receives a valid state."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "linked-queue",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 42,
+        "file": "042. 9d. Implementing Queue using Linked List.mp4",
+        "start": 0,
+        "end": 29.42,
+        "text": "Now, in this video, we are going to see how to implement a queue using linked list. So, suppose a linked list is given to you. Let me pose a problem in this way where a linked list is given to you. And this is the situation. And you have two options. Let's suppose this is pointing to null and it is ahead. You have two options. Suppose that these datas are 1, 2, 3, 4 like that. Now, you want to insert some element, maybe a."
+      },
+      {
+        "lecture": 42,
+        "file": "042. 9d. Implementing Queue using Linked List.mp4",
+        "start": 29.64,
+        "end": 53.86,
+        "text": "or maybe maybe 12 let's suppose you want to insert 12 now you have two options either you insert this 12 at this end or at this end okay so here basically i i mean to say that you have two options where the whether you can choose this this end as a front or you can choose this end as a front so in this case like whenever i'm implementing a queue then in this case i will say"
+      },
+      {
+        "lecture": 42,
+        "file": "042. 9d. Implementing Queue using Linked List.mp4",
+        "start": 54.09,
+        "end": 82.62,
+        "text": "that this is let's suppose like I have two options this is I can treat this is a front or this is a rear so I will be maintaining two pointers or second option is that I can say that this is rear or this is front right this is front so I will be maintaining two pointers here suppose I want to insert 12 and this is the option one so in the option one I am saying that rear is pointing here and front is pointing here okay so the option two is that"
+      }
+    ],
+    "foundation": {
+      "title": "Linked queues with two endpoints",
+      "idea": "A singly linked queue can retain both a front reference and a rear reference. Inserting after the rear and removing from the front avoid searching for a predecessor, while preserving first-in first-out order.",
+      "terms": [
+        "Front: next removal node.",
+        "Rear: most recently appended node.",
+        "Empty invariant: front and rear are both NULL."
+      ],
+      "example": "Enqueue 4 into 1->2->3: rear becomes 4. Dequeue once: front becomes 2 and rear remains 4."
+    }
+  },
+  {
+    "id": 128,
+    "lecture": 42,
+    "title": "Repair the final-item boundary",
+    "concept": "A singly linked queue can retain both a front reference and a rear reference. Inserting after the rear and removing from the front avoid searching for a predecessor, while preserving first-in first-out order.",
+    "teachingSteps": [
+      "Initialize the new final node with next=NULL.",
+      "Connect it through the old rear, or set front too if the queue was empty.",
+      "On removal retain the successor; when the last item leaves, set both endpoints to NULL."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "A new final node next should be what?",
+        "options": [
+          "Always front for this noncircular queue",
+          "NULL",
+          "An uninitialized value"
+        ],
+        "answer": 1,
+        "explanation": "This queue is NULL-terminated."
+      },
+      {
+        "type": "number",
+        "prompt": "Initially the linked queue holds 1 through 3 front-to-rear, unless a one-node case is stated. Serve every item of a one-node linked queue. How many live nodes remain?",
+        "answer": 0,
+        "explanation": "Both front and rear become NULL.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "queue",
+          "values": [
+            1
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "What should be preserved before freeing the old front?",
+        "options": [
+          "A field read after free",
+          "Nothing",
+          "Its live successor"
+        ],
+        "answer": 2,
+        "explanation": "Retain front.next before ending the old allocation."
+      },
+      {
+        "type": "number",
+        "prompt": "Initially the linked queue holds 1 through 3 front-to-rear, unless a one-node case is stated. A known rear append assigns oldRear.next=new and rear=new. How many pointer fields/references are listed?",
+        "answer": 2,
+        "explanation": "The question counts these two assignments only.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "queue",
+          "values": [
+            1,
+            2,
+            3
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "linked-queue",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 42,
+        "file": "042. 9d. Implementing Queue using Linked List.mp4",
+        "start": 0,
+        "end": 29.42,
+        "text": "Now, in this video, we are going to see how to implement a queue using linked list. So, suppose a linked list is given to you. Let me pose a problem in this way where a linked list is given to you. And this is the situation. And you have two options. Let's suppose this is pointing to null and it is ahead. You have two options. Suppose that these datas are 1, 2, 3, 4 like that. Now, you want to insert some element, maybe a."
+      },
+      {
+        "lecture": 42,
+        "file": "042. 9d. Implementing Queue using Linked List.mp4",
+        "start": 29.64,
+        "end": 53.86,
+        "text": "or maybe maybe 12 let's suppose you want to insert 12 now you have two options either you insert this 12 at this end or at this end okay so here basically i i mean to say that you have two options where the whether you can choose this this end as a front or you can choose this end as a front so in this case like whenever i'm implementing a queue then in this case i will say"
+      },
+      {
+        "lecture": 42,
+        "file": "042. 9d. Implementing Queue using Linked List.mp4",
+        "start": 54.09,
+        "end": 82.62,
+        "text": "that this is let's suppose like I have two options this is I can treat this is a front or this is a rear so I will be maintaining two pointers or second option is that I can say that this is rear or this is front right this is front so I will be maintaining two pointers here suppose I want to insert 12 and this is the option one so in the option one I am saying that rear is pointing here and front is pointing here okay so the option two is that"
+      }
+    ],
+    "foundation": {
+      "title": "Linked queues with two endpoints",
+      "idea": "A singly linked queue can retain both a front reference and a rear reference. Inserting after the rear and removing from the front avoid searching for a predecessor, while preserving first-in first-out order.",
+      "terms": [
+        "Front: next removal node.",
+        "Rear: most recently appended node.",
+        "Empty invariant: front and rear are both NULL."
+      ],
+      "example": "Enqueue 4 into 1->2->3: rear becomes 4. Dequeue once: front becomes 2 and rear remains 4."
+    }
+  },
+  {
+    "id": 129,
+    "lecture": 43,
+    "title": "Reverse arrivals during transfer",
+    "concept": "A lazy-transfer queue uses an incoming stack for enqueues and an outgoing stack for dequeues. Transfer all incoming items only when outgoing is empty; their order reverses so the earliest arrival becomes accessible.",
+    "teachingSteps": [
+      "Enqueue by pushing onto IN.",
+      "If OUT is empty during dequeue, pop every IN item and push it onto OUT.",
+      "Pop OUT; do not transfer newer items over older outgoing items."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "When should the lazy-transfer queue move IN to OUT?",
+        "options": [
+          "Before every dequeue even when OUT has older items",
+          "Before every enqueue",
+          "Only when OUT is empty and a dequeue needs an item"
+        ],
+        "answer": 2,
+        "explanation": "Transferring newer items over older OUT items would break FIFO."
+      },
+      {
+        "type": "match",
+        "prompt": "Match each term with its stated role.",
+        "pairs": [
+          [
+            "FIFO",
+            "Serve the oldest waiting item"
+          ],
+          [
+            "LIFO",
+            "Serve the latest saved item"
+          ],
+          [
+            "Transfer",
+            "Move a payload through the stated primitive operations"
+          ]
+        ],
+        "explanation": "Distinguish the operations, structural conditions and units in the definitions."
+      },
+      {
+        "type": "number",
+        "prompt": "Initially IN holds 1 through 4 bottom-to-top and OUT is empty. Use lazy transfer for the first dequeue; no new enqueues occur. IN holds 1 through 4 bottom-to-top; OUT is empty. How many items transfer for the next dequeue?",
+        "answer": 4,
+        "explanation": "Every IN item moves to OUT before serving.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "stack",
+          "values": [
+            1,
+            2,
+            3,
+            4
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Initially IN holds 1 through 4 bottom-to-top and OUT is empty. Use lazy transfer for the first dequeue; no new enqueues occur. Count one IN pop and one OUT push per transfer. How many transfer operations occur?",
+        "answer": 8,
+        "explanation": "There are two counted stack operations per item.",
+        "tolerance": 1e-8
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "two-stacks",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 43,
+        "file": "043. 9e. Queue using two stacks.mp4",
+        "start": 0,
+        "end": 26.9,
+        "text": "Okay so till now we have got enough idea what is a queue what is a stack and we have seen that how to implement a queue using linked list using array. Similarly we have seen how to implement a stack using linked list or using array. Now in this video I'm going to show you that we can even implement a queue using stacks and vice versa which means we can also implement a stack using queue. Let's just see this. So my first question is that"
+      },
+      {
+        "lecture": 43,
+        "file": "043. 9e. Queue using two stacks.mp4",
+        "start": 27.19,
+        "end": 52.35,
+        "text": "How can you implement a queue using two stacks? Okay, let's just see. So first let's try to understand this question itself. What do we want? We want to implement a queue, which means that suppose this is a black box. I actually do not care what is there in the black box. So I want to treat this black box as a queue, which means that if I am"
+      },
+      {
+        "lecture": 43,
+        "file": "043. 9e. Queue using two stacks.mp4",
+        "start": 52.54,
+        "end": 81.58,
+        "text": "if i'm pushing some data or if i'm enqueuing some data let's suppose if two is coming and after that three is coming then four is coming and then five is coming let's suppose this is the order of data in which i'm i'm pushing or enqueuing the data in this black box since this black box is a queue so i'm expecting that at the output end now at the output end it should output me it should output me two first right two first and then it should output me three then it should output me four then it should output me five right this is my expectation"
+      }
+    ],
+    "foundation": {
+      "title": "A queue made from two stacks",
+      "idea": "A lazy-transfer queue uses an incoming stack for enqueues and an outgoing stack for dequeues. Transfer all incoming items only when outgoing is empty; their order reverses so the earliest arrival becomes accessible.",
+      "terms": [
+        "Worst-case dequeue: a transfer can take linear work.",
+        "Amortized work: account for transfers across a whole operation sequence.",
+        "Transfer: one source pop and one destination push."
+      ],
+      "example": "IN bottom-to-top 1,2,3 transfers into OUT bottom-to-top 3,2,1; OUT.pop returns 1."
+    }
+  },
+  {
+    "id": 130,
+    "lecture": 43,
+    "title": "Transfer only when needed",
+    "concept": "A lazy-transfer queue uses an incoming stack for enqueues and an outgoing stack for dequeues. Transfer all incoming items only when outgoing is empty; their order reverses so the earliest arrival becomes accessible.",
+    "teachingSteps": [
+      "Enqueue by pushing onto IN.",
+      "If OUT is empty during dequeue, pop every IN item and push it onto OUT.",
+      "Pop OUT; do not transfer newer items over older outgoing items."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Can one dequeue be linear even when amortized cost is constant?",
+        "options": [
+          "Only when the payload is negative",
+          "Yes",
+          "No; amortized means every operation is constant"
+        ],
+        "answer": 1,
+        "explanation": "A costly transfer is spread over many operations in sequence accounting."
+      },
+      {
+        "type": "number",
+        "prompt": "Initially IN holds 1 through 4 bottom-to-top and OUT is empty. Use lazy transfer for the first dequeue; no new enqueues occur. Also count the final OUT pop that serves one item. What total stack-operation cost occurs?",
+        "answer": 9,
+        "explanation": "Add the final removal to the transfer cost.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "Initially IN holds 1 through 4 bottom-to-top and OUT is empty. Use lazy transfer for the first dequeue; no new enqueues occur. What payload is returned after that complete transfer?",
+        "answer": 1,
+        "explanation": "Reversal puts the oldest arrival on the OUT top.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange the dependent steps of this procedure.",
+        "items": [
+          "Check whether OUT already has an item",
+          "If empty, transfer every IN item to OUT",
+          "Pop the oldest waiting item from OUT",
+          "Keep remaining OUT items ahead of newer IN arrivals"
+        ],
+        "explanation": "Follow this order so every step receives a valid state."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "two-stacks",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 43,
+        "file": "043. 9e. Queue using two stacks.mp4",
+        "start": 0,
+        "end": 26.9,
+        "text": "Okay so till now we have got enough idea what is a queue what is a stack and we have seen that how to implement a queue using linked list using array. Similarly we have seen how to implement a stack using linked list or using array. Now in this video I'm going to show you that we can even implement a queue using stacks and vice versa which means we can also implement a stack using queue. Let's just see this. So my first question is that"
+      },
+      {
+        "lecture": 43,
+        "file": "043. 9e. Queue using two stacks.mp4",
+        "start": 27.19,
+        "end": 52.35,
+        "text": "How can you implement a queue using two stacks? Okay, let's just see. So first let's try to understand this question itself. What do we want? We want to implement a queue, which means that suppose this is a black box. I actually do not care what is there in the black box. So I want to treat this black box as a queue, which means that if I am"
+      },
+      {
+        "lecture": 43,
+        "file": "043. 9e. Queue using two stacks.mp4",
+        "start": 52.54,
+        "end": 81.58,
+        "text": "if i'm pushing some data or if i'm enqueuing some data let's suppose if two is coming and after that three is coming then four is coming and then five is coming let's suppose this is the order of data in which i'm i'm pushing or enqueuing the data in this black box since this black box is a queue so i'm expecting that at the output end now at the output end it should output me it should output me two first right two first and then it should output me three then it should output me four then it should output me five right this is my expectation"
+      }
+    ],
+    "foundation": {
+      "title": "A queue made from two stacks",
+      "idea": "A lazy-transfer queue uses an incoming stack for enqueues and an outgoing stack for dequeues. Transfer all incoming items only when outgoing is empty; their order reverses so the earliest arrival becomes accessible.",
+      "terms": [
+        "Worst-case dequeue: a transfer can take linear work.",
+        "Amortized work: account for transfers across a whole operation sequence.",
+        "Transfer: one source pop and one destination push."
+      ],
+      "example": "IN bottom-to-top 1,2,3 transfers into OUT bottom-to-top 3,2,1; OUT.pop returns 1."
+    }
+  },
+  {
+    "id": 131,
+    "lecture": 43,
+    "title": "Separate worst and amortized work",
+    "concept": "A lazy-transfer queue uses an incoming stack for enqueues and an outgoing stack for dequeues. Transfer all incoming items only when outgoing is empty; their order reverses so the earliest arrival becomes accessible.",
+    "teachingSteps": [
+      "Enqueue by pushing onto IN.",
+      "If OUT is empty during dequeue, pop every IN item and push it onto OUT.",
+      "Pop OUT; do not transfer newer items over older outgoing items."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Why does transferring every IN item reverse its order?",
+        "options": [
+          "Each pop removes the newest IN item and pushes it onto OUT",
+          "A stack automatically sorts keys",
+          "Payloads change during transfer"
+        ],
+        "answer": 0,
+        "explanation": "Two LIFO endpoints reverse arrival order."
+      },
+      {
+        "type": "number",
+        "prompt": "Initially IN holds 1 through 4 bottom-to-top and OUT is empty. Use lazy transfer for the first dequeue; no new enqueues occur. No new enqueue occurs. The following dequeue performs how many stack operations?",
+        "answer": 1,
+        "explanation": "OUT is already nonempty, so only one pop occurs.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "OUT is already populated. Does the next dequeue repeat its creation cost?",
+        "options": [
+          "It must move every item to IN again",
+          "No; count only the new OUT pop",
+          "Yes, repeat all earlier transfers"
+        ],
+        "answer": 1,
+        "explanation": "The question starting state already includes earlier completed work."
+      },
+      {
+        "type": "number",
+        "prompt": "Initially IN holds 1 through 4 bottom-to-top and OUT is empty. Use lazy transfer for the first dequeue; no new enqueues occur. Enqueue all 4 items to IN, then dequeue all, starting with empty stacks. Count IN pushes, transfer pops/pushes and OUT pops. What total occurs?",
+        "answer": 16,
+        "explanation": "Each item is pushed to IN, popped from IN, pushed to OUT and popped from OUT exactly once.",
+        "tolerance": 1e-8
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "two-stacks",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 43,
+        "file": "043. 9e. Queue using two stacks.mp4",
+        "start": 0,
+        "end": 26.9,
+        "text": "Okay so till now we have got enough idea what is a queue what is a stack and we have seen that how to implement a queue using linked list using array. Similarly we have seen how to implement a stack using linked list or using array. Now in this video I'm going to show you that we can even implement a queue using stacks and vice versa which means we can also implement a stack using queue. Let's just see this. So my first question is that"
+      },
+      {
+        "lecture": 43,
+        "file": "043. 9e. Queue using two stacks.mp4",
+        "start": 27.19,
+        "end": 52.35,
+        "text": "How can you implement a queue using two stacks? Okay, let's just see. So first let's try to understand this question itself. What do we want? We want to implement a queue, which means that suppose this is a black box. I actually do not care what is there in the black box. So I want to treat this black box as a queue, which means that if I am"
+      },
+      {
+        "lecture": 43,
+        "file": "043. 9e. Queue using two stacks.mp4",
+        "start": 52.54,
+        "end": 81.58,
+        "text": "if i'm pushing some data or if i'm enqueuing some data let's suppose if two is coming and after that three is coming then four is coming and then five is coming let's suppose this is the order of data in which i'm i'm pushing or enqueuing the data in this black box since this black box is a queue so i'm expecting that at the output end now at the output end it should output me it should output me two first right two first and then it should output me three then it should output me four then it should output me five right this is my expectation"
+      }
+    ],
+    "foundation": {
+      "title": "A queue made from two stacks",
+      "idea": "A lazy-transfer queue uses an incoming stack for enqueues and an outgoing stack for dequeues. Transfer all incoming items only when outgoing is empty; their order reverses so the earliest arrival becomes accessible.",
+      "terms": [
+        "Worst-case dequeue: a transfer can take linear work.",
+        "Amortized work: account for transfers across a whole operation sequence.",
+        "Transfer: one source pop and one destination push."
+      ],
+      "example": "IN bottom-to-top 1,2,3 transfers into OUT bottom-to-top 3,2,1; OUT.pop returns 1."
+    }
+  },
+  {
+    "id": 132,
+    "lecture": 44,
+    "title": "Keep one active queue",
+    "concept": "One way to implement a stack with two queues keeps push cheap and pop costly. Enqueue new items to the active queue. To remove the newest item, transfer all older items to the spare queue, remove the final item, then swap queue roles.",
+    "teachingSteps": [
+      "Keep the spare queue empty between completed operations.",
+      "For pop, move all but the final active item to the spare queue.",
+      "Remove that final item and swap which queue is active."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Why transfer all but the final active item for costly pop?",
+        "options": [
+          "To globally sort payloads",
+          "The final arrival is the stack top",
+          "The first arrival must leave first"
+        ],
+        "answer": 1,
+        "explanation": "The stack contract is LIFO."
+      },
+      {
+        "type": "match",
+        "prompt": "Match each term with its stated role.",
+        "pairs": [
+          [
+            "FIFO",
+            "Serve the oldest waiting item"
+          ],
+          [
+            "LIFO",
+            "Serve the latest saved item"
+          ],
+          [
+            "Transfer",
+            "Move a payload through the stated primitive operations"
+          ]
+        ],
+        "explanation": "Distinguish the operations, structural conditions and units in the definitions."
+      },
+      {
+        "type": "number",
+        "prompt": "Initially the active queue holds 1 through 5 front-to-rear and the spare is empty. Implement one stack-pop by moving older items before returning the newest. An active queue has 5 items. A costly stack-pop transfers all but the newest item. How many items transfer?",
+        "answer": 4,
+        "explanation": "The final item is returned instead of transferred.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "queue",
+          "values": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Initially the active queue holds 1 through 5 front-to-rear and the spare is empty. Implement one stack-pop by moving older items before returning the newest. Count one source dequeue and one spare enqueue for every transferred item. How many transfer operations occur?",
+        "answer": 8,
+        "explanation": "Each of n-1 transfers costs two counted queue operations.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "queue",
+          "values": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "two-queues",
+    "start": 0.05,
+    "sourceReferences": [
+      {
+        "lecture": 44,
+        "file": "044. 10a. Stack using two queues.mp4",
+        "start": 0.05,
+        "end": 25.19,
+        "text": "Now let's see that how can we implement a stack using two queues? Okay, so here a stack is to be implemented which means that I want to I want to implement a functionalities of stack and I can use two queues so in my black box So this is my black box here. I do have two queues. Let's call it q1 and q2 Okay, and suppose this time I'm inserting the data"
+      },
+      {
+        "lecture": 44,
+        "file": "044. 10a. Stack using two queues.mp4",
+        "start": 25.49,
+        "end": 55.09,
+        "text": "in the order one is getting inserted first then two then three right then one two three so earlier it was output also one two three but here now i want output three first and then i want two and then i want one one right so this is the order of output so let's see how can i make or make use of these queues to implement this right so in terms of code like they are given that two uh two n queues operations are given like i can n queue to either q1 or q2 and i can dq to q1 or q2"
+      },
+      {
+        "lecture": 44,
+        "file": "044. 10a. Stack using two queues.mp4",
+        "start": 55.33,
+        "end": 83.99,
+        "text": "and I need to implement the push and pop right so anyway let's first understand using just stack and queue so my output should be let's suppose I'm pushing one and then two and then three then if I pop it then my output should be three and then two and then one this is my desired thing right so let's make use of two queues and let's see how can I output these two things this is queue one this is queue two now my input is coming in this order one is coming and then two is coming and then three is coming"
+      }
+    ],
+    "foundation": {
+      "title": "A stack made from two queues",
+      "idea": "One way to implement a stack with two queues keeps push cheap and pop costly. Enqueue new items to the active queue. To remove the newest item, transfer all older items to the spare queue, remove the final item, then swap queue roles.",
+      "terms": [
+        "LIFO: newest insertion leaves first.",
+        "Active queue: stores the current items in insertion order.",
+        "Costly pop: may move n-1 older items."
+      ],
+      "example": "Active front-to-rear 1,2,3 moves 1 and 2 to the spare queue, returns 3, and makes the spare queue active."
+    }
+  },
+  {
+    "id": 133,
+    "lecture": 44,
+    "title": "Transfer older items before pop",
+    "concept": "One way to implement a stack with two queues keeps push cheap and pop costly. Enqueue new items to the active queue. To remove the newest item, transfer all older items to the spare queue, remove the final item, then swap queue roles.",
+    "teachingSteps": [
+      "Keep the spare queue empty between completed operations.",
+      "For pop, move all but the final active item to the spare queue.",
+      "Remove that final item and swap which queue is active."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "After removal, which queue becomes active?",
+        "options": [
+          "The spare queue holding the older survivors",
+          "The empty old active queue without swapping roles",
+          "Both queues lose all contents"
+        ],
+        "answer": 0,
+        "explanation": "Swap roles so surviving items remain accessible."
+      },
+      {
+        "type": "number",
+        "prompt": "Initially the active queue holds 1 through 5 front-to-rear and the spare is empty. Implement one stack-pop by moving older items before returning the newest. Include the final dequeue that returns the newest item. What is the total counted queue-operation cost?",
+        "answer": 9,
+        "explanation": "Two per transferred item, plus the final dequeue.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "queue",
+          "values": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Initially the active queue holds 1 through 5 front-to-rear and the spare is empty. Implement one stack-pop by moving older items before returning the newest. The active queue initially holds 1 through n in insertion order. What payload does this stack-pop return?",
+        "answer": 5,
+        "explanation": "The latest insertion is n.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "queue",
+          "values": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange the dependent steps of this procedure.",
+        "items": [
+          "Check that the active queue is nonempty",
+          "Transfer all but its newest item to the spare queue",
+          "Remove and return the remaining active item",
+          "Swap active and spare roles"
+        ],
+        "explanation": "Follow this order so every step receives a valid state."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "two-queues",
+    "start": 0.05,
+    "sourceReferences": [
+      {
+        "lecture": 44,
+        "file": "044. 10a. Stack using two queues.mp4",
+        "start": 0.05,
+        "end": 25.19,
+        "text": "Now let's see that how can we implement a stack using two queues? Okay, so here a stack is to be implemented which means that I want to I want to implement a functionalities of stack and I can use two queues so in my black box So this is my black box here. I do have two queues. Let's call it q1 and q2 Okay, and suppose this time I'm inserting the data"
+      },
+      {
+        "lecture": 44,
+        "file": "044. 10a. Stack using two queues.mp4",
+        "start": 25.49,
+        "end": 55.09,
+        "text": "in the order one is getting inserted first then two then three right then one two three so earlier it was output also one two three but here now i want output three first and then i want two and then i want one one right so this is the order of output so let's see how can i make or make use of these queues to implement this right so in terms of code like they are given that two uh two n queues operations are given like i can n queue to either q1 or q2 and i can dq to q1 or q2"
+      },
+      {
+        "lecture": 44,
+        "file": "044. 10a. Stack using two queues.mp4",
+        "start": 55.33,
+        "end": 83.99,
+        "text": "and I need to implement the push and pop right so anyway let's first understand using just stack and queue so my output should be let's suppose I'm pushing one and then two and then three then if I pop it then my output should be three and then two and then one this is my desired thing right so let's make use of two queues and let's see how can I output these two things this is queue one this is queue two now my input is coming in this order one is coming and then two is coming and then three is coming"
+      }
+    ],
+    "foundation": {
+      "title": "A stack made from two queues",
+      "idea": "One way to implement a stack with two queues keeps push cheap and pop costly. Enqueue new items to the active queue. To remove the newest item, transfer all older items to the spare queue, remove the final item, then swap queue roles.",
+      "terms": [
+        "LIFO: newest insertion leaves first.",
+        "Active queue: stores the current items in insertion order.",
+        "Costly pop: may move n-1 older items."
+      ],
+      "example": "Active front-to-rear 1,2,3 moves 1 and 2 to the spare queue, returns 3, and makes the spare queue active."
+    }
+  },
+  {
+    "id": 134,
+    "lecture": 44,
+    "title": "Swap queue roles",
+    "concept": "One way to implement a stack with two queues keeps push cheap and pop costly. Enqueue new items to the active queue. To remove the newest item, transfer all older items to the spare queue, remove the final item, then swap queue roles.",
+    "teachingSteps": [
+      "Keep the spare queue empty between completed operations.",
+      "For pop, move all but the final active item to the spare queue.",
+      "Remove that final item and swap which queue is active."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Does this implementation make both push and pop worst-case constant time?",
+        "options": [
+          "Yes, transferring items is free",
+          "Only if item values are equal",
+          "No; this pop can be linear"
+        ],
+        "answer": 2,
+        "explanation": "The stated costly-pop method moves n-1 items."
+      },
+      {
+        "type": "number",
+        "prompt": "Initially the active queue holds 1 through 5 front-to-rear and the spare is empty. Implement one stack-pop by moving older items before returning the newest. How many stack items remain after that one pop?",
+        "answer": 4,
+        "explanation": "Exactly one item is removed.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "queue",
+          "values": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "What is required before popping an empty implemented stack?",
+        "options": [
+          "Handle underflow",
+          "Dequeue a nonexistent item",
+          "Insert a silent replacement value"
+        ],
+        "answer": 0,
+        "explanation": "An empty stack has no top item."
+      },
+      {
+        "type": "number",
+        "prompt": "Initially the active queue holds 1 through 5 front-to-rear and the spare is empty. Implement one stack-pop by moving older items before returning the newest. After the completed pop and role swap, how many items remain in the spare queue?",
+        "answer": 0,
+        "explanation": "The former active queue was emptied.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "queue",
+          "values": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "two-queues",
+    "start": 0.05,
+    "sourceReferences": [
+      {
+        "lecture": 44,
+        "file": "044. 10a. Stack using two queues.mp4",
+        "start": 0.05,
+        "end": 25.19,
+        "text": "Now let's see that how can we implement a stack using two queues? Okay, so here a stack is to be implemented which means that I want to I want to implement a functionalities of stack and I can use two queues so in my black box So this is my black box here. I do have two queues. Let's call it q1 and q2 Okay, and suppose this time I'm inserting the data"
+      },
+      {
+        "lecture": 44,
+        "file": "044. 10a. Stack using two queues.mp4",
+        "start": 25.49,
+        "end": 55.09,
+        "text": "in the order one is getting inserted first then two then three right then one two three so earlier it was output also one two three but here now i want output three first and then i want two and then i want one one right so this is the order of output so let's see how can i make or make use of these queues to implement this right so in terms of code like they are given that two uh two n queues operations are given like i can n queue to either q1 or q2 and i can dq to q1 or q2"
+      },
+      {
+        "lecture": 44,
+        "file": "044. 10a. Stack using two queues.mp4",
+        "start": 55.33,
+        "end": 83.99,
+        "text": "and I need to implement the push and pop right so anyway let's first understand using just stack and queue so my output should be let's suppose I'm pushing one and then two and then three then if I pop it then my output should be three and then two and then one this is my desired thing right so let's make use of two queues and let's see how can I output these two things this is queue one this is queue two now my input is coming in this order one is coming and then two is coming and then three is coming"
+      }
+    ],
+    "foundation": {
+      "title": "A stack made from two queues",
+      "idea": "One way to implement a stack with two queues keeps push cheap and pop costly. Enqueue new items to the active queue. To remove the newest item, transfer all older items to the spare queue, remove the final item, then swap queue roles.",
+      "terms": [
+        "LIFO: newest insertion leaves first.",
+        "Active queue: stores the current items in insertion order.",
+        "Costly pop: may move n-1 older items."
+      ],
+      "example": "Active front-to-rear 1,2,3 moves 1 and 2 to the spare queue, returns 3, and makes the spare queue active."
+    }
+  },
+  {
+    "id": 135,
+    "lecture": 45,
+    "title": "Match the top opener",
+    "concept": "A bracket stack tracks unmatched openers. A closer must match the most recent unmatched opener. Two independent stacks can also share one array by growing inward from opposite ends, checking the gap before a push.",
+    "teachingSteps": [
+      "Push each opener; a closer must match the top before popping.",
+      "Reject a missing or mismatched opener; accept only if no opener remains at the end.",
+      "For inward-growing stacks, full means leftTop+1=rightTop."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which string has correctly matched nesting?",
+        "options": [
+          "([{}])",
+          "([)]",
+          "(()"
+        ],
+        "answer": 0,
+        "explanation": "Closers must match the latest unmatched opener and no opener may remain."
+      },
+      {
+        "type": "match",
+        "prompt": "Match each term with its stated role.",
+        "pairs": [
+          [
+            "Opener",
+            "Pushed pending bracket"
+          ],
+          [
+            "Closer",
+            "Must match and pop the top opener"
+          ],
+          [
+            "Free gap",
+            "Shared slots available to either stack"
+          ]
+        ],
+        "explanation": "Distinguish the operations, structural conditions and units in the definitions."
+      },
+      {
+        "type": "number",
+        "prompt": "Scan ([{}]) with an initially empty opener stack. What is its maximum depth?",
+        "answer": 3,
+        "explanation": "Three nested openers occur before any closes.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "How many opener pushes occur in ([{}])?",
+        "answer": 3,
+        "explanation": "One push for each of (, [, and {.",
+        "tolerance": 1e-8
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "brackets",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 45,
+        "file": "045. 10b. Balancing parentheses and Two Stacks in one array.mp4",
+        "start": 0,
+        "end": 27.37,
+        "text": "So let's now see one of the application of the stack which is balancing symbols, right? So what do I mean by balancing symbols is that suppose like balancing symbols or balancing brackets does not matter because brackets are also symbols. So suppose you have some brackets like this, right? Then you are going to say that these brackets are balanced. Why? Because if there is an opening parenthesis, then correspondingly we have the closing parenthesis."
+      },
+      {
+        "lecture": 45,
+        "file": "045. 10b. Balancing parentheses and Two Stacks in one array.mp4",
+        "start": 27.71,
+        "end": 57.21,
+        "text": "And in between this opening and closing parenthesis, there is also a balance symbol, right? So here in this example, just see that you have this bracket and you have this bracket, but in between these two brackets, this is imbalance, right? So this is not a balance symbol. I mean, you know this from your, I mean, from your high school itself, like this is not a balance bracket and this is a balance bracket, right? But now we are going to use stack to detect that whether something is balanced or not. It is very easy."
+      },
+      {
+        "lecture": 45,
+        "file": "045. 10b. Balancing parentheses and Two Stacks in one array.mp4",
+        "start": 57.53,
+        "end": 86.05,
+        "text": "let me let me show you and load some right away and then we will go go to the implementation part which means I will just show you the examples so what we are going to do so we are going to create a stack while input is not finished if the character is an opening delimiter like this this or this so some any any of the opening opening parenthesis then we are going to push it okay very easy if this is opening parenthesis push it if this is closing parenthesis then pop from the stack and if the popped out"
+      }
+    ],
+    "foundation": {
+      "title": "Bracket matching and shared stack storage",
+      "idea": "A bracket stack tracks unmatched openers. A closer must match the most recent unmatched opener. Two independent stacks can also share one array by growing inward from opposite ends, checking the gap before a push.",
+      "terms": [
+        "Nesting: inner bracket pairs close before outer pairs.",
+        "Mismatch: a closer of the wrong type.",
+        "Shared gap: unoccupied array slots between the two stack tops."
+      ],
+      "example": "([{}]) is balanced; ([)] is not. In eight shared slots, tops 2 and 6 leave indices 3,4,5 free."
+    }
+  },
+  {
+    "id": 136,
+    "lecture": 45,
+    "title": "Reject mismatched nesting",
+    "concept": "A bracket stack tracks unmatched openers. A closer must match the most recent unmatched opener. Two independent stacks can also share one array by growing inward from opposite ends, checking the gap before a push.",
+    "teachingSteps": [
+      "Push each opener; a closer must match the top before popping.",
+      "Reject a missing or mismatched opener; accept only if no opener remains at the end.",
+      "For inward-growing stacks, full means leftTop+1=rightTop."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "When two stacks grow inward in one array, what is the full condition?",
+        "options": [
+          "leftTop==0 always",
+          "rightTop==capacity always",
+          "leftTop+1==rightTop"
+        ],
+        "answer": 2,
+        "explanation": "No free slot remains between the occupied regions."
+      },
+      {
+        "type": "number",
+        "prompt": "After a complete valid scan of ([{}]), how many unmatched openers remain?",
+        "answer": 0,
+        "explanation": "Every opener matched and popped.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "Two inward-growing stacks share eight slots. Left top=2 and right top=6. How many free slots remain?",
+        "answer": 3,
+        "explanation": "Indices 3,4,5 are free.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange the dependent steps of this procedure.",
+        "items": [
+          "Read the next bracket",
+          "Push an opener or verify a closer against the top",
+          "Pop only after a successful closer match",
+          "At end require an empty opener stack"
+        ],
+        "explanation": "Follow this order so every step receives a valid state."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "brackets",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 45,
+        "file": "045. 10b. Balancing parentheses and Two Stacks in one array.mp4",
+        "start": 0,
+        "end": 27.37,
+        "text": "So let's now see one of the application of the stack which is balancing symbols, right? So what do I mean by balancing symbols is that suppose like balancing symbols or balancing brackets does not matter because brackets are also symbols. So suppose you have some brackets like this, right? Then you are going to say that these brackets are balanced. Why? Because if there is an opening parenthesis, then correspondingly we have the closing parenthesis."
+      },
+      {
+        "lecture": 45,
+        "file": "045. 10b. Balancing parentheses and Two Stacks in one array.mp4",
+        "start": 27.71,
+        "end": 57.21,
+        "text": "And in between this opening and closing parenthesis, there is also a balance symbol, right? So here in this example, just see that you have this bracket and you have this bracket, but in between these two brackets, this is imbalance, right? So this is not a balance symbol. I mean, you know this from your, I mean, from your high school itself, like this is not a balance bracket and this is a balance bracket, right? But now we are going to use stack to detect that whether something is balanced or not. It is very easy."
+      },
+      {
+        "lecture": 45,
+        "file": "045. 10b. Balancing parentheses and Two Stacks in one array.mp4",
+        "start": 57.53,
+        "end": 86.05,
+        "text": "let me let me show you and load some right away and then we will go go to the implementation part which means I will just show you the examples so what we are going to do so we are going to create a stack while input is not finished if the character is an opening delimiter like this this or this so some any any of the opening opening parenthesis then we are going to push it okay very easy if this is opening parenthesis push it if this is closing parenthesis then pop from the stack and if the popped out"
+      }
+    ],
+    "foundation": {
+      "title": "Bracket matching and shared stack storage",
+      "idea": "A bracket stack tracks unmatched openers. A closer must match the most recent unmatched opener. Two independent stacks can also share one array by growing inward from opposite ends, checking the gap before a push.",
+      "terms": [
+        "Nesting: inner bracket pairs close before outer pairs.",
+        "Mismatch: a closer of the wrong type.",
+        "Shared gap: unoccupied array slots between the two stack tops."
+      ],
+      "example": "([{}]) is balanced; ([)] is not. In eight shared slots, tops 2 and 6 leave indices 3,4,5 free."
+    }
+  },
+  {
+    "id": 137,
+    "lecture": 45,
+    "title": "Grow two stacks toward a free gap",
+    "concept": "A bracket stack tracks unmatched openers. A closer must match the most recent unmatched opener. Two independent stacks can also share one array by growing inward from opposite ends, checking the gap before a push.",
+    "teachingSteps": [
+      "Push each opener; a closer must match the top before popping.",
+      "Reject a missing or mismatched opener; accept only if no opener remains at the end.",
+      "For inward-growing stacks, full means leftTop+1=rightTop."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "A closer arrives when the opener stack is empty. What should happen?",
+        "options": [
+          "Accept immediately",
+          "Reject the string",
+          "Push the closer as a valid opener"
+        ],
+        "answer": 1,
+        "explanation": "There is no matching opener."
+      },
+      {
+        "type": "number",
+        "prompt": "Left top=2 uses indices 0 through 2. How many items does the left stack contain?",
+        "answer": 3,
+        "explanation": "An inclusive zero-based range has top+1 items.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Can a stack-based validator accept leftover openers at end?",
+        "options": [
+          "Yes, if all closers were matched",
+          "Only for round brackets",
+          "No"
+        ],
+        "answer": 2,
+        "explanation": "All brackets must be paired and correctly nested."
+      },
+      {
+        "type": "number",
+        "prompt": "Right top=6 uses indices 6 through 7. How many items does the right stack contain?",
+        "answer": 2,
+        "explanation": "Eight minus six gives two occupied right-side slots.",
+        "tolerance": 1e-8
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "brackets",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 45,
+        "file": "045. 10b. Balancing parentheses and Two Stacks in one array.mp4",
+        "start": 0,
+        "end": 27.37,
+        "text": "So let's now see one of the application of the stack which is balancing symbols, right? So what do I mean by balancing symbols is that suppose like balancing symbols or balancing brackets does not matter because brackets are also symbols. So suppose you have some brackets like this, right? Then you are going to say that these brackets are balanced. Why? Because if there is an opening parenthesis, then correspondingly we have the closing parenthesis."
+      },
+      {
+        "lecture": 45,
+        "file": "045. 10b. Balancing parentheses and Two Stacks in one array.mp4",
+        "start": 27.71,
+        "end": 57.21,
+        "text": "And in between this opening and closing parenthesis, there is also a balance symbol, right? So here in this example, just see that you have this bracket and you have this bracket, but in between these two brackets, this is imbalance, right? So this is not a balance symbol. I mean, you know this from your, I mean, from your high school itself, like this is not a balance bracket and this is a balance bracket, right? But now we are going to use stack to detect that whether something is balanced or not. It is very easy."
+      },
+      {
+        "lecture": 45,
+        "file": "045. 10b. Balancing parentheses and Two Stacks in one array.mp4",
+        "start": 57.53,
+        "end": 86.05,
+        "text": "let me let me show you and load some right away and then we will go go to the implementation part which means I will just show you the examples so what we are going to do so we are going to create a stack while input is not finished if the character is an opening delimiter like this this or this so some any any of the opening opening parenthesis then we are going to push it okay very easy if this is opening parenthesis push it if this is closing parenthesis then pop from the stack and if the popped out"
+      }
+    ],
+    "foundation": {
+      "title": "Bracket matching and shared stack storage",
+      "idea": "A bracket stack tracks unmatched openers. A closer must match the most recent unmatched opener. Two independent stacks can also share one array by growing inward from opposite ends, checking the gap before a push.",
+      "terms": [
+        "Nesting: inner bracket pairs close before outer pairs.",
+        "Mismatch: a closer of the wrong type.",
+        "Shared gap: unoccupied array slots between the two stack tops."
+      ],
+      "example": "([{}]) is balanced; ([)] is not. In eight shared slots, tops 2 and 6 leave indices 3,4,5 free."
+    }
+  },
+  {
+    "id": 138,
+    "lecture": 46,
+    "title": "Read operator placement",
+    "concept": "Infix places an operator between operands, prefix places it before them, and postfix places it after them. All three can describe the same expression tree. Parentheses and precedence determine grouping; operands must keep their left/right roles.",
+    "teachingSteps": [
+      "Determine the grouped expression, not just its textual order.",
+      "Read operators before children for prefix and after children for postfix.",
+      "Preserve operand order for subtraction and division."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which is postfix for (a+b)*c?",
+        "options": [
+          "a b c * +",
+          "* + a b c",
+          "a b + c *"
+        ],
+        "answer": 2,
+        "explanation": "Postfix emits each operator after its own operand subexpressions."
+      },
+      {
+        "type": "match",
+        "prompt": "Match each term with its stated role.",
+        "pairs": [
+          [
+            "Infix",
+            "Operator between its operands"
+          ],
+          [
+            "Prefix",
+            "Operator before its operands"
+          ],
+          [
+            "Postfix",
+            "Operator after its operands"
+          ]
+        ],
+        "explanation": "Distinguish the operations, structural conditions and units in the definitions."
+      },
+      {
+        "type": "number",
+        "prompt": "Use postfix tokens 12 7 - 2 * with an initially empty operand stack. Evaluate postfix 12 7 - 2 *.",
+        "answer": 10,
+        "explanation": "Compute the subtraction first, then multiply by two.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tokens",
+          "tokens": [
+            "12",
+            "7",
+            "-",
+            "2",
+            "*"
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Use postfix tokens 12 7 - 2 * with an initially empty operand stack. Evaluate infix 12 - 7 * 2 using usual arithmetic precedence.",
+        "answer": -2,
+        "explanation": "Multiplication binds more tightly than subtraction.",
+        "tolerance": 1e-8
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "expressions",
+    "start": 0.69,
+    "sourceReferences": [
+      {
+        "lecture": 46,
+        "file": "046_10c_Infix,_Prefix_&_Postfix_and_Conversion_to_each_other.mp4",
+        "start": 0.69,
+        "end": 30.15,
+        "text": "Hi everyone, in this video we are going to see infix, prefix and postfix expressions. So there are 3 ways to write any expression. Now before I tell you 3 ways, let me tell you what is an expression. If I am writing x plus y into z then this whole thing is called an expression. Even just writing x is an expression, x into y is an expression, x plus z like whatever arithmetic operation you are doing that is an expression."
+      },
+      {
+        "lecture": 46,
+        "file": "046_10c_Infix,_Prefix_&_Postfix_and_Conversion_to_each_other.mp4",
+        "start": 92.8,
+        "end": 120.38,
+        "text": "Now prefix means that you are writing your operator before the variables which means instead of writing x plus y so x plus y is an infrex form So you will say that instead of writing like this you will be writing plus xy Okay, because you are going to write your operators pre like before the variables, right? Similarly, the post-fiction notation means that you are going to write your operator after after the variables"
+      },
+      {
+        "lecture": 46,
+        "file": "046_10c_Infix,_Prefix_&_Postfix_and_Conversion_to_each_other.mp4",
+        "start": 120.74,
+        "end": 149.57,
+        "text": "So, the post-work is also called reverse polished notation, prefix is also called polished notation. Now, let us see in fixed notation. So, we write the expression in the in fixed notation which means like a minus b plus c where operators are in between the operands. So, basically here a minus b plus c is in in fixed notation. Why? Because this operator which is minus and this plus are in between the operands or maybe the variable like whatever you want to say."
+      }
+    ],
+    "foundation": {
+      "title": "Infix, prefix and postfix expressions",
+      "idea": "Infix places an operator between operands, prefix places it before them, and postfix places it after them. All three can describe the same expression tree. Parentheses and precedence determine grouping; operands must keep their left/right roles.",
+      "terms": [
+        "Infix: a+b.",
+        "Prefix: + a b.",
+        "Postfix: a b +."
+      ],
+      "example": "(2+3)*4 is prefix * + 2 3 4 and postfix 2 3 + 4 *. Each evaluates to 20."
+    }
+  },
+  {
+    "id": 139,
+    "lecture": 46,
+    "title": "Preserve operand order",
+    "concept": "Infix places an operator between operands, prefix places it before them, and postfix places it after them. All three can describe the same expression tree. Parentheses and precedence determine grouping; operands must keep their left/right roles.",
+    "teachingSteps": [
+      "Determine the grouped expression, not just its textual order.",
+      "Read operators before children for prefix and after children for postfix.",
+      "Preserve operand order for subtraction and division."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "For a binary postfix subtraction, which popped value is the right operand?",
+        "options": [
+          "Always the smaller value",
+          "The first popped value",
+          "The second popped value"
+        ],
+        "answer": 1,
+        "explanation": "Stack order, not numeric magnitude, decides operand roles."
+      },
+      {
+        "type": "number",
+        "prompt": "Use postfix tokens 12 7 - 2 * with an initially empty operand stack. In postfix 12 7 - 2 *, how many numeric operand tokens are present?",
+        "answer": 3,
+        "explanation": "There are three numeric values.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tokens",
+          "tokens": [
+            "12",
+            "7",
+            "-",
+            "2",
+            "*"
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Use postfix tokens 12 7 - 2 * with an initially empty operand stack. How many binary operator tokens occur in that same postfix expression?",
+        "answer": 2,
+        "explanation": "Subtraction and multiplication each consume two operands.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tokens",
+          "tokens": [
+            "12",
+            "7",
+            "-",
+            "2",
+            "*"
+          ]
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange the dependent steps of this procedure.",
+        "items": [
+          "Read the next postfix token",
+          "Push an operand or pop right then left for an operator",
+          "Push the computed binary result",
+          "At end require exactly one value"
+        ],
+        "explanation": "Follow this order so every step receives a valid state."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "expressions",
+    "start": 0.69,
+    "sourceReferences": [
+      {
+        "lecture": 46,
+        "file": "046_10c_Infix,_Prefix_&_Postfix_and_Conversion_to_each_other.mp4",
+        "start": 0.69,
+        "end": 30.15,
+        "text": "Hi everyone, in this video we are going to see infix, prefix and postfix expressions. So there are 3 ways to write any expression. Now before I tell you 3 ways, let me tell you what is an expression. If I am writing x plus y into z then this whole thing is called an expression. Even just writing x is an expression, x into y is an expression, x plus z like whatever arithmetic operation you are doing that is an expression."
+      },
+      {
+        "lecture": 46,
+        "file": "046_10c_Infix,_Prefix_&_Postfix_and_Conversion_to_each_other.mp4",
+        "start": 92.8,
+        "end": 120.38,
+        "text": "Now prefix means that you are writing your operator before the variables which means instead of writing x plus y so x plus y is an infrex form So you will say that instead of writing like this you will be writing plus xy Okay, because you are going to write your operators pre like before the variables, right? Similarly, the post-fiction notation means that you are going to write your operator after after the variables"
+      },
+      {
+        "lecture": 46,
+        "file": "046_10c_Infix,_Prefix_&_Postfix_and_Conversion_to_each_other.mp4",
+        "start": 120.74,
+        "end": 149.57,
+        "text": "So, the post-work is also called reverse polished notation, prefix is also called polished notation. Now, let us see in fixed notation. So, we write the expression in the in fixed notation which means like a minus b plus c where operators are in between the operands. So, basically here a minus b plus c is in in fixed notation. Why? Because this operator which is minus and this plus are in between the operands or maybe the variable like whatever you want to say."
+      }
+    ],
+    "foundation": {
+      "title": "Infix, prefix and postfix expressions",
+      "idea": "Infix places an operator between operands, prefix places it before them, and postfix places it after them. All three can describe the same expression tree. Parentheses and precedence determine grouping; operands must keep their left/right roles.",
+      "terms": [
+        "Infix: a+b.",
+        "Prefix: + a b.",
+        "Postfix: a b +."
+      ],
+      "example": "(2+3)*4 is prefix * + 2 3 4 and postfix 2 3 + 4 *. Each evaluates to 20."
+    }
+  },
+  {
+    "id": 140,
+    "lecture": 46,
+    "title": "Convert a grouped expression",
+    "concept": "Infix places an operator between operands, prefix places it before them, and postfix places it after them. All three can describe the same expression tree. Parentheses and precedence determine grouping; operands must keep their left/right roles.",
+    "teachingSteps": [
+      "Determine the grouped expression, not just its textual order.",
+      "Read operators before children for prefix and after children for postfix.",
+      "Preserve operand order for subtraction and division."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What does usual precedence imply for a+b*c?",
+        "options": [
+          "Multiply b and c before adding a",
+          "Add a and b first without parentheses",
+          "Evaluate every symbol strictly left to right"
+        ],
+        "answer": 0,
+        "explanation": "Multiplication has higher precedence."
+      },
+      {
+        "type": "number",
+        "prompt": "Use postfix tokens 12 7 - 2 * with an initially empty operand stack. After reading just 12 7, how many values are on the evaluation stack?",
+        "answer": 2,
+        "explanation": "Both operands have been pushed.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tokens",
+          "tokens": [
+            "12",
+            "7",
+            "-",
+            "2",
+            "*"
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "During infix conversion, a closing parenthesis does what?",
+        "options": [
+          "Discard the complete output",
+          "Pop pending operators until the matching opening parenthesis",
+          "Emit both parentheses into postfix"
+        ],
+        "answer": 1,
+        "explanation": "Parentheses control grouping and do not become postfix operators."
+      },
+      {
+        "type": "number",
+        "prompt": "Use postfix tokens 12 7 - 2 * with an initially empty operand stack. A valid completed single-result postfix expression leaves how many values?",
+        "answer": 1,
+        "explanation": "Exactly one final result remains.",
+        "tolerance": 1e-8
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "expressions",
+    "start": 0.69,
+    "sourceReferences": [
+      {
+        "lecture": 46,
+        "file": "046_10c_Infix,_Prefix_&_Postfix_and_Conversion_to_each_other.mp4",
+        "start": 0.69,
+        "end": 30.15,
+        "text": "Hi everyone, in this video we are going to see infix, prefix and postfix expressions. So there are 3 ways to write any expression. Now before I tell you 3 ways, let me tell you what is an expression. If I am writing x plus y into z then this whole thing is called an expression. Even just writing x is an expression, x into y is an expression, x plus z like whatever arithmetic operation you are doing that is an expression."
+      },
+      {
+        "lecture": 46,
+        "file": "046_10c_Infix,_Prefix_&_Postfix_and_Conversion_to_each_other.mp4",
+        "start": 92.8,
+        "end": 120.38,
+        "text": "Now prefix means that you are writing your operator before the variables which means instead of writing x plus y so x plus y is an infrex form So you will say that instead of writing like this you will be writing plus xy Okay, because you are going to write your operators pre like before the variables, right? Similarly, the post-fiction notation means that you are going to write your operator after after the variables"
+      },
+      {
+        "lecture": 46,
+        "file": "046_10c_Infix,_Prefix_&_Postfix_and_Conversion_to_each_other.mp4",
+        "start": 120.74,
+        "end": 149.57,
+        "text": "So, the post-work is also called reverse polished notation, prefix is also called polished notation. Now, let us see in fixed notation. So, we write the expression in the in fixed notation which means like a minus b plus c where operators are in between the operands. So, basically here a minus b plus c is in in fixed notation. Why? Because this operator which is minus and this plus are in between the operands or maybe the variable like whatever you want to say."
+      }
+    ],
+    "foundation": {
+      "title": "Infix, prefix and postfix expressions",
+      "idea": "Infix places an operator between operands, prefix places it before them, and postfix places it after them. All three can describe the same expression tree. Parentheses and precedence determine grouping; operands must keep their left/right roles.",
+      "terms": [
+        "Infix: a+b.",
+        "Prefix: + a b.",
+        "Postfix: a b +."
+      ],
+      "example": "(2+3)*4 is prefix * + 2 3 4 and postfix 2 3 + 4 *. Each evaluates to 20."
+    }
+  },
+  {
+    "id": 141,
+    "lecture": 47,
+    "title": "Respect precedence during conversion",
+    "concept": "Postfix evaluation reads tokens left to right using a value stack. Operands are pushed. A binary operator pops the right operand first, then the left operand, and pushes the result. Infix conversion uses an operator stack with stated precedence and associativity.",
+    "teachingSteps": [
+      "Push operand tokens as values.",
+      "For a binary operator, obtain right then left and compute left operator right.",
+      "A valid completed postfix expression leaves exactly one value; handle parentheses and operator precedence separately during conversion."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which is postfix for (a+b)*c?",
+        "options": [
+          "* + a b c",
+          "a b + c *",
+          "a b c * +"
+        ],
+        "answer": 1,
+        "explanation": "Postfix emits each operator after its own operand subexpressions."
+      },
+      {
+        "type": "match",
+        "prompt": "Match each term with its stated role.",
+        "pairs": [
+          [
+            "Infix",
+            "Operator between its operands"
+          ],
+          [
+            "Prefix",
+            "Operator before its operands"
+          ],
+          [
+            "Postfix",
+            "Operator after its operands"
+          ]
+        ],
+        "explanation": "Distinguish the operations, structural conditions and units in the definitions."
+      },
+      {
+        "type": "number",
+        "prompt": "Use postfix tokens 13 8 - 2 * with an initially empty operand stack. Evaluate postfix 13 8 - 2 *.",
+        "answer": 10,
+        "explanation": "Compute the subtraction first, then multiply by two.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tokens",
+          "tokens": [
+            "13",
+            "8",
+            "-",
+            "2",
+            "*"
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Use postfix tokens 13 8 - 2 * with an initially empty operand stack. Evaluate infix 13 - 8 * 2 using usual arithmetic precedence.",
+        "answer": -3,
+        "explanation": "Multiplication binds more tightly than subtraction.",
+        "tolerance": 1e-8
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "postfix",
+    "start": 1.87,
+    "sourceReferences": [
+      {
+        "lecture": 47,
+        "file": "047_10d_Infix_to_Postfix_using_Stack_and_Postfix_evaluation_using.mp4",
+        "start": 1.87,
+        "end": 31,
+        "text": "Let's now see how to convert from infix to postfix using stack Okay, so your input could be anything suppose that in input you are getting this opening parenthesis Then I will always push in the stack if I'm getting closing parenthesis Then I will pop until the left parenthesis is popped. Okay, so these two things are okay I hope and this is actually very important if in the input I'm getting operator then"
+      },
+      {
+        "lecture": 47,
+        "file": "047_10d_Infix_to_Postfix_using_Stack_and_Postfix_evaluation_using.mp4",
+        "start": 31.48,
+        "end": 58.56,
+        "text": "I will check whether the lower priority operator is in the input then I will pop which means that suppose so basically let's suppose in the input I am getting plus this is the input and on the stack top let's suppose I have multiplication so what I will be doing I will be comparing so this is input this is in input this is on stack this is on stack top"
+      },
+      {
+        "lecture": 47,
+        "file": "047_10d_Infix_to_Postfix_using_Stack_and_Postfix_evaluation_using.mp4",
+        "start": 116.22,
+        "end": 144.5,
+        "text": "case 2 is where you have higher priority operator here on your input right this is the input and this is stack top this is input again and this is here let's suppose you have plus and here you have lower priority so if you have lower priority then you do not want to perform this operation then you will be doing what you will be directly pushing so your stack will become like this okay and third case is that if in the input if in the input you have plus"
+      }
+    ],
+    "foundation": {
+      "title": "Expression processing with a stack",
+      "idea": "Postfix evaluation reads tokens left to right using a value stack. Operands are pushed. A binary operator pops the right operand first, then the left operand, and pushes the result. Infix conversion uses an operator stack with stated precedence and associativity.",
+      "terms": [
+        "Operand stack: pending numeric values.",
+        "Arity: the number of operands required by an operator.",
+        "Associativity: grouping rule for operators of equal precedence."
+      ],
+      "example": "8 3 - 2 * evaluates as (8-3)*2=10. Reversing the popped subtraction operands would be wrong."
+    }
+  },
+  {
+    "id": 142,
+    "lecture": 47,
+    "title": "Evaluate postfix tokens",
+    "concept": "Postfix evaluation reads tokens left to right using a value stack. Operands are pushed. A binary operator pops the right operand first, then the left operand, and pushes the result. Infix conversion uses an operator stack with stated precedence and associativity.",
+    "teachingSteps": [
+      "Push operand tokens as values.",
+      "For a binary operator, obtain right then left and compute left operator right.",
+      "A valid completed postfix expression leaves exactly one value; handle parentheses and operator precedence separately during conversion."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "For a binary postfix subtraction, which popped value is the right operand?",
+        "options": [
+          "The first popped value",
+          "The second popped value",
+          "Always the smaller value"
+        ],
+        "answer": 0,
+        "explanation": "Stack order, not numeric magnitude, decides operand roles."
+      },
+      {
+        "type": "number",
+        "prompt": "Use postfix tokens 13 8 - 2 * with an initially empty operand stack. In postfix 13 8 - 2 *, how many numeric operand tokens are present?",
+        "answer": 3,
+        "explanation": "There are three numeric values.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tokens",
+          "tokens": [
+            "13",
+            "8",
+            "-",
+            "2",
+            "*"
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Use postfix tokens 13 8 - 2 * with an initially empty operand stack. How many binary operator tokens occur in that same postfix expression?",
+        "answer": 2,
+        "explanation": "Subtraction and multiplication each consume two operands.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tokens",
+          "tokens": [
+            "13",
+            "8",
+            "-",
+            "2",
+            "*"
+          ]
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange the dependent steps of this procedure.",
+        "items": [
+          "Read the next postfix token",
+          "Push an operand or pop right then left for an operator",
+          "Push the computed binary result",
+          "At end require exactly one value"
+        ],
+        "explanation": "Follow this order so every step receives a valid state."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "postfix",
+    "start": 1.87,
+    "sourceReferences": [
+      {
+        "lecture": 47,
+        "file": "047_10d_Infix_to_Postfix_using_Stack_and_Postfix_evaluation_using.mp4",
+        "start": 1.87,
+        "end": 31,
+        "text": "Let's now see how to convert from infix to postfix using stack Okay, so your input could be anything suppose that in input you are getting this opening parenthesis Then I will always push in the stack if I'm getting closing parenthesis Then I will pop until the left parenthesis is popped. Okay, so these two things are okay I hope and this is actually very important if in the input I'm getting operator then"
+      },
+      {
+        "lecture": 47,
+        "file": "047_10d_Infix_to_Postfix_using_Stack_and_Postfix_evaluation_using.mp4",
+        "start": 31.48,
+        "end": 58.56,
+        "text": "I will check whether the lower priority operator is in the input then I will pop which means that suppose so basically let's suppose in the input I am getting plus this is the input and on the stack top let's suppose I have multiplication so what I will be doing I will be comparing so this is input this is in input this is on stack this is on stack top"
+      },
+      {
+        "lecture": 47,
+        "file": "047_10d_Infix_to_Postfix_using_Stack_and_Postfix_evaluation_using.mp4",
+        "start": 116.22,
+        "end": 144.5,
+        "text": "case 2 is where you have higher priority operator here on your input right this is the input and this is stack top this is input again and this is here let's suppose you have plus and here you have lower priority so if you have lower priority then you do not want to perform this operation then you will be doing what you will be directly pushing so your stack will become like this okay and third case is that if in the input if in the input you have plus"
+      }
+    ],
+    "foundation": {
+      "title": "Expression processing with a stack",
+      "idea": "Postfix evaluation reads tokens left to right using a value stack. Operands are pushed. A binary operator pops the right operand first, then the left operand, and pushes the result. Infix conversion uses an operator stack with stated precedence and associativity.",
+      "terms": [
+        "Operand stack: pending numeric values.",
+        "Arity: the number of operands required by an operator.",
+        "Associativity: grouping rule for operators of equal precedence."
+      ],
+      "example": "8 3 - 2 * evaluates as (8-3)*2=10. Reversing the popped subtraction operands would be wrong."
+    }
+  },
+  {
+    "id": 143,
+    "lecture": 47,
+    "title": "Pop right operand before left",
+    "concept": "Postfix evaluation reads tokens left to right using a value stack. Operands are pushed. A binary operator pops the right operand first, then the left operand, and pushes the result. Infix conversion uses an operator stack with stated precedence and associativity.",
+    "teachingSteps": [
+      "Push operand tokens as values.",
+      "For a binary operator, obtain right then left and compute left operator right.",
+      "A valid completed postfix expression leaves exactly one value; handle parentheses and operator precedence separately during conversion."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What does usual precedence imply for a+b*c?",
+        "options": [
+          "Add a and b first without parentheses",
+          "Evaluate every symbol strictly left to right",
+          "Multiply b and c before adding a"
+        ],
+        "answer": 2,
+        "explanation": "Multiplication has higher precedence."
+      },
+      {
+        "type": "number",
+        "prompt": "Use postfix tokens 13 8 - 2 * with an initially empty operand stack. After reading just 13 8, how many values are on the evaluation stack?",
+        "answer": 2,
+        "explanation": "Both operands have been pushed.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tokens",
+          "tokens": [
+            "13",
+            "8",
+            "-",
+            "2",
+            "*"
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "During infix conversion, a closing parenthesis does what?",
+        "options": [
+          "Pop pending operators until the matching opening parenthesis",
+          "Emit both parentheses into postfix",
+          "Discard the complete output"
+        ],
+        "answer": 0,
+        "explanation": "Parentheses control grouping and do not become postfix operators."
+      },
+      {
+        "type": "number",
+        "prompt": "Use postfix tokens 13 8 - 2 * with an initially empty operand stack. A valid completed single-result postfix expression leaves how many values?",
+        "answer": 1,
+        "explanation": "Exactly one final result remains.",
+        "tolerance": 1e-8
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "postfix",
+    "start": 1.87,
+    "sourceReferences": [
+      {
+        "lecture": 47,
+        "file": "047_10d_Infix_to_Postfix_using_Stack_and_Postfix_evaluation_using.mp4",
+        "start": 1.87,
+        "end": 31,
+        "text": "Let's now see how to convert from infix to postfix using stack Okay, so your input could be anything suppose that in input you are getting this opening parenthesis Then I will always push in the stack if I'm getting closing parenthesis Then I will pop until the left parenthesis is popped. Okay, so these two things are okay I hope and this is actually very important if in the input I'm getting operator then"
+      },
+      {
+        "lecture": 47,
+        "file": "047_10d_Infix_to_Postfix_using_Stack_and_Postfix_evaluation_using.mp4",
+        "start": 31.48,
+        "end": 58.56,
+        "text": "I will check whether the lower priority operator is in the input then I will pop which means that suppose so basically let's suppose in the input I am getting plus this is the input and on the stack top let's suppose I have multiplication so what I will be doing I will be comparing so this is input this is in input this is on stack this is on stack top"
+      },
+      {
+        "lecture": 47,
+        "file": "047_10d_Infix_to_Postfix_using_Stack_and_Postfix_evaluation_using.mp4",
+        "start": 116.22,
+        "end": 144.5,
+        "text": "case 2 is where you have higher priority operator here on your input right this is the input and this is stack top this is input again and this is here let's suppose you have plus and here you have lower priority so if you have lower priority then you do not want to perform this operation then you will be doing what you will be directly pushing so your stack will become like this okay and third case is that if in the input if in the input you have plus"
+      }
+    ],
+    "foundation": {
+      "title": "Expression processing with a stack",
+      "idea": "Postfix evaluation reads tokens left to right using a value stack. Operands are pushed. A binary operator pops the right operand first, then the left operand, and pushes the result. Infix conversion uses an operator stack with stated precedence and associativity.",
+      "terms": [
+        "Operand stack: pending numeric values.",
+        "Arity: the number of operands required by an operator.",
+        "Associativity: grouping rule for operators of equal precedence."
+      ],
+      "example": "8 3 - 2 * evaluates as (8-3)*2=10. Reversing the popped subtraction operands would be wrong."
+    }
+  },
+  {
+    "id": 144,
+    "lecture": 48,
+    "title": "Track endpoints in mixed operations",
+    "concept": "Mixed stack and queue traces require preserving each endpoint contract and tracking the work actually performed. A configuration already produced by earlier operations is different from the cost of creating it.",
+    "teachingSteps": [
+      "Write the starting contents in a named direction.",
+      "Apply each operation to the specified endpoint and update the state.",
+      "Count only the operations included in the question, distinguishing per-operation and amortized costs."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "When should the lazy-transfer queue move IN to OUT?",
+        "options": [
+          "Only when OUT is empty and a dequeue needs an item",
+          "Before every dequeue even when OUT has older items",
+          "Before every enqueue"
+        ],
+        "answer": 0,
+        "explanation": "Transferring newer items over older OUT items would break FIFO."
+      },
+      {
+        "type": "match",
+        "prompt": "Match each term with its stated role.",
+        "pairs": [
+          [
+            "FIFO",
+            "Serve the oldest waiting item"
+          ],
+          [
+            "LIFO",
+            "Serve the latest saved item"
+          ],
+          [
+            "Transfer",
+            "Move a payload through the stated primitive operations"
+          ]
+        ],
+        "explanation": "Distinguish the operations, structural conditions and units in the definitions."
+      },
+      {
+        "type": "number",
+        "prompt": "Initially IN holds 1 through 3 bottom-to-top and OUT is empty. Use lazy transfer for the first dequeue; no new enqueues occur. IN holds 1 through 3 bottom-to-top; OUT is empty. How many items transfer for the next dequeue?",
+        "answer": 3,
+        "explanation": "Every IN item moves to OUT before serving.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "stack",
+          "values": [
+            1,
+            2,
+            3
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Initially IN holds 1 through 3 bottom-to-top and OUT is empty. Use lazy transfer for the first dequeue; no new enqueues occur. Count one IN pop and one OUT push per transfer. How many transfer operations occur?",
+        "answer": 6,
+        "explanation": "There are two counted stack operations per item.",
+        "tolerance": 1e-8
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "container-practice",
+    "start": 39.66,
+    "sourceReferences": [
+      {
+        "lecture": 48,
+        "file": "048_Recording_LIVE_Stack_and_Queue_Practice_Set_Discussion.mp4",
+        "start": 39.66,
+        "end": 89.04,
+        "text": "Hi, everyone. How are you doing? Okay. So I hope everyone is doing good. Right. Okay. So let's get started. Can you hear me? Can you quickly confirm? Okay, everyone. Okay. Okay. So let's get started. So today we will be discussing questions related to stack and queue. Right. Let's see this first question. Now they are saying, just give me a second. Just a second. So they are saying."
+      },
+      {
+        "lecture": 48,
+        "file": "048_Recording_LIVE_Stack_and_Queue_Practice_Set_Discussion.mp4",
+        "start": 89.68,
+        "end": 116.06,
+        "text": "consider how to implement a queue as singly linked list this SLL list means singly linked list okay singly linked list and we want to enqueue and dequeue okay so where where we will be enqueue and dequeue so suppose if there is a singly linked list then where you will be enqueuing and where you will be dequeuing enqueue means that you need to I mean include or you need to insert some element so"
+      },
+      {
+        "lecture": 48,
+        "file": "048_Recording_LIVE_Stack_and_Queue_Practice_Set_Discussion.mp4",
+        "start": 177.42,
+        "end": 210.88,
+        "text": "I think this is good option right option D is good so let's just see the answer so answer is D I mean I think earlier there was a typo but yeah now it is D is this okay to everyone that what we are doing so if we are having a queue right if we are having a queue then we will be basically maintaining two pointers I mean if we are having a linked list here we are maintaining two pointers one is head one is tail now if you nq if you let's suppose nq here"
+      }
+    ],
+    "foundation": {
+      "title": "Stack and queue operation challenges",
+      "idea": "Mixed stack and queue traces require preserving each endpoint contract and tracking the work actually performed. A configuration already produced by earlier operations is different from the cost of creating it.",
+      "terms": [
+        "Starting state: contents before the stated new operations.",
+        "Transfer cost: the pushes and pops or dequeues and enqueues counted explicitly.",
+        "Underflow: removal from an empty container."
+      ],
+      "example": "If OUT already holds 3,2,1 bottom-to-top, the next dequeue is one OUT pop; it does not repeat the earlier transfer."
+    }
+  },
+  {
+    "id": 145,
+    "lecture": 48,
+    "title": "Check capacity and underflow",
+    "concept": "Mixed stack and queue traces require preserving each endpoint contract and tracking the work actually performed. A configuration already produced by earlier operations is different from the cost of creating it.",
+    "teachingSteps": [
+      "Write the starting contents in a named direction.",
+      "Apply each operation to the specified endpoint and update the state.",
+      "Count only the operations included in the question, distinguishing per-operation and amortized costs."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Can one dequeue be linear even when amortized cost is constant?",
+        "options": [
+          "No; amortized means every operation is constant",
+          "Only when the payload is negative",
+          "Yes"
+        ],
+        "answer": 2,
+        "explanation": "A costly transfer is spread over many operations in sequence accounting."
+      },
+      {
+        "type": "number",
+        "prompt": "Initially IN holds 1 through 3 bottom-to-top and OUT is empty. Use lazy transfer for the first dequeue; no new enqueues occur. Also count the final OUT pop that serves one item. What total stack-operation cost occurs?",
+        "answer": 7,
+        "explanation": "Add the final removal to the transfer cost.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "Initially IN holds 1 through 3 bottom-to-top and OUT is empty. Use lazy transfer for the first dequeue; no new enqueues occur. What payload is returned after that complete transfer?",
+        "answer": 1,
+        "explanation": "Reversal puts the oldest arrival on the OUT top.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange the dependent steps of this procedure.",
+        "items": [
+          "Check whether OUT already has an item",
+          "If empty, transfer every IN item to OUT",
+          "Pop the oldest waiting item from OUT",
+          "Keep remaining OUT items ahead of newer IN arrivals"
+        ],
+        "explanation": "Follow this order so every step receives a valid state."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "container-practice",
+    "start": 39.66,
+    "sourceReferences": [
+      {
+        "lecture": 48,
+        "file": "048_Recording_LIVE_Stack_and_Queue_Practice_Set_Discussion.mp4",
+        "start": 39.66,
+        "end": 89.04,
+        "text": "Hi, everyone. How are you doing? Okay. So I hope everyone is doing good. Right. Okay. So let's get started. Can you hear me? Can you quickly confirm? Okay, everyone. Okay. Okay. So let's get started. So today we will be discussing questions related to stack and queue. Right. Let's see this first question. Now they are saying, just give me a second. Just a second. So they are saying."
+      },
+      {
+        "lecture": 48,
+        "file": "048_Recording_LIVE_Stack_and_Queue_Practice_Set_Discussion.mp4",
+        "start": 89.68,
+        "end": 116.06,
+        "text": "consider how to implement a queue as singly linked list this SLL list means singly linked list okay singly linked list and we want to enqueue and dequeue okay so where where we will be enqueue and dequeue so suppose if there is a singly linked list then where you will be enqueuing and where you will be dequeuing enqueue means that you need to I mean include or you need to insert some element so"
+      },
+      {
+        "lecture": 48,
+        "file": "048_Recording_LIVE_Stack_and_Queue_Practice_Set_Discussion.mp4",
+        "start": 177.42,
+        "end": 210.88,
+        "text": "I think this is good option right option D is good so let's just see the answer so answer is D I mean I think earlier there was a typo but yeah now it is D is this okay to everyone that what we are doing so if we are having a queue right if we are having a queue then we will be basically maintaining two pointers I mean if we are having a linked list here we are maintaining two pointers one is head one is tail now if you nq if you let's suppose nq here"
+      }
+    ],
+    "foundation": {
+      "title": "Stack and queue operation challenges",
+      "idea": "Mixed stack and queue traces require preserving each endpoint contract and tracking the work actually performed. A configuration already produced by earlier operations is different from the cost of creating it.",
+      "terms": [
+        "Starting state: contents before the stated new operations.",
+        "Transfer cost: the pushes and pops or dequeues and enqueues counted explicitly.",
+        "Underflow: removal from an empty container."
+      ],
+      "example": "If OUT already holds 3,2,1 bottom-to-top, the next dequeue is one OUT pop; it does not repeat the earlier transfer."
+    }
+  },
+  {
+    "id": 146,
+    "lecture": 48,
+    "title": "Account for transfer work",
+    "concept": "Mixed stack and queue traces require preserving each endpoint contract and tracking the work actually performed. A configuration already produced by earlier operations is different from the cost of creating it.",
+    "teachingSteps": [
+      "Write the starting contents in a named direction.",
+      "Apply each operation to the specified endpoint and update the state.",
+      "Count only the operations included in the question, distinguishing per-operation and amortized costs."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Why does transferring every IN item reverse its order?",
+        "options": [
+          "Payloads change during transfer",
+          "Each pop removes the newest IN item and pushes it onto OUT",
+          "A stack automatically sorts keys"
+        ],
+        "answer": 1,
+        "explanation": "Two LIFO endpoints reverse arrival order."
+      },
+      {
+        "type": "number",
+        "prompt": "Initially IN holds 1 through 3 bottom-to-top and OUT is empty. Use lazy transfer for the first dequeue; no new enqueues occur. No new enqueue occurs. The following dequeue performs how many stack operations?",
+        "answer": 1,
+        "explanation": "OUT is already nonempty, so only one pop occurs.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "OUT is already populated. Does the next dequeue repeat its creation cost?",
+        "options": [
+          "Yes, repeat all earlier transfers",
+          "It must move every item to IN again",
+          "No; count only the new OUT pop"
+        ],
+        "answer": 2,
+        "explanation": "The question starting state already includes earlier completed work."
+      },
+      {
+        "type": "number",
+        "prompt": "Initially IN holds 1 through 3 bottom-to-top and OUT is empty. Use lazy transfer for the first dequeue; no new enqueues occur. Enqueue all 3 items to IN, then dequeue all, starting with empty stacks. Count IN pushes, transfer pops/pushes and OUT pops. What total occurs?",
+        "answer": 12,
+        "explanation": "Each item is pushed to IN, popped from IN, pushed to OUT and popped from OUT exactly once.",
+        "tolerance": 1e-8
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "container-practice",
+    "start": 39.66,
+    "sourceReferences": [
+      {
+        "lecture": 48,
+        "file": "048_Recording_LIVE_Stack_and_Queue_Practice_Set_Discussion.mp4",
+        "start": 39.66,
+        "end": 89.04,
+        "text": "Hi, everyone. How are you doing? Okay. So I hope everyone is doing good. Right. Okay. So let's get started. Can you hear me? Can you quickly confirm? Okay, everyone. Okay. Okay. So let's get started. So today we will be discussing questions related to stack and queue. Right. Let's see this first question. Now they are saying, just give me a second. Just a second. So they are saying."
+      },
+      {
+        "lecture": 48,
+        "file": "048_Recording_LIVE_Stack_and_Queue_Practice_Set_Discussion.mp4",
+        "start": 89.68,
+        "end": 116.06,
+        "text": "consider how to implement a queue as singly linked list this SLL list means singly linked list okay singly linked list and we want to enqueue and dequeue okay so where where we will be enqueue and dequeue so suppose if there is a singly linked list then where you will be enqueuing and where you will be dequeuing enqueue means that you need to I mean include or you need to insert some element so"
+      },
+      {
+        "lecture": 48,
+        "file": "048_Recording_LIVE_Stack_and_Queue_Practice_Set_Discussion.mp4",
+        "start": 177.42,
+        "end": 210.88,
+        "text": "I think this is good option right option D is good so let's just see the answer so answer is D I mean I think earlier there was a typo but yeah now it is D is this okay to everyone that what we are doing so if we are having a queue right if we are having a queue then we will be basically maintaining two pointers I mean if we are having a linked list here we are maintaining two pointers one is head one is tail now if you nq if you let's suppose nq here"
+      }
+    ],
+    "foundation": {
+      "title": "Stack and queue operation challenges",
+      "idea": "Mixed stack and queue traces require preserving each endpoint contract and tracking the work actually performed. A configuration already produced by earlier operations is different from the cost of creating it.",
+      "terms": [
+        "Starting state: contents before the stated new operations.",
+        "Transfer cost: the pushes and pops or dequeues and enqueues counted explicitly.",
+        "Underflow: removal from an empty container."
+      ],
+      "example": "If OUT already holds 3,2,1 bottom-to-top, the next dequeue is one OUT pop; it does not repeat the earlier transfer."
+    }
+  },
+  {
+    "id": 147,
+    "lecture": 49,
+    "title": "Keep arrival and service order distinct",
+    "concept": "Mixed stack and queue traces require preserving each endpoint contract and tracking the work actually performed. A configuration already produced by earlier operations is different from the cost of creating it.",
+    "teachingSteps": [
+      "Write the starting contents in a named direction.",
+      "Apply each operation to the specified endpoint and update the state.",
+      "Count only the operations included in the question, distinguishing per-operation and amortized costs."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "When should the lazy-transfer queue move IN to OUT?",
+        "options": [
+          "Before every dequeue even when OUT has older items",
+          "Before every enqueue",
+          "Only when OUT is empty and a dequeue needs an item"
+        ],
+        "answer": 2,
+        "explanation": "Transferring newer items over older OUT items would break FIFO."
+      },
+      {
+        "type": "match",
+        "prompt": "Match each term with its stated role.",
+        "pairs": [
+          [
+            "FIFO",
+            "Serve the oldest waiting item"
+          ],
+          [
+            "LIFO",
+            "Serve the latest saved item"
+          ],
+          [
+            "Transfer",
+            "Move a payload through the stated primitive operations"
+          ]
+        ],
+        "explanation": "Distinguish the operations, structural conditions and units in the definitions."
+      },
+      {
+        "type": "number",
+        "prompt": "Initially IN holds 1 through 4 bottom-to-top and OUT is empty. Use lazy transfer for the first dequeue; no new enqueues occur. IN holds 1 through 4 bottom-to-top; OUT is empty. How many items transfer for the next dequeue?",
+        "answer": 4,
+        "explanation": "Every IN item moves to OUT before serving.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "stack",
+          "values": [
+            1,
+            2,
+            3,
+            4
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Initially IN holds 1 through 4 bottom-to-top and OUT is empty. Use lazy transfer for the first dequeue; no new enqueues occur. Count one IN pop and one OUT push per transfer. How many transfer operations occur?",
+        "answer": 8,
+        "explanation": "There are two counted stack operations per item.",
+        "tolerance": 1e-8
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "container-practice",
+    "start": 9.1,
+    "sourceReferences": [
+      {
+        "lecture": 49,
+        "file": "049. LIVE Stack and Queue Practice Set Discussion 2.mp4",
+        "start": 9.1,
+        "end": 37.96,
+        "text": "Hi everyone. How are you doing? So let's get started. Hello, Satyam. So we were discussing few questions on a second queue and I think few questions were remaining. So let's just see few remaining questions that we are yet to see, right? Okay, so let's see this question number 16. What does this say that suppose you you have a stack and that stack is containing any elements. Now they're saying describe in English."
+      },
+      {
+        "lecture": 49,
+        "file": "049. LIVE Stack and Queue Practice Set Discussion 2.mp4",
+        "start": 39.65,
+        "end": 72.22,
+        "text": "just a second let me connect so they are saying that describe in English how you can scan S to see if the if it contains a certain element a small x right so you are allowed to use one additional stack or a cube so I hope you you understood the question the question is that you are having one stack and you want to check let's suppose there are some element two one three"
+      },
+      {
+        "lecture": 49,
+        "file": "049. LIVE Stack and Queue Practice Set Discussion 2.mp4",
+        "start": 73.41,
+        "end": 93.93,
+        "text": "10 saving something like this right and now you want to check whether whether some element let's suppose element 3 is there in this stack or not okay this is the question please note that you must preserve the original order of the elements in the stack and you are only allowed to perform push and pop operation on the stack right so which means that you need to return"
+      }
+    ],
+    "foundation": {
+      "title": "Reasoning about buffered operations",
+      "idea": "Mixed stack and queue traces require preserving each endpoint contract and tracking the work actually performed. A configuration already produced by earlier operations is different from the cost of creating it.",
+      "terms": [
+        "Starting state: contents before the stated new operations.",
+        "Transfer cost: the pushes and pops or dequeues and enqueues counted explicitly.",
+        "Underflow: removal from an empty container."
+      ],
+      "example": "If OUT already holds 3,2,1 bottom-to-top, the next dequeue is one OUT pop; it does not repeat the earlier transfer."
+    }
+  },
+  {
+    "id": 148,
+    "lecture": 49,
+    "title": "Trace a lazy-transfer burst",
+    "concept": "Mixed stack and queue traces require preserving each endpoint contract and tracking the work actually performed. A configuration already produced by earlier operations is different from the cost of creating it.",
+    "teachingSteps": [
+      "Write the starting contents in a named direction.",
+      "Apply each operation to the specified endpoint and update the state.",
+      "Count only the operations included in the question, distinguishing per-operation and amortized costs."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Can one dequeue be linear even when amortized cost is constant?",
+        "options": [
+          "Only when the payload is negative",
+          "Yes",
+          "No; amortized means every operation is constant"
+        ],
+        "answer": 1,
+        "explanation": "A costly transfer is spread over many operations in sequence accounting."
+      },
+      {
+        "type": "number",
+        "prompt": "Initially IN holds 1 through 4 bottom-to-top and OUT is empty. Use lazy transfer for the first dequeue; no new enqueues occur. Also count the final OUT pop that serves one item. What total stack-operation cost occurs?",
+        "answer": 9,
+        "explanation": "Add the final removal to the transfer cost.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "Initially IN holds 1 through 4 bottom-to-top and OUT is empty. Use lazy transfer for the first dequeue; no new enqueues occur. What payload is returned after that complete transfer?",
+        "answer": 1,
+        "explanation": "Reversal puts the oldest arrival on the OUT top.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange the dependent steps of this procedure.",
+        "items": [
+          "Check whether OUT already has an item",
+          "If empty, transfer every IN item to OUT",
+          "Pop the oldest waiting item from OUT",
+          "Keep remaining OUT items ahead of newer IN arrivals"
+        ],
+        "explanation": "Follow this order so every step receives a valid state."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "container-practice",
+    "start": 9.1,
+    "sourceReferences": [
+      {
+        "lecture": 49,
+        "file": "049. LIVE Stack and Queue Practice Set Discussion 2.mp4",
+        "start": 9.1,
+        "end": 37.96,
+        "text": "Hi everyone. How are you doing? So let's get started. Hello, Satyam. So we were discussing few questions on a second queue and I think few questions were remaining. So let's just see few remaining questions that we are yet to see, right? Okay, so let's see this question number 16. What does this say that suppose you you have a stack and that stack is containing any elements. Now they're saying describe in English."
+      },
+      {
+        "lecture": 49,
+        "file": "049. LIVE Stack and Queue Practice Set Discussion 2.mp4",
+        "start": 39.65,
+        "end": 72.22,
+        "text": "just a second let me connect so they are saying that describe in English how you can scan S to see if the if it contains a certain element a small x right so you are allowed to use one additional stack or a cube so I hope you you understood the question the question is that you are having one stack and you want to check let's suppose there are some element two one three"
+      },
+      {
+        "lecture": 49,
+        "file": "049. LIVE Stack and Queue Practice Set Discussion 2.mp4",
+        "start": 73.41,
+        "end": 93.93,
+        "text": "10 saving something like this right and now you want to check whether whether some element let's suppose element 3 is there in this stack or not okay this is the question please note that you must preserve the original order of the elements in the stack and you are only allowed to perform push and pop operation on the stack right so which means that you need to return"
+      }
+    ],
+    "foundation": {
+      "title": "Reasoning about buffered operations",
+      "idea": "Mixed stack and queue traces require preserving each endpoint contract and tracking the work actually performed. A configuration already produced by earlier operations is different from the cost of creating it.",
+      "terms": [
+        "Starting state: contents before the stated new operations.",
+        "Transfer cost: the pushes and pops or dequeues and enqueues counted explicitly.",
+        "Underflow: removal from an empty container."
+      ],
+      "example": "If OUT already holds 3,2,1 bottom-to-top, the next dequeue is one OUT pop; it does not repeat the earlier transfer."
+    }
+  },
+  {
+    "id": 149,
+    "lecture": 49,
+    "title": "Separate work already done from new work",
+    "concept": "Mixed stack and queue traces require preserving each endpoint contract and tracking the work actually performed. A configuration already produced by earlier operations is different from the cost of creating it.",
+    "teachingSteps": [
+      "Write the starting contents in a named direction.",
+      "Apply each operation to the specified endpoint and update the state.",
+      "Count only the operations included in the question, distinguishing per-operation and amortized costs."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Why does transferring every IN item reverse its order?",
+        "options": [
+          "Each pop removes the newest IN item and pushes it onto OUT",
+          "A stack automatically sorts keys",
+          "Payloads change during transfer"
+        ],
+        "answer": 0,
+        "explanation": "Two LIFO endpoints reverse arrival order."
+      },
+      {
+        "type": "number",
+        "prompt": "Initially IN holds 1 through 4 bottom-to-top and OUT is empty. Use lazy transfer for the first dequeue; no new enqueues occur. No new enqueue occurs. The following dequeue performs how many stack operations?",
+        "answer": 1,
+        "explanation": "OUT is already nonempty, so only one pop occurs.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "OUT is already populated. Does the next dequeue repeat its creation cost?",
+        "options": [
+          "It must move every item to IN again",
+          "No; count only the new OUT pop",
+          "Yes, repeat all earlier transfers"
+        ],
+        "answer": 1,
+        "explanation": "The question starting state already includes earlier completed work."
+      },
+      {
+        "type": "number",
+        "prompt": "Initially IN holds 1 through 4 bottom-to-top and OUT is empty. Use lazy transfer for the first dequeue; no new enqueues occur. Enqueue all 4 items to IN, then dequeue all, starting with empty stacks. Count IN pushes, transfer pops/pushes and OUT pops. What total occurs?",
+        "answer": 16,
+        "explanation": "Each item is pushed to IN, popped from IN, pushed to OUT and popped from OUT exactly once.",
+        "tolerance": 1e-8
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "container-practice",
+    "start": 9.1,
+    "sourceReferences": [
+      {
+        "lecture": 49,
+        "file": "049. LIVE Stack and Queue Practice Set Discussion 2.mp4",
+        "start": 9.1,
+        "end": 37.96,
+        "text": "Hi everyone. How are you doing? So let's get started. Hello, Satyam. So we were discussing few questions on a second queue and I think few questions were remaining. So let's just see few remaining questions that we are yet to see, right? Okay, so let's see this question number 16. What does this say that suppose you you have a stack and that stack is containing any elements. Now they're saying describe in English."
+      },
+      {
+        "lecture": 49,
+        "file": "049. LIVE Stack and Queue Practice Set Discussion 2.mp4",
+        "start": 39.65,
+        "end": 72.22,
+        "text": "just a second let me connect so they are saying that describe in English how you can scan S to see if the if it contains a certain element a small x right so you are allowed to use one additional stack or a cube so I hope you you understood the question the question is that you are having one stack and you want to check let's suppose there are some element two one three"
+      },
+      {
+        "lecture": 49,
+        "file": "049. LIVE Stack and Queue Practice Set Discussion 2.mp4",
+        "start": 73.41,
+        "end": 93.93,
+        "text": "10 saving something like this right and now you want to check whether whether some element let's suppose element 3 is there in this stack or not okay this is the question please note that you must preserve the original order of the elements in the stack and you are only allowed to perform push and pop operation on the stack right so which means that you need to return"
+      }
+    ],
+    "foundation": {
+      "title": "Reasoning about buffered operations",
+      "idea": "Mixed stack and queue traces require preserving each endpoint contract and tracking the work actually performed. A configuration already produced by earlier operations is different from the cost of creating it.",
+      "terms": [
+        "Starting state: contents before the stated new operations.",
+        "Transfer cost: the pushes and pops or dequeues and enqueues counted explicitly.",
+        "Underflow: removal from an empty container."
+      ],
+      "example": "If OUT already holds 3,2,1 bottom-to-top, the next dequeue is one OUT pop; it does not repeat the earlier transfer."
+    }
+  },
+  {
+    "id": 150,
+    "lecture": 50,
+    "title": "Distinguish full, complete and perfect",
+    "concept": "A binary tree gives every node at most two ordered child positions. Full means each node has zero or two children; complete means levels fill left to right; perfect means every internal node has two children and all leaves share a depth.",
+    "teachingSteps": [
+      "Use root depth zero and height measured in edges.",
+      "A leaf has height zero; the empty subtree has height minus one here.",
+      "Apply full, complete and perfect definitions independently."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which definition describes a full binary tree?",
+        "options": [
+          "It must store sorted keys",
+          "Every node has zero or two children",
+          "Every node must have two children including leaves"
+        ],
+        "answer": 1,
+        "explanation": "Full describes child counts."
+      },
+      {
+        "type": "match",
+        "prompt": "Match each term with its stated role.",
+        "pairs": [
+          [
+            "Leaf",
+            "A real node with no real children"
+          ],
+          [
+            "Edge-height",
+            "Number of edges on the longest downward path"
+          ],
+          [
+            "NULL child link",
+            "An absent child, not a real node"
+          ]
+        ],
+        "explanation": "Distinguish the operations, structural conditions and units in the definitions."
+      },
+      {
+        "type": "number",
+        "prompt": "How many real nodes are in the pictured perfect tree?",
+        "answer": 7,
+        "explanation": "Count 1+2+4.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 13,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 9,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 17,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 7,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 11,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 15,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 19,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "How many parent-child edges connect these real nodes?",
+        "answer": 6,
+        "explanation": "A nonempty tree has n-1 edges.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 13,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 9,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 17,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 7,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 11,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 15,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 19,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "tree",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 50,
+        "file": "050. 11a. Introduction to Binary trees.mp4",
+        "start": 0,
+        "end": 30.64,
+        "text": "Now we are going to start a completely new topic, which is binary trees. So in this topic, we are going to study binary tree, binary search tree, AVL trees, heaps and all. So all kind of trees we are going to cover. And then we will be covering hashing. Okay. So let me start with the trees. So let's start first with the definitions. What is a full binary tree? Before that, let me tell you what is a binary tree itself? Okay. Can you guess in this given diagram?"
+      },
+      {
+        "lecture": 50,
+        "file": "050. 11a. Introduction to Binary trees.mp4",
+        "start": 31.05,
+        "end": 59.67,
+        "text": "like in this given presentation can you guess why i have i have like portrayed this picture as a like upside down like not not like not in the usual way but it's upside down right so like in the computer sense it is so it so happens that root is always on the top and then we have the leaves so that's why i have root here and these are the leaves right these are the leaves so in computer sense we represent a tree just like this root and leaves root and leaves right"
+      },
+      {
+        "lecture": 50,
+        "file": "050. 11a. Introduction to Binary trees.mp4",
+        "start": 59.9,
+        "end": 86.45,
+        "text": "this is root and these are the leaves and these are the internal nodes so this is called internal nodes this is called root this is called leaves right leaves now let me tell you what is a binary tree suppose a tree is given to you and if i ask you whether this tree is binary tree or not then you will say yes why because in a binary tree there is always a zero node i mean zero child"
+      }
+    ],
+    "foundation": {
+      "title": "Binary-tree structure and height",
+      "idea": "A binary tree gives every node at most two ordered child positions. Full means each node has zero or two children; complete means levels fill left to right; perfect means every internal node has two children and all leaves share a depth.",
+      "terms": [
+        "Depth: edges from root to a node.",
+        "Height: longest downward edge path.",
+        "Leaf: a node with no children."
+      ],
+      "example": "A perfect tree of height 2 has levels containing 1,2,4 nodes, seven nodes total and four leaves."
+    }
+  },
+  {
+    "id": 151,
+    "lecture": 50,
+    "title": "Measure height in edges",
+    "concept": "A binary tree gives every node at most two ordered child positions. Full means each node has zero or two children; complete means levels fill left to right; perfect means every internal node has two children and all leaves share a depth.",
+    "teachingSteps": [
+      "Use root depth zero and height measured in edges.",
+      "A leaf has height zero; the empty subtree has height minus one here.",
+      "Apply full, complete and perfect definitions independently."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "With edge-based height, what is a leaf height?",
+        "options": [
+          "0",
+          "1",
+          "Its payload value"
+        ],
+        "answer": 0,
+        "explanation": "A leaf has no downward edges."
+      },
+      {
+        "type": "number",
+        "prompt": "How many leaves occur in this tree?",
+        "answer": 4,
+        "explanation": "All four nodes at depth two are leaves.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 13,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 9,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 17,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 7,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 11,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 15,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 19,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "How many NULL child-reference fields does this binary representation contain?",
+        "answer": 8,
+        "explanation": "Fourteen child slots minus six real links.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 13,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 9,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 17,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 7,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 11,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 15,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 19,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange the dependent steps of this procedure.",
+        "items": [
+          "Return zero for an empty subtree",
+          "Compute the left-subtree size",
+          "Compute the right-subtree size",
+          "Return one plus both returned sizes"
+        ],
+        "explanation": "Follow this order so every step receives a valid state."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "tree",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 50,
+        "file": "050. 11a. Introduction to Binary trees.mp4",
+        "start": 0,
+        "end": 30.64,
+        "text": "Now we are going to start a completely new topic, which is binary trees. So in this topic, we are going to study binary tree, binary search tree, AVL trees, heaps and all. So all kind of trees we are going to cover. And then we will be covering hashing. Okay. So let me start with the trees. So let's start first with the definitions. What is a full binary tree? Before that, let me tell you what is a binary tree itself? Okay. Can you guess in this given diagram?"
+      },
+      {
+        "lecture": 50,
+        "file": "050. 11a. Introduction to Binary trees.mp4",
+        "start": 31.05,
+        "end": 59.67,
+        "text": "like in this given presentation can you guess why i have i have like portrayed this picture as a like upside down like not not like not in the usual way but it's upside down right so like in the computer sense it is so it so happens that root is always on the top and then we have the leaves so that's why i have root here and these are the leaves right these are the leaves so in computer sense we represent a tree just like this root and leaves root and leaves right"
+      },
+      {
+        "lecture": 50,
+        "file": "050. 11a. Introduction to Binary trees.mp4",
+        "start": 59.9,
+        "end": 86.45,
+        "text": "this is root and these are the leaves and these are the internal nodes so this is called internal nodes this is called root this is called leaves right leaves now let me tell you what is a binary tree suppose a tree is given to you and if i ask you whether this tree is binary tree or not then you will say yes why because in a binary tree there is always a zero node i mean zero child"
+      }
+    ],
+    "foundation": {
+      "title": "Binary-tree structure and height",
+      "idea": "A binary tree gives every node at most two ordered child positions. Full means each node has zero or two children; complete means levels fill left to right; perfect means every internal node has two children and all leaves share a depth.",
+      "terms": [
+        "Depth: edges from root to a node.",
+        "Height: longest downward edge path.",
+        "Leaf: a node with no children."
+      ],
+      "example": "A perfect tree of height 2 has levels containing 1,2,4 nodes, seven nodes total and four leaves."
+    }
+  },
+  {
+    "id": 152,
+    "lecture": 50,
+    "title": "Count nodes and child slots",
+    "concept": "A binary tree gives every node at most two ordered child positions. Full means each node has zero or two children; complete means levels fill left to right; perfect means every internal node has two children and all leaves share a depth.",
+    "teachingSteps": [
+      "Use root depth zero and height measured in edges.",
+      "A leaf has height zero; the empty subtree has height minus one here.",
+      "Apply full, complete and perfect definitions independently."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What makes a binary tree complete?",
+        "options": [
+          "Every leaf must have two children",
+          "All keys must be sorted",
+          "All levels except possibly the last are full; the last fills from left to right"
+        ],
+        "answer": 2,
+        "explanation": "Completeness concerns occupied positions."
+      },
+      {
+        "type": "number",
+        "prompt": "Using root depth zero, what is the pictured tree edge-height?",
+        "answer": 2,
+        "explanation": "The deepest path has two edges.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 13,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 9,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 17,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 7,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 11,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 15,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 19,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "A nonempty n-node tree has how many parent-child edges?",
+        "options": [
+          "n-1",
+          "2n",
+          "n+1"
+        ],
+        "answer": 0,
+        "explanation": "Every nonroot node has exactly one parent edge."
+      },
+      {
+        "type": "number",
+        "prompt": "A perfect binary tree of edge-height 3 contains how many nodes?",
+        "answer": 15,
+        "explanation": "Sum 1+2+4+8, or 2^4-1.",
+        "tolerance": 1e-8
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "tree",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 50,
+        "file": "050. 11a. Introduction to Binary trees.mp4",
+        "start": 0,
+        "end": 30.64,
+        "text": "Now we are going to start a completely new topic, which is binary trees. So in this topic, we are going to study binary tree, binary search tree, AVL trees, heaps and all. So all kind of trees we are going to cover. And then we will be covering hashing. Okay. So let me start with the trees. So let's start first with the definitions. What is a full binary tree? Before that, let me tell you what is a binary tree itself? Okay. Can you guess in this given diagram?"
+      },
+      {
+        "lecture": 50,
+        "file": "050. 11a. Introduction to Binary trees.mp4",
+        "start": 31.05,
+        "end": 59.67,
+        "text": "like in this given presentation can you guess why i have i have like portrayed this picture as a like upside down like not not like not in the usual way but it's upside down right so like in the computer sense it is so it so happens that root is always on the top and then we have the leaves so that's why i have root here and these are the leaves right these are the leaves so in computer sense we represent a tree just like this root and leaves root and leaves right"
+      },
+      {
+        "lecture": 50,
+        "file": "050. 11a. Introduction to Binary trees.mp4",
+        "start": 59.9,
+        "end": 86.45,
+        "text": "this is root and these are the leaves and these are the internal nodes so this is called internal nodes this is called root this is called leaves right leaves now let me tell you what is a binary tree suppose a tree is given to you and if i ask you whether this tree is binary tree or not then you will say yes why because in a binary tree there is always a zero node i mean zero child"
+      }
+    ],
+    "foundation": {
+      "title": "Binary-tree structure and height",
+      "idea": "A binary tree gives every node at most two ordered child positions. Full means each node has zero or two children; complete means levels fill left to right; perfect means every internal node has two children and all leaves share a depth.",
+      "terms": [
+        "Depth: edges from root to a node.",
+        "Height: longest downward edge path.",
+        "Leaf: a node with no children."
+      ],
+      "example": "A perfect tree of height 2 has levels containing 1,2,4 nodes, seven nodes total and four leaves."
+    }
+  },
+  {
+    "id": 153,
+    "lecture": 51,
+    "title": "Read child references",
+    "concept": "Tree representation distinguishes real nodes from child-reference slots. A nonempty n-node tree has n-1 edges. In a binary representation with two child fields per node, the remaining n+1 fields are NULL.",
+    "teachingSteps": [
+      "Count real nodes and use n-1 real parent-child edges.",
+      "There are 2n child-reference slots; subtract the used edges.",
+      "For a perfect tree of edge-height h, total nodes are 2^(h+1)-1 and leaves are 2^h."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which definition describes a full binary tree?",
+        "options": [
+          "Every node has zero or two children",
+          "Every node must have two children including leaves",
+          "It must store sorted keys"
+        ],
+        "answer": 0,
+        "explanation": "Full describes child counts."
+      },
+      {
+        "type": "match",
+        "prompt": "Match each term with its stated role.",
+        "pairs": [
+          [
+            "Leaf",
+            "A real node with no real children"
+          ],
+          [
+            "Edge-height",
+            "Number of edges on the longest downward path"
+          ],
+          [
+            "NULL child link",
+            "An absent child, not a real node"
+          ]
+        ],
+        "explanation": "Distinguish the operations, structural conditions and units in the definitions."
+      },
+      {
+        "type": "number",
+        "prompt": "How many real nodes are in the pictured perfect tree?",
+        "answer": 7,
+        "explanation": "Count 1+2+4.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 14,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 10,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 18,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 8,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 12,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 16,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 20,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "How many parent-child edges connect these real nodes?",
+        "answer": 6,
+        "explanation": "A nonempty tree has n-1 edges.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 14,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 10,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 18,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 8,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 12,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 16,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 20,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "tree-count",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 51,
+        "file": "051. 11b. Some questions and representation of tree.mp4",
+        "start": 0,
+        "end": 29.16,
+        "text": "Now let's solve this question Consider a perfect binary tree If root is at level 0 Then level i has how many nodes? So let's say perfect binary tree So let's just draw perfect binary tree Now root it as level 0 And then it is level 1 This is level 2 As you can see Every level, so since this is level 0 So it is having 2 power 0 nodes So every level is having 2 power i nodes It is level 1 So this is 2 power 1 nodes It is level 2"
+      },
+      {
+        "lecture": 51,
+        "file": "051. 11b. Some questions and representation of tree.mp4",
+        "start": 29.37,
+        "end": 57.81,
+        "text": "so that's why 2 power 2 nodes so level i should be having 2 power i nodes why because every level is having 2 power i nodes if it is level 2 then it is having 2 power 2 nodes consider a perfect binary tree of height h so they are given that height is h okay so this height is 2 now let me take a small example of 2 then let's solve this question we are rooted as level 0 so they are saying it is level 0 now leaves are at level at which level"
+      },
+      {
+        "lecture": 51,
+        "file": "051. 11b. Some questions and representation of tree.mp4",
+        "start": 58.3,
+        "end": 88.06,
+        "text": "So you can see easily that this is level 0, this is level 1, this is level 2, right? These are the levels. Now, if rooted as level 0, then leaps are at which level? So you can see that it is level 2. If height is 2, then it is level 2. If height is h, so h is given, right? So if height is h, then leaps are at h level. Number of leaps are, so number of leaps are 2 power h, why? Because from the previous example also you can see that if"
+      }
+    ],
+    "foundation": {
+      "title": "Binary-tree representation and bounds",
+      "idea": "Tree representation distinguishes real nodes from child-reference slots. A nonempty n-node tree has n-1 edges. In a binary representation with two child fields per node, the remaining n+1 fields are NULL.",
+      "terms": [
+        "NULL link: an empty child position.",
+        "Level i: nodes at depth i, at most 2^i.",
+        "Chain: a tree whose height is n-1."
+      ],
+      "example": "Seven real nodes provide fourteen child slots; six edges use six slots, leaving eight NULL child fields."
+    }
+  },
+  {
+    "id": 154,
+    "lecture": 51,
+    "title": "Count nodes at a level",
+    "concept": "Tree representation distinguishes real nodes from child-reference slots. A nonempty n-node tree has n-1 edges. In a binary representation with two child fields per node, the remaining n+1 fields are NULL.",
+    "teachingSteps": [
+      "Count real nodes and use n-1 real parent-child edges.",
+      "There are 2n child-reference slots; subtract the used edges.",
+      "For a perfect tree of edge-height h, total nodes are 2^(h+1)-1 and leaves are 2^h."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "With edge-based height, what is a leaf height?",
+        "options": [
+          "1",
+          "Its payload value",
+          "0"
+        ],
+        "answer": 2,
+        "explanation": "A leaf has no downward edges."
+      },
+      {
+        "type": "number",
+        "prompt": "How many leaves occur in this tree?",
+        "answer": 4,
+        "explanation": "All four nodes at depth two are leaves.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 14,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 10,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 18,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 8,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 12,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 16,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 20,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "How many NULL child-reference fields does this binary representation contain?",
+        "answer": 8,
+        "explanation": "Fourteen child slots minus six real links.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 14,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 10,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 18,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 8,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 12,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 16,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 20,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange the dependent steps of this procedure.",
+        "items": [
+          "Return zero for an empty subtree",
+          "Compute the left-subtree size",
+          "Compute the right-subtree size",
+          "Return one plus both returned sizes"
+        ],
+        "explanation": "Follow this order so every step receives a valid state."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "tree-count",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 51,
+        "file": "051. 11b. Some questions and representation of tree.mp4",
+        "start": 0,
+        "end": 29.16,
+        "text": "Now let's solve this question Consider a perfect binary tree If root is at level 0 Then level i has how many nodes? So let's say perfect binary tree So let's just draw perfect binary tree Now root it as level 0 And then it is level 1 This is level 2 As you can see Every level, so since this is level 0 So it is having 2 power 0 nodes So every level is having 2 power i nodes It is level 1 So this is 2 power 1 nodes It is level 2"
+      },
+      {
+        "lecture": 51,
+        "file": "051. 11b. Some questions and representation of tree.mp4",
+        "start": 29.37,
+        "end": 57.81,
+        "text": "so that's why 2 power 2 nodes so level i should be having 2 power i nodes why because every level is having 2 power i nodes if it is level 2 then it is having 2 power 2 nodes consider a perfect binary tree of height h so they are given that height is h okay so this height is 2 now let me take a small example of 2 then let's solve this question we are rooted as level 0 so they are saying it is level 0 now leaves are at level at which level"
+      },
+      {
+        "lecture": 51,
+        "file": "051. 11b. Some questions and representation of tree.mp4",
+        "start": 58.3,
+        "end": 88.06,
+        "text": "So you can see easily that this is level 0, this is level 1, this is level 2, right? These are the levels. Now, if rooted as level 0, then leaps are at which level? So you can see that it is level 2. If height is 2, then it is level 2. If height is h, so h is given, right? So if height is h, then leaps are at h level. Number of leaps are, so number of leaps are 2 power h, why? Because from the previous example also you can see that if"
+      }
+    ],
+    "foundation": {
+      "title": "Binary-tree representation and bounds",
+      "idea": "Tree representation distinguishes real nodes from child-reference slots. A nonempty n-node tree has n-1 edges. In a binary representation with two child fields per node, the remaining n+1 fields are NULL.",
+      "terms": [
+        "NULL link: an empty child position.",
+        "Level i: nodes at depth i, at most 2^i.",
+        "Chain: a tree whose height is n-1."
+      ],
+      "example": "Seven real nodes provide fourteen child slots; six edges use six slots, leaving eight NULL child fields."
+    }
+  },
+  {
+    "id": 155,
+    "lecture": 51,
+    "title": "Bound a tree height",
+    "concept": "Tree representation distinguishes real nodes from child-reference slots. A nonempty n-node tree has n-1 edges. In a binary representation with two child fields per node, the remaining n+1 fields are NULL.",
+    "teachingSteps": [
+      "Count real nodes and use n-1 real parent-child edges.",
+      "There are 2n child-reference slots; subtract the used edges.",
+      "For a perfect tree of edge-height h, total nodes are 2^(h+1)-1 and leaves are 2^h."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What makes a binary tree complete?",
+        "options": [
+          "All keys must be sorted",
+          "All levels except possibly the last are full; the last fills from left to right",
+          "Every leaf must have two children"
+        ],
+        "answer": 1,
+        "explanation": "Completeness concerns occupied positions."
+      },
+      {
+        "type": "number",
+        "prompt": "Using root depth zero, what is the pictured tree edge-height?",
+        "answer": 2,
+        "explanation": "The deepest path has two edges.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 14,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 10,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 18,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 8,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 12,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 16,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 20,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "A nonempty n-node tree has how many parent-child edges?",
+        "options": [
+          "2n",
+          "n+1",
+          "n-1"
+        ],
+        "answer": 2,
+        "explanation": "Every nonroot node has exactly one parent edge."
+      },
+      {
+        "type": "number",
+        "prompt": "A perfect binary tree of edge-height 3 contains how many nodes?",
+        "answer": 15,
+        "explanation": "Sum 1+2+4+8, or 2^4-1.",
+        "tolerance": 1e-8
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "tree-count",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 51,
+        "file": "051. 11b. Some questions and representation of tree.mp4",
+        "start": 0,
+        "end": 29.16,
+        "text": "Now let's solve this question Consider a perfect binary tree If root is at level 0 Then level i has how many nodes? So let's say perfect binary tree So let's just draw perfect binary tree Now root it as level 0 And then it is level 1 This is level 2 As you can see Every level, so since this is level 0 So it is having 2 power 0 nodes So every level is having 2 power i nodes It is level 1 So this is 2 power 1 nodes It is level 2"
+      },
+      {
+        "lecture": 51,
+        "file": "051. 11b. Some questions and representation of tree.mp4",
+        "start": 29.37,
+        "end": 57.81,
+        "text": "so that's why 2 power 2 nodes so level i should be having 2 power i nodes why because every level is having 2 power i nodes if it is level 2 then it is having 2 power 2 nodes consider a perfect binary tree of height h so they are given that height is h okay so this height is 2 now let me take a small example of 2 then let's solve this question we are rooted as level 0 so they are saying it is level 0 now leaves are at level at which level"
+      },
+      {
+        "lecture": 51,
+        "file": "051. 11b. Some questions and representation of tree.mp4",
+        "start": 58.3,
+        "end": 88.06,
+        "text": "So you can see easily that this is level 0, this is level 1, this is level 2, right? These are the levels. Now, if rooted as level 0, then leaps are at which level? So you can see that it is level 2. If height is 2, then it is level 2. If height is h, so h is given, right? So if height is h, then leaps are at h level. Number of leaps are, so number of leaps are 2 power h, why? Because from the previous example also you can see that if"
+      }
+    ],
+    "foundation": {
+      "title": "Binary-tree representation and bounds",
+      "idea": "Tree representation distinguishes real nodes from child-reference slots. A nonempty n-node tree has n-1 edges. In a binary representation with two child fields per node, the remaining n+1 fields are NULL.",
+      "terms": [
+        "NULL link: an empty child position.",
+        "Level i: nodes at depth i, at most 2^i.",
+        "Chain: a tree whose height is n-1."
+      ],
+      "example": "Seven real nodes provide fourteen child slots; six edges use six slots, leaving eight NULL child fields."
+    }
+  },
+  {
+    "id": 156,
+    "lecture": 52,
+    "title": "Define the empty subtree",
+    "concept": "Recursive tree size combines independent left and right subproblems. The empty tree contributes zero; a live root contributes one. Height uses a maximum rather than adding the two subtree heights.",
+    "teachingSteps": [
+      "Set size(NULL)=0 and height(NULL)=-1 under the stated edge convention.",
+      "Return 1+size(left)+size(right) for size.",
+      "Return 1+max(height(left),height(right)) for height."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which definition describes a full binary tree?",
+        "options": [
+          "Every node must have two children including leaves",
+          "It must store sorted keys",
+          "Every node has zero or two children"
+        ],
+        "answer": 2,
+        "explanation": "Full describes child counts."
+      },
+      {
+        "type": "match",
+        "prompt": "Match each term with its stated role.",
+        "pairs": [
+          [
+            "Leaf",
+            "A real node with no real children"
+          ],
+          [
+            "Edge-height",
+            "Number of edges on the longest downward path"
+          ],
+          [
+            "NULL child link",
+            "An absent child, not a real node"
+          ]
+        ],
+        "explanation": "Distinguish the operations, structural conditions and units in the definitions."
+      },
+      {
+        "type": "number",
+        "prompt": "How many real nodes are in the pictured perfect tree?",
+        "answer": 7,
+        "explanation": "Count 1+2+4.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 15,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 11,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 19,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 9,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 13,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 17,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 21,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "How many parent-child edges connect these real nodes?",
+        "answer": 6,
+        "explanation": "A nonempty tree has n-1 edges.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 15,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 11,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 19,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 9,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 13,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 17,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 21,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "tree-practice",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 52,
+        "file": "052. 11c. Questions on Binary trees.mp4",
+        "start": 0,
+        "end": 25.14,
+        "text": "now let's solve some of these questions so let's solve this question first question is saying what does this function fun do for a given root node of non-empty binary tree so let's see what does this function is doing so if you recall that how we represent a binary tree using a linked list representation so what we do we have a node and all of this node is having the similar structure just like a doubly linked list"
+      },
+      {
+        "lecture": 52,
+        "file": "052. 11c. Questions on Binary trees.mp4",
+        "start": 25.26,
+        "end": 54.1,
+        "text": "So in case of Dudley linked list, I used to say that this is previous and this is next, right? But here I'm saying that this first pointer is called left child is for the left child and the second pointer is for the light right child. So this is for the left child. This is for the right child. That is the only difference, right? So now suppose a tree is given to you, suppose this tree is given to you, then instead of looking at this tree like this, we can visualize this tree using nodes. So how you can visualize it, you will say"
+      },
+      {
+        "lecture": 52,
+        "file": "052. 11c. Questions on Binary trees.mp4",
+        "start": 54.33,
+        "end": 82.91,
+        "text": "that okay let me call let me number this let's suppose this is a this is b this is c b e f and g so you can visualize like this you can say that first node is actually storing a and this pointer is pointing to something this pointer is again pointing to something now this is storing actually b then this is pointing to something this is pointing to something this is storing c and it is pointing to something it is pointing to something then again it is storing d"
+      }
+    ],
+    "foundation": {
+      "title": "Recursive tree size and leaves",
+      "idea": "Recursive tree size combines independent left and right subproblems. The empty tree contributes zero; a live root contributes one. Height uses a maximum rather than adding the two subtree heights.",
+      "terms": [
+        "Subtree: a node with all descendants beneath it.",
+        "Combine: use returned child results.",
+        "Postorder reasoning: process child subproblems before combining at the root."
+      ],
+      "example": "A root whose subtrees contain three nodes each has size seven; child heights one each give root height two."
+    }
+  },
+  {
+    "id": 157,
+    "lecture": 52,
+    "title": "Combine left and right results",
+    "concept": "Recursive tree size combines independent left and right subproblems. The empty tree contributes zero; a live root contributes one. Height uses a maximum rather than adding the two subtree heights.",
+    "teachingSteps": [
+      "Set size(NULL)=0 and height(NULL)=-1 under the stated edge convention.",
+      "Return 1+size(left)+size(right) for size.",
+      "Return 1+max(height(left),height(right)) for height."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "With edge-based height, what is a leaf height?",
+        "options": [
+          "Its payload value",
+          "0",
+          "1"
+        ],
+        "answer": 1,
+        "explanation": "A leaf has no downward edges."
+      },
+      {
+        "type": "number",
+        "prompt": "How many leaves occur in this tree?",
+        "answer": 4,
+        "explanation": "All four nodes at depth two are leaves.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 15,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 11,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 19,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 9,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 13,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 17,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 21,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "How many NULL child-reference fields does this binary representation contain?",
+        "answer": 8,
+        "explanation": "Fourteen child slots minus six real links.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 15,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 11,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 19,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 9,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 13,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 17,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 21,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange the dependent steps of this procedure.",
+        "items": [
+          "Return zero for an empty subtree",
+          "Compute the left-subtree size",
+          "Compute the right-subtree size",
+          "Return one plus both returned sizes"
+        ],
+        "explanation": "Follow this order so every step receives a valid state."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "tree-practice",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 52,
+        "file": "052. 11c. Questions on Binary trees.mp4",
+        "start": 0,
+        "end": 25.14,
+        "text": "now let's solve some of these questions so let's solve this question first question is saying what does this function fun do for a given root node of non-empty binary tree so let's see what does this function is doing so if you recall that how we represent a binary tree using a linked list representation so what we do we have a node and all of this node is having the similar structure just like a doubly linked list"
+      },
+      {
+        "lecture": 52,
+        "file": "052. 11c. Questions on Binary trees.mp4",
+        "start": 25.26,
+        "end": 54.1,
+        "text": "So in case of Dudley linked list, I used to say that this is previous and this is next, right? But here I'm saying that this first pointer is called left child is for the left child and the second pointer is for the light right child. So this is for the left child. This is for the right child. That is the only difference, right? So now suppose a tree is given to you, suppose this tree is given to you, then instead of looking at this tree like this, we can visualize this tree using nodes. So how you can visualize it, you will say"
+      },
+      {
+        "lecture": 52,
+        "file": "052. 11c. Questions on Binary trees.mp4",
+        "start": 54.33,
+        "end": 82.91,
+        "text": "that okay let me call let me number this let's suppose this is a this is b this is c b e f and g so you can visualize like this you can say that first node is actually storing a and this pointer is pointing to something this pointer is again pointing to something now this is storing actually b then this is pointing to something this is pointing to something this is storing c and it is pointing to something it is pointing to something then again it is storing d"
+      }
+    ],
+    "foundation": {
+      "title": "Recursive tree size and leaves",
+      "idea": "Recursive tree size combines independent left and right subproblems. The empty tree contributes zero; a live root contributes one. Height uses a maximum rather than adding the two subtree heights.",
+      "terms": [
+        "Subtree: a node with all descendants beneath it.",
+        "Combine: use returned child results.",
+        "Postorder reasoning: process child subproblems before combining at the root."
+      ],
+      "example": "A root whose subtrees contain three nodes each has size seven; child heights one each give root height two."
+    }
+  },
+  {
+    "id": 158,
+    "lecture": 52,
+    "title": "Count missing child links",
+    "concept": "Recursive tree size combines independent left and right subproblems. The empty tree contributes zero; a live root contributes one. Height uses a maximum rather than adding the two subtree heights.",
+    "teachingSteps": [
+      "Set size(NULL)=0 and height(NULL)=-1 under the stated edge convention.",
+      "Return 1+size(left)+size(right) for size.",
+      "Return 1+max(height(left),height(right)) for height."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What makes a binary tree complete?",
+        "options": [
+          "All levels except possibly the last are full; the last fills from left to right",
+          "Every leaf must have two children",
+          "All keys must be sorted"
+        ],
+        "answer": 0,
+        "explanation": "Completeness concerns occupied positions."
+      },
+      {
+        "type": "number",
+        "prompt": "Using root depth zero, what is the pictured tree edge-height?",
+        "answer": 2,
+        "explanation": "The deepest path has two edges.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 15,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 11,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 19,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 9,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 13,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 17,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 21,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "A nonempty n-node tree has how many parent-child edges?",
+        "options": [
+          "n+1",
+          "n-1",
+          "2n"
+        ],
+        "answer": 1,
+        "explanation": "Every nonroot node has exactly one parent edge."
+      },
+      {
+        "type": "number",
+        "prompt": "A perfect binary tree of edge-height 3 contains how many nodes?",
+        "answer": 15,
+        "explanation": "Sum 1+2+4+8, or 2^4-1.",
+        "tolerance": 1e-8
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "tree-practice",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 52,
+        "file": "052. 11c. Questions on Binary trees.mp4",
+        "start": 0,
+        "end": 25.14,
+        "text": "now let's solve some of these questions so let's solve this question first question is saying what does this function fun do for a given root node of non-empty binary tree so let's see what does this function is doing so if you recall that how we represent a binary tree using a linked list representation so what we do we have a node and all of this node is having the similar structure just like a doubly linked list"
+      },
+      {
+        "lecture": 52,
+        "file": "052. 11c. Questions on Binary trees.mp4",
+        "start": 25.26,
+        "end": 54.1,
+        "text": "So in case of Dudley linked list, I used to say that this is previous and this is next, right? But here I'm saying that this first pointer is called left child is for the left child and the second pointer is for the light right child. So this is for the left child. This is for the right child. That is the only difference, right? So now suppose a tree is given to you, suppose this tree is given to you, then instead of looking at this tree like this, we can visualize this tree using nodes. So how you can visualize it, you will say"
+      },
+      {
+        "lecture": 52,
+        "file": "052. 11c. Questions on Binary trees.mp4",
+        "start": 54.33,
+        "end": 82.91,
+        "text": "that okay let me call let me number this let's suppose this is a this is b this is c b e f and g so you can visualize like this you can say that first node is actually storing a and this pointer is pointing to something this pointer is again pointing to something now this is storing actually b then this is pointing to something this is pointing to something this is storing c and it is pointing to something it is pointing to something then again it is storing d"
+      }
+    ],
+    "foundation": {
+      "title": "Recursive tree size and leaves",
+      "idea": "Recursive tree size combines independent left and right subproblems. The empty tree contributes zero; a live root contributes one. Height uses a maximum rather than adding the two subtree heights.",
+      "terms": [
+        "Subtree: a node with all descendants beneath it.",
+        "Combine: use returned child results.",
+        "Postorder reasoning: process child subproblems before combining at the root."
+      ],
+      "example": "A root whose subtrees contain three nodes each has size seven; child heights one each give root height two."
+    }
+  },
+  {
+    "id": 159,
+    "lecture": 53,
+    "title": "Compare matching empty positions",
+    "concept": "Structural comparison checks where left and right children exist. Identical labeled-tree comparison also checks corresponding payloads. The base conditions must distinguish both-empty from exactly-one-empty pairs.",
+    "teachingSteps": [
+      "Two empty child positions match.",
+      "One empty and one live position differ structurally.",
+      "For identical labeled trees, compare payloads too, then compare corresponding left and right subtrees."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Both corresponding child pointers are NULL. What does a structural comparison return there?",
+        "options": [
+          "An invalid dereference is required",
+          "Match",
+          "Mismatch"
+        ],
+        "answer": 1,
+        "explanation": "Two empty positions have the same structure."
+      },
+      {
+        "type": "match",
+        "prompt": "Match each term with its stated role.",
+        "pairs": [
+          [
+            "Structural equality",
+            "Same corresponding occupied and empty positions"
+          ],
+          [
+            "Labeled identity",
+            "Same shape and corresponding payloads"
+          ],
+          [
+            "Mismatch",
+            "A differing payload or required child position"
+          ]
+        ],
+        "explanation": "Distinguish the operations, structural conditions and units in the definitions."
+      },
+      {
+        "type": "number",
+        "prompt": "Two pictured seven-node trees have the same ordered shape. Shift every payload of one tree by one. How many corresponding payload pairs differ?",
+        "answer": 7,
+        "explanation": "Every payload changes.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 16,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 12,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 20,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 10,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 14,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 18,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 22,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "How many corresponding real-node positions remain structurally matched?",
+        "answer": 7,
+        "explanation": "Changing payloads does not change links.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 16,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 12,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 20,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 10,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 14,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 18,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 22,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "tree-equality",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 53,
+        "file": "053. 11d. Questions on Binary trees 2.mp4",
+        "start": 0,
+        "end": 29.04,
+        "text": "Now let's solve few more questions in the binary tree. So consider this question. Here they are saying that check something is a function and root 1, root 2 are two roots of the binary trees. So if root 1 equal equal null and root 2 equal equal null, so they they are talking about two binary trees, not just one binary tree. Okay. So this is let's suppose one binary tree and this is another binary tree. Okay. Suppose maybe something like this. Then they are saying root 1 and root 2 if both are null,"
+      },
+      {
+        "lecture": 53,
+        "file": "053. 11d. Questions on Binary trees 2.mp4",
+        "start": 29.39,
+        "end": 57.66,
+        "text": "which means whatever I am passing if both are null then return one okay so it means that if I am passing null here so if I am passing null from here if I am passing null from here also they will return one otherwise if root one is null and what about root two if root two or either see if root one is null then in this case can the root to be null can can the root to be also null no why because if root one and root two both are null then I am already returning one but"
+      },
+      {
+        "lecture": 53,
+        "file": "053. 11d. Questions on Binary trees 2.mp4",
+        "start": 58,
+        "end": 82.02,
+        "text": "if one of them is null so it will come to this condition only when one of them is null right so if one of them is null and other is other is not null right which means if i'm passing null as a root one here i'm passing null and here i'm passing some valid uh valid root which which means let's suppose not null and then in this case they are saying that if one of them is null then return zero"
+      }
+    ],
+    "foundation": {
+      "title": "Tree shape versus tree identity",
+      "idea": "Structural comparison checks where left and right children exist. Identical labeled-tree comparison also checks corresponding payloads. The base conditions must distinguish both-empty from exactly-one-empty pairs.",
+      "terms": [
+        "Same shape: matching ordered child positions.",
+        "Same labeled tree: same shape and corresponding payloads.",
+        "Short-circuit: stop once a mismatch proves the result."
+      ],
+      "example": "Changing every payload by one preserves shape but does not preserve labeled-tree identity."
+    }
+  },
+  {
+    "id": 160,
+    "lecture": 53,
+    "title": "Separate labels from structure",
+    "concept": "Structural comparison checks where left and right children exist. Identical labeled-tree comparison also checks corresponding payloads. The base conditions must distinguish both-empty from exactly-one-empty pairs.",
+    "teachingSteps": [
+      "Two empty child positions match.",
+      "One empty and one live position differ structurally.",
+      "For identical labeled trees, compare payloads too, then compare corresponding left and right subtrees."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Exactly one corresponding child is NULL. What follows?",
+        "options": [
+          "A shape mismatch",
+          "The trees must be identical",
+          "Only their colors differ"
+        ],
+        "answer": 0,
+        "explanation": "A live node and an absent child are different positions."
+      },
+      {
+        "type": "number",
+        "prompt": "How many NULL child positions does this seven-node binary representation contain?",
+        "answer": 8,
+        "explanation": "2n-(n-1)=n+1.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 16,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 12,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 20,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 10,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 14,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 18,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 22,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "How many parent-child edges remain in either unchanged shape?",
+        "answer": 6,
+        "explanation": "A nonempty n-node tree has n-1 edges.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 16,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 12,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 20,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 10,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 14,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 18,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 22,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange the dependent steps of this procedure.",
+        "items": [
+          "Check whether both positions are empty",
+          "Reject if exactly one position is empty",
+          "Compare payloads for labeled identity",
+          "Recursively compare corresponding left and right children"
+        ],
+        "explanation": "Follow this order so every step receives a valid state."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "tree-equality",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 53,
+        "file": "053. 11d. Questions on Binary trees 2.mp4",
+        "start": 0,
+        "end": 29.04,
+        "text": "Now let's solve few more questions in the binary tree. So consider this question. Here they are saying that check something is a function and root 1, root 2 are two roots of the binary trees. So if root 1 equal equal null and root 2 equal equal null, so they they are talking about two binary trees, not just one binary tree. Okay. So this is let's suppose one binary tree and this is another binary tree. Okay. Suppose maybe something like this. Then they are saying root 1 and root 2 if both are null,"
+      },
+      {
+        "lecture": 53,
+        "file": "053. 11d. Questions on Binary trees 2.mp4",
+        "start": 29.39,
+        "end": 57.66,
+        "text": "which means whatever I am passing if both are null then return one okay so it means that if I am passing null here so if I am passing null from here if I am passing null from here also they will return one otherwise if root one is null and what about root two if root two or either see if root one is null then in this case can the root to be null can can the root to be also null no why because if root one and root two both are null then I am already returning one but"
+      },
+      {
+        "lecture": 53,
+        "file": "053. 11d. Questions on Binary trees 2.mp4",
+        "start": 58,
+        "end": 82.02,
+        "text": "if one of them is null so it will come to this condition only when one of them is null right so if one of them is null and other is other is not null right which means if i'm passing null as a root one here i'm passing null and here i'm passing some valid uh valid root which which means let's suppose not null and then in this case they are saying that if one of them is null then return zero"
+      }
+    ],
+    "foundation": {
+      "title": "Tree shape versus tree identity",
+      "idea": "Structural comparison checks where left and right children exist. Identical labeled-tree comparison also checks corresponding payloads. The base conditions must distinguish both-empty from exactly-one-empty pairs.",
+      "terms": [
+        "Same shape: matching ordered child positions.",
+        "Same labeled tree: same shape and corresponding payloads.",
+        "Short-circuit: stop once a mismatch proves the result."
+      ],
+      "example": "Changing every payload by one preserves shape but does not preserve labeled-tree identity."
+    }
+  },
+  {
+    "id": 161,
+    "lecture": 53,
+    "title": "Stop on the first mismatch",
+    "concept": "Structural comparison checks where left and right children exist. Identical labeled-tree comparison also checks corresponding payloads. The base conditions must distinguish both-empty from exactly-one-empty pairs.",
+    "teachingSteps": [
+      "Two empty child positions match.",
+      "One empty and one live position differ structurally.",
+      "For identical labeled trees, compare payloads too, then compare corresponding left and right subtrees."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Same ordered shape but different payloads means what?",
+        "options": [
+          "Always identical labeled trees",
+          "Always different shape",
+          "Structurally equal but not identical labeled trees"
+        ],
+        "answer": 2,
+        "explanation": "The two comparisons check different properties."
+      },
+      {
+        "type": "number",
+        "prompt": "The perfect pictured tree has what edge-height?",
+        "answer": 2,
+        "explanation": "Its deepest leaves are two edges below root.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 16,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 12,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 20,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 10,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 14,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 18,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 22,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "What must an identical labeled-tree test compare?",
+        "options": [
+          "Payloads and corresponding child subtrees",
+          "Only the total count",
+          "Only the root payload"
+        ],
+        "answer": 0,
+        "explanation": "Equal counts alone do not establish equal shape or labels."
+      },
+      {
+        "type": "number",
+        "prompt": "How many leaves occur in the pictured ordered shape?",
+        "answer": 4,
+        "explanation": "The four bottom nodes have no children.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 16,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 12,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 20,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 10,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 14,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 18,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 22,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "tree-equality",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 53,
+        "file": "053. 11d. Questions on Binary trees 2.mp4",
+        "start": 0,
+        "end": 29.04,
+        "text": "Now let's solve few more questions in the binary tree. So consider this question. Here they are saying that check something is a function and root 1, root 2 are two roots of the binary trees. So if root 1 equal equal null and root 2 equal equal null, so they they are talking about two binary trees, not just one binary tree. Okay. So this is let's suppose one binary tree and this is another binary tree. Okay. Suppose maybe something like this. Then they are saying root 1 and root 2 if both are null,"
+      },
+      {
+        "lecture": 53,
+        "file": "053. 11d. Questions on Binary trees 2.mp4",
+        "start": 29.39,
+        "end": 57.66,
+        "text": "which means whatever I am passing if both are null then return one okay so it means that if I am passing null here so if I am passing null from here if I am passing null from here also they will return one otherwise if root one is null and what about root two if root two or either see if root one is null then in this case can the root to be null can can the root to be also null no why because if root one and root two both are null then I am already returning one but"
+      },
+      {
+        "lecture": 53,
+        "file": "053. 11d. Questions on Binary trees 2.mp4",
+        "start": 58,
+        "end": 82.02,
+        "text": "if one of them is null so it will come to this condition only when one of them is null right so if one of them is null and other is other is not null right which means if i'm passing null as a root one here i'm passing null and here i'm passing some valid uh valid root which which means let's suppose not null and then in this case they are saying that if one of them is null then return zero"
+      }
+    ],
+    "foundation": {
+      "title": "Tree shape versus tree identity",
+      "idea": "Structural comparison checks where left and right children exist. Identical labeled-tree comparison also checks corresponding payloads. The base conditions must distinguish both-empty from exactly-one-empty pairs.",
+      "terms": [
+        "Same shape: matching ordered child positions.",
+        "Same labeled tree: same shape and corresponding payloads.",
+        "Short-circuit: stop once a mismatch proves the result."
+      ],
+      "example": "Changing every payload by one preserves shape but does not preserve labeled-tree identity."
+    }
+  },
+  {
+    "id": 162,
+    "lecture": 54,
+    "title": "Choose when to visit the root",
+    "concept": "Depth-first traversals differ in when they visit each root relative to its left and right subtrees. Preorder is root-left-right, inorder is left-root-right, and postorder is left-right-root.",
+    "teachingSteps": [
+      "Apply the chosen rule recursively to every subtree.",
+      "Emit each real node once at the rule selected root position.",
+      "Do not interpret an arbitrary binary tree inorder as sorted unless BST ordering is guaranteed."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "When does preorder visit the root?",
+        "options": [
+          "Before both subtrees",
+          "After both subtrees",
+          "Only if it is a leaf"
+        ],
+        "answer": 0,
+        "explanation": "Preorder is root-left-right."
+      },
+      {
+        "type": "match",
+        "prompt": "Match each term with its stated role.",
+        "pairs": [
+          [
+            "Preorder",
+            "Root then left then right"
+          ],
+          [
+            "Inorder",
+            "Left then root then right"
+          ],
+          [
+            "Postorder",
+            "Left then right then root"
+          ]
+        ],
+        "explanation": "Distinguish the operations, structural conditions and units in the definitions."
+      },
+      {
+        "type": "number",
+        "prompt": "For the pictured tree, what is the first preorder key?",
+        "answer": 11,
+        "explanation": "Preorder emits the root first.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 11,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 7,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 15,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 5,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 9,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 13,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 17,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "What is the first inorder key of the same tree?",
+        "answer": 5,
+        "explanation": "Traverse the left subtree before the root.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 11,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 7,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 15,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 5,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 9,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 13,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 17,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "traversals",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 54,
+        "file": "054. 12a. Binary Tree Traversals.mp4",
+        "start": 0,
+        "end": 26.64,
+        "text": "In this video we are going to see binary tree traversals. So these are three popular traversals. Let me first explain you that what do I mean by traversal? Suppose a binary tree is given to you and which is something like this, okay? And you want to traverse this tree. So what do I mean by that? You want to go through the nodes, right? There could be multiple traversals which means you may go to A first"
+      },
+      {
+        "lecture": 54,
+        "file": "054. 12a. Binary Tree Traversals.mp4",
+        "start": 55.93,
+        "end": 84.83,
+        "text": "okay in terms of a program you will say that either you can go to the root and you can go to like after the root you can go to the left portion and you can go to the right portion so this is one kind of possible thing that you have similarly you can say you may go to the left portion and then you may go to the root and then you may go to the right okay this is another possibility similarly you can say you may go to the right first you may go to the root first"
+      },
+      {
+        "lecture": 54,
+        "file": "054. 12a. Binary Tree Traversals.mp4",
+        "start": 85.06,
+        "end": 114.16,
+        "text": "and then you may go to the left first. Similarly, you may say that you may go to the left first and then right first maybe and then root. Like that, how many traversals are possible? There might be three factorial traversals are possible, which is six traversals. But out of these six traversals, only three traversals are very popular, which are pre-order, in-order and post-order. So pre-order says that I will go to"
+      }
+    ],
+    "foundation": {
+      "title": "Preorder, inorder and postorder",
+      "idea": "Depth-first traversals differ in when they visit each root relative to its left and right subtrees. Preorder is root-left-right, inorder is left-root-right, and postorder is left-right-root.",
+      "terms": [
+        "Preorder: root first.",
+        "Inorder: root between its subtrees.",
+        "Postorder: root after its subtrees."
+      ],
+      "example": "With root 8, left 4 and right 12, the three orders are 8,4,12; 4,8,12; and 4,12,8."
+    }
+  },
+  {
+    "id": 163,
+    "lecture": 54,
+    "title": "Trace a traversal recursively",
+    "concept": "Depth-first traversals differ in when they visit each root relative to its left and right subtrees. Preorder is root-left-right, inorder is left-root-right, and postorder is left-right-root.",
+    "teachingSteps": [
+      "Apply the chosen rule recursively to every subtree.",
+      "Emit each real node once at the rule selected root position.",
+      "Do not interpret an arbitrary binary tree inorder as sorted unless BST ordering is guaranteed."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What is inorder visit order?",
+        "options": [
+          "Root, right, left",
+          "Both subtrees then root",
+          "Left subtree, root, right subtree"
+        ],
+        "answer": 2,
+        "explanation": "The recursive rule applies at each node."
+      },
+      {
+        "type": "number",
+        "prompt": "What is the final postorder key?",
+        "answer": 11,
+        "explanation": "Postorder emits the root last.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 11,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 7,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 15,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 5,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 9,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 13,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 17,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Given preorder 11, 7, 5, 9, 15, 13, 17 and inorder 5, 7, 9, 11, 13, 15, 17, how many keys are in the root left subtree?",
+        "answer": 3,
+        "explanation": "Three inorder keys precede the root.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "traversal-given",
+          "pre": [
+            11,
+            7,
+            5,
+            9,
+            15,
+            13,
+            17
+          ],
+          "inorder": [
+            5,
+            7,
+            9,
+            11,
+            13,
+            15,
+            17
+          ]
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange the dependent steps of this procedure.",
+        "items": [
+          "Visit the left subtree in postorder",
+          "Visit the right subtree in postorder",
+          "Emit the current root key",
+          "Return to the caller"
+        ],
+        "explanation": "Follow this order so every step receives a valid state."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "traversals",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 54,
+        "file": "054. 12a. Binary Tree Traversals.mp4",
+        "start": 0,
+        "end": 26.64,
+        "text": "In this video we are going to see binary tree traversals. So these are three popular traversals. Let me first explain you that what do I mean by traversal? Suppose a binary tree is given to you and which is something like this, okay? And you want to traverse this tree. So what do I mean by that? You want to go through the nodes, right? There could be multiple traversals which means you may go to A first"
+      },
+      {
+        "lecture": 54,
+        "file": "054. 12a. Binary Tree Traversals.mp4",
+        "start": 55.93,
+        "end": 84.83,
+        "text": "okay in terms of a program you will say that either you can go to the root and you can go to like after the root you can go to the left portion and you can go to the right portion so this is one kind of possible thing that you have similarly you can say you may go to the left portion and then you may go to the root and then you may go to the right okay this is another possibility similarly you can say you may go to the right first you may go to the root first"
+      },
+      {
+        "lecture": 54,
+        "file": "054. 12a. Binary Tree Traversals.mp4",
+        "start": 85.06,
+        "end": 114.16,
+        "text": "and then you may go to the left first. Similarly, you may say that you may go to the left first and then right first maybe and then root. Like that, how many traversals are possible? There might be three factorial traversals are possible, which is six traversals. But out of these six traversals, only three traversals are very popular, which are pre-order, in-order and post-order. So pre-order says that I will go to"
+      }
+    ],
+    "foundation": {
+      "title": "Preorder, inorder and postorder",
+      "idea": "Depth-first traversals differ in when they visit each root relative to its left and right subtrees. Preorder is root-left-right, inorder is left-root-right, and postorder is left-right-root.",
+      "terms": [
+        "Preorder: root first.",
+        "Inorder: root between its subtrees.",
+        "Postorder: root after its subtrees."
+      ],
+      "example": "With root 8, left 4 and right 12, the three orders are 8,4,12; 4,8,12; and 4,12,8."
+    }
+  },
+  {
+    "id": 164,
+    "lecture": 54,
+    "title": "Match output to an order",
+    "concept": "Depth-first traversals differ in when they visit each root relative to its left and right subtrees. Preorder is root-left-right, inorder is left-root-right, and postorder is left-right-root.",
+    "teachingSteps": [
+      "Apply the chosen rule recursively to every subtree.",
+      "Emit each real node once at the rule selected root position.",
+      "Do not interpret an arbitrary binary tree inorder as sorted unless BST ordering is guaranteed."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which traversal emits the root after both subtrees?",
+        "options": [
+          "Inorder",
+          "Postorder",
+          "Preorder"
+        ],
+        "answer": 1,
+        "explanation": "Postorder is left-right-root."
+      },
+      {
+        "type": "number",
+        "prompt": "How many real keys does a complete traversal output?",
+        "answer": 7,
+        "explanation": "Every real node is emitted exactly once.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 11,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 7,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 15,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 5,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 9,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 13,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 17,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "Does each complete traversal visit every real node once?",
+        "options": [
+          "No; it skips the leaves",
+          "Only when keys are sorted",
+          "Yes"
+        ],
+        "answer": 2,
+        "explanation": "Traversal order changes the sequence, not the node set."
+      },
+      {
+        "type": "number",
+        "prompt": "Given the same preorder and inorder, what is the right-subtree root key?",
+        "answer": 15,
+        "explanation": "After the root and its three left keys, the right-subtree preorder begins.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "traversal-given",
+          "pre": [
+            11,
+            7,
+            5,
+            9,
+            15,
+            13,
+            17
+          ],
+          "inorder": [
+            5,
+            7,
+            9,
+            11,
+            13,
+            15,
+            17
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "traversals",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 54,
+        "file": "054. 12a. Binary Tree Traversals.mp4",
+        "start": 0,
+        "end": 26.64,
+        "text": "In this video we are going to see binary tree traversals. So these are three popular traversals. Let me first explain you that what do I mean by traversal? Suppose a binary tree is given to you and which is something like this, okay? And you want to traverse this tree. So what do I mean by that? You want to go through the nodes, right? There could be multiple traversals which means you may go to A first"
+      },
+      {
+        "lecture": 54,
+        "file": "054. 12a. Binary Tree Traversals.mp4",
+        "start": 55.93,
+        "end": 84.83,
+        "text": "okay in terms of a program you will say that either you can go to the root and you can go to like after the root you can go to the left portion and you can go to the right portion so this is one kind of possible thing that you have similarly you can say you may go to the left portion and then you may go to the root and then you may go to the right okay this is another possibility similarly you can say you may go to the right first you may go to the root first"
+      },
+      {
+        "lecture": 54,
+        "file": "054. 12a. Binary Tree Traversals.mp4",
+        "start": 85.06,
+        "end": 114.16,
+        "text": "and then you may go to the left first. Similarly, you may say that you may go to the left first and then right first maybe and then root. Like that, how many traversals are possible? There might be three factorial traversals are possible, which is six traversals. But out of these six traversals, only three traversals are very popular, which are pre-order, in-order and post-order. So pre-order says that I will go to"
+      }
+    ],
+    "foundation": {
+      "title": "Preorder, inorder and postorder",
+      "idea": "Depth-first traversals differ in when they visit each root relative to its left and right subtrees. Preorder is root-left-right, inorder is left-root-right, and postorder is left-right-root.",
+      "terms": [
+        "Preorder: root first.",
+        "Inorder: root between its subtrees.",
+        "Postorder: root after its subtrees."
+      ],
+      "example": "With root 8, left 4 and right 12, the three orders are 8,4,12; 4,8,12; and 4,12,8."
+    }
+  },
+  {
+    "id": 165,
+    "lecture": 55,
+    "title": "Find the root in a sequence",
+    "concept": "For valid traversals with distinct labels, preorder plus inorder or postorder plus inorder determines an ordered binary tree. Identify a root, split its inorder segment, then recurse on matching traversal segments.",
+    "teachingSteps": [
+      "Choose the first preorder key or last postorder key as root.",
+      "Locate that key in the matching inorder segment.",
+      "Use the left and right segment sizes to split the remaining traversal and reconstruct recursively."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Where is the root in a preorder sequence?",
+        "options": [
+          "Always last",
+          "At the numeric median",
+          "First"
+        ],
+        "answer": 2,
+        "explanation": "Preorder begins with the subtree root."
+      },
+      {
+        "type": "match",
+        "prompt": "Match each term with its stated role.",
+        "pairs": [
+          [
+            "Preorder",
+            "Root then left then right"
+          ],
+          [
+            "Inorder",
+            "Left then root then right"
+          ],
+          [
+            "Postorder",
+            "Left then right then root"
+          ]
+        ],
+        "explanation": "Distinguish the operations, structural conditions and units in the definitions."
+      },
+      {
+        "type": "number",
+        "prompt": "In the given traversals, what is the first preorder key?",
+        "answer": 12,
+        "explanation": "Preorder emits the root first.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "traversal-given",
+          "pre": [
+            12,
+            8,
+            6,
+            10,
+            16,
+            14,
+            18
+          ],
+          "inorder": [
+            6,
+            8,
+            10,
+            12,
+            14,
+            16,
+            18
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "What is the first inorder key of the same tree?",
+        "answer": 6,
+        "explanation": "Traverse the left subtree before the root.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "traversal-given",
+          "pre": [
+            12,
+            8,
+            6,
+            10,
+            16,
+            14,
+            18
+          ],
+          "inorder": [
+            6,
+            8,
+            10,
+            12,
+            14,
+            16,
+            18
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "reconstruct",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 55,
+        "file": "055_12b_Binary_tree_construction_using_preorder_postorder_and_inorder.mp4",
+        "start": 0,
+        "end": 28.28,
+        "text": "Now let's talk about binary tree construction. So we can construct a binary tree given some traversal So maybe in order is given pre-order is given or post-order is given Let's just see that how to construct a binary tree given some traversals So suppose that in order and pre-order is given to you and what you want? You want a binary tree such that that binary tree in order should be this and binary tree pre-order should be this Okay, I hope the problem statement is clear"
+      },
+      {
+        "lecture": 55,
+        "file": "055_12b_Binary_tree_construction_using_preorder_postorder_and_inorder.mp4",
+        "start": 28.73,
+        "end": 58.31,
+        "text": "so let's just find out it so in order means like whenever I say in order it means that you're saying like left and root and then right right so left root and right so instead of right I'm just saying R so for the root only I'm saying R O O T otherwise I'm just using the letters which is L and R and pre-order means you're saying root left and right okay"
+      },
+      {
+        "lecture": 55,
+        "file": "055_12b_Binary_tree_construction_using_preorder_postorder_and_inorder.mp4",
+        "start": 58.81,
+        "end": 88.21,
+        "text": "So whenever this pre-order, post-order is given, then we will make use of these two orders to identify the root. So using the pre-order only, can you tell me what is the root of the binary tree? So root of the binary tree has to be A because pre-order starts with the root. So you will say that root of the binary tree is for sure A. Now once you know the root, can you tell me what's going to be on the left part and what's going to be on the right part?"
+      }
+    ],
+    "foundation": {
+      "title": "Reconstructing a tree from traversals",
+      "idea": "For valid traversals with distinct labels, preorder plus inorder or postorder plus inorder determines an ordered binary tree. Identify a root, split its inorder segment, then recurse on matching traversal segments.",
+      "terms": [
+        "Distinct keys: labels identify unique inorder positions.",
+        "Segment: the traversal portion for one subtree.",
+        "Verification: regenerated traversals match both inputs."
+      ],
+      "example": "Preorder 8,4,12 and inorder 4,8,12 reconstruct root 8 with left 4 and right 12."
+    }
+  },
+  {
+    "id": 166,
+    "lecture": 55,
+    "title": "Split the inorder segment",
+    "concept": "For valid traversals with distinct labels, preorder plus inorder or postorder plus inorder determines an ordered binary tree. Identify a root, split its inorder segment, then recurse on matching traversal segments.",
+    "teachingSteps": [
+      "Choose the first preorder key or last postorder key as root.",
+      "Locate that key in the matching inorder segment.",
+      "Use the left and right segment sizes to split the remaining traversal and reconstruct recursively."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What separates left and right subtree keys?",
+        "options": [
+          "The largest key regardless of tree kind",
+          "The root position in inorder",
+          "Arbitrary halves of preorder"
+        ],
+        "answer": 1,
+        "explanation": "Inorder places the root between its subtree sequences."
+      },
+      {
+        "type": "number",
+        "prompt": "What is the final postorder key?",
+        "answer": 12,
+        "explanation": "Postorder emits the root last.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "traversal-given",
+          "pre": [
+            12,
+            8,
+            6,
+            10,
+            16,
+            14,
+            18
+          ],
+          "inorder": [
+            6,
+            8,
+            10,
+            12,
+            14,
+            16,
+            18
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Given preorder 12, 8, 6, 10, 16, 14, 18 and inorder 6, 8, 10, 12, 14, 16, 18, how many keys are in the root left subtree?",
+        "answer": 3,
+        "explanation": "Three inorder keys precede the root.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "traversal-given",
+          "pre": [
+            12,
+            8,
+            6,
+            10,
+            16,
+            14,
+            18
+          ],
+          "inorder": [
+            6,
+            8,
+            10,
+            12,
+            14,
+            16,
+            18
+          ]
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange the dependent steps of this procedure.",
+        "items": [
+          "Identify the first preorder root",
+          "Split inorder at that root label",
+          "Split the remaining preorder using those subtree sizes",
+          "Reconstruct each matching segment recursively"
+        ],
+        "explanation": "Follow this order so every step receives a valid state."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "reconstruct",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 55,
+        "file": "055_12b_Binary_tree_construction_using_preorder_postorder_and_inorder.mp4",
+        "start": 0,
+        "end": 28.28,
+        "text": "Now let's talk about binary tree construction. So we can construct a binary tree given some traversal So maybe in order is given pre-order is given or post-order is given Let's just see that how to construct a binary tree given some traversals So suppose that in order and pre-order is given to you and what you want? You want a binary tree such that that binary tree in order should be this and binary tree pre-order should be this Okay, I hope the problem statement is clear"
+      },
+      {
+        "lecture": 55,
+        "file": "055_12b_Binary_tree_construction_using_preorder_postorder_and_inorder.mp4",
+        "start": 28.73,
+        "end": 58.31,
+        "text": "so let's just find out it so in order means like whenever I say in order it means that you're saying like left and root and then right right so left root and right so instead of right I'm just saying R so for the root only I'm saying R O O T otherwise I'm just using the letters which is L and R and pre-order means you're saying root left and right okay"
+      },
+      {
+        "lecture": 55,
+        "file": "055_12b_Binary_tree_construction_using_preorder_postorder_and_inorder.mp4",
+        "start": 58.81,
+        "end": 88.21,
+        "text": "So whenever this pre-order, post-order is given, then we will make use of these two orders to identify the root. So using the pre-order only, can you tell me what is the root of the binary tree? So root of the binary tree has to be A because pre-order starts with the root. So you will say that root of the binary tree is for sure A. Now once you know the root, can you tell me what's going to be on the left part and what's going to be on the right part?"
+      }
+    ],
+    "foundation": {
+      "title": "Reconstructing a tree from traversals",
+      "idea": "For valid traversals with distinct labels, preorder plus inorder or postorder plus inorder determines an ordered binary tree. Identify a root, split its inorder segment, then recurse on matching traversal segments.",
+      "terms": [
+        "Distinct keys: labels identify unique inorder positions.",
+        "Segment: the traversal portion for one subtree.",
+        "Verification: regenerated traversals match both inputs."
+      ],
+      "example": "Preorder 8,4,12 and inorder 4,8,12 reconstruct root 8 with left 4 and right 12."
+    }
+  },
+  {
+    "id": 167,
+    "lecture": 55,
+    "title": "Verify both given traversals",
+    "concept": "For valid traversals with distinct labels, preorder plus inorder or postorder plus inorder determines an ordered binary tree. Identify a root, split its inorder segment, then recurse on matching traversal segments.",
+    "teachingSteps": [
+      "Choose the first preorder key or last postorder key as root.",
+      "Locate that key in the matching inorder segment.",
+      "Use the left and right segment sizes to split the remaining traversal and reconstruct recursively."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What assumption lets a root label identify one inorder split?",
+        "options": [
+          "Distinct labels",
+          "All labels equal",
+          "Keys must be positive"
+        ],
+        "answer": 0,
+        "explanation": "A repeated label can make the split ambiguous."
+      },
+      {
+        "type": "number",
+        "prompt": "How many real keys does a complete traversal output?",
+        "answer": 7,
+        "explanation": "Every real node is emitted exactly once.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 12,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 8,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 16,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 6,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 10,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 14,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 18,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "What verifies a reconstructed candidate?",
+        "options": [
+          "Require every key to have two children",
+          "Recompute and compare both given traversals",
+          "Compare only its node count"
+        ],
+        "answer": 1,
+        "explanation": "Both input sequences must be reproduced."
+      },
+      {
+        "type": "number",
+        "prompt": "Given the same preorder and inorder, what is the right-subtree root key?",
+        "answer": 16,
+        "explanation": "After the root and its three left keys, the right-subtree preorder begins.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "traversal-given",
+          "pre": [
+            12,
+            8,
+            6,
+            10,
+            16,
+            14,
+            18
+          ],
+          "inorder": [
+            6,
+            8,
+            10,
+            12,
+            14,
+            16,
+            18
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "reconstruct",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 55,
+        "file": "055_12b_Binary_tree_construction_using_preorder_postorder_and_inorder.mp4",
+        "start": 0,
+        "end": 28.28,
+        "text": "Now let's talk about binary tree construction. So we can construct a binary tree given some traversal So maybe in order is given pre-order is given or post-order is given Let's just see that how to construct a binary tree given some traversals So suppose that in order and pre-order is given to you and what you want? You want a binary tree such that that binary tree in order should be this and binary tree pre-order should be this Okay, I hope the problem statement is clear"
+      },
+      {
+        "lecture": 55,
+        "file": "055_12b_Binary_tree_construction_using_preorder_postorder_and_inorder.mp4",
+        "start": 28.73,
+        "end": 58.31,
+        "text": "so let's just find out it so in order means like whenever I say in order it means that you're saying like left and root and then right right so left root and right so instead of right I'm just saying R so for the root only I'm saying R O O T otherwise I'm just using the letters which is L and R and pre-order means you're saying root left and right okay"
+      },
+      {
+        "lecture": 55,
+        "file": "055_12b_Binary_tree_construction_using_preorder_postorder_and_inorder.mp4",
+        "start": 58.81,
+        "end": 88.21,
+        "text": "So whenever this pre-order, post-order is given, then we will make use of these two orders to identify the root. So using the pre-order only, can you tell me what is the root of the binary tree? So root of the binary tree has to be A because pre-order starts with the root. So you will say that root of the binary tree is for sure A. Now once you know the root, can you tell me what's going to be on the left part and what's going to be on the right part?"
+      }
+    ],
+    "foundation": {
+      "title": "Reconstructing a tree from traversals",
+      "idea": "For valid traversals with distinct labels, preorder plus inorder or postorder plus inorder determines an ordered binary tree. Identify a root, split its inorder segment, then recurse on matching traversal segments.",
+      "terms": [
+        "Distinct keys: labels identify unique inorder positions.",
+        "Segment: the traversal portion for one subtree.",
+        "Verification: regenerated traversals match both inputs."
+      ],
+      "example": "Preorder 8,4,12 and inorder 4,8,12 reconstruct root 8 with left 4 and right 12."
+    }
+  },
+  {
+    "id": 168,
+    "lecture": 56,
+    "title": "Recognize a single-child choice",
+    "concept": "Preorder and postorder alone may not determine which side a single child occupies. Distinct labels do not resolve that choice. An additional full-binary-tree promise can remove this particular ambiguity.",
+    "teachingSteps": [
+      "Find the root from first preorder or last postorder.",
+      "Check whether a node has a single-child ambiguity.",
+      "State any structural promises before claiming uniqueness."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Can distinct-key preorder and postorder always determine a general binary tree uniquely?",
+        "options": [
+          "Only the numeric base matters",
+          "No",
+          "Yes, without any extra assumptions"
+        ],
+        "answer": 1,
+        "explanation": "A single child may occupy either side."
+      },
+      {
+        "type": "match",
+        "prompt": "Match each term with its stated role.",
+        "pairs": [
+          [
+            "Single child",
+            "May lie on either side without changing preorder/postorder"
+          ],
+          [
+            "Full tree",
+            "Every internal node has exactly two children"
+          ],
+          [
+            "Inorder split",
+            "Identifies sides when labels are distinct"
+          ]
+        ],
+        "explanation": "Distinguish the operations, structural conditions and units in the definitions."
+      },
+      {
+        "type": "number",
+        "prompt": "Distinct-key chain traversals are preorder 1,2,3 and postorder 3,2,1. How many independent single-child side choices exist?",
+        "answer": 2,
+        "explanation": "There are two edges, each allowed to be left or right.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "How many ordered trees can these same chain traversals describe?",
+        "answer": 4,
+        "explanation": "Two choices per edge give 2^2.",
+        "tolerance": 1e-8
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "reconstruction-ambiguity",
+    "start": 2.19,
+    "sourceReferences": [
+      {
+        "lecture": 56,
+        "file": "056_12c_Binary_tree_construction_using_preorder_postorder_and_inorder.mp4",
+        "start": 2.19,
+        "end": 25.62,
+        "text": "Let's now construct a binary tree using pre-order and post-order. So note here is that in-order is not given. So let's see if we can construct a binary tree and if we can construct then will it be unique. So let's see this. So pre-order means root, left and right. Post-order means left, right and root. If both of these are given"
+      },
+      {
+        "lecture": 56,
+        "file": "056_12c_Binary_tree_construction_using_preorder_postorder_and_inorder.mp4",
+        "start": 25.93,
+        "end": 54.33,
+        "text": "then always you can you can like even if one of them is given then always you can make sure that what is the root so here both of them are saying that one is root right both of them are saying that one is root so you will say that one is root that is very much fine now this preorder is saying 1 2 3 right it is saying 1 2 3 so it is saying this is root and then now whether either like this 2 is on the left or maybe 2 3 is on the left right"
+      },
+      {
+        "lecture": 56,
+        "file": "056_12c_Binary_tree_construction_using_preorder_postorder_and_inorder.mp4",
+        "start": 54.59,
+        "end": 81.97,
+        "text": "or maybe left is null and on the right there is 2 3 something like that right so like there are different possibilities let me just write root left right and poster is saying 3 to 1 so 1 is root that is okay 1 is root and then there will be left and right okay so if you take 2 as left then it is not agreeing with the poster for sure if you take 2 as left 3 as right then preorder will will say okay but poster will say not okay"
+      }
+    ],
+    "foundation": {
+      "title": "When traversals leave ambiguity",
+      "idea": "Preorder and postorder alone may not determine which side a single child occupies. Distinct labels do not resolve that choice. An additional full-binary-tree promise can remove this particular ambiguity.",
+      "terms": [
+        "Ordered positions: left and right are different.",
+        "Single-child ambiguity: either position may fit both sequences.",
+        "Full-tree promise: every internal node has exactly two children."
+      ],
+      "example": "Preorder 1,2,3 and postorder 3,2,1 describe a chain with two independent left/right choices, hence four possible ordered trees."
+    }
+  },
+  {
+    "id": 169,
+    "lecture": 56,
+    "title": "Count possible chain orientations",
+    "concept": "Preorder and postorder alone may not determine which side a single child occupies. Distinct labels do not resolve that choice. An additional full-binary-tree promise can remove this particular ambiguity.",
+    "teachingSteps": [
+      "Find the root from first preorder or last postorder.",
+      "Check whether a node has a single-child ambiguity.",
+      "State any structural promises before claiming uniqueness."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which additional promise removes the single-child ambiguity?",
+        "options": [
+          "Every internal node has exactly two children",
+          "Every payload is positive",
+          "All memory addresses are consecutive"
+        ],
+        "answer": 0,
+        "explanation": "A full binary tree has no single-child nodes."
+      },
+      {
+        "type": "number",
+        "prompt": "How many real nodes occur in either sequence?",
+        "answer": 3,
+        "explanation": "Every distinct label occurs once.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "What is the edge-height of any three-node chain?",
+        "answer": 2,
+        "explanation": "The root-to-leaf path has two edges.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange the dependent steps of this procedure.",
+        "items": [
+          "Identify the root from the given preorder",
+          "Detect a single-child chain in the paired traversals",
+          "Allow a left or right orientation for each chain edge",
+          "Count the independent choices without claiming uniqueness"
+        ],
+        "explanation": "Follow this order so every step receives a valid state."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "reconstruction-ambiguity",
+    "start": 2.19,
+    "sourceReferences": [
+      {
+        "lecture": 56,
+        "file": "056_12c_Binary_tree_construction_using_preorder_postorder_and_inorder.mp4",
+        "start": 2.19,
+        "end": 25.62,
+        "text": "Let's now construct a binary tree using pre-order and post-order. So note here is that in-order is not given. So let's see if we can construct a binary tree and if we can construct then will it be unique. So let's see this. So pre-order means root, left and right. Post-order means left, right and root. If both of these are given"
+      },
+      {
+        "lecture": 56,
+        "file": "056_12c_Binary_tree_construction_using_preorder_postorder_and_inorder.mp4",
+        "start": 25.93,
+        "end": 54.33,
+        "text": "then always you can you can like even if one of them is given then always you can make sure that what is the root so here both of them are saying that one is root right both of them are saying that one is root so you will say that one is root that is very much fine now this preorder is saying 1 2 3 right it is saying 1 2 3 so it is saying this is root and then now whether either like this 2 is on the left or maybe 2 3 is on the left right"
+      },
+      {
+        "lecture": 56,
+        "file": "056_12c_Binary_tree_construction_using_preorder_postorder_and_inorder.mp4",
+        "start": 54.59,
+        "end": 81.97,
+        "text": "or maybe left is null and on the right there is 2 3 something like that right so like there are different possibilities let me just write root left right and poster is saying 3 to 1 so 1 is root that is okay 1 is root and then there will be left and right okay so if you take 2 as left then it is not agreeing with the poster for sure if you take 2 as left 3 as right then preorder will will say okay but poster will say not okay"
+      }
+    ],
+    "foundation": {
+      "title": "When traversals leave ambiguity",
+      "idea": "Preorder and postorder alone may not determine which side a single child occupies. Distinct labels do not resolve that choice. An additional full-binary-tree promise can remove this particular ambiguity.",
+      "terms": [
+        "Ordered positions: left and right are different.",
+        "Single-child ambiguity: either position may fit both sequences.",
+        "Full-tree promise: every internal node has exactly two children."
+      ],
+      "example": "Preorder 1,2,3 and postorder 3,2,1 describe a chain with two independent left/right choices, hence four possible ordered trees."
+    }
+  },
+  {
+    "id": 170,
+    "lecture": 56,
+    "title": "State assumptions for uniqueness",
+    "concept": "Preorder and postorder alone may not determine which side a single child occupies. Distinct labels do not resolve that choice. An additional full-binary-tree promise can remove this particular ambiguity.",
+    "teachingSteps": [
+      "Find the root from first preorder or last postorder.",
+      "Check whether a node has a single-child ambiguity.",
+      "State any structural promises before claiming uniqueness."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Do two trees with the same preorder and postorder necessarily have the same inorder?",
+        "options": [
+          "Yes in every general binary tree",
+          "Only when labels are letters",
+          "No"
+        ],
+        "answer": 2,
+        "explanation": "Changing a single-child side can change inorder."
+      },
+      {
+        "type": "number",
+        "prompt": "A four-node distinct-key chain is specified only by preorder and reverse postorder. How many side orientations are possible?",
+        "answer": 8,
+        "explanation": "Three independent edges give 2^3.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "When reconstructing from preorder plus inorder, what label assumption simplifies unique splitting?",
+        "options": [
+          "Distinct labels",
+          "All labels equal",
+          "No root label"
+        ],
+        "answer": 0,
+        "explanation": "A distinct root has one identifiable inorder position."
+      },
+      {
+        "type": "number",
+        "prompt": "A two-node chain is given only by preorder and postorder. How many possible ordered trees remain?",
+        "answer": 2,
+        "explanation": "The single child could be left or right.",
+        "tolerance": 1e-8
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "reconstruction-ambiguity",
+    "start": 2.19,
+    "sourceReferences": [
+      {
+        "lecture": 56,
+        "file": "056_12c_Binary_tree_construction_using_preorder_postorder_and_inorder.mp4",
+        "start": 2.19,
+        "end": 25.62,
+        "text": "Let's now construct a binary tree using pre-order and post-order. So note here is that in-order is not given. So let's see if we can construct a binary tree and if we can construct then will it be unique. So let's see this. So pre-order means root, left and right. Post-order means left, right and root. If both of these are given"
+      },
+      {
+        "lecture": 56,
+        "file": "056_12c_Binary_tree_construction_using_preorder_postorder_and_inorder.mp4",
+        "start": 25.93,
+        "end": 54.33,
+        "text": "then always you can you can like even if one of them is given then always you can make sure that what is the root so here both of them are saying that one is root right both of them are saying that one is root so you will say that one is root that is very much fine now this preorder is saying 1 2 3 right it is saying 1 2 3 so it is saying this is root and then now whether either like this 2 is on the left or maybe 2 3 is on the left right"
+      },
+      {
+        "lecture": 56,
+        "file": "056_12c_Binary_tree_construction_using_preorder_postorder_and_inorder.mp4",
+        "start": 54.59,
+        "end": 81.97,
+        "text": "or maybe left is null and on the right there is 2 3 something like that right so like there are different possibilities let me just write root left right and poster is saying 3 to 1 so 1 is root that is okay 1 is root and then there will be left and right okay so if you take 2 as left then it is not agreeing with the poster for sure if you take 2 as left 3 as right then preorder will will say okay but poster will say not okay"
+      }
+    ],
+    "foundation": {
+      "title": "When traversals leave ambiguity",
+      "idea": "Preorder and postorder alone may not determine which side a single child occupies. Distinct labels do not resolve that choice. An additional full-binary-tree promise can remove this particular ambiguity.",
+      "terms": [
+        "Ordered positions: left and right are different.",
+        "Single-child ambiguity: either position may fit both sequences.",
+        "Full-tree promise: every internal node has exactly two children."
+      ],
+      "example": "Preorder 1,2,3 and postorder 3,2,1 describe a chain with two independent left/right choices, hence four possible ordered trees."
+    }
+  },
+  {
+    "id": 171,
+    "lecture": 57,
+    "title": "Apply ordering to whole subtrees",
+    "concept": "A strict distinct-key BST orders entire subtrees: every left key is smaller than its ancestor root and every right key is larger. Search uses this property to discard one branch per comparison.",
+    "teachingSteps": [
+      "Compare the target with the current key.",
+      "Continue left if smaller and right if larger; stop on a match or empty child.",
+      "Inorder visits the strict BST keys in increasing order."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which strict BST property must hold?",
+        "options": [
+          "All left-subtree keys are smaller and all right-subtree keys larger",
+          "Only immediate children need correct comparisons",
+          "The array must be sorted level by level"
+        ],
+        "answer": 0,
+        "explanation": "The ordering is inherited through every descendant."
+      },
+      {
+        "type": "match",
+        "prompt": "Match each term with its stated role.",
+        "pairs": [
+          [
+            "Inorder",
+            "Increasing strict-BST key order"
+          ],
+          [
+            "Successor",
+            "Next key in sorted order"
+          ],
+          [
+            "Inherited interval",
+            "Bounds imposed by every ancestor"
+          ]
+        ],
+        "explanation": "Distinguish the operations, structural conditions and units in the definitions."
+      },
+      {
+        "type": "number",
+        "prompt": "Search target 12 in the pictured BST. How many key comparisons occur?",
+        "answer": 3,
+        "explanation": "The path visits root, left child and its right child.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 14,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 10,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 18,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 8,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 12,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 16,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 20,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "What is the smallest pictured BST key?",
+        "answer": 8,
+        "explanation": "Follow left links to the final leftmost key.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 14,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 10,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 18,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 8,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 12,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 16,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 20,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "bst",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 57,
+        "file": "057. 13a. Introduction to Binary Search Tree.mp4",
+        "start": 0,
+        "end": 22.18,
+        "text": "In this video, we will start with binary search trees, right? So what makes a binary search tree is that given a binary tree, suppose a binary tree is given to you, if it satisfies one simple property, which is that if the values in the node, let's suppose this value is 5, then values in the node satisfy the property"
+      },
+      {
+        "lecture": 57,
+        "file": "057. 13a. Introduction to Binary Search Tree.mp4",
+        "start": 22.51,
+        "end": 52.29,
+        "text": "that left side of this five or left side of any node is lesser than this value which means these all nodes whatever I am going to draw here should be lesser than five which means it should be either two three two point five three point five whatever right but it should be less than five so this node should be less than five not just this node all the nodes here okay all the nodes here whatever I draw all the nodes here should be less than lesser than five and all the nodes here should be greater than five"
+      },
+      {
+        "lecture": 57,
+        "file": "057. 13a. Introduction to Binary Search Tree.mp4",
+        "start": 52.5,
+        "end": 80.32,
+        "text": "right all the nodes here should be greater than 5 which means maybe 10 like that right so this is if this is the properties followed by any any binary tree then it is called binary search tree and it has many applications we will just see one way one okay so here you can you can break that either either from the left or from the right you can say it is less than equal to you can say it is greater than equal to like whatever you want you can do it there is no problem in that okay so I hope you are getting that if I have"
+      }
+    ],
+    "foundation": {
+      "title": "Binary search trees",
+      "idea": "A strict distinct-key BST orders entire subtrees: every left key is smaller than its ancestor root and every right key is larger. Search uses this property to discard one branch per comparison.",
+      "terms": [
+        "Strict BST: no duplicate keys in this example.",
+        "Search path: one chosen root-to-child route.",
+        "Inherited bound: constraints from every ancestor."
+      ],
+      "example": "In a BST rooted at 8, target 6 follows 8->4->6; the right subtree of 8 cannot contain it."
+    }
+  },
+  {
+    "id": 172,
+    "lecture": 57,
+    "title": "Search along one path",
+    "concept": "A strict distinct-key BST orders entire subtrees: every left key is smaller than its ancestor root and every right key is larger. Search uses this property to discard one branch per comparison.",
+    "teachingSteps": [
+      "Compare the target with the current key.",
+      "Continue left if smaller and right if larger; stop on a match or empty child.",
+      "Inorder visits the strict BST keys in increasing order."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which sequence is inconsistent with searching 50?",
+        "options": [
+          "100,40,60,45,50",
+          "80,60,40,50",
+          "100,40,60,30,50"
+        ],
+        "answer": 2,
+        "explanation": "After visiting 40 then 60, later keys must remain above 40 and below 60."
+      },
+      {
+        "type": "number",
+        "prompt": "What is the largest pictured BST key?",
+        "answer": 20,
+        "explanation": "Follow right links to the final rightmost key.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 14,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 10,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 18,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 8,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 12,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 16,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 20,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "What is the fourth key of its increasing inorder sequence?",
+        "answer": 14,
+        "explanation": "Three keys are smaller than the root.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 14,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 10,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 18,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 8,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 12,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 16,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 20,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange the dependent steps of this procedure.",
+        "items": [
+          "Compare the target with the current key",
+          "Narrow the inherited interval for the selected child",
+          "Continue within that interval",
+          "Stop on a match or empty child"
+        ],
+        "explanation": "Follow this order so every step receives a valid state."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "bst",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 57,
+        "file": "057. 13a. Introduction to Binary Search Tree.mp4",
+        "start": 0,
+        "end": 22.18,
+        "text": "In this video, we will start with binary search trees, right? So what makes a binary search tree is that given a binary tree, suppose a binary tree is given to you, if it satisfies one simple property, which is that if the values in the node, let's suppose this value is 5, then values in the node satisfy the property"
+      },
+      {
+        "lecture": 57,
+        "file": "057. 13a. Introduction to Binary Search Tree.mp4",
+        "start": 22.51,
+        "end": 52.29,
+        "text": "that left side of this five or left side of any node is lesser than this value which means these all nodes whatever I am going to draw here should be lesser than five which means it should be either two three two point five three point five whatever right but it should be less than five so this node should be less than five not just this node all the nodes here okay all the nodes here whatever I draw all the nodes here should be less than lesser than five and all the nodes here should be greater than five"
+      },
+      {
+        "lecture": 57,
+        "file": "057. 13a. Introduction to Binary Search Tree.mp4",
+        "start": 52.5,
+        "end": 80.32,
+        "text": "right all the nodes here should be greater than 5 which means maybe 10 like that right so this is if this is the properties followed by any any binary tree then it is called binary search tree and it has many applications we will just see one way one okay so here you can you can break that either either from the left or from the right you can say it is less than equal to you can say it is greater than equal to like whatever you want you can do it there is no problem in that okay so I hope you are getting that if I have"
+      }
+    ],
+    "foundation": {
+      "title": "Binary search trees",
+      "idea": "A strict distinct-key BST orders entire subtrees: every left key is smaller than its ancestor root and every right key is larger. Search uses this property to discard one branch per comparison.",
+      "terms": [
+        "Strict BST: no duplicate keys in this example.",
+        "Search path: one chosen root-to-child route.",
+        "Inherited bound: constraints from every ancestor."
+      ],
+      "example": "In a BST rooted at 8, target 6 follows 8->4->6; the right subtree of 8 cannot contain it."
+    }
+  },
+  {
+    "id": 173,
+    "lecture": 57,
+    "title": "Read the sorted inorder result",
+    "concept": "A strict distinct-key BST orders entire subtrees: every left key is smaller than its ancestor root and every right key is larger. Search uses this property to discard one branch per comparison.",
+    "teachingSteps": [
+      "Compare the target with the current key.",
+      "Continue left if smaller and right if larger; stop on a match or empty child.",
+      "Inorder visits the strict BST keys in increasing order."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which is invalid as a strict BST preorder?",
+        "options": [
+          "8,4,6,12",
+          "8,4,12,2",
+          "8,4,2,6,12,10,14"
+        ],
+        "answer": 1,
+        "explanation": "After entering the root right subtree, key 2 cannot return to its left region."
+      },
+      {
+        "type": "number",
+        "prompt": "How many keys lie strictly below the pictured root?",
+        "answer": 3,
+        "explanation": "All three keys in the left subtree.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 14,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 10,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 18,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 8,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 12,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 16,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 20,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "Root 8 has left 4 and 4.right=9. Why is this invalid?",
+        "options": [
+          "9 is smaller than its own parent 4",
+          "Every right child is forbidden",
+          "9 violates the ancestor upper bound 8"
+        ],
+        "answer": 2,
+        "explanation": "Checking only the immediate parent would miss this violation."
+      },
+      {
+        "type": "number",
+        "prompt": "Searching this root key uses how many comparisons?",
+        "answer": 1,
+        "explanation": "The root comparison matches immediately.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 14,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 10,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 18,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 8,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 12,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 16,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 20,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "bst",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 57,
+        "file": "057. 13a. Introduction to Binary Search Tree.mp4",
+        "start": 0,
+        "end": 22.18,
+        "text": "In this video, we will start with binary search trees, right? So what makes a binary search tree is that given a binary tree, suppose a binary tree is given to you, if it satisfies one simple property, which is that if the values in the node, let's suppose this value is 5, then values in the node satisfy the property"
+      },
+      {
+        "lecture": 57,
+        "file": "057. 13a. Introduction to Binary Search Tree.mp4",
+        "start": 22.51,
+        "end": 52.29,
+        "text": "that left side of this five or left side of any node is lesser than this value which means these all nodes whatever I am going to draw here should be lesser than five which means it should be either two three two point five three point five whatever right but it should be less than five so this node should be less than five not just this node all the nodes here okay all the nodes here whatever I draw all the nodes here should be less than lesser than five and all the nodes here should be greater than five"
+      },
+      {
+        "lecture": 57,
+        "file": "057. 13a. Introduction to Binary Search Tree.mp4",
+        "start": 52.5,
+        "end": 80.32,
+        "text": "right all the nodes here should be greater than 5 which means maybe 10 like that right so this is if this is the properties followed by any any binary tree then it is called binary search tree and it has many applications we will just see one way one okay so here you can you can break that either either from the left or from the right you can say it is less than equal to you can say it is greater than equal to like whatever you want you can do it there is no problem in that okay so I hope you are getting that if I have"
+      }
+    ],
+    "foundation": {
+      "title": "Binary search trees",
+      "idea": "A strict distinct-key BST orders entire subtrees: every left key is smaller than its ancestor root and every right key is larger. Search uses this property to discard one branch per comparison.",
+      "terms": [
+        "Strict BST: no duplicate keys in this example.",
+        "Search path: one chosen root-to-child route.",
+        "Inherited bound: constraints from every ancestor."
+      ],
+      "example": "In a BST rooted at 8, target 6 follows 8->4->6; the right subtree of 8 cannot contain it."
+    }
+  },
+  {
+    "id": 174,
+    "lecture": 58,
+    "title": "Apply inclusive endpoints",
+    "concept": "Inclusive BST range reporting visits only potentially relevant subtrees. A node smaller than the lower endpoint rules out its left subtree; a node larger than the upper endpoint rules out its right subtree. Inorder collection gives sorted output.",
+    "teachingSteps": [
+      "State whether interval endpoints are included.",
+      "Prune using the full BST order, not just the current node match.",
+      "Collect matching keys in inorder; account for height h and reported count k."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "At a BST node whose key is below the inclusive lower endpoint, what may be skipped?",
+        "options": [
+          "Its right subtree regardless of keys",
+          "Every remaining node",
+          "Its whole left subtree"
+        ],
+        "answer": 2,
+        "explanation": "All left-subtree keys are even smaller."
+      },
+      {
+        "type": "match",
+        "prompt": "Match each term with its stated role.",
+        "pairs": [
+          [
+            "Inorder",
+            "Increasing strict-BST key order"
+          ],
+          [
+            "Successor",
+            "Next key in sorted order"
+          ],
+          [
+            "Inherited interval",
+            "Bounds imposed by every ancestor"
+          ]
+        ],
+        "explanation": "Distinguish the operations, structural conditions and units in the definitions."
+      },
+      {
+        "type": "number",
+        "prompt": "Use inclusive range [13,17] on the pictured BST unless a strict interval is explicitly stated. Report inclusive range [13,17] from the pictured BST. How many keys match?",
+        "answer": 3,
+        "explanation": "The two endpoints and root match.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 15,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 11,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 19,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 9,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 13,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 17,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 21,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Use inclusive range [13,17] on the pictured BST unless a strict interval is explicitly stated. What is the sum of matching keys?",
+        "answer": 45,
+        "explanation": "Add the three included keys.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 15,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 11,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 19,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 9,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 13,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 17,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 21,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "range-search",
+    "start": 0.88,
+    "sourceReferences": [
+      {
+        "lecture": 58,
+        "file": "058_13b_Range_Search_in_Binary_Search_Tree_GATE_2014_GATE_2020.mp4",
+        "start": 0.88,
+        "end": 29.46,
+        "text": "Let's now see the range search in binary search tree. So suppose a binary search tree given to you which is something like this and you do not just want to search for one element which means you do you are not actually looking for just one element let's suppose three four something like that. In fact you are looking for some range which means maybe you are saying that give me all the elements in this binary search tree which are within one two three."
+      },
+      {
+        "lecture": 58,
+        "file": "058_13b_Range_Search_in_Binary_Search_Tree_GATE_2014_GATE_2020.mp4",
+        "start": 83.86,
+        "end": 112.72,
+        "text": "Okay, now you know one thing. You know that in order of the binary search tree is always sorted. Why? Because if you take the projection then everything here on the left of this two is lesser than two and everything here on the right of this two is greater than two and that is happening recursively which means that everything on left of this minus one is lesser than minus one. Everything on right of this minus one is greater than minus one, right? So you can say that in order is sorted that we have already seen."
+      },
+      {
+        "lecture": 58,
+        "file": "058_13b_Range_Search_in_Binary_Search_Tree_GATE_2014_GATE_2020.mp4",
+        "start": 203.35,
+        "end": 233.88,
+        "text": "So if you are looking for some range, it won't happen that some of your elements are here, some of your elements are here, no. It will always be one circle which means all of your elements between in just one circle because it will just form a range. Now let's suppose you are looking for minus 1 to 5. Let's see how we are proceeding with this binary search tree to search for minus 1 to 5. Now what I will do? I will go to the root node first."
+      }
+    ],
+    "foundation": {
+      "title": "Reporting a BST key range",
+      "idea": "Inclusive BST range reporting visits only potentially relevant subtrees. A node smaller than the lower endpoint rules out its left subtree; a node larger than the upper endpoint rules out its right subtree. Inorder collection gives sorted output.",
+      "terms": [
+        "Inclusive interval: low<=key<=high.",
+        "Pruning: skip a subtree that cannot contain a match.",
+        "Output-sensitive work: includes the number of reported keys."
+      ],
+      "example": "For keys 2,4,6,8,10,12,14, range [6,10] reports 6,8,10; a typical height-sensitive bound is O(h+k)."
+    }
+  },
+  {
+    "id": 175,
+    "lecture": 58,
+    "title": "Prune impossible subtrees",
+    "concept": "Inclusive BST range reporting visits only potentially relevant subtrees. A node smaller than the lower endpoint rules out its left subtree; a node larger than the upper endpoint rules out its right subtree. Inorder collection gives sorted output.",
+    "teachingSteps": [
+      "State whether interval endpoints are included.",
+      "Prune using the full BST order, not just the current node match.",
+      "Collect matching keys in inorder; account for height h and reported count k."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "At a node above the upper endpoint, what may be skipped?",
+        "options": [
+          "Only the root of the complete input tree",
+          "Its whole right subtree",
+          "Its left subtree regardless of keys"
+        ],
+        "answer": 1,
+        "explanation": "All right-subtree keys are larger."
+      },
+      {
+        "type": "number",
+        "prompt": "Use inclusive range [13,17] on the pictured BST unless a strict interval is explicitly stated. What is the smallest matching key?",
+        "answer": 13,
+        "explanation": "The lower endpoint is included.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 15,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 11,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 19,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 9,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 13,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 17,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 21,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Use inclusive range [13,17] on the pictured BST unless a strict interval is explicitly stated. What is the largest matching key?",
+        "answer": 17,
+        "explanation": "The upper endpoint is included.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 15,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 11,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 19,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 9,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 13,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 17,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 21,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange the dependent steps of this procedure.",
+        "items": [
+          "Compare the target with the current key",
+          "Narrow the inherited interval for the selected child",
+          "Continue within that interval",
+          "Stop on a match or empty child"
+        ],
+        "explanation": "Follow this order so every step receives a valid state."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "range-search",
+    "start": 0.88,
+    "sourceReferences": [
+      {
+        "lecture": 58,
+        "file": "058_13b_Range_Search_in_Binary_Search_Tree_GATE_2014_GATE_2020.mp4",
+        "start": 0.88,
+        "end": 29.46,
+        "text": "Let's now see the range search in binary search tree. So suppose a binary search tree given to you which is something like this and you do not just want to search for one element which means you do you are not actually looking for just one element let's suppose three four something like that. In fact you are looking for some range which means maybe you are saying that give me all the elements in this binary search tree which are within one two three."
+      },
+      {
+        "lecture": 58,
+        "file": "058_13b_Range_Search_in_Binary_Search_Tree_GATE_2014_GATE_2020.mp4",
+        "start": 83.86,
+        "end": 112.72,
+        "text": "Okay, now you know one thing. You know that in order of the binary search tree is always sorted. Why? Because if you take the projection then everything here on the left of this two is lesser than two and everything here on the right of this two is greater than two and that is happening recursively which means that everything on left of this minus one is lesser than minus one. Everything on right of this minus one is greater than minus one, right? So you can say that in order is sorted that we have already seen."
+      },
+      {
+        "lecture": 58,
+        "file": "058_13b_Range_Search_in_Binary_Search_Tree_GATE_2014_GATE_2020.mp4",
+        "start": 203.35,
+        "end": 233.88,
+        "text": "So if you are looking for some range, it won't happen that some of your elements are here, some of your elements are here, no. It will always be one circle which means all of your elements between in just one circle because it will just form a range. Now let's suppose you are looking for minus 1 to 5. Let's see how we are proceeding with this binary search tree to search for minus 1 to 5. Now what I will do? I will go to the root node first."
+      }
+    ],
+    "foundation": {
+      "title": "Reporting a BST key range",
+      "idea": "Inclusive BST range reporting visits only potentially relevant subtrees. A node smaller than the lower endpoint rules out its left subtree; a node larger than the upper endpoint rules out its right subtree. Inorder collection gives sorted output.",
+      "terms": [
+        "Inclusive interval: low<=key<=high.",
+        "Pruning: skip a subtree that cannot contain a match.",
+        "Output-sensitive work: includes the number of reported keys."
+      ],
+      "example": "For keys 2,4,6,8,10,12,14, range [6,10] reports 6,8,10; a typical height-sensitive bound is O(h+k)."
+    }
+  },
+  {
+    "id": 176,
+    "lecture": 58,
+    "title": "Collect results in sorted order",
+    "concept": "Inclusive BST range reporting visits only potentially relevant subtrees. A node smaller than the lower endpoint rules out its left subtree; a node larger than the upper endpoint rules out its right subtree. Inorder collection gives sorted output.",
+    "teachingSteps": [
+      "State whether interval endpoints are included.",
+      "Prune using the full BST order, not just the current node match.",
+      "Collect matching keys in inorder; account for height h and reported count k."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What order naturally collects range matches sorted?",
+        "options": [
+          "Inorder",
+          "Arbitrary insertion order",
+          "Level order always"
+        ],
+        "answer": 0,
+        "explanation": "Strict BST inorder is increasing."
+      },
+      {
+        "type": "number",
+        "prompt": "Use inclusive range [13,17] on the pictured BST unless a strict interval is explicitly stated. Change to the strict interval 13<key<17. How many keys match?",
+        "answer": 1,
+        "explanation": "Only the root lies strictly between these endpoints.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 15,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 11,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 19,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 9,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 13,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 17,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 21,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "A range reports k keys from a BST of height h. What is an appropriate height-sensitive bound?",
+        "options": [
+          "Always O(log n) without a balance assumption",
+          "O(h+k)",
+          "O(1) regardless of output size"
+        ],
+        "answer": 1,
+        "explanation": "Searching boundary paths and reporting output both cost work."
+      },
+      {
+        "type": "number",
+        "prompt": "Use inclusive range [13,17] on the pictured BST unless a strict interval is explicitly stated. How many pictured keys are strictly below the original inclusive interval?",
+        "answer": 2,
+        "explanation": "The two smallest keys are excluded.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 15,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 11,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 19,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 9,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 13,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 17,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 21,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "range-search",
+    "start": 0.88,
+    "sourceReferences": [
+      {
+        "lecture": 58,
+        "file": "058_13b_Range_Search_in_Binary_Search_Tree_GATE_2014_GATE_2020.mp4",
+        "start": 0.88,
+        "end": 29.46,
+        "text": "Let's now see the range search in binary search tree. So suppose a binary search tree given to you which is something like this and you do not just want to search for one element which means you do you are not actually looking for just one element let's suppose three four something like that. In fact you are looking for some range which means maybe you are saying that give me all the elements in this binary search tree which are within one two three."
+      },
+      {
+        "lecture": 58,
+        "file": "058_13b_Range_Search_in_Binary_Search_Tree_GATE_2014_GATE_2020.mp4",
+        "start": 83.86,
+        "end": 112.72,
+        "text": "Okay, now you know one thing. You know that in order of the binary search tree is always sorted. Why? Because if you take the projection then everything here on the left of this two is lesser than two and everything here on the right of this two is greater than two and that is happening recursively which means that everything on left of this minus one is lesser than minus one. Everything on right of this minus one is greater than minus one, right? So you can say that in order is sorted that we have already seen."
+      },
+      {
+        "lecture": 58,
+        "file": "058_13b_Range_Search_in_Binary_Search_Tree_GATE_2014_GATE_2020.mp4",
+        "start": 203.35,
+        "end": 233.88,
+        "text": "So if you are looking for some range, it won't happen that some of your elements are here, some of your elements are here, no. It will always be one circle which means all of your elements between in just one circle because it will just form a range. Now let's suppose you are looking for minus 1 to 5. Let's see how we are proceeding with this binary search tree to search for minus 1 to 5. Now what I will do? I will go to the root node first."
+      }
+    ],
+    "foundation": {
+      "title": "Reporting a BST key range",
+      "idea": "Inclusive BST range reporting visits only potentially relevant subtrees. A node smaller than the lower endpoint rules out its left subtree; a node larger than the upper endpoint rules out its right subtree. Inorder collection gives sorted output.",
+      "terms": [
+        "Inclusive interval: low<=key<=high.",
+        "Pruning: skip a subtree that cannot contain a match.",
+        "Output-sensitive work: includes the number of reported keys."
+      ],
+      "example": "For keys 2,4,6,8,10,12,14, range [6,10] reports 6,8,10; a typical height-sensitive bound is O(h+k)."
+    }
+  },
+  {
+    "id": 177,
+    "lecture": 59,
+    "title": "Handle zero or one child",
+    "concept": "BST deletion handles zero, one and two children separately. For two children, copy an inorder predecessor or successor key and remove its original donor node. The donor has at most one relevant child, simplifying removal.",
+    "teachingSteps": [
+      "A leaf can be detached; a one-child node is bypassed by its child.",
+      "For two children, choose the maximum left key or minimum right key.",
+      "Reconnect the donor child if present and remove the donor node exactly once."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "For a two-child deletion, which replacement preserves strict order?",
+        "options": [
+          "Always the largest key anywhere",
+          "Smallest key in the right subtree",
+          "An arbitrary right-subtree key"
+        ],
+        "answer": 1,
+        "explanation": "The inorder successor fits between all retained left and right keys."
+      },
+      {
+        "type": "match",
+        "prompt": "Match each term with its stated role.",
+        "pairs": [
+          [
+            "Inorder",
+            "Increasing strict-BST key order"
+          ],
+          [
+            "Successor",
+            "Next key in sorted order"
+          ],
+          [
+            "Inherited interval",
+            "Bounds imposed by every ancestor"
+          ]
+        ],
+        "explanation": "Distinguish the operations, structural conditions and units in the definitions."
+      },
+      {
+        "type": "number",
+        "prompt": "Start with the pictured distinct-key BST and delete root 16 using its inorder successor. Delete root 16 using its inorder successor. What replacement key becomes root?",
+        "answer": 18,
+        "explanation": "The minimum right-subtree key is the successor.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 16,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 12,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 20,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 10,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 14,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 18,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 22,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Start with the pictured distinct-key BST and delete root 16 using its inorder successor. How many nodes remain after that one deletion?",
+        "answer": 6,
+        "explanation": "Remove exactly the original donor node after replacement.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 16,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 12,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 20,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 10,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 14,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 18,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 22,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "bst-delete",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 59,
+        "file": "059. 13c. BST Deletion.mp4",
+        "start": 0,
+        "end": 28.66,
+        "text": "Let's now talk about deletion in BST. BST means binary search tree. So let's see a deletion. Before that let me talk about something called in-order predecessor and successor. Let's just talk about this and then I will talk about the deletion. So suppose that this binary search tree is given to us and the question is that what will be printed just before x and immediately after x or immediately before x and immediately after x in the in-order traversal."
+      },
+      {
+        "lecture": 59,
+        "file": "059. 13c. BST Deletion.mp4",
+        "start": 29.17,
+        "end": 52.03,
+        "text": "They are asking that if you if you make an in order traversal of this given binary search tree, then what is the value? Okay, so you can you can name any value So what is the value that it is going to print just before x and just after x I think very very easy question what you can do you can just find out the in order How you can just take a projection. So this is x. Okay, this is x"
+      },
+      {
+        "lecture": 59,
+        "file": "059. 13c. BST Deletion.mp4",
+        "start": 52.16,
+        "end": 79.14,
+        "text": "you can just take a projection and you can say that okay just before x i think this value will will be there and just after x i think this value will be there right just in the projection you can see right so see like this value will be there in the projection before that this before that this and then x will be there then this then this then this and then this right this will happen so just before x this value will be there just after that this value will be there this is called in order pre-decision"
+      }
+    ],
+    "foundation": {
+      "title": "Deleting from a BST",
+      "idea": "BST deletion handles zero, one and two children separately. For two children, copy an inorder predecessor or successor key and remove its original donor node. The donor has at most one relevant child, simplifying removal.",
+      "terms": [
+        "Successor: next key in sorted order.",
+        "Predecessor: preceding key in sorted order.",
+        "Donor: original node supplying the replacement key."
+      ],
+      "example": "Deleting root 8 from the balanced keys 2,4,6,8,10,12,14 can replace it with successor 10, then remove the original 10 leaf."
+    }
+  },
+  {
+    "id": 178,
+    "lecture": 59,
+    "title": "Choose a two-child replacement",
+    "concept": "BST deletion handles zero, one and two children separately. For two children, copy an inorder predecessor or successor key and remove its original donor node. The donor has at most one relevant child, simplifying removal.",
+    "teachingSteps": [
+      "A leaf can be detached; a one-child node is bypassed by its child.",
+      "For two children, choose the maximum left key or minimum right key.",
+      "Reconnect the donor child if present and remove the donor node exactly once."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Must the donor node always be a leaf?",
+        "options": [
+          "No; it can have one relevant child",
+          "Yes in every BST",
+          "It always has two children"
+        ],
+        "answer": 0,
+        "explanation": "A successor has no left child, but may have a right child."
+      },
+      {
+        "type": "number",
+        "prompt": "Start with the pictured distinct-key BST and delete root 16 using its inorder successor. What key would the inorder predecessor provide instead?",
+        "answer": 14,
+        "explanation": "The maximum left-subtree key is the predecessor.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 16,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 12,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 20,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 10,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 14,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 18,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 22,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Start with the pictured distinct-key BST and delete root 16 using its inorder successor. After successor replacement and donor removal, how many nodes remain in the root right subtree?",
+        "answer": 2,
+        "explanation": "The original right subtree contained three nodes; its minimum leaf leaves.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 16,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 12,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 20,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 10,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 14,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 18,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 22,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange the dependent steps of this procedure.",
+        "items": [
+          "Identify the two-child target",
+          "Find its inorder successor",
+          "Copy the successor key into the target",
+          "Remove and reconnect the original successor node"
+        ],
+        "explanation": "Follow this order so every step receives a valid state."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "bst-delete",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 59,
+        "file": "059. 13c. BST Deletion.mp4",
+        "start": 0,
+        "end": 28.66,
+        "text": "Let's now talk about deletion in BST. BST means binary search tree. So let's see a deletion. Before that let me talk about something called in-order predecessor and successor. Let's just talk about this and then I will talk about the deletion. So suppose that this binary search tree is given to us and the question is that what will be printed just before x and immediately after x or immediately before x and immediately after x in the in-order traversal."
+      },
+      {
+        "lecture": 59,
+        "file": "059. 13c. BST Deletion.mp4",
+        "start": 29.17,
+        "end": 52.03,
+        "text": "They are asking that if you if you make an in order traversal of this given binary search tree, then what is the value? Okay, so you can you can name any value So what is the value that it is going to print just before x and just after x I think very very easy question what you can do you can just find out the in order How you can just take a projection. So this is x. Okay, this is x"
+      },
+      {
+        "lecture": 59,
+        "file": "059. 13c. BST Deletion.mp4",
+        "start": 52.16,
+        "end": 79.14,
+        "text": "you can just take a projection and you can say that okay just before x i think this value will will be there and just after x i think this value will be there right just in the projection you can see right so see like this value will be there in the projection before that this before that this and then x will be there then this then this then this and then this right this will happen so just before x this value will be there just after that this value will be there this is called in order pre-decision"
+      }
+    ],
+    "foundation": {
+      "title": "Deleting from a BST",
+      "idea": "BST deletion handles zero, one and two children separately. For two children, copy an inorder predecessor or successor key and remove its original donor node. The donor has at most one relevant child, simplifying removal.",
+      "terms": [
+        "Successor: next key in sorted order.",
+        "Predecessor: preceding key in sorted order.",
+        "Donor: original node supplying the replacement key."
+      ],
+      "example": "Deleting root 8 from the balanced keys 2,4,6,8,10,12,14 can replace it with successor 10, then remove the original 10 leaf."
+    }
+  },
+  {
+    "id": 179,
+    "lecture": 59,
+    "title": "Remove the donor node once",
+    "concept": "BST deletion handles zero, one and two children separately. For two children, copy an inorder predecessor or successor key and remove its original donor node. The donor has at most one relevant child, simplifying removal.",
+    "teachingSteps": [
+      "A leaf can be detached; a one-child node is bypassed by its child.",
+      "For two children, choose the maximum left key or minimum right key.",
+      "Reconnect the donor child if present and remove the donor node exactly once."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Deleting a one-child node requires what structural action?",
+        "options": [
+          "Delete the entire child subtree",
+          "Duplicate every ancestor key",
+          "Reconnect its parent to its surviving child"
+        ],
+        "answer": 2,
+        "explanation": "Bypass the removed node while retaining its live child."
+      },
+      {
+        "type": "number",
+        "prompt": "Start with the pictured distinct-key BST and delete root 16 using its inorder successor. What is the sum of all surviving keys?",
+        "answer": 96,
+        "explanation": "The original symmetric seven-key set sums to 7m; delete m.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 16,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 12,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 20,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 10,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 14,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 18,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 22,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "Copying a successor key without removing the original donor would do what in a distinct-key BST?",
+        "options": [
+          "Leave a duplicate key",
+          "Complete the intended deletion correctly",
+          "Always rebalance the tree"
+        ],
+        "answer": 0,
+        "explanation": "Remove the donor once after using its key."
+      },
+      {
+        "type": "number",
+        "prompt": "Start with the pictured distinct-key BST and delete root 16 using its inorder successor. The donor successor is a leaf in this example. How many donor child subtrees need reconnection?",
+        "answer": 0,
+        "explanation": "This particular donor has no children.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 16,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 12,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 20,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 10,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 14,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 18,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 22,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "bst-delete",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 59,
+        "file": "059. 13c. BST Deletion.mp4",
+        "start": 0,
+        "end": 28.66,
+        "text": "Let's now talk about deletion in BST. BST means binary search tree. So let's see a deletion. Before that let me talk about something called in-order predecessor and successor. Let's just talk about this and then I will talk about the deletion. So suppose that this binary search tree is given to us and the question is that what will be printed just before x and immediately after x or immediately before x and immediately after x in the in-order traversal."
+      },
+      {
+        "lecture": 59,
+        "file": "059. 13c. BST Deletion.mp4",
+        "start": 29.17,
+        "end": 52.03,
+        "text": "They are asking that if you if you make an in order traversal of this given binary search tree, then what is the value? Okay, so you can you can name any value So what is the value that it is going to print just before x and just after x I think very very easy question what you can do you can just find out the in order How you can just take a projection. So this is x. Okay, this is x"
+      },
+      {
+        "lecture": 59,
+        "file": "059. 13c. BST Deletion.mp4",
+        "start": 52.16,
+        "end": 79.14,
+        "text": "you can just take a projection and you can say that okay just before x i think this value will will be there and just after x i think this value will be there right just in the projection you can see right so see like this value will be there in the projection before that this before that this and then x will be there then this then this then this and then this right this will happen so just before x this value will be there just after that this value will be there this is called in order pre-decision"
+      }
+    ],
+    "foundation": {
+      "title": "Deleting from a BST",
+      "idea": "BST deletion handles zero, one and two children separately. For two children, copy an inorder predecessor or successor key and remove its original donor node. The donor has at most one relevant child, simplifying removal.",
+      "terms": [
+        "Successor: next key in sorted order.",
+        "Predecessor: preceding key in sorted order.",
+        "Donor: original node supplying the replacement key."
+      ],
+      "example": "Deleting root 8 from the balanced keys 2,4,6,8,10,12,14 can replace it with successor 10, then remove the original 10 leaf."
+    }
+  },
+  {
+    "id": 180,
+    "lecture": 60,
+    "title": "Track an inherited interval",
+    "concept": "A valid BST search sequence stays inside an inherited open interval. Going left lowers the upper bound; going right raises the lower bound. A later probe must satisfy all earlier decisions, not only its immediate predecessor comparison.",
+    "teachingSteps": [
+      "Begin with no finite bounds for the root.",
+      "Narrow the interval according to the target comparison.",
+      "Reject any later key outside the interval; a matching target ends the search."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which strict BST property must hold?",
+        "options": [
+          "All left-subtree keys are smaller and all right-subtree keys larger",
+          "Only immediate children need correct comparisons",
+          "The array must be sorted level by level"
+        ],
+        "answer": 0,
+        "explanation": "The ordering is inherited through every descendant."
+      },
+      {
+        "type": "match",
+        "prompt": "Match each term with its stated role.",
+        "pairs": [
+          [
+            "Inorder",
+            "Increasing strict-BST key order"
+          ],
+          [
+            "Successor",
+            "Next key in sorted order"
+          ],
+          [
+            "Inherited interval",
+            "Bounds imposed by every ancestor"
+          ]
+        ],
+        "explanation": "Distinguish the operations, structural conditions and units in the definitions."
+      },
+      {
+        "type": "number",
+        "prompt": "Search for 50 along the probes 100,40,60,45,50. Bounds exclude their endpoints. Search target 50 through 100,40,60,45,50. How many key probes occur?",
+        "answer": 5,
+        "explanation": "Count every listed inspected key once.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "Search for 50 along the probes 100,40,60,45,50. Bounds exclude their endpoints. After probes 100,40,60,45, what is the inherited finite lower bound?",
+        "answer": 45,
+        "explanation": "The final rightward decision raises the lower bound to 45.",
+        "tolerance": 1e-8
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "search-intervals",
+    "start": 1.07,
+    "sourceReferences": [
+      {
+        "lecture": 60,
+        "file": "060. 14a. GATE 1996 Possible probe sequences.mp4",
+        "start": 1.07,
+        "end": 29.28,
+        "text": "Let's solve this question. They are saying a binary search tree is generated by inserting in order the following integers So they are inserting these integers in the same order, right? The number of nodes in the left subtree and the right subtree of the root respectively is so they are saying number of nodes with respect to root So 50 will be inserted first and now you are going to insert 15 so 15 will be here like that you can build the complete binary search tree but"
+      },
+      {
+        "lecture": 60,
+        "file": "060. 14a. GATE 1996 Possible probe sequences.mp4",
+        "start": 29.56,
+        "end": 53.4,
+        "text": "Is it even required? I mean to solve this question, is it required to draw the complete binocularity? I don't think so. Why? Because I can just count the number of nodes which are lesser than 50, which will be on the left subtree and the greater than 50 will be on the right subtree. So this is lesser than 50 and then this is lesser than 50, this is less than 50, this is lesser, lesser, lesser, lesser."
+      },
+      {
+        "lecture": 60,
+        "file": "060. 14a. GATE 1996 Possible probe sequences.mp4",
+        "start": 53.66,
+        "end": 81.85,
+        "text": "So 1, 2, 3, 4, 5, 6, 7. So 7 nodes are lesser than 50 and 4 nodes are greater than 50, right? 1, 2, 3 and 4. So that is why B should be the correct answer. Like I mean if you want you can draw the complete binary search tree but it is not required at all. Now let's go to this question. A binary search tree is used to locate the number 43. Which means that there is a binary search tree and in this binary search tree you want to search for a number which is 43."
+      }
+    ],
+    "foundation": {
+      "title": "Valid BST search sequences",
+      "idea": "A valid BST search sequence stays inside an inherited open interval. Going left lowers the upper bound; going right raises the lower bound. A later probe must satisfy all earlier decisions, not only its immediate predecessor comparison.",
+      "terms": [
+        "Open interval: endpoints excluded for strict distinct keys.",
+        "Probe: a key inspected during search.",
+        "Ancestral constraint: an earlier bound that still applies."
+      ],
+      "example": "Searching 50 via 100,40,60,45,50 is consistent. After 100,40,60, a probe of 30 violates the lower bound 40."
+    }
+  },
+  {
+    "id": 181,
+    "lecture": 60,
+    "title": "Reject a probe outside the interval",
+    "concept": "A valid BST search sequence stays inside an inherited open interval. Going left lowers the upper bound; going right raises the lower bound. A later probe must satisfy all earlier decisions, not only its immediate predecessor comparison.",
+    "teachingSteps": [
+      "Begin with no finite bounds for the root.",
+      "Narrow the interval according to the target comparison.",
+      "Reject any later key outside the interval; a matching target ends the search."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which sequence is inconsistent with searching 50?",
+        "options": [
+          "100,40,60,45,50",
+          "80,60,40,50",
+          "100,40,60,30,50"
+        ],
+        "answer": 2,
+        "explanation": "After visiting 40 then 60, later keys must remain above 40 and below 60."
+      },
+      {
+        "type": "number",
+        "prompt": "Search for 50 along the probes 100,40,60,45,50. Bounds exclude their endpoints. What is the inherited finite upper bound at that point?",
+        "answer": 60,
+        "explanation": "The earlier leftward decision at 60 still constrains the path.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "Search for 50 along the probes 100,40,60,45,50. Bounds exclude their endpoints. How wide is the open interval between those bounds?",
+        "answer": 15,
+        "explanation": "60-45=15.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange the dependent steps of this procedure.",
+        "items": [
+          "Compare the target with the current key",
+          "Narrow the inherited interval for the selected child",
+          "Continue within that interval",
+          "Stop on a match or empty child"
+        ],
+        "explanation": "Follow this order so every step receives a valid state."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "search-intervals",
+    "start": 1.07,
+    "sourceReferences": [
+      {
+        "lecture": 60,
+        "file": "060. 14a. GATE 1996 Possible probe sequences.mp4",
+        "start": 1.07,
+        "end": 29.28,
+        "text": "Let's solve this question. They are saying a binary search tree is generated by inserting in order the following integers So they are inserting these integers in the same order, right? The number of nodes in the left subtree and the right subtree of the root respectively is so they are saying number of nodes with respect to root So 50 will be inserted first and now you are going to insert 15 so 15 will be here like that you can build the complete binary search tree but"
+      },
+      {
+        "lecture": 60,
+        "file": "060. 14a. GATE 1996 Possible probe sequences.mp4",
+        "start": 29.56,
+        "end": 53.4,
+        "text": "Is it even required? I mean to solve this question, is it required to draw the complete binocularity? I don't think so. Why? Because I can just count the number of nodes which are lesser than 50, which will be on the left subtree and the greater than 50 will be on the right subtree. So this is lesser than 50 and then this is lesser than 50, this is less than 50, this is lesser, lesser, lesser, lesser."
+      },
+      {
+        "lecture": 60,
+        "file": "060. 14a. GATE 1996 Possible probe sequences.mp4",
+        "start": 53.66,
+        "end": 81.85,
+        "text": "So 1, 2, 3, 4, 5, 6, 7. So 7 nodes are lesser than 50 and 4 nodes are greater than 50, right? 1, 2, 3 and 4. So that is why B should be the correct answer. Like I mean if you want you can draw the complete binary search tree but it is not required at all. Now let's go to this question. A binary search tree is used to locate the number 43. Which means that there is a binary search tree and in this binary search tree you want to search for a number which is 43."
+      }
+    ],
+    "foundation": {
+      "title": "Valid BST search sequences",
+      "idea": "A valid BST search sequence stays inside an inherited open interval. Going left lowers the upper bound; going right raises the lower bound. A later probe must satisfy all earlier decisions, not only its immediate predecessor comparison.",
+      "terms": [
+        "Open interval: endpoints excluded for strict distinct keys.",
+        "Probe: a key inspected during search.",
+        "Ancestral constraint: an earlier bound that still applies."
+      ],
+      "example": "Searching 50 via 100,40,60,45,50 is consistent. After 100,40,60, a probe of 30 violates the lower bound 40."
+    }
+  },
+  {
+    "id": 182,
+    "lecture": 60,
+    "title": "Stop at a matching target",
+    "concept": "A valid BST search sequence stays inside an inherited open interval. Going left lowers the upper bound; going right raises the lower bound. A later probe must satisfy all earlier decisions, not only its immediate predecessor comparison.",
+    "teachingSteps": [
+      "Begin with no finite bounds for the root.",
+      "Narrow the interval according to the target comparison.",
+      "Reject any later key outside the interval; a matching target ends the search."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which is invalid as a strict BST preorder?",
+        "options": [
+          "8,4,6,12",
+          "8,4,12,2",
+          "8,4,2,6,12,10,14"
+        ],
+        "answer": 1,
+        "explanation": "After entering the root right subtree, key 2 cannot return to its left region."
+      },
+      {
+        "type": "number",
+        "prompt": "Search for 50 along the probes 100,40,60,45,50. Bounds exclude their endpoints. How many integer keys lie strictly between 45 and 60?",
+        "answer": 14,
+        "explanation": "Values 46 through 59 are allowed.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Root 8 has left 4 and 4.right=9. Why is this invalid?",
+        "options": [
+          "9 is smaller than its own parent 4",
+          "Every right child is forbidden",
+          "9 violates the ancestor upper bound 8"
+        ],
+        "answer": 2,
+        "explanation": "Checking only the immediate parent would miss this violation."
+      },
+      {
+        "type": "number",
+        "prompt": "Search for 50 along the probes 100,40,60,45,50. Bounds exclude their endpoints. Before finding 50, how many leftward decisions occur in that path?",
+        "answer": 2,
+        "explanation": "The target is smaller than 100 and 60.",
+        "tolerance": 1e-8
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "search-intervals",
+    "start": 1.07,
+    "sourceReferences": [
+      {
+        "lecture": 60,
+        "file": "060. 14a. GATE 1996 Possible probe sequences.mp4",
+        "start": 1.07,
+        "end": 29.28,
+        "text": "Let's solve this question. They are saying a binary search tree is generated by inserting in order the following integers So they are inserting these integers in the same order, right? The number of nodes in the left subtree and the right subtree of the root respectively is so they are saying number of nodes with respect to root So 50 will be inserted first and now you are going to insert 15 so 15 will be here like that you can build the complete binary search tree but"
+      },
+      {
+        "lecture": 60,
+        "file": "060. 14a. GATE 1996 Possible probe sequences.mp4",
+        "start": 29.56,
+        "end": 53.4,
+        "text": "Is it even required? I mean to solve this question, is it required to draw the complete binocularity? I don't think so. Why? Because I can just count the number of nodes which are lesser than 50, which will be on the left subtree and the greater than 50 will be on the right subtree. So this is lesser than 50 and then this is lesser than 50, this is less than 50, this is lesser, lesser, lesser, lesser."
+      },
+      {
+        "lecture": 60,
+        "file": "060. 14a. GATE 1996 Possible probe sequences.mp4",
+        "start": 53.66,
+        "end": 81.85,
+        "text": "So 1, 2, 3, 4, 5, 6, 7. So 7 nodes are lesser than 50 and 4 nodes are greater than 50, right? 1, 2, 3 and 4. So that is why B should be the correct answer. Like I mean if you want you can draw the complete binary search tree but it is not required at all. Now let's go to this question. A binary search tree is used to locate the number 43. Which means that there is a binary search tree and in this binary search tree you want to search for a number which is 43."
+      }
+    ],
+    "foundation": {
+      "title": "Valid BST search sequences",
+      "idea": "A valid BST search sequence stays inside an inherited open interval. Going left lowers the upper bound; going right raises the lower bound. A later probe must satisfy all earlier decisions, not only its immediate predecessor comparison.",
+      "terms": [
+        "Open interval: endpoints excluded for strict distinct keys.",
+        "Probe: a key inspected during search.",
+        "Ancestral constraint: an earlier bound that still applies."
+      ],
+      "example": "Searching 50 via 100,40,60,45,50 is consistent. After 100,40,60, a probe of 30 violates the lower bound 40."
+    }
+  },
+  {
+    "id": 183,
+    "lecture": 61,
+    "title": "Track subtree boundaries",
+    "concept": "A BST preorder completes the entire left subtree before its right subtree. Once a right-side transition establishes a lower bound, later smaller keys cannot return to a finished left region. Insertion orders and preorder outputs are different objects.",
+    "teachingSteps": [
+      "Use ancestor bounds to check a proposed preorder.",
+      "For a chain built from distinct sorted keys, each next root choice must be an extreme of the remaining keys.",
+      "Do not assume every insertion sequence is the preorder of its result."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which strict BST property must hold?",
+        "options": [
+          "Only immediate children need correct comparisons",
+          "The array must be sorted level by level",
+          "All left-subtree keys are smaller and all right-subtree keys larger"
+        ],
+        "answer": 2,
+        "explanation": "The ordering is inherited through every descendant."
+      },
+      {
+        "type": "match",
+        "prompt": "Match each term with its stated role.",
+        "pairs": [
+          [
+            "Inorder",
+            "Increasing strict-BST key order"
+          ],
+          [
+            "Successor",
+            "Next key in sorted order"
+          ],
+          [
+            "Inherited interval",
+            "Bounds imposed by every ancestor"
+          ]
+        ],
+        "explanation": "Distinguish the operations, structural conditions and units in the definitions."
+      },
+      {
+        "type": "number",
+        "prompt": "What is the root key of the pictured BST preorder?",
+        "answer": 12,
+        "explanation": "Preorder emits the root first.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 12,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 8,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 16,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 6,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 10,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 14,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 18,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "What is the first key of its left-subtree preorder?",
+        "answer": 8,
+        "explanation": "The left child is that subtree root.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 12,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 8,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 16,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 6,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 10,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 14,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 18,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "bst-preorder",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 61,
+        "file": "061. 14b. BST PYQs 1997, 2001, 06, 07, 16.mp4",
+        "start": 0,
+        "end": 28,
+        "text": "Let's now solve this question. It is saying a binary search tree contains the value 1, 2, 3, 4, 5, 6, 7, 8. The tree is traversed in pre-order and values are printed out. So the values which got printed out is basically after traversing the tree in the pre-order fashion. Which of the following sequences are valid output? Let's just see this. So basically pre-order means root, root left right right, okay. Now they are saying 5 is a root, that is okay."
+      },
+      {
+        "lecture": 61,
+        "file": "061. 14b. BST PYQs 1997, 2001, 06, 07, 16.mp4",
+        "start": 28.73,
+        "end": 57.69,
+        "text": "and since I know this is a binary search tree so on the left side there should be 1, 2, 3, 4 I actually do not know the complete tree here but that is okay but I know that on the right side there should be 6, 7, 8 right? Now let's see which option is basically saying that it is okay I mean all the options 5 which are good so here 1, 2, 3, 4 is coming continuously that's why that is still now that is fine and this 6, 7, 8 okay but here 1, 2, 3, 4 are not coming continuously right?"
+      },
+      {
+        "lecture": 61,
+        "file": "061. 14b. BST PYQs 1997, 2001, 06, 07, 16.mp4",
+        "start": 58,
+        "end": 84.8,
+        "text": "That is why B cannot be a valid preorder. Why? Because whatever you do, it will be root and then complete left, but complete left cannot contain the 6. So, see, it is whatever you do, if 5 is a root, then on the left side for the binary SHT, it should be 1, 2, 3, 4. I do not actually know the structure, maybe it is skewed. Maybe it is skewed like this and maybe it is balanced. I actually do not know the complete structure, but that is fine."
+      }
+    ],
+    "foundation": {
+      "title": "BST preorder and insertion-order puzzles",
+      "idea": "A BST preorder completes the entire left subtree before its right subtree. Once a right-side transition establishes a lower bound, later smaller keys cannot return to a finished left region. Insertion orders and preorder outputs are different objects.",
+      "terms": [
+        "Preorder block: all keys of one subtree occur contiguously.",
+        "Extreme key: smallest or largest remaining key.",
+        "Insertion order: the sequence used to construct a BST."
+      ],
+      "example": "8,4,2,6,12,10,14 is a valid preorder. 8,4,12,2 cannot be: key 2 appears after entering the root right subtree."
+    }
+  },
+  {
+    "id": 184,
+    "lecture": 61,
+    "title": "Recognize a chain-producing order",
+    "concept": "A BST preorder completes the entire left subtree before its right subtree. Once a right-side transition establishes a lower bound, later smaller keys cannot return to a finished left region. Insertion orders and preorder outputs are different objects.",
+    "teachingSteps": [
+      "Use ancestor bounds to check a proposed preorder.",
+      "For a chain built from distinct sorted keys, each next root choice must be an extreme of the remaining keys.",
+      "Do not assume every insertion sequence is the preorder of its result."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which sequence is inconsistent with searching 50?",
+        "options": [
+          "80,60,40,50",
+          "100,40,60,30,50",
+          "100,40,60,45,50"
+        ],
+        "answer": 1,
+        "explanation": "After visiting 40 then 60, later keys must remain above 40 and below 60."
+      },
+      {
+        "type": "number",
+        "prompt": "What is the final key of this tree preorder?",
+        "answer": 18,
+        "explanation": "The rightmost final leaf is last in this shape.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 12,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 8,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 16,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 6,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 10,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 14,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 18,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Insert five distinct keys in ascending order into an empty ordinary BST. What is its edge-height?",
+        "answer": 4,
+        "explanation": "Ascending insertion produces a five-node chain.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange the dependent steps of this procedure.",
+        "items": [
+          "Compare the target with the current key",
+          "Narrow the inherited interval for the selected child",
+          "Continue within that interval",
+          "Stop on a match or empty child"
+        ],
+        "explanation": "Follow this order so every step receives a valid state."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "bst-preorder",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 61,
+        "file": "061. 14b. BST PYQs 1997, 2001, 06, 07, 16.mp4",
+        "start": 0,
+        "end": 28,
+        "text": "Let's now solve this question. It is saying a binary search tree contains the value 1, 2, 3, 4, 5, 6, 7, 8. The tree is traversed in pre-order and values are printed out. So the values which got printed out is basically after traversing the tree in the pre-order fashion. Which of the following sequences are valid output? Let's just see this. So basically pre-order means root, root left right right, okay. Now they are saying 5 is a root, that is okay."
+      },
+      {
+        "lecture": 61,
+        "file": "061. 14b. BST PYQs 1997, 2001, 06, 07, 16.mp4",
+        "start": 28.73,
+        "end": 57.69,
+        "text": "and since I know this is a binary search tree so on the left side there should be 1, 2, 3, 4 I actually do not know the complete tree here but that is okay but I know that on the right side there should be 6, 7, 8 right? Now let's see which option is basically saying that it is okay I mean all the options 5 which are good so here 1, 2, 3, 4 is coming continuously that's why that is still now that is fine and this 6, 7, 8 okay but here 1, 2, 3, 4 are not coming continuously right?"
+      },
+      {
+        "lecture": 61,
+        "file": "061. 14b. BST PYQs 1997, 2001, 06, 07, 16.mp4",
+        "start": 58,
+        "end": 84.8,
+        "text": "That is why B cannot be a valid preorder. Why? Because whatever you do, it will be root and then complete left, but complete left cannot contain the 6. So, see, it is whatever you do, if 5 is a root, then on the left side for the binary SHT, it should be 1, 2, 3, 4. I do not actually know the structure, maybe it is skewed. Maybe it is skewed like this and maybe it is balanced. I actually do not know the complete structure, but that is fine."
+      }
+    ],
+    "foundation": {
+      "title": "BST preorder and insertion-order puzzles",
+      "idea": "A BST preorder completes the entire left subtree before its right subtree. Once a right-side transition establishes a lower bound, later smaller keys cannot return to a finished left region. Insertion orders and preorder outputs are different objects.",
+      "terms": [
+        "Preorder block: all keys of one subtree occur contiguously.",
+        "Extreme key: smallest or largest remaining key.",
+        "Insertion order: the sequence used to construct a BST."
+      ],
+      "example": "8,4,2,6,12,10,14 is a valid preorder. 8,4,12,2 cannot be: key 2 appears after entering the root right subtree."
+    }
+  },
+  {
+    "id": 185,
+    "lecture": 61,
+    "title": "Distinguish traversal from insertion order",
+    "concept": "A BST preorder completes the entire left subtree before its right subtree. Once a right-side transition establishes a lower bound, later smaller keys cannot return to a finished left region. Insertion orders and preorder outputs are different objects.",
+    "teachingSteps": [
+      "Use ancestor bounds to check a proposed preorder.",
+      "For a chain built from distinct sorted keys, each next root choice must be an extreme of the remaining keys.",
+      "Do not assume every insertion sequence is the preorder of its result."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which is invalid as a strict BST preorder?",
+        "options": [
+          "8,4,12,2",
+          "8,4,2,6,12,10,14",
+          "8,4,6,12"
+        ],
+        "answer": 0,
+        "explanation": "After entering the root right subtree, key 2 cannot return to its left region."
+      },
+      {
+        "type": "number",
+        "prompt": "How many insertion orders of five distinct keys produce a chain? At every stage choose a minimum or maximum remaining key.",
+        "answer": 16,
+        "explanation": "The first four choices each have two extremes; the final key has one choice.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Root 8 has left 4 and 4.right=9. Why is this invalid?",
+        "options": [
+          "Every right child is forbidden",
+          "9 violates the ancestor upper bound 8",
+          "9 is smaller than its own parent 4"
+        ],
+        "answer": 1,
+        "explanation": "Checking only the immediate parent would miss this violation."
+      },
+      {
+        "type": "number",
+        "prompt": "What is the smallest key in the pictured inorder traversal?",
+        "answer": 6,
+        "explanation": "Strict BST inorder is increasing.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 12,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 8,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 16,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 6,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 10,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 14,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 18,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "bst-preorder",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 61,
+        "file": "061. 14b. BST PYQs 1997, 2001, 06, 07, 16.mp4",
+        "start": 0,
+        "end": 28,
+        "text": "Let's now solve this question. It is saying a binary search tree contains the value 1, 2, 3, 4, 5, 6, 7, 8. The tree is traversed in pre-order and values are printed out. So the values which got printed out is basically after traversing the tree in the pre-order fashion. Which of the following sequences are valid output? Let's just see this. So basically pre-order means root, root left right right, okay. Now they are saying 5 is a root, that is okay."
+      },
+      {
+        "lecture": 61,
+        "file": "061. 14b. BST PYQs 1997, 2001, 06, 07, 16.mp4",
+        "start": 28.73,
+        "end": 57.69,
+        "text": "and since I know this is a binary search tree so on the left side there should be 1, 2, 3, 4 I actually do not know the complete tree here but that is okay but I know that on the right side there should be 6, 7, 8 right? Now let's see which option is basically saying that it is okay I mean all the options 5 which are good so here 1, 2, 3, 4 is coming continuously that's why that is still now that is fine and this 6, 7, 8 okay but here 1, 2, 3, 4 are not coming continuously right?"
+      },
+      {
+        "lecture": 61,
+        "file": "061. 14b. BST PYQs 1997, 2001, 06, 07, 16.mp4",
+        "start": 58,
+        "end": 84.8,
+        "text": "That is why B cannot be a valid preorder. Why? Because whatever you do, it will be root and then complete left, but complete left cannot contain the 6. So, see, it is whatever you do, if 5 is a root, then on the left side for the binary SHT, it should be 1, 2, 3, 4. I do not actually know the structure, maybe it is skewed. Maybe it is skewed like this and maybe it is balanced. I actually do not know the complete structure, but that is fine."
+      }
+    ],
+    "foundation": {
+      "title": "BST preorder and insertion-order puzzles",
+      "idea": "A BST preorder completes the entire left subtree before its right subtree. Once a right-side transition establishes a lower bound, later smaller keys cannot return to a finished left region. Insertion orders and preorder outputs are different objects.",
+      "terms": [
+        "Preorder block: all keys of one subtree occur contiguously.",
+        "Extreme key: smallest or largest remaining key.",
+        "Insertion order: the sequence used to construct a BST."
+      ],
+      "example": "8,4,2,6,12,10,14 is a valid preorder. 8,4,12,2 cannot be: key 2 appears after entering the root right subtree."
+    }
+  },
+  {
+    "id": 186,
+    "lecture": 62,
+    "title": "Compare a balanced tree and a chain",
+    "concept": "BST search cost depends on the encountered path length. A balanced shape can have logarithmic height; sorted insertion into an ordinary unbalanced BST can create a linear-height chain. Average claims need an input model.",
+    "teachingSteps": [
+      "Count visited keys, including a successful final comparison.",
+      "Use at most h+1 comparisons on a root-to-leaf path of edge-height h.",
+      "Distinguish uniform target position in a fixed chain from random construction assumptions."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Does an ordinary BST always guarantee logarithmic worst-case search?",
+        "options": [
+          "Only payload magnitude matters",
+          "No; it may be a chain",
+          "Yes, because it has two child fields"
+        ],
+        "answer": 1,
+        "explanation": "An unbalanced tree can have linear height."
+      },
+      {
+        "type": "match",
+        "prompt": "Match each term with its stated role.",
+        "pairs": [
+          [
+            "Inorder",
+            "Increasing strict-BST key order"
+          ],
+          [
+            "Successor",
+            "Next key in sorted order"
+          ],
+          [
+            "Inherited interval",
+            "Bounds imposed by every ancestor"
+          ]
+        ],
+        "explanation": "Distinguish the operations, structural conditions and units in the definitions."
+      },
+      {
+        "type": "number",
+        "prompt": "Search the last key of a seven-node ascending chain. How many comparisons occur?",
+        "answer": 7,
+        "explanation": "Visit every chain node.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A deepest successful search in the pictured perfect tree uses how many comparisons?",
+        "answer": 3,
+        "explanation": "Height two permits three visited nodes.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 13,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 9,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 17,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 7,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 11,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 15,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 19,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "bst-height",
+    "start": 0.75,
+    "sourceReferences": [
+      {
+        "lecture": 62,
+        "file": "062. 14c. BST Time Complexities.mp4",
+        "start": 0.75,
+        "end": 30.54,
+        "text": "So in this video we are going to see time complexities with respect to binary search tree So when I talk about time complexity there are always three cases One case is called best case another one is called worst case another one is called average case Let's first understand meaning of these three cases then I will move to the time complexity So when I say worst case so best case means time to compute optimal input which means"
+      },
+      {
+        "lecture": 62,
+        "file": "062. 14c. BST Time Complexities.mp4",
+        "start": 99.02,
+        "end": 128.28,
+        "text": "for this input one let's suppose this algorithm is taking just n time order of n time okay for this input two let's suppose this is taking order of n square for this input three maybe it is taking n logging like that right or maybe here it is taking uh let's suppose n cube for input two it is taking n cube and then for rest of the inputs let's suppose for n minus two inputs for rest of the inputs it is just taking order of n square okay now tell me"
+      },
+      {
+        "lecture": 62,
+        "file": "062. 14c. BST Time Complexities.mp4",
+        "start": 128.73,
+        "end": 152.27,
+        "text": "What is the best case here? I mean this algorithm is taking like the minimum time on which input this is called best case Now you will say that the best case time complexity of this algorithm is order of n why because Because there is just there is there has to be just one input that takes the minimum time"
+      }
+    ],
+    "foundation": {
+      "title": "BST cost follows tree height",
+      "idea": "BST search cost depends on the encountered path length. A balanced shape can have logarithmic height; sorted insertion into an ordinary unbalanced BST can create a linear-height chain. Average claims need an input model.",
+      "terms": [
+        "Worst ordinary BST: height can be n-1.",
+        "Balanced example: height about log n.",
+        "Fixed-chain successful average: (n+1)/2 for equally likely keys."
+      ],
+      "example": "Seven keys in a perfect tree require at most three successful comparisons; a seven-node chain may require seven."
+    }
+  },
+  {
+    "id": 187,
+    "lecture": 62,
+    "title": "Count successful search comparisons",
+    "concept": "BST search cost depends on the encountered path length. A balanced shape can have logarithmic height; sorted insertion into an ordinary unbalanced BST can create a linear-height chain. Average claims need an input model.",
+    "teachingSteps": [
+      "Count visited keys, including a successful final comparison.",
+      "Use at most h+1 comparisons on a root-to-leaf path of edge-height h.",
+      "Distinguish uniform target position in a fixed chain from random construction assumptions."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What does a fixed-chain average need to specify?",
+        "options": [
+          "How likely each target or input is",
+          "Only the array capacity",
+          "Only the root color"
+        ],
+        "answer": 0,
+        "explanation": "An average depends on a probability model."
+      },
+      {
+        "type": "number",
+        "prompt": "What is the edge-height of a seven-node chain?",
+        "answer": 6,
+        "explanation": "A chain has n-1 edges on its longest root path.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "What is the pictured balanced tree edge-height?",
+        "answer": 2,
+        "explanation": "Three occupied levels give two edges.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 13,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 9,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 17,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 7,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 11,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 15,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 19,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange the dependent steps of this procedure.",
+        "items": [
+          "Compare the target with the current key",
+          "Narrow the inherited interval for the selected child",
+          "Continue within that interval",
+          "Stop on a match or empty child"
+        ],
+        "explanation": "Follow this order so every step receives a valid state."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "bst-height",
+    "start": 0.75,
+    "sourceReferences": [
+      {
+        "lecture": 62,
+        "file": "062. 14c. BST Time Complexities.mp4",
+        "start": 0.75,
+        "end": 30.54,
+        "text": "So in this video we are going to see time complexities with respect to binary search tree So when I talk about time complexity there are always three cases One case is called best case another one is called worst case another one is called average case Let's first understand meaning of these three cases then I will move to the time complexity So when I say worst case so best case means time to compute optimal input which means"
+      },
+      {
+        "lecture": 62,
+        "file": "062. 14c. BST Time Complexities.mp4",
+        "start": 99.02,
+        "end": 128.28,
+        "text": "for this input one let's suppose this algorithm is taking just n time order of n time okay for this input two let's suppose this is taking order of n square for this input three maybe it is taking n logging like that right or maybe here it is taking uh let's suppose n cube for input two it is taking n cube and then for rest of the inputs let's suppose for n minus two inputs for rest of the inputs it is just taking order of n square okay now tell me"
+      },
+      {
+        "lecture": 62,
+        "file": "062. 14c. BST Time Complexities.mp4",
+        "start": 128.73,
+        "end": 152.27,
+        "text": "What is the best case here? I mean this algorithm is taking like the minimum time on which input this is called best case Now you will say that the best case time complexity of this algorithm is order of n why because Because there is just there is there has to be just one input that takes the minimum time"
+      }
+    ],
+    "foundation": {
+      "title": "BST cost follows tree height",
+      "idea": "BST search cost depends on the encountered path length. A balanced shape can have logarithmic height; sorted insertion into an ordinary unbalanced BST can create a linear-height chain. Average claims need an input model.",
+      "terms": [
+        "Worst ordinary BST: height can be n-1.",
+        "Balanced example: height about log n.",
+        "Fixed-chain successful average: (n+1)/2 for equally likely keys."
+      ],
+      "example": "Seven keys in a perfect tree require at most three successful comparisons; a seven-node chain may require seven."
+    }
+  },
+  {
+    "id": 188,
+    "lecture": 62,
+    "title": "State an average-case model",
+    "concept": "BST search cost depends on the encountered path length. A balanced shape can have logarithmic height; sorted insertion into an ordinary unbalanced BST can create a linear-height chain. Average claims need an input model.",
+    "teachingSteps": [
+      "Count visited keys, including a successful final comparison.",
+      "Use at most h+1 comparisons on a root-to-leaf path of edge-height h.",
+      "Distinguish uniform target position in a fixed chain from random construction assumptions."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "At edge-height h, a successful root-to-leaf search may compare how many keys?",
+        "options": [
+          "Exactly h-1 in every tree",
+          "Always all n keys",
+          "h+1"
+        ],
+        "answer": 2,
+        "explanation": "The root itself is a compared node."
+      },
+      {
+        "type": "number",
+        "prompt": "Successful targets in the seven-node chain are equally likely. What is the mean comparison count?",
+        "answer": 4,
+        "explanation": "Average 1 through 7.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Does traversing every node become logarithmic just because the tree is balanced?",
+        "options": [
+          "No; visiting all n nodes is linear output work",
+          "Yes, every balanced-tree operation is logarithmic",
+          "Only if keys are distinct"
+        ],
+        "answer": 0,
+        "explanation": "A full traversal emits n nodes."
+      },
+      {
+        "type": "number",
+        "prompt": "Searching for the root of a nonempty BST uses how many key comparisons?",
+        "answer": 1,
+        "explanation": "The first comparison matches.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 13,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 9,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 17,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 7,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 11,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 15,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 19,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "bst-height",
+    "start": 0.75,
+    "sourceReferences": [
+      {
+        "lecture": 62,
+        "file": "062. 14c. BST Time Complexities.mp4",
+        "start": 0.75,
+        "end": 30.54,
+        "text": "So in this video we are going to see time complexities with respect to binary search tree So when I talk about time complexity there are always three cases One case is called best case another one is called worst case another one is called average case Let's first understand meaning of these three cases then I will move to the time complexity So when I say worst case so best case means time to compute optimal input which means"
+      },
+      {
+        "lecture": 62,
+        "file": "062. 14c. BST Time Complexities.mp4",
+        "start": 99.02,
+        "end": 128.28,
+        "text": "for this input one let's suppose this algorithm is taking just n time order of n time okay for this input two let's suppose this is taking order of n square for this input three maybe it is taking n logging like that right or maybe here it is taking uh let's suppose n cube for input two it is taking n cube and then for rest of the inputs let's suppose for n minus two inputs for rest of the inputs it is just taking order of n square okay now tell me"
+      },
+      {
+        "lecture": 62,
+        "file": "062. 14c. BST Time Complexities.mp4",
+        "start": 128.73,
+        "end": 152.27,
+        "text": "What is the best case here? I mean this algorithm is taking like the minimum time on which input this is called best case Now you will say that the best case time complexity of this algorithm is order of n why because Because there is just there is there has to be just one input that takes the minimum time"
+      }
+    ],
+    "foundation": {
+      "title": "BST cost follows tree height",
+      "idea": "BST search cost depends on the encountered path length. A balanced shape can have logarithmic height; sorted insertion into an ordinary unbalanced BST can create a linear-height chain. Average claims need an input model.",
+      "terms": [
+        "Worst ordinary BST: height can be n-1.",
+        "Balanced example: height about log n.",
+        "Fixed-chain successful average: (n+1)/2 for equally likely keys."
+      ],
+      "example": "Seven keys in a perfect tree require at most three successful comparisons; a seven-node chain may require seven."
+    }
+  },
+  {
+    "id": 189,
+    "lecture": 63,
+    "title": "Combine subproblem sizes",
+    "concept": "Recursive tree size combines independent left and right subproblems. The empty tree contributes zero; a live root contributes one. Height uses a maximum rather than adding the two subtree heights.",
+    "teachingSteps": [
+      "Set size(NULL)=0 and height(NULL)=-1 under the stated edge convention.",
+      "Return 1+size(left)+size(right) for size.",
+      "Return 1+max(height(left),height(right)) for height."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which definition describes a full binary tree?",
+        "options": [
+          "Every node has zero or two children",
+          "Every node must have two children including leaves",
+          "It must store sorted keys"
+        ],
+        "answer": 0,
+        "explanation": "Full describes child counts."
+      },
+      {
+        "type": "match",
+        "prompt": "Match each term with its stated role.",
+        "pairs": [
+          [
+            "Leaf",
+            "A real node with no real children"
+          ],
+          [
+            "Edge-height",
+            "Number of edges on the longest downward path"
+          ],
+          [
+            "NULL child link",
+            "An absent child, not a real node"
+          ]
+        ],
+        "explanation": "Distinguish the operations, structural conditions and units in the definitions."
+      },
+      {
+        "type": "number",
+        "prompt": "How many real nodes are in the pictured perfect tree?",
+        "answer": 7,
+        "explanation": "Count 1+2+4.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 14,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 10,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 18,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 8,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 12,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 16,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 20,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "How many parent-child edges connect these real nodes?",
+        "answer": 6,
+        "explanation": "A nonempty tree has n-1 edges.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 14,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 10,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 18,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 8,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 12,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 16,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 20,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "tree-practice",
+    "start": 489.28,
+    "sourceReferences": [
+      {
+        "lecture": 63,
+        "file": "063_Recording_LIVEBinary_Tree_and_Binary_Search_Tree_Practice_Set.mp4",
+        "start": 489.28,
+        "end": 519.89,
+        "text": "if i just say that the height of minus h tree of n nodes could be order of n is this true right so i think this is this is true but if i just say let's suppose order of n square then is this true is this true order of n square order of n square is true why order of n square means less than equal to n square which is true right order of n square is true so this is true okay now similarly"
+      },
+      {
+        "lecture": 63,
+        "file": "063_Recording_LIVEBinary_Tree_and_Binary_Search_Tree_Practice_Set.mp4",
+        "start": 620.48,
+        "end": 641.57,
+        "text": "13 will be greater and 62 will be greater than 61. So something like that. I think you can do it. So this is how you will be getting. Let's just see this. The largest value of binary search tree is the last value in the list produced within in order traversal."
+      },
+      {
+        "lecture": 63,
+        "file": "063_Recording_LIVEBinary_Tree_and_Binary_Search_Tree_Practice_Set.mp4",
+        "start": 757.55,
+        "end": 793.89,
+        "text": "this is wrong this will be let's suppose 15 okay suppose this is 15 now this is 15 this is 15 okay suppose this is 15 now if you add 12 now you add 12 again now what will happen this 12 will go to left of 15 and right of 8 right so 12 will be here so basically if you delete 12 and then you immediately add 12 the tree is not leading to the same shape"
+      }
+    ],
+    "foundation": {
+      "title": "Recursive tree and BST challenges",
+      "idea": "Recursive tree size combines independent left and right subproblems. The empty tree contributes zero; a live root contributes one. Height uses a maximum rather than adding the two subtree heights.",
+      "terms": [
+        "Subtree: a node with all descendants beneath it.",
+        "Combine: use returned child results.",
+        "Postorder reasoning: process child subproblems before combining at the root."
+      ],
+      "example": "A root whose subtrees contain three nodes each has size seven; child heights one each give root height two."
+    }
+  },
+  {
+    "id": 190,
+    "lecture": 63,
+    "title": "Count child slots and tree edges",
+    "concept": "Recursive tree size combines independent left and right subproblems. The empty tree contributes zero; a live root contributes one. Height uses a maximum rather than adding the two subtree heights.",
+    "teachingSteps": [
+      "Set size(NULL)=0 and height(NULL)=-1 under the stated edge convention.",
+      "Return 1+size(left)+size(right) for size.",
+      "Return 1+max(height(left),height(right)) for height."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "With edge-based height, what is a leaf height?",
+        "options": [
+          "1",
+          "Its payload value",
+          "0"
+        ],
+        "answer": 2,
+        "explanation": "A leaf has no downward edges."
+      },
+      {
+        "type": "number",
+        "prompt": "How many leaves occur in this tree?",
+        "answer": 4,
+        "explanation": "All four nodes at depth two are leaves.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 14,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 10,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 18,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 8,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 12,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 16,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 20,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "How many NULL child-reference fields does this binary representation contain?",
+        "answer": 8,
+        "explanation": "Fourteen child slots minus six real links.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 14,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 10,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 18,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 8,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 12,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 16,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 20,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange the dependent steps of this procedure.",
+        "items": [
+          "Return zero for an empty subtree",
+          "Compute the left-subtree size",
+          "Compute the right-subtree size",
+          "Return one plus both returned sizes"
+        ],
+        "explanation": "Follow this order so every step receives a valid state."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "tree-practice",
+    "start": 489.28,
+    "sourceReferences": [
+      {
+        "lecture": 63,
+        "file": "063_Recording_LIVEBinary_Tree_and_Binary_Search_Tree_Practice_Set.mp4",
+        "start": 489.28,
+        "end": 519.89,
+        "text": "if i just say that the height of minus h tree of n nodes could be order of n is this true right so i think this is this is true but if i just say let's suppose order of n square then is this true is this true order of n square order of n square is true why order of n square means less than equal to n square which is true right order of n square is true so this is true okay now similarly"
+      },
+      {
+        "lecture": 63,
+        "file": "063_Recording_LIVEBinary_Tree_and_Binary_Search_Tree_Practice_Set.mp4",
+        "start": 620.48,
+        "end": 641.57,
+        "text": "13 will be greater and 62 will be greater than 61. So something like that. I think you can do it. So this is how you will be getting. Let's just see this. The largest value of binary search tree is the last value in the list produced within in order traversal."
+      },
+      {
+        "lecture": 63,
+        "file": "063_Recording_LIVEBinary_Tree_and_Binary_Search_Tree_Practice_Set.mp4",
+        "start": 757.55,
+        "end": 793.89,
+        "text": "this is wrong this will be let's suppose 15 okay suppose this is 15 now this is 15 this is 15 okay suppose this is 15 now if you add 12 now you add 12 again now what will happen this 12 will go to left of 15 and right of 8 right so 12 will be here so basically if you delete 12 and then you immediately add 12 the tree is not leading to the same shape"
+      }
+    ],
+    "foundation": {
+      "title": "Recursive tree and BST challenges",
+      "idea": "Recursive tree size combines independent left and right subproblems. The empty tree contributes zero; a live root contributes one. Height uses a maximum rather than adding the two subtree heights.",
+      "terms": [
+        "Subtree: a node with all descendants beneath it.",
+        "Combine: use returned child results.",
+        "Postorder reasoning: process child subproblems before combining at the root."
+      ],
+      "example": "A root whose subtrees contain three nodes each has size seven; child heights one each give root height two."
+    }
+  },
+  {
+    "id": 191,
+    "lecture": 63,
+    "title": "Verify a structural invariant",
+    "concept": "Recursive tree size combines independent left and right subproblems. The empty tree contributes zero; a live root contributes one. Height uses a maximum rather than adding the two subtree heights.",
+    "teachingSteps": [
+      "Set size(NULL)=0 and height(NULL)=-1 under the stated edge convention.",
+      "Return 1+size(left)+size(right) for size.",
+      "Return 1+max(height(left),height(right)) for height."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What makes a binary tree complete?",
+        "options": [
+          "All keys must be sorted",
+          "All levels except possibly the last are full; the last fills from left to right",
+          "Every leaf must have two children"
+        ],
+        "answer": 1,
+        "explanation": "Completeness concerns occupied positions."
+      },
+      {
+        "type": "number",
+        "prompt": "Using root depth zero, what is the pictured tree edge-height?",
+        "answer": 2,
+        "explanation": "The deepest path has two edges.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 14,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 10,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 18,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 8,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 12,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 16,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 20,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "A nonempty n-node tree has how many parent-child edges?",
+        "options": [
+          "2n",
+          "n+1",
+          "n-1"
+        ],
+        "answer": 2,
+        "explanation": "Every nonroot node has exactly one parent edge."
+      },
+      {
+        "type": "number",
+        "prompt": "A perfect binary tree of edge-height 3 contains how many nodes?",
+        "answer": 15,
+        "explanation": "Sum 1+2+4+8, or 2^4-1.",
+        "tolerance": 1e-8
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "tree-practice",
+    "start": 489.28,
+    "sourceReferences": [
+      {
+        "lecture": 63,
+        "file": "063_Recording_LIVEBinary_Tree_and_Binary_Search_Tree_Practice_Set.mp4",
+        "start": 489.28,
+        "end": 519.89,
+        "text": "if i just say that the height of minus h tree of n nodes could be order of n is this true right so i think this is this is true but if i just say let's suppose order of n square then is this true is this true order of n square order of n square is true why order of n square means less than equal to n square which is true right order of n square is true so this is true okay now similarly"
+      },
+      {
+        "lecture": 63,
+        "file": "063_Recording_LIVEBinary_Tree_and_Binary_Search_Tree_Practice_Set.mp4",
+        "start": 620.48,
+        "end": 641.57,
+        "text": "13 will be greater and 62 will be greater than 61. So something like that. I think you can do it. So this is how you will be getting. Let's just see this. The largest value of binary search tree is the last value in the list produced within in order traversal."
+      },
+      {
+        "lecture": 63,
+        "file": "063_Recording_LIVEBinary_Tree_and_Binary_Search_Tree_Practice_Set.mp4",
+        "start": 757.55,
+        "end": 793.89,
+        "text": "this is wrong this will be let's suppose 15 okay suppose this is 15 now this is 15 this is 15 okay suppose this is 15 now if you add 12 now you add 12 again now what will happen this 12 will go to left of 15 and right of 8 right so 12 will be here so basically if you delete 12 and then you immediately add 12 the tree is not leading to the same shape"
+      }
+    ],
+    "foundation": {
+      "title": "Recursive tree and BST challenges",
+      "idea": "Recursive tree size combines independent left and right subproblems. The empty tree contributes zero; a live root contributes one. Height uses a maximum rather than adding the two subtree heights.",
+      "terms": [
+        "Subtree: a node with all descendants beneath it.",
+        "Combine: use returned child results.",
+        "Postorder reasoning: process child subproblems before combining at the root."
+      ],
+      "example": "A root whose subtrees contain three nodes each has size seven; child heights one each give root height two."
+    }
+  },
+  {
+    "id": 192,
+    "lecture": 64,
+    "title": "Pass ancestral bounds",
+    "concept": "A global BST check passes an allowed key interval down the recursion. Immediate parent-child comparisons alone can miss ancestor violations. Tree diameter is a different quantity: the longest simple path between any two nodes, measured here in edges.",
+    "teachingSteps": [
+      "Every strict BST node must stay inside its inherited open bounds.",
+      "Compute subtree heights when reasoning about a longest path through a node.",
+      "State the diameter unit and include paths entirely within either subtree."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which strict BST property must hold?",
+        "options": [
+          "Only immediate children need correct comparisons",
+          "The array must be sorted level by level",
+          "All left-subtree keys are smaller and all right-subtree keys larger"
+        ],
+        "answer": 2,
+        "explanation": "The ordering is inherited through every descendant."
+      },
+      {
+        "type": "match",
+        "prompt": "Match each term with its stated role.",
+        "pairs": [
+          [
+            "Inorder",
+            "Increasing strict-BST key order"
+          ],
+          [
+            "Successor",
+            "Next key in sorted order"
+          ],
+          [
+            "Inherited interval",
+            "Bounds imposed by every ancestor"
+          ]
+        ],
+        "explanation": "Distinguish the operations, structural conditions and units in the definitions."
+      },
+      {
+        "type": "number",
+        "prompt": "The pictured perfect height-two tree has what diameter in edges?",
+        "answer": 4,
+        "explanation": "A leaf-to-leaf route crosses two edges up to root and two down.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 15,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 11,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 19,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 9,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 13,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 17,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 21,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "How many real nodes lie on such a four-edge diameter path?",
+        "answer": 5,
+        "explanation": "A path with four edges has five nodes.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 15,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 11,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 19,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 9,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 13,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 17,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 21,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "bst-validate",
+    "start": 462.64,
+    "sourceReferences": [
+      {
+        "lecture": 64,
+        "file": "064_Recording_LIVE_Binary_Tree_and_Binary_Search_Tree_Practice_Set.mp4",
+        "start": 462.64,
+        "end": 493.05,
+        "text": "So initially it looks like a mountain but when you keep on doing things then it means that they will eventually be falling in the place. So let's start with this question. This question is saying that consider the following function which indent to check if given binary tree is also a binary search tree or not. So let's just check it. If root is null then they are saying it is true. So it wants to check whether the given binary tree is binary search tree or not."
+      },
+      {
+        "lecture": 64,
+        "file": "064_Recording_LIVE_Binary_Tree_and_Binary_Search_Tree_Practice_Set.mp4",
+        "start": 493.42,
+        "end": 524.83,
+        "text": "if root left is not null and root data so it is checking whether the root data is lesser than let's suppose this is 15 and let's suppose this is this is let's suppose root data is lesser than root left data maybe this is 17 if that is the case then it is returning false okay if root data is greater than so which means if root data is greater than let's suppose this is 14 or maybe 13 which means this is greater than root data is greater than"
+      },
+      {
+        "lecture": 64,
+        "file": "064_Recording_LIVE_Binary_Tree_and_Binary_Search_Tree_Practice_Set.mp4",
+        "start": 525.05,
+        "end": 553.57,
+        "text": "is write data then also false i think that is true right i mean i mean that should be done otherwise it is keep on recursively checking whether it is i mean if on the left and right also so what do you think it will be a bxt it is checking a correct vxt or not so what are the options here the function implemented is correct that is it if a binary search tree is given then it returns true otherwise it returns false"
+      }
+    ],
+    "foundation": {
+      "title": "Global BST checks and tree diameter",
+      "idea": "A global BST check passes an allowed key interval down the recursion. Immediate parent-child comparisons alone can miss ancestor violations. Tree diameter is a different quantity: the longest simple path between any two nodes, measured here in edges.",
+      "terms": [
+        "Ancestral interval: all earlier search constraints.",
+        "Diameter: maximum edge-distance between two nodes.",
+        "Height: maximum root-to-descendant edge-distance."
+      ],
+      "example": "Root 8 with left 4 and 4.right=9 passes immediate 4<9, but 9 violates the root left-subtree bound. A perfect height-2 tree has diameter 4 edges."
+    }
+  },
+  {
+    "id": 193,
+    "lecture": 64,
+    "title": "Find a longest path in edges",
+    "concept": "A global BST check passes an allowed key interval down the recursion. Immediate parent-child comparisons alone can miss ancestor violations. Tree diameter is a different quantity: the longest simple path between any two nodes, measured here in edges.",
+    "teachingSteps": [
+      "Every strict BST node must stay inside its inherited open bounds.",
+      "Compute subtree heights when reasoning about a longest path through a node.",
+      "State the diameter unit and include paths entirely within either subtree."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which sequence is inconsistent with searching 50?",
+        "options": [
+          "80,60,40,50",
+          "100,40,60,30,50",
+          "100,40,60,45,50"
+        ],
+        "answer": 1,
+        "explanation": "After visiting 40 then 60, later keys must remain above 40 and below 60."
+      },
+      {
+        "type": "number",
+        "prompt": "An ordinary five-node chain has what diameter in edges?",
+        "answer": 4,
+        "explanation": "Its endpoints are four edges apart.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "Change only the pictured left-right grandchild to root+1. How many keys violate the root left-subtree upper bound?",
+        "answer": 1,
+        "explanation": "That changed grandchild lies on the wrong side of its ancestor bound.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 15,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 11,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 19,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 9,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 13,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 17,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 21,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange the dependent steps of this procedure.",
+        "items": [
+          "Compare the target with the current key",
+          "Narrow the inherited interval for the selected child",
+          "Continue within that interval",
+          "Stop on a match or empty child"
+        ],
+        "explanation": "Follow this order so every step receives a valid state."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "bst-validate",
+    "start": 462.64,
+    "sourceReferences": [
+      {
+        "lecture": 64,
+        "file": "064_Recording_LIVE_Binary_Tree_and_Binary_Search_Tree_Practice_Set.mp4",
+        "start": 462.64,
+        "end": 493.05,
+        "text": "So initially it looks like a mountain but when you keep on doing things then it means that they will eventually be falling in the place. So let's start with this question. This question is saying that consider the following function which indent to check if given binary tree is also a binary search tree or not. So let's just check it. If root is null then they are saying it is true. So it wants to check whether the given binary tree is binary search tree or not."
+      },
+      {
+        "lecture": 64,
+        "file": "064_Recording_LIVE_Binary_Tree_and_Binary_Search_Tree_Practice_Set.mp4",
+        "start": 493.42,
+        "end": 524.83,
+        "text": "if root left is not null and root data so it is checking whether the root data is lesser than let's suppose this is 15 and let's suppose this is this is let's suppose root data is lesser than root left data maybe this is 17 if that is the case then it is returning false okay if root data is greater than so which means if root data is greater than let's suppose this is 14 or maybe 13 which means this is greater than root data is greater than"
+      },
+      {
+        "lecture": 64,
+        "file": "064_Recording_LIVE_Binary_Tree_and_Binary_Search_Tree_Practice_Set.mp4",
+        "start": 525.05,
+        "end": 553.57,
+        "text": "is write data then also false i think that is true right i mean i mean that should be done otherwise it is keep on recursively checking whether it is i mean if on the left and right also so what do you think it will be a bxt it is checking a correct vxt or not so what are the options here the function implemented is correct that is it if a binary search tree is given then it returns true otherwise it returns false"
+      }
+    ],
+    "foundation": {
+      "title": "Global BST checks and tree diameter",
+      "idea": "A global BST check passes an allowed key interval down the recursion. Immediate parent-child comparisons alone can miss ancestor violations. Tree diameter is a different quantity: the longest simple path between any two nodes, measured here in edges.",
+      "terms": [
+        "Ancestral interval: all earlier search constraints.",
+        "Diameter: maximum edge-distance between two nodes.",
+        "Height: maximum root-to-descendant edge-distance."
+      ],
+      "example": "Root 8 with left 4 and 4.right=9 passes immediate 4<9, but 9 violates the root left-subtree bound. A perfect height-2 tree has diameter 4 edges."
+    }
+  },
+  {
+    "id": 194,
+    "lecture": 64,
+    "title": "Reject a misleading local check",
+    "concept": "A global BST check passes an allowed key interval down the recursion. Immediate parent-child comparisons alone can miss ancestor violations. Tree diameter is a different quantity: the longest simple path between any two nodes, measured here in edges.",
+    "teachingSteps": [
+      "Every strict BST node must stay inside its inherited open bounds.",
+      "Compute subtree heights when reasoning about a longest path through a node.",
+      "State the diameter unit and include paths entirely within either subtree."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which is invalid as a strict BST preorder?",
+        "options": [
+          "8,4,12,2",
+          "8,4,2,6,12,10,14",
+          "8,4,6,12"
+        ],
+        "answer": 0,
+        "explanation": "After entering the root right subtree, key 2 cannot return to its left region."
+      },
+      {
+        "type": "number",
+        "prompt": "How many ancestor bounds, lower and upper, does a recursive strict-BST validator carry per subproblem?",
+        "answer": 2,
+        "explanation": "Both an open lower and an open upper bound are inherited.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Root 8 has left 4 and 4.right=9. Why is this invalid?",
+        "options": [
+          "Every right child is forbidden",
+          "9 violates the ancestor upper bound 8",
+          "9 is smaller than its own parent 4"
+        ],
+        "answer": 1,
+        "explanation": "Checking only the immediate parent would miss this violation."
+      },
+      {
+        "type": "number",
+        "prompt": "How many nodes occur in the original pictured BST?",
+        "answer": 7,
+        "explanation": "No node was removed.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "tree",
+          "nodes": [
+            {
+              "key": 15,
+              "left": 1,
+              "right": 2
+            },
+            {
+              "key": 11,
+              "left": 3,
+              "right": 4
+            },
+            {
+              "key": 19,
+              "left": 5,
+              "right": 6
+            },
+            {
+              "key": 9,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 13,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 17,
+              "left": null,
+              "right": null
+            },
+            {
+              "key": 21,
+              "left": null,
+              "right": null
+            }
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "bst-validate",
+    "start": 462.64,
+    "sourceReferences": [
+      {
+        "lecture": 64,
+        "file": "064_Recording_LIVE_Binary_Tree_and_Binary_Search_Tree_Practice_Set.mp4",
+        "start": 462.64,
+        "end": 493.05,
+        "text": "So initially it looks like a mountain but when you keep on doing things then it means that they will eventually be falling in the place. So let's start with this question. This question is saying that consider the following function which indent to check if given binary tree is also a binary search tree or not. So let's just check it. If root is null then they are saying it is true. So it wants to check whether the given binary tree is binary search tree or not."
+      },
+      {
+        "lecture": 64,
+        "file": "064_Recording_LIVE_Binary_Tree_and_Binary_Search_Tree_Practice_Set.mp4",
+        "start": 493.42,
+        "end": 524.83,
+        "text": "if root left is not null and root data so it is checking whether the root data is lesser than let's suppose this is 15 and let's suppose this is this is let's suppose root data is lesser than root left data maybe this is 17 if that is the case then it is returning false okay if root data is greater than so which means if root data is greater than let's suppose this is 14 or maybe 13 which means this is greater than root data is greater than"
+      },
+      {
+        "lecture": 64,
+        "file": "064_Recording_LIVE_Binary_Tree_and_Binary_Search_Tree_Practice_Set.mp4",
+        "start": 525.05,
+        "end": 553.57,
+        "text": "is write data then also false i think that is true right i mean i mean that should be done otherwise it is keep on recursively checking whether it is i mean if on the left and right also so what do you think it will be a bxt it is checking a correct vxt or not so what are the options here the function implemented is correct that is it if a binary search tree is given then it returns true otherwise it returns false"
+      }
+    ],
+    "foundation": {
+      "title": "Global BST checks and tree diameter",
+      "idea": "A global BST check passes an allowed key interval down the recursion. Immediate parent-child comparisons alone can miss ancestor violations. Tree diameter is a different quantity: the longest simple path between any two nodes, measured here in edges.",
+      "terms": [
+        "Ancestral interval: all earlier search constraints.",
+        "Diameter: maximum edge-distance between two nodes.",
+        "Height: maximum root-to-descendant edge-distance."
+      ],
+      "example": "Root 8 with left 4 and 4.right=9 passes immediate 4<9, but 9 violates the root left-subtree bound. A perfect height-2 tree has diameter 4 edges."
+    }
+  },
+  {
+    "id": 195,
+    "lecture": 65,
+    "title": "Compute an edge-based balance factor",
+    "concept": "An AVL tree combines strict BST ordering with a balance requirement at every node. Using edge heights and empty height -1, the balance factor is left height minus right height and must remain -1,0 or 1.",
+    "teachingSteps": [
+      "Compute subtree heights and the first unbalanced ancestor.",
+      "Classify the heavy path as LL, LR, RL or RR.",
+      "Apply the corresponding single or double rotation while preserving inorder key order."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which must hold for every AVL node?",
+        "options": [
+          "Only completeness is required",
+          "BST ordering and balance factor in -1,0,1",
+          "Only the root needs balance"
+        ],
+        "answer": 1,
+        "explanation": "AVL combines global BST order with local height balance everywhere."
+      },
+      {
+        "type": "match",
+        "prompt": "Match each term with its stated role.",
+        "pairs": [
+          [
+            "LL",
+            "Single right rotation"
+          ],
+          [
+            "RR",
+            "Single left rotation"
+          ],
+          [
+            "LR",
+            "Left-at-child then right-at-ancestor"
+          ]
+        ],
+        "explanation": "Distinguish the operations, structural conditions and units in the definitions."
+      },
+      {
+        "type": "number",
+        "prompt": "Left subtree height is 2 and right subtree height is 0. Under left-minus-right convention, what is the balance factor?",
+        "answer": 2,
+        "explanation": "Subtract right height from left height.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "For heights 0 and 2, what is the balance factor?",
+        "answer": -2,
+        "explanation": "Left-minus-right is -2.",
+        "tolerance": 1e-8
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "avl",
+    "start": 50.3,
+    "sourceReferences": [
+      {
+        "lecture": 65,
+        "file": "065. Recording - LIVE AVL tree Practice Set Discussion.mp4",
+        "start": 50.3,
+        "end": 80.72,
+        "text": "Okay, that's great. So let's get started. Now, let's start with this practice set of AVL tree. So let's just see the question number one. Are the following AVL trees are valid? This is the first question, right? So I think that is a nice, I mean, easy, but a nice question. So is this a AV like binary, binary search tree first of all? Yes, this is a binary search tree. Is this a AVL tree also? I think this is AVL, right? So that is why it is a valid AVL tree. Okay."
+      },
+      {
+        "lecture": 65,
+        "file": "065. Recording - LIVE AVL tree Practice Set Discussion.mp4",
+        "start": 81.45,
+        "end": 112.11,
+        "text": "So what about the option B? Can anyone tell me the answer for this question? Yeah, you need to check whether it is BST plus it is balanced or not. So both the things you need to check. Do anyone have the answer? So I think you people can do this, right? This is not a valid BST. Because this five is there and six is there. So that is why this is not a valid BST. And similarly, you can check others, right? So I think"
+      },
+      {
+        "lecture": 65,
+        "file": "065. Recording - LIVE AVL tree Practice Set Discussion.mp4",
+        "start": 113.58,
+        "end": 136.09,
+        "text": "this is a valid VHD or not seems like it is a valid VHD but what about the AVL tree I think this one too okay so is this is this the AVL tree tell me quickly no right because this 12 is unbalanced right so this 12 is unbalanced region being is that"
+      }
+    ],
+    "foundation": {
+      "title": "AVL balance and rotations",
+      "idea": "An AVL tree combines strict BST ordering with a balance requirement at every node. Using edge heights and empty height -1, the balance factor is left height minus right height and must remain -1,0 or 1.",
+      "terms": [
+        "LL/RR: one primitive rotation.",
+        "LR/RL: two primitive rotations.",
+        "Minimum-node recurrence: N(h)=1+N(h-1)+N(h-2), N(-1)=0, N(0)=1."
+      ],
+      "example": "Inserting 30,20,10 causes LL imbalance at 30. A right rotation produces root 20 with children 10 and 30."
+    }
+  },
+  {
+    "id": 196,
+    "lecture": 65,
+    "title": "Identify the rotation case",
+    "concept": "An AVL tree combines strict BST ordering with a balance requirement at every node. Using edge heights and empty height -1, the balance factor is left height minus right height and must remain -1,0 or 1.",
+    "teachingSteps": [
+      "Compute subtree heights and the first unbalanced ancestor.",
+      "Classify the heavy path as LL, LR, RL or RR.",
+      "Apply the corresponding single or double rotation while preserving inorder key order."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "An LR imbalance is repaired how?",
+        "options": [
+          "Rotate left at the left child, then right at the ancestor",
+          "Only rotate left at the ancestor",
+          "Sort every payload and ignore links"
+        ],
+        "answer": 0,
+        "explanation": "The first rotation straightens the inner bend."
+      },
+      {
+        "type": "number",
+        "prompt": "Insertion order 30,20,10 causes LL imbalance. How many primitive rotations repair it?",
+        "answer": 1,
+        "explanation": "One right rotation.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "Insertion order 30,10,20 causes LR imbalance. How many primitive rotations repair it?",
+        "answer": 2,
+        "explanation": "One left rotation at the child, then one right rotation at the ancestor.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange the dependent steps of this procedure.",
+        "items": [
+          "Find the first unbalanced ancestor",
+          "Classify its heavy path as LL, LR, RL or RR",
+          "Perform the appropriate preserving rotation or rotations",
+          "Recompute heights and verify all invariants"
+        ],
+        "explanation": "Follow this order so every step receives a valid state."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "avl",
+    "start": 50.3,
+    "sourceReferences": [
+      {
+        "lecture": 65,
+        "file": "065. Recording - LIVE AVL tree Practice Set Discussion.mp4",
+        "start": 50.3,
+        "end": 80.72,
+        "text": "Okay, that's great. So let's get started. Now, let's start with this practice set of AVL tree. So let's just see the question number one. Are the following AVL trees are valid? This is the first question, right? So I think that is a nice, I mean, easy, but a nice question. So is this a AV like binary, binary search tree first of all? Yes, this is a binary search tree. Is this a AVL tree also? I think this is AVL, right? So that is why it is a valid AVL tree. Okay."
+      },
+      {
+        "lecture": 65,
+        "file": "065. Recording - LIVE AVL tree Practice Set Discussion.mp4",
+        "start": 81.45,
+        "end": 112.11,
+        "text": "So what about the option B? Can anyone tell me the answer for this question? Yeah, you need to check whether it is BST plus it is balanced or not. So both the things you need to check. Do anyone have the answer? So I think you people can do this, right? This is not a valid BST. Because this five is there and six is there. So that is why this is not a valid BST. And similarly, you can check others, right? So I think"
+      },
+      {
+        "lecture": 65,
+        "file": "065. Recording - LIVE AVL tree Practice Set Discussion.mp4",
+        "start": 113.58,
+        "end": 136.09,
+        "text": "this is a valid VHD or not seems like it is a valid VHD but what about the AVL tree I think this one too okay so is this is this the AVL tree tell me quickly no right because this 12 is unbalanced right so this 12 is unbalanced region being is that"
+      }
+    ],
+    "foundation": {
+      "title": "AVL balance and rotations",
+      "idea": "An AVL tree combines strict BST ordering with a balance requirement at every node. Using edge heights and empty height -1, the balance factor is left height minus right height and must remain -1,0 or 1.",
+      "terms": [
+        "LL/RR: one primitive rotation.",
+        "LR/RL: two primitive rotations.",
+        "Minimum-node recurrence: N(h)=1+N(h-1)+N(h-2), N(-1)=0, N(0)=1."
+      ],
+      "example": "Inserting 30,20,10 causes LL imbalance at 30. A right rotation produces root 20 with children 10 and 30."
+    }
+  },
+  {
+    "id": 197,
+    "lecture": 65,
+    "title": "Preserve BST order while rebalancing",
+    "concept": "An AVL tree combines strict BST ordering with a balance requirement at every node. Using edge heights and empty height -1, the balance factor is left height minus right height and must remain -1,0 or 1.",
+    "teachingSteps": [
+      "Compute subtree heights and the first unbalanced ancestor.",
+      "Classify the heavy path as LL, LR, RL or RR.",
+      "Apply the corresponding single or double rotation while preserving inorder key order."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Do valid rotations change inorder key order?",
+        "options": [
+          "Yes, they sort a formerly invalid key set automatically",
+          "Only the leaf keys are discarded",
+          "No"
+        ],
+        "answer": 2,
+        "explanation": "Rotations preserve relative BST key order."
+      },
+      {
+        "type": "number",
+        "prompt": "After either repair on keys 10,20,30, what is the new root key?",
+        "answer": 20,
+        "explanation": "Rotations preserve sorted inorder and balance around the middle key.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "A correct balance factor requires what convention to be known?",
+        "options": [
+          "How subtree height is measured, including empty height",
+          "Only key parity",
+          "The root allocation address"
+        ],
+        "answer": 0,
+        "explanation": "Use consistent height definitions."
+      },
+      {
+        "type": "number",
+        "prompt": "Using N(-1)=0, N(0)=1, N(h)=1+N(h-1)+N(h-2), what is minimum AVL node count at edge-height 3?",
+        "answer": 7,
+        "explanation": "N(1)=2, N(2)=4, N(3)=7.",
+        "tolerance": 1e-8
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "avl",
+    "start": 50.3,
+    "sourceReferences": [
+      {
+        "lecture": 65,
+        "file": "065. Recording - LIVE AVL tree Practice Set Discussion.mp4",
+        "start": 50.3,
+        "end": 80.72,
+        "text": "Okay, that's great. So let's get started. Now, let's start with this practice set of AVL tree. So let's just see the question number one. Are the following AVL trees are valid? This is the first question, right? So I think that is a nice, I mean, easy, but a nice question. So is this a AV like binary, binary search tree first of all? Yes, this is a binary search tree. Is this a AVL tree also? I think this is AVL, right? So that is why it is a valid AVL tree. Okay."
+      },
+      {
+        "lecture": 65,
+        "file": "065. Recording - LIVE AVL tree Practice Set Discussion.mp4",
+        "start": 81.45,
+        "end": 112.11,
+        "text": "So what about the option B? Can anyone tell me the answer for this question? Yeah, you need to check whether it is BST plus it is balanced or not. So both the things you need to check. Do anyone have the answer? So I think you people can do this, right? This is not a valid BST. Because this five is there and six is there. So that is why this is not a valid BST. And similarly, you can check others, right? So I think"
+      },
+      {
+        "lecture": 65,
+        "file": "065. Recording - LIVE AVL tree Practice Set Discussion.mp4",
+        "start": 113.58,
+        "end": 136.09,
+        "text": "this is a valid VHD or not seems like it is a valid VHD but what about the AVL tree I think this one too okay so is this is this the AVL tree tell me quickly no right because this 12 is unbalanced right so this 12 is unbalanced region being is that"
+      }
+    ],
+    "foundation": {
+      "title": "AVL balance and rotations",
+      "idea": "An AVL tree combines strict BST ordering with a balance requirement at every node. Using edge heights and empty height -1, the balance factor is left height minus right height and must remain -1,0 or 1.",
+      "terms": [
+        "LL/RR: one primitive rotation.",
+        "LR/RL: two primitive rotations.",
+        "Minimum-node recurrence: N(h)=1+N(h-1)+N(h-2), N(-1)=0, N(0)=1."
+      ],
+      "example": "Inserting 30,20,10 causes LL imbalance at 30. A right rotation produces root 20 with children 10 and 30."
+    }
+  },
+  {
+    "id": 198,
+    "lecture": 66,
+    "title": "Separate completeness from ordering",
+    "concept": "A binary min-heap has both a complete-tree shape and parent<=child ordering. Its root is a minimum, but its array is not globally sorted and its left/right subtrees do not follow BST key partitions.",
+    "teachingSteps": [
+      "Use zero-based parent floor((i-1)/2), left 2i+1 and right 2i+2.",
+      "Check completeness separately from parent-child order.",
+      "Only compare children whose indices exist."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which two requirements define a binary min-heap?",
+        "options": [
+          "Complete shape and parent<=child order",
+          "Only sorted inorder",
+          "BST left/right key partitioning"
+        ],
+        "answer": 0,
+        "explanation": "Shape and ordering are separate requirements."
+      },
+      {
+        "type": "match",
+        "prompt": "Match each term with its stated role.",
+        "pairs": [
+          [
+            "Complete shape",
+            "Last occupied level fills from left to right"
+          ],
+          [
+            "Parent order",
+            "A parent is no larger than its children"
+          ],
+          [
+            "Rank",
+            "Position in increasing key order, independent of array index"
+          ]
+        ],
+        "explanation": "Distinguish the operations, structural conditions and units in the definitions."
+      },
+      {
+        "type": "number",
+        "prompt": "What minimum key is guaranteed at the pictured min-heap root?",
+        "answer": 4,
+        "explanation": "The parent order extends through every ancestor.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "heap-tree",
+          "values": [
+            4,
+            7,
+            5,
+            12,
+            9,
+            6,
+            11
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "For zero-based index 5, what is its parent index?",
+        "answer": 2,
+        "explanation": "floor((5-1)/2)=2.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "heap-tree",
+          "values": [
+            4,
+            7,
+            5,
+            12,
+            9,
+            6,
+            11
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heap",
+    "start": 2.83,
+    "sourceReferences": [
+      {
+        "lecture": 66,
+        "file": "066. 16 a. Introduction to Heaps.mp4",
+        "start": 2.83,
+        "end": 30.79,
+        "text": "Let us now start heaps. Heap is a very important data structures when it comes to implementing some popular algorithms like digestra, frames and all. So we will be studying these algorithms and algorithms subject and then you will be getting to know that how much important heap is. So there is a topic called priority queue. Priority queue can be implemented by array or some other data structure also but heap is one of the most popular way to implement priority queue."
+      },
+      {
+        "lecture": 66,
+        "file": "066. 16 a. Introduction to Heaps.mp4",
+        "start": 31.15,
+        "end": 62.34,
+        "text": "So heap essentially is very important topic. Let's just discuss this heap topic. So here like as you can see some happy faces. So these are like these are the heap nodes and this is a heap. So let me define it formally that how does the heap look like and what are the properties that heap should be having. So essentially these are the two properties that a heap should be having. The first property is structural property. It says that all levels except the last level should be full."
+      },
+      {
+        "lecture": 66,
+        "file": "066. 16 a. Introduction to Heaps.mp4",
+        "start": 62.7,
+        "end": 90.93,
+        "text": "and last level should be left filled which means that as you can see on the right that all levels are full and the last level is left filled I mean last level can also be completely full but if it is half filled if it is partially filled then it should be left filled right which is a property of complete binary tree this is a property of complete binary tree so heap is a complete binary tree in addition to that there is a heap property which says that"
+      }
+    ],
+    "foundation": {
+      "title": "Min-heaps and their array shape",
+      "idea": "A binary min-heap has both a complete-tree shape and parent<=child ordering. Its root is a minimum, but its array is not globally sorted and its left/right subtrees do not follow BST key partitions.",
+      "terms": [
+        "Min-heap root: a minimum key.",
+        "Complete shape: levels fill left to right.",
+        "Leaf indices: floor(n/2) through n-1 for a zero-based heap."
+      ],
+      "example": "Array 1,4,2,9,6,3,8 is a min-heap even though 4 precedes 2."
+    }
+  },
+  {
+    "id": 199,
+    "lecture": 66,
+    "title": "Read parent and child indices",
+    "concept": "A binary min-heap has both a complete-tree shape and parent<=child ordering. Its root is a minimum, but its array is not globally sorted and its left/right subtrees do not follow BST key partitions.",
+    "teachingSteps": [
+      "Use zero-based parent floor((i-1)/2), left 2i+1 and right 2i+2.",
+      "Check completeness separately from parent-child order.",
+      "Only compare children whose indices exist."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Is the heap array necessarily sorted by index?",
+        "options": [
+          "Yes",
+          "Only if all keys are positive",
+          "No"
+        ],
+        "answer": 2,
+        "explanation": "Sibling and separate subtree values need not be sorted."
+      },
+      {
+        "type": "number",
+        "prompt": "For zero-based index 1, what is the left-child index?",
+        "answer": 3,
+        "explanation": "2*1+1=3.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "heap-tree",
+          "values": [
+            4,
+            7,
+            5,
+            12,
+            9,
+            6,
+            11
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "For zero-based index 1, what is the right-child index?",
+        "answer": 4,
+        "explanation": "2*1+2=4.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "heap-tree",
+          "values": [
+            4,
+            7,
+            5,
+            12,
+            9,
+            6,
+            11
+          ]
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange the dependent steps of this procedure.",
+        "items": [
+          "Verify the complete shape",
+          "Check every existing parent-child comparison",
+          "Conclude the root is a minimum",
+          "Keep rank separate from array index"
+        ],
+        "explanation": "Follow this order so every step receives a valid state."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heap",
+    "start": 2.83,
+    "sourceReferences": [
+      {
+        "lecture": 66,
+        "file": "066. 16 a. Introduction to Heaps.mp4",
+        "start": 2.83,
+        "end": 30.79,
+        "text": "Let us now start heaps. Heap is a very important data structures when it comes to implementing some popular algorithms like digestra, frames and all. So we will be studying these algorithms and algorithms subject and then you will be getting to know that how much important heap is. So there is a topic called priority queue. Priority queue can be implemented by array or some other data structure also but heap is one of the most popular way to implement priority queue."
+      },
+      {
+        "lecture": 66,
+        "file": "066. 16 a. Introduction to Heaps.mp4",
+        "start": 31.15,
+        "end": 62.34,
+        "text": "So heap essentially is very important topic. Let's just discuss this heap topic. So here like as you can see some happy faces. So these are like these are the heap nodes and this is a heap. So let me define it formally that how does the heap look like and what are the properties that heap should be having. So essentially these are the two properties that a heap should be having. The first property is structural property. It says that all levels except the last level should be full."
+      },
+      {
+        "lecture": 66,
+        "file": "066. 16 a. Introduction to Heaps.mp4",
+        "start": 62.7,
+        "end": 90.93,
+        "text": "and last level should be left filled which means that as you can see on the right that all levels are full and the last level is left filled I mean last level can also be completely full but if it is half filled if it is partially filled then it should be left filled right which is a property of complete binary tree this is a property of complete binary tree so heap is a complete binary tree in addition to that there is a heap property which says that"
+      }
+    ],
+    "foundation": {
+      "title": "Min-heaps and their array shape",
+      "idea": "A binary min-heap has both a complete-tree shape and parent<=child ordering. Its root is a minimum, but its array is not globally sorted and its left/right subtrees do not follow BST key partitions.",
+      "terms": [
+        "Min-heap root: a minimum key.",
+        "Complete shape: levels fill left to right.",
+        "Leaf indices: floor(n/2) through n-1 for a zero-based heap."
+      ],
+      "example": "Array 1,4,2,9,6,3,8 is a min-heap even though 4 precedes 2."
+    }
+  },
+  {
+    "id": 200,
+    "lecture": 66,
+    "title": "Locate guaranteed extrema",
+    "concept": "A binary min-heap has both a complete-tree shape and parent<=child ordering. Its root is a minimum, but its array is not globally sorted and its left/right subtrees do not follow BST key partitions.",
+    "teachingSteps": [
+      "Use zero-based parent floor((i-1)/2), left 2i+1 and right 2i+2.",
+      "Check completeness separately from parent-child order.",
+      "Only compare children whose indices exist."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which position guarantees a minimum key?",
+        "options": [
+          "Every leaf",
+          "The root",
+          "The final array slot"
+        ],
+        "answer": 1,
+        "explanation": "Parent order extends along every ancestor path."
+      },
+      {
+        "type": "number",
+        "prompt": "How many leaves does this seven-entry complete heap have?",
+        "answer": 4,
+        "explanation": "Zero-based leaves begin at floor(7/2)=3.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "heap-tree",
+          "values": [
+            4,
+            7,
+            5,
+            12,
+            9,
+            6,
+            11
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "With distinct keys, why can rank k not lie deeper than k-1?",
+        "options": [
+          "Array position equals rank",
+          "All leaves have equal ranks",
+          "Every ancestor is smaller"
+        ],
+        "answer": 2,
+        "explanation": "Depth d already supplies d smaller ancestors."
+      },
+      {
+        "type": "number",
+        "prompt": "What is this complete shape edge-height?",
+        "answer": 2,
+        "explanation": "Its deepest occupied level is two edges below root.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "heap-tree",
+          "values": [
+            4,
+            7,
+            5,
+            12,
+            9,
+            6,
+            11
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heap",
+    "start": 2.83,
+    "sourceReferences": [
+      {
+        "lecture": 66,
+        "file": "066. 16 a. Introduction to Heaps.mp4",
+        "start": 2.83,
+        "end": 30.79,
+        "text": "Let us now start heaps. Heap is a very important data structures when it comes to implementing some popular algorithms like digestra, frames and all. So we will be studying these algorithms and algorithms subject and then you will be getting to know that how much important heap is. So there is a topic called priority queue. Priority queue can be implemented by array or some other data structure also but heap is one of the most popular way to implement priority queue."
+      },
+      {
+        "lecture": 66,
+        "file": "066. 16 a. Introduction to Heaps.mp4",
+        "start": 31.15,
+        "end": 62.34,
+        "text": "So heap essentially is very important topic. Let's just discuss this heap topic. So here like as you can see some happy faces. So these are like these are the heap nodes and this is a heap. So let me define it formally that how does the heap look like and what are the properties that heap should be having. So essentially these are the two properties that a heap should be having. The first property is structural property. It says that all levels except the last level should be full."
+      },
+      {
+        "lecture": 66,
+        "file": "066. 16 a. Introduction to Heaps.mp4",
+        "start": 62.7,
+        "end": 90.93,
+        "text": "and last level should be left filled which means that as you can see on the right that all levels are full and the last level is left filled I mean last level can also be completely full but if it is half filled if it is partially filled then it should be left filled right which is a property of complete binary tree this is a property of complete binary tree so heap is a complete binary tree in addition to that there is a heap property which says that"
+      }
+    ],
+    "foundation": {
+      "title": "Min-heaps and their array shape",
+      "idea": "A binary min-heap has both a complete-tree shape and parent<=child ordering. Its root is a minimum, but its array is not globally sorted and its left/right subtrees do not follow BST key partitions.",
+      "terms": [
+        "Min-heap root: a minimum key.",
+        "Complete shape: levels fill left to right.",
+        "Leaf indices: floor(n/2) through n-1 for a zero-based heap."
+      ],
+      "example": "Array 1,4,2,9,6,3,8 is a min-heap even though 4 precedes 2."
+    }
+  },
+  {
+    "id": 201,
+    "lecture": 67,
+    "title": "Use smaller ancestors as a bound",
+    "concept": "Heap array position is not sorted rank. For distinct min-heap keys, a kth-smallest key cannot have more than k-1 smaller ancestors, so its depth is at most k-1. Repeated minimum extraction determines successive ranks.",
+    "teachingSteps": [
+      "State that keys are distinct before using a strict ancestor rank argument.",
+      "Count smaller ancestors to bound depth.",
+      "Do not identify the kth array entry with the kth-smallest key."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which two requirements define a binary min-heap?",
+        "options": [
+          "Only sorted inorder",
+          "BST left/right key partitioning",
+          "Complete shape and parent<=child order"
+        ],
+        "answer": 2,
+        "explanation": "Shape and ordering are separate requirements."
+      },
+      {
+        "type": "match",
+        "prompt": "Match each term with its stated role.",
+        "pairs": [
+          [
+            "Complete shape",
+            "Last occupied level fills from left to right"
+          ],
+          [
+            "Parent order",
+            "A parent is no larger than its children"
+          ],
+          [
+            "Rank",
+            "Position in increasing key order, independent of array index"
+          ]
+        ],
+        "explanation": "Distinguish the operations, structural conditions and units in the definitions."
+      },
+      {
+        "type": "number",
+        "prompt": "For the pictured distinct-key min-heap, what is the third-smallest key?",
+        "answer": 7,
+        "explanation": "Sorted keys begin s+1, s+2, s+3; array order is not rank.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "heap-tree",
+          "values": [
+            5,
+            8,
+            6,
+            13,
+            10,
+            7,
+            12
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "What is the zero-based array index of that third-smallest key?",
+        "answer": 5,
+        "explanation": "It is in the right subtree left child.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "heap-tree",
+          "values": [
+            5,
+            8,
+            6,
+            13,
+            10,
+            7,
+            12
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heap-rank",
+    "start": 0.5,
+    "sourceReferences": [
+      {
+        "lecture": 67,
+        "file": "067. 16 b. Kth Minimum in min heap _ GATE 2020.mp4",
+        "start": 0.5,
+        "end": 25.9,
+        "text": "Let's now ask a question. Suppose instead of minimum or maximum, we are interested in finding out kth minimum or kth maximum in a min heap or max heap. So how to solve these kind of problems? So before I go about like before I go about solving this problem, let me first define what do I mean by kth minimum or kth maximum? Suppose you do have some numbers like 1, 2, 3,"
+      },
+      {
+        "lecture": 67,
+        "file": "067. 16 b. Kth Minimum in min heap _ GATE 2020.mp4",
+        "start": 26.3,
+        "end": 53.66,
+        "text": "4 maybe then till 100 you have some numbers maybe 90 92 or 91 92 like that right 93 94 95 96 97 98 99 and 100 suppose you have some numbers from 1 to 100 and if I ask you what is first minimum or just minimum then you will be saying that one is minimum right it is minimum number"
+      },
+      {
+        "lecture": 67,
+        "file": "067. 16 b. Kth Minimum in min heap _ GATE 2020.mp4",
+        "start": 54.07,
+        "end": 87.8,
+        "text": "and if I ask you what is second minimum you will say this is second minimum what is third minimum you will say this is third minimum similarly if I ask you what is maximum number you will say 100 is maximum number what is second maximum 99 is second maximum isn't it so that's how you can say what is minimum what is kth minimum what is kth maximum now this was the case when I was having like distinct numbers like there are no duplicates but suppose I do have duplicate numbers"
+      }
+    ],
+    "foundation": {
+      "title": "Ranks inside a min-heap",
+      "idea": "Heap array position is not sorted rank. For distinct min-heap keys, a kth-smallest key cannot have more than k-1 smaller ancestors, so its depth is at most k-1. Repeated minimum extraction determines successive ranks.",
+      "terms": [
+        "Rank: position in sorted key order.",
+        "Depth bound: at most k-1 for the kth-smallest distinct key.",
+        "Extraction: remove the current minimum while maintaining a heap."
+      ],
+      "example": "In 1,4,2,9,6,3,8, the third-smallest key is 3 at index 5, not the third array entry 2."
+    }
+  },
+  {
+    "id": 202,
+    "lecture": 67,
+    "title": "Distinguish rank from array position",
+    "concept": "Heap array position is not sorted rank. For distinct min-heap keys, a kth-smallest key cannot have more than k-1 smaller ancestors, so its depth is at most k-1. Repeated minimum extraction determines successive ranks.",
+    "teachingSteps": [
+      "State that keys are distinct before using a strict ancestor rank argument.",
+      "Count smaller ancestors to bound depth.",
+      "Do not identify the kth array entry with the kth-smallest key."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Is the heap array necessarily sorted by index?",
+        "options": [
+          "Only if all keys are positive",
+          "No",
+          "Yes"
+        ],
+        "answer": 1,
+        "explanation": "Sibling and separate subtree values need not be sorted."
+      },
+      {
+        "type": "number",
+        "prompt": "A third-smallest distinct min-heap key can be at depth at most what?",
+        "answer": 2,
+        "explanation": "At most k-1 smaller ancestors are possible.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "At what depth is the second-smallest distinct key in a heap of at least two nodes?",
+        "answer": 1,
+        "explanation": "It must be one of the root children.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange the dependent steps of this procedure.",
+        "items": [
+          "Verify the complete shape",
+          "Check every existing parent-child comparison",
+          "Conclude the root is a minimum",
+          "Keep rank separate from array index"
+        ],
+        "explanation": "Follow this order so every step receives a valid state."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heap-rank",
+    "start": 0.5,
+    "sourceReferences": [
+      {
+        "lecture": 67,
+        "file": "067. 16 b. Kth Minimum in min heap _ GATE 2020.mp4",
+        "start": 0.5,
+        "end": 25.9,
+        "text": "Let's now ask a question. Suppose instead of minimum or maximum, we are interested in finding out kth minimum or kth maximum in a min heap or max heap. So how to solve these kind of problems? So before I go about like before I go about solving this problem, let me first define what do I mean by kth minimum or kth maximum? Suppose you do have some numbers like 1, 2, 3,"
+      },
+      {
+        "lecture": 67,
+        "file": "067. 16 b. Kth Minimum in min heap _ GATE 2020.mp4",
+        "start": 26.3,
+        "end": 53.66,
+        "text": "4 maybe then till 100 you have some numbers maybe 90 92 or 91 92 like that right 93 94 95 96 97 98 99 and 100 suppose you have some numbers from 1 to 100 and if I ask you what is first minimum or just minimum then you will be saying that one is minimum right it is minimum number"
+      },
+      {
+        "lecture": 67,
+        "file": "067. 16 b. Kth Minimum in min heap _ GATE 2020.mp4",
+        "start": 54.07,
+        "end": 87.8,
+        "text": "and if I ask you what is second minimum you will say this is second minimum what is third minimum you will say this is third minimum similarly if I ask you what is maximum number you will say 100 is maximum number what is second maximum 99 is second maximum isn't it so that's how you can say what is minimum what is kth minimum what is kth maximum now this was the case when I was having like distinct numbers like there are no duplicates but suppose I do have duplicate numbers"
+      }
+    ],
+    "foundation": {
+      "title": "Ranks inside a min-heap",
+      "idea": "Heap array position is not sorted rank. For distinct min-heap keys, a kth-smallest key cannot have more than k-1 smaller ancestors, so its depth is at most k-1. Repeated minimum extraction determines successive ranks.",
+      "terms": [
+        "Rank: position in sorted key order.",
+        "Depth bound: at most k-1 for the kth-smallest distinct key.",
+        "Extraction: remove the current minimum while maintaining a heap."
+      ],
+      "example": "In 1,4,2,9,6,3,8, the third-smallest key is 3 at index 5, not the third array entry 2."
+    }
+  },
+  {
+    "id": 203,
+    "lecture": 67,
+    "title": "Extract minima to determine a rank",
+    "concept": "Heap array position is not sorted rank. For distinct min-heap keys, a kth-smallest key cannot have more than k-1 smaller ancestors, so its depth is at most k-1. Repeated minimum extraction determines successive ranks.",
+    "teachingSteps": [
+      "State that keys are distinct before using a strict ancestor rank argument.",
+      "Count smaller ancestors to bound depth.",
+      "Do not identify the kth array entry with the kth-smallest key."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which position guarantees a minimum key?",
+        "options": [
+          "The root",
+          "The final array slot",
+          "Every leaf"
+        ],
+        "answer": 0,
+        "explanation": "Parent order extends along every ancestor path."
+      },
+      {
+        "type": "number",
+        "prompt": "How many child positions are possible for that second-smallest key?",
+        "answer": 2,
+        "explanation": "Either existing root child can hold it; in this pictured heap both exist.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "heap-tree",
+          "values": [
+            5,
+            8,
+            6,
+            13,
+            10,
+            7,
+            12
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "With distinct keys, why can rank k not lie deeper than k-1?",
+        "options": [
+          "All leaves have equal ranks",
+          "Every ancestor is smaller",
+          "Array position equals rank"
+        ],
+        "answer": 1,
+        "explanation": "Depth d already supplies d smaller ancestors."
+      },
+      {
+        "type": "number",
+        "prompt": "How many positions exist across depths 0,1,2 of a perfect binary shape?",
+        "answer": 7,
+        "explanation": "1+2+4 positions; this counts positions, not an exact rank-candidate set.",
+        "tolerance": 1e-8
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heap-rank",
+    "start": 0.5,
+    "sourceReferences": [
+      {
+        "lecture": 67,
+        "file": "067. 16 b. Kth Minimum in min heap _ GATE 2020.mp4",
+        "start": 0.5,
+        "end": 25.9,
+        "text": "Let's now ask a question. Suppose instead of minimum or maximum, we are interested in finding out kth minimum or kth maximum in a min heap or max heap. So how to solve these kind of problems? So before I go about like before I go about solving this problem, let me first define what do I mean by kth minimum or kth maximum? Suppose you do have some numbers like 1, 2, 3,"
+      },
+      {
+        "lecture": 67,
+        "file": "067. 16 b. Kth Minimum in min heap _ GATE 2020.mp4",
+        "start": 26.3,
+        "end": 53.66,
+        "text": "4 maybe then till 100 you have some numbers maybe 90 92 or 91 92 like that right 93 94 95 96 97 98 99 and 100 suppose you have some numbers from 1 to 100 and if I ask you what is first minimum or just minimum then you will be saying that one is minimum right it is minimum number"
+      },
+      {
+        "lecture": 67,
+        "file": "067. 16 b. Kth Minimum in min heap _ GATE 2020.mp4",
+        "start": 54.07,
+        "end": 87.8,
+        "text": "and if I ask you what is second minimum you will say this is second minimum what is third minimum you will say this is third minimum similarly if I ask you what is maximum number you will say 100 is maximum number what is second maximum 99 is second maximum isn't it so that's how you can say what is minimum what is kth minimum what is kth maximum now this was the case when I was having like distinct numbers like there are no duplicates but suppose I do have duplicate numbers"
+      }
+    ],
+    "foundation": {
+      "title": "Ranks inside a min-heap",
+      "idea": "Heap array position is not sorted rank. For distinct min-heap keys, a kth-smallest key cannot have more than k-1 smaller ancestors, so its depth is at most k-1. Repeated minimum extraction determines successive ranks.",
+      "terms": [
+        "Rank: position in sorted key order.",
+        "Depth bound: at most k-1 for the kth-smallest distinct key.",
+        "Extraction: remove the current minimum while maintaining a heap."
+      ],
+      "example": "In 1,4,2,9,6,3,8, the third-smallest key is 3 at index 5, not the third array entry 2."
+    }
+  },
+  {
+    "id": 204,
+    "lecture": 68,
+    "title": "Append at the next open position",
+    "concept": "Min-heap insertion first appends at the next complete-tree array position, then bubbles the key upward while it is smaller than its parent. This preserves shape and repairs order along one ancestor path.",
+    "teachingSteps": [
+      "Append the new key without skipping a slot.",
+      "Compare with the parent and swap if the min-heap relation fails.",
+      "Stop at the root or an ordered parent; other subheaps remain unchanged."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Where must a heap insertion initially place the new key?",
+        "options": [
+          "Always the left child of root",
+          "The next array slot",
+          "An arbitrary empty child hole"
+        ],
+        "answer": 1,
+        "explanation": "Appending preserves completeness."
+      },
+      {
+        "type": "match",
+        "prompt": "Match each term with its stated role.",
+        "pairs": [
+          [
+            "Append",
+            "Preserve the next complete-tree position"
+          ],
+          [
+            "Parent index",
+            "floor((i-1)/2) for i>0"
+          ],
+          [
+            "Bubble up",
+            "Swap toward ancestors while the parent is larger"
+          ]
+        ],
+        "explanation": "Distinguish the operations, structural conditions and units in the definitions."
+      },
+      {
+        "type": "number",
+        "prompt": "Start with the pictured seven-key min-heap and insert key 5 using append and bubble-up. Append key 5 to the pictured min-heap. What zero-based index is initially used?",
+        "answer": 7,
+        "explanation": "Append after the seven occupied positions.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "heap-tree",
+          "values": [
+            6,
+            9,
+            7,
+            14,
+            11,
+            8,
+            13
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Start with the pictured seven-key min-heap and insert key 5 using append and bubble-up. What parent index does this new index 7 have?",
+        "answer": 3,
+        "explanation": "floor((7-1)/2)=3.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "heap-tree",
+          "values": [
+            6,
+            9,
+            7,
+            14,
+            11,
+            8,
+            13
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heap-insert",
+    "start": 0.85,
+    "sourceReferences": [
+      {
+        "lecture": 68,
+        "file": "068. 16 c. Insertion in Heap and Top Down build heap.mp4",
+        "start": 0.85,
+        "end": 27.64,
+        "text": "Okay, now let's see insertion in heap. It is very easy topic, very easy to understand and very intuitive also. Suppose that this heap is given to you and also one element is also given to you, right? So there are two inputs. One is that heap and another one is the element that you want to insert. And out of these two inputs, you want only one output, which is a heap in such a way that this element is a part of this heap, right?"
+      },
+      {
+        "lecture": 68,
+        "file": "068. 16 c. Insertion in Heap and Top Down build heap.mp4",
+        "start": 28.08,
+        "end": 54.2,
+        "text": "So basically you want to insert this element into heap. Now tell me even without knowing the algorithm or something to insert the element into the heap tell me how does the final heap look like? I mean structure wise you know that structure wise the final heap will look like this. If you are inserting this 14 here then I mean I am not worrying about the element currently but I know that final heap will look like this structure wise right?"
+      },
+      {
+        "lecture": 68,
+        "file": "068. 16 c. Insertion in Heap and Top Down build heap.mp4",
+        "start": 54.49,
+        "end": 83.67,
+        "text": "elements may be here and there like let me just fix this element in a while but for now you know that structure well it will it will it will look like this why because heap is a complete binary tree so it should be left filled that's why if you're adding one element then the structure wise you know that it should look like this now if you insert 14 now what I'm going to do I'm going to insert this 14 I'm going to say let's suppose this is 14 and now I'm going to shift this 14 up based on like whether it is a min heap or max heap"
+      }
+    ],
+    "foundation": {
+      "title": "Heap insertion by bubbling upward",
+      "idea": "Min-heap insertion first appends at the next complete-tree array position, then bubbles the key upward while it is smaller than its parent. This preserves shape and repairs order along one ancestor path.",
+      "terms": [
+        "Bubble up: move a small key toward its ancestors.",
+        "Worst path length: the new node depth.",
+        "Incremental build: repeated insertion can take Theta(n log n) worst-case work."
+      ],
+      "example": "Appending 0 to 1,4,2,9,6,3,8 uses index 7 and swaps through indices 3,1,0."
+    }
+  },
+  {
+    "id": 205,
+    "lecture": 68,
+    "title": "Swap with a larger parent",
+    "concept": "Min-heap insertion first appends at the next complete-tree array position, then bubbles the key upward while it is smaller than its parent. This preserves shape and repairs order along one ancestor path.",
+    "teachingSteps": [
+      "Append the new key without skipping a slot.",
+      "Compare with the parent and swap if the min-heap relation fails.",
+      "Stop at the root or an ordered parent; other subheaps remain unchanged."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "When should the inserted key swap upward?",
+        "options": [
+          "When its parent is larger",
+          "When its sibling is larger",
+          "After reaching the root"
+        ],
+        "answer": 0,
+        "explanation": "A parent violation is repaired along the ancestor path."
+      },
+      {
+        "type": "number",
+        "prompt": "Start with the pictured seven-key min-heap and insert key 5 using append and bubble-up. How many upward swaps does that inserted new minimum need here?",
+        "answer": 3,
+        "explanation": "Its depth-three path goes through parents at 3,1,0.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "heap-tree",
+          "values": [
+            6,
+            9,
+            7,
+            14,
+            11,
+            8,
+            13
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Start with the pictured seven-key min-heap and insert key 5 using append and bubble-up. What is the new root key after insertion?",
+        "answer": 5,
+        "explanation": "The inserted key is smaller than the old minimum.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "heap-tree",
+          "values": [
+            6,
+            9,
+            7,
+            14,
+            11,
+            8,
+            13
+          ]
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange the dependent steps of this procedure.",
+        "items": [
+          "Append at the next occupied-array position",
+          "Compare the new key with its existing parent",
+          "Swap upward while the parent is larger",
+          "Stop at the root or an ordered parent"
+        ],
+        "explanation": "Follow this order so every step receives a valid state."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heap-insert",
+    "start": 0.85,
+    "sourceReferences": [
+      {
+        "lecture": 68,
+        "file": "068. 16 c. Insertion in Heap and Top Down build heap.mp4",
+        "start": 0.85,
+        "end": 27.64,
+        "text": "Okay, now let's see insertion in heap. It is very easy topic, very easy to understand and very intuitive also. Suppose that this heap is given to you and also one element is also given to you, right? So there are two inputs. One is that heap and another one is the element that you want to insert. And out of these two inputs, you want only one output, which is a heap in such a way that this element is a part of this heap, right?"
+      },
+      {
+        "lecture": 68,
+        "file": "068. 16 c. Insertion in Heap and Top Down build heap.mp4",
+        "start": 28.08,
+        "end": 54.2,
+        "text": "So basically you want to insert this element into heap. Now tell me even without knowing the algorithm or something to insert the element into the heap tell me how does the final heap look like? I mean structure wise you know that structure wise the final heap will look like this. If you are inserting this 14 here then I mean I am not worrying about the element currently but I know that final heap will look like this structure wise right?"
+      },
+      {
+        "lecture": 68,
+        "file": "068. 16 c. Insertion in Heap and Top Down build heap.mp4",
+        "start": 54.49,
+        "end": 83.67,
+        "text": "elements may be here and there like let me just fix this element in a while but for now you know that structure well it will it will it will look like this why because heap is a complete binary tree so it should be left filled that's why if you're adding one element then the structure wise you know that it should look like this now if you insert 14 now what I'm going to do I'm going to insert this 14 I'm going to say let's suppose this is 14 and now I'm going to shift this 14 up based on like whether it is a min heap or max heap"
+      }
+    ],
+    "foundation": {
+      "title": "Heap insertion by bubbling upward",
+      "idea": "Min-heap insertion first appends at the next complete-tree array position, then bubbles the key upward while it is smaller than its parent. This preserves shape and repairs order along one ancestor path.",
+      "terms": [
+        "Bubble up: move a small key toward its ancestors.",
+        "Worst path length: the new node depth.",
+        "Incremental build: repeated insertion can take Theta(n log n) worst-case work."
+      ],
+      "example": "Appending 0 to 1,4,2,9,6,3,8 uses index 7 and swaps through indices 3,1,0."
+    }
+  },
+  {
+    "id": 206,
+    "lecture": 68,
+    "title": "Count work along one path",
+    "concept": "Min-heap insertion first appends at the next complete-tree array position, then bubbles the key upward while it is smaller than its parent. This preserves shape and repairs order along one ancestor path.",
+    "teachingSteps": [
+      "Append the new key without skipping a slot.",
+      "Compare with the parent and swap if the min-heap relation fails.",
+      "Stop at the root or an ordered parent; other subheaps remain unchanged."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What terminates bubble-up?",
+        "options": [
+          "Visiting every node",
+          "Sorting every sibling pair",
+          "An ordered parent or reaching root"
+        ],
+        "answer": 2,
+        "explanation": "Only the insertion path can need repair."
+      },
+      {
+        "type": "number",
+        "prompt": "Start with the pictured seven-key min-heap and insert key 5 using append and bubble-up. How many heap entries exist after insertion?",
+        "answer": 8,
+        "explanation": "One key was appended.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "heap-tree",
+          "values": [
+            6,
+            9,
+            7,
+            14,
+            11,
+            8,
+            13
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "Do upward swaps change the key multiset?",
+        "options": [
+          "No",
+          "Yes; they discard larger keys",
+          "Only for odd capacities"
+        ],
+        "answer": 0,
+        "explanation": "Swaps move keys without changing them."
+      },
+      {
+        "type": "number",
+        "prompt": "Start with the pictured seven-key min-heap and insert key 5 using append and bubble-up. What is the sum of all final heap keys?",
+        "answer": 73,
+        "explanation": "Swaps preserve values; add the new key to the original sum.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "heap-tree",
+          "values": [
+            6,
+            9,
+            7,
+            14,
+            11,
+            8,
+            13
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heap-insert",
+    "start": 0.85,
+    "sourceReferences": [
+      {
+        "lecture": 68,
+        "file": "068. 16 c. Insertion in Heap and Top Down build heap.mp4",
+        "start": 0.85,
+        "end": 27.64,
+        "text": "Okay, now let's see insertion in heap. It is very easy topic, very easy to understand and very intuitive also. Suppose that this heap is given to you and also one element is also given to you, right? So there are two inputs. One is that heap and another one is the element that you want to insert. And out of these two inputs, you want only one output, which is a heap in such a way that this element is a part of this heap, right?"
+      },
+      {
+        "lecture": 68,
+        "file": "068. 16 c. Insertion in Heap and Top Down build heap.mp4",
+        "start": 28.08,
+        "end": 54.2,
+        "text": "So basically you want to insert this element into heap. Now tell me even without knowing the algorithm or something to insert the element into the heap tell me how does the final heap look like? I mean structure wise you know that structure wise the final heap will look like this. If you are inserting this 14 here then I mean I am not worrying about the element currently but I know that final heap will look like this structure wise right?"
+      },
+      {
+        "lecture": 68,
+        "file": "068. 16 c. Insertion in Heap and Top Down build heap.mp4",
+        "start": 54.49,
+        "end": 83.67,
+        "text": "elements may be here and there like let me just fix this element in a while but for now you know that structure well it will it will it will look like this why because heap is a complete binary tree so it should be left filled that's why if you're adding one element then the structure wise you know that it should look like this now if you insert 14 now what I'm going to do I'm going to insert this 14 I'm going to say let's suppose this is 14 and now I'm going to shift this 14 up based on like whether it is a min heap or max heap"
+      }
+    ],
+    "foundation": {
+      "title": "Heap insertion by bubbling upward",
+      "idea": "Min-heap insertion first appends at the next complete-tree array position, then bubbles the key upward while it is smaller than its parent. This preserves shape and repairs order along one ancestor path.",
+      "terms": [
+        "Bubble up: move a small key toward its ancestors.",
+        "Worst path length: the new node depth.",
+        "Incremental build: repeated insertion can take Theta(n log n) worst-case work."
+      ],
+      "example": "Appending 0 to 1,4,2,9,6,3,8 uses index 7 and swaps through indices 3,1,0."
+    }
+  },
+  {
+    "id": 207,
+    "lecture": 69,
+    "title": "Choose the smaller existing child",
+    "concept": "Sift-down repairs a possibly misplaced root when its child subtrees are already heaps. Compare against the smaller existing child and swap only if needed. Without the subheap precondition, one local call need not repair an arbitrary array.",
+    "teachingSteps": [
+      "Confirm both child subtrees are heaps.",
+      "Select the smaller existing child.",
+      "Move the misplaced key downward until ordered or at a leaf."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which two requirements define a binary min-heap?",
+        "options": [
+          "Complete shape and parent<=child order",
+          "Only a sorted inorder",
+          "Strict left-subtree keys below every root"
+        ],
+        "answer": 0,
+        "explanation": "Heap order is not BST partition order."
+      },
+      {
+        "type": "match",
+        "prompt": "Match each term with its stated role.",
+        "pairs": [
+          [
+            "Precondition",
+            "Both child subtrees are already heaps"
+          ],
+          [
+            "Smaller child",
+            "The candidate promoted during a downward repair"
+          ],
+          [
+            "Leaf",
+            "No child exists for a downward swap"
+          ]
+        ],
+        "explanation": "Distinguish the operations, structural conditions and units in the definitions."
+      },
+      {
+        "type": "number",
+        "prompt": "Start with array 26, 10, 8, 15, 12, 9, 14 and sift down at index 0, choosing the smaller child. Both child subtrees of the pictured root are valid min-heaps. What root key results from sift-down?",
+        "answer": 8,
+        "explanation": "Promote the smaller child at each needed step.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "heap-tree",
+          "values": [
+            26,
+            10,
+            8,
+            15,
+            12,
+            9,
+            14
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Start with array 26, 10, 8, 15, 12, 9, 14 and sift down at index 0, choosing the smaller child. How many swaps repair this particular root?",
+        "answer": 2,
+        "explanation": "The old root travels through indices 2 and 5.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "heap-tree",
+          "values": [
+            26,
+            10,
+            8,
+            15,
+            12,
+            9,
+            14
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heapify",
+    "start": 0.18,
+    "sourceReferences": [
+      {
+        "lecture": 69,
+        "file": "069. 17 a. Heapify Method.mp4",
+        "start": 0.18,
+        "end": 27.12,
+        "text": "So now let's look at one of the most important method in this complete heap topic which is called heapify. This is a crust of build heap algorithm and we are going to see that algorithm in the next lecture. But for now let's just see this heapify method. It says that suppose you have a tree in such a way that two trees which are left subtree and right subtree are heap"
+      },
+      {
+        "lecture": 69,
+        "file": "069. 17 a. Heapify Method.mp4",
+        "start": 27.36,
+        "end": 56.84,
+        "text": "and this is not a heap like complete thing is not a heap and this left subtree is a heap and right subtree is also a heap then can you make this complete thing is a heap so if I say that can you fix i i means the node which is not following the heap property see this this left subtree which is 18 43 and 23 it is a min heap right and here also it is a min heap so both are min heap now can you convert the whole thing is in min heap"
+      },
+      {
+        "lecture": 69,
+        "file": "069. 17 a. Heapify Method.mp4",
+        "start": 57.05,
+        "end": 81.07,
+        "text": "see this 19 is is not a min heap why because 19 is smaller than 18 but it is not smaller than 21 that is why because of this 19 the things are not correct so i want to convert this whole thing in a min heap and i will be using heapify method now most important thing about heapify method is that it is applicable only and only when the left subtree and right subtree both are heap"
+      }
+    ],
+    "foundation": {
+      "title": "Heapify with valid child subheaps",
+      "idea": "Sift-down repairs a possibly misplaced root when its child subtrees are already heaps. Compare against the smaller existing child and swap only if needed. Without the subheap precondition, one local call need not repair an arbitrary array.",
+      "terms": [
+        "Precondition: child subheaps are already valid.",
+        "Sift down: follow one child path.",
+        "Height bound: work is proportional to the repaired subtree height."
+      ],
+      "example": "For 20,4,2,9,6,3,8, sift-down swaps 20 with 2, then with 3, producing 2,4,3,9,6,20,8."
+    }
+  },
+  {
+    "id": 208,
+    "lecture": 69,
+    "title": "Sift the misplaced root downward",
+    "concept": "Sift-down repairs a possibly misplaced root when its child subtrees are already heaps. Compare against the smaller existing child and swap only if needed. Without the subheap precondition, one local call need not repair an arbitrary array.",
+    "teachingSteps": [
+      "Confirm both child subtrees are heaps.",
+      "Select the smaller existing child.",
+      "Move the misplaced key downward until ordered or at a leaf."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "During sift-down, why choose the smaller existing child?",
+        "options": [
+          "The larger child always creates a sorted array",
+          "Child indices should be reversed",
+          "The promoted key must be no greater than either child"
+        ],
+        "answer": 2,
+        "explanation": "Choosing the larger child may leave an immediate violation."
+      },
+      {
+        "type": "number",
+        "prompt": "Start with array 26, 10, 8, 15, 12, 9, 14 and sift down at index 0, choosing the smaller child. What zero-based index finally stores the original root key?",
+        "answer": 5,
+        "explanation": "Trace the old root downward.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "heap-tree",
+          "values": [
+            26,
+            10,
+            8,
+            15,
+            12,
+            9,
+            14
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Start with array 26, 10, 8, 15, 12, 9, 14 and sift down at index 0, choosing the smaller child. How many real keys remain after local heapify?",
+        "answer": 7,
+        "explanation": "No key is inserted or deleted.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "heap-tree",
+          "values": [
+            26,
+            10,
+            8,
+            15,
+            12,
+            9,
+            14
+          ]
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange the dependent steps of this procedure.",
+        "items": [
+          "Assume both child subtrees are valid heaps",
+          "Choose the smaller existing child",
+          "Swap if the current key is larger",
+          "Repeat at the moved key until ordered or a leaf"
+        ],
+        "explanation": "Follow this order so every step receives a valid state."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heapify",
+    "start": 0.18,
+    "sourceReferences": [
+      {
+        "lecture": 69,
+        "file": "069. 17 a. Heapify Method.mp4",
+        "start": 0.18,
+        "end": 27.12,
+        "text": "So now let's look at one of the most important method in this complete heap topic which is called heapify. This is a crust of build heap algorithm and we are going to see that algorithm in the next lecture. But for now let's just see this heapify method. It says that suppose you have a tree in such a way that two trees which are left subtree and right subtree are heap"
+      },
+      {
+        "lecture": 69,
+        "file": "069. 17 a. Heapify Method.mp4",
+        "start": 27.36,
+        "end": 56.84,
+        "text": "and this is not a heap like complete thing is not a heap and this left subtree is a heap and right subtree is also a heap then can you make this complete thing is a heap so if I say that can you fix i i means the node which is not following the heap property see this this left subtree which is 18 43 and 23 it is a min heap right and here also it is a min heap so both are min heap now can you convert the whole thing is in min heap"
+      },
+      {
+        "lecture": 69,
+        "file": "069. 17 a. Heapify Method.mp4",
+        "start": 57.05,
+        "end": 81.07,
+        "text": "see this 19 is is not a min heap why because 19 is smaller than 18 but it is not smaller than 21 that is why because of this 19 the things are not correct so i want to convert this whole thing in a min heap and i will be using heapify method now most important thing about heapify method is that it is applicable only and only when the left subtree and right subtree both are heap"
+      }
+    ],
+    "foundation": {
+      "title": "Heapify with valid child subheaps",
+      "idea": "Sift-down repairs a possibly misplaced root when its child subtrees are already heaps. Compare against the smaller existing child and swap only if needed. Without the subheap precondition, one local call need not repair an arbitrary array.",
+      "terms": [
+        "Precondition: child subheaps are already valid.",
+        "Sift down: follow one child path.",
+        "Height bound: work is proportional to the repaired subtree height."
+      ],
+      "example": "For 20,4,2,9,6,3,8, sift-down swaps 20 with 2, then with 3, producing 2,4,3,9,6,20,8."
+    }
+  },
+  {
+    "id": 209,
+    "lecture": 69,
+    "title": "State the local precondition",
+    "concept": "Sift-down repairs a possibly misplaced root when its child subtrees are already heaps. Compare against the smaller existing child and swap only if needed. Without the subheap precondition, one local call need not repair an arbitrary array.",
+    "teachingSteps": [
+      "Confirm both child subtrees are heaps.",
+      "Select the smaller existing child.",
+      "Move the misplaced key downward until ordered or at a leaf."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What precondition makes a local heapify call sufficient?",
+        "options": [
+          "No child key may be compared",
+          "Both child subtrees are already heaps",
+          "Every arbitrary descendant may violate order"
+        ],
+        "answer": 1,
+        "explanation": "Local repair relies on valid child subheaps."
+      },
+      {
+        "type": "number",
+        "prompt": "Start with array 26, 10, 8, 15, 12, 9, 14 and sift down at index 0, choosing the smaller child. What is the zero-based final internal-node index in a seven-entry heap?",
+        "answer": 2,
+        "explanation": "floor(7/2)-1=2.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Does building a valid heap sort its array globally?",
+        "options": [
+          "Yes, every entry becomes increasing by index",
+          "Only when the root is nonnegative",
+          "No"
+        ],
+        "answer": 2,
+        "explanation": "A heap imposes ancestor ordering, not global index ordering."
+      },
+      {
+        "type": "number",
+        "prompt": "Start with array 26, 10, 8, 15, 12, 9, 14 and sift down at index 0, choosing the smaller child. Sift-down on a leaf whose child subtrees are empty performs how many swaps?",
+        "answer": 0,
+        "explanation": "A leaf has no downward order violation.",
+        "tolerance": 1e-8
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heapify",
+    "start": 0.18,
+    "sourceReferences": [
+      {
+        "lecture": 69,
+        "file": "069. 17 a. Heapify Method.mp4",
+        "start": 0.18,
+        "end": 27.12,
+        "text": "So now let's look at one of the most important method in this complete heap topic which is called heapify. This is a crust of build heap algorithm and we are going to see that algorithm in the next lecture. But for now let's just see this heapify method. It says that suppose you have a tree in such a way that two trees which are left subtree and right subtree are heap"
+      },
+      {
+        "lecture": 69,
+        "file": "069. 17 a. Heapify Method.mp4",
+        "start": 27.36,
+        "end": 56.84,
+        "text": "and this is not a heap like complete thing is not a heap and this left subtree is a heap and right subtree is also a heap then can you make this complete thing is a heap so if I say that can you fix i i means the node which is not following the heap property see this this left subtree which is 18 43 and 23 it is a min heap right and here also it is a min heap so both are min heap now can you convert the whole thing is in min heap"
+      },
+      {
+        "lecture": 69,
+        "file": "069. 17 a. Heapify Method.mp4",
+        "start": 57.05,
+        "end": 81.07,
+        "text": "see this 19 is is not a min heap why because 19 is smaller than 18 but it is not smaller than 21 that is why because of this 19 the things are not correct so i want to convert this whole thing in a min heap and i will be using heapify method now most important thing about heapify method is that it is applicable only and only when the left subtree and right subtree both are heap"
+      }
+    ],
+    "foundation": {
+      "title": "Heapify with valid child subheaps",
+      "idea": "Sift-down repairs a possibly misplaced root when its child subtrees are already heaps. Compare against the smaller existing child and swap only if needed. Without the subheap precondition, one local call need not repair an arbitrary array.",
+      "terms": [
+        "Precondition: child subheaps are already valid.",
+        "Sift down: follow one child path.",
+        "Height bound: work is proportional to the repaired subtree height."
+      ],
+      "example": "For 20,4,2,9,6,3,8, sift-down swaps 20 with 2, then with 3, producing 2,4,3,9,6,20,8."
+    }
+  },
+  {
+    "id": 210,
+    "lecture": 70,
+    "title": "Find the final internal node",
+    "concept": "Bottom-up heap building starts at the last internal node and applies sift-down moving toward the root. Leaves already satisfy the heap condition, and each processed node receives already repaired child subheaps.",
+    "teachingSteps": [
+      "For zero-based n entries, start at floor(n/2)-1.",
+      "Apply sift-down to each internal node in decreasing index order.",
+      "Preserve all keys and the complete shape; the final array need not be sorted."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which two requirements define a binary min-heap?",
+        "options": [
+          "Only a sorted inorder",
+          "Strict left-subtree keys below every root",
+          "Complete shape and parent<=child order"
+        ],
+        "answer": 2,
+        "explanation": "Heap order is not BST partition order."
+      },
+      {
+        "type": "match",
+        "prompt": "Match each term with its stated role.",
+        "pairs": [
+          [
+            "Bubble up",
+            "Repair toward ancestors after append"
+          ],
+          [
+            "Sift down",
+            "Repair toward smaller children"
+          ],
+          [
+            "Bottom-up build",
+            "Repair child subheaps before parents"
+          ]
+        ],
+        "explanation": "Distinguish the operations, structural conditions and units in the definitions."
+      },
+      {
+        "type": "number",
+        "prompt": "Build a min-heap from zero-based array 16, 11, 14, 8, 13, 10, 9 using bottom-up, smaller-child sift-down. Bottom-up build on seven zero-based array entries starts at what internal index?",
+        "answer": 2,
+        "explanation": "floor(7/2)-1=2.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "heap-tree",
+          "values": [
+            16,
+            11,
+            14,
+            8,
+            13,
+            10,
+            9
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Build a min-heap from zero-based array 16, 11, 14, 8, 13, 10, 9 using bottom-up, smaller-child sift-down. How many internal-node heapify calls are made?",
+        "answer": 3,
+        "explanation": "Process indices 2,1,0.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "heap-tree",
+          "values": [
+            16,
+            11,
+            14,
+            8,
+            13,
+            10,
+            9
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "build-heap",
+    "start": 0.4,
+    "sourceReferences": [
+      {
+        "lecture": 70,
+        "file": "070. 17 b. Build Heap Procedure.mp4",
+        "start": 0.4,
+        "end": 37.56,
+        "text": "Let's now see how can we build a heap in just order of n time Okay, building a heap in order of n time So we already know one method to build a heap which was in order of n log n time And how does this work? This basically work by repeated insertion Now we are going to look at a method which works just in order of n time That is using heapify method"
+      },
+      {
+        "lecture": 70,
+        "file": "070. 17 b. Build Heap Procedure.mp4",
+        "start": 40.11,
+        "end": 70.13,
+        "text": "Let's just see this buildHeap method. So if you remember this slide, then I said that in the earlier method, which was using order of analog and time, in that method, we are just spending this analog and time only on leaves, right? So does this suggest a new way to build a heap? Which means what I want, I want a heap property to be satisfied by every every node. And interestingly, heap property is already satisfied by the leave nodes, right?"
+      },
+      {
+        "lecture": 70,
+        "file": "070. 17 b. Build Heap Procedure.mp4",
+        "start": 70.44,
+        "end": 95.6,
+        "text": "So what we are going to do, we are basically building a heap. We are going to build a heap by avoiding the leaf nodes. I'm going to say that let's leave the leaf nodes, which means I'm not bothering about the leaf nodes. So this is a leaf node. This is a leaf node. This is a leaf node. This is a leaf node. This is a leaf node. This is a leaf node. Let's not bother about these leaf nodes. Let's only bother about internal node. And what we are going to do, we are going to apply the hippify method here."
+      }
+    ],
+    "foundation": {
+      "title": "Building a heap from the bottom",
+      "idea": "Bottom-up heap building starts at the last internal node and applies sift-down moving toward the root. Leaves already satisfy the heap condition, and each processed node receives already repaired child subheaps.",
+      "terms": [
+        "Bottom-up: children before parents.",
+        "Internal node: has at least one child.",
+        "Linear build: total weighted subtree-height work is Theta(n)."
+      ],
+      "example": "Array 9,4,7,1,6,3,2 is repaired at indices 2,1,0 and yields one valid heap 1,4,2,9,6,3,7."
+    }
+  },
+  {
+    "id": 211,
+    "lecture": 70,
+    "title": "Repair subheaps before parents",
+    "concept": "Bottom-up heap building starts at the last internal node and applies sift-down moving toward the root. Leaves already satisfy the heap condition, and each processed node receives already repaired child subheaps.",
+    "teachingSteps": [
+      "For zero-based n entries, start at floor(n/2)-1.",
+      "Apply sift-down to each internal node in decreasing index order.",
+      "Preserve all keys and the complete shape; the final array need not be sorted."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "During sift-down, why choose the smaller existing child?",
+        "options": [
+          "Child indices should be reversed",
+          "The promoted key must be no greater than either child",
+          "The larger child always creates a sorted array"
+        ],
+        "answer": 1,
+        "explanation": "Choosing the larger child may leave an immediate violation."
+      },
+      {
+        "type": "number",
+        "prompt": "Build a min-heap from zero-based array 16, 11, 14, 8, 13, 10, 9 using bottom-up, smaller-child sift-down. What root key results from building this min-heap?",
+        "answer": 8,
+        "explanation": "The smallest input key becomes root.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "heap-tree",
+          "values": [
+            16,
+            11,
+            14,
+            8,
+            13,
+            10,
+            9
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Build a min-heap from zero-based array 16, 11, 14, 8, 13, 10, 9 using bottom-up, smaller-child sift-down. With smaller-child sift-down and the displayed distinct values, how many swaps occur in this build?",
+        "answer": 4,
+        "explanation": "One at index 2, one at index 1, then two along the root path.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "heap-tree",
+          "values": [
+            16,
+            11,
+            14,
+            8,
+            13,
+            10,
+            9
+          ]
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange the dependent steps of this procedure.",
+        "items": [
+          "Begin at the final zero-based internal node",
+          "Sift down assuming repaired child subheaps",
+          "Move to the preceding internal node",
+          "Finish after repairing the root"
+        ],
+        "explanation": "Follow this order so every step receives a valid state."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "build-heap",
+    "start": 0.4,
+    "sourceReferences": [
+      {
+        "lecture": 70,
+        "file": "070. 17 b. Build Heap Procedure.mp4",
+        "start": 0.4,
+        "end": 37.56,
+        "text": "Let's now see how can we build a heap in just order of n time Okay, building a heap in order of n time So we already know one method to build a heap which was in order of n log n time And how does this work? This basically work by repeated insertion Now we are going to look at a method which works just in order of n time That is using heapify method"
+      },
+      {
+        "lecture": 70,
+        "file": "070. 17 b. Build Heap Procedure.mp4",
+        "start": 40.11,
+        "end": 70.13,
+        "text": "Let's just see this buildHeap method. So if you remember this slide, then I said that in the earlier method, which was using order of analog and time, in that method, we are just spending this analog and time only on leaves, right? So does this suggest a new way to build a heap? Which means what I want, I want a heap property to be satisfied by every every node. And interestingly, heap property is already satisfied by the leave nodes, right?"
+      },
+      {
+        "lecture": 70,
+        "file": "070. 17 b. Build Heap Procedure.mp4",
+        "start": 70.44,
+        "end": 95.6,
+        "text": "So what we are going to do, we are basically building a heap. We are going to build a heap by avoiding the leaf nodes. I'm going to say that let's leave the leaf nodes, which means I'm not bothering about the leaf nodes. So this is a leaf node. This is a leaf node. This is a leaf node. This is a leaf node. This is a leaf node. This is a leaf node. Let's not bother about these leaf nodes. Let's only bother about internal node. And what we are going to do, we are going to apply the hippify method here."
+      }
+    ],
+    "foundation": {
+      "title": "Building a heap from the bottom",
+      "idea": "Bottom-up heap building starts at the last internal node and applies sift-down moving toward the root. Leaves already satisfy the heap condition, and each processed node receives already repaired child subheaps.",
+      "terms": [
+        "Bottom-up: children before parents.",
+        "Internal node: has at least one child.",
+        "Linear build: total weighted subtree-height work is Theta(n)."
+      ],
+      "example": "Array 9,4,7,1,6,3,2 is repaired at indices 2,1,0 and yields one valid heap 1,4,2,9,6,3,7."
+    }
+  },
+  {
+    "id": 212,
+    "lecture": 70,
+    "title": "Verify the resulting key multiset",
+    "concept": "Bottom-up heap building starts at the last internal node and applies sift-down moving toward the root. Leaves already satisfy the heap condition, and each processed node receives already repaired child subheaps.",
+    "teachingSteps": [
+      "For zero-based n entries, start at floor(n/2)-1.",
+      "Apply sift-down to each internal node in decreasing index order.",
+      "Preserve all keys and the complete shape; the final array need not be sorted."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What precondition makes a local heapify call sufficient?",
+        "options": [
+          "Both child subtrees are already heaps",
+          "Every arbitrary descendant may violate order",
+          "No child key may be compared"
+        ],
+        "answer": 0,
+        "explanation": "Local repair relies on valid child subheaps."
+      },
+      {
+        "type": "number",
+        "prompt": "Build a min-heap from zero-based array 16, 11, 14, 8, 13, 10, 9 using bottom-up, smaller-child sift-down. How many leaf entries already require no downward repair?",
+        "answer": 4,
+        "explanation": "Indices 3 through 6 are leaves.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "heap-tree",
+          "values": [
+            16,
+            11,
+            14,
+            8,
+            13,
+            10,
+            9
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "Does building a valid heap sort its array globally?",
+        "options": [
+          "Only when the root is nonnegative",
+          "No",
+          "Yes, every entry becomes increasing by index"
+        ],
+        "answer": 1,
+        "explanation": "A heap imposes ancestor ordering, not global index ordering."
+      },
+      {
+        "type": "number",
+        "prompt": "Build a min-heap from zero-based array 16, 11, 14, 8, 13, 10, 9 using bottom-up, smaller-child sift-down. What is the sum of all final keys?",
+        "answer": 81,
+        "explanation": "Heap building preserves the key multiset.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "heap-tree",
+          "values": [
+            16,
+            11,
+            14,
+            8,
+            13,
+            10,
+            9
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "build-heap",
+    "start": 0.4,
+    "sourceReferences": [
+      {
+        "lecture": 70,
+        "file": "070. 17 b. Build Heap Procedure.mp4",
+        "start": 0.4,
+        "end": 37.56,
+        "text": "Let's now see how can we build a heap in just order of n time Okay, building a heap in order of n time So we already know one method to build a heap which was in order of n log n time And how does this work? This basically work by repeated insertion Now we are going to look at a method which works just in order of n time That is using heapify method"
+      },
+      {
+        "lecture": 70,
+        "file": "070. 17 b. Build Heap Procedure.mp4",
+        "start": 40.11,
+        "end": 70.13,
+        "text": "Let's just see this buildHeap method. So if you remember this slide, then I said that in the earlier method, which was using order of analog and time, in that method, we are just spending this analog and time only on leaves, right? So does this suggest a new way to build a heap? Which means what I want, I want a heap property to be satisfied by every every node. And interestingly, heap property is already satisfied by the leave nodes, right?"
+      },
+      {
+        "lecture": 70,
+        "file": "070. 17 b. Build Heap Procedure.mp4",
+        "start": 70.44,
+        "end": 95.6,
+        "text": "So what we are going to do, we are basically building a heap. We are going to build a heap by avoiding the leaf nodes. I'm going to say that let's leave the leaf nodes, which means I'm not bothering about the leaf nodes. So this is a leaf node. This is a leaf node. This is a leaf node. This is a leaf node. This is a leaf node. This is a leaf node. Let's not bother about these leaf nodes. Let's only bother about internal node. And what we are going to do, we are going to apply the hippify method here."
+      }
+    ],
+    "foundation": {
+      "title": "Building a heap from the bottom",
+      "idea": "Bottom-up heap building starts at the last internal node and applies sift-down moving toward the root. Leaves already satisfy the heap condition, and each processed node receives already repaired child subheaps.",
+      "terms": [
+        "Bottom-up: children before parents.",
+        "Internal node: has at least one child.",
+        "Linear build: total weighted subtree-height work is Theta(n)."
+      ],
+      "example": "Array 9,4,7,1,6,3,2 is repaired at indices 2,1,0 and yields one valid heap 1,4,2,9,6,3,7."
+    }
+  },
+  {
+    "id": 213,
+    "lecture": 71,
+    "title": "Group nodes by height",
+    "concept": "The bottom-up build bound weights each node by its available downward height. Most nodes are leaves and have no downward work; very few nodes can travel the full tree height. Summing n copies of the maximum height is unnecessarily loose.",
+    "teachingSteps": [
+      "Group nodes by subtree height.",
+      "Multiply each group count by its available downward levels.",
+      "Sum the geometrically shrinking group contributions; distinguish a bound from observed swaps."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Why is n times the maximum tree height a loose bottom-up bound?",
+        "options": [
+          "Heapify never compares values",
+          "Most nodes have much smaller available downward height",
+          "Every heap key is equal"
+        ],
+        "answer": 1,
+        "explanation": "Only very few nodes can travel the full height."
+      },
+      {
+        "type": "match",
+        "prompt": "Match each term with its stated role.",
+        "pairs": [
+          [
+            "Node height",
+            "Available downward edge count"
+          ],
+          [
+            "Height budget",
+            "Upper bound on downward moves, not exact swaps"
+          ],
+          [
+            "Batch build",
+            "Repair internal nodes from the bottom upward"
+          ]
+        ],
+        "explanation": "Distinguish the operations, structural conditions and units in the definitions."
+      },
+      {
+        "type": "number",
+        "prompt": "Use a perfect binary heap shape of edge-height 3; a height budget bounds downward moves rather than exact swaps. A perfect heap shape has edge-height 3. How many leaves have subtree height zero?",
+        "answer": 8,
+        "explanation": "The deepest level has 2^3 leaves.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "Use a perfect binary heap shape of edge-height 3; a height budget bounds downward moves rather than exact swaps. How many nodes in that shape have subtree height one?",
+        "answer": 4,
+        "explanation": "The penultimate level has four nodes.",
+        "tolerance": 1e-8
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heap-cost",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 71,
+        "file": "071. 17 c. Build Heap (Bottom-up) time complexity.mp4",
+        "start": 0,
+        "end": 24.54,
+        "text": "Now, let's just see the time complexity for this method. So, build heap time complexity. This method is popularly known as build heap. So, although we are building a heap using a top-down approach and this approach is called bottom-up approach because we are starting from this n by 2. We are going like this. You know this. So, we are going like this. Since we are going like this, this approach is called bottom-up approach."
+      },
+      {
+        "lecture": 71,
+        "file": "071. 17 c. Build Heap (Bottom-up) time complexity.mp4",
+        "start": 25.2,
+        "end": 52.4,
+        "text": "Okay, so as a homework what you can do you can take this this complete binary like sorry You can take this array and you can basically use the repeated insertions Okay, and and come up with a behave you use the repeated insertion which means you use the top-down approach and come up with a heap So let me just write here as your homework. Okay, what you need to do you just take this array and and Use the top-down approach use"
+      },
+      {
+        "lecture": 71,
+        "file": "071. 17 c. Build Heap (Bottom-up) time complexity.mp4",
+        "start": 52.91,
+        "end": 79.6,
+        "text": "top-down approach to convert that to heap top-down approach now you know that this top top-down approach is going to take n log n time now let's just see that how much time i'm going to take on this bottom-up approach which means the time complexity for build heap very very interesting like derivation is this okay let's just see how much time i'm spending in building a heap see what i'm doing here is basically"
+      }
+    ],
+    "foundation": {
+      "title": "Why bottom-up heap building is linear",
+      "idea": "The bottom-up build bound weights each node by its available downward height. Most nodes are leaves and have no downward work; very few nodes can travel the full tree height. Summing n copies of the maximum height is unnecessarily loose.",
+      "terms": [
+        "Height-weighted budget: possible downward levels, not exact operations.",
+        "Leaf work: zero sift-down moves.",
+        "Batch build: requires access to the entire input array."
+      ],
+      "example": "A perfect height-2 tree has four height-0 nodes, two height-1 nodes and one height-2 node: total downward-level budget 0+2+2=4."
+    }
+  },
+  {
+    "id": 214,
+    "lecture": 71,
+    "title": "Weight cost by available downward levels",
+    "concept": "The bottom-up build bound weights each node by its available downward height. Most nodes are leaves and have no downward work; very few nodes can travel the full tree height. Summing n copies of the maximum height is unnecessarily loose.",
+    "teachingSteps": [
+      "Group nodes by subtree height.",
+      "Multiply each group count by its available downward levels.",
+      "Sum the geometrically shrinking group contributions; distinguish a bound from observed swaps."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Bottom-up heap building has what tight asymptotic batch bound?",
+        "options": [
+          "Theta(n)",
+          "Always Theta(n log n)",
+          "Theta(1) regardless of input size"
+        ],
+        "answer": 0,
+        "explanation": "Height-weighted work sums to linear total."
+      },
+      {
+        "type": "number",
+        "prompt": "Use a perfect binary heap shape of edge-height 3; a height budget bounds downward moves rather than exact swaps. How many nodes have subtree height two?",
+        "answer": 2,
+        "explanation": "Two nodes are one level below the root.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "Use a perfect binary heap shape of edge-height 3; a height budget bounds downward moves rather than exact swaps. How many nodes have subtree height three?",
+        "answer": 1,
+        "explanation": "Only the root.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange the dependent steps of this procedure.",
+        "items": [
+          "Group nodes by their available downward height",
+          "Multiply each group count by its height",
+          "Sum the group budgets",
+          "Compare the total with the number of input nodes"
+        ],
+        "explanation": "Follow this order so every step receives a valid state."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heap-cost",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 71,
+        "file": "071. 17 c. Build Heap (Bottom-up) time complexity.mp4",
+        "start": 0,
+        "end": 24.54,
+        "text": "Now, let's just see the time complexity for this method. So, build heap time complexity. This method is popularly known as build heap. So, although we are building a heap using a top-down approach and this approach is called bottom-up approach because we are starting from this n by 2. We are going like this. You know this. So, we are going like this. Since we are going like this, this approach is called bottom-up approach."
+      },
+      {
+        "lecture": 71,
+        "file": "071. 17 c. Build Heap (Bottom-up) time complexity.mp4",
+        "start": 25.2,
+        "end": 52.4,
+        "text": "Okay, so as a homework what you can do you can take this this complete binary like sorry You can take this array and you can basically use the repeated insertions Okay, and and come up with a behave you use the repeated insertion which means you use the top-down approach and come up with a heap So let me just write here as your homework. Okay, what you need to do you just take this array and and Use the top-down approach use"
+      },
+      {
+        "lecture": 71,
+        "file": "071. 17 c. Build Heap (Bottom-up) time complexity.mp4",
+        "start": 52.91,
+        "end": 79.6,
+        "text": "top-down approach to convert that to heap top-down approach now you know that this top top-down approach is going to take n log n time now let's just see that how much time i'm going to take on this bottom-up approach which means the time complexity for build heap very very interesting like derivation is this okay let's just see how much time i'm spending in building a heap see what i'm doing here is basically"
+      }
+    ],
+    "foundation": {
+      "title": "Why bottom-up heap building is linear",
+      "idea": "The bottom-up build bound weights each node by its available downward height. Most nodes are leaves and have no downward work; very few nodes can travel the full tree height. Summing n copies of the maximum height is unnecessarily loose.",
+      "terms": [
+        "Height-weighted budget: possible downward levels, not exact operations.",
+        "Leaf work: zero sift-down moves.",
+        "Batch build: requires access to the entire input array."
+      ],
+      "example": "A perfect height-2 tree has four height-0 nodes, two height-1 nodes and one height-2 node: total downward-level budget 0+2+2=4."
+    }
+  },
+  {
+    "id": 215,
+    "lecture": 71,
+    "title": "Compare with repeated insertion",
+    "concept": "The bottom-up build bound weights each node by its available downward height. Most nodes are leaves and have no downward work; very few nodes can travel the full tree height. Summing n copies of the maximum height is unnecessarily loose.",
+    "teachingSteps": [
+      "Group nodes by subtree height.",
+      "Multiply each group count by its available downward levels.",
+      "Sum the geometrically shrinking group contributions; distinguish a bound from observed swaps."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Is a sum of node heights automatically the exact observed swap count?",
+        "options": [
+          "Yes, every permitted swap must occur",
+          "Only for odd-sized arrays",
+          "No; it is a downward-move budget"
+        ],
+        "answer": 2,
+        "explanation": "Already ordered subheaps can perform fewer moves."
+      },
+      {
+        "type": "number",
+        "prompt": "Use a perfect binary heap shape of edge-height 3; a height budget bounds downward moves rather than exact swaps. Weight each group by its height: 8*0+4*1+2*2+1*3. What is the maximum downward-level budget?",
+        "answer": 11,
+        "explanation": "Sum the group contributions; this is not an exact swap count.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "When input keys arrive incrementally without access to the whole batch, what is natural?",
+        "options": [
+          "Insert into the maintained heap as each arrives",
+          "Pretend a complete future input array exists",
+          "Skip every new key"
+        ],
+        "answer": 0,
+        "explanation": "Batch bottom-up building requires the batch to be available."
+      },
+      {
+        "type": "number",
+        "prompt": "Use a perfect binary heap shape of edge-height 3; a height budget bounds downward moves rather than exact swaps. How many total real nodes does that perfect height-three heap contain?",
+        "answer": 15,
+        "explanation": "1+2+4+8 nodes.",
+        "tolerance": 1e-8
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heap-cost",
+    "start": 0,
+    "sourceReferences": [
+      {
+        "lecture": 71,
+        "file": "071. 17 c. Build Heap (Bottom-up) time complexity.mp4",
+        "start": 0,
+        "end": 24.54,
+        "text": "Now, let's just see the time complexity for this method. So, build heap time complexity. This method is popularly known as build heap. So, although we are building a heap using a top-down approach and this approach is called bottom-up approach because we are starting from this n by 2. We are going like this. You know this. So, we are going like this. Since we are going like this, this approach is called bottom-up approach."
+      },
+      {
+        "lecture": 71,
+        "file": "071. 17 c. Build Heap (Bottom-up) time complexity.mp4",
+        "start": 25.2,
+        "end": 52.4,
+        "text": "Okay, so as a homework what you can do you can take this this complete binary like sorry You can take this array and you can basically use the repeated insertions Okay, and and come up with a behave you use the repeated insertion which means you use the top-down approach and come up with a heap So let me just write here as your homework. Okay, what you need to do you just take this array and and Use the top-down approach use"
+      },
+      {
+        "lecture": 71,
+        "file": "071. 17 c. Build Heap (Bottom-up) time complexity.mp4",
+        "start": 52.91,
+        "end": 79.6,
+        "text": "top-down approach to convert that to heap top-down approach now you know that this top top-down approach is going to take n log n time now let's just see that how much time i'm going to take on this bottom-up approach which means the time complexity for build heap very very interesting like derivation is this okay let's just see how much time i'm spending in building a heap see what i'm doing here is basically"
+      }
+    ],
+    "foundation": {
+      "title": "Why bottom-up heap building is linear",
+      "idea": "The bottom-up build bound weights each node by its available downward height. Most nodes are leaves and have no downward work; very few nodes can travel the full tree height. Summing n copies of the maximum height is unnecessarily loose.",
+      "terms": [
+        "Height-weighted budget: possible downward levels, not exact operations.",
+        "Leaf work: zero sift-down moves.",
+        "Batch build: requires access to the entire input array."
+      ],
+      "example": "A perfect height-2 tree has four height-0 nodes, two height-1 nodes and one height-2 node: total downward-level budget 0+2+2=4."
+    }
+  },
+  {
+    "id": 216,
+    "lecture": 72,
+    "title": "Save the root value",
+    "concept": "Delete-min saves the root key, removes the last array slot, moves that final key to the root if any keys remain, then sifts down. Removing the final slot preserves completeness; sifting repairs parent-child order.",
+    "teachingSteps": [
+      "Save the minimum before overwriting the root.",
+      "Fill the root from the last occupied position and shrink the array.",
+      "Choose smaller children during sift-down; handle a one-item heap without further repair."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "Which two requirements define a binary min-heap?",
+        "options": [
+          "Complete shape and parent<=child order",
+          "Only a sorted inorder",
+          "Strict left-subtree keys below every root"
+        ],
+        "answer": 0,
+        "explanation": "Heap order is not BST partition order."
+      },
+      {
+        "type": "match",
+        "prompt": "Match each term with its stated role.",
+        "pairs": [
+          [
+            "Saved minimum",
+            "Original root value returned to the caller"
+          ],
+          [
+            "Last key",
+            "Fills the root hole while preserving completeness"
+          ],
+          [
+            "Sift down",
+            "Restore order along the smaller-child path"
+          ]
+        ],
+        "explanation": "Distinguish the operations, structural conditions and units in the definitions."
+      },
+      {
+        "type": "number",
+        "prompt": "Start with min-heap array 4, 7, 5, 12, 9, 6, 11 and delete its minimum using last-to-root replacement and smaller-child sift-down. Delete-min on the pictured heap returns what key?",
+        "answer": 4,
+        "explanation": "Save the old root minimum.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "heap-tree",
+          "values": [
+            4,
+            7,
+            5,
+            12,
+            9,
+            6,
+            11
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Start with min-heap array 4, 7, 5, 12, 9, 6, 11 and delete its minimum using last-to-root replacement and smaller-child sift-down. What is the new minimum after that deletion?",
+        "answer": 5,
+        "explanation": "Sift-down restores the next minimum at root.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "heap-tree",
+          "values": [
+            4,
+            7,
+            5,
+            12,
+            9,
+            6,
+            11
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heap-delete",
+    "start": 0.11,
+    "sourceReferences": [
+      {
+        "lecture": 72,
+        "file": "072. 17 d. Delete Min in min Heap.mp4",
+        "start": 0.11,
+        "end": 29.19,
+        "text": "Let's now look at two simple and most important operations on the heap, which is find min and delete min. And whenever I'm talking about find min, delete min, these kind of things, so I'm talking with respect to min heap. Okay. If you want to do the same thing with respect to max heap, you will be saying find max and delete max. Right. Now let's just find min in case of min heap. Suppose that min heap is given to you and you just want to find the minimum element in this heap."
+      },
+      {
+        "lecture": 72,
+        "file": "072. 17 d. Delete Min in min Heap.mp4",
+        "start": 29.52,
+        "end": 57.4,
+        "text": "then it is extremely easy how you can do it you know the minimum element is sitting on the root right so you just return this a of 1 return the root value which is a of 1 then what will the runtime of this it is constant time why because you are just returning a of 1 you are not deleting it so find min does not delete it find min is very easy it does not delete it you just return this root value that's all so it is it is just order of one operation what about delete min in case of delete min"
+      },
+      {
+        "lecture": 72,
+        "file": "072. 17 d. Delete Min in min Heap.mp4",
+        "start": 57.63,
+        "end": 85.15,
+        "text": "what you want to do you want to delete and return the value of the root node which means that you just don't want to you just don't want to return this you also want to delete it which means that in case of delete min you are going to have whole here right so you are going to delete this top element you are going to delete this minimum element why because the operation is delete min and that is why you are deleting this element so how you can actually do it"
+      }
+    ],
+    "foundation": {
+      "title": "Deleting the minimum from a heap",
+      "idea": "Delete-min saves the root key, removes the last array slot, moves that final key to the root if any keys remain, then sifts down. Removing the final slot preserves completeness; sifting repairs parent-child order.",
+      "terms": [
+        "Find-min: inspect the root without removal.",
+        "Delete-min: remove and restore order.",
+        "Last slot: the deepest rightmost occupied complete-tree position."
+      ],
+      "example": "Deleting from 1,4,2,9,6,3,8 returns 1 and can leave 2,4,3,9,6,8."
+    }
+  },
+  {
+    "id": 217,
+    "lecture": 72,
+    "title": "Preserve completeness with the last key",
+    "concept": "Delete-min saves the root key, removes the last array slot, moves that final key to the root if any keys remain, then sifts down. Removing the final slot preserves completeness; sifting repairs parent-child order.",
+    "teachingSteps": [
+      "Save the minimum before overwriting the root.",
+      "Fill the root from the last occupied position and shrink the array.",
+      "Choose smaller children during sift-down; handle a one-item heap without further repair."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "During sift-down, why choose the smaller existing child?",
+        "options": [
+          "The larger child always creates a sorted array",
+          "Child indices should be reversed",
+          "The promoted key must be no greater than either child"
+        ],
+        "answer": 2,
+        "explanation": "Choosing the larger child may leave an immediate violation."
+      },
+      {
+        "type": "number",
+        "prompt": "Start with min-heap array 4, 7, 5, 12, 9, 6, 11 and delete its minimum using last-to-root replacement and smaller-child sift-down. How many real entries remain?",
+        "answer": 6,
+        "explanation": "One of seven entries is removed.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "heap-tree",
+          "values": [
+            4,
+            7,
+            5,
+            12,
+            9,
+            6,
+            11
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Start with min-heap array 4, 7, 5, 12, 9, 6, 11 and delete its minimum using last-to-root replacement and smaller-child sift-down. What was the original last key moved into the root position before sift-down?",
+        "answer": 11,
+        "explanation": "The final occupied array slot fills the root hole.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "heap-tree",
+          "values": [
+            4,
+            7,
+            5,
+            12,
+            9,
+            6,
+            11
+          ]
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Arrange the dependent steps of this procedure.",
+        "items": [
+          "Save the root minimum",
+          "Move the last key to root and shrink the array",
+          "Sift down through smaller existing children",
+          "Return the saved minimum"
+        ],
+        "explanation": "Follow this order so every step receives a valid state."
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heap-delete",
+    "start": 0.11,
+    "sourceReferences": [
+      {
+        "lecture": 72,
+        "file": "072. 17 d. Delete Min in min Heap.mp4",
+        "start": 0.11,
+        "end": 29.19,
+        "text": "Let's now look at two simple and most important operations on the heap, which is find min and delete min. And whenever I'm talking about find min, delete min, these kind of things, so I'm talking with respect to min heap. Okay. If you want to do the same thing with respect to max heap, you will be saying find max and delete max. Right. Now let's just find min in case of min heap. Suppose that min heap is given to you and you just want to find the minimum element in this heap."
+      },
+      {
+        "lecture": 72,
+        "file": "072. 17 d. Delete Min in min Heap.mp4",
+        "start": 29.52,
+        "end": 57.4,
+        "text": "then it is extremely easy how you can do it you know the minimum element is sitting on the root right so you just return this a of 1 return the root value which is a of 1 then what will the runtime of this it is constant time why because you are just returning a of 1 you are not deleting it so find min does not delete it find min is very easy it does not delete it you just return this root value that's all so it is it is just order of one operation what about delete min in case of delete min"
+      },
+      {
+        "lecture": 72,
+        "file": "072. 17 d. Delete Min in min Heap.mp4",
+        "start": 57.63,
+        "end": 85.15,
+        "text": "what you want to do you want to delete and return the value of the root node which means that you just don't want to you just don't want to return this you also want to delete it which means that in case of delete min you are going to have whole here right so you are going to delete this top element you are going to delete this minimum element why because the operation is delete min and that is why you are deleting this element so how you can actually do it"
+      }
+    ],
+    "foundation": {
+      "title": "Deleting the minimum from a heap",
+      "idea": "Delete-min saves the root key, removes the last array slot, moves that final key to the root if any keys remain, then sifts down. Removing the final slot preserves completeness; sifting repairs parent-child order.",
+      "terms": [
+        "Find-min: inspect the root without removal.",
+        "Delete-min: remove and restore order.",
+        "Last slot: the deepest rightmost occupied complete-tree position."
+      ],
+      "example": "Deleting from 1,4,2,9,6,3,8 returns 1 and can leave 2,4,3,9,6,8."
+    }
+  },
+  {
+    "id": 218,
+    "lecture": 72,
+    "title": "Restore order with sift-down",
+    "concept": "Delete-min saves the root key, removes the last array slot, moves that final key to the root if any keys remain, then sifts down. Removing the final slot preserves completeness; sifting repairs parent-child order.",
+    "teachingSteps": [
+      "Save the minimum before overwriting the root.",
+      "Fill the root from the last occupied position and shrink the array.",
+      "Choose smaller children during sift-down; handle a one-item heap without further repair."
+    ],
+    "questions": [
+      {
+        "type": "choice",
+        "prompt": "What precondition makes a local heapify call sufficient?",
+        "options": [
+          "No child key may be compared",
+          "Both child subtrees are already heaps",
+          "Every arbitrary descendant may violate order"
+        ],
+        "answer": 1,
+        "explanation": "Local repair relies on valid child subheaps."
+      },
+      {
+        "type": "number",
+        "prompt": "Start with min-heap array 4, 7, 5, 12, 9, 6, 11 and delete its minimum using last-to-root replacement and smaller-child sift-down. How many sift-down swaps occur in this exact example?",
+        "answer": 2,
+        "explanation": "The moved key follows the smaller-child path twice.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "heap-tree",
+          "values": [
+            4,
+            7,
+            5,
+            12,
+            9,
+            6,
+            11
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "Does building a valid heap sort its array globally?",
+        "options": [
+          "Yes, every entry becomes increasing by index",
+          "Only when the root is nonnegative",
+          "No"
+        ],
+        "answer": 2,
+        "explanation": "A heap imposes ancestor ordering, not global index ordering."
+      },
+      {
+        "type": "number",
+        "prompt": "Start with min-heap array 4, 7, 5, 12, 9, 6, 11 and delete its minimum using last-to-root replacement and smaller-child sift-down. What is the sum of all surviving keys?",
+        "answer": 50,
+        "explanation": "Subtract the returned minimum from the original total.",
+        "tolerance": 1e-8,
+        "dsVisual": {
+          "kind": "heap-tree",
+          "values": [
+            4,
+            7,
+            5,
+            12,
+            9,
+            6,
+            11
+          ]
+        }
+      }
+    ],
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "dsLab": "heap-delete",
+    "start": 0.11,
+    "sourceReferences": [
+      {
+        "lecture": 72,
+        "file": "072. 17 d. Delete Min in min Heap.mp4",
+        "start": 0.11,
+        "end": 29.19,
+        "text": "Let's now look at two simple and most important operations on the heap, which is find min and delete min. And whenever I'm talking about find min, delete min, these kind of things, so I'm talking with respect to min heap. Okay. If you want to do the same thing with respect to max heap, you will be saying find max and delete max. Right. Now let's just find min in case of min heap. Suppose that min heap is given to you and you just want to find the minimum element in this heap."
+      },
+      {
+        "lecture": 72,
+        "file": "072. 17 d. Delete Min in min Heap.mp4",
+        "start": 29.52,
+        "end": 57.4,
+        "text": "then it is extremely easy how you can do it you know the minimum element is sitting on the root right so you just return this a of 1 return the root value which is a of 1 then what will the runtime of this it is constant time why because you are just returning a of 1 you are not deleting it so find min does not delete it find min is very easy it does not delete it you just return this root value that's all so it is it is just order of one operation what about delete min in case of delete min"
+      },
+      {
+        "lecture": 72,
+        "file": "072. 17 d. Delete Min in min Heap.mp4",
+        "start": 57.63,
+        "end": 85.15,
+        "text": "what you want to do you want to delete and return the value of the root node which means that you just don't want to you just don't want to return this you also want to delete it which means that in case of delete min you are going to have whole here right so you are going to delete this top element you are going to delete this minimum element why because the operation is delete min and that is why you are deleting this element so how you can actually do it"
+      }
+    ],
+    "foundation": {
+      "title": "Deleting the minimum from a heap",
+      "idea": "Delete-min saves the root key, removes the last array slot, moves that final key to the root if any keys remain, then sifts down. Removing the final slot preserves completeness; sifting repairs parent-child order.",
+      "terms": [
+        "Find-min: inspect the root without removal.",
+        "Delete-min: remove and restore order.",
+        "Last slot: the deepest rightmost occupied complete-tree position."
+      ],
+      "example": "Deleting from 1,4,2,9,6,3,8 returns 1 and can leave 2,4,3,9,6,8."
+    }
   }
 ];

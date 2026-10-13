@@ -1,3 +1,4 @@
+import {extraPlans,extraTopic} from './topics-extra.mjs';
 const number=(prompt,answer,explanation,visual)=>{const fractional=!Number.isInteger(answer),rounded=fractional?Number(answer.toFixed(2)):answer;return {type:'number',prompt:prompt+(fractional?' Round to 2 decimal places.':''),answer:rounded,explanation:explanation+(fractional?' To two decimal places, the result is '+rounded+'.':''),tolerance:fractional?.005:1e-8,...(visual?{dsVisual:visual}:{})};};
 const choice=(prompt,correct,wrong1,wrong2,explanation)=>({type:'choice',prompt,options:[correct,wrong1,wrong2],answer:0,explanation});
 const pair=(pairs)=>({type:'match',prompt:'Connect each term to its meaning.',pairs,explanation:'Use the stated definitions to distinguish each role.'});
@@ -50,6 +51,7 @@ export const plans=[
  ['Queues and first-in first-out','Separate front and rear roles','Trace enqueue and dequeue','Reverse a queue through a stack','queue','queue']
 ];
 
+plans.push(...extraPlans);
 const specs={
  adt:['A data structure organizes values so useful operations can be performed. Choose it from the access and update operations the task needs, rather than from how its picture looks.',['Name the values and operations first.','A stack serves the most recent item; a queue serves the oldest waiting item.','A linked list follows links; an array provides indexed positions.'],['Data: the stored values.','Operation: an action such as insert, remove or inspect.','ADT: an operation contract independent of its implementation.'],'An undo history needs the most recent action first, so a stack is a natural contract.'],
  nodes:['A singly linked node stores a payload and a next link. The head identifies the first node; following next reaches the remaining nodes. NULL denotes no node, not a node with value zero.',['Start from head, not from a guessed address.','Read a payload only after confirming the pointer is not NULL.','Move through next until no node remains.'],['Payload: the value inside a node.','Link: a reference to another node.','Head: a reference to the first node.'],'Head -> 3 -> 6 -> NULL contains two nodes; NULL is not counted.'],
@@ -161,6 +163,7 @@ function questions(kind,s){
  return bank(checks,nums,pairs,steps);
 }
 export function authoredTopic(lecture){
+ if(lecture>=40)return extraTopic(lecture);
  const [label,...rest]=plans[lecture],titles=rest.slice(0,3),kind=rest[3],lab=rest[4],spec=specs[kind];
  if(!spec)throw Error('Missing DS foundation '+kind);
  const [idea,steps,terms,example]=spec;

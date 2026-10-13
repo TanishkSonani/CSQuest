@@ -70,6 +70,66 @@ export const units=[
     "color": "teal",
     "icon": "memory",
     "goal": "Endpoint contracts and operation traces. Use a diagram and a small example to justify each answer."
+  },
+  {
+    "id": 6,
+    "title": "Queue and expression mechanics",
+    "subtitle": "Buffers, transfers and operator stacks",
+    "range": [
+      40,
+      49
+    ],
+    "color": "teal",
+    "icon": "chip",
+    "goal": "Buffers, transfers and operator stacks. Use a diagram and a small example to justify each answer."
+  },
+  {
+    "id": 7,
+    "title": "Binary trees",
+    "subtitle": "Shapes, recurrences and traversal reconstruction",
+    "range": [
+      50,
+      56
+    ],
+    "color": "teal",
+    "icon": "chip",
+    "goal": "Shapes, recurrences and traversal reconstruction. Use a diagram and a small example to justify each answer."
+  },
+  {
+    "id": 8,
+    "title": "Binary search trees",
+    "subtitle": "Ordering, search, ranges and deletion",
+    "range": [
+      57,
+      64
+    ],
+    "color": "teal",
+    "icon": "chip",
+    "goal": "Ordering, search, ranges and deletion. Use a diagram and a small example to justify each answer."
+  },
+  {
+    "id": 9,
+    "title": "AVL balance",
+    "subtitle": "Height constraints and preserving rotations",
+    "range": [
+      65,
+      65
+    ],
+    "color": "teal",
+    "icon": "chip",
+    "goal": "Height constraints and preserving rotations. Use a diagram and a small example to justify each answer."
+  },
+  {
+    "id": 10,
+    "title": "Heaps",
+    "subtitle": "Complete shapes, priority operations and linear building",
+    "range": [
+      66,
+      72
+    ],
+    "color": "teal",
+    "icon": "chip",
+    "goal": "Complete shapes, priority operations and linear building. Use a diagram and a small example to justify each answer."
   }
 ];
 export const lecturePlans=[
@@ -312,5 +372,203 @@ export const lecturePlans=[
     "Separate front and rear roles",
     "Trace enqueue and dequeue",
     "Reverse a queue through a stack"
+  ],
+  [
+    "Circular array queues",
+    "State the index convention",
+    "Advance with wraparound",
+    "Check empty and full states"
+  ],
+  [
+    "Queue index conventions",
+    "Compare front and rear meanings",
+    "Trace a zero-initialized queue",
+    "Count occupied slots safely"
+  ],
+  [
+    "Linked queues with two endpoints",
+    "Enqueue through rear",
+    "Dequeue through front",
+    "Repair the final-item boundary"
+  ],
+  [
+    "A queue made from two stacks",
+    "Reverse arrivals during transfer",
+    "Transfer only when needed",
+    "Separate worst and amortized work"
+  ],
+  [
+    "A stack made from two queues",
+    "Keep one active queue",
+    "Transfer older items before pop",
+    "Swap queue roles"
+  ],
+  [
+    "Bracket matching and shared stack storage",
+    "Match the top opener",
+    "Reject mismatched nesting",
+    "Grow two stacks toward a free gap"
+  ],
+  [
+    "Infix, prefix and postfix expressions",
+    "Read operator placement",
+    "Preserve operand order",
+    "Convert a grouped expression"
+  ],
+  [
+    "Expression processing with a stack",
+    "Respect precedence during conversion",
+    "Evaluate postfix tokens",
+    "Pop right operand before left"
+  ],
+  [
+    "Stack and queue operation challenges",
+    "Track endpoints in mixed operations",
+    "Check capacity and underflow",
+    "Account for transfer work"
+  ],
+  [
+    "Reasoning about buffered operations",
+    "Keep arrival and service order distinct",
+    "Trace a lazy-transfer burst",
+    "Separate work already done from new work"
+  ],
+  [
+    "Binary-tree structure and height",
+    "Distinguish full, complete and perfect",
+    "Measure height in edges",
+    "Count nodes and child slots"
+  ],
+  [
+    "Binary-tree representation and bounds",
+    "Read child references",
+    "Count nodes at a level",
+    "Bound a tree height"
+  ],
+  [
+    "Recursive tree size and leaves",
+    "Define the empty subtree",
+    "Combine left and right results",
+    "Count missing child links"
+  ],
+  [
+    "Tree shape versus tree identity",
+    "Compare matching empty positions",
+    "Separate labels from structure",
+    "Stop on the first mismatch"
+  ],
+  [
+    "Preorder, inorder and postorder",
+    "Choose when to visit the root",
+    "Trace a traversal recursively",
+    "Match output to an order"
+  ],
+  [
+    "Reconstructing a tree from traversals",
+    "Find the root in a sequence",
+    "Split the inorder segment",
+    "Verify both given traversals"
+  ],
+  [
+    "When traversals leave ambiguity",
+    "Recognize a single-child choice",
+    "Count possible chain orientations",
+    "State assumptions for uniqueness"
+  ],
+  [
+    "Binary search trees",
+    "Apply ordering to whole subtrees",
+    "Search along one path",
+    "Read the sorted inorder result"
+  ],
+  [
+    "Reporting a BST key range",
+    "Apply inclusive endpoints",
+    "Prune impossible subtrees",
+    "Collect results in sorted order"
+  ],
+  [
+    "Deleting from a BST",
+    "Handle zero or one child",
+    "Choose a two-child replacement",
+    "Remove the donor node once"
+  ],
+  [
+    "Valid BST search sequences",
+    "Track an inherited interval",
+    "Reject a probe outside the interval",
+    "Stop at a matching target"
+  ],
+  [
+    "BST preorder and insertion-order puzzles",
+    "Track subtree boundaries",
+    "Recognize a chain-producing order",
+    "Distinguish traversal from insertion order"
+  ],
+  [
+    "BST cost follows tree height",
+    "Compare a balanced tree and a chain",
+    "Count successful search comparisons",
+    "State an average-case model"
+  ],
+  [
+    "Recursive tree and BST challenges",
+    "Combine subproblem sizes",
+    "Count child slots and tree edges",
+    "Verify a structural invariant"
+  ],
+  [
+    "Global BST checks and tree diameter",
+    "Pass ancestral bounds",
+    "Find a longest path in edges",
+    "Reject a misleading local check"
+  ],
+  [
+    "AVL balance and rotations",
+    "Compute an edge-based balance factor",
+    "Identify the rotation case",
+    "Preserve BST order while rebalancing"
+  ],
+  [
+    "Min-heaps and their array shape",
+    "Separate completeness from ordering",
+    "Read parent and child indices",
+    "Locate guaranteed extrema"
+  ],
+  [
+    "Ranks inside a min-heap",
+    "Use smaller ancestors as a bound",
+    "Distinguish rank from array position",
+    "Extract minima to determine a rank"
+  ],
+  [
+    "Heap insertion by bubbling upward",
+    "Append at the next open position",
+    "Swap with a larger parent",
+    "Count work along one path"
+  ],
+  [
+    "Heapify with valid child subheaps",
+    "Choose the smaller existing child",
+    "Sift the misplaced root downward",
+    "State the local precondition"
+  ],
+  [
+    "Building a heap from the bottom",
+    "Find the final internal node",
+    "Repair subheaps before parents",
+    "Verify the resulting key multiset"
+  ],
+  [
+    "Why bottom-up heap building is linear",
+    "Group nodes by height",
+    "Weight cost by available downward levels",
+    "Compare with repeated insertion"
+  ],
+  [
+    "Deleting the minimum from a heap",
+    "Save the root value",
+    "Preserve completeness with the last key",
+    "Restore order with sift-down"
   ]
 ];

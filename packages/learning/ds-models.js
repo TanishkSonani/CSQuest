@@ -1,4 +1,6 @@
+import {advancedDSKinds,advancedDSModel} from './ds-advanced.js';
 export const dsKinds=['list','array','traverse','insert','delete','recursion','fold','append','return-tail','remove-first','remove-all','pairs','reverse','reverse-recursive','circular','double','log','log-graph','growth','bounds','theta','ratio','loops','nested','search','cases','stack','stack-array','queue'];
+dsKinds.push(...advancedDSKinds);
 const nodes=n=>Array.from({length:n},(_,i)=>({id:'N'+i,value:3*(i+1)}));
 const row=(label,values,end='NULL',active=-1,double=false,circular=false)=>({label,values,end,active,double,circular});
 const lists=(...rows)=>({type:'lists',rows});
@@ -10,6 +12,7 @@ export function validStackPermutation(input,output){
  const stack=[];let next=0;for(const value of output){while(stack.at(-1)!==value&&next<input.length)stack.push(input[next++]);if(stack.pop()!==value)return false;}return true;
 }
 export function dsModel(kind,n=4,target=n-1){
+ if(advancedDSKinds.includes(kind))return advancedDSModel(kind,n);
  if(!dsKinds.includes(kind))throw Error('Unknown DS model '+kind);
  n=Math.max(3,Math.min(6,Math.round(n)));const original=nodes(n),steps=[];
  const add=(title,art,caption)=>steps.push(frame(title,art,caption));
