@@ -24852,8 +24852,8 @@ export const lessons=[
             "occupied positions are fixed by n."
           ],
           [
-            "Combination",
-            "choose a key set without ordering it."
+            "Combination C(a,b)",
+            "a!/(b!(a-b)!) chooses b distinct items without ordering them."
           ],
           [
             "Base count",
@@ -25001,10 +25001,10 @@ export const lessons=[
       "idea": "Counting min-heaps with distinct keys means counting valid key assignments to one complete binary shape. The smallest key is forced into the root; choosing left-subtree keys and arranging the two subheaps accounts for the remaining freedom.",
       "terms": [
         "Complete shape: occupied positions are fixed by n.",
-        "Combination: choose a key set without ordering it.",
+        "Combination C(a,b): a!/(b!(a-b)!) chooses b distinct items without ordering them.",
         "Base count: an empty or one-key heap has one arrangement."
       ],
-      "example": "Seven keys give subtree sizes three and three. H(7)=C(6,3)*H(3)*H(3)=20*2*2=80."
+      "example": "Seven keys give subtree sizes three and three. H(7)=C(6,3)*H(3)*H(3)=20*2*2=80. C(6,3)=6*5*4/(3*2*1)=20."
     }
   },
   {
@@ -25179,10 +25179,10 @@ export const lessons=[
       "idea": "Counting min-heaps with distinct keys means counting valid key assignments to one complete binary shape. The smallest key is forced into the root; choosing left-subtree keys and arranging the two subheaps accounts for the remaining freedom.",
       "terms": [
         "Complete shape: occupied positions are fixed by n.",
-        "Combination: choose a key set without ordering it.",
+        "Combination C(a,b): a!/(b!(a-b)!) chooses b distinct items without ordering them.",
         "Base count: an empty or one-key heap has one arrangement."
       ],
-      "example": "Seven keys give subtree sizes three and three. H(7)=C(6,3)*H(3)*H(3)=20*2*2=80."
+      "example": "Seven keys give subtree sizes three and three. H(7)=C(6,3)*H(3)*H(3)=20*2*2=80. C(6,3)=6*5*4/(3*2*1)=20."
     }
   },
   {
@@ -25357,10 +25357,10 @@ export const lessons=[
       "idea": "Counting min-heaps with distinct keys means counting valid key assignments to one complete binary shape. The smallest key is forced into the root; choosing left-subtree keys and arranging the two subheaps accounts for the remaining freedom.",
       "terms": [
         "Complete shape: occupied positions are fixed by n.",
-        "Combination: choose a key set without ordering it.",
+        "Combination C(a,b): a!/(b!(a-b)!) chooses b distinct items without ordering them.",
         "Base count: an empty or one-key heap has one arrangement."
       ],
-      "example": "Seven keys give subtree sizes three and three. H(7)=C(6,3)*H(3)*H(3)=20*2*2=80."
+      "example": "Seven keys give subtree sizes three and three. H(7)=C(6,3)*H(3)*H(3)=20*2*2=80. C(6,3)=6*5*4/(3*2*1)=20."
     }
   },
   {
@@ -25399,7 +25399,7 @@ export const lessons=[
           ],
           [
             "Arbitrary labels",
-            "n distinct labels can be assigned in n! ways per shape."
+            "n! ways per shape, where n!=n*(n-1)*...*1."
           ]
         ],
         "explanation": "Use the stated definitions to distinguish these roles."
@@ -25454,7 +25454,7 @@ export const lessons=[
       "terms": [
         "Ordered shape: left and right positions differ.",
         "Catalan recurrence: C(n)=sum C(i)C(n-1-i).",
-        "Arbitrary labels: n distinct labels can be assigned in n! ways per shape."
+        "Arbitrary labels: n! ways per shape, where n!=n*(n-1)*...*1."
       ],
       "example": "For three nodes, split contributions are 2+1+2=5 shapes. Arbitrary labels give 5*3!=30 labeled trees."
     }
@@ -25542,7 +25542,7 @@ export const lessons=[
       "terms": [
         "Ordered shape: left and right positions differ.",
         "Catalan recurrence: C(n)=sum C(i)C(n-1-i).",
-        "Arbitrary labels: n distinct labels can be assigned in n! ways per shape."
+        "Arbitrary labels: n! ways per shape, where n!=n*(n-1)*...*1."
       ],
       "example": "For three nodes, split contributions are 2+1+2=5 shapes. Arbitrary labels give 5*3!=30 labeled trees."
     }
@@ -25630,7 +25630,7 @@ export const lessons=[
       "terms": [
         "Ordered shape: left and right positions differ.",
         "Catalan recurrence: C(n)=sum C(i)C(n-1-i).",
-        "Arbitrary labels: n distinct labels can be assigned in n! ways per shape."
+        "Arbitrary labels: n! ways per shape, where n!=n*(n-1)*...*1."
       ],
       "example": "For three nodes, split contributions are 2+1+2=5 shapes. Arbitrary labels give 5*3!=30 labeled trees."
     }
@@ -31850,8 +31850,8 @@ export const lessons=[
         "prompt": "Match the terms for successful open-address searches.",
         "pairs": [
           [
-            "Natural logarithm",
-            "ln rather than base-two log."
+            "Natural logarithm ln",
+            "log to base e; supplied numerical values work with the basic calculator."
           ],
           [
             "Insertion history",
@@ -31866,14 +31866,14 @@ export const lessons=[
       },
       {
         "type": "number",
-        "prompt": "Assume ideal uniform hashing with no deletion tombstones and alpha=n/m satisfying 0<alpha<1; successful targets are equally likely among stored keys. Report expected upper bounds, not exact execution timings. At alpha=0.5, evaluate ln(1/(1-alpha))/alpha. Round to 2 decimal places.",
+        "prompt": "Assume ideal uniform hashing with no deletion tombstones and alpha=n/m satisfying 0<alpha<1; successful targets are equally likely among stored keys. Report expected upper bounds, not exact execution timings. At alpha=0.5, evaluate ln(1/(1-alpha))/alpha using ln(2)=0.693147. Round to 2 decimal places.",
         "answer": 1.39,
         "tolerance": 0.005,
         "explanation": "Use natural log of two divided by one half. Rounded result: 1.39."
       },
       {
         "type": "number",
-        "prompt": "Assume ideal uniform hashing with no deletion tombstones and alpha=n/m satisfying 0<alpha<1; successful targets are equally likely among stored keys. Report expected upper bounds, not exact execution timings. At alpha=0.75, evaluate the successful bound. Round to 2 decimal places.",
+        "prompt": "Assume ideal uniform hashing with no deletion tombstones and alpha=n/m satisfying 0<alpha<1; successful targets are equally likely among stored keys. Report expected upper bounds, not exact execution timings. At alpha=0.75, evaluate the successful bound using ln(4)=1.386294. Round to 2 decimal places.",
         "answer": 1.85,
         "tolerance": 0.005,
         "explanation": "Natural log of four divided by three quarters. Rounded result: 1.85."
@@ -31912,7 +31912,7 @@ export const lessons=[
       "title": "Successful open-address searches",
       "idea": "Successful-search analysis averages the costs incurred at earlier insertion occupancies, under uniform hashing, no deletion tombstones and equally likely stored targets with 0<alpha<1. The standard expected upper bound is ln(1/(1-alpha))/alpha. It must not be presented as exact for a specific probing rule.",
       "terms": [
-        "Natural logarithm: ln rather than base-two log.",
+        "Natural logarithm ln: log to base e; supplied numerical values work with the basic calculator.",
         "Insertion history: earlier keys entered at lower occupancies.",
         "Target model: stored keys are equally likely in this bound."
       ],
@@ -31943,7 +31943,7 @@ export const lessons=[
       },
       {
         "type": "number",
-        "prompt": "Assume ideal uniform hashing with no deletion tombstones and alpha=n/m satisfying 0<alpha<1; successful targets are equally likely among stored keys. Report expected upper bounds, not exact execution timings. At alpha=0.9, evaluate the successful bound. Round to 2 decimal places.",
+        "prompt": "Assume ideal uniform hashing with no deletion tombstones and alpha=n/m satisfying 0<alpha<1; successful targets are equally likely among stored keys. Report expected upper bounds, not exact execution timings. At alpha=0.9, evaluate the successful bound using ln(10)=2.302585. Round to 2 decimal places.",
         "answer": 2.56,
         "tolerance": 0.005,
         "explanation": "Natural log of ten divided by nine tenths. Rounded result: 2.56."
@@ -32000,7 +32000,7 @@ export const lessons=[
       "title": "Successful open-address searches",
       "idea": "Successful-search analysis averages the costs incurred at earlier insertion occupancies, under uniform hashing, no deletion tombstones and equally likely stored targets with 0<alpha<1. The standard expected upper bound is ln(1/(1-alpha))/alpha. It must not be presented as exact for a specific probing rule.",
       "terms": [
-        "Natural logarithm: ln rather than base-two log.",
+        "Natural logarithm ln: log to base e; supplied numerical values work with the basic calculator.",
         "Insertion history: earlier keys entered at lower occupancies.",
         "Target model: stored keys are equally likely in this bound."
       ],
@@ -32049,7 +32049,7 @@ export const lessons=[
       },
       {
         "type": "number",
-        "prompt": "Assume ideal uniform hashing with no deletion tombstones and alpha=n/m satisfying 0<alpha<1; successful targets are equally likely among stored keys. Report expected upper bounds, not exact execution timings. For that 15-of-20 table, evaluate the successful bound. Round to 2 decimal places.",
+        "prompt": "Assume ideal uniform hashing with no deletion tombstones and alpha=n/m satisfying 0<alpha<1; successful targets are equally likely among stored keys. Report expected upper bounds, not exact execution timings. For that 15-of-20 table, evaluate the successful bound using ln(4)=1.386294. Round to 2 decimal places.",
         "answer": 1.85,
         "tolerance": 0.005,
         "explanation": "Use alpha three quarters in the natural-log expression. Rounded result: 1.85."
@@ -32088,7 +32088,7 @@ export const lessons=[
       "title": "Successful open-address searches",
       "idea": "Successful-search analysis averages the costs incurred at earlier insertion occupancies, under uniform hashing, no deletion tombstones and equally likely stored targets with 0<alpha<1. The standard expected upper bound is ln(1/(1-alpha))/alpha. It must not be presented as exact for a specific probing rule.",
       "terms": [
-        "Natural logarithm: ln rather than base-two log.",
+        "Natural logarithm ln: log to base e; supplied numerical values work with the basic calculator.",
         "Insertion history: earlier keys entered at lower occupancies.",
         "Target model: stored keys are equally likely in this bound."
       ],
