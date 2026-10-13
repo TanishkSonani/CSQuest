@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {plans,authoredTopic} from './topics.mjs';
+import {codingLabs} from '../content/coding-labs.js';
 const base=fileURLToPath(new URL('../',import.meta.url));
 const evidenceWords=['structure|container','node|next|head','array|linked','length|print','insert|next','delet|free','node|next','recurs|print','sum|length','return|insert','return.*next','remove|first','remove|all','swap|pair','reverse|current','reverse|return','circular|head','previous|doubly','pointer|next','log|power','log|product','graph|log','step|hardware','omega|constant','theta|bound','growth|asymptotic','function|log','omega|ratio','set|notation','log|function','loop|iteration','loop|summation','search|case','case|bound','case|bound','theta|order','log|function','stack|push','stack|top','queue|front'];
 evidenceWords.push(...Array.from({length:10},()=>"queue|stack|front|rear|prefix|postfix|parenthes"),...Array.from({length:16},()=>"tree|root|node|height|order|balance|rotation"),...Array.from({length:7},()=>"heap|minimum|parent|child|root|height"));
@@ -35,9 +36,9 @@ const units=[
  ['Hashing and probability','Indicators, expectations and honest cost models',[90,93]],
  ['Array memory layouts','Storage order, dimension strides and byte addresses',[94,96]],
  ['DS challenge workshop','Operation accounting, insertion orders and safe list updates',[97,100]]
-].map(([title,subtitle,range],id)=>({id,title,subtitle,range,color:'teal',icon:id===5?'memory':id===3?'binary':'chip',goal:subtitle+'. Use a diagram and a small example to justify each answer.'}));
+].map(([title,subtitle,range],id)=>({id,title,subtitle,range,color:'teal',icon:id===5?'memory':id===3?'binary':'chip',goal:subtitle+'. Use a diagram and a small example to justify each answer.',codingLab:codingLabs.find(lab=>lab.unitId===id)}));
 await fs.writeFile(path.join(base,'content','curriculum.js'),`export const units=${JSON.stringify(units,null,2)};\nexport const lecturePlans=${JSON.stringify(plans.map(p=>p.slice(0,4)),null,2)};\n`);
 await fs.writeFile(path.join(base,'content','reviewed-lessons.js'),`// Generated from original authored teaching and completed source evidence.\nexport const lessons=${JSON.stringify(lessons,null,2)};\n`);
 await fs.writeFile(path.join(base,'content','lessons.js'),"export {lessons} from './reviewed-lessons.js';\n");
 const manifestFile=path.join(base,'course.json'),manifest=JSON.parse(await fs.readFile(manifestFile,'utf8'));Object.assign(manifest,{status:'available',publishedLectureCount:plans.length,description:'Learn linked lists, complexity, stacks, queues, trees, heaps, hashing, probability and array layouts through animated diagrams and guided puzzles. All 101 topics are ready to learn.'});await fs.writeFile(manifestFile,JSON.stringify(manifest,null,2)+'\n');
-console.log(JSON.stringify({subject:'ds',coveredTopics:plans.length,lessons:lessons.length,questions:lessons.reduce((n,l)=>n+l.questions.length,0),labs:new Set(lessons.map(l=>l.dsLab)).size}));
+console.log(JSON.stringify({subject:'ds',coveredTopics:plans.length,lessons:lessons.length,questions:lessons.reduce((n,l)=>n+l.questions.length,0),labs:new Set(lessons.map(l=>l.dsLab)).size,optionalCodingLabs:codingLabs.length}));
