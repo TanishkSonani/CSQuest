@@ -5,31 +5,24 @@ import {fileURLToPath} from 'node:url';
 import {createAccounts} from './accounts.mjs';
 import {createStore} from './database.mjs';
 import {handleSocial} from './social.mjs';
-import {gzip as gzipCallback} from 'node:zlib';
-import {promisify} from 'node:util';
-const gzip=promisify(gzipCallback);
+import {prepareContent,sendContent} from './http-content.mjs';
 
 const root=fileURLToPath(new URL('../../',import.meta.url));
 const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.json':'application/json','.woff2':'font/woff2'};
 const publicCourses=courses=>courses.map(({sourceFolder,builder,...course})=>course);
 export function createServer({store:providedStore}={}){
  const store=providedStore||createStore();
+ const assets=new Map(),bundles=new Map();
  const server=http.createServer(async(req,res)=>{
   const send=(code,value,type='application/json')=>{res.writeHead(code,{'Content-Type':type,'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});res.end(req.method==='HEAD'?undefined:typeof value==='string'?value:JSON.stringify(value));};
   try{
    const url=new URL(req.url,'http://127.0.0.1');
-   const sendContent=async(value,type)=>{
-    let content=Buffer.from(typeof value==='string'?value:JSON.stringify(value));
-    const compressed=content.length>1024&&(req.headers['accept-encoding']||'').split(',').some(entry=>{const [encoding,...params]=entry.trim().split(';');return encoding==='gzip'&&!params.some(p=>/^\s*q\s*=\s*0(?:\.0*)?\s*$/.test(p));});
-    if(compressed)content=await gzip(content);
-    res.writeHead(200,{'Content-Type':type,'Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Vary':'Accept-Encoding','Content-Length':content.length,...(compressed?{'Content-Encoding':'gzip'}:{})});res.end(req.method==='HEAD'?undefined:content);
-   };
-   const dynamic=url.pathname==='/subjects.js'||url.pathname.startsWith('/api/')||url.pathname.startsWith('/courses/')||url.pathname==='/shared/worked-examples.js';
+   const dynamic=url.pathname==='/subjects.js'||url.pathname.startsWith('/api/')||url.pathname.startsWith('/courses/');
    if(dynamic){
     const courses=await store.courses(),accounts=createAccounts({store,courses});
     if(await accounts(req,res,url,send))return;
     if(!url.pathname.startsWith('/api/social/')&&!['GET','HEAD'].includes(req.method)){send(405,{error:'Method not allowed'});return;}
-    if(url.pathname==='/subjects.js'){send(200,`export const subjects=${JSON.stringify(publicCourses(courses))};\n`,'text/javascript; charset=utf-8');return;}
+    if(url.pathname==='/subjects.js'){sendContent(req,res,await prepareContent(`export const subjects=${JSON.stringify(publicCourses(courses))};\n`),'text/javascript; charset=utf-8',{publicAsset:true});return;}
     let actor;
     try{actor=await accounts.authorize(req);}catch(e){send(e.status||503,{error:e.status===401?'Please log in to your account.':'Account service unavailable',code:e.status===401?'AUTH_REQUIRED':'AUTH_UNAVAILABLE'});return;}
     if(await handleSocial({store,actor,req,url,send,courses}))return;
@@ -38,9 +31,15 @@ export function createServer({store:providedStore}={}){
      const course=courses.find(c=>c.id===(url.searchParams.get('subject')||'coa'));
      if(!course){send(400,{error:'Unknown subject'});return;}
      if(url.pathname==='/api/course-content'){
-      const bundle=course.status==='available'&&await store.document(course.id,'learning.json');
+      const previous=bundles.get(course.id);
+      const bundle=course.status==='available'&&await store.documentContent(course.id,'learning.json',previous?.version);
       if(!bundle){send(404,{error:'Course content is not available yet.'});return;}
-      await sendContent(bundle,'application/json; charset=utf-8');return;
+      let cached=bundles.get(course.id);
+      if(cached?.version!==bundle.version){
+       cached=bundle.content===null?previous:{version:bundle.version,prepared:prepareContent(bundle.content)};
+       bundles.set(course.id,cached);
+      }
+      sendContent(req,res,await cached.prepared,'application/json; charset=utf-8');return;
      }
      if(url.pathname==='/api/status'){
       const status=await store.status(course.id);
@@ -68,7 +67,10 @@ export function createServer({store:providedStore}={}){
     const web=path.join(root,'apps','web','public');file=path.resolve(web,'.'+decodeURIComponent(url.pathname==='/'?'/index.html':url.pathname));
     if(!file.startsWith(web+path.sep)){send(403,{error:'Invalid path'});return;}
    }
-   const content=await fs.readFile(file);res.writeHead(200,{'Content-Type':mime[path.extname(file)]||'application/octet-stream','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});res.end(req.method==='HEAD'?undefined:content);
+   const stat=await fs.stat(file),version=stat.mtimeMs+':'+stat.size;
+   let cached=assets.get(file);
+   if(cached?.version!==version){cached={version,prepared:fs.readFile(file).then(prepareContent)};assets.set(file,cached);cached.prepared.catch(()=>{if(assets.get(file)===cached)assets.delete(file);});}
+   sendContent(req,res,await cached.prepared,mime[path.extname(file)]||'application/octet-stream',{publicAsset:true});
   }catch(error){
    const missing=error.code==='ENOENT';
    if(!missing)console.error('CSQuest request failed:',error.code||error.name);

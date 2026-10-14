@@ -43,7 +43,8 @@ test('registry discovers a new course without platform edits and rejects unsafe 
 test('shared server serves both subjects and shared modules while isolating private data',async()=>{
  const fixture=await testStore({courses:true});const server=createServer({store:fixture.store});await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const base=`http://127.0.0.1:${server.address().port}`;
  try{
-  for(const route of ['/api/subjects','/api/status','/courses/coa/lessons.js','/courses/dl/lessons.js','/api/transcript/0','/shared/worked-examples.js'])assert.equal((await fetch(base+route)).status,401,route);
+  for(const route of ['/api/subjects','/api/status','/courses/coa/lessons.js','/courses/dl/lessons.js','/api/transcript/0'])assert.equal((await fetch(base+route)).status,401,route);
+  assert.equal((await fetch(base+'/shared/worked-examples.js')).status,200,'Login dependencies are public');
   const registration=await fetch(base+'/api/account/register',{method:'POST',headers:{'Content-Type':'application/json','X-CSQuest-Request':'1'},body:JSON.stringify({username:'wall_test',displayName:'Wall Test',avatar:'chip',password:'a memorable test passphrase'})});assert.equal(registration.status,200);
   const cookie=registration.headers.get('set-cookie').split(';')[0];const signedFetch=(url,options={})=>fetch(url,{...options,headers:{...options.headers,cookie}});
   const catalog=await (await signedFetch(base+'/api/subjects')).json();assert.equal(catalog.length,subjects.length);

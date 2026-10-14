@@ -35,7 +35,8 @@ const assert=require('node:assert/strict'),fs=require('node:fs/promises');
   assert.equal(await auth.getAttribute('aria-busy'),'true');await page.waitForFunction(()=>document.querySelector('.auth-form .form-message')?.textContent.includes('incorrect'));assert.equal(await auth.getAttribute('aria-busy'),'false');assert.equal(await auth.locator('[name=password]').inputValue(),'a memorable incorrect password');
   assert.ok(await auth.locator('.form-message').evaluate(el=>el===document.activeElement));await auth.locator('[name=username]').fill('retry_user');assert.equal(await auth.locator('.form-message').innerText(),'');await page.unroute('**/api/account/login');
   assert.equal(courseRequests.length,0);
-  for(const route of ['/api/subjects','/api/status','/api/transcript/0','/courses/coa/lessons.js','/courses/dl/lessons.js','/shared/worked-examples.js'])assert.equal((await context.request.get(base+route)).status(),401);
+  for(const route of ['/api/subjects','/api/status','/api/transcript/0','/courses/coa/lessons.js','/courses/dl/lessons.js'])assert.equal((await context.request.get(base+route)).status(),401);
+  assert.equal((await context.request.get(base+'/shared/worked-examples.js')).status(),200);
   const registration=await context.request.post(base+'/api/account/register',{headers:{'X-CSQuest-Request':'1'},data:{username:'login_wall',displayName:'Wall Learner',avatar:'chip',password:'a memorable test passphrase'}});assert.equal(registration.status(),200);
   await page.reload();await page.waitForSelector('.unit-banner');
   await page.goto(base+'/#account');await page.waitForSelector('.profile-hero');await page.locator('[data-account=logout]').click();await page.waitForSelector('.login-wall');
@@ -44,6 +45,11 @@ const assert=require('node:assert/strict'),fs=require('node:fs/promises');
   await context.request.post(base+'/api/account/logout',{headers:{'X-CSQuest-Request':'1'},data:{}});
   await page.evaluate(async()=>{await(await import('/account-client.js')).checkSession();});await page.waitForSelector('.login-wall');
   assert.equal(await page.locator('.sidebar').count(),0);assert.deepEqual(errors,[]);
+  // A failed startup dependency shows a recovery action instead of a stuck loader.
+  await page.route('**/shared/worked-examples.js',route=>route.abort());await page.reload();
+  await page.getByRole('button',{name:'Try again',exact:true}).waitFor();
+  assert.match(await page.locator('#app [role=alert]').innerText(),/could not load/);
+  await page.unroute('**/shared/worked-examples.js');await page.getByRole('button',{name:'Try again',exact:true}).click();await page.locator('.login-wall').waitFor();
   console.log('Login wall: private routes, direct API access, login/logout, revoked sessions, mobile layouts and theme controls passed.');
  }finally{await browser.close();await new Promise(r=>server.close(r));await fixture.dispose();}
 })().catch(e=>{console.error(e);process.exit(1);});

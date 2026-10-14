@@ -42,6 +42,9 @@ export function createStore(pool=createPool()){
   async courses(){return (await pool.query('SELECT manifest FROM csquest_courses ORDER BY sort_order,id')).rows.map(row=>row.manifest);},
   async module(courseId,filename){return (await pool.query('SELECT source FROM csquest_course_modules WHERE course_id=$1 AND filename=$2',[courseId,filename])).rows[0]?.source;},
   async document(courseId,path){return (await pool.query('SELECT data FROM csquest_course_documents WHERE course_id=$1 AND path=$2',[courseId,path])).rows[0]?.data;},
+  // PostgreSQL's row version changes on every update, including direct imports.
+  // Unchanged bundles avoid transferring and parsing the large JSON document.
+  async documentContent(courseId,path,version){return (await pool.query('SELECT xmin::text AS version, CASE WHEN xmin::text=$3 THEN NULL ELSE data::text END AS content FROM csquest_course_documents WHERE course_id=$1 AND path=$2',[courseId,path,version||null])).rows[0];},
   async status(courseId){return (await pool.query('SELECT data FROM csquest_course_status WHERE course_id=$1',[courseId])).rows[0]?.data;},
   // Only load and lock the relevant account; unrelated learners remain independent.
   async accounts(task,{username,sessionHash,readOnly=false,scoreLearning=false,courses=[]}={}){
