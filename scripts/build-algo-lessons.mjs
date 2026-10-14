@@ -1,0 +1,25 @@
+import fs from 'node:fs/promises';
+import {topics} from '../courses/algo/content/topics.js';
+import {guideFor,questionsFor} from '../courses/algo/content/teaching.js';
+const base=new URL('../courses/algo/',import.meta.url),evidence=[],lessons=[];
+const hints={workflow:'algorithm|input|output',selection:'selection|smallest|sort',growth:'asympt|function|growth|log',loops:'loop|iteration|complex',variable:'variable|log|square|root|power',recurrence:'recurr|master|tree|theta',divide:'array|divide|conquer|maximum|sum',merge:'merge|sort|comparison',inversion:'inver|pair|merge',closest:'point|pair|strip|distance',power:'exponent|power',matrix:'matrix|multiplication',partition:'pivot|partition|quick|select',search:'search|sorted|best|worst',stable:'stable|space|memory',tournament:'maximum|second|tournament|compar',minmax:'minimum|maximum|compar|smallest',dfs:'graph|depth|dfs|adjacen|stack',counting:'count|radix|sort',decision:'decision|tree|compar|sort',heap:'heap|sort',bubble:'bubble|swap|sort',insertion:'insertion|sort',kmerge:'merge|array', 'bottom-up':'merge|iterative|sort'};
+const {familyOf}=await import('../packages/learning/algo-models.js');
+for(const topic of topics){
+ const source=JSON.parse(await fs.readFile(new URL(`data/transcripts/${topic.id}.json`,base),'utf8'));
+ if(!source.sourceCompletedAt||!source.segments?.length)throw Error('Algorithms source is not complete: '+topic.id);
+ const pattern=new RegExp(hints[familyOf(topic.key)]+(familyOf(topic.key)==='growth'?'|complex|theta|notation|order|big|constant|polynomial':familyOf(topic.key)==='loops'?'|recurr|term|substitution|tn|t n|n minus':''),'i');
+ const terms=[...new Set((topic.label+' '+topic.focus).toLowerCase().match(/[a-z]{5,}/g)||[])].filter(t=>!['their','there','which','before','after','every','requires','required','rather','using','original','first'].includes(t));
+ const anchors=source.segments.filter(s=>pattern.test(s.text)).map(segment=>({segment,score:terms.reduce((n,t)=>n+Number(segment.text.toLowerCase().includes(t)),0)})).sort((a,b)=>b.score-a.score||a.segment.start-b.segment.start).slice(0,3).sort((a,b)=>a.segment.start-b.segment.start);
+ const refs=anchors.map(({segment:{start,end,text}})=>({lecture:topic.id,file:source.file,start,end,text:text.trim()}));
+ if(!refs.length)throw Error('No topic evidence: '+topic.id+' '+topic.label);
+ const guide=guideFor(topic);
+ for(let stage=0;stage<3;stage++)lessons.push({id:topic.id*3+stage,lecture:topic.id,title:topic.label+' · '+['Discover','Trace','Apply'][stage],concept:guide.idea,teachingSteps:[topic.focus,...guide.steps.slice(-2)],foundation:{title:guide.title,idea:guide.idea,terms:guide.terms,example:guide.example},questions:questionsFor(topic,stage),algoLab:topic.key,minutes:5,ready:true,contentVersion:1,contentStatus:'reviewed',start:refs[0].start,excerpt:refs[0].text,sourceReferences:refs});
+ evidence.push({id:topic.id,topic:topic.label,sourceFile:source.file,sourceCompletedAt:source.sourceCompletedAt,lessonIds:[topic.id*3,topic.id*3+1,topic.id*3+2],anchors:refs});
+}
+const ranges=[['Algorithmic thinking',0,1],['Growth and bounds',2,9],['Counting work and input cases',10,16],['Recurrence trees',17,23],['Master theorem and its limits',24,30],['Transforming recurrences',31,34],['Divide and combine',35,39],['Stable merging',40,47],['Bottom-up merging',48,51],['Many streams and storage',52,55],['Extrema and comparison budgets',56,64],['Inversions and ranking disagreement',65,70],['Geometry, powers and matrices',71,74],['Pivots, selection and search',75,82],['Sorting choices and lower bounds',83,88],['Graph exploration',89,92]];
+const units=ranges.map(([title,from,to],id)=>({id,title,subtitle:topics[from].label+' to '+topics[to].label,range:[from,to],color:id%2?'orange':'green',icon:id>=15?'map':'rocket',goal:'Explain the rule, trace a small input, then justify the result. '+topics[from].focus}));
+const lecturePlans=topics.map(t=>[t.label,t.focus]);
+await fs.writeFile(new URL('content/reviewed-lessons.js',base),'// Original teaching, generated from authored topics and completed transcript evidence.\nexport const lessons='+JSON.stringify(lessons,null,2)+';\n');
+await fs.writeFile(new URL('content/curriculum.js',base),'export const units='+JSON.stringify(units,null,2)+';\nexport const lecturePlans='+JSON.stringify(lecturePlans,null,2)+';\n');
+await fs.writeFile(new URL('data/lesson-review.json',base),JSON.stringify({subject:'algo',sourceCount:topics.length,lessonCount:lessons.length,questionCount:lessons.length*4,notes:'Original explanations and parameterized exercises. Completed timestamped machine-transcript excerpts establish topic coverage; ASR formulas are checked against explicit mathematical definitions. Topics beyond the authored prefix remain unpublished.',references:['https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/pages/lecture-notes/'],topics:evidence},null,2)+'\n');
+console.log(`Algorithms: ${topics.length} source-backed topics, ${lessons.length} lessons, ${lessons.length*4} puzzles, ${units.length} units.`);

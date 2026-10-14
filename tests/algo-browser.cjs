@@ -1,0 +1,34 @@
+const {chromium}=require('../tooling/browser-qa/node_modules/playwright');
+const assert=require('node:assert/strict'),fs=require('node:fs');
+(async()=>{
+ const {createServer}=await import('../src/platform/server.mjs'),{testStore}=await import('./database-helper.mjs'),{lessons}=await import('../courses/algo/content/lessons.js');
+ const fixture=await testStore({courses:true}),server=createServer({store:fixture.store});let browser;
+ try{
+  await new Promise(r=>server.listen(0,'127.0.0.1',r));const base='http://127.0.0.1:'+server.address().port;
+  browser=await chromium.launch({headless:true,executablePath:'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'});
+  const context=await browser.newContext({viewport:{width:320,height:740},reducedMotion:'reduce'}),page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
+  await page.goto(base);await page.locator('.login-wall').waitFor();
+  assert.equal((await context.request.post(base+'/api/account/register',{headers:{'X-CSQuest-Request':'1'},data:{username:'algo_browser',password:'a memorable test passphrase',displayName:'Algorithm Learner',avatar:'chip'}})).status(),200);
+  await page.reload();await page.locator('.subject-picker').click();const card=page.locator('[data-catalog-subject=algo]');assert.match(await card.innerText(),/279 levels/);await card.locator('[data-subject=algo]').click();await page.locator('[data-lesson="0"]').click();await page.locator('.algo-lab').waitFor();
+  const audit=await page.evaluate(async()=>{
+   const {lessons}=await import('/courses/algo/lessons.js'),{algoLab,algoArt}=await import('/algo-labs.js'),{algoModel}=await import('/shared/algo-models.js'),{topicDiagram}=await import('/lesson-visuals.js');
+   const holder=document.querySelector('.lesson-intro'),original=holder.innerHTML,seen=new Set();let frames=0;
+   try{for(const lesson of lessons){const diagram=topicDiagram(lesson,'algo');if(!diagram.includes('figcaption')||diagram.includes('undefined'))throw Error('Missing Algorithms infographic '+lesson.id);if(seen.has(lesson.algoLab))continue;seen.add(lesson.algoLab);for(let variant=0;variant<3;variant++)for(const step of algoModel(lesson.algoLab,variant).steps){holder.innerHTML=algoLab(lesson);holder.querySelector('.algo-art').innerHTML=algoArt(step.art);if(document.querySelector('dialog').scrollWidth>innerWidth)throw Error('Phone overflow '+lesson.algoLab+' '+variant+' '+step.title);frames++;}}return {lessons:lessons.length,kinds:seen.size,frames};}finally{holder.innerHTML=original;}
+  });assert.equal(audit.lessons,279);
+  const root=page.locator('.algo-lab');await root.locator('[data-algo-action=next]').click();assert.equal(await root.getAttribute('data-algo-step'),'1');await root.locator('[data-algo-action=back]').click();assert.equal(await root.getAttribute('data-algo-step'),'0');
+  await root.locator('[data-algo-action=play]').click();await page.waitForTimeout(1750);assert.equal(await root.getAttribute('data-algo-step'),'1');await root.locator('[data-algo-action=play]').click();assert.equal(await root.locator('[data-algo-action=play]').getAttribute('aria-pressed'),'false');
+  await root.locator('[data-algo-scrub]').focus();await page.keyboard.press('End');assert.equal(await root.getAttribute('data-algo-step'),'3');await root.locator('[data-algo-action=reset]').click();assert.equal(await root.getAttribute('data-algo-step'),'0');
+  for(const width of [320,390,744,1440])for(const theme of ['dark','light']){await page.setViewportSize({width,height:900});await page.evaluate(theme=>document.documentElement.dataset.theme=theme,theme);assert.ok(await page.evaluate(()=>document.querySelector('dialog').scrollWidth<=innerWidth));}
+  await page.setViewportSize({width:390,height:844});await page.evaluate(()=>{document.querySelector('dialog').scrollTop=0;document.querySelector('.lesson-shell').scrollTop=0;});fs.mkdirSync('qa-results',{recursive:true});await page.screenshot({path:'qa-results/algo-intro-phone.png'});
+  await page.locator('[data-action=begin]').click();
+  async function answer(q){if(q.type==='number')await page.locator('#number-answer').fill(String(q.answer));else if(q.type==='choice')await page.locator(`[data-choice="${q.answer}"]`).click();else if(q.type==='order')for(const item of q.items)await page.locator('[data-order-item]').filter({hasText:item}).click();else throw Error(q.type);await page.locator('[data-action=check-answer]').click();await page.locator('.answer-footer.correct').waitFor();await page.locator('[data-action=next-question]').click();}
+  for(const q of lessons[0].questions)await answer(q);await page.locator('.celebration').waitFor();await page.locator('[data-action=next-lesson]').click();assert.equal(await page.locator('.lesson-intro h1').innerText(),lessons[1].title);
+  await page.locator('[data-action=exit]').click();await page.locator('[data-action=leave]').click();
+  await page.evaluate(async()=>{const {store,flushAccount}=await import('/account-client.js');store.setItem('csquest-drafts-algo','[]');store.setItem('algo-quest-v1',JSON.stringify({version:1,xp:60,completed:[0,1,2,3,4],settings:{sound:false}}));await flushAccount();});await page.reload();await page.locator('[data-lesson="5"]').click();await page.locator('[data-action=begin]').click();for(const q of lessons[5].questions)await answer(q);await page.locator('.celebration').waitFor();await page.locator('[data-action=next-lesson]').click();assert.equal(await page.locator('.lesson-intro h1').innerText(),lessons[6].title);
+  await page.evaluate(async()=>{await(await import('/account-client.js')).flushAccount();});await page.reload();await page.locator('[data-lesson="6"]').waitFor();assert.match(await page.locator('[data-lesson="6"]').getAttribute('class'),/current/);
+  await page.locator('[data-lesson="6"]').click();assert.equal(await page.locator('.algo-lab .algo-bars i').first().evaluate(el=>getComputedStyle(el).animationName),'none');
+  await page.locator('.algo-lab [data-algo-variant]').focus();await page.keyboard.press('ArrowRight');assert.equal(await page.locator('.algo-variant output').innerText(),'2');
+  await page.locator('[data-action=begin]').click();await page.locator('[data-open-calculator]').click();await page.locator('.calculator-display').waitFor();assert.ok(await page.evaluate(()=>document.querySelector('dialog').scrollWidth<=innerWidth));
+  assert.deepEqual(errors,[]);console.log('Algorithms passed:',audit,'guest startup, 320px every explorer frame, responsive themes, playback/scrub/reset, reduced motion, grading, saved progress and automatic next-unit continuation.');
+ }finally{if(browser)await browser.close();if(server.listening)await new Promise(r=>server.close(r));await fixture.dispose();}
+})().catch(e=>{console.error(e);process.exitCode=1;});

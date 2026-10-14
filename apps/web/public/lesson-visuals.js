@@ -1,4 +1,5 @@
 import {dsIllustration} from './ds-labs.js';
+import {algoIllustration} from './algo-labs.js';
 import {escapeHtml as h} from '/shared/engine.js';
 import {diagramKind,diagramModel,diagramControls} from '/shared/visual-models.js';
 import {cModel} from './c-labs.js';
@@ -21,6 +22,7 @@ export function topicDiagram(lesson,subject,compact=false){
  const kind=diagramKind(subject,lesson);let content;
  if(kind.startsWith('c:')){const model=cModel(lesson.cLab,lesson.cLab==='string'?'cat':0),step=model.steps[0];content=`<h4>${h(step[0])}</h4><div class="c-art">${step[1].replace(/<button\b[^>]*class="([^"]*)"[^>]*>/g,'<span class="$1">').replaceAll('</button>','</span>')}</div><figcaption>${h(step[2])}</figcaption>`;}
  else if(kind.startsWith('ds:')){const view=dsIllustration(lesson);content=`<div class="ds-art">${view.art}</div><figcaption>${h(view.text)}</figcaption>`;}
+ else if(kind.startsWith('algo:')){const view=algoIllustration(lesson);content=`<div class="algo-art">${view.art}</div><figcaption>${h(view.text)}</figcaption>`;}
  else if(kind.startsWith('aptitude:')){const view=aptitudeIllustration(lesson);content=`<div class="lab-art">${view.art}</div><figcaption>${h(view.text)}</figcaption>`;}
  else content=modelMarkup(diagramModel(kind));
  const controls=compact?[]:diagramControls(kind);
