@@ -250,6 +250,102 @@ export const units=[
     "color": "green",
     "icon": "map",
     "goal": "Explain the rule, trace a small input, then justify the result. A minimum spanning tree connects all vertices of a connected undirected weighted graph with no cycle and minimum total edge weight. It has V-1 edges and is a different objective from shortest source-to-vertex paths."
+  },
+  {
+    "id": 21,
+    "title": "Prim and tree exchanges",
+    "subtitle": "Reason about alternative spanning trees to Update an MST after one weight change",
+    "range": [
+      119,
+      125
+    ],
+    "color": "orange",
+    "icon": "map",
+    "goal": "Explain the rule, trace a small input, then justify the result. Distinct edge weights imply a unique MST, but tied weights do not automatically imply multiple MSTs. Exchange an edge along its fundamental cycle to test whether an equally cheap alternative exists."
+  },
+  {
+    "id": 22,
+    "title": "Prefix codes and merge costs",
+    "subtitle": "Huffman codes and prefix-free leaves to Merge the smallest files first",
+    "range": [
+      126,
+      132
+    ],
+    "color": "green",
+    "icon": "map",
+    "goal": "Explain the rule, trace a small input, then justify the result. A binary prefix code assigns symbols to tree leaves. No symbol’s code is a prefix of another, so a bit stream can be decoded by walking from the root to a leaf and restarting."
+  },
+  {
+    "id": 23,
+    "title": "Scheduling and divisible items",
+    "subtitle": "Choose the most compatible activities to Select a density threshold without full sorting",
+    "range": [
+      133,
+      139
+    ],
+    "color": "orange",
+    "icon": "map",
+    "goal": "Explain the rule, trace a small input, then justify the result. Unweighted interval scheduling maximizes the number of nonoverlapping activities on one resource. With half-open intervals, an activity beginning exactly when another ends is compatible."
+  },
+  {
+    "id": 24,
+    "title": "Reusable states and stair problems",
+    "subtitle": "Store and reuse subproblem answers to Overlap distinguishes reusable subproblems",
+    "range": [
+      140,
+      146
+    ],
+    "color": "green",
+    "icon": "map",
+    "goal": "Explain the rule, trace a small input, then justify the result. Dynamic programming defines states and transitions, then saves overlapping subproblem results. Memoization computes states on demand; tabulation processes them in a dependency-respecting order."
+  },
+  {
+    "id": 25,
+    "title": "Longest common subsequences",
+    "subtitle": "Subsequences can skip positions to Prefix and suffix formulations",
+    "range": [
+      147,
+      154
+    ],
+    "color": "orange",
+    "icon": "map",
+    "goal": "Explain the rule, trace a small input, then justify the result. A subsequence retains order but may skip characters. An LCS is a longest sequence shared by two strings; it is not required to be a contiguous substring."
+  },
+  {
+    "id": 26,
+    "title": "Matrix-chain optimization",
+    "subtitle": "Parenthesize compatible matrix products to Intervals give quadratic chain states",
+    "range": [
+      155,
+      159
+    ],
+    "color": "green",
+    "icon": "map",
+    "goal": "Explain the rule, trace a small input, then justify the result. Matrix-chain optimization changes parentheses, not matrix order. Multiplying a p-by-q matrix by a q-by-r matrix costs pqr scalar multiplications and yields a p-by-r result."
+  },
+  {
+    "id": 27,
+    "title": "Whole-item knapsack",
+    "subtitle": "Whole items break density greedy to Descending capacities prevent reuse",
+    "range": [
+      160,
+      164
+    ],
+    "color": "orange",
+    "icon": "map",
+    "goal": "Explain the rule, trace a small input, then justify the result. In 0-1 knapsack, each item is either taken whole or skipped. The highest value density need not lead to the best whole-item combination; the fractional greedy guarantee does not transfer."
+  },
+  {
+    "id": 28,
+    "title": "Reachability, change and route DP",
+    "subtitle": "Which subset sums are reachable to Visit every city and return",
+    "range": [
+      165,
+      169
+    ],
+    "color": "green",
+    "icon": "map",
+    "goal": "Explain the rule, trace a small input, then justify the result. For nonnegative integer values, subset-sum DP records whether each target is reachable by a subset of processed items. The empty subset reaches zero; a descending one-row update prevents item reuse."
   }
 ];
 export const lecturePlans=[
@@ -728,5 +824,209 @@ export const lecturePlans=[
   [
     "Kruskal joins different components",
     "Kruskal processes undirected edges in nondecreasing weight order and accepts an edge only when its endpoints are in different components. A disjoint-set structure tracks these components and prevents cycles."
+  ],
+  [
+    "Reason about alternative spanning trees",
+    "Distinct edge weights imply a unique MST, but tied weights do not automatically imply multiple MSTs. Exchange an edge along its fundamental cycle to test whether an equally cheap alternative exists."
+  ],
+  [
+    "Grow one tree with Prim",
+    "Prim grows a connected tree by selecting a lightest edge crossing from its current vertices to an outside vertex. The priority of an outside vertex is its cheapest connecting edge, not its total route distance."
+  ],
+  [
+    "Two similar queues, different priorities",
+    "Prim compares edge weight w(u,v) with the best connection key of v. Dijkstra compares distance(u)+w(u,v) with distance(v); their similar control flow optimizes different objectives."
+  ],
+  [
+    "A spanning tree is not a shortest-path tree",
+    "An MST minimizes the total chosen edge weight. A shortest-path tree minimizes each source-to-vertex distance; the two trees can differ on the same positive-weight graph."
+  ],
+  [
+    "Prove uniqueness with cycle exchanges",
+    "For a given spanning tree, inspect each non-tree edge against the heaviest edge on the tree path between its endpoints. A strictly cheaper replacement disproves optimality; an equal replacement proves a tied alternative."
+  ],
+  [
+    "Bound a changing tree-edge weight",
+    "Removing a tree edge splits the tree into two components. The edge remains safe if its new weight is no larger than the cheapest alternative edge crossing that cut; equality can create multiple MSTs."
+  ],
+  [
+    "Update an MST after one weight change",
+    "Decreasing a selected tree-edge weight or increasing an unselected edge weight preserves the current MST. The opposite changes can require a cut or cycle exchange."
+  ],
+  [
+    "Huffman codes and prefix-free leaves",
+    "A binary prefix code assigns symbols to tree leaves. No symbol’s code is a prefix of another, so a bit stream can be decoded by walking from the root to a leaf and restarting."
+  ],
+  [
+    "Compute encoded length from frequencies",
+    "The total encoded length is the sum of frequency times code length over all symbols. Huffman repeatedly combines the two smallest weights to minimize this weighted length among binary prefix codes."
+  ],
+  [
+    "Heap operations in Huffman construction",
+    "With a min-heap, each Huffman merge removes two smallest weights and inserts their sum. There are n-1 merges for n symbols, giving O(n log n) construction time."
+  ],
+  [
+    "Decode from the root after every symbol",
+    "Follow a zero or one branch for each bit, emit a symbol only at a leaf, and then restart at the root. Equal frequencies can produce different equally optimal codes."
+  ],
+  [
+    "Ties and equally optimal codes",
+    "Huffman trees and bit labels need not be unique. Swapping left and right children changes codewords while preserving every depth and the total encoded length."
+  ],
+  [
+    "Full binary coding-tree counts",
+    "A full binary tree has either zero or two children at each node. With n symbol leaves it has n-1 internal nodes and 2n-1 nodes in total."
+  ],
+  [
+    "Merge the smallest files first",
+    "When merging files costs the sum of their sizes, repeatedly merge the two smallest current files. Each original file contributes its size once for every merge above its leaf in the merge tree."
+  ],
+  [
+    "Choose the most compatible activities",
+    "Unweighted interval scheduling maximizes the number of nonoverlapping activities on one resource. With half-open intervals, an activity beginning exactly when another ends is compatible."
+  ],
+  [
+    "Earliest finish leaves room for more",
+    "Choose the compatible activity with earliest finishing time, then discard conflicting starts and repeat. Earliest start or shortest duration alone can give fewer activities."
+  ],
+  [
+    "Exchange the first activity safely",
+    "Replace the first activity of an optimal unweighted schedule by an earliest-finishing activity. Its finish is no later, so every later activity remains feasible; repeat on the remaining suffix."
+  ],
+  [
+    "Match a scheduling rule to its objective",
+    "Maximum-weight scheduling is different from maximum-count scheduling and may need dynamic programming. Minimizing rooms instead asks for the maximum number of simultaneously active intervals."
+  ],
+  [
+    "Unit jobs with deadlines and profits",
+    "For unit-duration jobs with integer deadlines and nonnegative profits, process larger profits first and place each accepted job in the latest free slot no later than its deadline."
+  ],
+  [
+    "Fractional items and value density",
+    "When items are divisible, take value per unit weight in descending order. A partially taken item contributes the same fraction of its total weight and total value."
+  ],
+  [
+    "Select a density threshold without full sorting",
+    "A linear-time fractional-knapsack method partitions items around a selected value-density threshold and recurses only on the side containing the capacity boundary. It requires linear-time selection rather than a complete sort."
+  ],
+  [
+    "Store and reuse subproblem answers",
+    "Dynamic programming defines states and transitions, then saves overlapping subproblem results. Memoization computes states on demand; tabulation processes them in a dependency-respecting order."
+  ],
+  [
+    "Count one-step and two-step climbs",
+    "Let ways(n) count ordered climbs totaling n with steps of size one or two. Then ways(0)=1, ways(1)=1 and ways(n)=ways(n-1)+ways(n-2)."
+  ],
+  [
+    "Choose nonadjacent coin values",
+    "To maximize the sum of nonadjacent nonnegative values, either skip the last value or take it with the best prefix ending two positions earlier. Store best(i)=max(best(i-1),value(i)+best(i-2)), with an empty-prefix answer of zero."
+  ],
+  [
+    "Minimize paid stair cost",
+    "At each indexed stair, pay its cost then move one or two steps. Starting at stair zero or one is allowed; reaching the top beyond the last stair costs nothing. Store the cheapest paid path to each stair."
+  ],
+  [
+    "Race-to-wins probability states",
+    "If team A wins each independent game with probability p, define P(i,j) as A’s chance to win a series when A needs i more wins and B needs j. Then P(i,j)=pP(i-1,j)+(1-p)P(i,j-1), with P(0,j)=1 and P(i,0)=0 for positive other indices."
+  ],
+  [
+    "Fill tables after their dependencies",
+    "A valid table-filling order follows the state dependency graph. Row-major order is safe only when it actually places all required predecessor cells earlier."
+  ],
+  [
+    "Overlap distinguishes reusable subproblems",
+    "Divide and conquer often solves independent smaller instances. Dynamic programming saves repeated states in an overlapping dependency graph; optimal substructure justifies how child answers combine."
+  ],
+  [
+    "Subsequences can skip positions",
+    "A subsequence retains order but may skip characters. An LCS is a longest sequence shared by two strings; it is not required to be a contiguous substring."
+  ],
+  [
+    "LCS prefix states and recurrence",
+    "For prefix lengths i,j, matching last characters give 1+L(i-1,j-1). Otherwise use max(L(i-1,j),L(i,j-1)); an empty prefix has LCS length zero."
+  ],
+  [
+    "Repeated calls versus unique LCS states",
+    "An uncached LCS recursion can revisit the same prefix pair many times. A table has (m+1)(n+1) prefix states including boundaries, so memoized or tabulated LCS needs O(mn) time."
+  ],
+  [
+    "Choose the correct match and mismatch rule",
+    "The LCS match branch advances both prefix boundaries and adds one. The mismatch branch drops one boundary at a time and takes a maximum, rather than adding both alternatives."
+  ],
+  [
+    "Trace a filled LCS table",
+    "Fill zero-valued empty-prefix boundaries, then use diagonal, upper and left predecessor cells. Reconstruct one LCS by following decisions backward from the final cell."
+  ],
+  [
+    "Several longest answers can share a length",
+    "Different longest common subsequences can have the same length. Counting distinct resulting strings is different from counting traceback paths, which may produce duplicates."
+  ],
+  [
+    "LCS for comparison and edits",
+    "LCS measures retained ordered content. With insertions and deletions only, the minimum edit count between lengths m and n is m+n-2L, where L is their LCS length."
+  ],
+  [
+    "Prefix and suffix formulations",
+    "LCS may be defined on prefixes or on suffixes. Keep indices and base cases consistent; a suffix recurrence advances indices, while a prefix recurrence decreases prefix lengths."
+  ],
+  [
+    "Parenthesize compatible matrix products",
+    "Matrix-chain optimization changes parentheses, not matrix order. Multiplying a p-by-q matrix by a q-by-r matrix costs pqr scalar multiplications and yields a p-by-r result."
+  ],
+  [
+    "Count full parenthesizations",
+    "For n matrices in fixed order, full binary parenthesizations number Catalan(n-1). The recurrence chooses a split and multiplies the left and right parenthesization counts."
+  ],
+  [
+    "Try every final matrix-chain split",
+    "For matrices i through j, choose the final split k. Add the two optimal subchain costs and the final multiplication cost p[i-1]p[k]p[j], then minimize over i<=k<j."
+  ],
+  [
+    "Compare two matrix-chain orders",
+    "For dimensions 10×30, 30×5 and 5×60, (AB)C costs 4500 multiplications, while A(BC) costs 27000. Both compute the same 10×60 result."
+  ],
+  [
+    "Intervals give quadratic chain states",
+    "Matrix-chain DP has O(n squared) interval states, and each interval tries O(n) split points. Increasing interval length respects dependencies and gives O(n cubed) time and O(n squared) space."
+  ],
+  [
+    "Whole items break density greedy",
+    "In 0-1 knapsack, each item is either taken whole or skipped. The highest value density need not lead to the best whole-item combination; the fractional greedy guarantee does not transfer."
+  ],
+  [
+    "Knapsack item-and-capacity states",
+    "For the first i items and integer capacity c, compare skipping item i with taking it once if its weight fits. The take branch uses the previous item row at capacity c-weight(i)."
+  ],
+  [
+    "Follow competing knapsack choices",
+    "Each 0-1 knapsack cell is the best value among feasible whole-item subsets of a prefix. Compare skip and take values explicitly instead of using density to force a choice."
+  ],
+  [
+    "Unique capacity states and input size",
+    "A 0-1 knapsack table has (n+1)(W+1) item-capacity states. O(nW) is pseudo-polynomial: it depends on numeric capacity W, which may be large relative to its bit length."
+  ],
+  [
+    "Descending capacities prevent reuse",
+    "For a one-row 0-1 knapsack update, process capacities downward so the take branch reads the previous item stage. Ascending updates can reuse the same item and solve an unbounded variant instead."
+  ],
+  [
+    "Which subset sums are reachable",
+    "For nonnegative integer values, subset-sum DP records whether each target is reachable by a subset of processed items. The empty subset reaches zero; a descending one-row update prevents item reuse."
+  ],
+  [
+    "Coin change states and impossible totals",
+    "With unlimited positive integer coin values, minimum-coin DP compares one coin plus the best answer for the remaining amount. Amount zero needs zero coins; unreachable totals must remain marked impossible."
+  ],
+  [
+    "Choose DP, greedy or divide and conquer",
+    "Choose a method from the structure of the task: prove a safe greedy choice, split independent smaller instances, or cache repeated states with a valid transition. A task name alone does not prove which method is correct."
+  ],
+  [
+    "Allow intermediate vertices with Floyd-Warshall",
+    "Floyd-Warshall updates d[i,j] using min(d[i,j],d[i,k]+d[k,j]) for one newly allowed intermediate vertex k at a time. The intermediate-vertex loop is outermost; a negative final diagonal indicates a negative cycle."
+  ],
+  [
+    "Visit every city and return",
+    "A travelling-salesperson tour visits each city once and returns to its starting city. Held-Karp DP records the visited subset and final city; its exact time is O(n squared times 2^n), not polynomial."
   ]
 ];

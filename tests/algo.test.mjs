@@ -8,14 +8,14 @@ import {grade} from '../packages/learning/engine.js';
 import {algoModel,familyOf,mergeTrace,partitionTrace,binaryTrace,inversionPairs,dfsTrace} from '../packages/learning/algo-models.js';
 
 test('Algorithms publishes a stable, completed-source-backed prefix with beginner notes and scenario puzzles',()=>{
- assert.equal(topics.length,119);assert.equal(lecturePlans.length,119);assert.equal(lessons.length,357);assert.equal(units.length,21);
- assert.deepEqual(units.flatMap(u=>Array.from({length:u.range[1]-u.range[0]+1},(_,i)=>u.range[0]+i)),Array.from({length:119},(_,i)=>i));
+ assert.equal(topics.length,170);assert.equal(lecturePlans.length,170);assert.equal(lessons.length,510);assert.equal(units.length,29);
+ assert.deepEqual(units.flatMap(u=>Array.from({length:u.range[1]-u.range[0]+1},(_,i)=>u.range[0]+i)),Array.from({length:170},(_,i)=>i));
  for(const [id,l] of lessons.entries()){
   assert.equal(l.id,id);assert.equal(l.lecture,Math.floor(id/3));assert.equal(l.ready,true);assert.equal(l.questions.length,4);assert.ok(l.foundation.idea.length>100);assert.equal(l.teachingSteps.length,3);
   const source=JSON.parse(fs.readFileSync(new URL(`../courses/algo/data/transcripts/${l.lecture}.json`,import.meta.url)));assert.ok(source.sourceCompletedAt);
   for(const r of l.sourceReferences)assert.ok(source.segments.some(s=>s.start===r.start&&s.end===r.end&&s.text.trim()===r.text));
   for(const q of l.questions){const answer=q.type==='order'?q.items:q.answer;assert.equal(grade(q,answer),true,`${id}: ${q.prompt}`);if(q.type==='number'){assert.ok(Number.isFinite(q.answer));assert.equal(grade(q,q.answer+1),false);}if(q.type==='choice'){assert.equal(new Set(q.options).size,q.options.length);assert.equal(grade(q,(q.answer+1)%q.options.length),false);}assert.doesNotMatch(q.prompt,/\b(lecture|video|instructor|recording)\b/i);}
-  if(id%3===2)assert.match(l.questions[0].prompt,/service|routine|catalog|scheduler|batch|feed|file|list|contest|dashboard|ranking|location|image|lookup|inventory|sorter|transaction|explorer|report|stream/i);
+  if(id%3===2)assert.match(l.questions[0].prompt,/service|routine|catalog|scheduler|batch|feed|file|list|contest|dashboard|ranking|location|image|lookup|inventory|sorter|transaction|explorer|report|stream|planner/i);
  }
 });
 test('All topic explorers have finite valid states, including base cases and disconnected graphs',()=>{

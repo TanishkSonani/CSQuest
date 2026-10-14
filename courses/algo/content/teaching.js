@@ -1,5 +1,6 @@
 import {familyOf,inversionPairs,sampleArray} from '../../../packages/learning/algo-models.js';
 import {graphGuide,graphQuestions} from './graph-teaching.js';
+import {finalGuide,finalQuestions} from './final-teaching.js';
 const definitions={
  workflow:['From a task to a procedure','Correctness asks whether the required output is produced. Efficiency asks how much of a chosen resource the procedure consumes.',['Input: the data supplied.','Output: the result required.','Cost model: which operations count.'],'A route can visit every delivery address correctly and still use unnecessarily much distance.',['Write the input and output contract','Choose a terminating procedure','Check the result','Count a stated resource']],
  growth:['Compare scales, not one timing','For nonnegative running costs, asymptotic comparison describes behavior after some threshold. The cost model and input case must be stated separately.',['n: input size.','O: eventual upper bound.','Omega: eventual lower bound.','Theta: both bounds together.'],'3n+7 lies between 3n and 10n for every n>=1, so it is Theta(n).',['Identify the dominant term','Compare a ratio or explicit bounds','State the threshold and positive constants']],
@@ -27,13 +28,14 @@ const definitions={
  counting:['Use the structure of integer keys','Counting sort indexes by key value rather than comparing arbitrary key pairs. Its range cost must be included, and radix sorting additionally needs stable digit passes.',['K: number of possible keys.','Frequency: number of occurrences.','Stable digit pass: retains previous lower-digit ordering.'],'Keys [2,0,2,1] in range 0..2 produce frequencies [1,1,2].',['Count occurrences of each key','Compute output positions or reconstruct keys','For radix sorting, repeat stable digit passes']],
  dfs:['Discover, explore, return','Graph traversal must record discovery before following edges so cycles terminate. DFS maintains a path of active calls; finished vertices remain marked when the traversal returns.',['Discovered: visited at least once.','Active: a call is still exploring this vertex.','Finished: all its neighbors have been checked.'],'With neighbors of A listed B then D, and B leading to C, DFS first discovers A,B,C before returning.',['Mark the vertex on discovery','Explore each unvisited neighbor in stated order','Finish and return when no neighbor remains']]
 };
-export function guideFor(topic){const graph=graphGuide(topic);if(graph)return graph;const [title,idea,terms,example,steps]=definitions[familyOf(topic.key)];return {title:topic.label,idea:topic.focus+' '+idea,terms,example,steps,titleFamily:title};}
+export function guideFor(topic){const final=finalGuide(topic);if(final)return final;const graph=graphGuide(topic);if(graph)return graph;const [title,idea,terms,example,steps]=definitions[familyOf(topic.key)];return {title:topic.label,idea:topic.focus+' '+idea,terms,example,steps,titleFamily:title};}
 const num=(prompt,answer,explanation,given)=>({type:'number',prompt,answer,explanation,tolerance:1e-8,...(given?{algoGiven:given}:{})});
 const choose=(prompt,right,wrong,explanation)=>({type:'choice',prompt,options:[right,...wrong],answer:0,explanation});
 const order=(prompt,items,explanation)=>({type:'order',prompt,items,explanation});
 const table=(headers,rows)=>({headers,rows});
 const wrong=['The method is correct because one small example worked.','The input assumptions never affect correctness or cost.'];
 export function questionsFor(topic,stage){
+ const final=finalQuestions(topic,stage);if(final)return final;
  const graph=graphQuestions(topic,stage);if(graph)return graph;
  const family=familyOf(topic.key),k=3+(topic.id+stage)%4,n=2**k,m=4+(topic.id+stage)%5,a=sampleArray((topic.id+stage)%3),given=table(['Index','Key'],a.map((x,i)=>[i,x]));let q=[];
  const process=guideFor(topic).steps;

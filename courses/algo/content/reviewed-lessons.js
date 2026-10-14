@@ -34695,5 +34695,15458 @@ export const lessons=[
         "text": "So if you use union find data structure, there is some special data structure if you use that Then we are going to check the cycle in just constant time then in this case alpha is just order of 1 or theta of 1 here alpha is order of v plus e So the final Kruskal's time complexity comes out to be e log e plus e into 1 which means it is just e log e only Which is for the sorting time"
       }
     ]
+  },
+  {
+    "id": 357,
+    "lecture": 119,
+    "title": "Reason about alternative spanning trees · Discover",
+    "concept": "Distinct edge weights imply a unique MST, but tied weights do not automatically imply multiple MSTs. Exchange an edge along its fundamental cycle to test whether an equally cheap alternative exists. Adding a non-tree edge creates one cycle. Removing a tree edge creates one cut. These two structures show which replacement edges compete with the current tree and where ties permit alternatives.",
+    "teachingSteps": [
+      "Distinct edge weights imply a unique MST, but tied weights do not automatically imply multiple MSTs. Exchange an edge along its fundamental cycle to test whether an equally cheap alternative exists.",
+      "Find its competing cut or cycle edges",
+      "Compare strict and equal replacement costs"
+    ],
+    "foundation": {
+      "title": "Reason about alternative spanning trees",
+      "idea": "Distinct edge weights imply a unique MST, but tied weights do not automatically imply multiple MSTs. Exchange an edge along its fundamental cycle to test whether an equally cheap alternative exists. Adding a non-tree edge creates one cycle. Removing a tree edge creates one cut. These two structures show which replacement edges compete with the current tree and where ties permit alternatives.",
+      "terms": [
+        "Fundamental cycle: the added edge plus its tree path.",
+        "Cut: the two pieces after deleting a tree edge.",
+        "Unique: exactly one minimum-weight tree."
+      ],
+      "example": "Tree AB=1, BC=2 and extra AC=3 has weight 3. If AC falls to 2, replacing BC gives another tree of the same cost."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Tree edges AB=1 and BC=4, with extra edge AC=6. What is the maximum new AC weight at which replacing BC is no more expensive?",
+        "answer": 4,
+        "explanation": "The competing tree-path maximum is the weight of BC; equality gives an equally cheap tree.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A spanning tree on 7 vertices has how many non-root parent edges?",
+        "answer": 6,
+        "explanation": "Every non-root vertex contributes exactly one tree edge.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains reason about alternative spanning trees?",
+        "options": [
+          "One successful example proves every input.",
+          "Distinct edge weights imply a unique MST, but tied weights do not automatically imply multiple MSTs.",
+          "Input assumptions never affect correctness."
+        ],
+        "answer": 1,
+        "explanation": "Distinct edge weights imply a unique MST, but tied weights do not automatically imply multiple MSTs. Exchange an edge along its fundamental cycle to test whether an equally cheap alternative exists."
+      },
+      {
+        "type": "choice",
+        "prompt": "Does the presence of any tied edge weights necessarily mean the MST is non-unique?",
+        "options": [
+          "No: all MSTs always are unique.",
+          "No: ties may occur on edges that do not create equally cheap tree exchanges.",
+          "Yes: every tied graph has multiple MSTs."
+        ],
+        "answer": 1,
+        "explanation": "Uniqueness depends on safe exchanges, not merely on whether some weights tie."
+      }
+    ],
+    "algoLab": "mst-alternatives",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 367.1,
+    "excerpt": "So that's why you have two choices to connect these two words. So that is why there are two minimum spanning trees are possible because there are two choices to connect these two words. So two minimum spanning trees are possible. If you are not much convinced then don't worry because we are going to solve more examples for the minimum spanning tree. Okay. Now let's take an example where they are asking number of minimum spanning tree in a cycle graph where all the edge weights are same. Which means you take a cycle and every edge weight is same and then",
+    "sourceReferences": [
+      {
+        "lecture": 119,
+        "file": "119. 30a. Questions on MSTs.mp4",
+        "start": 367.1,
+        "end": 398.7,
+        "text": "So that's why you have two choices to connect these two words. So that is why there are two minimum spanning trees are possible because there are two choices to connect these two words. So two minimum spanning trees are possible. If you are not much convinced then don't worry because we are going to solve more examples for the minimum spanning tree. Okay. Now let's take an example where they are asking number of minimum spanning tree in a cycle graph where all the edge weights are same. Which means you take a cycle and every edge weight is same and then"
+      },
+      {
+        "lecture": 119,
+        "file": "119. 30a. Questions on MSTs.mp4",
+        "start": 810.45,
+        "end": 839.37,
+        "text": "or you can say this graph is unweighted okay then the number of minimus penalty or the number of spanning trees let's suppose that I say that in one of the one of the cycle there the is distribution is not same which means let's suppose here here you have this is 100 and everything else is 111 like that okay and everything is 111 and here here it is 100 then you will say then in this case the minimus penalty will be possible it just"
+      },
+      {
+        "lecture": 119,
+        "file": "119. 30a. Questions on MSTs.mp4",
+        "start": 1240.33,
+        "end": 1269.66,
+        "text": "So there is a general formula for complete graph and if they talk about the spanning trees For the minimum spanning tree, obviously this is not applicable, this depends on the distribution of the IHS So that is why for the minimum spanning tree, there is no general formula But if you talk about, you know, a complete graph and then you talk about that, okay, just a spanning tree need not to be minimum because Because that edge widths you are not considering, let's suppose and then in this case the formula is n and power n minus 2 Now let's just see whether it is true or false"
+      }
+    ]
+  },
+  {
+    "id": 358,
+    "lecture": 119,
+    "title": "Reason about alternative spanning trees · Trace",
+    "concept": "Distinct edge weights imply a unique MST, but tied weights do not automatically imply multiple MSTs. Exchange an edge along its fundamental cycle to test whether an equally cheap alternative exists. Adding a non-tree edge creates one cycle. Removing a tree edge creates one cut. These two structures show which replacement edges compete with the current tree and where ties permit alternatives.",
+    "teachingSteps": [
+      "Distinct edge weights imply a unique MST, but tied weights do not automatically imply multiple MSTs. Exchange an edge along its fundamental cycle to test whether an equally cheap alternative exists.",
+      "Find its competing cut or cycle edges",
+      "Compare strict and equal replacement costs"
+    ],
+    "foundation": {
+      "title": "Reason about alternative spanning trees",
+      "idea": "Distinct edge weights imply a unique MST, but tied weights do not automatically imply multiple MSTs. Exchange an edge along its fundamental cycle to test whether an equally cheap alternative exists. Adding a non-tree edge creates one cycle. Removing a tree edge creates one cut. These two structures show which replacement edges compete with the current tree and where ties permit alternatives.",
+      "terms": [
+        "Fundamental cycle: the added edge plus its tree path.",
+        "Cut: the two pieces after deleting a tree edge.",
+        "Unique: exactly one minimum-weight tree."
+      ],
+      "example": "Tree AB=1, BC=2 and extra AC=3 has weight 3. If AC falls to 2, replacing BC gives another tree of the same cost."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Tree edges AB=1 and BC=2, with extra edge AC=4. What is the maximum new AC weight at which replacing BC is no more expensive?",
+        "answer": 2,
+        "explanation": "The competing tree-path maximum is the weight of BC; equality gives an equally cheap tree.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A spanning tree on 4 vertices has how many non-root parent edges?",
+        "answer": 3,
+        "explanation": "Every non-root vertex contributes exactly one tree edge.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "If a selected tree-edge weight decreases and other weights stay fixed, does the chosen MST remain minimum?",
+        "options": [
+          "Yes: this change favors the chosen tree over every tree omitting that edge.",
+          "No: every decrease forces a new MST.",
+          "Only when all weights are distinct."
+        ],
+        "answer": 0,
+        "explanation": "Trees containing the edge improve by the same amount, while trees omitting it do not improve."
+      },
+      {
+        "type": "choice",
+        "prompt": "Does the presence of any tied edge weights necessarily mean the MST is non-unique?",
+        "options": [
+          "No: ties may occur on edges that do not create equally cheap tree exchanges.",
+          "Yes: every tied graph has multiple MSTs.",
+          "No: all MSTs always are unique."
+        ],
+        "answer": 0,
+        "explanation": "Uniqueness depends on safe exchanges, not merely on whether some weights tie."
+      }
+    ],
+    "algoLab": "mst-alternatives",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 367.1,
+    "excerpt": "So that's why you have two choices to connect these two words. So that is why there are two minimum spanning trees are possible because there are two choices to connect these two words. So two minimum spanning trees are possible. If you are not much convinced then don't worry because we are going to solve more examples for the minimum spanning tree. Okay. Now let's take an example where they are asking number of minimum spanning tree in a cycle graph where all the edge weights are same. Which means you take a cycle and every edge weight is same and then",
+    "sourceReferences": [
+      {
+        "lecture": 119,
+        "file": "119. 30a. Questions on MSTs.mp4",
+        "start": 367.1,
+        "end": 398.7,
+        "text": "So that's why you have two choices to connect these two words. So that is why there are two minimum spanning trees are possible because there are two choices to connect these two words. So two minimum spanning trees are possible. If you are not much convinced then don't worry because we are going to solve more examples for the minimum spanning tree. Okay. Now let's take an example where they are asking number of minimum spanning tree in a cycle graph where all the edge weights are same. Which means you take a cycle and every edge weight is same and then"
+      },
+      {
+        "lecture": 119,
+        "file": "119. 30a. Questions on MSTs.mp4",
+        "start": 810.45,
+        "end": 839.37,
+        "text": "or you can say this graph is unweighted okay then the number of minimus penalty or the number of spanning trees let's suppose that I say that in one of the one of the cycle there the is distribution is not same which means let's suppose here here you have this is 100 and everything else is 111 like that okay and everything is 111 and here here it is 100 then you will say then in this case the minimus penalty will be possible it just"
+      },
+      {
+        "lecture": 119,
+        "file": "119. 30a. Questions on MSTs.mp4",
+        "start": 1240.33,
+        "end": 1269.66,
+        "text": "So there is a general formula for complete graph and if they talk about the spanning trees For the minimum spanning tree, obviously this is not applicable, this depends on the distribution of the IHS So that is why for the minimum spanning tree, there is no general formula But if you talk about, you know, a complete graph and then you talk about that, okay, just a spanning tree need not to be minimum because Because that edge widths you are not considering, let's suppose and then in this case the formula is n and power n minus 2 Now let's just see whether it is true or false"
+      }
+    ]
+  },
+  {
+    "id": 359,
+    "lecture": 119,
+    "title": "Reason about alternative spanning trees · Apply",
+    "concept": "Distinct edge weights imply a unique MST, but tied weights do not automatically imply multiple MSTs. Exchange an edge along its fundamental cycle to test whether an equally cheap alternative exists. Adding a non-tree edge creates one cycle. Removing a tree edge creates one cut. These two structures show which replacement edges compete with the current tree and where ties permit alternatives.",
+    "teachingSteps": [
+      "Distinct edge weights imply a unique MST, but tied weights do not automatically imply multiple MSTs. Exchange an edge along its fundamental cycle to test whether an equally cheap alternative exists.",
+      "Find its competing cut or cycle edges",
+      "Compare strict and equal replacement costs"
+    ],
+    "foundation": {
+      "title": "Reason about alternative spanning trees",
+      "idea": "Distinct edge weights imply a unique MST, but tied weights do not automatically imply multiple MSTs. Exchange an edge along its fundamental cycle to test whether an equally cheap alternative exists. Adding a non-tree edge creates one cycle. Removing a tree edge creates one cut. These two structures show which replacement edges compete with the current tree and where ties permit alternatives.",
+      "terms": [
+        "Fundamental cycle: the added edge plus its tree path.",
+        "Cut: the two pieces after deleting a tree edge.",
+        "Unique: exactly one minimum-weight tree."
+      ],
+      "example": "Tree AB=1, BC=2 and extra AC=3 has weight 3. If AC falls to 2, replacing BC gives another tree of the same cost."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A network service checks a changed spanning-tree cost. Tree edges AB=1 and BC=3, with extra edge AC=5. What is the maximum new AC weight at which replacing BC is no more expensive?",
+        "answer": 3,
+        "explanation": "The competing tree-path maximum is the weight of BC; equality gives an equally cheap tree.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A spanning tree on 5 vertices has how many non-root parent edges?",
+        "answer": 4,
+        "explanation": "Every non-root vertex contributes exactly one tree edge.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "If a selected tree-edge weight decreases and other weights stay fixed, does the chosen MST remain minimum?",
+        "options": [
+          "No: every decrease forces a new MST.",
+          "Only when all weights are distinct.",
+          "Yes: this change favors the chosen tree over every tree omitting that edge."
+        ],
+        "answer": 2,
+        "explanation": "Trees containing the edge improve by the same amount, while trees omitting it do not improve."
+      },
+      {
+        "type": "choice",
+        "prompt": "Does the presence of any tied edge weights necessarily mean the MST is non-unique?",
+        "options": [
+          "Yes: every tied graph has multiple MSTs.",
+          "No: all MSTs always are unique.",
+          "No: ties may occur on edges that do not create equally cheap tree exchanges."
+        ],
+        "answer": 2,
+        "explanation": "Uniqueness depends on safe exchanges, not merely on whether some weights tie."
+      }
+    ],
+    "algoLab": "mst-alternatives",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 367.1,
+    "excerpt": "So that's why you have two choices to connect these two words. So that is why there are two minimum spanning trees are possible because there are two choices to connect these two words. So two minimum spanning trees are possible. If you are not much convinced then don't worry because we are going to solve more examples for the minimum spanning tree. Okay. Now let's take an example where they are asking number of minimum spanning tree in a cycle graph where all the edge weights are same. Which means you take a cycle and every edge weight is same and then",
+    "sourceReferences": [
+      {
+        "lecture": 119,
+        "file": "119. 30a. Questions on MSTs.mp4",
+        "start": 367.1,
+        "end": 398.7,
+        "text": "So that's why you have two choices to connect these two words. So that is why there are two minimum spanning trees are possible because there are two choices to connect these two words. So two minimum spanning trees are possible. If you are not much convinced then don't worry because we are going to solve more examples for the minimum spanning tree. Okay. Now let's take an example where they are asking number of minimum spanning tree in a cycle graph where all the edge weights are same. Which means you take a cycle and every edge weight is same and then"
+      },
+      {
+        "lecture": 119,
+        "file": "119. 30a. Questions on MSTs.mp4",
+        "start": 810.45,
+        "end": 839.37,
+        "text": "or you can say this graph is unweighted okay then the number of minimus penalty or the number of spanning trees let's suppose that I say that in one of the one of the cycle there the is distribution is not same which means let's suppose here here you have this is 100 and everything else is 111 like that okay and everything is 111 and here here it is 100 then you will say then in this case the minimus penalty will be possible it just"
+      },
+      {
+        "lecture": 119,
+        "file": "119. 30a. Questions on MSTs.mp4",
+        "start": 1240.33,
+        "end": 1269.66,
+        "text": "So there is a general formula for complete graph and if they talk about the spanning trees For the minimum spanning tree, obviously this is not applicable, this depends on the distribution of the IHS So that is why for the minimum spanning tree, there is no general formula But if you talk about, you know, a complete graph and then you talk about that, okay, just a spanning tree need not to be minimum because Because that edge widths you are not considering, let's suppose and then in this case the formula is n and power n minus 2 Now let's just see whether it is true or false"
+      }
+    ]
+  },
+  {
+    "id": 360,
+    "lecture": 120,
+    "title": "Grow one tree with Prim · Discover",
+    "concept": "Prim grows a connected tree by selecting a lightest edge crossing from its current vertices to an outside vertex. The priority of an outside vertex is its cheapest connecting edge, not its total route distance. Prim keeps one connected selected set. Each outside vertex stores the smallest single edge linking it to that set, and a parent storing which edge supplies that connection.",
+    "teachingSteps": [
+      "Prim grows a connected tree by selecting a lightest edge crossing from its current vertices to an outside vertex. The priority of an outside vertex is its cheapest connecting edge, not its total route distance.",
+      "Add the outside vertex with smallest connection key",
+      "Update outside keys using edge weights only"
+    ],
+    "foundation": {
+      "title": "Grow one tree with Prim",
+      "idea": "Prim grows a connected tree by selecting a lightest edge crossing from its current vertices to an outside vertex. The priority of an outside vertex is its cheapest connecting edge, not its total route distance. Prim keeps one connected selected set. Each outside vertex stores the smallest single edge linking it to that set, and a parent storing which edge supplies that connection.",
+      "terms": [
+        "Key: cheapest known crossing-edge weight.",
+        "Parent: inside-tree endpoint of that edge.",
+        "Cut: inside vertices versus all outside vertices."
+      ],
+      "example": "For A—B=2, A—C=3, B—C=2, first choose AB, then BC. The tree costs 4, but its A-to-C route costs 4 rather than the direct shortest cost 3."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "For triangle edges AB=2, AC=3, BC=2, what is the MST total weight?",
+        "answer": 4,
+        "explanation": "Choose AB and BC; their weights sum to 4.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "From source A with edges AB=2, AC=3, BC=2, what is the shortest path distance to C?",
+        "answer": 3,
+        "explanation": "The direct AC edge costs 3, less than the route through B of cost 4.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains grow one tree with prim?",
+        "options": [
+          "Prim grows a connected tree by selecting a lightest edge crossing from its current vertices to an outside vertex.",
+          "Input assumptions never affect correctness.",
+          "One successful example proves every input."
+        ],
+        "answer": 0,
+        "explanation": "Prim grows a connected tree by selecting a lightest edge crossing from its current vertices to an outside vertex. The priority of an outside vertex is its cheapest connecting edge, not its total route distance."
+      },
+      {
+        "type": "order",
+        "prompt": "Grow a minimum spanning tree using Prim.",
+        "items": [
+          "Initialize the chosen root with key zero",
+          "Add the outside vertex with smallest connection key",
+          "Update outside keys using edge weights only"
+        ],
+        "explanation": "Select a minimum crossing connection and update remaining single-edge keys."
+      }
+    ],
+    "algoLab": "prim",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 170,
+    "excerpt": "see and then this whatever you do like for e i think okay for e i should be picking this this is six this is five this is nine i should be picking this five okay now this part is connected at least now you will be picking this okay i think this is minneas currently so anyway like you can use the cross-core algorithm in very similar fashion like this now there is one more algorithm that is called prim cell algorithm",
+    "sourceReferences": [
+      {
+        "lecture": 120,
+        "file": "120. 30b. Prims Algorithm.mp4",
+        "start": 170,
+        "end": 201.39,
+        "text": "see and then this whatever you do like for e i think okay for e i should be picking this this is six this is five this is nine i should be picking this five okay now this part is connected at least now you will be picking this okay i think this is minneas currently so anyway like you can use the cross-core algorithm in very similar fashion like this now there is one more algorithm that is called prim cell algorithm"
+      },
+      {
+        "lecture": 120,
+        "file": "120. 30b. Prims Algorithm.mp4",
+        "start": 496.56,
+        "end": 520.78,
+        "text": "Let's just see what does this mean? Suppose this is the graph that is given to you what I will do in this prims algorithm I will start with one of the vertices any one of the vertices see it is a MHD it is it is not a shortest path which means in the shortest path the The source vertices is given but here there is no source vertex concept You can start with any vertex. Let's suppose. I'm starting with a now I will do what I will say let me put this a"
+      },
+      {
+        "lecture": 120,
+        "file": "120. 30b. Prims Algorithm.mp4",
+        "start": 936.57,
+        "end": 962.03,
+        "text": "so first we will first we need to make sure that we are understanding this picture so what we are saying that at any moment what we are doing we are having a tree and we are having the remaining vertices we are going to bring some vertex here like this and obviously these connections that I had earlier which is v is connected to x y z now obviously if I bring then v is still connected to x y z that is okay so earlier we wanted to find out the minimum between 10 to 30 and 3 this is 10 30"
+      }
+    ]
+  },
+  {
+    "id": 361,
+    "lecture": 120,
+    "title": "Grow one tree with Prim · Trace",
+    "concept": "Prim grows a connected tree by selecting a lightest edge crossing from its current vertices to an outside vertex. The priority of an outside vertex is its cheapest connecting edge, not its total route distance. Prim keeps one connected selected set. Each outside vertex stores the smallest single edge linking it to that set, and a parent storing which edge supplies that connection.",
+    "teachingSteps": [
+      "Prim grows a connected tree by selecting a lightest edge crossing from its current vertices to an outside vertex. The priority of an outside vertex is its cheapest connecting edge, not its total route distance.",
+      "Add the outside vertex with smallest connection key",
+      "Update outside keys using edge weights only"
+    ],
+    "foundation": {
+      "title": "Grow one tree with Prim",
+      "idea": "Prim grows a connected tree by selecting a lightest edge crossing from its current vertices to an outside vertex. The priority of an outside vertex is its cheapest connecting edge, not its total route distance. Prim keeps one connected selected set. Each outside vertex stores the smallest single edge linking it to that set, and a parent storing which edge supplies that connection.",
+      "terms": [
+        "Key: cheapest known crossing-edge weight.",
+        "Parent: inside-tree endpoint of that edge.",
+        "Cut: inside vertices versus all outside vertices."
+      ],
+      "example": "For A—B=2, A—C=3, B—C=2, first choose AB, then BC. The tree costs 4, but its A-to-C route costs 4 rather than the direct shortest cost 3."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "For triangle edges AB=3, AC=4, BC=3, what is the MST total weight?",
+        "answer": 6,
+        "explanation": "Choose AB and BC; their weights sum to 6.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "From source A with edges AB=3, AC=4, BC=3, what is the shortest path distance to C?",
+        "answer": 4,
+        "explanation": "The direct AC edge costs 4, less than the route through B of cost 6.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "When Prim scans u—v, what candidate is compared with key[v]?",
+        "options": [
+          "distance[u]+w(u,v).",
+          "The number of previously visited vertices.",
+          "The single edge weight w(u,v)."
+        ],
+        "answer": 2,
+        "explanation": "Prim’s key connects v to the growing tree; it is not a root-to-v path distance."
+      },
+      {
+        "type": "order",
+        "prompt": "Grow a minimum spanning tree using Prim.",
+        "items": [
+          "Initialize the chosen root with key zero",
+          "Add the outside vertex with smallest connection key",
+          "Update outside keys using edge weights only"
+        ],
+        "explanation": "Select a minimum crossing connection and update remaining single-edge keys."
+      }
+    ],
+    "algoLab": "prim",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 170,
+    "excerpt": "see and then this whatever you do like for e i think okay for e i should be picking this this is six this is five this is nine i should be picking this five okay now this part is connected at least now you will be picking this okay i think this is minneas currently so anyway like you can use the cross-core algorithm in very similar fashion like this now there is one more algorithm that is called prim cell algorithm",
+    "sourceReferences": [
+      {
+        "lecture": 120,
+        "file": "120. 30b. Prims Algorithm.mp4",
+        "start": 170,
+        "end": 201.39,
+        "text": "see and then this whatever you do like for e i think okay for e i should be picking this this is six this is five this is nine i should be picking this five okay now this part is connected at least now you will be picking this okay i think this is minneas currently so anyway like you can use the cross-core algorithm in very similar fashion like this now there is one more algorithm that is called prim cell algorithm"
+      },
+      {
+        "lecture": 120,
+        "file": "120. 30b. Prims Algorithm.mp4",
+        "start": 496.56,
+        "end": 520.78,
+        "text": "Let's just see what does this mean? Suppose this is the graph that is given to you what I will do in this prims algorithm I will start with one of the vertices any one of the vertices see it is a MHD it is it is not a shortest path which means in the shortest path the The source vertices is given but here there is no source vertex concept You can start with any vertex. Let's suppose. I'm starting with a now I will do what I will say let me put this a"
+      },
+      {
+        "lecture": 120,
+        "file": "120. 30b. Prims Algorithm.mp4",
+        "start": 936.57,
+        "end": 962.03,
+        "text": "so first we will first we need to make sure that we are understanding this picture so what we are saying that at any moment what we are doing we are having a tree and we are having the remaining vertices we are going to bring some vertex here like this and obviously these connections that I had earlier which is v is connected to x y z now obviously if I bring then v is still connected to x y z that is okay so earlier we wanted to find out the minimum between 10 to 30 and 3 this is 10 30"
+      }
+    ]
+  },
+  {
+    "id": 362,
+    "lecture": 120,
+    "title": "Grow one tree with Prim · Apply",
+    "concept": "Prim grows a connected tree by selecting a lightest edge crossing from its current vertices to an outside vertex. The priority of an outside vertex is its cheapest connecting edge, not its total route distance. Prim keeps one connected selected set. Each outside vertex stores the smallest single edge linking it to that set, and a parent storing which edge supplies that connection.",
+    "teachingSteps": [
+      "Prim grows a connected tree by selecting a lightest edge crossing from its current vertices to an outside vertex. The priority of an outside vertex is its cheapest connecting edge, not its total route distance.",
+      "Add the outside vertex with smallest connection key",
+      "Update outside keys using edge weights only"
+    ],
+    "foundation": {
+      "title": "Grow one tree with Prim",
+      "idea": "Prim grows a connected tree by selecting a lightest edge crossing from its current vertices to an outside vertex. The priority of an outside vertex is its cheapest connecting edge, not its total route distance. Prim keeps one connected selected set. Each outside vertex stores the smallest single edge linking it to that set, and a parent storing which edge supplies that connection.",
+      "terms": [
+        "Key: cheapest known crossing-edge weight.",
+        "Parent: inside-tree endpoint of that edge.",
+        "Cut: inside vertices versus all outside vertices."
+      ],
+      "example": "For A—B=2, A—C=3, B—C=2, first choose AB, then BC. The tree costs 4, but its A-to-C route costs 4 rather than the direct shortest cost 3."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A connection service grows a minimum-cost tree. For triangle edges AB=4, AC=5, BC=4, what is the MST total weight?",
+        "answer": 8,
+        "explanation": "Choose AB and BC; their weights sum to 8.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "From source A with edges AB=4, AC=5, BC=4, what is the shortest path distance to C?",
+        "answer": 5,
+        "explanation": "The direct AC edge costs 5, less than the route through B of cost 8.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "When Prim scans u—v, what candidate is compared with key[v]?",
+        "options": [
+          "The number of previously visited vertices.",
+          "The single edge weight w(u,v).",
+          "distance[u]+w(u,v)."
+        ],
+        "answer": 1,
+        "explanation": "Prim’s key connects v to the growing tree; it is not a root-to-v path distance."
+      },
+      {
+        "type": "order",
+        "prompt": "Grow a minimum spanning tree using Prim.",
+        "items": [
+          "Initialize the chosen root with key zero",
+          "Add the outside vertex with smallest connection key",
+          "Update outside keys using edge weights only"
+        ],
+        "explanation": "Select a minimum crossing connection and update remaining single-edge keys."
+      }
+    ],
+    "algoLab": "prim",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 170,
+    "excerpt": "see and then this whatever you do like for e i think okay for e i should be picking this this is six this is five this is nine i should be picking this five okay now this part is connected at least now you will be picking this okay i think this is minneas currently so anyway like you can use the cross-core algorithm in very similar fashion like this now there is one more algorithm that is called prim cell algorithm",
+    "sourceReferences": [
+      {
+        "lecture": 120,
+        "file": "120. 30b. Prims Algorithm.mp4",
+        "start": 170,
+        "end": 201.39,
+        "text": "see and then this whatever you do like for e i think okay for e i should be picking this this is six this is five this is nine i should be picking this five okay now this part is connected at least now you will be picking this okay i think this is minneas currently so anyway like you can use the cross-core algorithm in very similar fashion like this now there is one more algorithm that is called prim cell algorithm"
+      },
+      {
+        "lecture": 120,
+        "file": "120. 30b. Prims Algorithm.mp4",
+        "start": 496.56,
+        "end": 520.78,
+        "text": "Let's just see what does this mean? Suppose this is the graph that is given to you what I will do in this prims algorithm I will start with one of the vertices any one of the vertices see it is a MHD it is it is not a shortest path which means in the shortest path the The source vertices is given but here there is no source vertex concept You can start with any vertex. Let's suppose. I'm starting with a now I will do what I will say let me put this a"
+      },
+      {
+        "lecture": 120,
+        "file": "120. 30b. Prims Algorithm.mp4",
+        "start": 936.57,
+        "end": 962.03,
+        "text": "so first we will first we need to make sure that we are understanding this picture so what we are saying that at any moment what we are doing we are having a tree and we are having the remaining vertices we are going to bring some vertex here like this and obviously these connections that I had earlier which is v is connected to x y z now obviously if I bring then v is still connected to x y z that is okay so earlier we wanted to find out the minimum between 10 to 30 and 3 this is 10 30"
+      }
+    ]
+  },
+  {
+    "id": 363,
+    "lecture": 121,
+    "title": "Two similar queues, different priorities · Discover",
+    "concept": "Prim compares edge weight w(u,v) with the best connection key of v. Dijkstra compares distance(u)+w(u,v) with distance(v); their similar control flow optimizes different objectives. Prim keeps one connected selected set. Each outside vertex stores the smallest single edge linking it to that set, and a parent storing which edge supplies that connection.",
+    "teachingSteps": [
+      "Prim compares edge weight w(u,v) with the best connection key of v. Dijkstra compares distance(u)+w(u,v) with distance(v); their similar control flow optimizes different objectives.",
+      "Add the outside vertex with smallest connection key",
+      "Update outside keys using edge weights only"
+    ],
+    "foundation": {
+      "title": "Two similar queues, different priorities",
+      "idea": "Prim compares edge weight w(u,v) with the best connection key of v. Dijkstra compares distance(u)+w(u,v) with distance(v); their similar control flow optimizes different objectives. Prim keeps one connected selected set. Each outside vertex stores the smallest single edge linking it to that set, and a parent storing which edge supplies that connection.",
+      "terms": [
+        "Key: cheapest known crossing-edge weight.",
+        "Parent: inside-tree endpoint of that edge.",
+        "Cut: inside vertices versus all outside vertices."
+      ],
+      "example": "For A—B=2, A—C=3, B—C=2, first choose AB, then BC. The tree costs 4, but its A-to-C route costs 4 rather than the direct shortest cost 3."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "For triangle edges AB=3, AC=4, BC=3, what is the MST total weight?",
+        "answer": 6,
+        "explanation": "Choose AB and BC; their weights sum to 6.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "From source A with edges AB=3, AC=4, BC=3, what is the shortest path distance to C?",
+        "answer": 4,
+        "explanation": "The direct AC edge costs 4, less than the route through B of cost 6.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains two similar queues, different priorities?",
+        "options": [
+          "Input assumptions never affect correctness.",
+          "One successful example proves every input.",
+          "Prim compares edge weight w(u,v) with the best connection key of v."
+        ],
+        "answer": 2,
+        "explanation": "Prim compares edge weight w(u,v) with the best connection key of v. Dijkstra compares distance(u)+w(u,v) with distance(v); their similar control flow optimizes different objectives."
+      },
+      {
+        "type": "order",
+        "prompt": "Grow a minimum spanning tree using Prim.",
+        "items": [
+          "Initialize the chosen root with key zero",
+          "Add the outside vertex with smallest connection key",
+          "Update outside keys using edge weights only"
+        ],
+        "explanation": "Select a minimum crossing connection and update remaining single-edge keys."
+      }
+    ],
+    "algoLab": "prim-priority",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 1895.17,
+    "excerpt": "saving 647 should be here. This 8 and 11 actually I have rolled out, i mean this eight and eleven I've updated that to seven only right? Even even this is better like using the algorithm I'm doing something better so basically here also you know as using the algorithm am doing the same thing earlier also I was doing...I was doing the same things So I will just not carry my weights okay And I'll say ok what are the distance from these three ? I won't find a difference in the source See the difference between the primes and the extra is this one",
+    "sourceReferences": [
+      {
+        "lecture": 121,
+        "file": "121. 30c. Prims and Dijkstra Similarity.mp4",
+        "start": 1895.17,
+        "end": 1922.8,
+        "text": "saving 647 should be here. This 8 and 11 actually I have rolled out, i mean this eight and eleven I've updated that to seven only right? Even even this is better like using the algorithm I'm doing something better so basically here also you know as using the algorithm am doing the same thing earlier also I was doing...I was doing the same things So I will just not carry my weights okay And I'll say ok what are the distance from these three ? I won't find a difference in the source See the difference between the primes and the extra is this one"
+      },
+      {
+        "lecture": 121,
+        "file": "121. 30c. Prims and Dijkstra Similarity.mp4",
+        "start": 2008.46,
+        "end": 2032.61,
+        "text": "I mean you don't know how much pass baggage to carry. This could be any higher numbers. So that is why the premise and direct style algorithm just same, only difference this source can give you a higher weightage basically in the direct style algorithm we are finding distance not from the tree"
+      },
+      {
+        "lecture": 121,
+        "file": "121. 30c. Prims and Dijkstra Similarity.mp4",
+        "start": 2213.55,
+        "end": 2241.78,
+        "text": "I'm almost sure that most of the experience will not be able to answer, what is the main distinction between Prims and Dijkstra. They just heard from somewhere that Prims & Dijkstra both are similar or they just heard it okay? Both are similar but what's actual difference might not have been known before also like if you've studied this algorithm earlier then mostly probably you may not hear about the exact differences"
+      }
+    ]
+  },
+  {
+    "id": 364,
+    "lecture": 121,
+    "title": "Two similar queues, different priorities · Trace",
+    "concept": "Prim compares edge weight w(u,v) with the best connection key of v. Dijkstra compares distance(u)+w(u,v) with distance(v); their similar control flow optimizes different objectives. Prim keeps one connected selected set. Each outside vertex stores the smallest single edge linking it to that set, and a parent storing which edge supplies that connection.",
+    "teachingSteps": [
+      "Prim compares edge weight w(u,v) with the best connection key of v. Dijkstra compares distance(u)+w(u,v) with distance(v); their similar control flow optimizes different objectives.",
+      "Add the outside vertex with smallest connection key",
+      "Update outside keys using edge weights only"
+    ],
+    "foundation": {
+      "title": "Two similar queues, different priorities",
+      "idea": "Prim compares edge weight w(u,v) with the best connection key of v. Dijkstra compares distance(u)+w(u,v) with distance(v); their similar control flow optimizes different objectives. Prim keeps one connected selected set. Each outside vertex stores the smallest single edge linking it to that set, and a parent storing which edge supplies that connection.",
+      "terms": [
+        "Key: cheapest known crossing-edge weight.",
+        "Parent: inside-tree endpoint of that edge.",
+        "Cut: inside vertices versus all outside vertices."
+      ],
+      "example": "For A—B=2, A—C=3, B—C=2, first choose AB, then BC. The tree costs 4, but its A-to-C route costs 4 rather than the direct shortest cost 3."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "For triangle edges AB=4, AC=5, BC=4, what is the MST total weight?",
+        "answer": 8,
+        "explanation": "Choose AB and BC; their weights sum to 8.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "From source A with edges AB=4, AC=5, BC=4, what is the shortest path distance to C?",
+        "answer": 5,
+        "explanation": "The direct AC edge costs 5, less than the route through B of cost 8.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "When Prim scans u—v, what candidate is compared with key[v]?",
+        "options": [
+          "The number of previously visited vertices.",
+          "The single edge weight w(u,v).",
+          "distance[u]+w(u,v)."
+        ],
+        "answer": 1,
+        "explanation": "Prim’s key connects v to the growing tree; it is not a root-to-v path distance."
+      },
+      {
+        "type": "order",
+        "prompt": "Grow a minimum spanning tree using Prim.",
+        "items": [
+          "Initialize the chosen root with key zero",
+          "Add the outside vertex with smallest connection key",
+          "Update outside keys using edge weights only"
+        ],
+        "explanation": "Select a minimum crossing connection and update remaining single-edge keys."
+      }
+    ],
+    "algoLab": "prim-priority",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 1895.17,
+    "excerpt": "saving 647 should be here. This 8 and 11 actually I have rolled out, i mean this eight and eleven I've updated that to seven only right? Even even this is better like using the algorithm I'm doing something better so basically here also you know as using the algorithm am doing the same thing earlier also I was doing...I was doing the same things So I will just not carry my weights okay And I'll say ok what are the distance from these three ? I won't find a difference in the source See the difference between the primes and the extra is this one",
+    "sourceReferences": [
+      {
+        "lecture": 121,
+        "file": "121. 30c. Prims and Dijkstra Similarity.mp4",
+        "start": 1895.17,
+        "end": 1922.8,
+        "text": "saving 647 should be here. This 8 and 11 actually I have rolled out, i mean this eight and eleven I've updated that to seven only right? Even even this is better like using the algorithm I'm doing something better so basically here also you know as using the algorithm am doing the same thing earlier also I was doing...I was doing the same things So I will just not carry my weights okay And I'll say ok what are the distance from these three ? I won't find a difference in the source See the difference between the primes and the extra is this one"
+      },
+      {
+        "lecture": 121,
+        "file": "121. 30c. Prims and Dijkstra Similarity.mp4",
+        "start": 2008.46,
+        "end": 2032.61,
+        "text": "I mean you don't know how much pass baggage to carry. This could be any higher numbers. So that is why the premise and direct style algorithm just same, only difference this source can give you a higher weightage basically in the direct style algorithm we are finding distance not from the tree"
+      },
+      {
+        "lecture": 121,
+        "file": "121. 30c. Prims and Dijkstra Similarity.mp4",
+        "start": 2213.55,
+        "end": 2241.78,
+        "text": "I'm almost sure that most of the experience will not be able to answer, what is the main distinction between Prims and Dijkstra. They just heard from somewhere that Prims & Dijkstra both are similar or they just heard it okay? Both are similar but what's actual difference might not have been known before also like if you've studied this algorithm earlier then mostly probably you may not hear about the exact differences"
+      }
+    ]
+  },
+  {
+    "id": 365,
+    "lecture": 121,
+    "title": "Two similar queues, different priorities · Apply",
+    "concept": "Prim compares edge weight w(u,v) with the best connection key of v. Dijkstra compares distance(u)+w(u,v) with distance(v); their similar control flow optimizes different objectives. Prim keeps one connected selected set. Each outside vertex stores the smallest single edge linking it to that set, and a parent storing which edge supplies that connection.",
+    "teachingSteps": [
+      "Prim compares edge weight w(u,v) with the best connection key of v. Dijkstra compares distance(u)+w(u,v) with distance(v); their similar control flow optimizes different objectives.",
+      "Add the outside vertex with smallest connection key",
+      "Update outside keys using edge weights only"
+    ],
+    "foundation": {
+      "title": "Two similar queues, different priorities",
+      "idea": "Prim compares edge weight w(u,v) with the best connection key of v. Dijkstra compares distance(u)+w(u,v) with distance(v); their similar control flow optimizes different objectives. Prim keeps one connected selected set. Each outside vertex stores the smallest single edge linking it to that set, and a parent storing which edge supplies that connection.",
+      "terms": [
+        "Key: cheapest known crossing-edge weight.",
+        "Parent: inside-tree endpoint of that edge.",
+        "Cut: inside vertices versus all outside vertices."
+      ],
+      "example": "For A—B=2, A—C=3, B—C=2, first choose AB, then BC. The tree costs 4, but its A-to-C route costs 4 rather than the direct shortest cost 3."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A connection service grows a minimum-cost tree. For triangle edges AB=2, AC=3, BC=2, what is the MST total weight?",
+        "answer": 4,
+        "explanation": "Choose AB and BC; their weights sum to 4.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "From source A with edges AB=2, AC=3, BC=2, what is the shortest path distance to C?",
+        "answer": 3,
+        "explanation": "The direct AC edge costs 3, less than the route through B of cost 4.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "When Prim scans u—v, what candidate is compared with key[v]?",
+        "options": [
+          "The single edge weight w(u,v).",
+          "distance[u]+w(u,v).",
+          "The number of previously visited vertices."
+        ],
+        "answer": 0,
+        "explanation": "Prim’s key connects v to the growing tree; it is not a root-to-v path distance."
+      },
+      {
+        "type": "order",
+        "prompt": "Grow a minimum spanning tree using Prim.",
+        "items": [
+          "Initialize the chosen root with key zero",
+          "Add the outside vertex with smallest connection key",
+          "Update outside keys using edge weights only"
+        ],
+        "explanation": "Select a minimum crossing connection and update remaining single-edge keys."
+      }
+    ],
+    "algoLab": "prim-priority",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 1895.17,
+    "excerpt": "saving 647 should be here. This 8 and 11 actually I have rolled out, i mean this eight and eleven I've updated that to seven only right? Even even this is better like using the algorithm I'm doing something better so basically here also you know as using the algorithm am doing the same thing earlier also I was doing...I was doing the same things So I will just not carry my weights okay And I'll say ok what are the distance from these three ? I won't find a difference in the source See the difference between the primes and the extra is this one",
+    "sourceReferences": [
+      {
+        "lecture": 121,
+        "file": "121. 30c. Prims and Dijkstra Similarity.mp4",
+        "start": 1895.17,
+        "end": 1922.8,
+        "text": "saving 647 should be here. This 8 and 11 actually I have rolled out, i mean this eight and eleven I've updated that to seven only right? Even even this is better like using the algorithm I'm doing something better so basically here also you know as using the algorithm am doing the same thing earlier also I was doing...I was doing the same things So I will just not carry my weights okay And I'll say ok what are the distance from these three ? I won't find a difference in the source See the difference between the primes and the extra is this one"
+      },
+      {
+        "lecture": 121,
+        "file": "121. 30c. Prims and Dijkstra Similarity.mp4",
+        "start": 2008.46,
+        "end": 2032.61,
+        "text": "I mean you don't know how much pass baggage to carry. This could be any higher numbers. So that is why the premise and direct style algorithm just same, only difference this source can give you a higher weightage basically in the direct style algorithm we are finding distance not from the tree"
+      },
+      {
+        "lecture": 121,
+        "file": "121. 30c. Prims and Dijkstra Similarity.mp4",
+        "start": 2213.55,
+        "end": 2241.78,
+        "text": "I'm almost sure that most of the experience will not be able to answer, what is the main distinction between Prims and Dijkstra. They just heard from somewhere that Prims & Dijkstra both are similar or they just heard it okay? Both are similar but what's actual difference might not have been known before also like if you've studied this algorithm earlier then mostly probably you may not hear about the exact differences"
+      }
+    ]
+  },
+  {
+    "id": 366,
+    "lecture": 122,
+    "title": "A spanning tree is not a shortest-path tree · Discover",
+    "concept": "An MST minimizes the total chosen edge weight. A shortest-path tree minimizes each source-to-vertex distance; the two trees can differ on the same positive-weight graph. Prim keeps one connected selected set. Each outside vertex stores the smallest single edge linking it to that set, and a parent storing which edge supplies that connection.",
+    "teachingSteps": [
+      "An MST minimizes the total chosen edge weight. A shortest-path tree minimizes each source-to-vertex distance; the two trees can differ on the same positive-weight graph.",
+      "Add the outside vertex with smallest connection key",
+      "Update outside keys using edge weights only"
+    ],
+    "foundation": {
+      "title": "A spanning tree is not a shortest-path tree",
+      "idea": "An MST minimizes the total chosen edge weight. A shortest-path tree minimizes each source-to-vertex distance; the two trees can differ on the same positive-weight graph. Prim keeps one connected selected set. Each outside vertex stores the smallest single edge linking it to that set, and a parent storing which edge supplies that connection.",
+      "terms": [
+        "Key: cheapest known crossing-edge weight.",
+        "Parent: inside-tree endpoint of that edge.",
+        "Cut: inside vertices versus all outside vertices."
+      ],
+      "example": "For A—B=2, A—C=3, B—C=2, first choose AB, then BC. The tree costs 4, but its A-to-C route costs 4 rather than the direct shortest cost 3."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "For triangle edges AB=4, AC=5, BC=4, what is the MST total weight?",
+        "answer": 8,
+        "explanation": "Choose AB and BC; their weights sum to 8.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "From source A with edges AB=4, AC=5, BC=4, what is the shortest path distance to C?",
+        "answer": 5,
+        "explanation": "The direct AC edge costs 5, less than the route through B of cost 8.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains a spanning tree is not a shortest-path tree?",
+        "options": [
+          "One successful example proves every input.",
+          "An MST minimizes the total chosen edge weight.",
+          "Input assumptions never affect correctness."
+        ],
+        "answer": 1,
+        "explanation": "An MST minimizes the total chosen edge weight. A shortest-path tree minimizes each source-to-vertex distance; the two trees can differ on the same positive-weight graph."
+      },
+      {
+        "type": "order",
+        "prompt": "Grow a minimum spanning tree using Prim.",
+        "items": [
+          "Initialize the chosen root with key zero",
+          "Add the outside vertex with smallest connection key",
+          "Update outside keys using edge weights only"
+        ],
+        "explanation": "Select a minimum crossing connection and update remaining single-edge keys."
+      }
+    ],
+    "algoLab": "prim-vs-path",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 226.96,
+    "excerpt": "from this, this A, right, this A. So, diextra will say that I will go with this A. This, this, this is and diextra will have this D. So, basically, this diextra is going to give you this, this, this graph of this tree basically, the final, final tree is this and the prince is going to give you this tree.",
+    "sourceReferences": [
+      {
+        "lecture": 122,
+        "file": "122_30d_Single_Example_for_Prims_and_Dijkstra_both_MST_v.mp4",
+        "start": 226.96,
+        "end": 245.88,
+        "text": "from this, this A, right, this A. So, diextra will say that I will go with this A. This, this, this is and diextra will have this D. So, basically, this diextra is going to give you this, this, this graph of this tree basically, the final, final tree is this and the prince is going to give you this tree."
+      },
+      {
+        "lecture": 122,
+        "file": "122_30d_Single_Example_for_Prims_and_Dijkstra_both_MST_v.mp4",
+        "start": 271.09,
+        "end": 297.27,
+        "text": "but just from the tree if you just see from the tree perspective what is the closest this is this edge is closest so prince will say i will i will see from the tree perspective daxtra will say i will i will see from the source perspective so both perspectives are different otherwise the algorithm is exactly same algorithm is exactly same right only thing is that daxtra is going to compare so prince is going to compare from the tree so prince is going to say in this tree using this tree this tree is closest"
+      },
+      {
+        "lecture": 122,
+        "file": "122_30d_Single_Example_for_Prims_and_Dijkstra_both_MST_v.mp4",
+        "start": 297.54,
+        "end": 333.96,
+        "text": "But text I will say in this tree, I will compare in this tree, but using the source. So using the source, this path is shortest. Okay. Okay. Please don't try to relate these two algorithms in the sense that don't say that if it is shortest path, then it will give you the minimum spend or something like that. Let me, let me tell you that also. I mean, maybe let me tell you what is the difference between MST and shortest path. First of all, tell me if I have the MST, do I have the shortest path also? If we have"
+      }
+    ]
+  },
+  {
+    "id": 367,
+    "lecture": 122,
+    "title": "A spanning tree is not a shortest-path tree · Trace",
+    "concept": "An MST minimizes the total chosen edge weight. A shortest-path tree minimizes each source-to-vertex distance; the two trees can differ on the same positive-weight graph. Prim keeps one connected selected set. Each outside vertex stores the smallest single edge linking it to that set, and a parent storing which edge supplies that connection.",
+    "teachingSteps": [
+      "An MST minimizes the total chosen edge weight. A shortest-path tree minimizes each source-to-vertex distance; the two trees can differ on the same positive-weight graph.",
+      "Add the outside vertex with smallest connection key",
+      "Update outside keys using edge weights only"
+    ],
+    "foundation": {
+      "title": "A spanning tree is not a shortest-path tree",
+      "idea": "An MST minimizes the total chosen edge weight. A shortest-path tree minimizes each source-to-vertex distance; the two trees can differ on the same positive-weight graph. Prim keeps one connected selected set. Each outside vertex stores the smallest single edge linking it to that set, and a parent storing which edge supplies that connection.",
+      "terms": [
+        "Key: cheapest known crossing-edge weight.",
+        "Parent: inside-tree endpoint of that edge.",
+        "Cut: inside vertices versus all outside vertices."
+      ],
+      "example": "For A—B=2, A—C=3, B—C=2, first choose AB, then BC. The tree costs 4, but its A-to-C route costs 4 rather than the direct shortest cost 3."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "For triangle edges AB=2, AC=3, BC=2, what is the MST total weight?",
+        "answer": 4,
+        "explanation": "Choose AB and BC; their weights sum to 4.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "From source A with edges AB=2, AC=3, BC=2, what is the shortest path distance to C?",
+        "answer": 3,
+        "explanation": "The direct AC edge costs 3, less than the route through B of cost 4.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "When Prim scans u—v, what candidate is compared with key[v]?",
+        "options": [
+          "The single edge weight w(u,v).",
+          "distance[u]+w(u,v).",
+          "The number of previously visited vertices."
+        ],
+        "answer": 0,
+        "explanation": "Prim’s key connects v to the growing tree; it is not a root-to-v path distance."
+      },
+      {
+        "type": "order",
+        "prompt": "Grow a minimum spanning tree using Prim.",
+        "items": [
+          "Initialize the chosen root with key zero",
+          "Add the outside vertex with smallest connection key",
+          "Update outside keys using edge weights only"
+        ],
+        "explanation": "Select a minimum crossing connection and update remaining single-edge keys."
+      }
+    ],
+    "algoLab": "prim-vs-path",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 226.96,
+    "excerpt": "from this, this A, right, this A. So, diextra will say that I will go with this A. This, this, this is and diextra will have this D. So, basically, this diextra is going to give you this, this, this graph of this tree basically, the final, final tree is this and the prince is going to give you this tree.",
+    "sourceReferences": [
+      {
+        "lecture": 122,
+        "file": "122_30d_Single_Example_for_Prims_and_Dijkstra_both_MST_v.mp4",
+        "start": 226.96,
+        "end": 245.88,
+        "text": "from this, this A, right, this A. So, diextra will say that I will go with this A. This, this, this is and diextra will have this D. So, basically, this diextra is going to give you this, this, this graph of this tree basically, the final, final tree is this and the prince is going to give you this tree."
+      },
+      {
+        "lecture": 122,
+        "file": "122_30d_Single_Example_for_Prims_and_Dijkstra_both_MST_v.mp4",
+        "start": 271.09,
+        "end": 297.27,
+        "text": "but just from the tree if you just see from the tree perspective what is the closest this is this edge is closest so prince will say i will i will see from the tree perspective daxtra will say i will i will see from the source perspective so both perspectives are different otherwise the algorithm is exactly same algorithm is exactly same right only thing is that daxtra is going to compare so prince is going to compare from the tree so prince is going to say in this tree using this tree this tree is closest"
+      },
+      {
+        "lecture": 122,
+        "file": "122_30d_Single_Example_for_Prims_and_Dijkstra_both_MST_v.mp4",
+        "start": 297.54,
+        "end": 333.96,
+        "text": "But text I will say in this tree, I will compare in this tree, but using the source. So using the source, this path is shortest. Okay. Okay. Please don't try to relate these two algorithms in the sense that don't say that if it is shortest path, then it will give you the minimum spend or something like that. Let me, let me tell you that also. I mean, maybe let me tell you what is the difference between MST and shortest path. First of all, tell me if I have the MST, do I have the shortest path also? If we have"
+      }
+    ]
+  },
+  {
+    "id": 368,
+    "lecture": 122,
+    "title": "A spanning tree is not a shortest-path tree · Apply",
+    "concept": "An MST minimizes the total chosen edge weight. A shortest-path tree minimizes each source-to-vertex distance; the two trees can differ on the same positive-weight graph. Prim keeps one connected selected set. Each outside vertex stores the smallest single edge linking it to that set, and a parent storing which edge supplies that connection.",
+    "teachingSteps": [
+      "An MST minimizes the total chosen edge weight. A shortest-path tree minimizes each source-to-vertex distance; the two trees can differ on the same positive-weight graph.",
+      "Add the outside vertex with smallest connection key",
+      "Update outside keys using edge weights only"
+    ],
+    "foundation": {
+      "title": "A spanning tree is not a shortest-path tree",
+      "idea": "An MST minimizes the total chosen edge weight. A shortest-path tree minimizes each source-to-vertex distance; the two trees can differ on the same positive-weight graph. Prim keeps one connected selected set. Each outside vertex stores the smallest single edge linking it to that set, and a parent storing which edge supplies that connection.",
+      "terms": [
+        "Key: cheapest known crossing-edge weight.",
+        "Parent: inside-tree endpoint of that edge.",
+        "Cut: inside vertices versus all outside vertices."
+      ],
+      "example": "For A—B=2, A—C=3, B—C=2, first choose AB, then BC. The tree costs 4, but its A-to-C route costs 4 rather than the direct shortest cost 3."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A connection service grows a minimum-cost tree. For triangle edges AB=3, AC=4, BC=3, what is the MST total weight?",
+        "answer": 6,
+        "explanation": "Choose AB and BC; their weights sum to 6.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "From source A with edges AB=3, AC=4, BC=3, what is the shortest path distance to C?",
+        "answer": 4,
+        "explanation": "The direct AC edge costs 4, less than the route through B of cost 6.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "When Prim scans u—v, what candidate is compared with key[v]?",
+        "options": [
+          "distance[u]+w(u,v).",
+          "The number of previously visited vertices.",
+          "The single edge weight w(u,v)."
+        ],
+        "answer": 2,
+        "explanation": "Prim’s key connects v to the growing tree; it is not a root-to-v path distance."
+      },
+      {
+        "type": "order",
+        "prompt": "Grow a minimum spanning tree using Prim.",
+        "items": [
+          "Initialize the chosen root with key zero",
+          "Add the outside vertex with smallest connection key",
+          "Update outside keys using edge weights only"
+        ],
+        "explanation": "Select a minimum crossing connection and update remaining single-edge keys."
+      }
+    ],
+    "algoLab": "prim-vs-path",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 226.96,
+    "excerpt": "from this, this A, right, this A. So, diextra will say that I will go with this A. This, this, this is and diextra will have this D. So, basically, this diextra is going to give you this, this, this graph of this tree basically, the final, final tree is this and the prince is going to give you this tree.",
+    "sourceReferences": [
+      {
+        "lecture": 122,
+        "file": "122_30d_Single_Example_for_Prims_and_Dijkstra_both_MST_v.mp4",
+        "start": 226.96,
+        "end": 245.88,
+        "text": "from this, this A, right, this A. So, diextra will say that I will go with this A. This, this, this is and diextra will have this D. So, basically, this diextra is going to give you this, this, this graph of this tree basically, the final, final tree is this and the prince is going to give you this tree."
+      },
+      {
+        "lecture": 122,
+        "file": "122_30d_Single_Example_for_Prims_and_Dijkstra_both_MST_v.mp4",
+        "start": 271.09,
+        "end": 297.27,
+        "text": "but just from the tree if you just see from the tree perspective what is the closest this is this edge is closest so prince will say i will i will see from the tree perspective daxtra will say i will i will see from the source perspective so both perspectives are different otherwise the algorithm is exactly same algorithm is exactly same right only thing is that daxtra is going to compare so prince is going to compare from the tree so prince is going to say in this tree using this tree this tree is closest"
+      },
+      {
+        "lecture": 122,
+        "file": "122_30d_Single_Example_for_Prims_and_Dijkstra_both_MST_v.mp4",
+        "start": 297.54,
+        "end": 333.96,
+        "text": "But text I will say in this tree, I will compare in this tree, but using the source. So using the source, this path is shortest. Okay. Okay. Please don't try to relate these two algorithms in the sense that don't say that if it is shortest path, then it will give you the minimum spend or something like that. Let me, let me tell you that also. I mean, maybe let me tell you what is the difference between MST and shortest path. First of all, tell me if I have the MST, do I have the shortest path also? If we have"
+      }
+    ]
+  },
+  {
+    "id": 369,
+    "lecture": 123,
+    "title": "Prove uniqueness with cycle exchanges · Discover",
+    "concept": "For a given spanning tree, inspect each non-tree edge against the heaviest edge on the tree path between its endpoints. A strictly cheaper replacement disproves optimality; an equal replacement proves a tied alternative. Adding a non-tree edge creates one cycle. Removing a tree edge creates one cut. These two structures show which replacement edges compete with the current tree and where ties permit alternatives.",
+    "teachingSteps": [
+      "For a given spanning tree, inspect each non-tree edge against the heaviest edge on the tree path between its endpoints. A strictly cheaper replacement disproves optimality; an equal replacement proves a tied alternative.",
+      "Find its competing cut or cycle edges",
+      "Compare strict and equal replacement costs"
+    ],
+    "foundation": {
+      "title": "Prove uniqueness with cycle exchanges",
+      "idea": "For a given spanning tree, inspect each non-tree edge against the heaviest edge on the tree path between its endpoints. A strictly cheaper replacement disproves optimality; an equal replacement proves a tied alternative. Adding a non-tree edge creates one cycle. Removing a tree edge creates one cut. These two structures show which replacement edges compete with the current tree and where ties permit alternatives.",
+      "terms": [
+        "Fundamental cycle: the added edge plus its tree path.",
+        "Cut: the two pieces after deleting a tree edge.",
+        "Unique: exactly one minimum-weight tree."
+      ],
+      "example": "Tree AB=1, BC=2 and extra AC=3 has weight 3. If AC falls to 2, replacing BC gives another tree of the same cost."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Tree edges AB=1 and BC=2, with extra edge AC=4. What is the maximum new AC weight at which replacing BC is no more expensive?",
+        "answer": 2,
+        "explanation": "The competing tree-path maximum is the weight of BC; equality gives an equally cheap tree.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A spanning tree on 7 vertices has how many non-root parent edges?",
+        "answer": 6,
+        "explanation": "Every non-root vertex contributes exactly one tree edge.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains prove uniqueness with cycle exchanges?",
+        "options": [
+          "For a given spanning tree, inspect each non-tree edge against the heaviest edge on the tree path between its endpoints.",
+          "Input assumptions never affect correctness.",
+          "One successful example proves every input."
+        ],
+        "answer": 0,
+        "explanation": "For a given spanning tree, inspect each non-tree edge against the heaviest edge on the tree path between its endpoints. A strictly cheaper replacement disproves optimality; an equal replacement proves a tied alternative."
+      },
+      {
+        "type": "choice",
+        "prompt": "Does the presence of any tied edge weights necessarily mean the MST is non-unique?",
+        "options": [
+          "No: ties may occur on edges that do not create equally cheap tree exchanges.",
+          "Yes: every tied graph has multiple MSTs.",
+          "No: all MSTs always are unique."
+        ],
+        "answer": 0,
+        "explanation": "Uniqueness depends on safe exchanges, not merely on whether some weights tie."
+      }
+    ],
+    "algoLab": "mst-unique",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 521.69,
+    "excerpt": "will always select because these two ones cannot work or cannot form the cycle, Kuskal will always select, given that exactly two edges are with weight 1 and at least there is a weight of 1, minimum edge weight is actually 1 or in other words they can ask that if there are two exactly two minimum edge weights then both of them must be in the MSD, the answer is yes. I think in 2021 they have framed some question like this.",
+    "sourceReferences": [
+      {
+        "lecture": 123,
+        "file": "123_31a_Interesting_Questions_on_MSTs_GATE_2000_MIT_Ques.mp4",
+        "start": 521.69,
+        "end": 557.22,
+        "text": "will always select because these two ones cannot work or cannot form the cycle, Kuskal will always select, given that exactly two edges are with weight 1 and at least there is a weight of 1, minimum edge weight is actually 1 or in other words they can ask that if there are two exactly two minimum edge weights then both of them must be in the MSD, the answer is yes. I think in 2021 they have framed some question like this."
+      },
+      {
+        "lecture": 123,
+        "file": "123_31a_Interesting_Questions_on_MSTs_GATE_2000_MIT_Ques.mp4",
+        "start": 659.47,
+        "end": 690.06,
+        "text": "let G be a connected undirected graph with edge weights I mean they are given a function w which is something like this which is mapping every edge to some integer z suppose G has a unique minimum spanning tree what can you conclude about the G? they are saying that G has a unique minimum spanning tree can you say G contains no cycle if G is having minimum spanning tree? G may contain cycle right?"
+      },
+      {
+        "lecture": 123,
+        "file": "123_31a_Interesting_Questions_on_MSTs_GATE_2000_MIT_Ques.mp4",
+        "start": 1279.44,
+        "end": 1308,
+        "text": "If an edge E is not part of any MST, then it must be maximum weight edge on some cycle. What do you think? If an E edge E is not part of any MST, then it must be the maximum edge weight. Actually, this is a property that if an only property that if something is not an MST, then it must be the heaviest edge weight of some cycle or vice-versa also. So basically, like we are not going to prove it, but this is true."
+      }
+    ]
+  },
+  {
+    "id": 370,
+    "lecture": 123,
+    "title": "Prove uniqueness with cycle exchanges · Trace",
+    "concept": "For a given spanning tree, inspect each non-tree edge against the heaviest edge on the tree path between its endpoints. A strictly cheaper replacement disproves optimality; an equal replacement proves a tied alternative. Adding a non-tree edge creates one cycle. Removing a tree edge creates one cut. These two structures show which replacement edges compete with the current tree and where ties permit alternatives.",
+    "teachingSteps": [
+      "For a given spanning tree, inspect each non-tree edge against the heaviest edge on the tree path between its endpoints. A strictly cheaper replacement disproves optimality; an equal replacement proves a tied alternative.",
+      "Find its competing cut or cycle edges",
+      "Compare strict and equal replacement costs"
+    ],
+    "foundation": {
+      "title": "Prove uniqueness with cycle exchanges",
+      "idea": "For a given spanning tree, inspect each non-tree edge against the heaviest edge on the tree path between its endpoints. A strictly cheaper replacement disproves optimality; an equal replacement proves a tied alternative. Adding a non-tree edge creates one cycle. Removing a tree edge creates one cut. These two structures show which replacement edges compete with the current tree and where ties permit alternatives.",
+      "terms": [
+        "Fundamental cycle: the added edge plus its tree path.",
+        "Cut: the two pieces after deleting a tree edge.",
+        "Unique: exactly one minimum-weight tree."
+      ],
+      "example": "Tree AB=1, BC=2 and extra AC=3 has weight 3. If AC falls to 2, replacing BC gives another tree of the same cost."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Tree edges AB=1 and BC=3, with extra edge AC=5. What is the maximum new AC weight at which replacing BC is no more expensive?",
+        "answer": 3,
+        "explanation": "The competing tree-path maximum is the weight of BC; equality gives an equally cheap tree.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A spanning tree on 4 vertices has how many non-root parent edges?",
+        "answer": 3,
+        "explanation": "Every non-root vertex contributes exactly one tree edge.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "If a selected tree-edge weight decreases and other weights stay fixed, does the chosen MST remain minimum?",
+        "options": [
+          "No: every decrease forces a new MST.",
+          "Only when all weights are distinct.",
+          "Yes: this change favors the chosen tree over every tree omitting that edge."
+        ],
+        "answer": 2,
+        "explanation": "Trees containing the edge improve by the same amount, while trees omitting it do not improve."
+      },
+      {
+        "type": "choice",
+        "prompt": "Does the presence of any tied edge weights necessarily mean the MST is non-unique?",
+        "options": [
+          "Yes: every tied graph has multiple MSTs.",
+          "No: all MSTs always are unique.",
+          "No: ties may occur on edges that do not create equally cheap tree exchanges."
+        ],
+        "answer": 2,
+        "explanation": "Uniqueness depends on safe exchanges, not merely on whether some weights tie."
+      }
+    ],
+    "algoLab": "mst-unique",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 521.69,
+    "excerpt": "will always select because these two ones cannot work or cannot form the cycle, Kuskal will always select, given that exactly two edges are with weight 1 and at least there is a weight of 1, minimum edge weight is actually 1 or in other words they can ask that if there are two exactly two minimum edge weights then both of them must be in the MSD, the answer is yes. I think in 2021 they have framed some question like this.",
+    "sourceReferences": [
+      {
+        "lecture": 123,
+        "file": "123_31a_Interesting_Questions_on_MSTs_GATE_2000_MIT_Ques.mp4",
+        "start": 521.69,
+        "end": 557.22,
+        "text": "will always select because these two ones cannot work or cannot form the cycle, Kuskal will always select, given that exactly two edges are with weight 1 and at least there is a weight of 1, minimum edge weight is actually 1 or in other words they can ask that if there are two exactly two minimum edge weights then both of them must be in the MSD, the answer is yes. I think in 2021 they have framed some question like this."
+      },
+      {
+        "lecture": 123,
+        "file": "123_31a_Interesting_Questions_on_MSTs_GATE_2000_MIT_Ques.mp4",
+        "start": 659.47,
+        "end": 690.06,
+        "text": "let G be a connected undirected graph with edge weights I mean they are given a function w which is something like this which is mapping every edge to some integer z suppose G has a unique minimum spanning tree what can you conclude about the G? they are saying that G has a unique minimum spanning tree can you say G contains no cycle if G is having minimum spanning tree? G may contain cycle right?"
+      },
+      {
+        "lecture": 123,
+        "file": "123_31a_Interesting_Questions_on_MSTs_GATE_2000_MIT_Ques.mp4",
+        "start": 1279.44,
+        "end": 1308,
+        "text": "If an edge E is not part of any MST, then it must be maximum weight edge on some cycle. What do you think? If an E edge E is not part of any MST, then it must be the maximum edge weight. Actually, this is a property that if an only property that if something is not an MST, then it must be the heaviest edge weight of some cycle or vice-versa also. So basically, like we are not going to prove it, but this is true."
+      }
+    ]
+  },
+  {
+    "id": 371,
+    "lecture": 123,
+    "title": "Prove uniqueness with cycle exchanges · Apply",
+    "concept": "For a given spanning tree, inspect each non-tree edge against the heaviest edge on the tree path between its endpoints. A strictly cheaper replacement disproves optimality; an equal replacement proves a tied alternative. Adding a non-tree edge creates one cycle. Removing a tree edge creates one cut. These two structures show which replacement edges compete with the current tree and where ties permit alternatives.",
+    "teachingSteps": [
+      "For a given spanning tree, inspect each non-tree edge against the heaviest edge on the tree path between its endpoints. A strictly cheaper replacement disproves optimality; an equal replacement proves a tied alternative.",
+      "Find its competing cut or cycle edges",
+      "Compare strict and equal replacement costs"
+    ],
+    "foundation": {
+      "title": "Prove uniqueness with cycle exchanges",
+      "idea": "For a given spanning tree, inspect each non-tree edge against the heaviest edge on the tree path between its endpoints. A strictly cheaper replacement disproves optimality; an equal replacement proves a tied alternative. Adding a non-tree edge creates one cycle. Removing a tree edge creates one cut. These two structures show which replacement edges compete with the current tree and where ties permit alternatives.",
+      "terms": [
+        "Fundamental cycle: the added edge plus its tree path.",
+        "Cut: the two pieces after deleting a tree edge.",
+        "Unique: exactly one minimum-weight tree."
+      ],
+      "example": "Tree AB=1, BC=2 and extra AC=3 has weight 3. If AC falls to 2, replacing BC gives another tree of the same cost."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A network service checks a changed spanning-tree cost. Tree edges AB=1 and BC=4, with extra edge AC=6. What is the maximum new AC weight at which replacing BC is no more expensive?",
+        "answer": 4,
+        "explanation": "The competing tree-path maximum is the weight of BC; equality gives an equally cheap tree.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A spanning tree on 5 vertices has how many non-root parent edges?",
+        "answer": 4,
+        "explanation": "Every non-root vertex contributes exactly one tree edge.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "If a selected tree-edge weight decreases and other weights stay fixed, does the chosen MST remain minimum?",
+        "options": [
+          "Only when all weights are distinct.",
+          "Yes: this change favors the chosen tree over every tree omitting that edge.",
+          "No: every decrease forces a new MST."
+        ],
+        "answer": 1,
+        "explanation": "Trees containing the edge improve by the same amount, while trees omitting it do not improve."
+      },
+      {
+        "type": "choice",
+        "prompt": "Does the presence of any tied edge weights necessarily mean the MST is non-unique?",
+        "options": [
+          "No: all MSTs always are unique.",
+          "No: ties may occur on edges that do not create equally cheap tree exchanges.",
+          "Yes: every tied graph has multiple MSTs."
+        ],
+        "answer": 1,
+        "explanation": "Uniqueness depends on safe exchanges, not merely on whether some weights tie."
+      }
+    ],
+    "algoLab": "mst-unique",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 521.69,
+    "excerpt": "will always select because these two ones cannot work or cannot form the cycle, Kuskal will always select, given that exactly two edges are with weight 1 and at least there is a weight of 1, minimum edge weight is actually 1 or in other words they can ask that if there are two exactly two minimum edge weights then both of them must be in the MSD, the answer is yes. I think in 2021 they have framed some question like this.",
+    "sourceReferences": [
+      {
+        "lecture": 123,
+        "file": "123_31a_Interesting_Questions_on_MSTs_GATE_2000_MIT_Ques.mp4",
+        "start": 521.69,
+        "end": 557.22,
+        "text": "will always select because these two ones cannot work or cannot form the cycle, Kuskal will always select, given that exactly two edges are with weight 1 and at least there is a weight of 1, minimum edge weight is actually 1 or in other words they can ask that if there are two exactly two minimum edge weights then both of them must be in the MSD, the answer is yes. I think in 2021 they have framed some question like this."
+      },
+      {
+        "lecture": 123,
+        "file": "123_31a_Interesting_Questions_on_MSTs_GATE_2000_MIT_Ques.mp4",
+        "start": 659.47,
+        "end": 690.06,
+        "text": "let G be a connected undirected graph with edge weights I mean they are given a function w which is something like this which is mapping every edge to some integer z suppose G has a unique minimum spanning tree what can you conclude about the G? they are saying that G has a unique minimum spanning tree can you say G contains no cycle if G is having minimum spanning tree? G may contain cycle right?"
+      },
+      {
+        "lecture": 123,
+        "file": "123_31a_Interesting_Questions_on_MSTs_GATE_2000_MIT_Ques.mp4",
+        "start": 1279.44,
+        "end": 1308,
+        "text": "If an edge E is not part of any MST, then it must be maximum weight edge on some cycle. What do you think? If an E edge E is not part of any MST, then it must be the maximum edge weight. Actually, this is a property that if an only property that if something is not an MST, then it must be the heaviest edge weight of some cycle or vice-versa also. So basically, like we are not going to prove it, but this is true."
+      }
+    ]
+  },
+  {
+    "id": 372,
+    "lecture": 124,
+    "title": "Bound a changing tree-edge weight · Discover",
+    "concept": "Removing a tree edge splits the tree into two components. The edge remains safe if its new weight is no larger than the cheapest alternative edge crossing that cut; equality can create multiple MSTs. Adding a non-tree edge creates one cycle. Removing a tree edge creates one cut. These two structures show which replacement edges compete with the current tree and where ties permit alternatives.",
+    "teachingSteps": [
+      "Removing a tree edge splits the tree into two components. The edge remains safe if its new weight is no larger than the cheapest alternative edge crossing that cut; equality can create multiple MSTs.",
+      "Find its competing cut or cycle edges",
+      "Compare strict and equal replacement costs"
+    ],
+    "foundation": {
+      "title": "Bound a changing tree-edge weight",
+      "idea": "Removing a tree edge splits the tree into two components. The edge remains safe if its new weight is no larger than the cheapest alternative edge crossing that cut; equality can create multiple MSTs. Adding a non-tree edge creates one cycle. Removing a tree edge creates one cut. These two structures show which replacement edges compete with the current tree and where ties permit alternatives.",
+      "terms": [
+        "Fundamental cycle: the added edge plus its tree path.",
+        "Cut: the two pieces after deleting a tree edge.",
+        "Unique: exactly one minimum-weight tree."
+      ],
+      "example": "Tree AB=1, BC=2 and extra AC=3 has weight 3. If AC falls to 2, replacing BC gives another tree of the same cost."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Tree edges AB=1 and BC=3, with extra edge AC=5. What is the maximum new AC weight at which replacing BC is no more expensive?",
+        "answer": 3,
+        "explanation": "The competing tree-path maximum is the weight of BC; equality gives an equally cheap tree.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A spanning tree on 4 vertices has how many non-root parent edges?",
+        "answer": 3,
+        "explanation": "Every non-root vertex contributes exactly one tree edge.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains bound a changing tree-edge weight?",
+        "options": [
+          "Input assumptions never affect correctness.",
+          "One successful example proves every input.",
+          "Removing a tree edge splits the tree into two components."
+        ],
+        "answer": 2,
+        "explanation": "Removing a tree edge splits the tree into two components. The edge remains safe if its new weight is no larger than the cheapest alternative edge crossing that cut; equality can create multiple MSTs."
+      },
+      {
+        "type": "choice",
+        "prompt": "Does the presence of any tied edge weights necessarily mean the MST is non-unique?",
+        "options": [
+          "Yes: every tied graph has multiple MSTs.",
+          "No: all MSTs always are unique.",
+          "No: ties may occur on edges that do not create equally cheap tree exchanges."
+        ],
+        "answer": 2,
+        "explanation": "Uniqueness depends on safe exchanges, not merely on whether some weights tie."
+      }
+    ],
+    "algoLab": "mst-threshold",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.4,
+    "excerpt": "Now now let's just solve these two different kind of and very important question and then we will just wrap up our class So there are two very important questions that they may ask you which are they will they will just give you some graph and then they will say they will say there's some edge weight is missing Okay, and then they will ask you what could be the cost of this edge weight in this MSD So the first kind of problem is say they will give you the graph where they will miss the edge weight of the MSD which means",
+    "sourceReferences": [
+      {
+        "lecture": 124,
+        "file": "124_31b_Two_Most_Popular_Template_Questions_in_MSTs_TIFR.mp4",
+        "start": 0.4,
+        "end": 27.76,
+        "text": "Now now let's just solve these two different kind of and very important question and then we will just wrap up our class So there are two very important questions that they may ask you which are they will they will just give you some graph and then they will say they will say there's some edge weight is missing Okay, and then they will ask you what could be the cost of this edge weight in this MSD So the first kind of problem is say they will give you the graph where they will miss the edge weight of the MSD which means"
+      },
+      {
+        "lecture": 124,
+        "file": "124_31b_Two_Most_Popular_Template_Questions_in_MSTs_TIFR.mp4",
+        "start": 58.78,
+        "end": 86.82,
+        "text": "of x that you can have which means they will give you the MST they will miss out okay they will give the unknown weight in the MST they will miss out one of the edge weight in the MST second type of question is that they will give you the MST okay they will give you the same MST or the different MST for the different question they will give you the MST and then they will not miss out the edge of the MST but they will miss out the edge of the non-MST which means they will miss out the edge"
+      },
+      {
+        "lecture": 124,
+        "file": "124_31b_Two_Most_Popular_Template_Questions_in_MSTs_TIFR.mp4",
+        "start": 183.85,
+        "end": 254.36,
+        "text": "that if some edge is not in MST then if and only if that edge is heavy edge. So basically what we are going to do like we are we will draw the MST and maybe the some maybe maybe maybe some edge weights are unknown maybe some are unknown here and then we will apply this theorem so basically how to apply this theorem what we are going to do we are going to add"
+      }
+    ]
+  },
+  {
+    "id": 373,
+    "lecture": 124,
+    "title": "Bound a changing tree-edge weight · Trace",
+    "concept": "Removing a tree edge splits the tree into two components. The edge remains safe if its new weight is no larger than the cheapest alternative edge crossing that cut; equality can create multiple MSTs. Adding a non-tree edge creates one cycle. Removing a tree edge creates one cut. These two structures show which replacement edges compete with the current tree and where ties permit alternatives.",
+    "teachingSteps": [
+      "Removing a tree edge splits the tree into two components. The edge remains safe if its new weight is no larger than the cheapest alternative edge crossing that cut; equality can create multiple MSTs.",
+      "Find its competing cut or cycle edges",
+      "Compare strict and equal replacement costs"
+    ],
+    "foundation": {
+      "title": "Bound a changing tree-edge weight",
+      "idea": "Removing a tree edge splits the tree into two components. The edge remains safe if its new weight is no larger than the cheapest alternative edge crossing that cut; equality can create multiple MSTs. Adding a non-tree edge creates one cycle. Removing a tree edge creates one cut. These two structures show which replacement edges compete with the current tree and where ties permit alternatives.",
+      "terms": [
+        "Fundamental cycle: the added edge plus its tree path.",
+        "Cut: the two pieces after deleting a tree edge.",
+        "Unique: exactly one minimum-weight tree."
+      ],
+      "example": "Tree AB=1, BC=2 and extra AC=3 has weight 3. If AC falls to 2, replacing BC gives another tree of the same cost."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Tree edges AB=1 and BC=4, with extra edge AC=6. What is the maximum new AC weight at which replacing BC is no more expensive?",
+        "answer": 4,
+        "explanation": "The competing tree-path maximum is the weight of BC; equality gives an equally cheap tree.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A spanning tree on 5 vertices has how many non-root parent edges?",
+        "answer": 4,
+        "explanation": "Every non-root vertex contributes exactly one tree edge.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "If a selected tree-edge weight decreases and other weights stay fixed, does the chosen MST remain minimum?",
+        "options": [
+          "Only when all weights are distinct.",
+          "Yes: this change favors the chosen tree over every tree omitting that edge.",
+          "No: every decrease forces a new MST."
+        ],
+        "answer": 1,
+        "explanation": "Trees containing the edge improve by the same amount, while trees omitting it do not improve."
+      },
+      {
+        "type": "choice",
+        "prompt": "Does the presence of any tied edge weights necessarily mean the MST is non-unique?",
+        "options": [
+          "No: all MSTs always are unique.",
+          "No: ties may occur on edges that do not create equally cheap tree exchanges.",
+          "Yes: every tied graph has multiple MSTs."
+        ],
+        "answer": 1,
+        "explanation": "Uniqueness depends on safe exchanges, not merely on whether some weights tie."
+      }
+    ],
+    "algoLab": "mst-threshold",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.4,
+    "excerpt": "Now now let's just solve these two different kind of and very important question and then we will just wrap up our class So there are two very important questions that they may ask you which are they will they will just give you some graph and then they will say they will say there's some edge weight is missing Okay, and then they will ask you what could be the cost of this edge weight in this MSD So the first kind of problem is say they will give you the graph where they will miss the edge weight of the MSD which means",
+    "sourceReferences": [
+      {
+        "lecture": 124,
+        "file": "124_31b_Two_Most_Popular_Template_Questions_in_MSTs_TIFR.mp4",
+        "start": 0.4,
+        "end": 27.76,
+        "text": "Now now let's just solve these two different kind of and very important question and then we will just wrap up our class So there are two very important questions that they may ask you which are they will they will just give you some graph and then they will say they will say there's some edge weight is missing Okay, and then they will ask you what could be the cost of this edge weight in this MSD So the first kind of problem is say they will give you the graph where they will miss the edge weight of the MSD which means"
+      },
+      {
+        "lecture": 124,
+        "file": "124_31b_Two_Most_Popular_Template_Questions_in_MSTs_TIFR.mp4",
+        "start": 58.78,
+        "end": 86.82,
+        "text": "of x that you can have which means they will give you the MST they will miss out okay they will give the unknown weight in the MST they will miss out one of the edge weight in the MST second type of question is that they will give you the MST okay they will give you the same MST or the different MST for the different question they will give you the MST and then they will not miss out the edge of the MST but they will miss out the edge of the non-MST which means they will miss out the edge"
+      },
+      {
+        "lecture": 124,
+        "file": "124_31b_Two_Most_Popular_Template_Questions_in_MSTs_TIFR.mp4",
+        "start": 183.85,
+        "end": 254.36,
+        "text": "that if some edge is not in MST then if and only if that edge is heavy edge. So basically what we are going to do like we are we will draw the MST and maybe the some maybe maybe maybe some edge weights are unknown maybe some are unknown here and then we will apply this theorem so basically how to apply this theorem what we are going to do we are going to add"
+      }
+    ]
+  },
+  {
+    "id": 374,
+    "lecture": 124,
+    "title": "Bound a changing tree-edge weight · Apply",
+    "concept": "Removing a tree edge splits the tree into two components. The edge remains safe if its new weight is no larger than the cheapest alternative edge crossing that cut; equality can create multiple MSTs. Adding a non-tree edge creates one cycle. Removing a tree edge creates one cut. These two structures show which replacement edges compete with the current tree and where ties permit alternatives.",
+    "teachingSteps": [
+      "Removing a tree edge splits the tree into two components. The edge remains safe if its new weight is no larger than the cheapest alternative edge crossing that cut; equality can create multiple MSTs.",
+      "Find its competing cut or cycle edges",
+      "Compare strict and equal replacement costs"
+    ],
+    "foundation": {
+      "title": "Bound a changing tree-edge weight",
+      "idea": "Removing a tree edge splits the tree into two components. The edge remains safe if its new weight is no larger than the cheapest alternative edge crossing that cut; equality can create multiple MSTs. Adding a non-tree edge creates one cycle. Removing a tree edge creates one cut. These two structures show which replacement edges compete with the current tree and where ties permit alternatives.",
+      "terms": [
+        "Fundamental cycle: the added edge plus its tree path.",
+        "Cut: the two pieces after deleting a tree edge.",
+        "Unique: exactly one minimum-weight tree."
+      ],
+      "example": "Tree AB=1, BC=2 and extra AC=3 has weight 3. If AC falls to 2, replacing BC gives another tree of the same cost."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A network service checks a changed spanning-tree cost. Tree edges AB=1 and BC=2, with extra edge AC=4. What is the maximum new AC weight at which replacing BC is no more expensive?",
+        "answer": 2,
+        "explanation": "The competing tree-path maximum is the weight of BC; equality gives an equally cheap tree.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A spanning tree on 6 vertices has how many non-root parent edges?",
+        "answer": 5,
+        "explanation": "Every non-root vertex contributes exactly one tree edge.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "If a selected tree-edge weight decreases and other weights stay fixed, does the chosen MST remain minimum?",
+        "options": [
+          "Yes: this change favors the chosen tree over every tree omitting that edge.",
+          "No: every decrease forces a new MST.",
+          "Only when all weights are distinct."
+        ],
+        "answer": 0,
+        "explanation": "Trees containing the edge improve by the same amount, while trees omitting it do not improve."
+      },
+      {
+        "type": "choice",
+        "prompt": "Does the presence of any tied edge weights necessarily mean the MST is non-unique?",
+        "options": [
+          "No: ties may occur on edges that do not create equally cheap tree exchanges.",
+          "Yes: every tied graph has multiple MSTs.",
+          "No: all MSTs always are unique."
+        ],
+        "answer": 0,
+        "explanation": "Uniqueness depends on safe exchanges, not merely on whether some weights tie."
+      }
+    ],
+    "algoLab": "mst-threshold",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.4,
+    "excerpt": "Now now let's just solve these two different kind of and very important question and then we will just wrap up our class So there are two very important questions that they may ask you which are they will they will just give you some graph and then they will say they will say there's some edge weight is missing Okay, and then they will ask you what could be the cost of this edge weight in this MSD So the first kind of problem is say they will give you the graph where they will miss the edge weight of the MSD which means",
+    "sourceReferences": [
+      {
+        "lecture": 124,
+        "file": "124_31b_Two_Most_Popular_Template_Questions_in_MSTs_TIFR.mp4",
+        "start": 0.4,
+        "end": 27.76,
+        "text": "Now now let's just solve these two different kind of and very important question and then we will just wrap up our class So there are two very important questions that they may ask you which are they will they will just give you some graph and then they will say they will say there's some edge weight is missing Okay, and then they will ask you what could be the cost of this edge weight in this MSD So the first kind of problem is say they will give you the graph where they will miss the edge weight of the MSD which means"
+      },
+      {
+        "lecture": 124,
+        "file": "124_31b_Two_Most_Popular_Template_Questions_in_MSTs_TIFR.mp4",
+        "start": 58.78,
+        "end": 86.82,
+        "text": "of x that you can have which means they will give you the MST they will miss out okay they will give the unknown weight in the MST they will miss out one of the edge weight in the MST second type of question is that they will give you the MST okay they will give you the same MST or the different MST for the different question they will give you the MST and then they will not miss out the edge of the MST but they will miss out the edge of the non-MST which means they will miss out the edge"
+      },
+      {
+        "lecture": 124,
+        "file": "124_31b_Two_Most_Popular_Template_Questions_in_MSTs_TIFR.mp4",
+        "start": 183.85,
+        "end": 254.36,
+        "text": "that if some edge is not in MST then if and only if that edge is heavy edge. So basically what we are going to do like we are we will draw the MST and maybe the some maybe maybe maybe some edge weights are unknown maybe some are unknown here and then we will apply this theorem so basically how to apply this theorem what we are going to do we are going to add"
+      }
+    ]
+  },
+  {
+    "id": 375,
+    "lecture": 125,
+    "title": "Update an MST after one weight change · Discover",
+    "concept": "Decreasing a selected tree-edge weight or increasing an unselected edge weight preserves the current MST. The opposite changes can require a cut or cycle exchange. Adding a non-tree edge creates one cycle. Removing a tree edge creates one cut. These two structures show which replacement edges compete with the current tree and where ties permit alternatives.",
+    "teachingSteps": [
+      "Decreasing a selected tree-edge weight or increasing an unselected edge weight preserves the current MST. The opposite changes can require a cut or cycle exchange.",
+      "Find its competing cut or cycle edges",
+      "Compare strict and equal replacement costs"
+    ],
+    "foundation": {
+      "title": "Update an MST after one weight change",
+      "idea": "Decreasing a selected tree-edge weight or increasing an unselected edge weight preserves the current MST. The opposite changes can require a cut or cycle exchange. Adding a non-tree edge creates one cycle. Removing a tree edge creates one cut. These two structures show which replacement edges compete with the current tree and where ties permit alternatives.",
+      "terms": [
+        "Fundamental cycle: the added edge plus its tree path.",
+        "Cut: the two pieces after deleting a tree edge.",
+        "Unique: exactly one minimum-weight tree."
+      ],
+      "example": "Tree AB=1, BC=2 and extra AC=3 has weight 3. If AC falls to 2, replacing BC gives another tree of the same cost."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Tree edges AB=1 and BC=4, with extra edge AC=6. What is the maximum new AC weight at which replacing BC is no more expensive?",
+        "answer": 4,
+        "explanation": "The competing tree-path maximum is the weight of BC; equality gives an equally cheap tree.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A spanning tree on 5 vertices has how many non-root parent edges?",
+        "answer": 4,
+        "explanation": "Every non-root vertex contributes exactly one tree edge.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains update an mst after one weight change?",
+        "options": [
+          "One successful example proves every input.",
+          "Decreasing a selected tree-edge weight or increasing an unselected edge weight preserves the current MST.",
+          "Input assumptions never affect correctness."
+        ],
+        "answer": 1,
+        "explanation": "Decreasing a selected tree-edge weight or increasing an unselected edge weight preserves the current MST. The opposite changes can require a cut or cycle exchange."
+      },
+      {
+        "type": "choice",
+        "prompt": "Does the presence of any tied edge weights necessarily mean the MST is non-unique?",
+        "options": [
+          "No: all MSTs always are unique.",
+          "No: ties may occur on edges that do not create equally cheap tree exchanges.",
+          "Yes: every tied graph has multiple MSTs."
+        ],
+        "answer": 1,
+        "explanation": "Uniqueness depends on safe exchanges, not merely on whether some weights tie."
+      }
+    ],
+    "algoLab": "mst-update",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 782.56,
+    "excerpt": "okay i'm not reducing enough let's suppose i'm reducing from 10 to 9 then it will remain the highest so mst will not change okay so uh now let's just see that how much time we are going to take in this what do you think that how much time we are going to take what we need to detect here we need to detect the cycle and we need to in this cycle we need to just compare all the edge weights right so how much time do you think we are going to take",
+    "sourceReferences": [
+      {
+        "lecture": 125,
+        "file": "125. 31c. Four Cases in MSTs _ GATE 2020.mp4",
+        "start": 782.56,
+        "end": 812.01,
+        "text": "okay i'm not reducing enough let's suppose i'm reducing from 10 to 9 then it will remain the highest so mst will not change okay so uh now let's just see that how much time we are going to take in this what do you think that how much time we are going to take what we need to detect here we need to detect the cycle and we need to in this cycle we need to just compare all the edge weights right so how much time do you think we are going to take"
+      },
+      {
+        "lecture": 125,
+        "file": "125. 31c. Four Cases in MSTs _ GATE 2020.mp4",
+        "start": 1029.61,
+        "end": 1069.99,
+        "text": "then how can we find out, how can we deduct the new MSD? Maybe see, if we are going from 10 to 20, then maybe it's going to be the heaviest test. You may need to remove this now. So if this thing find minimum in the cycle, minimum weight. Minimum weight in the cycle, how it will be helpful? I'm not understanding. Are we increasing other edges as well? No, only just one edge we are increasing."
+      },
+      {
+        "lecture": 125,
+        "file": "125. 31c. Four Cases in MSTs _ GATE 2020.mp4",
+        "start": 1071.29,
+        "end": 1124.53,
+        "text": "So let me just draw the MSD. So this is the MSD that we have. Just think about it. If we are increasing that from 10 to 20, then how can we just get the new MSD in efficient time? We are saying compare weight of non-MSD as in the cycle. Which cycle? That's the thing. Which cycle here? Earlier cycle was very clear, but here which cycle you are talking about? Are you getting my point?"
+      }
+    ]
+  },
+  {
+    "id": 376,
+    "lecture": 125,
+    "title": "Update an MST after one weight change · Trace",
+    "concept": "Decreasing a selected tree-edge weight or increasing an unselected edge weight preserves the current MST. The opposite changes can require a cut or cycle exchange. Adding a non-tree edge creates one cycle. Removing a tree edge creates one cut. These two structures show which replacement edges compete with the current tree and where ties permit alternatives.",
+    "teachingSteps": [
+      "Decreasing a selected tree-edge weight or increasing an unselected edge weight preserves the current MST. The opposite changes can require a cut or cycle exchange.",
+      "Find its competing cut or cycle edges",
+      "Compare strict and equal replacement costs"
+    ],
+    "foundation": {
+      "title": "Update an MST after one weight change",
+      "idea": "Decreasing a selected tree-edge weight or increasing an unselected edge weight preserves the current MST. The opposite changes can require a cut or cycle exchange. Adding a non-tree edge creates one cycle. Removing a tree edge creates one cut. These two structures show which replacement edges compete with the current tree and where ties permit alternatives.",
+      "terms": [
+        "Fundamental cycle: the added edge plus its tree path.",
+        "Cut: the two pieces after deleting a tree edge.",
+        "Unique: exactly one minimum-weight tree."
+      ],
+      "example": "Tree AB=1, BC=2 and extra AC=3 has weight 3. If AC falls to 2, replacing BC gives another tree of the same cost."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Tree edges AB=1 and BC=2, with extra edge AC=4. What is the maximum new AC weight at which replacing BC is no more expensive?",
+        "answer": 2,
+        "explanation": "The competing tree-path maximum is the weight of BC; equality gives an equally cheap tree.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A spanning tree on 6 vertices has how many non-root parent edges?",
+        "answer": 5,
+        "explanation": "Every non-root vertex contributes exactly one tree edge.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "If a selected tree-edge weight decreases and other weights stay fixed, does the chosen MST remain minimum?",
+        "options": [
+          "Yes: this change favors the chosen tree over every tree omitting that edge.",
+          "No: every decrease forces a new MST.",
+          "Only when all weights are distinct."
+        ],
+        "answer": 0,
+        "explanation": "Trees containing the edge improve by the same amount, while trees omitting it do not improve."
+      },
+      {
+        "type": "choice",
+        "prompt": "Does the presence of any tied edge weights necessarily mean the MST is non-unique?",
+        "options": [
+          "No: ties may occur on edges that do not create equally cheap tree exchanges.",
+          "Yes: every tied graph has multiple MSTs.",
+          "No: all MSTs always are unique."
+        ],
+        "answer": 0,
+        "explanation": "Uniqueness depends on safe exchanges, not merely on whether some weights tie."
+      }
+    ],
+    "algoLab": "mst-update",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 782.56,
+    "excerpt": "okay i'm not reducing enough let's suppose i'm reducing from 10 to 9 then it will remain the highest so mst will not change okay so uh now let's just see that how much time we are going to take in this what do you think that how much time we are going to take what we need to detect here we need to detect the cycle and we need to in this cycle we need to just compare all the edge weights right so how much time do you think we are going to take",
+    "sourceReferences": [
+      {
+        "lecture": 125,
+        "file": "125. 31c. Four Cases in MSTs _ GATE 2020.mp4",
+        "start": 782.56,
+        "end": 812.01,
+        "text": "okay i'm not reducing enough let's suppose i'm reducing from 10 to 9 then it will remain the highest so mst will not change okay so uh now let's just see that how much time we are going to take in this what do you think that how much time we are going to take what we need to detect here we need to detect the cycle and we need to in this cycle we need to just compare all the edge weights right so how much time do you think we are going to take"
+      },
+      {
+        "lecture": 125,
+        "file": "125. 31c. Four Cases in MSTs _ GATE 2020.mp4",
+        "start": 1029.61,
+        "end": 1069.99,
+        "text": "then how can we find out, how can we deduct the new MSD? Maybe see, if we are going from 10 to 20, then maybe it's going to be the heaviest test. You may need to remove this now. So if this thing find minimum in the cycle, minimum weight. Minimum weight in the cycle, how it will be helpful? I'm not understanding. Are we increasing other edges as well? No, only just one edge we are increasing."
+      },
+      {
+        "lecture": 125,
+        "file": "125. 31c. Four Cases in MSTs _ GATE 2020.mp4",
+        "start": 1071.29,
+        "end": 1124.53,
+        "text": "So let me just draw the MSD. So this is the MSD that we have. Just think about it. If we are increasing that from 10 to 20, then how can we just get the new MSD in efficient time? We are saying compare weight of non-MSD as in the cycle. Which cycle? That's the thing. Which cycle here? Earlier cycle was very clear, but here which cycle you are talking about? Are you getting my point?"
+      }
+    ]
+  },
+  {
+    "id": 377,
+    "lecture": 125,
+    "title": "Update an MST after one weight change · Apply",
+    "concept": "Decreasing a selected tree-edge weight or increasing an unselected edge weight preserves the current MST. The opposite changes can require a cut or cycle exchange. Adding a non-tree edge creates one cycle. Removing a tree edge creates one cut. These two structures show which replacement edges compete with the current tree and where ties permit alternatives.",
+    "teachingSteps": [
+      "Decreasing a selected tree-edge weight or increasing an unselected edge weight preserves the current MST. The opposite changes can require a cut or cycle exchange.",
+      "Find its competing cut or cycle edges",
+      "Compare strict and equal replacement costs"
+    ],
+    "foundation": {
+      "title": "Update an MST after one weight change",
+      "idea": "Decreasing a selected tree-edge weight or increasing an unselected edge weight preserves the current MST. The opposite changes can require a cut or cycle exchange. Adding a non-tree edge creates one cycle. Removing a tree edge creates one cut. These two structures show which replacement edges compete with the current tree and where ties permit alternatives.",
+      "terms": [
+        "Fundamental cycle: the added edge plus its tree path.",
+        "Cut: the two pieces after deleting a tree edge.",
+        "Unique: exactly one minimum-weight tree."
+      ],
+      "example": "Tree AB=1, BC=2 and extra AC=3 has weight 3. If AC falls to 2, replacing BC gives another tree of the same cost."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A network service checks a changed spanning-tree cost. Tree edges AB=1 and BC=3, with extra edge AC=5. What is the maximum new AC weight at which replacing BC is no more expensive?",
+        "answer": 3,
+        "explanation": "The competing tree-path maximum is the weight of BC; equality gives an equally cheap tree.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A spanning tree on 7 vertices has how many non-root parent edges?",
+        "answer": 6,
+        "explanation": "Every non-root vertex contributes exactly one tree edge.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "If a selected tree-edge weight decreases and other weights stay fixed, does the chosen MST remain minimum?",
+        "options": [
+          "No: every decrease forces a new MST.",
+          "Only when all weights are distinct.",
+          "Yes: this change favors the chosen tree over every tree omitting that edge."
+        ],
+        "answer": 2,
+        "explanation": "Trees containing the edge improve by the same amount, while trees omitting it do not improve."
+      },
+      {
+        "type": "choice",
+        "prompt": "Does the presence of any tied edge weights necessarily mean the MST is non-unique?",
+        "options": [
+          "Yes: every tied graph has multiple MSTs.",
+          "No: all MSTs always are unique.",
+          "No: ties may occur on edges that do not create equally cheap tree exchanges."
+        ],
+        "answer": 2,
+        "explanation": "Uniqueness depends on safe exchanges, not merely on whether some weights tie."
+      }
+    ],
+    "algoLab": "mst-update",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 782.56,
+    "excerpt": "okay i'm not reducing enough let's suppose i'm reducing from 10 to 9 then it will remain the highest so mst will not change okay so uh now let's just see that how much time we are going to take in this what do you think that how much time we are going to take what we need to detect here we need to detect the cycle and we need to in this cycle we need to just compare all the edge weights right so how much time do you think we are going to take",
+    "sourceReferences": [
+      {
+        "lecture": 125,
+        "file": "125. 31c. Four Cases in MSTs _ GATE 2020.mp4",
+        "start": 782.56,
+        "end": 812.01,
+        "text": "okay i'm not reducing enough let's suppose i'm reducing from 10 to 9 then it will remain the highest so mst will not change okay so uh now let's just see that how much time we are going to take in this what do you think that how much time we are going to take what we need to detect here we need to detect the cycle and we need to in this cycle we need to just compare all the edge weights right so how much time do you think we are going to take"
+      },
+      {
+        "lecture": 125,
+        "file": "125. 31c. Four Cases in MSTs _ GATE 2020.mp4",
+        "start": 1029.61,
+        "end": 1069.99,
+        "text": "then how can we find out, how can we deduct the new MSD? Maybe see, if we are going from 10 to 20, then maybe it's going to be the heaviest test. You may need to remove this now. So if this thing find minimum in the cycle, minimum weight. Minimum weight in the cycle, how it will be helpful? I'm not understanding. Are we increasing other edges as well? No, only just one edge we are increasing."
+      },
+      {
+        "lecture": 125,
+        "file": "125. 31c. Four Cases in MSTs _ GATE 2020.mp4",
+        "start": 1071.29,
+        "end": 1124.53,
+        "text": "So let me just draw the MSD. So this is the MSD that we have. Just think about it. If we are increasing that from 10 to 20, then how can we just get the new MSD in efficient time? We are saying compare weight of non-MSD as in the cycle. Which cycle? That's the thing. Which cycle here? Earlier cycle was very clear, but here which cycle you are talking about? Are you getting my point?"
+      }
+    ]
+  },
+  {
+    "id": 378,
+    "lecture": 126,
+    "title": "Huffman codes and prefix-free leaves · Discover",
+    "concept": "A binary prefix code assigns symbols to tree leaves. No symbol’s code is a prefix of another, so a bit stream can be decoded by walking from the root to a leaf and restarting. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+    "teachingSteps": [
+      "A binary prefix code assigns symbols to tree leaves. No symbol’s code is a prefix of another, so a bit stream can be decoded by walking from the root to a leaf and restarting.",
+      "Combine them into a new weighted subtree",
+      "Return the subtree and repeat until one root remains"
+    ],
+    "foundation": {
+      "title": "Huffman codes and prefix-free leaves",
+      "idea": "A binary prefix code assigns symbols to tree leaves. No symbol’s code is a prefix of another, so a bit stream can be decoded by walking from the root to a leaf and restarting. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+      "terms": [
+        "Prefix-free: no codeword prefixes another.",
+        "Code length: depth of the symbol leaf.",
+        "Weighted bits: frequency multiplied by code length."
+      ],
+      "example": "Weights 2,3,7,8 merge as 2+3=5, 5+7=12, 8+12=20. The total weighted code length is 5+12+20=37."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "For the given frequencies, what is the total weighted bit count of a Huffman code?",
+        "answer": 37,
+        "explanation": "Repeatedly merge the two smallest weights. The sum of all merged weights equals total frequency times code depth.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Symbol",
+            "Frequency"
+          ],
+          "rows": [
+            [
+              "A",
+              2
+            ],
+            [
+              "B",
+              3
+            ],
+            [
+              "C",
+              7
+            ],
+            [
+              "D",
+              8
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "A full binary prefix-code tree with 6 leaves has how many internal nodes?",
+        "answer": 5,
+        "explanation": "Every internal node has exactly two children, giving n-1 internal nodes.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains huffman codes and prefix-free leaves?",
+        "options": [
+          "A binary prefix code assigns symbols to tree leaves.",
+          "Input assumptions never affect correctness.",
+          "One successful example proves every input."
+        ],
+        "answer": 0,
+        "explanation": "A binary prefix code assigns symbols to tree leaves. No symbol’s code is a prefix of another, so a bit stream can be decoded by walking from the root to a leaf and restarting."
+      },
+      {
+        "type": "order",
+        "prompt": "Construct a Huffman tree.",
+        "items": [
+          "Remove the two smallest current weights",
+          "Combine them into a new weighted subtree",
+          "Return the subtree and repeat until one root remains"
+        ],
+        "explanation": "Combining smallest weights minimizes the extra depth cost."
+      }
+    ],
+    "algoLab": "huffman",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 855.62,
+    "excerpt": "He says that we can be greedy and we can generate the codes which are usable also. Let's just see the idea. So let's just first understand prefix code prefix-free code and those those prefix-free code are getting used in the Huffman code. So let's just first understand the what does this prefix-free code means? Actually this prefix-free code means the unambiguous codes, which means a code is prefix-free if any code is not prefix of another.",
+    "sourceReferences": [
+      {
+        "lecture": 126,
+        "file": "126_32a_Huffman_Encoding_Concept_and_Questions_Interesti.mp4",
+        "start": 855.62,
+        "end": 883.29,
+        "text": "He says that we can be greedy and we can generate the codes which are usable also. Let's just see the idea. So let's just first understand prefix code prefix-free code and those those prefix-free code are getting used in the Huffman code. So let's just first understand the what does this prefix-free code means? Actually this prefix-free code means the unambiguous codes, which means a code is prefix-free if any code is not prefix of another."
+      },
+      {
+        "lecture": 126,
+        "file": "126_32a_Huffman_Encoding_Concept_and_Questions_Interesti.mp4",
+        "start": 884.09,
+        "end": 912.51,
+        "text": "which means let's suppose I have A, B, C, D, 4 characters and whatever I assign here let's suppose I assign 0 here then this 0 cannot be a prefix of another code which means none of these codes can start with 0. The reason being is that let's suppose if I have 0 1 then this 0 is a prefix this 0 is a code here and 0 0 cannot be a prefix of any other code and and if 0 is a prefix then it is it is not a prefix free code."
+      },
+      {
+        "lecture": 126,
+        "file": "126_32a_Huffman_Encoding_Concept_and_Questions_Interesti.mp4",
+        "start": 984.71,
+        "end": 1014.81,
+        "text": "See here, I got confused between D and D. Sometimes I'm saying that this partial part of E, okay, this could be the partial part of E. I'm saying the partial part of E, which is 111. This could be D itself. And sometimes I'm saying that this whole part is E. So that's why I got confused between D and D. Since it is not a prefix-free code. So a prefix-free code is a code where the one code is not a prefix of another code. Let's just see with the example. Tell me which of the following codes are prefix-free here."
+      }
+    ]
+  },
+  {
+    "id": 379,
+    "lecture": 126,
+    "title": "Huffman codes and prefix-free leaves · Trace",
+    "concept": "A binary prefix code assigns symbols to tree leaves. No symbol’s code is a prefix of another, so a bit stream can be decoded by walking from the root to a leaf and restarting. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+    "teachingSteps": [
+      "A binary prefix code assigns symbols to tree leaves. No symbol’s code is a prefix of another, so a bit stream can be decoded by walking from the root to a leaf and restarting.",
+      "Combine them into a new weighted subtree",
+      "Return the subtree and repeat until one root remains"
+    ],
+    "foundation": {
+      "title": "Huffman codes and prefix-free leaves",
+      "idea": "A binary prefix code assigns symbols to tree leaves. No symbol’s code is a prefix of another, so a bit stream can be decoded by walking from the root to a leaf and restarting. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+      "terms": [
+        "Prefix-free: no codeword prefixes another.",
+        "Code length: depth of the symbol leaf.",
+        "Weighted bits: frequency multiplied by code length."
+      ],
+      "example": "Weights 2,3,7,8 merge as 2+3=5, 5+7=12, 8+12=20. The total weighted code length is 5+12+20=37."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "For the given frequencies, what is the total weighted bit count of a Huffman code?",
+        "answer": 43,
+        "explanation": "Repeatedly merge the two smallest weights. The sum of all merged weights equals total frequency times code depth.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Symbol",
+            "Frequency"
+          ],
+          "rows": [
+            [
+              "A",
+              3
+            ],
+            [
+              "B",
+              4
+            ],
+            [
+              "C",
+              7
+            ],
+            [
+              "D",
+              8
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "A full binary prefix-code tree with 7 leaves has how many internal nodes?",
+        "answer": 6,
+        "explanation": "Every internal node has exactly two children, giving n-1 internal nodes.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Can the prefix-code set {0,01,11} be decoded without ambiguity under the usual leaf-code rule?",
+        "options": [
+          "Yes: every binary string is automatically prefix-free.",
+          "Yes: all symbols must share the same first bit.",
+          "No: 0 is a prefix of 01."
+        ],
+        "answer": 2,
+        "explanation": "A complete codeword cannot be a prefix of another complete codeword."
+      },
+      {
+        "type": "order",
+        "prompt": "Construct a Huffman tree.",
+        "items": [
+          "Remove the two smallest current weights",
+          "Combine them into a new weighted subtree",
+          "Return the subtree and repeat until one root remains"
+        ],
+        "explanation": "Combining smallest weights minimizes the extra depth cost."
+      }
+    ],
+    "algoLab": "huffman",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 855.62,
+    "excerpt": "He says that we can be greedy and we can generate the codes which are usable also. Let's just see the idea. So let's just first understand prefix code prefix-free code and those those prefix-free code are getting used in the Huffman code. So let's just first understand the what does this prefix-free code means? Actually this prefix-free code means the unambiguous codes, which means a code is prefix-free if any code is not prefix of another.",
+    "sourceReferences": [
+      {
+        "lecture": 126,
+        "file": "126_32a_Huffman_Encoding_Concept_and_Questions_Interesti.mp4",
+        "start": 855.62,
+        "end": 883.29,
+        "text": "He says that we can be greedy and we can generate the codes which are usable also. Let's just see the idea. So let's just first understand prefix code prefix-free code and those those prefix-free code are getting used in the Huffman code. So let's just first understand the what does this prefix-free code means? Actually this prefix-free code means the unambiguous codes, which means a code is prefix-free if any code is not prefix of another."
+      },
+      {
+        "lecture": 126,
+        "file": "126_32a_Huffman_Encoding_Concept_and_Questions_Interesti.mp4",
+        "start": 884.09,
+        "end": 912.51,
+        "text": "which means let's suppose I have A, B, C, D, 4 characters and whatever I assign here let's suppose I assign 0 here then this 0 cannot be a prefix of another code which means none of these codes can start with 0. The reason being is that let's suppose if I have 0 1 then this 0 is a prefix this 0 is a code here and 0 0 cannot be a prefix of any other code and and if 0 is a prefix then it is it is not a prefix free code."
+      },
+      {
+        "lecture": 126,
+        "file": "126_32a_Huffman_Encoding_Concept_and_Questions_Interesti.mp4",
+        "start": 984.71,
+        "end": 1014.81,
+        "text": "See here, I got confused between D and D. Sometimes I'm saying that this partial part of E, okay, this could be the partial part of E. I'm saying the partial part of E, which is 111. This could be D itself. And sometimes I'm saying that this whole part is E. So that's why I got confused between D and D. Since it is not a prefix-free code. So a prefix-free code is a code where the one code is not a prefix of another code. Let's just see with the example. Tell me which of the following codes are prefix-free here."
+      }
+    ]
+  },
+  {
+    "id": 380,
+    "lecture": 126,
+    "title": "Huffman codes and prefix-free leaves · Apply",
+    "concept": "A binary prefix code assigns symbols to tree leaves. No symbol’s code is a prefix of another, so a bit stream can be decoded by walking from the root to a leaf and restarting. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+    "teachingSteps": [
+      "A binary prefix code assigns symbols to tree leaves. No symbol’s code is a prefix of another, so a bit stream can be decoded by walking from the root to a leaf and restarting.",
+      "Combine them into a new weighted subtree",
+      "Return the subtree and repeat until one root remains"
+    ],
+    "foundation": {
+      "title": "Huffman codes and prefix-free leaves",
+      "idea": "A binary prefix code assigns symbols to tree leaves. No symbol’s code is a prefix of another, so a bit stream can be decoded by walking from the root to a leaf and restarting. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+      "terms": [
+        "Prefix-free: no codeword prefixes another.",
+        "Code length: depth of the symbol leaf.",
+        "Weighted bits: frequency multiplied by code length."
+      ],
+      "example": "Weights 2,3,7,8 merge as 2+3=5, 5+7=12, 8+12=20. The total weighted code length is 5+12+20=37."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A compression service assigns prefix codes. For the given frequencies, what is the total weighted bit count of a Huffman code?",
+        "answer": 48,
+        "explanation": "Repeatedly merge the two smallest weights. The sum of all merged weights equals total frequency times code depth.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Symbol",
+            "Frequency"
+          ],
+          "rows": [
+            [
+              "A",
+              4
+            ],
+            [
+              "B",
+              5
+            ],
+            [
+              "C",
+              7
+            ],
+            [
+              "D",
+              8
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "A full binary prefix-code tree with 4 leaves has how many internal nodes?",
+        "answer": 3,
+        "explanation": "Every internal node has exactly two children, giving n-1 internal nodes.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Can the prefix-code set {0,01,11} be decoded without ambiguity under the usual leaf-code rule?",
+        "options": [
+          "Yes: all symbols must share the same first bit.",
+          "No: 0 is a prefix of 01.",
+          "Yes: every binary string is automatically prefix-free."
+        ],
+        "answer": 1,
+        "explanation": "A complete codeword cannot be a prefix of another complete codeword."
+      },
+      {
+        "type": "order",
+        "prompt": "Construct a Huffman tree.",
+        "items": [
+          "Remove the two smallest current weights",
+          "Combine them into a new weighted subtree",
+          "Return the subtree and repeat until one root remains"
+        ],
+        "explanation": "Combining smallest weights minimizes the extra depth cost."
+      }
+    ],
+    "algoLab": "huffman",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 855.62,
+    "excerpt": "He says that we can be greedy and we can generate the codes which are usable also. Let's just see the idea. So let's just first understand prefix code prefix-free code and those those prefix-free code are getting used in the Huffman code. So let's just first understand the what does this prefix-free code means? Actually this prefix-free code means the unambiguous codes, which means a code is prefix-free if any code is not prefix of another.",
+    "sourceReferences": [
+      {
+        "lecture": 126,
+        "file": "126_32a_Huffman_Encoding_Concept_and_Questions_Interesti.mp4",
+        "start": 855.62,
+        "end": 883.29,
+        "text": "He says that we can be greedy and we can generate the codes which are usable also. Let's just see the idea. So let's just first understand prefix code prefix-free code and those those prefix-free code are getting used in the Huffman code. So let's just first understand the what does this prefix-free code means? Actually this prefix-free code means the unambiguous codes, which means a code is prefix-free if any code is not prefix of another."
+      },
+      {
+        "lecture": 126,
+        "file": "126_32a_Huffman_Encoding_Concept_and_Questions_Interesti.mp4",
+        "start": 884.09,
+        "end": 912.51,
+        "text": "which means let's suppose I have A, B, C, D, 4 characters and whatever I assign here let's suppose I assign 0 here then this 0 cannot be a prefix of another code which means none of these codes can start with 0. The reason being is that let's suppose if I have 0 1 then this 0 is a prefix this 0 is a code here and 0 0 cannot be a prefix of any other code and and if 0 is a prefix then it is it is not a prefix free code."
+      },
+      {
+        "lecture": 126,
+        "file": "126_32a_Huffman_Encoding_Concept_and_Questions_Interesti.mp4",
+        "start": 984.71,
+        "end": 1014.81,
+        "text": "See here, I got confused between D and D. Sometimes I'm saying that this partial part of E, okay, this could be the partial part of E. I'm saying the partial part of E, which is 111. This could be D itself. And sometimes I'm saying that this whole part is E. So that's why I got confused between D and D. Since it is not a prefix-free code. So a prefix-free code is a code where the one code is not a prefix of another code. Let's just see with the example. Tell me which of the following codes are prefix-free here."
+      }
+    ]
+  },
+  {
+    "id": 381,
+    "lecture": 127,
+    "title": "Compute encoded length from frequencies · Discover",
+    "concept": "The total encoded length is the sum of frequency times code length over all symbols. Huffman repeatedly combines the two smallest weights to minimize this weighted length among binary prefix codes. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+    "teachingSteps": [
+      "The total encoded length is the sum of frequency times code length over all symbols. Huffman repeatedly combines the two smallest weights to minimize this weighted length among binary prefix codes.",
+      "Combine them into a new weighted subtree",
+      "Return the subtree and repeat until one root remains"
+    ],
+    "foundation": {
+      "title": "Compute encoded length from frequencies",
+      "idea": "The total encoded length is the sum of frequency times code length over all symbols. Huffman repeatedly combines the two smallest weights to minimize this weighted length among binary prefix codes. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+      "terms": [
+        "Prefix-free: no codeword prefixes another.",
+        "Code length: depth of the symbol leaf.",
+        "Weighted bits: frequency multiplied by code length."
+      ],
+      "example": "Weights 2,3,7,8 merge as 2+3=5, 5+7=12, 8+12=20. The total weighted code length is 5+12+20=37."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "For the given frequencies, what is the total weighted bit count of a Huffman code?",
+        "answer": 43,
+        "explanation": "Repeatedly merge the two smallest weights. The sum of all merged weights equals total frequency times code depth.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Symbol",
+            "Frequency"
+          ],
+          "rows": [
+            [
+              "A",
+              3
+            ],
+            [
+              "B",
+              4
+            ],
+            [
+              "C",
+              7
+            ],
+            [
+              "D",
+              8
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "A full binary prefix-code tree with 7 leaves has how many internal nodes?",
+        "answer": 6,
+        "explanation": "Every internal node has exactly two children, giving n-1 internal nodes.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains compute encoded length from frequencies?",
+        "options": [
+          "Input assumptions never affect correctness.",
+          "One successful example proves every input.",
+          "The total encoded length is the sum of frequency times code length over all symbols."
+        ],
+        "answer": 2,
+        "explanation": "The total encoded length is the sum of frequency times code length over all symbols. Huffman repeatedly combines the two smallest weights to minimize this weighted length among binary prefix codes."
+      },
+      {
+        "type": "order",
+        "prompt": "Construct a Huffman tree.",
+        "items": [
+          "Remove the two smallest current weights",
+          "Combine them into a new weighted subtree",
+          "Return the subtree and repeat until one root remains"
+        ],
+        "explanation": "Combining smallest weights minimizes the extra depth cost."
+      }
+    ],
+    "algoLab": "huffman-cost",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 44.4,
+    "excerpt": "So this is 0 point like P2 and P5 and then you will be getting this summation. This is 0.09. I mean, this is just probability, which means you are saying that probability of P2 was 0.05, probability of P2 was 0.05, probability of P2 was 0.05, probability of P5 was 0.04. And then if you merge them, then you are saying the probability of either P2 or P5 is 0.09. I mean, you just do in the similar way, or maybe you just consider them as just count.",
+    "sourceReferences": [
+      {
+        "lecture": 127,
+        "file": "127. 32b. Question on Huffman Encoding.mp4",
+        "start": 44.4,
+        "end": 72.64,
+        "text": "So this is 0 point like P2 and P5 and then you will be getting this summation. This is 0.09. I mean, this is just probability, which means you are saying that probability of P2 was 0.05, probability of P2 was 0.05, probability of P2 was 0.05, probability of P5 was 0.04. And then if you merge them, then you are saying the probability of either P2 or P5 is 0.09. I mean, you just do in the similar way, or maybe you just consider them as just count."
+      },
+      {
+        "lecture": 127,
+        "file": "127. 32b. Question on Huffman Encoding.mp4",
+        "start": 73.02,
+        "end": 98.86,
+        "text": "okay you can draw the perfect PMF if you want to or and then you can treat them just and count otherwise it does not matter basically to draw the Huffman tree we only need to know the relative things see if you multiply by 100 you do not multiply by 100 the relative order won't change right so to draw the Huffman tree you just need to know the relative order which means P2 should be merged with P5 or should be merged with P3 so"
+      },
+      {
+        "lecture": 127,
+        "file": "127. 32b. Question on Huffman Encoding.mp4",
+        "start": 99.22,
+        "end": 128.84,
+        "text": "if you draw the samples then you know the relative order or you already know the relative order I think you already know the relative order so if you want you can multiply the 100 and you can draw the samples you can do all of these things but it is not necessary I mean it is unnecessary to draw the samples here because I just need to get the tree and how to get the tree to get the tree I just need the relative order between p1 p2 p3 I mean a1 a2 a3 a4 a5 and I know this a4 is most likely"
+      }
+    ]
+  },
+  {
+    "id": 382,
+    "lecture": 127,
+    "title": "Compute encoded length from frequencies · Trace",
+    "concept": "The total encoded length is the sum of frequency times code length over all symbols. Huffman repeatedly combines the two smallest weights to minimize this weighted length among binary prefix codes. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+    "teachingSteps": [
+      "The total encoded length is the sum of frequency times code length over all symbols. Huffman repeatedly combines the two smallest weights to minimize this weighted length among binary prefix codes.",
+      "Combine them into a new weighted subtree",
+      "Return the subtree and repeat until one root remains"
+    ],
+    "foundation": {
+      "title": "Compute encoded length from frequencies",
+      "idea": "The total encoded length is the sum of frequency times code length over all symbols. Huffman repeatedly combines the two smallest weights to minimize this weighted length among binary prefix codes. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+      "terms": [
+        "Prefix-free: no codeword prefixes another.",
+        "Code length: depth of the symbol leaf.",
+        "Weighted bits: frequency multiplied by code length."
+      ],
+      "example": "Weights 2,3,7,8 merge as 2+3=5, 5+7=12, 8+12=20. The total weighted code length is 5+12+20=37."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "For the given frequencies, what is the total weighted bit count of a Huffman code?",
+        "answer": 48,
+        "explanation": "Repeatedly merge the two smallest weights. The sum of all merged weights equals total frequency times code depth.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Symbol",
+            "Frequency"
+          ],
+          "rows": [
+            [
+              "A",
+              4
+            ],
+            [
+              "B",
+              5
+            ],
+            [
+              "C",
+              7
+            ],
+            [
+              "D",
+              8
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "A full binary prefix-code tree with 4 leaves has how many internal nodes?",
+        "answer": 3,
+        "explanation": "Every internal node has exactly two children, giving n-1 internal nodes.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Can the prefix-code set {0,01,11} be decoded without ambiguity under the usual leaf-code rule?",
+        "options": [
+          "Yes: all symbols must share the same first bit.",
+          "No: 0 is a prefix of 01.",
+          "Yes: every binary string is automatically prefix-free."
+        ],
+        "answer": 1,
+        "explanation": "A complete codeword cannot be a prefix of another complete codeword."
+      },
+      {
+        "type": "order",
+        "prompt": "Construct a Huffman tree.",
+        "items": [
+          "Remove the two smallest current weights",
+          "Combine them into a new weighted subtree",
+          "Return the subtree and repeat until one root remains"
+        ],
+        "explanation": "Combining smallest weights minimizes the extra depth cost."
+      }
+    ],
+    "algoLab": "huffman-cost",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 44.4,
+    "excerpt": "So this is 0 point like P2 and P5 and then you will be getting this summation. This is 0.09. I mean, this is just probability, which means you are saying that probability of P2 was 0.05, probability of P2 was 0.05, probability of P2 was 0.05, probability of P5 was 0.04. And then if you merge them, then you are saying the probability of either P2 or P5 is 0.09. I mean, you just do in the similar way, or maybe you just consider them as just count.",
+    "sourceReferences": [
+      {
+        "lecture": 127,
+        "file": "127. 32b. Question on Huffman Encoding.mp4",
+        "start": 44.4,
+        "end": 72.64,
+        "text": "So this is 0 point like P2 and P5 and then you will be getting this summation. This is 0.09. I mean, this is just probability, which means you are saying that probability of P2 was 0.05, probability of P2 was 0.05, probability of P2 was 0.05, probability of P5 was 0.04. And then if you merge them, then you are saying the probability of either P2 or P5 is 0.09. I mean, you just do in the similar way, or maybe you just consider them as just count."
+      },
+      {
+        "lecture": 127,
+        "file": "127. 32b. Question on Huffman Encoding.mp4",
+        "start": 73.02,
+        "end": 98.86,
+        "text": "okay you can draw the perfect PMF if you want to or and then you can treat them just and count otherwise it does not matter basically to draw the Huffman tree we only need to know the relative things see if you multiply by 100 you do not multiply by 100 the relative order won't change right so to draw the Huffman tree you just need to know the relative order which means P2 should be merged with P5 or should be merged with P3 so"
+      },
+      {
+        "lecture": 127,
+        "file": "127. 32b. Question on Huffman Encoding.mp4",
+        "start": 99.22,
+        "end": 128.84,
+        "text": "if you draw the samples then you know the relative order or you already know the relative order I think you already know the relative order so if you want you can multiply the 100 and you can draw the samples you can do all of these things but it is not necessary I mean it is unnecessary to draw the samples here because I just need to get the tree and how to get the tree to get the tree I just need the relative order between p1 p2 p3 I mean a1 a2 a3 a4 a5 and I know this a4 is most likely"
+      }
+    ]
+  },
+  {
+    "id": 383,
+    "lecture": 127,
+    "title": "Compute encoded length from frequencies · Apply",
+    "concept": "The total encoded length is the sum of frequency times code length over all symbols. Huffman repeatedly combines the two smallest weights to minimize this weighted length among binary prefix codes. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+    "teachingSteps": [
+      "The total encoded length is the sum of frequency times code length over all symbols. Huffman repeatedly combines the two smallest weights to minimize this weighted length among binary prefix codes.",
+      "Combine them into a new weighted subtree",
+      "Return the subtree and repeat until one root remains"
+    ],
+    "foundation": {
+      "title": "Compute encoded length from frequencies",
+      "idea": "The total encoded length is the sum of frequency times code length over all symbols. Huffman repeatedly combines the two smallest weights to minimize this weighted length among binary prefix codes. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+      "terms": [
+        "Prefix-free: no codeword prefixes another.",
+        "Code length: depth of the symbol leaf.",
+        "Weighted bits: frequency multiplied by code length."
+      ],
+      "example": "Weights 2,3,7,8 merge as 2+3=5, 5+7=12, 8+12=20. The total weighted code length is 5+12+20=37."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A compression service assigns prefix codes. For the given frequencies, what is the total weighted bit count of a Huffman code?",
+        "answer": 37,
+        "explanation": "Repeatedly merge the two smallest weights. The sum of all merged weights equals total frequency times code depth.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Symbol",
+            "Frequency"
+          ],
+          "rows": [
+            [
+              "A",
+              2
+            ],
+            [
+              "B",
+              3
+            ],
+            [
+              "C",
+              7
+            ],
+            [
+              "D",
+              8
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "A full binary prefix-code tree with 5 leaves has how many internal nodes?",
+        "answer": 4,
+        "explanation": "Every internal node has exactly two children, giving n-1 internal nodes.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Can the prefix-code set {0,01,11} be decoded without ambiguity under the usual leaf-code rule?",
+        "options": [
+          "No: 0 is a prefix of 01.",
+          "Yes: every binary string is automatically prefix-free.",
+          "Yes: all symbols must share the same first bit."
+        ],
+        "answer": 0,
+        "explanation": "A complete codeword cannot be a prefix of another complete codeword."
+      },
+      {
+        "type": "order",
+        "prompt": "Construct a Huffman tree.",
+        "items": [
+          "Remove the two smallest current weights",
+          "Combine them into a new weighted subtree",
+          "Return the subtree and repeat until one root remains"
+        ],
+        "explanation": "Combining smallest weights minimizes the extra depth cost."
+      }
+    ],
+    "algoLab": "huffman-cost",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 44.4,
+    "excerpt": "So this is 0 point like P2 and P5 and then you will be getting this summation. This is 0.09. I mean, this is just probability, which means you are saying that probability of P2 was 0.05, probability of P2 was 0.05, probability of P2 was 0.05, probability of P5 was 0.04. And then if you merge them, then you are saying the probability of either P2 or P5 is 0.09. I mean, you just do in the similar way, or maybe you just consider them as just count.",
+    "sourceReferences": [
+      {
+        "lecture": 127,
+        "file": "127. 32b. Question on Huffman Encoding.mp4",
+        "start": 44.4,
+        "end": 72.64,
+        "text": "So this is 0 point like P2 and P5 and then you will be getting this summation. This is 0.09. I mean, this is just probability, which means you are saying that probability of P2 was 0.05, probability of P2 was 0.05, probability of P2 was 0.05, probability of P5 was 0.04. And then if you merge them, then you are saying the probability of either P2 or P5 is 0.09. I mean, you just do in the similar way, or maybe you just consider them as just count."
+      },
+      {
+        "lecture": 127,
+        "file": "127. 32b. Question on Huffman Encoding.mp4",
+        "start": 73.02,
+        "end": 98.86,
+        "text": "okay you can draw the perfect PMF if you want to or and then you can treat them just and count otherwise it does not matter basically to draw the Huffman tree we only need to know the relative things see if you multiply by 100 you do not multiply by 100 the relative order won't change right so to draw the Huffman tree you just need to know the relative order which means P2 should be merged with P5 or should be merged with P3 so"
+      },
+      {
+        "lecture": 127,
+        "file": "127. 32b. Question on Huffman Encoding.mp4",
+        "start": 99.22,
+        "end": 128.84,
+        "text": "if you draw the samples then you know the relative order or you already know the relative order I think you already know the relative order so if you want you can multiply the 100 and you can draw the samples you can do all of these things but it is not necessary I mean it is unnecessary to draw the samples here because I just need to get the tree and how to get the tree to get the tree I just need the relative order between p1 p2 p3 I mean a1 a2 a3 a4 a5 and I know this a4 is most likely"
+      }
+    ]
+  },
+  {
+    "id": 384,
+    "lecture": 128,
+    "title": "Heap operations in Huffman construction · Discover",
+    "concept": "With a min-heap, each Huffman merge removes two smallest weights and inserts their sum. There are n-1 merges for n symbols, giving O(n log n) construction time. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+    "teachingSteps": [
+      "With a min-heap, each Huffman merge removes two smallest weights and inserts their sum. There are n-1 merges for n symbols, giving O(n log n) construction time.",
+      "Combine them into a new weighted subtree",
+      "Return the subtree and repeat until one root remains"
+    ],
+    "foundation": {
+      "title": "Heap operations in Huffman construction",
+      "idea": "With a min-heap, each Huffman merge removes two smallest weights and inserts their sum. There are n-1 merges for n symbols, giving O(n log n) construction time. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+      "terms": [
+        "Prefix-free: no codeword prefixes another.",
+        "Code length: depth of the symbol leaf.",
+        "Weighted bits: frequency multiplied by code length."
+      ],
+      "example": "Weights 2,3,7,8 merge as 2+3=5, 5+7=12, 8+12=20. The total weighted code length is 5+12+20=37."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "For the given frequencies, what is the total weighted bit count of a Huffman code?",
+        "answer": 48,
+        "explanation": "Repeatedly merge the two smallest weights. The sum of all merged weights equals total frequency times code depth.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Symbol",
+            "Frequency"
+          ],
+          "rows": [
+            [
+              "A",
+              4
+            ],
+            [
+              "B",
+              5
+            ],
+            [
+              "C",
+              7
+            ],
+            [
+              "D",
+              8
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Starting with 4 symbol nodes, how many two-to-one merges leave one Huffman root?",
+        "answer": 3,
+        "explanation": "Each merge reduces the frontier node count by one.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains heap operations in huffman construction?",
+        "options": [
+          "One successful example proves every input.",
+          "With a min-heap, each Huffman merge removes two smallest weights and inserts their sum.",
+          "Input assumptions never affect correctness."
+        ],
+        "answer": 1,
+        "explanation": "With a min-heap, each Huffman merge removes two smallest weights and inserts their sum. There are n-1 merges for n symbols, giving O(n log n) construction time."
+      },
+      {
+        "type": "order",
+        "prompt": "Construct a Huffman tree.",
+        "items": [
+          "Remove the two smallest current weights",
+          "Combine them into a new weighted subtree",
+          "Return the subtree and repeat until one root remains"
+        ],
+        "explanation": "Combining smallest weights minimizes the extra depth cost."
+      }
+    ],
+    "algoLab": "huffman-heap",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.94,
+    "excerpt": "So now Huffman course are always prefix free code. What do you think? Answer is yes. Reason being is that it is very easy to see. See, all the characters are always on the leaf, right? All the characters are always on the leaf. See here, whatever the tree you have, but the characters, let's suppose if it is not a character, then I'm representing with a circle. If it is a character, I'm representing with a square. I mean, whatever the tree you have, all the characters will be on the leaf only.",
+    "sourceReferences": [
+      {
+        "lecture": 128,
+        "file": "128. 32c. Huffman Encoding Time Complexity.mp4",
+        "start": 0.94,
+        "end": 30.09,
+        "text": "So now Huffman course are always prefix free code. What do you think? Answer is yes. Reason being is that it is very easy to see. See, all the characters are always on the leaf, right? All the characters are always on the leaf. See here, whatever the tree you have, but the characters, let's suppose if it is not a character, then I'm representing with a circle. If it is a character, I'm representing with a square. I mean, whatever the tree you have, all the characters will be on the leaf only."
+      },
+      {
+        "lecture": 128,
+        "file": "128. 32c. Huffman Encoding Time Complexity.mp4",
+        "start": 106.46,
+        "end": 138.95,
+        "text": "so it is it is prefix free very easy to see okay I hope everyone got it see let me just tell you again see the code of this is 110 and after this 110 can 110 prefix of anything 110 can be prefix of anything only when like if there is something here since there is nothing here that's why I can say that 110 is not perfect so okay I'm not getting it so can we left skewed Matlab it is"
+      },
+      {
+        "lecture": 128,
+        "file": "128. 32c. Huffman Encoding Time Complexity.mp4",
+        "start": 423.24,
+        "end": 443.5,
+        "text": "Now we are again taking two minimums, so don't worry about these two minimums now. If you have used them, don't worry about them. Then we are again taking two minimums and then we are merging them. So in this case, the two minimum was 13 and 12 and then we will merge them. Then we will again take two minimum, we will merge them like that. We will again take two minimum, we will merge, we will again take two minimum, we will merge. That's what we will do."
+      }
+    ]
+  },
+  {
+    "id": 385,
+    "lecture": 128,
+    "title": "Heap operations in Huffman construction · Trace",
+    "concept": "With a min-heap, each Huffman merge removes two smallest weights and inserts their sum. There are n-1 merges for n symbols, giving O(n log n) construction time. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+    "teachingSteps": [
+      "With a min-heap, each Huffman merge removes two smallest weights and inserts their sum. There are n-1 merges for n symbols, giving O(n log n) construction time.",
+      "Combine them into a new weighted subtree",
+      "Return the subtree and repeat until one root remains"
+    ],
+    "foundation": {
+      "title": "Heap operations in Huffman construction",
+      "idea": "With a min-heap, each Huffman merge removes two smallest weights and inserts their sum. There are n-1 merges for n symbols, giving O(n log n) construction time. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+      "terms": [
+        "Prefix-free: no codeword prefixes another.",
+        "Code length: depth of the symbol leaf.",
+        "Weighted bits: frequency multiplied by code length."
+      ],
+      "example": "Weights 2,3,7,8 merge as 2+3=5, 5+7=12, 8+12=20. The total weighted code length is 5+12+20=37."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "For the given frequencies, what is the total weighted bit count of a Huffman code?",
+        "answer": 37,
+        "explanation": "Repeatedly merge the two smallest weights. The sum of all merged weights equals total frequency times code depth.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Symbol",
+            "Frequency"
+          ],
+          "rows": [
+            [
+              "A",
+              2
+            ],
+            [
+              "B",
+              3
+            ],
+            [
+              "C",
+              7
+            ],
+            [
+              "D",
+              8
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Starting with 5 symbol nodes, how many two-to-one merges leave one Huffman root?",
+        "answer": 4,
+        "explanation": "Each merge reduces the frontier node count by one.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Can the prefix-code set {0,01,11} be decoded without ambiguity under the usual leaf-code rule?",
+        "options": [
+          "No: 0 is a prefix of 01.",
+          "Yes: every binary string is automatically prefix-free.",
+          "Yes: all symbols must share the same first bit."
+        ],
+        "answer": 0,
+        "explanation": "A complete codeword cannot be a prefix of another complete codeword."
+      },
+      {
+        "type": "order",
+        "prompt": "Construct a Huffman tree.",
+        "items": [
+          "Remove the two smallest current weights",
+          "Combine them into a new weighted subtree",
+          "Return the subtree and repeat until one root remains"
+        ],
+        "explanation": "Combining smallest weights minimizes the extra depth cost."
+      }
+    ],
+    "algoLab": "huffman-heap",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.94,
+    "excerpt": "So now Huffman course are always prefix free code. What do you think? Answer is yes. Reason being is that it is very easy to see. See, all the characters are always on the leaf, right? All the characters are always on the leaf. See here, whatever the tree you have, but the characters, let's suppose if it is not a character, then I'm representing with a circle. If it is a character, I'm representing with a square. I mean, whatever the tree you have, all the characters will be on the leaf only.",
+    "sourceReferences": [
+      {
+        "lecture": 128,
+        "file": "128. 32c. Huffman Encoding Time Complexity.mp4",
+        "start": 0.94,
+        "end": 30.09,
+        "text": "So now Huffman course are always prefix free code. What do you think? Answer is yes. Reason being is that it is very easy to see. See, all the characters are always on the leaf, right? All the characters are always on the leaf. See here, whatever the tree you have, but the characters, let's suppose if it is not a character, then I'm representing with a circle. If it is a character, I'm representing with a square. I mean, whatever the tree you have, all the characters will be on the leaf only."
+      },
+      {
+        "lecture": 128,
+        "file": "128. 32c. Huffman Encoding Time Complexity.mp4",
+        "start": 106.46,
+        "end": 138.95,
+        "text": "so it is it is prefix free very easy to see okay I hope everyone got it see let me just tell you again see the code of this is 110 and after this 110 can 110 prefix of anything 110 can be prefix of anything only when like if there is something here since there is nothing here that's why I can say that 110 is not perfect so okay I'm not getting it so can we left skewed Matlab it is"
+      },
+      {
+        "lecture": 128,
+        "file": "128. 32c. Huffman Encoding Time Complexity.mp4",
+        "start": 423.24,
+        "end": 443.5,
+        "text": "Now we are again taking two minimums, so don't worry about these two minimums now. If you have used them, don't worry about them. Then we are again taking two minimums and then we are merging them. So in this case, the two minimum was 13 and 12 and then we will merge them. Then we will again take two minimum, we will merge them like that. We will again take two minimum, we will merge, we will again take two minimum, we will merge. That's what we will do."
+      }
+    ]
+  },
+  {
+    "id": 386,
+    "lecture": 128,
+    "title": "Heap operations in Huffman construction · Apply",
+    "concept": "With a min-heap, each Huffman merge removes two smallest weights and inserts their sum. There are n-1 merges for n symbols, giving O(n log n) construction time. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+    "teachingSteps": [
+      "With a min-heap, each Huffman merge removes two smallest weights and inserts their sum. There are n-1 merges for n symbols, giving O(n log n) construction time.",
+      "Combine them into a new weighted subtree",
+      "Return the subtree and repeat until one root remains"
+    ],
+    "foundation": {
+      "title": "Heap operations in Huffman construction",
+      "idea": "With a min-heap, each Huffman merge removes two smallest weights and inserts their sum. There are n-1 merges for n symbols, giving O(n log n) construction time. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+      "terms": [
+        "Prefix-free: no codeword prefixes another.",
+        "Code length: depth of the symbol leaf.",
+        "Weighted bits: frequency multiplied by code length."
+      ],
+      "example": "Weights 2,3,7,8 merge as 2+3=5, 5+7=12, 8+12=20. The total weighted code length is 5+12+20=37."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A compression service assigns prefix codes. For the given frequencies, what is the total weighted bit count of a Huffman code?",
+        "answer": 43,
+        "explanation": "Repeatedly merge the two smallest weights. The sum of all merged weights equals total frequency times code depth.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Symbol",
+            "Frequency"
+          ],
+          "rows": [
+            [
+              "A",
+              3
+            ],
+            [
+              "B",
+              4
+            ],
+            [
+              "C",
+              7
+            ],
+            [
+              "D",
+              8
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Starting with 6 symbol nodes, how many two-to-one merges leave one Huffman root?",
+        "answer": 5,
+        "explanation": "Each merge reduces the frontier node count by one.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Can the prefix-code set {0,01,11} be decoded without ambiguity under the usual leaf-code rule?",
+        "options": [
+          "Yes: every binary string is automatically prefix-free.",
+          "Yes: all symbols must share the same first bit.",
+          "No: 0 is a prefix of 01."
+        ],
+        "answer": 2,
+        "explanation": "A complete codeword cannot be a prefix of another complete codeword."
+      },
+      {
+        "type": "order",
+        "prompt": "Construct a Huffman tree.",
+        "items": [
+          "Remove the two smallest current weights",
+          "Combine them into a new weighted subtree",
+          "Return the subtree and repeat until one root remains"
+        ],
+        "explanation": "Combining smallest weights minimizes the extra depth cost."
+      }
+    ],
+    "algoLab": "huffman-heap",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.94,
+    "excerpt": "So now Huffman course are always prefix free code. What do you think? Answer is yes. Reason being is that it is very easy to see. See, all the characters are always on the leaf, right? All the characters are always on the leaf. See here, whatever the tree you have, but the characters, let's suppose if it is not a character, then I'm representing with a circle. If it is a character, I'm representing with a square. I mean, whatever the tree you have, all the characters will be on the leaf only.",
+    "sourceReferences": [
+      {
+        "lecture": 128,
+        "file": "128. 32c. Huffman Encoding Time Complexity.mp4",
+        "start": 0.94,
+        "end": 30.09,
+        "text": "So now Huffman course are always prefix free code. What do you think? Answer is yes. Reason being is that it is very easy to see. See, all the characters are always on the leaf, right? All the characters are always on the leaf. See here, whatever the tree you have, but the characters, let's suppose if it is not a character, then I'm representing with a circle. If it is a character, I'm representing with a square. I mean, whatever the tree you have, all the characters will be on the leaf only."
+      },
+      {
+        "lecture": 128,
+        "file": "128. 32c. Huffman Encoding Time Complexity.mp4",
+        "start": 106.46,
+        "end": 138.95,
+        "text": "so it is it is prefix free very easy to see okay I hope everyone got it see let me just tell you again see the code of this is 110 and after this 110 can 110 prefix of anything 110 can be prefix of anything only when like if there is something here since there is nothing here that's why I can say that 110 is not perfect so okay I'm not getting it so can we left skewed Matlab it is"
+      },
+      {
+        "lecture": 128,
+        "file": "128. 32c. Huffman Encoding Time Complexity.mp4",
+        "start": 423.24,
+        "end": 443.5,
+        "text": "Now we are again taking two minimums, so don't worry about these two minimums now. If you have used them, don't worry about them. Then we are again taking two minimums and then we are merging them. So in this case, the two minimum was 13 and 12 and then we will merge them. Then we will again take two minimum, we will merge them like that. We will again take two minimum, we will merge, we will again take two minimum, we will merge. That's what we will do."
+      }
+    ]
+  },
+  {
+    "id": 387,
+    "lecture": 129,
+    "title": "Decode from the root after every symbol · Discover",
+    "concept": "Follow a zero or one branch for each bit, emit a symbol only at a leaf, and then restart at the root. Equal frequencies can produce different equally optimal codes. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+    "teachingSteps": [
+      "Follow a zero or one branch for each bit, emit a symbol only at a leaf, and then restart at the root. Equal frequencies can produce different equally optimal codes.",
+      "Combine them into a new weighted subtree",
+      "Return the subtree and repeat until one root remains"
+    ],
+    "foundation": {
+      "title": "Decode from the root after every symbol",
+      "idea": "Follow a zero or one branch for each bit, emit a symbol only at a leaf, and then restart at the root. Equal frequencies can produce different equally optimal codes. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+      "terms": [
+        "Prefix-free: no codeword prefixes another.",
+        "Code length: depth of the symbol leaf.",
+        "Weighted bits: frequency multiplied by code length."
+      ],
+      "example": "Weights 2,3,7,8 merge as 2+3=5, 5+7=12, 8+12=20. The total weighted code length is 5+12+20=37."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "With prefix codes A=0, B=10, C=11, how many symbols does bit stream 01011 decode into?",
+        "answer": 3,
+        "explanation": "Decode 0|10|11 as A,B,C, restarting at the root after each leaf.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A full binary prefix-code tree with 5 leaves has how many internal nodes?",
+        "answer": 4,
+        "explanation": "Every internal node has exactly two children, giving n-1 internal nodes.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains decode from the root after every symbol?",
+        "options": [
+          "Follow a zero or one branch for each bit, emit a symbol only at a leaf, and then restart at the root.",
+          "Input assumptions never affect correctness.",
+          "One successful example proves every input."
+        ],
+        "answer": 0,
+        "explanation": "Follow a zero or one branch for each bit, emit a symbol only at a leaf, and then restart at the root. Equal frequencies can produce different equally optimal codes."
+      },
+      {
+        "type": "order",
+        "prompt": "Construct a Huffman tree.",
+        "items": [
+          "Remove the two smallest current weights",
+          "Combine them into a new weighted subtree",
+          "Return the subtree and repeat until one root remains"
+        ],
+        "explanation": "Combining smallest weights minimizes the extra depth cost."
+      }
+    ],
+    "algoLab": "huffman-decode",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0,
+    "excerpt": "Now let's see this question. Consider the following two Hoffman decoding trees, the variable length, okay, actually the question I have modified. Consider the following Hoffman decoding tree. There are no two trees, they're just one tree. Four variable length code involving five symbol ABCDE. Now using this tree, decode the following encode message. Can you decode this message? Actually, I can do it, you can also do it obviously.",
+    "sourceReferences": [
+      {
+        "lecture": 129,
+        "file": "129. 32d. Nice Questions on Huffman Encoding.mp4",
+        "start": 0,
+        "end": 34.83,
+        "text": "Now let's see this question. Consider the following two Hoffman decoding trees, the variable length, okay, actually the question I have modified. Consider the following Hoffman decoding tree. There are no two trees, they're just one tree. Four variable length code involving five symbol ABCDE. Now using this tree, decode the following encode message. Can you decode this message? Actually, I can do it, you can also do it obviously."
+      },
+      {
+        "lecture": 129,
+        "file": "129. 32d. Nice Questions on Huffman Encoding.mp4",
+        "start": 408.15,
+        "end": 436.05,
+        "text": "So anyway, like I wanted to tell you that both kind of questions are possible. Given the code, they may ask the valid code or not, then also you just try drawing the tree. And given, I mean, you should be knowing that how to efficiently doing these kind of questions. And the thing is that you should be making use of the tree, which means if tree is given, they ask you to decode it, then you can just follow the tree. If the code is given, then you can try drawing the tree, something like this."
+      },
+      {
+        "lecture": 129,
+        "file": "129. 32d. Nice Questions on Huffman Encoding.mp4",
+        "start": 443.38,
+        "end": 473.31,
+        "text": "No, no, it's not like that. Tree could be balanced or unbalanced. See here, here it is completely unbalanced tree, then also it is a valid, right? It was a completely unbalanced tree, so like it could be balanced or unbalanced. If the frequencies are same, basically if you try to assign the frequencies, you cannot assign the different frequencies, I think, right? I mean, if this is on the same level, then yeah, I mean, you can assign the different frequencies, but it will be a problem to see."
+      }
+    ]
+  },
+  {
+    "id": 388,
+    "lecture": 129,
+    "title": "Decode from the root after every symbol · Trace",
+    "concept": "Follow a zero or one branch for each bit, emit a symbol only at a leaf, and then restart at the root. Equal frequencies can produce different equally optimal codes. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+    "teachingSteps": [
+      "Follow a zero or one branch for each bit, emit a symbol only at a leaf, and then restart at the root. Equal frequencies can produce different equally optimal codes.",
+      "Combine them into a new weighted subtree",
+      "Return the subtree and repeat until one root remains"
+    ],
+    "foundation": {
+      "title": "Decode from the root after every symbol",
+      "idea": "Follow a zero or one branch for each bit, emit a symbol only at a leaf, and then restart at the root. Equal frequencies can produce different equally optimal codes. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+      "terms": [
+        "Prefix-free: no codeword prefixes another.",
+        "Code length: depth of the symbol leaf.",
+        "Weighted bits: frequency multiplied by code length."
+      ],
+      "example": "Weights 2,3,7,8 merge as 2+3=5, 5+7=12, 8+12=20. The total weighted code length is 5+12+20=37."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "With prefix codes A=0, B=10, C=11, how many symbols does bit stream 01011 decode into?",
+        "answer": 3,
+        "explanation": "Decode 0|10|11 as A,B,C, restarting at the root after each leaf.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A full binary prefix-code tree with 6 leaves has how many internal nodes?",
+        "answer": 5,
+        "explanation": "Every internal node has exactly two children, giving n-1 internal nodes.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Can the prefix-code set {0,01,11} be decoded without ambiguity under the usual leaf-code rule?",
+        "options": [
+          "Yes: every binary string is automatically prefix-free.",
+          "Yes: all symbols must share the same first bit.",
+          "No: 0 is a prefix of 01."
+        ],
+        "answer": 2,
+        "explanation": "A complete codeword cannot be a prefix of another complete codeword."
+      },
+      {
+        "type": "order",
+        "prompt": "Construct a Huffman tree.",
+        "items": [
+          "Remove the two smallest current weights",
+          "Combine them into a new weighted subtree",
+          "Return the subtree and repeat until one root remains"
+        ],
+        "explanation": "Combining smallest weights minimizes the extra depth cost."
+      }
+    ],
+    "algoLab": "huffman-decode",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0,
+    "excerpt": "Now let's see this question. Consider the following two Hoffman decoding trees, the variable length, okay, actually the question I have modified. Consider the following Hoffman decoding tree. There are no two trees, they're just one tree. Four variable length code involving five symbol ABCDE. Now using this tree, decode the following encode message. Can you decode this message? Actually, I can do it, you can also do it obviously.",
+    "sourceReferences": [
+      {
+        "lecture": 129,
+        "file": "129. 32d. Nice Questions on Huffman Encoding.mp4",
+        "start": 0,
+        "end": 34.83,
+        "text": "Now let's see this question. Consider the following two Hoffman decoding trees, the variable length, okay, actually the question I have modified. Consider the following Hoffman decoding tree. There are no two trees, they're just one tree. Four variable length code involving five symbol ABCDE. Now using this tree, decode the following encode message. Can you decode this message? Actually, I can do it, you can also do it obviously."
+      },
+      {
+        "lecture": 129,
+        "file": "129. 32d. Nice Questions on Huffman Encoding.mp4",
+        "start": 408.15,
+        "end": 436.05,
+        "text": "So anyway, like I wanted to tell you that both kind of questions are possible. Given the code, they may ask the valid code or not, then also you just try drawing the tree. And given, I mean, you should be knowing that how to efficiently doing these kind of questions. And the thing is that you should be making use of the tree, which means if tree is given, they ask you to decode it, then you can just follow the tree. If the code is given, then you can try drawing the tree, something like this."
+      },
+      {
+        "lecture": 129,
+        "file": "129. 32d. Nice Questions on Huffman Encoding.mp4",
+        "start": 443.38,
+        "end": 473.31,
+        "text": "No, no, it's not like that. Tree could be balanced or unbalanced. See here, here it is completely unbalanced tree, then also it is a valid, right? It was a completely unbalanced tree, so like it could be balanced or unbalanced. If the frequencies are same, basically if you try to assign the frequencies, you cannot assign the different frequencies, I think, right? I mean, if this is on the same level, then yeah, I mean, you can assign the different frequencies, but it will be a problem to see."
+      }
+    ]
+  },
+  {
+    "id": 389,
+    "lecture": 129,
+    "title": "Decode from the root after every symbol · Apply",
+    "concept": "Follow a zero or one branch for each bit, emit a symbol only at a leaf, and then restart at the root. Equal frequencies can produce different equally optimal codes. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+    "teachingSteps": [
+      "Follow a zero or one branch for each bit, emit a symbol only at a leaf, and then restart at the root. Equal frequencies can produce different equally optimal codes.",
+      "Combine them into a new weighted subtree",
+      "Return the subtree and repeat until one root remains"
+    ],
+    "foundation": {
+      "title": "Decode from the root after every symbol",
+      "idea": "Follow a zero or one branch for each bit, emit a symbol only at a leaf, and then restart at the root. Equal frequencies can produce different equally optimal codes. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+      "terms": [
+        "Prefix-free: no codeword prefixes another.",
+        "Code length: depth of the symbol leaf.",
+        "Weighted bits: frequency multiplied by code length."
+      ],
+      "example": "Weights 2,3,7,8 merge as 2+3=5, 5+7=12, 8+12=20. The total weighted code length is 5+12+20=37."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A compression service assigns prefix codes. With prefix codes A=0, B=10, C=11, how many symbols does bit stream 01011 decode into?",
+        "answer": 3,
+        "explanation": "Decode 0|10|11 as A,B,C, restarting at the root after each leaf.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A full binary prefix-code tree with 7 leaves has how many internal nodes?",
+        "answer": 6,
+        "explanation": "Every internal node has exactly two children, giving n-1 internal nodes.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Can the prefix-code set {0,01,11} be decoded without ambiguity under the usual leaf-code rule?",
+        "options": [
+          "Yes: all symbols must share the same first bit.",
+          "No: 0 is a prefix of 01.",
+          "Yes: every binary string is automatically prefix-free."
+        ],
+        "answer": 1,
+        "explanation": "A complete codeword cannot be a prefix of another complete codeword."
+      },
+      {
+        "type": "order",
+        "prompt": "Construct a Huffman tree.",
+        "items": [
+          "Remove the two smallest current weights",
+          "Combine them into a new weighted subtree",
+          "Return the subtree and repeat until one root remains"
+        ],
+        "explanation": "Combining smallest weights minimizes the extra depth cost."
+      }
+    ],
+    "algoLab": "huffman-decode",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0,
+    "excerpt": "Now let's see this question. Consider the following two Hoffman decoding trees, the variable length, okay, actually the question I have modified. Consider the following Hoffman decoding tree. There are no two trees, they're just one tree. Four variable length code involving five symbol ABCDE. Now using this tree, decode the following encode message. Can you decode this message? Actually, I can do it, you can also do it obviously.",
+    "sourceReferences": [
+      {
+        "lecture": 129,
+        "file": "129. 32d. Nice Questions on Huffman Encoding.mp4",
+        "start": 0,
+        "end": 34.83,
+        "text": "Now let's see this question. Consider the following two Hoffman decoding trees, the variable length, okay, actually the question I have modified. Consider the following Hoffman decoding tree. There are no two trees, they're just one tree. Four variable length code involving five symbol ABCDE. Now using this tree, decode the following encode message. Can you decode this message? Actually, I can do it, you can also do it obviously."
+      },
+      {
+        "lecture": 129,
+        "file": "129. 32d. Nice Questions on Huffman Encoding.mp4",
+        "start": 408.15,
+        "end": 436.05,
+        "text": "So anyway, like I wanted to tell you that both kind of questions are possible. Given the code, they may ask the valid code or not, then also you just try drawing the tree. And given, I mean, you should be knowing that how to efficiently doing these kind of questions. And the thing is that you should be making use of the tree, which means if tree is given, they ask you to decode it, then you can just follow the tree. If the code is given, then you can try drawing the tree, something like this."
+      },
+      {
+        "lecture": 129,
+        "file": "129. 32d. Nice Questions on Huffman Encoding.mp4",
+        "start": 443.38,
+        "end": 473.31,
+        "text": "No, no, it's not like that. Tree could be balanced or unbalanced. See here, here it is completely unbalanced tree, then also it is a valid, right? It was a completely unbalanced tree, so like it could be balanced or unbalanced. If the frequencies are same, basically if you try to assign the frequencies, you cannot assign the different frequencies, I think, right? I mean, if this is on the same level, then yeah, I mean, you can assign the different frequencies, but it will be a problem to see."
+      }
+    ]
+  },
+  {
+    "id": 390,
+    "lecture": 130,
+    "title": "Ties and equally optimal codes · Discover",
+    "concept": "Huffman trees and bit labels need not be unique. Swapping left and right children changes codewords while preserving every depth and the total encoded length. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+    "teachingSteps": [
+      "Huffman trees and bit labels need not be unique. Swapping left and right children changes codewords while preserving every depth and the total encoded length.",
+      "Combine them into a new weighted subtree",
+      "Return the subtree and repeat until one root remains"
+    ],
+    "foundation": {
+      "title": "Ties and equally optimal codes",
+      "idea": "Huffman trees and bit labels need not be unique. Swapping left and right children changes codewords while preserving every depth and the total encoded length. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+      "terms": [
+        "Prefix-free: no codeword prefixes another.",
+        "Code length: depth of the symbol leaf.",
+        "Weighted bits: frequency multiplied by code length."
+      ],
+      "example": "Weights 2,3,7,8 merge as 2+3=5, 5+7=12, 8+12=20. The total weighted code length is 5+12+20=37."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "For the given frequencies, what is the total weighted bit count of a Huffman code?",
+        "answer": 43,
+        "explanation": "Repeatedly merge the two smallest weights. The sum of all merged weights equals total frequency times code depth.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Symbol",
+            "Frequency"
+          ],
+          "rows": [
+            [
+              "A",
+              3
+            ],
+            [
+              "B",
+              4
+            ],
+            [
+              "C",
+              7
+            ],
+            [
+              "D",
+              8
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "A full binary prefix-code tree with 6 leaves has how many internal nodes?",
+        "answer": 5,
+        "explanation": "Every internal node has exactly two children, giving n-1 internal nodes.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains ties and equally optimal codes?",
+        "options": [
+          "Input assumptions never affect correctness.",
+          "One successful example proves every input.",
+          "Huffman trees and bit labels need not be unique."
+        ],
+        "answer": 2,
+        "explanation": "Huffman trees and bit labels need not be unique. Swapping left and right children changes codewords while preserving every depth and the total encoded length."
+      },
+      {
+        "type": "order",
+        "prompt": "Construct a Huffman tree.",
+        "items": [
+          "Remove the two smallest current weights",
+          "Combine them into a new weighted subtree",
+          "Return the subtree and repeat until one root remains"
+        ],
+        "explanation": "Combining smallest weights minimizes the extra depth cost."
+      }
+    ],
+    "algoLab": "huffman-ties",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 1.2,
+    "excerpt": "Let's just see this question. This question was from MIT and almost similar question that they have asked, but it is not same. I have checked it. This is not same, I think. Yeah, this is almost similar, but not same. I think you can do it as in homework. Okay. So they have said, like, consider this Hoffman tree, Hoffman symbols for each of the following encoding indicate if it is a valid Huffman encoding or not. So you need to check whether it is a valid Huffman encoding or not. And if it is valid, then you can give the probabilities. So just do it as homework.",
+    "sourceReferences": [
+      {
+        "lecture": 130,
+        "file": "130. 33a. Berkeley and MIT Questions on Huffman Encoding.mp4",
+        "start": 1.2,
+        "end": 34.09,
+        "text": "Let's just see this question. This question was from MIT and almost similar question that they have asked, but it is not same. I have checked it. This is not same, I think. Yeah, this is almost similar, but not same. I think you can do it as in homework. Okay. So they have said, like, consider this Hoffman tree, Hoffman symbols for each of the following encoding indicate if it is a valid Huffman encoding or not. So you need to check whether it is a valid Huffman encoding or not. And if it is valid, then you can give the probabilities. So just do it as homework."
+      },
+      {
+        "lecture": 130,
+        "file": "130. 33a. Berkeley and MIT Questions on Huffman Encoding.mp4",
+        "start": 35.12,
+        "end": 68.27,
+        "text": "I think I have the answers on the next page. The answers are on the next page, so you can do it as normal. Now, let's just see this question. Consider these two trees. Now, they are saying which of the following is valid, for those that aren't, what's the problem? Among these two trees, which is valid, which is invalid, and what is the problem if it is invalid? Yes, Nikhil, the summation of the probability has to be 1. At the end, it has to be 1."
+      },
+      {
+        "lecture": 130,
+        "file": "130. 33a. Berkeley and MIT Questions on Huffman Encoding.mp4",
+        "start": 104.5,
+        "end": 138.95,
+        "text": "Hofmann tree you need to check Hofmann tree if it is valid. See if you have A as 8, B as 17, C as 14, D as 12, you will be merging D and A. You will not be merging anything, right? You will not be merging any random. You will be merging D and A. So that's why you will say the tree that you will be getting, both are invalid first of all, both are invalid. And then they are saying fix them. Okay. So let's just see what is the fix. You need to merge D and A. You need to merge"
+      }
+    ]
+  },
+  {
+    "id": 391,
+    "lecture": 130,
+    "title": "Ties and equally optimal codes · Trace",
+    "concept": "Huffman trees and bit labels need not be unique. Swapping left and right children changes codewords while preserving every depth and the total encoded length. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+    "teachingSteps": [
+      "Huffman trees and bit labels need not be unique. Swapping left and right children changes codewords while preserving every depth and the total encoded length.",
+      "Combine them into a new weighted subtree",
+      "Return the subtree and repeat until one root remains"
+    ],
+    "foundation": {
+      "title": "Ties and equally optimal codes",
+      "idea": "Huffman trees and bit labels need not be unique. Swapping left and right children changes codewords while preserving every depth and the total encoded length. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+      "terms": [
+        "Prefix-free: no codeword prefixes another.",
+        "Code length: depth of the symbol leaf.",
+        "Weighted bits: frequency multiplied by code length."
+      ],
+      "example": "Weights 2,3,7,8 merge as 2+3=5, 5+7=12, 8+12=20. The total weighted code length is 5+12+20=37."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "For the given frequencies, what is the total weighted bit count of a Huffman code?",
+        "answer": 48,
+        "explanation": "Repeatedly merge the two smallest weights. The sum of all merged weights equals total frequency times code depth.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Symbol",
+            "Frequency"
+          ],
+          "rows": [
+            [
+              "A",
+              4
+            ],
+            [
+              "B",
+              5
+            ],
+            [
+              "C",
+              7
+            ],
+            [
+              "D",
+              8
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "A full binary prefix-code tree with 7 leaves has how many internal nodes?",
+        "answer": 6,
+        "explanation": "Every internal node has exactly two children, giving n-1 internal nodes.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Can the prefix-code set {0,01,11} be decoded without ambiguity under the usual leaf-code rule?",
+        "options": [
+          "Yes: all symbols must share the same first bit.",
+          "No: 0 is a prefix of 01.",
+          "Yes: every binary string is automatically prefix-free."
+        ],
+        "answer": 1,
+        "explanation": "A complete codeword cannot be a prefix of another complete codeword."
+      },
+      {
+        "type": "order",
+        "prompt": "Construct a Huffman tree.",
+        "items": [
+          "Remove the two smallest current weights",
+          "Combine them into a new weighted subtree",
+          "Return the subtree and repeat until one root remains"
+        ],
+        "explanation": "Combining smallest weights minimizes the extra depth cost."
+      }
+    ],
+    "algoLab": "huffman-ties",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 1.2,
+    "excerpt": "Let's just see this question. This question was from MIT and almost similar question that they have asked, but it is not same. I have checked it. This is not same, I think. Yeah, this is almost similar, but not same. I think you can do it as in homework. Okay. So they have said, like, consider this Hoffman tree, Hoffman symbols for each of the following encoding indicate if it is a valid Huffman encoding or not. So you need to check whether it is a valid Huffman encoding or not. And if it is valid, then you can give the probabilities. So just do it as homework.",
+    "sourceReferences": [
+      {
+        "lecture": 130,
+        "file": "130. 33a. Berkeley and MIT Questions on Huffman Encoding.mp4",
+        "start": 1.2,
+        "end": 34.09,
+        "text": "Let's just see this question. This question was from MIT and almost similar question that they have asked, but it is not same. I have checked it. This is not same, I think. Yeah, this is almost similar, but not same. I think you can do it as in homework. Okay. So they have said, like, consider this Hoffman tree, Hoffman symbols for each of the following encoding indicate if it is a valid Huffman encoding or not. So you need to check whether it is a valid Huffman encoding or not. And if it is valid, then you can give the probabilities. So just do it as homework."
+      },
+      {
+        "lecture": 130,
+        "file": "130. 33a. Berkeley and MIT Questions on Huffman Encoding.mp4",
+        "start": 35.12,
+        "end": 68.27,
+        "text": "I think I have the answers on the next page. The answers are on the next page, so you can do it as normal. Now, let's just see this question. Consider these two trees. Now, they are saying which of the following is valid, for those that aren't, what's the problem? Among these two trees, which is valid, which is invalid, and what is the problem if it is invalid? Yes, Nikhil, the summation of the probability has to be 1. At the end, it has to be 1."
+      },
+      {
+        "lecture": 130,
+        "file": "130. 33a. Berkeley and MIT Questions on Huffman Encoding.mp4",
+        "start": 104.5,
+        "end": 138.95,
+        "text": "Hofmann tree you need to check Hofmann tree if it is valid. See if you have A as 8, B as 17, C as 14, D as 12, you will be merging D and A. You will not be merging anything, right? You will not be merging any random. You will be merging D and A. So that's why you will say the tree that you will be getting, both are invalid first of all, both are invalid. And then they are saying fix them. Okay. So let's just see what is the fix. You need to merge D and A. You need to merge"
+      }
+    ]
+  },
+  {
+    "id": 392,
+    "lecture": 130,
+    "title": "Ties and equally optimal codes · Apply",
+    "concept": "Huffman trees and bit labels need not be unique. Swapping left and right children changes codewords while preserving every depth and the total encoded length. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+    "teachingSteps": [
+      "Huffman trees and bit labels need not be unique. Swapping left and right children changes codewords while preserving every depth and the total encoded length.",
+      "Combine them into a new weighted subtree",
+      "Return the subtree and repeat until one root remains"
+    ],
+    "foundation": {
+      "title": "Ties and equally optimal codes",
+      "idea": "Huffman trees and bit labels need not be unique. Swapping left and right children changes codewords while preserving every depth and the total encoded length. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+      "terms": [
+        "Prefix-free: no codeword prefixes another.",
+        "Code length: depth of the symbol leaf.",
+        "Weighted bits: frequency multiplied by code length."
+      ],
+      "example": "Weights 2,3,7,8 merge as 2+3=5, 5+7=12, 8+12=20. The total weighted code length is 5+12+20=37."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A compression service assigns prefix codes. For the given frequencies, what is the total weighted bit count of a Huffman code?",
+        "answer": 37,
+        "explanation": "Repeatedly merge the two smallest weights. The sum of all merged weights equals total frequency times code depth.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Symbol",
+            "Frequency"
+          ],
+          "rows": [
+            [
+              "A",
+              2
+            ],
+            [
+              "B",
+              3
+            ],
+            [
+              "C",
+              7
+            ],
+            [
+              "D",
+              8
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "A full binary prefix-code tree with 4 leaves has how many internal nodes?",
+        "answer": 3,
+        "explanation": "Every internal node has exactly two children, giving n-1 internal nodes.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Can the prefix-code set {0,01,11} be decoded without ambiguity under the usual leaf-code rule?",
+        "options": [
+          "No: 0 is a prefix of 01.",
+          "Yes: every binary string is automatically prefix-free.",
+          "Yes: all symbols must share the same first bit."
+        ],
+        "answer": 0,
+        "explanation": "A complete codeword cannot be a prefix of another complete codeword."
+      },
+      {
+        "type": "order",
+        "prompt": "Construct a Huffman tree.",
+        "items": [
+          "Remove the two smallest current weights",
+          "Combine them into a new weighted subtree",
+          "Return the subtree and repeat until one root remains"
+        ],
+        "explanation": "Combining smallest weights minimizes the extra depth cost."
+      }
+    ],
+    "algoLab": "huffman-ties",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 1.2,
+    "excerpt": "Let's just see this question. This question was from MIT and almost similar question that they have asked, but it is not same. I have checked it. This is not same, I think. Yeah, this is almost similar, but not same. I think you can do it as in homework. Okay. So they have said, like, consider this Hoffman tree, Hoffman symbols for each of the following encoding indicate if it is a valid Huffman encoding or not. So you need to check whether it is a valid Huffman encoding or not. And if it is valid, then you can give the probabilities. So just do it as homework.",
+    "sourceReferences": [
+      {
+        "lecture": 130,
+        "file": "130. 33a. Berkeley and MIT Questions on Huffman Encoding.mp4",
+        "start": 1.2,
+        "end": 34.09,
+        "text": "Let's just see this question. This question was from MIT and almost similar question that they have asked, but it is not same. I have checked it. This is not same, I think. Yeah, this is almost similar, but not same. I think you can do it as in homework. Okay. So they have said, like, consider this Hoffman tree, Hoffman symbols for each of the following encoding indicate if it is a valid Huffman encoding or not. So you need to check whether it is a valid Huffman encoding or not. And if it is valid, then you can give the probabilities. So just do it as homework."
+      },
+      {
+        "lecture": 130,
+        "file": "130. 33a. Berkeley and MIT Questions on Huffman Encoding.mp4",
+        "start": 35.12,
+        "end": 68.27,
+        "text": "I think I have the answers on the next page. The answers are on the next page, so you can do it as normal. Now, let's just see this question. Consider these two trees. Now, they are saying which of the following is valid, for those that aren't, what's the problem? Among these two trees, which is valid, which is invalid, and what is the problem if it is invalid? Yes, Nikhil, the summation of the probability has to be 1. At the end, it has to be 1."
+      },
+      {
+        "lecture": 130,
+        "file": "130. 33a. Berkeley and MIT Questions on Huffman Encoding.mp4",
+        "start": 104.5,
+        "end": 138.95,
+        "text": "Hofmann tree you need to check Hofmann tree if it is valid. See if you have A as 8, B as 17, C as 14, D as 12, you will be merging D and A. You will not be merging anything, right? You will not be merging any random. You will be merging D and A. So that's why you will say the tree that you will be getting, both are invalid first of all, both are invalid. And then they are saying fix them. Okay. So let's just see what is the fix. You need to merge D and A. You need to merge"
+      }
+    ]
+  },
+  {
+    "id": 393,
+    "lecture": 131,
+    "title": "Full binary coding-tree counts · Discover",
+    "concept": "A full binary tree has either zero or two children at each node. With n symbol leaves it has n-1 internal nodes and 2n-1 nodes in total. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+    "teachingSteps": [
+      "A full binary tree has either zero or two children at each node. With n symbol leaves it has n-1 internal nodes and 2n-1 nodes in total.",
+      "Combine them into a new weighted subtree",
+      "Return the subtree and repeat until one root remains"
+    ],
+    "foundation": {
+      "title": "Full binary coding-tree counts",
+      "idea": "A full binary tree has either zero or two children at each node. With n symbol leaves it has n-1 internal nodes and 2n-1 nodes in total. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+      "terms": [
+        "Prefix-free: no codeword prefixes another.",
+        "Code length: depth of the symbol leaf.",
+        "Weighted bits: frequency multiplied by code length."
+      ],
+      "example": "Weights 2,3,7,8 merge as 2+3=5, 5+7=12, 8+12=20. The total weighted code length is 5+12+20=37."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "For the given frequencies, what is the total weighted bit count of a Huffman code?",
+        "answer": 48,
+        "explanation": "Repeatedly merge the two smallest weights. The sum of all merged weights equals total frequency times code depth.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Symbol",
+            "Frequency"
+          ],
+          "rows": [
+            [
+              "A",
+              4
+            ],
+            [
+              "B",
+              5
+            ],
+            [
+              "C",
+              7
+            ],
+            [
+              "D",
+              8
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "A full binary code tree with 7 leaves has how many nodes in total?",
+        "answer": 13,
+        "explanation": "There are n leaves and n-1 internal nodes.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains full binary coding-tree counts?",
+        "options": [
+          "One successful example proves every input.",
+          "A full binary tree has either zero or two children at each node.",
+          "Input assumptions never affect correctness."
+        ],
+        "answer": 1,
+        "explanation": "A full binary tree has either zero or two children at each node. With n symbol leaves it has n-1 internal nodes and 2n-1 nodes in total."
+      },
+      {
+        "type": "order",
+        "prompt": "Construct a Huffman tree.",
+        "items": [
+          "Remove the two smallest current weights",
+          "Combine them into a new weighted subtree",
+          "Return the subtree and repeat until one root remains"
+        ],
+        "explanation": "Combining smallest weights minimizes the extra depth cost."
+      }
+    ],
+    "algoLab": "huffman-tree",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 192.21,
+    "excerpt": "So there are essentially two trees are possible. I mean this is also possible in between like, This will be same as uh...this one okay? i mean you'll have A3 and then 0.6 so anyway these three trees are possible here first of all let's just check whether difference in total length or not which means average length how to calculate the average length or expectation on average length",
+    "sourceReferences": [
+      {
+        "lecture": 131,
+        "file": "131_33b_Optional_Huffman_Encoding_Question_Based_on_Tree.mp4",
+        "start": 192.21,
+        "end": 221.3,
+        "text": "So there are essentially two trees are possible. I mean this is also possible in between like, This will be same as uh...this one okay? i mean you'll have A3 and then 0.6 so anyway these three trees are possible here first of all let's just check whether difference in total length or not which means average length how to calculate the average length or expectation on average length"
+      },
+      {
+        "lecture": 131,
+        "file": "131_33b_Optional_Huffman_Encoding_Question_Based_on_Tree.mp4",
+        "start": 405.78,
+        "end": 447.46,
+        "text": "and then you are saying key, this is 0.4 after that in your pool You have 0.2 ,0.4 & 0.4 So maybe you can merge with A1 This will be 0.6 Then this will be good Okay so I think there 4 total trees are possible In this case if we talk about eject tree There four total trees are also possible Here i am getting this assignment Let's just see what else"
+      },
+      {
+        "lecture": 131,
+        "file": "131_33b_Optional_Huffman_Encoding_Question_Based_on_Tree.mp4",
+        "start": 756.66,
+        "end": 784.78,
+        "text": "and then this is 1.2, so this 2.1 So from here also we are getting 2.2 Actually expected length can never ever change This is 2.2 So whatever tree you draw Okay? Aspected Length will Never Change Which means all Huffman codes Are valid which Will give You the same answer That's what one thing Is clear From this example Right? So out of, Krishna was saying Out Of 4 Tree Don't Initially First and Second Draw on Same In either first or second Tree Changed to A3"
+      }
+    ]
+  },
+  {
+    "id": 394,
+    "lecture": 131,
+    "title": "Full binary coding-tree counts · Trace",
+    "concept": "A full binary tree has either zero or two children at each node. With n symbol leaves it has n-1 internal nodes and 2n-1 nodes in total. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+    "teachingSteps": [
+      "A full binary tree has either zero or two children at each node. With n symbol leaves it has n-1 internal nodes and 2n-1 nodes in total.",
+      "Combine them into a new weighted subtree",
+      "Return the subtree and repeat until one root remains"
+    ],
+    "foundation": {
+      "title": "Full binary coding-tree counts",
+      "idea": "A full binary tree has either zero or two children at each node. With n symbol leaves it has n-1 internal nodes and 2n-1 nodes in total. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+      "terms": [
+        "Prefix-free: no codeword prefixes another.",
+        "Code length: depth of the symbol leaf.",
+        "Weighted bits: frequency multiplied by code length."
+      ],
+      "example": "Weights 2,3,7,8 merge as 2+3=5, 5+7=12, 8+12=20. The total weighted code length is 5+12+20=37."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "For the given frequencies, what is the total weighted bit count of a Huffman code?",
+        "answer": 37,
+        "explanation": "Repeatedly merge the two smallest weights. The sum of all merged weights equals total frequency times code depth.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Symbol",
+            "Frequency"
+          ],
+          "rows": [
+            [
+              "A",
+              2
+            ],
+            [
+              "B",
+              3
+            ],
+            [
+              "C",
+              7
+            ],
+            [
+              "D",
+              8
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "A full binary code tree with 4 leaves has how many nodes in total?",
+        "answer": 7,
+        "explanation": "There are n leaves and n-1 internal nodes.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Can the prefix-code set {0,01,11} be decoded without ambiguity under the usual leaf-code rule?",
+        "options": [
+          "No: 0 is a prefix of 01.",
+          "Yes: every binary string is automatically prefix-free.",
+          "Yes: all symbols must share the same first bit."
+        ],
+        "answer": 0,
+        "explanation": "A complete codeword cannot be a prefix of another complete codeword."
+      },
+      {
+        "type": "order",
+        "prompt": "Construct a Huffman tree.",
+        "items": [
+          "Remove the two smallest current weights",
+          "Combine them into a new weighted subtree",
+          "Return the subtree and repeat until one root remains"
+        ],
+        "explanation": "Combining smallest weights minimizes the extra depth cost."
+      }
+    ],
+    "algoLab": "huffman-tree",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 192.21,
+    "excerpt": "So there are essentially two trees are possible. I mean this is also possible in between like, This will be same as uh...this one okay? i mean you'll have A3 and then 0.6 so anyway these three trees are possible here first of all let's just check whether difference in total length or not which means average length how to calculate the average length or expectation on average length",
+    "sourceReferences": [
+      {
+        "lecture": 131,
+        "file": "131_33b_Optional_Huffman_Encoding_Question_Based_on_Tree.mp4",
+        "start": 192.21,
+        "end": 221.3,
+        "text": "So there are essentially two trees are possible. I mean this is also possible in between like, This will be same as uh...this one okay? i mean you'll have A3 and then 0.6 so anyway these three trees are possible here first of all let's just check whether difference in total length or not which means average length how to calculate the average length or expectation on average length"
+      },
+      {
+        "lecture": 131,
+        "file": "131_33b_Optional_Huffman_Encoding_Question_Based_on_Tree.mp4",
+        "start": 405.78,
+        "end": 447.46,
+        "text": "and then you are saying key, this is 0.4 after that in your pool You have 0.2 ,0.4 & 0.4 So maybe you can merge with A1 This will be 0.6 Then this will be good Okay so I think there 4 total trees are possible In this case if we talk about eject tree There four total trees are also possible Here i am getting this assignment Let's just see what else"
+      },
+      {
+        "lecture": 131,
+        "file": "131_33b_Optional_Huffman_Encoding_Question_Based_on_Tree.mp4",
+        "start": 756.66,
+        "end": 784.78,
+        "text": "and then this is 1.2, so this 2.1 So from here also we are getting 2.2 Actually expected length can never ever change This is 2.2 So whatever tree you draw Okay? Aspected Length will Never Change Which means all Huffman codes Are valid which Will give You the same answer That's what one thing Is clear From this example Right? So out of, Krishna was saying Out Of 4 Tree Don't Initially First and Second Draw on Same In either first or second Tree Changed to A3"
+      }
+    ]
+  },
+  {
+    "id": 395,
+    "lecture": 131,
+    "title": "Full binary coding-tree counts · Apply",
+    "concept": "A full binary tree has either zero or two children at each node. With n symbol leaves it has n-1 internal nodes and 2n-1 nodes in total. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+    "teachingSteps": [
+      "A full binary tree has either zero or two children at each node. With n symbol leaves it has n-1 internal nodes and 2n-1 nodes in total.",
+      "Combine them into a new weighted subtree",
+      "Return the subtree and repeat until one root remains"
+    ],
+    "foundation": {
+      "title": "Full binary coding-tree counts",
+      "idea": "A full binary tree has either zero or two children at each node. With n symbol leaves it has n-1 internal nodes and 2n-1 nodes in total. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+      "terms": [
+        "Prefix-free: no codeword prefixes another.",
+        "Code length: depth of the symbol leaf.",
+        "Weighted bits: frequency multiplied by code length."
+      ],
+      "example": "Weights 2,3,7,8 merge as 2+3=5, 5+7=12, 8+12=20. The total weighted code length is 5+12+20=37."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A compression service assigns prefix codes. For the given frequencies, what is the total weighted bit count of a Huffman code?",
+        "answer": 43,
+        "explanation": "Repeatedly merge the two smallest weights. The sum of all merged weights equals total frequency times code depth.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Symbol",
+            "Frequency"
+          ],
+          "rows": [
+            [
+              "A",
+              3
+            ],
+            [
+              "B",
+              4
+            ],
+            [
+              "C",
+              7
+            ],
+            [
+              "D",
+              8
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "A full binary code tree with 5 leaves has how many nodes in total?",
+        "answer": 9,
+        "explanation": "There are n leaves and n-1 internal nodes.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Can the prefix-code set {0,01,11} be decoded without ambiguity under the usual leaf-code rule?",
+        "options": [
+          "Yes: every binary string is automatically prefix-free.",
+          "Yes: all symbols must share the same first bit.",
+          "No: 0 is a prefix of 01."
+        ],
+        "answer": 2,
+        "explanation": "A complete codeword cannot be a prefix of another complete codeword."
+      },
+      {
+        "type": "order",
+        "prompt": "Construct a Huffman tree.",
+        "items": [
+          "Remove the two smallest current weights",
+          "Combine them into a new weighted subtree",
+          "Return the subtree and repeat until one root remains"
+        ],
+        "explanation": "Combining smallest weights minimizes the extra depth cost."
+      }
+    ],
+    "algoLab": "huffman-tree",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 192.21,
+    "excerpt": "So there are essentially two trees are possible. I mean this is also possible in between like, This will be same as uh...this one okay? i mean you'll have A3 and then 0.6 so anyway these three trees are possible here first of all let's just check whether difference in total length or not which means average length how to calculate the average length or expectation on average length",
+    "sourceReferences": [
+      {
+        "lecture": 131,
+        "file": "131_33b_Optional_Huffman_Encoding_Question_Based_on_Tree.mp4",
+        "start": 192.21,
+        "end": 221.3,
+        "text": "So there are essentially two trees are possible. I mean this is also possible in between like, This will be same as uh...this one okay? i mean you'll have A3 and then 0.6 so anyway these three trees are possible here first of all let's just check whether difference in total length or not which means average length how to calculate the average length or expectation on average length"
+      },
+      {
+        "lecture": 131,
+        "file": "131_33b_Optional_Huffman_Encoding_Question_Based_on_Tree.mp4",
+        "start": 405.78,
+        "end": 447.46,
+        "text": "and then you are saying key, this is 0.4 after that in your pool You have 0.2 ,0.4 & 0.4 So maybe you can merge with A1 This will be 0.6 Then this will be good Okay so I think there 4 total trees are possible In this case if we talk about eject tree There four total trees are also possible Here i am getting this assignment Let's just see what else"
+      },
+      {
+        "lecture": 131,
+        "file": "131_33b_Optional_Huffman_Encoding_Question_Based_on_Tree.mp4",
+        "start": 756.66,
+        "end": 784.78,
+        "text": "and then this is 1.2, so this 2.1 So from here also we are getting 2.2 Actually expected length can never ever change This is 2.2 So whatever tree you draw Okay? Aspected Length will Never Change Which means all Huffman codes Are valid which Will give You the same answer That's what one thing Is clear From this example Right? So out of, Krishna was saying Out Of 4 Tree Don't Initially First and Second Draw on Same In either first or second Tree Changed to A3"
+      }
+    ]
+  },
+  {
+    "id": 396,
+    "lecture": 132,
+    "title": "Merge the smallest files first · Discover",
+    "concept": "When merging files costs the sum of their sizes, repeatedly merge the two smallest current files. Each original file contributes its size once for every merge above its leaf in the merge tree. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+    "teachingSteps": [
+      "When merging files costs the sum of their sizes, repeatedly merge the two smallest current files. Each original file contributes its size once for every merge above its leaf in the merge tree.",
+      "Combine them into a new weighted subtree",
+      "Return the subtree and repeat until one root remains"
+    ],
+    "foundation": {
+      "title": "Merge the smallest files first",
+      "idea": "When merging files costs the sum of their sizes, repeatedly merge the two smallest current files. Each original file contributes its size once for every merge above its leaf in the merge tree. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+      "terms": [
+        "Prefix-free: no codeword prefixes another.",
+        "Code length: depth of the symbol leaf.",
+        "Weighted bits: frequency multiplied by code length."
+      ],
+      "example": "Weights 2,3,7,8 merge as 2+3=5, 5+7=12, 8+12=20. The total weighted code length is 5+12+20=37."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "For the given frequencies, what is the total weighted bit count of a Huffman code?",
+        "answer": 37,
+        "explanation": "Repeatedly merge the two smallest weights. The sum of all merged weights equals total frequency times code depth.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Symbol",
+            "Frequency"
+          ],
+          "rows": [
+            [
+              "A",
+              2
+            ],
+            [
+              "B",
+              3
+            ],
+            [
+              "C",
+              7
+            ],
+            [
+              "D",
+              8
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "A full binary prefix-code tree with 4 leaves has how many internal nodes?",
+        "answer": 3,
+        "explanation": "Every internal node has exactly two children, giving n-1 internal nodes.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains merge the smallest files first?",
+        "options": [
+          "When merging files costs the sum of their sizes, repeatedly merge the two smallest current files.",
+          "Input assumptions never affect correctness.",
+          "One successful example proves every input."
+        ],
+        "answer": 0,
+        "explanation": "When merging files costs the sum of their sizes, repeatedly merge the two smallest current files. Each original file contributes its size once for every merge above its leaf in the merge tree."
+      },
+      {
+        "type": "order",
+        "prompt": "Construct a Huffman tree.",
+        "items": [
+          "Remove the two smallest current weights",
+          "Combine them into a new weighted subtree",
+          "Return the subtree and repeat until one root remains"
+        ],
+        "explanation": "Combining smallest weights minimizes the extra depth cost."
+      }
+    ],
+    "algoLab": "optimal-merge",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0,
+    "excerpt": "Now let's just finish one more algorithm and then we will continue tomorrow. This job scheduling problem we can continue tomorrow. So optimal merge pattern is just same as Hoffman tree which says that suppose you have different different files of different different lengths and then they specify that there is a merge cost okay there's a merge cost for two files which means let's suppose they say that if you are going to merge two files of length m and n",
+    "sourceReferences": [
+      {
+        "lecture": 132,
+        "file": "132. 33c. Optimal Merge Pattern.mp4",
+        "start": 0,
+        "end": 34.78,
+        "text": "Now let's just finish one more algorithm and then we will continue tomorrow. This job scheduling problem we can continue tomorrow. So optimal merge pattern is just same as Hoffman tree which says that suppose you have different different files of different different lengths and then they specify that there is a merge cost okay there's a merge cost for two files which means let's suppose they say that if you are going to merge two files of length m and n"
+      },
+      {
+        "lecture": 132,
+        "file": "132. 33c. Optimal Merge Pattern.mp4",
+        "start": 34.95,
+        "end": 60.19,
+        "text": "let's suppose they are going to say the merge cost is n plus n and then this is the final file that we are getting of n plus n then what is the best way to merge n files so for example let's suppose you have three files q1 q2 q3 of these much like 30 20 and 10 let's suppose you merge in this way you merge one and two first and then final result you will be merging with three which means if you merge one and two first"
+      },
+      {
+        "lecture": 132,
+        "file": "132. 33c. Optimal Merge Pattern.mp4",
+        "start": 209.13,
+        "end": 237.3,
+        "text": "So it is also following the Hoffman kind of strategy, which means I will be involving the large files later. So for example, let's suppose, okay, this is the directly gate quotient. Let's suppose if I want to merge these, these files, which is A, B, C, D, E, and then I will be merging with the Hoffman strategy, which means I will be merging the smaller files first. So I will be merging this 10 with five, this five and 10, I will be merging."
+      }
+    ]
+  },
+  {
+    "id": 397,
+    "lecture": 132,
+    "title": "Merge the smallest files first · Trace",
+    "concept": "When merging files costs the sum of their sizes, repeatedly merge the two smallest current files. Each original file contributes its size once for every merge above its leaf in the merge tree. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+    "teachingSteps": [
+      "When merging files costs the sum of their sizes, repeatedly merge the two smallest current files. Each original file contributes its size once for every merge above its leaf in the merge tree.",
+      "Combine them into a new weighted subtree",
+      "Return the subtree and repeat until one root remains"
+    ],
+    "foundation": {
+      "title": "Merge the smallest files first",
+      "idea": "When merging files costs the sum of their sizes, repeatedly merge the two smallest current files. Each original file contributes its size once for every merge above its leaf in the merge tree. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+      "terms": [
+        "Prefix-free: no codeword prefixes another.",
+        "Code length: depth of the symbol leaf.",
+        "Weighted bits: frequency multiplied by code length."
+      ],
+      "example": "Weights 2,3,7,8 merge as 2+3=5, 5+7=12, 8+12=20. The total weighted code length is 5+12+20=37."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "For the given frequencies, what is the total weighted bit count of a Huffman code?",
+        "answer": 43,
+        "explanation": "Repeatedly merge the two smallest weights. The sum of all merged weights equals total frequency times code depth.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Symbol",
+            "Frequency"
+          ],
+          "rows": [
+            [
+              "A",
+              3
+            ],
+            [
+              "B",
+              4
+            ],
+            [
+              "C",
+              7
+            ],
+            [
+              "D",
+              8
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "A full binary prefix-code tree with 5 leaves has how many internal nodes?",
+        "answer": 4,
+        "explanation": "Every internal node has exactly two children, giving n-1 internal nodes.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Can the prefix-code set {0,01,11} be decoded without ambiguity under the usual leaf-code rule?",
+        "options": [
+          "Yes: every binary string is automatically prefix-free.",
+          "Yes: all symbols must share the same first bit.",
+          "No: 0 is a prefix of 01."
+        ],
+        "answer": 2,
+        "explanation": "A complete codeword cannot be a prefix of another complete codeword."
+      },
+      {
+        "type": "order",
+        "prompt": "Construct a Huffman tree.",
+        "items": [
+          "Remove the two smallest current weights",
+          "Combine them into a new weighted subtree",
+          "Return the subtree and repeat until one root remains"
+        ],
+        "explanation": "Combining smallest weights minimizes the extra depth cost."
+      }
+    ],
+    "algoLab": "optimal-merge",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0,
+    "excerpt": "Now let's just finish one more algorithm and then we will continue tomorrow. This job scheduling problem we can continue tomorrow. So optimal merge pattern is just same as Hoffman tree which says that suppose you have different different files of different different lengths and then they specify that there is a merge cost okay there's a merge cost for two files which means let's suppose they say that if you are going to merge two files of length m and n",
+    "sourceReferences": [
+      {
+        "lecture": 132,
+        "file": "132. 33c. Optimal Merge Pattern.mp4",
+        "start": 0,
+        "end": 34.78,
+        "text": "Now let's just finish one more algorithm and then we will continue tomorrow. This job scheduling problem we can continue tomorrow. So optimal merge pattern is just same as Hoffman tree which says that suppose you have different different files of different different lengths and then they specify that there is a merge cost okay there's a merge cost for two files which means let's suppose they say that if you are going to merge two files of length m and n"
+      },
+      {
+        "lecture": 132,
+        "file": "132. 33c. Optimal Merge Pattern.mp4",
+        "start": 34.95,
+        "end": 60.19,
+        "text": "let's suppose they are going to say the merge cost is n plus n and then this is the final file that we are getting of n plus n then what is the best way to merge n files so for example let's suppose you have three files q1 q2 q3 of these much like 30 20 and 10 let's suppose you merge in this way you merge one and two first and then final result you will be merging with three which means if you merge one and two first"
+      },
+      {
+        "lecture": 132,
+        "file": "132. 33c. Optimal Merge Pattern.mp4",
+        "start": 209.13,
+        "end": 237.3,
+        "text": "So it is also following the Hoffman kind of strategy, which means I will be involving the large files later. So for example, let's suppose, okay, this is the directly gate quotient. Let's suppose if I want to merge these, these files, which is A, B, C, D, E, and then I will be merging with the Hoffman strategy, which means I will be merging the smaller files first. So I will be merging this 10 with five, this five and 10, I will be merging."
+      }
+    ]
+  },
+  {
+    "id": 398,
+    "lecture": 132,
+    "title": "Merge the smallest files first · Apply",
+    "concept": "When merging files costs the sum of their sizes, repeatedly merge the two smallest current files. Each original file contributes its size once for every merge above its leaf in the merge tree. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+    "teachingSteps": [
+      "When merging files costs the sum of their sizes, repeatedly merge the two smallest current files. Each original file contributes its size once for every merge above its leaf in the merge tree.",
+      "Combine them into a new weighted subtree",
+      "Return the subtree and repeat until one root remains"
+    ],
+    "foundation": {
+      "title": "Merge the smallest files first",
+      "idea": "When merging files costs the sum of their sizes, repeatedly merge the two smallest current files. Each original file contributes its size once for every merge above its leaf in the merge tree. A code symbol must occupy a leaf so no complete symbol code can be the beginning of another. Combining two smallest weights puts the most expensive depth increases where they cost least.",
+      "terms": [
+        "Prefix-free: no codeword prefixes another.",
+        "Code length: depth of the symbol leaf.",
+        "Weighted bits: frequency multiplied by code length."
+      ],
+      "example": "Weights 2,3,7,8 merge as 2+3=5, 5+7=12, 8+12=20. The total weighted code length is 5+12+20=37."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A compression service assigns prefix codes. For the given frequencies, what is the total weighted bit count of a Huffman code?",
+        "answer": 48,
+        "explanation": "Repeatedly merge the two smallest weights. The sum of all merged weights equals total frequency times code depth.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Symbol",
+            "Frequency"
+          ],
+          "rows": [
+            [
+              "A",
+              4
+            ],
+            [
+              "B",
+              5
+            ],
+            [
+              "C",
+              7
+            ],
+            [
+              "D",
+              8
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "A full binary prefix-code tree with 6 leaves has how many internal nodes?",
+        "answer": 5,
+        "explanation": "Every internal node has exactly two children, giving n-1 internal nodes.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Can the prefix-code set {0,01,11} be decoded without ambiguity under the usual leaf-code rule?",
+        "options": [
+          "Yes: all symbols must share the same first bit.",
+          "No: 0 is a prefix of 01.",
+          "Yes: every binary string is automatically prefix-free."
+        ],
+        "answer": 1,
+        "explanation": "A complete codeword cannot be a prefix of another complete codeword."
+      },
+      {
+        "type": "order",
+        "prompt": "Construct a Huffman tree.",
+        "items": [
+          "Remove the two smallest current weights",
+          "Combine them into a new weighted subtree",
+          "Return the subtree and repeat until one root remains"
+        ],
+        "explanation": "Combining smallest weights minimizes the extra depth cost."
+      }
+    ],
+    "algoLab": "optimal-merge",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0,
+    "excerpt": "Now let's just finish one more algorithm and then we will continue tomorrow. This job scheduling problem we can continue tomorrow. So optimal merge pattern is just same as Hoffman tree which says that suppose you have different different files of different different lengths and then they specify that there is a merge cost okay there's a merge cost for two files which means let's suppose they say that if you are going to merge two files of length m and n",
+    "sourceReferences": [
+      {
+        "lecture": 132,
+        "file": "132. 33c. Optimal Merge Pattern.mp4",
+        "start": 0,
+        "end": 34.78,
+        "text": "Now let's just finish one more algorithm and then we will continue tomorrow. This job scheduling problem we can continue tomorrow. So optimal merge pattern is just same as Hoffman tree which says that suppose you have different different files of different different lengths and then they specify that there is a merge cost okay there's a merge cost for two files which means let's suppose they say that if you are going to merge two files of length m and n"
+      },
+      {
+        "lecture": 132,
+        "file": "132. 33c. Optimal Merge Pattern.mp4",
+        "start": 34.95,
+        "end": 60.19,
+        "text": "let's suppose they are going to say the merge cost is n plus n and then this is the final file that we are getting of n plus n then what is the best way to merge n files so for example let's suppose you have three files q1 q2 q3 of these much like 30 20 and 10 let's suppose you merge in this way you merge one and two first and then final result you will be merging with three which means if you merge one and two first"
+      },
+      {
+        "lecture": 132,
+        "file": "132. 33c. Optimal Merge Pattern.mp4",
+        "start": 209.13,
+        "end": 237.3,
+        "text": "So it is also following the Hoffman kind of strategy, which means I will be involving the large files later. So for example, let's suppose, okay, this is the directly gate quotient. Let's suppose if I want to merge these, these files, which is A, B, C, D, E, and then I will be merging with the Hoffman strategy, which means I will be merging the smaller files first. So I will be merging this 10 with five, this five and 10, I will be merging."
+      }
+    ]
+  },
+  {
+    "id": 399,
+    "lecture": 133,
+    "title": "Choose the most compatible activities · Discover",
+    "concept": "Unweighted interval scheduling maximizes the number of nonoverlapping activities on one resource. With half-open intervals, an activity beginning exactly when another ends is compatible. The standard earliest-finish rule maximizes activity count on a single resource. Weighted intervals, room counts and deadline-profit jobs have different objectives and cannot inherit this rule without a new proof.",
+    "teachingSteps": [
+      "Unweighted interval scheduling maximizes the number of nonoverlapping activities on one resource. With half-open intervals, an activity beginning exactly when another ends is compatible.",
+      "Take the earliest compatible finish",
+      "Continue after its finish using the same rule"
+    ],
+    "foundation": {
+      "title": "Choose the most compatible activities",
+      "idea": "Unweighted interval scheduling maximizes the number of nonoverlapping activities on one resource. With half-open intervals, an activity beginning exactly when another ends is compatible. The standard earliest-finish rule maximizes activity count on a single resource. Weighted intervals, room counts and deadline-profit jobs have different objectives and cannot inherit this rule without a new proof.",
+      "terms": [
+        "Half-open [s,f): end time is free for a new start.",
+        "Compatible: no overlap on the selected resource.",
+        "Exchange: replace an optimal first choice safely."
+      ],
+      "example": "Activities [0,3),[1,2),[2,4),[4,6) admit three compatible choices: the last three."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "What maximum number of compatible activities can be chosen from the given half-open intervals?",
+        "answer": 3,
+        "explanation": "Choose B,C,D: [1,2),[2,4),[4,6) do not overlap.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Activity",
+            "Start",
+            "End"
+          ],
+          "rows": [
+            [
+              "A",
+              0,
+              3
+            ],
+            [
+              "B",
+              1,
+              2
+            ],
+            [
+              "C",
+              2,
+              4
+            ],
+            [
+              "D",
+              4,
+              6
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "An activity ends at 5. Under half-open intervals, what earliest start time can the next activity use?",
+        "answer": 5,
+        "explanation": "The endpoint is free, so equality is compatible.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains choose the most compatible activities?",
+        "options": [
+          "Input assumptions never affect correctness.",
+          "One successful example proves every input.",
+          "Unweighted interval scheduling maximizes the number of nonoverlapping activities on one resource."
+        ],
+        "answer": 2,
+        "explanation": "Unweighted interval scheduling maximizes the number of nonoverlapping activities on one resource. With half-open intervals, an activity beginning exactly when another ends is compatible."
+      },
+      {
+        "type": "order",
+        "prompt": "Perform earliest-finish interval scheduling.",
+        "items": [
+          "Sort by finishing time",
+          "Take the earliest compatible finish",
+          "Continue after its finish using the same rule"
+        ],
+        "explanation": "The objective is maximum count on one resource, without activity profits."
+      }
+    ],
+    "algoLab": "interval",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 396.59,
+    "excerpt": "So this is one of the case, but it is not the answer. You need to maximize it. So which means you need to pick non-overlapping intervals, but maximum number of non-overlapping intervals. Maybe you can pick this, maybe you can pick this, maybe you can pick this, maybe you can pick this. This is non-overlapping that I agree, but is it maximum? Is it the maximum number of non-overlapping intervals in this particular example? No, right? I mean, there is one more solution that I just, which is this.",
+    "sourceReferences": [
+      {
+        "lecture": 133,
+        "file": "133_34a_Interval_Scheduling_Problem_Activity_Selection_P.mp4",
+        "start": 396.59,
+        "end": 424.01,
+        "text": "So this is one of the case, but it is not the answer. You need to maximize it. So which means you need to pick non-overlapping intervals, but maximum number of non-overlapping intervals. Maybe you can pick this, maybe you can pick this, maybe you can pick this, maybe you can pick this. This is non-overlapping that I agree, but is it maximum? Is it the maximum number of non-overlapping intervals in this particular example? No, right? I mean, there is one more solution that I just, which is this."
+      },
+      {
+        "lecture": 133,
+        "file": "133_34a_Interval_Scheduling_Problem_Activity_Selection_P.mp4",
+        "start": 424.24,
+        "end": 454.72,
+        "text": "So which is 1, 2, 3, 4, 5. I mean, you can pick five intervals. So that is why this seems that this is not the maximum number of intervals that you can pick. So one suggested idea is that if you want to design some algorithm, one idea is that let's pick the interval of the minimum size, which means if any input is given to me, based on the input, I will do one thing. I will pick the interval of the minimum length."
+      },
+      {
+        "lecture": 133,
+        "file": "133_34a_Interval_Scheduling_Problem_Activity_Selection_P.mp4",
+        "start": 498.7,
+        "end": 526.7,
+        "text": "that if you are picking the minimum size interval then it might be helpful or might not be helpful so can you think about some counter example where this minimum size interval is overlapping with maximum number of intervals which means like if you pick this you are losing too many intervals can you think of some counter example where if you are picking this you can lose some more intervals I mean"
+      }
+    ]
+  },
+  {
+    "id": 400,
+    "lecture": 133,
+    "title": "Choose the most compatible activities · Trace",
+    "concept": "Unweighted interval scheduling maximizes the number of nonoverlapping activities on one resource. With half-open intervals, an activity beginning exactly when another ends is compatible. The standard earliest-finish rule maximizes activity count on a single resource. Weighted intervals, room counts and deadline-profit jobs have different objectives and cannot inherit this rule without a new proof.",
+    "teachingSteps": [
+      "Unweighted interval scheduling maximizes the number of nonoverlapping activities on one resource. With half-open intervals, an activity beginning exactly when another ends is compatible.",
+      "Take the earliest compatible finish",
+      "Continue after its finish using the same rule"
+    ],
+    "foundation": {
+      "title": "Choose the most compatible activities",
+      "idea": "Unweighted interval scheduling maximizes the number of nonoverlapping activities on one resource. With half-open intervals, an activity beginning exactly when another ends is compatible. The standard earliest-finish rule maximizes activity count on a single resource. Weighted intervals, room counts and deadline-profit jobs have different objectives and cannot inherit this rule without a new proof.",
+      "terms": [
+        "Half-open [s,f): end time is free for a new start.",
+        "Compatible: no overlap on the selected resource.",
+        "Exchange: replace an optimal first choice safely."
+      ],
+      "example": "Activities [0,3),[1,2),[2,4),[4,6) admit three compatible choices: the last three."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "What maximum number of compatible activities can be chosen from the given half-open intervals?",
+        "answer": 3,
+        "explanation": "Choose B,C,D: [1,2),[2,4),[4,6) do not overlap.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Activity",
+            "Start",
+            "End"
+          ],
+          "rows": [
+            [
+              "A",
+              0,
+              3
+            ],
+            [
+              "B",
+              1,
+              2
+            ],
+            [
+              "C",
+              2,
+              4
+            ],
+            [
+              "D",
+              4,
+              6
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "An activity ends at 6. Under half-open intervals, what earliest start time can the next activity use?",
+        "answer": 6,
+        "explanation": "The endpoint is free, so equality is compatible.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which first choice is safe for unweighted maximum-count interval scheduling?",
+        "options": [
+          "Always the longest activity.",
+          "An available activity with earliest finish.",
+          "An activity with latest finish."
+        ],
+        "answer": 1,
+        "explanation": "An earliest finish leaves at least as much room for every later compatible activity."
+      },
+      {
+        "type": "order",
+        "prompt": "Perform earliest-finish interval scheduling.",
+        "items": [
+          "Sort by finishing time",
+          "Take the earliest compatible finish",
+          "Continue after its finish using the same rule"
+        ],
+        "explanation": "The objective is maximum count on one resource, without activity profits."
+      }
+    ],
+    "algoLab": "interval",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 396.59,
+    "excerpt": "So this is one of the case, but it is not the answer. You need to maximize it. So which means you need to pick non-overlapping intervals, but maximum number of non-overlapping intervals. Maybe you can pick this, maybe you can pick this, maybe you can pick this, maybe you can pick this. This is non-overlapping that I agree, but is it maximum? Is it the maximum number of non-overlapping intervals in this particular example? No, right? I mean, there is one more solution that I just, which is this.",
+    "sourceReferences": [
+      {
+        "lecture": 133,
+        "file": "133_34a_Interval_Scheduling_Problem_Activity_Selection_P.mp4",
+        "start": 396.59,
+        "end": 424.01,
+        "text": "So this is one of the case, but it is not the answer. You need to maximize it. So which means you need to pick non-overlapping intervals, but maximum number of non-overlapping intervals. Maybe you can pick this, maybe you can pick this, maybe you can pick this, maybe you can pick this. This is non-overlapping that I agree, but is it maximum? Is it the maximum number of non-overlapping intervals in this particular example? No, right? I mean, there is one more solution that I just, which is this."
+      },
+      {
+        "lecture": 133,
+        "file": "133_34a_Interval_Scheduling_Problem_Activity_Selection_P.mp4",
+        "start": 424.24,
+        "end": 454.72,
+        "text": "So which is 1, 2, 3, 4, 5. I mean, you can pick five intervals. So that is why this seems that this is not the maximum number of intervals that you can pick. So one suggested idea is that if you want to design some algorithm, one idea is that let's pick the interval of the minimum size, which means if any input is given to me, based on the input, I will do one thing. I will pick the interval of the minimum length."
+      },
+      {
+        "lecture": 133,
+        "file": "133_34a_Interval_Scheduling_Problem_Activity_Selection_P.mp4",
+        "start": 498.7,
+        "end": 526.7,
+        "text": "that if you are picking the minimum size interval then it might be helpful or might not be helpful so can you think about some counter example where this minimum size interval is overlapping with maximum number of intervals which means like if you pick this you are losing too many intervals can you think of some counter example where if you are picking this you can lose some more intervals I mean"
+      }
+    ]
+  },
+  {
+    "id": 401,
+    "lecture": 133,
+    "title": "Choose the most compatible activities · Apply",
+    "concept": "Unweighted interval scheduling maximizes the number of nonoverlapping activities on one resource. With half-open intervals, an activity beginning exactly when another ends is compatible. The standard earliest-finish rule maximizes activity count on a single resource. Weighted intervals, room counts and deadline-profit jobs have different objectives and cannot inherit this rule without a new proof.",
+    "teachingSteps": [
+      "Unweighted interval scheduling maximizes the number of nonoverlapping activities on one resource. With half-open intervals, an activity beginning exactly when another ends is compatible.",
+      "Take the earliest compatible finish",
+      "Continue after its finish using the same rule"
+    ],
+    "foundation": {
+      "title": "Choose the most compatible activities",
+      "idea": "Unweighted interval scheduling maximizes the number of nonoverlapping activities on one resource. With half-open intervals, an activity beginning exactly when another ends is compatible. The standard earliest-finish rule maximizes activity count on a single resource. Weighted intervals, room counts and deadline-profit jobs have different objectives and cannot inherit this rule without a new proof.",
+      "terms": [
+        "Half-open [s,f): end time is free for a new start.",
+        "Compatible: no overlap on the selected resource.",
+        "Exchange: replace an optimal first choice safely."
+      ],
+      "example": "Activities [0,3),[1,2),[2,4),[4,6) admit three compatible choices: the last three."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A scheduling service shares one resource. What maximum number of compatible activities can be chosen from the given half-open intervals?",
+        "answer": 3,
+        "explanation": "Choose B,C,D: [1,2),[2,4),[4,6) do not overlap.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Activity",
+            "Start",
+            "End"
+          ],
+          "rows": [
+            [
+              "A",
+              0,
+              3
+            ],
+            [
+              "B",
+              1,
+              2
+            ],
+            [
+              "C",
+              2,
+              4
+            ],
+            [
+              "D",
+              4,
+              6
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "An activity ends at 7. Under half-open intervals, what earliest start time can the next activity use?",
+        "answer": 7,
+        "explanation": "The endpoint is free, so equality is compatible.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which first choice is safe for unweighted maximum-count interval scheduling?",
+        "options": [
+          "An available activity with earliest finish.",
+          "An activity with latest finish.",
+          "Always the longest activity."
+        ],
+        "answer": 0,
+        "explanation": "An earliest finish leaves at least as much room for every later compatible activity."
+      },
+      {
+        "type": "order",
+        "prompt": "Perform earliest-finish interval scheduling.",
+        "items": [
+          "Sort by finishing time",
+          "Take the earliest compatible finish",
+          "Continue after its finish using the same rule"
+        ],
+        "explanation": "The objective is maximum count on one resource, without activity profits."
+      }
+    ],
+    "algoLab": "interval",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 396.59,
+    "excerpt": "So this is one of the case, but it is not the answer. You need to maximize it. So which means you need to pick non-overlapping intervals, but maximum number of non-overlapping intervals. Maybe you can pick this, maybe you can pick this, maybe you can pick this, maybe you can pick this. This is non-overlapping that I agree, but is it maximum? Is it the maximum number of non-overlapping intervals in this particular example? No, right? I mean, there is one more solution that I just, which is this.",
+    "sourceReferences": [
+      {
+        "lecture": 133,
+        "file": "133_34a_Interval_Scheduling_Problem_Activity_Selection_P.mp4",
+        "start": 396.59,
+        "end": 424.01,
+        "text": "So this is one of the case, but it is not the answer. You need to maximize it. So which means you need to pick non-overlapping intervals, but maximum number of non-overlapping intervals. Maybe you can pick this, maybe you can pick this, maybe you can pick this, maybe you can pick this. This is non-overlapping that I agree, but is it maximum? Is it the maximum number of non-overlapping intervals in this particular example? No, right? I mean, there is one more solution that I just, which is this."
+      },
+      {
+        "lecture": 133,
+        "file": "133_34a_Interval_Scheduling_Problem_Activity_Selection_P.mp4",
+        "start": 424.24,
+        "end": 454.72,
+        "text": "So which is 1, 2, 3, 4, 5. I mean, you can pick five intervals. So that is why this seems that this is not the maximum number of intervals that you can pick. So one suggested idea is that if you want to design some algorithm, one idea is that let's pick the interval of the minimum size, which means if any input is given to me, based on the input, I will do one thing. I will pick the interval of the minimum length."
+      },
+      {
+        "lecture": 133,
+        "file": "133_34a_Interval_Scheduling_Problem_Activity_Selection_P.mp4",
+        "start": 498.7,
+        "end": 526.7,
+        "text": "that if you are picking the minimum size interval then it might be helpful or might not be helpful so can you think about some counter example where this minimum size interval is overlapping with maximum number of intervals which means like if you pick this you are losing too many intervals can you think of some counter example where if you are picking this you can lose some more intervals I mean"
+      }
+    ]
+  },
+  {
+    "id": 402,
+    "lecture": 134,
+    "title": "Earliest finish leaves room for more · Discover",
+    "concept": "Choose the compatible activity with earliest finishing time, then discard conflicting starts and repeat. Earliest start or shortest duration alone can give fewer activities. The standard earliest-finish rule maximizes activity count on a single resource. Weighted intervals, room counts and deadline-profit jobs have different objectives and cannot inherit this rule without a new proof.",
+    "teachingSteps": [
+      "Choose the compatible activity with earliest finishing time, then discard conflicting starts and repeat. Earliest start or shortest duration alone can give fewer activities.",
+      "Take the earliest compatible finish",
+      "Continue after its finish using the same rule"
+    ],
+    "foundation": {
+      "title": "Earliest finish leaves room for more",
+      "idea": "Choose the compatible activity with earliest finishing time, then discard conflicting starts and repeat. Earliest start or shortest duration alone can give fewer activities. The standard earliest-finish rule maximizes activity count on a single resource. Weighted intervals, room counts and deadline-profit jobs have different objectives and cannot inherit this rule without a new proof.",
+      "terms": [
+        "Half-open [s,f): end time is free for a new start.",
+        "Compatible: no overlap on the selected resource.",
+        "Exchange: replace an optimal first choice safely."
+      ],
+      "example": "Activities [0,3),[1,2),[2,4),[4,6) admit three compatible choices: the last three."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "What maximum number of compatible activities can be chosen from the given half-open intervals?",
+        "answer": 3,
+        "explanation": "Choose B,C,D: [1,2),[2,4),[4,6) do not overlap.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Activity",
+            "Start",
+            "End"
+          ],
+          "rows": [
+            [
+              "A",
+              0,
+              3
+            ],
+            [
+              "B",
+              1,
+              2
+            ],
+            [
+              "C",
+              2,
+              4
+            ],
+            [
+              "D",
+              4,
+              6
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "An activity ends at 6. Under half-open intervals, what earliest start time can the next activity use?",
+        "answer": 6,
+        "explanation": "The endpoint is free, so equality is compatible.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains earliest finish leaves room for more?",
+        "options": [
+          "One successful example proves every input.",
+          "Choose the compatible activity with earliest finishing time, then discard conflicting starts and repeat.",
+          "Input assumptions never affect correctness."
+        ],
+        "answer": 1,
+        "explanation": "Choose the compatible activity with earliest finishing time, then discard conflicting starts and repeat. Earliest start or shortest duration alone can give fewer activities."
+      },
+      {
+        "type": "order",
+        "prompt": "Perform earliest-finish interval scheduling.",
+        "items": [
+          "Sort by finishing time",
+          "Take the earliest compatible finish",
+          "Continue after its finish using the same rule"
+        ],
+        "explanation": "The objective is maximum count on one resource, without activity profits."
+      }
+    ],
+    "algoLab": "interval-finish",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 71.49,
+    "excerpt": "So how much time complexity it will take, just to check whether it is like overlapping with i2, it will just take order of 1. Because I just need to check whether this interval, the finished time of this interval and the start time of this interval is basically conflicting or not, maybe or I can have some criteria, maybe if I want to check between this, this is s1, this is finished one. So one of the case in which they can overlap is this.",
+    "sourceReferences": [
+      {
+        "lecture": 134,
+        "file": "134. 34b. Interval Scheduling Problem Algorithm.mp4",
+        "start": 71.49,
+        "end": 100.04,
+        "text": "So how much time complexity it will take, just to check whether it is like overlapping with i2, it will just take order of 1. Because I just need to check whether this interval, the finished time of this interval and the start time of this interval is basically conflicting or not, maybe or I can have some criteria, maybe if I want to check between this, this is s1, this is finished one. So one of the case in which they can overlap is this."
+      },
+      {
+        "lecture": 134,
+        "file": "134. 34b. Interval Scheduling Problem Algorithm.mp4",
+        "start": 157.42,
+        "end": 198.58,
+        "text": "Similarly for i to order of n again, so total it will take order of n square for all the intervals just to check whether they're overlapping with something or not. So let's not worry about it much. Let's go to the algorithm 3 where I'm saying pick the interval. This is not very intuitive but we will see that why it is working. Pick the interval with earliest finish time. It means"
+      },
+      {
+        "lecture": 134,
+        "file": "134. 34b. Interval Scheduling Problem Algorithm.mp4",
+        "start": 229.82,
+        "end": 256.12,
+        "text": "If someone is saying, yes, I will do it quickly, then okay, you come. It's like that, right? So it is saying that with the earliest finished time, we will give the chance to finish it quickly. Why we are giving that chance, we will talk about it in a while. I mean, intuitive idea, we will talk, we will not go to the proof formally. So the proof can be done with an induction, but we will just see the intuitive idea. So I am saying here, pick the interval with the earliest finished time."
+      }
+    ]
+  },
+  {
+    "id": 403,
+    "lecture": 134,
+    "title": "Earliest finish leaves room for more · Trace",
+    "concept": "Choose the compatible activity with earliest finishing time, then discard conflicting starts and repeat. Earliest start or shortest duration alone can give fewer activities. The standard earliest-finish rule maximizes activity count on a single resource. Weighted intervals, room counts and deadline-profit jobs have different objectives and cannot inherit this rule without a new proof.",
+    "teachingSteps": [
+      "Choose the compatible activity with earliest finishing time, then discard conflicting starts and repeat. Earliest start or shortest duration alone can give fewer activities.",
+      "Take the earliest compatible finish",
+      "Continue after its finish using the same rule"
+    ],
+    "foundation": {
+      "title": "Earliest finish leaves room for more",
+      "idea": "Choose the compatible activity with earliest finishing time, then discard conflicting starts and repeat. Earliest start or shortest duration alone can give fewer activities. The standard earliest-finish rule maximizes activity count on a single resource. Weighted intervals, room counts and deadline-profit jobs have different objectives and cannot inherit this rule without a new proof.",
+      "terms": [
+        "Half-open [s,f): end time is free for a new start.",
+        "Compatible: no overlap on the selected resource.",
+        "Exchange: replace an optimal first choice safely."
+      ],
+      "example": "Activities [0,3),[1,2),[2,4),[4,6) admit three compatible choices: the last three."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "What maximum number of compatible activities can be chosen from the given half-open intervals?",
+        "answer": 3,
+        "explanation": "Choose B,C,D: [1,2),[2,4),[4,6) do not overlap.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Activity",
+            "Start",
+            "End"
+          ],
+          "rows": [
+            [
+              "A",
+              0,
+              3
+            ],
+            [
+              "B",
+              1,
+              2
+            ],
+            [
+              "C",
+              2,
+              4
+            ],
+            [
+              "D",
+              4,
+              6
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "An activity ends at 7. Under half-open intervals, what earliest start time can the next activity use?",
+        "answer": 7,
+        "explanation": "The endpoint is free, so equality is compatible.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which first choice is safe for unweighted maximum-count interval scheduling?",
+        "options": [
+          "An available activity with earliest finish.",
+          "An activity with latest finish.",
+          "Always the longest activity."
+        ],
+        "answer": 0,
+        "explanation": "An earliest finish leaves at least as much room for every later compatible activity."
+      },
+      {
+        "type": "order",
+        "prompt": "Perform earliest-finish interval scheduling.",
+        "items": [
+          "Sort by finishing time",
+          "Take the earliest compatible finish",
+          "Continue after its finish using the same rule"
+        ],
+        "explanation": "The objective is maximum count on one resource, without activity profits."
+      }
+    ],
+    "algoLab": "interval-finish",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 71.49,
+    "excerpt": "So how much time complexity it will take, just to check whether it is like overlapping with i2, it will just take order of 1. Because I just need to check whether this interval, the finished time of this interval and the start time of this interval is basically conflicting or not, maybe or I can have some criteria, maybe if I want to check between this, this is s1, this is finished one. So one of the case in which they can overlap is this.",
+    "sourceReferences": [
+      {
+        "lecture": 134,
+        "file": "134. 34b. Interval Scheduling Problem Algorithm.mp4",
+        "start": 71.49,
+        "end": 100.04,
+        "text": "So how much time complexity it will take, just to check whether it is like overlapping with i2, it will just take order of 1. Because I just need to check whether this interval, the finished time of this interval and the start time of this interval is basically conflicting or not, maybe or I can have some criteria, maybe if I want to check between this, this is s1, this is finished one. So one of the case in which they can overlap is this."
+      },
+      {
+        "lecture": 134,
+        "file": "134. 34b. Interval Scheduling Problem Algorithm.mp4",
+        "start": 157.42,
+        "end": 198.58,
+        "text": "Similarly for i to order of n again, so total it will take order of n square for all the intervals just to check whether they're overlapping with something or not. So let's not worry about it much. Let's go to the algorithm 3 where I'm saying pick the interval. This is not very intuitive but we will see that why it is working. Pick the interval with earliest finish time. It means"
+      },
+      {
+        "lecture": 134,
+        "file": "134. 34b. Interval Scheduling Problem Algorithm.mp4",
+        "start": 229.82,
+        "end": 256.12,
+        "text": "If someone is saying, yes, I will do it quickly, then okay, you come. It's like that, right? So it is saying that with the earliest finished time, we will give the chance to finish it quickly. Why we are giving that chance, we will talk about it in a while. I mean, intuitive idea, we will talk, we will not go to the proof formally. So the proof can be done with an induction, but we will just see the intuitive idea. So I am saying here, pick the interval with the earliest finished time."
+      }
+    ]
+  },
+  {
+    "id": 404,
+    "lecture": 134,
+    "title": "Earliest finish leaves room for more · Apply",
+    "concept": "Choose the compatible activity with earliest finishing time, then discard conflicting starts and repeat. Earliest start or shortest duration alone can give fewer activities. The standard earliest-finish rule maximizes activity count on a single resource. Weighted intervals, room counts and deadline-profit jobs have different objectives and cannot inherit this rule without a new proof.",
+    "teachingSteps": [
+      "Choose the compatible activity with earliest finishing time, then discard conflicting starts and repeat. Earliest start or shortest duration alone can give fewer activities.",
+      "Take the earliest compatible finish",
+      "Continue after its finish using the same rule"
+    ],
+    "foundation": {
+      "title": "Earliest finish leaves room for more",
+      "idea": "Choose the compatible activity with earliest finishing time, then discard conflicting starts and repeat. Earliest start or shortest duration alone can give fewer activities. The standard earliest-finish rule maximizes activity count on a single resource. Weighted intervals, room counts and deadline-profit jobs have different objectives and cannot inherit this rule without a new proof.",
+      "terms": [
+        "Half-open [s,f): end time is free for a new start.",
+        "Compatible: no overlap on the selected resource.",
+        "Exchange: replace an optimal first choice safely."
+      ],
+      "example": "Activities [0,3),[1,2),[2,4),[4,6) admit three compatible choices: the last three."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A scheduling service shares one resource. What maximum number of compatible activities can be chosen from the given half-open intervals?",
+        "answer": 3,
+        "explanation": "Choose B,C,D: [1,2),[2,4),[4,6) do not overlap.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Activity",
+            "Start",
+            "End"
+          ],
+          "rows": [
+            [
+              "A",
+              0,
+              3
+            ],
+            [
+              "B",
+              1,
+              2
+            ],
+            [
+              "C",
+              2,
+              4
+            ],
+            [
+              "D",
+              4,
+              6
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "An activity ends at 4. Under half-open intervals, what earliest start time can the next activity use?",
+        "answer": 4,
+        "explanation": "The endpoint is free, so equality is compatible.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which first choice is safe for unweighted maximum-count interval scheduling?",
+        "options": [
+          "An activity with latest finish.",
+          "Always the longest activity.",
+          "An available activity with earliest finish."
+        ],
+        "answer": 2,
+        "explanation": "An earliest finish leaves at least as much room for every later compatible activity."
+      },
+      {
+        "type": "order",
+        "prompt": "Perform earliest-finish interval scheduling.",
+        "items": [
+          "Sort by finishing time",
+          "Take the earliest compatible finish",
+          "Continue after its finish using the same rule"
+        ],
+        "explanation": "The objective is maximum count on one resource, without activity profits."
+      }
+    ],
+    "algoLab": "interval-finish",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 71.49,
+    "excerpt": "So how much time complexity it will take, just to check whether it is like overlapping with i2, it will just take order of 1. Because I just need to check whether this interval, the finished time of this interval and the start time of this interval is basically conflicting or not, maybe or I can have some criteria, maybe if I want to check between this, this is s1, this is finished one. So one of the case in which they can overlap is this.",
+    "sourceReferences": [
+      {
+        "lecture": 134,
+        "file": "134. 34b. Interval Scheduling Problem Algorithm.mp4",
+        "start": 71.49,
+        "end": 100.04,
+        "text": "So how much time complexity it will take, just to check whether it is like overlapping with i2, it will just take order of 1. Because I just need to check whether this interval, the finished time of this interval and the start time of this interval is basically conflicting or not, maybe or I can have some criteria, maybe if I want to check between this, this is s1, this is finished one. So one of the case in which they can overlap is this."
+      },
+      {
+        "lecture": 134,
+        "file": "134. 34b. Interval Scheduling Problem Algorithm.mp4",
+        "start": 157.42,
+        "end": 198.58,
+        "text": "Similarly for i to order of n again, so total it will take order of n square for all the intervals just to check whether they're overlapping with something or not. So let's not worry about it much. Let's go to the algorithm 3 where I'm saying pick the interval. This is not very intuitive but we will see that why it is working. Pick the interval with earliest finish time. It means"
+      },
+      {
+        "lecture": 134,
+        "file": "134. 34b. Interval Scheduling Problem Algorithm.mp4",
+        "start": 229.82,
+        "end": 256.12,
+        "text": "If someone is saying, yes, I will do it quickly, then okay, you come. It's like that, right? So it is saying that with the earliest finished time, we will give the chance to finish it quickly. Why we are giving that chance, we will talk about it in a while. I mean, intuitive idea, we will talk, we will not go to the proof formally. So the proof can be done with an induction, but we will just see the intuitive idea. So I am saying here, pick the interval with the earliest finished time."
+      }
+    ]
+  },
+  {
+    "id": 405,
+    "lecture": 135,
+    "title": "Exchange the first activity safely · Discover",
+    "concept": "Replace the first activity of an optimal unweighted schedule by an earliest-finishing activity. Its finish is no later, so every later activity remains feasible; repeat on the remaining suffix. The standard earliest-finish rule maximizes activity count on a single resource. Weighted intervals, room counts and deadline-profit jobs have different objectives and cannot inherit this rule without a new proof.",
+    "teachingSteps": [
+      "Replace the first activity of an optimal unweighted schedule by an earliest-finishing activity. Its finish is no later, so every later activity remains feasible; repeat on the remaining suffix.",
+      "Take the earliest compatible finish",
+      "Continue after its finish using the same rule"
+    ],
+    "foundation": {
+      "title": "Exchange the first activity safely",
+      "idea": "Replace the first activity of an optimal unweighted schedule by an earliest-finishing activity. Its finish is no later, so every later activity remains feasible; repeat on the remaining suffix. The standard earliest-finish rule maximizes activity count on a single resource. Weighted intervals, room counts and deadline-profit jobs have different objectives and cannot inherit this rule without a new proof.",
+      "terms": [
+        "Half-open [s,f): end time is free for a new start.",
+        "Compatible: no overlap on the selected resource.",
+        "Exchange: replace an optimal first choice safely."
+      ],
+      "example": "Activities [0,3),[1,2),[2,4),[4,6) admit three compatible choices: the last three."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "What maximum number of compatible activities can be chosen from the given half-open intervals?",
+        "answer": 3,
+        "explanation": "Choose B,C,D: [1,2),[2,4),[4,6) do not overlap.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Activity",
+            "Start",
+            "End"
+          ],
+          "rows": [
+            [
+              "A",
+              0,
+              3
+            ],
+            [
+              "B",
+              1,
+              2
+            ],
+            [
+              "C",
+              2,
+              4
+            ],
+            [
+              "D",
+              4,
+              6
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "An activity ends at 7. Under half-open intervals, what earliest start time can the next activity use?",
+        "answer": 7,
+        "explanation": "The endpoint is free, so equality is compatible.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains exchange the first activity safely?",
+        "options": [
+          "Replace the first activity of an optimal unweighted schedule by an earliest-finishing activity.",
+          "Input assumptions never affect correctness.",
+          "One successful example proves every input."
+        ],
+        "answer": 0,
+        "explanation": "Replace the first activity of an optimal unweighted schedule by an earliest-finishing activity. Its finish is no later, so every later activity remains feasible; repeat on the remaining suffix."
+      },
+      {
+        "type": "order",
+        "prompt": "Perform earliest-finish interval scheduling.",
+        "items": [
+          "Sort by finishing time",
+          "Take the earliest compatible finish",
+          "Continue after its finish using the same rule"
+        ],
+        "explanation": "The objective is maximum count on one resource, without activity profits."
+      }
+    ],
+    "algoLab": "interval-proof",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 55.27,
+    "excerpt": "So if it is finishing early, then I'm more hopeful to get more intervals to schedule in the future. That is right. So let's just see. Let's say that your optimal answer is this. I mean, this is the answer that your Algo 3 may or may not give. I'm not saying that this is the answer that Algo 3 is giving. And Algo 3 might give some other answer, Algo 3 answer.",
+    "sourceReferences": [
+      {
+        "lecture": 135,
+        "file": "135_34c_Optional_Proving_Optimality_using_Exchange_Techn.mp4",
+        "start": 55.27,
+        "end": 86.73,
+        "text": "So if it is finishing early, then I'm more hopeful to get more intervals to schedule in the future. That is right. So let's just see. Let's say that your optimal answer is this. I mean, this is the answer that your Algo 3 may or may not give. I'm not saying that this is the answer that Algo 3 is giving. And Algo 3 might give some other answer, Algo 3 answer."
+      },
+      {
+        "lecture": 135,
+        "file": "135_34c_Optional_Proving_Optimality_using_Exchange_Techn.mp4",
+        "start": 121.57,
+        "end": 151.27,
+        "text": "Tell me what algo three will give algo three will give the upper line right this this this interval this interval this interval this interval so algo three will give this one I mean if I write the algo three answer so algo three will give this white intervals which means these many intervals algo three will give so algo three will not give this interval these intervals because because these are the intervals which are not having the earliest finish time so it will say it is finishing early then it is finishing early then it is finishing early then it is finishing early so it is algo three answer"
+      },
+      {
+        "lecture": 135,
+        "file": "135_34c_Optional_Proving_Optimality_using_Exchange_Techn.mp4",
+        "start": 1414.44,
+        "end": 1439.81,
+        "text": "and I can keep on adding the intervals and I can throw exactly when exactly one, so one to one correspondence and finally I can say the number of intervals in the optimal are same as number of intervals in the in your in the in the elbow three basically right which is having the earliest finished time pick the interval which is finishing early so count is the same, yes means it is not so tense"
+      }
+    ]
+  },
+  {
+    "id": 406,
+    "lecture": 135,
+    "title": "Exchange the first activity safely · Trace",
+    "concept": "Replace the first activity of an optimal unweighted schedule by an earliest-finishing activity. Its finish is no later, so every later activity remains feasible; repeat on the remaining suffix. The standard earliest-finish rule maximizes activity count on a single resource. Weighted intervals, room counts and deadline-profit jobs have different objectives and cannot inherit this rule without a new proof.",
+    "teachingSteps": [
+      "Replace the first activity of an optimal unweighted schedule by an earliest-finishing activity. Its finish is no later, so every later activity remains feasible; repeat on the remaining suffix.",
+      "Take the earliest compatible finish",
+      "Continue after its finish using the same rule"
+    ],
+    "foundation": {
+      "title": "Exchange the first activity safely",
+      "idea": "Replace the first activity of an optimal unweighted schedule by an earliest-finishing activity. Its finish is no later, so every later activity remains feasible; repeat on the remaining suffix. The standard earliest-finish rule maximizes activity count on a single resource. Weighted intervals, room counts and deadline-profit jobs have different objectives and cannot inherit this rule without a new proof.",
+      "terms": [
+        "Half-open [s,f): end time is free for a new start.",
+        "Compatible: no overlap on the selected resource.",
+        "Exchange: replace an optimal first choice safely."
+      ],
+      "example": "Activities [0,3),[1,2),[2,4),[4,6) admit three compatible choices: the last three."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "What maximum number of compatible activities can be chosen from the given half-open intervals?",
+        "answer": 3,
+        "explanation": "Choose B,C,D: [1,2),[2,4),[4,6) do not overlap.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Activity",
+            "Start",
+            "End"
+          ],
+          "rows": [
+            [
+              "A",
+              0,
+              3
+            ],
+            [
+              "B",
+              1,
+              2
+            ],
+            [
+              "C",
+              2,
+              4
+            ],
+            [
+              "D",
+              4,
+              6
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "An activity ends at 4. Under half-open intervals, what earliest start time can the next activity use?",
+        "answer": 4,
+        "explanation": "The endpoint is free, so equality is compatible.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which first choice is safe for unweighted maximum-count interval scheduling?",
+        "options": [
+          "An activity with latest finish.",
+          "Always the longest activity.",
+          "An available activity with earliest finish."
+        ],
+        "answer": 2,
+        "explanation": "An earliest finish leaves at least as much room for every later compatible activity."
+      },
+      {
+        "type": "order",
+        "prompt": "Perform earliest-finish interval scheduling.",
+        "items": [
+          "Sort by finishing time",
+          "Take the earliest compatible finish",
+          "Continue after its finish using the same rule"
+        ],
+        "explanation": "The objective is maximum count on one resource, without activity profits."
+      }
+    ],
+    "algoLab": "interval-proof",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 55.27,
+    "excerpt": "So if it is finishing early, then I'm more hopeful to get more intervals to schedule in the future. That is right. So let's just see. Let's say that your optimal answer is this. I mean, this is the answer that your Algo 3 may or may not give. I'm not saying that this is the answer that Algo 3 is giving. And Algo 3 might give some other answer, Algo 3 answer.",
+    "sourceReferences": [
+      {
+        "lecture": 135,
+        "file": "135_34c_Optional_Proving_Optimality_using_Exchange_Techn.mp4",
+        "start": 55.27,
+        "end": 86.73,
+        "text": "So if it is finishing early, then I'm more hopeful to get more intervals to schedule in the future. That is right. So let's just see. Let's say that your optimal answer is this. I mean, this is the answer that your Algo 3 may or may not give. I'm not saying that this is the answer that Algo 3 is giving. And Algo 3 might give some other answer, Algo 3 answer."
+      },
+      {
+        "lecture": 135,
+        "file": "135_34c_Optional_Proving_Optimality_using_Exchange_Techn.mp4",
+        "start": 121.57,
+        "end": 151.27,
+        "text": "Tell me what algo three will give algo three will give the upper line right this this this interval this interval this interval this interval so algo three will give this one I mean if I write the algo three answer so algo three will give this white intervals which means these many intervals algo three will give so algo three will not give this interval these intervals because because these are the intervals which are not having the earliest finish time so it will say it is finishing early then it is finishing early then it is finishing early then it is finishing early so it is algo three answer"
+      },
+      {
+        "lecture": 135,
+        "file": "135_34c_Optional_Proving_Optimality_using_Exchange_Techn.mp4",
+        "start": 1414.44,
+        "end": 1439.81,
+        "text": "and I can keep on adding the intervals and I can throw exactly when exactly one, so one to one correspondence and finally I can say the number of intervals in the optimal are same as number of intervals in the in your in the in the elbow three basically right which is having the earliest finished time pick the interval which is finishing early so count is the same, yes means it is not so tense"
+      }
+    ]
+  },
+  {
+    "id": 407,
+    "lecture": 135,
+    "title": "Exchange the first activity safely · Apply",
+    "concept": "Replace the first activity of an optimal unweighted schedule by an earliest-finishing activity. Its finish is no later, so every later activity remains feasible; repeat on the remaining suffix. The standard earliest-finish rule maximizes activity count on a single resource. Weighted intervals, room counts and deadline-profit jobs have different objectives and cannot inherit this rule without a new proof.",
+    "teachingSteps": [
+      "Replace the first activity of an optimal unweighted schedule by an earliest-finishing activity. Its finish is no later, so every later activity remains feasible; repeat on the remaining suffix.",
+      "Take the earliest compatible finish",
+      "Continue after its finish using the same rule"
+    ],
+    "foundation": {
+      "title": "Exchange the first activity safely",
+      "idea": "Replace the first activity of an optimal unweighted schedule by an earliest-finishing activity. Its finish is no later, so every later activity remains feasible; repeat on the remaining suffix. The standard earliest-finish rule maximizes activity count on a single resource. Weighted intervals, room counts and deadline-profit jobs have different objectives and cannot inherit this rule without a new proof.",
+      "terms": [
+        "Half-open [s,f): end time is free for a new start.",
+        "Compatible: no overlap on the selected resource.",
+        "Exchange: replace an optimal first choice safely."
+      ],
+      "example": "Activities [0,3),[1,2),[2,4),[4,6) admit three compatible choices: the last three."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A scheduling service shares one resource. What maximum number of compatible activities can be chosen from the given half-open intervals?",
+        "answer": 3,
+        "explanation": "Choose B,C,D: [1,2),[2,4),[4,6) do not overlap.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Activity",
+            "Start",
+            "End"
+          ],
+          "rows": [
+            [
+              "A",
+              0,
+              3
+            ],
+            [
+              "B",
+              1,
+              2
+            ],
+            [
+              "C",
+              2,
+              4
+            ],
+            [
+              "D",
+              4,
+              6
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "An activity ends at 5. Under half-open intervals, what earliest start time can the next activity use?",
+        "answer": 5,
+        "explanation": "The endpoint is free, so equality is compatible.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which first choice is safe for unweighted maximum-count interval scheduling?",
+        "options": [
+          "Always the longest activity.",
+          "An available activity with earliest finish.",
+          "An activity with latest finish."
+        ],
+        "answer": 1,
+        "explanation": "An earliest finish leaves at least as much room for every later compatible activity."
+      },
+      {
+        "type": "order",
+        "prompt": "Perform earliest-finish interval scheduling.",
+        "items": [
+          "Sort by finishing time",
+          "Take the earliest compatible finish",
+          "Continue after its finish using the same rule"
+        ],
+        "explanation": "The objective is maximum count on one resource, without activity profits."
+      }
+    ],
+    "algoLab": "interval-proof",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 55.27,
+    "excerpt": "So if it is finishing early, then I'm more hopeful to get more intervals to schedule in the future. That is right. So let's just see. Let's say that your optimal answer is this. I mean, this is the answer that your Algo 3 may or may not give. I'm not saying that this is the answer that Algo 3 is giving. And Algo 3 might give some other answer, Algo 3 answer.",
+    "sourceReferences": [
+      {
+        "lecture": 135,
+        "file": "135_34c_Optional_Proving_Optimality_using_Exchange_Techn.mp4",
+        "start": 55.27,
+        "end": 86.73,
+        "text": "So if it is finishing early, then I'm more hopeful to get more intervals to schedule in the future. That is right. So let's just see. Let's say that your optimal answer is this. I mean, this is the answer that your Algo 3 may or may not give. I'm not saying that this is the answer that Algo 3 is giving. And Algo 3 might give some other answer, Algo 3 answer."
+      },
+      {
+        "lecture": 135,
+        "file": "135_34c_Optional_Proving_Optimality_using_Exchange_Techn.mp4",
+        "start": 121.57,
+        "end": 151.27,
+        "text": "Tell me what algo three will give algo three will give the upper line right this this this interval this interval this interval this interval so algo three will give this one I mean if I write the algo three answer so algo three will give this white intervals which means these many intervals algo three will give so algo three will not give this interval these intervals because because these are the intervals which are not having the earliest finish time so it will say it is finishing early then it is finishing early then it is finishing early then it is finishing early so it is algo three answer"
+      },
+      {
+        "lecture": 135,
+        "file": "135_34c_Optional_Proving_Optimality_using_Exchange_Techn.mp4",
+        "start": 1414.44,
+        "end": 1439.81,
+        "text": "and I can keep on adding the intervals and I can throw exactly when exactly one, so one to one correspondence and finally I can say the number of intervals in the optimal are same as number of intervals in the in your in the in the elbow three basically right which is having the earliest finished time pick the interval which is finishing early so count is the same, yes means it is not so tense"
+      }
+    ]
+  },
+  {
+    "id": 408,
+    "lecture": 136,
+    "title": "Match a scheduling rule to its objective · Discover",
+    "concept": "Maximum-weight scheduling is different from maximum-count scheduling and may need dynamic programming. Minimizing rooms instead asks for the maximum number of simultaneously active intervals. The standard earliest-finish rule maximizes activity count on a single resource. Weighted intervals, room counts and deadline-profit jobs have different objectives and cannot inherit this rule without a new proof.",
+    "teachingSteps": [
+      "Maximum-weight scheduling is different from maximum-count scheduling and may need dynamic programming. Minimizing rooms instead asks for the maximum number of simultaneously active intervals.",
+      "Take the earliest compatible finish",
+      "Continue after its finish using the same rule"
+    ],
+    "foundation": {
+      "title": "Match a scheduling rule to its objective",
+      "idea": "Maximum-weight scheduling is different from maximum-count scheduling and may need dynamic programming. Minimizing rooms instead asks for the maximum number of simultaneously active intervals. The standard earliest-finish rule maximizes activity count on a single resource. Weighted intervals, room counts and deadline-profit jobs have different objectives and cannot inherit this rule without a new proof.",
+      "terms": [
+        "Half-open [s,f): end time is free for a new start.",
+        "Compatible: no overlap on the selected resource.",
+        "Exchange: replace an optimal first choice safely."
+      ],
+      "example": "Activities [0,3),[1,2),[2,4),[4,6) admit three compatible choices: the last three."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "What maximum number of compatible activities can be chosen from the given half-open intervals?",
+        "answer": 3,
+        "explanation": "Choose B,C,D: [1,2),[2,4),[4,6) do not overlap.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Activity",
+            "Start",
+            "End"
+          ],
+          "rows": [
+            [
+              "A",
+              0,
+              3
+            ],
+            [
+              "B",
+              1,
+              2
+            ],
+            [
+              "C",
+              2,
+              4
+            ],
+            [
+              "D",
+              4,
+              6
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Intervals [0,3),[1,4),[2,5) all must be scheduled. What minimum number of rooms is needed?",
+        "answer": 3,
+        "explanation": "All three overlap between time two and three, requiring three rooms.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains match a scheduling rule to its objective?",
+        "options": [
+          "Input assumptions never affect correctness.",
+          "One successful example proves every input.",
+          "Maximum-weight scheduling is different from maximum-count scheduling and may need dynamic programming."
+        ],
+        "answer": 2,
+        "explanation": "Maximum-weight scheduling is different from maximum-count scheduling and may need dynamic programming. Minimizing rooms instead asks for the maximum number of simultaneously active intervals."
+      },
+      {
+        "type": "order",
+        "prompt": "Perform earliest-finish interval scheduling.",
+        "items": [
+          "Sort by finishing time",
+          "Take the earliest compatible finish",
+          "Continue after its finish using the same rule"
+        ],
+        "explanation": "The objective is maximum count on one resource, without activity profits."
+      }
+    ],
+    "algoLab": "interval-variants",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 498.83,
+    "excerpt": "time reverse fashion. So you can do this question as in homework, it is just saying that give a counter example and we have already done the counter example It's just saying to give a minimum span of counter examples Maximum number of compatible jobs We want to find the maximum number of comfortable jobs Shortest interval first strategy",
+    "sourceReferences": [
+      {
+        "lecture": 136,
+        "file": "136. 34d. Other Variants of Interview Scheduling.mp4",
+        "start": 498.83,
+        "end": 531.94,
+        "text": "time reverse fashion. So you can do this question as in homework, it is just saying that give a counter example and we have already done the counter example It's just saying to give a minimum span of counter examples Maximum number of compatible jobs We want to find the maximum number of comfortable jobs Shortest interval first strategy"
+      },
+      {
+        "lecture": 136,
+        "file": "136. 34d. Other Variants of Interview Scheduling.mp4",
+        "start": 531.94,
+        "end": 566.14,
+        "text": "if we take a small interval first then it will not work you know that what is the counter example there are other variants to this problem and other variants are weighted interval scheduling which means till now, only intervals were taken I was saying maximum number of intervals but if i just give the weights of this interval profit basically here"
+      },
+      {
+        "lecture": 136,
+        "file": "136. 34d. Other Variants of Interview Scheduling.mp4",
+        "start": 620.82,
+        "end": 645.81,
+        "text": "There is nothing to leave me. This is basically a classroom scheduling problem that classrooms are there I mean, you can say N classrooms and then we will say I won't let go of anything I'll just minimise the same So how many minimum number of class rooms do i need so all my classes can schedule? Minimum number"
+      }
+    ]
+  },
+  {
+    "id": 409,
+    "lecture": 136,
+    "title": "Match a scheduling rule to its objective · Trace",
+    "concept": "Maximum-weight scheduling is different from maximum-count scheduling and may need dynamic programming. Minimizing rooms instead asks for the maximum number of simultaneously active intervals. The standard earliest-finish rule maximizes activity count on a single resource. Weighted intervals, room counts and deadline-profit jobs have different objectives and cannot inherit this rule without a new proof.",
+    "teachingSteps": [
+      "Maximum-weight scheduling is different from maximum-count scheduling and may need dynamic programming. Minimizing rooms instead asks for the maximum number of simultaneously active intervals.",
+      "Take the earliest compatible finish",
+      "Continue after its finish using the same rule"
+    ],
+    "foundation": {
+      "title": "Match a scheduling rule to its objective",
+      "idea": "Maximum-weight scheduling is different from maximum-count scheduling and may need dynamic programming. Minimizing rooms instead asks for the maximum number of simultaneously active intervals. The standard earliest-finish rule maximizes activity count on a single resource. Weighted intervals, room counts and deadline-profit jobs have different objectives and cannot inherit this rule without a new proof.",
+      "terms": [
+        "Half-open [s,f): end time is free for a new start.",
+        "Compatible: no overlap on the selected resource.",
+        "Exchange: replace an optimal first choice safely."
+      ],
+      "example": "Activities [0,3),[1,2),[2,4),[4,6) admit three compatible choices: the last three."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "What maximum number of compatible activities can be chosen from the given half-open intervals?",
+        "answer": 3,
+        "explanation": "Choose B,C,D: [1,2),[2,4),[4,6) do not overlap.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Activity",
+            "Start",
+            "End"
+          ],
+          "rows": [
+            [
+              "A",
+              0,
+              3
+            ],
+            [
+              "B",
+              1,
+              2
+            ],
+            [
+              "C",
+              2,
+              4
+            ],
+            [
+              "D",
+              4,
+              6
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Intervals [0,3),[1,4),[2,5) all must be scheduled. What minimum number of rooms is needed?",
+        "answer": 3,
+        "explanation": "All three overlap between time two and three, requiring three rooms.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which first choice is safe for unweighted maximum-count interval scheduling?",
+        "options": [
+          "Always the longest activity.",
+          "An available activity with earliest finish.",
+          "An activity with latest finish."
+        ],
+        "answer": 1,
+        "explanation": "An earliest finish leaves at least as much room for every later compatible activity."
+      },
+      {
+        "type": "order",
+        "prompt": "Perform earliest-finish interval scheduling.",
+        "items": [
+          "Sort by finishing time",
+          "Take the earliest compatible finish",
+          "Continue after its finish using the same rule"
+        ],
+        "explanation": "The objective is maximum count on one resource, without activity profits."
+      }
+    ],
+    "algoLab": "interval-variants",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 498.83,
+    "excerpt": "time reverse fashion. So you can do this question as in homework, it is just saying that give a counter example and we have already done the counter example It's just saying to give a minimum span of counter examples Maximum number of compatible jobs We want to find the maximum number of comfortable jobs Shortest interval first strategy",
+    "sourceReferences": [
+      {
+        "lecture": 136,
+        "file": "136. 34d. Other Variants of Interview Scheduling.mp4",
+        "start": 498.83,
+        "end": 531.94,
+        "text": "time reverse fashion. So you can do this question as in homework, it is just saying that give a counter example and we have already done the counter example It's just saying to give a minimum span of counter examples Maximum number of compatible jobs We want to find the maximum number of comfortable jobs Shortest interval first strategy"
+      },
+      {
+        "lecture": 136,
+        "file": "136. 34d. Other Variants of Interview Scheduling.mp4",
+        "start": 531.94,
+        "end": 566.14,
+        "text": "if we take a small interval first then it will not work you know that what is the counter example there are other variants to this problem and other variants are weighted interval scheduling which means till now, only intervals were taken I was saying maximum number of intervals but if i just give the weights of this interval profit basically here"
+      },
+      {
+        "lecture": 136,
+        "file": "136. 34d. Other Variants of Interview Scheduling.mp4",
+        "start": 620.82,
+        "end": 645.81,
+        "text": "There is nothing to leave me. This is basically a classroom scheduling problem that classrooms are there I mean, you can say N classrooms and then we will say I won't let go of anything I'll just minimise the same So how many minimum number of class rooms do i need so all my classes can schedule? Minimum number"
+      }
+    ]
+  },
+  {
+    "id": 410,
+    "lecture": 136,
+    "title": "Match a scheduling rule to its objective · Apply",
+    "concept": "Maximum-weight scheduling is different from maximum-count scheduling and may need dynamic programming. Minimizing rooms instead asks for the maximum number of simultaneously active intervals. The standard earliest-finish rule maximizes activity count on a single resource. Weighted intervals, room counts and deadline-profit jobs have different objectives and cannot inherit this rule without a new proof.",
+    "teachingSteps": [
+      "Maximum-weight scheduling is different from maximum-count scheduling and may need dynamic programming. Minimizing rooms instead asks for the maximum number of simultaneously active intervals.",
+      "Take the earliest compatible finish",
+      "Continue after its finish using the same rule"
+    ],
+    "foundation": {
+      "title": "Match a scheduling rule to its objective",
+      "idea": "Maximum-weight scheduling is different from maximum-count scheduling and may need dynamic programming. Minimizing rooms instead asks for the maximum number of simultaneously active intervals. The standard earliest-finish rule maximizes activity count on a single resource. Weighted intervals, room counts and deadline-profit jobs have different objectives and cannot inherit this rule without a new proof.",
+      "terms": [
+        "Half-open [s,f): end time is free for a new start.",
+        "Compatible: no overlap on the selected resource.",
+        "Exchange: replace an optimal first choice safely."
+      ],
+      "example": "Activities [0,3),[1,2),[2,4),[4,6) admit three compatible choices: the last three."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A scheduling service shares one resource. What maximum number of compatible activities can be chosen from the given half-open intervals?",
+        "answer": 3,
+        "explanation": "Choose B,C,D: [1,2),[2,4),[4,6) do not overlap.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Activity",
+            "Start",
+            "End"
+          ],
+          "rows": [
+            [
+              "A",
+              0,
+              3
+            ],
+            [
+              "B",
+              1,
+              2
+            ],
+            [
+              "C",
+              2,
+              4
+            ],
+            [
+              "D",
+              4,
+              6
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Intervals [0,3),[1,4),[2,5) all must be scheduled. What minimum number of rooms is needed?",
+        "answer": 3,
+        "explanation": "All three overlap between time two and three, requiring three rooms.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which first choice is safe for unweighted maximum-count interval scheduling?",
+        "options": [
+          "An available activity with earliest finish.",
+          "An activity with latest finish.",
+          "Always the longest activity."
+        ],
+        "answer": 0,
+        "explanation": "An earliest finish leaves at least as much room for every later compatible activity."
+      },
+      {
+        "type": "order",
+        "prompt": "Perform earliest-finish interval scheduling.",
+        "items": [
+          "Sort by finishing time",
+          "Take the earliest compatible finish",
+          "Continue after its finish using the same rule"
+        ],
+        "explanation": "The objective is maximum count on one resource, without activity profits."
+      }
+    ],
+    "algoLab": "interval-variants",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 498.83,
+    "excerpt": "time reverse fashion. So you can do this question as in homework, it is just saying that give a counter example and we have already done the counter example It's just saying to give a minimum span of counter examples Maximum number of compatible jobs We want to find the maximum number of comfortable jobs Shortest interval first strategy",
+    "sourceReferences": [
+      {
+        "lecture": 136,
+        "file": "136. 34d. Other Variants of Interview Scheduling.mp4",
+        "start": 498.83,
+        "end": 531.94,
+        "text": "time reverse fashion. So you can do this question as in homework, it is just saying that give a counter example and we have already done the counter example It's just saying to give a minimum span of counter examples Maximum number of compatible jobs We want to find the maximum number of comfortable jobs Shortest interval first strategy"
+      },
+      {
+        "lecture": 136,
+        "file": "136. 34d. Other Variants of Interview Scheduling.mp4",
+        "start": 531.94,
+        "end": 566.14,
+        "text": "if we take a small interval first then it will not work you know that what is the counter example there are other variants to this problem and other variants are weighted interval scheduling which means till now, only intervals were taken I was saying maximum number of intervals but if i just give the weights of this interval profit basically here"
+      },
+      {
+        "lecture": 136,
+        "file": "136. 34d. Other Variants of Interview Scheduling.mp4",
+        "start": 620.82,
+        "end": 645.81,
+        "text": "There is nothing to leave me. This is basically a classroom scheduling problem that classrooms are there I mean, you can say N classrooms and then we will say I won't let go of anything I'll just minimise the same So how many minimum number of class rooms do i need so all my classes can schedule? Minimum number"
+      }
+    ]
+  },
+  {
+    "id": 411,
+    "lecture": 137,
+    "title": "Unit jobs with deadlines and profits · Discover",
+    "concept": "For unit-duration jobs with integer deadlines and nonnegative profits, process larger profits first and place each accepted job in the latest free slot no later than its deadline. For unit-duration tasks, a latest feasible slot preserves earlier room for other jobs. Processing nonnegative profits from largest to smallest prioritizes the payoff while keeping the schedule feasible.",
+    "teachingSteps": [
+      "For unit-duration jobs with integer deadlines and nonnegative profits, process larger profits first and place each accepted job in the latest free slot no later than its deadline.",
+      "Find the latest free slot before the deadline",
+      "Assign or reject without moving an accepted job past its deadline"
+    ],
+    "foundation": {
+      "title": "Unit jobs with deadlines and profits",
+      "idea": "For unit-duration jobs with integer deadlines and nonnegative profits, process larger profits first and place each accepted job in the latest free slot no later than its deadline. For unit-duration tasks, a latest feasible slot preserves earlier room for other jobs. Processing nonnegative profits from largest to smallest prioritizes the payoff while keeping the schedule feasible.",
+      "terms": [
+        "Deadline d: finish no later than time d.",
+        "Unit job: occupies exactly one slot.",
+        "Slot t: a job finishing at integer time t."
+      ],
+      "example": "Jobs A(deadline 2,profit 70), B(1,40), C(2,30) accept A in slot 2 and B in slot 1; C then has no free feasible slot."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Unit jobs A(deadline 2,profit 70), B(1,40), C(2,30) have slots ending at times 1 and 2. What maximum profit is feasible?",
+        "answer": 110,
+        "explanation": "Put B in slot one and A in slot two; C cannot also fit.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A single unit job has deadline 5, and slots 1 through 5 are free. What finishing slot should the greedy rule assign?",
+        "answer": 5,
+        "explanation": "Take the latest free feasible slot to preserve earlier slots.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains unit jobs with deadlines and profits?",
+        "options": [
+          "One successful example proves every input.",
+          "For unit-duration jobs with integer deadlines and nonnegative profits, process larger profits first and place each accepted job in the latest free slot no later than its deadline.",
+          "Input assumptions never affect correctness."
+        ],
+        "answer": 1,
+        "explanation": "For unit-duration jobs with integer deadlines and nonnegative profits, process larger profits first and place each accepted job in the latest free slot no later than its deadline."
+      },
+      {
+        "type": "order",
+        "prompt": "Schedule unit-duration deadline-profit jobs.",
+        "items": [
+          "Sort unit jobs by decreasing profit",
+          "Find the latest free slot before the deadline",
+          "Assign or reject without moving an accepted job past its deadline"
+        ],
+        "explanation": "Profit priority and latest feasible slots are used together."
+      }
+    ],
+    "algoLab": "job-deadlines",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.21,
+    "excerpt": "Let's see some other algorithm which is job scheduling with deadlines. Now this interval I hope everyone got it, now there are completely different problems here i will say that have few jobs to do maybe work on homework or sit outside and enjoy nature may be wash dishes watch tv talk people dinner play piano something like",
+    "sourceReferences": [
+      {
+        "lecture": 137,
+        "file": "137. 34e. Job Scheduling With Deadlines.mp4",
+        "start": 0.21,
+        "end": 24.51,
+        "text": "Let's see some other algorithm which is job scheduling with deadlines. Now this interval I hope everyone got it, now there are completely different problems here i will say that have few jobs to do maybe work on homework or sit outside and enjoy nature may be wash dishes watch tv talk people dinner play piano something like"
+      },
+      {
+        "lecture": 137,
+        "file": "137. 34e. Job Scheduling With Deadlines.mp4",
+        "start": 24.51,
+        "end": 53.26,
+        "text": "There are many different activities or jobs that I want to do. But there is deadlines for those two jobs which means, i have to do this particular job before 9pm something like this. There's a deadline so every job has some kind of deadline and then the profit associated with it if you can do it in front of these nine deadlines than will get profit of 15 otherwise i'll be getting 0"
+      },
+      {
+        "lecture": 137,
+        "file": "137. 34e. Job Scheduling With Deadlines.mp4",
+        "start": 299.33,
+        "end": 328.29,
+        "text": "So the problem is that I can do J5 here as well, there's a deadline for it. The problem is if i do this then I will be in trouble because I won't be able to watch TV. Because TV... Sorry! I am not able to sit outside because if I want to sit out side ,I'll have to fight like this. Okay? Then you would be in trouble If I don't say that I cannot stay over here but I can do any of these places But if I schedule this J5 here"
+      }
+    ]
+  },
+  {
+    "id": 412,
+    "lecture": 137,
+    "title": "Unit jobs with deadlines and profits · Trace",
+    "concept": "For unit-duration jobs with integer deadlines and nonnegative profits, process larger profits first and place each accepted job in the latest free slot no later than its deadline. For unit-duration tasks, a latest feasible slot preserves earlier room for other jobs. Processing nonnegative profits from largest to smallest prioritizes the payoff while keeping the schedule feasible.",
+    "teachingSteps": [
+      "For unit-duration jobs with integer deadlines and nonnegative profits, process larger profits first and place each accepted job in the latest free slot no later than its deadline.",
+      "Find the latest free slot before the deadline",
+      "Assign or reject without moving an accepted job past its deadline"
+    ],
+    "foundation": {
+      "title": "Unit jobs with deadlines and profits",
+      "idea": "For unit-duration jobs with integer deadlines and nonnegative profits, process larger profits first and place each accepted job in the latest free slot no later than its deadline. For unit-duration tasks, a latest feasible slot preserves earlier room for other jobs. Processing nonnegative profits from largest to smallest prioritizes the payoff while keeping the schedule feasible.",
+      "terms": [
+        "Deadline d: finish no later than time d.",
+        "Unit job: occupies exactly one slot.",
+        "Slot t: a job finishing at integer time t."
+      ],
+      "example": "Jobs A(deadline 2,profit 70), B(1,40), C(2,30) accept A in slot 2 and B in slot 1; C then has no free feasible slot."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Unit jobs A(deadline 2,profit 70), B(1,40), C(2,30) have slots ending at times 1 and 2. What maximum profit is feasible?",
+        "answer": 110,
+        "explanation": "Put B in slot one and A in slot two; C cannot also fit.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A single unit job has deadline 6, and slots 1 through 6 are free. What finishing slot should the greedy rule assign?",
+        "answer": 6,
+        "explanation": "Take the latest free feasible slot to preserve earlier slots.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Does this profit-first, latest-slot rule automatically apply to arbitrary job durations?",
+        "options": [
+          "No: the unit-duration assumption is essential to this formulation.",
+          "Yes: duration never matters.",
+          "Yes: ignore deadlines for longer jobs."
+        ],
+        "answer": 0,
+        "explanation": "Longer jobs consume several slots and need a separately justified scheduling method."
+      },
+      {
+        "type": "order",
+        "prompt": "Schedule unit-duration deadline-profit jobs.",
+        "items": [
+          "Sort unit jobs by decreasing profit",
+          "Find the latest free slot before the deadline",
+          "Assign or reject without moving an accepted job past its deadline"
+        ],
+        "explanation": "Profit priority and latest feasible slots are used together."
+      }
+    ],
+    "algoLab": "job-deadlines",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.21,
+    "excerpt": "Let's see some other algorithm which is job scheduling with deadlines. Now this interval I hope everyone got it, now there are completely different problems here i will say that have few jobs to do maybe work on homework or sit outside and enjoy nature may be wash dishes watch tv talk people dinner play piano something like",
+    "sourceReferences": [
+      {
+        "lecture": 137,
+        "file": "137. 34e. Job Scheduling With Deadlines.mp4",
+        "start": 0.21,
+        "end": 24.51,
+        "text": "Let's see some other algorithm which is job scheduling with deadlines. Now this interval I hope everyone got it, now there are completely different problems here i will say that have few jobs to do maybe work on homework or sit outside and enjoy nature may be wash dishes watch tv talk people dinner play piano something like"
+      },
+      {
+        "lecture": 137,
+        "file": "137. 34e. Job Scheduling With Deadlines.mp4",
+        "start": 24.51,
+        "end": 53.26,
+        "text": "There are many different activities or jobs that I want to do. But there is deadlines for those two jobs which means, i have to do this particular job before 9pm something like this. There's a deadline so every job has some kind of deadline and then the profit associated with it if you can do it in front of these nine deadlines than will get profit of 15 otherwise i'll be getting 0"
+      },
+      {
+        "lecture": 137,
+        "file": "137. 34e. Job Scheduling With Deadlines.mp4",
+        "start": 299.33,
+        "end": 328.29,
+        "text": "So the problem is that I can do J5 here as well, there's a deadline for it. The problem is if i do this then I will be in trouble because I won't be able to watch TV. Because TV... Sorry! I am not able to sit outside because if I want to sit out side ,I'll have to fight like this. Okay? Then you would be in trouble If I don't say that I cannot stay over here but I can do any of these places But if I schedule this J5 here"
+      }
+    ]
+  },
+  {
+    "id": 413,
+    "lecture": 137,
+    "title": "Unit jobs with deadlines and profits · Apply",
+    "concept": "For unit-duration jobs with integer deadlines and nonnegative profits, process larger profits first and place each accepted job in the latest free slot no later than its deadline. For unit-duration tasks, a latest feasible slot preserves earlier room for other jobs. Processing nonnegative profits from largest to smallest prioritizes the payoff while keeping the schedule feasible.",
+    "teachingSteps": [
+      "For unit-duration jobs with integer deadlines and nonnegative profits, process larger profits first and place each accepted job in the latest free slot no later than its deadline.",
+      "Find the latest free slot before the deadline",
+      "Assign or reject without moving an accepted job past its deadline"
+    ],
+    "foundation": {
+      "title": "Unit jobs with deadlines and profits",
+      "idea": "For unit-duration jobs with integer deadlines and nonnegative profits, process larger profits first and place each accepted job in the latest free slot no later than its deadline. For unit-duration tasks, a latest feasible slot preserves earlier room for other jobs. Processing nonnegative profits from largest to smallest prioritizes the payoff while keeping the schedule feasible.",
+      "terms": [
+        "Deadline d: finish no later than time d.",
+        "Unit job: occupies exactly one slot.",
+        "Slot t: a job finishing at integer time t."
+      ],
+      "example": "Jobs A(deadline 2,profit 70), B(1,40), C(2,30) accept A in slot 2 and B in slot 1; C then has no free feasible slot."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A job service has deadlines and profits. Unit jobs A(deadline 2,profit 70), B(1,40), C(2,30) have slots ending at times 1 and 2. What maximum profit is feasible?",
+        "answer": 110,
+        "explanation": "Put B in slot one and A in slot two; C cannot also fit.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A single unit job has deadline 7, and slots 1 through 7 are free. What finishing slot should the greedy rule assign?",
+        "answer": 7,
+        "explanation": "Take the latest free feasible slot to preserve earlier slots.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Does this profit-first, latest-slot rule automatically apply to arbitrary job durations?",
+        "options": [
+          "Yes: duration never matters.",
+          "Yes: ignore deadlines for longer jobs.",
+          "No: the unit-duration assumption is essential to this formulation."
+        ],
+        "answer": 2,
+        "explanation": "Longer jobs consume several slots and need a separately justified scheduling method."
+      },
+      {
+        "type": "order",
+        "prompt": "Schedule unit-duration deadline-profit jobs.",
+        "items": [
+          "Sort unit jobs by decreasing profit",
+          "Find the latest free slot before the deadline",
+          "Assign or reject without moving an accepted job past its deadline"
+        ],
+        "explanation": "Profit priority and latest feasible slots are used together."
+      }
+    ],
+    "algoLab": "job-deadlines",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.21,
+    "excerpt": "Let's see some other algorithm which is job scheduling with deadlines. Now this interval I hope everyone got it, now there are completely different problems here i will say that have few jobs to do maybe work on homework or sit outside and enjoy nature may be wash dishes watch tv talk people dinner play piano something like",
+    "sourceReferences": [
+      {
+        "lecture": 137,
+        "file": "137. 34e. Job Scheduling With Deadlines.mp4",
+        "start": 0.21,
+        "end": 24.51,
+        "text": "Let's see some other algorithm which is job scheduling with deadlines. Now this interval I hope everyone got it, now there are completely different problems here i will say that have few jobs to do maybe work on homework or sit outside and enjoy nature may be wash dishes watch tv talk people dinner play piano something like"
+      },
+      {
+        "lecture": 137,
+        "file": "137. 34e. Job Scheduling With Deadlines.mp4",
+        "start": 24.51,
+        "end": 53.26,
+        "text": "There are many different activities or jobs that I want to do. But there is deadlines for those two jobs which means, i have to do this particular job before 9pm something like this. There's a deadline so every job has some kind of deadline and then the profit associated with it if you can do it in front of these nine deadlines than will get profit of 15 otherwise i'll be getting 0"
+      },
+      {
+        "lecture": 137,
+        "file": "137. 34e. Job Scheduling With Deadlines.mp4",
+        "start": 299.33,
+        "end": 328.29,
+        "text": "So the problem is that I can do J5 here as well, there's a deadline for it. The problem is if i do this then I will be in trouble because I won't be able to watch TV. Because TV... Sorry! I am not able to sit outside because if I want to sit out side ,I'll have to fight like this. Okay? Then you would be in trouble If I don't say that I cannot stay over here but I can do any of these places But if I schedule this J5 here"
+      }
+    ]
+  },
+  {
+    "id": 414,
+    "lecture": 138,
+    "title": "Fractional items and value density · Discover",
+    "concept": "When items are divisible, take value per unit weight in descending order. A partially taken item contributes the same fraction of its total weight and total value. Divisible items let capacity be exchanged in small units. Value density tells which unit is best; after higher-density items are exhausted, at most one boundary item need be fractional.",
+    "teachingSteps": [
+      "When items are divisible, take value per unit weight in descending order. A partially taken item contributes the same fraction of its total weight and total value.",
+      "Take full higher-density items while they fit",
+      "Take only the needed fraction of the boundary item"
+    ],
+    "foundation": {
+      "title": "Fractional items and value density",
+      "idea": "When items are divisible, take value per unit weight in descending order. A partially taken item contributes the same fraction of its total weight and total value. Divisible items let capacity be exchanged in small units. Value density tells which unit is best; after higher-density items are exhausted, at most one boundary item need be fractional.",
+      "terms": [
+        "Density: value / weight.",
+        "Fraction: taken weight divided by full weight.",
+        "0-1 contrast: taking half is not permitted there."
+      ],
+      "example": "Item weight 5 and value 20 contributes value 8 when taking 2 of its 5 weight units."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "An item weighs 6 and is worth 12. Taking 3 weight units contributes how much value?",
+        "answer": 6,
+        "explanation": "Take one half of the item and one half of its total value.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "Capacity 5 with items (weight,value)=(2,12),(3,15),(5,20) yields what maximum fractional value?",
+        "answer": 27,
+        "explanation": "Densities are 6,5,4. Take all of the first two for 12+15=27.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains fractional items and value density?",
+        "options": [
+          "When items are divisible, take value per unit weight in descending order.",
+          "Input assumptions never affect correctness.",
+          "One successful example proves every input."
+        ],
+        "answer": 0,
+        "explanation": "When items are divisible, take value per unit weight in descending order. A partially taken item contributes the same fraction of its total weight and total value."
+      },
+      {
+        "type": "order",
+        "prompt": "Fill a divisible-item bag by density.",
+        "items": [
+          "Compare value per unit weight",
+          "Take full higher-density items while they fit",
+          "Take only the needed fraction of the boundary item"
+        ],
+        "explanation": "Sort densities for the simple method; a separate selection method can avoid a full sort."
+      }
+    ],
+    "algoLab": "fractional",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0,
+    "excerpt": "of the experience might not be doing it. Let's let's start another algorithm which is fractional. It is also very, very easy algorithm. Let's just start this. So the idea is this, suppose, suppose you are a thief. Okay. I don't want to make myself as thief. So let's suppose you are thief and you, you go to robbery into some of the house and then okay.",
+    "sourceReferences": [
+      {
+        "lecture": 138,
+        "file": "138. 35a.Fractional Knapsack.mp4",
+        "start": 0,
+        "end": 28.9,
+        "text": "of the experience might not be doing it. Let's let's start another algorithm which is fractional. It is also very, very easy algorithm. Let's just start this. So the idea is this, suppose, suppose you are a thief. Okay. I don't want to make myself as thief. So let's suppose you are thief and you, you go to robbery into some of the house and then okay."
+      },
+      {
+        "lecture": 138,
+        "file": "138. 35a.Fractional Knapsack.mp4",
+        "start": 58.88,
+        "end": 86.42,
+        "text": "we cannot fill this bag with more than 15 kgs and in that house there are multiple items that you are having and one item is having weight 12 kgs and the profit that you are getting will be 4 rupees or 4 dollars or something like that right? means this is 12 kgs but this is only 4 rupees this is 1 kg and this is 2 rupees this is 2 kgs and this is 2 rupees like that right? everyone is having some weight and some profit"
+      },
+      {
+        "lecture": 138,
+        "file": "138. 35a.Fractional Knapsack.mp4",
+        "start": 1426.2,
+        "end": 1459.45,
+        "text": "now you can do this example as an homework where I have profits and weights and m is 10, you can do it as an homework sorry I do not have the answers with me but yeah you can do it as an homework and you can just verify in the class if you are getting the same answer so how does the algorithm look like? it is very easy so how does the increasing not increasing sorry decreasing right decreasing order of profit upon weight initialize that I have not taken any fraction yet"
+      }
+    ]
+  },
+  {
+    "id": 415,
+    "lecture": 138,
+    "title": "Fractional items and value density · Trace",
+    "concept": "When items are divisible, take value per unit weight in descending order. A partially taken item contributes the same fraction of its total weight and total value. Divisible items let capacity be exchanged in small units. Value density tells which unit is best; after higher-density items are exhausted, at most one boundary item need be fractional.",
+    "teachingSteps": [
+      "When items are divisible, take value per unit weight in descending order. A partially taken item contributes the same fraction of its total weight and total value.",
+      "Take full higher-density items while they fit",
+      "Take only the needed fraction of the boundary item"
+    ],
+    "foundation": {
+      "title": "Fractional items and value density",
+      "idea": "When items are divisible, take value per unit weight in descending order. A partially taken item contributes the same fraction of its total weight and total value. Divisible items let capacity be exchanged in small units. Value density tells which unit is best; after higher-density items are exhausted, at most one boundary item need be fractional.",
+      "terms": [
+        "Density: value / weight.",
+        "Fraction: taken weight divided by full weight.",
+        "0-1 contrast: taking half is not permitted there."
+      ],
+      "example": "Item weight 5 and value 20 contributes value 8 when taking 2 of its 5 weight units."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "An item weighs 7 and is worth 21. Taking 3.5 weight units contributes how much value?",
+        "answer": 10.5,
+        "explanation": "Take one half of the item and one half of its total value.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "Capacity 5 with items (weight,value)=(2,12),(3,15),(5,20) yields what maximum fractional value?",
+        "answer": 27,
+        "explanation": "Densities are 6,5,4. Take all of the first two for 12+15=27.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "What enables the standard fractional-knapsack greedy proof?",
+        "options": [
+          "Every item must be taken whole.",
+          "The highest total value always is the best first item.",
+          "Weight can be exchanged in fractional units between items."
+        ],
+        "answer": 2,
+        "explanation": "Higher value per unit weight improves or preserves value for the same occupied capacity."
+      },
+      {
+        "type": "order",
+        "prompt": "Fill a divisible-item bag by density.",
+        "items": [
+          "Compare value per unit weight",
+          "Take full higher-density items while they fit",
+          "Take only the needed fraction of the boundary item"
+        ],
+        "explanation": "Sort densities for the simple method; a separate selection method can avoid a full sort."
+      }
+    ],
+    "algoLab": "fractional",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0,
+    "excerpt": "of the experience might not be doing it. Let's let's start another algorithm which is fractional. It is also very, very easy algorithm. Let's just start this. So the idea is this, suppose, suppose you are a thief. Okay. I don't want to make myself as thief. So let's suppose you are thief and you, you go to robbery into some of the house and then okay.",
+    "sourceReferences": [
+      {
+        "lecture": 138,
+        "file": "138. 35a.Fractional Knapsack.mp4",
+        "start": 0,
+        "end": 28.9,
+        "text": "of the experience might not be doing it. Let's let's start another algorithm which is fractional. It is also very, very easy algorithm. Let's just start this. So the idea is this, suppose, suppose you are a thief. Okay. I don't want to make myself as thief. So let's suppose you are thief and you, you go to robbery into some of the house and then okay."
+      },
+      {
+        "lecture": 138,
+        "file": "138. 35a.Fractional Knapsack.mp4",
+        "start": 58.88,
+        "end": 86.42,
+        "text": "we cannot fill this bag with more than 15 kgs and in that house there are multiple items that you are having and one item is having weight 12 kgs and the profit that you are getting will be 4 rupees or 4 dollars or something like that right? means this is 12 kgs but this is only 4 rupees this is 1 kg and this is 2 rupees this is 2 kgs and this is 2 rupees like that right? everyone is having some weight and some profit"
+      },
+      {
+        "lecture": 138,
+        "file": "138. 35a.Fractional Knapsack.mp4",
+        "start": 1426.2,
+        "end": 1459.45,
+        "text": "now you can do this example as an homework where I have profits and weights and m is 10, you can do it as an homework sorry I do not have the answers with me but yeah you can do it as an homework and you can just verify in the class if you are getting the same answer so how does the algorithm look like? it is very easy so how does the increasing not increasing sorry decreasing right decreasing order of profit upon weight initialize that I have not taken any fraction yet"
+      }
+    ]
+  },
+  {
+    "id": 416,
+    "lecture": 138,
+    "title": "Fractional items and value density · Apply",
+    "concept": "When items are divisible, take value per unit weight in descending order. A partially taken item contributes the same fraction of its total weight and total value. Divisible items let capacity be exchanged in small units. Value density tells which unit is best; after higher-density items are exhausted, at most one boundary item need be fractional.",
+    "teachingSteps": [
+      "When items are divisible, take value per unit weight in descending order. A partially taken item contributes the same fraction of its total weight and total value.",
+      "Take full higher-density items while they fit",
+      "Take only the needed fraction of the boundary item"
+    ],
+    "foundation": {
+      "title": "Fractional items and value density",
+      "idea": "When items are divisible, take value per unit weight in descending order. A partially taken item contributes the same fraction of its total weight and total value. Divisible items let capacity be exchanged in small units. Value density tells which unit is best; after higher-density items are exhausted, at most one boundary item need be fractional.",
+      "terms": [
+        "Density: value / weight.",
+        "Fraction: taken weight divided by full weight.",
+        "0-1 contrast: taking half is not permitted there."
+      ],
+      "example": "Item weight 5 and value 20 contributes value 8 when taking 2 of its 5 weight units."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A packing service can divide items. An item weighs 4 and is worth 16. Taking 2 weight units contributes how much value?",
+        "answer": 8,
+        "explanation": "Take one half of the item and one half of its total value.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "Capacity 5 with items (weight,value)=(2,12),(3,15),(5,20) yields what maximum fractional value?",
+        "answer": 27,
+        "explanation": "Densities are 6,5,4. Take all of the first two for 12+15=27.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "What enables the standard fractional-knapsack greedy proof?",
+        "options": [
+          "The highest total value always is the best first item.",
+          "Weight can be exchanged in fractional units between items.",
+          "Every item must be taken whole."
+        ],
+        "answer": 1,
+        "explanation": "Higher value per unit weight improves or preserves value for the same occupied capacity."
+      },
+      {
+        "type": "order",
+        "prompt": "Fill a divisible-item bag by density.",
+        "items": [
+          "Compare value per unit weight",
+          "Take full higher-density items while they fit",
+          "Take only the needed fraction of the boundary item"
+        ],
+        "explanation": "Sort densities for the simple method; a separate selection method can avoid a full sort."
+      }
+    ],
+    "algoLab": "fractional",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0,
+    "excerpt": "of the experience might not be doing it. Let's let's start another algorithm which is fractional. It is also very, very easy algorithm. Let's just start this. So the idea is this, suppose, suppose you are a thief. Okay. I don't want to make myself as thief. So let's suppose you are thief and you, you go to robbery into some of the house and then okay.",
+    "sourceReferences": [
+      {
+        "lecture": 138,
+        "file": "138. 35a.Fractional Knapsack.mp4",
+        "start": 0,
+        "end": 28.9,
+        "text": "of the experience might not be doing it. Let's let's start another algorithm which is fractional. It is also very, very easy algorithm. Let's just start this. So the idea is this, suppose, suppose you are a thief. Okay. I don't want to make myself as thief. So let's suppose you are thief and you, you go to robbery into some of the house and then okay."
+      },
+      {
+        "lecture": 138,
+        "file": "138. 35a.Fractional Knapsack.mp4",
+        "start": 58.88,
+        "end": 86.42,
+        "text": "we cannot fill this bag with more than 15 kgs and in that house there are multiple items that you are having and one item is having weight 12 kgs and the profit that you are getting will be 4 rupees or 4 dollars or something like that right? means this is 12 kgs but this is only 4 rupees this is 1 kg and this is 2 rupees this is 2 kgs and this is 2 rupees like that right? everyone is having some weight and some profit"
+      },
+      {
+        "lecture": 138,
+        "file": "138. 35a.Fractional Knapsack.mp4",
+        "start": 1426.2,
+        "end": 1459.45,
+        "text": "now you can do this example as an homework where I have profits and weights and m is 10, you can do it as an homework sorry I do not have the answers with me but yeah you can do it as an homework and you can just verify in the class if you are getting the same answer so how does the algorithm look like? it is very easy so how does the increasing not increasing sorry decreasing right decreasing order of profit upon weight initialize that I have not taken any fraction yet"
+      }
+    ]
+  },
+  {
+    "id": 417,
+    "lecture": 139,
+    "title": "Select a density threshold without full sorting · Discover",
+    "concept": "A linear-time fractional-knapsack method partitions items around a selected value-density threshold and recurses only on the side containing the capacity boundary. It requires linear-time selection rather than a complete sort. Divisible items let capacity be exchanged in small units. Value density tells which unit is best; after higher-density items are exhausted, at most one boundary item need be fractional.",
+    "teachingSteps": [
+      "A linear-time fractional-knapsack method partitions items around a selected value-density threshold and recurses only on the side containing the capacity boundary. It requires linear-time selection rather than a complete sort.",
+      "Take full higher-density items while they fit",
+      "Take only the needed fraction of the boundary item"
+    ],
+    "foundation": {
+      "title": "Select a density threshold without full sorting",
+      "idea": "A linear-time fractional-knapsack method partitions items around a selected value-density threshold and recurses only on the side containing the capacity boundary. It requires linear-time selection rather than a complete sort. Divisible items let capacity be exchanged in small units. Value density tells which unit is best; after higher-density items are exhausted, at most one boundary item need be fractional.",
+      "terms": [
+        "Density: value / weight.",
+        "Fraction: taken weight divided by full weight.",
+        "0-1 contrast: taking half is not permitted there."
+      ],
+      "example": "Item weight 5 and value 20 contributes value 8 when taking 2 of its 5 weight units."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "An item weighs 7 and is worth 21. Taking 3.5 weight units contributes how much value?",
+        "answer": 10.5,
+        "explanation": "Take one half of the item and one half of its total value.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "Capacity 5 with items (weight,value)=(2,12),(3,15),(5,20) yields what maximum fractional value?",
+        "answer": 27,
+        "explanation": "Densities are 6,5,4. Take all of the first two for 12+15=27.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains select a density threshold without full sorting?",
+        "options": [
+          "Input assumptions never affect correctness.",
+          "One successful example proves every input.",
+          "A linear-time fractional-knapsack method partitions items around a selected value-density threshold and recurses only on the side containing the capacity boundary."
+        ],
+        "answer": 2,
+        "explanation": "A linear-time fractional-knapsack method partitions items around a selected value-density threshold and recurses only on the side containing the capacity boundary. It requires linear-time selection rather than a complete sort."
+      },
+      {
+        "type": "order",
+        "prompt": "Fill a divisible-item bag by density.",
+        "items": [
+          "Compare value per unit weight",
+          "Take full higher-density items while they fit",
+          "Take only the needed fraction of the boundary item"
+        ],
+        "explanation": "Sort densities for the simple method; a separate selection method can avoid a full sort."
+      }
+    ],
+    "algoLab": "fractional-select",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 311.68,
+    "excerpt": "So I will say that I will prefer obviously this G because based on my algo, algo is saying that all the items whose profit goes up on weight So if I just say in terms of sets, if I tell you the 3 sets, then obviously I will prefer this G and then I will prefer E, then I will prefer L I mean if I have to choose something, first I will choose G, if G is completely empty, then I will come to E and if it is completely empty, then I will come to L Because profit up on weight is the most in G",
+    "sourceReferences": [
+      {
+        "lecture": 139,
+        "file": "139. 35b. [Optional] Fractional Knapsack in O(n).mp4",
+        "start": 311.68,
+        "end": 339.28,
+        "text": "So I will say that I will prefer obviously this G because based on my algo, algo is saying that all the items whose profit goes up on weight So if I just say in terms of sets, if I tell you the 3 sets, then obviously I will prefer this G and then I will prefer E, then I will prefer L I mean if I have to choose something, first I will choose G, if G is completely empty, then I will come to E and if it is completely empty, then I will come to L Because profit up on weight is the most in G"
+      },
+      {
+        "lecture": 139,
+        "file": "139. 35b. [Optional] Fractional Knapsack in O(n).mp4",
+        "start": 339.8,
+        "end": 369.74,
+        "text": "and I am prefering the items which are having greater profit upon weight right? so I will say that I will directly compare WG with my capacity if WG is less than equal to capacity then I will say this only once if WG is less than equal to capacity then whatever M or whatever you are saying take M or C whatever symbol you are using so in just one word I will say that okay take everything okay if WG is less than equal to M"
+      },
+      {
+        "lecture": 139,
+        "file": "139. 35b. [Optional] Fractional Knapsack in O(n).mp4",
+        "start": 544.32,
+        "end": 572.49,
+        "text": "Which means, sorry WG is not small, which means WG itself is greater than up to C. I mean, I wanted to prefer this, and the weights here are more than C. So, I will say, at least discard them, finally. I mean, I discarded the size of NY2, I will only come to G, I will say that I am only considering about this G. Because I prefer G, and I am not able to take G completely, because the weight of this whole thing is going from my capacity."
+      }
+    ]
+  },
+  {
+    "id": 418,
+    "lecture": 139,
+    "title": "Select a density threshold without full sorting · Trace",
+    "concept": "A linear-time fractional-knapsack method partitions items around a selected value-density threshold and recurses only on the side containing the capacity boundary. It requires linear-time selection rather than a complete sort. Divisible items let capacity be exchanged in small units. Value density tells which unit is best; after higher-density items are exhausted, at most one boundary item need be fractional.",
+    "teachingSteps": [
+      "A linear-time fractional-knapsack method partitions items around a selected value-density threshold and recurses only on the side containing the capacity boundary. It requires linear-time selection rather than a complete sort.",
+      "Take full higher-density items while they fit",
+      "Take only the needed fraction of the boundary item"
+    ],
+    "foundation": {
+      "title": "Select a density threshold without full sorting",
+      "idea": "A linear-time fractional-knapsack method partitions items around a selected value-density threshold and recurses only on the side containing the capacity boundary. It requires linear-time selection rather than a complete sort. Divisible items let capacity be exchanged in small units. Value density tells which unit is best; after higher-density items are exhausted, at most one boundary item need be fractional.",
+      "terms": [
+        "Density: value / weight.",
+        "Fraction: taken weight divided by full weight.",
+        "0-1 contrast: taking half is not permitted there."
+      ],
+      "example": "Item weight 5 and value 20 contributes value 8 when taking 2 of its 5 weight units."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "An item weighs 4 and is worth 16. Taking 2 weight units contributes how much value?",
+        "answer": 8,
+        "explanation": "Take one half of the item and one half of its total value.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "Capacity 5 with items (weight,value)=(2,12),(3,15),(5,20) yields what maximum fractional value?",
+        "answer": 27,
+        "explanation": "Densities are 6,5,4. Take all of the first two for 12+15=27.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "What enables the standard fractional-knapsack greedy proof?",
+        "options": [
+          "The highest total value always is the best first item.",
+          "Weight can be exchanged in fractional units between items.",
+          "Every item must be taken whole."
+        ],
+        "answer": 1,
+        "explanation": "Higher value per unit weight improves or preserves value for the same occupied capacity."
+      },
+      {
+        "type": "order",
+        "prompt": "Fill a divisible-item bag by density.",
+        "items": [
+          "Compare value per unit weight",
+          "Take full higher-density items while they fit",
+          "Take only the needed fraction of the boundary item"
+        ],
+        "explanation": "Sort densities for the simple method; a separate selection method can avoid a full sort."
+      }
+    ],
+    "algoLab": "fractional-select",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 311.68,
+    "excerpt": "So I will say that I will prefer obviously this G because based on my algo, algo is saying that all the items whose profit goes up on weight So if I just say in terms of sets, if I tell you the 3 sets, then obviously I will prefer this G and then I will prefer E, then I will prefer L I mean if I have to choose something, first I will choose G, if G is completely empty, then I will come to E and if it is completely empty, then I will come to L Because profit up on weight is the most in G",
+    "sourceReferences": [
+      {
+        "lecture": 139,
+        "file": "139. 35b. [Optional] Fractional Knapsack in O(n).mp4",
+        "start": 311.68,
+        "end": 339.28,
+        "text": "So I will say that I will prefer obviously this G because based on my algo, algo is saying that all the items whose profit goes up on weight So if I just say in terms of sets, if I tell you the 3 sets, then obviously I will prefer this G and then I will prefer E, then I will prefer L I mean if I have to choose something, first I will choose G, if G is completely empty, then I will come to E and if it is completely empty, then I will come to L Because profit up on weight is the most in G"
+      },
+      {
+        "lecture": 139,
+        "file": "139. 35b. [Optional] Fractional Knapsack in O(n).mp4",
+        "start": 339.8,
+        "end": 369.74,
+        "text": "and I am prefering the items which are having greater profit upon weight right? so I will say that I will directly compare WG with my capacity if WG is less than equal to capacity then I will say this only once if WG is less than equal to capacity then whatever M or whatever you are saying take M or C whatever symbol you are using so in just one word I will say that okay take everything okay if WG is less than equal to M"
+      },
+      {
+        "lecture": 139,
+        "file": "139. 35b. [Optional] Fractional Knapsack in O(n).mp4",
+        "start": 544.32,
+        "end": 572.49,
+        "text": "Which means, sorry WG is not small, which means WG itself is greater than up to C. I mean, I wanted to prefer this, and the weights here are more than C. So, I will say, at least discard them, finally. I mean, I discarded the size of NY2, I will only come to G, I will say that I am only considering about this G. Because I prefer G, and I am not able to take G completely, because the weight of this whole thing is going from my capacity."
+      }
+    ]
+  },
+  {
+    "id": 419,
+    "lecture": 139,
+    "title": "Select a density threshold without full sorting · Apply",
+    "concept": "A linear-time fractional-knapsack method partitions items around a selected value-density threshold and recurses only on the side containing the capacity boundary. It requires linear-time selection rather than a complete sort. Divisible items let capacity be exchanged in small units. Value density tells which unit is best; after higher-density items are exhausted, at most one boundary item need be fractional.",
+    "teachingSteps": [
+      "A linear-time fractional-knapsack method partitions items around a selected value-density threshold and recurses only on the side containing the capacity boundary. It requires linear-time selection rather than a complete sort.",
+      "Take full higher-density items while they fit",
+      "Take only the needed fraction of the boundary item"
+    ],
+    "foundation": {
+      "title": "Select a density threshold without full sorting",
+      "idea": "A linear-time fractional-knapsack method partitions items around a selected value-density threshold and recurses only on the side containing the capacity boundary. It requires linear-time selection rather than a complete sort. Divisible items let capacity be exchanged in small units. Value density tells which unit is best; after higher-density items are exhausted, at most one boundary item need be fractional.",
+      "terms": [
+        "Density: value / weight.",
+        "Fraction: taken weight divided by full weight.",
+        "0-1 contrast: taking half is not permitted there."
+      ],
+      "example": "Item weight 5 and value 20 contributes value 8 when taking 2 of its 5 weight units."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A packing service can divide items. An item weighs 5 and is worth 10. Taking 2.5 weight units contributes how much value?",
+        "answer": 5,
+        "explanation": "Take one half of the item and one half of its total value.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "Capacity 5 with items (weight,value)=(2,12),(3,15),(5,20) yields what maximum fractional value?",
+        "answer": 27,
+        "explanation": "Densities are 6,5,4. Take all of the first two for 12+15=27.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "What enables the standard fractional-knapsack greedy proof?",
+        "options": [
+          "Weight can be exchanged in fractional units between items.",
+          "Every item must be taken whole.",
+          "The highest total value always is the best first item."
+        ],
+        "answer": 0,
+        "explanation": "Higher value per unit weight improves or preserves value for the same occupied capacity."
+      },
+      {
+        "type": "order",
+        "prompt": "Fill a divisible-item bag by density.",
+        "items": [
+          "Compare value per unit weight",
+          "Take full higher-density items while they fit",
+          "Take only the needed fraction of the boundary item"
+        ],
+        "explanation": "Sort densities for the simple method; a separate selection method can avoid a full sort."
+      }
+    ],
+    "algoLab": "fractional-select",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 311.68,
+    "excerpt": "So I will say that I will prefer obviously this G because based on my algo, algo is saying that all the items whose profit goes up on weight So if I just say in terms of sets, if I tell you the 3 sets, then obviously I will prefer this G and then I will prefer E, then I will prefer L I mean if I have to choose something, first I will choose G, if G is completely empty, then I will come to E and if it is completely empty, then I will come to L Because profit up on weight is the most in G",
+    "sourceReferences": [
+      {
+        "lecture": 139,
+        "file": "139. 35b. [Optional] Fractional Knapsack in O(n).mp4",
+        "start": 311.68,
+        "end": 339.28,
+        "text": "So I will say that I will prefer obviously this G because based on my algo, algo is saying that all the items whose profit goes up on weight So if I just say in terms of sets, if I tell you the 3 sets, then obviously I will prefer this G and then I will prefer E, then I will prefer L I mean if I have to choose something, first I will choose G, if G is completely empty, then I will come to E and if it is completely empty, then I will come to L Because profit up on weight is the most in G"
+      },
+      {
+        "lecture": 139,
+        "file": "139. 35b. [Optional] Fractional Knapsack in O(n).mp4",
+        "start": 339.8,
+        "end": 369.74,
+        "text": "and I am prefering the items which are having greater profit upon weight right? so I will say that I will directly compare WG with my capacity if WG is less than equal to capacity then I will say this only once if WG is less than equal to capacity then whatever M or whatever you are saying take M or C whatever symbol you are using so in just one word I will say that okay take everything okay if WG is less than equal to M"
+      },
+      {
+        "lecture": 139,
+        "file": "139. 35b. [Optional] Fractional Knapsack in O(n).mp4",
+        "start": 544.32,
+        "end": 572.49,
+        "text": "Which means, sorry WG is not small, which means WG itself is greater than up to C. I mean, I wanted to prefer this, and the weights here are more than C. So, I will say, at least discard them, finally. I mean, I discarded the size of NY2, I will only come to G, I will say that I am only considering about this G. Because I prefer G, and I am not able to take G completely, because the weight of this whole thing is going from my capacity."
+      }
+    ]
+  },
+  {
+    "id": 420,
+    "lecture": 140,
+    "title": "Store and reuse subproblem answers · Discover",
+    "concept": "Dynamic programming defines states and transitions, then saves overlapping subproblem results. Memoization computes states on demand; tabulation processes them in a dependency-respecting order. A state describes the smallest information needed to solve a subproblem. A correct transition combines earlier states; caching or dependency-respecting table order avoids recomputing the same state.",
+    "teachingSteps": [
+      "Dynamic programming defines states and transitions, then saves overlapping subproblem results. Memoization computes states on demand; tabulation processes them in a dependency-respecting order.",
+      "List the predecessor states of each transition",
+      "Evaluate once in a dependency-respecting order"
+    ],
+    "foundation": {
+      "title": "Store and reuse subproblem answers",
+      "idea": "Dynamic programming defines states and transitions, then saves overlapping subproblem results. Memoization computes states on demand; tabulation processes them in a dependency-respecting order. A state describes the smallest information needed to solve a subproblem. A correct transition combines earlier states; caching or dependency-respecting table order avoids recomputing the same state.",
+      "terms": [
+        "State: one subproblem identity.",
+        "Transition: how predecessor answers determine it.",
+        "Base case: a state with a directly known answer."
+      ],
+      "example": "For values [4,1,5], the best nonadjacent sum is 9 by taking 4 and 5. A prefix state compares skipping 5 with adding it to the prefix before its neighbor."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "What maximum sum can be selected from these values if no two selected positions are adjacent?",
+        "answer": 21,
+        "explanation": "At each prefix, compare skipping its last value with taking it plus the best prefix before its neighbor.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Position",
+            "Value"
+          ],
+          "rows": [
+            [
+              1,
+              6
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              7
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              5,
+              8
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Prefix states indexed 0 through 4 contain how many distinct states, including the empty prefix?",
+        "answer": 5,
+        "explanation": "The empty prefix is a real base state, so count both endpoints.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains store and reuse subproblem answers?",
+        "options": [
+          "One successful example proves every input.",
+          "Dynamic programming defines states and transitions, then saves overlapping subproblem results.",
+          "Input assumptions never affect correctness."
+        ],
+        "answer": 1,
+        "explanation": "Dynamic programming defines states and transitions, then saves overlapping subproblem results. Memoization computes states on demand; tabulation processes them in a dependency-respecting order."
+      },
+      {
+        "type": "order",
+        "prompt": "Design a reusable-state solution.",
+        "items": [
+          "Define the state and base cases",
+          "List the predecessor states of each transition",
+          "Evaluate once in a dependency-respecting order"
+        ],
+        "explanation": "State identity, dependencies and base cases come before the evaluation order."
+      }
+    ],
+    "algoLab": "dp",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0,
+    "excerpt": "Okay, so let's start dynamic programming now. Dynamic programming or we also call DP for short is one another algorithm design paradigm, which means that we have seen divide and concur, we have seen greedy. Similarly, there is something called dynamic programming. And then once we understand basics of dynamic programming, then I will just ask you to compare DP and greedy, DP and divide and concur and we will have a",
+    "sourceReferences": [
+      {
+        "lecture": 140,
+        "file": "140_36a_Introduction_to_DP_Two_Approaches_Why_we_call_it.mp4",
+        "start": 0,
+        "end": 28.52,
+        "text": "Okay, so let's start dynamic programming now. Dynamic programming or we also call DP for short is one another algorithm design paradigm, which means that we have seen divide and concur, we have seen greedy. Similarly, there is something called dynamic programming. And then once we understand basics of dynamic programming, then I will just ask you to compare DP and greedy, DP and divide and concur and we will have a"
+      },
+      {
+        "lecture": 140,
+        "file": "140_36a_Introduction_to_DP_Two_Approaches_Why_we_call_it.mp4",
+        "start": 28.67,
+        "end": 55.03,
+        "text": "fair comparison between all of the techniques that we have seen till now. But let's first understand this dynamic programming. In overall sense, I can say it is basically breaking a big problem into smaller problems. And there is more to it. It's not just that breaking a big problem to a smaller problem. So as the lecture proceed, you will get to. So that's why I put dot, dot, dot. There is more to it. So let's see that what is dynamic programming."
+      },
+      {
+        "lecture": 140,
+        "file": "140_36a_Introduction_to_DP_Two_Approaches_Why_we_call_it.mp4",
+        "start": 55.88,
+        "end": 81.19,
+        "text": "So generally, like everyone motivated the dynamic programming idea with the Fibonacci numbers because it is very easy to understand. So let's have this example in place and let's just motivate the idea using the Fibonacci numbers. Suppose I have a series of Fibonacci numbers, which is 1, 1, 2, and then you are adding this 1 and 2, you will be getting 3, you will add this 2 and 3, you will be getting 5 like that. Then if I ask you that what would be the recursive equation for this particular number series of numbers?"
+      }
+    ]
+  },
+  {
+    "id": 421,
+    "lecture": 140,
+    "title": "Store and reuse subproblem answers · Trace",
+    "concept": "Dynamic programming defines states and transitions, then saves overlapping subproblem results. Memoization computes states on demand; tabulation processes them in a dependency-respecting order. A state describes the smallest information needed to solve a subproblem. A correct transition combines earlier states; caching or dependency-respecting table order avoids recomputing the same state.",
+    "teachingSteps": [
+      "Dynamic programming defines states and transitions, then saves overlapping subproblem results. Memoization computes states on demand; tabulation processes them in a dependency-respecting order.",
+      "List the predecessor states of each transition",
+      "Evaluate once in a dependency-respecting order"
+    ],
+    "foundation": {
+      "title": "Store and reuse subproblem answers",
+      "idea": "Dynamic programming defines states and transitions, then saves overlapping subproblem results. Memoization computes states on demand; tabulation processes them in a dependency-respecting order. A state describes the smallest information needed to solve a subproblem. A correct transition combines earlier states; caching or dependency-respecting table order avoids recomputing the same state.",
+      "terms": [
+        "State: one subproblem identity.",
+        "Transition: how predecessor answers determine it.",
+        "Base case: a state with a directly known answer."
+      ],
+      "example": "For values [4,1,5], the best nonadjacent sum is 9 by taking 4 and 5. A prefix state compares skipping 5 with adding it to the prefix before its neighbor."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "What maximum sum can be selected from these values if no two selected positions are adjacent?",
+        "answer": 15,
+        "explanation": "At each prefix, compare skipping its last value with taking it plus the best prefix before its neighbor.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Position",
+            "Value"
+          ],
+          "rows": [
+            [
+              1,
+              4
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              4,
+              2
+            ],
+            [
+              5,
+              6
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Prefix states indexed 0 through 5 contain how many distinct states, including the empty prefix?",
+        "answer": 6,
+        "explanation": "The empty prefix is a real base state, so count both endpoints.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "What makes a memoized implementation avoid repeated-state work?",
+        "options": [
+          "Store answers by the complete subproblem identity and reuse them.",
+          "Always recompute every recursive call.",
+          "Use a different random answer at each call."
+        ],
+        "answer": 0,
+        "explanation": "Memoization evaluates the same state only once even if several parents request it."
+      },
+      {
+        "type": "order",
+        "prompt": "Design a reusable-state solution.",
+        "items": [
+          "Define the state and base cases",
+          "List the predecessor states of each transition",
+          "Evaluate once in a dependency-respecting order"
+        ],
+        "explanation": "State identity, dependencies and base cases come before the evaluation order."
+      }
+    ],
+    "algoLab": "dp",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0,
+    "excerpt": "Okay, so let's start dynamic programming now. Dynamic programming or we also call DP for short is one another algorithm design paradigm, which means that we have seen divide and concur, we have seen greedy. Similarly, there is something called dynamic programming. And then once we understand basics of dynamic programming, then I will just ask you to compare DP and greedy, DP and divide and concur and we will have a",
+    "sourceReferences": [
+      {
+        "lecture": 140,
+        "file": "140_36a_Introduction_to_DP_Two_Approaches_Why_we_call_it.mp4",
+        "start": 0,
+        "end": 28.52,
+        "text": "Okay, so let's start dynamic programming now. Dynamic programming or we also call DP for short is one another algorithm design paradigm, which means that we have seen divide and concur, we have seen greedy. Similarly, there is something called dynamic programming. And then once we understand basics of dynamic programming, then I will just ask you to compare DP and greedy, DP and divide and concur and we will have a"
+      },
+      {
+        "lecture": 140,
+        "file": "140_36a_Introduction_to_DP_Two_Approaches_Why_we_call_it.mp4",
+        "start": 28.67,
+        "end": 55.03,
+        "text": "fair comparison between all of the techniques that we have seen till now. But let's first understand this dynamic programming. In overall sense, I can say it is basically breaking a big problem into smaller problems. And there is more to it. It's not just that breaking a big problem to a smaller problem. So as the lecture proceed, you will get to. So that's why I put dot, dot, dot. There is more to it. So let's see that what is dynamic programming."
+      },
+      {
+        "lecture": 140,
+        "file": "140_36a_Introduction_to_DP_Two_Approaches_Why_we_call_it.mp4",
+        "start": 55.88,
+        "end": 81.19,
+        "text": "So generally, like everyone motivated the dynamic programming idea with the Fibonacci numbers because it is very easy to understand. So let's have this example in place and let's just motivate the idea using the Fibonacci numbers. Suppose I have a series of Fibonacci numbers, which is 1, 1, 2, and then you are adding this 1 and 2, you will be getting 3, you will add this 2 and 3, you will be getting 5 like that. Then if I ask you that what would be the recursive equation for this particular number series of numbers?"
+      }
+    ]
+  },
+  {
+    "id": 422,
+    "lecture": 140,
+    "title": "Store and reuse subproblem answers · Apply",
+    "concept": "Dynamic programming defines states and transitions, then saves overlapping subproblem results. Memoization computes states on demand; tabulation processes them in a dependency-respecting order. A state describes the smallest information needed to solve a subproblem. A correct transition combines earlier states; caching or dependency-respecting table order avoids recomputing the same state.",
+    "teachingSteps": [
+      "Dynamic programming defines states and transitions, then saves overlapping subproblem results. Memoization computes states on demand; tabulation processes them in a dependency-respecting order.",
+      "List the predecessor states of each transition",
+      "Evaluate once in a dependency-respecting order"
+    ],
+    "foundation": {
+      "title": "Store and reuse subproblem answers",
+      "idea": "Dynamic programming defines states and transitions, then saves overlapping subproblem results. Memoization computes states on demand; tabulation processes them in a dependency-respecting order. A state describes the smallest information needed to solve a subproblem. A correct transition combines earlier states; caching or dependency-respecting table order avoids recomputing the same state.",
+      "terms": [
+        "State: one subproblem identity.",
+        "Transition: how predecessor answers determine it.",
+        "Base case: a state with a directly known answer."
+      ],
+      "example": "For values [4,1,5], the best nonadjacent sum is 9 by taking 4 and 5. A prefix state compares skipping 5 with adding it to the prefix before its neighbor."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A planning service reuses prefix-state answers. What maximum sum can be selected from these values if no two selected positions are adjacent?",
+        "answer": 18,
+        "explanation": "At each prefix, compare skipping its last value with taking it plus the best prefix before its neighbor.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Position",
+            "Value"
+          ],
+          "rows": [
+            [
+              1,
+              5
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              3,
+              6
+            ],
+            [
+              4,
+              3
+            ],
+            [
+              5,
+              7
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Prefix states indexed 0 through 6 contain how many distinct states, including the empty prefix?",
+        "answer": 7,
+        "explanation": "The empty prefix is a real base state, so count both endpoints.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "What makes a memoized implementation avoid repeated-state work?",
+        "options": [
+          "Always recompute every recursive call.",
+          "Use a different random answer at each call.",
+          "Store answers by the complete subproblem identity and reuse them."
+        ],
+        "answer": 2,
+        "explanation": "Memoization evaluates the same state only once even if several parents request it."
+      },
+      {
+        "type": "order",
+        "prompt": "Design a reusable-state solution.",
+        "items": [
+          "Define the state and base cases",
+          "List the predecessor states of each transition",
+          "Evaluate once in a dependency-respecting order"
+        ],
+        "explanation": "State identity, dependencies and base cases come before the evaluation order."
+      }
+    ],
+    "algoLab": "dp",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0,
+    "excerpt": "Okay, so let's start dynamic programming now. Dynamic programming or we also call DP for short is one another algorithm design paradigm, which means that we have seen divide and concur, we have seen greedy. Similarly, there is something called dynamic programming. And then once we understand basics of dynamic programming, then I will just ask you to compare DP and greedy, DP and divide and concur and we will have a",
+    "sourceReferences": [
+      {
+        "lecture": 140,
+        "file": "140_36a_Introduction_to_DP_Two_Approaches_Why_we_call_it.mp4",
+        "start": 0,
+        "end": 28.52,
+        "text": "Okay, so let's start dynamic programming now. Dynamic programming or we also call DP for short is one another algorithm design paradigm, which means that we have seen divide and concur, we have seen greedy. Similarly, there is something called dynamic programming. And then once we understand basics of dynamic programming, then I will just ask you to compare DP and greedy, DP and divide and concur and we will have a"
+      },
+      {
+        "lecture": 140,
+        "file": "140_36a_Introduction_to_DP_Two_Approaches_Why_we_call_it.mp4",
+        "start": 28.67,
+        "end": 55.03,
+        "text": "fair comparison between all of the techniques that we have seen till now. But let's first understand this dynamic programming. In overall sense, I can say it is basically breaking a big problem into smaller problems. And there is more to it. It's not just that breaking a big problem to a smaller problem. So as the lecture proceed, you will get to. So that's why I put dot, dot, dot. There is more to it. So let's see that what is dynamic programming."
+      },
+      {
+        "lecture": 140,
+        "file": "140_36a_Introduction_to_DP_Two_Approaches_Why_we_call_it.mp4",
+        "start": 55.88,
+        "end": 81.19,
+        "text": "So generally, like everyone motivated the dynamic programming idea with the Fibonacci numbers because it is very easy to understand. So let's have this example in place and let's just motivate the idea using the Fibonacci numbers. Suppose I have a series of Fibonacci numbers, which is 1, 1, 2, and then you are adding this 1 and 2, you will be getting 3, you will add this 2 and 3, you will be getting 5 like that. Then if I ask you that what would be the recursive equation for this particular number series of numbers?"
+      }
+    ]
+  },
+  {
+    "id": 423,
+    "lecture": 141,
+    "title": "Count one-step and two-step climbs · Discover",
+    "concept": "Let ways(n) count ordered climbs totaling n with steps of size one or two. Then ways(0)=1, ways(1)=1 and ways(n)=ways(n-1)+ways(n-2). Both stair tasks use one- and two-step transitions, but their state values differ. Counting adds disjoint last-step cases; cost optimization takes the minimum of allowed paid predecessors.",
+    "teachingSteps": [
+      "Let ways(n) count ordered climbs totaling n with steps of size one or two. Then ways(0)=1, ways(1)=1 and ways(n)=ways(n-1)+ways(n-2).",
+      "Initialize the permitted starting states",
+      "Combine one-step and two-step predecessors appropriately"
+    ],
+    "foundation": {
+      "title": "Count one-step and two-step climbs",
+      "idea": "Let ways(n) count ordered climbs totaling n with steps of size one or two. Then ways(0)=1, ways(1)=1 and ways(n)=ways(n-1)+ways(n-2). Both stair tasks use one- and two-step transitions, but their state values differ. Counting adds disjoint last-step cases; cost optimization takes the minimum of allowed paid predecessors.",
+      "terms": [
+        "ways(0)=1: the empty climb.",
+        "Paid cost: includes the cost of the current stair.",
+        "Top: the position beyond the final stair, with no charge."
+      ],
+      "example": "Three units of height have ordered climbs 111,12,21. For costs [10,15,20], start at stair 1 and jump to the free top for total cost 15."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Using steps of size one or two, how many ordered climbs reach height 5?",
+        "answer": 8,
+        "explanation": "Add the ways reaching n-1 and n-2; ways(0)=ways(1)=1.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "How many ordered climbs reach height three using one- and two-step moves?",
+        "answer": 3,
+        "explanation": "The sequences are 111,12,21. Order matters for climbs.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains count one-step and two-step climbs?",
+        "options": [
+          "Let ways(n) count ordered climbs totaling n with steps of size one or two.",
+          "Input assumptions never affect correctness.",
+          "One successful example proves every input."
+        ],
+        "answer": 0,
+        "explanation": "Let ways(n) count ordered climbs totaling n with steps of size one or two. Then ways(0)=1, ways(1)=1 and ways(n)=ways(n-1)+ways(n-2)."
+      },
+      {
+        "type": "order",
+        "prompt": "Solve a stair-state problem.",
+        "items": [
+          "Specify whether the state counts ways or minimizes cost",
+          "Initialize the permitted starting states",
+          "Combine one-step and two-step predecessors appropriately"
+        ],
+        "explanation": "Counting uses sums; minimizing paid costs uses a minimum."
+      }
+    ],
+    "algoLab": "stairs",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 29.77,
+    "excerpt": "let's say this is the example one where I am saying that you are climbing a staircase it takes an step to reach top means we will start from here and there are n steps one two three like this and we are here okay each time you can either climb one or you can climb two steps means either you can go go here directly or you can go here now in how many different ways you can climb to the top",
+    "sourceReferences": [
+      {
+        "lecture": 141,
+        "file": "141. 36b. Example 1- Climbing Stairs.mp4",
+        "start": 29.77,
+        "end": 59.27,
+        "text": "let's say this is the example one where I am saying that you are climbing a staircase it takes an step to reach top means we will start from here and there are n steps one two three like this and we are here okay each time you can either climb one or you can climb two steps means either you can go go here directly or you can go here now in how many different ways you can climb to the top"
+      },
+      {
+        "lecture": 141,
+        "file": "141. 36b. Example 1- Climbing Stairs.mp4",
+        "start": 96.53,
+        "end": 124.79,
+        "text": "then 2 times 2 will go, then 1 time 1 will go, then 2 times 3 times 2 will go, anything can happen, right? then 1 time 1 will go, then 2 times 2 will go, then 3 times 1 will go, means any intermix is also possible and there are many such steps that are possible now they are asking that how many such variations are possible, okay? let's just see this so just to convey this example, see you are here and you want to climb the stairs"
+      },
+      {
+        "lecture": 141,
+        "file": "141. 36b. Example 1- Climbing Stairs.mp4",
+        "start": 125.11,
+        "end": 152.7,
+        "text": "now there are many possibilities you can go one step one step one step you can go two steps you can go one step then two steps then then one step then two two two steps like that right so for example that there are two ways to climb let's suppose the input is two and equal to two means if you want to climb two steps then to climb two steps there are two ways to climb one by one or directly go so there are two ways okay if you want to climb three steps then there are three ways one by one one plus two go or first two go"
+      }
+    ]
+  },
+  {
+    "id": 424,
+    "lecture": 141,
+    "title": "Count one-step and two-step climbs · Trace",
+    "concept": "Let ways(n) count ordered climbs totaling n with steps of size one or two. Then ways(0)=1, ways(1)=1 and ways(n)=ways(n-1)+ways(n-2). Both stair tasks use one- and two-step transitions, but their state values differ. Counting adds disjoint last-step cases; cost optimization takes the minimum of allowed paid predecessors.",
+    "teachingSteps": [
+      "Let ways(n) count ordered climbs totaling n with steps of size one or two. Then ways(0)=1, ways(1)=1 and ways(n)=ways(n-1)+ways(n-2).",
+      "Initialize the permitted starting states",
+      "Combine one-step and two-step predecessors appropriately"
+    ],
+    "foundation": {
+      "title": "Count one-step and two-step climbs",
+      "idea": "Let ways(n) count ordered climbs totaling n with steps of size one or two. Then ways(0)=1, ways(1)=1 and ways(n)=ways(n-1)+ways(n-2). Both stair tasks use one- and two-step transitions, but their state values differ. Counting adds disjoint last-step cases; cost optimization takes the minimum of allowed paid predecessors.",
+      "terms": [
+        "ways(0)=1: the empty climb.",
+        "Paid cost: includes the cost of the current stair.",
+        "Top: the position beyond the final stair, with no charge."
+      ],
+      "example": "Three units of height have ordered climbs 111,12,21. For costs [10,15,20], start at stair 1 and jump to the free top for total cost 15."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Using steps of size one or two, how many ordered climbs reach height 6?",
+        "answer": 13,
+        "explanation": "Add the ways reaching n-1 and n-2; ways(0)=ways(1)=1.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "How many ordered climbs reach height three using one- and two-step moves?",
+        "answer": 3,
+        "explanation": "The sequences are 111,12,21. Order matters for climbs.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Why is ways(0)=1 in this counting recurrence?",
+        "options": [
+          "A nonexistent stair adds a physical step.",
+          "All base states always must be zero.",
+          "The empty sequence is one way to make total height zero."
+        ],
+        "answer": 2,
+        "explanation": "The empty sequence is the neutral counting base needed for larger transitions."
+      },
+      {
+        "type": "order",
+        "prompt": "Solve a stair-state problem.",
+        "items": [
+          "Specify whether the state counts ways or minimizes cost",
+          "Initialize the permitted starting states",
+          "Combine one-step and two-step predecessors appropriately"
+        ],
+        "explanation": "Counting uses sums; minimizing paid costs uses a minimum."
+      }
+    ],
+    "algoLab": "stairs",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 29.77,
+    "excerpt": "let's say this is the example one where I am saying that you are climbing a staircase it takes an step to reach top means we will start from here and there are n steps one two three like this and we are here okay each time you can either climb one or you can climb two steps means either you can go go here directly or you can go here now in how many different ways you can climb to the top",
+    "sourceReferences": [
+      {
+        "lecture": 141,
+        "file": "141. 36b. Example 1- Climbing Stairs.mp4",
+        "start": 29.77,
+        "end": 59.27,
+        "text": "let's say this is the example one where I am saying that you are climbing a staircase it takes an step to reach top means we will start from here and there are n steps one two three like this and we are here okay each time you can either climb one or you can climb two steps means either you can go go here directly or you can go here now in how many different ways you can climb to the top"
+      },
+      {
+        "lecture": 141,
+        "file": "141. 36b. Example 1- Climbing Stairs.mp4",
+        "start": 96.53,
+        "end": 124.79,
+        "text": "then 2 times 2 will go, then 1 time 1 will go, then 2 times 3 times 2 will go, anything can happen, right? then 1 time 1 will go, then 2 times 2 will go, then 3 times 1 will go, means any intermix is also possible and there are many such steps that are possible now they are asking that how many such variations are possible, okay? let's just see this so just to convey this example, see you are here and you want to climb the stairs"
+      },
+      {
+        "lecture": 141,
+        "file": "141. 36b. Example 1- Climbing Stairs.mp4",
+        "start": 125.11,
+        "end": 152.7,
+        "text": "now there are many possibilities you can go one step one step one step you can go two steps you can go one step then two steps then then one step then two two two steps like that right so for example that there are two ways to climb let's suppose the input is two and equal to two means if you want to climb two steps then to climb two steps there are two ways to climb one by one or directly go so there are two ways okay if you want to climb three steps then there are three ways one by one one plus two go or first two go"
+      }
+    ]
+  },
+  {
+    "id": 425,
+    "lecture": 141,
+    "title": "Count one-step and two-step climbs · Apply",
+    "concept": "Let ways(n) count ordered climbs totaling n with steps of size one or two. Then ways(0)=1, ways(1)=1 and ways(n)=ways(n-1)+ways(n-2). Both stair tasks use one- and two-step transitions, but their state values differ. Counting adds disjoint last-step cases; cost optimization takes the minimum of allowed paid predecessors.",
+    "teachingSteps": [
+      "Let ways(n) count ordered climbs totaling n with steps of size one or two. Then ways(0)=1, ways(1)=1 and ways(n)=ways(n-1)+ways(n-2).",
+      "Initialize the permitted starting states",
+      "Combine one-step and two-step predecessors appropriately"
+    ],
+    "foundation": {
+      "title": "Count one-step and two-step climbs",
+      "idea": "Let ways(n) count ordered climbs totaling n with steps of size one or two. Then ways(0)=1, ways(1)=1 and ways(n)=ways(n-1)+ways(n-2). Both stair tasks use one- and two-step transitions, but their state values differ. Counting adds disjoint last-step cases; cost optimization takes the minimum of allowed paid predecessors.",
+      "terms": [
+        "ways(0)=1: the empty climb.",
+        "Paid cost: includes the cost of the current stair.",
+        "Top: the position beyond the final stair, with no charge."
+      ],
+      "example": "Three units of height have ordered climbs 111,12,21. For costs [10,15,20], start at stair 1 and jump to the free top for total cost 15."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A staircase planner counts or prices allowed moves. Using steps of size one or two, how many ordered climbs reach height 7?",
+        "answer": 21,
+        "explanation": "Add the ways reaching n-1 and n-2; ways(0)=ways(1)=1.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "How many ordered climbs reach height three using one- and two-step moves?",
+        "answer": 3,
+        "explanation": "The sequences are 111,12,21. Order matters for climbs.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Why is ways(0)=1 in this counting recurrence?",
+        "options": [
+          "All base states always must be zero.",
+          "The empty sequence is one way to make total height zero.",
+          "A nonexistent stair adds a physical step."
+        ],
+        "answer": 1,
+        "explanation": "The empty sequence is the neutral counting base needed for larger transitions."
+      },
+      {
+        "type": "order",
+        "prompt": "Solve a stair-state problem.",
+        "items": [
+          "Specify whether the state counts ways or minimizes cost",
+          "Initialize the permitted starting states",
+          "Combine one-step and two-step predecessors appropriately"
+        ],
+        "explanation": "Counting uses sums; minimizing paid costs uses a minimum."
+      }
+    ],
+    "algoLab": "stairs",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 29.77,
+    "excerpt": "let's say this is the example one where I am saying that you are climbing a staircase it takes an step to reach top means we will start from here and there are n steps one two three like this and we are here okay each time you can either climb one or you can climb two steps means either you can go go here directly or you can go here now in how many different ways you can climb to the top",
+    "sourceReferences": [
+      {
+        "lecture": 141,
+        "file": "141. 36b. Example 1- Climbing Stairs.mp4",
+        "start": 29.77,
+        "end": 59.27,
+        "text": "let's say this is the example one where I am saying that you are climbing a staircase it takes an step to reach top means we will start from here and there are n steps one two three like this and we are here okay each time you can either climb one or you can climb two steps means either you can go go here directly or you can go here now in how many different ways you can climb to the top"
+      },
+      {
+        "lecture": 141,
+        "file": "141. 36b. Example 1- Climbing Stairs.mp4",
+        "start": 96.53,
+        "end": 124.79,
+        "text": "then 2 times 2 will go, then 1 time 1 will go, then 2 times 3 times 2 will go, anything can happen, right? then 1 time 1 will go, then 2 times 2 will go, then 3 times 1 will go, means any intermix is also possible and there are many such steps that are possible now they are asking that how many such variations are possible, okay? let's just see this so just to convey this example, see you are here and you want to climb the stairs"
+      },
+      {
+        "lecture": 141,
+        "file": "141. 36b. Example 1- Climbing Stairs.mp4",
+        "start": 125.11,
+        "end": 152.7,
+        "text": "now there are many possibilities you can go one step one step one step you can go two steps you can go one step then two steps then then one step then two two two steps like that right so for example that there are two ways to climb let's suppose the input is two and equal to two means if you want to climb two steps then to climb two steps there are two ways to climb one by one or directly go so there are two ways okay if you want to climb three steps then there are three ways one by one one plus two go or first two go"
+      }
+    ]
+  },
+  {
+    "id": 426,
+    "lecture": 142,
+    "title": "Choose nonadjacent coin values · Discover",
+    "concept": "To maximize the sum of nonadjacent nonnegative values, either skip the last value or take it with the best prefix ending two positions earlier. Store best(i)=max(best(i-1),value(i)+best(i-2)), with an empty-prefix answer of zero. A state describes the smallest information needed to solve a subproblem. A correct transition combines earlier states; caching or dependency-respecting table order avoids recomputing the same state.",
+    "teachingSteps": [
+      "To maximize the sum of nonadjacent nonnegative values, either skip the last value or take it with the best prefix ending two positions earlier. Store best(i)=max(best(i-1),value(i)+best(i-2)), with an empty-prefix answer of zero.",
+      "List the predecessor states of each transition",
+      "Evaluate once in a dependency-respecting order"
+    ],
+    "foundation": {
+      "title": "Choose nonadjacent coin values",
+      "idea": "To maximize the sum of nonadjacent nonnegative values, either skip the last value or take it with the best prefix ending two positions earlier. Store best(i)=max(best(i-1),value(i)+best(i-2)), with an empty-prefix answer of zero. A state describes the smallest information needed to solve a subproblem. A correct transition combines earlier states; caching or dependency-respecting table order avoids recomputing the same state.",
+      "terms": [
+        "State: one subproblem identity.",
+        "Transition: how predecessor answers determine it.",
+        "Base case: a state with a directly known answer."
+      ],
+      "example": "For values [4,1,5], the best nonadjacent sum is 9 by taking 4 and 5. A prefix state compares skipping 5 with adding it to the prefix before its neighbor."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "What maximum sum can be selected from these values if no two selected positions are adjacent?",
+        "answer": 18,
+        "explanation": "At each prefix, compare skipping its last value with taking it plus the best prefix before its neighbor.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Position",
+            "Value"
+          ],
+          "rows": [
+            [
+              1,
+              5
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              3,
+              6
+            ],
+            [
+              4,
+              3
+            ],
+            [
+              5,
+              7
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Prefix states indexed 0 through 6 contain how many distinct states, including the empty prefix?",
+        "answer": 7,
+        "explanation": "The empty prefix is a real base state, so count both endpoints.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains choose nonadjacent coin values?",
+        "options": [
+          "Input assumptions never affect correctness.",
+          "One successful example proves every input.",
+          "To maximize the sum of nonadjacent nonnegative values, either skip the last value or take it with the best prefix ending two positions earlier."
+        ],
+        "answer": 2,
+        "explanation": "To maximize the sum of nonadjacent nonnegative values, either skip the last value or take it with the best prefix ending two positions earlier. Store best(i)=max(best(i-1),value(i)+best(i-2)), with an empty-prefix answer of zero."
+      },
+      {
+        "type": "order",
+        "prompt": "Design a reusable-state solution.",
+        "items": [
+          "Define the state and base cases",
+          "List the predecessor states of each transition",
+          "Evaluate once in a dependency-respecting order"
+        ],
+        "explanation": "State identity, dependencies and base cases come before the evaluation order."
+      }
+    ],
+    "algoLab": "nonadjacent",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.11,
+    "excerpt": "let's just see this example now they are saying suppose you have row of coins with values which are positive integers c1 to cn these values might not be distinct",
+    "sourceReferences": [
+      {
+        "lecture": 142,
+        "file": "142. 36c. Example 2 MCQ on DP.mp4",
+        "start": 0.11,
+        "end": 30.86,
+        "text": "let's just see this example now they are saying suppose you have row of coins with values which are positive integers c1 to cn these values might not be distinct"
+      },
+      {
+        "lecture": 142,
+        "file": "142. 36c. Example 2 MCQ on DP.mp4",
+        "start": 32.3,
+        "end": 62.86,
+        "text": "that have I think maybe those had something. Basically you need to pick up the coins, You want total value as much possible subject of constant that you don't ever pickup 2 coins lie beside on each other means from here i think what they are saying if let's just see example given C1 to C6 as follows maximum value is 17 using the coin c1 okay so what their say"
+      },
+      {
+        "lecture": 142,
+        "file": "142. 36c. Example 2 MCQ on DP.mp4",
+        "start": 160.7,
+        "end": 188.16,
+        "text": "you pick c4 and then you pick c6 let's suppose that fn be the maximum total value of n coins so here they are saying"
+      }
+    ]
+  },
+  {
+    "id": 427,
+    "lecture": 142,
+    "title": "Choose nonadjacent coin values · Trace",
+    "concept": "To maximize the sum of nonadjacent nonnegative values, either skip the last value or take it with the best prefix ending two positions earlier. Store best(i)=max(best(i-1),value(i)+best(i-2)), with an empty-prefix answer of zero. A state describes the smallest information needed to solve a subproblem. A correct transition combines earlier states; caching or dependency-respecting table order avoids recomputing the same state.",
+    "teachingSteps": [
+      "To maximize the sum of nonadjacent nonnegative values, either skip the last value or take it with the best prefix ending two positions earlier. Store best(i)=max(best(i-1),value(i)+best(i-2)), with an empty-prefix answer of zero.",
+      "List the predecessor states of each transition",
+      "Evaluate once in a dependency-respecting order"
+    ],
+    "foundation": {
+      "title": "Choose nonadjacent coin values",
+      "idea": "To maximize the sum of nonadjacent nonnegative values, either skip the last value or take it with the best prefix ending two positions earlier. Store best(i)=max(best(i-1),value(i)+best(i-2)), with an empty-prefix answer of zero. A state describes the smallest information needed to solve a subproblem. A correct transition combines earlier states; caching or dependency-respecting table order avoids recomputing the same state.",
+      "terms": [
+        "State: one subproblem identity.",
+        "Transition: how predecessor answers determine it.",
+        "Base case: a state with a directly known answer."
+      ],
+      "example": "For values [4,1,5], the best nonadjacent sum is 9 by taking 4 and 5. A prefix state compares skipping 5 with adding it to the prefix before its neighbor."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "What maximum sum can be selected from these values if no two selected positions are adjacent?",
+        "answer": 21,
+        "explanation": "At each prefix, compare skipping its last value with taking it plus the best prefix before its neighbor.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Position",
+            "Value"
+          ],
+          "rows": [
+            [
+              1,
+              6
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              7
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              5,
+              8
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Prefix states indexed 0 through 7 contain how many distinct states, including the empty prefix?",
+        "answer": 8,
+        "explanation": "The empty prefix is a real base state, so count both endpoints.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "What makes a memoized implementation avoid repeated-state work?",
+        "options": [
+          "Use a different random answer at each call.",
+          "Store answers by the complete subproblem identity and reuse them.",
+          "Always recompute every recursive call."
+        ],
+        "answer": 1,
+        "explanation": "Memoization evaluates the same state only once even if several parents request it."
+      },
+      {
+        "type": "order",
+        "prompt": "Design a reusable-state solution.",
+        "items": [
+          "Define the state and base cases",
+          "List the predecessor states of each transition",
+          "Evaluate once in a dependency-respecting order"
+        ],
+        "explanation": "State identity, dependencies and base cases come before the evaluation order."
+      }
+    ],
+    "algoLab": "nonadjacent",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.11,
+    "excerpt": "let's just see this example now they are saying suppose you have row of coins with values which are positive integers c1 to cn these values might not be distinct",
+    "sourceReferences": [
+      {
+        "lecture": 142,
+        "file": "142. 36c. Example 2 MCQ on DP.mp4",
+        "start": 0.11,
+        "end": 30.86,
+        "text": "let's just see this example now they are saying suppose you have row of coins with values which are positive integers c1 to cn these values might not be distinct"
+      },
+      {
+        "lecture": 142,
+        "file": "142. 36c. Example 2 MCQ on DP.mp4",
+        "start": 32.3,
+        "end": 62.86,
+        "text": "that have I think maybe those had something. Basically you need to pick up the coins, You want total value as much possible subject of constant that you don't ever pickup 2 coins lie beside on each other means from here i think what they are saying if let's just see example given C1 to C6 as follows maximum value is 17 using the coin c1 okay so what their say"
+      },
+      {
+        "lecture": 142,
+        "file": "142. 36c. Example 2 MCQ on DP.mp4",
+        "start": 160.7,
+        "end": 188.16,
+        "text": "you pick c4 and then you pick c6 let's suppose that fn be the maximum total value of n coins so here they are saying"
+      }
+    ]
+  },
+  {
+    "id": 428,
+    "lecture": 142,
+    "title": "Choose nonadjacent coin values · Apply",
+    "concept": "To maximize the sum of nonadjacent nonnegative values, either skip the last value or take it with the best prefix ending two positions earlier. Store best(i)=max(best(i-1),value(i)+best(i-2)), with an empty-prefix answer of zero. A state describes the smallest information needed to solve a subproblem. A correct transition combines earlier states; caching or dependency-respecting table order avoids recomputing the same state.",
+    "teachingSteps": [
+      "To maximize the sum of nonadjacent nonnegative values, either skip the last value or take it with the best prefix ending two positions earlier. Store best(i)=max(best(i-1),value(i)+best(i-2)), with an empty-prefix answer of zero.",
+      "List the predecessor states of each transition",
+      "Evaluate once in a dependency-respecting order"
+    ],
+    "foundation": {
+      "title": "Choose nonadjacent coin values",
+      "idea": "To maximize the sum of nonadjacent nonnegative values, either skip the last value or take it with the best prefix ending two positions earlier. Store best(i)=max(best(i-1),value(i)+best(i-2)), with an empty-prefix answer of zero. A state describes the smallest information needed to solve a subproblem. A correct transition combines earlier states; caching or dependency-respecting table order avoids recomputing the same state.",
+      "terms": [
+        "State: one subproblem identity.",
+        "Transition: how predecessor answers determine it.",
+        "Base case: a state with a directly known answer."
+      ],
+      "example": "For values [4,1,5], the best nonadjacent sum is 9 by taking 4 and 5. A prefix state compares skipping 5 with adding it to the prefix before its neighbor."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A planning service reuses prefix-state answers. What maximum sum can be selected from these values if no two selected positions are adjacent?",
+        "answer": 15,
+        "explanation": "At each prefix, compare skipping its last value with taking it plus the best prefix before its neighbor.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Position",
+            "Value"
+          ],
+          "rows": [
+            [
+              1,
+              4
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              4,
+              2
+            ],
+            [
+              5,
+              6
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Prefix states indexed 0 through 4 contain how many distinct states, including the empty prefix?",
+        "answer": 5,
+        "explanation": "The empty prefix is a real base state, so count both endpoints.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "What makes a memoized implementation avoid repeated-state work?",
+        "options": [
+          "Store answers by the complete subproblem identity and reuse them.",
+          "Always recompute every recursive call.",
+          "Use a different random answer at each call."
+        ],
+        "answer": 0,
+        "explanation": "Memoization evaluates the same state only once even if several parents request it."
+      },
+      {
+        "type": "order",
+        "prompt": "Design a reusable-state solution.",
+        "items": [
+          "Define the state and base cases",
+          "List the predecessor states of each transition",
+          "Evaluate once in a dependency-respecting order"
+        ],
+        "explanation": "State identity, dependencies and base cases come before the evaluation order."
+      }
+    ],
+    "algoLab": "nonadjacent",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.11,
+    "excerpt": "let's just see this example now they are saying suppose you have row of coins with values which are positive integers c1 to cn these values might not be distinct",
+    "sourceReferences": [
+      {
+        "lecture": 142,
+        "file": "142. 36c. Example 2 MCQ on DP.mp4",
+        "start": 0.11,
+        "end": 30.86,
+        "text": "let's just see this example now they are saying suppose you have row of coins with values which are positive integers c1 to cn these values might not be distinct"
+      },
+      {
+        "lecture": 142,
+        "file": "142. 36c. Example 2 MCQ on DP.mp4",
+        "start": 32.3,
+        "end": 62.86,
+        "text": "that have I think maybe those had something. Basically you need to pick up the coins, You want total value as much possible subject of constant that you don't ever pickup 2 coins lie beside on each other means from here i think what they are saying if let's just see example given C1 to C6 as follows maximum value is 17 using the coin c1 okay so what their say"
+      },
+      {
+        "lecture": 142,
+        "file": "142. 36c. Example 2 MCQ on DP.mp4",
+        "start": 160.7,
+        "end": 188.16,
+        "text": "you pick c4 and then you pick c6 let's suppose that fn be the maximum total value of n coins so here they are saying"
+      }
+    ]
+  },
+  {
+    "id": 429,
+    "lecture": 143,
+    "title": "Minimize paid stair cost · Discover",
+    "concept": "At each indexed stair, pay its cost then move one or two steps. Starting at stair zero or one is allowed; reaching the top beyond the last stair costs nothing. Store the cheapest paid path to each stair. Both stair tasks use one- and two-step transitions, but their state values differ. Counting adds disjoint last-step cases; cost optimization takes the minimum of allowed paid predecessors.",
+    "teachingSteps": [
+      "At each indexed stair, pay its cost then move one or two steps. Starting at stair zero or one is allowed; reaching the top beyond the last stair costs nothing. Store the cheapest paid path to each stair.",
+      "Initialize the permitted starting states",
+      "Combine one-step and two-step predecessors appropriately"
+    ],
+    "foundation": {
+      "title": "Minimize paid stair cost",
+      "idea": "At each indexed stair, pay its cost then move one or two steps. Starting at stair zero or one is allowed; reaching the top beyond the last stair costs nothing. Store the cheapest paid path to each stair. Both stair tasks use one- and two-step transitions, but their state values differ. Counting adds disjoint last-step cases; cost optimization takes the minimum of allowed paid predecessors.",
+      "terms": [
+        "ways(0)=1: the empty climb.",
+        "Paid cost: includes the cost of the current stair.",
+        "Top: the position beyond the final stair, with no charge."
+      ],
+      "example": "Three units of height have ordered climbs 111,12,21. For costs [10,15,20], start at stair 1 and jump to the free top for total cost 15."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Costs are [10,15,20], you may start at stair 0 or 1, and the top after stair 2 is free. What minimum paid cost reaches the top?",
+        "answer": 15,
+        "explanation": "Start at stair 1, pay 15, and move two positions to the free top.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "How many ordered climbs reach height three using one- and two-step moves?",
+        "answer": 3,
+        "explanation": "The sequences are 111,12,21. Order matters for climbs.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains minimize paid stair cost?",
+        "options": [
+          "One successful example proves every input.",
+          "At each indexed stair, pay its cost then move one or two steps.",
+          "Input assumptions never affect correctness."
+        ],
+        "answer": 1,
+        "explanation": "At each indexed stair, pay its cost then move one or two steps. Starting at stair zero or one is allowed; reaching the top beyond the last stair costs nothing. Store the cheapest paid path to each stair."
+      },
+      {
+        "type": "order",
+        "prompt": "Solve a stair-state problem.",
+        "items": [
+          "Specify whether the state counts ways or minimizes cost",
+          "Initialize the permitted starting states",
+          "Combine one-step and two-step predecessors appropriately"
+        ],
+        "explanation": "Counting uses sums; minimizing paid costs uses a minimum."
+      }
+    ],
+    "algoLab": "stairs-cost",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0,
+    "excerpt": "Let's have another example, let's have this example. Now what they are saying, they are saying that suppose in example 3, you are given an integer array cost where cost of i is the cost of ith step on a staircase. Once you pay that cost, you can climb either one step or two steps. Oh, nice. So they are saying that you have the staircase just like the previous question, but the whole question is modified.",
+    "sourceReferences": [
+      {
+        "lecture": 143,
+        "file": "143. 36d. Example 3- Climbing Stairs Cost.mp4",
+        "start": 0,
+        "end": 29.86,
+        "text": "Let's have another example, let's have this example. Now what they are saying, they are saying that suppose in example 3, you are given an integer array cost where cost of i is the cost of ith step on a staircase. Once you pay that cost, you can climb either one step or two steps. Oh, nice. So they are saying that you have the staircase just like the previous question, but the whole question is modified."
+      },
+      {
+        "lecture": 143,
+        "file": "143. 36d. Example 3- Climbing Stairs Cost.mp4",
+        "start": 30.38,
+        "end": 59.39,
+        "text": "they are saying at every step you have to pay some cost if you pay that cost then you have choice that you can go one step or two steps after paying that cost some cost you have to pay the cost of eyes step on the staircase once you pay that cost you can either climb one or two steps you can either start from the step with index zero or with index one you are saying start from zero and start from one"
+      },
+      {
+        "lecture": 143,
+        "file": "143. 36d. Example 3- Climbing Stairs Cost.mp4",
+        "start": 403.8,
+        "end": 439,
+        "text": "I need to pay some cost here let's suppose I need to pay some cost here if there are two stairs something like this I don't know maybe you can start stairs from here maybe you can start from stairs from here does not matter so what I need to do I will make a make a call should I be start starting from this in this step or I should be I should be starting from this step because I have I have two choices right so I think I can make a call"
+      }
+    ]
+  },
+  {
+    "id": 430,
+    "lecture": 143,
+    "title": "Minimize paid stair cost · Trace",
+    "concept": "At each indexed stair, pay its cost then move one or two steps. Starting at stair zero or one is allowed; reaching the top beyond the last stair costs nothing. Store the cheapest paid path to each stair. Both stair tasks use one- and two-step transitions, but their state values differ. Counting adds disjoint last-step cases; cost optimization takes the minimum of allowed paid predecessors.",
+    "teachingSteps": [
+      "At each indexed stair, pay its cost then move one or two steps. Starting at stair zero or one is allowed; reaching the top beyond the last stair costs nothing. Store the cheapest paid path to each stair.",
+      "Initialize the permitted starting states",
+      "Combine one-step and two-step predecessors appropriately"
+    ],
+    "foundation": {
+      "title": "Minimize paid stair cost",
+      "idea": "At each indexed stair, pay its cost then move one or two steps. Starting at stair zero or one is allowed; reaching the top beyond the last stair costs nothing. Store the cheapest paid path to each stair. Both stair tasks use one- and two-step transitions, but their state values differ. Counting adds disjoint last-step cases; cost optimization takes the minimum of allowed paid predecessors.",
+      "terms": [
+        "ways(0)=1: the empty climb.",
+        "Paid cost: includes the cost of the current stair.",
+        "Top: the position beyond the final stair, with no charge."
+      ],
+      "example": "Three units of height have ordered climbs 111,12,21. For costs [10,15,20], start at stair 1 and jump to the free top for total cost 15."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Costs are [10,15,20], you may start at stair 0 or 1, and the top after stair 2 is free. What minimum paid cost reaches the top?",
+        "answer": 15,
+        "explanation": "Start at stair 1, pay 15, and move two positions to the free top.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "How many ordered climbs reach height three using one- and two-step moves?",
+        "answer": 3,
+        "explanation": "The sequences are 111,12,21. Order matters for climbs.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Why is ways(0)=1 in this counting recurrence?",
+        "options": [
+          "The empty sequence is one way to make total height zero.",
+          "A nonexistent stair adds a physical step.",
+          "All base states always must be zero."
+        ],
+        "answer": 0,
+        "explanation": "The empty sequence is the neutral counting base needed for larger transitions."
+      },
+      {
+        "type": "order",
+        "prompt": "Solve a stair-state problem.",
+        "items": [
+          "Specify whether the state counts ways or minimizes cost",
+          "Initialize the permitted starting states",
+          "Combine one-step and two-step predecessors appropriately"
+        ],
+        "explanation": "Counting uses sums; minimizing paid costs uses a minimum."
+      }
+    ],
+    "algoLab": "stairs-cost",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0,
+    "excerpt": "Let's have another example, let's have this example. Now what they are saying, they are saying that suppose in example 3, you are given an integer array cost where cost of i is the cost of ith step on a staircase. Once you pay that cost, you can climb either one step or two steps. Oh, nice. So they are saying that you have the staircase just like the previous question, but the whole question is modified.",
+    "sourceReferences": [
+      {
+        "lecture": 143,
+        "file": "143. 36d. Example 3- Climbing Stairs Cost.mp4",
+        "start": 0,
+        "end": 29.86,
+        "text": "Let's have another example, let's have this example. Now what they are saying, they are saying that suppose in example 3, you are given an integer array cost where cost of i is the cost of ith step on a staircase. Once you pay that cost, you can climb either one step or two steps. Oh, nice. So they are saying that you have the staircase just like the previous question, but the whole question is modified."
+      },
+      {
+        "lecture": 143,
+        "file": "143. 36d. Example 3- Climbing Stairs Cost.mp4",
+        "start": 30.38,
+        "end": 59.39,
+        "text": "they are saying at every step you have to pay some cost if you pay that cost then you have choice that you can go one step or two steps after paying that cost some cost you have to pay the cost of eyes step on the staircase once you pay that cost you can either climb one or two steps you can either start from the step with index zero or with index one you are saying start from zero and start from one"
+      },
+      {
+        "lecture": 143,
+        "file": "143. 36d. Example 3- Climbing Stairs Cost.mp4",
+        "start": 403.8,
+        "end": 439,
+        "text": "I need to pay some cost here let's suppose I need to pay some cost here if there are two stairs something like this I don't know maybe you can start stairs from here maybe you can start from stairs from here does not matter so what I need to do I will make a make a call should I be start starting from this in this step or I should be I should be starting from this step because I have I have two choices right so I think I can make a call"
+      }
+    ]
+  },
+  {
+    "id": 431,
+    "lecture": 143,
+    "title": "Minimize paid stair cost · Apply",
+    "concept": "At each indexed stair, pay its cost then move one or two steps. Starting at stair zero or one is allowed; reaching the top beyond the last stair costs nothing. Store the cheapest paid path to each stair. Both stair tasks use one- and two-step transitions, but their state values differ. Counting adds disjoint last-step cases; cost optimization takes the minimum of allowed paid predecessors.",
+    "teachingSteps": [
+      "At each indexed stair, pay its cost then move one or two steps. Starting at stair zero or one is allowed; reaching the top beyond the last stair costs nothing. Store the cheapest paid path to each stair.",
+      "Initialize the permitted starting states",
+      "Combine one-step and two-step predecessors appropriately"
+    ],
+    "foundation": {
+      "title": "Minimize paid stair cost",
+      "idea": "At each indexed stair, pay its cost then move one or two steps. Starting at stair zero or one is allowed; reaching the top beyond the last stair costs nothing. Store the cheapest paid path to each stair. Both stair tasks use one- and two-step transitions, but their state values differ. Counting adds disjoint last-step cases; cost optimization takes the minimum of allowed paid predecessors.",
+      "terms": [
+        "ways(0)=1: the empty climb.",
+        "Paid cost: includes the cost of the current stair.",
+        "Top: the position beyond the final stair, with no charge."
+      ],
+      "example": "Three units of height have ordered climbs 111,12,21. For costs [10,15,20], start at stair 1 and jump to the free top for total cost 15."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A staircase planner counts or prices allowed moves. Costs are [10,15,20], you may start at stair 0 or 1, and the top after stair 2 is free. What minimum paid cost reaches the top?",
+        "answer": 15,
+        "explanation": "Start at stair 1, pay 15, and move two positions to the free top.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "How many ordered climbs reach height three using one- and two-step moves?",
+        "answer": 3,
+        "explanation": "The sequences are 111,12,21. Order matters for climbs.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Why is ways(0)=1 in this counting recurrence?",
+        "options": [
+          "A nonexistent stair adds a physical step.",
+          "All base states always must be zero.",
+          "The empty sequence is one way to make total height zero."
+        ],
+        "answer": 2,
+        "explanation": "The empty sequence is the neutral counting base needed for larger transitions."
+      },
+      {
+        "type": "order",
+        "prompt": "Solve a stair-state problem.",
+        "items": [
+          "Specify whether the state counts ways or minimizes cost",
+          "Initialize the permitted starting states",
+          "Combine one-step and two-step predecessors appropriately"
+        ],
+        "explanation": "Counting uses sums; minimizing paid costs uses a minimum."
+      }
+    ],
+    "algoLab": "stairs-cost",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0,
+    "excerpt": "Let's have another example, let's have this example. Now what they are saying, they are saying that suppose in example 3, you are given an integer array cost where cost of i is the cost of ith step on a staircase. Once you pay that cost, you can climb either one step or two steps. Oh, nice. So they are saying that you have the staircase just like the previous question, but the whole question is modified.",
+    "sourceReferences": [
+      {
+        "lecture": 143,
+        "file": "143. 36d. Example 3- Climbing Stairs Cost.mp4",
+        "start": 0,
+        "end": 29.86,
+        "text": "Let's have another example, let's have this example. Now what they are saying, they are saying that suppose in example 3, you are given an integer array cost where cost of i is the cost of ith step on a staircase. Once you pay that cost, you can climb either one step or two steps. Oh, nice. So they are saying that you have the staircase just like the previous question, but the whole question is modified."
+      },
+      {
+        "lecture": 143,
+        "file": "143. 36d. Example 3- Climbing Stairs Cost.mp4",
+        "start": 30.38,
+        "end": 59.39,
+        "text": "they are saying at every step you have to pay some cost if you pay that cost then you have choice that you can go one step or two steps after paying that cost some cost you have to pay the cost of eyes step on the staircase once you pay that cost you can either climb one or two steps you can either start from the step with index zero or with index one you are saying start from zero and start from one"
+      },
+      {
+        "lecture": 143,
+        "file": "143. 36d. Example 3- Climbing Stairs Cost.mp4",
+        "start": 403.8,
+        "end": 439,
+        "text": "I need to pay some cost here let's suppose I need to pay some cost here if there are two stairs something like this I don't know maybe you can start stairs from here maybe you can start from stairs from here does not matter so what I need to do I will make a make a call should I be start starting from this in this step or I should be I should be starting from this step because I have I have two choices right so I think I can make a call"
+      }
+    ]
+  },
+  {
+    "id": 432,
+    "lecture": 144,
+    "title": "Race-to-wins probability states · Discover",
+    "concept": "If team A wins each independent game with probability p, define P(i,j) as A’s chance to win a series when A needs i more wins and B needs j. Then P(i,j)=pP(i-1,j)+(1-p)P(i,j-1), with P(0,j)=1 and P(i,0)=0 for positive other indices. A race-to-wins state needs the remaining win counts of both teams. Condition on who wins the next independent game, multiply by its probability, and add the two mutually exclusive contributions.",
+    "teachingSteps": [
+      "If team A wins each independent game with probability p, define P(i,j) as A’s chance to win a series when A needs i more wins and B needs j. Then P(i,j)=pP(i-1,j)+(1-p)P(i,j-1), with P(0,j)=1 and P(i,0)=0 for positive other indices.",
+      "Set win and loss boundary probabilities",
+      "Add probability-weighted predecessor states"
+    ],
+    "foundation": {
+      "title": "Race-to-wins probability states",
+      "idea": "If team A wins each independent game with probability p, define P(i,j) as A’s chance to win a series when A needs i more wins and B needs j. Then P(i,j)=pP(i-1,j)+(1-p)P(i,j-1), with P(0,j)=1 and P(i,0)=0 for positive other indices. A race-to-wins state needs the remaining win counts of both teams. Condition on who wins the next independent game, multiply by its probability, and add the two mutually exclusive contributions.",
+      "terms": [
+        "P(i,j): chance A wins when A needs i wins and B needs j.",
+        "A needs zero: probability one, if B still needs wins.",
+        "B needs zero: probability zero, if A still needs wins."
+      ],
+      "example": "With fair games, A needing one win while B needs two has chance 1/2 + (1/2)(1/2)=3/4."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "With independent fair games, A needs 1 more wins and B needs 2. What is the probability that A wins the series?",
+        "answer": 0.75,
+        "explanation": "Use the independent-game recurrence and terminal win/loss probabilities, adding the disjoint next-game cases.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "With independent fair games, both teams need one more win. What is A’s chance to win?",
+        "answer": 0.5,
+        "explanation": "The next game ends the series; A wins that game with probability one half.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains race-to-wins probability states?",
+        "options": [
+          "If team A wins each independent game with probability p, define P(i,j) as A’s chance to win a series when A needs i more wins and B needs j.",
+          "Input assumptions never affect correctness.",
+          "One successful example proves every input."
+        ],
+        "answer": 0,
+        "explanation": "If team A wins each independent game with probability p, define P(i,j) as A’s chance to win a series when A needs i more wins and B needs j. Then P(i,j)=pP(i-1,j)+(1-p)P(i,j-1), with P(0,j)=1 and P(i,0)=0 for positive other indices."
+      },
+      {
+        "type": "order",
+        "prompt": "Fill a race-to-wins probability table.",
+        "items": [
+          "Define both remaining-win counts",
+          "Set win and loss boundary probabilities",
+          "Add probability-weighted predecessor states"
+        ],
+        "explanation": "Keep both teams’ remaining wins in the state."
+      }
+    ],
+    "algoLab": "probability",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 28.34,
+    "excerpt": "we never win 10 games in a series, they will play till then assume that the probability of ends winning is same as for each game at equal to P means this particular team A wins the game with probability p and lose it",
+    "sourceReferences": [
+      {
+        "lecture": 144,
+        "file": "144_37a_Example_4_One_Nice_question_on_Total_Probability.mp4",
+        "start": 28.34,
+        "end": 53.1,
+        "text": "we never win 10 games in a series, they will play till then assume that the probability of ends winning is same as for each game at equal to P means this particular team A wins the game with probability p and lose it"
+      },
+      {
+        "lecture": 144,
+        "file": "144_37a_Example_4_One_Nice_question_on_Total_Probability.mp4",
+        "start": 53.1,
+        "end": 82.51,
+        "text": "ends need i more games win the series and bs needs jay more game to win the series then pij represents the probability that aunts finally winning the series."
+      },
+      {
+        "lecture": 144,
+        "file": "144_37a_Example_4_One_Nice_question_on_Total_Probability.mp4",
+        "start": 123.86,
+        "end": 167.18,
+        "text": "2 more games to win and team B needs 3 more games to be won same slide, let me have 0.6 he wants only two games so his probability is higher think about the probability of ij being represented it can happen that if you want an i game or j game then this will be a probability which Team A wins"
+      }
+    ]
+  },
+  {
+    "id": 433,
+    "lecture": 144,
+    "title": "Race-to-wins probability states · Trace",
+    "concept": "If team A wins each independent game with probability p, define P(i,j) as A’s chance to win a series when A needs i more wins and B needs j. Then P(i,j)=pP(i-1,j)+(1-p)P(i,j-1), with P(0,j)=1 and P(i,0)=0 for positive other indices. A race-to-wins state needs the remaining win counts of both teams. Condition on who wins the next independent game, multiply by its probability, and add the two mutually exclusive contributions.",
+    "teachingSteps": [
+      "If team A wins each independent game with probability p, define P(i,j) as A’s chance to win a series when A needs i more wins and B needs j. Then P(i,j)=pP(i-1,j)+(1-p)P(i,j-1), with P(0,j)=1 and P(i,0)=0 for positive other indices.",
+      "Set win and loss boundary probabilities",
+      "Add probability-weighted predecessor states"
+    ],
+    "foundation": {
+      "title": "Race-to-wins probability states",
+      "idea": "If team A wins each independent game with probability p, define P(i,j) as A’s chance to win a series when A needs i more wins and B needs j. Then P(i,j)=pP(i-1,j)+(1-p)P(i,j-1), with P(0,j)=1 and P(i,0)=0 for positive other indices. A race-to-wins state needs the remaining win counts of both teams. Condition on who wins the next independent game, multiply by its probability, and add the two mutually exclusive contributions.",
+      "terms": [
+        "P(i,j): chance A wins when A needs i wins and B needs j.",
+        "A needs zero: probability one, if B still needs wins.",
+        "B needs zero: probability zero, if A still needs wins."
+      ],
+      "example": "With fair games, A needing one win while B needs two has chance 1/2 + (1/2)(1/2)=3/4."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "With independent fair games, A needs 2 more wins and B needs 1. What is the probability that A wins the series?",
+        "answer": 0.25,
+        "explanation": "Use the independent-game recurrence and terminal win/loss probabilities, adding the disjoint next-game cases.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "With independent fair games, both teams need one more win. What is A’s chance to win?",
+        "answer": 0.5,
+        "explanation": "The next game ends the series; A wins that game with probability one half.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "How are the two possible next-game winners combined in P(i,j)?",
+        "options": [
+          "P(i-1,j)×P(i,j-1)",
+          "Take the maximum and ignore game probabilities.",
+          "pP(i-1,j)+(1-p)P(i,j-1)"
+        ],
+        "answer": 2,
+        "explanation": "The mutually exclusive next-game cases are probability weighted and added."
+      },
+      {
+        "type": "order",
+        "prompt": "Fill a race-to-wins probability table.",
+        "items": [
+          "Define both remaining-win counts",
+          "Set win and loss boundary probabilities",
+          "Add probability-weighted predecessor states"
+        ],
+        "explanation": "Keep both teams’ remaining wins in the state."
+      }
+    ],
+    "algoLab": "probability",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 28.34,
+    "excerpt": "we never win 10 games in a series, they will play till then assume that the probability of ends winning is same as for each game at equal to P means this particular team A wins the game with probability p and lose it",
+    "sourceReferences": [
+      {
+        "lecture": 144,
+        "file": "144_37a_Example_4_One_Nice_question_on_Total_Probability.mp4",
+        "start": 28.34,
+        "end": 53.1,
+        "text": "we never win 10 games in a series, they will play till then assume that the probability of ends winning is same as for each game at equal to P means this particular team A wins the game with probability p and lose it"
+      },
+      {
+        "lecture": 144,
+        "file": "144_37a_Example_4_One_Nice_question_on_Total_Probability.mp4",
+        "start": 53.1,
+        "end": 82.51,
+        "text": "ends need i more games win the series and bs needs jay more game to win the series then pij represents the probability that aunts finally winning the series."
+      },
+      {
+        "lecture": 144,
+        "file": "144_37a_Example_4_One_Nice_question_on_Total_Probability.mp4",
+        "start": 123.86,
+        "end": 167.18,
+        "text": "2 more games to win and team B needs 3 more games to be won same slide, let me have 0.6 he wants only two games so his probability is higher think about the probability of ij being represented it can happen that if you want an i game or j game then this will be a probability which Team A wins"
+      }
+    ]
+  },
+  {
+    "id": 434,
+    "lecture": 144,
+    "title": "Race-to-wins probability states · Apply",
+    "concept": "If team A wins each independent game with probability p, define P(i,j) as A’s chance to win a series when A needs i more wins and B needs j. Then P(i,j)=pP(i-1,j)+(1-p)P(i,j-1), with P(0,j)=1 and P(i,0)=0 for positive other indices. A race-to-wins state needs the remaining win counts of both teams. Condition on who wins the next independent game, multiply by its probability, and add the two mutually exclusive contributions.",
+    "teachingSteps": [
+      "If team A wins each independent game with probability p, define P(i,j) as A’s chance to win a series when A needs i more wins and B needs j. Then P(i,j)=pP(i-1,j)+(1-p)P(i,j-1), with P(0,j)=1 and P(i,0)=0 for positive other indices.",
+      "Set win and loss boundary probabilities",
+      "Add probability-weighted predecessor states"
+    ],
+    "foundation": {
+      "title": "Race-to-wins probability states",
+      "idea": "If team A wins each independent game with probability p, define P(i,j) as A’s chance to win a series when A needs i more wins and B needs j. Then P(i,j)=pP(i-1,j)+(1-p)P(i,j-1), with P(0,j)=1 and P(i,0)=0 for positive other indices. A race-to-wins state needs the remaining win counts of both teams. Condition on who wins the next independent game, multiply by its probability, and add the two mutually exclusive contributions.",
+      "terms": [
+        "P(i,j): chance A wins when A needs i wins and B needs j.",
+        "A needs zero: probability one, if B still needs wins.",
+        "B needs zero: probability zero, if A still needs wins."
+      ],
+      "example": "With fair games, A needing one win while B needs two has chance 1/2 + (1/2)(1/2)=3/4."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A sports service models an independent-game series. With independent fair games, A needs 2 more wins and B needs 2. What is the probability that A wins the series?",
+        "answer": 0.5,
+        "explanation": "Use the independent-game recurrence and terminal win/loss probabilities, adding the disjoint next-game cases.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "With independent fair games, both teams need one more win. What is A’s chance to win?",
+        "answer": 0.5,
+        "explanation": "The next game ends the series; A wins that game with probability one half.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "How are the two possible next-game winners combined in P(i,j)?",
+        "options": [
+          "Take the maximum and ignore game probabilities.",
+          "pP(i-1,j)+(1-p)P(i,j-1)",
+          "P(i-1,j)×P(i,j-1)"
+        ],
+        "answer": 1,
+        "explanation": "The mutually exclusive next-game cases are probability weighted and added."
+      },
+      {
+        "type": "order",
+        "prompt": "Fill a race-to-wins probability table.",
+        "items": [
+          "Define both remaining-win counts",
+          "Set win and loss boundary probabilities",
+          "Add probability-weighted predecessor states"
+        ],
+        "explanation": "Keep both teams’ remaining wins in the state."
+      }
+    ],
+    "algoLab": "probability",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 28.34,
+    "excerpt": "we never win 10 games in a series, they will play till then assume that the probability of ends winning is same as for each game at equal to P means this particular team A wins the game with probability p and lose it",
+    "sourceReferences": [
+      {
+        "lecture": 144,
+        "file": "144_37a_Example_4_One_Nice_question_on_Total_Probability.mp4",
+        "start": 28.34,
+        "end": 53.1,
+        "text": "we never win 10 games in a series, they will play till then assume that the probability of ends winning is same as for each game at equal to P means this particular team A wins the game with probability p and lose it"
+      },
+      {
+        "lecture": 144,
+        "file": "144_37a_Example_4_One_Nice_question_on_Total_Probability.mp4",
+        "start": 53.1,
+        "end": 82.51,
+        "text": "ends need i more games win the series and bs needs jay more game to win the series then pij represents the probability that aunts finally winning the series."
+      },
+      {
+        "lecture": 144,
+        "file": "144_37a_Example_4_One_Nice_question_on_Total_Probability.mp4",
+        "start": 123.86,
+        "end": 167.18,
+        "text": "2 more games to win and team B needs 3 more games to be won same slide, let me have 0.6 he wants only two games so his probability is higher think about the probability of ij being represented it can happen that if you want an i game or j game then this will be a probability which Team A wins"
+      }
+    ]
+  },
+  {
+    "id": 435,
+    "lecture": 145,
+    "title": "Fill tables after their dependencies · Discover",
+    "concept": "A valid table-filling order follows the state dependency graph. Row-major order is safe only when it actually places all required predecessor cells earlier. A state describes the smallest information needed to solve a subproblem. A correct transition combines earlier states; caching or dependency-respecting table order avoids recomputing the same state.",
+    "teachingSteps": [
+      "A valid table-filling order follows the state dependency graph. Row-major order is safe only when it actually places all required predecessor cells earlier.",
+      "List the predecessor states of each transition",
+      "Evaluate once in a dependency-respecting order"
+    ],
+    "foundation": {
+      "title": "Fill tables after their dependencies",
+      "idea": "A valid table-filling order follows the state dependency graph. Row-major order is safe only when it actually places all required predecessor cells earlier. A state describes the smallest information needed to solve a subproblem. A correct transition combines earlier states; caching or dependency-respecting table order avoids recomputing the same state.",
+      "terms": [
+        "State: one subproblem identity.",
+        "Transition: how predecessor answers determine it.",
+        "Base case: a state with a directly known answer."
+      ],
+      "example": "For values [4,1,5], the best nonadjacent sum is 9 by taking 4 and 5. A prefix state compares skipping 5 with adding it to the prefix before its neighbor."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "What maximum sum can be selected from these values if no two selected positions are adjacent?",
+        "answer": 18,
+        "explanation": "At each prefix, compare skipping its last value with taking it plus the best prefix before its neighbor.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Position",
+            "Value"
+          ],
+          "rows": [
+            [
+              1,
+              5
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              3,
+              6
+            ],
+            [
+              4,
+              3
+            ],
+            [
+              5,
+              7
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Prefix states indexed 0 through 5 contain how many distinct states, including the empty prefix?",
+        "answer": 6,
+        "explanation": "The empty prefix is a real base state, so count both endpoints.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains fill tables after their dependencies?",
+        "options": [
+          "Input assumptions never affect correctness.",
+          "One successful example proves every input.",
+          "A valid table-filling order follows the state dependency graph."
+        ],
+        "answer": 2,
+        "explanation": "A valid table-filling order follows the state dependency graph. Row-major order is safe only when it actually places all required predecessor cells earlier."
+      },
+      {
+        "type": "order",
+        "prompt": "Design a reusable-state solution.",
+        "items": [
+          "Define the state and base cases",
+          "List the predecessor states of each transition",
+          "Evaluate once in a dependency-respecting order"
+        ],
+        "explanation": "State identity, dependencies and base cases come before the evaluation order."
+      }
+    ],
+    "algoLab": "dp-order",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0,
+    "excerpt": "So anyway, let's have some ideas in place. What they are saying? Bottom up we need to decide the order to fill that table so there were three examples and suppose you're asking what order should be filled at a table Let us just see here They say AIJ is something of function it could be min, max or some function In general any function I mean min, max average function It can be some functions which would be infinite",
+    "sourceReferences": [
+      {
+        "lecture": 145,
+        "file": "145_37b_Order_of_Table_Filling_MIT_Questions_Top_Down_vs.mp4",
+        "start": 0,
+        "end": 39.98,
+        "text": "So anyway, let's have some ideas in place. What they are saying? Bottom up we need to decide the order to fill that table so there were three examples and suppose you're asking what order should be filled at a table Let us just see here They say AIJ is something of function it could be min, max or some function In general any function I mean min, max average function It can be some functions which would be infinite"
+      },
+      {
+        "lecture": 145,
+        "file": "145_37b_Order_of_Table_Filling_MIT_Questions_Top_Down_vs.mp4",
+        "start": 1042.67,
+        "end": 1070.53,
+        "text": "So the total calls, which is my top-down function If I do it from bottom up then if this is NYN's table i and j that possible values are n or n so if we do it in bottomup then NYN will have to fill the tables That means there is no other way Basically we usually do it at the bottom of the table for NYN Now let me see whether this is dependant on i by 2 or this depends on how you want to do it Means what does this entry mean? So basically we generally do it like this over all"
+      },
+      {
+        "lecture": 145,
+        "file": "145_37b_Order_of_Table_Filling_MIT_Questions_Top_Down_vs.mp4",
+        "start": 1100.88,
+        "end": 1132.3,
+        "text": "because there will be no other calls, total log n by logn into login call means it won't fill in any of the entries because that's not required. It demands on top down is basically recursion which is on demand if demand comes then it calls and then that is a recursive cause so basically it'll just compute log n by login tables but bottom up will compute n y n entries"
+      }
+    ]
+  },
+  {
+    "id": 436,
+    "lecture": 145,
+    "title": "Fill tables after their dependencies · Trace",
+    "concept": "A valid table-filling order follows the state dependency graph. Row-major order is safe only when it actually places all required predecessor cells earlier. A state describes the smallest information needed to solve a subproblem. A correct transition combines earlier states; caching or dependency-respecting table order avoids recomputing the same state.",
+    "teachingSteps": [
+      "A valid table-filling order follows the state dependency graph. Row-major order is safe only when it actually places all required predecessor cells earlier.",
+      "List the predecessor states of each transition",
+      "Evaluate once in a dependency-respecting order"
+    ],
+    "foundation": {
+      "title": "Fill tables after their dependencies",
+      "idea": "A valid table-filling order follows the state dependency graph. Row-major order is safe only when it actually places all required predecessor cells earlier. A state describes the smallest information needed to solve a subproblem. A correct transition combines earlier states; caching or dependency-respecting table order avoids recomputing the same state.",
+      "terms": [
+        "State: one subproblem identity.",
+        "Transition: how predecessor answers determine it.",
+        "Base case: a state with a directly known answer."
+      ],
+      "example": "For values [4,1,5], the best nonadjacent sum is 9 by taking 4 and 5. A prefix state compares skipping 5 with adding it to the prefix before its neighbor."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "What maximum sum can be selected from these values if no two selected positions are adjacent?",
+        "answer": 21,
+        "explanation": "At each prefix, compare skipping its last value with taking it plus the best prefix before its neighbor.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Position",
+            "Value"
+          ],
+          "rows": [
+            [
+              1,
+              6
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              7
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              5,
+              8
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Prefix states indexed 0 through 6 contain how many distinct states, including the empty prefix?",
+        "answer": 7,
+        "explanation": "The empty prefix is a real base state, so count both endpoints.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "What makes a memoized implementation avoid repeated-state work?",
+        "options": [
+          "Use a different random answer at each call.",
+          "Store answers by the complete subproblem identity and reuse them.",
+          "Always recompute every recursive call."
+        ],
+        "answer": 1,
+        "explanation": "Memoization evaluates the same state only once even if several parents request it."
+      },
+      {
+        "type": "order",
+        "prompt": "Design a reusable-state solution.",
+        "items": [
+          "Define the state and base cases",
+          "List the predecessor states of each transition",
+          "Evaluate once in a dependency-respecting order"
+        ],
+        "explanation": "State identity, dependencies and base cases come before the evaluation order."
+      }
+    ],
+    "algoLab": "dp-order",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0,
+    "excerpt": "So anyway, let's have some ideas in place. What they are saying? Bottom up we need to decide the order to fill that table so there were three examples and suppose you're asking what order should be filled at a table Let us just see here They say AIJ is something of function it could be min, max or some function In general any function I mean min, max average function It can be some functions which would be infinite",
+    "sourceReferences": [
+      {
+        "lecture": 145,
+        "file": "145_37b_Order_of_Table_Filling_MIT_Questions_Top_Down_vs.mp4",
+        "start": 0,
+        "end": 39.98,
+        "text": "So anyway, let's have some ideas in place. What they are saying? Bottom up we need to decide the order to fill that table so there were three examples and suppose you're asking what order should be filled at a table Let us just see here They say AIJ is something of function it could be min, max or some function In general any function I mean min, max average function It can be some functions which would be infinite"
+      },
+      {
+        "lecture": 145,
+        "file": "145_37b_Order_of_Table_Filling_MIT_Questions_Top_Down_vs.mp4",
+        "start": 1042.67,
+        "end": 1070.53,
+        "text": "So the total calls, which is my top-down function If I do it from bottom up then if this is NYN's table i and j that possible values are n or n so if we do it in bottomup then NYN will have to fill the tables That means there is no other way Basically we usually do it at the bottom of the table for NYN Now let me see whether this is dependant on i by 2 or this depends on how you want to do it Means what does this entry mean? So basically we generally do it like this over all"
+      },
+      {
+        "lecture": 145,
+        "file": "145_37b_Order_of_Table_Filling_MIT_Questions_Top_Down_vs.mp4",
+        "start": 1100.88,
+        "end": 1132.3,
+        "text": "because there will be no other calls, total log n by logn into login call means it won't fill in any of the entries because that's not required. It demands on top down is basically recursion which is on demand if demand comes then it calls and then that is a recursive cause so basically it'll just compute log n by login tables but bottom up will compute n y n entries"
+      }
+    ]
+  },
+  {
+    "id": 437,
+    "lecture": 145,
+    "title": "Fill tables after their dependencies · Apply",
+    "concept": "A valid table-filling order follows the state dependency graph. Row-major order is safe only when it actually places all required predecessor cells earlier. A state describes the smallest information needed to solve a subproblem. A correct transition combines earlier states; caching or dependency-respecting table order avoids recomputing the same state.",
+    "teachingSteps": [
+      "A valid table-filling order follows the state dependency graph. Row-major order is safe only when it actually places all required predecessor cells earlier.",
+      "List the predecessor states of each transition",
+      "Evaluate once in a dependency-respecting order"
+    ],
+    "foundation": {
+      "title": "Fill tables after their dependencies",
+      "idea": "A valid table-filling order follows the state dependency graph. Row-major order is safe only when it actually places all required predecessor cells earlier. A state describes the smallest information needed to solve a subproblem. A correct transition combines earlier states; caching or dependency-respecting table order avoids recomputing the same state.",
+      "terms": [
+        "State: one subproblem identity.",
+        "Transition: how predecessor answers determine it.",
+        "Base case: a state with a directly known answer."
+      ],
+      "example": "For values [4,1,5], the best nonadjacent sum is 9 by taking 4 and 5. A prefix state compares skipping 5 with adding it to the prefix before its neighbor."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A planning service reuses prefix-state answers. What maximum sum can be selected from these values if no two selected positions are adjacent?",
+        "answer": 15,
+        "explanation": "At each prefix, compare skipping its last value with taking it plus the best prefix before its neighbor.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Position",
+            "Value"
+          ],
+          "rows": [
+            [
+              1,
+              4
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              4,
+              2
+            ],
+            [
+              5,
+              6
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Prefix states indexed 0 through 7 contain how many distinct states, including the empty prefix?",
+        "answer": 8,
+        "explanation": "The empty prefix is a real base state, so count both endpoints.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "What makes a memoized implementation avoid repeated-state work?",
+        "options": [
+          "Store answers by the complete subproblem identity and reuse them.",
+          "Always recompute every recursive call.",
+          "Use a different random answer at each call."
+        ],
+        "answer": 0,
+        "explanation": "Memoization evaluates the same state only once even if several parents request it."
+      },
+      {
+        "type": "order",
+        "prompt": "Design a reusable-state solution.",
+        "items": [
+          "Define the state and base cases",
+          "List the predecessor states of each transition",
+          "Evaluate once in a dependency-respecting order"
+        ],
+        "explanation": "State identity, dependencies and base cases come before the evaluation order."
+      }
+    ],
+    "algoLab": "dp-order",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0,
+    "excerpt": "So anyway, let's have some ideas in place. What they are saying? Bottom up we need to decide the order to fill that table so there were three examples and suppose you're asking what order should be filled at a table Let us just see here They say AIJ is something of function it could be min, max or some function In general any function I mean min, max average function It can be some functions which would be infinite",
+    "sourceReferences": [
+      {
+        "lecture": 145,
+        "file": "145_37b_Order_of_Table_Filling_MIT_Questions_Top_Down_vs.mp4",
+        "start": 0,
+        "end": 39.98,
+        "text": "So anyway, let's have some ideas in place. What they are saying? Bottom up we need to decide the order to fill that table so there were three examples and suppose you're asking what order should be filled at a table Let us just see here They say AIJ is something of function it could be min, max or some function In general any function I mean min, max average function It can be some functions which would be infinite"
+      },
+      {
+        "lecture": 145,
+        "file": "145_37b_Order_of_Table_Filling_MIT_Questions_Top_Down_vs.mp4",
+        "start": 1042.67,
+        "end": 1070.53,
+        "text": "So the total calls, which is my top-down function If I do it from bottom up then if this is NYN's table i and j that possible values are n or n so if we do it in bottomup then NYN will have to fill the tables That means there is no other way Basically we usually do it at the bottom of the table for NYN Now let me see whether this is dependant on i by 2 or this depends on how you want to do it Means what does this entry mean? So basically we generally do it like this over all"
+      },
+      {
+        "lecture": 145,
+        "file": "145_37b_Order_of_Table_Filling_MIT_Questions_Top_Down_vs.mp4",
+        "start": 1100.88,
+        "end": 1132.3,
+        "text": "because there will be no other calls, total log n by logn into login call means it won't fill in any of the entries because that's not required. It demands on top down is basically recursion which is on demand if demand comes then it calls and then that is a recursive cause so basically it'll just compute log n by login tables but bottom up will compute n y n entries"
+      }
+    ]
+  },
+  {
+    "id": 438,
+    "lecture": 146,
+    "title": "Overlap distinguishes reusable subproblems · Discover",
+    "concept": "Divide and conquer often solves independent smaller instances. Dynamic programming saves repeated states in an overlapping dependency graph; optimal substructure justifies how child answers combine. A state describes the smallest information needed to solve a subproblem. A correct transition combines earlier states; caching or dependency-respecting table order avoids recomputing the same state.",
+    "teachingSteps": [
+      "Divide and conquer often solves independent smaller instances. Dynamic programming saves repeated states in an overlapping dependency graph; optimal substructure justifies how child answers combine.",
+      "List the predecessor states of each transition",
+      "Evaluate once in a dependency-respecting order"
+    ],
+    "foundation": {
+      "title": "Overlap distinguishes reusable subproblems",
+      "idea": "Divide and conquer often solves independent smaller instances. Dynamic programming saves repeated states in an overlapping dependency graph; optimal substructure justifies how child answers combine. A state describes the smallest information needed to solve a subproblem. A correct transition combines earlier states; caching or dependency-respecting table order avoids recomputing the same state.",
+      "terms": [
+        "State: one subproblem identity.",
+        "Transition: how predecessor answers determine it.",
+        "Base case: a state with a directly known answer."
+      ],
+      "example": "For values [4,1,5], the best nonadjacent sum is 9 by taking 4 and 5. A prefix state compares skipping 5 with adding it to the prefix before its neighbor."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "What maximum sum can be selected from these values if no two selected positions are adjacent?",
+        "answer": 21,
+        "explanation": "At each prefix, compare skipping its last value with taking it plus the best prefix before its neighbor.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Position",
+            "Value"
+          ],
+          "rows": [
+            [
+              1,
+              6
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              7
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              5,
+              8
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Prefix states indexed 0 through 6 contain how many distinct states, including the empty prefix?",
+        "answer": 7,
+        "explanation": "The empty prefix is a real base state, so count both endpoints.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains overlap distinguishes reusable subproblems?",
+        "options": [
+          "One successful example proves every input.",
+          "Divide and conquer often solves independent smaller instances.",
+          "Input assumptions never affect correctness."
+        ],
+        "answer": 1,
+        "explanation": "Divide and conquer often solves independent smaller instances. Dynamic programming saves repeated states in an overlapping dependency graph; optimal substructure justifies how child answers combine."
+      },
+      {
+        "type": "order",
+        "prompt": "Design a reusable-state solution.",
+        "items": [
+          "Define the state and base cases",
+          "List the predecessor states of each transition",
+          "Evaluate once in a dependency-respecting order"
+        ],
+        "explanation": "State identity, dependencies and base cases come before the evaluation order."
+      }
+    ],
+    "algoLab": "dp-vs-divide",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 722.93,
+    "excerpt": "smaller sub problems and once we divide okay once we divide then second property is also important. Are we having the like repetitive calls which means can we save time which means like here I'm having this call here also I'm having this call so that is why we can save time that is why I can see the recursion in this recursion we can apply dynamic programming.",
+    "sourceReferences": [
+      {
+        "lecture": 146,
+        "file": "146. 37c. DP vs Divide and Conquer _ Elements in DP.mp4",
+        "start": 722.93,
+        "end": 748.8,
+        "text": "smaller sub problems and once we divide okay once we divide then second property is also important. Are we having the like repetitive calls which means can we save time which means like here I'm having this call here also I'm having this call so that is why we can save time that is why I can see the recursion in this recursion we can apply dynamic programming."
+      },
+      {
+        "lecture": 146,
+        "file": "146. 37c. DP vs Divide and Conquer _ Elements in DP.mp4",
+        "start": 774.02,
+        "end": 803.32,
+        "text": "formally these two points are known as some properties which are not much important but yeah you should be knowing it one property is called optimal service structure which means that can you divide I mean I will talk about it formally later but for now I'm just giving you a flavor that what are the conditions that are me to be satisfied okay so first thing is that that can you divide second thing is that if you can divide then are there are problems which are repeating because that is called overlapping sub problems which means are there are overlapping sub problems"
+      },
+      {
+        "lecture": 146,
+        "file": "146. 37c. DP vs Divide and Conquer _ Elements in DP.mp4",
+        "start": 803.98,
+        "end": 829.87,
+        "text": "means the problems which are repeating ok this will be understood a little bit but we will see this formally later so currently I am just telling you some vague idea that yes these two conditions should be there which means you can divide a problem into small sub-problems or smaller sub-problems should be repeated then only we can apply DP ok and formally these are having some proper names which are optimal substructure and overlapping sub-problems we will talk about it later"
+      }
+    ]
+  },
+  {
+    "id": 439,
+    "lecture": 146,
+    "title": "Overlap distinguishes reusable subproblems · Trace",
+    "concept": "Divide and conquer often solves independent smaller instances. Dynamic programming saves repeated states in an overlapping dependency graph; optimal substructure justifies how child answers combine. A state describes the smallest information needed to solve a subproblem. A correct transition combines earlier states; caching or dependency-respecting table order avoids recomputing the same state.",
+    "teachingSteps": [
+      "Divide and conquer often solves independent smaller instances. Dynamic programming saves repeated states in an overlapping dependency graph; optimal substructure justifies how child answers combine.",
+      "List the predecessor states of each transition",
+      "Evaluate once in a dependency-respecting order"
+    ],
+    "foundation": {
+      "title": "Overlap distinguishes reusable subproblems",
+      "idea": "Divide and conquer often solves independent smaller instances. Dynamic programming saves repeated states in an overlapping dependency graph; optimal substructure justifies how child answers combine. A state describes the smallest information needed to solve a subproblem. A correct transition combines earlier states; caching or dependency-respecting table order avoids recomputing the same state.",
+      "terms": [
+        "State: one subproblem identity.",
+        "Transition: how predecessor answers determine it.",
+        "Base case: a state with a directly known answer."
+      ],
+      "example": "For values [4,1,5], the best nonadjacent sum is 9 by taking 4 and 5. A prefix state compares skipping 5 with adding it to the prefix before its neighbor."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "What maximum sum can be selected from these values if no two selected positions are adjacent?",
+        "answer": 15,
+        "explanation": "At each prefix, compare skipping its last value with taking it plus the best prefix before its neighbor.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Position",
+            "Value"
+          ],
+          "rows": [
+            [
+              1,
+              4
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              4,
+              2
+            ],
+            [
+              5,
+              6
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Prefix states indexed 0 through 7 contain how many distinct states, including the empty prefix?",
+        "answer": 8,
+        "explanation": "The empty prefix is a real base state, so count both endpoints.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "What makes a memoized implementation avoid repeated-state work?",
+        "options": [
+          "Store answers by the complete subproblem identity and reuse them.",
+          "Always recompute every recursive call.",
+          "Use a different random answer at each call."
+        ],
+        "answer": 0,
+        "explanation": "Memoization evaluates the same state only once even if several parents request it."
+      },
+      {
+        "type": "order",
+        "prompt": "Design a reusable-state solution.",
+        "items": [
+          "Define the state and base cases",
+          "List the predecessor states of each transition",
+          "Evaluate once in a dependency-respecting order"
+        ],
+        "explanation": "State identity, dependencies and base cases come before the evaluation order."
+      }
+    ],
+    "algoLab": "dp-vs-divide",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 722.93,
+    "excerpt": "smaller sub problems and once we divide okay once we divide then second property is also important. Are we having the like repetitive calls which means can we save time which means like here I'm having this call here also I'm having this call so that is why we can save time that is why I can see the recursion in this recursion we can apply dynamic programming.",
+    "sourceReferences": [
+      {
+        "lecture": 146,
+        "file": "146. 37c. DP vs Divide and Conquer _ Elements in DP.mp4",
+        "start": 722.93,
+        "end": 748.8,
+        "text": "smaller sub problems and once we divide okay once we divide then second property is also important. Are we having the like repetitive calls which means can we save time which means like here I'm having this call here also I'm having this call so that is why we can save time that is why I can see the recursion in this recursion we can apply dynamic programming."
+      },
+      {
+        "lecture": 146,
+        "file": "146. 37c. DP vs Divide and Conquer _ Elements in DP.mp4",
+        "start": 774.02,
+        "end": 803.32,
+        "text": "formally these two points are known as some properties which are not much important but yeah you should be knowing it one property is called optimal service structure which means that can you divide I mean I will talk about it formally later but for now I'm just giving you a flavor that what are the conditions that are me to be satisfied okay so first thing is that that can you divide second thing is that if you can divide then are there are problems which are repeating because that is called overlapping sub problems which means are there are overlapping sub problems"
+      },
+      {
+        "lecture": 146,
+        "file": "146. 37c. DP vs Divide and Conquer _ Elements in DP.mp4",
+        "start": 803.98,
+        "end": 829.87,
+        "text": "means the problems which are repeating ok this will be understood a little bit but we will see this formally later so currently I am just telling you some vague idea that yes these two conditions should be there which means you can divide a problem into small sub-problems or smaller sub-problems should be repeated then only we can apply DP ok and formally these are having some proper names which are optimal substructure and overlapping sub-problems we will talk about it later"
+      }
+    ]
+  },
+  {
+    "id": 440,
+    "lecture": 146,
+    "title": "Overlap distinguishes reusable subproblems · Apply",
+    "concept": "Divide and conquer often solves independent smaller instances. Dynamic programming saves repeated states in an overlapping dependency graph; optimal substructure justifies how child answers combine. A state describes the smallest information needed to solve a subproblem. A correct transition combines earlier states; caching or dependency-respecting table order avoids recomputing the same state.",
+    "teachingSteps": [
+      "Divide and conquer often solves independent smaller instances. Dynamic programming saves repeated states in an overlapping dependency graph; optimal substructure justifies how child answers combine.",
+      "List the predecessor states of each transition",
+      "Evaluate once in a dependency-respecting order"
+    ],
+    "foundation": {
+      "title": "Overlap distinguishes reusable subproblems",
+      "idea": "Divide and conquer often solves independent smaller instances. Dynamic programming saves repeated states in an overlapping dependency graph; optimal substructure justifies how child answers combine. A state describes the smallest information needed to solve a subproblem. A correct transition combines earlier states; caching or dependency-respecting table order avoids recomputing the same state.",
+      "terms": [
+        "State: one subproblem identity.",
+        "Transition: how predecessor answers determine it.",
+        "Base case: a state with a directly known answer."
+      ],
+      "example": "For values [4,1,5], the best nonadjacent sum is 9 by taking 4 and 5. A prefix state compares skipping 5 with adding it to the prefix before its neighbor."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A planning service reuses prefix-state answers. What maximum sum can be selected from these values if no two selected positions are adjacent?",
+        "answer": 18,
+        "explanation": "At each prefix, compare skipping its last value with taking it plus the best prefix before its neighbor.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Position",
+            "Value"
+          ],
+          "rows": [
+            [
+              1,
+              5
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              3,
+              6
+            ],
+            [
+              4,
+              3
+            ],
+            [
+              5,
+              7
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Prefix states indexed 0 through 4 contain how many distinct states, including the empty prefix?",
+        "answer": 5,
+        "explanation": "The empty prefix is a real base state, so count both endpoints.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "What makes a memoized implementation avoid repeated-state work?",
+        "options": [
+          "Always recompute every recursive call.",
+          "Use a different random answer at each call.",
+          "Store answers by the complete subproblem identity and reuse them."
+        ],
+        "answer": 2,
+        "explanation": "Memoization evaluates the same state only once even if several parents request it."
+      },
+      {
+        "type": "order",
+        "prompt": "Design a reusable-state solution.",
+        "items": [
+          "Define the state and base cases",
+          "List the predecessor states of each transition",
+          "Evaluate once in a dependency-respecting order"
+        ],
+        "explanation": "State identity, dependencies and base cases come before the evaluation order."
+      }
+    ],
+    "algoLab": "dp-vs-divide",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 722.93,
+    "excerpt": "smaller sub problems and once we divide okay once we divide then second property is also important. Are we having the like repetitive calls which means can we save time which means like here I'm having this call here also I'm having this call so that is why we can save time that is why I can see the recursion in this recursion we can apply dynamic programming.",
+    "sourceReferences": [
+      {
+        "lecture": 146,
+        "file": "146. 37c. DP vs Divide and Conquer _ Elements in DP.mp4",
+        "start": 722.93,
+        "end": 748.8,
+        "text": "smaller sub problems and once we divide okay once we divide then second property is also important. Are we having the like repetitive calls which means can we save time which means like here I'm having this call here also I'm having this call so that is why we can save time that is why I can see the recursion in this recursion we can apply dynamic programming."
+      },
+      {
+        "lecture": 146,
+        "file": "146. 37c. DP vs Divide and Conquer _ Elements in DP.mp4",
+        "start": 774.02,
+        "end": 803.32,
+        "text": "formally these two points are known as some properties which are not much important but yeah you should be knowing it one property is called optimal service structure which means that can you divide I mean I will talk about it formally later but for now I'm just giving you a flavor that what are the conditions that are me to be satisfied okay so first thing is that that can you divide second thing is that if you can divide then are there are problems which are repeating because that is called overlapping sub problems which means are there are overlapping sub problems"
+      },
+      {
+        "lecture": 146,
+        "file": "146. 37c. DP vs Divide and Conquer _ Elements in DP.mp4",
+        "start": 803.98,
+        "end": 829.87,
+        "text": "means the problems which are repeating ok this will be understood a little bit but we will see this formally later so currently I am just telling you some vague idea that yes these two conditions should be there which means you can divide a problem into small sub-problems or smaller sub-problems should be repeated then only we can apply DP ok and formally these are having some proper names which are optimal substructure and overlapping sub-problems we will talk about it later"
+      }
+    ]
+  },
+  {
+    "id": 441,
+    "lecture": 147,
+    "title": "Subsequences can skip positions · Discover",
+    "concept": "A subsequence retains order but may skip characters. An LCS is a longest sequence shared by two strings; it is not required to be a contiguous substring. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+    "teachingSteps": [
+      "A subsequence retains order but may skip characters. An LCS is a longest sequence shared by two strings; it is not required to be a contiguous substring.",
+      "Use match or mismatch transitions for each cell",
+      "Read the final length and follow choices for one sequence"
+    ],
+    "foundation": {
+      "title": "Subsequences can skip positions",
+      "idea": "A subsequence retains order but may skip characters. An LCS is a longest sequence shared by two strings; it is not required to be a contiguous substring. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+      "terms": [
+        "Subsequence: order retained, gaps allowed.",
+        "Substring: contiguous positions, a different requirement.",
+        "State L(i,j): optimal length for two prefixes."
+      ],
+      "example": "ABC and BAC have LCS length 2: AC and BC are both valid. A single traceback chooses one; a count of traceback paths may overcount distinct resulting strings."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "What is the LCS length of the given strings?",
+        "answer": 3,
+        "explanation": "Use zero-valued empty prefixes, then matching-diagonal or mismatch-maximum transitions.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "String",
+            "Characters"
+          ],
+          "rows": [
+            [
+              "A",
+              "ABCD"
+            ],
+            [
+              "B",
+              "BACD"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Including empty prefixes, strings of lengths 7 and 2 need how many cells in the full LCS table?",
+        "answer": 24,
+        "explanation": "Both row and column counts include index zero.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains subsequences can skip positions?",
+        "options": [
+          "A subsequence retains order but may skip characters.",
+          "Input assumptions never affect correctness.",
+          "One successful example proves every input."
+        ],
+        "answer": 0,
+        "explanation": "A subsequence retains order but may skip characters. An LCS is a longest sequence shared by two strings; it is not required to be a contiguous substring."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate an LCS prefix table.",
+        "items": [
+          "Initialize empty-prefix boundaries to zero",
+          "Use match or mismatch transitions for each cell",
+          "Read the final length and follow choices for one sequence"
+        ],
+        "explanation": "Every prefix state depends on smaller prefixes."
+      }
+    ],
+    "algoLab": "lcs-brute",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 202.57,
+    "excerpt": "is a common subsequence whether it is longest or not it is it is not a current concern but you can say a is a common subsequence okay common subsequence means a subsequence which is common to both of them now what are the other common subsequences so if i write the other common subsequences then can you tell me maybe you can say that ab is other common subsequence maybe ab i don't know maybe abd right",
+    "sourceReferences": [
+      {
+        "lecture": 147,
+        "file": "147. 38a. Longest Common Subsequence _ BruteForce Method.mp4",
+        "start": 202.57,
+        "end": 246.35,
+        "text": "is a common subsequence whether it is longest or not it is it is not a current concern but you can say a is a common subsequence okay common subsequence means a subsequence which is common to both of them now what are the other common subsequences so if i write the other common subsequences then can you tell me maybe you can say that ab is other common subsequence maybe ab i don't know maybe abd right"
+      },
+      {
+        "lecture": 147,
+        "file": "147. 38a. Longest Common Subsequence _ BruteForce Method.mp4",
+        "start": 280.42,
+        "end": 307.14,
+        "text": "in this particular particular problem which is called longest common subsequence in this particular problem we are going to find out the longest common subsequence given these two subsequences and obviously you might ask me that why we are at all interested in finding out long longest common subsequence which means what are the application of it i will talk about it in a in a while okay i mean why we are at all interested in finding out longest common subsequence of given two two sequences there are many many applications many many applications"
+      },
+      {
+        "lecture": 147,
+        "file": "147. 38a. Longest Common Subsequence _ BruteForce Method.mp4",
+        "start": 476.56,
+        "end": 495.39,
+        "text": "which is the longest out of all common subsequences which means this is our problem statement"
+      }
+    ]
+  },
+  {
+    "id": 442,
+    "lecture": 147,
+    "title": "Subsequences can skip positions · Trace",
+    "concept": "A subsequence retains order but may skip characters. An LCS is a longest sequence shared by two strings; it is not required to be a contiguous substring. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+    "teachingSteps": [
+      "A subsequence retains order but may skip characters. An LCS is a longest sequence shared by two strings; it is not required to be a contiguous substring.",
+      "Use match or mismatch transitions for each cell",
+      "Read the final length and follow choices for one sequence"
+    ],
+    "foundation": {
+      "title": "Subsequences can skip positions",
+      "idea": "A subsequence retains order but may skip characters. An LCS is a longest sequence shared by two strings; it is not required to be a contiguous substring. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+      "terms": [
+        "Subsequence: order retained, gaps allowed.",
+        "Substring: contiguous positions, a different requirement.",
+        "State L(i,j): optimal length for two prefixes."
+      ],
+      "example": "ABC and BAC have LCS length 2: AC and BC are both valid. A single traceback chooses one; a count of traceback paths may overcount distinct resulting strings."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "What is the LCS length of the given strings?",
+        "answer": 2,
+        "explanation": "Use zero-valued empty prefixes, then matching-diagonal or mismatch-maximum transitions.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "String",
+            "Characters"
+          ],
+          "rows": [
+            [
+              "A",
+              "ABA"
+            ],
+            [
+              "B",
+              "BAA"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Including empty prefixes, strings of lengths 4 and 3 need how many cells in the full LCS table?",
+        "answer": 20,
+        "explanation": "Both row and column counts include index zero.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Last prefix characters differ. Which transition is correct?",
+        "options": [
+          "L(i-1,j)+L(i,j-1)",
+          "1+L(i-1,j-1) in every mismatch.",
+          "max(L(i-1,j), L(i,j-1))"
+        ],
+        "answer": 2,
+        "explanation": "Drop one last character or the other and retain the longer common subsequence."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate an LCS prefix table.",
+        "items": [
+          "Initialize empty-prefix boundaries to zero",
+          "Use match or mismatch transitions for each cell",
+          "Read the final length and follow choices for one sequence"
+        ],
+        "explanation": "Every prefix state depends on smaller prefixes."
+      }
+    ],
+    "algoLab": "lcs-brute",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 202.57,
+    "excerpt": "is a common subsequence whether it is longest or not it is it is not a current concern but you can say a is a common subsequence okay common subsequence means a subsequence which is common to both of them now what are the other common subsequences so if i write the other common subsequences then can you tell me maybe you can say that ab is other common subsequence maybe ab i don't know maybe abd right",
+    "sourceReferences": [
+      {
+        "lecture": 147,
+        "file": "147. 38a. Longest Common Subsequence _ BruteForce Method.mp4",
+        "start": 202.57,
+        "end": 246.35,
+        "text": "is a common subsequence whether it is longest or not it is it is not a current concern but you can say a is a common subsequence okay common subsequence means a subsequence which is common to both of them now what are the other common subsequences so if i write the other common subsequences then can you tell me maybe you can say that ab is other common subsequence maybe ab i don't know maybe abd right"
+      },
+      {
+        "lecture": 147,
+        "file": "147. 38a. Longest Common Subsequence _ BruteForce Method.mp4",
+        "start": 280.42,
+        "end": 307.14,
+        "text": "in this particular particular problem which is called longest common subsequence in this particular problem we are going to find out the longest common subsequence given these two subsequences and obviously you might ask me that why we are at all interested in finding out long longest common subsequence which means what are the application of it i will talk about it in a in a while okay i mean why we are at all interested in finding out longest common subsequence of given two two sequences there are many many applications many many applications"
+      },
+      {
+        "lecture": 147,
+        "file": "147. 38a. Longest Common Subsequence _ BruteForce Method.mp4",
+        "start": 476.56,
+        "end": 495.39,
+        "text": "which is the longest out of all common subsequences which means this is our problem statement"
+      }
+    ]
+  },
+  {
+    "id": 443,
+    "lecture": 147,
+    "title": "Subsequences can skip positions · Apply",
+    "concept": "A subsequence retains order but may skip characters. An LCS is a longest sequence shared by two strings; it is not required to be a contiguous substring. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+    "teachingSteps": [
+      "A subsequence retains order but may skip characters. An LCS is a longest sequence shared by two strings; it is not required to be a contiguous substring.",
+      "Use match or mismatch transitions for each cell",
+      "Read the final length and follow choices for one sequence"
+    ],
+    "foundation": {
+      "title": "Subsequences can skip positions",
+      "idea": "A subsequence retains order but may skip characters. An LCS is a longest sequence shared by two strings; it is not required to be a contiguous substring. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+      "terms": [
+        "Subsequence: order retained, gaps allowed.",
+        "Substring: contiguous positions, a different requirement.",
+        "State L(i,j): optimal length for two prefixes."
+      ],
+      "example": "ABC and BAC have LCS length 2: AC and BC are both valid. A single traceback chooses one; a count of traceback paths may overcount distinct resulting strings."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A text comparison service keeps common ordered content. What is the LCS length of the given strings?",
+        "answer": 2,
+        "explanation": "Use zero-valued empty prefixes, then matching-diagonal or mismatch-maximum transitions.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "String",
+            "Characters"
+          ],
+          "rows": [
+            [
+              "A",
+              "BAN"
+            ],
+            [
+              "B",
+              "CAN"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Including empty prefixes, strings of lengths 5 and 4 need how many cells in the full LCS table?",
+        "answer": 30,
+        "explanation": "Both row and column counts include index zero.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Last prefix characters differ. Which transition is correct?",
+        "options": [
+          "1+L(i-1,j-1) in every mismatch.",
+          "max(L(i-1,j), L(i,j-1))",
+          "L(i-1,j)+L(i,j-1)"
+        ],
+        "answer": 1,
+        "explanation": "Drop one last character or the other and retain the longer common subsequence."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate an LCS prefix table.",
+        "items": [
+          "Initialize empty-prefix boundaries to zero",
+          "Use match or mismatch transitions for each cell",
+          "Read the final length and follow choices for one sequence"
+        ],
+        "explanation": "Every prefix state depends on smaller prefixes."
+      }
+    ],
+    "algoLab": "lcs-brute",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 202.57,
+    "excerpt": "is a common subsequence whether it is longest or not it is it is not a current concern but you can say a is a common subsequence okay common subsequence means a subsequence which is common to both of them now what are the other common subsequences so if i write the other common subsequences then can you tell me maybe you can say that ab is other common subsequence maybe ab i don't know maybe abd right",
+    "sourceReferences": [
+      {
+        "lecture": 147,
+        "file": "147. 38a. Longest Common Subsequence _ BruteForce Method.mp4",
+        "start": 202.57,
+        "end": 246.35,
+        "text": "is a common subsequence whether it is longest or not it is it is not a current concern but you can say a is a common subsequence okay common subsequence means a subsequence which is common to both of them now what are the other common subsequences so if i write the other common subsequences then can you tell me maybe you can say that ab is other common subsequence maybe ab i don't know maybe abd right"
+      },
+      {
+        "lecture": 147,
+        "file": "147. 38a. Longest Common Subsequence _ BruteForce Method.mp4",
+        "start": 280.42,
+        "end": 307.14,
+        "text": "in this particular particular problem which is called longest common subsequence in this particular problem we are going to find out the longest common subsequence given these two subsequences and obviously you might ask me that why we are at all interested in finding out long longest common subsequence which means what are the application of it i will talk about it in a in a while okay i mean why we are at all interested in finding out longest common subsequence of given two two sequences there are many many applications many many applications"
+      },
+      {
+        "lecture": 147,
+        "file": "147. 38a. Longest Common Subsequence _ BruteForce Method.mp4",
+        "start": 476.56,
+        "end": 495.39,
+        "text": "which is the longest out of all common subsequences which means this is our problem statement"
+      }
+    ]
+  },
+  {
+    "id": 444,
+    "lecture": 148,
+    "title": "LCS prefix states and recurrence · Discover",
+    "concept": "For prefix lengths i,j, matching last characters give 1+L(i-1,j-1). Otherwise use max(L(i-1,j),L(i,j-1)); an empty prefix has LCS length zero. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+    "teachingSteps": [
+      "For prefix lengths i,j, matching last characters give 1+L(i-1,j-1). Otherwise use max(L(i-1,j),L(i,j-1)); an empty prefix has LCS length zero.",
+      "Use match or mismatch transitions for each cell",
+      "Read the final length and follow choices for one sequence"
+    ],
+    "foundation": {
+      "title": "LCS prefix states and recurrence",
+      "idea": "For prefix lengths i,j, matching last characters give 1+L(i-1,j-1). Otherwise use max(L(i-1,j),L(i,j-1)); an empty prefix has LCS length zero. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+      "terms": [
+        "Subsequence: order retained, gaps allowed.",
+        "Substring: contiguous positions, a different requirement.",
+        "State L(i,j): optimal length for two prefixes."
+      ],
+      "example": "ABC and BAC have LCS length 2: AC and BC are both valid. A single traceback chooses one; a count of traceback paths may overcount distinct resulting strings."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "What is the LCS length of the given strings?",
+        "answer": 2,
+        "explanation": "Use zero-valued empty prefixes, then matching-diagonal or mismatch-maximum transitions.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "String",
+            "Characters"
+          ],
+          "rows": [
+            [
+              "A",
+              "ABA"
+            ],
+            [
+              "B",
+              "BAA"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Including empty prefixes, strings of lengths 4 and 3 need how many cells in the full LCS table?",
+        "answer": 20,
+        "explanation": "Both row and column counts include index zero.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains lcs prefix states and recurrence?",
+        "options": [
+          "Input assumptions never affect correctness.",
+          "One successful example proves every input.",
+          "For prefix lengths i,j, matching last characters give 1+L(i-1,j-1)."
+        ],
+        "answer": 2,
+        "explanation": "For prefix lengths i,j, matching last characters give 1+L(i-1,j-1). Otherwise use max(L(i-1,j),L(i,j-1)); an empty prefix has LCS length zero."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate an LCS prefix table.",
+        "items": [
+          "Initialize empty-prefix boundaries to zero",
+          "Use match or mismatch transitions for each cell",
+          "Read the final length and follow choices for one sequence"
+        ],
+        "explanation": "Every prefix state depends on smaller prefixes."
+      }
+    ],
+    "algoLab": "lcs",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 126.99,
+    "excerpt": "okay let's just find out the length of lcs and then we will be we will be finding out the lcs itself so lcs so currently we are just finding out the length so it is like can you tell me the unit of this unit means like what it is going to return it is going to return length right so that is why i can just add or subtract from here i mean since it is just an integer that i have so you can say that the length length of this i mean lcs of this these two will be one plus since last symbols are matching lcs of abd",
+    "sourceReferences": [
+      {
+        "lecture": 148,
+        "file": "148_38b_Longest_Common_Subsequence_using_Dynamic_Program.mp4",
+        "start": 126.99,
+        "end": 157.33,
+        "text": "okay let's just find out the length of lcs and then we will be we will be finding out the lcs itself so lcs so currently we are just finding out the length so it is like can you tell me the unit of this unit means like what it is going to return it is going to return length right so that is why i can just add or subtract from here i mean since it is just an integer that i have so you can say that the length length of this i mean lcs of this these two will be one plus since last symbols are matching lcs of abd"
+      },
+      {
+        "lecture": 148,
+        "file": "148_38b_Longest_Common_Subsequence_using_Dynamic_Program.mp4",
+        "start": 533.87,
+        "end": 563.81,
+        "text": "that if this t is not matching with b let's just drop out this b directly then yx is like if you find out the lcs between these two you will say there is there is nothing common so lcs is zero i mean length of longest is zero but since you've dropped out this b that could match with the with some part of the next future part of this x right that is a problem so you cannot directly drop out drop out which means you have to consider both the possibilities you you have to consider if you drop out this b and if you drop out this t"
+      },
+      {
+        "lecture": 148,
+        "file": "148_38b_Longest_Common_Subsequence_using_Dynamic_Program.mp4",
+        "start": 756.49,
+        "end": 789.36,
+        "text": "then what you will do in this first case you will you will say that okay these two are same then then you can decrement both which means you can find out the lcs after decrement of both but here if both are not matching then these two are not same then in this case first you will drop out this and then you will drop out this these are the two cases so let me write the recursive equation now let's suppose let me uh let me indicate this lcs of i comma j let me define this suppose this is length of"
+      }
+    ]
+  },
+  {
+    "id": 445,
+    "lecture": 148,
+    "title": "LCS prefix states and recurrence · Trace",
+    "concept": "For prefix lengths i,j, matching last characters give 1+L(i-1,j-1). Otherwise use max(L(i-1,j),L(i,j-1)); an empty prefix has LCS length zero. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+    "teachingSteps": [
+      "For prefix lengths i,j, matching last characters give 1+L(i-1,j-1). Otherwise use max(L(i-1,j),L(i,j-1)); an empty prefix has LCS length zero.",
+      "Use match or mismatch transitions for each cell",
+      "Read the final length and follow choices for one sequence"
+    ],
+    "foundation": {
+      "title": "LCS prefix states and recurrence",
+      "idea": "For prefix lengths i,j, matching last characters give 1+L(i-1,j-1). Otherwise use max(L(i-1,j),L(i,j-1)); an empty prefix has LCS length zero. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+      "terms": [
+        "Subsequence: order retained, gaps allowed.",
+        "Substring: contiguous positions, a different requirement.",
+        "State L(i,j): optimal length for two prefixes."
+      ],
+      "example": "ABC and BAC have LCS length 2: AC and BC are both valid. A single traceback chooses one; a count of traceback paths may overcount distinct resulting strings."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "What is the LCS length of the given strings?",
+        "answer": 2,
+        "explanation": "Use zero-valued empty prefixes, then matching-diagonal or mismatch-maximum transitions.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "String",
+            "Characters"
+          ],
+          "rows": [
+            [
+              "A",
+              "BAN"
+            ],
+            [
+              "B",
+              "CAN"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Including empty prefixes, strings of lengths 5 and 4 need how many cells in the full LCS table?",
+        "answer": 30,
+        "explanation": "Both row and column counts include index zero.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Last prefix characters differ. Which transition is correct?",
+        "options": [
+          "1+L(i-1,j-1) in every mismatch.",
+          "max(L(i-1,j), L(i,j-1))",
+          "L(i-1,j)+L(i,j-1)"
+        ],
+        "answer": 1,
+        "explanation": "Drop one last character or the other and retain the longer common subsequence."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate an LCS prefix table.",
+        "items": [
+          "Initialize empty-prefix boundaries to zero",
+          "Use match or mismatch transitions for each cell",
+          "Read the final length and follow choices for one sequence"
+        ],
+        "explanation": "Every prefix state depends on smaller prefixes."
+      }
+    ],
+    "algoLab": "lcs",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 126.99,
+    "excerpt": "okay let's just find out the length of lcs and then we will be we will be finding out the lcs itself so lcs so currently we are just finding out the length so it is like can you tell me the unit of this unit means like what it is going to return it is going to return length right so that is why i can just add or subtract from here i mean since it is just an integer that i have so you can say that the length length of this i mean lcs of this these two will be one plus since last symbols are matching lcs of abd",
+    "sourceReferences": [
+      {
+        "lecture": 148,
+        "file": "148_38b_Longest_Common_Subsequence_using_Dynamic_Program.mp4",
+        "start": 126.99,
+        "end": 157.33,
+        "text": "okay let's just find out the length of lcs and then we will be we will be finding out the lcs itself so lcs so currently we are just finding out the length so it is like can you tell me the unit of this unit means like what it is going to return it is going to return length right so that is why i can just add or subtract from here i mean since it is just an integer that i have so you can say that the length length of this i mean lcs of this these two will be one plus since last symbols are matching lcs of abd"
+      },
+      {
+        "lecture": 148,
+        "file": "148_38b_Longest_Common_Subsequence_using_Dynamic_Program.mp4",
+        "start": 533.87,
+        "end": 563.81,
+        "text": "that if this t is not matching with b let's just drop out this b directly then yx is like if you find out the lcs between these two you will say there is there is nothing common so lcs is zero i mean length of longest is zero but since you've dropped out this b that could match with the with some part of the next future part of this x right that is a problem so you cannot directly drop out drop out which means you have to consider both the possibilities you you have to consider if you drop out this b and if you drop out this t"
+      },
+      {
+        "lecture": 148,
+        "file": "148_38b_Longest_Common_Subsequence_using_Dynamic_Program.mp4",
+        "start": 756.49,
+        "end": 789.36,
+        "text": "then what you will do in this first case you will you will say that okay these two are same then then you can decrement both which means you can find out the lcs after decrement of both but here if both are not matching then these two are not same then in this case first you will drop out this and then you will drop out this these are the two cases so let me write the recursive equation now let's suppose let me uh let me indicate this lcs of i comma j let me define this suppose this is length of"
+      }
+    ]
+  },
+  {
+    "id": 446,
+    "lecture": 148,
+    "title": "LCS prefix states and recurrence · Apply",
+    "concept": "For prefix lengths i,j, matching last characters give 1+L(i-1,j-1). Otherwise use max(L(i-1,j),L(i,j-1)); an empty prefix has LCS length zero. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+    "teachingSteps": [
+      "For prefix lengths i,j, matching last characters give 1+L(i-1,j-1). Otherwise use max(L(i-1,j),L(i,j-1)); an empty prefix has LCS length zero.",
+      "Use match or mismatch transitions for each cell",
+      "Read the final length and follow choices for one sequence"
+    ],
+    "foundation": {
+      "title": "LCS prefix states and recurrence",
+      "idea": "For prefix lengths i,j, matching last characters give 1+L(i-1,j-1). Otherwise use max(L(i-1,j),L(i,j-1)); an empty prefix has LCS length zero. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+      "terms": [
+        "Subsequence: order retained, gaps allowed.",
+        "Substring: contiguous positions, a different requirement.",
+        "State L(i,j): optimal length for two prefixes."
+      ],
+      "example": "ABC and BAC have LCS length 2: AC and BC are both valid. A single traceback chooses one; a count of traceback paths may overcount distinct resulting strings."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A text comparison service keeps common ordered content. What is the LCS length of the given strings?",
+        "answer": 3,
+        "explanation": "Use zero-valued empty prefixes, then matching-diagonal or mismatch-maximum transitions.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "String",
+            "Characters"
+          ],
+          "rows": [
+            [
+              "A",
+              "ABCD"
+            ],
+            [
+              "B",
+              "BACD"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Including empty prefixes, strings of lengths 6 and 2 need how many cells in the full LCS table?",
+        "answer": 21,
+        "explanation": "Both row and column counts include index zero.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Last prefix characters differ. Which transition is correct?",
+        "options": [
+          "max(L(i-1,j), L(i,j-1))",
+          "L(i-1,j)+L(i,j-1)",
+          "1+L(i-1,j-1) in every mismatch."
+        ],
+        "answer": 0,
+        "explanation": "Drop one last character or the other and retain the longer common subsequence."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate an LCS prefix table.",
+        "items": [
+          "Initialize empty-prefix boundaries to zero",
+          "Use match or mismatch transitions for each cell",
+          "Read the final length and follow choices for one sequence"
+        ],
+        "explanation": "Every prefix state depends on smaller prefixes."
+      }
+    ],
+    "algoLab": "lcs",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 126.99,
+    "excerpt": "okay let's just find out the length of lcs and then we will be we will be finding out the lcs itself so lcs so currently we are just finding out the length so it is like can you tell me the unit of this unit means like what it is going to return it is going to return length right so that is why i can just add or subtract from here i mean since it is just an integer that i have so you can say that the length length of this i mean lcs of this these two will be one plus since last symbols are matching lcs of abd",
+    "sourceReferences": [
+      {
+        "lecture": 148,
+        "file": "148_38b_Longest_Common_Subsequence_using_Dynamic_Program.mp4",
+        "start": 126.99,
+        "end": 157.33,
+        "text": "okay let's just find out the length of lcs and then we will be we will be finding out the lcs itself so lcs so currently we are just finding out the length so it is like can you tell me the unit of this unit means like what it is going to return it is going to return length right so that is why i can just add or subtract from here i mean since it is just an integer that i have so you can say that the length length of this i mean lcs of this these two will be one plus since last symbols are matching lcs of abd"
+      },
+      {
+        "lecture": 148,
+        "file": "148_38b_Longest_Common_Subsequence_using_Dynamic_Program.mp4",
+        "start": 533.87,
+        "end": 563.81,
+        "text": "that if this t is not matching with b let's just drop out this b directly then yx is like if you find out the lcs between these two you will say there is there is nothing common so lcs is zero i mean length of longest is zero but since you've dropped out this b that could match with the with some part of the next future part of this x right that is a problem so you cannot directly drop out drop out which means you have to consider both the possibilities you you have to consider if you drop out this b and if you drop out this t"
+      },
+      {
+        "lecture": 148,
+        "file": "148_38b_Longest_Common_Subsequence_using_Dynamic_Program.mp4",
+        "start": 756.49,
+        "end": 789.36,
+        "text": "then what you will do in this first case you will you will say that okay these two are same then then you can decrement both which means you can find out the lcs after decrement of both but here if both are not matching then these two are not same then in this case first you will drop out this and then you will drop out this these are the two cases so let me write the recursive equation now let's suppose let me uh let me indicate this lcs of i comma j let me define this suppose this is length of"
+      }
+    ]
+  },
+  {
+    "id": 447,
+    "lecture": 149,
+    "title": "Repeated calls versus unique LCS states · Discover",
+    "concept": "An uncached LCS recursion can revisit the same prefix pair many times. A table has (m+1)(n+1) prefix states including boundaries, so memoized or tabulated LCS needs O(mn) time. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+    "teachingSteps": [
+      "An uncached LCS recursion can revisit the same prefix pair many times. A table has (m+1)(n+1) prefix states including boundaries, so memoized or tabulated LCS needs O(mn) time.",
+      "Use match or mismatch transitions for each cell",
+      "Read the final length and follow choices for one sequence"
+    ],
+    "foundation": {
+      "title": "Repeated calls versus unique LCS states",
+      "idea": "An uncached LCS recursion can revisit the same prefix pair many times. A table has (m+1)(n+1) prefix states including boundaries, so memoized or tabulated LCS needs O(mn) time. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+      "terms": [
+        "Subsequence: order retained, gaps allowed.",
+        "Substring: contiguous positions, a different requirement.",
+        "State L(i,j): optimal length for two prefixes."
+      ],
+      "example": "ABC and BAC have LCS length 2: AC and BC are both valid. A single traceback chooses one; a count of traceback paths may overcount distinct resulting strings."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "What is the LCS length of the given strings?",
+        "answer": 2,
+        "explanation": "Use zero-valued empty prefixes, then matching-diagonal or mismatch-maximum transitions.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "String",
+            "Characters"
+          ],
+          "rows": [
+            [
+              "A",
+              "BAN"
+            ],
+            [
+              "B",
+              "CAN"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Including empty prefixes, strings of lengths 5 and 4 need how many cells in the full LCS table?",
+        "answer": 30,
+        "explanation": "Both row and column counts include index zero.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains repeated calls versus unique lcs states?",
+        "options": [
+          "One successful example proves every input.",
+          "An uncached LCS recursion can revisit the same prefix pair many times.",
+          "Input assumptions never affect correctness."
+        ],
+        "answer": 1,
+        "explanation": "An uncached LCS recursion can revisit the same prefix pair many times. A table has (m+1)(n+1) prefix states including boundaries, so memoized or tabulated LCS needs O(mn) time."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate an LCS prefix table.",
+        "items": [
+          "Initialize empty-prefix boundaries to zero",
+          "Use match or mismatch transitions for each cell",
+          "Read the final length and follow choices for one sequence"
+        ],
+        "explanation": "Every prefix state depends on smaller prefixes."
+      }
+    ],
+    "algoLab": "lcs-states",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.18,
+    "excerpt": "that how many recursive calls are there so how many you think should be there lcs of if i write maybe n and mn then it will be calling lcs of m minus one command i mean in worst case it can call like it can call something like this in best case obviously it will be calling either it will be calling these two m command minus one or it may call i mean there are two cases or it may call just one one call what is that one call it may call these two or maybe",
+    "sourceReferences": [
+      {
+        "lecture": 149,
+        "file": "149. 38c. Total Calls vs Unique Calls in LCS.mp4",
+        "start": 0.18,
+        "end": 34.37,
+        "text": "that how many recursive calls are there so how many you think should be there lcs of if i write maybe n and mn then it will be calling lcs of m minus one command i mean in worst case it can call like it can call something like this in best case obviously it will be calling either it will be calling these two m command minus one or it may call i mean there are two cases or it may call just one one call what is that one call it may call these two or maybe"
+      },
+      {
+        "lecture": 149,
+        "file": "149. 38c. Total Calls vs Unique Calls in LCS.mp4",
+        "start": 143.73,
+        "end": 195.16,
+        "text": "so i think we are not repeating but that is okay i mean total number of calls are m into n according to me or am i missing something yes i think total number of calls are not exponential so even if you do not do it by dp then also should be fine i mean if you if you do not store it in the table uh the lcfo m-1 n will have two calls like four calls from the line yeah it will be having two calls which is lcs of"
+      },
+      {
+        "lecture": 149,
+        "file": "149. 38c. Total Calls vs Unique Calls in LCS.mp4",
+        "start": 195.53,
+        "end": 231.97,
+        "text": "m minus one comma n minus one I mean m minus two maybe and then one will be LCS of m minus one comma n minus one oh sorry what I'm doing yeah this is I mean these are the unique calls but see it is a binary tree and this will also be calling LCS of m minus one comma n minus one yeah this is repeating right and then LCS of m"
+      }
+    ]
+  },
+  {
+    "id": 448,
+    "lecture": 149,
+    "title": "Repeated calls versus unique LCS states · Trace",
+    "concept": "An uncached LCS recursion can revisit the same prefix pair many times. A table has (m+1)(n+1) prefix states including boundaries, so memoized or tabulated LCS needs O(mn) time. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+    "teachingSteps": [
+      "An uncached LCS recursion can revisit the same prefix pair many times. A table has (m+1)(n+1) prefix states including boundaries, so memoized or tabulated LCS needs O(mn) time.",
+      "Use match or mismatch transitions for each cell",
+      "Read the final length and follow choices for one sequence"
+    ],
+    "foundation": {
+      "title": "Repeated calls versus unique LCS states",
+      "idea": "An uncached LCS recursion can revisit the same prefix pair many times. A table has (m+1)(n+1) prefix states including boundaries, so memoized or tabulated LCS needs O(mn) time. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+      "terms": [
+        "Subsequence: order retained, gaps allowed.",
+        "Substring: contiguous positions, a different requirement.",
+        "State L(i,j): optimal length for two prefixes."
+      ],
+      "example": "ABC and BAC have LCS length 2: AC and BC are both valid. A single traceback chooses one; a count of traceback paths may overcount distinct resulting strings."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "What is the LCS length of the given strings?",
+        "answer": 3,
+        "explanation": "Use zero-valued empty prefixes, then matching-diagonal or mismatch-maximum transitions.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "String",
+            "Characters"
+          ],
+          "rows": [
+            [
+              "A",
+              "ABCD"
+            ],
+            [
+              "B",
+              "BACD"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Including empty prefixes, strings of lengths 6 and 2 need how many cells in the full LCS table?",
+        "answer": 21,
+        "explanation": "Both row and column counts include index zero.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Last prefix characters differ. Which transition is correct?",
+        "options": [
+          "max(L(i-1,j), L(i,j-1))",
+          "L(i-1,j)+L(i,j-1)",
+          "1+L(i-1,j-1) in every mismatch."
+        ],
+        "answer": 0,
+        "explanation": "Drop one last character or the other and retain the longer common subsequence."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate an LCS prefix table.",
+        "items": [
+          "Initialize empty-prefix boundaries to zero",
+          "Use match or mismatch transitions for each cell",
+          "Read the final length and follow choices for one sequence"
+        ],
+        "explanation": "Every prefix state depends on smaller prefixes."
+      }
+    ],
+    "algoLab": "lcs-states",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.18,
+    "excerpt": "that how many recursive calls are there so how many you think should be there lcs of if i write maybe n and mn then it will be calling lcs of m minus one command i mean in worst case it can call like it can call something like this in best case obviously it will be calling either it will be calling these two m command minus one or it may call i mean there are two cases or it may call just one one call what is that one call it may call these two or maybe",
+    "sourceReferences": [
+      {
+        "lecture": 149,
+        "file": "149. 38c. Total Calls vs Unique Calls in LCS.mp4",
+        "start": 0.18,
+        "end": 34.37,
+        "text": "that how many recursive calls are there so how many you think should be there lcs of if i write maybe n and mn then it will be calling lcs of m minus one command i mean in worst case it can call like it can call something like this in best case obviously it will be calling either it will be calling these two m command minus one or it may call i mean there are two cases or it may call just one one call what is that one call it may call these two or maybe"
+      },
+      {
+        "lecture": 149,
+        "file": "149. 38c. Total Calls vs Unique Calls in LCS.mp4",
+        "start": 143.73,
+        "end": 195.16,
+        "text": "so i think we are not repeating but that is okay i mean total number of calls are m into n according to me or am i missing something yes i think total number of calls are not exponential so even if you do not do it by dp then also should be fine i mean if you if you do not store it in the table uh the lcfo m-1 n will have two calls like four calls from the line yeah it will be having two calls which is lcs of"
+      },
+      {
+        "lecture": 149,
+        "file": "149. 38c. Total Calls vs Unique Calls in LCS.mp4",
+        "start": 195.53,
+        "end": 231.97,
+        "text": "m minus one comma n minus one I mean m minus two maybe and then one will be LCS of m minus one comma n minus one oh sorry what I'm doing yeah this is I mean these are the unique calls but see it is a binary tree and this will also be calling LCS of m minus one comma n minus one yeah this is repeating right and then LCS of m"
+      }
+    ]
+  },
+  {
+    "id": 449,
+    "lecture": 149,
+    "title": "Repeated calls versus unique LCS states · Apply",
+    "concept": "An uncached LCS recursion can revisit the same prefix pair many times. A table has (m+1)(n+1) prefix states including boundaries, so memoized or tabulated LCS needs O(mn) time. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+    "teachingSteps": [
+      "An uncached LCS recursion can revisit the same prefix pair many times. A table has (m+1)(n+1) prefix states including boundaries, so memoized or tabulated LCS needs O(mn) time.",
+      "Use match or mismatch transitions for each cell",
+      "Read the final length and follow choices for one sequence"
+    ],
+    "foundation": {
+      "title": "Repeated calls versus unique LCS states",
+      "idea": "An uncached LCS recursion can revisit the same prefix pair many times. A table has (m+1)(n+1) prefix states including boundaries, so memoized or tabulated LCS needs O(mn) time. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+      "terms": [
+        "Subsequence: order retained, gaps allowed.",
+        "Substring: contiguous positions, a different requirement.",
+        "State L(i,j): optimal length for two prefixes."
+      ],
+      "example": "ABC and BAC have LCS length 2: AC and BC are both valid. A single traceback chooses one; a count of traceback paths may overcount distinct resulting strings."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A text comparison service keeps common ordered content. What is the LCS length of the given strings?",
+        "answer": 2,
+        "explanation": "Use zero-valued empty prefixes, then matching-diagonal or mismatch-maximum transitions.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "String",
+            "Characters"
+          ],
+          "rows": [
+            [
+              "A",
+              "ABA"
+            ],
+            [
+              "B",
+              "BAA"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Including empty prefixes, strings of lengths 7 and 3 need how many cells in the full LCS table?",
+        "answer": 32,
+        "explanation": "Both row and column counts include index zero.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Last prefix characters differ. Which transition is correct?",
+        "options": [
+          "L(i-1,j)+L(i,j-1)",
+          "1+L(i-1,j-1) in every mismatch.",
+          "max(L(i-1,j), L(i,j-1))"
+        ],
+        "answer": 2,
+        "explanation": "Drop one last character or the other and retain the longer common subsequence."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate an LCS prefix table.",
+        "items": [
+          "Initialize empty-prefix boundaries to zero",
+          "Use match or mismatch transitions for each cell",
+          "Read the final length and follow choices for one sequence"
+        ],
+        "explanation": "Every prefix state depends on smaller prefixes."
+      }
+    ],
+    "algoLab": "lcs-states",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.18,
+    "excerpt": "that how many recursive calls are there so how many you think should be there lcs of if i write maybe n and mn then it will be calling lcs of m minus one command i mean in worst case it can call like it can call something like this in best case obviously it will be calling either it will be calling these two m command minus one or it may call i mean there are two cases or it may call just one one call what is that one call it may call these two or maybe",
+    "sourceReferences": [
+      {
+        "lecture": 149,
+        "file": "149. 38c. Total Calls vs Unique Calls in LCS.mp4",
+        "start": 0.18,
+        "end": 34.37,
+        "text": "that how many recursive calls are there so how many you think should be there lcs of if i write maybe n and mn then it will be calling lcs of m minus one command i mean in worst case it can call like it can call something like this in best case obviously it will be calling either it will be calling these two m command minus one or it may call i mean there are two cases or it may call just one one call what is that one call it may call these two or maybe"
+      },
+      {
+        "lecture": 149,
+        "file": "149. 38c. Total Calls vs Unique Calls in LCS.mp4",
+        "start": 143.73,
+        "end": 195.16,
+        "text": "so i think we are not repeating but that is okay i mean total number of calls are m into n according to me or am i missing something yes i think total number of calls are not exponential so even if you do not do it by dp then also should be fine i mean if you if you do not store it in the table uh the lcfo m-1 n will have two calls like four calls from the line yeah it will be having two calls which is lcs of"
+      },
+      {
+        "lecture": 149,
+        "file": "149. 38c. Total Calls vs Unique Calls in LCS.mp4",
+        "start": 195.53,
+        "end": 231.97,
+        "text": "m minus one comma n minus one I mean m minus two maybe and then one will be LCS of m minus one comma n minus one oh sorry what I'm doing yeah this is I mean these are the unique calls but see it is a binary tree and this will also be calling LCS of m minus one comma n minus one yeah this is repeating right and then LCS of m"
+      }
+    ]
+  },
+  {
+    "id": 450,
+    "lecture": 150,
+    "title": "Choose the correct match and mismatch rule · Discover",
+    "concept": "The LCS match branch advances both prefix boundaries and adds one. The mismatch branch drops one boundary at a time and takes a maximum, rather than adding both alternatives. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+    "teachingSteps": [
+      "The LCS match branch advances both prefix boundaries and adds one. The mismatch branch drops one boundary at a time and takes a maximum, rather than adding both alternatives.",
+      "Use match or mismatch transitions for each cell",
+      "Read the final length and follow choices for one sequence"
+    ],
+    "foundation": {
+      "title": "Choose the correct match and mismatch rule",
+      "idea": "The LCS match branch advances both prefix boundaries and adds one. The mismatch branch drops one boundary at a time and takes a maximum, rather than adding both alternatives. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+      "terms": [
+        "Subsequence: order retained, gaps allowed.",
+        "Substring: contiguous positions, a different requirement.",
+        "State L(i,j): optimal length for two prefixes."
+      ],
+      "example": "ABC and BAC have LCS length 2: AC and BC are both valid. A single traceback chooses one; a count of traceback paths may overcount distinct resulting strings."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "What is the LCS length of the given strings?",
+        "answer": 3,
+        "explanation": "Use zero-valued empty prefixes, then matching-diagonal or mismatch-maximum transitions.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "String",
+            "Characters"
+          ],
+          "rows": [
+            [
+              "A",
+              "ABCD"
+            ],
+            [
+              "B",
+              "BACD"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Including empty prefixes, strings of lengths 6 and 2 need how many cells in the full LCS table?",
+        "answer": 21,
+        "explanation": "Both row and column counts include index zero.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains choose the correct match and mismatch rule?",
+        "options": [
+          "The LCS match branch advances both prefix boundaries and adds one.",
+          "Input assumptions never affect correctness.",
+          "One successful example proves every input."
+        ],
+        "answer": 0,
+        "explanation": "The LCS match branch advances both prefix boundaries and adds one. The mismatch branch drops one boundary at a time and takes a maximum, rather than adding both alternatives."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate an LCS prefix table.",
+        "items": [
+          "Initialize empty-prefix boundaries to zero",
+          "Use match or mismatch transitions for each cell",
+          "Read the final length and follow choices for one sequence"
+        ],
+        "explanation": "Every prefix state depends on smaller prefixes."
+      }
+    ],
+    "algoLab": "lcs-rule",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 28.82,
+    "excerpt": "If both are equal, then I should be doing 1 plus 1 plus i minus 1 j minus 1. But OK, there is no option with 1 plus i minus 1 j minus 1. But if both are not equal, I will be taking the maximum among these two. Yes, C is the answer. And expression 1 should be, expression 1 should be, if both are equal, then it should be, I think, LCS of or maybe L of the notation they're using is L of i minus 1 j minus 1 plus 1.",
+    "sourceReferences": [
+      {
+        "lecture": 150,
+        "file": "150. 38d. GATE 2009 Easy Question.mp4",
+        "start": 28.82,
+        "end": 58.58,
+        "text": "If both are equal, then I should be doing 1 plus 1 plus i minus 1 j minus 1. But OK, there is no option with 1 plus i minus 1 j minus 1. But if both are not equal, I will be taking the maximum among these two. Yes, C is the answer. And expression 1 should be, expression 1 should be, if both are equal, then it should be, I think, LCS of or maybe L of the notation they're using is L of i minus 1 j minus 1 plus 1."
+      }
+    ]
+  },
+  {
+    "id": 451,
+    "lecture": 150,
+    "title": "Choose the correct match and mismatch rule · Trace",
+    "concept": "The LCS match branch advances both prefix boundaries and adds one. The mismatch branch drops one boundary at a time and takes a maximum, rather than adding both alternatives. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+    "teachingSteps": [
+      "The LCS match branch advances both prefix boundaries and adds one. The mismatch branch drops one boundary at a time and takes a maximum, rather than adding both alternatives.",
+      "Use match or mismatch transitions for each cell",
+      "Read the final length and follow choices for one sequence"
+    ],
+    "foundation": {
+      "title": "Choose the correct match and mismatch rule",
+      "idea": "The LCS match branch advances both prefix boundaries and adds one. The mismatch branch drops one boundary at a time and takes a maximum, rather than adding both alternatives. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+      "terms": [
+        "Subsequence: order retained, gaps allowed.",
+        "Substring: contiguous positions, a different requirement.",
+        "State L(i,j): optimal length for two prefixes."
+      ],
+      "example": "ABC and BAC have LCS length 2: AC and BC are both valid. A single traceback chooses one; a count of traceback paths may overcount distinct resulting strings."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "What is the LCS length of the given strings?",
+        "answer": 2,
+        "explanation": "Use zero-valued empty prefixes, then matching-diagonal or mismatch-maximum transitions.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "String",
+            "Characters"
+          ],
+          "rows": [
+            [
+              "A",
+              "ABA"
+            ],
+            [
+              "B",
+              "BAA"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Including empty prefixes, strings of lengths 7 and 3 need how many cells in the full LCS table?",
+        "answer": 32,
+        "explanation": "Both row and column counts include index zero.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Last prefix characters differ. Which transition is correct?",
+        "options": [
+          "L(i-1,j)+L(i,j-1)",
+          "1+L(i-1,j-1) in every mismatch.",
+          "max(L(i-1,j), L(i,j-1))"
+        ],
+        "answer": 2,
+        "explanation": "Drop one last character or the other and retain the longer common subsequence."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate an LCS prefix table.",
+        "items": [
+          "Initialize empty-prefix boundaries to zero",
+          "Use match or mismatch transitions for each cell",
+          "Read the final length and follow choices for one sequence"
+        ],
+        "explanation": "Every prefix state depends on smaller prefixes."
+      }
+    ],
+    "algoLab": "lcs-rule",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 28.82,
+    "excerpt": "If both are equal, then I should be doing 1 plus 1 plus i minus 1 j minus 1. But OK, there is no option with 1 plus i minus 1 j minus 1. But if both are not equal, I will be taking the maximum among these two. Yes, C is the answer. And expression 1 should be, expression 1 should be, if both are equal, then it should be, I think, LCS of or maybe L of the notation they're using is L of i minus 1 j minus 1 plus 1.",
+    "sourceReferences": [
+      {
+        "lecture": 150,
+        "file": "150. 38d. GATE 2009 Easy Question.mp4",
+        "start": 28.82,
+        "end": 58.58,
+        "text": "If both are equal, then I should be doing 1 plus 1 plus i minus 1 j minus 1. But OK, there is no option with 1 plus i minus 1 j minus 1. But if both are not equal, I will be taking the maximum among these two. Yes, C is the answer. And expression 1 should be, expression 1 should be, if both are equal, then it should be, I think, LCS of or maybe L of the notation they're using is L of i minus 1 j minus 1 plus 1."
+      }
+    ]
+  },
+  {
+    "id": 452,
+    "lecture": 150,
+    "title": "Choose the correct match and mismatch rule · Apply",
+    "concept": "The LCS match branch advances both prefix boundaries and adds one. The mismatch branch drops one boundary at a time and takes a maximum, rather than adding both alternatives. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+    "teachingSteps": [
+      "The LCS match branch advances both prefix boundaries and adds one. The mismatch branch drops one boundary at a time and takes a maximum, rather than adding both alternatives.",
+      "Use match or mismatch transitions for each cell",
+      "Read the final length and follow choices for one sequence"
+    ],
+    "foundation": {
+      "title": "Choose the correct match and mismatch rule",
+      "idea": "The LCS match branch advances both prefix boundaries and adds one. The mismatch branch drops one boundary at a time and takes a maximum, rather than adding both alternatives. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+      "terms": [
+        "Subsequence: order retained, gaps allowed.",
+        "Substring: contiguous positions, a different requirement.",
+        "State L(i,j): optimal length for two prefixes."
+      ],
+      "example": "ABC and BAC have LCS length 2: AC and BC are both valid. A single traceback chooses one; a count of traceback paths may overcount distinct resulting strings."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A text comparison service keeps common ordered content. What is the LCS length of the given strings?",
+        "answer": 2,
+        "explanation": "Use zero-valued empty prefixes, then matching-diagonal or mismatch-maximum transitions.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "String",
+            "Characters"
+          ],
+          "rows": [
+            [
+              "A",
+              "BAN"
+            ],
+            [
+              "B",
+              "CAN"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Including empty prefixes, strings of lengths 4 and 4 need how many cells in the full LCS table?",
+        "answer": 25,
+        "explanation": "Both row and column counts include index zero.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Last prefix characters differ. Which transition is correct?",
+        "options": [
+          "1+L(i-1,j-1) in every mismatch.",
+          "max(L(i-1,j), L(i,j-1))",
+          "L(i-1,j)+L(i,j-1)"
+        ],
+        "answer": 1,
+        "explanation": "Drop one last character or the other and retain the longer common subsequence."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate an LCS prefix table.",
+        "items": [
+          "Initialize empty-prefix boundaries to zero",
+          "Use match or mismatch transitions for each cell",
+          "Read the final length and follow choices for one sequence"
+        ],
+        "explanation": "Every prefix state depends on smaller prefixes."
+      }
+    ],
+    "algoLab": "lcs-rule",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 28.82,
+    "excerpt": "If both are equal, then I should be doing 1 plus 1 plus i minus 1 j minus 1. But OK, there is no option with 1 plus i minus 1 j minus 1. But if both are not equal, I will be taking the maximum among these two. Yes, C is the answer. And expression 1 should be, expression 1 should be, if both are equal, then it should be, I think, LCS of or maybe L of the notation they're using is L of i minus 1 j minus 1 plus 1.",
+    "sourceReferences": [
+      {
+        "lecture": 150,
+        "file": "150. 38d. GATE 2009 Easy Question.mp4",
+        "start": 28.82,
+        "end": 58.58,
+        "text": "If both are equal, then I should be doing 1 plus 1 plus i minus 1 j minus 1. But OK, there is no option with 1 plus i minus 1 j minus 1. But if both are not equal, I will be taking the maximum among these two. Yes, C is the answer. And expression 1 should be, expression 1 should be, if both are equal, then it should be, I think, LCS of or maybe L of the notation they're using is L of i minus 1 j minus 1 plus 1."
+      }
+    ]
+  },
+  {
+    "id": 453,
+    "lecture": 151,
+    "title": "Trace a filled LCS table · Discover",
+    "concept": "Fill zero-valued empty-prefix boundaries, then use diagonal, upper and left predecessor cells. Reconstruct one LCS by following decisions backward from the final cell. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+    "teachingSteps": [
+      "Fill zero-valued empty-prefix boundaries, then use diagonal, upper and left predecessor cells. Reconstruct one LCS by following decisions backward from the final cell.",
+      "Use match or mismatch transitions for each cell",
+      "Read the final length and follow choices for one sequence"
+    ],
+    "foundation": {
+      "title": "Trace a filled LCS table",
+      "idea": "Fill zero-valued empty-prefix boundaries, then use diagonal, upper and left predecessor cells. Reconstruct one LCS by following decisions backward from the final cell. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+      "terms": [
+        "Subsequence: order retained, gaps allowed.",
+        "Substring: contiguous positions, a different requirement.",
+        "State L(i,j): optimal length for two prefixes."
+      ],
+      "example": "ABC and BAC have LCS length 2: AC and BC are both valid. A single traceback chooses one; a count of traceback paths may overcount distinct resulting strings."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "What is the LCS length of the given strings?",
+        "answer": 2,
+        "explanation": "Use zero-valued empty prefixes, then matching-diagonal or mismatch-maximum transitions.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "String",
+            "Characters"
+          ],
+          "rows": [
+            [
+              "A",
+              "ABA"
+            ],
+            [
+              "B",
+              "BAA"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Including empty prefixes, strings of lengths 7 and 3 need how many cells in the full LCS table?",
+        "answer": 32,
+        "explanation": "Both row and column counts include index zero.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains trace a filled lcs table?",
+        "options": [
+          "Input assumptions never affect correctness.",
+          "One successful example proves every input.",
+          "Fill zero-valued empty-prefix boundaries, then use diagonal, upper and left predecessor cells."
+        ],
+        "answer": 2,
+        "explanation": "Fill zero-valued empty-prefix boundaries, then use diagonal, upper and left predecessor cells. Reconstruct one LCS by following decisions backward from the final cell."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate an LCS prefix table.",
+        "items": [
+          "Initialize empty-prefix boundaries to zero",
+          "Use match or mismatch transitions for each cell",
+          "Read the final length and follow choices for one sequence"
+        ],
+        "explanation": "Every prefix state depends on smaller prefixes."
+      }
+    ],
+    "algoLab": "lcs-trace",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.5,
+    "excerpt": "Now let's do one question, let's just actually fill the table, let's just understand this LCS more with the help of this example. So basically I'm having some x, I'm having some y and now let's just see what will be the LCS of x and y.",
+    "sourceReferences": [
+      {
+        "lecture": 151,
+        "file": "151. 39a. Running Example on LCS.mp4",
+        "start": 0.5,
+        "end": 15.42,
+        "text": "Now let's do one question, let's just actually fill the table, let's just understand this LCS more with the help of this example. So basically I'm having some x, I'm having some y and now let's just see what will be the LCS of x and y."
+      },
+      {
+        "lecture": 151,
+        "file": "151. 39a. Running Example on LCS.mp4",
+        "start": 898.7,
+        "end": 927.6,
+        "text": "So, since it is B, it is matching, then 1 plus this, and then it is not matching, take maximum, not matching, take maximum, not matching, take maximum, is 3, not, now it is matching, it is 4, now not matching, take the maximum, which is 4. Everyone understood how to fill this table? So, finally, what should be the answer? Answer is LCS of"
+      },
+      {
+        "lecture": 151,
+        "file": "151. 39a. Running Example on LCS.mp4",
+        "start": 1376.6,
+        "end": 1395.78,
+        "text": "and then I can say I'm here and then finally I reached to the base case so I will stop so one of the see the length of longer longest common subsequences for and one of the common substance longer common subsequences B D AB this is one of them are there multiple possible then answer is yes how let's just trace other path"
+      }
+    ]
+  },
+  {
+    "id": 454,
+    "lecture": 151,
+    "title": "Trace a filled LCS table · Trace",
+    "concept": "Fill zero-valued empty-prefix boundaries, then use diagonal, upper and left predecessor cells. Reconstruct one LCS by following decisions backward from the final cell. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+    "teachingSteps": [
+      "Fill zero-valued empty-prefix boundaries, then use diagonal, upper and left predecessor cells. Reconstruct one LCS by following decisions backward from the final cell.",
+      "Use match or mismatch transitions for each cell",
+      "Read the final length and follow choices for one sequence"
+    ],
+    "foundation": {
+      "title": "Trace a filled LCS table",
+      "idea": "Fill zero-valued empty-prefix boundaries, then use diagonal, upper and left predecessor cells. Reconstruct one LCS by following decisions backward from the final cell. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+      "terms": [
+        "Subsequence: order retained, gaps allowed.",
+        "Substring: contiguous positions, a different requirement.",
+        "State L(i,j): optimal length for two prefixes."
+      ],
+      "example": "ABC and BAC have LCS length 2: AC and BC are both valid. A single traceback chooses one; a count of traceback paths may overcount distinct resulting strings."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "What is the LCS length of the given strings?",
+        "answer": 2,
+        "explanation": "Use zero-valued empty prefixes, then matching-diagonal or mismatch-maximum transitions.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "String",
+            "Characters"
+          ],
+          "rows": [
+            [
+              "A",
+              "BAN"
+            ],
+            [
+              "B",
+              "CAN"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Including empty prefixes, strings of lengths 4 and 4 need how many cells in the full LCS table?",
+        "answer": 25,
+        "explanation": "Both row and column counts include index zero.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Last prefix characters differ. Which transition is correct?",
+        "options": [
+          "1+L(i-1,j-1) in every mismatch.",
+          "max(L(i-1,j), L(i,j-1))",
+          "L(i-1,j)+L(i,j-1)"
+        ],
+        "answer": 1,
+        "explanation": "Drop one last character or the other and retain the longer common subsequence."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate an LCS prefix table.",
+        "items": [
+          "Initialize empty-prefix boundaries to zero",
+          "Use match or mismatch transitions for each cell",
+          "Read the final length and follow choices for one sequence"
+        ],
+        "explanation": "Every prefix state depends on smaller prefixes."
+      }
+    ],
+    "algoLab": "lcs-trace",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.5,
+    "excerpt": "Now let's do one question, let's just actually fill the table, let's just understand this LCS more with the help of this example. So basically I'm having some x, I'm having some y and now let's just see what will be the LCS of x and y.",
+    "sourceReferences": [
+      {
+        "lecture": 151,
+        "file": "151. 39a. Running Example on LCS.mp4",
+        "start": 0.5,
+        "end": 15.42,
+        "text": "Now let's do one question, let's just actually fill the table, let's just understand this LCS more with the help of this example. So basically I'm having some x, I'm having some y and now let's just see what will be the LCS of x and y."
+      },
+      {
+        "lecture": 151,
+        "file": "151. 39a. Running Example on LCS.mp4",
+        "start": 898.7,
+        "end": 927.6,
+        "text": "So, since it is B, it is matching, then 1 plus this, and then it is not matching, take maximum, not matching, take maximum, not matching, take maximum, is 3, not, now it is matching, it is 4, now not matching, take the maximum, which is 4. Everyone understood how to fill this table? So, finally, what should be the answer? Answer is LCS of"
+      },
+      {
+        "lecture": 151,
+        "file": "151. 39a. Running Example on LCS.mp4",
+        "start": 1376.6,
+        "end": 1395.78,
+        "text": "and then I can say I'm here and then finally I reached to the base case so I will stop so one of the see the length of longer longest common subsequences for and one of the common substance longer common subsequences B D AB this is one of them are there multiple possible then answer is yes how let's just trace other path"
+      }
+    ]
+  },
+  {
+    "id": 455,
+    "lecture": 151,
+    "title": "Trace a filled LCS table · Apply",
+    "concept": "Fill zero-valued empty-prefix boundaries, then use diagonal, upper and left predecessor cells. Reconstruct one LCS by following decisions backward from the final cell. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+    "teachingSteps": [
+      "Fill zero-valued empty-prefix boundaries, then use diagonal, upper and left predecessor cells. Reconstruct one LCS by following decisions backward from the final cell.",
+      "Use match or mismatch transitions for each cell",
+      "Read the final length and follow choices for one sequence"
+    ],
+    "foundation": {
+      "title": "Trace a filled LCS table",
+      "idea": "Fill zero-valued empty-prefix boundaries, then use diagonal, upper and left predecessor cells. Reconstruct one LCS by following decisions backward from the final cell. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+      "terms": [
+        "Subsequence: order retained, gaps allowed.",
+        "Substring: contiguous positions, a different requirement.",
+        "State L(i,j): optimal length for two prefixes."
+      ],
+      "example": "ABC and BAC have LCS length 2: AC and BC are both valid. A single traceback chooses one; a count of traceback paths may overcount distinct resulting strings."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A text comparison service keeps common ordered content. What is the LCS length of the given strings?",
+        "answer": 3,
+        "explanation": "Use zero-valued empty prefixes, then matching-diagonal or mismatch-maximum transitions.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "String",
+            "Characters"
+          ],
+          "rows": [
+            [
+              "A",
+              "ABCD"
+            ],
+            [
+              "B",
+              "BACD"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Including empty prefixes, strings of lengths 5 and 2 need how many cells in the full LCS table?",
+        "answer": 18,
+        "explanation": "Both row and column counts include index zero.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Last prefix characters differ. Which transition is correct?",
+        "options": [
+          "max(L(i-1,j), L(i,j-1))",
+          "L(i-1,j)+L(i,j-1)",
+          "1+L(i-1,j-1) in every mismatch."
+        ],
+        "answer": 0,
+        "explanation": "Drop one last character or the other and retain the longer common subsequence."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate an LCS prefix table.",
+        "items": [
+          "Initialize empty-prefix boundaries to zero",
+          "Use match or mismatch transitions for each cell",
+          "Read the final length and follow choices for one sequence"
+        ],
+        "explanation": "Every prefix state depends on smaller prefixes."
+      }
+    ],
+    "algoLab": "lcs-trace",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.5,
+    "excerpt": "Now let's do one question, let's just actually fill the table, let's just understand this LCS more with the help of this example. So basically I'm having some x, I'm having some y and now let's just see what will be the LCS of x and y.",
+    "sourceReferences": [
+      {
+        "lecture": 151,
+        "file": "151. 39a. Running Example on LCS.mp4",
+        "start": 0.5,
+        "end": 15.42,
+        "text": "Now let's do one question, let's just actually fill the table, let's just understand this LCS more with the help of this example. So basically I'm having some x, I'm having some y and now let's just see what will be the LCS of x and y."
+      },
+      {
+        "lecture": 151,
+        "file": "151. 39a. Running Example on LCS.mp4",
+        "start": 898.7,
+        "end": 927.6,
+        "text": "So, since it is B, it is matching, then 1 plus this, and then it is not matching, take maximum, not matching, take maximum, not matching, take maximum, is 3, not, now it is matching, it is 4, now not matching, take the maximum, which is 4. Everyone understood how to fill this table? So, finally, what should be the answer? Answer is LCS of"
+      },
+      {
+        "lecture": 151,
+        "file": "151. 39a. Running Example on LCS.mp4",
+        "start": 1376.6,
+        "end": 1395.78,
+        "text": "and then I can say I'm here and then finally I reached to the base case so I will stop so one of the see the length of longer longest common subsequences for and one of the common substance longer common subsequences B D AB this is one of them are there multiple possible then answer is yes how let's just trace other path"
+      }
+    ]
+  },
+  {
+    "id": 456,
+    "lecture": 152,
+    "title": "Several longest answers can share a length · Discover",
+    "concept": "Different longest common subsequences can have the same length. Counting distinct resulting strings is different from counting traceback paths, which may produce duplicates. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+    "teachingSteps": [
+      "Different longest common subsequences can have the same length. Counting distinct resulting strings is different from counting traceback paths, which may produce duplicates.",
+      "Use match or mismatch transitions for each cell",
+      "Read the final length and follow choices for one sequence"
+    ],
+    "foundation": {
+      "title": "Several longest answers can share a length",
+      "idea": "Different longest common subsequences can have the same length. Counting distinct resulting strings is different from counting traceback paths, which may produce duplicates. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+      "terms": [
+        "Subsequence: order retained, gaps allowed.",
+        "Substring: contiguous positions, a different requirement.",
+        "State L(i,j): optimal length for two prefixes."
+      ],
+      "example": "ABC and BAC have LCS length 2: AC and BC are both valid. A single traceback chooses one; a count of traceback paths may overcount distinct resulting strings."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "What is the LCS length of the given strings?",
+        "answer": 2,
+        "explanation": "Use zero-valued empty prefixes, then matching-diagonal or mismatch-maximum transitions.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "String",
+            "Characters"
+          ],
+          "rows": [
+            [
+              "A",
+              "BAN"
+            ],
+            [
+              "B",
+              "CAN"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "How many distinct longest common subsequence strings are shared by the given strings?",
+        "answer": 1,
+        "explanation": "Count distinct resulting strings of maximum length, not duplicated traceback routes.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "String",
+            "Characters"
+          ],
+          "rows": [
+            [
+              "A",
+              "BAN"
+            ],
+            [
+              "B",
+              "CAN"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains several longest answers can share a length?",
+        "options": [
+          "One successful example proves every input.",
+          "Different longest common subsequences can have the same length.",
+          "Input assumptions never affect correctness."
+        ],
+        "answer": 1,
+        "explanation": "Different longest common subsequences can have the same length. Counting distinct resulting strings is different from counting traceback paths, which may produce duplicates."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate an LCS prefix table.",
+        "items": [
+          "Initialize empty-prefix boundaries to zero",
+          "Use match or mismatch transitions for each cell",
+          "Read the final length and follow choices for one sequence"
+        ],
+        "explanation": "Every prefix state depends on smaller prefixes."
+      }
+    ],
+    "algoLab": "lcs-ties",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 2.06,
+    "excerpt": "They are saying that consider two strings A and B. Let X be the length of longest common subsequence, not necessarily continuous between A and B. And let Y be the number of such common longest common subsequence. So they're not just asking this number. They're not just asking you to find out this last number. They're asking you to trace the complete thing. And then they're asking you to find out the number of longest common subsequence also.",
+    "sourceReferences": [
+      {
+        "lecture": 152,
+        "file": "152. 39b. GATE 2014 Question on LCS.mp4",
+        "start": 2.06,
+        "end": 29.1,
+        "text": "They are saying that consider two strings A and B. Let X be the length of longest common subsequence, not necessarily continuous between A and B. And let Y be the number of such common longest common subsequence. So they're not just asking this number. They're not just asking you to find out this last number. They're asking you to trace the complete thing. And then they're asking you to find out the number of longest common subsequence also."
+      },
+      {
+        "lecture": 152,
+        "file": "152. 39b. GATE 2014 Question on LCS.mp4",
+        "start": 63.59,
+        "end": 94.34,
+        "text": "then first of all tell me what is the length of a it is 1 2 3 4 5 right yes it is 4 5 and then tell me can can there will be a subsequence of more than 5 if length of a just 5 can there be a subsequence of more than 5 no right there could be a subsequence of at max 5 so just check whether this q p q rr itself is there q p q rr is not there okay so 5 is not possible okay 5 is not possible then let's just see if 4 is possible 4 is possible means means"
+      },
+      {
+        "lecture": 152,
+        "file": "152. 39b. GATE 2014 Question on LCS.mp4",
+        "start": 152.02,
+        "end": 180.46,
+        "text": "PQRR, yes, okay. Since PQRR is already there, you can say that length of longest common subsequence is finalized, which means this, if x is length of longest common subsequence, then x is 4, this is final. Because 4 is not available, so 3 is never too over interest. So length of longest common subsequence is 4, that is for sure. Now we just need to check how many of them are there, which means out of these 4 possibilities, this was the longest, can, is this also possible? QQRR."
+      }
+    ]
+  },
+  {
+    "id": 457,
+    "lecture": 152,
+    "title": "Several longest answers can share a length · Trace",
+    "concept": "Different longest common subsequences can have the same length. Counting distinct resulting strings is different from counting traceback paths, which may produce duplicates. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+    "teachingSteps": [
+      "Different longest common subsequences can have the same length. Counting distinct resulting strings is different from counting traceback paths, which may produce duplicates.",
+      "Use match or mismatch transitions for each cell",
+      "Read the final length and follow choices for one sequence"
+    ],
+    "foundation": {
+      "title": "Several longest answers can share a length",
+      "idea": "Different longest common subsequences can have the same length. Counting distinct resulting strings is different from counting traceback paths, which may produce duplicates. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+      "terms": [
+        "Subsequence: order retained, gaps allowed.",
+        "Substring: contiguous positions, a different requirement.",
+        "State L(i,j): optimal length for two prefixes."
+      ],
+      "example": "ABC and BAC have LCS length 2: AC and BC are both valid. A single traceback chooses one; a count of traceback paths may overcount distinct resulting strings."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "What is the LCS length of the given strings?",
+        "answer": 3,
+        "explanation": "Use zero-valued empty prefixes, then matching-diagonal or mismatch-maximum transitions.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "String",
+            "Characters"
+          ],
+          "rows": [
+            [
+              "A",
+              "ABCD"
+            ],
+            [
+              "B",
+              "BACD"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "How many distinct longest common subsequence strings are shared by the given strings?",
+        "answer": 2,
+        "explanation": "Count distinct resulting strings of maximum length, not duplicated traceback routes.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "String",
+            "Characters"
+          ],
+          "rows": [
+            [
+              "A",
+              "ABCD"
+            ],
+            [
+              "B",
+              "BACD"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "Last prefix characters differ. Which transition is correct?",
+        "options": [
+          "max(L(i-1,j), L(i,j-1))",
+          "L(i-1,j)+L(i,j-1)",
+          "1+L(i-1,j-1) in every mismatch."
+        ],
+        "answer": 0,
+        "explanation": "Drop one last character or the other and retain the longer common subsequence."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate an LCS prefix table.",
+        "items": [
+          "Initialize empty-prefix boundaries to zero",
+          "Use match or mismatch transitions for each cell",
+          "Read the final length and follow choices for one sequence"
+        ],
+        "explanation": "Every prefix state depends on smaller prefixes."
+      }
+    ],
+    "algoLab": "lcs-ties",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 2.06,
+    "excerpt": "They are saying that consider two strings A and B. Let X be the length of longest common subsequence, not necessarily continuous between A and B. And let Y be the number of such common longest common subsequence. So they're not just asking this number. They're not just asking you to find out this last number. They're asking you to trace the complete thing. And then they're asking you to find out the number of longest common subsequence also.",
+    "sourceReferences": [
+      {
+        "lecture": 152,
+        "file": "152. 39b. GATE 2014 Question on LCS.mp4",
+        "start": 2.06,
+        "end": 29.1,
+        "text": "They are saying that consider two strings A and B. Let X be the length of longest common subsequence, not necessarily continuous between A and B. And let Y be the number of such common longest common subsequence. So they're not just asking this number. They're not just asking you to find out this last number. They're asking you to trace the complete thing. And then they're asking you to find out the number of longest common subsequence also."
+      },
+      {
+        "lecture": 152,
+        "file": "152. 39b. GATE 2014 Question on LCS.mp4",
+        "start": 63.59,
+        "end": 94.34,
+        "text": "then first of all tell me what is the length of a it is 1 2 3 4 5 right yes it is 4 5 and then tell me can can there will be a subsequence of more than 5 if length of a just 5 can there be a subsequence of more than 5 no right there could be a subsequence of at max 5 so just check whether this q p q rr itself is there q p q rr is not there okay so 5 is not possible okay 5 is not possible then let's just see if 4 is possible 4 is possible means means"
+      },
+      {
+        "lecture": 152,
+        "file": "152. 39b. GATE 2014 Question on LCS.mp4",
+        "start": 152.02,
+        "end": 180.46,
+        "text": "PQRR, yes, okay. Since PQRR is already there, you can say that length of longest common subsequence is finalized, which means this, if x is length of longest common subsequence, then x is 4, this is final. Because 4 is not available, so 3 is never too over interest. So length of longest common subsequence is 4, that is for sure. Now we just need to check how many of them are there, which means out of these 4 possibilities, this was the longest, can, is this also possible? QQRR."
+      }
+    ]
+  },
+  {
+    "id": 458,
+    "lecture": 152,
+    "title": "Several longest answers can share a length · Apply",
+    "concept": "Different longest common subsequences can have the same length. Counting distinct resulting strings is different from counting traceback paths, which may produce duplicates. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+    "teachingSteps": [
+      "Different longest common subsequences can have the same length. Counting distinct resulting strings is different from counting traceback paths, which may produce duplicates.",
+      "Use match or mismatch transitions for each cell",
+      "Read the final length and follow choices for one sequence"
+    ],
+    "foundation": {
+      "title": "Several longest answers can share a length",
+      "idea": "Different longest common subsequences can have the same length. Counting distinct resulting strings is different from counting traceback paths, which may produce duplicates. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+      "terms": [
+        "Subsequence: order retained, gaps allowed.",
+        "Substring: contiguous positions, a different requirement.",
+        "State L(i,j): optimal length for two prefixes."
+      ],
+      "example": "ABC and BAC have LCS length 2: AC and BC are both valid. A single traceback chooses one; a count of traceback paths may overcount distinct resulting strings."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A text comparison service keeps common ordered content. What is the LCS length of the given strings?",
+        "answer": 2,
+        "explanation": "Use zero-valued empty prefixes, then matching-diagonal or mismatch-maximum transitions.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "String",
+            "Characters"
+          ],
+          "rows": [
+            [
+              "A",
+              "ABA"
+            ],
+            [
+              "B",
+              "BAA"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "How many distinct longest common subsequence strings are shared by the given strings?",
+        "answer": 2,
+        "explanation": "Count distinct resulting strings of maximum length, not duplicated traceback routes.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "String",
+            "Characters"
+          ],
+          "rows": [
+            [
+              "A",
+              "ABA"
+            ],
+            [
+              "B",
+              "BAA"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "Last prefix characters differ. Which transition is correct?",
+        "options": [
+          "L(i-1,j)+L(i,j-1)",
+          "1+L(i-1,j-1) in every mismatch.",
+          "max(L(i-1,j), L(i,j-1))"
+        ],
+        "answer": 2,
+        "explanation": "Drop one last character or the other and retain the longer common subsequence."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate an LCS prefix table.",
+        "items": [
+          "Initialize empty-prefix boundaries to zero",
+          "Use match or mismatch transitions for each cell",
+          "Read the final length and follow choices for one sequence"
+        ],
+        "explanation": "Every prefix state depends on smaller prefixes."
+      }
+    ],
+    "algoLab": "lcs-ties",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 2.06,
+    "excerpt": "They are saying that consider two strings A and B. Let X be the length of longest common subsequence, not necessarily continuous between A and B. And let Y be the number of such common longest common subsequence. So they're not just asking this number. They're not just asking you to find out this last number. They're asking you to trace the complete thing. And then they're asking you to find out the number of longest common subsequence also.",
+    "sourceReferences": [
+      {
+        "lecture": 152,
+        "file": "152. 39b. GATE 2014 Question on LCS.mp4",
+        "start": 2.06,
+        "end": 29.1,
+        "text": "They are saying that consider two strings A and B. Let X be the length of longest common subsequence, not necessarily continuous between A and B. And let Y be the number of such common longest common subsequence. So they're not just asking this number. They're not just asking you to find out this last number. They're asking you to trace the complete thing. And then they're asking you to find out the number of longest common subsequence also."
+      },
+      {
+        "lecture": 152,
+        "file": "152. 39b. GATE 2014 Question on LCS.mp4",
+        "start": 63.59,
+        "end": 94.34,
+        "text": "then first of all tell me what is the length of a it is 1 2 3 4 5 right yes it is 4 5 and then tell me can can there will be a subsequence of more than 5 if length of a just 5 can there be a subsequence of more than 5 no right there could be a subsequence of at max 5 so just check whether this q p q rr itself is there q p q rr is not there okay so 5 is not possible okay 5 is not possible then let's just see if 4 is possible 4 is possible means means"
+      },
+      {
+        "lecture": 152,
+        "file": "152. 39b. GATE 2014 Question on LCS.mp4",
+        "start": 152.02,
+        "end": 180.46,
+        "text": "PQRR, yes, okay. Since PQRR is already there, you can say that length of longest common subsequence is finalized, which means this, if x is length of longest common subsequence, then x is 4, this is final. Because 4 is not available, so 3 is never too over interest. So length of longest common subsequence is 4, that is for sure. Now we just need to check how many of them are there, which means out of these 4 possibilities, this was the longest, can, is this also possible? QQRR."
+      }
+    ]
+  },
+  {
+    "id": 459,
+    "lecture": 153,
+    "title": "LCS for comparison and edits · Discover",
+    "concept": "LCS measures retained ordered content. With insertions and deletions only, the minimum edit count between lengths m and n is m+n-2L, where L is their LCS length. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+    "teachingSteps": [
+      "LCS measures retained ordered content. With insertions and deletions only, the minimum edit count between lengths m and n is m+n-2L, where L is their LCS length.",
+      "Use match or mismatch transitions for each cell",
+      "Read the final length and follow choices for one sequence"
+    ],
+    "foundation": {
+      "title": "LCS for comparison and edits",
+      "idea": "LCS measures retained ordered content. With insertions and deletions only, the minimum edit count between lengths m and n is m+n-2L, where L is their LCS length. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+      "terms": [
+        "Subsequence: order retained, gaps allowed.",
+        "Substring: contiguous positions, a different requirement.",
+        "State L(i,j): optimal length for two prefixes."
+      ],
+      "example": "ABC and BAC have LCS length 2: AC and BC are both valid. A single traceback chooses one; a count of traceback paths may overcount distinct resulting strings."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "What is the LCS length of the given strings?",
+        "answer": 3,
+        "explanation": "Use zero-valued empty prefixes, then matching-diagonal or mismatch-maximum transitions.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "String",
+            "Characters"
+          ],
+          "rows": [
+            [
+              "A",
+              "ABCD"
+            ],
+            [
+              "B",
+              "BACD"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Using insertions and deletions only, what minimum edit count changes the given A into B?",
+        "answer": 2,
+        "explanation": "Keep one LCS, delete other A characters and insert the missing B characters.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "String",
+            "Characters"
+          ],
+          "rows": [
+            [
+              "A",
+              "ABCD"
+            ],
+            [
+              "B",
+              "BACD"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains lcs for comparison and edits?",
+        "options": [
+          "LCS measures retained ordered content.",
+          "Input assumptions never affect correctness.",
+          "One successful example proves every input."
+        ],
+        "answer": 0,
+        "explanation": "LCS measures retained ordered content. With insertions and deletions only, the minimum edit count between lengths m and n is m+n-2L, where L is their LCS length."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate an LCS prefix table.",
+        "items": [
+          "Initialize empty-prefix boundaries to zero",
+          "Use match or mismatch transitions for each cell",
+          "Read the final length and follow choices for one sequence"
+        ],
+        "explanation": "Every prefix state depends on smaller prefixes."
+      }
+    ],
+    "algoLab": "lcs-applications",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0,
+    "excerpt": "Now, what are the applications of LCS? There are many applications. One of them is in the bioinformatics, which is to detect the DNA patterns or the proteins you can sense patterns. And there are many patterns in the bioinformatics that you can use for which you can use this LCS. Another one is like if you use a diff command in Unix, which tells the identify the differences between content of two files. So it will tell you that, okay, this much is matching, this much is not matching maybe. Maybe if you have used the GitHub,",
+    "sourceReferences": [
+      {
+        "lecture": 153,
+        "file": "153. 39c. LCS Applications.mp4",
+        "start": 0,
+        "end": 29.1,
+        "text": "Now, what are the applications of LCS? There are many applications. One of them is in the bioinformatics, which is to detect the DNA patterns or the proteins you can sense patterns. And there are many patterns in the bioinformatics that you can use for which you can use this LCS. Another one is like if you use a diff command in Unix, which tells the identify the differences between content of two files. So it will tell you that, okay, this much is matching, this much is not matching maybe. Maybe if you have used the GitHub,"
+      },
+      {
+        "lecture": 153,
+        "file": "153. 39c. LCS Applications.mp4",
+        "start": 29.37,
+        "end": 54.4,
+        "text": "have anyone use the GitHub pull push request and then it tells the diff right what is the reference between two files so it also also if you use the GitHub then it might be using your lcs thing so there are many applications of this lcs that that we use in the practical daily life and there are actually many many applications just to summarize it is very easy you just need to know this recursive formulation which is this"
+      }
+    ]
+  },
+  {
+    "id": 460,
+    "lecture": 153,
+    "title": "LCS for comparison and edits · Trace",
+    "concept": "LCS measures retained ordered content. With insertions and deletions only, the minimum edit count between lengths m and n is m+n-2L, where L is their LCS length. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+    "teachingSteps": [
+      "LCS measures retained ordered content. With insertions and deletions only, the minimum edit count between lengths m and n is m+n-2L, where L is their LCS length.",
+      "Use match or mismatch transitions for each cell",
+      "Read the final length and follow choices for one sequence"
+    ],
+    "foundation": {
+      "title": "LCS for comparison and edits",
+      "idea": "LCS measures retained ordered content. With insertions and deletions only, the minimum edit count between lengths m and n is m+n-2L, where L is their LCS length. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+      "terms": [
+        "Subsequence: order retained, gaps allowed.",
+        "Substring: contiguous positions, a different requirement.",
+        "State L(i,j): optimal length for two prefixes."
+      ],
+      "example": "ABC and BAC have LCS length 2: AC and BC are both valid. A single traceback chooses one; a count of traceback paths may overcount distinct resulting strings."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "What is the LCS length of the given strings?",
+        "answer": 2,
+        "explanation": "Use zero-valued empty prefixes, then matching-diagonal or mismatch-maximum transitions.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "String",
+            "Characters"
+          ],
+          "rows": [
+            [
+              "A",
+              "ABA"
+            ],
+            [
+              "B",
+              "BAA"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Using insertions and deletions only, what minimum edit count changes the given A into B?",
+        "answer": 2,
+        "explanation": "Keep one LCS, delete other A characters and insert the missing B characters.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "String",
+            "Characters"
+          ],
+          "rows": [
+            [
+              "A",
+              "ABA"
+            ],
+            [
+              "B",
+              "BAA"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "Last prefix characters differ. Which transition is correct?",
+        "options": [
+          "L(i-1,j)+L(i,j-1)",
+          "1+L(i-1,j-1) in every mismatch.",
+          "max(L(i-1,j), L(i,j-1))"
+        ],
+        "answer": 2,
+        "explanation": "Drop one last character or the other and retain the longer common subsequence."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate an LCS prefix table.",
+        "items": [
+          "Initialize empty-prefix boundaries to zero",
+          "Use match or mismatch transitions for each cell",
+          "Read the final length and follow choices for one sequence"
+        ],
+        "explanation": "Every prefix state depends on smaller prefixes."
+      }
+    ],
+    "algoLab": "lcs-applications",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0,
+    "excerpt": "Now, what are the applications of LCS? There are many applications. One of them is in the bioinformatics, which is to detect the DNA patterns or the proteins you can sense patterns. And there are many patterns in the bioinformatics that you can use for which you can use this LCS. Another one is like if you use a diff command in Unix, which tells the identify the differences between content of two files. So it will tell you that, okay, this much is matching, this much is not matching maybe. Maybe if you have used the GitHub,",
+    "sourceReferences": [
+      {
+        "lecture": 153,
+        "file": "153. 39c. LCS Applications.mp4",
+        "start": 0,
+        "end": 29.1,
+        "text": "Now, what are the applications of LCS? There are many applications. One of them is in the bioinformatics, which is to detect the DNA patterns or the proteins you can sense patterns. And there are many patterns in the bioinformatics that you can use for which you can use this LCS. Another one is like if you use a diff command in Unix, which tells the identify the differences between content of two files. So it will tell you that, okay, this much is matching, this much is not matching maybe. Maybe if you have used the GitHub,"
+      },
+      {
+        "lecture": 153,
+        "file": "153. 39c. LCS Applications.mp4",
+        "start": 29.37,
+        "end": 54.4,
+        "text": "have anyone use the GitHub pull push request and then it tells the diff right what is the reference between two files so it also also if you use the GitHub then it might be using your lcs thing so there are many applications of this lcs that that we use in the practical daily life and there are actually many many applications just to summarize it is very easy you just need to know this recursive formulation which is this"
+      }
+    ]
+  },
+  {
+    "id": 461,
+    "lecture": 153,
+    "title": "LCS for comparison and edits · Apply",
+    "concept": "LCS measures retained ordered content. With insertions and deletions only, the minimum edit count between lengths m and n is m+n-2L, where L is their LCS length. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+    "teachingSteps": [
+      "LCS measures retained ordered content. With insertions and deletions only, the minimum edit count between lengths m and n is m+n-2L, where L is their LCS length.",
+      "Use match or mismatch transitions for each cell",
+      "Read the final length and follow choices for one sequence"
+    ],
+    "foundation": {
+      "title": "LCS for comparison and edits",
+      "idea": "LCS measures retained ordered content. With insertions and deletions only, the minimum edit count between lengths m and n is m+n-2L, where L is their LCS length. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+      "terms": [
+        "Subsequence: order retained, gaps allowed.",
+        "Substring: contiguous positions, a different requirement.",
+        "State L(i,j): optimal length for two prefixes."
+      ],
+      "example": "ABC and BAC have LCS length 2: AC and BC are both valid. A single traceback chooses one; a count of traceback paths may overcount distinct resulting strings."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A text comparison service keeps common ordered content. What is the LCS length of the given strings?",
+        "answer": 2,
+        "explanation": "Use zero-valued empty prefixes, then matching-diagonal or mismatch-maximum transitions.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "String",
+            "Characters"
+          ],
+          "rows": [
+            [
+              "A",
+              "BAN"
+            ],
+            [
+              "B",
+              "CAN"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Using insertions and deletions only, what minimum edit count changes the given A into B?",
+        "answer": 2,
+        "explanation": "Keep one LCS, delete other A characters and insert the missing B characters.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "String",
+            "Characters"
+          ],
+          "rows": [
+            [
+              "A",
+              "BAN"
+            ],
+            [
+              "B",
+              "CAN"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "Last prefix characters differ. Which transition is correct?",
+        "options": [
+          "1+L(i-1,j-1) in every mismatch.",
+          "max(L(i-1,j), L(i,j-1))",
+          "L(i-1,j)+L(i,j-1)"
+        ],
+        "answer": 1,
+        "explanation": "Drop one last character or the other and retain the longer common subsequence."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate an LCS prefix table.",
+        "items": [
+          "Initialize empty-prefix boundaries to zero",
+          "Use match or mismatch transitions for each cell",
+          "Read the final length and follow choices for one sequence"
+        ],
+        "explanation": "Every prefix state depends on smaller prefixes."
+      }
+    ],
+    "algoLab": "lcs-applications",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0,
+    "excerpt": "Now, what are the applications of LCS? There are many applications. One of them is in the bioinformatics, which is to detect the DNA patterns or the proteins you can sense patterns. And there are many patterns in the bioinformatics that you can use for which you can use this LCS. Another one is like if you use a diff command in Unix, which tells the identify the differences between content of two files. So it will tell you that, okay, this much is matching, this much is not matching maybe. Maybe if you have used the GitHub,",
+    "sourceReferences": [
+      {
+        "lecture": 153,
+        "file": "153. 39c. LCS Applications.mp4",
+        "start": 0,
+        "end": 29.1,
+        "text": "Now, what are the applications of LCS? There are many applications. One of them is in the bioinformatics, which is to detect the DNA patterns or the proteins you can sense patterns. And there are many patterns in the bioinformatics that you can use for which you can use this LCS. Another one is like if you use a diff command in Unix, which tells the identify the differences between content of two files. So it will tell you that, okay, this much is matching, this much is not matching maybe. Maybe if you have used the GitHub,"
+      },
+      {
+        "lecture": 153,
+        "file": "153. 39c. LCS Applications.mp4",
+        "start": 29.37,
+        "end": 54.4,
+        "text": "have anyone use the GitHub pull push request and then it tells the diff right what is the reference between two files so it also also if you use the GitHub then it might be using your lcs thing so there are many applications of this lcs that that we use in the practical daily life and there are actually many many applications just to summarize it is very easy you just need to know this recursive formulation which is this"
+      }
+    ]
+  },
+  {
+    "id": 462,
+    "lecture": 154,
+    "title": "Prefix and suffix formulations · Discover",
+    "concept": "LCS may be defined on prefixes or on suffixes. Keep indices and base cases consistent; a suffix recurrence advances indices, while a prefix recurrence decreases prefix lengths. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+    "teachingSteps": [
+      "LCS may be defined on prefixes or on suffixes. Keep indices and base cases consistent; a suffix recurrence advances indices, while a prefix recurrence decreases prefix lengths.",
+      "Use match or mismatch transitions for each cell",
+      "Read the final length and follow choices for one sequence"
+    ],
+    "foundation": {
+      "title": "Prefix and suffix formulations",
+      "idea": "LCS may be defined on prefixes or on suffixes. Keep indices and base cases consistent; a suffix recurrence advances indices, while a prefix recurrence decreases prefix lengths. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+      "terms": [
+        "Subsequence: order retained, gaps allowed.",
+        "Substring: contiguous positions, a different requirement.",
+        "State L(i,j): optimal length for two prefixes."
+      ],
+      "example": "ABC and BAC have LCS length 2: AC and BC are both valid. A single traceback chooses one; a count of traceback paths may overcount distinct resulting strings."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "What is the LCS length of the given strings?",
+        "answer": 2,
+        "explanation": "Use zero-valued empty prefixes, then matching-diagonal or mismatch-maximum transitions.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "String",
+            "Characters"
+          ],
+          "rows": [
+            [
+              "A",
+              "ABA"
+            ],
+            [
+              "B",
+              "BAA"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Including empty prefixes, strings of lengths 6 and 3 need how many cells in the full LCS table?",
+        "answer": 28,
+        "explanation": "Both row and column counts include index zero.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains prefix and suffix formulations?",
+        "options": [
+          "Input assumptions never affect correctness.",
+          "One successful example proves every input.",
+          "LCS may be defined on prefixes or on suffixes."
+        ],
+        "answer": 2,
+        "explanation": "LCS may be defined on prefixes or on suffixes. Keep indices and base cases consistent; a suffix recurrence advances indices, while a prefix recurrence decreases prefix lengths."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate an LCS prefix table.",
+        "items": [
+          "Initialize empty-prefix boundaries to zero",
+          "Use match or mismatch transitions for each cell",
+          "Read the final length and follow choices for one sequence"
+        ],
+        "explanation": "Every prefix state depends on smaller prefixes."
+      }
+    ],
+    "algoLab": "lcs-suffix",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 71.69,
+    "excerpt": "which is that we have seen lcs already seen lcs lcs means longest common subsequence so if you remember then i said like let's just have a recursion that is ending i mean that is that is basically comparing the end characters so maybe it was comparing this this end character maybe let's suppose this is x i suppose this is y j then i was saying i was having the recursive recursive equation in this comparison",
+    "sourceReferences": [
+      {
+        "lecture": 154,
+        "file": "154. 39d. [Optional] Another way of writting LCS Recursi.mp4",
+        "start": 71.69,
+        "end": 101.71,
+        "text": "which is that we have seen lcs already seen lcs lcs means longest common subsequence so if you remember then i said like let's just have a recursion that is ending i mean that is that is basically comparing the end characters so maybe it was comparing this this end character maybe let's suppose this is x i suppose this is y j then i was saying i was having the recursive recursive equation in this comparison"
+      },
+      {
+        "lecture": 154,
+        "file": "154. 39d. [Optional] Another way of writting LCS Recursi.mp4",
+        "start": 365.84,
+        "end": 394.74,
+        "text": "that maybe if these two are matching then you will you will go to the next thing so maybe you can say maybe let me let me try writing I don't know if it is worth spending time or not but let's just try writing this let's suppose that x lcs of x which is 1 to m and y which is 1 to n suppose you want to write lcs of this then probably you will be comparing if let me just say i to j okay"
+      },
+      {
+        "lecture": 154,
+        "file": "154. 39d. [Optional] Another way of writting LCS Recursi.mp4",
+        "start": 513.77,
+        "end": 543.19,
+        "text": "So, in the next case, it will be max of, you will be taking LCS of i plus 1, j comma LCS of i comma j plus 1, something like this. So, if you notice this ij, entry ij is depending on what? Earlier, do you recall the earlier recurrence? Earlier, what used to happen? I think earlier it was 1 to i, it was 1 to i, it was 1 to j, earlier something like this."
+      }
+    ]
+  },
+  {
+    "id": 463,
+    "lecture": 154,
+    "title": "Prefix and suffix formulations · Trace",
+    "concept": "LCS may be defined on prefixes or on suffixes. Keep indices and base cases consistent; a suffix recurrence advances indices, while a prefix recurrence decreases prefix lengths. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+    "teachingSteps": [
+      "LCS may be defined on prefixes or on suffixes. Keep indices and base cases consistent; a suffix recurrence advances indices, while a prefix recurrence decreases prefix lengths.",
+      "Use match or mismatch transitions for each cell",
+      "Read the final length and follow choices for one sequence"
+    ],
+    "foundation": {
+      "title": "Prefix and suffix formulations",
+      "idea": "LCS may be defined on prefixes or on suffixes. Keep indices and base cases consistent; a suffix recurrence advances indices, while a prefix recurrence decreases prefix lengths. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+      "terms": [
+        "Subsequence: order retained, gaps allowed.",
+        "Substring: contiguous positions, a different requirement.",
+        "State L(i,j): optimal length for two prefixes."
+      ],
+      "example": "ABC and BAC have LCS length 2: AC and BC are both valid. A single traceback chooses one; a count of traceback paths may overcount distinct resulting strings."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "What is the LCS length of the given strings?",
+        "answer": 2,
+        "explanation": "Use zero-valued empty prefixes, then matching-diagonal or mismatch-maximum transitions.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "String",
+            "Characters"
+          ],
+          "rows": [
+            [
+              "A",
+              "BAN"
+            ],
+            [
+              "B",
+              "CAN"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Including empty prefixes, strings of lengths 7 and 4 need how many cells in the full LCS table?",
+        "answer": 40,
+        "explanation": "Both row and column counts include index zero.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Last prefix characters differ. Which transition is correct?",
+        "options": [
+          "1+L(i-1,j-1) in every mismatch.",
+          "max(L(i-1,j), L(i,j-1))",
+          "L(i-1,j)+L(i,j-1)"
+        ],
+        "answer": 1,
+        "explanation": "Drop one last character or the other and retain the longer common subsequence."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate an LCS prefix table.",
+        "items": [
+          "Initialize empty-prefix boundaries to zero",
+          "Use match or mismatch transitions for each cell",
+          "Read the final length and follow choices for one sequence"
+        ],
+        "explanation": "Every prefix state depends on smaller prefixes."
+      }
+    ],
+    "algoLab": "lcs-suffix",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 71.69,
+    "excerpt": "which is that we have seen lcs already seen lcs lcs means longest common subsequence so if you remember then i said like let's just have a recursion that is ending i mean that is that is basically comparing the end characters so maybe it was comparing this this end character maybe let's suppose this is x i suppose this is y j then i was saying i was having the recursive recursive equation in this comparison",
+    "sourceReferences": [
+      {
+        "lecture": 154,
+        "file": "154. 39d. [Optional] Another way of writting LCS Recursi.mp4",
+        "start": 71.69,
+        "end": 101.71,
+        "text": "which is that we have seen lcs already seen lcs lcs means longest common subsequence so if you remember then i said like let's just have a recursion that is ending i mean that is that is basically comparing the end characters so maybe it was comparing this this end character maybe let's suppose this is x i suppose this is y j then i was saying i was having the recursive recursive equation in this comparison"
+      },
+      {
+        "lecture": 154,
+        "file": "154. 39d. [Optional] Another way of writting LCS Recursi.mp4",
+        "start": 365.84,
+        "end": 394.74,
+        "text": "that maybe if these two are matching then you will you will go to the next thing so maybe you can say maybe let me let me try writing I don't know if it is worth spending time or not but let's just try writing this let's suppose that x lcs of x which is 1 to m and y which is 1 to n suppose you want to write lcs of this then probably you will be comparing if let me just say i to j okay"
+      },
+      {
+        "lecture": 154,
+        "file": "154. 39d. [Optional] Another way of writting LCS Recursi.mp4",
+        "start": 513.77,
+        "end": 543.19,
+        "text": "So, in the next case, it will be max of, you will be taking LCS of i plus 1, j comma LCS of i comma j plus 1, something like this. So, if you notice this ij, entry ij is depending on what? Earlier, do you recall the earlier recurrence? Earlier, what used to happen? I think earlier it was 1 to i, it was 1 to i, it was 1 to j, earlier something like this."
+      }
+    ]
+  },
+  {
+    "id": 464,
+    "lecture": 154,
+    "title": "Prefix and suffix formulations · Apply",
+    "concept": "LCS may be defined on prefixes or on suffixes. Keep indices and base cases consistent; a suffix recurrence advances indices, while a prefix recurrence decreases prefix lengths. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+    "teachingSteps": [
+      "LCS may be defined on prefixes or on suffixes. Keep indices and base cases consistent; a suffix recurrence advances indices, while a prefix recurrence decreases prefix lengths.",
+      "Use match or mismatch transitions for each cell",
+      "Read the final length and follow choices for one sequence"
+    ],
+    "foundation": {
+      "title": "Prefix and suffix formulations",
+      "idea": "LCS may be defined on prefixes or on suffixes. Keep indices and base cases consistent; a suffix recurrence advances indices, while a prefix recurrence decreases prefix lengths. LCS compares prefixes without requiring characters to be contiguous. Equal final characters extend the diagonal answer; unequal ones force a choice between dropping a character from either prefix.",
+      "terms": [
+        "Subsequence: order retained, gaps allowed.",
+        "Substring: contiguous positions, a different requirement.",
+        "State L(i,j): optimal length for two prefixes."
+      ],
+      "example": "ABC and BAC have LCS length 2: AC and BC are both valid. A single traceback chooses one; a count of traceback paths may overcount distinct resulting strings."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A text comparison service keeps common ordered content. What is the LCS length of the given strings?",
+        "answer": 3,
+        "explanation": "Use zero-valued empty prefixes, then matching-diagonal or mismatch-maximum transitions.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "String",
+            "Characters"
+          ],
+          "rows": [
+            [
+              "A",
+              "ABCD"
+            ],
+            [
+              "B",
+              "BACD"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Including empty prefixes, strings of lengths 4 and 2 need how many cells in the full LCS table?",
+        "answer": 15,
+        "explanation": "Both row and column counts include index zero.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Last prefix characters differ. Which transition is correct?",
+        "options": [
+          "max(L(i-1,j), L(i,j-1))",
+          "L(i-1,j)+L(i,j-1)",
+          "1+L(i-1,j-1) in every mismatch."
+        ],
+        "answer": 0,
+        "explanation": "Drop one last character or the other and retain the longer common subsequence."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate an LCS prefix table.",
+        "items": [
+          "Initialize empty-prefix boundaries to zero",
+          "Use match or mismatch transitions for each cell",
+          "Read the final length and follow choices for one sequence"
+        ],
+        "explanation": "Every prefix state depends on smaller prefixes."
+      }
+    ],
+    "algoLab": "lcs-suffix",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 71.69,
+    "excerpt": "which is that we have seen lcs already seen lcs lcs means longest common subsequence so if you remember then i said like let's just have a recursion that is ending i mean that is that is basically comparing the end characters so maybe it was comparing this this end character maybe let's suppose this is x i suppose this is y j then i was saying i was having the recursive recursive equation in this comparison",
+    "sourceReferences": [
+      {
+        "lecture": 154,
+        "file": "154. 39d. [Optional] Another way of writting LCS Recursi.mp4",
+        "start": 71.69,
+        "end": 101.71,
+        "text": "which is that we have seen lcs already seen lcs lcs means longest common subsequence so if you remember then i said like let's just have a recursion that is ending i mean that is that is basically comparing the end characters so maybe it was comparing this this end character maybe let's suppose this is x i suppose this is y j then i was saying i was having the recursive recursive equation in this comparison"
+      },
+      {
+        "lecture": 154,
+        "file": "154. 39d. [Optional] Another way of writting LCS Recursi.mp4",
+        "start": 365.84,
+        "end": 394.74,
+        "text": "that maybe if these two are matching then you will you will go to the next thing so maybe you can say maybe let me let me try writing I don't know if it is worth spending time or not but let's just try writing this let's suppose that x lcs of x which is 1 to m and y which is 1 to n suppose you want to write lcs of this then probably you will be comparing if let me just say i to j okay"
+      },
+      {
+        "lecture": 154,
+        "file": "154. 39d. [Optional] Another way of writting LCS Recursi.mp4",
+        "start": 513.77,
+        "end": 543.19,
+        "text": "So, in the next case, it will be max of, you will be taking LCS of i plus 1, j comma LCS of i comma j plus 1, something like this. So, if you notice this ij, entry ij is depending on what? Earlier, do you recall the earlier recurrence? Earlier, what used to happen? I think earlier it was 1 to i, it was 1 to i, it was 1 to j, earlier something like this."
+      }
+    ]
+  },
+  {
+    "id": 465,
+    "lecture": 155,
+    "title": "Parenthesize compatible matrix products · Discover",
+    "concept": "Matrix-chain optimization changes parentheses, not matrix order. Multiplying a p-by-q matrix by a q-by-r matrix costs pqr scalar multiplications and yields a p-by-r result. Matrix multiplication is associative when dimensions fit, but changing parentheses changes the sizes of intermediate results and the work. A split decides which two subchains are multiplied last.",
+    "teachingSteps": [
+      "Matrix-chain optimization changes parentheses, not matrix order. Multiplying a p-by-q matrix by a q-by-r matrix costs pqr scalar multiplications and yields a p-by-r result.",
+      "Try each final split of a longer interval",
+      "Add both subchain costs and final product cost, then minimize"
+    ],
+    "foundation": {
+      "title": "Parenthesize compatible matrix products",
+      "idea": "Matrix-chain optimization changes parentheses, not matrix order. Multiplying a p-by-q matrix by a q-by-r matrix costs pqr scalar multiplications and yields a p-by-r result. Matrix multiplication is associative when dimensions fit, but changing parentheses changes the sizes of intermediate results and the work. A split decides which two subchains are multiplied last.",
+      "terms": [
+        "Dimensions p: matrix i is p[i-1]×p[i].",
+        "Cost: p×q×r scalar products for p×q times q×r.",
+        "Interval: a consecutive group of matrices."
+      ],
+      "example": "10×30, 30×5, 5×60 cost 1500+3000=4500 as (AB)C, but 9000+18000=27000 as A(BC)."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Multiplying a 7×4 matrix by a 4×8 matrix needs how many scalar products?",
+        "answer": 224,
+        "explanation": "Each of m(m+1) output entries combines k products.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "For 10×30, 30×5 and 5×60 matrices, what is the cheaper parenthesization cost?",
+        "answer": 4500,
+        "explanation": "(AB)C costs 10×30×5 + 10×5×60 = 4500.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains parenthesize compatible matrix products?",
+        "options": [
+          "One successful example proves every input.",
+          "Matrix-chain optimization changes parentheses, not matrix order.",
+          "Input assumptions never affect correctness."
+        ],
+        "answer": 1,
+        "explanation": "Matrix-chain optimization changes parentheses, not matrix order. Multiplying a p-by-q matrix by a q-by-r matrix costs pqr scalar multiplications and yields a p-by-r result."
+      },
+      {
+        "type": "order",
+        "prompt": "Solve a matrix-chain interval.",
+        "items": [
+          "Set singleton subchain cost to zero",
+          "Try each final split of a longer interval",
+          "Add both subchain costs and final product cost, then minimize"
+        ],
+        "explanation": "Shorter intervals precede longer intervals; every final split is considered."
+      }
+    ],
+    "algoLab": "chain",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0,
+    "excerpt": "Now let's move to the today's topic, which is matrix chain multiplication. What do I mean by this topic? I mean, what is this problem statement? Let me first clarify it. Suppose you have three matrices, A1, A2, A3, and you want to multiply these three matrices. Then what you can do, you have a couple of choices. Maybe you can say that you can multiply this A2 and A3 first, and then you can multiply the final result with A1, which means you can multiply A2 and A3 first, you can multiply the final result with A1.",
+    "sourceReferences": [
+      {
+        "lecture": 155,
+        "file": "155. 40a. Introduction to Matrix Chain Multiplication.mp4",
+        "start": 0,
+        "end": 28.14,
+        "text": "Now let's move to the today's topic, which is matrix chain multiplication. What do I mean by this topic? I mean, what is this problem statement? Let me first clarify it. Suppose you have three matrices, A1, A2, A3, and you want to multiply these three matrices. Then what you can do, you have a couple of choices. Maybe you can say that you can multiply this A2 and A3 first, and then you can multiply the final result with A1, which means you can multiply A2 and A3 first, you can multiply the final result with A1."
+      },
+      {
+        "lecture": 155,
+        "file": "155. 40a. Introduction to Matrix Chain Multiplication.mp4",
+        "start": 28.41,
+        "end": 57.38,
+        "text": "or you can multiply A1, A2 first and you can multiply the final result with A3. There are two possibilities in this case, in this particular case. Now you might say that why does it matter? I mean, I'm multiplying with this or this, why does it matter? Answer won't matter, which means the final answer will be same, but like the number of computation will be different, which means like finally whatever methods you are getting from here and finally whatever methods you are getting from here are both are same."
+      },
+      {
+        "lecture": 155,
+        "file": "155. 40a. Introduction to Matrix Chain Multiplication.mp4",
+        "start": 690.58,
+        "end": 722.05,
+        "text": "I will be multiplying with A1 and A2 and then I will be getting bigger matrix and that bigger matrix has to be multiplied A3 and then finally 1000 multiplications are given here. Let's just see for this example how many multiplications are given here which is I mean how many minimum number of multiplication A1 A2 A3 A4. What you can do at this level you can say either you can split like this I mean there are three ways which means you can either split at this point at this particular moment or this point or this point."
+      }
+    ]
+  },
+  {
+    "id": 466,
+    "lecture": 155,
+    "title": "Parenthesize compatible matrix products · Trace",
+    "concept": "Matrix-chain optimization changes parentheses, not matrix order. Multiplying a p-by-q matrix by a q-by-r matrix costs pqr scalar multiplications and yields a p-by-r result. Matrix multiplication is associative when dimensions fit, but changing parentheses changes the sizes of intermediate results and the work. A split decides which two subchains are multiplied last.",
+    "teachingSteps": [
+      "Matrix-chain optimization changes parentheses, not matrix order. Multiplying a p-by-q matrix by a q-by-r matrix costs pqr scalar multiplications and yields a p-by-r result.",
+      "Try each final split of a longer interval",
+      "Add both subchain costs and final product cost, then minimize"
+    ],
+    "foundation": {
+      "title": "Parenthesize compatible matrix products",
+      "idea": "Matrix-chain optimization changes parentheses, not matrix order. Multiplying a p-by-q matrix by a q-by-r matrix costs pqr scalar multiplications and yields a p-by-r result. Matrix multiplication is associative when dimensions fit, but changing parentheses changes the sizes of intermediate results and the work. A split decides which two subchains are multiplied last.",
+      "terms": [
+        "Dimensions p: matrix i is p[i-1]×p[i].",
+        "Cost: p×q×r scalar products for p×q times q×r.",
+        "Interval: a consecutive group of matrices."
+      ],
+      "example": "10×30, 30×5, 5×60 cost 1500+3000=4500 as (AB)C, but 9000+18000=27000 as A(BC)."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Multiplying a 4×2 matrix by a 2×5 matrix needs how many scalar products?",
+        "answer": 40,
+        "explanation": "Each of m(m+1) output entries combines k products.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "For 10×30, 30×5 and 5×60 matrices, what is the cheaper parenthesization cost?",
+        "answer": 4500,
+        "explanation": "(AB)C costs 10×30×5 + 10×5×60 = 4500.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "What changes in matrix-chain optimization?",
+        "options": [
+          "Parenthesization, with the original matrix order fixed.",
+          "The order of matrices can be permuted freely.",
+          "The required output dimensions can be ignored."
+        ],
+        "answer": 0,
+        "explanation": "Associativity permits regrouping but matrix multiplication is not generally commutative."
+      },
+      {
+        "type": "order",
+        "prompt": "Solve a matrix-chain interval.",
+        "items": [
+          "Set singleton subchain cost to zero",
+          "Try each final split of a longer interval",
+          "Add both subchain costs and final product cost, then minimize"
+        ],
+        "explanation": "Shorter intervals precede longer intervals; every final split is considered."
+      }
+    ],
+    "algoLab": "chain",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0,
+    "excerpt": "Now let's move to the today's topic, which is matrix chain multiplication. What do I mean by this topic? I mean, what is this problem statement? Let me first clarify it. Suppose you have three matrices, A1, A2, A3, and you want to multiply these three matrices. Then what you can do, you have a couple of choices. Maybe you can say that you can multiply this A2 and A3 first, and then you can multiply the final result with A1, which means you can multiply A2 and A3 first, you can multiply the final result with A1.",
+    "sourceReferences": [
+      {
+        "lecture": 155,
+        "file": "155. 40a. Introduction to Matrix Chain Multiplication.mp4",
+        "start": 0,
+        "end": 28.14,
+        "text": "Now let's move to the today's topic, which is matrix chain multiplication. What do I mean by this topic? I mean, what is this problem statement? Let me first clarify it. Suppose you have three matrices, A1, A2, A3, and you want to multiply these three matrices. Then what you can do, you have a couple of choices. Maybe you can say that you can multiply this A2 and A3 first, and then you can multiply the final result with A1, which means you can multiply A2 and A3 first, you can multiply the final result with A1."
+      },
+      {
+        "lecture": 155,
+        "file": "155. 40a. Introduction to Matrix Chain Multiplication.mp4",
+        "start": 28.41,
+        "end": 57.38,
+        "text": "or you can multiply A1, A2 first and you can multiply the final result with A3. There are two possibilities in this case, in this particular case. Now you might say that why does it matter? I mean, I'm multiplying with this or this, why does it matter? Answer won't matter, which means the final answer will be same, but like the number of computation will be different, which means like finally whatever methods you are getting from here and finally whatever methods you are getting from here are both are same."
+      },
+      {
+        "lecture": 155,
+        "file": "155. 40a. Introduction to Matrix Chain Multiplication.mp4",
+        "start": 690.58,
+        "end": 722.05,
+        "text": "I will be multiplying with A1 and A2 and then I will be getting bigger matrix and that bigger matrix has to be multiplied A3 and then finally 1000 multiplications are given here. Let's just see for this example how many multiplications are given here which is I mean how many minimum number of multiplication A1 A2 A3 A4. What you can do at this level you can say either you can split like this I mean there are three ways which means you can either split at this point at this particular moment or this point or this point."
+      }
+    ]
+  },
+  {
+    "id": 467,
+    "lecture": 155,
+    "title": "Parenthesize compatible matrix products · Apply",
+    "concept": "Matrix-chain optimization changes parentheses, not matrix order. Multiplying a p-by-q matrix by a q-by-r matrix costs pqr scalar multiplications and yields a p-by-r result. Matrix multiplication is associative when dimensions fit, but changing parentheses changes the sizes of intermediate results and the work. A split decides which two subchains are multiplied last.",
+    "teachingSteps": [
+      "Matrix-chain optimization changes parentheses, not matrix order. Multiplying a p-by-q matrix by a q-by-r matrix costs pqr scalar multiplications and yields a p-by-r result.",
+      "Try each final split of a longer interval",
+      "Add both subchain costs and final product cost, then minimize"
+    ],
+    "foundation": {
+      "title": "Parenthesize compatible matrix products",
+      "idea": "Matrix-chain optimization changes parentheses, not matrix order. Multiplying a p-by-q matrix by a q-by-r matrix costs pqr scalar multiplications and yields a p-by-r result. Matrix multiplication is associative when dimensions fit, but changing parentheses changes the sizes of intermediate results and the work. A split decides which two subchains are multiplied last.",
+      "terms": [
+        "Dimensions p: matrix i is p[i-1]×p[i].",
+        "Cost: p×q×r scalar products for p×q times q×r.",
+        "Interval: a consecutive group of matrices."
+      ],
+      "example": "10×30, 30×5, 5×60 cost 1500+3000=4500 as (AB)C, but 9000+18000=27000 as A(BC)."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A matrix-processing service reduces arithmetic work. Multiplying a 5×3 matrix by a 3×6 matrix needs how many scalar products?",
+        "answer": 90,
+        "explanation": "Each of m(m+1) output entries combines k products.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "For 10×30, 30×5 and 5×60 matrices, what is the cheaper parenthesization cost?",
+        "answer": 4500,
+        "explanation": "(AB)C costs 10×30×5 + 10×5×60 = 4500.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "What changes in matrix-chain optimization?",
+        "options": [
+          "The order of matrices can be permuted freely.",
+          "The required output dimensions can be ignored.",
+          "Parenthesization, with the original matrix order fixed."
+        ],
+        "answer": 2,
+        "explanation": "Associativity permits regrouping but matrix multiplication is not generally commutative."
+      },
+      {
+        "type": "order",
+        "prompt": "Solve a matrix-chain interval.",
+        "items": [
+          "Set singleton subchain cost to zero",
+          "Try each final split of a longer interval",
+          "Add both subchain costs and final product cost, then minimize"
+        ],
+        "explanation": "Shorter intervals precede longer intervals; every final split is considered."
+      }
+    ],
+    "algoLab": "chain",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0,
+    "excerpt": "Now let's move to the today's topic, which is matrix chain multiplication. What do I mean by this topic? I mean, what is this problem statement? Let me first clarify it. Suppose you have three matrices, A1, A2, A3, and you want to multiply these three matrices. Then what you can do, you have a couple of choices. Maybe you can say that you can multiply this A2 and A3 first, and then you can multiply the final result with A1, which means you can multiply A2 and A3 first, you can multiply the final result with A1.",
+    "sourceReferences": [
+      {
+        "lecture": 155,
+        "file": "155. 40a. Introduction to Matrix Chain Multiplication.mp4",
+        "start": 0,
+        "end": 28.14,
+        "text": "Now let's move to the today's topic, which is matrix chain multiplication. What do I mean by this topic? I mean, what is this problem statement? Let me first clarify it. Suppose you have three matrices, A1, A2, A3, and you want to multiply these three matrices. Then what you can do, you have a couple of choices. Maybe you can say that you can multiply this A2 and A3 first, and then you can multiply the final result with A1, which means you can multiply A2 and A3 first, you can multiply the final result with A1."
+      },
+      {
+        "lecture": 155,
+        "file": "155. 40a. Introduction to Matrix Chain Multiplication.mp4",
+        "start": 28.41,
+        "end": 57.38,
+        "text": "or you can multiply A1, A2 first and you can multiply the final result with A3. There are two possibilities in this case, in this particular case. Now you might say that why does it matter? I mean, I'm multiplying with this or this, why does it matter? Answer won't matter, which means the final answer will be same, but like the number of computation will be different, which means like finally whatever methods you are getting from here and finally whatever methods you are getting from here are both are same."
+      },
+      {
+        "lecture": 155,
+        "file": "155. 40a. Introduction to Matrix Chain Multiplication.mp4",
+        "start": 690.58,
+        "end": 722.05,
+        "text": "I will be multiplying with A1 and A2 and then I will be getting bigger matrix and that bigger matrix has to be multiplied A3 and then finally 1000 multiplications are given here. Let's just see for this example how many multiplications are given here which is I mean how many minimum number of multiplication A1 A2 A3 A4. What you can do at this level you can say either you can split like this I mean there are three ways which means you can either split at this point at this particular moment or this point or this point."
+      }
+    ]
+  },
+  {
+    "id": 468,
+    "lecture": 156,
+    "title": "Count full parenthesizations · Discover",
+    "concept": "For n matrices in fixed order, full binary parenthesizations number Catalan(n-1). The recurrence chooses a split and multiplies the left and right parenthesization counts. Write ways(1)=1 and ways(n)=sum of ways(k) times ways(n-k) for k=1 through n-1. Each split independently chooses its left and right parentheses.",
+    "teachingSteps": [
+      "For n matrices in fixed order, full binary parenthesizations number Catalan(n-1). The recurrence chooses a split and multiplies the left and right parenthesization counts.",
+      "Multiply left and right counts for each possible final split",
+      "Add the disjoint split counts"
+    ],
+    "foundation": {
+      "title": "Count full parenthesizations",
+      "idea": "For n matrices in fixed order, full binary parenthesizations number Catalan(n-1). The recurrence chooses a split and multiplies the left and right parenthesization counts. Write ways(1)=1 and ways(n)=sum of ways(k) times ways(n-k) for k=1 through n-1. Each split independently chooses its left and right parentheses.",
+      "terms": [
+        "ways(1)=1: a single matrix needs no multiplication parentheses.",
+        "Split k: first k matrices versus the remaining n-k.",
+        "Catalan(n-1): the name of this count sequence."
+      ],
+      "example": "Three matrices have two full parenthesizations: (AB)C and A(BC). Four matrices have 1x2 + 1x1 + 2x1 = 5."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Multiplying a 4×2 matrix by a 2×5 matrix needs how many scalar products?",
+        "answer": 40,
+        "explanation": "Each of m(m+1) output entries combines k products.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "How many full parenthesizations exist for 4 matrices in fixed order?",
+        "answer": 5,
+        "explanation": "The count is Catalan(n-1), summing left-count × right-count over final splits.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains count full parenthesizations?",
+        "options": [
+          "For n matrices in fixed order, full binary parenthesizations number Catalan(n-1).",
+          "Input assumptions never affect correctness.",
+          "One successful example proves every input."
+        ],
+        "answer": 0,
+        "explanation": "For n matrices in fixed order, full binary parenthesizations number Catalan(n-1). The recurrence chooses a split and multiplies the left and right parenthesization counts."
+      },
+      {
+        "type": "order",
+        "prompt": "Solve a matrix-chain interval.",
+        "items": [
+          "Set the one-matrix count to one",
+          "Multiply left and right counts for each possible final split",
+          "Add the disjoint split counts"
+        ],
+        "explanation": "Shorter intervals precede longer intervals; every final split is considered."
+      }
+    ],
+    "algoLab": "chain-count",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 104.94,
+    "excerpt": "to cover the whole thing I mean these are two matrices and then so which means three balance parenthesis are required for four matrices two balance parenthesis are required for three matrices. Similarly for five matrices how many balance parenthesis are required if you want to just put the brackets and the ordnance could be different I am not worrying about the ordnance for now so if I just ask you that how many balance parenthesis are required you will say one maybe two maybe this is three and then this is four right",
+    "sourceReferences": [
+      {
+        "lecture": 156,
+        "file": "156. 40b. Number of Ways to Multiply n Matrices.mp4",
+        "start": 104.94,
+        "end": 132.2,
+        "text": "to cover the whole thing I mean these are two matrices and then so which means three balance parenthesis are required for four matrices two balance parenthesis are required for three matrices. Similarly for five matrices how many balance parenthesis are required if you want to just put the brackets and the ordnance could be different I am not worrying about the ordnance for now so if I just ask you that how many balance parenthesis are required you will say one maybe two maybe this is three and then this is four right"
+      },
+      {
+        "lecture": 156,
+        "file": "156. 40b. Number of Ways to Multiply n Matrices.mp4",
+        "start": 377.72,
+        "end": 408.46,
+        "text": "or binary search tree may be a Catalan and unlabeled. Unlabeled binary search tree both are same because these are represented just number of structures. So there are many many places that Catalan comes but yeah that is okay. So what is the nth Catalan number? It is 2n factorial upon n plus 1 factorial into n factorial. Okay. So if I ask you that how many ways are how many ways in which you can multiply n matrices?"
+      },
+      {
+        "lecture": 156,
+        "file": "156. 40b. Number of Ways to Multiply n Matrices.mp4",
+        "start": 474.62,
+        "end": 509.6,
+        "text": "four factorial into three factorial which is six into five and then six six cancels five right so i believe answer so let's just see five we have four clear one two three four five yeah we have five so which means if you want to multiply four matrices you can multiply in five different ways and obviously just checking out each of the five different ways is foolishness the reason being is that this catlin number"
+      }
+    ]
+  },
+  {
+    "id": 469,
+    "lecture": 156,
+    "title": "Count full parenthesizations · Trace",
+    "concept": "For n matrices in fixed order, full binary parenthesizations number Catalan(n-1). The recurrence chooses a split and multiplies the left and right parenthesization counts. Write ways(1)=1 and ways(n)=sum of ways(k) times ways(n-k) for k=1 through n-1. Each split independently chooses its left and right parentheses.",
+    "teachingSteps": [
+      "For n matrices in fixed order, full binary parenthesizations number Catalan(n-1). The recurrence chooses a split and multiplies the left and right parenthesization counts.",
+      "Multiply left and right counts for each possible final split",
+      "Add the disjoint split counts"
+    ],
+    "foundation": {
+      "title": "Count full parenthesizations",
+      "idea": "For n matrices in fixed order, full binary parenthesizations number Catalan(n-1). The recurrence chooses a split and multiplies the left and right parenthesization counts. Write ways(1)=1 and ways(n)=sum of ways(k) times ways(n-k) for k=1 through n-1. Each split independently chooses its left and right parentheses.",
+      "terms": [
+        "ways(1)=1: a single matrix needs no multiplication parentheses.",
+        "Split k: first k matrices versus the remaining n-k.",
+        "Catalan(n-1): the name of this count sequence."
+      ],
+      "example": "Three matrices have two full parenthesizations: (AB)C and A(BC). Four matrices have 1x2 + 1x1 + 2x1 = 5."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Multiplying a 5×3 matrix by a 3×6 matrix needs how many scalar products?",
+        "answer": 90,
+        "explanation": "Each of m(m+1) output entries combines k products.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "How many full parenthesizations exist for 5 matrices in fixed order?",
+        "answer": 14,
+        "explanation": "The count is Catalan(n-1), summing left-count × right-count over final splits.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "What changes in matrix-chain optimization?",
+        "options": [
+          "The order of matrices can be permuted freely.",
+          "The required output dimensions can be ignored.",
+          "Parenthesization, with the original matrix order fixed."
+        ],
+        "answer": 2,
+        "explanation": "Associativity permits regrouping but matrix multiplication is not generally commutative."
+      },
+      {
+        "type": "order",
+        "prompt": "Solve a matrix-chain interval.",
+        "items": [
+          "Set the one-matrix count to one",
+          "Multiply left and right counts for each possible final split",
+          "Add the disjoint split counts"
+        ],
+        "explanation": "Shorter intervals precede longer intervals; every final split is considered."
+      }
+    ],
+    "algoLab": "chain-count",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 104.94,
+    "excerpt": "to cover the whole thing I mean these are two matrices and then so which means three balance parenthesis are required for four matrices two balance parenthesis are required for three matrices. Similarly for five matrices how many balance parenthesis are required if you want to just put the brackets and the ordnance could be different I am not worrying about the ordnance for now so if I just ask you that how many balance parenthesis are required you will say one maybe two maybe this is three and then this is four right",
+    "sourceReferences": [
+      {
+        "lecture": 156,
+        "file": "156. 40b. Number of Ways to Multiply n Matrices.mp4",
+        "start": 104.94,
+        "end": 132.2,
+        "text": "to cover the whole thing I mean these are two matrices and then so which means three balance parenthesis are required for four matrices two balance parenthesis are required for three matrices. Similarly for five matrices how many balance parenthesis are required if you want to just put the brackets and the ordnance could be different I am not worrying about the ordnance for now so if I just ask you that how many balance parenthesis are required you will say one maybe two maybe this is three and then this is four right"
+      },
+      {
+        "lecture": 156,
+        "file": "156. 40b. Number of Ways to Multiply n Matrices.mp4",
+        "start": 377.72,
+        "end": 408.46,
+        "text": "or binary search tree may be a Catalan and unlabeled. Unlabeled binary search tree both are same because these are represented just number of structures. So there are many many places that Catalan comes but yeah that is okay. So what is the nth Catalan number? It is 2n factorial upon n plus 1 factorial into n factorial. Okay. So if I ask you that how many ways are how many ways in which you can multiply n matrices?"
+      },
+      {
+        "lecture": 156,
+        "file": "156. 40b. Number of Ways to Multiply n Matrices.mp4",
+        "start": 474.62,
+        "end": 509.6,
+        "text": "four factorial into three factorial which is six into five and then six six cancels five right so i believe answer so let's just see five we have four clear one two three four five yeah we have five so which means if you want to multiply four matrices you can multiply in five different ways and obviously just checking out each of the five different ways is foolishness the reason being is that this catlin number"
+      }
+    ]
+  },
+  {
+    "id": 470,
+    "lecture": 156,
+    "title": "Count full parenthesizations · Apply",
+    "concept": "For n matrices in fixed order, full binary parenthesizations number Catalan(n-1). The recurrence chooses a split and multiplies the left and right parenthesization counts. Write ways(1)=1 and ways(n)=sum of ways(k) times ways(n-k) for k=1 through n-1. Each split independently chooses its left and right parentheses.",
+    "teachingSteps": [
+      "For n matrices in fixed order, full binary parenthesizations number Catalan(n-1). The recurrence chooses a split and multiplies the left and right parenthesization counts.",
+      "Multiply left and right counts for each possible final split",
+      "Add the disjoint split counts"
+    ],
+    "foundation": {
+      "title": "Count full parenthesizations",
+      "idea": "For n matrices in fixed order, full binary parenthesizations number Catalan(n-1). The recurrence chooses a split and multiplies the left and right parenthesization counts. Write ways(1)=1 and ways(n)=sum of ways(k) times ways(n-k) for k=1 through n-1. Each split independently chooses its left and right parentheses.",
+      "terms": [
+        "ways(1)=1: a single matrix needs no multiplication parentheses.",
+        "Split k: first k matrices versus the remaining n-k.",
+        "Catalan(n-1): the name of this count sequence."
+      ],
+      "example": "Three matrices have two full parenthesizations: (AB)C and A(BC). Four matrices have 1x2 + 1x1 + 2x1 = 5."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A matrix-processing service reduces arithmetic work. Multiplying a 6×4 matrix by a 4×7 matrix needs how many scalar products?",
+        "answer": 168,
+        "explanation": "Each of m(m+1) output entries combines k products.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "How many full parenthesizations exist for 6 matrices in fixed order?",
+        "answer": 42,
+        "explanation": "The count is Catalan(n-1), summing left-count × right-count over final splits.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "What changes in matrix-chain optimization?",
+        "options": [
+          "The required output dimensions can be ignored.",
+          "Parenthesization, with the original matrix order fixed.",
+          "The order of matrices can be permuted freely."
+        ],
+        "answer": 1,
+        "explanation": "Associativity permits regrouping but matrix multiplication is not generally commutative."
+      },
+      {
+        "type": "order",
+        "prompt": "Solve a matrix-chain interval.",
+        "items": [
+          "Set the one-matrix count to one",
+          "Multiply left and right counts for each possible final split",
+          "Add the disjoint split counts"
+        ],
+        "explanation": "Shorter intervals precede longer intervals; every final split is considered."
+      }
+    ],
+    "algoLab": "chain-count",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 104.94,
+    "excerpt": "to cover the whole thing I mean these are two matrices and then so which means three balance parenthesis are required for four matrices two balance parenthesis are required for three matrices. Similarly for five matrices how many balance parenthesis are required if you want to just put the brackets and the ordnance could be different I am not worrying about the ordnance for now so if I just ask you that how many balance parenthesis are required you will say one maybe two maybe this is three and then this is four right",
+    "sourceReferences": [
+      {
+        "lecture": 156,
+        "file": "156. 40b. Number of Ways to Multiply n Matrices.mp4",
+        "start": 104.94,
+        "end": 132.2,
+        "text": "to cover the whole thing I mean these are two matrices and then so which means three balance parenthesis are required for four matrices two balance parenthesis are required for three matrices. Similarly for five matrices how many balance parenthesis are required if you want to just put the brackets and the ordnance could be different I am not worrying about the ordnance for now so if I just ask you that how many balance parenthesis are required you will say one maybe two maybe this is three and then this is four right"
+      },
+      {
+        "lecture": 156,
+        "file": "156. 40b. Number of Ways to Multiply n Matrices.mp4",
+        "start": 377.72,
+        "end": 408.46,
+        "text": "or binary search tree may be a Catalan and unlabeled. Unlabeled binary search tree both are same because these are represented just number of structures. So there are many many places that Catalan comes but yeah that is okay. So what is the nth Catalan number? It is 2n factorial upon n plus 1 factorial into n factorial. Okay. So if I ask you that how many ways are how many ways in which you can multiply n matrices?"
+      },
+      {
+        "lecture": 156,
+        "file": "156. 40b. Number of Ways to Multiply n Matrices.mp4",
+        "start": 474.62,
+        "end": 509.6,
+        "text": "four factorial into three factorial which is six into five and then six six cancels five right so i believe answer so let's just see five we have four clear one two three four five yeah we have five so which means if you want to multiply four matrices you can multiply in five different ways and obviously just checking out each of the five different ways is foolishness the reason being is that this catlin number"
+      }
+    ]
+  },
+  {
+    "id": 471,
+    "lecture": 157,
+    "title": "Try every final matrix-chain split · Discover",
+    "concept": "For matrices i through j, choose the final split k. Add the two optimal subchain costs and the final multiplication cost p[i-1]p[k]p[j], then minimize over i<=k<j. Matrix multiplication is associative when dimensions fit, but changing parentheses changes the sizes of intermediate results and the work. A split decides which two subchains are multiplied last.",
+    "teachingSteps": [
+      "For matrices i through j, choose the final split k. Add the two optimal subchain costs and the final multiplication cost p[i-1]p[k]p[j], then minimize over i<=k<j.",
+      "Try each final split of a longer interval",
+      "Add both subchain costs and final product cost, then minimize"
+    ],
+    "foundation": {
+      "title": "Try every final matrix-chain split",
+      "idea": "For matrices i through j, choose the final split k. Add the two optimal subchain costs and the final multiplication cost p[i-1]p[k]p[j], then minimize over i<=k<j. Matrix multiplication is associative when dimensions fit, but changing parentheses changes the sizes of intermediate results and the work. A split decides which two subchains are multiplied last.",
+      "terms": [
+        "Dimensions p: matrix i is p[i-1]×p[i].",
+        "Cost: p×q×r scalar products for p×q times q×r.",
+        "Interval: a consecutive group of matrices."
+      ],
+      "example": "10×30, 30×5, 5×60 cost 1500+3000=4500 as (AB)C, but 9000+18000=27000 as A(BC)."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Multiplying a 5×3 matrix by a 3×6 matrix needs how many scalar products?",
+        "answer": 90,
+        "explanation": "Each of m(m+1) output entries combines k products.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "For 10×30, 30×5 and 5×60 matrices, what is the cheaper parenthesization cost?",
+        "answer": 4500,
+        "explanation": "(AB)C costs 10×30×5 + 10×5×60 = 4500.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains try every final matrix-chain split?",
+        "options": [
+          "Input assumptions never affect correctness.",
+          "One successful example proves every input.",
+          "For matrices i through j, choose the final split k."
+        ],
+        "answer": 2,
+        "explanation": "For matrices i through j, choose the final split k. Add the two optimal subchain costs and the final multiplication cost p[i-1]p[k]p[j], then minimize over i<=k<j."
+      },
+      {
+        "type": "order",
+        "prompt": "Solve a matrix-chain interval.",
+        "items": [
+          "Set singleton subchain cost to zero",
+          "Try each final split of a longer interval",
+          "Add both subchain costs and final product cost, then minimize"
+        ],
+        "explanation": "Shorter intervals precede longer intervals; every final split is considered."
+      }
+    ],
+    "algoLab": "chain-split",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 409.03,
+    "excerpt": "Minimum of, let's just say now Mij, Mij is my final answer, which tells me that number of multiplications needed to multiply i2j, minimum number of multiplications needed to multiply i2j, that will be min of all the possibilities that you have, min of all the possibilities that you have, and how many possibilities you have, you have all the possibilities. So you will say that min of this possibility, let's suppose you are splitting at k, if you split at k randomly, then it will be ai,",
+    "sourceReferences": [
+      {
+        "lecture": 157,
+        "file": "157_40c_Recursive_Formulation_of_Matrix_Chain_Multiplica.mp4",
+        "start": 409.03,
+        "end": 437.95,
+        "text": "Minimum of, let's just say now Mij, Mij is my final answer, which tells me that number of multiplications needed to multiply i2j, minimum number of multiplications needed to multiply i2j, that will be min of all the possibilities that you have, min of all the possibilities that you have, and how many possibilities you have, you have all the possibilities. So you will say that min of this possibility, let's suppose you are splitting at k, if you split at k randomly, then it will be ai,"
+      },
+      {
+        "lecture": 157,
+        "file": "157_40c_Recursive_Formulation_of_Matrix_Chain_Multiplica.mp4",
+        "start": 438.36,
+        "end": 467.68,
+        "text": "till a k and then a k plus 1 to a j. So you will say that it will be minimum of number of multiplications. I mean, if you are splitting at k, then from k equal to, maybe you can say k equal to i, i or i plus 1, I mean, depends on you how you are treating it. So maybe you can say i, okay, from k equal to i to finally, you are doing j minus 1 to j minus 1."
+      },
+      {
+        "lecture": 157,
+        "file": "157_40c_Recursive_Formulation_of_Matrix_Chain_Multiplica.mp4",
+        "start": 690.93,
+        "end": 719.78,
+        "text": "m ij is the minimum of multiplication to multiply m ai to aj then if I want to multiply ai plus 1 to aj then it will be m i plus 1 to j. Similarly, in general if I write one term which will be let me write somewhere here maybe I will say in general you will be splitting at k this is ai ai plus 1 and then finally ak and then it will be ak plus 1 this is aj. Now you will say that if you are splitting at k"
+      }
+    ]
+  },
+  {
+    "id": 472,
+    "lecture": 157,
+    "title": "Try every final matrix-chain split · Trace",
+    "concept": "For matrices i through j, choose the final split k. Add the two optimal subchain costs and the final multiplication cost p[i-1]p[k]p[j], then minimize over i<=k<j. Matrix multiplication is associative when dimensions fit, but changing parentheses changes the sizes of intermediate results and the work. A split decides which two subchains are multiplied last.",
+    "teachingSteps": [
+      "For matrices i through j, choose the final split k. Add the two optimal subchain costs and the final multiplication cost p[i-1]p[k]p[j], then minimize over i<=k<j.",
+      "Try each final split of a longer interval",
+      "Add both subchain costs and final product cost, then minimize"
+    ],
+    "foundation": {
+      "title": "Try every final matrix-chain split",
+      "idea": "For matrices i through j, choose the final split k. Add the two optimal subchain costs and the final multiplication cost p[i-1]p[k]p[j], then minimize over i<=k<j. Matrix multiplication is associative when dimensions fit, but changing parentheses changes the sizes of intermediate results and the work. A split decides which two subchains are multiplied last.",
+      "terms": [
+        "Dimensions p: matrix i is p[i-1]×p[i].",
+        "Cost: p×q×r scalar products for p×q times q×r.",
+        "Interval: a consecutive group of matrices."
+      ],
+      "example": "10×30, 30×5, 5×60 cost 1500+3000=4500 as (AB)C, but 9000+18000=27000 as A(BC)."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Multiplying a 6×4 matrix by a 4×7 matrix needs how many scalar products?",
+        "answer": 168,
+        "explanation": "Each of m(m+1) output entries combines k products.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "For 10×30, 30×5 and 5×60 matrices, what is the cheaper parenthesization cost?",
+        "answer": 4500,
+        "explanation": "(AB)C costs 10×30×5 + 10×5×60 = 4500.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "What changes in matrix-chain optimization?",
+        "options": [
+          "The required output dimensions can be ignored.",
+          "Parenthesization, with the original matrix order fixed.",
+          "The order of matrices can be permuted freely."
+        ],
+        "answer": 1,
+        "explanation": "Associativity permits regrouping but matrix multiplication is not generally commutative."
+      },
+      {
+        "type": "order",
+        "prompt": "Solve a matrix-chain interval.",
+        "items": [
+          "Set singleton subchain cost to zero",
+          "Try each final split of a longer interval",
+          "Add both subchain costs and final product cost, then minimize"
+        ],
+        "explanation": "Shorter intervals precede longer intervals; every final split is considered."
+      }
+    ],
+    "algoLab": "chain-split",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 409.03,
+    "excerpt": "Minimum of, let's just say now Mij, Mij is my final answer, which tells me that number of multiplications needed to multiply i2j, minimum number of multiplications needed to multiply i2j, that will be min of all the possibilities that you have, min of all the possibilities that you have, and how many possibilities you have, you have all the possibilities. So you will say that min of this possibility, let's suppose you are splitting at k, if you split at k randomly, then it will be ai,",
+    "sourceReferences": [
+      {
+        "lecture": 157,
+        "file": "157_40c_Recursive_Formulation_of_Matrix_Chain_Multiplica.mp4",
+        "start": 409.03,
+        "end": 437.95,
+        "text": "Minimum of, let's just say now Mij, Mij is my final answer, which tells me that number of multiplications needed to multiply i2j, minimum number of multiplications needed to multiply i2j, that will be min of all the possibilities that you have, min of all the possibilities that you have, and how many possibilities you have, you have all the possibilities. So you will say that min of this possibility, let's suppose you are splitting at k, if you split at k randomly, then it will be ai,"
+      },
+      {
+        "lecture": 157,
+        "file": "157_40c_Recursive_Formulation_of_Matrix_Chain_Multiplica.mp4",
+        "start": 438.36,
+        "end": 467.68,
+        "text": "till a k and then a k plus 1 to a j. So you will say that it will be minimum of number of multiplications. I mean, if you are splitting at k, then from k equal to, maybe you can say k equal to i, i or i plus 1, I mean, depends on you how you are treating it. So maybe you can say i, okay, from k equal to i to finally, you are doing j minus 1 to j minus 1."
+      },
+      {
+        "lecture": 157,
+        "file": "157_40c_Recursive_Formulation_of_Matrix_Chain_Multiplica.mp4",
+        "start": 690.93,
+        "end": 719.78,
+        "text": "m ij is the minimum of multiplication to multiply m ai to aj then if I want to multiply ai plus 1 to aj then it will be m i plus 1 to j. Similarly, in general if I write one term which will be let me write somewhere here maybe I will say in general you will be splitting at k this is ai ai plus 1 and then finally ak and then it will be ak plus 1 this is aj. Now you will say that if you are splitting at k"
+      }
+    ]
+  },
+  {
+    "id": 473,
+    "lecture": 157,
+    "title": "Try every final matrix-chain split · Apply",
+    "concept": "For matrices i through j, choose the final split k. Add the two optimal subchain costs and the final multiplication cost p[i-1]p[k]p[j], then minimize over i<=k<j. Matrix multiplication is associative when dimensions fit, but changing parentheses changes the sizes of intermediate results and the work. A split decides which two subchains are multiplied last.",
+    "teachingSteps": [
+      "For matrices i through j, choose the final split k. Add the two optimal subchain costs and the final multiplication cost p[i-1]p[k]p[j], then minimize over i<=k<j.",
+      "Try each final split of a longer interval",
+      "Add both subchain costs and final product cost, then minimize"
+    ],
+    "foundation": {
+      "title": "Try every final matrix-chain split",
+      "idea": "For matrices i through j, choose the final split k. Add the two optimal subchain costs and the final multiplication cost p[i-1]p[k]p[j], then minimize over i<=k<j. Matrix multiplication is associative when dimensions fit, but changing parentheses changes the sizes of intermediate results and the work. A split decides which two subchains are multiplied last.",
+      "terms": [
+        "Dimensions p: matrix i is p[i-1]×p[i].",
+        "Cost: p×q×r scalar products for p×q times q×r.",
+        "Interval: a consecutive group of matrices."
+      ],
+      "example": "10×30, 30×5, 5×60 cost 1500+3000=4500 as (AB)C, but 9000+18000=27000 as A(BC)."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A matrix-processing service reduces arithmetic work. Multiplying a 7×2 matrix by a 2×8 matrix needs how many scalar products?",
+        "answer": 112,
+        "explanation": "Each of m(m+1) output entries combines k products.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "For 10×30, 30×5 and 5×60 matrices, what is the cheaper parenthesization cost?",
+        "answer": 4500,
+        "explanation": "(AB)C costs 10×30×5 + 10×5×60 = 4500.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "What changes in matrix-chain optimization?",
+        "options": [
+          "Parenthesization, with the original matrix order fixed.",
+          "The order of matrices can be permuted freely.",
+          "The required output dimensions can be ignored."
+        ],
+        "answer": 0,
+        "explanation": "Associativity permits regrouping but matrix multiplication is not generally commutative."
+      },
+      {
+        "type": "order",
+        "prompt": "Solve a matrix-chain interval.",
+        "items": [
+          "Set singleton subchain cost to zero",
+          "Try each final split of a longer interval",
+          "Add both subchain costs and final product cost, then minimize"
+        ],
+        "explanation": "Shorter intervals precede longer intervals; every final split is considered."
+      }
+    ],
+    "algoLab": "chain-split",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 409.03,
+    "excerpt": "Minimum of, let's just say now Mij, Mij is my final answer, which tells me that number of multiplications needed to multiply i2j, minimum number of multiplications needed to multiply i2j, that will be min of all the possibilities that you have, min of all the possibilities that you have, and how many possibilities you have, you have all the possibilities. So you will say that min of this possibility, let's suppose you are splitting at k, if you split at k randomly, then it will be ai,",
+    "sourceReferences": [
+      {
+        "lecture": 157,
+        "file": "157_40c_Recursive_Formulation_of_Matrix_Chain_Multiplica.mp4",
+        "start": 409.03,
+        "end": 437.95,
+        "text": "Minimum of, let's just say now Mij, Mij is my final answer, which tells me that number of multiplications needed to multiply i2j, minimum number of multiplications needed to multiply i2j, that will be min of all the possibilities that you have, min of all the possibilities that you have, and how many possibilities you have, you have all the possibilities. So you will say that min of this possibility, let's suppose you are splitting at k, if you split at k randomly, then it will be ai,"
+      },
+      {
+        "lecture": 157,
+        "file": "157_40c_Recursive_Formulation_of_Matrix_Chain_Multiplica.mp4",
+        "start": 438.36,
+        "end": 467.68,
+        "text": "till a k and then a k plus 1 to a j. So you will say that it will be minimum of number of multiplications. I mean, if you are splitting at k, then from k equal to, maybe you can say k equal to i, i or i plus 1, I mean, depends on you how you are treating it. So maybe you can say i, okay, from k equal to i to finally, you are doing j minus 1 to j minus 1."
+      },
+      {
+        "lecture": 157,
+        "file": "157_40c_Recursive_Formulation_of_Matrix_Chain_Multiplica.mp4",
+        "start": 690.93,
+        "end": 719.78,
+        "text": "m ij is the minimum of multiplication to multiply m ai to aj then if I want to multiply ai plus 1 to aj then it will be m i plus 1 to j. Similarly, in general if I write one term which will be let me write somewhere here maybe I will say in general you will be splitting at k this is ai ai plus 1 and then finally ak and then it will be ak plus 1 this is aj. Now you will say that if you are splitting at k"
+      }
+    ]
+  },
+  {
+    "id": 474,
+    "lecture": 158,
+    "title": "Compare two matrix-chain orders · Discover",
+    "concept": "For dimensions 10×30, 30×5 and 5×60, (AB)C costs 4500 multiplications, while A(BC) costs 27000. Both compute the same 10×60 result. Matrix multiplication is associative when dimensions fit, but changing parentheses changes the sizes of intermediate results and the work. A split decides which two subchains are multiplied last.",
+    "teachingSteps": [
+      "For dimensions 10×30, 30×5 and 5×60, (AB)C costs 4500 multiplications, while A(BC) costs 27000. Both compute the same 10×60 result.",
+      "Try each final split of a longer interval",
+      "Add both subchain costs and final product cost, then minimize"
+    ],
+    "foundation": {
+      "title": "Compare two matrix-chain orders",
+      "idea": "For dimensions 10×30, 30×5 and 5×60, (AB)C costs 4500 multiplications, while A(BC) costs 27000. Both compute the same 10×60 result. Matrix multiplication is associative when dimensions fit, but changing parentheses changes the sizes of intermediate results and the work. A split decides which two subchains are multiplied last.",
+      "terms": [
+        "Dimensions p: matrix i is p[i-1]×p[i].",
+        "Cost: p×q×r scalar products for p×q times q×r.",
+        "Interval: a consecutive group of matrices."
+      ],
+      "example": "10×30, 30×5, 5×60 cost 1500+3000=4500 as (AB)C, but 9000+18000=27000 as A(BC)."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Multiplying a 6×4 matrix by a 4×7 matrix needs how many scalar products?",
+        "answer": 168,
+        "explanation": "Each of m(m+1) output entries combines k products.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "For 10×30, 30×5 and 5×60 matrices, what is the cheaper parenthesization cost?",
+        "answer": 4500,
+        "explanation": "(AB)C costs 10×30×5 + 10×5×60 = 4500.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains compare two matrix-chain orders?",
+        "options": [
+          "One successful example proves every input.",
+          "For dimensions 10×30, 30×5 and 5×60, (AB)C costs 4500 multiplications, while A(BC) costs 27000.",
+          "Input assumptions never affect correctness."
+        ],
+        "answer": 1,
+        "explanation": "For dimensions 10×30, 30×5 and 5×60, (AB)C costs 4500 multiplications, while A(BC) costs 27000. Both compute the same 10×60 result."
+      },
+      {
+        "type": "order",
+        "prompt": "Solve a matrix-chain interval.",
+        "items": [
+          "Set singleton subchain cost to zero",
+          "Try each final split of a longer interval",
+          "Add both subchain costs and final product cost, then minimize"
+        ],
+        "explanation": "Shorter intervals precede longer intervals; every final split is considered."
+      }
+    ],
+    "algoLab": "chain-example",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 38.25,
+    "excerpt": "whole length will be just 1. So this is 1 comma 1. Now tell me for 1 comma 1 this is just 0 0 0 0 because it is base case because you do not need to multiply to anything. And now this is 1 comma 2 1 comma 2 this is 2 comma 3 this is 3 comma 4 which means if you want to multiply 1 and 2 then how much you will be taking? I think this is just 2 into 3 into 1 which is 6. You need 6 multiplications here and for 2 comma 3 you need 3 into 1 into 5",
+    "sourceReferences": [
+      {
+        "lecture": 158,
+        "file": "158. 40d.Example on Matrix Chain Multiplication.mp4",
+        "start": 38.25,
+        "end": 85.43,
+        "text": "whole length will be just 1. So this is 1 comma 1. Now tell me for 1 comma 1 this is just 0 0 0 0 because it is base case because you do not need to multiply to anything. And now this is 1 comma 2 1 comma 2 this is 2 comma 3 this is 3 comma 4 which means if you want to multiply 1 and 2 then how much you will be taking? I think this is just 2 into 3 into 1 which is 6. You need 6 multiplications here and for 2 comma 3 you need 3 into 1 into 5"
+      },
+      {
+        "lecture": 158,
+        "file": "158. 40d.Example on Matrix Chain Multiplication.mp4",
+        "start": 85.69,
+        "end": 114.7,
+        "text": "15 multiplications here for 3 comma 4 you need 1 into 5 into 4 which is 25 into 4 which is 100 multiplication right no not 25 sorry 1 into 5 into 4 which is 20 multiplications okay so this is fine to everyone right okay now what is this cell what is this cell this cell is 1 comma 3 which means if you want to multiply from a1 to a3 so you need to do it actually carefully so for a1 to a3 just write down all the cases"
+      },
+      {
+        "lecture": 158,
+        "file": "158. 40d.Example on Matrix Chain Multiplication.mp4",
+        "start": 115.07,
+        "end": 145.61,
+        "text": "which means where you can split and then you need to take the minimum amount, all the splits. Good thing is that that you are going from bottom up, you do not need to draw the tree more than one time, okay? Just one time you need to draw, which means just one level you need to draw. So this is a1, a2 and then a3 and then maybe a1, a2, a3. So for a1, a2, how much you need, how much computation you need, you will be needing. For a1, a2, you will be needing. This is a six computation."
+      }
+    ]
+  },
+  {
+    "id": 475,
+    "lecture": 158,
+    "title": "Compare two matrix-chain orders · Trace",
+    "concept": "For dimensions 10×30, 30×5 and 5×60, (AB)C costs 4500 multiplications, while A(BC) costs 27000. Both compute the same 10×60 result. Matrix multiplication is associative when dimensions fit, but changing parentheses changes the sizes of intermediate results and the work. A split decides which two subchains are multiplied last.",
+    "teachingSteps": [
+      "For dimensions 10×30, 30×5 and 5×60, (AB)C costs 4500 multiplications, while A(BC) costs 27000. Both compute the same 10×60 result.",
+      "Try each final split of a longer interval",
+      "Add both subchain costs and final product cost, then minimize"
+    ],
+    "foundation": {
+      "title": "Compare two matrix-chain orders",
+      "idea": "For dimensions 10×30, 30×5 and 5×60, (AB)C costs 4500 multiplications, while A(BC) costs 27000. Both compute the same 10×60 result. Matrix multiplication is associative when dimensions fit, but changing parentheses changes the sizes of intermediate results and the work. A split decides which two subchains are multiplied last.",
+      "terms": [
+        "Dimensions p: matrix i is p[i-1]×p[i].",
+        "Cost: p×q×r scalar products for p×q times q×r.",
+        "Interval: a consecutive group of matrices."
+      ],
+      "example": "10×30, 30×5, 5×60 cost 1500+3000=4500 as (AB)C, but 9000+18000=27000 as A(BC)."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Multiplying a 7×2 matrix by a 2×8 matrix needs how many scalar products?",
+        "answer": 112,
+        "explanation": "Each of m(m+1) output entries combines k products.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "For 10×30, 30×5 and 5×60 matrices, what is the cheaper parenthesization cost?",
+        "answer": 4500,
+        "explanation": "(AB)C costs 10×30×5 + 10×5×60 = 4500.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "What changes in matrix-chain optimization?",
+        "options": [
+          "Parenthesization, with the original matrix order fixed.",
+          "The order of matrices can be permuted freely.",
+          "The required output dimensions can be ignored."
+        ],
+        "answer": 0,
+        "explanation": "Associativity permits regrouping but matrix multiplication is not generally commutative."
+      },
+      {
+        "type": "order",
+        "prompt": "Solve a matrix-chain interval.",
+        "items": [
+          "Set singleton subchain cost to zero",
+          "Try each final split of a longer interval",
+          "Add both subchain costs and final product cost, then minimize"
+        ],
+        "explanation": "Shorter intervals precede longer intervals; every final split is considered."
+      }
+    ],
+    "algoLab": "chain-example",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 38.25,
+    "excerpt": "whole length will be just 1. So this is 1 comma 1. Now tell me for 1 comma 1 this is just 0 0 0 0 because it is base case because you do not need to multiply to anything. And now this is 1 comma 2 1 comma 2 this is 2 comma 3 this is 3 comma 4 which means if you want to multiply 1 and 2 then how much you will be taking? I think this is just 2 into 3 into 1 which is 6. You need 6 multiplications here and for 2 comma 3 you need 3 into 1 into 5",
+    "sourceReferences": [
+      {
+        "lecture": 158,
+        "file": "158. 40d.Example on Matrix Chain Multiplication.mp4",
+        "start": 38.25,
+        "end": 85.43,
+        "text": "whole length will be just 1. So this is 1 comma 1. Now tell me for 1 comma 1 this is just 0 0 0 0 because it is base case because you do not need to multiply to anything. And now this is 1 comma 2 1 comma 2 this is 2 comma 3 this is 3 comma 4 which means if you want to multiply 1 and 2 then how much you will be taking? I think this is just 2 into 3 into 1 which is 6. You need 6 multiplications here and for 2 comma 3 you need 3 into 1 into 5"
+      },
+      {
+        "lecture": 158,
+        "file": "158. 40d.Example on Matrix Chain Multiplication.mp4",
+        "start": 85.69,
+        "end": 114.7,
+        "text": "15 multiplications here for 3 comma 4 you need 1 into 5 into 4 which is 25 into 4 which is 100 multiplication right no not 25 sorry 1 into 5 into 4 which is 20 multiplications okay so this is fine to everyone right okay now what is this cell what is this cell this cell is 1 comma 3 which means if you want to multiply from a1 to a3 so you need to do it actually carefully so for a1 to a3 just write down all the cases"
+      },
+      {
+        "lecture": 158,
+        "file": "158. 40d.Example on Matrix Chain Multiplication.mp4",
+        "start": 115.07,
+        "end": 145.61,
+        "text": "which means where you can split and then you need to take the minimum amount, all the splits. Good thing is that that you are going from bottom up, you do not need to draw the tree more than one time, okay? Just one time you need to draw, which means just one level you need to draw. So this is a1, a2 and then a3 and then maybe a1, a2, a3. So for a1, a2, how much you need, how much computation you need, you will be needing. For a1, a2, you will be needing. This is a six computation."
+      }
+    ]
+  },
+  {
+    "id": 476,
+    "lecture": 158,
+    "title": "Compare two matrix-chain orders · Apply",
+    "concept": "For dimensions 10×30, 30×5 and 5×60, (AB)C costs 4500 multiplications, while A(BC) costs 27000. Both compute the same 10×60 result. Matrix multiplication is associative when dimensions fit, but changing parentheses changes the sizes of intermediate results and the work. A split decides which two subchains are multiplied last.",
+    "teachingSteps": [
+      "For dimensions 10×30, 30×5 and 5×60, (AB)C costs 4500 multiplications, while A(BC) costs 27000. Both compute the same 10×60 result.",
+      "Try each final split of a longer interval",
+      "Add both subchain costs and final product cost, then minimize"
+    ],
+    "foundation": {
+      "title": "Compare two matrix-chain orders",
+      "idea": "For dimensions 10×30, 30×5 and 5×60, (AB)C costs 4500 multiplications, while A(BC) costs 27000. Both compute the same 10×60 result. Matrix multiplication is associative when dimensions fit, but changing parentheses changes the sizes of intermediate results and the work. A split decides which two subchains are multiplied last.",
+      "terms": [
+        "Dimensions p: matrix i is p[i-1]×p[i].",
+        "Cost: p×q×r scalar products for p×q times q×r.",
+        "Interval: a consecutive group of matrices."
+      ],
+      "example": "10×30, 30×5, 5×60 cost 1500+3000=4500 as (AB)C, but 9000+18000=27000 as A(BC)."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A matrix-processing service reduces arithmetic work. Multiplying a 4×3 matrix by a 3×5 matrix needs how many scalar products?",
+        "answer": 60,
+        "explanation": "Each of m(m+1) output entries combines k products.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "For 10×30, 30×5 and 5×60 matrices, what is the cheaper parenthesization cost?",
+        "answer": 4500,
+        "explanation": "(AB)C costs 10×30×5 + 10×5×60 = 4500.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "What changes in matrix-chain optimization?",
+        "options": [
+          "The order of matrices can be permuted freely.",
+          "The required output dimensions can be ignored.",
+          "Parenthesization, with the original matrix order fixed."
+        ],
+        "answer": 2,
+        "explanation": "Associativity permits regrouping but matrix multiplication is not generally commutative."
+      },
+      {
+        "type": "order",
+        "prompt": "Solve a matrix-chain interval.",
+        "items": [
+          "Set singleton subchain cost to zero",
+          "Try each final split of a longer interval",
+          "Add both subchain costs and final product cost, then minimize"
+        ],
+        "explanation": "Shorter intervals precede longer intervals; every final split is considered."
+      }
+    ],
+    "algoLab": "chain-example",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 38.25,
+    "excerpt": "whole length will be just 1. So this is 1 comma 1. Now tell me for 1 comma 1 this is just 0 0 0 0 because it is base case because you do not need to multiply to anything. And now this is 1 comma 2 1 comma 2 this is 2 comma 3 this is 3 comma 4 which means if you want to multiply 1 and 2 then how much you will be taking? I think this is just 2 into 3 into 1 which is 6. You need 6 multiplications here and for 2 comma 3 you need 3 into 1 into 5",
+    "sourceReferences": [
+      {
+        "lecture": 158,
+        "file": "158. 40d.Example on Matrix Chain Multiplication.mp4",
+        "start": 38.25,
+        "end": 85.43,
+        "text": "whole length will be just 1. So this is 1 comma 1. Now tell me for 1 comma 1 this is just 0 0 0 0 because it is base case because you do not need to multiply to anything. And now this is 1 comma 2 1 comma 2 this is 2 comma 3 this is 3 comma 4 which means if you want to multiply 1 and 2 then how much you will be taking? I think this is just 2 into 3 into 1 which is 6. You need 6 multiplications here and for 2 comma 3 you need 3 into 1 into 5"
+      },
+      {
+        "lecture": 158,
+        "file": "158. 40d.Example on Matrix Chain Multiplication.mp4",
+        "start": 85.69,
+        "end": 114.7,
+        "text": "15 multiplications here for 3 comma 4 you need 1 into 5 into 4 which is 25 into 4 which is 100 multiplication right no not 25 sorry 1 into 5 into 4 which is 20 multiplications okay so this is fine to everyone right okay now what is this cell what is this cell this cell is 1 comma 3 which means if you want to multiply from a1 to a3 so you need to do it actually carefully so for a1 to a3 just write down all the cases"
+      },
+      {
+        "lecture": 158,
+        "file": "158. 40d.Example on Matrix Chain Multiplication.mp4",
+        "start": 115.07,
+        "end": 145.61,
+        "text": "which means where you can split and then you need to take the minimum amount, all the splits. Good thing is that that you are going from bottom up, you do not need to draw the tree more than one time, okay? Just one time you need to draw, which means just one level you need to draw. So this is a1, a2 and then a3 and then maybe a1, a2, a3. So for a1, a2, how much you need, how much computation you need, you will be needing. For a1, a2, you will be needing. This is a six computation."
+      }
+    ]
+  },
+  {
+    "id": 477,
+    "lecture": 159,
+    "title": "Intervals give quadratic chain states · Discover",
+    "concept": "Matrix-chain DP has O(n squared) interval states, and each interval tries O(n) split points. Increasing interval length respects dependencies and gives O(n cubed) time and O(n squared) space. Matrix multiplication is associative when dimensions fit, but changing parentheses changes the sizes of intermediate results and the work. A split decides which two subchains are multiplied last.",
+    "teachingSteps": [
+      "Matrix-chain DP has O(n squared) interval states, and each interval tries O(n) split points. Increasing interval length respects dependencies and gives O(n cubed) time and O(n squared) space.",
+      "Try each final split of a longer interval",
+      "Add both subchain costs and final product cost, then minimize"
+    ],
+    "foundation": {
+      "title": "Intervals give quadratic chain states",
+      "idea": "Matrix-chain DP has O(n squared) interval states, and each interval tries O(n) split points. Increasing interval length respects dependencies and gives O(n cubed) time and O(n squared) space. Matrix multiplication is associative when dimensions fit, but changing parentheses changes the sizes of intermediate results and the work. A split decides which two subchains are multiplied last.",
+      "terms": [
+        "Dimensions p: matrix i is p[i-1]×p[i].",
+        "Cost: p×q×r scalar products for p×q times q×r.",
+        "Interval: a consecutive group of matrices."
+      ],
+      "example": "10×30, 30×5, 5×60 cost 1500+3000=4500 as (AB)C, but 9000+18000=27000 as A(BC)."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Multiplying a 7×2 matrix by a 2×8 matrix needs how many scalar products?",
+        "answer": 112,
+        "explanation": "Each of m(m+1) output entries combines k products.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "For 10×30, 30×5 and 5×60 matrices, what is the cheaper parenthesization cost?",
+        "answer": 4500,
+        "explanation": "(AB)C costs 10×30×5 + 10×5×60 = 4500.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains intervals give quadratic chain states?",
+        "options": [
+          "Matrix-chain DP has O(n squared) interval states, and each interval tries O(n) split points.",
+          "Input assumptions never affect correctness.",
+          "One successful example proves every input."
+        ],
+        "answer": 0,
+        "explanation": "Matrix-chain DP has O(n squared) interval states, and each interval tries O(n) split points. Increasing interval length respects dependencies and gives O(n cubed) time and O(n squared) space."
+      },
+      {
+        "type": "order",
+        "prompt": "Solve a matrix-chain interval.",
+        "items": [
+          "Set singleton subchain cost to zero",
+          "Try each final split of a longer interval",
+          "Add both subchain costs and final product cost, then minimize"
+        ],
+        "explanation": "Shorter intervals precede longer intervals; every final split is considered."
+      }
+    ],
+    "algoLab": "chain-cost",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 97.18,
+    "excerpt": "you will say you may split it at one which means you may say a1 a2 a3 a4 you may need to find the number of multiplications here you may need to find the number of multiplications here you may need to find the number of multiplications here so you need to basically get the minimum among these three so that's why if it is if it is n let's suppose if it is 1 to n then how many comparisons you will be needing you will need a n-1 comparisons",
+    "sourceReferences": [
+      {
+        "lecture": 159,
+        "file": "159. 40e. Time Complexity of Matrix chain Multiplication.mp4",
+        "start": 97.18,
+        "end": 129.18,
+        "text": "you will say you may split it at one which means you may say a1 a2 a3 a4 you may need to find the number of multiplications here you may need to find the number of multiplications here you may need to find the number of multiplications here so you need to basically get the minimum among these three so that's why if it is if it is n let's suppose if it is 1 to n then how many comparisons you will be needing you will need a n-1 comparisons"
+      },
+      {
+        "lecture": 159,
+        "file": "159. 40e. Time Complexity of Matrix chain Multiplication.mp4",
+        "start": 269.9,
+        "end": 298.92,
+        "text": "maybe n square or n square by 2 something like this right so maybe n plus you you may say this is n i mean n entries maybe n minus 1 entries n minus 2 entries n minus 3 entries like okay i mean at the last n will be one entry so maybe you can say n square by 2 entries because it is just seem seeming like some half of the matrix so n square by 2 entries are there and just to fill one entry you need n minus 1 comparison or n order of n comparison so that's where the time completes is n cube"
+      },
+      {
+        "lecture": 159,
+        "file": "159. 40e. Time Complexity of Matrix chain Multiplication.mp4",
+        "start": 301.39,
+        "end": 330.72,
+        "text": "You're getting so here just to fill one entry I need to compare n-1 entries. That's the problem Earlier earlier I need to compare just with two entries. That's why the cram complexity is just m into n because that's the table size into How many entries you need? How many how many comparisons or how many how much competition you need to fill just one entry? It is just out of one but here it is out of n So it is out of n cube so total time complexity of this matrix chain multiplication"
+      }
+    ]
+  },
+  {
+    "id": 478,
+    "lecture": 159,
+    "title": "Intervals give quadratic chain states · Trace",
+    "concept": "Matrix-chain DP has O(n squared) interval states, and each interval tries O(n) split points. Increasing interval length respects dependencies and gives O(n cubed) time and O(n squared) space. Matrix multiplication is associative when dimensions fit, but changing parentheses changes the sizes of intermediate results and the work. A split decides which two subchains are multiplied last.",
+    "teachingSteps": [
+      "Matrix-chain DP has O(n squared) interval states, and each interval tries O(n) split points. Increasing interval length respects dependencies and gives O(n cubed) time and O(n squared) space.",
+      "Try each final split of a longer interval",
+      "Add both subchain costs and final product cost, then minimize"
+    ],
+    "foundation": {
+      "title": "Intervals give quadratic chain states",
+      "idea": "Matrix-chain DP has O(n squared) interval states, and each interval tries O(n) split points. Increasing interval length respects dependencies and gives O(n cubed) time and O(n squared) space. Matrix multiplication is associative when dimensions fit, but changing parentheses changes the sizes of intermediate results and the work. A split decides which two subchains are multiplied last.",
+      "terms": [
+        "Dimensions p: matrix i is p[i-1]×p[i].",
+        "Cost: p×q×r scalar products for p×q times q×r.",
+        "Interval: a consecutive group of matrices."
+      ],
+      "example": "10×30, 30×5, 5×60 cost 1500+3000=4500 as (AB)C, but 9000+18000=27000 as A(BC)."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Multiplying a 4×3 matrix by a 3×5 matrix needs how many scalar products?",
+        "answer": 60,
+        "explanation": "Each of m(m+1) output entries combines k products.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "For 10×30, 30×5 and 5×60 matrices, what is the cheaper parenthesization cost?",
+        "answer": 4500,
+        "explanation": "(AB)C costs 10×30×5 + 10×5×60 = 4500.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "O(n squared) matrix-chain states each test O(n) final split points. What total time follows?",
+        "options": [
+          "O(n squared)",
+          "O(log n)",
+          "O(n cubed)"
+        ],
+        "answer": 2,
+        "explanation": "Multiply the state count by work per state; shorter interval dependencies determine the fill order."
+      },
+      {
+        "type": "order",
+        "prompt": "Solve a matrix-chain interval.",
+        "items": [
+          "Set singleton subchain cost to zero",
+          "Try each final split of a longer interval",
+          "Add both subchain costs and final product cost, then minimize"
+        ],
+        "explanation": "Shorter intervals precede longer intervals; every final split is considered."
+      }
+    ],
+    "algoLab": "chain-cost",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 97.18,
+    "excerpt": "you will say you may split it at one which means you may say a1 a2 a3 a4 you may need to find the number of multiplications here you may need to find the number of multiplications here you may need to find the number of multiplications here so you need to basically get the minimum among these three so that's why if it is if it is n let's suppose if it is 1 to n then how many comparisons you will be needing you will need a n-1 comparisons",
+    "sourceReferences": [
+      {
+        "lecture": 159,
+        "file": "159. 40e. Time Complexity of Matrix chain Multiplication.mp4",
+        "start": 97.18,
+        "end": 129.18,
+        "text": "you will say you may split it at one which means you may say a1 a2 a3 a4 you may need to find the number of multiplications here you may need to find the number of multiplications here you may need to find the number of multiplications here so you need to basically get the minimum among these three so that's why if it is if it is n let's suppose if it is 1 to n then how many comparisons you will be needing you will need a n-1 comparisons"
+      },
+      {
+        "lecture": 159,
+        "file": "159. 40e. Time Complexity of Matrix chain Multiplication.mp4",
+        "start": 269.9,
+        "end": 298.92,
+        "text": "maybe n square or n square by 2 something like this right so maybe n plus you you may say this is n i mean n entries maybe n minus 1 entries n minus 2 entries n minus 3 entries like okay i mean at the last n will be one entry so maybe you can say n square by 2 entries because it is just seem seeming like some half of the matrix so n square by 2 entries are there and just to fill one entry you need n minus 1 comparison or n order of n comparison so that's where the time completes is n cube"
+      },
+      {
+        "lecture": 159,
+        "file": "159. 40e. Time Complexity of Matrix chain Multiplication.mp4",
+        "start": 301.39,
+        "end": 330.72,
+        "text": "You're getting so here just to fill one entry I need to compare n-1 entries. That's the problem Earlier earlier I need to compare just with two entries. That's why the cram complexity is just m into n because that's the table size into How many entries you need? How many how many comparisons or how many how much competition you need to fill just one entry? It is just out of one but here it is out of n So it is out of n cube so total time complexity of this matrix chain multiplication"
+      }
+    ]
+  },
+  {
+    "id": 479,
+    "lecture": 159,
+    "title": "Intervals give quadratic chain states · Apply",
+    "concept": "Matrix-chain DP has O(n squared) interval states, and each interval tries O(n) split points. Increasing interval length respects dependencies and gives O(n cubed) time and O(n squared) space. Matrix multiplication is associative when dimensions fit, but changing parentheses changes the sizes of intermediate results and the work. A split decides which two subchains are multiplied last.",
+    "teachingSteps": [
+      "Matrix-chain DP has O(n squared) interval states, and each interval tries O(n) split points. Increasing interval length respects dependencies and gives O(n cubed) time and O(n squared) space.",
+      "Try each final split of a longer interval",
+      "Add both subchain costs and final product cost, then minimize"
+    ],
+    "foundation": {
+      "title": "Intervals give quadratic chain states",
+      "idea": "Matrix-chain DP has O(n squared) interval states, and each interval tries O(n) split points. Increasing interval length respects dependencies and gives O(n cubed) time and O(n squared) space. Matrix multiplication is associative when dimensions fit, but changing parentheses changes the sizes of intermediate results and the work. A split decides which two subchains are multiplied last.",
+      "terms": [
+        "Dimensions p: matrix i is p[i-1]×p[i].",
+        "Cost: p×q×r scalar products for p×q times q×r.",
+        "Interval: a consecutive group of matrices."
+      ],
+      "example": "10×30, 30×5, 5×60 cost 1500+3000=4500 as (AB)C, but 9000+18000=27000 as A(BC)."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A matrix-processing service reduces arithmetic work. Multiplying a 5×4 matrix by a 4×6 matrix needs how many scalar products?",
+        "answer": 120,
+        "explanation": "Each of m(m+1) output entries combines k products.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "For 10×30, 30×5 and 5×60 matrices, what is the cheaper parenthesization cost?",
+        "answer": 4500,
+        "explanation": "(AB)C costs 10×30×5 + 10×5×60 = 4500.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "O(n squared) matrix-chain states each test O(n) final split points. What total time follows?",
+        "options": [
+          "O(log n)",
+          "O(n cubed)",
+          "O(n squared)"
+        ],
+        "answer": 1,
+        "explanation": "Multiply the state count by work per state; shorter interval dependencies determine the fill order."
+      },
+      {
+        "type": "order",
+        "prompt": "Solve a matrix-chain interval.",
+        "items": [
+          "Set singleton subchain cost to zero",
+          "Try each final split of a longer interval",
+          "Add both subchain costs and final product cost, then minimize"
+        ],
+        "explanation": "Shorter intervals precede longer intervals; every final split is considered."
+      }
+    ],
+    "algoLab": "chain-cost",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 97.18,
+    "excerpt": "you will say you may split it at one which means you may say a1 a2 a3 a4 you may need to find the number of multiplications here you may need to find the number of multiplications here you may need to find the number of multiplications here so you need to basically get the minimum among these three so that's why if it is if it is n let's suppose if it is 1 to n then how many comparisons you will be needing you will need a n-1 comparisons",
+    "sourceReferences": [
+      {
+        "lecture": 159,
+        "file": "159. 40e. Time Complexity of Matrix chain Multiplication.mp4",
+        "start": 97.18,
+        "end": 129.18,
+        "text": "you will say you may split it at one which means you may say a1 a2 a3 a4 you may need to find the number of multiplications here you may need to find the number of multiplications here you may need to find the number of multiplications here so you need to basically get the minimum among these three so that's why if it is if it is n let's suppose if it is 1 to n then how many comparisons you will be needing you will need a n-1 comparisons"
+      },
+      {
+        "lecture": 159,
+        "file": "159. 40e. Time Complexity of Matrix chain Multiplication.mp4",
+        "start": 269.9,
+        "end": 298.92,
+        "text": "maybe n square or n square by 2 something like this right so maybe n plus you you may say this is n i mean n entries maybe n minus 1 entries n minus 2 entries n minus 3 entries like okay i mean at the last n will be one entry so maybe you can say n square by 2 entries because it is just seem seeming like some half of the matrix so n square by 2 entries are there and just to fill one entry you need n minus 1 comparison or n order of n comparison so that's where the time completes is n cube"
+      },
+      {
+        "lecture": 159,
+        "file": "159. 40e. Time Complexity of Matrix chain Multiplication.mp4",
+        "start": 301.39,
+        "end": 330.72,
+        "text": "You're getting so here just to fill one entry I need to compare n-1 entries. That's the problem Earlier earlier I need to compare just with two entries. That's why the cram complexity is just m into n because that's the table size into How many entries you need? How many how many comparisons or how many how much competition you need to fill just one entry? It is just out of one but here it is out of n So it is out of n cube so total time complexity of this matrix chain multiplication"
+      }
+    ]
+  },
+  {
+    "id": 480,
+    "lecture": 160,
+    "title": "Whole items break density greedy · Discover",
+    "concept": "In 0-1 knapsack, each item is either taken whole or skipped. The highest value density need not lead to the best whole-item combination; the fractional greedy guarantee does not transfer. A 0-1 choice may use an item only once. The take alternative uses a previous-item state, so it cannot reuse the item already being processed. Integer capacity gives a finite state table.",
+    "teachingSteps": [
+      "In 0-1 knapsack, each item is either taken whole or skipped. The highest value density need not lead to the best whole-item combination; the fractional greedy guarantee does not transfer.",
+      "Compare skip and a feasible take from the previous row",
+      "Keep the larger value; descend capacities if rolling into one row"
+    ],
+    "foundation": {
+      "title": "Whole items break density greedy",
+      "idea": "In 0-1 knapsack, each item is either taken whole or skipped. The highest value density need not lead to the best whole-item combination; the fractional greedy guarantee does not transfer. A 0-1 choice may use an item only once. The take alternative uses a previous-item state, so it cannot reuse the item already being processed. Integer capacity gives a finite state table.",
+      "terms": [
+        "State: first i items and remaining or allowed capacity c.",
+        "Skip: previous row at the same capacity.",
+        "Take: item value plus previous row at c-weight."
+      ],
+      "example": "Capacity 5 with items (weight,value)=(2,3),(3,4),(4,5) optimally takes the first two for value 7."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "For the given 0-1 items and integer capacity 6, what maximum value fits?",
+        "answer": 8,
+        "explanation": "Each item is used at most once; compare feasible whole-item subsets.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Item",
+            "Weight",
+            "Value"
+          ],
+          "rows": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              2,
+              3,
+              4
+            ],
+            [
+              3,
+              4,
+              5
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Capacity 4 with (weight,value)=(3,5),(2,3),(2,3) has what optimal whole-item value?",
+        "answer": 6,
+        "explanation": "Taking both weight-2 items gives 6, beating the higher-density weight-3 item’s value 5.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains whole items break density greedy?",
+        "options": [
+          "Input assumptions never affect correctness.",
+          "One successful example proves every input.",
+          "In 0-1 knapsack, each item is either taken whole or skipped."
+        ],
+        "answer": 2,
+        "explanation": "In 0-1 knapsack, each item is either taken whole or skipped. The highest value density need not lead to the best whole-item combination; the fractional greedy guarantee does not transfer."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate one 0-1 knapsack item.",
+        "items": [
+          "Initialize the empty item row to zero",
+          "Compare skip and a feasible take from the previous row",
+          "Keep the larger value; descend capacities if rolling into one row"
+        ],
+        "explanation": "Take and skip both use previous-item states; whole-item feasibility controls the take branch."
+      }
+    ],
+    "algoLab": "knapsack-greedy",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 1.07,
+    "excerpt": "Do you remember knapsack from from greedy algorithm? You might remember right now It is same knapsack, but just with one change. Let's just see. What is that change? It says that given so input will be input will be given some items items with profit and weight as Like it is same as early",
+    "sourceReferences": [
+      {
+        "lecture": 160,
+        "file": "160. 41a. Greedy Strategy on 0-1 Knapsack Problem.mp4",
+        "start": 1.07,
+        "end": 37.82,
+        "text": "Do you remember knapsack from from greedy algorithm? You might remember right now It is same knapsack, but just with one change. Let's just see. What is that change? It says that given so input will be input will be given some items items with profit and weight as Like it is same as early"
+      },
+      {
+        "lecture": 160,
+        "file": "160. 41a. Greedy Strategy on 0-1 Knapsack Problem.mp4",
+        "start": 517.25,
+        "end": 545.88,
+        "text": "then it is called fractional knapsack. Another thing is that like another completely different problem is that if you cannot put the fraction, then you have to leave it empty as it is. I hope you got the difference between 0 1 knapsack and fraction knapsack. So this was the greedy solution. And since we are studying this 0 1 knapsack in dynamic programming, then you must have guessed that this is a dynamic programming solution. Let's just see that"
+      },
+      {
+        "lecture": 160,
+        "file": "160. 41a. Greedy Strategy on 0-1 Knapsack Problem.mp4",
+        "start": 674.78,
+        "end": 703.4,
+        "text": "okay i mean profit you must have got two sorry profit is two we will talk about profit later let's just fill this bag first now what is remaining 4 kg so you will say let me go with the next item which is having next profit up on weight so the first item you have taken okay first item you have taken then you will say let me go with the next item which is which is having the next profit up on weight so what is the next item which is having profit up on weight either x2 or x4 both are same for me"
+      }
+    ]
+  },
+  {
+    "id": 481,
+    "lecture": 160,
+    "title": "Whole items break density greedy · Trace",
+    "concept": "In 0-1 knapsack, each item is either taken whole or skipped. The highest value density need not lead to the best whole-item combination; the fractional greedy guarantee does not transfer. A 0-1 choice may use an item only once. The take alternative uses a previous-item state, so it cannot reuse the item already being processed. Integer capacity gives a finite state table.",
+    "teachingSteps": [
+      "In 0-1 knapsack, each item is either taken whole or skipped. The highest value density need not lead to the best whole-item combination; the fractional greedy guarantee does not transfer.",
+      "Compare skip and a feasible take from the previous row",
+      "Keep the larger value; descend capacities if rolling into one row"
+    ],
+    "foundation": {
+      "title": "Whole items break density greedy",
+      "idea": "In 0-1 knapsack, each item is either taken whole or skipped. The highest value density need not lead to the best whole-item combination; the fractional greedy guarantee does not transfer. A 0-1 choice may use an item only once. The take alternative uses a previous-item state, so it cannot reuse the item already being processed. Integer capacity gives a finite state table.",
+      "terms": [
+        "State: first i items and remaining or allowed capacity c.",
+        "Skip: previous row at the same capacity.",
+        "Take: item value plus previous row at c-weight."
+      ],
+      "example": "Capacity 5 with items (weight,value)=(2,3),(3,4),(4,5) optimally takes the first two for value 7."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "For the given 0-1 items and integer capacity 7, what maximum value fits?",
+        "answer": 9,
+        "explanation": "Each item is used at most once; compare feasible whole-item subsets.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Item",
+            "Weight",
+            "Value"
+          ],
+          "rows": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              2,
+              3,
+              4
+            ],
+            [
+              3,
+              4,
+              5
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Capacity 4 with (weight,value)=(3,5),(2,3),(2,3) has what optimal whole-item value?",
+        "answer": 6,
+        "explanation": "Taking both weight-2 items gives 6, beating the higher-density weight-3 item’s value 5.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "When rolling 0-1 knapsack into one row, in what direction should capacities update?",
+        "options": [
+          "In any order, because capacity is irrelevant.",
+          "Descending, to avoid using the current item again.",
+          "Ascending, to ensure unlimited reuse."
+        ],
+        "answer": 1,
+        "explanation": "The take branch must read the previous item stage."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate one 0-1 knapsack item.",
+        "items": [
+          "Initialize the empty item row to zero",
+          "Compare skip and a feasible take from the previous row",
+          "Keep the larger value; descend capacities if rolling into one row"
+        ],
+        "explanation": "Take and skip both use previous-item states; whole-item feasibility controls the take branch."
+      }
+    ],
+    "algoLab": "knapsack-greedy",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 1.07,
+    "excerpt": "Do you remember knapsack from from greedy algorithm? You might remember right now It is same knapsack, but just with one change. Let's just see. What is that change? It says that given so input will be input will be given some items items with profit and weight as Like it is same as early",
+    "sourceReferences": [
+      {
+        "lecture": 160,
+        "file": "160. 41a. Greedy Strategy on 0-1 Knapsack Problem.mp4",
+        "start": 1.07,
+        "end": 37.82,
+        "text": "Do you remember knapsack from from greedy algorithm? You might remember right now It is same knapsack, but just with one change. Let's just see. What is that change? It says that given so input will be input will be given some items items with profit and weight as Like it is same as early"
+      },
+      {
+        "lecture": 160,
+        "file": "160. 41a. Greedy Strategy on 0-1 Knapsack Problem.mp4",
+        "start": 517.25,
+        "end": 545.88,
+        "text": "then it is called fractional knapsack. Another thing is that like another completely different problem is that if you cannot put the fraction, then you have to leave it empty as it is. I hope you got the difference between 0 1 knapsack and fraction knapsack. So this was the greedy solution. And since we are studying this 0 1 knapsack in dynamic programming, then you must have guessed that this is a dynamic programming solution. Let's just see that"
+      },
+      {
+        "lecture": 160,
+        "file": "160. 41a. Greedy Strategy on 0-1 Knapsack Problem.mp4",
+        "start": 674.78,
+        "end": 703.4,
+        "text": "okay i mean profit you must have got two sorry profit is two we will talk about profit later let's just fill this bag first now what is remaining 4 kg so you will say let me go with the next item which is having next profit up on weight so the first item you have taken okay first item you have taken then you will say let me go with the next item which is which is having the next profit up on weight so what is the next item which is having profit up on weight either x2 or x4 both are same for me"
+      }
+    ]
+  },
+  {
+    "id": 482,
+    "lecture": 160,
+    "title": "Whole items break density greedy · Apply",
+    "concept": "In 0-1 knapsack, each item is either taken whole or skipped. The highest value density need not lead to the best whole-item combination; the fractional greedy guarantee does not transfer. A 0-1 choice may use an item only once. The take alternative uses a previous-item state, so it cannot reuse the item already being processed. Integer capacity gives a finite state table.",
+    "teachingSteps": [
+      "In 0-1 knapsack, each item is either taken whole or skipped. The highest value density need not lead to the best whole-item combination; the fractional greedy guarantee does not transfer.",
+      "Compare skip and a feasible take from the previous row",
+      "Keep the larger value; descend capacities if rolling into one row"
+    ],
+    "foundation": {
+      "title": "Whole items break density greedy",
+      "idea": "In 0-1 knapsack, each item is either taken whole or skipped. The highest value density need not lead to the best whole-item combination; the fractional greedy guarantee does not transfer. A 0-1 choice may use an item only once. The take alternative uses a previous-item state, so it cannot reuse the item already being processed. Integer capacity gives a finite state table.",
+      "terms": [
+        "State: first i items and remaining or allowed capacity c.",
+        "Skip: previous row at the same capacity.",
+        "Take: item value plus previous row at c-weight."
+      ],
+      "example": "Capacity 5 with items (weight,value)=(2,3),(3,4),(4,5) optimally takes the first two for value 7."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A packing service requires whole items. For the given 0-1 items and integer capacity 5, what maximum value fits?",
+        "answer": 7,
+        "explanation": "Each item is used at most once; compare feasible whole-item subsets.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Item",
+            "Weight",
+            "Value"
+          ],
+          "rows": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              2,
+              3,
+              4
+            ],
+            [
+              3,
+              4,
+              5
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Capacity 4 with (weight,value)=(3,5),(2,3),(2,3) has what optimal whole-item value?",
+        "answer": 6,
+        "explanation": "Taking both weight-2 items gives 6, beating the higher-density weight-3 item’s value 5.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "When rolling 0-1 knapsack into one row, in what direction should capacities update?",
+        "options": [
+          "Descending, to avoid using the current item again.",
+          "Ascending, to ensure unlimited reuse.",
+          "In any order, because capacity is irrelevant."
+        ],
+        "answer": 0,
+        "explanation": "The take branch must read the previous item stage."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate one 0-1 knapsack item.",
+        "items": [
+          "Initialize the empty item row to zero",
+          "Compare skip and a feasible take from the previous row",
+          "Keep the larger value; descend capacities if rolling into one row"
+        ],
+        "explanation": "Take and skip both use previous-item states; whole-item feasibility controls the take branch."
+      }
+    ],
+    "algoLab": "knapsack-greedy",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 1.07,
+    "excerpt": "Do you remember knapsack from from greedy algorithm? You might remember right now It is same knapsack, but just with one change. Let's just see. What is that change? It says that given so input will be input will be given some items items with profit and weight as Like it is same as early",
+    "sourceReferences": [
+      {
+        "lecture": 160,
+        "file": "160. 41a. Greedy Strategy on 0-1 Knapsack Problem.mp4",
+        "start": 1.07,
+        "end": 37.82,
+        "text": "Do you remember knapsack from from greedy algorithm? You might remember right now It is same knapsack, but just with one change. Let's just see. What is that change? It says that given so input will be input will be given some items items with profit and weight as Like it is same as early"
+      },
+      {
+        "lecture": 160,
+        "file": "160. 41a. Greedy Strategy on 0-1 Knapsack Problem.mp4",
+        "start": 517.25,
+        "end": 545.88,
+        "text": "then it is called fractional knapsack. Another thing is that like another completely different problem is that if you cannot put the fraction, then you have to leave it empty as it is. I hope you got the difference between 0 1 knapsack and fraction knapsack. So this was the greedy solution. And since we are studying this 0 1 knapsack in dynamic programming, then you must have guessed that this is a dynamic programming solution. Let's just see that"
+      },
+      {
+        "lecture": 160,
+        "file": "160. 41a. Greedy Strategy on 0-1 Knapsack Problem.mp4",
+        "start": 674.78,
+        "end": 703.4,
+        "text": "okay i mean profit you must have got two sorry profit is two we will talk about profit later let's just fill this bag first now what is remaining 4 kg so you will say let me go with the next item which is having next profit up on weight so the first item you have taken okay first item you have taken then you will say let me go with the next item which is which is having the next profit up on weight so what is the next item which is having profit up on weight either x2 or x4 both are same for me"
+      }
+    ]
+  },
+  {
+    "id": 483,
+    "lecture": 161,
+    "title": "Knapsack item-and-capacity states · Discover",
+    "concept": "For the first i items and integer capacity c, compare skipping item i with taking it once if its weight fits. The take branch uses the previous item row at capacity c-weight(i). A 0-1 choice may use an item only once. The take alternative uses a previous-item state, so it cannot reuse the item already being processed. Integer capacity gives a finite state table.",
+    "teachingSteps": [
+      "For the first i items and integer capacity c, compare skipping item i with taking it once if its weight fits. The take branch uses the previous item row at capacity c-weight(i).",
+      "Compare skip and a feasible take from the previous row",
+      "Keep the larger value; descend capacities if rolling into one row"
+    ],
+    "foundation": {
+      "title": "Knapsack item-and-capacity states",
+      "idea": "For the first i items and integer capacity c, compare skipping item i with taking it once if its weight fits. The take branch uses the previous item row at capacity c-weight(i). A 0-1 choice may use an item only once. The take alternative uses a previous-item state, so it cannot reuse the item already being processed. Integer capacity gives a finite state table.",
+      "terms": [
+        "State: first i items and remaining or allowed capacity c.",
+        "Skip: previous row at the same capacity.",
+        "Take: item value plus previous row at c-weight."
+      ],
+      "example": "Capacity 5 with items (weight,value)=(2,3),(3,4),(4,5) optimally takes the first two for value 7."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "For the given 0-1 items and integer capacity 7, what maximum value fits?",
+        "answer": 9,
+        "explanation": "Each item is used at most once; compare feasible whole-item subsets.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Item",
+            "Weight",
+            "Value"
+          ],
+          "rows": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              2,
+              3,
+              4
+            ],
+            [
+              3,
+              4,
+              5
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "With 5 items and capacities 0..4, how many cells are in the full table including the empty item row?",
+        "answer": 30,
+        "explanation": "There are n+1 item-prefix rows and W+1 capacity columns.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains knapsack item-and-capacity states?",
+        "options": [
+          "One successful example proves every input.",
+          "For the first i items and integer capacity c, compare skipping item i with taking it once if its weight fits.",
+          "Input assumptions never affect correctness."
+        ],
+        "answer": 1,
+        "explanation": "For the first i items and integer capacity c, compare skipping item i with taking it once if its weight fits. The take branch uses the previous item row at capacity c-weight(i)."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate one 0-1 knapsack item.",
+        "items": [
+          "Initialize the empty item row to zero",
+          "Compare skip and a feasible take from the previous row",
+          "Keep the larger value; descend capacities if rolling into one row"
+        ],
+        "explanation": "Take and skip both use previous-item states; whole-item feasibility controls the take branch."
+      }
+    ],
+    "algoLab": "knapsack",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.69,
+    "excerpt": "Okay, let's just see that how does dynamic programming help us in this case? Suppose that I have x1, x2, x3, these are the profits, these are the weights. Now I have three items, which are x1, x2, x3. And let's suppose that capacity is 5, okay, capacity is even 5. Which means that there is a knapsack of capacity 5 and you have to fill that knapsack.",
+    "sourceReferences": [
+      {
+        "lecture": 161,
+        "file": "161. 41b. Recursive Formulation of 0-1 Knapsack and Exam.mp4",
+        "start": 0.69,
+        "end": 26.62,
+        "text": "Okay, let's just see that how does dynamic programming help us in this case? Suppose that I have x1, x2, x3, these are the profits, these are the weights. Now I have three items, which are x1, x2, x3. And let's suppose that capacity is 5, okay, capacity is even 5. Which means that there is a knapsack of capacity 5 and you have to fill that knapsack."
+      },
+      {
+        "lecture": 161,
+        "file": "161. 41b. Recursive Formulation of 0-1 Knapsack and Exam.mp4",
+        "start": 191.6,
+        "end": 225.13,
+        "text": "this will return me the total profit total profit okay that i mean maximum profit basically maximum profit out of these three items now if i ask you that what is unit of this that unit means it is a weight finally it is a weight it is a profit it is it is weight into profit it is weight upon profit what is this knapsack of this particular thing i mean this whole thing what is the unit of this whole thing this is"
+      },
+      {
+        "lecture": 161,
+        "file": "161. 41b. Recursive Formulation of 0-1 Knapsack and Exam.mp4",
+        "start": 312.96,
+        "end": 341.4,
+        "text": "I will take it, I will not take it and then I will take maximum of this and this. Whatever this is giving, whatever this is giving, I will take maximum of this because that's what the problem, the nature of my problem is. Nature of my problem is saying that take that and get the maximum profit. So I will be taking the maximum, getting my point. So here you will be deciding upon x3, then you will see the remaining capacity is 5-3 because 3 is weight of x3. You can say it is W3. I mean W3 means weight of x3 maybe."
+      }
+    ]
+  },
+  {
+    "id": 484,
+    "lecture": 161,
+    "title": "Knapsack item-and-capacity states · Trace",
+    "concept": "For the first i items and integer capacity c, compare skipping item i with taking it once if its weight fits. The take branch uses the previous item row at capacity c-weight(i). A 0-1 choice may use an item only once. The take alternative uses a previous-item state, so it cannot reuse the item already being processed. Integer capacity gives a finite state table.",
+    "teachingSteps": [
+      "For the first i items and integer capacity c, compare skipping item i with taking it once if its weight fits. The take branch uses the previous item row at capacity c-weight(i).",
+      "Compare skip and a feasible take from the previous row",
+      "Keep the larger value; descend capacities if rolling into one row"
+    ],
+    "foundation": {
+      "title": "Knapsack item-and-capacity states",
+      "idea": "For the first i items and integer capacity c, compare skipping item i with taking it once if its weight fits. The take branch uses the previous item row at capacity c-weight(i). A 0-1 choice may use an item only once. The take alternative uses a previous-item state, so it cannot reuse the item already being processed. Integer capacity gives a finite state table.",
+      "terms": [
+        "State: first i items and remaining or allowed capacity c.",
+        "Skip: previous row at the same capacity.",
+        "Take: item value plus previous row at c-weight."
+      ],
+      "example": "Capacity 5 with items (weight,value)=(2,3),(3,4),(4,5) optimally takes the first two for value 7."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "For the given 0-1 items and integer capacity 5, what maximum value fits?",
+        "answer": 7,
+        "explanation": "Each item is used at most once; compare feasible whole-item subsets.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Item",
+            "Weight",
+            "Value"
+          ],
+          "rows": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              2,
+              3,
+              4
+            ],
+            [
+              3,
+              4,
+              5
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "With 6 items and capacities 0..2, how many cells are in the full table including the empty item row?",
+        "answer": 21,
+        "explanation": "There are n+1 item-prefix rows and W+1 capacity columns.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "When rolling 0-1 knapsack into one row, in what direction should capacities update?",
+        "options": [
+          "Descending, to avoid using the current item again.",
+          "Ascending, to ensure unlimited reuse.",
+          "In any order, because capacity is irrelevant."
+        ],
+        "answer": 0,
+        "explanation": "The take branch must read the previous item stage."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate one 0-1 knapsack item.",
+        "items": [
+          "Initialize the empty item row to zero",
+          "Compare skip and a feasible take from the previous row",
+          "Keep the larger value; descend capacities if rolling into one row"
+        ],
+        "explanation": "Take and skip both use previous-item states; whole-item feasibility controls the take branch."
+      }
+    ],
+    "algoLab": "knapsack",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.69,
+    "excerpt": "Okay, let's just see that how does dynamic programming help us in this case? Suppose that I have x1, x2, x3, these are the profits, these are the weights. Now I have three items, which are x1, x2, x3. And let's suppose that capacity is 5, okay, capacity is even 5. Which means that there is a knapsack of capacity 5 and you have to fill that knapsack.",
+    "sourceReferences": [
+      {
+        "lecture": 161,
+        "file": "161. 41b. Recursive Formulation of 0-1 Knapsack and Exam.mp4",
+        "start": 0.69,
+        "end": 26.62,
+        "text": "Okay, let's just see that how does dynamic programming help us in this case? Suppose that I have x1, x2, x3, these are the profits, these are the weights. Now I have three items, which are x1, x2, x3. And let's suppose that capacity is 5, okay, capacity is even 5. Which means that there is a knapsack of capacity 5 and you have to fill that knapsack."
+      },
+      {
+        "lecture": 161,
+        "file": "161. 41b. Recursive Formulation of 0-1 Knapsack and Exam.mp4",
+        "start": 191.6,
+        "end": 225.13,
+        "text": "this will return me the total profit total profit okay that i mean maximum profit basically maximum profit out of these three items now if i ask you that what is unit of this that unit means it is a weight finally it is a weight it is a profit it is it is weight into profit it is weight upon profit what is this knapsack of this particular thing i mean this whole thing what is the unit of this whole thing this is"
+      },
+      {
+        "lecture": 161,
+        "file": "161. 41b. Recursive Formulation of 0-1 Knapsack and Exam.mp4",
+        "start": 312.96,
+        "end": 341.4,
+        "text": "I will take it, I will not take it and then I will take maximum of this and this. Whatever this is giving, whatever this is giving, I will take maximum of this because that's what the problem, the nature of my problem is. Nature of my problem is saying that take that and get the maximum profit. So I will be taking the maximum, getting my point. So here you will be deciding upon x3, then you will see the remaining capacity is 5-3 because 3 is weight of x3. You can say it is W3. I mean W3 means weight of x3 maybe."
+      }
+    ]
+  },
+  {
+    "id": 485,
+    "lecture": 161,
+    "title": "Knapsack item-and-capacity states · Apply",
+    "concept": "For the first i items and integer capacity c, compare skipping item i with taking it once if its weight fits. The take branch uses the previous item row at capacity c-weight(i). A 0-1 choice may use an item only once. The take alternative uses a previous-item state, so it cannot reuse the item already being processed. Integer capacity gives a finite state table.",
+    "teachingSteps": [
+      "For the first i items and integer capacity c, compare skipping item i with taking it once if its weight fits. The take branch uses the previous item row at capacity c-weight(i).",
+      "Compare skip and a feasible take from the previous row",
+      "Keep the larger value; descend capacities if rolling into one row"
+    ],
+    "foundation": {
+      "title": "Knapsack item-and-capacity states",
+      "idea": "For the first i items and integer capacity c, compare skipping item i with taking it once if its weight fits. The take branch uses the previous item row at capacity c-weight(i). A 0-1 choice may use an item only once. The take alternative uses a previous-item state, so it cannot reuse the item already being processed. Integer capacity gives a finite state table.",
+      "terms": [
+        "State: first i items and remaining or allowed capacity c.",
+        "Skip: previous row at the same capacity.",
+        "Take: item value plus previous row at c-weight."
+      ],
+      "example": "Capacity 5 with items (weight,value)=(2,3),(3,4),(4,5) optimally takes the first two for value 7."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A packing service requires whole items. For the given 0-1 items and integer capacity 6, what maximum value fits?",
+        "answer": 8,
+        "explanation": "Each item is used at most once; compare feasible whole-item subsets.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Item",
+            "Weight",
+            "Value"
+          ],
+          "rows": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              2,
+              3,
+              4
+            ],
+            [
+              3,
+              4,
+              5
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "With 7 items and capacities 0..3, how many cells are in the full table including the empty item row?",
+        "answer": 32,
+        "explanation": "There are n+1 item-prefix rows and W+1 capacity columns.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "When rolling 0-1 knapsack into one row, in what direction should capacities update?",
+        "options": [
+          "Ascending, to ensure unlimited reuse.",
+          "In any order, because capacity is irrelevant.",
+          "Descending, to avoid using the current item again."
+        ],
+        "answer": 2,
+        "explanation": "The take branch must read the previous item stage."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate one 0-1 knapsack item.",
+        "items": [
+          "Initialize the empty item row to zero",
+          "Compare skip and a feasible take from the previous row",
+          "Keep the larger value; descend capacities if rolling into one row"
+        ],
+        "explanation": "Take and skip both use previous-item states; whole-item feasibility controls the take branch."
+      }
+    ],
+    "algoLab": "knapsack",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.69,
+    "excerpt": "Okay, let's just see that how does dynamic programming help us in this case? Suppose that I have x1, x2, x3, these are the profits, these are the weights. Now I have three items, which are x1, x2, x3. And let's suppose that capacity is 5, okay, capacity is even 5. Which means that there is a knapsack of capacity 5 and you have to fill that knapsack.",
+    "sourceReferences": [
+      {
+        "lecture": 161,
+        "file": "161. 41b. Recursive Formulation of 0-1 Knapsack and Exam.mp4",
+        "start": 0.69,
+        "end": 26.62,
+        "text": "Okay, let's just see that how does dynamic programming help us in this case? Suppose that I have x1, x2, x3, these are the profits, these are the weights. Now I have three items, which are x1, x2, x3. And let's suppose that capacity is 5, okay, capacity is even 5. Which means that there is a knapsack of capacity 5 and you have to fill that knapsack."
+      },
+      {
+        "lecture": 161,
+        "file": "161. 41b. Recursive Formulation of 0-1 Knapsack and Exam.mp4",
+        "start": 191.6,
+        "end": 225.13,
+        "text": "this will return me the total profit total profit okay that i mean maximum profit basically maximum profit out of these three items now if i ask you that what is unit of this that unit means it is a weight finally it is a weight it is a profit it is it is weight into profit it is weight upon profit what is this knapsack of this particular thing i mean this whole thing what is the unit of this whole thing this is"
+      },
+      {
+        "lecture": 161,
+        "file": "161. 41b. Recursive Formulation of 0-1 Knapsack and Exam.mp4",
+        "start": 312.96,
+        "end": 341.4,
+        "text": "I will take it, I will not take it and then I will take maximum of this and this. Whatever this is giving, whatever this is giving, I will take maximum of this because that's what the problem, the nature of my problem is. Nature of my problem is saying that take that and get the maximum profit. So I will be taking the maximum, getting my point. So here you will be deciding upon x3, then you will see the remaining capacity is 5-3 because 3 is weight of x3. You can say it is W3. I mean W3 means weight of x3 maybe."
+      }
+    ]
+  },
+  {
+    "id": 486,
+    "lecture": 162,
+    "title": "Follow competing knapsack choices · Discover",
+    "concept": "Each 0-1 knapsack cell is the best value among feasible whole-item subsets of a prefix. Compare skip and take values explicitly instead of using density to force a choice. A 0-1 choice may use an item only once. The take alternative uses a previous-item state, so it cannot reuse the item already being processed. Integer capacity gives a finite state table.",
+    "teachingSteps": [
+      "Each 0-1 knapsack cell is the best value among feasible whole-item subsets of a prefix. Compare skip and take values explicitly instead of using density to force a choice.",
+      "Compare skip and a feasible take from the previous row",
+      "Keep the larger value; descend capacities if rolling into one row"
+    ],
+    "foundation": {
+      "title": "Follow competing knapsack choices",
+      "idea": "Each 0-1 knapsack cell is the best value among feasible whole-item subsets of a prefix. Compare skip and take values explicitly instead of using density to force a choice. A 0-1 choice may use an item only once. The take alternative uses a previous-item state, so it cannot reuse the item already being processed. Integer capacity gives a finite state table.",
+      "terms": [
+        "State: first i items and remaining or allowed capacity c.",
+        "Skip: previous row at the same capacity.",
+        "Take: item value plus previous row at c-weight."
+      ],
+      "example": "Capacity 5 with items (weight,value)=(2,3),(3,4),(4,5) optimally takes the first two for value 7."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "For the given 0-1 items and integer capacity 5, what maximum value fits?",
+        "answer": 7,
+        "explanation": "Each item is used at most once; compare feasible whole-item subsets.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Item",
+            "Weight",
+            "Value"
+          ],
+          "rows": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              2,
+              3,
+              4
+            ],
+            [
+              3,
+              4,
+              5
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "With 6 items and capacities 0..2, how many cells are in the full table including the empty item row?",
+        "answer": 21,
+        "explanation": "There are n+1 item-prefix rows and W+1 capacity columns.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains follow competing knapsack choices?",
+        "options": [
+          "Each 0-1 knapsack cell is the best value among feasible whole-item subsets of a prefix.",
+          "Input assumptions never affect correctness.",
+          "One successful example proves every input."
+        ],
+        "answer": 0,
+        "explanation": "Each 0-1 knapsack cell is the best value among feasible whole-item subsets of a prefix. Compare skip and take values explicitly instead of using density to force a choice."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate one 0-1 knapsack item.",
+        "items": [
+          "Initialize the empty item row to zero",
+          "Compare skip and a feasible take from the previous row",
+          "Keep the larger value; descend capacities if rolling into one row"
+        ],
+        "explanation": "Take and skip both use previous-item states; whole-item feasibility controls the take branch."
+      }
+    ],
+    "algoLab": "knapsack-trace",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 152.67,
+    "excerpt": "you don't take it and there are many capacities too here if i need to decide upon two it will also make just one call knapsack of 1.2 okay i mean there are repetitive calls maybe you can see but we will see it we will see it in a while i mean this is just a toy example where you are seeing yes they are repetitive calls i could have saved these calls i mean the recursive tree will be having some repetitive calls and i could have saved these calls by using this dynamic problem anyway so tell me what is this knapsack of 1.2",
+    "sourceReferences": [
+      {
+        "lecture": 162,
+        "file": "162. 41c. One More Running Example on 0-1 Knapsack.mp4",
+        "start": 152.67,
+        "end": 183.87,
+        "text": "you don't take it and there are many capacities too here if i need to decide upon two it will also make just one call knapsack of 1.2 okay i mean there are repetitive calls maybe you can see but we will see it we will see it in a while i mean this is just a toy example where you are seeing yes they are repetitive calls i could have saved these calls i mean the recursive tree will be having some repetitive calls and i could have saved these calls by using this dynamic problem anyway so tell me what is this knapsack of 1.2"
+      },
+      {
+        "lecture": 162,
+        "file": "162. 41c. One More Running Example on 0-1 Knapsack.mp4",
+        "start": 209.88,
+        "end": 238.38,
+        "text": "and then this will be two plus right so here since one of them is zero this quantity zero it will be two it will be zero then maximum is two so algorithmically it will be like this but let's not do it do it in that way which means i know that i can do it without using that extension of that tree so let me just return from here where i will say that if you have just one item the weight of that item is two and the capacity is actually just two so you should be taking that item so it will be returning 10"
+      },
+      {
+        "lecture": 162,
+        "file": "162. 41c. One More Running Example on 0-1 Knapsack.mp4",
+        "start": 467.66,
+        "end": 483.59,
+        "text": "take it don't take it this value or sometimes they call it profit value does not matter this is vi means the profit we are getting here take it don't take it take it don't take it and always you have like most of the cases you have two choices but sometimes you can also have one one choice like this you do not have two choices"
+      }
+    ]
+  },
+  {
+    "id": 487,
+    "lecture": 162,
+    "title": "Follow competing knapsack choices · Trace",
+    "concept": "Each 0-1 knapsack cell is the best value among feasible whole-item subsets of a prefix. Compare skip and take values explicitly instead of using density to force a choice. A 0-1 choice may use an item only once. The take alternative uses a previous-item state, so it cannot reuse the item already being processed. Integer capacity gives a finite state table.",
+    "teachingSteps": [
+      "Each 0-1 knapsack cell is the best value among feasible whole-item subsets of a prefix. Compare skip and take values explicitly instead of using density to force a choice.",
+      "Compare skip and a feasible take from the previous row",
+      "Keep the larger value; descend capacities if rolling into one row"
+    ],
+    "foundation": {
+      "title": "Follow competing knapsack choices",
+      "idea": "Each 0-1 knapsack cell is the best value among feasible whole-item subsets of a prefix. Compare skip and take values explicitly instead of using density to force a choice. A 0-1 choice may use an item only once. The take alternative uses a previous-item state, so it cannot reuse the item already being processed. Integer capacity gives a finite state table.",
+      "terms": [
+        "State: first i items and remaining or allowed capacity c.",
+        "Skip: previous row at the same capacity.",
+        "Take: item value plus previous row at c-weight."
+      ],
+      "example": "Capacity 5 with items (weight,value)=(2,3),(3,4),(4,5) optimally takes the first two for value 7."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "For the given 0-1 items and integer capacity 6, what maximum value fits?",
+        "answer": 8,
+        "explanation": "Each item is used at most once; compare feasible whole-item subsets.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Item",
+            "Weight",
+            "Value"
+          ],
+          "rows": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              2,
+              3,
+              4
+            ],
+            [
+              3,
+              4,
+              5
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "With 7 items and capacities 0..3, how many cells are in the full table including the empty item row?",
+        "answer": 32,
+        "explanation": "There are n+1 item-prefix rows and W+1 capacity columns.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "When rolling 0-1 knapsack into one row, in what direction should capacities update?",
+        "options": [
+          "Ascending, to ensure unlimited reuse.",
+          "In any order, because capacity is irrelevant.",
+          "Descending, to avoid using the current item again."
+        ],
+        "answer": 2,
+        "explanation": "The take branch must read the previous item stage."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate one 0-1 knapsack item.",
+        "items": [
+          "Initialize the empty item row to zero",
+          "Compare skip and a feasible take from the previous row",
+          "Keep the larger value; descend capacities if rolling into one row"
+        ],
+        "explanation": "Take and skip both use previous-item states; whole-item feasibility controls the take branch."
+      }
+    ],
+    "algoLab": "knapsack-trace",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 152.67,
+    "excerpt": "you don't take it and there are many capacities too here if i need to decide upon two it will also make just one call knapsack of 1.2 okay i mean there are repetitive calls maybe you can see but we will see it we will see it in a while i mean this is just a toy example where you are seeing yes they are repetitive calls i could have saved these calls i mean the recursive tree will be having some repetitive calls and i could have saved these calls by using this dynamic problem anyway so tell me what is this knapsack of 1.2",
+    "sourceReferences": [
+      {
+        "lecture": 162,
+        "file": "162. 41c. One More Running Example on 0-1 Knapsack.mp4",
+        "start": 152.67,
+        "end": 183.87,
+        "text": "you don't take it and there are many capacities too here if i need to decide upon two it will also make just one call knapsack of 1.2 okay i mean there are repetitive calls maybe you can see but we will see it we will see it in a while i mean this is just a toy example where you are seeing yes they are repetitive calls i could have saved these calls i mean the recursive tree will be having some repetitive calls and i could have saved these calls by using this dynamic problem anyway so tell me what is this knapsack of 1.2"
+      },
+      {
+        "lecture": 162,
+        "file": "162. 41c. One More Running Example on 0-1 Knapsack.mp4",
+        "start": 209.88,
+        "end": 238.38,
+        "text": "and then this will be two plus right so here since one of them is zero this quantity zero it will be two it will be zero then maximum is two so algorithmically it will be like this but let's not do it do it in that way which means i know that i can do it without using that extension of that tree so let me just return from here where i will say that if you have just one item the weight of that item is two and the capacity is actually just two so you should be taking that item so it will be returning 10"
+      },
+      {
+        "lecture": 162,
+        "file": "162. 41c. One More Running Example on 0-1 Knapsack.mp4",
+        "start": 467.66,
+        "end": 483.59,
+        "text": "take it don't take it this value or sometimes they call it profit value does not matter this is vi means the profit we are getting here take it don't take it take it don't take it and always you have like most of the cases you have two choices but sometimes you can also have one one choice like this you do not have two choices"
+      }
+    ]
+  },
+  {
+    "id": 488,
+    "lecture": 162,
+    "title": "Follow competing knapsack choices · Apply",
+    "concept": "Each 0-1 knapsack cell is the best value among feasible whole-item subsets of a prefix. Compare skip and take values explicitly instead of using density to force a choice. A 0-1 choice may use an item only once. The take alternative uses a previous-item state, so it cannot reuse the item already being processed. Integer capacity gives a finite state table.",
+    "teachingSteps": [
+      "Each 0-1 knapsack cell is the best value among feasible whole-item subsets of a prefix. Compare skip and take values explicitly instead of using density to force a choice.",
+      "Compare skip and a feasible take from the previous row",
+      "Keep the larger value; descend capacities if rolling into one row"
+    ],
+    "foundation": {
+      "title": "Follow competing knapsack choices",
+      "idea": "Each 0-1 knapsack cell is the best value among feasible whole-item subsets of a prefix. Compare skip and take values explicitly instead of using density to force a choice. A 0-1 choice may use an item only once. The take alternative uses a previous-item state, so it cannot reuse the item already being processed. Integer capacity gives a finite state table.",
+      "terms": [
+        "State: first i items and remaining or allowed capacity c.",
+        "Skip: previous row at the same capacity.",
+        "Take: item value plus previous row at c-weight."
+      ],
+      "example": "Capacity 5 with items (weight,value)=(2,3),(3,4),(4,5) optimally takes the first two for value 7."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A packing service requires whole items. For the given 0-1 items and integer capacity 7, what maximum value fits?",
+        "answer": 9,
+        "explanation": "Each item is used at most once; compare feasible whole-item subsets.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Item",
+            "Weight",
+            "Value"
+          ],
+          "rows": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              2,
+              3,
+              4
+            ],
+            [
+              3,
+              4,
+              5
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "With 4 items and capacities 0..4, how many cells are in the full table including the empty item row?",
+        "answer": 25,
+        "explanation": "There are n+1 item-prefix rows and W+1 capacity columns.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "When rolling 0-1 knapsack into one row, in what direction should capacities update?",
+        "options": [
+          "In any order, because capacity is irrelevant.",
+          "Descending, to avoid using the current item again.",
+          "Ascending, to ensure unlimited reuse."
+        ],
+        "answer": 1,
+        "explanation": "The take branch must read the previous item stage."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate one 0-1 knapsack item.",
+        "items": [
+          "Initialize the empty item row to zero",
+          "Compare skip and a feasible take from the previous row",
+          "Keep the larger value; descend capacities if rolling into one row"
+        ],
+        "explanation": "Take and skip both use previous-item states; whole-item feasibility controls the take branch."
+      }
+    ],
+    "algoLab": "knapsack-trace",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 152.67,
+    "excerpt": "you don't take it and there are many capacities too here if i need to decide upon two it will also make just one call knapsack of 1.2 okay i mean there are repetitive calls maybe you can see but we will see it we will see it in a while i mean this is just a toy example where you are seeing yes they are repetitive calls i could have saved these calls i mean the recursive tree will be having some repetitive calls and i could have saved these calls by using this dynamic problem anyway so tell me what is this knapsack of 1.2",
+    "sourceReferences": [
+      {
+        "lecture": 162,
+        "file": "162. 41c. One More Running Example on 0-1 Knapsack.mp4",
+        "start": 152.67,
+        "end": 183.87,
+        "text": "you don't take it and there are many capacities too here if i need to decide upon two it will also make just one call knapsack of 1.2 okay i mean there are repetitive calls maybe you can see but we will see it we will see it in a while i mean this is just a toy example where you are seeing yes they are repetitive calls i could have saved these calls i mean the recursive tree will be having some repetitive calls and i could have saved these calls by using this dynamic problem anyway so tell me what is this knapsack of 1.2"
+      },
+      {
+        "lecture": 162,
+        "file": "162. 41c. One More Running Example on 0-1 Knapsack.mp4",
+        "start": 209.88,
+        "end": 238.38,
+        "text": "and then this will be two plus right so here since one of them is zero this quantity zero it will be two it will be zero then maximum is two so algorithmically it will be like this but let's not do it do it in that way which means i know that i can do it without using that extension of that tree so let me just return from here where i will say that if you have just one item the weight of that item is two and the capacity is actually just two so you should be taking that item so it will be returning 10"
+      },
+      {
+        "lecture": 162,
+        "file": "162. 41c. One More Running Example on 0-1 Knapsack.mp4",
+        "start": 467.66,
+        "end": 483.59,
+        "text": "take it don't take it this value or sometimes they call it profit value does not matter this is vi means the profit we are getting here take it don't take it take it don't take it and always you have like most of the cases you have two choices but sometimes you can also have one one choice like this you do not have two choices"
+      }
+    ]
+  },
+  {
+    "id": 489,
+    "lecture": 163,
+    "title": "Unique capacity states and input size · Discover",
+    "concept": "A 0-1 knapsack table has (n+1)(W+1) item-capacity states. O(nW) is pseudo-polynomial: it depends on numeric capacity W, which may be large relative to its bit length. A 0-1 choice may use an item only once. The take alternative uses a previous-item state, so it cannot reuse the item already being processed. Integer capacity gives a finite state table.",
+    "teachingSteps": [
+      "A 0-1 knapsack table has (n+1)(W+1) item-capacity states. O(nW) is pseudo-polynomial: it depends on numeric capacity W, which may be large relative to its bit length.",
+      "Compare skip and a feasible take from the previous row",
+      "Keep the larger value; descend capacities if rolling into one row"
+    ],
+    "foundation": {
+      "title": "Unique capacity states and input size",
+      "idea": "A 0-1 knapsack table has (n+1)(W+1) item-capacity states. O(nW) is pseudo-polynomial: it depends on numeric capacity W, which may be large relative to its bit length. A 0-1 choice may use an item only once. The take alternative uses a previous-item state, so it cannot reuse the item already being processed. Integer capacity gives a finite state table.",
+      "terms": [
+        "State: first i items and remaining or allowed capacity c.",
+        "Skip: previous row at the same capacity.",
+        "Take: item value plus previous row at c-weight."
+      ],
+      "example": "Capacity 5 with items (weight,value)=(2,3),(3,4),(4,5) optimally takes the first two for value 7."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "For the given 0-1 items and integer capacity 6, what maximum value fits?",
+        "answer": 8,
+        "explanation": "Each item is used at most once; compare feasible whole-item subsets.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Item",
+            "Weight",
+            "Value"
+          ],
+          "rows": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              2,
+              3,
+              4
+            ],
+            [
+              3,
+              4,
+              5
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "With 7 items and capacities 0..3, how many cells are in the full table including the empty item row?",
+        "answer": 32,
+        "explanation": "There are n+1 item-prefix rows and W+1 capacity columns.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains unique capacity states and input size?",
+        "options": [
+          "Input assumptions never affect correctness.",
+          "One successful example proves every input.",
+          "A 0-1 knapsack table has (n+1)(W+1) item-capacity states."
+        ],
+        "answer": 2,
+        "explanation": "A 0-1 knapsack table has (n+1)(W+1) item-capacity states. O(nW) is pseudo-polynomial: it depends on numeric capacity W, which may be large relative to its bit length."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate one 0-1 knapsack item.",
+        "items": [
+          "Initialize the empty item row to zero",
+          "Compare skip and a feasible take from the previous row",
+          "Keep the larger value; descend capacities if rolling into one row"
+        ],
+        "explanation": "Take and skip both use previous-item states; whole-item feasibility controls the take branch."
+      }
+    ],
+    "algoLab": "knapsack-states",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.59,
+    "excerpt": "So how many total calls are possible? What I'm doing, I'm saying I'm starting with n comma total capacity C. So I will say that maybe, maybe take it, take the nth item, don't take the nth item, then if you take it, then maybe, maybe C. The function called will be knapsack of n minus one comma C minus some w, w n or something like that, right? And here this will be knapsack of n minus one comma w, not w, it will be c only because you're not taking it.",
+    "sourceReferences": [
+      {
+        "lecture": 163,
+        "file": "163_41d_Total_Calls_in_Knapsack,_Unique_Calls_in_Knapsac.mp4",
+        "start": 0.59,
+        "end": 28.33,
+        "text": "So how many total calls are possible? What I'm doing, I'm saying I'm starting with n comma total capacity C. So I will say that maybe, maybe take it, take the nth item, don't take the nth item, then if you take it, then maybe, maybe C. The function called will be knapsack of n minus one comma C minus some w, w n or something like that, right? And here this will be knapsack of n minus one comma w, not w, it will be c only because you're not taking it."
+      },
+      {
+        "lecture": 163,
+        "file": "163_41d_Total_Calls_in_Knapsack,_Unique_Calls_in_Knapsac.mp4",
+        "start": 278.8,
+        "end": 309.14,
+        "text": "Maybe all the supercomputers, all the machines of this world, and you just run everything in parallel, then also it will take more than lifetime. I don't know how many lifetime it will take if we just run this algorithm on all the machines. So obviously, if it is exponential, then it is not a good idea. Obviously, we need to check that how many unique calls are possible. Now tell me that how many unique calls are possible? Knapsack of n to massive. So you will say that total possible values are n here."
+      },
+      {
+        "lecture": 163,
+        "file": "163_41d_Total_Calls_in_Knapsack,_Unique_Calls_in_Knapsac.mp4",
+        "start": 309.37,
+        "end": 351.86,
+        "text": "total possible value you just see here. So total unique calls which are possible are n into c, right? So obviously the dynamic programming algorithm will say that what is the time complexity then? Now using the dynamic programming time complexity, you will say that you will make a table here since these many functions calls are possible, you will make a table of n into c and n as number of the rows here n into and c is the capacity."
+      }
+    ]
+  },
+  {
+    "id": 490,
+    "lecture": 163,
+    "title": "Unique capacity states and input size · Trace",
+    "concept": "A 0-1 knapsack table has (n+1)(W+1) item-capacity states. O(nW) is pseudo-polynomial: it depends on numeric capacity W, which may be large relative to its bit length. A 0-1 choice may use an item only once. The take alternative uses a previous-item state, so it cannot reuse the item already being processed. Integer capacity gives a finite state table.",
+    "teachingSteps": [
+      "A 0-1 knapsack table has (n+1)(W+1) item-capacity states. O(nW) is pseudo-polynomial: it depends on numeric capacity W, which may be large relative to its bit length.",
+      "Compare skip and a feasible take from the previous row",
+      "Keep the larger value; descend capacities if rolling into one row"
+    ],
+    "foundation": {
+      "title": "Unique capacity states and input size",
+      "idea": "A 0-1 knapsack table has (n+1)(W+1) item-capacity states. O(nW) is pseudo-polynomial: it depends on numeric capacity W, which may be large relative to its bit length. A 0-1 choice may use an item only once. The take alternative uses a previous-item state, so it cannot reuse the item already being processed. Integer capacity gives a finite state table.",
+      "terms": [
+        "State: first i items and remaining or allowed capacity c.",
+        "Skip: previous row at the same capacity.",
+        "Take: item value plus previous row at c-weight."
+      ],
+      "example": "Capacity 5 with items (weight,value)=(2,3),(3,4),(4,5) optimally takes the first two for value 7."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "For the given 0-1 items and integer capacity 7, what maximum value fits?",
+        "answer": 9,
+        "explanation": "Each item is used at most once; compare feasible whole-item subsets.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Item",
+            "Weight",
+            "Value"
+          ],
+          "rows": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              2,
+              3,
+              4
+            ],
+            [
+              3,
+              4,
+              5
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "With 4 items and capacities 0..4, how many cells are in the full table including the empty item row?",
+        "answer": 25,
+        "explanation": "There are n+1 item-prefix rows and W+1 capacity columns.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Why is O(nW) capacity-table time called pseudo-polynomial?",
+        "options": [
+          "It always is exponential in the item count.",
+          "It depends on numeric capacity W, not just the number of bits encoding W.",
+          "It is independent of capacity."
+        ],
+        "answer": 1,
+        "explanation": "A capacity represented with b bits can be near 2^b, so an array over every numeric capacity need not be polynomial in b."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate one 0-1 knapsack item.",
+        "items": [
+          "Initialize the empty item row to zero",
+          "Compare skip and a feasible take from the previous row",
+          "Keep the larger value; descend capacities if rolling into one row"
+        ],
+        "explanation": "Take and skip both use previous-item states; whole-item feasibility controls the take branch."
+      }
+    ],
+    "algoLab": "knapsack-states",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.59,
+    "excerpt": "So how many total calls are possible? What I'm doing, I'm saying I'm starting with n comma total capacity C. So I will say that maybe, maybe take it, take the nth item, don't take the nth item, then if you take it, then maybe, maybe C. The function called will be knapsack of n minus one comma C minus some w, w n or something like that, right? And here this will be knapsack of n minus one comma w, not w, it will be c only because you're not taking it.",
+    "sourceReferences": [
+      {
+        "lecture": 163,
+        "file": "163_41d_Total_Calls_in_Knapsack,_Unique_Calls_in_Knapsac.mp4",
+        "start": 0.59,
+        "end": 28.33,
+        "text": "So how many total calls are possible? What I'm doing, I'm saying I'm starting with n comma total capacity C. So I will say that maybe, maybe take it, take the nth item, don't take the nth item, then if you take it, then maybe, maybe C. The function called will be knapsack of n minus one comma C minus some w, w n or something like that, right? And here this will be knapsack of n minus one comma w, not w, it will be c only because you're not taking it."
+      },
+      {
+        "lecture": 163,
+        "file": "163_41d_Total_Calls_in_Knapsack,_Unique_Calls_in_Knapsac.mp4",
+        "start": 278.8,
+        "end": 309.14,
+        "text": "Maybe all the supercomputers, all the machines of this world, and you just run everything in parallel, then also it will take more than lifetime. I don't know how many lifetime it will take if we just run this algorithm on all the machines. So obviously, if it is exponential, then it is not a good idea. Obviously, we need to check that how many unique calls are possible. Now tell me that how many unique calls are possible? Knapsack of n to massive. So you will say that total possible values are n here."
+      },
+      {
+        "lecture": 163,
+        "file": "163_41d_Total_Calls_in_Knapsack,_Unique_Calls_in_Knapsac.mp4",
+        "start": 309.37,
+        "end": 351.86,
+        "text": "total possible value you just see here. So total unique calls which are possible are n into c, right? So obviously the dynamic programming algorithm will say that what is the time complexity then? Now using the dynamic programming time complexity, you will say that you will make a table here since these many functions calls are possible, you will make a table of n into c and n as number of the rows here n into and c is the capacity."
+      }
+    ]
+  },
+  {
+    "id": 491,
+    "lecture": 163,
+    "title": "Unique capacity states and input size · Apply",
+    "concept": "A 0-1 knapsack table has (n+1)(W+1) item-capacity states. O(nW) is pseudo-polynomial: it depends on numeric capacity W, which may be large relative to its bit length. A 0-1 choice may use an item only once. The take alternative uses a previous-item state, so it cannot reuse the item already being processed. Integer capacity gives a finite state table.",
+    "teachingSteps": [
+      "A 0-1 knapsack table has (n+1)(W+1) item-capacity states. O(nW) is pseudo-polynomial: it depends on numeric capacity W, which may be large relative to its bit length.",
+      "Compare skip and a feasible take from the previous row",
+      "Keep the larger value; descend capacities if rolling into one row"
+    ],
+    "foundation": {
+      "title": "Unique capacity states and input size",
+      "idea": "A 0-1 knapsack table has (n+1)(W+1) item-capacity states. O(nW) is pseudo-polynomial: it depends on numeric capacity W, which may be large relative to its bit length. A 0-1 choice may use an item only once. The take alternative uses a previous-item state, so it cannot reuse the item already being processed. Integer capacity gives a finite state table.",
+      "terms": [
+        "State: first i items and remaining or allowed capacity c.",
+        "Skip: previous row at the same capacity.",
+        "Take: item value plus previous row at c-weight."
+      ],
+      "example": "Capacity 5 with items (weight,value)=(2,3),(3,4),(4,5) optimally takes the first two for value 7."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A packing service requires whole items. For the given 0-1 items and integer capacity 5, what maximum value fits?",
+        "answer": 7,
+        "explanation": "Each item is used at most once; compare feasible whole-item subsets.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Item",
+            "Weight",
+            "Value"
+          ],
+          "rows": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              2,
+              3,
+              4
+            ],
+            [
+              3,
+              4,
+              5
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "With 5 items and capacities 0..2, how many cells are in the full table including the empty item row?",
+        "answer": 18,
+        "explanation": "There are n+1 item-prefix rows and W+1 capacity columns.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Why is O(nW) capacity-table time called pseudo-polynomial?",
+        "options": [
+          "It depends on numeric capacity W, not just the number of bits encoding W.",
+          "It is independent of capacity.",
+          "It always is exponential in the item count."
+        ],
+        "answer": 0,
+        "explanation": "A capacity represented with b bits can be near 2^b, so an array over every numeric capacity need not be polynomial in b."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate one 0-1 knapsack item.",
+        "items": [
+          "Initialize the empty item row to zero",
+          "Compare skip and a feasible take from the previous row",
+          "Keep the larger value; descend capacities if rolling into one row"
+        ],
+        "explanation": "Take and skip both use previous-item states; whole-item feasibility controls the take branch."
+      }
+    ],
+    "algoLab": "knapsack-states",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.59,
+    "excerpt": "So how many total calls are possible? What I'm doing, I'm saying I'm starting with n comma total capacity C. So I will say that maybe, maybe take it, take the nth item, don't take the nth item, then if you take it, then maybe, maybe C. The function called will be knapsack of n minus one comma C minus some w, w n or something like that, right? And here this will be knapsack of n minus one comma w, not w, it will be c only because you're not taking it.",
+    "sourceReferences": [
+      {
+        "lecture": 163,
+        "file": "163_41d_Total_Calls_in_Knapsack,_Unique_Calls_in_Knapsac.mp4",
+        "start": 0.59,
+        "end": 28.33,
+        "text": "So how many total calls are possible? What I'm doing, I'm saying I'm starting with n comma total capacity C. So I will say that maybe, maybe take it, take the nth item, don't take the nth item, then if you take it, then maybe, maybe C. The function called will be knapsack of n minus one comma C minus some w, w n or something like that, right? And here this will be knapsack of n minus one comma w, not w, it will be c only because you're not taking it."
+      },
+      {
+        "lecture": 163,
+        "file": "163_41d_Total_Calls_in_Knapsack,_Unique_Calls_in_Knapsac.mp4",
+        "start": 278.8,
+        "end": 309.14,
+        "text": "Maybe all the supercomputers, all the machines of this world, and you just run everything in parallel, then also it will take more than lifetime. I don't know how many lifetime it will take if we just run this algorithm on all the machines. So obviously, if it is exponential, then it is not a good idea. Obviously, we need to check that how many unique calls are possible. Now tell me that how many unique calls are possible? Knapsack of n to massive. So you will say that total possible values are n here."
+      },
+      {
+        "lecture": 163,
+        "file": "163_41d_Total_Calls_in_Knapsack,_Unique_Calls_in_Knapsac.mp4",
+        "start": 309.37,
+        "end": 351.86,
+        "text": "total possible value you just see here. So total unique calls which are possible are n into c, right? So obviously the dynamic programming algorithm will say that what is the time complexity then? Now using the dynamic programming time complexity, you will say that you will make a table here since these many functions calls are possible, you will make a table of n into c and n as number of the rows here n into and c is the capacity."
+      }
+    ]
+  },
+  {
+    "id": 492,
+    "lecture": 164,
+    "title": "Descending capacities prevent reuse · Discover",
+    "concept": "For a one-row 0-1 knapsack update, process capacities downward so the take branch reads the previous item stage. Ascending updates can reuse the same item and solve an unbounded variant instead. A 0-1 choice may use an item only once. The take alternative uses a previous-item state, so it cannot reuse the item already being processed. Integer capacity gives a finite state table.",
+    "teachingSteps": [
+      "For a one-row 0-1 knapsack update, process capacities downward so the take branch reads the previous item stage. Ascending updates can reuse the same item and solve an unbounded variant instead.",
+      "Compare skip and a feasible take from the previous row",
+      "Keep the larger value; descend capacities if rolling into one row"
+    ],
+    "foundation": {
+      "title": "Descending capacities prevent reuse",
+      "idea": "For a one-row 0-1 knapsack update, process capacities downward so the take branch reads the previous item stage. Ascending updates can reuse the same item and solve an unbounded variant instead. A 0-1 choice may use an item only once. The take alternative uses a previous-item state, so it cannot reuse the item already being processed. Integer capacity gives a finite state table.",
+      "terms": [
+        "State: first i items and remaining or allowed capacity c.",
+        "Skip: previous row at the same capacity.",
+        "Take: item value plus previous row at c-weight."
+      ],
+      "example": "Capacity 5 with items (weight,value)=(2,3),(3,4),(4,5) optimally takes the first two for value 7."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "For the given 0-1 items and integer capacity 7, what maximum value fits?",
+        "answer": 9,
+        "explanation": "Each item is used at most once; compare feasible whole-item subsets.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Item",
+            "Weight",
+            "Value"
+          ],
+          "rows": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              2,
+              3,
+              4
+            ],
+            [
+              3,
+              4,
+              5
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "With 4 items and capacities 0..4, how many cells are in the full table including the empty item row?",
+        "answer": 25,
+        "explanation": "There are n+1 item-prefix rows and W+1 capacity columns.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains descending capacities prevent reuse?",
+        "options": [
+          "One successful example proves every input.",
+          "For a one-row 0-1 knapsack update, process capacities downward so the take branch reads the previous item stage.",
+          "Input assumptions never affect correctness."
+        ],
+        "answer": 1,
+        "explanation": "For a one-row 0-1 knapsack update, process capacities downward so the take branch reads the previous item stage. Ascending updates can reuse the same item and solve an unbounded variant instead."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate one 0-1 knapsack item.",
+        "items": [
+          "Initialize the empty item row to zero",
+          "Compare skip and a feasible take from the previous row",
+          "Keep the larger value; descend capacities if rolling into one row"
+        ],
+        "explanation": "Take and skip both use previous-item states; whole-item feasibility controls the take branch."
+      }
+    ],
+    "algoLab": "knapsack-rolling",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.02,
+    "excerpt": "let's just solve this question using a bottom up tell me what is maximum capacity you can get maximum capacity let's suppose is 5 suppose that your bag is having 5 of capacity and then you want to solve this problem taken so how many atoms you have here you have number of items as 4 then I will say that these are the number of items because see",
+    "sourceReferences": [
+      {
+        "lecture": 164,
+        "file": "164. 41e. Solving 0-1 Knapsack with Bottom Up Approach.mp4",
+        "start": 0.02,
+        "end": 29.29,
+        "text": "let's just solve this question using a bottom up tell me what is maximum capacity you can get maximum capacity let's suppose is 5 suppose that your bag is having 5 of capacity and then you want to solve this problem taken so how many atoms you have here you have number of items as 4 then I will say that these are the number of items because see"
+      },
+      {
+        "lecture": 164,
+        "file": "164. 41e. Solving 0-1 Knapsack with Bottom Up Approach.mp4",
+        "start": 29.6,
+        "end": 59.27,
+        "text": "this is knapsack of n comma c so this row should be number of items and this weight or the capacity should be in the columns so items always right here and the and the capacity always right on the columns because the way I've defined it should be consistent with my notation just to take care of the base cases let me let me write that base cases if if this is zero and what if this is zero so let me write one more extra row this is for base case one more extra column this is for base case"
+      },
+      {
+        "lecture": 164,
+        "file": "164. 41e. Solving 0-1 Knapsack with Bottom Up Approach.mp4",
+        "start": 88.41,
+        "end": 116.85,
+        "text": "What if capacity is 2? What if capacity remaining capacity is 3? What if remaining capacity is 4? What if remaining capacity is 5? 1, 2, 3, 4, 5 and this is 0. So, these are the capacities. This is your items. Now, can I fill this with 0s? I think we can fill this with 0s. Reason being is that what does this mean? If capacity is 0,"
+      }
+    ]
+  },
+  {
+    "id": 493,
+    "lecture": 164,
+    "title": "Descending capacities prevent reuse · Trace",
+    "concept": "For a one-row 0-1 knapsack update, process capacities downward so the take branch reads the previous item stage. Ascending updates can reuse the same item and solve an unbounded variant instead. A 0-1 choice may use an item only once. The take alternative uses a previous-item state, so it cannot reuse the item already being processed. Integer capacity gives a finite state table.",
+    "teachingSteps": [
+      "For a one-row 0-1 knapsack update, process capacities downward so the take branch reads the previous item stage. Ascending updates can reuse the same item and solve an unbounded variant instead.",
+      "Compare skip and a feasible take from the previous row",
+      "Keep the larger value; descend capacities if rolling into one row"
+    ],
+    "foundation": {
+      "title": "Descending capacities prevent reuse",
+      "idea": "For a one-row 0-1 knapsack update, process capacities downward so the take branch reads the previous item stage. Ascending updates can reuse the same item and solve an unbounded variant instead. A 0-1 choice may use an item only once. The take alternative uses a previous-item state, so it cannot reuse the item already being processed. Integer capacity gives a finite state table.",
+      "terms": [
+        "State: first i items and remaining or allowed capacity c.",
+        "Skip: previous row at the same capacity.",
+        "Take: item value plus previous row at c-weight."
+      ],
+      "example": "Capacity 5 with items (weight,value)=(2,3),(3,4),(4,5) optimally takes the first two for value 7."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "For the given 0-1 items and integer capacity 5, what maximum value fits?",
+        "answer": 7,
+        "explanation": "Each item is used at most once; compare feasible whole-item subsets.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Item",
+            "Weight",
+            "Value"
+          ],
+          "rows": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              2,
+              3,
+              4
+            ],
+            [
+              3,
+              4,
+              5
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "With 5 items and capacities 0..2, how many cells are in the full table including the empty item row?",
+        "answer": 18,
+        "explanation": "There are n+1 item-prefix rows and W+1 capacity columns.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "When rolling 0-1 knapsack into one row, in what direction should capacities update?",
+        "options": [
+          "Descending, to avoid using the current item again.",
+          "Ascending, to ensure unlimited reuse.",
+          "In any order, because capacity is irrelevant."
+        ],
+        "answer": 0,
+        "explanation": "The take branch must read the previous item stage."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate one 0-1 knapsack item.",
+        "items": [
+          "Initialize the empty item row to zero",
+          "Compare skip and a feasible take from the previous row",
+          "Keep the larger value; descend capacities if rolling into one row"
+        ],
+        "explanation": "Take and skip both use previous-item states; whole-item feasibility controls the take branch."
+      }
+    ],
+    "algoLab": "knapsack-rolling",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.02,
+    "excerpt": "let's just solve this question using a bottom up tell me what is maximum capacity you can get maximum capacity let's suppose is 5 suppose that your bag is having 5 of capacity and then you want to solve this problem taken so how many atoms you have here you have number of items as 4 then I will say that these are the number of items because see",
+    "sourceReferences": [
+      {
+        "lecture": 164,
+        "file": "164. 41e. Solving 0-1 Knapsack with Bottom Up Approach.mp4",
+        "start": 0.02,
+        "end": 29.29,
+        "text": "let's just solve this question using a bottom up tell me what is maximum capacity you can get maximum capacity let's suppose is 5 suppose that your bag is having 5 of capacity and then you want to solve this problem taken so how many atoms you have here you have number of items as 4 then I will say that these are the number of items because see"
+      },
+      {
+        "lecture": 164,
+        "file": "164. 41e. Solving 0-1 Knapsack with Bottom Up Approach.mp4",
+        "start": 29.6,
+        "end": 59.27,
+        "text": "this is knapsack of n comma c so this row should be number of items and this weight or the capacity should be in the columns so items always right here and the and the capacity always right on the columns because the way I've defined it should be consistent with my notation just to take care of the base cases let me let me write that base cases if if this is zero and what if this is zero so let me write one more extra row this is for base case one more extra column this is for base case"
+      },
+      {
+        "lecture": 164,
+        "file": "164. 41e. Solving 0-1 Knapsack with Bottom Up Approach.mp4",
+        "start": 88.41,
+        "end": 116.85,
+        "text": "What if capacity is 2? What if capacity remaining capacity is 3? What if remaining capacity is 4? What if remaining capacity is 5? 1, 2, 3, 4, 5 and this is 0. So, these are the capacities. This is your items. Now, can I fill this with 0s? I think we can fill this with 0s. Reason being is that what does this mean? If capacity is 0,"
+      }
+    ]
+  },
+  {
+    "id": 494,
+    "lecture": 164,
+    "title": "Descending capacities prevent reuse · Apply",
+    "concept": "For a one-row 0-1 knapsack update, process capacities downward so the take branch reads the previous item stage. Ascending updates can reuse the same item and solve an unbounded variant instead. A 0-1 choice may use an item only once. The take alternative uses a previous-item state, so it cannot reuse the item already being processed. Integer capacity gives a finite state table.",
+    "teachingSteps": [
+      "For a one-row 0-1 knapsack update, process capacities downward so the take branch reads the previous item stage. Ascending updates can reuse the same item and solve an unbounded variant instead.",
+      "Compare skip and a feasible take from the previous row",
+      "Keep the larger value; descend capacities if rolling into one row"
+    ],
+    "foundation": {
+      "title": "Descending capacities prevent reuse",
+      "idea": "For a one-row 0-1 knapsack update, process capacities downward so the take branch reads the previous item stage. Ascending updates can reuse the same item and solve an unbounded variant instead. A 0-1 choice may use an item only once. The take alternative uses a previous-item state, so it cannot reuse the item already being processed. Integer capacity gives a finite state table.",
+      "terms": [
+        "State: first i items and remaining or allowed capacity c.",
+        "Skip: previous row at the same capacity.",
+        "Take: item value plus previous row at c-weight."
+      ],
+      "example": "Capacity 5 with items (weight,value)=(2,3),(3,4),(4,5) optimally takes the first two for value 7."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A packing service requires whole items. For the given 0-1 items and integer capacity 6, what maximum value fits?",
+        "answer": 8,
+        "explanation": "Each item is used at most once; compare feasible whole-item subsets.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Item",
+            "Weight",
+            "Value"
+          ],
+          "rows": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              2,
+              3,
+              4
+            ],
+            [
+              3,
+              4,
+              5
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "With 6 items and capacities 0..3, how many cells are in the full table including the empty item row?",
+        "answer": 28,
+        "explanation": "There are n+1 item-prefix rows and W+1 capacity columns.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "When rolling 0-1 knapsack into one row, in what direction should capacities update?",
+        "options": [
+          "Ascending, to ensure unlimited reuse.",
+          "In any order, because capacity is irrelevant.",
+          "Descending, to avoid using the current item again."
+        ],
+        "answer": 2,
+        "explanation": "The take branch must read the previous item stage."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate one 0-1 knapsack item.",
+        "items": [
+          "Initialize the empty item row to zero",
+          "Compare skip and a feasible take from the previous row",
+          "Keep the larger value; descend capacities if rolling into one row"
+        ],
+        "explanation": "Take and skip both use previous-item states; whole-item feasibility controls the take branch."
+      }
+    ],
+    "algoLab": "knapsack-rolling",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.02,
+    "excerpt": "let's just solve this question using a bottom up tell me what is maximum capacity you can get maximum capacity let's suppose is 5 suppose that your bag is having 5 of capacity and then you want to solve this problem taken so how many atoms you have here you have number of items as 4 then I will say that these are the number of items because see",
+    "sourceReferences": [
+      {
+        "lecture": 164,
+        "file": "164. 41e. Solving 0-1 Knapsack with Bottom Up Approach.mp4",
+        "start": 0.02,
+        "end": 29.29,
+        "text": "let's just solve this question using a bottom up tell me what is maximum capacity you can get maximum capacity let's suppose is 5 suppose that your bag is having 5 of capacity and then you want to solve this problem taken so how many atoms you have here you have number of items as 4 then I will say that these are the number of items because see"
+      },
+      {
+        "lecture": 164,
+        "file": "164. 41e. Solving 0-1 Knapsack with Bottom Up Approach.mp4",
+        "start": 29.6,
+        "end": 59.27,
+        "text": "this is knapsack of n comma c so this row should be number of items and this weight or the capacity should be in the columns so items always right here and the and the capacity always right on the columns because the way I've defined it should be consistent with my notation just to take care of the base cases let me let me write that base cases if if this is zero and what if this is zero so let me write one more extra row this is for base case one more extra column this is for base case"
+      },
+      {
+        "lecture": 164,
+        "file": "164. 41e. Solving 0-1 Knapsack with Bottom Up Approach.mp4",
+        "start": 88.41,
+        "end": 116.85,
+        "text": "What if capacity is 2? What if capacity remaining capacity is 3? What if remaining capacity is 4? What if remaining capacity is 5? 1, 2, 3, 4, 5 and this is 0. So, these are the capacities. This is your items. Now, can I fill this with 0s? I think we can fill this with 0s. Reason being is that what does this mean? If capacity is 0,"
+      }
+    ]
+  },
+  {
+    "id": 495,
+    "lecture": 165,
+    "title": "Which subset sums are reachable · Discover",
+    "concept": "For nonnegative integer values, subset-sum DP records whether each target is reachable by a subset of processed items. The empty subset reaches zero; a descending one-row update prevents item reuse. Subset sum asks whether a target can be made, not the largest attainable value. A Boolean state joins skip and take possibilities, and zero is always reachable by the empty subset.",
+    "teachingSteps": [
+      "For nonnegative integer values, subset-sum DP records whether each target is reachable by a subset of processed items. The empty subset reaches zero; a descending one-row update prevents item reuse.",
+      "For each item, update targets downward",
+      "Combine old reachability with reachability of target minus item"
+    ],
+    "foundation": {
+      "title": "Which subset sums are reachable",
+      "idea": "For nonnegative integer values, subset-sum DP records whether each target is reachable by a subset of processed items. The empty subset reaches zero; a descending one-row update prevents item reuse. Subset sum asks whether a target can be made, not the largest attainable value. A Boolean state joins skip and take possibilities, and zero is always reachable by the empty subset.",
+      "terms": [
+        "Reachable: at least one valid subset exists.",
+        "Boolean OR: either possibility is enough.",
+        "Descending sum update: do not reuse the current item."
+      ],
+      "example": "Values 2,3,5 can make target 7 using 2+5; they cannot make target 1."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Values 2,3,5 can make target 7 using how many selected items?",
+        "answer": 2,
+        "explanation": "Choose 2 and 5 once each.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "With one available item of value 2, how many 0-1 subsets sum to 4?",
+        "answer": 0,
+        "explanation": "The one item cannot be reused; an ascending update could incorrectly reuse it.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains which subset sums are reachable?",
+        "options": [
+          "For nonnegative integer values, subset-sum DP records whether each target is reachable by a subset of processed items.",
+          "Input assumptions never affect correctness.",
+          "One successful example proves every input."
+        ],
+        "answer": 0,
+        "explanation": "For nonnegative integer values, subset-sum DP records whether each target is reachable by a subset of processed items. The empty subset reaches zero; a descending one-row update prevents item reuse."
+      },
+      {
+        "type": "order",
+        "prompt": "Update one-row 0-1 subset reachability.",
+        "items": [
+          "Mark sum zero reachable",
+          "For each item, update targets downward",
+          "Combine old reachability with reachability of target minus item"
+        ],
+        "explanation": "Descending targets ensure each input item is used at most once."
+      }
+    ],
+    "algoLab": "subset",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 277.82,
+    "excerpt": "you want the sum 0 this is sum okay you want the sum 0 then also you can say largest 0 is also possible largest largest 0 is always possible I mean you want 0 is largest then I will say okay it will just just take this empty set just don't take anything so 0 is always possible so you will say that largest 0 if you ask me or if you ask me if the number of points are sorry number of items are 0 then you will say that the maximum subset sum is 0 okay if there is no no",
+    "sourceReferences": [
+      {
+        "lecture": 165,
+        "file": "165. 42a. Subset Sum Problem.mp4",
+        "start": 277.82,
+        "end": 306,
+        "text": "you want the sum 0 this is sum okay you want the sum 0 then also you can say largest 0 is also possible largest largest 0 is always possible I mean you want 0 is largest then I will say okay it will just just take this empty set just don't take anything so 0 is always possible so you will say that largest 0 if you ask me or if you ask me if the number of points are sorry number of items are 0 then you will say that the maximum subset sum is 0 okay if there is no no"
+      },
+      {
+        "lecture": 165,
+        "file": "165. 42a. Subset Sum Problem.mp4",
+        "start": 653.54,
+        "end": 682.24,
+        "text": "given a list of positive integers which is maybe a1 to n and an integer t so you have you have just like this you have the positive integers some integers and then you have you have another number which is t just like this see here you have the integer list and you have another number which was k so output is here they are asking written true or false they are just saying written either true or false i mean written true if subset if there is a subset such that"
+      },
+      {
+        "lecture": 165,
+        "file": "165. 42a. Subset Sum Problem.mp4",
+        "start": 918.83,
+        "end": 954.1,
+        "text": "Yeah, right. So if you take it, then the remaining capacity will be this. If you don't take it, then it is subset sum I minus one comma S. Tell me, should I be adding something here plus AI or not? Just think about it. Should I be adding AI? No, no, no. See, this subset sum I comma S, what do you expect it to return? You're expecting it to return some integer or two or false. What is the unit of this?"
+      }
+    ]
+  },
+  {
+    "id": 496,
+    "lecture": 165,
+    "title": "Which subset sums are reachable · Trace",
+    "concept": "For nonnegative integer values, subset-sum DP records whether each target is reachable by a subset of processed items. The empty subset reaches zero; a descending one-row update prevents item reuse. Subset sum asks whether a target can be made, not the largest attainable value. A Boolean state joins skip and take possibilities, and zero is always reachable by the empty subset.",
+    "teachingSteps": [
+      "For nonnegative integer values, subset-sum DP records whether each target is reachable by a subset of processed items. The empty subset reaches zero; a descending one-row update prevents item reuse.",
+      "For each item, update targets downward",
+      "Combine old reachability with reachability of target minus item"
+    ],
+    "foundation": {
+      "title": "Which subset sums are reachable",
+      "idea": "For nonnegative integer values, subset-sum DP records whether each target is reachable by a subset of processed items. The empty subset reaches zero; a descending one-row update prevents item reuse. Subset sum asks whether a target can be made, not the largest attainable value. A Boolean state joins skip and take possibilities, and zero is always reachable by the empty subset.",
+      "terms": [
+        "Reachable: at least one valid subset exists.",
+        "Boolean OR: either possibility is enough.",
+        "Descending sum update: do not reuse the current item."
+      ],
+      "example": "Values 2,3,5 can make target 7 using 2+5; they cannot make target 1."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Values 2,3,5 can make target 7 using how many selected items?",
+        "answer": 2,
+        "explanation": "Choose 2 and 5 once each.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "With one available item of value 2, how many 0-1 subsets sum to 4?",
+        "answer": 0,
+        "explanation": "The one item cannot be reused; an ascending update could incorrectly reuse it.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "What does a subset-sum cell store?",
+        "options": [
+          "The highest value density.",
+          "An arbitrary sorted position.",
+          "Whether a target is reachable, not the maximum profit."
+        ],
+        "answer": 2,
+        "explanation": "This problem is Boolean feasibility; combine skip/take possibilities with OR."
+      },
+      {
+        "type": "order",
+        "prompt": "Update one-row 0-1 subset reachability.",
+        "items": [
+          "Mark sum zero reachable",
+          "For each item, update targets downward",
+          "Combine old reachability with reachability of target minus item"
+        ],
+        "explanation": "Descending targets ensure each input item is used at most once."
+      }
+    ],
+    "algoLab": "subset",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 277.82,
+    "excerpt": "you want the sum 0 this is sum okay you want the sum 0 then also you can say largest 0 is also possible largest largest 0 is always possible I mean you want 0 is largest then I will say okay it will just just take this empty set just don't take anything so 0 is always possible so you will say that largest 0 if you ask me or if you ask me if the number of points are sorry number of items are 0 then you will say that the maximum subset sum is 0 okay if there is no no",
+    "sourceReferences": [
+      {
+        "lecture": 165,
+        "file": "165. 42a. Subset Sum Problem.mp4",
+        "start": 277.82,
+        "end": 306,
+        "text": "you want the sum 0 this is sum okay you want the sum 0 then also you can say largest 0 is also possible largest largest 0 is always possible I mean you want 0 is largest then I will say okay it will just just take this empty set just don't take anything so 0 is always possible so you will say that largest 0 if you ask me or if you ask me if the number of points are sorry number of items are 0 then you will say that the maximum subset sum is 0 okay if there is no no"
+      },
+      {
+        "lecture": 165,
+        "file": "165. 42a. Subset Sum Problem.mp4",
+        "start": 653.54,
+        "end": 682.24,
+        "text": "given a list of positive integers which is maybe a1 to n and an integer t so you have you have just like this you have the positive integers some integers and then you have you have another number which is t just like this see here you have the integer list and you have another number which was k so output is here they are asking written true or false they are just saying written either true or false i mean written true if subset if there is a subset such that"
+      },
+      {
+        "lecture": 165,
+        "file": "165. 42a. Subset Sum Problem.mp4",
+        "start": 918.83,
+        "end": 954.1,
+        "text": "Yeah, right. So if you take it, then the remaining capacity will be this. If you don't take it, then it is subset sum I minus one comma S. Tell me, should I be adding something here plus AI or not? Just think about it. Should I be adding AI? No, no, no. See, this subset sum I comma S, what do you expect it to return? You're expecting it to return some integer or two or false. What is the unit of this?"
+      }
+    ]
+  },
+  {
+    "id": 497,
+    "lecture": 165,
+    "title": "Which subset sums are reachable · Apply",
+    "concept": "For nonnegative integer values, subset-sum DP records whether each target is reachable by a subset of processed items. The empty subset reaches zero; a descending one-row update prevents item reuse. Subset sum asks whether a target can be made, not the largest attainable value. A Boolean state joins skip and take possibilities, and zero is always reachable by the empty subset.",
+    "teachingSteps": [
+      "For nonnegative integer values, subset-sum DP records whether each target is reachable by a subset of processed items. The empty subset reaches zero; a descending one-row update prevents item reuse.",
+      "For each item, update targets downward",
+      "Combine old reachability with reachability of target minus item"
+    ],
+    "foundation": {
+      "title": "Which subset sums are reachable",
+      "idea": "For nonnegative integer values, subset-sum DP records whether each target is reachable by a subset of processed items. The empty subset reaches zero; a descending one-row update prevents item reuse. Subset sum asks whether a target can be made, not the largest attainable value. A Boolean state joins skip and take possibilities, and zero is always reachable by the empty subset.",
+      "terms": [
+        "Reachable: at least one valid subset exists.",
+        "Boolean OR: either possibility is enough.",
+        "Descending sum update: do not reuse the current item."
+      ],
+      "example": "Values 2,3,5 can make target 7 using 2+5; they cannot make target 1."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A planning service checks reachable target totals. Values 2,3,5 can make target 7 using how many selected items?",
+        "answer": 2,
+        "explanation": "Choose 2 and 5 once each.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "With one available item of value 2, how many 0-1 subsets sum to 4?",
+        "answer": 0,
+        "explanation": "The one item cannot be reused; an ascending update could incorrectly reuse it.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "What does a subset-sum cell store?",
+        "options": [
+          "An arbitrary sorted position.",
+          "Whether a target is reachable, not the maximum profit.",
+          "The highest value density."
+        ],
+        "answer": 1,
+        "explanation": "This problem is Boolean feasibility; combine skip/take possibilities with OR."
+      },
+      {
+        "type": "order",
+        "prompt": "Update one-row 0-1 subset reachability.",
+        "items": [
+          "Mark sum zero reachable",
+          "For each item, update targets downward",
+          "Combine old reachability with reachability of target minus item"
+        ],
+        "explanation": "Descending targets ensure each input item is used at most once."
+      }
+    ],
+    "algoLab": "subset",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 277.82,
+    "excerpt": "you want the sum 0 this is sum okay you want the sum 0 then also you can say largest 0 is also possible largest largest 0 is always possible I mean you want 0 is largest then I will say okay it will just just take this empty set just don't take anything so 0 is always possible so you will say that largest 0 if you ask me or if you ask me if the number of points are sorry number of items are 0 then you will say that the maximum subset sum is 0 okay if there is no no",
+    "sourceReferences": [
+      {
+        "lecture": 165,
+        "file": "165. 42a. Subset Sum Problem.mp4",
+        "start": 277.82,
+        "end": 306,
+        "text": "you want the sum 0 this is sum okay you want the sum 0 then also you can say largest 0 is also possible largest largest 0 is always possible I mean you want 0 is largest then I will say okay it will just just take this empty set just don't take anything so 0 is always possible so you will say that largest 0 if you ask me or if you ask me if the number of points are sorry number of items are 0 then you will say that the maximum subset sum is 0 okay if there is no no"
+      },
+      {
+        "lecture": 165,
+        "file": "165. 42a. Subset Sum Problem.mp4",
+        "start": 653.54,
+        "end": 682.24,
+        "text": "given a list of positive integers which is maybe a1 to n and an integer t so you have you have just like this you have the positive integers some integers and then you have you have another number which is t just like this see here you have the integer list and you have another number which was k so output is here they are asking written true or false they are just saying written either true or false i mean written true if subset if there is a subset such that"
+      },
+      {
+        "lecture": 165,
+        "file": "165. 42a. Subset Sum Problem.mp4",
+        "start": 918.83,
+        "end": 954.1,
+        "text": "Yeah, right. So if you take it, then the remaining capacity will be this. If you don't take it, then it is subset sum I minus one comma S. Tell me, should I be adding something here plus AI or not? Just think about it. Should I be adding AI? No, no, no. See, this subset sum I comma S, what do you expect it to return? You're expecting it to return some integer or two or false. What is the unit of this?"
+      }
+    ]
+  },
+  {
+    "id": 498,
+    "lecture": 166,
+    "title": "Coin change states and impossible totals · Discover",
+    "concept": "With unlimited positive integer coin values, minimum-coin DP compares one coin plus the best answer for the remaining amount. Amount zero needs zero coins; unreachable totals must remain marked impossible. Minimum coin change permits repeated use of a denomination. Each choice removes one positive coin value from the target, so smaller amount answers can be reused in increasing amount order.",
+    "teachingSteps": [
+      "With unlimited positive integer coin values, minimum-coin DP compares one coin plus the best answer for the remaining amount. Amount zero needs zero coins; unreachable totals must remain marked impossible.",
+      "Try each coin against solved smaller amounts",
+      "Take the minimum finite predecessor count plus one"
+    ],
+    "foundation": {
+      "title": "Coin change states and impossible totals",
+      "idea": "With unlimited positive integer coin values, minimum-coin DP compares one coin plus the best answer for the remaining amount. Amount zero needs zero coins; unreachable totals must remain marked impossible. Minimum coin change permits repeated use of a denomination. Each choice removes one positive coin value from the target, so smaller amount answers can be reused in increasing amount order.",
+      "terms": [
+        "Amount zero: zero coins.",
+        "Unreachable: no coin combination makes that amount.",
+        "Minimum count: differs from the number of ways to make change."
+      ],
+      "example": "For coins 1,3,4 and amount 6, greedy 4+1+1 uses three coins; DP finds 3+3 with two."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "With unlimited coins 1,3,4, what minimum coin count makes amount 6?",
+        "answer": 2,
+        "explanation": "Try one coin plus every finite solved remaining-amount count.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "With unlimited denomination 2 only, how many combinations make amount 3?",
+        "answer": 0,
+        "explanation": "Every achievable total is even, so three is impossible.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains coin change states and impossible totals?",
+        "options": [
+          "Input assumptions never affect correctness.",
+          "One successful example proves every input.",
+          "With unlimited positive integer coin values, minimum-coin DP compares one coin plus the best answer for the remaining amount."
+        ],
+        "answer": 2,
+        "explanation": "With unlimited positive integer coin values, minimum-coin DP compares one coin plus the best answer for the remaining amount. Amount zero needs zero coins; unreachable totals must remain marked impossible."
+      },
+      {
+        "type": "order",
+        "prompt": "Solve minimum coin change.",
+        "items": [
+          "Set amount zero to zero and other amounts unreachable",
+          "Try each coin against solved smaller amounts",
+          "Take the minimum finite predecessor count plus one"
+        ],
+        "explanation": "Unlimited reuse is intentional; impossible predecessors cannot provide a finite candidate."
+      }
+    ],
+    "algoLab": "coin-change",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 346.53,
+    "excerpt": "so using greedy you cannot solve is this fine to agree with now let's just see that how to solve this using dynamic programming so what do i want i want summation let's suppose for example i want summation to be 12 and the coins are unlimited here that's the only difference earlier in the knapsack in the 01 knapsack what was the case was those coins were unlimited no right in the in the knapsack it was fixed i mean we can take it once but here",
+    "sourceReferences": [
+      {
+        "lecture": 166,
+        "file": "166. 42b. Coin Change Problem.mp4",
+        "start": 346.53,
+        "end": 389.42,
+        "text": "so using greedy you cannot solve is this fine to agree with now let's just see that how to solve this using dynamic programming so what do i want i want summation let's suppose for example i want summation to be 12 and the coins are unlimited here that's the only difference earlier in the knapsack in the 01 knapsack what was the case was those coins were unlimited no right in the in the knapsack it was fixed i mean we can take it once but here"
+      },
+      {
+        "lecture": 166,
+        "file": "166. 42b. Coin Change Problem.mp4",
+        "start": 390.27,
+        "end": 421.19,
+        "text": "we can take unlimited number of times that's the only variation that I have let's just see suppose let me define okay coin change coin change let's say this is i1 from 1 6 10 these are the 1 6 10 and of 12 then let's see that's what going to happen it will it will call two things whether take 10 okay first of all tell me is it a good idea to go from 10 or go from right or go from left right or left which is good right right"
+      },
+      {
+        "lecture": 166,
+        "file": "166. 42b. Coin Change Problem.mp4",
+        "start": 421.52,
+        "end": 453.15,
+        "text": "reason being is that I mean generally using bottom up it is little convenient otherwise you can go from any anywhere but let's just go from right so say take 10 don't take 10 so if you take 10 then what will be what will be the remaining 1 6 and then it will be 2 remaining remaining sum is 2 and then number of coins see this is going to renew number of coins so"
+      }
+    ]
+  },
+  {
+    "id": 499,
+    "lecture": 166,
+    "title": "Coin change states and impossible totals · Trace",
+    "concept": "With unlimited positive integer coin values, minimum-coin DP compares one coin plus the best answer for the remaining amount. Amount zero needs zero coins; unreachable totals must remain marked impossible. Minimum coin change permits repeated use of a denomination. Each choice removes one positive coin value from the target, so smaller amount answers can be reused in increasing amount order.",
+    "teachingSteps": [
+      "With unlimited positive integer coin values, minimum-coin DP compares one coin plus the best answer for the remaining amount. Amount zero needs zero coins; unreachable totals must remain marked impossible.",
+      "Try each coin against solved smaller amounts",
+      "Take the minimum finite predecessor count plus one"
+    ],
+    "foundation": {
+      "title": "Coin change states and impossible totals",
+      "idea": "With unlimited positive integer coin values, minimum-coin DP compares one coin plus the best answer for the remaining amount. Amount zero needs zero coins; unreachable totals must remain marked impossible. Minimum coin change permits repeated use of a denomination. Each choice removes one positive coin value from the target, so smaller amount answers can be reused in increasing amount order.",
+      "terms": [
+        "Amount zero: zero coins.",
+        "Unreachable: no coin combination makes that amount.",
+        "Minimum count: differs from the number of ways to make change."
+      ],
+      "example": "For coins 1,3,4 and amount 6, greedy 4+1+1 uses three coins; DP finds 3+3 with two."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "With unlimited coins 1,3,4, what minimum coin count makes amount 7?",
+        "answer": 2,
+        "explanation": "Try one coin plus every finite solved remaining-amount count.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "With unlimited denomination 2 only, how many combinations make amount 3?",
+        "answer": 0,
+        "explanation": "Every achievable total is even, so three is impossible.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "What is the base minimum-coin count for amount zero?",
+        "options": [
+          "An unreachable state.",
+          "Zero coins.",
+          "One compulsory coin."
+        ],
+        "answer": 1,
+        "explanation": "The empty selection makes zero without using any coins."
+      },
+      {
+        "type": "order",
+        "prompt": "Solve minimum coin change.",
+        "items": [
+          "Set amount zero to zero and other amounts unreachable",
+          "Try each coin against solved smaller amounts",
+          "Take the minimum finite predecessor count plus one"
+        ],
+        "explanation": "Unlimited reuse is intentional; impossible predecessors cannot provide a finite candidate."
+      }
+    ],
+    "algoLab": "coin-change",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 346.53,
+    "excerpt": "so using greedy you cannot solve is this fine to agree with now let's just see that how to solve this using dynamic programming so what do i want i want summation let's suppose for example i want summation to be 12 and the coins are unlimited here that's the only difference earlier in the knapsack in the 01 knapsack what was the case was those coins were unlimited no right in the in the knapsack it was fixed i mean we can take it once but here",
+    "sourceReferences": [
+      {
+        "lecture": 166,
+        "file": "166. 42b. Coin Change Problem.mp4",
+        "start": 346.53,
+        "end": 389.42,
+        "text": "so using greedy you cannot solve is this fine to agree with now let's just see that how to solve this using dynamic programming so what do i want i want summation let's suppose for example i want summation to be 12 and the coins are unlimited here that's the only difference earlier in the knapsack in the 01 knapsack what was the case was those coins were unlimited no right in the in the knapsack it was fixed i mean we can take it once but here"
+      },
+      {
+        "lecture": 166,
+        "file": "166. 42b. Coin Change Problem.mp4",
+        "start": 390.27,
+        "end": 421.19,
+        "text": "we can take unlimited number of times that's the only variation that I have let's just see suppose let me define okay coin change coin change let's say this is i1 from 1 6 10 these are the 1 6 10 and of 12 then let's see that's what going to happen it will it will call two things whether take 10 okay first of all tell me is it a good idea to go from 10 or go from right or go from left right or left which is good right right"
+      },
+      {
+        "lecture": 166,
+        "file": "166. 42b. Coin Change Problem.mp4",
+        "start": 421.52,
+        "end": 453.15,
+        "text": "reason being is that I mean generally using bottom up it is little convenient otherwise you can go from any anywhere but let's just go from right so say take 10 don't take 10 so if you take 10 then what will be what will be the remaining 1 6 and then it will be 2 remaining remaining sum is 2 and then number of coins see this is going to renew number of coins so"
+      }
+    ]
+  },
+  {
+    "id": 500,
+    "lecture": 166,
+    "title": "Coin change states and impossible totals · Apply",
+    "concept": "With unlimited positive integer coin values, minimum-coin DP compares one coin plus the best answer for the remaining amount. Amount zero needs zero coins; unreachable totals must remain marked impossible. Minimum coin change permits repeated use of a denomination. Each choice removes one positive coin value from the target, so smaller amount answers can be reused in increasing amount order.",
+    "teachingSteps": [
+      "With unlimited positive integer coin values, minimum-coin DP compares one coin plus the best answer for the remaining amount. Amount zero needs zero coins; unreachable totals must remain marked impossible.",
+      "Try each coin against solved smaller amounts",
+      "Take the minimum finite predecessor count plus one"
+    ],
+    "foundation": {
+      "title": "Coin change states and impossible totals",
+      "idea": "With unlimited positive integer coin values, minimum-coin DP compares one coin plus the best answer for the remaining amount. Amount zero needs zero coins; unreachable totals must remain marked impossible. Minimum coin change permits repeated use of a denomination. Each choice removes one positive coin value from the target, so smaller amount answers can be reused in increasing amount order.",
+      "terms": [
+        "Amount zero: zero coins.",
+        "Unreachable: no coin combination makes that amount.",
+        "Minimum count: differs from the number of ways to make change."
+      ],
+      "example": "For coins 1,3,4 and amount 6, greedy 4+1+1 uses three coins; DP finds 3+3 with two."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A change-making service has unlimited denominations. With unlimited coins 1,3,4, what minimum coin count makes amount 4?",
+        "answer": 1,
+        "explanation": "Try one coin plus every finite solved remaining-amount count.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "With unlimited denomination 2 only, how many combinations make amount 3?",
+        "answer": 0,
+        "explanation": "Every achievable total is even, so three is impossible.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "What is the base minimum-coin count for amount zero?",
+        "options": [
+          "Zero coins.",
+          "One compulsory coin.",
+          "An unreachable state."
+        ],
+        "answer": 0,
+        "explanation": "The empty selection makes zero without using any coins."
+      },
+      {
+        "type": "order",
+        "prompt": "Solve minimum coin change.",
+        "items": [
+          "Set amount zero to zero and other amounts unreachable",
+          "Try each coin against solved smaller amounts",
+          "Take the minimum finite predecessor count plus one"
+        ],
+        "explanation": "Unlimited reuse is intentional; impossible predecessors cannot provide a finite candidate."
+      }
+    ],
+    "algoLab": "coin-change",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 346.53,
+    "excerpt": "so using greedy you cannot solve is this fine to agree with now let's just see that how to solve this using dynamic programming so what do i want i want summation let's suppose for example i want summation to be 12 and the coins are unlimited here that's the only difference earlier in the knapsack in the 01 knapsack what was the case was those coins were unlimited no right in the in the knapsack it was fixed i mean we can take it once but here",
+    "sourceReferences": [
+      {
+        "lecture": 166,
+        "file": "166. 42b. Coin Change Problem.mp4",
+        "start": 346.53,
+        "end": 389.42,
+        "text": "so using greedy you cannot solve is this fine to agree with now let's just see that how to solve this using dynamic programming so what do i want i want summation let's suppose for example i want summation to be 12 and the coins are unlimited here that's the only difference earlier in the knapsack in the 01 knapsack what was the case was those coins were unlimited no right in the in the knapsack it was fixed i mean we can take it once but here"
+      },
+      {
+        "lecture": 166,
+        "file": "166. 42b. Coin Change Problem.mp4",
+        "start": 390.27,
+        "end": 421.19,
+        "text": "we can take unlimited number of times that's the only variation that I have let's just see suppose let me define okay coin change coin change let's say this is i1 from 1 6 10 these are the 1 6 10 and of 12 then let's see that's what going to happen it will it will call two things whether take 10 okay first of all tell me is it a good idea to go from 10 or go from right or go from left right or left which is good right right"
+      },
+      {
+        "lecture": 166,
+        "file": "166. 42b. Coin Change Problem.mp4",
+        "start": 421.52,
+        "end": 453.15,
+        "text": "reason being is that I mean generally using bottom up it is little convenient otherwise you can go from any anywhere but let's just go from right so say take 10 don't take 10 so if you take 10 then what will be what will be the remaining 1 6 and then it will be 2 remaining remaining sum is 2 and then number of coins see this is going to renew number of coins so"
+      }
+    ]
+  },
+  {
+    "id": 501,
+    "lecture": 167,
+    "title": "Choose DP, greedy or divide and conquer · Discover",
+    "concept": "Choose a method from the structure of the task: prove a safe greedy choice, split independent smaller instances, or cache repeated states with a valid transition. A task name alone does not prove which method is correct. A state describes the smallest information needed to solve a subproblem. A correct transition combines earlier states; caching or dependency-respecting table order avoids recomputing the same state.",
+    "teachingSteps": [
+      "Choose a method from the structure of the task: prove a safe greedy choice, split independent smaller instances, or cache repeated states with a valid transition. A task name alone does not prove which method is correct.",
+      "List the predecessor states of each transition",
+      "Evaluate once in a dependency-respecting order"
+    ],
+    "foundation": {
+      "title": "Choose DP, greedy or divide and conquer",
+      "idea": "Choose a method from the structure of the task: prove a safe greedy choice, split independent smaller instances, or cache repeated states with a valid transition. A task name alone does not prove which method is correct. A state describes the smallest information needed to solve a subproblem. A correct transition combines earlier states; caching or dependency-respecting table order avoids recomputing the same state.",
+      "terms": [
+        "State: one subproblem identity.",
+        "Transition: how predecessor answers determine it.",
+        "Base case: a state with a directly known answer."
+      ],
+      "example": "For values [4,1,5], the best nonadjacent sum is 9 by taking 4 and 5. A prefix state compares skipping 5 with adding it to the prefix before its neighbor."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "What maximum sum can be selected from these values if no two selected positions are adjacent?",
+        "answer": 21,
+        "explanation": "At each prefix, compare skipping its last value with taking it plus the best prefix before its neighbor.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Position",
+            "Value"
+          ],
+          "rows": [
+            [
+              1,
+              6
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              7
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              5,
+              8
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Prefix states indexed 0 through 7 contain how many distinct states, including the empty prefix?",
+        "answer": 8,
+        "explanation": "The empty prefix is a real base state, so count both endpoints.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains choose dp, greedy or divide and conquer?",
+        "options": [
+          "One successful example proves every input.",
+          "Choose a method from the structure of the task: prove a safe greedy choice, split independent smaller instances, or cache repeated states with a valid transition.",
+          "Input assumptions never affect correctness."
+        ],
+        "answer": 1,
+        "explanation": "Choose a method from the structure of the task: prove a safe greedy choice, split independent smaller instances, or cache repeated states with a valid transition. A task name alone does not prove which method is correct."
+      },
+      {
+        "type": "order",
+        "prompt": "Design a reusable-state solution.",
+        "items": [
+          "Define the state and base cases",
+          "List the predecessor states of each transition",
+          "Evaluate once in a dependency-respecting order"
+        ],
+        "explanation": "State identity, dependencies and base cases come before the evaluation order."
+      }
+    ],
+    "algoLab": "dp-strategy",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.08,
+    "excerpt": "Now, let's just see the difference between dynamic programming and greedy and divided in one group. Okay, so this is done. This coin change is okay. Now, let's just see that from where we have started. So in the first slide, I said like dynamic programming elements or dynamic programming are basically two elements. One is optimal substructure, another is overlapping subprogram.",
+    "sourceReferences": [
+      {
+        "lecture": 167,
+        "file": "167. 42c. DP Vs Greedy vs Divide and Conquer.mp4",
+        "start": 0.08,
+        "end": 26.9,
+        "text": "Now, let's just see the difference between dynamic programming and greedy and divided in one group. Okay, so this is done. This coin change is okay. Now, let's just see that from where we have started. So in the first slide, I said like dynamic programming elements or dynamic programming are basically two elements. One is optimal substructure, another is overlapping subprogram."
+      },
+      {
+        "lecture": 167,
+        "file": "167. 42c. DP Vs Greedy vs Divide and Conquer.mp4",
+        "start": 28,
+        "end": 64.22,
+        "text": "Although this optimal sub-structure proving and overlapping sub-structure proving that we have done partially which means the optimal sub-structure means can you divide the problem into sub-problems? Can you divide problem into sub-problems? So in dynamic programming what we do? Yes, we divide the problem into sub-problems, smaller problems. Optimal sub-structure means that we are having sub-structure which are optimal which means"
+      },
+      {
+        "lecture": 167,
+        "file": "167. 42c. DP Vs Greedy vs Divide and Conquer.mp4",
+        "start": 563.17,
+        "end": 584.28,
+        "text": "Then also I will get the MSD. If I am taking this vertex in my solution, then also I will get the shortage path. If I am taking this item in my solution, then also I will get the optimal solution for this Fresnel episode. So basically whenever you make a greedy choice, you have to prove it. But in Dynamical DP there is nothing to prove."
+      }
+    ]
+  },
+  {
+    "id": 502,
+    "lecture": 167,
+    "title": "Choose DP, greedy or divide and conquer · Trace",
+    "concept": "Choose a method from the structure of the task: prove a safe greedy choice, split independent smaller instances, or cache repeated states with a valid transition. A task name alone does not prove which method is correct. A state describes the smallest information needed to solve a subproblem. A correct transition combines earlier states; caching or dependency-respecting table order avoids recomputing the same state.",
+    "teachingSteps": [
+      "Choose a method from the structure of the task: prove a safe greedy choice, split independent smaller instances, or cache repeated states with a valid transition. A task name alone does not prove which method is correct.",
+      "List the predecessor states of each transition",
+      "Evaluate once in a dependency-respecting order"
+    ],
+    "foundation": {
+      "title": "Choose DP, greedy or divide and conquer",
+      "idea": "Choose a method from the structure of the task: prove a safe greedy choice, split independent smaller instances, or cache repeated states with a valid transition. A task name alone does not prove which method is correct. A state describes the smallest information needed to solve a subproblem. A correct transition combines earlier states; caching or dependency-respecting table order avoids recomputing the same state.",
+      "terms": [
+        "State: one subproblem identity.",
+        "Transition: how predecessor answers determine it.",
+        "Base case: a state with a directly known answer."
+      ],
+      "example": "For values [4,1,5], the best nonadjacent sum is 9 by taking 4 and 5. A prefix state compares skipping 5 with adding it to the prefix before its neighbor."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "What maximum sum can be selected from these values if no two selected positions are adjacent?",
+        "answer": 15,
+        "explanation": "At each prefix, compare skipping its last value with taking it plus the best prefix before its neighbor.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Position",
+            "Value"
+          ],
+          "rows": [
+            [
+              1,
+              4
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              4,
+              2
+            ],
+            [
+              5,
+              6
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Prefix states indexed 0 through 4 contain how many distinct states, including the empty prefix?",
+        "answer": 5,
+        "explanation": "The empty prefix is a real base state, so count both endpoints.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "What makes a memoized implementation avoid repeated-state work?",
+        "options": [
+          "Store answers by the complete subproblem identity and reuse them.",
+          "Always recompute every recursive call.",
+          "Use a different random answer at each call."
+        ],
+        "answer": 0,
+        "explanation": "Memoization evaluates the same state only once even if several parents request it."
+      },
+      {
+        "type": "order",
+        "prompt": "Design a reusable-state solution.",
+        "items": [
+          "Define the state and base cases",
+          "List the predecessor states of each transition",
+          "Evaluate once in a dependency-respecting order"
+        ],
+        "explanation": "State identity, dependencies and base cases come before the evaluation order."
+      }
+    ],
+    "algoLab": "dp-strategy",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.08,
+    "excerpt": "Now, let's just see the difference between dynamic programming and greedy and divided in one group. Okay, so this is done. This coin change is okay. Now, let's just see that from where we have started. So in the first slide, I said like dynamic programming elements or dynamic programming are basically two elements. One is optimal substructure, another is overlapping subprogram.",
+    "sourceReferences": [
+      {
+        "lecture": 167,
+        "file": "167. 42c. DP Vs Greedy vs Divide and Conquer.mp4",
+        "start": 0.08,
+        "end": 26.9,
+        "text": "Now, let's just see the difference between dynamic programming and greedy and divided in one group. Okay, so this is done. This coin change is okay. Now, let's just see that from where we have started. So in the first slide, I said like dynamic programming elements or dynamic programming are basically two elements. One is optimal substructure, another is overlapping subprogram."
+      },
+      {
+        "lecture": 167,
+        "file": "167. 42c. DP Vs Greedy vs Divide and Conquer.mp4",
+        "start": 28,
+        "end": 64.22,
+        "text": "Although this optimal sub-structure proving and overlapping sub-structure proving that we have done partially which means the optimal sub-structure means can you divide the problem into sub-problems? Can you divide problem into sub-problems? So in dynamic programming what we do? Yes, we divide the problem into sub-problems, smaller problems. Optimal sub-structure means that we are having sub-structure which are optimal which means"
+      },
+      {
+        "lecture": 167,
+        "file": "167. 42c. DP Vs Greedy vs Divide and Conquer.mp4",
+        "start": 563.17,
+        "end": 584.28,
+        "text": "Then also I will get the MSD. If I am taking this vertex in my solution, then also I will get the shortage path. If I am taking this item in my solution, then also I will get the optimal solution for this Fresnel episode. So basically whenever you make a greedy choice, you have to prove it. But in Dynamical DP there is nothing to prove."
+      }
+    ]
+  },
+  {
+    "id": 503,
+    "lecture": 167,
+    "title": "Choose DP, greedy or divide and conquer · Apply",
+    "concept": "Choose a method from the structure of the task: prove a safe greedy choice, split independent smaller instances, or cache repeated states with a valid transition. A task name alone does not prove which method is correct. A state describes the smallest information needed to solve a subproblem. A correct transition combines earlier states; caching or dependency-respecting table order avoids recomputing the same state.",
+    "teachingSteps": [
+      "Choose a method from the structure of the task: prove a safe greedy choice, split independent smaller instances, or cache repeated states with a valid transition. A task name alone does not prove which method is correct.",
+      "List the predecessor states of each transition",
+      "Evaluate once in a dependency-respecting order"
+    ],
+    "foundation": {
+      "title": "Choose DP, greedy or divide and conquer",
+      "idea": "Choose a method from the structure of the task: prove a safe greedy choice, split independent smaller instances, or cache repeated states with a valid transition. A task name alone does not prove which method is correct. A state describes the smallest information needed to solve a subproblem. A correct transition combines earlier states; caching or dependency-respecting table order avoids recomputing the same state.",
+      "terms": [
+        "State: one subproblem identity.",
+        "Transition: how predecessor answers determine it.",
+        "Base case: a state with a directly known answer."
+      ],
+      "example": "For values [4,1,5], the best nonadjacent sum is 9 by taking 4 and 5. A prefix state compares skipping 5 with adding it to the prefix before its neighbor."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A planning service reuses prefix-state answers. What maximum sum can be selected from these values if no two selected positions are adjacent?",
+        "answer": 18,
+        "explanation": "At each prefix, compare skipping its last value with taking it plus the best prefix before its neighbor.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Position",
+            "Value"
+          ],
+          "rows": [
+            [
+              1,
+              5
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              3,
+              6
+            ],
+            [
+              4,
+              3
+            ],
+            [
+              5,
+              7
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "Prefix states indexed 0 through 5 contain how many distinct states, including the empty prefix?",
+        "answer": 6,
+        "explanation": "The empty prefix is a real base state, so count both endpoints.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "What makes a memoized implementation avoid repeated-state work?",
+        "options": [
+          "Always recompute every recursive call.",
+          "Use a different random answer at each call.",
+          "Store answers by the complete subproblem identity and reuse them."
+        ],
+        "answer": 2,
+        "explanation": "Memoization evaluates the same state only once even if several parents request it."
+      },
+      {
+        "type": "order",
+        "prompt": "Design a reusable-state solution.",
+        "items": [
+          "Define the state and base cases",
+          "List the predecessor states of each transition",
+          "Evaluate once in a dependency-respecting order"
+        ],
+        "explanation": "State identity, dependencies and base cases come before the evaluation order."
+      }
+    ],
+    "algoLab": "dp-strategy",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.08,
+    "excerpt": "Now, let's just see the difference between dynamic programming and greedy and divided in one group. Okay, so this is done. This coin change is okay. Now, let's just see that from where we have started. So in the first slide, I said like dynamic programming elements or dynamic programming are basically two elements. One is optimal substructure, another is overlapping subprogram.",
+    "sourceReferences": [
+      {
+        "lecture": 167,
+        "file": "167. 42c. DP Vs Greedy vs Divide and Conquer.mp4",
+        "start": 0.08,
+        "end": 26.9,
+        "text": "Now, let's just see the difference between dynamic programming and greedy and divided in one group. Okay, so this is done. This coin change is okay. Now, let's just see that from where we have started. So in the first slide, I said like dynamic programming elements or dynamic programming are basically two elements. One is optimal substructure, another is overlapping subprogram."
+      },
+      {
+        "lecture": 167,
+        "file": "167. 42c. DP Vs Greedy vs Divide and Conquer.mp4",
+        "start": 28,
+        "end": 64.22,
+        "text": "Although this optimal sub-structure proving and overlapping sub-structure proving that we have done partially which means the optimal sub-structure means can you divide the problem into sub-problems? Can you divide problem into sub-problems? So in dynamic programming what we do? Yes, we divide the problem into sub-problems, smaller problems. Optimal sub-structure means that we are having sub-structure which are optimal which means"
+      },
+      {
+        "lecture": 167,
+        "file": "167. 42c. DP Vs Greedy vs Divide and Conquer.mp4",
+        "start": 563.17,
+        "end": 584.28,
+        "text": "Then also I will get the MSD. If I am taking this vertex in my solution, then also I will get the shortage path. If I am taking this item in my solution, then also I will get the optimal solution for this Fresnel episode. So basically whenever you make a greedy choice, you have to prove it. But in Dynamical DP there is nothing to prove."
+      }
+    ]
+  },
+  {
+    "id": 504,
+    "lecture": 168,
+    "title": "Allow intermediate vertices with Floyd-Warshall · Discover",
+    "concept": "Floyd-Warshall updates d[i,j] using min(d[i,j],d[i,k]+d[k,j]) for one newly allowed intermediate vertex k at a time. The intermediate-vertex loop is outermost; a negative final diagonal indicates a negative cycle. Floyd-Warshall solves all-pairs paths by controlling which intermediate vertices are allowed. Initially use direct edges and zero self-distances, then introduce one possible intermediate per outer-loop iteration.",
+    "teachingSteps": [
+      "Floyd-Warshall updates d[i,j] using min(d[i,j],d[i,k]+d[k,j]) for one newly allowed intermediate vertex k at a time. The intermediate-vertex loop is outermost; a negative final diagonal indicates a negative cycle.",
+      "Choose the next allowed intermediate k",
+      "Update all i,j through k and inspect the final diagonal"
+    ],
+    "foundation": {
+      "title": "Allow intermediate vertices with Floyd-Warshall",
+      "idea": "Floyd-Warshall updates d[i,j] using min(d[i,j],d[i,k]+d[k,j]) for one newly allowed intermediate vertex k at a time. The intermediate-vertex loop is outermost; a negative final diagonal indicates a negative cycle. Floyd-Warshall solves all-pairs paths by controlling which intermediate vertices are allowed. Initially use direct edges and zero self-distances, then introduce one possible intermediate per outer-loop iteration.",
+      "terms": [
+        "d(i,j): best route from i to j under current intermediates.",
+        "No path: do not add it as a finite number.",
+        "Negative diagonal: reachable return cycle with negative cost."
+      ],
+      "example": "A→B=3, B→C=-2 and A→C=8 improve A→C to 1 when B becomes an allowed intermediate."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Directed edges A→B=3, B→C=-2, A→C=8 give what improved A-to-C distance when B is allowed as an intermediate?",
+        "answer": 1,
+        "explanation": "Compare 8 with 3+(-2)=1.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "For 4 vertices, a dense Floyd-Warshall run makes how many (k,i,j) iterations?",
+        "answer": 64,
+        "explanation": "Each of the three indices runs across V vertices.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains allow intermediate vertices with floyd-warshall?",
+        "options": [
+          "Floyd-Warshall updates d[i,j] using min(d[i,j],d[i,k]+d[k,j]) for one newly allowed intermediate vertex k at a time.",
+          "Input assumptions never affect correctness.",
+          "One successful example proves every input."
+        ],
+        "answer": 0,
+        "explanation": "Floyd-Warshall updates d[i,j] using min(d[i,j],d[i,k]+d[k,j]) for one newly allowed intermediate vertex k at a time. The intermediate-vertex loop is outermost; a negative final diagonal indicates a negative cycle."
+      },
+      {
+        "type": "order",
+        "prompt": "Expand all-pairs path possibilities.",
+        "items": [
+          "Initialize direct paths and diagonal zero",
+          "Choose the next allowed intermediate k",
+          "Update all i,j through k and inspect the final diagonal"
+        ],
+        "explanation": "Inspect the final diagonal for negative cycles and do not treat no-path markers as finite numbers."
+      }
+    ],
+    "algoLab": "floyd",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.69,
+    "excerpt": "Now let's move to a different problem, which is flowed-versal algorithm, all pair shortest path. Let me tell you that what does this say? It says that given a graph input is a graph where like this is the only input that you just have a graph and you want to find out the shortest path between output is shortest path between all pair of vertices.",
+    "sourceReferences": [
+      {
+        "lecture": 168,
+        "file": "168. 42d. Floyd Warshall Algorithm.mp4",
+        "start": 0.69,
+        "end": 44.09,
+        "text": "Now let's move to a different problem, which is flowed-versal algorithm, all pair shortest path. Let me tell you that what does this say? It says that given a graph input is a graph where like this is the only input that you just have a graph and you want to find out the shortest path between output is shortest path between all pair of vertices."
+      },
+      {
+        "lecture": 168,
+        "file": "168. 42d. Floyd Warshall Algorithm.mp4",
+        "start": 417.42,
+        "end": 446,
+        "text": "But what I will do I will say let's suppose that if you run this digest of v times Well, if you if you want to find out the shortest path from one vertex to every vertex and and you do it for v vertices I mean you convert this digest to all pairs So you will be running the extra v times which means it will be if you do it v times If you do it v times, it will be v cube log v Now it will be all pair right. It was a single single source"
+      },
+      {
+        "lecture": 168,
+        "file": "168. 42d. Floyd Warshall Algorithm.mp4",
+        "start": 586.17,
+        "end": 630.55,
+        "text": "and what does this entry say this entry will say the shortest path cost from three to three shortest path cost i mean generally these entries are zeroes because you do not need to incur any cost faster cost from three to generally these entries are zeroes right you understood that how does the output look like now suppose suppose that there is a negative cycle suppose there is a negative cycle in the in the graph then in that case"
+      }
+    ]
+  },
+  {
+    "id": 505,
+    "lecture": 168,
+    "title": "Allow intermediate vertices with Floyd-Warshall · Trace",
+    "concept": "Floyd-Warshall updates d[i,j] using min(d[i,j],d[i,k]+d[k,j]) for one newly allowed intermediate vertex k at a time. The intermediate-vertex loop is outermost; a negative final diagonal indicates a negative cycle. Floyd-Warshall solves all-pairs paths by controlling which intermediate vertices are allowed. Initially use direct edges and zero self-distances, then introduce one possible intermediate per outer-loop iteration.",
+    "teachingSteps": [
+      "Floyd-Warshall updates d[i,j] using min(d[i,j],d[i,k]+d[k,j]) for one newly allowed intermediate vertex k at a time. The intermediate-vertex loop is outermost; a negative final diagonal indicates a negative cycle.",
+      "Choose the next allowed intermediate k",
+      "Update all i,j through k and inspect the final diagonal"
+    ],
+    "foundation": {
+      "title": "Allow intermediate vertices with Floyd-Warshall",
+      "idea": "Floyd-Warshall updates d[i,j] using min(d[i,j],d[i,k]+d[k,j]) for one newly allowed intermediate vertex k at a time. The intermediate-vertex loop is outermost; a negative final diagonal indicates a negative cycle. Floyd-Warshall solves all-pairs paths by controlling which intermediate vertices are allowed. Initially use direct edges and zero self-distances, then introduce one possible intermediate per outer-loop iteration.",
+      "terms": [
+        "d(i,j): best route from i to j under current intermediates.",
+        "No path: do not add it as a finite number.",
+        "Negative diagonal: reachable return cycle with negative cost."
+      ],
+      "example": "A→B=3, B→C=-2 and A→C=8 improve A→C to 1 when B becomes an allowed intermediate."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Directed edges A→B=3, B→C=-2, A→C=8 give what improved A-to-C distance when B is allowed as an intermediate?",
+        "answer": 1,
+        "explanation": "Compare 8 with 3+(-2)=1.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "For 5 vertices, a dense Floyd-Warshall run makes how many (k,i,j) iterations?",
+        "answer": 125,
+        "explanation": "Each of the three indices runs across V vertices.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which loop must be outermost in the standard Floyd-Warshall DP?",
+        "options": [
+          "Always the destination j.",
+          "The loop over sorted edge weights.",
+          "The allowed intermediate vertex k."
+        ],
+        "answer": 2,
+        "explanation": "The DP phase is the set of allowed intermediate vertices, not just an arbitrary cell-update order."
+      },
+      {
+        "type": "order",
+        "prompt": "Expand all-pairs path possibilities.",
+        "items": [
+          "Initialize direct paths and diagonal zero",
+          "Choose the next allowed intermediate k",
+          "Update all i,j through k and inspect the final diagonal"
+        ],
+        "explanation": "Inspect the final diagonal for negative cycles and do not treat no-path markers as finite numbers."
+      }
+    ],
+    "algoLab": "floyd",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.69,
+    "excerpt": "Now let's move to a different problem, which is flowed-versal algorithm, all pair shortest path. Let me tell you that what does this say? It says that given a graph input is a graph where like this is the only input that you just have a graph and you want to find out the shortest path between output is shortest path between all pair of vertices.",
+    "sourceReferences": [
+      {
+        "lecture": 168,
+        "file": "168. 42d. Floyd Warshall Algorithm.mp4",
+        "start": 0.69,
+        "end": 44.09,
+        "text": "Now let's move to a different problem, which is flowed-versal algorithm, all pair shortest path. Let me tell you that what does this say? It says that given a graph input is a graph where like this is the only input that you just have a graph and you want to find out the shortest path between output is shortest path between all pair of vertices."
+      },
+      {
+        "lecture": 168,
+        "file": "168. 42d. Floyd Warshall Algorithm.mp4",
+        "start": 417.42,
+        "end": 446,
+        "text": "But what I will do I will say let's suppose that if you run this digest of v times Well, if you if you want to find out the shortest path from one vertex to every vertex and and you do it for v vertices I mean you convert this digest to all pairs So you will be running the extra v times which means it will be if you do it v times If you do it v times, it will be v cube log v Now it will be all pair right. It was a single single source"
+      },
+      {
+        "lecture": 168,
+        "file": "168. 42d. Floyd Warshall Algorithm.mp4",
+        "start": 586.17,
+        "end": 630.55,
+        "text": "and what does this entry say this entry will say the shortest path cost from three to three shortest path cost i mean generally these entries are zeroes because you do not need to incur any cost faster cost from three to generally these entries are zeroes right you understood that how does the output look like now suppose suppose that there is a negative cycle suppose there is a negative cycle in the in the graph then in that case"
+      }
+    ]
+  },
+  {
+    "id": 506,
+    "lecture": 168,
+    "title": "Allow intermediate vertices with Floyd-Warshall · Apply",
+    "concept": "Floyd-Warshall updates d[i,j] using min(d[i,j],d[i,k]+d[k,j]) for one newly allowed intermediate vertex k at a time. The intermediate-vertex loop is outermost; a negative final diagonal indicates a negative cycle. Floyd-Warshall solves all-pairs paths by controlling which intermediate vertices are allowed. Initially use direct edges and zero self-distances, then introduce one possible intermediate per outer-loop iteration.",
+    "teachingSteps": [
+      "Floyd-Warshall updates d[i,j] using min(d[i,j],d[i,k]+d[k,j]) for one newly allowed intermediate vertex k at a time. The intermediate-vertex loop is outermost; a negative final diagonal indicates a negative cycle.",
+      "Choose the next allowed intermediate k",
+      "Update all i,j through k and inspect the final diagonal"
+    ],
+    "foundation": {
+      "title": "Allow intermediate vertices with Floyd-Warshall",
+      "idea": "Floyd-Warshall updates d[i,j] using min(d[i,j],d[i,k]+d[k,j]) for one newly allowed intermediate vertex k at a time. The intermediate-vertex loop is outermost; a negative final diagonal indicates a negative cycle. Floyd-Warshall solves all-pairs paths by controlling which intermediate vertices are allowed. Initially use direct edges and zero self-distances, then introduce one possible intermediate per outer-loop iteration.",
+      "terms": [
+        "d(i,j): best route from i to j under current intermediates.",
+        "No path: do not add it as a finite number.",
+        "Negative diagonal: reachable return cycle with negative cost."
+      ],
+      "example": "A→B=3, B→C=-2 and A→C=8 improve A→C to 1 when B becomes an allowed intermediate."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A route service needs every pair’s shortest path. Directed edges A→B=3, B→C=-2, A→C=8 give what improved A-to-C distance when B is allowed as an intermediate?",
+        "answer": 1,
+        "explanation": "Compare 8 with 3+(-2)=1.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "For 6 vertices, a dense Floyd-Warshall run makes how many (k,i,j) iterations?",
+        "answer": 216,
+        "explanation": "Each of the three indices runs across V vertices.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which loop must be outermost in the standard Floyd-Warshall DP?",
+        "options": [
+          "The loop over sorted edge weights.",
+          "The allowed intermediate vertex k.",
+          "Always the destination j."
+        ],
+        "answer": 1,
+        "explanation": "The DP phase is the set of allowed intermediate vertices, not just an arbitrary cell-update order."
+      },
+      {
+        "type": "order",
+        "prompt": "Expand all-pairs path possibilities.",
+        "items": [
+          "Initialize direct paths and diagonal zero",
+          "Choose the next allowed intermediate k",
+          "Update all i,j through k and inspect the final diagonal"
+        ],
+        "explanation": "Inspect the final diagonal for negative cycles and do not treat no-path markers as finite numbers."
+      }
+    ],
+    "algoLab": "floyd",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.69,
+    "excerpt": "Now let's move to a different problem, which is flowed-versal algorithm, all pair shortest path. Let me tell you that what does this say? It says that given a graph input is a graph where like this is the only input that you just have a graph and you want to find out the shortest path between output is shortest path between all pair of vertices.",
+    "sourceReferences": [
+      {
+        "lecture": 168,
+        "file": "168. 42d. Floyd Warshall Algorithm.mp4",
+        "start": 0.69,
+        "end": 44.09,
+        "text": "Now let's move to a different problem, which is flowed-versal algorithm, all pair shortest path. Let me tell you that what does this say? It says that given a graph input is a graph where like this is the only input that you just have a graph and you want to find out the shortest path between output is shortest path between all pair of vertices."
+      },
+      {
+        "lecture": 168,
+        "file": "168. 42d. Floyd Warshall Algorithm.mp4",
+        "start": 417.42,
+        "end": 446,
+        "text": "But what I will do I will say let's suppose that if you run this digest of v times Well, if you if you want to find out the shortest path from one vertex to every vertex and and you do it for v vertices I mean you convert this digest to all pairs So you will be running the extra v times which means it will be if you do it v times If you do it v times, it will be v cube log v Now it will be all pair right. It was a single single source"
+      },
+      {
+        "lecture": 168,
+        "file": "168. 42d. Floyd Warshall Algorithm.mp4",
+        "start": 586.17,
+        "end": 630.55,
+        "text": "and what does this entry say this entry will say the shortest path cost from three to three shortest path cost i mean generally these entries are zeroes because you do not need to incur any cost faster cost from three to generally these entries are zeroes right you understood that how does the output look like now suppose suppose that there is a negative cycle suppose there is a negative cycle in the in the graph then in that case"
+      }
+    ]
+  },
+  {
+    "id": 507,
+    "lecture": 169,
+    "title": "Visit every city and return · Discover",
+    "concept": "A travelling-salesperson tour visits each city once and returns to its starting city. Held-Karp DP records the visited subset and final city; its exact time is O(n squared times 2^n), not polynomial. A cheapest partial path depends on which cities were already used and its final city. Remembering only the current city would allow revisits or forget required stops; the subset component makes the exact state space exponential.",
+    "teachingSteps": [
+      "A travelling-salesperson tour visits each city once and returns to its starting city. Held-Karp DP records the visited subset and final city; its exact time is O(n squared times 2^n), not polynomial.",
+      "Extend to each unvisited city and keep cheapest equal states",
+      "After every city is visited, include the return edge and minimize"
+    ],
+    "foundation": {
+      "title": "Visit every city and return",
+      "idea": "A travelling-salesperson tour visits each city once and returns to its starting city. Held-Karp DP records the visited subset and final city; its exact time is O(n squared times 2^n), not polynomial. A cheapest partial path depends on which cities were already used and its final city. Remembering only the current city would allow revisits or forget required stops; the subset component makes the exact state space exponential.",
+      "terms": [
+        "Visited mask: the included city subset.",
+        "Last city: endpoint of the current non-returning path.",
+        "Tour: final path plus the edge returning to the start."
+      ],
+      "example": "For four cities, fixing A as the start leaves 3!=6 possible visiting orders. Every candidate must include its last-city-to-A return edge."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Fix the start city in a complete 5-city travelling-salesperson problem. How many permutations of the other cities are candidate directed visiting orders?",
+        "answer": 24,
+        "explanation": "There are (n-1)! visiting orders with fixed start; reversals are still counted separately here.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A tour A→B→C→A uses edge costs 4,5,6. What is its full tour cost?",
+        "answer": 15,
+        "explanation": "The return edge is included: 4+5+6=15.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains visit every city and return?",
+        "options": [
+          "Input assumptions never affect correctness.",
+          "One successful example proves every input.",
+          "A travelling-salesperson tour visits each city once and returns to its starting city."
+        ],
+        "answer": 2,
+        "explanation": "A travelling-salesperson tour visits each city once and returns to its starting city. Held-Karp DP records the visited subset and final city; its exact time is O(n squared times 2^n), not polynomial."
+      },
+      {
+        "type": "order",
+        "prompt": "Solve a visited-subset tour DP.",
+        "items": [
+          "Initialize the start-only visited subset",
+          "Extend to each unvisited city and keep cheapest equal states",
+          "After every city is visited, include the return edge and minimize"
+        ],
+        "explanation": "Returning to the start happens after all required cities have been visited."
+      }
+    ],
+    "algoLab": "tsp",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.02,
+    "excerpt": "Now there is similarly there is one more algorithm. I mean the one more problem that is called traveling salesman problem Yeah, TCP TSP So it says let's suppose that these are some vertices or these are some cities that you have and You start from this city. You want to go from this city to every other city You want to go from this city to probably every other city and then they're asking that",
+    "sourceReferences": [
+      {
+        "lecture": 169,
+        "file": "169. 42e. Travelling Salesman.mp4",
+        "start": 0.02,
+        "end": 39.3,
+        "text": "Now there is similarly there is one more algorithm. I mean the one more problem that is called traveling salesman problem Yeah, TCP TSP So it says let's suppose that these are some vertices or these are some cities that you have and You start from this city. You want to go from this city to every other city You want to go from this city to probably every other city and then they're asking that"
+      },
+      {
+        "lecture": 169,
+        "file": "169. 42e. Travelling Salesman.mp4",
+        "start": 39.64,
+        "end": 71.47,
+        "text": "and what is the least time that you can go which means let's suppose this is a this is b this is c this is d you want to go from a to every other city then what are the possibilities that in which you can visit you can visit abcd maybe for this particular graph you you might say that you can visit let's suppose that that it is undirected graph okay i mean you can go from anywhere to anywhere suppose assume that this is a directed graph or maybe maybe let me write like this so you will say"
+      },
+      {
+        "lecture": 169,
+        "file": "169. 42e. Travelling Salesman.mp4",
+        "start": 241.84,
+        "end": 271.85,
+        "text": "No one has disproved it. Okay, the polynomial time can not exist. No one has, no one has disproved it. Neither, neither anyone has found out that there is a polynomial time algorithm. These kind of problems are, I mean NP complete or NP hard. So in general, these kinds of problems are NP hard. So this is a NP hard problem. That's all you need to do. This NP hard, you do not need to know, but the, but you, you just need to know that there is no polynomial time algorithm for travel and salesman problem. And what does this problem, the salesman problem is that you start from one city."
+      }
+    ]
+  },
+  {
+    "id": 508,
+    "lecture": 169,
+    "title": "Visit every city and return · Trace",
+    "concept": "A travelling-salesperson tour visits each city once and returns to its starting city. Held-Karp DP records the visited subset and final city; its exact time is O(n squared times 2^n), not polynomial. A cheapest partial path depends on which cities were already used and its final city. Remembering only the current city would allow revisits or forget required stops; the subset component makes the exact state space exponential.",
+    "teachingSteps": [
+      "A travelling-salesperson tour visits each city once and returns to its starting city. Held-Karp DP records the visited subset and final city; its exact time is O(n squared times 2^n), not polynomial.",
+      "Extend to each unvisited city and keep cheapest equal states",
+      "After every city is visited, include the return edge and minimize"
+    ],
+    "foundation": {
+      "title": "Visit every city and return",
+      "idea": "A travelling-salesperson tour visits each city once and returns to its starting city. Held-Karp DP records the visited subset and final city; its exact time is O(n squared times 2^n), not polynomial. A cheapest partial path depends on which cities were already used and its final city. Remembering only the current city would allow revisits or forget required stops; the subset component makes the exact state space exponential.",
+      "terms": [
+        "Visited mask: the included city subset.",
+        "Last city: endpoint of the current non-returning path.",
+        "Tour: final path plus the edge returning to the start."
+      ],
+      "example": "For four cities, fixing A as the start leaves 3!=6 possible visiting orders. Every candidate must include its last-city-to-A return edge."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Fix the start city in a complete 6-city travelling-salesperson problem. How many permutations of the other cities are candidate directed visiting orders?",
+        "answer": 120,
+        "explanation": "There are (n-1)! visiting orders with fixed start; reversals are still counted separately here.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A tour A→B→C→A uses edge costs 4,5,6. What is its full tour cost?",
+        "answer": 15,
+        "explanation": "The return edge is included: 4+5+6=15.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which exact DP state captures the information needed for TSP?",
+        "options": [
+          "Only the currently shortest single edge.",
+          "Visited subset and final city.",
+          "Only the current city, ignoring past visits."
+        ],
+        "answer": 1,
+        "explanation": "The future legal choices depend on which cities are already visited."
+      },
+      {
+        "type": "order",
+        "prompt": "Solve a visited-subset tour DP.",
+        "items": [
+          "Initialize the start-only visited subset",
+          "Extend to each unvisited city and keep cheapest equal states",
+          "After every city is visited, include the return edge and minimize"
+        ],
+        "explanation": "Returning to the start happens after all required cities have been visited."
+      }
+    ],
+    "algoLab": "tsp",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.02,
+    "excerpt": "Now there is similarly there is one more algorithm. I mean the one more problem that is called traveling salesman problem Yeah, TCP TSP So it says let's suppose that these are some vertices or these are some cities that you have and You start from this city. You want to go from this city to every other city You want to go from this city to probably every other city and then they're asking that",
+    "sourceReferences": [
+      {
+        "lecture": 169,
+        "file": "169. 42e. Travelling Salesman.mp4",
+        "start": 0.02,
+        "end": 39.3,
+        "text": "Now there is similarly there is one more algorithm. I mean the one more problem that is called traveling salesman problem Yeah, TCP TSP So it says let's suppose that these are some vertices or these are some cities that you have and You start from this city. You want to go from this city to every other city You want to go from this city to probably every other city and then they're asking that"
+      },
+      {
+        "lecture": 169,
+        "file": "169. 42e. Travelling Salesman.mp4",
+        "start": 39.64,
+        "end": 71.47,
+        "text": "and what is the least time that you can go which means let's suppose this is a this is b this is c this is d you want to go from a to every other city then what are the possibilities that in which you can visit you can visit abcd maybe for this particular graph you you might say that you can visit let's suppose that that it is undirected graph okay i mean you can go from anywhere to anywhere suppose assume that this is a directed graph or maybe maybe let me write like this so you will say"
+      },
+      {
+        "lecture": 169,
+        "file": "169. 42e. Travelling Salesman.mp4",
+        "start": 241.84,
+        "end": 271.85,
+        "text": "No one has disproved it. Okay, the polynomial time can not exist. No one has, no one has disproved it. Neither, neither anyone has found out that there is a polynomial time algorithm. These kind of problems are, I mean NP complete or NP hard. So in general, these kinds of problems are NP hard. So this is a NP hard problem. That's all you need to do. This NP hard, you do not need to know, but the, but you, you just need to know that there is no polynomial time algorithm for travel and salesman problem. And what does this problem, the salesman problem is that you start from one city."
+      }
+    ]
+  },
+  {
+    "id": 509,
+    "lecture": 169,
+    "title": "Visit every city and return · Apply",
+    "concept": "A travelling-salesperson tour visits each city once and returns to its starting city. Held-Karp DP records the visited subset and final city; its exact time is O(n squared times 2^n), not polynomial. A cheapest partial path depends on which cities were already used and its final city. Remembering only the current city would allow revisits or forget required stops; the subset component makes the exact state space exponential.",
+    "teachingSteps": [
+      "A travelling-salesperson tour visits each city once and returns to its starting city. Held-Karp DP records the visited subset and final city; its exact time is O(n squared times 2^n), not polynomial.",
+      "Extend to each unvisited city and keep cheapest equal states",
+      "After every city is visited, include the return edge and minimize"
+    ],
+    "foundation": {
+      "title": "Visit every city and return",
+      "idea": "A travelling-salesperson tour visits each city once and returns to its starting city. Held-Karp DP records the visited subset and final city; its exact time is O(n squared times 2^n), not polynomial. A cheapest partial path depends on which cities were already used and its final city. Remembering only the current city would allow revisits or forget required stops; the subset component makes the exact state space exponential.",
+      "terms": [
+        "Visited mask: the included city subset.",
+        "Last city: endpoint of the current non-returning path.",
+        "Tour: final path plus the edge returning to the start."
+      ],
+      "example": "For four cities, fixing A as the start leaves 3!=6 possible visiting orders. Every candidate must include its last-city-to-A return edge."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A tour service must visit every site and return. Fix the start city in a complete 7-city travelling-salesperson problem. How many permutations of the other cities are candidate directed visiting orders?",
+        "answer": 720,
+        "explanation": "There are (n-1)! visiting orders with fixed start; reversals are still counted separately here.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A tour A→B→C→A uses edge costs 4,5,6. What is its full tour cost?",
+        "answer": 15,
+        "explanation": "The return edge is included: 4+5+6=15.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which exact DP state captures the information needed for TSP?",
+        "options": [
+          "Visited subset and final city.",
+          "Only the current city, ignoring past visits.",
+          "Only the currently shortest single edge."
+        ],
+        "answer": 0,
+        "explanation": "The future legal choices depend on which cities are already visited."
+      },
+      {
+        "type": "order",
+        "prompt": "Solve a visited-subset tour DP.",
+        "items": [
+          "Initialize the start-only visited subset",
+          "Extend to each unvisited city and keep cheapest equal states",
+          "After every city is visited, include the return edge and minimize"
+        ],
+        "explanation": "Returning to the start happens after all required cities have been visited."
+      }
+    ],
+    "algoLab": "tsp",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.02,
+    "excerpt": "Now there is similarly there is one more algorithm. I mean the one more problem that is called traveling salesman problem Yeah, TCP TSP So it says let's suppose that these are some vertices or these are some cities that you have and You start from this city. You want to go from this city to every other city You want to go from this city to probably every other city and then they're asking that",
+    "sourceReferences": [
+      {
+        "lecture": 169,
+        "file": "169. 42e. Travelling Salesman.mp4",
+        "start": 0.02,
+        "end": 39.3,
+        "text": "Now there is similarly there is one more algorithm. I mean the one more problem that is called traveling salesman problem Yeah, TCP TSP So it says let's suppose that these are some vertices or these are some cities that you have and You start from this city. You want to go from this city to every other city You want to go from this city to probably every other city and then they're asking that"
+      },
+      {
+        "lecture": 169,
+        "file": "169. 42e. Travelling Salesman.mp4",
+        "start": 39.64,
+        "end": 71.47,
+        "text": "and what is the least time that you can go which means let's suppose this is a this is b this is c this is d you want to go from a to every other city then what are the possibilities that in which you can visit you can visit abcd maybe for this particular graph you you might say that you can visit let's suppose that that it is undirected graph okay i mean you can go from anywhere to anywhere suppose assume that this is a directed graph or maybe maybe let me write like this so you will say"
+      },
+      {
+        "lecture": 169,
+        "file": "169. 42e. Travelling Salesman.mp4",
+        "start": 241.84,
+        "end": 271.85,
+        "text": "No one has disproved it. Okay, the polynomial time can not exist. No one has, no one has disproved it. Neither, neither anyone has found out that there is a polynomial time algorithm. These kind of problems are, I mean NP complete or NP hard. So in general, these kinds of problems are NP hard. So this is a NP hard problem. That's all you need to do. This NP hard, you do not need to know, but the, but you, you just need to know that there is no polynomial time algorithm for travel and salesman problem. And what does this problem, the salesman problem is that you start from one city."
+      }
+    ]
   }
 ];
