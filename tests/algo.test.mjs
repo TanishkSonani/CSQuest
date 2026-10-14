@@ -8,8 +8,8 @@ import {grade} from '../packages/learning/engine.js';
 import {algoModel,familyOf,mergeTrace,partitionTrace,binaryTrace,inversionPairs,dfsTrace} from '../packages/learning/algo-models.js';
 
 test('Algorithms publishes a stable, completed-source-backed prefix with beginner notes and scenario puzzles',()=>{
- assert.equal(topics.length,93);assert.equal(lecturePlans.length,93);assert.equal(lessons.length,279);assert.equal(units.length,16);
- assert.deepEqual(units.flatMap(u=>Array.from({length:u.range[1]-u.range[0]+1},(_,i)=>u.range[0]+i)),Array.from({length:93},(_,i)=>i));
+ assert.equal(topics.length,119);assert.equal(lecturePlans.length,119);assert.equal(lessons.length,357);assert.equal(units.length,21);
+ assert.deepEqual(units.flatMap(u=>Array.from({length:u.range[1]-u.range[0]+1},(_,i)=>u.range[0]+i)),Array.from({length:119},(_,i)=>i));
  for(const [id,l] of lessons.entries()){
   assert.equal(l.id,id);assert.equal(l.lecture,Math.floor(id/3));assert.equal(l.ready,true);assert.equal(l.questions.length,4);assert.ok(l.foundation.idea.length>100);assert.equal(l.teachingSteps.length,3);
   const source=JSON.parse(fs.readFileSync(new URL(`../courses/algo/data/transcripts/${l.lecture}.json`,import.meta.url)));assert.ok(source.sourceCompletedAt);

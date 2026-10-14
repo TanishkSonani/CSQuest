@@ -14,7 +14,7 @@ const fs=require('node:fs');
    const {topicDiagram}=await import('/lesson-visuals.js');let count=0;const rendered=new Map();
    for(const subject of ['coa','dl','c','ds','aptitude','algo']){const {lessons}=await import(`/courses/${subject}/lessons.js`);for(const lesson of lessons){const html=topicDiagram(lesson,subject);if(!html.includes('figcaption')||html.includes('undefined'))throw Error(`${subject}/${lesson.id}`);const template=document.createElement('template');template.innerHTML=html;rendered.set(template.content.querySelector('figure').dataset.topicVisual,html);count++;}}
    return {count,visuals:[...rendered.values()]};
-  });assert.equal(audit.count,1230);
+  });assert.equal(audit.count,1308);
   await page.locator('[data-lesson="0"]').click();await page.locator('.topic-foundation .topic-visual').waitFor();
   // Render every diagram family at 320px and exercise keyboard-adjustable ranges.
   for(const html of audit.visuals){await page.evaluate(html=>document.querySelector('.lesson-intro').innerHTML=html,html);const control=page.locator('[data-visual-control]').first();if(await control.count()){await control.focus();await page.keyboard.press('ArrowRight');}assert.equal(await page.evaluate(()=>document.querySelector('dialog').scrollWidth>innerWidth),false);}

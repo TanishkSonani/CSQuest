@@ -190,6 +190,66 @@ export const units=[
     "color": "orange",
     "icon": "map",
     "goal": "Explain the rule, trace a small input, then justify the result. An adjacency list uses O(V+E) storage. A V-by-V adjacency matrix uses Theta(V squared) storage and offers constant-time edge lookup."
+  },
+  {
+    "id": 16,
+    "title": "DFS structure and dependencies",
+    "subtitle": "Discovery and finish intervals to Articulation points and low links",
+    "range": [
+      93,
+      100
+    ],
+    "color": "green",
+    "icon": "map",
+    "goal": "Explain the rule, trace a small input, then justify the result. DFS timestamps increase on discovery and finish. Two vertex intervals are either nested, showing ancestry, or disjoint; they never partially overlap."
+  },
+  {
+    "id": 17,
+    "title": "Breadth-first paths and coloring",
+    "subtitle": "Explore in breadth-first layers to BFS paths and bipartite coloring",
+    "range": [
+      101,
+      103
+    ],
+    "color": "orange",
+    "icon": "map",
+    "goal": "Explain the rule, trace a small input, then justify the result. BFS marks vertices when enqueuing and processes a FIFO queue. In an unweighted graph, a vertex’s layer number is its shortest-path distance in edges from the source."
+  },
+  {
+    "id": 18,
+    "title": "Greedy shortest paths and queues",
+    "subtitle": "When a greedy choice is safe to Storage choices change shortest-path cost",
+    "range": [
+      104,
+      111
+    ],
+    "color": "green",
+    "icon": "map",
+    "goal": "Explain the rule, trace a small input, then justify the result. A greedy method makes a locally preferred choice and commits to it. Correctness needs a task-specific argument; choosing the best-looking local option is not automatically globally optimal."
+  },
+  {
+    "id": 19,
+    "title": "Shortest paths with signed costs",
+    "subtitle": "Shortest paths in topological order to Early stopping and edge-order effects",
+    "range": [
+      112,
+      115
+    ],
+    "color": "orange",
+    "icon": "map",
+    "goal": "Explain the rule, trace a small input, then justify the result. A DAG can have negative edge weights without a cycle. Process vertices in topological order and relax each outgoing edge once to obtain single-source shortest paths in O(V+E) time."
+  },
+  {
+    "id": 20,
+    "title": "Minimum-cost spanning networks",
+    "subtitle": "Connect every site at minimum total cost to Kruskal joins different components",
+    "range": [
+      116,
+      118
+    ],
+    "color": "green",
+    "icon": "map",
+    "goal": "Explain the rule, trace a small input, then justify the result. A minimum spanning tree connects all vertices of a connected undirected weighted graph with no cycle and minimum total edge weight. It has V-1 edges and is a different objective from shortest source-to-vertex paths."
   }
 ];
 export const lecturePlans=[
@@ -564,5 +624,109 @@ export const lecturePlans=[
   [
     "Recursive frames versus an explicit stack",
     "An explicit DFS frame can store a vertex and its next-neighbor index, matching recursive discovery and finish order. A simple vertex-only stack may produce a different valid DFS order."
+  ],
+  [
+    "Discovery and finish intervals",
+    "DFS timestamps increase on discovery and finish. Two vertex intervals are either nested, showing ancestry, or disjoint; they never partially overlap."
+  ],
+  [
+    "Directed DFS edge roles",
+    "A tree edge discovers a new vertex. A back edge reaches an active ancestor; a forward edge reaches a non-child descendant, and a cross edge connects unrelated finished branches."
+  ],
+  [
+    "Why undirected DFS has fewer edge types",
+    "In a simple undirected graph, DFS classifies each physical edge as tree or back. The reverse traversal of the parent tree edge is not evidence of a cycle."
+  ],
+  [
+    "Back edges certify directed cycles",
+    "In a directed graph, an edge to a gray active ancestor closes a cycle along the current DFS path. A full DFS forest has a back edge exactly when a directed cycle exists."
+  ],
+  [
+    "Cycle detection with discovery state",
+    "For directed cycle detection, distinguish unvisited, active and finished vertices. A visited neighbor alone is not sufficient: an edge to a finished vertex can be harmless."
+  ],
+  [
+    "Finish times in a DAG",
+    "In a directed acyclic graph, every edge u→v satisfies finish(u)>finish(v) after a complete DFS. Decreasing finish time therefore respects each prerequisite edge."
+  ],
+  [
+    "Topological ordering of prerequisites",
+    "A topological order puts every directed edge source before its destination. A finite directed graph has such an order exactly when it has no directed cycle; several valid orders may exist."
+  ],
+  [
+    "Articulation points and low links",
+    "In an undirected graph, removing an articulation vertex increases the number of connected components. A DFS root is a cut vertex only with at least two DFS children; a non-root u is one if some child v has low(v)>=discovery(u)."
+  ],
+  [
+    "Explore in breadth-first layers",
+    "BFS marks vertices when enqueuing and processes a FIFO queue. In an unweighted graph, a vertex’s layer number is its shortest-path distance in edges from the source."
+  ],
+  [
+    "Queue layers and edge constraints",
+    "A standard BFS queue contains at most two consecutive distance layers, with the smaller layer first. In an undirected graph, adjacent vertices have source distances differing by at most one."
+  ],
+  [
+    "BFS paths and bipartite coloring",
+    "A graph is bipartite exactly when it has no odd cycle. BFS can alternate two colors by layer, but every component must be checked and every edge must join opposite colors."
+  ],
+  [
+    "When a greedy choice is safe",
+    "A greedy method makes a locally preferred choice and commits to it. Correctness needs a task-specific argument; choosing the best-looking local option is not automatically globally optimal."
+  ],
+  [
+    "Dijkstra’s settle-and-relax rule",
+    "With nonnegative edge weights, Dijkstra repeatedly settles the smallest tentative distance and relaxes its outgoing edges. Settled distances are final under this weight assumption."
+  ],
+  [
+    "Tentative distances can improve",
+    "Relax u→v by comparing distance(v) with distance(u)+weight(u,v). Update the distance and predecessor only when the candidate is smaller."
+  ],
+  [
+    "Zero-weight edges and equal candidates",
+    "Dijkstra allows zero-weight edges. An equal-cost candidate need not change the distance; multiple equally short paths can exist without changing the shortest distance."
+  ],
+  [
+    "Why negative edges break settling",
+    "A negative edge can improve a vertex after it has been settled. The standard settle-once Dijkstra guarantee requires nonnegative weights, even when the graph has no cycle."
+  ],
+  [
+    "Priority queues and decrease-key",
+    "A min-priority queue extracts the smallest tentative distance. After a relaxation, decrease-key repairs the queue; a lazy duplicate-entry implementation must skip obsolete entries."
+  ],
+  [
+    "Dijkstra operation budgets",
+    "With adjacency lists and a binary heap supporting decrease-key, Dijkstra takes O((V+E) log V) time. Count up to V extractions and E edge relaxations separately."
+  ],
+  [
+    "Storage choices change shortest-path cost",
+    "An unsorted distance array gives O(V squared+E) time with adjacency lists. A binary heap gives O((V+E) log V); an adjacency matrix itself requires scanning V cells per processed vertex."
+  ],
+  [
+    "Shortest paths in topological order",
+    "A DAG can have negative edge weights without a cycle. Process vertices in topological order and relax each outgoing edge once to obtain single-source shortest paths in O(V+E) time."
+  ],
+  [
+    "Repeated relaxation with Bellman-Ford",
+    "Bellman-Ford repeatedly relaxes every directed edge. After k full passes, distances are correct for shortest paths using at most k edges, and an in-place pass may propagate even farther."
+  ],
+  [
+    "Negative edges and reachable negative cycles",
+    "Bellman-Ford handles negative edges. After V-1 full passes, another improving relaxation from a reachable vertex proves a reachable negative cycle; an unreachable negative cycle does not affect the chosen source."
+  ],
+  [
+    "Early stopping and edge-order effects",
+    "A full Bellman-Ford pass with no distance changes is a safe stopping condition. Stopping after one unchanged edge is unsafe; edge order changes propagation speed within an in-place pass."
+  ],
+  [
+    "Connect every site at minimum total cost",
+    "A minimum spanning tree connects all vertices of a connected undirected weighted graph with no cycle and minimum total edge weight. It has V-1 edges and is a different objective from shortest source-to-vertex paths."
+  ],
+  [
+    "Safe cuts, heavy cycles and tied weights",
+    "A lightest edge crossing a cut belongs to some MST, but ties do not force it into every MST. A uniquely lightest cut edge is mandatory; a uniquely heaviest cycle edge belongs to no MST."
+  ],
+  [
+    "Kruskal joins different components",
+    "Kruskal processes undirected edges in nondecreasing weight order and accepts an edge only when its endpoints are in different components. A disjoint-set structure tracks these components and prevents cycles."
   ]
 ];

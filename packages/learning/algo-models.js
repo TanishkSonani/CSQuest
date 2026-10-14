@@ -1,4 +1,6 @@
+import {graphFamily,advancedGraphModel} from './algo-graphs.js';
 export const familyOf=key=>{
+ if(graphFamily(key))return graphFamily(key);
  if(['workflow','analysis'].includes(key))return 'workflow';
  if(['growth','bounds','theta','strict','log'].includes(key))return 'growth';
  if(['loops','halving','decrement','decrement-sum','recursive-insert'].includes(key))return 'loops';
@@ -58,7 +60,7 @@ export function dfsTrace(start='A',adjacency=graph){
 }
 const rowStep=(title,caption,headers,rows)=>({title,caption,art:{type:'rows',headers,rows}});
 export function algoModel(key,variant=0){
- variant=Math.max(0,Math.min(2,Math.trunc(variant)));const family=familyOf(key),values=sampleArray(variant),k=3+variant,n=2**k,steps=[];
+ variant=Math.max(0,Math.min(2,Math.trunc(variant)));const advanced=advancedGraphModel(key,variant);if(advanced)return advanced;const family=familyOf(key),values=sampleArray(variant),k=3+variant,n=2**k,steps=[];
  const add=(title,caption,art)=>steps.push({title,caption,art});
  if(family==='growth'){
   for(const size of [4,8,16,32].map(v=>v*2**variant))add(`Compare at n=${size}`,'These finite samples illustrate growth. Eventual bounds require the formulas and positive constants, not just a plotted point.',{type:'bars',labels:['log2 n','n','n log2 n','n²'],values:[Math.log2(size),size,size*Math.log2(size),size*size],active:[]});

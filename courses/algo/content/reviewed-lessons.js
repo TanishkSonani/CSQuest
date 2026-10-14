@@ -26781,5 +26781,7919 @@ export const lessons=[
         "text": "We'll just do what it will it will go here and it will it will try to call it recursively just DSF DFS is a but a is already vegetated because C neighbors is a and a is already vegetated So DFS or C will not do anything and it will just produce this tree Then it will run for it will say that okay It will run for DFS at D also because it is running for all the vertices It is it is not for neighbors and all it is just for all the vertices So it will run for a b c d like that now"
       }
     ]
+  },
+  {
+    "id": 279,
+    "lecture": 93,
+    "title": "Discovery and finish intervals · Discover",
+    "concept": "DFS timestamps increase on discovery and finish. Two vertex intervals are either nested, showing ancestry, or disjoint; they never partially overlap. DFS needs more than a visited bit when analyzing directed cycles and edges. Record the active call path, the edge that discovered each vertex, and two timestamps per vertex.",
+    "teachingSteps": [
+      "DFS timestamps increase on discovery and finish. Two vertex intervals are either nested, showing ancestry, or disjoint; they never partially overlap.",
+      "Classify each edge using state and ancestry",
+      "Finish after checking all outgoing edges"
+    ],
+    "foundation": {
+      "title": "Discovery and finish intervals",
+      "idea": "DFS timestamps increase on discovery and finish. Two vertex intervals are either nested, showing ancestry, or disjoint; they never partially overlap. DFS needs more than a visited bit when analyzing directed cycles and edges. Record the active call path, the edge that discovered each vertex, and two timestamps per vertex.",
+      "terms": [
+        "White: not discovered.",
+        "Gray: discovered, still active.",
+        "Black: all outgoing neighbors checked.",
+        "Interval: discovery through finish."
+      ],
+      "example": "If A has interval [1,8] and B has [2,7], B is a descendant of A. Intervals [1,8] and [9,10] describe separate branches."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A complete DFS on 7 vertices gives each vertex one discovery and one finish event. How many timestamp events occur?",
+        "answer": 14,
+        "explanation": "Every vertex contributes exactly two events, regardless of the DFS forest shape.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "DFS uses consecutive integer event times. A vertex is discovered at time 7 and finishes at time 12. How many vertices lie in its inclusive nested DFS interval?",
+        "answer": 3,
+        "explanation": "The inclusive interval has 2k events, one discovery and finish for each subtree vertex.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains discovery and finish intervals?",
+        "options": [
+          "DFS timestamps increase on discovery and finish.",
+          "Input assumptions cannot affect correctness.",
+          "One successful example proves the method for every graph."
+        ],
+        "answer": 0,
+        "explanation": "DFS timestamps increase on discovery and finish. Two vertex intervals are either nested, showing ancestry, or disjoint; they never partially overlap."
+      },
+      {
+        "type": "choice",
+        "prompt": "Intervals u=[1,6] and v=[4,9] are proposed for one DFS. Are they valid together?",
+        "options": [
+          "No: they partially overlap without nesting.",
+          "Yes: all overlaps are permitted.",
+          "Yes: discovery times alone determine ancestry."
+        ],
+        "answer": 0,
+        "explanation": "DFS intervals are either disjoint or nested."
+      }
+    ],
+    "algoLab": "dfs-times",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.85,
+    "excerpt": "Hi everyone. So in this video we are going to see one of the most elegant theorem in DFS which is DFS parenthesis theorem. So why I am telling this that this is most elegant because this is very very easy theorem. Let me let me just quickly go over the CLRS or the Cormand skin sort that I have taken. So what they are trying to say is that in DFS you consider discovery time and final times or the finish time. So D means discovery time and F means finish time.",
+    "sourceReferences": [
+      {
+        "lecture": 93,
+        "file": "093. 15a. DFS Parentheses Theorem _ GATE 2006.mp4",
+        "start": 0.85,
+        "end": 29.49,
+        "text": "Hi everyone. So in this video we are going to see one of the most elegant theorem in DFS which is DFS parenthesis theorem. So why I am telling this that this is most elegant because this is very very easy theorem. Let me let me just quickly go over the CLRS or the Cormand skin sort that I have taken. So what they are trying to say is that in DFS you consider discovery time and final times or the finish time. So D means discovery time and F means finish time."
+      },
+      {
+        "lecture": 93,
+        "file": "093. 15a. DFS Parentheses Theorem _ GATE 2006.mp4",
+        "start": 118.97,
+        "end": 148.01,
+        "text": "Now the exactly same analogy that they have taken in Corman book and they have said like we can map DFS intervals just like balance pair parenthesis. So what they are saying that whenever you are starting some DFS on any node, suppose that this is a node view and this node view exploration is start and then let's suppose this is the time frame and this is start of view and let's suppose this is the end of view."
+      },
+      {
+        "lecture": 93,
+        "file": "093. 15a. DFS Parentheses Theorem _ GATE 2006.mp4",
+        "start": 435.14,
+        "end": 461.42,
+        "text": "Now just let me just read out this theorem it is saying that in any depth of a search of a directed or undirected graph G for any two vertexes u and v exactly one of the situation will hold first is saying the intervals which is a start of u and end of u this is a start of u and this is end of u let's suppose this is one interval and a start of d and end of d are"
+      }
+    ]
+  },
+  {
+    "id": 280,
+    "lecture": 93,
+    "title": "Discovery and finish intervals · Trace",
+    "concept": "DFS timestamps increase on discovery and finish. Two vertex intervals are either nested, showing ancestry, or disjoint; they never partially overlap. DFS needs more than a visited bit when analyzing directed cycles and edges. Record the active call path, the edge that discovered each vertex, and two timestamps per vertex.",
+    "teachingSteps": [
+      "DFS timestamps increase on discovery and finish. Two vertex intervals are either nested, showing ancestry, or disjoint; they never partially overlap.",
+      "Classify each edge using state and ancestry",
+      "Finish after checking all outgoing edges"
+    ],
+    "foundation": {
+      "title": "Discovery and finish intervals",
+      "idea": "DFS timestamps increase on discovery and finish. Two vertex intervals are either nested, showing ancestry, or disjoint; they never partially overlap. DFS needs more than a visited bit when analyzing directed cycles and edges. Record the active call path, the edge that discovered each vertex, and two timestamps per vertex.",
+      "terms": [
+        "White: not discovered.",
+        "Gray: discovered, still active.",
+        "Black: all outgoing neighbors checked.",
+        "Interval: discovery through finish."
+      ],
+      "example": "If A has interval [1,8] and B has [2,7], B is a descendant of A. Intervals [1,8] and [9,10] describe separate branches."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A complete DFS on 8 vertices gives each vertex one discovery and one finish event. How many timestamp events occur?",
+        "answer": 16,
+        "explanation": "Every vertex contributes exactly two events, regardless of the DFS forest shape.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "DFS uses consecutive integer event times. A vertex is discovered at time 8 and finishes at time 15. How many vertices lie in its inclusive nested DFS interval?",
+        "answer": 4,
+        "explanation": "The inclusive interval has 2k events, one discovery and finish for each subtree vertex.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "In directed DFS, an edge reaches a gray active ancestor. What is its role?",
+        "options": [
+          "Cross edge",
+          "Forward edge",
+          "Back edge"
+        ],
+        "answer": 2,
+        "explanation": "The ancestor is still on the active call path, so the directed edge closes a cycle."
+      },
+      {
+        "type": "choice",
+        "prompt": "Intervals u=[1,6] and v=[4,9] are proposed for one DFS. Are they valid together?",
+        "options": [
+          "Yes: all overlaps are permitted.",
+          "Yes: discovery times alone determine ancestry.",
+          "No: they partially overlap without nesting."
+        ],
+        "answer": 2,
+        "explanation": "DFS intervals are either disjoint or nested."
+      }
+    ],
+    "algoLab": "dfs-times",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.85,
+    "excerpt": "Hi everyone. So in this video we are going to see one of the most elegant theorem in DFS which is DFS parenthesis theorem. So why I am telling this that this is most elegant because this is very very easy theorem. Let me let me just quickly go over the CLRS or the Cormand skin sort that I have taken. So what they are trying to say is that in DFS you consider discovery time and final times or the finish time. So D means discovery time and F means finish time.",
+    "sourceReferences": [
+      {
+        "lecture": 93,
+        "file": "093. 15a. DFS Parentheses Theorem _ GATE 2006.mp4",
+        "start": 0.85,
+        "end": 29.49,
+        "text": "Hi everyone. So in this video we are going to see one of the most elegant theorem in DFS which is DFS parenthesis theorem. So why I am telling this that this is most elegant because this is very very easy theorem. Let me let me just quickly go over the CLRS or the Cormand skin sort that I have taken. So what they are trying to say is that in DFS you consider discovery time and final times or the finish time. So D means discovery time and F means finish time."
+      },
+      {
+        "lecture": 93,
+        "file": "093. 15a. DFS Parentheses Theorem _ GATE 2006.mp4",
+        "start": 118.97,
+        "end": 148.01,
+        "text": "Now the exactly same analogy that they have taken in Corman book and they have said like we can map DFS intervals just like balance pair parenthesis. So what they are saying that whenever you are starting some DFS on any node, suppose that this is a node view and this node view exploration is start and then let's suppose this is the time frame and this is start of view and let's suppose this is the end of view."
+      },
+      {
+        "lecture": 93,
+        "file": "093. 15a. DFS Parentheses Theorem _ GATE 2006.mp4",
+        "start": 435.14,
+        "end": 461.42,
+        "text": "Now just let me just read out this theorem it is saying that in any depth of a search of a directed or undirected graph G for any two vertexes u and v exactly one of the situation will hold first is saying the intervals which is a start of u and end of u this is a start of u and this is end of u let's suppose this is one interval and a start of d and end of d are"
+      }
+    ]
+  },
+  {
+    "id": 281,
+    "lecture": 93,
+    "title": "Discovery and finish intervals · Apply",
+    "concept": "DFS timestamps increase on discovery and finish. Two vertex intervals are either nested, showing ancestry, or disjoint; they never partially overlap. DFS needs more than a visited bit when analyzing directed cycles and edges. Record the active call path, the edge that discovered each vertex, and two timestamps per vertex.",
+    "teachingSteps": [
+      "DFS timestamps increase on discovery and finish. Two vertex intervals are either nested, showing ancestry, or disjoint; they never partially overlap.",
+      "Classify each edge using state and ancestry",
+      "Finish after checking all outgoing edges"
+    ],
+    "foundation": {
+      "title": "Discovery and finish intervals",
+      "idea": "DFS timestamps increase on discovery and finish. Two vertex intervals are either nested, showing ancestry, or disjoint; they never partially overlap. DFS needs more than a visited bit when analyzing directed cycles and edges. Record the active call path, the edge that discovered each vertex, and two timestamps per vertex.",
+      "terms": [
+        "White: not discovered.",
+        "Gray: discovered, still active.",
+        "Black: all outgoing neighbors checked.",
+        "Interval: discovery through finish."
+      ],
+      "example": "If A has interval [1,8] and B has [2,7], B is a descendant of A. Intervals [1,8] and [9,10] describe separate branches."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A connection explorer records visits and returns. A complete DFS on 4 vertices gives each vertex one discovery and one finish event. How many timestamp events occur?",
+        "answer": 8,
+        "explanation": "Every vertex contributes exactly two events, regardless of the DFS forest shape.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "DFS uses consecutive integer event times. A vertex is discovered at time 4 and finishes at time 13. How many vertices lie in its inclusive nested DFS interval?",
+        "answer": 5,
+        "explanation": "The inclusive interval has 2k events, one discovery and finish for each subtree vertex.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "In directed DFS, an edge reaches a gray active ancestor. What is its role?",
+        "options": [
+          "Forward edge",
+          "Back edge",
+          "Cross edge"
+        ],
+        "answer": 1,
+        "explanation": "The ancestor is still on the active call path, so the directed edge closes a cycle."
+      },
+      {
+        "type": "choice",
+        "prompt": "Intervals u=[1,6] and v=[4,9] are proposed for one DFS. Are they valid together?",
+        "options": [
+          "Yes: discovery times alone determine ancestry.",
+          "No: they partially overlap without nesting.",
+          "Yes: all overlaps are permitted."
+        ],
+        "answer": 1,
+        "explanation": "DFS intervals are either disjoint or nested."
+      }
+    ],
+    "algoLab": "dfs-times",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.85,
+    "excerpt": "Hi everyone. So in this video we are going to see one of the most elegant theorem in DFS which is DFS parenthesis theorem. So why I am telling this that this is most elegant because this is very very easy theorem. Let me let me just quickly go over the CLRS or the Cormand skin sort that I have taken. So what they are trying to say is that in DFS you consider discovery time and final times or the finish time. So D means discovery time and F means finish time.",
+    "sourceReferences": [
+      {
+        "lecture": 93,
+        "file": "093. 15a. DFS Parentheses Theorem _ GATE 2006.mp4",
+        "start": 0.85,
+        "end": 29.49,
+        "text": "Hi everyone. So in this video we are going to see one of the most elegant theorem in DFS which is DFS parenthesis theorem. So why I am telling this that this is most elegant because this is very very easy theorem. Let me let me just quickly go over the CLRS or the Cormand skin sort that I have taken. So what they are trying to say is that in DFS you consider discovery time and final times or the finish time. So D means discovery time and F means finish time."
+      },
+      {
+        "lecture": 93,
+        "file": "093. 15a. DFS Parentheses Theorem _ GATE 2006.mp4",
+        "start": 118.97,
+        "end": 148.01,
+        "text": "Now the exactly same analogy that they have taken in Corman book and they have said like we can map DFS intervals just like balance pair parenthesis. So what they are saying that whenever you are starting some DFS on any node, suppose that this is a node view and this node view exploration is start and then let's suppose this is the time frame and this is start of view and let's suppose this is the end of view."
+      },
+      {
+        "lecture": 93,
+        "file": "093. 15a. DFS Parentheses Theorem _ GATE 2006.mp4",
+        "start": 435.14,
+        "end": 461.42,
+        "text": "Now just let me just read out this theorem it is saying that in any depth of a search of a directed or undirected graph G for any two vertexes u and v exactly one of the situation will hold first is saying the intervals which is a start of u and end of u this is a start of u and this is end of u let's suppose this is one interval and a start of d and end of d are"
+      }
+    ]
+  },
+  {
+    "id": 282,
+    "lecture": 94,
+    "title": "Directed DFS edge roles · Discover",
+    "concept": "A tree edge discovers a new vertex. A back edge reaches an active ancestor; a forward edge reaches a non-child descendant, and a cross edge connects unrelated finished branches. DFS needs more than a visited bit when analyzing directed cycles and edges. Record the active call path, the edge that discovered each vertex, and two timestamps per vertex.",
+    "teachingSteps": [
+      "A tree edge discovers a new vertex. A back edge reaches an active ancestor; a forward edge reaches a non-child descendant, and a cross edge connects unrelated finished branches.",
+      "Classify each edge using state and ancestry",
+      "Finish after checking all outgoing edges"
+    ],
+    "foundation": {
+      "title": "Directed DFS edge roles",
+      "idea": "A tree edge discovers a new vertex. A back edge reaches an active ancestor; a forward edge reaches a non-child descendant, and a cross edge connects unrelated finished branches. DFS needs more than a visited bit when analyzing directed cycles and edges. Record the active call path, the edge that discovered each vertex, and two timestamps per vertex.",
+      "terms": [
+        "White: not discovered.",
+        "Gray: discovered, still active.",
+        "Black: all outgoing neighbors checked.",
+        "Interval: discovery through finish."
+      ],
+      "example": "If A has interval [1,8] and B has [2,7], B is a descendant of A. Intervals [1,8] and [9,10] describe separate branches."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A complete DFS on 8 vertices gives each vertex one discovery and one finish event. How many timestamp events occur?",
+        "answer": 16,
+        "explanation": "Every vertex contributes exactly two events, regardless of the DFS forest shape.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "DFS uses consecutive integer event times. A vertex is discovered at time 8 and finishes at time 15. How many vertices lie in its inclusive nested DFS interval?",
+        "answer": 4,
+        "explanation": "The inclusive interval has 2k events, one discovery and finish for each subtree vertex.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains directed dfs edge roles?",
+        "options": [
+          "Input assumptions cannot affect correctness.",
+          "One successful example proves the method for every graph.",
+          "A tree edge discovers a new vertex."
+        ],
+        "answer": 2,
+        "explanation": "A tree edge discovers a new vertex. A back edge reaches an active ancestor; a forward edge reaches a non-child descendant, and a cross edge connects unrelated finished branches."
+      },
+      {
+        "type": "choice",
+        "prompt": "Using those same DFS times, how is an edge E→B classified?",
+        "options": [
+          "Back edge",
+          "Forward edge",
+          "Cross edge"
+        ],
+        "answer": 2,
+        "explanation": "Their intervals are disjoint; B belongs to an already finished tree when E is discovered.",
+        "algoGiven": {
+          "headers": [
+            "Vertex",
+            "Discovery",
+            "Finish",
+            "DFS parent"
+          ],
+          "rows": [
+            [
+              "A",
+              1,
+              8,
+              "root"
+            ],
+            [
+              "B",
+              2,
+              7,
+              "A"
+            ],
+            [
+              "C",
+              3,
+              6,
+              "B"
+            ],
+            [
+              "D",
+              4,
+              5,
+              "C"
+            ],
+            [
+              "E",
+              9,
+              10,
+              "root"
+            ]
+          ]
+        }
+      }
+    ],
+    "algoLab": "dfs-edges",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 363.65,
+    "excerpt": "is called forward edge which means this edge which is a to d let me probably go to the next page and let me just remove this for now and let me write here so tree edge i hope that is clear but still let me write the definition tree edge with the edge in dfs forest that's all what about this edge which is going from ancestor to descendant this is called forward edge",
+    "sourceReferences": [
+      {
+        "lecture": 94,
+        "file": "094. 15b. DFS Edge Classifications.mp4",
+        "start": 363.65,
+        "end": 395.12,
+        "text": "is called forward edge which means this edge which is a to d let me probably go to the next page and let me just remove this for now and let me write here so tree edge i hope that is clear but still let me write the definition tree edge with the edge in dfs forest that's all what about this edge which is going from ancestor to descendant this is called forward edge"
+      },
+      {
+        "lecture": 94,
+        "file": "094. 15b. DFS Edge Classifications.mp4",
+        "start": 532.6,
+        "end": 572.02,
+        "text": "It says that if a cross as is C2D then C is neither ancestor nor descendant. So this is the definition of cross as which means this is a cross as this is a backward as this is a forward edge. What about this G2B? G2B is also cross edge because there is no relation of descendant and ancestor between G and V. So G2B is also cross edge. What about other edges?"
+      },
+      {
+        "lecture": 94,
+        "file": "094. 15b. DFS Edge Classifications.mp4",
+        "start": 714.2,
+        "end": 743.7,
+        "text": "A to D, since it is ancestor-descendant relationship, that is why it is going from ancestor to descendant. Again, it is forward edge. Like that, I hope you are able to classify all edges. Extremely easy to classify. This is one more DFT that you can have, or one more forest you can have. And in this, these are like, I have colored it, like these color edges are tree edges, like solid edges are tree edges, and these dotted edges are cross edges, this color edges are forward edges, and this color edges are backward edges. So here you are just getting one backward edge. And I think,"
+      }
+    ]
+  },
+  {
+    "id": 283,
+    "lecture": 94,
+    "title": "Directed DFS edge roles · Trace",
+    "concept": "A tree edge discovers a new vertex. A back edge reaches an active ancestor; a forward edge reaches a non-child descendant, and a cross edge connects unrelated finished branches. DFS needs more than a visited bit when analyzing directed cycles and edges. Record the active call path, the edge that discovered each vertex, and two timestamps per vertex.",
+    "teachingSteps": [
+      "A tree edge discovers a new vertex. A back edge reaches an active ancestor; a forward edge reaches a non-child descendant, and a cross edge connects unrelated finished branches.",
+      "Classify each edge using state and ancestry",
+      "Finish after checking all outgoing edges"
+    ],
+    "foundation": {
+      "title": "Directed DFS edge roles",
+      "idea": "A tree edge discovers a new vertex. A back edge reaches an active ancestor; a forward edge reaches a non-child descendant, and a cross edge connects unrelated finished branches. DFS needs more than a visited bit when analyzing directed cycles and edges. Record the active call path, the edge that discovered each vertex, and two timestamps per vertex.",
+      "terms": [
+        "White: not discovered.",
+        "Gray: discovered, still active.",
+        "Black: all outgoing neighbors checked.",
+        "Interval: discovery through finish."
+      ],
+      "example": "If A has interval [1,8] and B has [2,7], B is a descendant of A. Intervals [1,8] and [9,10] describe separate branches."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A complete DFS on 4 vertices gives each vertex one discovery and one finish event. How many timestamp events occur?",
+        "answer": 8,
+        "explanation": "Every vertex contributes exactly two events, regardless of the DFS forest shape.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "DFS uses consecutive integer event times. A vertex is discovered at time 4 and finishes at time 13. How many vertices lie in its inclusive nested DFS interval?",
+        "answer": 5,
+        "explanation": "The inclusive interval has 2k events, one discovery and finish for each subtree vertex.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Using the given directed DFS times and parents, how is an additional edge A→D classified?",
+        "options": [
+          "Back edge",
+          "Forward edge",
+          "Tree edge"
+        ],
+        "answer": 1,
+        "explanation": "D is a descendant of A, but C—not A—discovered D, so this is a non-tree forward edge.",
+        "algoGiven": {
+          "headers": [
+            "Vertex",
+            "Discovery",
+            "Finish",
+            "DFS parent"
+          ],
+          "rows": [
+            [
+              "A",
+              1,
+              8,
+              "root"
+            ],
+            [
+              "B",
+              2,
+              7,
+              "A"
+            ],
+            [
+              "C",
+              3,
+              6,
+              "B"
+            ],
+            [
+              "D",
+              4,
+              5,
+              "C"
+            ],
+            [
+              "E",
+              9,
+              10,
+              "root"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "Using those same DFS times, how is an edge E→B classified?",
+        "options": [
+          "Forward edge",
+          "Cross edge",
+          "Back edge"
+        ],
+        "answer": 1,
+        "explanation": "Their intervals are disjoint; B belongs to an already finished tree when E is discovered.",
+        "algoGiven": {
+          "headers": [
+            "Vertex",
+            "Discovery",
+            "Finish",
+            "DFS parent"
+          ],
+          "rows": [
+            [
+              "A",
+              1,
+              8,
+              "root"
+            ],
+            [
+              "B",
+              2,
+              7,
+              "A"
+            ],
+            [
+              "C",
+              3,
+              6,
+              "B"
+            ],
+            [
+              "D",
+              4,
+              5,
+              "C"
+            ],
+            [
+              "E",
+              9,
+              10,
+              "root"
+            ]
+          ]
+        }
+      }
+    ],
+    "algoLab": "dfs-edges",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 363.65,
+    "excerpt": "is called forward edge which means this edge which is a to d let me probably go to the next page and let me just remove this for now and let me write here so tree edge i hope that is clear but still let me write the definition tree edge with the edge in dfs forest that's all what about this edge which is going from ancestor to descendant this is called forward edge",
+    "sourceReferences": [
+      {
+        "lecture": 94,
+        "file": "094. 15b. DFS Edge Classifications.mp4",
+        "start": 363.65,
+        "end": 395.12,
+        "text": "is called forward edge which means this edge which is a to d let me probably go to the next page and let me just remove this for now and let me write here so tree edge i hope that is clear but still let me write the definition tree edge with the edge in dfs forest that's all what about this edge which is going from ancestor to descendant this is called forward edge"
+      },
+      {
+        "lecture": 94,
+        "file": "094. 15b. DFS Edge Classifications.mp4",
+        "start": 532.6,
+        "end": 572.02,
+        "text": "It says that if a cross as is C2D then C is neither ancestor nor descendant. So this is the definition of cross as which means this is a cross as this is a backward as this is a forward edge. What about this G2B? G2B is also cross edge because there is no relation of descendant and ancestor between G and V. So G2B is also cross edge. What about other edges?"
+      },
+      {
+        "lecture": 94,
+        "file": "094. 15b. DFS Edge Classifications.mp4",
+        "start": 714.2,
+        "end": 743.7,
+        "text": "A to D, since it is ancestor-descendant relationship, that is why it is going from ancestor to descendant. Again, it is forward edge. Like that, I hope you are able to classify all edges. Extremely easy to classify. This is one more DFT that you can have, or one more forest you can have. And in this, these are like, I have colored it, like these color edges are tree edges, like solid edges are tree edges, and these dotted edges are cross edges, this color edges are forward edges, and this color edges are backward edges. So here you are just getting one backward edge. And I think,"
+      }
+    ]
+  },
+  {
+    "id": 284,
+    "lecture": 94,
+    "title": "Directed DFS edge roles · Apply",
+    "concept": "A tree edge discovers a new vertex. A back edge reaches an active ancestor; a forward edge reaches a non-child descendant, and a cross edge connects unrelated finished branches. DFS needs more than a visited bit when analyzing directed cycles and edges. Record the active call path, the edge that discovered each vertex, and two timestamps per vertex.",
+    "teachingSteps": [
+      "A tree edge discovers a new vertex. A back edge reaches an active ancestor; a forward edge reaches a non-child descendant, and a cross edge connects unrelated finished branches.",
+      "Classify each edge using state and ancestry",
+      "Finish after checking all outgoing edges"
+    ],
+    "foundation": {
+      "title": "Directed DFS edge roles",
+      "idea": "A tree edge discovers a new vertex. A back edge reaches an active ancestor; a forward edge reaches a non-child descendant, and a cross edge connects unrelated finished branches. DFS needs more than a visited bit when analyzing directed cycles and edges. Record the active call path, the edge that discovered each vertex, and two timestamps per vertex.",
+      "terms": [
+        "White: not discovered.",
+        "Gray: discovered, still active.",
+        "Black: all outgoing neighbors checked.",
+        "Interval: discovery through finish."
+      ],
+      "example": "If A has interval [1,8] and B has [2,7], B is a descendant of A. Intervals [1,8] and [9,10] describe separate branches."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A connection explorer records visits and returns. A complete DFS on 5 vertices gives each vertex one discovery and one finish event. How many timestamp events occur?",
+        "answer": 10,
+        "explanation": "Every vertex contributes exactly two events, regardless of the DFS forest shape.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "DFS uses consecutive integer event times. A vertex is discovered at time 5 and finishes at time 8. How many vertices lie in its inclusive nested DFS interval?",
+        "answer": 2,
+        "explanation": "The inclusive interval has 2k events, one discovery and finish for each subtree vertex.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Using the given directed DFS times and parents, how is an additional edge A→D classified?",
+        "options": [
+          "Forward edge",
+          "Tree edge",
+          "Back edge"
+        ],
+        "answer": 0,
+        "explanation": "D is a descendant of A, but C—not A—discovered D, so this is a non-tree forward edge.",
+        "algoGiven": {
+          "headers": [
+            "Vertex",
+            "Discovery",
+            "Finish",
+            "DFS parent"
+          ],
+          "rows": [
+            [
+              "A",
+              1,
+              8,
+              "root"
+            ],
+            [
+              "B",
+              2,
+              7,
+              "A"
+            ],
+            [
+              "C",
+              3,
+              6,
+              "B"
+            ],
+            [
+              "D",
+              4,
+              5,
+              "C"
+            ],
+            [
+              "E",
+              9,
+              10,
+              "root"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "Using those same DFS times, how is an edge E→B classified?",
+        "options": [
+          "Cross edge",
+          "Back edge",
+          "Forward edge"
+        ],
+        "answer": 0,
+        "explanation": "Their intervals are disjoint; B belongs to an already finished tree when E is discovered.",
+        "algoGiven": {
+          "headers": [
+            "Vertex",
+            "Discovery",
+            "Finish",
+            "DFS parent"
+          ],
+          "rows": [
+            [
+              "A",
+              1,
+              8,
+              "root"
+            ],
+            [
+              "B",
+              2,
+              7,
+              "A"
+            ],
+            [
+              "C",
+              3,
+              6,
+              "B"
+            ],
+            [
+              "D",
+              4,
+              5,
+              "C"
+            ],
+            [
+              "E",
+              9,
+              10,
+              "root"
+            ]
+          ]
+        }
+      }
+    ],
+    "algoLab": "dfs-edges",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 363.65,
+    "excerpt": "is called forward edge which means this edge which is a to d let me probably go to the next page and let me just remove this for now and let me write here so tree edge i hope that is clear but still let me write the definition tree edge with the edge in dfs forest that's all what about this edge which is going from ancestor to descendant this is called forward edge",
+    "sourceReferences": [
+      {
+        "lecture": 94,
+        "file": "094. 15b. DFS Edge Classifications.mp4",
+        "start": 363.65,
+        "end": 395.12,
+        "text": "is called forward edge which means this edge which is a to d let me probably go to the next page and let me just remove this for now and let me write here so tree edge i hope that is clear but still let me write the definition tree edge with the edge in dfs forest that's all what about this edge which is going from ancestor to descendant this is called forward edge"
+      },
+      {
+        "lecture": 94,
+        "file": "094. 15b. DFS Edge Classifications.mp4",
+        "start": 532.6,
+        "end": 572.02,
+        "text": "It says that if a cross as is C2D then C is neither ancestor nor descendant. So this is the definition of cross as which means this is a cross as this is a backward as this is a forward edge. What about this G2B? G2B is also cross edge because there is no relation of descendant and ancestor between G and V. So G2B is also cross edge. What about other edges?"
+      },
+      {
+        "lecture": 94,
+        "file": "094. 15b. DFS Edge Classifications.mp4",
+        "start": 714.2,
+        "end": 743.7,
+        "text": "A to D, since it is ancestor-descendant relationship, that is why it is going from ancestor to descendant. Again, it is forward edge. Like that, I hope you are able to classify all edges. Extremely easy to classify. This is one more DFT that you can have, or one more forest you can have. And in this, these are like, I have colored it, like these color edges are tree edges, like solid edges are tree edges, and these dotted edges are cross edges, this color edges are forward edges, and this color edges are backward edges. So here you are just getting one backward edge. And I think,"
+      }
+    ]
+  },
+  {
+    "id": 285,
+    "lecture": 95,
+    "title": "Why undirected DFS has fewer edge types · Discover",
+    "concept": "In a simple undirected graph, DFS classifies each physical edge as tree or back. The reverse traversal of the parent tree edge is not evidence of a cycle. DFS needs more than a visited bit when analyzing directed cycles and edges. Record the active call path, the edge that discovered each vertex, and two timestamps per vertex.",
+    "teachingSteps": [
+      "In a simple undirected graph, DFS classifies each physical edge as tree or back. The reverse traversal of the parent tree edge is not evidence of a cycle.",
+      "Classify each edge using state and ancestry",
+      "Finish after checking all outgoing edges"
+    ],
+    "foundation": {
+      "title": "Why undirected DFS has fewer edge types",
+      "idea": "In a simple undirected graph, DFS classifies each physical edge as tree or back. The reverse traversal of the parent tree edge is not evidence of a cycle. DFS needs more than a visited bit when analyzing directed cycles and edges. Record the active call path, the edge that discovered each vertex, and two timestamps per vertex.",
+      "terms": [
+        "White: not discovered.",
+        "Gray: discovered, still active.",
+        "Black: all outgoing neighbors checked.",
+        "Interval: discovery through finish."
+      ],
+      "example": "If A has interval [1,8] and B has [2,7], B is a descendant of A. Intervals [1,8] and [9,10] describe separate branches."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A complete DFS on 4 vertices gives each vertex one discovery and one finish event. How many timestamp events occur?",
+        "answer": 8,
+        "explanation": "Every vertex contributes exactly two events, regardless of the DFS forest shape.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "DFS uses consecutive integer event times. A vertex is discovered at time 4 and finishes at time 13. How many vertices lie in its inclusive nested DFS interval?",
+        "answer": 5,
+        "explanation": "The inclusive interval has 2k events, one discovery and finish for each subtree vertex.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains why undirected dfs has fewer edge types?",
+        "options": [
+          "One successful example proves the method for every graph.",
+          "In a simple undirected graph, DFS classifies each physical edge as tree or back.",
+          "Input assumptions cannot affect correctness."
+        ],
+        "answer": 1,
+        "explanation": "In a simple undirected graph, DFS classifies each physical edge as tree or back. The reverse traversal of the parent tree edge is not evidence of a cycle."
+      },
+      {
+        "type": "choice",
+        "prompt": "Which physical-edge roles are possible in DFS of a simple undirected graph?",
+        "options": [
+          "Only tree edges, even when cycles exist.",
+          "Tree and back only.",
+          "Tree, forward and cross only."
+        ],
+        "answer": 1,
+        "explanation": "An undirected neighbor is explored immediately if unseen. Non-tree edges connect an ancestor and descendant."
+      }
+    ],
+    "algoLab": "dfs-undirected",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.11,
+    "excerpt": "So let us start our discussion that DFS in case of undirected will be having only tree and back edges Which means there will no no cross edge and there will be no forward edge In fact, in case of undirected forward and backward does not make I mean much differentiation because if the graph is undirected then then the both edges are similar So anyway, like I will tell you that why these kind of edges are not there in case of undirected graph",
+    "sourceReferences": [
+      {
+        "lecture": 95,
+        "file": "095. 15c. Questions on DFS Edge Classification.mp4",
+        "start": 0.11,
+        "end": 29.5,
+        "text": "So let us start our discussion that DFS in case of undirected will be having only tree and back edges Which means there will no no cross edge and there will be no forward edge In fact, in case of undirected forward and backward does not make I mean much differentiation because if the graph is undirected then then the both edges are similar So anyway, like I will tell you that why these kind of edges are not there in case of undirected graph"
+      },
+      {
+        "lecture": 95,
+        "file": "095. 15c. Questions on DFS Edge Classification.mp4",
+        "start": 340.95,
+        "end": 361.96,
+        "text": "and and this is a graph that I had okay in case of directed graph once I was at C then I was not allowed to go to at this point there that is why I was having this as a cross edge okay see in case of directed graph I was having this as a cross edge because I was not allowed to take this edge but here I am allowed to take this edge because this is undirected graph"
+      },
+      {
+        "lecture": 95,
+        "file": "095. 15c. Questions on DFS Edge Classification.mp4",
+        "start": 362.18,
+        "end": 391.61,
+        "text": "And since it is undirected graph, I will be taking this edge and I will be getting, I will be converting this, if it is cross edge, you are arguing if this is a cross edge, then I will be having this cross edge as a tree edge only, right? Finally, it will be a tree edge only. So, what I am saying that whenever, let's suppose you have the cross edge, if you have the cross edge, then you must have taken that cross edge. Whenever you are backtracking, whenever you are at C, then you must have taken that cross edge and you must have went to this particular vertex. This is my argument."
+      }
+    ]
+  },
+  {
+    "id": 286,
+    "lecture": 95,
+    "title": "Why undirected DFS has fewer edge types · Trace",
+    "concept": "In a simple undirected graph, DFS classifies each physical edge as tree or back. The reverse traversal of the parent tree edge is not evidence of a cycle. DFS needs more than a visited bit when analyzing directed cycles and edges. Record the active call path, the edge that discovered each vertex, and two timestamps per vertex.",
+    "teachingSteps": [
+      "In a simple undirected graph, DFS classifies each physical edge as tree or back. The reverse traversal of the parent tree edge is not evidence of a cycle.",
+      "Classify each edge using state and ancestry",
+      "Finish after checking all outgoing edges"
+    ],
+    "foundation": {
+      "title": "Why undirected DFS has fewer edge types",
+      "idea": "In a simple undirected graph, DFS classifies each physical edge as tree or back. The reverse traversal of the parent tree edge is not evidence of a cycle. DFS needs more than a visited bit when analyzing directed cycles and edges. Record the active call path, the edge that discovered each vertex, and two timestamps per vertex.",
+      "terms": [
+        "White: not discovered.",
+        "Gray: discovered, still active.",
+        "Black: all outgoing neighbors checked.",
+        "Interval: discovery through finish."
+      ],
+      "example": "If A has interval [1,8] and B has [2,7], B is a descendant of A. Intervals [1,8] and [9,10] describe separate branches."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A complete DFS on 5 vertices gives each vertex one discovery and one finish event. How many timestamp events occur?",
+        "answer": 10,
+        "explanation": "Every vertex contributes exactly two events, regardless of the DFS forest shape.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "DFS uses consecutive integer event times. A vertex is discovered at time 5 and finishes at time 8. How many vertices lie in its inclusive nested DFS interval?",
+        "answer": 2,
+        "explanation": "The inclusive interval has 2k events, one discovery and finish for each subtree vertex.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "A simple undirected DFS returns along the reverse of its parent tree edge. Does that alone prove a cycle?",
+        "options": [
+          "No: it is the same physical tree edge.",
+          "Yes: every reverse traversal is a distinct back edge.",
+          "Yes: every connected graph is cyclic."
+        ],
+        "answer": 0,
+        "explanation": "Exclude the parent edge when checking a simple undirected graph for cycles."
+      },
+      {
+        "type": "choice",
+        "prompt": "Which physical-edge roles are possible in DFS of a simple undirected graph?",
+        "options": [
+          "Tree and back only.",
+          "Tree, forward and cross only.",
+          "Only tree edges, even when cycles exist."
+        ],
+        "answer": 0,
+        "explanation": "An undirected neighbor is explored immediately if unseen. Non-tree edges connect an ancestor and descendant."
+      }
+    ],
+    "algoLab": "dfs-undirected",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.11,
+    "excerpt": "So let us start our discussion that DFS in case of undirected will be having only tree and back edges Which means there will no no cross edge and there will be no forward edge In fact, in case of undirected forward and backward does not make I mean much differentiation because if the graph is undirected then then the both edges are similar So anyway, like I will tell you that why these kind of edges are not there in case of undirected graph",
+    "sourceReferences": [
+      {
+        "lecture": 95,
+        "file": "095. 15c. Questions on DFS Edge Classification.mp4",
+        "start": 0.11,
+        "end": 29.5,
+        "text": "So let us start our discussion that DFS in case of undirected will be having only tree and back edges Which means there will no no cross edge and there will be no forward edge In fact, in case of undirected forward and backward does not make I mean much differentiation because if the graph is undirected then then the both edges are similar So anyway, like I will tell you that why these kind of edges are not there in case of undirected graph"
+      },
+      {
+        "lecture": 95,
+        "file": "095. 15c. Questions on DFS Edge Classification.mp4",
+        "start": 340.95,
+        "end": 361.96,
+        "text": "and and this is a graph that I had okay in case of directed graph once I was at C then I was not allowed to go to at this point there that is why I was having this as a cross edge okay see in case of directed graph I was having this as a cross edge because I was not allowed to take this edge but here I am allowed to take this edge because this is undirected graph"
+      },
+      {
+        "lecture": 95,
+        "file": "095. 15c. Questions on DFS Edge Classification.mp4",
+        "start": 362.18,
+        "end": 391.61,
+        "text": "And since it is undirected graph, I will be taking this edge and I will be getting, I will be converting this, if it is cross edge, you are arguing if this is a cross edge, then I will be having this cross edge as a tree edge only, right? Finally, it will be a tree edge only. So, what I am saying that whenever, let's suppose you have the cross edge, if you have the cross edge, then you must have taken that cross edge. Whenever you are backtracking, whenever you are at C, then you must have taken that cross edge and you must have went to this particular vertex. This is my argument."
+      }
+    ]
+  },
+  {
+    "id": 287,
+    "lecture": 95,
+    "title": "Why undirected DFS has fewer edge types · Apply",
+    "concept": "In a simple undirected graph, DFS classifies each physical edge as tree or back. The reverse traversal of the parent tree edge is not evidence of a cycle. DFS needs more than a visited bit when analyzing directed cycles and edges. Record the active call path, the edge that discovered each vertex, and two timestamps per vertex.",
+    "teachingSteps": [
+      "In a simple undirected graph, DFS classifies each physical edge as tree or back. The reverse traversal of the parent tree edge is not evidence of a cycle.",
+      "Classify each edge using state and ancestry",
+      "Finish after checking all outgoing edges"
+    ],
+    "foundation": {
+      "title": "Why undirected DFS has fewer edge types",
+      "idea": "In a simple undirected graph, DFS classifies each physical edge as tree or back. The reverse traversal of the parent tree edge is not evidence of a cycle. DFS needs more than a visited bit when analyzing directed cycles and edges. Record the active call path, the edge that discovered each vertex, and two timestamps per vertex.",
+      "terms": [
+        "White: not discovered.",
+        "Gray: discovered, still active.",
+        "Black: all outgoing neighbors checked.",
+        "Interval: discovery through finish."
+      ],
+      "example": "If A has interval [1,8] and B has [2,7], B is a descendant of A. Intervals [1,8] and [9,10] describe separate branches."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A connection explorer records visits and returns. A complete DFS on 6 vertices gives each vertex one discovery and one finish event. How many timestamp events occur?",
+        "answer": 12,
+        "explanation": "Every vertex contributes exactly two events, regardless of the DFS forest shape.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "DFS uses consecutive integer event times. A vertex is discovered at time 6 and finishes at time 11. How many vertices lie in its inclusive nested DFS interval?",
+        "answer": 3,
+        "explanation": "The inclusive interval has 2k events, one discovery and finish for each subtree vertex.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "A simple undirected DFS returns along the reverse of its parent tree edge. Does that alone prove a cycle?",
+        "options": [
+          "Yes: every reverse traversal is a distinct back edge.",
+          "Yes: every connected graph is cyclic.",
+          "No: it is the same physical tree edge."
+        ],
+        "answer": 2,
+        "explanation": "Exclude the parent edge when checking a simple undirected graph for cycles."
+      },
+      {
+        "type": "choice",
+        "prompt": "Which physical-edge roles are possible in DFS of a simple undirected graph?",
+        "options": [
+          "Tree, forward and cross only.",
+          "Only tree edges, even when cycles exist.",
+          "Tree and back only."
+        ],
+        "answer": 2,
+        "explanation": "An undirected neighbor is explored immediately if unseen. Non-tree edges connect an ancestor and descendant."
+      }
+    ],
+    "algoLab": "dfs-undirected",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.11,
+    "excerpt": "So let us start our discussion that DFS in case of undirected will be having only tree and back edges Which means there will no no cross edge and there will be no forward edge In fact, in case of undirected forward and backward does not make I mean much differentiation because if the graph is undirected then then the both edges are similar So anyway, like I will tell you that why these kind of edges are not there in case of undirected graph",
+    "sourceReferences": [
+      {
+        "lecture": 95,
+        "file": "095. 15c. Questions on DFS Edge Classification.mp4",
+        "start": 0.11,
+        "end": 29.5,
+        "text": "So let us start our discussion that DFS in case of undirected will be having only tree and back edges Which means there will no no cross edge and there will be no forward edge In fact, in case of undirected forward and backward does not make I mean much differentiation because if the graph is undirected then then the both edges are similar So anyway, like I will tell you that why these kind of edges are not there in case of undirected graph"
+      },
+      {
+        "lecture": 95,
+        "file": "095. 15c. Questions on DFS Edge Classification.mp4",
+        "start": 340.95,
+        "end": 361.96,
+        "text": "and and this is a graph that I had okay in case of directed graph once I was at C then I was not allowed to go to at this point there that is why I was having this as a cross edge okay see in case of directed graph I was having this as a cross edge because I was not allowed to take this edge but here I am allowed to take this edge because this is undirected graph"
+      },
+      {
+        "lecture": 95,
+        "file": "095. 15c. Questions on DFS Edge Classification.mp4",
+        "start": 362.18,
+        "end": 391.61,
+        "text": "And since it is undirected graph, I will be taking this edge and I will be getting, I will be converting this, if it is cross edge, you are arguing if this is a cross edge, then I will be having this cross edge as a tree edge only, right? Finally, it will be a tree edge only. So, what I am saying that whenever, let's suppose you have the cross edge, if you have the cross edge, then you must have taken that cross edge. Whenever you are backtracking, whenever you are at C, then you must have taken that cross edge and you must have went to this particular vertex. This is my argument."
+      }
+    ]
+  },
+  {
+    "id": 288,
+    "lecture": 96,
+    "title": "Back edges certify directed cycles · Discover",
+    "concept": "In a directed graph, an edge to a gray active ancestor closes a cycle along the current DFS path. A full DFS forest has a back edge exactly when a directed cycle exists. DFS needs more than a visited bit when analyzing directed cycles and edges. Record the active call path, the edge that discovered each vertex, and two timestamps per vertex.",
+    "teachingSteps": [
+      "In a directed graph, an edge to a gray active ancestor closes a cycle along the current DFS path. A full DFS forest has a back edge exactly when a directed cycle exists.",
+      "Classify each edge using state and ancestry",
+      "Finish after checking all outgoing edges"
+    ],
+    "foundation": {
+      "title": "Back edges certify directed cycles",
+      "idea": "In a directed graph, an edge to a gray active ancestor closes a cycle along the current DFS path. A full DFS forest has a back edge exactly when a directed cycle exists. DFS needs more than a visited bit when analyzing directed cycles and edges. Record the active call path, the edge that discovered each vertex, and two timestamps per vertex.",
+      "terms": [
+        "White: not discovered.",
+        "Gray: discovered, still active.",
+        "Black: all outgoing neighbors checked.",
+        "Interval: discovery through finish."
+      ],
+      "example": "If A has interval [1,8] and B has [2,7], B is a descendant of A. Intervals [1,8] and [9,10] describe separate branches."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A complete DFS on 5 vertices gives each vertex one discovery and one finish event. How many timestamp events occur?",
+        "answer": 10,
+        "explanation": "Every vertex contributes exactly two events, regardless of the DFS forest shape.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "DFS uses consecutive integer event times. A vertex is discovered at time 5 and finishes at time 8. How many vertices lie in its inclusive nested DFS interval?",
+        "answer": 2,
+        "explanation": "The inclusive interval has 2k events, one discovery and finish for each subtree vertex.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains back edges certify directed cycles?",
+        "options": [
+          "In a directed graph, an edge to a gray active ancestor closes a cycle along the current DFS path.",
+          "Input assumptions cannot affect correctness.",
+          "One successful example proves the method for every graph."
+        ],
+        "answer": 0,
+        "explanation": "In a directed graph, an edge to a gray active ancestor closes a cycle along the current DFS path. A full DFS forest has a back edge exactly when a directed cycle exists."
+      },
+      {
+        "type": "choice",
+        "prompt": "Intervals u=[1,6] and v=[4,9] are proposed for one DFS. Are they valid together?",
+        "options": [
+          "No: they partially overlap without nesting.",
+          "Yes: all overlaps are permitted.",
+          "Yes: discovery times alone determine ancestry."
+        ],
+        "answer": 0,
+        "explanation": "DFS intervals are either disjoint or nested."
+      }
+    ],
+    "algoLab": "dfs-back",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 270.36,
+    "excerpt": "and then there has to be one cycle. Why? Because there is exactly one back edge which is remaining and because of that there will be a cycle. So, the back edge that you have just removed, was that useless? What it was doing? It must be creating one cycle, right? So, you cannot say that if there are two back edges, there cannot be just one cycle. If there are two back edges, at least two cycles. Similarly, if there is one back edge, then at least one cycle. Similarly, if there are three back edges, then at least three cycles like that you can say. At least it is there.",
+    "sourceReferences": [
+      {
+        "lecture": 96,
+        "file": "096. 15d. [Optional] Back-edge and cycle question.mp4",
+        "start": 270.36,
+        "end": 299.39,
+        "text": "and then there has to be one cycle. Why? Because there is exactly one back edge which is remaining and because of that there will be a cycle. So, the back edge that you have just removed, was that useless? What it was doing? It must be creating one cycle, right? So, you cannot say that if there are two back edges, there cannot be just one cycle. If there are two back edges, at least two cycles. Similarly, if there is one back edge, then at least one cycle. Similarly, if there are three back edges, then at least three cycles like that you can say. At least it is there."
+      },
+      {
+        "lecture": 96,
+        "file": "096. 15d. [Optional] Back-edge and cycle question.mp4",
+        "start": 623.84,
+        "end": 651.58,
+        "text": "and I am asking can you pick a single edge to destroy all the cycles then it will again depend on the graph see here these are the two back edges so if you remove one back edge definitely it will not help me okay why because if you remove one back edge then there will be at least one back edge which will be remaining and back edge means cycle so it means that if I am asking you a question can you pick a single edge to destroy all the cycles then maybe right maybe it depends on the graph"
+      },
+      {
+        "lecture": 96,
+        "file": "096. 15d. [Optional] Back-edge and cycle question.mp4",
+        "start": 935.09,
+        "end": 966.66,
+        "text": "This question is saying that in a DFS produce exactly one back edge so they have exactly one back edge and they are saying that can one edge destroy all the cycles which mean if you remove that edge can can can it destroy all the cycles graph will be a cyclic then your answer is yes and always a back edge always back edge right now let's go to next question in this question they are saying if a directed graph G is cyclic but can be made a cyclic by removing one back edge"
+      }
+    ]
+  },
+  {
+    "id": 289,
+    "lecture": 96,
+    "title": "Back edges certify directed cycles · Trace",
+    "concept": "In a directed graph, an edge to a gray active ancestor closes a cycle along the current DFS path. A full DFS forest has a back edge exactly when a directed cycle exists. DFS needs more than a visited bit when analyzing directed cycles and edges. Record the active call path, the edge that discovered each vertex, and two timestamps per vertex.",
+    "teachingSteps": [
+      "In a directed graph, an edge to a gray active ancestor closes a cycle along the current DFS path. A full DFS forest has a back edge exactly when a directed cycle exists.",
+      "Classify each edge using state and ancestry",
+      "Finish after checking all outgoing edges"
+    ],
+    "foundation": {
+      "title": "Back edges certify directed cycles",
+      "idea": "In a directed graph, an edge to a gray active ancestor closes a cycle along the current DFS path. A full DFS forest has a back edge exactly when a directed cycle exists. DFS needs more than a visited bit when analyzing directed cycles and edges. Record the active call path, the edge that discovered each vertex, and two timestamps per vertex.",
+      "terms": [
+        "White: not discovered.",
+        "Gray: discovered, still active.",
+        "Black: all outgoing neighbors checked.",
+        "Interval: discovery through finish."
+      ],
+      "example": "If A has interval [1,8] and B has [2,7], B is a descendant of A. Intervals [1,8] and [9,10] describe separate branches."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A complete DFS on 6 vertices gives each vertex one discovery and one finish event. How many timestamp events occur?",
+        "answer": 12,
+        "explanation": "Every vertex contributes exactly two events, regardless of the DFS forest shape.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "DFS uses consecutive integer event times. A vertex is discovered at time 6 and finishes at time 11. How many vertices lie in its inclusive nested DFS interval?",
+        "answer": 3,
+        "explanation": "The inclusive interval has 2k events, one discovery and finish for each subtree vertex.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "In directed DFS, an edge reaches a gray active ancestor. What is its role?",
+        "options": [
+          "Cross edge",
+          "Forward edge",
+          "Back edge"
+        ],
+        "answer": 2,
+        "explanation": "The ancestor is still on the active call path, so the directed edge closes a cycle."
+      },
+      {
+        "type": "choice",
+        "prompt": "Intervals u=[1,6] and v=[4,9] are proposed for one DFS. Are they valid together?",
+        "options": [
+          "Yes: all overlaps are permitted.",
+          "Yes: discovery times alone determine ancestry.",
+          "No: they partially overlap without nesting."
+        ],
+        "answer": 2,
+        "explanation": "DFS intervals are either disjoint or nested."
+      }
+    ],
+    "algoLab": "dfs-back",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 270.36,
+    "excerpt": "and then there has to be one cycle. Why? Because there is exactly one back edge which is remaining and because of that there will be a cycle. So, the back edge that you have just removed, was that useless? What it was doing? It must be creating one cycle, right? So, you cannot say that if there are two back edges, there cannot be just one cycle. If there are two back edges, at least two cycles. Similarly, if there is one back edge, then at least one cycle. Similarly, if there are three back edges, then at least three cycles like that you can say. At least it is there.",
+    "sourceReferences": [
+      {
+        "lecture": 96,
+        "file": "096. 15d. [Optional] Back-edge and cycle question.mp4",
+        "start": 270.36,
+        "end": 299.39,
+        "text": "and then there has to be one cycle. Why? Because there is exactly one back edge which is remaining and because of that there will be a cycle. So, the back edge that you have just removed, was that useless? What it was doing? It must be creating one cycle, right? So, you cannot say that if there are two back edges, there cannot be just one cycle. If there are two back edges, at least two cycles. Similarly, if there is one back edge, then at least one cycle. Similarly, if there are three back edges, then at least three cycles like that you can say. At least it is there."
+      },
+      {
+        "lecture": 96,
+        "file": "096. 15d. [Optional] Back-edge and cycle question.mp4",
+        "start": 623.84,
+        "end": 651.58,
+        "text": "and I am asking can you pick a single edge to destroy all the cycles then it will again depend on the graph see here these are the two back edges so if you remove one back edge definitely it will not help me okay why because if you remove one back edge then there will be at least one back edge which will be remaining and back edge means cycle so it means that if I am asking you a question can you pick a single edge to destroy all the cycles then maybe right maybe it depends on the graph"
+      },
+      {
+        "lecture": 96,
+        "file": "096. 15d. [Optional] Back-edge and cycle question.mp4",
+        "start": 935.09,
+        "end": 966.66,
+        "text": "This question is saying that in a DFS produce exactly one back edge so they have exactly one back edge and they are saying that can one edge destroy all the cycles which mean if you remove that edge can can can it destroy all the cycles graph will be a cyclic then your answer is yes and always a back edge always back edge right now let's go to next question in this question they are saying if a directed graph G is cyclic but can be made a cyclic by removing one back edge"
+      }
+    ]
+  },
+  {
+    "id": 290,
+    "lecture": 96,
+    "title": "Back edges certify directed cycles · Apply",
+    "concept": "In a directed graph, an edge to a gray active ancestor closes a cycle along the current DFS path. A full DFS forest has a back edge exactly when a directed cycle exists. DFS needs more than a visited bit when analyzing directed cycles and edges. Record the active call path, the edge that discovered each vertex, and two timestamps per vertex.",
+    "teachingSteps": [
+      "In a directed graph, an edge to a gray active ancestor closes a cycle along the current DFS path. A full DFS forest has a back edge exactly when a directed cycle exists.",
+      "Classify each edge using state and ancestry",
+      "Finish after checking all outgoing edges"
+    ],
+    "foundation": {
+      "title": "Back edges certify directed cycles",
+      "idea": "In a directed graph, an edge to a gray active ancestor closes a cycle along the current DFS path. A full DFS forest has a back edge exactly when a directed cycle exists. DFS needs more than a visited bit when analyzing directed cycles and edges. Record the active call path, the edge that discovered each vertex, and two timestamps per vertex.",
+      "terms": [
+        "White: not discovered.",
+        "Gray: discovered, still active.",
+        "Black: all outgoing neighbors checked.",
+        "Interval: discovery through finish."
+      ],
+      "example": "If A has interval [1,8] and B has [2,7], B is a descendant of A. Intervals [1,8] and [9,10] describe separate branches."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A connection explorer records visits and returns. A complete DFS on 7 vertices gives each vertex one discovery and one finish event. How many timestamp events occur?",
+        "answer": 14,
+        "explanation": "Every vertex contributes exactly two events, regardless of the DFS forest shape.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "DFS uses consecutive integer event times. A vertex is discovered at time 7 and finishes at time 14. How many vertices lie in its inclusive nested DFS interval?",
+        "answer": 4,
+        "explanation": "The inclusive interval has 2k events, one discovery and finish for each subtree vertex.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "In directed DFS, an edge reaches a gray active ancestor. What is its role?",
+        "options": [
+          "Forward edge",
+          "Back edge",
+          "Cross edge"
+        ],
+        "answer": 1,
+        "explanation": "The ancestor is still on the active call path, so the directed edge closes a cycle."
+      },
+      {
+        "type": "choice",
+        "prompt": "Intervals u=[1,6] and v=[4,9] are proposed for one DFS. Are they valid together?",
+        "options": [
+          "Yes: discovery times alone determine ancestry.",
+          "No: they partially overlap without nesting.",
+          "Yes: all overlaps are permitted."
+        ],
+        "answer": 1,
+        "explanation": "DFS intervals are either disjoint or nested."
+      }
+    ],
+    "algoLab": "dfs-back",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 270.36,
+    "excerpt": "and then there has to be one cycle. Why? Because there is exactly one back edge which is remaining and because of that there will be a cycle. So, the back edge that you have just removed, was that useless? What it was doing? It must be creating one cycle, right? So, you cannot say that if there are two back edges, there cannot be just one cycle. If there are two back edges, at least two cycles. Similarly, if there is one back edge, then at least one cycle. Similarly, if there are three back edges, then at least three cycles like that you can say. At least it is there.",
+    "sourceReferences": [
+      {
+        "lecture": 96,
+        "file": "096. 15d. [Optional] Back-edge and cycle question.mp4",
+        "start": 270.36,
+        "end": 299.39,
+        "text": "and then there has to be one cycle. Why? Because there is exactly one back edge which is remaining and because of that there will be a cycle. So, the back edge that you have just removed, was that useless? What it was doing? It must be creating one cycle, right? So, you cannot say that if there are two back edges, there cannot be just one cycle. If there are two back edges, at least two cycles. Similarly, if there is one back edge, then at least one cycle. Similarly, if there are three back edges, then at least three cycles like that you can say. At least it is there."
+      },
+      {
+        "lecture": 96,
+        "file": "096. 15d. [Optional] Back-edge and cycle question.mp4",
+        "start": 623.84,
+        "end": 651.58,
+        "text": "and I am asking can you pick a single edge to destroy all the cycles then it will again depend on the graph see here these are the two back edges so if you remove one back edge definitely it will not help me okay why because if you remove one back edge then there will be at least one back edge which will be remaining and back edge means cycle so it means that if I am asking you a question can you pick a single edge to destroy all the cycles then maybe right maybe it depends on the graph"
+      },
+      {
+        "lecture": 96,
+        "file": "096. 15d. [Optional] Back-edge and cycle question.mp4",
+        "start": 935.09,
+        "end": 966.66,
+        "text": "This question is saying that in a DFS produce exactly one back edge so they have exactly one back edge and they are saying that can one edge destroy all the cycles which mean if you remove that edge can can can it destroy all the cycles graph will be a cyclic then your answer is yes and always a back edge always back edge right now let's go to next question in this question they are saying if a directed graph G is cyclic but can be made a cyclic by removing one back edge"
+      }
+    ]
+  },
+  {
+    "id": 291,
+    "lecture": 97,
+    "title": "Cycle detection with discovery state · Discover",
+    "concept": "For directed cycle detection, distinguish unvisited, active and finished vertices. A visited neighbor alone is not sufficient: an edge to a finished vertex can be harmless. DFS needs more than a visited bit when analyzing directed cycles and edges. Record the active call path, the edge that discovered each vertex, and two timestamps per vertex.",
+    "teachingSteps": [
+      "For directed cycle detection, distinguish unvisited, active and finished vertices. A visited neighbor alone is not sufficient: an edge to a finished vertex can be harmless.",
+      "Classify each edge using state and ancestry",
+      "Finish after checking all outgoing edges"
+    ],
+    "foundation": {
+      "title": "Cycle detection with discovery state",
+      "idea": "For directed cycle detection, distinguish unvisited, active and finished vertices. A visited neighbor alone is not sufficient: an edge to a finished vertex can be harmless. DFS needs more than a visited bit when analyzing directed cycles and edges. Record the active call path, the edge that discovered each vertex, and two timestamps per vertex.",
+      "terms": [
+        "White: not discovered.",
+        "Gray: discovered, still active.",
+        "Black: all outgoing neighbors checked.",
+        "Interval: discovery through finish."
+      ],
+      "example": "If A has interval [1,8] and B has [2,7], B is a descendant of A. Intervals [1,8] and [9,10] describe separate branches."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A complete DFS on 6 vertices gives each vertex one discovery and one finish event. How many timestamp events occur?",
+        "answer": 12,
+        "explanation": "Every vertex contributes exactly two events, regardless of the DFS forest shape.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "DFS uses consecutive integer event times. A vertex is discovered at time 6 and finishes at time 11. How many vertices lie in its inclusive nested DFS interval?",
+        "answer": 3,
+        "explanation": "The inclusive interval has 2k events, one discovery and finish for each subtree vertex.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains cycle detection with discovery state?",
+        "options": [
+          "Input assumptions cannot affect correctness.",
+          "One successful example proves the method for every graph.",
+          "For directed cycle detection, distinguish unvisited, active and finished vertices."
+        ],
+        "answer": 2,
+        "explanation": "For directed cycle detection, distinguish unvisited, active and finished vertices. A visited neighbor alone is not sufficient: an edge to a finished vertex can be harmless."
+      },
+      {
+        "type": "choice",
+        "prompt": "Intervals u=[1,6] and v=[4,9] are proposed for one DFS. Are they valid together?",
+        "options": [
+          "Yes: all overlaps are permitted.",
+          "Yes: discovery times alone determine ancestry.",
+          "No: they partially overlap without nesting."
+        ],
+        "answer": 2,
+        "explanation": "DFS intervals are either disjoint or nested."
+      }
+    ],
+    "algoLab": "dfs-cycle",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 256.98,
+    "excerpt": "So, in undirected graph finding cycle is actually very very easy which means you I mean in directed also it is easy once I tell you but for now I am just explaining in case of undirected it says that okay you go to some vertex then do DFS then here let us suppose then here then here then here then here then here and then here and then here and then if the adjacent vertex is already visited then there is a cycle.",
+    "sourceReferences": [
+      {
+        "lecture": 97,
+        "file": "097. 16a. DFS Application 1- Cycles in graph.mp4",
+        "start": 256.98,
+        "end": 279,
+        "text": "So, in undirected graph finding cycle is actually very very easy which means you I mean in directed also it is easy once I tell you but for now I am just explaining in case of undirected it says that okay you go to some vertex then do DFS then here let us suppose then here then here then here then here then here and then here and then here and then if the adjacent vertex is already visited then there is a cycle."
+      },
+      {
+        "lecture": 97,
+        "file": "097. 16a. DFS Application 1- Cycles in graph.mp4",
+        "start": 280.35,
+        "end": 306.94,
+        "text": "Obviously, apart from the parent vertex, which means like it is having the adjacent, this is also adjacent, this is also adjacent. But apart from the parent, parents will be obviously it will be visited. But apart from the parent, if the adjacent is visited, then it is a cycle. But that is not the case for directed graph. Let me tell you about the directed. Now, in case of directed graph, suppose adjacent vertex is visited. Let's suppose something like this."
+      },
+      {
+        "lecture": 97,
+        "file": "097. 16a. DFS Application 1- Cycles in graph.mp4",
+        "start": 334.87,
+        "end": 361.67,
+        "text": "that okay I can explore more nodes so this is a directed graph so this is a direction so it is saying I can explore more nodes so you will go here and now you just notice you are going here now from here you see the adjacent vertex is visited already visited but still there is no cycle in this graph right so like the thing that that was applicable in undirected graph is not applicable in the directed graph actually"
+      }
+    ]
+  },
+  {
+    "id": 292,
+    "lecture": 97,
+    "title": "Cycle detection with discovery state · Trace",
+    "concept": "For directed cycle detection, distinguish unvisited, active and finished vertices. A visited neighbor alone is not sufficient: an edge to a finished vertex can be harmless. DFS needs more than a visited bit when analyzing directed cycles and edges. Record the active call path, the edge that discovered each vertex, and two timestamps per vertex.",
+    "teachingSteps": [
+      "For directed cycle detection, distinguish unvisited, active and finished vertices. A visited neighbor alone is not sufficient: an edge to a finished vertex can be harmless.",
+      "Classify each edge using state and ancestry",
+      "Finish after checking all outgoing edges"
+    ],
+    "foundation": {
+      "title": "Cycle detection with discovery state",
+      "idea": "For directed cycle detection, distinguish unvisited, active and finished vertices. A visited neighbor alone is not sufficient: an edge to a finished vertex can be harmless. DFS needs more than a visited bit when analyzing directed cycles and edges. Record the active call path, the edge that discovered each vertex, and two timestamps per vertex.",
+      "terms": [
+        "White: not discovered.",
+        "Gray: discovered, still active.",
+        "Black: all outgoing neighbors checked.",
+        "Interval: discovery through finish."
+      ],
+      "example": "If A has interval [1,8] and B has [2,7], B is a descendant of A. Intervals [1,8] and [9,10] describe separate branches."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A complete DFS on 7 vertices gives each vertex one discovery and one finish event. How many timestamp events occur?",
+        "answer": 14,
+        "explanation": "Every vertex contributes exactly two events, regardless of the DFS forest shape.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "DFS uses consecutive integer event times. A vertex is discovered at time 7 and finishes at time 14. How many vertices lie in its inclusive nested DFS interval?",
+        "answer": 4,
+        "explanation": "The inclusive interval has 2k events, one discovery and finish for each subtree vertex.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "A directed edge reaches a black finished vertex. Must this edge prove a cycle?",
+        "options": [
+          "Yes: finishing creates a cycle.",
+          "No: only an edge to an active ancestor certifies a DFS back-edge cycle.",
+          "Yes: every visited destination proves a cycle."
+        ],
+        "answer": 1,
+        "explanation": "Visited and active are different states; a harmless forward or cross edge can reach a finished vertex."
+      },
+      {
+        "type": "choice",
+        "prompt": "Intervals u=[1,6] and v=[4,9] are proposed for one DFS. Are they valid together?",
+        "options": [
+          "Yes: discovery times alone determine ancestry.",
+          "No: they partially overlap without nesting.",
+          "Yes: all overlaps are permitted."
+        ],
+        "answer": 1,
+        "explanation": "DFS intervals are either disjoint or nested."
+      }
+    ],
+    "algoLab": "dfs-cycle",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 256.98,
+    "excerpt": "So, in undirected graph finding cycle is actually very very easy which means you I mean in directed also it is easy once I tell you but for now I am just explaining in case of undirected it says that okay you go to some vertex then do DFS then here let us suppose then here then here then here then here then here and then here and then here and then if the adjacent vertex is already visited then there is a cycle.",
+    "sourceReferences": [
+      {
+        "lecture": 97,
+        "file": "097. 16a. DFS Application 1- Cycles in graph.mp4",
+        "start": 256.98,
+        "end": 279,
+        "text": "So, in undirected graph finding cycle is actually very very easy which means you I mean in directed also it is easy once I tell you but for now I am just explaining in case of undirected it says that okay you go to some vertex then do DFS then here let us suppose then here then here then here then here then here and then here and then here and then if the adjacent vertex is already visited then there is a cycle."
+      },
+      {
+        "lecture": 97,
+        "file": "097. 16a. DFS Application 1- Cycles in graph.mp4",
+        "start": 280.35,
+        "end": 306.94,
+        "text": "Obviously, apart from the parent vertex, which means like it is having the adjacent, this is also adjacent, this is also adjacent. But apart from the parent, parents will be obviously it will be visited. But apart from the parent, if the adjacent is visited, then it is a cycle. But that is not the case for directed graph. Let me tell you about the directed. Now, in case of directed graph, suppose adjacent vertex is visited. Let's suppose something like this."
+      },
+      {
+        "lecture": 97,
+        "file": "097. 16a. DFS Application 1- Cycles in graph.mp4",
+        "start": 334.87,
+        "end": 361.67,
+        "text": "that okay I can explore more nodes so this is a directed graph so this is a direction so it is saying I can explore more nodes so you will go here and now you just notice you are going here now from here you see the adjacent vertex is visited already visited but still there is no cycle in this graph right so like the thing that that was applicable in undirected graph is not applicable in the directed graph actually"
+      }
+    ]
+  },
+  {
+    "id": 293,
+    "lecture": 97,
+    "title": "Cycle detection with discovery state · Apply",
+    "concept": "For directed cycle detection, distinguish unvisited, active and finished vertices. A visited neighbor alone is not sufficient: an edge to a finished vertex can be harmless. DFS needs more than a visited bit when analyzing directed cycles and edges. Record the active call path, the edge that discovered each vertex, and two timestamps per vertex.",
+    "teachingSteps": [
+      "For directed cycle detection, distinguish unvisited, active and finished vertices. A visited neighbor alone is not sufficient: an edge to a finished vertex can be harmless.",
+      "Classify each edge using state and ancestry",
+      "Finish after checking all outgoing edges"
+    ],
+    "foundation": {
+      "title": "Cycle detection with discovery state",
+      "idea": "For directed cycle detection, distinguish unvisited, active and finished vertices. A visited neighbor alone is not sufficient: an edge to a finished vertex can be harmless. DFS needs more than a visited bit when analyzing directed cycles and edges. Record the active call path, the edge that discovered each vertex, and two timestamps per vertex.",
+      "terms": [
+        "White: not discovered.",
+        "Gray: discovered, still active.",
+        "Black: all outgoing neighbors checked.",
+        "Interval: discovery through finish."
+      ],
+      "example": "If A has interval [1,8] and B has [2,7], B is a descendant of A. Intervals [1,8] and [9,10] describe separate branches."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A connection explorer records visits and returns. A complete DFS on 8 vertices gives each vertex one discovery and one finish event. How many timestamp events occur?",
+        "answer": 16,
+        "explanation": "Every vertex contributes exactly two events, regardless of the DFS forest shape.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "DFS uses consecutive integer event times. A vertex is discovered at time 8 and finishes at time 17. How many vertices lie in its inclusive nested DFS interval?",
+        "answer": 5,
+        "explanation": "The inclusive interval has 2k events, one discovery and finish for each subtree vertex.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "A directed edge reaches a black finished vertex. Must this edge prove a cycle?",
+        "options": [
+          "No: only an edge to an active ancestor certifies a DFS back-edge cycle.",
+          "Yes: every visited destination proves a cycle.",
+          "Yes: finishing creates a cycle."
+        ],
+        "answer": 0,
+        "explanation": "Visited and active are different states; a harmless forward or cross edge can reach a finished vertex."
+      },
+      {
+        "type": "choice",
+        "prompt": "Intervals u=[1,6] and v=[4,9] are proposed for one DFS. Are they valid together?",
+        "options": [
+          "No: they partially overlap without nesting.",
+          "Yes: all overlaps are permitted.",
+          "Yes: discovery times alone determine ancestry."
+        ],
+        "answer": 0,
+        "explanation": "DFS intervals are either disjoint or nested."
+      }
+    ],
+    "algoLab": "dfs-cycle",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 256.98,
+    "excerpt": "So, in undirected graph finding cycle is actually very very easy which means you I mean in directed also it is easy once I tell you but for now I am just explaining in case of undirected it says that okay you go to some vertex then do DFS then here let us suppose then here then here then here then here then here and then here and then here and then if the adjacent vertex is already visited then there is a cycle.",
+    "sourceReferences": [
+      {
+        "lecture": 97,
+        "file": "097. 16a. DFS Application 1- Cycles in graph.mp4",
+        "start": 256.98,
+        "end": 279,
+        "text": "So, in undirected graph finding cycle is actually very very easy which means you I mean in directed also it is easy once I tell you but for now I am just explaining in case of undirected it says that okay you go to some vertex then do DFS then here let us suppose then here then here then here then here then here and then here and then here and then if the adjacent vertex is already visited then there is a cycle."
+      },
+      {
+        "lecture": 97,
+        "file": "097. 16a. DFS Application 1- Cycles in graph.mp4",
+        "start": 280.35,
+        "end": 306.94,
+        "text": "Obviously, apart from the parent vertex, which means like it is having the adjacent, this is also adjacent, this is also adjacent. But apart from the parent, parents will be obviously it will be visited. But apart from the parent, if the adjacent is visited, then it is a cycle. But that is not the case for directed graph. Let me tell you about the directed. Now, in case of directed graph, suppose adjacent vertex is visited. Let's suppose something like this."
+      },
+      {
+        "lecture": 97,
+        "file": "097. 16a. DFS Application 1- Cycles in graph.mp4",
+        "start": 334.87,
+        "end": 361.67,
+        "text": "that okay I can explore more nodes so this is a directed graph so this is a direction so it is saying I can explore more nodes so you will go here and now you just notice you are going here now from here you see the adjacent vertex is visited already visited but still there is no cycle in this graph right so like the thing that that was applicable in undirected graph is not applicable in the directed graph actually"
+      }
+    ]
+  },
+  {
+    "id": 294,
+    "lecture": 98,
+    "title": "Finish times in a DAG · Discover",
+    "concept": "In a directed acyclic graph, every edge u→v satisfies finish(u)>finish(v) after a complete DFS. Decreasing finish time therefore respects each prerequisite edge. A directed edge u→v means u must come before v. Either reverse DFS finishing order on a DAG or repeatedly choose a zero-indegree vertex. A directed cycle prevents a complete order.",
+    "teachingSteps": [
+      "In a directed acyclic graph, every edge u→v satisfies finish(u)>finish(v) after a complete DFS. Decreasing finish time therefore respects each prerequisite edge.",
+      "Output it and remove its outgoing constraints",
+      "Repeat or detect a cycle if choices run out"
+    ],
+    "foundation": {
+      "title": "Finish times in a DAG",
+      "idea": "In a directed acyclic graph, every edge u→v satisfies finish(u)>finish(v) after a complete DFS. Decreasing finish time therefore respects each prerequisite edge. A directed edge u→v means u must come before v. Either reverse DFS finishing order on a DAG or repeatedly choose a zero-indegree vertex. A directed cycle prevents a complete order.",
+      "terms": [
+        "DAG: directed acyclic graph.",
+        "Indegree: number of incoming edges.",
+        "Topological order: every prerequisite appears first."
+      ],
+      "example": "For A→B, A→C, B→D and C→D, both A,B,C,D and A,C,B,D are valid. Neither B nor C can precede A."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A DAG has 7 vertices. How many vertices must appear in a complete topological order?",
+        "answer": 7,
+        "explanation": "Every vertex appears once, including isolated vertices.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "After scheduling A in the given prerequisite DAG, how many vertices immediately have indegree zero among B,C,D,E?",
+        "answer": 2,
+        "explanation": "B and C each lose their only incoming prerequisite; D still needs B and C.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Directed edge"
+          ],
+          "rows": [
+            [
+              "A→B"
+            ],
+            [
+              "A→C"
+            ],
+            [
+              "B→D"
+            ],
+            [
+              "C→D"
+            ],
+            [
+              "D→E"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains finish times in a dag?",
+        "options": [
+          "One successful example proves the method for every graph.",
+          "In a directed acyclic graph, every edge u→v satisfies finish(u)>finish(v) after a complete DFS.",
+          "Input assumptions cannot affect correctness."
+        ],
+        "answer": 1,
+        "explanation": "In a directed acyclic graph, every edge u→v satisfies finish(u)>finish(v) after a complete DFS. Decreasing finish time therefore respects each prerequisite edge."
+      },
+      {
+        "type": "order",
+        "prompt": "Use alphabetically first available choices to topologically schedule the given DAG.",
+        "items": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "explanation": "The tie rule chooses B before C; other tie rules can also produce valid orders.",
+        "algoGiven": {
+          "headers": [
+            "Directed edge"
+          ],
+          "rows": [
+            [
+              "A→B"
+            ],
+            [
+              "A→C"
+            ],
+            [
+              "B→D"
+            ],
+            [
+              "C→D"
+            ],
+            [
+              "D→E"
+            ]
+          ]
+        }
+      }
+    ],
+    "algoLab": "dag-finish",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0,
+    "excerpt": "Hi everyone, so we have talked about cycles and all. Now on the opposite end, let's talk about the graphs with no cycles. Let's take example of directed acyclic graph, which means the graph will be directed and it will be acyclic, which means there will not be any cycle. So this is also called DAG in the short dead, directed acyclic graph. So for example,",
+    "sourceReferences": [
+      {
+        "lecture": 98,
+        "file": "098. 16b. GATE 2007 question on DAG finish time.mp4",
+        "start": 0,
+        "end": 25.56,
+        "text": "Hi everyone, so we have talked about cycles and all. Now on the opposite end, let's talk about the graphs with no cycles. Let's take example of directed acyclic graph, which means the graph will be directed and it will be acyclic, which means there will not be any cycle. So this is also called DAG in the short dead, directed acyclic graph. So for example,"
+      },
+      {
+        "lecture": 98,
+        "file": "098. 16b. GATE 2007 question on DAG finish time.mp4",
+        "start": 47.55,
+        "end": 78.91,
+        "text": "but it looks like it's cycle I mean in case of undirected obviously it will be a cycle but in case of directed it's not a cycle so this is called directed acyclic graph where the graph is directed and there is no cycle okay now let's let's talk about this they are saying in a tag we always have if for any edge for any edge a to b we always have this which means finish time of this node will be larger than finish time of this node let's just try proving it"
+      },
+      {
+        "lecture": 98,
+        "file": "098. 16b. GATE 2007 question on DAG finish time.mp4",
+        "start": 1037.96,
+        "end": 1062.48,
+        "text": "And then I am finishing S, which means this is S, this is B, this is A. So they are saying that this finish time will be larger. No, this finish time is smaller. This A finish time is smaller. So I cannot guarantee in any graph. But in directed acyclic graph, I can definitely guarantee. Now let's take this question. In this question, they are saying a depth first search is performed on a directed acyclic graph."
+      }
+    ]
+  },
+  {
+    "id": 295,
+    "lecture": 98,
+    "title": "Finish times in a DAG · Trace",
+    "concept": "In a directed acyclic graph, every edge u→v satisfies finish(u)>finish(v) after a complete DFS. Decreasing finish time therefore respects each prerequisite edge. A directed edge u→v means u must come before v. Either reverse DFS finishing order on a DAG or repeatedly choose a zero-indegree vertex. A directed cycle prevents a complete order.",
+    "teachingSteps": [
+      "In a directed acyclic graph, every edge u→v satisfies finish(u)>finish(v) after a complete DFS. Decreasing finish time therefore respects each prerequisite edge.",
+      "Output it and remove its outgoing constraints",
+      "Repeat or detect a cycle if choices run out"
+    ],
+    "foundation": {
+      "title": "Finish times in a DAG",
+      "idea": "In a directed acyclic graph, every edge u→v satisfies finish(u)>finish(v) after a complete DFS. Decreasing finish time therefore respects each prerequisite edge. A directed edge u→v means u must come before v. Either reverse DFS finishing order on a DAG or repeatedly choose a zero-indegree vertex. A directed cycle prevents a complete order.",
+      "terms": [
+        "DAG: directed acyclic graph.",
+        "Indegree: number of incoming edges.",
+        "Topological order: every prerequisite appears first."
+      ],
+      "example": "For A→B, A→C, B→D and C→D, both A,B,C,D and A,C,B,D are valid. Neither B nor C can precede A."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A DAG has 8 vertices. How many vertices must appear in a complete topological order?",
+        "answer": 8,
+        "explanation": "Every vertex appears once, including isolated vertices.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "After scheduling A in the given prerequisite DAG, how many vertices immediately have indegree zero among B,C,D,E?",
+        "answer": 2,
+        "explanation": "B and C each lose their only incoming prerequisite; D still needs B and C.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Directed edge"
+          ],
+          "rows": [
+            [
+              "A→B"
+            ],
+            [
+              "A→C"
+            ],
+            [
+              "B→D"
+            ],
+            [
+              "C→D"
+            ],
+            [
+              "D→E"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "Which listed order respects the given DAG?",
+        "options": [
+          "A,C,B,D,E",
+          "B,A,C,D,E",
+          "A,D,B,C,E"
+        ],
+        "answer": 0,
+        "explanation": "Both B and C require A, D requires both B and C, and E requires D.",
+        "algoGiven": {
+          "headers": [
+            "Directed edge"
+          ],
+          "rows": [
+            [
+              "A→B"
+            ],
+            [
+              "A→C"
+            ],
+            [
+              "B→D"
+            ],
+            [
+              "C→D"
+            ],
+            [
+              "D→E"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Use alphabetically first available choices to topologically schedule the given DAG.",
+        "items": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "explanation": "The tie rule chooses B before C; other tie rules can also produce valid orders.",
+        "algoGiven": {
+          "headers": [
+            "Directed edge"
+          ],
+          "rows": [
+            [
+              "A→B"
+            ],
+            [
+              "A→C"
+            ],
+            [
+              "B→D"
+            ],
+            [
+              "C→D"
+            ],
+            [
+              "D→E"
+            ]
+          ]
+        }
+      }
+    ],
+    "algoLab": "dag-finish",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0,
+    "excerpt": "Hi everyone, so we have talked about cycles and all. Now on the opposite end, let's talk about the graphs with no cycles. Let's take example of directed acyclic graph, which means the graph will be directed and it will be acyclic, which means there will not be any cycle. So this is also called DAG in the short dead, directed acyclic graph. So for example,",
+    "sourceReferences": [
+      {
+        "lecture": 98,
+        "file": "098. 16b. GATE 2007 question on DAG finish time.mp4",
+        "start": 0,
+        "end": 25.56,
+        "text": "Hi everyone, so we have talked about cycles and all. Now on the opposite end, let's talk about the graphs with no cycles. Let's take example of directed acyclic graph, which means the graph will be directed and it will be acyclic, which means there will not be any cycle. So this is also called DAG in the short dead, directed acyclic graph. So for example,"
+      },
+      {
+        "lecture": 98,
+        "file": "098. 16b. GATE 2007 question on DAG finish time.mp4",
+        "start": 47.55,
+        "end": 78.91,
+        "text": "but it looks like it's cycle I mean in case of undirected obviously it will be a cycle but in case of directed it's not a cycle so this is called directed acyclic graph where the graph is directed and there is no cycle okay now let's let's talk about this they are saying in a tag we always have if for any edge for any edge a to b we always have this which means finish time of this node will be larger than finish time of this node let's just try proving it"
+      },
+      {
+        "lecture": 98,
+        "file": "098. 16b. GATE 2007 question on DAG finish time.mp4",
+        "start": 1037.96,
+        "end": 1062.48,
+        "text": "And then I am finishing S, which means this is S, this is B, this is A. So they are saying that this finish time will be larger. No, this finish time is smaller. This A finish time is smaller. So I cannot guarantee in any graph. But in directed acyclic graph, I can definitely guarantee. Now let's take this question. In this question, they are saying a depth first search is performed on a directed acyclic graph."
+      }
+    ]
+  },
+  {
+    "id": 296,
+    "lecture": 98,
+    "title": "Finish times in a DAG · Apply",
+    "concept": "In a directed acyclic graph, every edge u→v satisfies finish(u)>finish(v) after a complete DFS. Decreasing finish time therefore respects each prerequisite edge. A directed edge u→v means u must come before v. Either reverse DFS finishing order on a DAG or repeatedly choose a zero-indegree vertex. A directed cycle prevents a complete order.",
+    "teachingSteps": [
+      "In a directed acyclic graph, every edge u→v satisfies finish(u)>finish(v) after a complete DFS. Decreasing finish time therefore respects each prerequisite edge.",
+      "Output it and remove its outgoing constraints",
+      "Repeat or detect a cycle if choices run out"
+    ],
+    "foundation": {
+      "title": "Finish times in a DAG",
+      "idea": "In a directed acyclic graph, every edge u→v satisfies finish(u)>finish(v) after a complete DFS. Decreasing finish time therefore respects each prerequisite edge. A directed edge u→v means u must come before v. Either reverse DFS finishing order on a DAG or repeatedly choose a zero-indegree vertex. A directed cycle prevents a complete order.",
+      "terms": [
+        "DAG: directed acyclic graph.",
+        "Indegree: number of incoming edges.",
+        "Topological order: every prerequisite appears first."
+      ],
+      "example": "For A→B, A→C, B→D and C→D, both A,B,C,D and A,C,B,D are valid. Neither B nor C can precede A."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A build scheduler must respect prerequisite edges. A DAG has 4 vertices. How many vertices must appear in a complete topological order?",
+        "answer": 4,
+        "explanation": "Every vertex appears once, including isolated vertices.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "After scheduling A in the given prerequisite DAG, how many vertices immediately have indegree zero among B,C,D,E?",
+        "answer": 2,
+        "explanation": "B and C each lose their only incoming prerequisite; D still needs B and C.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Directed edge"
+          ],
+          "rows": [
+            [
+              "A→B"
+            ],
+            [
+              "A→C"
+            ],
+            [
+              "B→D"
+            ],
+            [
+              "C→D"
+            ],
+            [
+              "D→E"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "Which listed order respects the given DAG?",
+        "options": [
+          "B,A,C,D,E",
+          "A,D,B,C,E",
+          "A,C,B,D,E"
+        ],
+        "answer": 2,
+        "explanation": "Both B and C require A, D requires both B and C, and E requires D.",
+        "algoGiven": {
+          "headers": [
+            "Directed edge"
+          ],
+          "rows": [
+            [
+              "A→B"
+            ],
+            [
+              "A→C"
+            ],
+            [
+              "B→D"
+            ],
+            [
+              "C→D"
+            ],
+            [
+              "D→E"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Use alphabetically first available choices to topologically schedule the given DAG.",
+        "items": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "explanation": "The tie rule chooses B before C; other tie rules can also produce valid orders.",
+        "algoGiven": {
+          "headers": [
+            "Directed edge"
+          ],
+          "rows": [
+            [
+              "A→B"
+            ],
+            [
+              "A→C"
+            ],
+            [
+              "B→D"
+            ],
+            [
+              "C→D"
+            ],
+            [
+              "D→E"
+            ]
+          ]
+        }
+      }
+    ],
+    "algoLab": "dag-finish",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0,
+    "excerpt": "Hi everyone, so we have talked about cycles and all. Now on the opposite end, let's talk about the graphs with no cycles. Let's take example of directed acyclic graph, which means the graph will be directed and it will be acyclic, which means there will not be any cycle. So this is also called DAG in the short dead, directed acyclic graph. So for example,",
+    "sourceReferences": [
+      {
+        "lecture": 98,
+        "file": "098. 16b. GATE 2007 question on DAG finish time.mp4",
+        "start": 0,
+        "end": 25.56,
+        "text": "Hi everyone, so we have talked about cycles and all. Now on the opposite end, let's talk about the graphs with no cycles. Let's take example of directed acyclic graph, which means the graph will be directed and it will be acyclic, which means there will not be any cycle. So this is also called DAG in the short dead, directed acyclic graph. So for example,"
+      },
+      {
+        "lecture": 98,
+        "file": "098. 16b. GATE 2007 question on DAG finish time.mp4",
+        "start": 47.55,
+        "end": 78.91,
+        "text": "but it looks like it's cycle I mean in case of undirected obviously it will be a cycle but in case of directed it's not a cycle so this is called directed acyclic graph where the graph is directed and there is no cycle okay now let's let's talk about this they are saying in a tag we always have if for any edge for any edge a to b we always have this which means finish time of this node will be larger than finish time of this node let's just try proving it"
+      },
+      {
+        "lecture": 98,
+        "file": "098. 16b. GATE 2007 question on DAG finish time.mp4",
+        "start": 1037.96,
+        "end": 1062.48,
+        "text": "And then I am finishing S, which means this is S, this is B, this is A. So they are saying that this finish time will be larger. No, this finish time is smaller. This A finish time is smaller. So I cannot guarantee in any graph. But in directed acyclic graph, I can definitely guarantee. Now let's take this question. In this question, they are saying a depth first search is performed on a directed acyclic graph."
+      }
+    ]
+  },
+  {
+    "id": 297,
+    "lecture": 99,
+    "title": "Topological ordering of prerequisites · Discover",
+    "concept": "A topological order puts every directed edge source before its destination. A finite directed graph has such an order exactly when it has no directed cycle; several valid orders may exist. A directed edge u→v means u must come before v. Either reverse DFS finishing order on a DAG or repeatedly choose a zero-indegree vertex. A directed cycle prevents a complete order.",
+    "teachingSteps": [
+      "A topological order puts every directed edge source before its destination. A finite directed graph has such an order exactly when it has no directed cycle; several valid orders may exist.",
+      "Output it and remove its outgoing constraints",
+      "Repeat or detect a cycle if choices run out"
+    ],
+    "foundation": {
+      "title": "Topological ordering of prerequisites",
+      "idea": "A topological order puts every directed edge source before its destination. A finite directed graph has such an order exactly when it has no directed cycle; several valid orders may exist. A directed edge u→v means u must come before v. Either reverse DFS finishing order on a DAG or repeatedly choose a zero-indegree vertex. A directed cycle prevents a complete order.",
+      "terms": [
+        "DAG: directed acyclic graph.",
+        "Indegree: number of incoming edges.",
+        "Topological order: every prerequisite appears first."
+      ],
+      "example": "For A→B, A→C, B→D and C→D, both A,B,C,D and A,C,B,D are valid. Neither B nor C can precede A."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A DAG has 8 vertices. How many vertices must appear in a complete topological order?",
+        "answer": 8,
+        "explanation": "Every vertex appears once, including isolated vertices.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "After scheduling A in the given prerequisite DAG, how many vertices immediately have indegree zero among B,C,D,E?",
+        "answer": 2,
+        "explanation": "B and C each lose their only incoming prerequisite; D still needs B and C.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Directed edge"
+          ],
+          "rows": [
+            [
+              "A→B"
+            ],
+            [
+              "A→C"
+            ],
+            [
+              "B→D"
+            ],
+            [
+              "C→D"
+            ],
+            [
+              "D→E"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains topological ordering of prerequisites?",
+        "options": [
+          "A topological order puts every directed edge source before its destination.",
+          "Input assumptions cannot affect correctness.",
+          "One successful example proves the method for every graph."
+        ],
+        "answer": 0,
+        "explanation": "A topological order puts every directed edge source before its destination. A finite directed graph has such an order exactly when it has no directed cycle; several valid orders may exist."
+      },
+      {
+        "type": "order",
+        "prompt": "Use alphabetically first available choices to topologically schedule the given DAG.",
+        "items": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "explanation": "The tie rule chooses B before C; other tie rules can also produce valid orders.",
+        "algoGiven": {
+          "headers": [
+            "Directed edge"
+          ],
+          "rows": [
+            [
+              "A→B"
+            ],
+            [
+              "A→C"
+            ],
+            [
+              "B→D"
+            ],
+            [
+              "C→D"
+            ],
+            [
+              "D→E"
+            ]
+          ]
+        }
+      }
+    ],
+    "algoLab": "topological",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 1.04,
+    "excerpt": "Hi everyone, we have already seen the first application of DFS which is deducting cycle which was very very easy. You just need to check back as is there or not. Now let's talk about the second application which is finding topological sort of directed acyclic graph. Which means like let me first explain that what this topological sort mean. So we have talked about cycles and all and now on the opposite end let's talk about the graph with no cycles.",
+    "sourceReferences": [
+      {
+        "lecture": 99,
+        "file": "099. 16c. DFS Application 2 Topological sort _ GATE 2014.mp4",
+        "start": 1.04,
+        "end": 31.6,
+        "text": "Hi everyone, we have already seen the first application of DFS which is deducting cycle which was very very easy. You just need to check back as is there or not. Now let's talk about the second application which is finding topological sort of directed acyclic graph. Which means like let me first explain that what this topological sort mean. So we have talked about cycles and all and now on the opposite end let's talk about the graph with no cycles."
+      },
+      {
+        "lecture": 99,
+        "file": "099. 16c. DFS Application 2 Topological sort _ GATE 2014.mp4",
+        "start": 157.18,
+        "end": 181.44,
+        "text": "Then you put the pants, then shirt, then belt, then tie, then jacket, wallet, keys, iPod and then watch and then so on. So in this order also you can complete your task. In this order also you can complete your task. In this order also you can complete your task. This is called topological order. So in graph terminology, I will say that suppose this is the directed acyclic graph that I have, there is no cycle in this graph and then only the topological sort is possible."
+      },
+      {
+        "lecture": 99,
+        "file": "099. 16c. DFS Application 2 Topological sort _ GATE 2014.mp4",
+        "start": 220.31,
+        "end": 249.62,
+        "text": "and this 1 is having the incoming edge from 3 that means that 1 is dependent on 3 so I have to finish 3 first like that and if you want to finish this 3 then you have to finish 2 first if you want to finish this 2 you have to finish 1 first and similarly this cycle will go on right now let's just see that how to find the topological source in any undirected graph sorry any directed acyclic graph so with the cycles obviously it is not possible if you want you can just write it down or let me just write down"
+      }
+    ]
+  },
+  {
+    "id": 298,
+    "lecture": 99,
+    "title": "Topological ordering of prerequisites · Trace",
+    "concept": "A topological order puts every directed edge source before its destination. A finite directed graph has such an order exactly when it has no directed cycle; several valid orders may exist. A directed edge u→v means u must come before v. Either reverse DFS finishing order on a DAG or repeatedly choose a zero-indegree vertex. A directed cycle prevents a complete order.",
+    "teachingSteps": [
+      "A topological order puts every directed edge source before its destination. A finite directed graph has such an order exactly when it has no directed cycle; several valid orders may exist.",
+      "Output it and remove its outgoing constraints",
+      "Repeat or detect a cycle if choices run out"
+    ],
+    "foundation": {
+      "title": "Topological ordering of prerequisites",
+      "idea": "A topological order puts every directed edge source before its destination. A finite directed graph has such an order exactly when it has no directed cycle; several valid orders may exist. A directed edge u→v means u must come before v. Either reverse DFS finishing order on a DAG or repeatedly choose a zero-indegree vertex. A directed cycle prevents a complete order.",
+      "terms": [
+        "DAG: directed acyclic graph.",
+        "Indegree: number of incoming edges.",
+        "Topological order: every prerequisite appears first."
+      ],
+      "example": "For A→B, A→C, B→D and C→D, both A,B,C,D and A,C,B,D are valid. Neither B nor C can precede A."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A DAG has 4 vertices. How many vertices must appear in a complete topological order?",
+        "answer": 4,
+        "explanation": "Every vertex appears once, including isolated vertices.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "After scheduling A in the given prerequisite DAG, how many vertices immediately have indegree zero among B,C,D,E?",
+        "answer": 2,
+        "explanation": "B and C each lose their only incoming prerequisite; D still needs B and C.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Directed edge"
+          ],
+          "rows": [
+            [
+              "A→B"
+            ],
+            [
+              "A→C"
+            ],
+            [
+              "B→D"
+            ],
+            [
+              "C→D"
+            ],
+            [
+              "D→E"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "Which listed order respects the given DAG?",
+        "options": [
+          "B,A,C,D,E",
+          "A,D,B,C,E",
+          "A,C,B,D,E"
+        ],
+        "answer": 2,
+        "explanation": "Both B and C require A, D requires both B and C, and E requires D.",
+        "algoGiven": {
+          "headers": [
+            "Directed edge"
+          ],
+          "rows": [
+            [
+              "A→B"
+            ],
+            [
+              "A→C"
+            ],
+            [
+              "B→D"
+            ],
+            [
+              "C→D"
+            ],
+            [
+              "D→E"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Use alphabetically first available choices to topologically schedule the given DAG.",
+        "items": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "explanation": "The tie rule chooses B before C; other tie rules can also produce valid orders.",
+        "algoGiven": {
+          "headers": [
+            "Directed edge"
+          ],
+          "rows": [
+            [
+              "A→B"
+            ],
+            [
+              "A→C"
+            ],
+            [
+              "B→D"
+            ],
+            [
+              "C→D"
+            ],
+            [
+              "D→E"
+            ]
+          ]
+        }
+      }
+    ],
+    "algoLab": "topological",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 1.04,
+    "excerpt": "Hi everyone, we have already seen the first application of DFS which is deducting cycle which was very very easy. You just need to check back as is there or not. Now let's talk about the second application which is finding topological sort of directed acyclic graph. Which means like let me first explain that what this topological sort mean. So we have talked about cycles and all and now on the opposite end let's talk about the graph with no cycles.",
+    "sourceReferences": [
+      {
+        "lecture": 99,
+        "file": "099. 16c. DFS Application 2 Topological sort _ GATE 2014.mp4",
+        "start": 1.04,
+        "end": 31.6,
+        "text": "Hi everyone, we have already seen the first application of DFS which is deducting cycle which was very very easy. You just need to check back as is there or not. Now let's talk about the second application which is finding topological sort of directed acyclic graph. Which means like let me first explain that what this topological sort mean. So we have talked about cycles and all and now on the opposite end let's talk about the graph with no cycles."
+      },
+      {
+        "lecture": 99,
+        "file": "099. 16c. DFS Application 2 Topological sort _ GATE 2014.mp4",
+        "start": 157.18,
+        "end": 181.44,
+        "text": "Then you put the pants, then shirt, then belt, then tie, then jacket, wallet, keys, iPod and then watch and then so on. So in this order also you can complete your task. In this order also you can complete your task. In this order also you can complete your task. This is called topological order. So in graph terminology, I will say that suppose this is the directed acyclic graph that I have, there is no cycle in this graph and then only the topological sort is possible."
+      },
+      {
+        "lecture": 99,
+        "file": "099. 16c. DFS Application 2 Topological sort _ GATE 2014.mp4",
+        "start": 220.31,
+        "end": 249.62,
+        "text": "and this 1 is having the incoming edge from 3 that means that 1 is dependent on 3 so I have to finish 3 first like that and if you want to finish this 3 then you have to finish 2 first if you want to finish this 2 you have to finish 1 first and similarly this cycle will go on right now let's just see that how to find the topological source in any undirected graph sorry any directed acyclic graph so with the cycles obviously it is not possible if you want you can just write it down or let me just write down"
+      }
+    ]
+  },
+  {
+    "id": 299,
+    "lecture": 99,
+    "title": "Topological ordering of prerequisites · Apply",
+    "concept": "A topological order puts every directed edge source before its destination. A finite directed graph has such an order exactly when it has no directed cycle; several valid orders may exist. A directed edge u→v means u must come before v. Either reverse DFS finishing order on a DAG or repeatedly choose a zero-indegree vertex. A directed cycle prevents a complete order.",
+    "teachingSteps": [
+      "A topological order puts every directed edge source before its destination. A finite directed graph has such an order exactly when it has no directed cycle; several valid orders may exist.",
+      "Output it and remove its outgoing constraints",
+      "Repeat or detect a cycle if choices run out"
+    ],
+    "foundation": {
+      "title": "Topological ordering of prerequisites",
+      "idea": "A topological order puts every directed edge source before its destination. A finite directed graph has such an order exactly when it has no directed cycle; several valid orders may exist. A directed edge u→v means u must come before v. Either reverse DFS finishing order on a DAG or repeatedly choose a zero-indegree vertex. A directed cycle prevents a complete order.",
+      "terms": [
+        "DAG: directed acyclic graph.",
+        "Indegree: number of incoming edges.",
+        "Topological order: every prerequisite appears first."
+      ],
+      "example": "For A→B, A→C, B→D and C→D, both A,B,C,D and A,C,B,D are valid. Neither B nor C can precede A."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A build scheduler must respect prerequisite edges. A DAG has 5 vertices. How many vertices must appear in a complete topological order?",
+        "answer": 5,
+        "explanation": "Every vertex appears once, including isolated vertices.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "After scheduling A in the given prerequisite DAG, how many vertices immediately have indegree zero among B,C,D,E?",
+        "answer": 2,
+        "explanation": "B and C each lose their only incoming prerequisite; D still needs B and C.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Directed edge"
+          ],
+          "rows": [
+            [
+              "A→B"
+            ],
+            [
+              "A→C"
+            ],
+            [
+              "B→D"
+            ],
+            [
+              "C→D"
+            ],
+            [
+              "D→E"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "Which listed order respects the given DAG?",
+        "options": [
+          "A,D,B,C,E",
+          "A,C,B,D,E",
+          "B,A,C,D,E"
+        ],
+        "answer": 1,
+        "explanation": "Both B and C require A, D requires both B and C, and E requires D.",
+        "algoGiven": {
+          "headers": [
+            "Directed edge"
+          ],
+          "rows": [
+            [
+              "A→B"
+            ],
+            [
+              "A→C"
+            ],
+            [
+              "B→D"
+            ],
+            [
+              "C→D"
+            ],
+            [
+              "D→E"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "order",
+        "prompt": "Use alphabetically first available choices to topologically schedule the given DAG.",
+        "items": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "explanation": "The tie rule chooses B before C; other tie rules can also produce valid orders.",
+        "algoGiven": {
+          "headers": [
+            "Directed edge"
+          ],
+          "rows": [
+            [
+              "A→B"
+            ],
+            [
+              "A→C"
+            ],
+            [
+              "B→D"
+            ],
+            [
+              "C→D"
+            ],
+            [
+              "D→E"
+            ]
+          ]
+        }
+      }
+    ],
+    "algoLab": "topological",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 1.04,
+    "excerpt": "Hi everyone, we have already seen the first application of DFS which is deducting cycle which was very very easy. You just need to check back as is there or not. Now let's talk about the second application which is finding topological sort of directed acyclic graph. Which means like let me first explain that what this topological sort mean. So we have talked about cycles and all and now on the opposite end let's talk about the graph with no cycles.",
+    "sourceReferences": [
+      {
+        "lecture": 99,
+        "file": "099. 16c. DFS Application 2 Topological sort _ GATE 2014.mp4",
+        "start": 1.04,
+        "end": 31.6,
+        "text": "Hi everyone, we have already seen the first application of DFS which is deducting cycle which was very very easy. You just need to check back as is there or not. Now let's talk about the second application which is finding topological sort of directed acyclic graph. Which means like let me first explain that what this topological sort mean. So we have talked about cycles and all and now on the opposite end let's talk about the graph with no cycles."
+      },
+      {
+        "lecture": 99,
+        "file": "099. 16c. DFS Application 2 Topological sort _ GATE 2014.mp4",
+        "start": 157.18,
+        "end": 181.44,
+        "text": "Then you put the pants, then shirt, then belt, then tie, then jacket, wallet, keys, iPod and then watch and then so on. So in this order also you can complete your task. In this order also you can complete your task. In this order also you can complete your task. This is called topological order. So in graph terminology, I will say that suppose this is the directed acyclic graph that I have, there is no cycle in this graph and then only the topological sort is possible."
+      },
+      {
+        "lecture": 99,
+        "file": "099. 16c. DFS Application 2 Topological sort _ GATE 2014.mp4",
+        "start": 220.31,
+        "end": 249.62,
+        "text": "and this 1 is having the incoming edge from 3 that means that 1 is dependent on 3 so I have to finish 3 first like that and if you want to finish this 3 then you have to finish 2 first if you want to finish this 2 you have to finish 1 first and similarly this cycle will go on right now let's just see that how to find the topological source in any undirected graph sorry any directed acyclic graph so with the cycles obviously it is not possible if you want you can just write it down or let me just write down"
+      }
+    ]
+  },
+  {
+    "id": 300,
+    "lecture": 100,
+    "title": "Articulation points and low links · Discover",
+    "concept": "In an undirected graph, removing an articulation vertex increases the number of connected components. A DFS root is a cut vertex only with at least two DFS children; a non-root u is one if some child v has low(v)>=discovery(u). A cut vertex is defined by the change in component count after deleting it and all incident edges. Low-link values let DFS certify cuts without trying every deletion.",
+    "teachingSteps": [
+      "In an undirected graph, removing an articulation vertex increases the number of connected components. A DFS root is a cut vertex only with at least two DFS children; a non-root u is one if some child v has low(v)>=discovery(u).",
+      "Apply low(child)>=discovery(parent) to non-root vertices",
+      "Use the separate multiple-DFS-children root test"
+    ],
+    "foundation": {
+      "title": "Articulation points and low links",
+      "idea": "In an undirected graph, removing an articulation vertex increases the number of connected components. A DFS root is a cut vertex only with at least two DFS children; a non-root u is one if some child v has low(v)>=discovery(u). A cut vertex is defined by the change in component count after deleting it and all incident edges. Low-link values let DFS certify cuts without trying every deletion.",
+      "terms": [
+        "Discovery: timestamp on first visit.",
+        "Low: earliest discovery reached by a downward path and at most one back edge.",
+        "Root exception: at least two DFS children, not merely two graph neighbors."
+      ],
+      "example": "In the path A—B—C, deleting B separates A and C; deleting A leaves a connected B—C path."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "An undirected path has 4 vertices. How many articulation vertices does it have?",
+        "answer": 2,
+        "explanation": "Only its two endpoints can be removed without increasing component count.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A connected graph has one component; deleting a cut vertex leaves three components. By how many did component count increase?",
+        "answer": 2,
+        "explanation": "Compare after deletion with before deletion: 3-1=2.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains articulation points and low links?",
+        "options": [
+          "Input assumptions cannot affect correctness.",
+          "One successful example proves the method for every graph.",
+          "In an undirected graph, removing an articulation vertex increases the number of connected components."
+        ],
+        "answer": 2,
+        "explanation": "In an undirected graph, removing an articulation vertex increases the number of connected components. A DFS root is a cut vertex only with at least two DFS children; a non-root u is one if some child v has low(v)>=discovery(u)."
+      },
+      {
+        "type": "choice",
+        "prompt": "For a non-root u, which child condition certifies u as a cut vertex?",
+        "options": [
+          "low(v) < discovery(u)",
+          "The child has the largest edge weight.",
+          "low(v) >= discovery(u)"
+        ],
+        "answer": 2,
+        "explanation": "Such a child subtree has no back-edge escape to a strict ancestor of u."
+      }
+    ],
+    "algoLab": "articulation",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 85.66,
+    "excerpt": "only two and six that's all five is not articulation point seven is not articulation point because if you remove seven graph is still connected similarly four is not articulation point if you remove four graph is still connected that is why only articulation points are two and six in this case now let's see that how to find all the articulation points then one thing you can do is that you can you can use the brute force method where you will remove one vertex",
+    "sourceReferences": [
+      {
+        "lecture": 100,
+        "file": "100. 16d. DFS Application 3 Articulation Point _ GATE 20.mp4",
+        "start": 85.66,
+        "end": 112.78,
+        "text": "only two and six that's all five is not articulation point seven is not articulation point because if you remove seven graph is still connected similarly four is not articulation point if you remove four graph is still connected that is why only articulation points are two and six in this case now let's see that how to find all the articulation points then one thing you can do is that you can you can use the brute force method where you will remove one vertex"
+      },
+      {
+        "lecture": 100,
+        "file": "100. 16d. DFS Application 3 Articulation Point _ GATE 20.mp4",
+        "start": 595.29,
+        "end": 624.54,
+        "text": "In fact, you will say that root is always an articulation point. Because left and right can never be connected. But there is something dicey. I mean, anything could be root, right? I mean, you take this graph and anything could be root. You take one as a root, you can take one as a root, so anything could be root. So, is it the case that I can make anything as a root and then I will say root is always articulation point? No. See, root is an articulation point. That is true. But there has to be at least two children of the root."
+      },
+      {
+        "lecture": 100,
+        "file": "100. 16d. DFS Application 3 Articulation Point _ GATE 20.mp4",
+        "start": 2686.13,
+        "end": 2712.87,
+        "text": "Yeah, which is this so here they are saying that let T be a DFS tree obtained by the DFS in a connected undirected graph G So which of the option is true which are at true. So this was the MSQ question Just check here see a root of T can never be articulation point No, it can be articulation point if they are having two children more than two children root of T So A is wrong is an articulation point in G if and only if it has"
+      }
+    ]
+  },
+  {
+    "id": 301,
+    "lecture": 100,
+    "title": "Articulation points and low links · Trace",
+    "concept": "In an undirected graph, removing an articulation vertex increases the number of connected components. A DFS root is a cut vertex only with at least two DFS children; a non-root u is one if some child v has low(v)>=discovery(u). A cut vertex is defined by the change in component count after deleting it and all incident edges. Low-link values let DFS certify cuts without trying every deletion.",
+    "teachingSteps": [
+      "In an undirected graph, removing an articulation vertex increases the number of connected components. A DFS root is a cut vertex only with at least two DFS children; a non-root u is one if some child v has low(v)>=discovery(u).",
+      "Apply low(child)>=discovery(parent) to non-root vertices",
+      "Use the separate multiple-DFS-children root test"
+    ],
+    "foundation": {
+      "title": "Articulation points and low links",
+      "idea": "In an undirected graph, removing an articulation vertex increases the number of connected components. A DFS root is a cut vertex only with at least two DFS children; a non-root u is one if some child v has low(v)>=discovery(u). A cut vertex is defined by the change in component count after deleting it and all incident edges. Low-link values let DFS certify cuts without trying every deletion.",
+      "terms": [
+        "Discovery: timestamp on first visit.",
+        "Low: earliest discovery reached by a downward path and at most one back edge.",
+        "Root exception: at least two DFS children, not merely two graph neighbors."
+      ],
+      "example": "In the path A—B—C, deleting B separates A and C; deleting A leaves a connected B—C path."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "An undirected path has 5 vertices. How many articulation vertices does it have?",
+        "answer": 3,
+        "explanation": "Only its two endpoints can be removed without increasing component count.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A connected graph has one component; deleting a cut vertex leaves three components. By how many did component count increase?",
+        "answer": 2,
+        "explanation": "Compare after deletion with before deletion: 3-1=2.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "A DFS root has two graph neighbors but only one DFS child. Is the root automatically a cut vertex?",
+        "options": [
+          "Yes: every DFS root is a cut vertex.",
+          "No: the root rule requires at least two DFS children.",
+          "Yes: degree two is sufficient."
+        ],
+        "answer": 1,
+        "explanation": "Graph degree and the number of DFS-tree children differ."
+      },
+      {
+        "type": "choice",
+        "prompt": "For a non-root u, which child condition certifies u as a cut vertex?",
+        "options": [
+          "The child has the largest edge weight.",
+          "low(v) >= discovery(u)",
+          "low(v) < discovery(u)"
+        ],
+        "answer": 1,
+        "explanation": "Such a child subtree has no back-edge escape to a strict ancestor of u."
+      }
+    ],
+    "algoLab": "articulation",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 85.66,
+    "excerpt": "only two and six that's all five is not articulation point seven is not articulation point because if you remove seven graph is still connected similarly four is not articulation point if you remove four graph is still connected that is why only articulation points are two and six in this case now let's see that how to find all the articulation points then one thing you can do is that you can you can use the brute force method where you will remove one vertex",
+    "sourceReferences": [
+      {
+        "lecture": 100,
+        "file": "100. 16d. DFS Application 3 Articulation Point _ GATE 20.mp4",
+        "start": 85.66,
+        "end": 112.78,
+        "text": "only two and six that's all five is not articulation point seven is not articulation point because if you remove seven graph is still connected similarly four is not articulation point if you remove four graph is still connected that is why only articulation points are two and six in this case now let's see that how to find all the articulation points then one thing you can do is that you can you can use the brute force method where you will remove one vertex"
+      },
+      {
+        "lecture": 100,
+        "file": "100. 16d. DFS Application 3 Articulation Point _ GATE 20.mp4",
+        "start": 595.29,
+        "end": 624.54,
+        "text": "In fact, you will say that root is always an articulation point. Because left and right can never be connected. But there is something dicey. I mean, anything could be root, right? I mean, you take this graph and anything could be root. You take one as a root, you can take one as a root, so anything could be root. So, is it the case that I can make anything as a root and then I will say root is always articulation point? No. See, root is an articulation point. That is true. But there has to be at least two children of the root."
+      },
+      {
+        "lecture": 100,
+        "file": "100. 16d. DFS Application 3 Articulation Point _ GATE 20.mp4",
+        "start": 2686.13,
+        "end": 2712.87,
+        "text": "Yeah, which is this so here they are saying that let T be a DFS tree obtained by the DFS in a connected undirected graph G So which of the option is true which are at true. So this was the MSQ question Just check here see a root of T can never be articulation point No, it can be articulation point if they are having two children more than two children root of T So A is wrong is an articulation point in G if and only if it has"
+      }
+    ]
+  },
+  {
+    "id": 302,
+    "lecture": 100,
+    "title": "Articulation points and low links · Apply",
+    "concept": "In an undirected graph, removing an articulation vertex increases the number of connected components. A DFS root is a cut vertex only with at least two DFS children; a non-root u is one if some child v has low(v)>=discovery(u). A cut vertex is defined by the change in component count after deleting it and all incident edges. Low-link values let DFS certify cuts without trying every deletion.",
+    "teachingSteps": [
+      "In an undirected graph, removing an articulation vertex increases the number of connected components. A DFS root is a cut vertex only with at least two DFS children; a non-root u is one if some child v has low(v)>=discovery(u).",
+      "Apply low(child)>=discovery(parent) to non-root vertices",
+      "Use the separate multiple-DFS-children root test"
+    ],
+    "foundation": {
+      "title": "Articulation points and low links",
+      "idea": "In an undirected graph, removing an articulation vertex increases the number of connected components. A DFS root is a cut vertex only with at least two DFS children; a non-root u is one if some child v has low(v)>=discovery(u). A cut vertex is defined by the change in component count after deleting it and all incident edges. Low-link values let DFS certify cuts without trying every deletion.",
+      "terms": [
+        "Discovery: timestamp on first visit.",
+        "Low: earliest discovery reached by a downward path and at most one back edge.",
+        "Root exception: at least two DFS children, not merely two graph neighbors."
+      ],
+      "example": "In the path A—B—C, deleting B separates A and C; deleting A leaves a connected B—C path."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A network service checks which site failures split connectivity. An undirected path has 6 vertices. How many articulation vertices does it have?",
+        "answer": 4,
+        "explanation": "Only its two endpoints can be removed without increasing component count.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A connected graph has one component; deleting a cut vertex leaves three components. By how many did component count increase?",
+        "answer": 2,
+        "explanation": "Compare after deletion with before deletion: 3-1=2.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "A DFS root has two graph neighbors but only one DFS child. Is the root automatically a cut vertex?",
+        "options": [
+          "No: the root rule requires at least two DFS children.",
+          "Yes: degree two is sufficient.",
+          "Yes: every DFS root is a cut vertex."
+        ],
+        "answer": 0,
+        "explanation": "Graph degree and the number of DFS-tree children differ."
+      },
+      {
+        "type": "choice",
+        "prompt": "For a non-root u, which child condition certifies u as a cut vertex?",
+        "options": [
+          "low(v) >= discovery(u)",
+          "low(v) < discovery(u)",
+          "The child has the largest edge weight."
+        ],
+        "answer": 0,
+        "explanation": "Such a child subtree has no back-edge escape to a strict ancestor of u."
+      }
+    ],
+    "algoLab": "articulation",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 85.66,
+    "excerpt": "only two and six that's all five is not articulation point seven is not articulation point because if you remove seven graph is still connected similarly four is not articulation point if you remove four graph is still connected that is why only articulation points are two and six in this case now let's see that how to find all the articulation points then one thing you can do is that you can you can use the brute force method where you will remove one vertex",
+    "sourceReferences": [
+      {
+        "lecture": 100,
+        "file": "100. 16d. DFS Application 3 Articulation Point _ GATE 20.mp4",
+        "start": 85.66,
+        "end": 112.78,
+        "text": "only two and six that's all five is not articulation point seven is not articulation point because if you remove seven graph is still connected similarly four is not articulation point if you remove four graph is still connected that is why only articulation points are two and six in this case now let's see that how to find all the articulation points then one thing you can do is that you can you can use the brute force method where you will remove one vertex"
+      },
+      {
+        "lecture": 100,
+        "file": "100. 16d. DFS Application 3 Articulation Point _ GATE 20.mp4",
+        "start": 595.29,
+        "end": 624.54,
+        "text": "In fact, you will say that root is always an articulation point. Because left and right can never be connected. But there is something dicey. I mean, anything could be root, right? I mean, you take this graph and anything could be root. You take one as a root, you can take one as a root, so anything could be root. So, is it the case that I can make anything as a root and then I will say root is always articulation point? No. See, root is an articulation point. That is true. But there has to be at least two children of the root."
+      },
+      {
+        "lecture": 100,
+        "file": "100. 16d. DFS Application 3 Articulation Point _ GATE 20.mp4",
+        "start": 2686.13,
+        "end": 2712.87,
+        "text": "Yeah, which is this so here they are saying that let T be a DFS tree obtained by the DFS in a connected undirected graph G So which of the option is true which are at true. So this was the MSQ question Just check here see a root of T can never be articulation point No, it can be articulation point if they are having two children more than two children root of T So A is wrong is an articulation point in G if and only if it has"
+      }
+    ]
+  },
+  {
+    "id": 303,
+    "lecture": 101,
+    "title": "Explore in breadth-first layers · Discover",
+    "concept": "BFS marks vertices when enqueuing and processes a FIFO queue. In an unweighted graph, a vertex’s layer number is its shortest-path distance in edges from the source. BFS processes the oldest discovered vertex next. Mark on enqueue, record the parent when first discovered, and assign a distance one larger than the parent’s layer.",
+    "teachingSteps": [
+      "BFS marks vertices when enqueuing and processes a FIFO queue. In an unweighted graph, a vertex’s layer number is its shortest-path distance in edges from the source.",
+      "Discover unmarked neighbors at the next distance",
+      "Dequeue in FIFO order until the queue is empty"
+    ],
+    "foundation": {
+      "title": "Explore in breadth-first layers",
+      "idea": "BFS marks vertices when enqueuing and processes a FIFO queue. In an unweighted graph, a vertex’s layer number is its shortest-path distance in edges from the source. BFS processes the oldest discovered vertex next. Mark on enqueue, record the parent when first discovered, and assign a distance one larger than the parent’s layer.",
+      "terms": [
+        "FIFO: first in, first out.",
+        "Layer: shortest distance measured in edges.",
+        "Parent: an edge on a shortest unweighted path."
+      ],
+      "example": "For edges A—B, A—C, B—D, C—D, D—E, the distances from A are 0,1,1,2,3."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "For the given unweighted graph, what is the shortest hop count from A to E?",
+        "answer": 3,
+        "explanation": "A→B→D→E or A→C→D→E uses three edges; no shorter route reaches E.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Undirected edge"
+          ],
+          "rows": [
+            [
+              "A—B"
+            ],
+            [
+              "A—C"
+            ],
+            [
+              "B—D"
+            ],
+            [
+              "C—D"
+            ],
+            [
+              "D—E"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "A standard BFS queue currently holds vertices of distance 3. What larger distance layer can coexist in that queue?",
+        "answer": 4,
+        "explanation": "Only the current layer and the next layer can coexist in the FIFO frontier.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains explore in breadth-first layers?",
+        "options": [
+          "One successful example proves the method for every graph.",
+          "BFS marks vertices when enqueuing and processes a FIFO queue.",
+          "Input assumptions cannot affect correctness."
+        ],
+        "answer": 1,
+        "explanation": "BFS marks vertices when enqueuing and processes a FIFO queue. In an unweighted graph, a vertex’s layer number is its shortest-path distance in edges from the source."
+      },
+      {
+        "type": "order",
+        "prompt": "Discover from A using alphabetically ordered neighbor lists in the given graph.",
+        "items": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "explanation": "B and C form layer one; D is enqueued once at layer two, then E at layer three.",
+        "algoGiven": {
+          "headers": [
+            "Undirected edge"
+          ],
+          "rows": [
+            [
+              "A—B"
+            ],
+            [
+              "A—C"
+            ],
+            [
+              "B—D"
+            ],
+            [
+              "C—D"
+            ],
+            [
+              "D—E"
+            ]
+          ]
+        }
+      }
+    ],
+    "algoLab": "bfs",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 28.01,
+    "excerpt": "and let me do a bfs traversal on this graph starting at some node let's let's pick a source node which is let's suppose this first vertex one now what i'm going to do i'm going to you know i i agree that till now i have not told you that what is bfs and all i i just want to start this topic with one example and then i will tell you the formal definition the code and everything so let's just start with couple of examples and this is one of the example that i want to take",
+    "sourceReferences": [
+      {
+        "lecture": 101,
+        "file": "101. 17a. Introduction to BFS.mp4",
+        "start": 28.01,
+        "end": 53.93,
+        "text": "and let me do a bfs traversal on this graph starting at some node let's let's pick a source node which is let's suppose this first vertex one now what i'm going to do i'm going to you know i i agree that till now i have not told you that what is bfs and all i i just want to start this topic with one example and then i will tell you the formal definition the code and everything so let's just start with couple of examples and this is one of the example that i want to take"
+      },
+      {
+        "lecture": 101,
+        "file": "101. 17a. Introduction to BFS.mp4",
+        "start": 279.8,
+        "end": 308.86,
+        "text": "so these edges like these solid edges are tree edges that you might be knowing if you do not know then also not worry about it because we will classify them later let's first understand BFS why it's entirely so let's take this graph this is looking like a huge graph but let's just apply BFS on this graph let's say I'm starting at some vertex maybe at 1 or maybe at 10 you can start at any vertex let's say there I'm starting at 1 if you start at 1 you will explore its neighbors which are 10 and 9"
+      },
+      {
+        "lecture": 101,
+        "file": "101. 17a. Introduction to BFS.mp4",
+        "start": 677.96,
+        "end": 704.62,
+        "text": "that is all you keep doing it then you pick another vertex so earlier what you were doing you were doing the same thing you were inserting the vertex you were popping it out then you were inserting its adjacent then you were popping from the top here you are popping from the bottom that's the only difference that you had okay so instead of this code let me just dry run this code on this graph and let me show you that how BFS is actually working so let's start with a queue which is initially empty"
+      }
+    ]
+  },
+  {
+    "id": 304,
+    "lecture": 101,
+    "title": "Explore in breadth-first layers · Trace",
+    "concept": "BFS marks vertices when enqueuing and processes a FIFO queue. In an unweighted graph, a vertex’s layer number is its shortest-path distance in edges from the source. BFS processes the oldest discovered vertex next. Mark on enqueue, record the parent when first discovered, and assign a distance one larger than the parent’s layer.",
+    "teachingSteps": [
+      "BFS marks vertices when enqueuing and processes a FIFO queue. In an unweighted graph, a vertex’s layer number is its shortest-path distance in edges from the source.",
+      "Discover unmarked neighbors at the next distance",
+      "Dequeue in FIFO order until the queue is empty"
+    ],
+    "foundation": {
+      "title": "Explore in breadth-first layers",
+      "idea": "BFS marks vertices when enqueuing and processes a FIFO queue. In an unweighted graph, a vertex’s layer number is its shortest-path distance in edges from the source. BFS processes the oldest discovered vertex next. Mark on enqueue, record the parent when first discovered, and assign a distance one larger than the parent’s layer.",
+      "terms": [
+        "FIFO: first in, first out.",
+        "Layer: shortest distance measured in edges.",
+        "Parent: an edge on a shortest unweighted path."
+      ],
+      "example": "For edges A—B, A—C, B—D, C—D, D—E, the distances from A are 0,1,1,2,3."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "For the given unweighted graph, what is the shortest hop count from A to E?",
+        "answer": 3,
+        "explanation": "A→B→D→E or A→C→D→E uses three edges; no shorter route reaches E.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Undirected edge"
+          ],
+          "rows": [
+            [
+              "A—B"
+            ],
+            [
+              "A—C"
+            ],
+            [
+              "B—D"
+            ],
+            [
+              "C—D"
+            ],
+            [
+              "D—E"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "A standard BFS queue currently holds vertices of distance 4. What larger distance layer can coexist in that queue?",
+        "answer": 5,
+        "explanation": "Only the current layer and the next layer can coexist in the FIFO frontier.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "When should a vertex be marked discovered in standard BFS?",
+        "options": [
+          "When it is first enqueued.",
+          "Only when it is removed from the queue.",
+          "Only after the entire graph is scanned."
+        ],
+        "answer": 0,
+        "explanation": "Marking on enqueue prevents duplicate queue entries from multiple parents."
+      },
+      {
+        "type": "order",
+        "prompt": "Discover from A using alphabetically ordered neighbor lists in the given graph.",
+        "items": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "explanation": "B and C form layer one; D is enqueued once at layer two, then E at layer three.",
+        "algoGiven": {
+          "headers": [
+            "Undirected edge"
+          ],
+          "rows": [
+            [
+              "A—B"
+            ],
+            [
+              "A—C"
+            ],
+            [
+              "B—D"
+            ],
+            [
+              "C—D"
+            ],
+            [
+              "D—E"
+            ]
+          ]
+        }
+      }
+    ],
+    "algoLab": "bfs",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 28.01,
+    "excerpt": "and let me do a bfs traversal on this graph starting at some node let's let's pick a source node which is let's suppose this first vertex one now what i'm going to do i'm going to you know i i agree that till now i have not told you that what is bfs and all i i just want to start this topic with one example and then i will tell you the formal definition the code and everything so let's just start with couple of examples and this is one of the example that i want to take",
+    "sourceReferences": [
+      {
+        "lecture": 101,
+        "file": "101. 17a. Introduction to BFS.mp4",
+        "start": 28.01,
+        "end": 53.93,
+        "text": "and let me do a bfs traversal on this graph starting at some node let's let's pick a source node which is let's suppose this first vertex one now what i'm going to do i'm going to you know i i agree that till now i have not told you that what is bfs and all i i just want to start this topic with one example and then i will tell you the formal definition the code and everything so let's just start with couple of examples and this is one of the example that i want to take"
+      },
+      {
+        "lecture": 101,
+        "file": "101. 17a. Introduction to BFS.mp4",
+        "start": 279.8,
+        "end": 308.86,
+        "text": "so these edges like these solid edges are tree edges that you might be knowing if you do not know then also not worry about it because we will classify them later let's first understand BFS why it's entirely so let's take this graph this is looking like a huge graph but let's just apply BFS on this graph let's say I'm starting at some vertex maybe at 1 or maybe at 10 you can start at any vertex let's say there I'm starting at 1 if you start at 1 you will explore its neighbors which are 10 and 9"
+      },
+      {
+        "lecture": 101,
+        "file": "101. 17a. Introduction to BFS.mp4",
+        "start": 677.96,
+        "end": 704.62,
+        "text": "that is all you keep doing it then you pick another vertex so earlier what you were doing you were doing the same thing you were inserting the vertex you were popping it out then you were inserting its adjacent then you were popping from the top here you are popping from the bottom that's the only difference that you had okay so instead of this code let me just dry run this code on this graph and let me show you that how BFS is actually working so let's start with a queue which is initially empty"
+      }
+    ]
+  },
+  {
+    "id": 305,
+    "lecture": 101,
+    "title": "Explore in breadth-first layers · Apply",
+    "concept": "BFS marks vertices when enqueuing and processes a FIFO queue. In an unweighted graph, a vertex’s layer number is its shortest-path distance in edges from the source. BFS processes the oldest discovered vertex next. Mark on enqueue, record the parent when first discovered, and assign a distance one larger than the parent’s layer.",
+    "teachingSteps": [
+      "BFS marks vertices when enqueuing and processes a FIFO queue. In an unweighted graph, a vertex’s layer number is its shortest-path distance in edges from the source.",
+      "Discover unmarked neighbors at the next distance",
+      "Dequeue in FIFO order until the queue is empty"
+    ],
+    "foundation": {
+      "title": "Explore in breadth-first layers",
+      "idea": "BFS marks vertices when enqueuing and processes a FIFO queue. In an unweighted graph, a vertex’s layer number is its shortest-path distance in edges from the source. BFS processes the oldest discovered vertex next. Mark on enqueue, record the parent when first discovered, and assign a distance one larger than the parent’s layer.",
+      "terms": [
+        "FIFO: first in, first out.",
+        "Layer: shortest distance measured in edges.",
+        "Parent: an edge on a shortest unweighted path."
+      ],
+      "example": "For edges A—B, A—C, B—D, C—D, D—E, the distances from A are 0,1,1,2,3."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "An unweighted route service minimizes hop count. For the given unweighted graph, what is the shortest hop count from A to E?",
+        "answer": 3,
+        "explanation": "A→B→D→E or A→C→D→E uses three edges; no shorter route reaches E.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Undirected edge"
+          ],
+          "rows": [
+            [
+              "A—B"
+            ],
+            [
+              "A—C"
+            ],
+            [
+              "B—D"
+            ],
+            [
+              "C—D"
+            ],
+            [
+              "D—E"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "A standard BFS queue currently holds vertices of distance 5. What larger distance layer can coexist in that queue?",
+        "answer": 6,
+        "explanation": "Only the current layer and the next layer can coexist in the FIFO frontier.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "When should a vertex be marked discovered in standard BFS?",
+        "options": [
+          "Only when it is removed from the queue.",
+          "Only after the entire graph is scanned.",
+          "When it is first enqueued."
+        ],
+        "answer": 2,
+        "explanation": "Marking on enqueue prevents duplicate queue entries from multiple parents."
+      },
+      {
+        "type": "order",
+        "prompt": "Discover from A using alphabetically ordered neighbor lists in the given graph.",
+        "items": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "explanation": "B and C form layer one; D is enqueued once at layer two, then E at layer three.",
+        "algoGiven": {
+          "headers": [
+            "Undirected edge"
+          ],
+          "rows": [
+            [
+              "A—B"
+            ],
+            [
+              "A—C"
+            ],
+            [
+              "B—D"
+            ],
+            [
+              "C—D"
+            ],
+            [
+              "D—E"
+            ]
+          ]
+        }
+      }
+    ],
+    "algoLab": "bfs",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 28.01,
+    "excerpt": "and let me do a bfs traversal on this graph starting at some node let's let's pick a source node which is let's suppose this first vertex one now what i'm going to do i'm going to you know i i agree that till now i have not told you that what is bfs and all i i just want to start this topic with one example and then i will tell you the formal definition the code and everything so let's just start with couple of examples and this is one of the example that i want to take",
+    "sourceReferences": [
+      {
+        "lecture": 101,
+        "file": "101. 17a. Introduction to BFS.mp4",
+        "start": 28.01,
+        "end": 53.93,
+        "text": "and let me do a bfs traversal on this graph starting at some node let's let's pick a source node which is let's suppose this first vertex one now what i'm going to do i'm going to you know i i agree that till now i have not told you that what is bfs and all i i just want to start this topic with one example and then i will tell you the formal definition the code and everything so let's just start with couple of examples and this is one of the example that i want to take"
+      },
+      {
+        "lecture": 101,
+        "file": "101. 17a. Introduction to BFS.mp4",
+        "start": 279.8,
+        "end": 308.86,
+        "text": "so these edges like these solid edges are tree edges that you might be knowing if you do not know then also not worry about it because we will classify them later let's first understand BFS why it's entirely so let's take this graph this is looking like a huge graph but let's just apply BFS on this graph let's say I'm starting at some vertex maybe at 1 or maybe at 10 you can start at any vertex let's say there I'm starting at 1 if you start at 1 you will explore its neighbors which are 10 and 9"
+      },
+      {
+        "lecture": 101,
+        "file": "101. 17a. Introduction to BFS.mp4",
+        "start": 677.96,
+        "end": 704.62,
+        "text": "that is all you keep doing it then you pick another vertex so earlier what you were doing you were doing the same thing you were inserting the vertex you were popping it out then you were inserting its adjacent then you were popping from the top here you are popping from the bottom that's the only difference that you had okay so instead of this code let me just dry run this code on this graph and let me show you that how BFS is actually working so let's start with a queue which is initially empty"
+      }
+    ]
+  },
+  {
+    "id": 306,
+    "lecture": 102,
+    "title": "Queue layers and edge constraints · Discover",
+    "concept": "A standard BFS queue contains at most two consecutive distance layers, with the smaller layer first. In an undirected graph, adjacent vertices have source distances differing by at most one. BFS processes the oldest discovered vertex next. Mark on enqueue, record the parent when first discovered, and assign a distance one larger than the parent’s layer.",
+    "teachingSteps": [
+      "A standard BFS queue contains at most two consecutive distance layers, with the smaller layer first. In an undirected graph, adjacent vertices have source distances differing by at most one.",
+      "Discover unmarked neighbors at the next distance",
+      "Dequeue in FIFO order until the queue is empty"
+    ],
+    "foundation": {
+      "title": "Queue layers and edge constraints",
+      "idea": "A standard BFS queue contains at most two consecutive distance layers, with the smaller layer first. In an undirected graph, adjacent vertices have source distances differing by at most one. BFS processes the oldest discovered vertex next. Mark on enqueue, record the parent when first discovered, and assign a distance one larger than the parent’s layer.",
+      "terms": [
+        "FIFO: first in, first out.",
+        "Layer: shortest distance measured in edges.",
+        "Parent: an edge on a shortest unweighted path."
+      ],
+      "example": "For edges A—B, A—C, B—D, C—D, D—E, the distances from A are 0,1,1,2,3."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "For the given unweighted graph, what is the shortest hop count from A to E?",
+        "answer": 3,
+        "explanation": "A→B→D→E or A→C→D→E uses three edges; no shorter route reaches E.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Undirected edge"
+          ],
+          "rows": [
+            [
+              "A—B"
+            ],
+            [
+              "A—C"
+            ],
+            [
+              "B—D"
+            ],
+            [
+              "C—D"
+            ],
+            [
+              "D—E"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "A standard BFS queue currently holds vertices of distance 4. What larger distance layer can coexist in that queue?",
+        "answer": 5,
+        "explanation": "Only the current layer and the next layer can coexist in the FIFO frontier.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains queue layers and edge constraints?",
+        "options": [
+          "A standard BFS queue contains at most two consecutive distance layers, with the smaller layer first.",
+          "Input assumptions cannot affect correctness.",
+          "One successful example proves the method for every graph."
+        ],
+        "answer": 0,
+        "explanation": "A standard BFS queue contains at most two consecutive distance layers, with the smaller layer first. In an undirected graph, adjacent vertices have source distances differing by at most one."
+      },
+      {
+        "type": "order",
+        "prompt": "Discover from A using alphabetically ordered neighbor lists in the given graph.",
+        "items": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "explanation": "B and C form layer one; D is enqueued once at layer two, then E at layer three.",
+        "algoGiven": {
+          "headers": [
+            "Undirected edge"
+          ],
+          "rows": [
+            [
+              "A—B"
+            ],
+            [
+              "A—C"
+            ],
+            [
+              "B—D"
+            ],
+            [
+              "C—D"
+            ],
+            [
+              "D—E"
+            ]
+          ]
+        }
+      }
+    ],
+    "algoLab": "bfs-layers",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 2.61,
+    "excerpt": "Hi everyone, so this is the second video of BFS and in this lecture we will be looking at few small but very important points first is BFS for shortest path in unweighted graph another one is BFS Q state that in a Q what kind of nodes are there at a time and BFS as layers so let's just start with first topic which is BFS for the shortest path in unweighted graph Okay, so let me write it here BFS for shortest path",
+    "sourceReferences": [
+      {
+        "lecture": 102,
+        "file": "102_17b_BFS_few_ObservationsProperties_and_BFS_Edge_Clas.mp4",
+        "start": 2.61,
+        "end": 31.47,
+        "text": "Hi everyone, so this is the second video of BFS and in this lecture we will be looking at few small but very important points first is BFS for shortest path in unweighted graph another one is BFS Q state that in a Q what kind of nodes are there at a time and BFS as layers so let's just start with first topic which is BFS for the shortest path in unweighted graph Okay, so let me write it here BFS for shortest path"
+      },
+      {
+        "lecture": 102,
+        "file": "102_17b_BFS_few_ObservationsProperties_and_BFS_Edge_Clas.mp4",
+        "start": 946.71,
+        "end": 976.56,
+        "text": "Now, let me ask you, can you have an edge, undirected or directed whatever, let me first talk about the undirected probably, can you have an edge which is going from here to here, which is skipping the layers. See, if it is a BFS tree, then these tree edges are there that I agree, then if I ask you that just imagine about the complete, complete means original graph, that what could be the original graph, what could be the possibly original graph. So in graph, in graph, can you have"
+      },
+      {
+        "lecture": 102,
+        "file": "102_17b_BFS_few_ObservationsProperties_and_BFS_Edge_Clas.mp4",
+        "start": 1946.67,
+        "end": 1976.76,
+        "text": "Right now if you if you just go back to you know from from the slide that where we have started this topic So I will say that yeah, we have seen the BFS for the shortest path I mean BFS give you the shortest path in case of undirected graph then I know that what are the frontiers in the BFS queue so given a given a partial partial BFS tree given partial BFS tree You know that what could be the queue state you can guess about the queue state"
+      }
+    ]
+  },
+  {
+    "id": 307,
+    "lecture": 102,
+    "title": "Queue layers and edge constraints · Trace",
+    "concept": "A standard BFS queue contains at most two consecutive distance layers, with the smaller layer first. In an undirected graph, adjacent vertices have source distances differing by at most one. BFS processes the oldest discovered vertex next. Mark on enqueue, record the parent when first discovered, and assign a distance one larger than the parent’s layer.",
+    "teachingSteps": [
+      "A standard BFS queue contains at most two consecutive distance layers, with the smaller layer first. In an undirected graph, adjacent vertices have source distances differing by at most one.",
+      "Discover unmarked neighbors at the next distance",
+      "Dequeue in FIFO order until the queue is empty"
+    ],
+    "foundation": {
+      "title": "Queue layers and edge constraints",
+      "idea": "A standard BFS queue contains at most two consecutive distance layers, with the smaller layer first. In an undirected graph, adjacent vertices have source distances differing by at most one. BFS processes the oldest discovered vertex next. Mark on enqueue, record the parent when first discovered, and assign a distance one larger than the parent’s layer.",
+      "terms": [
+        "FIFO: first in, first out.",
+        "Layer: shortest distance measured in edges.",
+        "Parent: an edge on a shortest unweighted path."
+      ],
+      "example": "For edges A—B, A—C, B—D, C—D, D—E, the distances from A are 0,1,1,2,3."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "For the given unweighted graph, what is the shortest hop count from A to E?",
+        "answer": 3,
+        "explanation": "A→B→D→E or A→C→D→E uses three edges; no shorter route reaches E.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Undirected edge"
+          ],
+          "rows": [
+            [
+              "A—B"
+            ],
+            [
+              "A—C"
+            ],
+            [
+              "B—D"
+            ],
+            [
+              "C—D"
+            ],
+            [
+              "D—E"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "A standard BFS queue currently holds vertices of distance 5. What larger distance layer can coexist in that queue?",
+        "answer": 6,
+        "explanation": "Only the current layer and the next layer can coexist in the FIFO frontier.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "When should a vertex be marked discovered in standard BFS?",
+        "options": [
+          "Only when it is removed from the queue.",
+          "Only after the entire graph is scanned.",
+          "When it is first enqueued."
+        ],
+        "answer": 2,
+        "explanation": "Marking on enqueue prevents duplicate queue entries from multiple parents."
+      },
+      {
+        "type": "order",
+        "prompt": "Discover from A using alphabetically ordered neighbor lists in the given graph.",
+        "items": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "explanation": "B and C form layer one; D is enqueued once at layer two, then E at layer three.",
+        "algoGiven": {
+          "headers": [
+            "Undirected edge"
+          ],
+          "rows": [
+            [
+              "A—B"
+            ],
+            [
+              "A—C"
+            ],
+            [
+              "B—D"
+            ],
+            [
+              "C—D"
+            ],
+            [
+              "D—E"
+            ]
+          ]
+        }
+      }
+    ],
+    "algoLab": "bfs-layers",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 2.61,
+    "excerpt": "Hi everyone, so this is the second video of BFS and in this lecture we will be looking at few small but very important points first is BFS for shortest path in unweighted graph another one is BFS Q state that in a Q what kind of nodes are there at a time and BFS as layers so let's just start with first topic which is BFS for the shortest path in unweighted graph Okay, so let me write it here BFS for shortest path",
+    "sourceReferences": [
+      {
+        "lecture": 102,
+        "file": "102_17b_BFS_few_ObservationsProperties_and_BFS_Edge_Clas.mp4",
+        "start": 2.61,
+        "end": 31.47,
+        "text": "Hi everyone, so this is the second video of BFS and in this lecture we will be looking at few small but very important points first is BFS for shortest path in unweighted graph another one is BFS Q state that in a Q what kind of nodes are there at a time and BFS as layers so let's just start with first topic which is BFS for the shortest path in unweighted graph Okay, so let me write it here BFS for shortest path"
+      },
+      {
+        "lecture": 102,
+        "file": "102_17b_BFS_few_ObservationsProperties_and_BFS_Edge_Clas.mp4",
+        "start": 946.71,
+        "end": 976.56,
+        "text": "Now, let me ask you, can you have an edge, undirected or directed whatever, let me first talk about the undirected probably, can you have an edge which is going from here to here, which is skipping the layers. See, if it is a BFS tree, then these tree edges are there that I agree, then if I ask you that just imagine about the complete, complete means original graph, that what could be the original graph, what could be the possibly original graph. So in graph, in graph, can you have"
+      },
+      {
+        "lecture": 102,
+        "file": "102_17b_BFS_few_ObservationsProperties_and_BFS_Edge_Clas.mp4",
+        "start": 1946.67,
+        "end": 1976.76,
+        "text": "Right now if you if you just go back to you know from from the slide that where we have started this topic So I will say that yeah, we have seen the BFS for the shortest path I mean BFS give you the shortest path in case of undirected graph then I know that what are the frontiers in the BFS queue so given a given a partial partial BFS tree given partial BFS tree You know that what could be the queue state you can guess about the queue state"
+      }
+    ]
+  },
+  {
+    "id": 308,
+    "lecture": 102,
+    "title": "Queue layers and edge constraints · Apply",
+    "concept": "A standard BFS queue contains at most two consecutive distance layers, with the smaller layer first. In an undirected graph, adjacent vertices have source distances differing by at most one. BFS processes the oldest discovered vertex next. Mark on enqueue, record the parent when first discovered, and assign a distance one larger than the parent’s layer.",
+    "teachingSteps": [
+      "A standard BFS queue contains at most two consecutive distance layers, with the smaller layer first. In an undirected graph, adjacent vertices have source distances differing by at most one.",
+      "Discover unmarked neighbors at the next distance",
+      "Dequeue in FIFO order until the queue is empty"
+    ],
+    "foundation": {
+      "title": "Queue layers and edge constraints",
+      "idea": "A standard BFS queue contains at most two consecutive distance layers, with the smaller layer first. In an undirected graph, adjacent vertices have source distances differing by at most one. BFS processes the oldest discovered vertex next. Mark on enqueue, record the parent when first discovered, and assign a distance one larger than the parent’s layer.",
+      "terms": [
+        "FIFO: first in, first out.",
+        "Layer: shortest distance measured in edges.",
+        "Parent: an edge on a shortest unweighted path."
+      ],
+      "example": "For edges A—B, A—C, B—D, C—D, D—E, the distances from A are 0,1,1,2,3."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "An unweighted route service minimizes hop count. For the given unweighted graph, what is the shortest hop count from A to E?",
+        "answer": 3,
+        "explanation": "A→B→D→E or A→C→D→E uses three edges; no shorter route reaches E.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Undirected edge"
+          ],
+          "rows": [
+            [
+              "A—B"
+            ],
+            [
+              "A—C"
+            ],
+            [
+              "B—D"
+            ],
+            [
+              "C—D"
+            ],
+            [
+              "D—E"
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "A standard BFS queue currently holds vertices of distance 2. What larger distance layer can coexist in that queue?",
+        "answer": 3,
+        "explanation": "Only the current layer and the next layer can coexist in the FIFO frontier.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "When should a vertex be marked discovered in standard BFS?",
+        "options": [
+          "Only after the entire graph is scanned.",
+          "When it is first enqueued.",
+          "Only when it is removed from the queue."
+        ],
+        "answer": 1,
+        "explanation": "Marking on enqueue prevents duplicate queue entries from multiple parents."
+      },
+      {
+        "type": "order",
+        "prompt": "Discover from A using alphabetically ordered neighbor lists in the given graph.",
+        "items": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "explanation": "B and C form layer one; D is enqueued once at layer two, then E at layer three.",
+        "algoGiven": {
+          "headers": [
+            "Undirected edge"
+          ],
+          "rows": [
+            [
+              "A—B"
+            ],
+            [
+              "A—C"
+            ],
+            [
+              "B—D"
+            ],
+            [
+              "C—D"
+            ],
+            [
+              "D—E"
+            ]
+          ]
+        }
+      }
+    ],
+    "algoLab": "bfs-layers",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 2.61,
+    "excerpt": "Hi everyone, so this is the second video of BFS and in this lecture we will be looking at few small but very important points first is BFS for shortest path in unweighted graph another one is BFS Q state that in a Q what kind of nodes are there at a time and BFS as layers so let's just start with first topic which is BFS for the shortest path in unweighted graph Okay, so let me write it here BFS for shortest path",
+    "sourceReferences": [
+      {
+        "lecture": 102,
+        "file": "102_17b_BFS_few_ObservationsProperties_and_BFS_Edge_Clas.mp4",
+        "start": 2.61,
+        "end": 31.47,
+        "text": "Hi everyone, so this is the second video of BFS and in this lecture we will be looking at few small but very important points first is BFS for shortest path in unweighted graph another one is BFS Q state that in a Q what kind of nodes are there at a time and BFS as layers so let's just start with first topic which is BFS for the shortest path in unweighted graph Okay, so let me write it here BFS for shortest path"
+      },
+      {
+        "lecture": 102,
+        "file": "102_17b_BFS_few_ObservationsProperties_and_BFS_Edge_Clas.mp4",
+        "start": 946.71,
+        "end": 976.56,
+        "text": "Now, let me ask you, can you have an edge, undirected or directed whatever, let me first talk about the undirected probably, can you have an edge which is going from here to here, which is skipping the layers. See, if it is a BFS tree, then these tree edges are there that I agree, then if I ask you that just imagine about the complete, complete means original graph, that what could be the original graph, what could be the possibly original graph. So in graph, in graph, can you have"
+      },
+      {
+        "lecture": 102,
+        "file": "102_17b_BFS_few_ObservationsProperties_and_BFS_Edge_Clas.mp4",
+        "start": 1946.67,
+        "end": 1976.76,
+        "text": "Right now if you if you just go back to you know from from the slide that where we have started this topic So I will say that yeah, we have seen the BFS for the shortest path I mean BFS give you the shortest path in case of undirected graph then I know that what are the frontiers in the BFS queue so given a given a partial partial BFS tree given partial BFS tree You know that what could be the queue state you can guess about the queue state"
+      }
+    ]
+  },
+  {
+    "id": 309,
+    "lecture": 103,
+    "title": "BFS paths and bipartite coloring · Discover",
+    "concept": "A graph is bipartite exactly when it has no odd cycle. BFS can alternate two colors by layer, but every component must be checked and every edge must join opposite colors. Bipartite graphs split vertices into two sets with every edge crossing the sets. A BFS two-color test must restart in every undiscovered component and reject a same-color edge.",
+    "teachingSteps": [
+      "A graph is bipartite exactly when it has no odd cycle. BFS can alternate two colors by layer, but every component must be checked and every edge must join opposite colors.",
+      "Assign the opposite color to each new neighbor",
+      "Reject any edge joining equal colors"
+    ],
+    "foundation": {
+      "title": "BFS paths and bipartite coloring",
+      "idea": "A graph is bipartite exactly when it has no odd cycle. BFS can alternate two colors by layer, but every component must be checked and every edge must join opposite colors. Bipartite graphs split vertices into two sets with every edge crossing the sets. A BFS two-color test must restart in every undiscovered component and reject a same-color edge.",
+      "terms": [
+        "Color 0 / color 1: the two candidate sets.",
+        "Odd cycle: obstruction to a two-coloring.",
+        "Component: a separately reachable part of an undirected graph."
+      ],
+      "example": "A four-cycle A—B—C—D—A has colors 0,1,0,1. Adding diagonal A—C creates a triangle and breaks bipartiteness."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "An even cycle has 10 vertices. In its alternating two-coloring, how many vertices have color zero?",
+        "answer": 5,
+        "explanation": "The two color classes alternate and have equal size: half the vertices each.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A simple odd cycle has 11 edges and no other edges. What minimum number of edges must be deleted to make it bipartite?",
+        "answer": 1,
+        "explanation": "The cycle itself is not bipartite; deleting any one edge leaves a path, which is bipartite.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains bfs paths and bipartite coloring?",
+        "options": [
+          "Input assumptions cannot affect correctness.",
+          "One successful example proves the method for every graph.",
+          "A graph is bipartite exactly when it has no odd cycle."
+        ],
+        "answer": 2,
+        "explanation": "A graph is bipartite exactly when it has no odd cycle. BFS can alternate two colors by layer, but every component must be checked and every edge must join opposite colors."
+      },
+      {
+        "type": "order",
+        "prompt": "Check all components for bipartiteness.",
+        "items": [
+          "Start each new component with color zero",
+          "Assign the opposite color to each new neighbor",
+          "Reject any edge joining equal colors"
+        ],
+        "explanation": "Restart after each completed component and test every edge, not only discovery edges."
+      }
+    ],
+    "algoLab": "bfs-bipartite",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 576.36,
+    "excerpt": "Now let's move to BFS applications. There are like this is one of the important application which is bipartite graph. Another application which is number of connected components. It is basically application of BFS and DFS both. We can see this application in BFS and DFS both. But let's first move to this bipartite graph application. Okay.",
+    "sourceReferences": [
+      {
+        "lecture": 103,
+        "file": "103. 17c. BFS Applications.mp4",
+        "start": 576.36,
+        "end": 596.46,
+        "text": "Now let's move to BFS applications. There are like this is one of the important application which is bipartite graph. Another application which is number of connected components. It is basically application of BFS and DFS both. We can see this application in BFS and DFS both. But let's first move to this bipartite graph application. Okay."
+      },
+      {
+        "lecture": 103,
+        "file": "103. 17c. BFS Applications.mp4",
+        "start": 596.83,
+        "end": 629.65,
+        "text": "so there is one theorem you might be knowing from the discrete mathematics if we have gone through the discrete mathematics lecture but before that I mean if you have not watched those lectures then also it is fine let me tell you one theorem a graph is bipartite if and only if if if and only if which means it is bidirectional if and only if there is no odd length cycle there is no odd length"
+      },
+      {
+        "lecture": 103,
+        "file": "103. 17c. BFS Applications.mp4",
+        "start": 630.74,
+        "end": 657.66,
+        "text": "cycle. So, okay, let me first tell you what does this bipartite means. Wipartite means a graph can be divided, a vertices of the graph can be divided into two parts. Let me tell you that first. So, suppose that I have a graph something like this. Maybe some graph like this. Now, if I ask you whether this graph is bipartite or not, then you will say yes. Why? Because these vertices"
+      }
+    ]
+  },
+  {
+    "id": 310,
+    "lecture": 103,
+    "title": "BFS paths and bipartite coloring · Trace",
+    "concept": "A graph is bipartite exactly when it has no odd cycle. BFS can alternate two colors by layer, but every component must be checked and every edge must join opposite colors. Bipartite graphs split vertices into two sets with every edge crossing the sets. A BFS two-color test must restart in every undiscovered component and reject a same-color edge.",
+    "teachingSteps": [
+      "A graph is bipartite exactly when it has no odd cycle. BFS can alternate two colors by layer, but every component must be checked and every edge must join opposite colors.",
+      "Assign the opposite color to each new neighbor",
+      "Reject any edge joining equal colors"
+    ],
+    "foundation": {
+      "title": "BFS paths and bipartite coloring",
+      "idea": "A graph is bipartite exactly when it has no odd cycle. BFS can alternate two colors by layer, but every component must be checked and every edge must join opposite colors. Bipartite graphs split vertices into two sets with every edge crossing the sets. A BFS two-color test must restart in every undiscovered component and reject a same-color edge.",
+      "terms": [
+        "Color 0 / color 1: the two candidate sets.",
+        "Odd cycle: obstruction to a two-coloring.",
+        "Component: a separately reachable part of an undirected graph."
+      ],
+      "example": "A four-cycle A—B—C—D—A has colors 0,1,0,1. Adding diagonal A—C creates a triangle and breaks bipartiteness."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "An even cycle has 4 vertices. In its alternating two-coloring, how many vertices have color zero?",
+        "answer": 2,
+        "explanation": "The two color classes alternate and have equal size: half the vertices each.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A simple odd cycle has 5 edges and no other edges. What minimum number of edges must be deleted to make it bipartite?",
+        "answer": 1,
+        "explanation": "The cycle itself is not bipartite; deleting any one edge leaves a path, which is bipartite.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Component A—B is bipartite, but a separate C—D—E—C triangle exists. Is the whole graph bipartite?",
+        "options": [
+          "Yes: every disconnected graph is bipartite.",
+          "No: the disconnected odd cycle also must be checked.",
+          "Yes: the first BFS root saw no conflict."
+        ],
+        "answer": 1,
+        "explanation": "Every component must pass the two-color test."
+      },
+      {
+        "type": "order",
+        "prompt": "Check all components for bipartiteness.",
+        "items": [
+          "Start each new component with color zero",
+          "Assign the opposite color to each new neighbor",
+          "Reject any edge joining equal colors"
+        ],
+        "explanation": "Restart after each completed component and test every edge, not only discovery edges."
+      }
+    ],
+    "algoLab": "bfs-bipartite",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 576.36,
+    "excerpt": "Now let's move to BFS applications. There are like this is one of the important application which is bipartite graph. Another application which is number of connected components. It is basically application of BFS and DFS both. We can see this application in BFS and DFS both. But let's first move to this bipartite graph application. Okay.",
+    "sourceReferences": [
+      {
+        "lecture": 103,
+        "file": "103. 17c. BFS Applications.mp4",
+        "start": 576.36,
+        "end": 596.46,
+        "text": "Now let's move to BFS applications. There are like this is one of the important application which is bipartite graph. Another application which is number of connected components. It is basically application of BFS and DFS both. We can see this application in BFS and DFS both. But let's first move to this bipartite graph application. Okay."
+      },
+      {
+        "lecture": 103,
+        "file": "103. 17c. BFS Applications.mp4",
+        "start": 596.83,
+        "end": 629.65,
+        "text": "so there is one theorem you might be knowing from the discrete mathematics if we have gone through the discrete mathematics lecture but before that I mean if you have not watched those lectures then also it is fine let me tell you one theorem a graph is bipartite if and only if if if and only if which means it is bidirectional if and only if there is no odd length cycle there is no odd length"
+      },
+      {
+        "lecture": 103,
+        "file": "103. 17c. BFS Applications.mp4",
+        "start": 630.74,
+        "end": 657.66,
+        "text": "cycle. So, okay, let me first tell you what does this bipartite means. Wipartite means a graph can be divided, a vertices of the graph can be divided into two parts. Let me tell you that first. So, suppose that I have a graph something like this. Maybe some graph like this. Now, if I ask you whether this graph is bipartite or not, then you will say yes. Why? Because these vertices"
+      }
+    ]
+  },
+  {
+    "id": 311,
+    "lecture": 103,
+    "title": "BFS paths and bipartite coloring · Apply",
+    "concept": "A graph is bipartite exactly when it has no odd cycle. BFS can alternate two colors by layer, but every component must be checked and every edge must join opposite colors. Bipartite graphs split vertices into two sets with every edge crossing the sets. A BFS two-color test must restart in every undiscovered component and reject a same-color edge.",
+    "teachingSteps": [
+      "A graph is bipartite exactly when it has no odd cycle. BFS can alternate two colors by layer, but every component must be checked and every edge must join opposite colors.",
+      "Assign the opposite color to each new neighbor",
+      "Reject any edge joining equal colors"
+    ],
+    "foundation": {
+      "title": "BFS paths and bipartite coloring",
+      "idea": "A graph is bipartite exactly when it has no odd cycle. BFS can alternate two colors by layer, but every component must be checked and every edge must join opposite colors. Bipartite graphs split vertices into two sets with every edge crossing the sets. A BFS two-color test must restart in every undiscovered component and reject a same-color edge.",
+      "terms": [
+        "Color 0 / color 1: the two candidate sets.",
+        "Odd cycle: obstruction to a two-coloring.",
+        "Component: a separately reachable part of an undirected graph."
+      ],
+      "example": "A four-cycle A—B—C—D—A has colors 0,1,0,1. Adding diagonal A—C creates a triangle and breaks bipartiteness."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A scheduling service needs a valid two-set assignment. An even cycle has 6 vertices. In its alternating two-coloring, how many vertices have color zero?",
+        "answer": 3,
+        "explanation": "The two color classes alternate and have equal size: half the vertices each.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A simple odd cycle has 7 edges and no other edges. What minimum number of edges must be deleted to make it bipartite?",
+        "answer": 1,
+        "explanation": "The cycle itself is not bipartite; deleting any one edge leaves a path, which is bipartite.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Component A—B is bipartite, but a separate C—D—E—C triangle exists. Is the whole graph bipartite?",
+        "options": [
+          "No: the disconnected odd cycle also must be checked.",
+          "Yes: the first BFS root saw no conflict.",
+          "Yes: every disconnected graph is bipartite."
+        ],
+        "answer": 0,
+        "explanation": "Every component must pass the two-color test."
+      },
+      {
+        "type": "order",
+        "prompt": "Check all components for bipartiteness.",
+        "items": [
+          "Start each new component with color zero",
+          "Assign the opposite color to each new neighbor",
+          "Reject any edge joining equal colors"
+        ],
+        "explanation": "Restart after each completed component and test every edge, not only discovery edges."
+      }
+    ],
+    "algoLab": "bfs-bipartite",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 576.36,
+    "excerpt": "Now let's move to BFS applications. There are like this is one of the important application which is bipartite graph. Another application which is number of connected components. It is basically application of BFS and DFS both. We can see this application in BFS and DFS both. But let's first move to this bipartite graph application. Okay.",
+    "sourceReferences": [
+      {
+        "lecture": 103,
+        "file": "103. 17c. BFS Applications.mp4",
+        "start": 576.36,
+        "end": 596.46,
+        "text": "Now let's move to BFS applications. There are like this is one of the important application which is bipartite graph. Another application which is number of connected components. It is basically application of BFS and DFS both. We can see this application in BFS and DFS both. But let's first move to this bipartite graph application. Okay."
+      },
+      {
+        "lecture": 103,
+        "file": "103. 17c. BFS Applications.mp4",
+        "start": 596.83,
+        "end": 629.65,
+        "text": "so there is one theorem you might be knowing from the discrete mathematics if we have gone through the discrete mathematics lecture but before that I mean if you have not watched those lectures then also it is fine let me tell you one theorem a graph is bipartite if and only if if if and only if which means it is bidirectional if and only if there is no odd length cycle there is no odd length"
+      },
+      {
+        "lecture": 103,
+        "file": "103. 17c. BFS Applications.mp4",
+        "start": 630.74,
+        "end": 657.66,
+        "text": "cycle. So, okay, let me first tell you what does this bipartite means. Wipartite means a graph can be divided, a vertices of the graph can be divided into two parts. Let me tell you that first. So, suppose that I have a graph something like this. Maybe some graph like this. Now, if I ask you whether this graph is bipartite or not, then you will say yes. Why? Because these vertices"
+      }
+    ]
+  },
+  {
+    "id": 312,
+    "lecture": 104,
+    "title": "When a greedy choice is safe · Discover",
+    "concept": "A greedy method makes a locally preferred choice and commits to it. Correctness needs a task-specific argument; choosing the best-looking local option is not automatically globally optimal. Greedy algorithms commit to locally preferred choices. The preference and correctness argument depend on the task: an attractive choice can fail when later constraints interact with it.",
+    "teachingSteps": [
+      "A greedy method makes a locally preferred choice and commits to it. Correctness needs a task-specific argument; choosing the best-looking local option is not automatically globally optimal.",
+      "Choose a rule and test small counterexamples",
+      "Prove the choice is safe before committing"
+    ],
+    "foundation": {
+      "title": "When a greedy choice is safe",
+      "idea": "A greedy method makes a locally preferred choice and commits to it. Correctness needs a task-specific argument; choosing the best-looking local option is not automatically globally optimal. Greedy algorithms commit to locally preferred choices. The preference and correctness argument depend on the task: an attractive choice can fail when later constraints interact with it.",
+      "terms": [
+        "Local choice: what looks best now.",
+        "Feasible: satisfies the task constraints.",
+        "Exchange argument: replace an optimal choice without harming the optimum."
+      ],
+      "example": "For coin values 1,3,4 and target 6, taking the largest coin first gives 4+1+1, but 3+3 uses fewer coins."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Coins have values 1,3,4. Largest-first greedy change for amount 6 uses how many coins?",
+        "answer": 3,
+        "explanation": "It chooses 4, then 1, then 1.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "For the same amount 6 and coins 1,3,4, what is the minimum possible coin count?",
+        "answer": 2,
+        "explanation": "3+3 uses two; a one-coin solution of value 6 is unavailable.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains when a greedy choice is safe?",
+        "options": [
+          "One successful example proves the method for every graph.",
+          "A greedy method makes a locally preferred choice and commits to it.",
+          "Input assumptions cannot affect correctness."
+        ],
+        "answer": 1,
+        "explanation": "A greedy method makes a locally preferred choice and commits to it. Correctness needs a task-specific argument; choosing the best-looking local option is not automatically globally optimal."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate a candidate greedy design.",
+        "items": [
+          "State the required output and feasible choices",
+          "Choose a rule and test small counterexamples",
+          "Prove the choice is safe before committing"
+        ],
+        "explanation": "Specify the task, test the choice, and prove safety before claiming optimality."
+      }
+    ],
+    "algoLab": "greedy",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 85.26,
+    "excerpt": "to the leaf which is furthest away and it can jump which means if this frog has two options whether to jump to this leaf which means this leaf or maybe to jump to this leaf directly then obviously it should be choosing this option which is the furthest away so this choice is called greedy choice that this frog is jumping instead of jumping onto this leaf or to jump to this leaf this frog is directly jumping to this leaf",
+    "sourceReferences": [
+      {
+        "lecture": 104,
+        "file": "104_18a_Introduction_to_Greedy_Algorithms_Introduction_a.mp4",
+        "start": 85.26,
+        "end": 110.78,
+        "text": "to the leaf which is furthest away and it can jump which means if this frog has two options whether to jump to this leaf which means this leaf or maybe to jump to this leaf directly then obviously it should be choosing this option which is the furthest away so this choice is called greedy choice that this frog is jumping instead of jumping onto this leaf or to jump to this leaf this frog is directly jumping to this leaf"
+      },
+      {
+        "lecture": 104,
+        "file": "104_18a_Introduction_to_Greedy_Algorithms_Introduction_a.mp4",
+        "start": 110.99,
+        "end": 139.54,
+        "text": "because it knows that if I jump to this leaf then it is covering me the maximum distance. So this frog is being greedy, instead of these it is directly choosing the best option that is currently available for this frog. Which means, so I will say that this frog is being greedy, is being greedy and it is choosing the option which is seemingly best at this moment. So best at this moment."
+      },
+      {
+        "lecture": 104,
+        "file": "104_18a_Introduction_to_Greedy_Algorithms_Introduction_a.mp4",
+        "start": 489.92,
+        "end": 515.3,
+        "text": "this is also dp property dynamic programming property and there is another property of greedy algorithm which says greedy choice property it is saying that a global optimal can be arrived by selecting the local optimal which means whatever at this moment you are seeming to be best if you apply that then ultimately you will be finding the best solution if these two properties are applicable in some problem then you can say that problem can be solved by the greedy algorithms"
+      }
+    ]
+  },
+  {
+    "id": 313,
+    "lecture": 104,
+    "title": "When a greedy choice is safe · Trace",
+    "concept": "A greedy method makes a locally preferred choice and commits to it. Correctness needs a task-specific argument; choosing the best-looking local option is not automatically globally optimal. Greedy algorithms commit to locally preferred choices. The preference and correctness argument depend on the task: an attractive choice can fail when later constraints interact with it.",
+    "teachingSteps": [
+      "A greedy method makes a locally preferred choice and commits to it. Correctness needs a task-specific argument; choosing the best-looking local option is not automatically globally optimal.",
+      "Choose a rule and test small counterexamples",
+      "Prove the choice is safe before committing"
+    ],
+    "foundation": {
+      "title": "When a greedy choice is safe",
+      "idea": "A greedy method makes a locally preferred choice and commits to it. Correctness needs a task-specific argument; choosing the best-looking local option is not automatically globally optimal. Greedy algorithms commit to locally preferred choices. The preference and correctness argument depend on the task: an attractive choice can fail when later constraints interact with it.",
+      "terms": [
+        "Local choice: what looks best now.",
+        "Feasible: satisfies the task constraints.",
+        "Exchange argument: replace an optimal choice without harming the optimum."
+      ],
+      "example": "For coin values 1,3,4 and target 6, taking the largest coin first gives 4+1+1, but 3+3 uses fewer coins."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Coins have values 1,3,4. Largest-first greedy change for amount 6 uses how many coins?",
+        "answer": 3,
+        "explanation": "It chooses 4, then 1, then 1.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "For the same amount 6 and coins 1,3,4, what is the minimum possible coin count?",
+        "answer": 2,
+        "explanation": "3+3 uses two; a one-coin solution of value 6 is unavailable.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "What does a small counterexample to a greedy rule establish?",
+        "options": [
+          "That the proposed rule is not universally correct for that task.",
+          "That no algorithm can solve the task.",
+          "That every greedy algorithm is wrong."
+        ],
+        "answer": 0,
+        "explanation": "One failure refutes a universal guarantee for this particular rule."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate a candidate greedy design.",
+        "items": [
+          "State the required output and feasible choices",
+          "Choose a rule and test small counterexamples",
+          "Prove the choice is safe before committing"
+        ],
+        "explanation": "Specify the task, test the choice, and prove safety before claiming optimality."
+      }
+    ],
+    "algoLab": "greedy",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 85.26,
+    "excerpt": "to the leaf which is furthest away and it can jump which means if this frog has two options whether to jump to this leaf which means this leaf or maybe to jump to this leaf directly then obviously it should be choosing this option which is the furthest away so this choice is called greedy choice that this frog is jumping instead of jumping onto this leaf or to jump to this leaf this frog is directly jumping to this leaf",
+    "sourceReferences": [
+      {
+        "lecture": 104,
+        "file": "104_18a_Introduction_to_Greedy_Algorithms_Introduction_a.mp4",
+        "start": 85.26,
+        "end": 110.78,
+        "text": "to the leaf which is furthest away and it can jump which means if this frog has two options whether to jump to this leaf which means this leaf or maybe to jump to this leaf directly then obviously it should be choosing this option which is the furthest away so this choice is called greedy choice that this frog is jumping instead of jumping onto this leaf or to jump to this leaf this frog is directly jumping to this leaf"
+      },
+      {
+        "lecture": 104,
+        "file": "104_18a_Introduction_to_Greedy_Algorithms_Introduction_a.mp4",
+        "start": 110.99,
+        "end": 139.54,
+        "text": "because it knows that if I jump to this leaf then it is covering me the maximum distance. So this frog is being greedy, instead of these it is directly choosing the best option that is currently available for this frog. Which means, so I will say that this frog is being greedy, is being greedy and it is choosing the option which is seemingly best at this moment. So best at this moment."
+      },
+      {
+        "lecture": 104,
+        "file": "104_18a_Introduction_to_Greedy_Algorithms_Introduction_a.mp4",
+        "start": 489.92,
+        "end": 515.3,
+        "text": "this is also dp property dynamic programming property and there is another property of greedy algorithm which says greedy choice property it is saying that a global optimal can be arrived by selecting the local optimal which means whatever at this moment you are seeming to be best if you apply that then ultimately you will be finding the best solution if these two properties are applicable in some problem then you can say that problem can be solved by the greedy algorithms"
+      }
+    ]
+  },
+  {
+    "id": 314,
+    "lecture": 104,
+    "title": "When a greedy choice is safe · Apply",
+    "concept": "A greedy method makes a locally preferred choice and commits to it. Correctness needs a task-specific argument; choosing the best-looking local option is not automatically globally optimal. Greedy algorithms commit to locally preferred choices. The preference and correctness argument depend on the task: an attractive choice can fail when later constraints interact with it.",
+    "teachingSteps": [
+      "A greedy method makes a locally preferred choice and commits to it. Correctness needs a task-specific argument; choosing the best-looking local option is not automatically globally optimal.",
+      "Choose a rule and test small counterexamples",
+      "Prove the choice is safe before committing"
+    ],
+    "foundation": {
+      "title": "When a greedy choice is safe",
+      "idea": "A greedy method makes a locally preferred choice and commits to it. Correctness needs a task-specific argument; choosing the best-looking local option is not automatically globally optimal. Greedy algorithms commit to locally preferred choices. The preference and correctness argument depend on the task: an attractive choice can fail when later constraints interact with it.",
+      "terms": [
+        "Local choice: what looks best now.",
+        "Feasible: satisfies the task constraints.",
+        "Exchange argument: replace an optimal choice without harming the optimum."
+      ],
+      "example": "For coin values 1,3,4 and target 6, taking the largest coin first gives 4+1+1, but 3+3 uses fewer coins."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A payment service is evaluating a local coin rule. Coins have values 1,3,4. Largest-first greedy change for amount 6 uses how many coins?",
+        "answer": 3,
+        "explanation": "It chooses 4, then 1, then 1.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "For the same amount 6 and coins 1,3,4, what is the minimum possible coin count?",
+        "answer": 2,
+        "explanation": "3+3 uses two; a one-coin solution of value 6 is unavailable.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "What does a small counterexample to a greedy rule establish?",
+        "options": [
+          "That no algorithm can solve the task.",
+          "That every greedy algorithm is wrong.",
+          "That the proposed rule is not universally correct for that task."
+        ],
+        "answer": 2,
+        "explanation": "One failure refutes a universal guarantee for this particular rule."
+      },
+      {
+        "type": "order",
+        "prompt": "Evaluate a candidate greedy design.",
+        "items": [
+          "State the required output and feasible choices",
+          "Choose a rule and test small counterexamples",
+          "Prove the choice is safe before committing"
+        ],
+        "explanation": "Specify the task, test the choice, and prove safety before claiming optimality."
+      }
+    ],
+    "algoLab": "greedy",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 85.26,
+    "excerpt": "to the leaf which is furthest away and it can jump which means if this frog has two options whether to jump to this leaf which means this leaf or maybe to jump to this leaf directly then obviously it should be choosing this option which is the furthest away so this choice is called greedy choice that this frog is jumping instead of jumping onto this leaf or to jump to this leaf this frog is directly jumping to this leaf",
+    "sourceReferences": [
+      {
+        "lecture": 104,
+        "file": "104_18a_Introduction_to_Greedy_Algorithms_Introduction_a.mp4",
+        "start": 85.26,
+        "end": 110.78,
+        "text": "to the leaf which is furthest away and it can jump which means if this frog has two options whether to jump to this leaf which means this leaf or maybe to jump to this leaf directly then obviously it should be choosing this option which is the furthest away so this choice is called greedy choice that this frog is jumping instead of jumping onto this leaf or to jump to this leaf this frog is directly jumping to this leaf"
+      },
+      {
+        "lecture": 104,
+        "file": "104_18a_Introduction_to_Greedy_Algorithms_Introduction_a.mp4",
+        "start": 110.99,
+        "end": 139.54,
+        "text": "because it knows that if I jump to this leaf then it is covering me the maximum distance. So this frog is being greedy, instead of these it is directly choosing the best option that is currently available for this frog. Which means, so I will say that this frog is being greedy, is being greedy and it is choosing the option which is seemingly best at this moment. So best at this moment."
+      },
+      {
+        "lecture": 104,
+        "file": "104_18a_Introduction_to_Greedy_Algorithms_Introduction_a.mp4",
+        "start": 489.92,
+        "end": 515.3,
+        "text": "this is also dp property dynamic programming property and there is another property of greedy algorithm which says greedy choice property it is saying that a global optimal can be arrived by selecting the local optimal which means whatever at this moment you are seeming to be best if you apply that then ultimately you will be finding the best solution if these two properties are applicable in some problem then you can say that problem can be solved by the greedy algorithms"
+      }
+    ]
+  },
+  {
+    "id": 315,
+    "lecture": 105,
+    "title": "Dijkstra’s settle-and-relax rule · Discover",
+    "concept": "With nonnegative edge weights, Dijkstra repeatedly settles the smallest tentative distance and relaxes its outgoing edges. Settled distances are final under this weight assumption. A tentative distance is the best discovered route cost so far. Dijkstra’s extract-min choice becomes final because nonnegative remaining edges cannot create a cheaper detour to the chosen vertex.",
+    "teachingSteps": [
+      "With nonnegative edge weights, Dijkstra repeatedly settles the smallest tentative distance and relaxes its outgoing edges. Settled distances are final under this weight assumption.",
+      "Extract and settle the smallest tentative distance",
+      "Relax outgoing edges and repair their priorities"
+    ],
+    "foundation": {
+      "title": "Dijkstra’s settle-and-relax rule",
+      "idea": "With nonnegative edge weights, Dijkstra repeatedly settles the smallest tentative distance and relaxes its outgoing edges. Settled distances are final under this weight assumption. A tentative distance is the best discovered route cost so far. Dijkstra’s extract-min choice becomes final because nonnegative remaining edges cannot create a cheaper detour to the chosen vertex.",
+      "terms": [
+        "Relaxation: compare d[v] with d[u]+w(u,v).",
+        "Settled: distance is final under nonnegative weights.",
+        "Not reached: no finite source path discovered yet."
+      ],
+      "example": "If A→B costs 4, A→C costs 1 and C→B costs 2, first settle C at 1 and improve B to 3."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Current d[u]=4, edge weight w=3, and d[v]=10. After relaxing u→v, what is d[v]?",
+        "answer": 7,
+        "explanation": "The candidate d[u]+w is three smaller than the current tentative distance.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "For A→B=4, A→C=1 and C→B=2, what shortest distance should Dijkstra settle for B?",
+        "answer": 3,
+        "explanation": "The path A→C→B costs 1+2=3, beating the direct edge of cost 4.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains dijkstra’s settle-and-relax rule?",
+        "options": [
+          "With nonnegative edge weights, Dijkstra repeatedly settles the smallest tentative distance and relaxes its outgoing edges.",
+          "Input assumptions cannot affect correctness.",
+          "One successful example proves the method for every graph."
+        ],
+        "answer": 0,
+        "explanation": "With nonnegative edge weights, Dijkstra repeatedly settles the smallest tentative distance and relaxes its outgoing edges. Settled distances are final under this weight assumption."
+      },
+      {
+        "type": "order",
+        "prompt": "Perform one Dijkstra iteration.",
+        "items": [
+          "Extract the smallest unsettled tentative distance",
+          "Settle that vertex",
+          "Relax its outgoing edges and update priorities"
+        ],
+        "explanation": "The smallest distance is selected globally from the frontier, not simply from the last vertex’s neighbors."
+      }
+    ],
+    "algoLab": "dijkstra",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 78.89,
+    "excerpt": "So, I will relax this edge which means this is 0 plus 12, now it is 12, it is 0 plus 3, now it is 3, now it is 0 plus 2, now it is 2, it is 0 plus 21, it is 21. So now as you can see that I have relaxed all of these edges and this u-block is final which means I will not consider this u-block again because I know shorter distance from u-block to u-block is just 0. Now, let's just find out the minimum among all known distances.",
+    "sourceReferences": [
+      {
+        "lecture": 105,
+        "file": "105. 18b. Dijkstra code and Working Example 1.mp4",
+        "start": 78.89,
+        "end": 107.48,
+        "text": "So, I will relax this edge which means this is 0 plus 12, now it is 12, it is 0 plus 3, now it is 3, now it is 0 plus 2, now it is 2, it is 0 plus 21, it is 21. So now as you can see that I have relaxed all of these edges and this u-block is final which means I will not consider this u-block again because I know shorter distance from u-block to u-block is just 0. Now, let's just find out the minimum among all known distances."
+      },
+      {
+        "lecture": 105,
+        "file": "105. 18b. Dijkstra code and Working Example 1.mp4",
+        "start": 149.02,
+        "end": 174.85,
+        "text": "I will do one thing, I will not talk about this prior to you again and again. Let me first have a simple example. Let me first try run the digest algorithm. So what we are doing, we are picking a vertex, relaxing all outgoing edges and then just pick the minimum again. So the minimum here is library. So I will say that library is also final, which means from U block, I will go to library in the distance of 2."
+      },
+      {
+        "lecture": 105,
+        "file": "105. 18b. Dijkstra code and Working Example 1.mp4",
+        "start": 400.12,
+        "end": 429.34,
+        "text": "since 7 is minimum you will say that you will go to this mess via CSA department so you will go to mess via CSA department and the edge weight is 4 so ultimately you are reaching in 7 so this mess is also final now relax all the outgoing edges since all the outgoing edges are already you know leading to some vertices which are already uh visited or you already know the shortest path to these vertices so that's why you will not relax just take the minimum again so you are taking the minimum among 20 and 14"
+      }
+    ]
+  },
+  {
+    "id": 316,
+    "lecture": 105,
+    "title": "Dijkstra’s settle-and-relax rule · Trace",
+    "concept": "With nonnegative edge weights, Dijkstra repeatedly settles the smallest tentative distance and relaxes its outgoing edges. Settled distances are final under this weight assumption. A tentative distance is the best discovered route cost so far. Dijkstra’s extract-min choice becomes final because nonnegative remaining edges cannot create a cheaper detour to the chosen vertex.",
+    "teachingSteps": [
+      "With nonnegative edge weights, Dijkstra repeatedly settles the smallest tentative distance and relaxes its outgoing edges. Settled distances are final under this weight assumption.",
+      "Extract and settle the smallest tentative distance",
+      "Relax outgoing edges and repair their priorities"
+    ],
+    "foundation": {
+      "title": "Dijkstra’s settle-and-relax rule",
+      "idea": "With nonnegative edge weights, Dijkstra repeatedly settles the smallest tentative distance and relaxes its outgoing edges. Settled distances are final under this weight assumption. A tentative distance is the best discovered route cost so far. Dijkstra’s extract-min choice becomes final because nonnegative remaining edges cannot create a cheaper detour to the chosen vertex.",
+      "terms": [
+        "Relaxation: compare d[v] with d[u]+w(u,v).",
+        "Settled: distance is final under nonnegative weights.",
+        "Not reached: no finite source path discovered yet."
+      ],
+      "example": "If A→B costs 4, A→C costs 1 and C→B costs 2, first settle C at 1 and improve B to 3."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Current d[u]=5, edge weight w=4, and d[v]=12. After relaxing u→v, what is d[v]?",
+        "answer": 9,
+        "explanation": "The candidate d[u]+w is three smaller than the current tentative distance.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "For A→B=4, A→C=1 and C→B=2, what shortest distance should Dijkstra settle for B?",
+        "answer": 3,
+        "explanation": "The path A→C→B costs 1+2=3, beating the direct edge of cost 4.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which edge weights satisfy standard Dijkstra’s guarantee?",
+        "options": [
+          "Only graphs with a negative cycle.",
+          "Arbitrary signed weights with no other condition.",
+          "All edge weights are nonnegative, including zero."
+        ],
+        "answer": 2,
+        "explanation": "Nonnegative weights justify settling the smallest tentative distance."
+      },
+      {
+        "type": "order",
+        "prompt": "Perform one Dijkstra iteration.",
+        "items": [
+          "Extract the smallest unsettled tentative distance",
+          "Settle that vertex",
+          "Relax its outgoing edges and update priorities"
+        ],
+        "explanation": "The smallest distance is selected globally from the frontier, not simply from the last vertex’s neighbors."
+      }
+    ],
+    "algoLab": "dijkstra",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 78.89,
+    "excerpt": "So, I will relax this edge which means this is 0 plus 12, now it is 12, it is 0 plus 3, now it is 3, now it is 0 plus 2, now it is 2, it is 0 plus 21, it is 21. So now as you can see that I have relaxed all of these edges and this u-block is final which means I will not consider this u-block again because I know shorter distance from u-block to u-block is just 0. Now, let's just find out the minimum among all known distances.",
+    "sourceReferences": [
+      {
+        "lecture": 105,
+        "file": "105. 18b. Dijkstra code and Working Example 1.mp4",
+        "start": 78.89,
+        "end": 107.48,
+        "text": "So, I will relax this edge which means this is 0 plus 12, now it is 12, it is 0 plus 3, now it is 3, now it is 0 plus 2, now it is 2, it is 0 plus 21, it is 21. So now as you can see that I have relaxed all of these edges and this u-block is final which means I will not consider this u-block again because I know shorter distance from u-block to u-block is just 0. Now, let's just find out the minimum among all known distances."
+      },
+      {
+        "lecture": 105,
+        "file": "105. 18b. Dijkstra code and Working Example 1.mp4",
+        "start": 149.02,
+        "end": 174.85,
+        "text": "I will do one thing, I will not talk about this prior to you again and again. Let me first have a simple example. Let me first try run the digest algorithm. So what we are doing, we are picking a vertex, relaxing all outgoing edges and then just pick the minimum again. So the minimum here is library. So I will say that library is also final, which means from U block, I will go to library in the distance of 2."
+      },
+      {
+        "lecture": 105,
+        "file": "105. 18b. Dijkstra code and Working Example 1.mp4",
+        "start": 400.12,
+        "end": 429.34,
+        "text": "since 7 is minimum you will say that you will go to this mess via CSA department so you will go to mess via CSA department and the edge weight is 4 so ultimately you are reaching in 7 so this mess is also final now relax all the outgoing edges since all the outgoing edges are already you know leading to some vertices which are already uh visited or you already know the shortest path to these vertices so that's why you will not relax just take the minimum again so you are taking the minimum among 20 and 14"
+      }
+    ]
+  },
+  {
+    "id": 317,
+    "lecture": 105,
+    "title": "Dijkstra’s settle-and-relax rule · Apply",
+    "concept": "With nonnegative edge weights, Dijkstra repeatedly settles the smallest tentative distance and relaxes its outgoing edges. Settled distances are final under this weight assumption. A tentative distance is the best discovered route cost so far. Dijkstra’s extract-min choice becomes final because nonnegative remaining edges cannot create a cheaper detour to the chosen vertex.",
+    "teachingSteps": [
+      "With nonnegative edge weights, Dijkstra repeatedly settles the smallest tentative distance and relaxes its outgoing edges. Settled distances are final under this weight assumption.",
+      "Extract and settle the smallest tentative distance",
+      "Relax outgoing edges and repair their priorities"
+    ],
+    "foundation": {
+      "title": "Dijkstra’s settle-and-relax rule",
+      "idea": "With nonnegative edge weights, Dijkstra repeatedly settles the smallest tentative distance and relaxes its outgoing edges. Settled distances are final under this weight assumption. A tentative distance is the best discovered route cost so far. Dijkstra’s extract-min choice becomes final because nonnegative remaining edges cannot create a cheaper detour to the chosen vertex.",
+      "terms": [
+        "Relaxation: compare d[v] with d[u]+w(u,v).",
+        "Settled: distance is final under nonnegative weights.",
+        "Not reached: no finite source path discovered yet."
+      ],
+      "example": "If A→B costs 4, A→C costs 1 and C→B costs 2, first settle C at 1 and improve B to 3."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A delivery service uses nonnegative route costs. Current d[u]=6, edge weight w=5, and d[v]=14. After relaxing u→v, what is d[v]?",
+        "answer": 11,
+        "explanation": "The candidate d[u]+w is three smaller than the current tentative distance.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "For A→B=4, A→C=1 and C→B=2, what shortest distance should Dijkstra settle for B?",
+        "answer": 3,
+        "explanation": "The path A→C→B costs 1+2=3, beating the direct edge of cost 4.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which edge weights satisfy standard Dijkstra’s guarantee?",
+        "options": [
+          "Arbitrary signed weights with no other condition.",
+          "All edge weights are nonnegative, including zero.",
+          "Only graphs with a negative cycle."
+        ],
+        "answer": 1,
+        "explanation": "Nonnegative weights justify settling the smallest tentative distance."
+      },
+      {
+        "type": "order",
+        "prompt": "Perform one Dijkstra iteration.",
+        "items": [
+          "Extract the smallest unsettled tentative distance",
+          "Settle that vertex",
+          "Relax its outgoing edges and update priorities"
+        ],
+        "explanation": "The smallest distance is selected globally from the frontier, not simply from the last vertex’s neighbors."
+      }
+    ],
+    "algoLab": "dijkstra",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 78.89,
+    "excerpt": "So, I will relax this edge which means this is 0 plus 12, now it is 12, it is 0 plus 3, now it is 3, now it is 0 plus 2, now it is 2, it is 0 plus 21, it is 21. So now as you can see that I have relaxed all of these edges and this u-block is final which means I will not consider this u-block again because I know shorter distance from u-block to u-block is just 0. Now, let's just find out the minimum among all known distances.",
+    "sourceReferences": [
+      {
+        "lecture": 105,
+        "file": "105. 18b. Dijkstra code and Working Example 1.mp4",
+        "start": 78.89,
+        "end": 107.48,
+        "text": "So, I will relax this edge which means this is 0 plus 12, now it is 12, it is 0 plus 3, now it is 3, now it is 0 plus 2, now it is 2, it is 0 plus 21, it is 21. So now as you can see that I have relaxed all of these edges and this u-block is final which means I will not consider this u-block again because I know shorter distance from u-block to u-block is just 0. Now, let's just find out the minimum among all known distances."
+      },
+      {
+        "lecture": 105,
+        "file": "105. 18b. Dijkstra code and Working Example 1.mp4",
+        "start": 149.02,
+        "end": 174.85,
+        "text": "I will do one thing, I will not talk about this prior to you again and again. Let me first have a simple example. Let me first try run the digest algorithm. So what we are doing, we are picking a vertex, relaxing all outgoing edges and then just pick the minimum again. So the minimum here is library. So I will say that library is also final, which means from U block, I will go to library in the distance of 2."
+      },
+      {
+        "lecture": 105,
+        "file": "105. 18b. Dijkstra code and Working Example 1.mp4",
+        "start": 400.12,
+        "end": 429.34,
+        "text": "since 7 is minimum you will say that you will go to this mess via CSA department so you will go to mess via CSA department and the edge weight is 4 so ultimately you are reaching in 7 so this mess is also final now relax all the outgoing edges since all the outgoing edges are already you know leading to some vertices which are already uh visited or you already know the shortest path to these vertices so that's why you will not relax just take the minimum again so you are taking the minimum among 20 and 14"
+      }
+    ]
+  },
+  {
+    "id": 318,
+    "lecture": 106,
+    "title": "Tentative distances can improve · Discover",
+    "concept": "Relax u→v by comparing distance(v) with distance(u)+weight(u,v). Update the distance and predecessor only when the candidate is smaller. A tentative distance is the best discovered route cost so far. Dijkstra’s extract-min choice becomes final because nonnegative remaining edges cannot create a cheaper detour to the chosen vertex.",
+    "teachingSteps": [
+      "Relax u→v by comparing distance(v) with distance(u)+weight(u,v). Update the distance and predecessor only when the candidate is smaller.",
+      "Extract and settle the smallest tentative distance",
+      "Relax outgoing edges and repair their priorities"
+    ],
+    "foundation": {
+      "title": "Tentative distances can improve",
+      "idea": "Relax u→v by comparing distance(v) with distance(u)+weight(u,v). Update the distance and predecessor only when the candidate is smaller. A tentative distance is the best discovered route cost so far. Dijkstra’s extract-min choice becomes final because nonnegative remaining edges cannot create a cheaper detour to the chosen vertex.",
+      "terms": [
+        "Relaxation: compare d[v] with d[u]+w(u,v).",
+        "Settled: distance is final under nonnegative weights.",
+        "Not reached: no finite source path discovered yet."
+      ],
+      "example": "If A→B costs 4, A→C costs 1 and C→B costs 2, first settle C at 1 and improve B to 3."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Current d[u]=5, edge weight w=4, and d[v]=12. After relaxing u→v, what is d[v]?",
+        "answer": 9,
+        "explanation": "The candidate d[u]+w is three smaller than the current tentative distance.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "For A→B=4, A→C=1 and C→B=2, what shortest distance should Dijkstra settle for B?",
+        "answer": 3,
+        "explanation": "The path A→C→B costs 1+2=3, beating the direct edge of cost 4.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains tentative distances can improve?",
+        "options": [
+          "Input assumptions cannot affect correctness.",
+          "One successful example proves the method for every graph.",
+          "Relax u→v by comparing distance(v) with distance(u)+weight(u,v)."
+        ],
+        "answer": 2,
+        "explanation": "Relax u→v by comparing distance(v) with distance(u)+weight(u,v). Update the distance and predecessor only when the candidate is smaller."
+      },
+      {
+        "type": "order",
+        "prompt": "Perform one Dijkstra iteration.",
+        "items": [
+          "Extract the smallest unsettled tentative distance",
+          "Settle that vertex",
+          "Relax its outgoing edges and update priorities"
+        ],
+        "explanation": "The smallest distance is selected globally from the frontier, not simply from the last vertex’s neighbors."
+      }
+    ],
+    "algoLab": "dijkstra-relax",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 54.34,
+    "excerpt": "4 plus 1 5 but earlier it is 3 so you will not modify. This is 1 plus 4 5 and earlier it was infinity so you will modify that infinity to 5. Now you will pick the minimum among all known distances which is 3, 5, infinity, infinity. 3 is minimum so you will pick it and then you will just say that okay 3 plus 2 this is 5, relaxing all outgoing edges, 3 plus 1 this is 4 and earlier it was 5 so you will update that to 4. Now that is all. You will now",
+    "sourceReferences": [
+      {
+        "lecture": 106,
+        "file": "106. 18c. Dijkstra Working Example 2.mp4",
+        "start": 54.34,
+        "end": 83.11,
+        "text": "4 plus 1 5 but earlier it is 3 so you will not modify. This is 1 plus 4 5 and earlier it was infinity so you will modify that infinity to 5. Now you will pick the minimum among all known distances which is 3, 5, infinity, infinity. 3 is minimum so you will pick it and then you will just say that okay 3 plus 2 this is 5, relaxing all outgoing edges, 3 plus 1 this is 4 and earlier it was 5 so you will update that to 4. Now that is all. You will now"
+      },
+      {
+        "lecture": 106,
+        "file": "106. 18c. Dijkstra Working Example 2.mp4",
+        "start": 113.18,
+        "end": 137.04,
+        "text": "Now you will update, you will pick this 5 and finally the sorted distance from 0 to 5 is 5, sorted distance from 0 to 1 is 3, 0 to 2 is 1 like that. You can have these sorted distances. Now I hope you got it, the overall picture. Now this time we are running the diextra on directed graph instead of undirected. You can run on directed, undirected does not matter. Now let's just do one thing."
+      },
+      {
+        "lecture": 106,
+        "file": "106. 18c. Dijkstra Working Example 2.mp4",
+        "start": 473.53,
+        "end": 502.63,
+        "text": "So C to E it will be 2 2 2 plus 3 5 so instead of 6 it will be 5 and then this E is done then D will be 2 plus 9 which is 11 and then D here is 8 so you will not modify it. Now C is also done so this is 0 this is 1 this is 2 I mean the final distances I am writing. Okay now let's just pick the minimum again so G is minimum you will just remove this and this is 3 so G is minimum you will you will say this is 3 and then you will say that relax all the outgoing gestures."
+      }
+    ]
+  },
+  {
+    "id": 319,
+    "lecture": 106,
+    "title": "Tentative distances can improve · Trace",
+    "concept": "Relax u→v by comparing distance(v) with distance(u)+weight(u,v). Update the distance and predecessor only when the candidate is smaller. A tentative distance is the best discovered route cost so far. Dijkstra’s extract-min choice becomes final because nonnegative remaining edges cannot create a cheaper detour to the chosen vertex.",
+    "teachingSteps": [
+      "Relax u→v by comparing distance(v) with distance(u)+weight(u,v). Update the distance and predecessor only when the candidate is smaller.",
+      "Extract and settle the smallest tentative distance",
+      "Relax outgoing edges and repair their priorities"
+    ],
+    "foundation": {
+      "title": "Tentative distances can improve",
+      "idea": "Relax u→v by comparing distance(v) with distance(u)+weight(u,v). Update the distance and predecessor only when the candidate is smaller. A tentative distance is the best discovered route cost so far. Dijkstra’s extract-min choice becomes final because nonnegative remaining edges cannot create a cheaper detour to the chosen vertex.",
+      "terms": [
+        "Relaxation: compare d[v] with d[u]+w(u,v).",
+        "Settled: distance is final under nonnegative weights.",
+        "Not reached: no finite source path discovered yet."
+      ],
+      "example": "If A→B costs 4, A→C costs 1 and C→B costs 2, first settle C at 1 and improve B to 3."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Current d[u]=6, edge weight w=5, and d[v]=14. After relaxing u→v, what is d[v]?",
+        "answer": 11,
+        "explanation": "The candidate d[u]+w is three smaller than the current tentative distance.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "For A→B=4, A→C=1 and C→B=2, what shortest distance should Dijkstra settle for B?",
+        "answer": 3,
+        "explanation": "The path A→C→B costs 1+2=3, beating the direct edge of cost 4.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which edge weights satisfy standard Dijkstra’s guarantee?",
+        "options": [
+          "Arbitrary signed weights with no other condition.",
+          "All edge weights are nonnegative, including zero.",
+          "Only graphs with a negative cycle."
+        ],
+        "answer": 1,
+        "explanation": "Nonnegative weights justify settling the smallest tentative distance."
+      },
+      {
+        "type": "order",
+        "prompt": "Perform one Dijkstra iteration.",
+        "items": [
+          "Extract the smallest unsettled tentative distance",
+          "Settle that vertex",
+          "Relax its outgoing edges and update priorities"
+        ],
+        "explanation": "The smallest distance is selected globally from the frontier, not simply from the last vertex’s neighbors."
+      }
+    ],
+    "algoLab": "dijkstra-relax",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 54.34,
+    "excerpt": "4 plus 1 5 but earlier it is 3 so you will not modify. This is 1 plus 4 5 and earlier it was infinity so you will modify that infinity to 5. Now you will pick the minimum among all known distances which is 3, 5, infinity, infinity. 3 is minimum so you will pick it and then you will just say that okay 3 plus 2 this is 5, relaxing all outgoing edges, 3 plus 1 this is 4 and earlier it was 5 so you will update that to 4. Now that is all. You will now",
+    "sourceReferences": [
+      {
+        "lecture": 106,
+        "file": "106. 18c. Dijkstra Working Example 2.mp4",
+        "start": 54.34,
+        "end": 83.11,
+        "text": "4 plus 1 5 but earlier it is 3 so you will not modify. This is 1 plus 4 5 and earlier it was infinity so you will modify that infinity to 5. Now you will pick the minimum among all known distances which is 3, 5, infinity, infinity. 3 is minimum so you will pick it and then you will just say that okay 3 plus 2 this is 5, relaxing all outgoing edges, 3 plus 1 this is 4 and earlier it was 5 so you will update that to 4. Now that is all. You will now"
+      },
+      {
+        "lecture": 106,
+        "file": "106. 18c. Dijkstra Working Example 2.mp4",
+        "start": 113.18,
+        "end": 137.04,
+        "text": "Now you will update, you will pick this 5 and finally the sorted distance from 0 to 5 is 5, sorted distance from 0 to 1 is 3, 0 to 2 is 1 like that. You can have these sorted distances. Now I hope you got it, the overall picture. Now this time we are running the diextra on directed graph instead of undirected. You can run on directed, undirected does not matter. Now let's just do one thing."
+      },
+      {
+        "lecture": 106,
+        "file": "106. 18c. Dijkstra Working Example 2.mp4",
+        "start": 473.53,
+        "end": 502.63,
+        "text": "So C to E it will be 2 2 2 plus 3 5 so instead of 6 it will be 5 and then this E is done then D will be 2 plus 9 which is 11 and then D here is 8 so you will not modify it. Now C is also done so this is 0 this is 1 this is 2 I mean the final distances I am writing. Okay now let's just pick the minimum again so G is minimum you will just remove this and this is 3 so G is minimum you will you will say this is 3 and then you will say that relax all the outgoing gestures."
+      }
+    ]
+  },
+  {
+    "id": 320,
+    "lecture": 106,
+    "title": "Tentative distances can improve · Apply",
+    "concept": "Relax u→v by comparing distance(v) with distance(u)+weight(u,v). Update the distance and predecessor only when the candidate is smaller. A tentative distance is the best discovered route cost so far. Dijkstra’s extract-min choice becomes final because nonnegative remaining edges cannot create a cheaper detour to the chosen vertex.",
+    "teachingSteps": [
+      "Relax u→v by comparing distance(v) with distance(u)+weight(u,v). Update the distance and predecessor only when the candidate is smaller.",
+      "Extract and settle the smallest tentative distance",
+      "Relax outgoing edges and repair their priorities"
+    ],
+    "foundation": {
+      "title": "Tentative distances can improve",
+      "idea": "Relax u→v by comparing distance(v) with distance(u)+weight(u,v). Update the distance and predecessor only when the candidate is smaller. A tentative distance is the best discovered route cost so far. Dijkstra’s extract-min choice becomes final because nonnegative remaining edges cannot create a cheaper detour to the chosen vertex.",
+      "terms": [
+        "Relaxation: compare d[v] with d[u]+w(u,v).",
+        "Settled: distance is final under nonnegative weights.",
+        "Not reached: no finite source path discovered yet."
+      ],
+      "example": "If A→B costs 4, A→C costs 1 and C→B costs 2, first settle C at 1 and improve B to 3."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A delivery service uses nonnegative route costs. Current d[u]=7, edge weight w=2, and d[v]=12. After relaxing u→v, what is d[v]?",
+        "answer": 9,
+        "explanation": "The candidate d[u]+w is three smaller than the current tentative distance.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "For A→B=4, A→C=1 and C→B=2, what shortest distance should Dijkstra settle for B?",
+        "answer": 3,
+        "explanation": "The path A→C→B costs 1+2=3, beating the direct edge of cost 4.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which edge weights satisfy standard Dijkstra’s guarantee?",
+        "options": [
+          "All edge weights are nonnegative, including zero.",
+          "Only graphs with a negative cycle.",
+          "Arbitrary signed weights with no other condition."
+        ],
+        "answer": 0,
+        "explanation": "Nonnegative weights justify settling the smallest tentative distance."
+      },
+      {
+        "type": "order",
+        "prompt": "Perform one Dijkstra iteration.",
+        "items": [
+          "Extract the smallest unsettled tentative distance",
+          "Settle that vertex",
+          "Relax its outgoing edges and update priorities"
+        ],
+        "explanation": "The smallest distance is selected globally from the frontier, not simply from the last vertex’s neighbors."
+      }
+    ],
+    "algoLab": "dijkstra-relax",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 54.34,
+    "excerpt": "4 plus 1 5 but earlier it is 3 so you will not modify. This is 1 plus 4 5 and earlier it was infinity so you will modify that infinity to 5. Now you will pick the minimum among all known distances which is 3, 5, infinity, infinity. 3 is minimum so you will pick it and then you will just say that okay 3 plus 2 this is 5, relaxing all outgoing edges, 3 plus 1 this is 4 and earlier it was 5 so you will update that to 4. Now that is all. You will now",
+    "sourceReferences": [
+      {
+        "lecture": 106,
+        "file": "106. 18c. Dijkstra Working Example 2.mp4",
+        "start": 54.34,
+        "end": 83.11,
+        "text": "4 plus 1 5 but earlier it is 3 so you will not modify. This is 1 plus 4 5 and earlier it was infinity so you will modify that infinity to 5. Now you will pick the minimum among all known distances which is 3, 5, infinity, infinity. 3 is minimum so you will pick it and then you will just say that okay 3 plus 2 this is 5, relaxing all outgoing edges, 3 plus 1 this is 4 and earlier it was 5 so you will update that to 4. Now that is all. You will now"
+      },
+      {
+        "lecture": 106,
+        "file": "106. 18c. Dijkstra Working Example 2.mp4",
+        "start": 113.18,
+        "end": 137.04,
+        "text": "Now you will update, you will pick this 5 and finally the sorted distance from 0 to 5 is 5, sorted distance from 0 to 1 is 3, 0 to 2 is 1 like that. You can have these sorted distances. Now I hope you got it, the overall picture. Now this time we are running the diextra on directed graph instead of undirected. You can run on directed, undirected does not matter. Now let's just do one thing."
+      },
+      {
+        "lecture": 106,
+        "file": "106. 18c. Dijkstra Working Example 2.mp4",
+        "start": 473.53,
+        "end": 502.63,
+        "text": "So C to E it will be 2 2 2 plus 3 5 so instead of 6 it will be 5 and then this E is done then D will be 2 plus 9 which is 11 and then D here is 8 so you will not modify it. Now C is also done so this is 0 this is 1 this is 2 I mean the final distances I am writing. Okay now let's just pick the minimum again so G is minimum you will just remove this and this is 3 so G is minimum you will you will say this is 3 and then you will say that relax all the outgoing gestures."
+      }
+    ]
+  },
+  {
+    "id": 321,
+    "lecture": 107,
+    "title": "Zero-weight edges and equal candidates · Discover",
+    "concept": "Dijkstra allows zero-weight edges. An equal-cost candidate need not change the distance; multiple equally short paths can exist without changing the shortest distance. A tentative distance is the best discovered route cost so far. Dijkstra’s extract-min choice becomes final because nonnegative remaining edges cannot create a cheaper detour to the chosen vertex.",
+    "teachingSteps": [
+      "Dijkstra allows zero-weight edges. An equal-cost candidate need not change the distance; multiple equally short paths can exist without changing the shortest distance.",
+      "Extract and settle the smallest tentative distance",
+      "Relax outgoing edges and repair their priorities"
+    ],
+    "foundation": {
+      "title": "Zero-weight edges and equal candidates",
+      "idea": "Dijkstra allows zero-weight edges. An equal-cost candidate need not change the distance; multiple equally short paths can exist without changing the shortest distance. A tentative distance is the best discovered route cost so far. Dijkstra’s extract-min choice becomes final because nonnegative remaining edges cannot create a cheaper detour to the chosen vertex.",
+      "terms": [
+        "Relaxation: compare d[v] with d[u]+w(u,v).",
+        "Settled: distance is final under nonnegative weights.",
+        "Not reached: no finite source path discovered yet."
+      ],
+      "example": "If A→B costs 4, A→C costs 1 and C→B costs 2, first settle C at 1 and improve B to 3."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Current d[u]=6, edge weight w=5, and d[v]=14. After relaxing u→v, what is d[v]?",
+        "answer": 11,
+        "explanation": "The candidate d[u]+w is three smaller than the current tentative distance.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "For A→B=4, A→C=1 and C→B=2, what shortest distance should Dijkstra settle for B?",
+        "answer": 3,
+        "explanation": "The path A→C→B costs 1+2=3, beating the direct edge of cost 4.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains zero-weight edges and equal candidates?",
+        "options": [
+          "One successful example proves the method for every graph.",
+          "Dijkstra allows zero-weight edges.",
+          "Input assumptions cannot affect correctness."
+        ],
+        "answer": 1,
+        "explanation": "Dijkstra allows zero-weight edges. An equal-cost candidate need not change the distance; multiple equally short paths can exist without changing the shortest distance."
+      },
+      {
+        "type": "order",
+        "prompt": "Perform one Dijkstra iteration.",
+        "items": [
+          "Extract the smallest unsettled tentative distance",
+          "Settle that vertex",
+          "Relax its outgoing edges and update priorities"
+        ],
+        "explanation": "The smallest distance is selected globally from the frontier, not simply from the last vertex’s neighbors."
+      }
+    ],
+    "algoLab": "dijkstra-zero",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 348.19,
+    "excerpt": "but if you pick 7 plus y then ultimately the final parent just be 5 so that is why you cannot pick 7 plus y so which means the 11 you are going to pick it means what that 7 plus y has to be greater than equal to 11 then only you are you are picking this 11 see the 7 plus y has to be greater than equal to 11 and now you are picking this 11 then once you pick this 11 you are going to cross this and then you are going to relax all the outgoing edges from 4 so what are the outgoing edges from 4",
+    "sourceReferences": [
+      {
+        "lecture": 107,
+        "file": "107. 18d. Dijkstra Working Example 3.mp4",
+        "start": 348.19,
+        "end": 376.36,
+        "text": "but if you pick 7 plus y then ultimately the final parent just be 5 so that is why you cannot pick 7 plus y so which means the 11 you are going to pick it means what that 7 plus y has to be greater than equal to 11 then only you are you are picking this 11 see the 7 plus y has to be greater than equal to 11 and now you are picking this 11 then once you pick this 11 you are going to cross this and then you are going to relax all the outgoing edges from 4 so what are the outgoing edges from 4"
+      },
+      {
+        "lecture": 107,
+        "file": "107. 18d. Dijkstra Working Example 3.mp4",
+        "start": 376.64,
+        "end": 405.16,
+        "text": "so this is 4, I think there is only one outgoing edge which is this and that 11, this 4 distance is 11 and now if you relax this outgoing edge this is leading to 7 which is 11 plus x now you do not know whether to write 11 plus x here ultimately or to write 7 plus y but see the given table is also the table that is coming immediately after deletion of 4 and relaxation of all outgoing edges from 4 which means this table"
+      },
+      {
+        "lecture": 107,
+        "file": "107. 18d. Dijkstra Working Example 3.mp4",
+        "start": 454.01,
+        "end": 485.15,
+        "text": "So if you pick four if you relax all the outgoing edges you are getting you are getting this entry and then whether to keep this or whether to keep earlier one that that will be decided based on the given table So since they are exactly same I will say that you have to keep 11 plus x Because this parent you are how you have to update to four so that is why you have to keep 11 plus x So this is giving you another condition which is saying that 7 plus y is not only greater than equal to 11. It is also greater than equal to 11 plus x right"
+      }
+    ]
+  },
+  {
+    "id": 322,
+    "lecture": 107,
+    "title": "Zero-weight edges and equal candidates · Trace",
+    "concept": "Dijkstra allows zero-weight edges. An equal-cost candidate need not change the distance; multiple equally short paths can exist without changing the shortest distance. A tentative distance is the best discovered route cost so far. Dijkstra’s extract-min choice becomes final because nonnegative remaining edges cannot create a cheaper detour to the chosen vertex.",
+    "teachingSteps": [
+      "Dijkstra allows zero-weight edges. An equal-cost candidate need not change the distance; multiple equally short paths can exist without changing the shortest distance.",
+      "Extract and settle the smallest tentative distance",
+      "Relax outgoing edges and repair their priorities"
+    ],
+    "foundation": {
+      "title": "Zero-weight edges and equal candidates",
+      "idea": "Dijkstra allows zero-weight edges. An equal-cost candidate need not change the distance; multiple equally short paths can exist without changing the shortest distance. A tentative distance is the best discovered route cost so far. Dijkstra’s extract-min choice becomes final because nonnegative remaining edges cannot create a cheaper detour to the chosen vertex.",
+      "terms": [
+        "Relaxation: compare d[v] with d[u]+w(u,v).",
+        "Settled: distance is final under nonnegative weights.",
+        "Not reached: no finite source path discovered yet."
+      ],
+      "example": "If A→B costs 4, A→C costs 1 and C→B costs 2, first settle C at 1 and improve B to 3."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Current d[u]=7, edge weight w=2, and d[v]=12. After relaxing u→v, what is d[v]?",
+        "answer": 9,
+        "explanation": "The candidate d[u]+w is three smaller than the current tentative distance.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "For A→B=4, A→C=1 and C→B=2, what shortest distance should Dijkstra settle for B?",
+        "answer": 3,
+        "explanation": "The path A→C→B costs 1+2=3, beating the direct edge of cost 4.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which edge weights satisfy standard Dijkstra’s guarantee?",
+        "options": [
+          "All edge weights are nonnegative, including zero.",
+          "Only graphs with a negative cycle.",
+          "Arbitrary signed weights with no other condition."
+        ],
+        "answer": 0,
+        "explanation": "Nonnegative weights justify settling the smallest tentative distance."
+      },
+      {
+        "type": "order",
+        "prompt": "Perform one Dijkstra iteration.",
+        "items": [
+          "Extract the smallest unsettled tentative distance",
+          "Settle that vertex",
+          "Relax its outgoing edges and update priorities"
+        ],
+        "explanation": "The smallest distance is selected globally from the frontier, not simply from the last vertex’s neighbors."
+      }
+    ],
+    "algoLab": "dijkstra-zero",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 348.19,
+    "excerpt": "but if you pick 7 plus y then ultimately the final parent just be 5 so that is why you cannot pick 7 plus y so which means the 11 you are going to pick it means what that 7 plus y has to be greater than equal to 11 then only you are you are picking this 11 see the 7 plus y has to be greater than equal to 11 and now you are picking this 11 then once you pick this 11 you are going to cross this and then you are going to relax all the outgoing edges from 4 so what are the outgoing edges from 4",
+    "sourceReferences": [
+      {
+        "lecture": 107,
+        "file": "107. 18d. Dijkstra Working Example 3.mp4",
+        "start": 348.19,
+        "end": 376.36,
+        "text": "but if you pick 7 plus y then ultimately the final parent just be 5 so that is why you cannot pick 7 plus y so which means the 11 you are going to pick it means what that 7 plus y has to be greater than equal to 11 then only you are you are picking this 11 see the 7 plus y has to be greater than equal to 11 and now you are picking this 11 then once you pick this 11 you are going to cross this and then you are going to relax all the outgoing edges from 4 so what are the outgoing edges from 4"
+      },
+      {
+        "lecture": 107,
+        "file": "107. 18d. Dijkstra Working Example 3.mp4",
+        "start": 376.64,
+        "end": 405.16,
+        "text": "so this is 4, I think there is only one outgoing edge which is this and that 11, this 4 distance is 11 and now if you relax this outgoing edge this is leading to 7 which is 11 plus x now you do not know whether to write 11 plus x here ultimately or to write 7 plus y but see the given table is also the table that is coming immediately after deletion of 4 and relaxation of all outgoing edges from 4 which means this table"
+      },
+      {
+        "lecture": 107,
+        "file": "107. 18d. Dijkstra Working Example 3.mp4",
+        "start": 454.01,
+        "end": 485.15,
+        "text": "So if you pick four if you relax all the outgoing edges you are getting you are getting this entry and then whether to keep this or whether to keep earlier one that that will be decided based on the given table So since they are exactly same I will say that you have to keep 11 plus x Because this parent you are how you have to update to four so that is why you have to keep 11 plus x So this is giving you another condition which is saying that 7 plus y is not only greater than equal to 11. It is also greater than equal to 11 plus x right"
+      }
+    ]
+  },
+  {
+    "id": 323,
+    "lecture": 107,
+    "title": "Zero-weight edges and equal candidates · Apply",
+    "concept": "Dijkstra allows zero-weight edges. An equal-cost candidate need not change the distance; multiple equally short paths can exist without changing the shortest distance. A tentative distance is the best discovered route cost so far. Dijkstra’s extract-min choice becomes final because nonnegative remaining edges cannot create a cheaper detour to the chosen vertex.",
+    "teachingSteps": [
+      "Dijkstra allows zero-weight edges. An equal-cost candidate need not change the distance; multiple equally short paths can exist without changing the shortest distance.",
+      "Extract and settle the smallest tentative distance",
+      "Relax outgoing edges and repair their priorities"
+    ],
+    "foundation": {
+      "title": "Zero-weight edges and equal candidates",
+      "idea": "Dijkstra allows zero-weight edges. An equal-cost candidate need not change the distance; multiple equally short paths can exist without changing the shortest distance. A tentative distance is the best discovered route cost so far. Dijkstra’s extract-min choice becomes final because nonnegative remaining edges cannot create a cheaper detour to the chosen vertex.",
+      "terms": [
+        "Relaxation: compare d[v] with d[u]+w(u,v).",
+        "Settled: distance is final under nonnegative weights.",
+        "Not reached: no finite source path discovered yet."
+      ],
+      "example": "If A→B costs 4, A→C costs 1 and C→B costs 2, first settle C at 1 and improve B to 3."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A delivery service uses nonnegative route costs. Current d[u]=8, edge weight w=3, and d[v]=14. After relaxing u→v, what is d[v]?",
+        "answer": 11,
+        "explanation": "The candidate d[u]+w is three smaller than the current tentative distance.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "For A→B=4, A→C=1 and C→B=2, what shortest distance should Dijkstra settle for B?",
+        "answer": 3,
+        "explanation": "The path A→C→B costs 1+2=3, beating the direct edge of cost 4.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which edge weights satisfy standard Dijkstra’s guarantee?",
+        "options": [
+          "Only graphs with a negative cycle.",
+          "Arbitrary signed weights with no other condition.",
+          "All edge weights are nonnegative, including zero."
+        ],
+        "answer": 2,
+        "explanation": "Nonnegative weights justify settling the smallest tentative distance."
+      },
+      {
+        "type": "order",
+        "prompt": "Perform one Dijkstra iteration.",
+        "items": [
+          "Extract the smallest unsettled tentative distance",
+          "Settle that vertex",
+          "Relax its outgoing edges and update priorities"
+        ],
+        "explanation": "The smallest distance is selected globally from the frontier, not simply from the last vertex’s neighbors."
+      }
+    ],
+    "algoLab": "dijkstra-zero",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 348.19,
+    "excerpt": "but if you pick 7 plus y then ultimately the final parent just be 5 so that is why you cannot pick 7 plus y so which means the 11 you are going to pick it means what that 7 plus y has to be greater than equal to 11 then only you are you are picking this 11 see the 7 plus y has to be greater than equal to 11 and now you are picking this 11 then once you pick this 11 you are going to cross this and then you are going to relax all the outgoing edges from 4 so what are the outgoing edges from 4",
+    "sourceReferences": [
+      {
+        "lecture": 107,
+        "file": "107. 18d. Dijkstra Working Example 3.mp4",
+        "start": 348.19,
+        "end": 376.36,
+        "text": "but if you pick 7 plus y then ultimately the final parent just be 5 so that is why you cannot pick 7 plus y so which means the 11 you are going to pick it means what that 7 plus y has to be greater than equal to 11 then only you are you are picking this 11 see the 7 plus y has to be greater than equal to 11 and now you are picking this 11 then once you pick this 11 you are going to cross this and then you are going to relax all the outgoing edges from 4 so what are the outgoing edges from 4"
+      },
+      {
+        "lecture": 107,
+        "file": "107. 18d. Dijkstra Working Example 3.mp4",
+        "start": 376.64,
+        "end": 405.16,
+        "text": "so this is 4, I think there is only one outgoing edge which is this and that 11, this 4 distance is 11 and now if you relax this outgoing edge this is leading to 7 which is 11 plus x now you do not know whether to write 11 plus x here ultimately or to write 7 plus y but see the given table is also the table that is coming immediately after deletion of 4 and relaxation of all outgoing edges from 4 which means this table"
+      },
+      {
+        "lecture": 107,
+        "file": "107. 18d. Dijkstra Working Example 3.mp4",
+        "start": 454.01,
+        "end": 485.15,
+        "text": "So if you pick four if you relax all the outgoing edges you are getting you are getting this entry and then whether to keep this or whether to keep earlier one that that will be decided based on the given table So since they are exactly same I will say that you have to keep 11 plus x Because this parent you are how you have to update to four so that is why you have to keep 11 plus x So this is giving you another condition which is saying that 7 plus y is not only greater than equal to 11. It is also greater than equal to 11 plus x right"
+      }
+    ]
+  },
+  {
+    "id": 324,
+    "lecture": 108,
+    "title": "Why negative edges break settling · Discover",
+    "concept": "A negative edge can improve a vertex after it has been settled. The standard settle-once Dijkstra guarantee requires nonnegative weights, even when the graph has no cycle. The settled-once argument fails with negative edges. A vertex settled at cost 2 may later have a path of cost 1 through a vertex whose earlier tentative cost was 5.",
+    "teachingSteps": [
+      "A negative edge can improve a vertex after it has been settled. The standard settle-once Dijkstra guarantee requires nonnegative weights, even when the graph has no cycle.",
+      "Trace how a late detour improves a settled vertex",
+      "Use a signed-weight-safe algorithm"
+    ],
+    "foundation": {
+      "title": "Why negative edges break settling",
+      "idea": "A negative edge can improve a vertex after it has been settled. The standard settle-once Dijkstra guarantee requires nonnegative weights, even when the graph has no cycle. The settled-once argument fails with negative edges. A vertex settled at cost 2 may later have a path of cost 1 through a vertex whose earlier tentative cost was 5.",
+      "terms": [
+        "Negative edge: a signed cost, such as a rebate.",
+        "Negative cycle: a separate issue; failure needs no cycle.",
+        "Bellman-Ford: a method that supports signed weights."
+      ],
+      "example": "A→B=2, A→C=5 and C→B=-4 give a true shortest cost 1 to B, but standard settle-once Dijkstra finalizes B at 2."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "In the counterexample A→B=2, A→C=5, C→B=-4, what is the true shortest cost from A to B?",
+        "answer": 1,
+        "explanation": "The route through C costs 5-4=1; no cycle is present.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "By how much does true cost 1 improve the prematurely settled direct cost 2?",
+        "answer": 1,
+        "explanation": "The improvement is 2-1=1.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains why negative edges break settling?",
+        "options": [
+          "A negative edge can improve a vertex after it has been settled.",
+          "Input assumptions cannot affect correctness.",
+          "One successful example proves the method for every graph."
+        ],
+        "answer": 0,
+        "explanation": "A negative edge can improve a vertex after it has been settled. The standard settle-once Dijkstra guarantee requires nonnegative weights, even when the graph has no cycle."
+      },
+      {
+        "type": "order",
+        "prompt": "Respond to a negative-edge shortest-path task.",
+        "items": [
+          "Notice any negative edge before choosing the method",
+          "Trace how a late detour improves a settled vertex",
+          "Use a signed-weight-safe algorithm"
+        ],
+        "explanation": "Check assumptions before treating settled distances as final."
+      }
+    ],
+    "algoLab": "dijkstra-negative",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 352.01,
+    "excerpt": "So we have seen two examples of negative bits and it is working. So does this mean it will work for all the graphs with the negative edges? Let's just see more examples. So here it was working. Let's just see. Some tweak in this example, instead of minus 3, let me just have minus 9. Let's say if I have minus 9 in the same example. So what will Dijkstra do? Initially it is 0. These are infinity, infinity, infinity. And then Dijkstra will say that, okay, I will convert that to 4.",
+    "sourceReferences": [
+      {
+        "lecture": 108,
+        "file": "108. 19a. Dijkstra on negative weights.mp4",
+        "start": 352.01,
+        "end": 380.58,
+        "text": "So we have seen two examples of negative bits and it is working. So does this mean it will work for all the graphs with the negative edges? Let's just see more examples. So here it was working. Let's just see. Some tweak in this example, instead of minus 3, let me just have minus 9. Let's say if I have minus 9 in the same example. So what will Dijkstra do? Initially it is 0. These are infinity, infinity, infinity. And then Dijkstra will say that, okay, I will convert that to 4."
+      },
+      {
+        "lecture": 108,
+        "file": "108. 19a. Dijkstra on negative weights.mp4",
+        "start": 459.14,
+        "end": 487.76,
+        "text": "I mean, when Dijkstra invented this algorithm, then Dijkstra does not even bothered about the negative edges because it was a greedy algorithm and Dijkstra have not cared about the negative edges. The first assumption, if you recall the intuitive proof that I have told you, the first assumption is that there are no negative edges. So what is happening with the negative edges? Let's just see this. Suppose that you are here and then let's suppose this is the graph. Let's just consider"
+      },
+      {
+        "lecture": 108,
+        "file": "108. 19a. Dijkstra on negative weights.mp4",
+        "start": 516.14,
+        "end": 542.88,
+        "text": "I mean, I will come to that point, but there is a misconception, a popular misconception that Dijkstra does work on the negative edges and Dijkstra does not work on the negative cycles, something like that. But I will come to that point. In fact, there is no cycle in this graph and I think in earlier graphs also there were no cycles. Here also no cycle and here, like, yeah, in this graph also it was not working and here also no cycle. In this graph also you can apply the Dijkstra, it will not work. Let me just do it and here also no cycle."
+      }
+    ]
+  },
+  {
+    "id": 325,
+    "lecture": 108,
+    "title": "Why negative edges break settling · Trace",
+    "concept": "A negative edge can improve a vertex after it has been settled. The standard settle-once Dijkstra guarantee requires nonnegative weights, even when the graph has no cycle. The settled-once argument fails with negative edges. A vertex settled at cost 2 may later have a path of cost 1 through a vertex whose earlier tentative cost was 5.",
+    "teachingSteps": [
+      "A negative edge can improve a vertex after it has been settled. The standard settle-once Dijkstra guarantee requires nonnegative weights, even when the graph has no cycle.",
+      "Trace how a late detour improves a settled vertex",
+      "Use a signed-weight-safe algorithm"
+    ],
+    "foundation": {
+      "title": "Why negative edges break settling",
+      "idea": "A negative edge can improve a vertex after it has been settled. The standard settle-once Dijkstra guarantee requires nonnegative weights, even when the graph has no cycle. The settled-once argument fails with negative edges. A vertex settled at cost 2 may later have a path of cost 1 through a vertex whose earlier tentative cost was 5.",
+      "terms": [
+        "Negative edge: a signed cost, such as a rebate.",
+        "Negative cycle: a separate issue; failure needs no cycle.",
+        "Bellman-Ford: a method that supports signed weights."
+      ],
+      "example": "A→B=2, A→C=5 and C→B=-4 give a true shortest cost 1 to B, but standard settle-once Dijkstra finalizes B at 2."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "In the counterexample A→B=2, A→C=5, C→B=-4, what is the true shortest cost from A to B?",
+        "answer": 1,
+        "explanation": "The route through C costs 5-4=1; no cycle is present.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "By how much does true cost 1 improve the prematurely settled direct cost 2?",
+        "answer": 1,
+        "explanation": "The improvement is 2-1=1.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Does having no negative cycle make every signed-weight graph safe for standard Dijkstra?",
+        "options": [
+          "Yes: acyclicity is Dijkstra’s only requirement.",
+          "Yes: negative edges are ignored automatically.",
+          "No: even one negative edge can break its settling guarantee."
+        ],
+        "answer": 2,
+        "explanation": "Use DAG shortest paths when acyclic, or Bellman-Ford for general signed-weight graphs."
+      },
+      {
+        "type": "order",
+        "prompt": "Respond to a negative-edge shortest-path task.",
+        "items": [
+          "Notice any negative edge before choosing the method",
+          "Trace how a late detour improves a settled vertex",
+          "Use a signed-weight-safe algorithm"
+        ],
+        "explanation": "Check assumptions before treating settled distances as final."
+      }
+    ],
+    "algoLab": "dijkstra-negative",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 352.01,
+    "excerpt": "So we have seen two examples of negative bits and it is working. So does this mean it will work for all the graphs with the negative edges? Let's just see more examples. So here it was working. Let's just see. Some tweak in this example, instead of minus 3, let me just have minus 9. Let's say if I have minus 9 in the same example. So what will Dijkstra do? Initially it is 0. These are infinity, infinity, infinity. And then Dijkstra will say that, okay, I will convert that to 4.",
+    "sourceReferences": [
+      {
+        "lecture": 108,
+        "file": "108. 19a. Dijkstra on negative weights.mp4",
+        "start": 352.01,
+        "end": 380.58,
+        "text": "So we have seen two examples of negative bits and it is working. So does this mean it will work for all the graphs with the negative edges? Let's just see more examples. So here it was working. Let's just see. Some tweak in this example, instead of minus 3, let me just have minus 9. Let's say if I have minus 9 in the same example. So what will Dijkstra do? Initially it is 0. These are infinity, infinity, infinity. And then Dijkstra will say that, okay, I will convert that to 4."
+      },
+      {
+        "lecture": 108,
+        "file": "108. 19a. Dijkstra on negative weights.mp4",
+        "start": 459.14,
+        "end": 487.76,
+        "text": "I mean, when Dijkstra invented this algorithm, then Dijkstra does not even bothered about the negative edges because it was a greedy algorithm and Dijkstra have not cared about the negative edges. The first assumption, if you recall the intuitive proof that I have told you, the first assumption is that there are no negative edges. So what is happening with the negative edges? Let's just see this. Suppose that you are here and then let's suppose this is the graph. Let's just consider"
+      },
+      {
+        "lecture": 108,
+        "file": "108. 19a. Dijkstra on negative weights.mp4",
+        "start": 516.14,
+        "end": 542.88,
+        "text": "I mean, I will come to that point, but there is a misconception, a popular misconception that Dijkstra does work on the negative edges and Dijkstra does not work on the negative cycles, something like that. But I will come to that point. In fact, there is no cycle in this graph and I think in earlier graphs also there were no cycles. Here also no cycle and here, like, yeah, in this graph also it was not working and here also no cycle. In this graph also you can apply the Dijkstra, it will not work. Let me just do it and here also no cycle."
+      }
+    ]
+  },
+  {
+    "id": 326,
+    "lecture": 108,
+    "title": "Why negative edges break settling · Apply",
+    "concept": "A negative edge can improve a vertex after it has been settled. The standard settle-once Dijkstra guarantee requires nonnegative weights, even when the graph has no cycle. The settled-once argument fails with negative edges. A vertex settled at cost 2 may later have a path of cost 1 through a vertex whose earlier tentative cost was 5.",
+    "teachingSteps": [
+      "A negative edge can improve a vertex after it has been settled. The standard settle-once Dijkstra guarantee requires nonnegative weights, even when the graph has no cycle.",
+      "Trace how a late detour improves a settled vertex",
+      "Use a signed-weight-safe algorithm"
+    ],
+    "foundation": {
+      "title": "Why negative edges break settling",
+      "idea": "A negative edge can improve a vertex after it has been settled. The standard settle-once Dijkstra guarantee requires nonnegative weights, even when the graph has no cycle. The settled-once argument fails with negative edges. A vertex settled at cost 2 may later have a path of cost 1 through a vertex whose earlier tentative cost was 5.",
+      "terms": [
+        "Negative edge: a signed cost, such as a rebate.",
+        "Negative cycle: a separate issue; failure needs no cycle.",
+        "Bellman-Ford: a method that supports signed weights."
+      ],
+      "example": "A→B=2, A→C=5 and C→B=-4 give a true shortest cost 1 to B, but standard settle-once Dijkstra finalizes B at 2."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A pricing service includes a negative rebate edge. In the counterexample A→B=2, A→C=5, C→B=-4, what is the true shortest cost from A to B?",
+        "answer": 1,
+        "explanation": "The route through C costs 5-4=1; no cycle is present.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "By how much does true cost 1 improve the prematurely settled direct cost 2?",
+        "answer": 1,
+        "explanation": "The improvement is 2-1=1.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Does having no negative cycle make every signed-weight graph safe for standard Dijkstra?",
+        "options": [
+          "Yes: negative edges are ignored automatically.",
+          "No: even one negative edge can break its settling guarantee.",
+          "Yes: acyclicity is Dijkstra’s only requirement."
+        ],
+        "answer": 1,
+        "explanation": "Use DAG shortest paths when acyclic, or Bellman-Ford for general signed-weight graphs."
+      },
+      {
+        "type": "order",
+        "prompt": "Respond to a negative-edge shortest-path task.",
+        "items": [
+          "Notice any negative edge before choosing the method",
+          "Trace how a late detour improves a settled vertex",
+          "Use a signed-weight-safe algorithm"
+        ],
+        "explanation": "Check assumptions before treating settled distances as final."
+      }
+    ],
+    "algoLab": "dijkstra-negative",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 352.01,
+    "excerpt": "So we have seen two examples of negative bits and it is working. So does this mean it will work for all the graphs with the negative edges? Let's just see more examples. So here it was working. Let's just see. Some tweak in this example, instead of minus 3, let me just have minus 9. Let's say if I have minus 9 in the same example. So what will Dijkstra do? Initially it is 0. These are infinity, infinity, infinity. And then Dijkstra will say that, okay, I will convert that to 4.",
+    "sourceReferences": [
+      {
+        "lecture": 108,
+        "file": "108. 19a. Dijkstra on negative weights.mp4",
+        "start": 352.01,
+        "end": 380.58,
+        "text": "So we have seen two examples of negative bits and it is working. So does this mean it will work for all the graphs with the negative edges? Let's just see more examples. So here it was working. Let's just see. Some tweak in this example, instead of minus 3, let me just have minus 9. Let's say if I have minus 9 in the same example. So what will Dijkstra do? Initially it is 0. These are infinity, infinity, infinity. And then Dijkstra will say that, okay, I will convert that to 4."
+      },
+      {
+        "lecture": 108,
+        "file": "108. 19a. Dijkstra on negative weights.mp4",
+        "start": 459.14,
+        "end": 487.76,
+        "text": "I mean, when Dijkstra invented this algorithm, then Dijkstra does not even bothered about the negative edges because it was a greedy algorithm and Dijkstra have not cared about the negative edges. The first assumption, if you recall the intuitive proof that I have told you, the first assumption is that there are no negative edges. So what is happening with the negative edges? Let's just see this. Suppose that you are here and then let's suppose this is the graph. Let's just consider"
+      },
+      {
+        "lecture": 108,
+        "file": "108. 19a. Dijkstra on negative weights.mp4",
+        "start": 516.14,
+        "end": 542.88,
+        "text": "I mean, I will come to that point, but there is a misconception, a popular misconception that Dijkstra does work on the negative edges and Dijkstra does not work on the negative cycles, something like that. But I will come to that point. In fact, there is no cycle in this graph and I think in earlier graphs also there were no cycles. Here also no cycle and here, like, yeah, in this graph also it was not working and here also no cycle. In this graph also you can apply the Dijkstra, it will not work. Let me just do it and here also no cycle."
+      }
+    ]
+  },
+  {
+    "id": 327,
+    "lecture": 109,
+    "title": "Priority queues and decrease-key · Discover",
+    "concept": "A min-priority queue extracts the smallest tentative distance. After a relaxation, decrease-key repairs the queue; a lazy duplicate-entry implementation must skip obsolete entries. A relaxation may change a vertex’s tentative distance after it enters the queue. An indexed heap repairs that vertex with decrease-key; a lazy heap inserts a fresh entry and discards stale extractions.",
+    "teachingSteps": [
+      "A min-priority queue extracts the smallest tentative distance. After a relaxation, decrease-key repairs the queue; a lazy duplicate-entry implementation must skip obsolete entries.",
+      "Update or insert an improved priority",
+      "Extract the minimum and skip obsolete entries"
+    ],
+    "foundation": {
+      "title": "Priority queues and decrease-key",
+      "idea": "A min-priority queue extracts the smallest tentative distance. After a relaxation, decrease-key repairs the queue; a lazy duplicate-entry implementation must skip obsolete entries. A relaxation may change a vertex’s tentative distance after it enters the queue. An indexed heap repairs that vertex with decrease-key; a lazy heap inserts a fresh entry and discards stale extractions.",
+      "terms": [
+        "Extract-min: remove the entry with smallest priority.",
+        "Decrease-key: lower an existing item’s priority.",
+        "Stale entry: an old distance that no longer matches the current best."
+      ],
+      "example": "Entries B:7,C:2,D:5 must change when B improves to 1; the next useful minimum is B:1, not C:2."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Tentative entries are B:13, C:3, D:10. What minimum priority is extracted?",
+        "answer": 3,
+        "explanation": "Compare priorities; insertion order is irrelevant.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "B improves from 13 to 1. What priority should its next useful queue entry have?",
+        "answer": 1,
+        "explanation": "The old larger priority is now obsolete.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains priority queues and decrease-key?",
+        "options": [
+          "Input assumptions cannot affect correctness.",
+          "One successful example proves the method for every graph.",
+          "A min-priority queue extracts the smallest tentative distance."
+        ],
+        "answer": 2,
+        "explanation": "A min-priority queue extracts the smallest tentative distance. After a relaxation, decrease-key repairs the queue; a lazy duplicate-entry implementation must skip obsolete entries."
+      },
+      {
+        "type": "order",
+        "prompt": "Maintain a changing shortest-path frontier.",
+        "items": [
+          "Read current tentative distances",
+          "Update or insert an improved priority",
+          "Extract the minimum and skip obsolete entries"
+        ],
+        "explanation": "Update the queue after an improved distance and discard obsolete extractions."
+      }
+    ],
+    "algoLab": "priority-distance",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.5,
+    "excerpt": "Let us now look at one of the most widely used data structure, which is priority queue. So let's just answer first question, which is what are the priority queues, right? So we have seen queues. Queues are basically first in first out, which means whatever is going in the queue that will come out first, right? This is followed by the FIFO feature. So queues are following the FIFO, which means first in first out.",
+    "sourceReferences": [
+      {
+        "lecture": 109,
+        "file": "109. 19b. Video From DS Course_ Priority Queues.mp4",
+        "start": 0.5,
+        "end": 27.62,
+        "text": "Let us now look at one of the most widely used data structure, which is priority queue. So let's just answer first question, which is what are the priority queues, right? So we have seen queues. Queues are basically first in first out, which means whatever is going in the queue that will come out first, right? This is followed by the FIFO feature. So queues are following the FIFO, which means first in first out."
+      },
+      {
+        "lecture": 109,
+        "file": "109. 19b. Video From DS Course_ Priority Queues.mp4",
+        "start": 56.58,
+        "end": 77.38,
+        "text": "like the stores task using a partial order based on the priority, which means it basically stores based on the priority. It does not, it does not store the data randomly. It stores based on the priority and ensures that highest priority task is at the head of queue. So let's just see like what are those priority queues, right? So for example, in real life,"
+      },
+      {
+        "lecture": 109,
+        "file": "109. 19b. Video From DS Course_ Priority Queues.mp4",
+        "start": 1002.22,
+        "end": 1026.57,
+        "text": "So, you can say the bubble down means heapify. That is how we can implement decrease in heap. So, I hope you got it that we will be basically preferring heap in priority queues. In fact, it is so analogous that whenever someone says priority queues, they mean heap only. So, priority queue and heap has been so analogous to each other."
+      }
+    ]
+  },
+  {
+    "id": 328,
+    "lecture": 109,
+    "title": "Priority queues and decrease-key · Trace",
+    "concept": "A min-priority queue extracts the smallest tentative distance. After a relaxation, decrease-key repairs the queue; a lazy duplicate-entry implementation must skip obsolete entries. A relaxation may change a vertex’s tentative distance after it enters the queue. An indexed heap repairs that vertex with decrease-key; a lazy heap inserts a fresh entry and discards stale extractions.",
+    "teachingSteps": [
+      "A min-priority queue extracts the smallest tentative distance. After a relaxation, decrease-key repairs the queue; a lazy duplicate-entry implementation must skip obsolete entries.",
+      "Update or insert an improved priority",
+      "Extract the minimum and skip obsolete entries"
+    ],
+    "foundation": {
+      "title": "Priority queues and decrease-key",
+      "idea": "A min-priority queue extracts the smallest tentative distance. After a relaxation, decrease-key repairs the queue; a lazy duplicate-entry implementation must skip obsolete entries. A relaxation may change a vertex’s tentative distance after it enters the queue. An indexed heap repairs that vertex with decrease-key; a lazy heap inserts a fresh entry and discards stale extractions.",
+      "terms": [
+        "Extract-min: remove the entry with smallest priority.",
+        "Decrease-key: lower an existing item’s priority.",
+        "Stale entry: an old distance that no longer matches the current best."
+      ],
+      "example": "Entries B:7,C:2,D:5 must change when B improves to 1; the next useful minimum is B:1, not C:2."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "Tentative entries are B:9, C:4, D:6. What minimum priority is extracted?",
+        "answer": 4,
+        "explanation": "Compare priorities; insertion order is irrelevant.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "B improves from 9 to 1. What priority should its next useful queue entry have?",
+        "answer": 1,
+        "explanation": "The old larger priority is now obsolete.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "A lazy heap pops B with stored priority 9, but current distance(B)=3. What should it do?",
+        "options": [
+          "Process both entries as fresh finalizations.",
+          "Skip the stale priority-9 entry.",
+          "Reset distance(B) to 9."
+        ],
+        "answer": 1,
+        "explanation": "Only an entry matching the current best tentative distance is useful."
+      },
+      {
+        "type": "order",
+        "prompt": "Maintain a changing shortest-path frontier.",
+        "items": [
+          "Read current tentative distances",
+          "Update or insert an improved priority",
+          "Extract the minimum and skip obsolete entries"
+        ],
+        "explanation": "Update the queue after an improved distance and discard obsolete extractions."
+      }
+    ],
+    "algoLab": "priority-distance",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.5,
+    "excerpt": "Let us now look at one of the most widely used data structure, which is priority queue. So let's just answer first question, which is what are the priority queues, right? So we have seen queues. Queues are basically first in first out, which means whatever is going in the queue that will come out first, right? This is followed by the FIFO feature. So queues are following the FIFO, which means first in first out.",
+    "sourceReferences": [
+      {
+        "lecture": 109,
+        "file": "109. 19b. Video From DS Course_ Priority Queues.mp4",
+        "start": 0.5,
+        "end": 27.62,
+        "text": "Let us now look at one of the most widely used data structure, which is priority queue. So let's just answer first question, which is what are the priority queues, right? So we have seen queues. Queues are basically first in first out, which means whatever is going in the queue that will come out first, right? This is followed by the FIFO feature. So queues are following the FIFO, which means first in first out."
+      },
+      {
+        "lecture": 109,
+        "file": "109. 19b. Video From DS Course_ Priority Queues.mp4",
+        "start": 56.58,
+        "end": 77.38,
+        "text": "like the stores task using a partial order based on the priority, which means it basically stores based on the priority. It does not, it does not store the data randomly. It stores based on the priority and ensures that highest priority task is at the head of queue. So let's just see like what are those priority queues, right? So for example, in real life,"
+      },
+      {
+        "lecture": 109,
+        "file": "109. 19b. Video From DS Course_ Priority Queues.mp4",
+        "start": 1002.22,
+        "end": 1026.57,
+        "text": "So, you can say the bubble down means heapify. That is how we can implement decrease in heap. So, I hope you got it that we will be basically preferring heap in priority queues. In fact, it is so analogous that whenever someone says priority queues, they mean heap only. So, priority queue and heap has been so analogous to each other."
+      }
+    ]
+  },
+  {
+    "id": 329,
+    "lecture": 109,
+    "title": "Priority queues and decrease-key · Apply",
+    "concept": "A min-priority queue extracts the smallest tentative distance. After a relaxation, decrease-key repairs the queue; a lazy duplicate-entry implementation must skip obsolete entries. A relaxation may change a vertex’s tentative distance after it enters the queue. An indexed heap repairs that vertex with decrease-key; a lazy heap inserts a fresh entry and discards stale extractions.",
+    "teachingSteps": [
+      "A min-priority queue extracts the smallest tentative distance. After a relaxation, decrease-key repairs the queue; a lazy duplicate-entry implementation must skip obsolete entries.",
+      "Update or insert an improved priority",
+      "Extract the minimum and skip obsolete entries"
+    ],
+    "foundation": {
+      "title": "Priority queues and decrease-key",
+      "idea": "A min-priority queue extracts the smallest tentative distance. After a relaxation, decrease-key repairs the queue; a lazy duplicate-entry implementation must skip obsolete entries. A relaxation may change a vertex’s tentative distance after it enters the queue. An indexed heap repairs that vertex with decrease-key; a lazy heap inserts a fresh entry and discards stale extractions.",
+      "terms": [
+        "Extract-min: remove the entry with smallest priority.",
+        "Decrease-key: lower an existing item’s priority.",
+        "Stale entry: an old distance that no longer matches the current best."
+      ],
+      "example": "Entries B:7,C:2,D:5 must change when B improves to 1; the next useful minimum is B:1, not C:2."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A route service must update changing priorities. Tentative entries are B:10, C:5, D:7. What minimum priority is extracted?",
+        "answer": 5,
+        "explanation": "Compare priorities; insertion order is irrelevant.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "B improves from 10 to 1. What priority should its next useful queue entry have?",
+        "answer": 1,
+        "explanation": "The old larger priority is now obsolete.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "A lazy heap pops B with stored priority 9, but current distance(B)=3. What should it do?",
+        "options": [
+          "Skip the stale priority-9 entry.",
+          "Reset distance(B) to 9.",
+          "Process both entries as fresh finalizations."
+        ],
+        "answer": 0,
+        "explanation": "Only an entry matching the current best tentative distance is useful."
+      },
+      {
+        "type": "order",
+        "prompt": "Maintain a changing shortest-path frontier.",
+        "items": [
+          "Read current tentative distances",
+          "Update or insert an improved priority",
+          "Extract the minimum and skip obsolete entries"
+        ],
+        "explanation": "Update the queue after an improved distance and discard obsolete extractions."
+      }
+    ],
+    "algoLab": "priority-distance",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.5,
+    "excerpt": "Let us now look at one of the most widely used data structure, which is priority queue. So let's just answer first question, which is what are the priority queues, right? So we have seen queues. Queues are basically first in first out, which means whatever is going in the queue that will come out first, right? This is followed by the FIFO feature. So queues are following the FIFO, which means first in first out.",
+    "sourceReferences": [
+      {
+        "lecture": 109,
+        "file": "109. 19b. Video From DS Course_ Priority Queues.mp4",
+        "start": 0.5,
+        "end": 27.62,
+        "text": "Let us now look at one of the most widely used data structure, which is priority queue. So let's just answer first question, which is what are the priority queues, right? So we have seen queues. Queues are basically first in first out, which means whatever is going in the queue that will come out first, right? This is followed by the FIFO feature. So queues are following the FIFO, which means first in first out."
+      },
+      {
+        "lecture": 109,
+        "file": "109. 19b. Video From DS Course_ Priority Queues.mp4",
+        "start": 56.58,
+        "end": 77.38,
+        "text": "like the stores task using a partial order based on the priority, which means it basically stores based on the priority. It does not, it does not store the data randomly. It stores based on the priority and ensures that highest priority task is at the head of queue. So let's just see like what are those priority queues, right? So for example, in real life,"
+      },
+      {
+        "lecture": 109,
+        "file": "109. 19b. Video From DS Course_ Priority Queues.mp4",
+        "start": 1002.22,
+        "end": 1026.57,
+        "text": "So, you can say the bubble down means heapify. That is how we can implement decrease in heap. So, I hope you got it that we will be basically preferring heap in priority queues. In fact, it is so analogous that whenever someone says priority queues, they mean heap only. So, priority queue and heap has been so analogous to each other."
+      }
+    ]
+  },
+  {
+    "id": 330,
+    "lecture": 110,
+    "title": "Dijkstra operation budgets · Discover",
+    "concept": "With adjacency lists and a binary heap supporting decrease-key, Dijkstra takes O((V+E) log V) time. Count up to V extractions and E edge relaxations separately. Queue complexity and graph representation both affect total cost. Lists enumerate actual edges, while a matrix scans potential edges; changing a queue does not eliminate a matrix’s row scans.",
+    "teachingSteps": [
+      "With adjacency lists and a binary heap supporting decrease-key, Dijkstra takes O((V+E) log V) time. Count up to V extractions and E edge relaxations separately.",
+      "Count extract-min and update operations",
+      "Multiply by their costs and combine the bounds"
+    ],
+    "foundation": {
+      "title": "Dijkstra operation budgets",
+      "idea": "With adjacency lists and a binary heap supporting decrease-key, Dijkstra takes O((V+E) log V) time. Count up to V extractions and E edge relaxations separately. Queue complexity and graph representation both affect total cost. Lists enumerate actual edges, while a matrix scans potential edges; changing a queue does not eliminate a matrix’s row scans.",
+      "terms": [
+        "V: number of vertices.",
+        "E: number of directed edges, or physical undirected edges.",
+        "Relaxation attempt: inspect one outgoing edge."
+      ],
+      "example": "With adjacency lists, V extract-min operations and E relaxation attempts cost O((V+E) log V) using an indexed binary heap."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A directed graph has V=4, E=16. An adjacency-list run attempts at most how many edge relaxations across settled vertices?",
+        "answer": 16,
+        "explanation": "Each outgoing edge is enumerated once when its source is processed.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "With V=4, an adjacency matrix scans V cells for each of V processed vertices. How many matrix cells are inspected?",
+        "answer": 16,
+        "explanation": "V rows times V potential neighbors per row.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains dijkstra operation budgets?",
+        "options": [
+          "One successful example proves the method for every graph.",
+          "With adjacency lists and a binary heap supporting decrease-key, Dijkstra takes O((V+E) log V) time.",
+          "Input assumptions cannot affect correctness."
+        ],
+        "answer": 1,
+        "explanation": "With adjacency lists and a binary heap supporting decrease-key, Dijkstra takes O((V+E) log V) time. Count up to V extractions and E edge relaxations separately."
+      },
+      {
+        "type": "choice",
+        "prompt": "Replacing an unsorted queue by a heap while retaining an adjacency matrix eliminates which work?",
+        "options": [
+          "It removes the need to inspect any actual edge.",
+          "It does not eliminate the V-by-V potential-edge scans.",
+          "It removes every matrix row scan."
+        ],
+        "answer": 1,
+        "explanation": "Graph enumeration costs and queue costs must be accounted for separately."
+      }
+    ],
+    "algoLab": "dijkstra-cost",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 315.82,
+    "excerpt": "decrease key if you are using heap then decrease key time will be i think log v because the heap size is v because this priority key will be having all the vertices so what number of vertices are v so in case of heap this decrease key will be log v anyway let me write the general formula the total time complexity will be e times you are decreasing key and v times time of remove min you are extracting or removing the min that's all",
+    "sourceReferences": [
+      {
+        "lecture": 110,
+        "file": "110. 19c. Dijkstra Time Complexity.mp4",
+        "start": 315.82,
+        "end": 346.43,
+        "text": "decrease key if you are using heap then decrease key time will be i think log v because the heap size is v because this priority key will be having all the vertices so what number of vertices are v so in case of heap this decrease key will be log v anyway let me write the general formula the total time complexity will be e times you are decreasing key and v times time of remove min you are extracting or removing the min that's all"
+      },
+      {
+        "lecture": 110,
+        "file": "110. 19c. Dijkstra Time Complexity.mp4",
+        "start": 346.73,
+        "end": 372.3,
+        "text": "about director time complexity. So you will say e into time for decrease key plus v into time for removing. Now it will depend which data structure you are using. If you are using heap as a priority queue then this will be log v and so decrease key will be log v and remove is also log v. If you are using heap, if you are using heap. So there are many many options."
+      },
+      {
+        "lecture": 110,
+        "file": "110. 19c. Dijkstra Time Complexity.mp4",
+        "start": 932.86,
+        "end": 960.02,
+        "text": "okay so you can put this submission inside and then you will be having this this is this is for removing and this is for update key or the or the relax operation or the decrease key whatever now let me let me do one thing let me directly go to the point where I will be I will be using adjacency list and I will be using heap and there are like there is another combination where I can use adjacency matrix and I can use heap"
+      }
+    ]
+  },
+  {
+    "id": 331,
+    "lecture": 110,
+    "title": "Dijkstra operation budgets · Trace",
+    "concept": "With adjacency lists and a binary heap supporting decrease-key, Dijkstra takes O((V+E) log V) time. Count up to V extractions and E edge relaxations separately. Queue complexity and graph representation both affect total cost. Lists enumerate actual edges, while a matrix scans potential edges; changing a queue does not eliminate a matrix’s row scans.",
+    "teachingSteps": [
+      "With adjacency lists and a binary heap supporting decrease-key, Dijkstra takes O((V+E) log V) time. Count up to V extractions and E edge relaxations separately.",
+      "Count extract-min and update operations",
+      "Multiply by their costs and combine the bounds"
+    ],
+    "foundation": {
+      "title": "Dijkstra operation budgets",
+      "idea": "With adjacency lists and a binary heap supporting decrease-key, Dijkstra takes O((V+E) log V) time. Count up to V extractions and E edge relaxations separately. Queue complexity and graph representation both affect total cost. Lists enumerate actual edges, while a matrix scans potential edges; changing a queue does not eliminate a matrix’s row scans.",
+      "terms": [
+        "V: number of vertices.",
+        "E: number of directed edges, or physical undirected edges.",
+        "Relaxation attempt: inspect one outgoing edge."
+      ],
+      "example": "With adjacency lists, V extract-min operations and E relaxation attempts cost O((V+E) log V) using an indexed binary heap."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A directed graph has V=5, E=25. An adjacency-list run attempts at most how many edge relaxations across settled vertices?",
+        "answer": 25,
+        "explanation": "Each outgoing edge is enumerated once when its source is processed.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "With V=5, an adjacency matrix scans V cells for each of V processed vertices. How many matrix cells are inspected?",
+        "answer": 25,
+        "explanation": "V rows times V potential neighbors per row.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "What is the indexed-binary-heap Dijkstra bound with adjacency lists?",
+        "options": [
+          "O((V+E) log V)",
+          "O(log V) for the whole graph",
+          "O(V+E) for every binary heap implementation"
+        ],
+        "answer": 0,
+        "explanation": "There are up to V extractions and E key-update attempts, each costing logarithmic time."
+      },
+      {
+        "type": "choice",
+        "prompt": "Replacing an unsorted queue by a heap while retaining an adjacency matrix eliminates which work?",
+        "options": [
+          "It does not eliminate the V-by-V potential-edge scans.",
+          "It removes every matrix row scan.",
+          "It removes the need to inspect any actual edge."
+        ],
+        "answer": 0,
+        "explanation": "Graph enumeration costs and queue costs must be accounted for separately."
+      }
+    ],
+    "algoLab": "dijkstra-cost",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 315.82,
+    "excerpt": "decrease key if you are using heap then decrease key time will be i think log v because the heap size is v because this priority key will be having all the vertices so what number of vertices are v so in case of heap this decrease key will be log v anyway let me write the general formula the total time complexity will be e times you are decreasing key and v times time of remove min you are extracting or removing the min that's all",
+    "sourceReferences": [
+      {
+        "lecture": 110,
+        "file": "110. 19c. Dijkstra Time Complexity.mp4",
+        "start": 315.82,
+        "end": 346.43,
+        "text": "decrease key if you are using heap then decrease key time will be i think log v because the heap size is v because this priority key will be having all the vertices so what number of vertices are v so in case of heap this decrease key will be log v anyway let me write the general formula the total time complexity will be e times you are decreasing key and v times time of remove min you are extracting or removing the min that's all"
+      },
+      {
+        "lecture": 110,
+        "file": "110. 19c. Dijkstra Time Complexity.mp4",
+        "start": 346.73,
+        "end": 372.3,
+        "text": "about director time complexity. So you will say e into time for decrease key plus v into time for removing. Now it will depend which data structure you are using. If you are using heap as a priority queue then this will be log v and so decrease key will be log v and remove is also log v. If you are using heap, if you are using heap. So there are many many options."
+      },
+      {
+        "lecture": 110,
+        "file": "110. 19c. Dijkstra Time Complexity.mp4",
+        "start": 932.86,
+        "end": 960.02,
+        "text": "okay so you can put this submission inside and then you will be having this this is this is for removing and this is for update key or the or the relax operation or the decrease key whatever now let me let me do one thing let me directly go to the point where I will be I will be using adjacency list and I will be using heap and there are like there is another combination where I can use adjacency matrix and I can use heap"
+      }
+    ]
+  },
+  {
+    "id": 332,
+    "lecture": 110,
+    "title": "Dijkstra operation budgets · Apply",
+    "concept": "With adjacency lists and a binary heap supporting decrease-key, Dijkstra takes O((V+E) log V) time. Count up to V extractions and E edge relaxations separately. Queue complexity and graph representation both affect total cost. Lists enumerate actual edges, while a matrix scans potential edges; changing a queue does not eliminate a matrix’s row scans.",
+    "teachingSteps": [
+      "With adjacency lists and a binary heap supporting decrease-key, Dijkstra takes O((V+E) log V) time. Count up to V extractions and E edge relaxations separately.",
+      "Count extract-min and update operations",
+      "Multiply by their costs and combine the bounds"
+    ],
+    "foundation": {
+      "title": "Dijkstra operation budgets",
+      "idea": "With adjacency lists and a binary heap supporting decrease-key, Dijkstra takes O((V+E) log V) time. Count up to V extractions and E edge relaxations separately. Queue complexity and graph representation both affect total cost. Lists enumerate actual edges, while a matrix scans potential edges; changing a queue does not eliminate a matrix’s row scans.",
+      "terms": [
+        "V: number of vertices.",
+        "E: number of directed edges, or physical undirected edges.",
+        "Relaxation attempt: inspect one outgoing edge."
+      ],
+      "example": "With adjacency lists, V extract-min operations and E relaxation attempts cost O((V+E) log V) using an indexed binary heap."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A network service estimates queue and edge-processing work. A directed graph has V=6, E=12. An adjacency-list run attempts at most how many edge relaxations across settled vertices?",
+        "answer": 12,
+        "explanation": "Each outgoing edge is enumerated once when its source is processed.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "With V=6, an adjacency matrix scans V cells for each of V processed vertices. How many matrix cells are inspected?",
+        "answer": 36,
+        "explanation": "V rows times V potential neighbors per row.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "What is the indexed-binary-heap Dijkstra bound with adjacency lists?",
+        "options": [
+          "O(log V) for the whole graph",
+          "O(V+E) for every binary heap implementation",
+          "O((V+E) log V)"
+        ],
+        "answer": 2,
+        "explanation": "There are up to V extractions and E key-update attempts, each costing logarithmic time."
+      },
+      {
+        "type": "choice",
+        "prompt": "Replacing an unsorted queue by a heap while retaining an adjacency matrix eliminates which work?",
+        "options": [
+          "It removes every matrix row scan.",
+          "It removes the need to inspect any actual edge.",
+          "It does not eliminate the V-by-V potential-edge scans."
+        ],
+        "answer": 2,
+        "explanation": "Graph enumeration costs and queue costs must be accounted for separately."
+      }
+    ],
+    "algoLab": "dijkstra-cost",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 315.82,
+    "excerpt": "decrease key if you are using heap then decrease key time will be i think log v because the heap size is v because this priority key will be having all the vertices so what number of vertices are v so in case of heap this decrease key will be log v anyway let me write the general formula the total time complexity will be e times you are decreasing key and v times time of remove min you are extracting or removing the min that's all",
+    "sourceReferences": [
+      {
+        "lecture": 110,
+        "file": "110. 19c. Dijkstra Time Complexity.mp4",
+        "start": 315.82,
+        "end": 346.43,
+        "text": "decrease key if you are using heap then decrease key time will be i think log v because the heap size is v because this priority key will be having all the vertices so what number of vertices are v so in case of heap this decrease key will be log v anyway let me write the general formula the total time complexity will be e times you are decreasing key and v times time of remove min you are extracting or removing the min that's all"
+      },
+      {
+        "lecture": 110,
+        "file": "110. 19c. Dijkstra Time Complexity.mp4",
+        "start": 346.73,
+        "end": 372.3,
+        "text": "about director time complexity. So you will say e into time for decrease key plus v into time for removing. Now it will depend which data structure you are using. If you are using heap as a priority queue then this will be log v and so decrease key will be log v and remove is also log v. If you are using heap, if you are using heap. So there are many many options."
+      },
+      {
+        "lecture": 110,
+        "file": "110. 19c. Dijkstra Time Complexity.mp4",
+        "start": 932.86,
+        "end": 960.02,
+        "text": "okay so you can put this submission inside and then you will be having this this is this is for removing and this is for update key or the or the relax operation or the decrease key whatever now let me let me do one thing let me directly go to the point where I will be I will be using adjacency list and I will be using heap and there are like there is another combination where I can use adjacency matrix and I can use heap"
+      }
+    ]
+  },
+  {
+    "id": 333,
+    "lecture": 111,
+    "title": "Storage choices change shortest-path cost · Discover",
+    "concept": "An unsorted distance array gives O(V squared+E) time with adjacency lists. A binary heap gives O((V+E) log V); an adjacency matrix itself requires scanning V cells per processed vertex. Queue complexity and graph representation both affect total cost. Lists enumerate actual edges, while a matrix scans potential edges; changing a queue does not eliminate a matrix’s row scans.",
+    "teachingSteps": [
+      "An unsorted distance array gives O(V squared+E) time with adjacency lists. A binary heap gives O((V+E) log V); an adjacency matrix itself requires scanning V cells per processed vertex.",
+      "Count extract-min and update operations",
+      "Multiply by their costs and combine the bounds"
+    ],
+    "foundation": {
+      "title": "Storage choices change shortest-path cost",
+      "idea": "An unsorted distance array gives O(V squared+E) time with adjacency lists. A binary heap gives O((V+E) log V); an adjacency matrix itself requires scanning V cells per processed vertex. Queue complexity and graph representation both affect total cost. Lists enumerate actual edges, while a matrix scans potential edges; changing a queue does not eliminate a matrix’s row scans.",
+      "terms": [
+        "V: number of vertices.",
+        "E: number of directed edges, or physical undirected edges.",
+        "Relaxation attempt: inspect one outgoing edge."
+      ],
+      "example": "With adjacency lists, V extract-min operations and E relaxation attempts cost O((V+E) log V) using an indexed binary heap."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A directed graph has V=5, E=25. An adjacency-list run attempts at most how many edge relaxations across settled vertices?",
+        "answer": 25,
+        "explanation": "Each outgoing edge is enumerated once when its source is processed.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "With V=5, an adjacency matrix scans V cells for each of V processed vertices. How many matrix cells are inspected?",
+        "answer": 25,
+        "explanation": "V rows times V potential neighbors per row.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains storage choices change shortest-path cost?",
+        "options": [
+          "An unsorted distance array gives O(V squared+E) time with adjacency lists.",
+          "Input assumptions cannot affect correctness.",
+          "One successful example proves the method for every graph."
+        ],
+        "answer": 0,
+        "explanation": "An unsorted distance array gives O(V squared+E) time with adjacency lists. A binary heap gives O((V+E) log V); an adjacency matrix itself requires scanning V cells per processed vertex."
+      },
+      {
+        "type": "choice",
+        "prompt": "Replacing an unsorted queue by a heap while retaining an adjacency matrix eliminates which work?",
+        "options": [
+          "It does not eliminate the V-by-V potential-edge scans.",
+          "It removes every matrix row scan.",
+          "It removes the need to inspect any actual edge."
+        ],
+        "answer": 0,
+        "explanation": "Graph enumeration costs and queue costs must be accounted for separately."
+      }
+    ],
+    "algoLab": "dijkstra-storage",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0,
+    "excerpt": "Let us now fill the remaining entries that we left in the last video. So let's start with the first question. What if you have adjacency list and your array is unsorted? I mean like if nothing is given, let's take it unsorted. Now as we know for the adjacency list, formula is this which means you are relaxing so update key means just a relax. So you are relaxing E times every as you are relaxing just exactly once and you are removing min E three times.",
+    "sourceReferences": [
+      {
+        "lecture": 111,
+        "file": "111_19d_Dijkstra_Time_Complexity_on_more_variant_data_st.mp4",
+        "start": 0,
+        "end": 28.26,
+        "text": "Let us now fill the remaining entries that we left in the last video. So let's start with the first question. What if you have adjacency list and your array is unsorted? I mean like if nothing is given, let's take it unsorted. Now as we know for the adjacency list, formula is this which means you are relaxing so update key means just a relax. So you are relaxing E times every as you are relaxing just exactly once and you are removing min E three times."
+      },
+      {
+        "lecture": 111,
+        "file": "111_19d_Dijkstra_Time_Complexity_on_more_variant_data_st.mp4",
+        "start": 28.73,
+        "end": 58.03,
+        "text": "so suppose there is an unsorted array in that array you have some values maybe 3, 5, infinity, 0 or whatever ok 1, 10, 11, something like that now suppose that you want to find out the minimum among this then you might need to traverse n times which means if there are v vertices then it might take order of v to find the minimum and then to remove it you will also shift all the elements to the left or right whatever so in worst case"
+      },
+      {
+        "lecture": 111,
+        "file": "111_19d_Dijkstra_Time_Complexity_on_more_variant_data_st.mp4",
+        "start": 88.75,
+        "end": 107.64,
+        "text": "v square plus e in case of adjacency list and unsorted array array if I am just writing array it means unsorted array now let's let's suppose that instead of adjacency list if there is a adjacency matrix then you just need to add v square so earlier this was v so v into v square"
+      }
+    ]
+  },
+  {
+    "id": 334,
+    "lecture": 111,
+    "title": "Storage choices change shortest-path cost · Trace",
+    "concept": "An unsorted distance array gives O(V squared+E) time with adjacency lists. A binary heap gives O((V+E) log V); an adjacency matrix itself requires scanning V cells per processed vertex. Queue complexity and graph representation both affect total cost. Lists enumerate actual edges, while a matrix scans potential edges; changing a queue does not eliminate a matrix’s row scans.",
+    "teachingSteps": [
+      "An unsorted distance array gives O(V squared+E) time with adjacency lists. A binary heap gives O((V+E) log V); an adjacency matrix itself requires scanning V cells per processed vertex.",
+      "Count extract-min and update operations",
+      "Multiply by their costs and combine the bounds"
+    ],
+    "foundation": {
+      "title": "Storage choices change shortest-path cost",
+      "idea": "An unsorted distance array gives O(V squared+E) time with adjacency lists. A binary heap gives O((V+E) log V); an adjacency matrix itself requires scanning V cells per processed vertex. Queue complexity and graph representation both affect total cost. Lists enumerate actual edges, while a matrix scans potential edges; changing a queue does not eliminate a matrix’s row scans.",
+      "terms": [
+        "V: number of vertices.",
+        "E: number of directed edges, or physical undirected edges.",
+        "Relaxation attempt: inspect one outgoing edge."
+      ],
+      "example": "With adjacency lists, V extract-min operations and E relaxation attempts cost O((V+E) log V) using an indexed binary heap."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A directed graph has V=6, E=12. An adjacency-list run attempts at most how many edge relaxations across settled vertices?",
+        "answer": 12,
+        "explanation": "Each outgoing edge is enumerated once when its source is processed.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "With V=6, an adjacency matrix scans V cells for each of V processed vertices. How many matrix cells are inspected?",
+        "answer": 36,
+        "explanation": "V rows times V potential neighbors per row.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "What is the indexed-binary-heap Dijkstra bound with adjacency lists?",
+        "options": [
+          "O(log V) for the whole graph",
+          "O(V+E) for every binary heap implementation",
+          "O((V+E) log V)"
+        ],
+        "answer": 2,
+        "explanation": "There are up to V extractions and E key-update attempts, each costing logarithmic time."
+      },
+      {
+        "type": "choice",
+        "prompt": "Replacing an unsorted queue by a heap while retaining an adjacency matrix eliminates which work?",
+        "options": [
+          "It removes every matrix row scan.",
+          "It removes the need to inspect any actual edge.",
+          "It does not eliminate the V-by-V potential-edge scans."
+        ],
+        "answer": 2,
+        "explanation": "Graph enumeration costs and queue costs must be accounted for separately."
+      }
+    ],
+    "algoLab": "dijkstra-storage",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0,
+    "excerpt": "Let us now fill the remaining entries that we left in the last video. So let's start with the first question. What if you have adjacency list and your array is unsorted? I mean like if nothing is given, let's take it unsorted. Now as we know for the adjacency list, formula is this which means you are relaxing so update key means just a relax. So you are relaxing E times every as you are relaxing just exactly once and you are removing min E three times.",
+    "sourceReferences": [
+      {
+        "lecture": 111,
+        "file": "111_19d_Dijkstra_Time_Complexity_on_more_variant_data_st.mp4",
+        "start": 0,
+        "end": 28.26,
+        "text": "Let us now fill the remaining entries that we left in the last video. So let's start with the first question. What if you have adjacency list and your array is unsorted? I mean like if nothing is given, let's take it unsorted. Now as we know for the adjacency list, formula is this which means you are relaxing so update key means just a relax. So you are relaxing E times every as you are relaxing just exactly once and you are removing min E three times."
+      },
+      {
+        "lecture": 111,
+        "file": "111_19d_Dijkstra_Time_Complexity_on_more_variant_data_st.mp4",
+        "start": 28.73,
+        "end": 58.03,
+        "text": "so suppose there is an unsorted array in that array you have some values maybe 3, 5, infinity, 0 or whatever ok 1, 10, 11, something like that now suppose that you want to find out the minimum among this then you might need to traverse n times which means if there are v vertices then it might take order of v to find the minimum and then to remove it you will also shift all the elements to the left or right whatever so in worst case"
+      },
+      {
+        "lecture": 111,
+        "file": "111_19d_Dijkstra_Time_Complexity_on_more_variant_data_st.mp4",
+        "start": 88.75,
+        "end": 107.64,
+        "text": "v square plus e in case of adjacency list and unsorted array array if I am just writing array it means unsorted array now let's let's suppose that instead of adjacency list if there is a adjacency matrix then you just need to add v square so earlier this was v so v into v square"
+      }
+    ]
+  },
+  {
+    "id": 335,
+    "lecture": 111,
+    "title": "Storage choices change shortest-path cost · Apply",
+    "concept": "An unsorted distance array gives O(V squared+E) time with adjacency lists. A binary heap gives O((V+E) log V); an adjacency matrix itself requires scanning V cells per processed vertex. Queue complexity and graph representation both affect total cost. Lists enumerate actual edges, while a matrix scans potential edges; changing a queue does not eliminate a matrix’s row scans.",
+    "teachingSteps": [
+      "An unsorted distance array gives O(V squared+E) time with adjacency lists. A binary heap gives O((V+E) log V); an adjacency matrix itself requires scanning V cells per processed vertex.",
+      "Count extract-min and update operations",
+      "Multiply by their costs and combine the bounds"
+    ],
+    "foundation": {
+      "title": "Storage choices change shortest-path cost",
+      "idea": "An unsorted distance array gives O(V squared+E) time with adjacency lists. A binary heap gives O((V+E) log V); an adjacency matrix itself requires scanning V cells per processed vertex. Queue complexity and graph representation both affect total cost. Lists enumerate actual edges, while a matrix scans potential edges; changing a queue does not eliminate a matrix’s row scans.",
+      "terms": [
+        "V: number of vertices.",
+        "E: number of directed edges, or physical undirected edges.",
+        "Relaxation attempt: inspect one outgoing edge."
+      ],
+      "example": "With adjacency lists, V extract-min operations and E relaxation attempts cost O((V+E) log V) using an indexed binary heap."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A network service estimates queue and edge-processing work. A directed graph has V=7, E=21. An adjacency-list run attempts at most how many edge relaxations across settled vertices?",
+        "answer": 21,
+        "explanation": "Each outgoing edge is enumerated once when its source is processed.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "With V=7, an adjacency matrix scans V cells for each of V processed vertices. How many matrix cells are inspected?",
+        "answer": 49,
+        "explanation": "V rows times V potential neighbors per row.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "What is the indexed-binary-heap Dijkstra bound with adjacency lists?",
+        "options": [
+          "O(V+E) for every binary heap implementation",
+          "O((V+E) log V)",
+          "O(log V) for the whole graph"
+        ],
+        "answer": 1,
+        "explanation": "There are up to V extractions and E key-update attempts, each costing logarithmic time."
+      },
+      {
+        "type": "choice",
+        "prompt": "Replacing an unsorted queue by a heap while retaining an adjacency matrix eliminates which work?",
+        "options": [
+          "It removes the need to inspect any actual edge.",
+          "It does not eliminate the V-by-V potential-edge scans.",
+          "It removes every matrix row scan."
+        ],
+        "answer": 1,
+        "explanation": "Graph enumeration costs and queue costs must be accounted for separately."
+      }
+    ],
+    "algoLab": "dijkstra-storage",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0,
+    "excerpt": "Let us now fill the remaining entries that we left in the last video. So let's start with the first question. What if you have adjacency list and your array is unsorted? I mean like if nothing is given, let's take it unsorted. Now as we know for the adjacency list, formula is this which means you are relaxing so update key means just a relax. So you are relaxing E times every as you are relaxing just exactly once and you are removing min E three times.",
+    "sourceReferences": [
+      {
+        "lecture": 111,
+        "file": "111_19d_Dijkstra_Time_Complexity_on_more_variant_data_st.mp4",
+        "start": 0,
+        "end": 28.26,
+        "text": "Let us now fill the remaining entries that we left in the last video. So let's start with the first question. What if you have adjacency list and your array is unsorted? I mean like if nothing is given, let's take it unsorted. Now as we know for the adjacency list, formula is this which means you are relaxing so update key means just a relax. So you are relaxing E times every as you are relaxing just exactly once and you are removing min E three times."
+      },
+      {
+        "lecture": 111,
+        "file": "111_19d_Dijkstra_Time_Complexity_on_more_variant_data_st.mp4",
+        "start": 28.73,
+        "end": 58.03,
+        "text": "so suppose there is an unsorted array in that array you have some values maybe 3, 5, infinity, 0 or whatever ok 1, 10, 11, something like that now suppose that you want to find out the minimum among this then you might need to traverse n times which means if there are v vertices then it might take order of v to find the minimum and then to remove it you will also shift all the elements to the left or right whatever so in worst case"
+      },
+      {
+        "lecture": 111,
+        "file": "111_19d_Dijkstra_Time_Complexity_on_more_variant_data_st.mp4",
+        "start": 88.75,
+        "end": 107.64,
+        "text": "v square plus e in case of adjacency list and unsorted array array if I am just writing array it means unsorted array now let's let's suppose that instead of adjacency list if there is a adjacency matrix then you just need to add v square so earlier this was v so v into v square"
+      }
+    ]
+  },
+  {
+    "id": 336,
+    "lecture": 112,
+    "title": "Shortest paths in topological order · Discover",
+    "concept": "A DAG can have negative edge weights without a cycle. Process vertices in topological order and relax each outgoing edge once to obtain single-source shortest paths in O(V+E) time. In a DAG, every predecessor appears earlier in a topological order. Relaxing in that order works with negative weights because no directed cycle can send a later improvement backward.",
+    "teachingSteps": [
+      "A DAG can have negative edge weights without a cycle. Process vertices in topological order and relax each outgoing edge once to obtain single-source shortest paths in O(V+E) time.",
+      "Initialize source distance zero and others not reached",
+      "Process each vertex once and relax outgoing edges"
+    ],
+    "foundation": {
+      "title": "Shortest paths in topological order",
+      "idea": "A DAG can have negative edge weights without a cycle. Process vertices in topological order and relax each outgoing edge once to obtain single-source shortest paths in O(V+E) time. In a DAG, every predecessor appears earlier in a topological order. Relaxing in that order works with negative weights because no directed cycle can send a later improvement backward.",
+      "terms": [
+        "Topological order: predecessors first.",
+        "Signed weight: negative, zero or positive.",
+        "Single pass: process each vertex and edge once."
+      ],
+      "example": "For A→B=3, B→C=-2 and A→C=6, order A,B,C gives distance C=1 without a priority queue."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "For the given directed acyclic weighted graph, what is the shortest distance from A to C?",
+        "answer": 1,
+        "explanation": "A→B→C costs 3-2=1 and beats direct cost 6.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Directed edge",
+            "Weight"
+          ],
+          "rows": [
+            [
+              "A→B",
+              3
+            ],
+            [
+              "B→C",
+              -2
+            ],
+            [
+              "A→C",
+              6
+            ],
+            [
+              "C→D",
+              2
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "What is the shortest distance from A to D in the same DAG?",
+        "answer": 3,
+        "explanation": "Extend the best A→C cost 1 by the C→D cost 2.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Directed edge",
+            "Weight"
+          ],
+          "rows": [
+            [
+              "A→B",
+              3
+            ],
+            [
+              "B→C",
+              -2
+            ],
+            [
+              "A→C",
+              6
+            ],
+            [
+              "C→D",
+              2
+            ]
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains shortest paths in topological order?",
+        "options": [
+          "Input assumptions cannot affect correctness.",
+          "One successful example proves the method for every graph.",
+          "A DAG can have negative edge weights without a cycle."
+        ],
+        "answer": 2,
+        "explanation": "A DAG can have negative edge weights without a cycle. Process vertices in topological order and relax each outgoing edge once to obtain single-source shortest paths in O(V+E) time."
+      },
+      {
+        "type": "order",
+        "prompt": "Find shortest paths in a DAG.",
+        "items": [
+          "Compute a valid topological order",
+          "Initialize source distance zero and others not reached",
+          "Process each vertex once and relax outgoing edges"
+        ],
+        "explanation": "Initialize distances, then process the precomputed topological order."
+      }
+    ],
+    "algoLab": "dag-path",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 557.34,
+    "excerpt": "I will go from left to right and I will keep on just relaxing all the outgoing edges so that I am 100% sure that the moment I am reaching a C, I know all the parts will see and I must have taken the minimum because that's how the relax works. And this does not even care about the negative edges. Now, what do I mean to say that I will go from left to right? I only mean to say here that I will go in the topological order. This is just topological order. This order is called topological order.",
+    "sourceReferences": [
+      {
+        "lecture": 112,
+        "file": "112_20a_DAG_Shortest_Path_Shortest_Path_in_Directed_Acyc.mp4",
+        "start": 557.34,
+        "end": 586.88,
+        "text": "I will go from left to right and I will keep on just relaxing all the outgoing edges so that I am 100% sure that the moment I am reaching a C, I know all the parts will see and I must have taken the minimum because that's how the relax works. And this does not even care about the negative edges. Now, what do I mean to say that I will go from left to right? I only mean to say here that I will go in the topological order. This is just topological order. This order is called topological order."
+      },
+      {
+        "lecture": 112,
+        "file": "112_20a_DAG_Shortest_Path_Shortest_Path_in_Directed_Acyc.mp4",
+        "start": 588.53,
+        "end": 616.81,
+        "text": "So I will pick the vertices from topological order. I will keep on relaxing keep on relaxing and I will be having the final final vertices from final cost to the vertices and Here I do not even need to worry about the negative edges Let's suppose this is minus one minus two whatever I do not need to worry I will just relax all the all the adjust this will be five and then this will be three and Let me relax all the adjust this will be five this will be three and then I mean you can do it If you want I can do it. Otherwise you can also do it. So from five it will be 11"
+      },
+      {
+        "lecture": 112,
+        "file": "112_20a_DAG_Shortest_Path_Shortest_Path_in_Directed_Acyc.mp4",
+        "start": 698.81,
+        "end": 729.33,
+        "text": "y you will relax all the outcome edges this will be 2 this will be 5 then you relax from b this will be again updated to 1 so this works for the negative edges too it is very very nice algorithm so what we need to do just pick the all pick the vertices in the topological order that is all you need to do and how to find the topological order you can you can find topological order using can you recall it yes using dfs"
+      }
+    ]
+  },
+  {
+    "id": 337,
+    "lecture": 112,
+    "title": "Shortest paths in topological order · Trace",
+    "concept": "A DAG can have negative edge weights without a cycle. Process vertices in topological order and relax each outgoing edge once to obtain single-source shortest paths in O(V+E) time. In a DAG, every predecessor appears earlier in a topological order. Relaxing in that order works with negative weights because no directed cycle can send a later improvement backward.",
+    "teachingSteps": [
+      "A DAG can have negative edge weights without a cycle. Process vertices in topological order and relax each outgoing edge once to obtain single-source shortest paths in O(V+E) time.",
+      "Initialize source distance zero and others not reached",
+      "Process each vertex once and relax outgoing edges"
+    ],
+    "foundation": {
+      "title": "Shortest paths in topological order",
+      "idea": "A DAG can have negative edge weights without a cycle. Process vertices in topological order and relax each outgoing edge once to obtain single-source shortest paths in O(V+E) time. In a DAG, every predecessor appears earlier in a topological order. Relaxing in that order works with negative weights because no directed cycle can send a later improvement backward.",
+      "terms": [
+        "Topological order: predecessors first.",
+        "Signed weight: negative, zero or positive.",
+        "Single pass: process each vertex and edge once."
+      ],
+      "example": "For A→B=3, B→C=-2 and A→C=6, order A,B,C gives distance C=1 without a priority queue."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "For the given directed acyclic weighted graph, what is the shortest distance from A to C?",
+        "answer": 1,
+        "explanation": "A→B→C costs 3-2=1 and beats direct cost 6.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Directed edge",
+            "Weight"
+          ],
+          "rows": [
+            [
+              "A→B",
+              3
+            ],
+            [
+              "B→C",
+              -2
+            ],
+            [
+              "A→C",
+              6
+            ],
+            [
+              "C→D",
+              2
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "What is the shortest distance from A to D in the same DAG?",
+        "answer": 3,
+        "explanation": "Extend the best A→C cost 1 by the C→D cost 2.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Directed edge",
+            "Weight"
+          ],
+          "rows": [
+            [
+              "A→B",
+              3
+            ],
+            [
+              "B→C",
+              -2
+            ],
+            [
+              "A→C",
+              6
+            ],
+            [
+              "C→D",
+              2
+            ]
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "Why can a topological-order shortest-path pass handle negative edges?",
+        "options": [
+          "Topological order sorts the edge weights.",
+          "Every predecessor is processed earlier, and no directed cycle sends improvements backward.",
+          "Negative weights are replaced by zero."
+        ],
+        "answer": 1,
+        "explanation": "Acyclic dependencies make a single complete outgoing-edge pass sufficient."
+      },
+      {
+        "type": "order",
+        "prompt": "Find shortest paths in a DAG.",
+        "items": [
+          "Compute a valid topological order",
+          "Initialize source distance zero and others not reached",
+          "Process each vertex once and relax outgoing edges"
+        ],
+        "explanation": "Initialize distances, then process the precomputed topological order."
+      }
+    ],
+    "algoLab": "dag-path",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 557.34,
+    "excerpt": "I will go from left to right and I will keep on just relaxing all the outgoing edges so that I am 100% sure that the moment I am reaching a C, I know all the parts will see and I must have taken the minimum because that's how the relax works. And this does not even care about the negative edges. Now, what do I mean to say that I will go from left to right? I only mean to say here that I will go in the topological order. This is just topological order. This order is called topological order.",
+    "sourceReferences": [
+      {
+        "lecture": 112,
+        "file": "112_20a_DAG_Shortest_Path_Shortest_Path_in_Directed_Acyc.mp4",
+        "start": 557.34,
+        "end": 586.88,
+        "text": "I will go from left to right and I will keep on just relaxing all the outgoing edges so that I am 100% sure that the moment I am reaching a C, I know all the parts will see and I must have taken the minimum because that's how the relax works. And this does not even care about the negative edges. Now, what do I mean to say that I will go from left to right? I only mean to say here that I will go in the topological order. This is just topological order. This order is called topological order."
+      },
+      {
+        "lecture": 112,
+        "file": "112_20a_DAG_Shortest_Path_Shortest_Path_in_Directed_Acyc.mp4",
+        "start": 588.53,
+        "end": 616.81,
+        "text": "So I will pick the vertices from topological order. I will keep on relaxing keep on relaxing and I will be having the final final vertices from final cost to the vertices and Here I do not even need to worry about the negative edges Let's suppose this is minus one minus two whatever I do not need to worry I will just relax all the all the adjust this will be five and then this will be three and Let me relax all the adjust this will be five this will be three and then I mean you can do it If you want I can do it. Otherwise you can also do it. So from five it will be 11"
+      },
+      {
+        "lecture": 112,
+        "file": "112_20a_DAG_Shortest_Path_Shortest_Path_in_Directed_Acyc.mp4",
+        "start": 698.81,
+        "end": 729.33,
+        "text": "y you will relax all the outcome edges this will be 2 this will be 5 then you relax from b this will be again updated to 1 so this works for the negative edges too it is very very nice algorithm so what we need to do just pick the all pick the vertices in the topological order that is all you need to do and how to find the topological order you can you can find topological order using can you recall it yes using dfs"
+      }
+    ]
+  },
+  {
+    "id": 338,
+    "lecture": 112,
+    "title": "Shortest paths in topological order · Apply",
+    "concept": "A DAG can have negative edge weights without a cycle. Process vertices in topological order and relax each outgoing edge once to obtain single-source shortest paths in O(V+E) time. In a DAG, every predecessor appears earlier in a topological order. Relaxing in that order works with negative weights because no directed cycle can send a later improvement backward.",
+    "teachingSteps": [
+      "A DAG can have negative edge weights without a cycle. Process vertices in topological order and relax each outgoing edge once to obtain single-source shortest paths in O(V+E) time.",
+      "Initialize source distance zero and others not reached",
+      "Process each vertex once and relax outgoing edges"
+    ],
+    "foundation": {
+      "title": "Shortest paths in topological order",
+      "idea": "A DAG can have negative edge weights without a cycle. Process vertices in topological order and relax each outgoing edge once to obtain single-source shortest paths in O(V+E) time. In a DAG, every predecessor appears earlier in a topological order. Relaxing in that order works with negative weights because no directed cycle can send a later improvement backward.",
+      "terms": [
+        "Topological order: predecessors first.",
+        "Signed weight: negative, zero or positive.",
+        "Single pass: process each vertex and edge once."
+      ],
+      "example": "For A→B=3, B→C=-2 and A→C=6, order A,B,C gives distance C=1 without a priority queue."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A workflow service has acyclic dependencies and signed costs. For the given directed acyclic weighted graph, what is the shortest distance from A to C?",
+        "answer": 1,
+        "explanation": "A→B→C costs 3-2=1 and beats direct cost 6.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Directed edge",
+            "Weight"
+          ],
+          "rows": [
+            [
+              "A→B",
+              3
+            ],
+            [
+              "B→C",
+              -2
+            ],
+            [
+              "A→C",
+              6
+            ],
+            [
+              "C→D",
+              2
+            ]
+          ]
+        }
+      },
+      {
+        "type": "number",
+        "prompt": "What is the shortest distance from A to D in the same DAG?",
+        "answer": 3,
+        "explanation": "Extend the best A→C cost 1 by the C→D cost 2.",
+        "tolerance": 1e-8,
+        "algoGiven": {
+          "headers": [
+            "Directed edge",
+            "Weight"
+          ],
+          "rows": [
+            [
+              "A→B",
+              3
+            ],
+            [
+              "B→C",
+              -2
+            ],
+            [
+              "A→C",
+              6
+            ],
+            [
+              "C→D",
+              2
+            ]
+          ]
+        }
+      },
+      {
+        "type": "choice",
+        "prompt": "Why can a topological-order shortest-path pass handle negative edges?",
+        "options": [
+          "Every predecessor is processed earlier, and no directed cycle sends improvements backward.",
+          "Negative weights are replaced by zero.",
+          "Topological order sorts the edge weights."
+        ],
+        "answer": 0,
+        "explanation": "Acyclic dependencies make a single complete outgoing-edge pass sufficient."
+      },
+      {
+        "type": "order",
+        "prompt": "Find shortest paths in a DAG.",
+        "items": [
+          "Compute a valid topological order",
+          "Initialize source distance zero and others not reached",
+          "Process each vertex once and relax outgoing edges"
+        ],
+        "explanation": "Initialize distances, then process the precomputed topological order."
+      }
+    ],
+    "algoLab": "dag-path",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 557.34,
+    "excerpt": "I will go from left to right and I will keep on just relaxing all the outgoing edges so that I am 100% sure that the moment I am reaching a C, I know all the parts will see and I must have taken the minimum because that's how the relax works. And this does not even care about the negative edges. Now, what do I mean to say that I will go from left to right? I only mean to say here that I will go in the topological order. This is just topological order. This order is called topological order.",
+    "sourceReferences": [
+      {
+        "lecture": 112,
+        "file": "112_20a_DAG_Shortest_Path_Shortest_Path_in_Directed_Acyc.mp4",
+        "start": 557.34,
+        "end": 586.88,
+        "text": "I will go from left to right and I will keep on just relaxing all the outgoing edges so that I am 100% sure that the moment I am reaching a C, I know all the parts will see and I must have taken the minimum because that's how the relax works. And this does not even care about the negative edges. Now, what do I mean to say that I will go from left to right? I only mean to say here that I will go in the topological order. This is just topological order. This order is called topological order."
+      },
+      {
+        "lecture": 112,
+        "file": "112_20a_DAG_Shortest_Path_Shortest_Path_in_Directed_Acyc.mp4",
+        "start": 588.53,
+        "end": 616.81,
+        "text": "So I will pick the vertices from topological order. I will keep on relaxing keep on relaxing and I will be having the final final vertices from final cost to the vertices and Here I do not even need to worry about the negative edges Let's suppose this is minus one minus two whatever I do not need to worry I will just relax all the all the adjust this will be five and then this will be three and Let me relax all the adjust this will be five this will be three and then I mean you can do it If you want I can do it. Otherwise you can also do it. So from five it will be 11"
+      },
+      {
+        "lecture": 112,
+        "file": "112_20a_DAG_Shortest_Path_Shortest_Path_in_Directed_Acyc.mp4",
+        "start": 698.81,
+        "end": 729.33,
+        "text": "y you will relax all the outcome edges this will be 2 this will be 5 then you relax from b this will be again updated to 1 so this works for the negative edges too it is very very nice algorithm so what we need to do just pick the all pick the vertices in the topological order that is all you need to do and how to find the topological order you can you can find topological order using can you recall it yes using dfs"
+      }
+    ]
+  },
+  {
+    "id": 339,
+    "lecture": 113,
+    "title": "Repeated relaxation with Bellman-Ford · Discover",
+    "concept": "Bellman-Ford repeatedly relaxes every directed edge. After k full passes, distances are correct for shortest paths using at most k edges, and an in-place pass may propagate even farther. Bellman-Ford does not assume the next local minimum is final. It repeatedly scans every edge, allowing signed costs to propagate, then checks whether a reachable negative cycle keeps improving distances.",
+    "teachingSteps": [
+      "Bellman-Ford repeatedly relaxes every directed edge. After k full passes, distances are correct for shortest paths using at most k edges, and an in-place pass may propagate even farther.",
+      "Relax all edges for up to V-1 full passes",
+      "Stop on a no-change full pass or test another pass for a reachable negative cycle"
+    ],
+    "foundation": {
+      "title": "Repeated relaxation with Bellman-Ford",
+      "idea": "Bellman-Ford repeatedly relaxes every directed edge. After k full passes, distances are correct for shortest paths using at most k edges, and an in-place pass may propagate even farther. Bellman-Ford does not assume the next local minimum is final. It repeatedly scans every edge, allowing signed costs to propagate, then checks whether a reachable negative cycle keeps improving distances.",
+      "terms": [
+        "Pass: inspect every directed edge once.",
+        "V-1: maximum edges in a simple path.",
+        "Reachable negative cycle: prevents finite shortest walks for affected vertices."
+      ],
+      "example": "If edge order is C→D, B→C, A→B, one in-place pass may advance only one edge along A→B→C→D. Another order may advance farther in that same pass."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "With V=7, how many full passes suffice for Bellman-Ford’s standard simple-path guarantee?",
+        "answer": 6,
+        "explanation": "A simple path has at most V-1 edges.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "If E=21, performing exactly V-1=6 full passes attempts how many edge relaxations?",
+        "answer": 126,
+        "explanation": "Multiply the complete-pass count by E; this excludes the extra cycle-check pass.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains repeated relaxation with bellman-ford?",
+        "options": [
+          "One successful example proves the method for every graph.",
+          "Bellman-Ford repeatedly relaxes every directed edge.",
+          "Input assumptions cannot affect correctness."
+        ],
+        "answer": 1,
+        "explanation": "Bellman-Ford repeatedly relaxes every directed edge. After k full passes, distances are correct for shortest paths using at most k edges, and an in-place pass may propagate even farther."
+      },
+      {
+        "type": "choice",
+        "prompt": "An unreachable negative cycle exists in another component. Must it invalidate shortest paths from A?",
+        "options": [
+          "No: Bellman-Ford can never detect negative cycles.",
+          "No: only a source-reachable negative cycle affects this source’s distances.",
+          "Yes: every negative cycle affects every source."
+        ],
+        "answer": 1,
+        "explanation": "The cycle test only starts improving relaxations from vertices with finite source distance."
+      }
+    ],
+    "algoLab": "bellman",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.46,
+    "excerpt": "Hi everyone. So in this video, we are going to start a new algorithm which is Bellman-Ford. This is also an algorithm to find the shortest path for a given vertex to all other vertices. So this is also our shortest path algorithm. Now as we have seen in the last video is that this Bellman-Ford works such that it relaxes edges in any order, but it do it V-1 times.",
+    "sourceReferences": [
+      {
+        "lecture": 113,
+        "file": "113. 20b. Intuition Behind Bellman Ford Algorithm.mp4",
+        "start": 0.46,
+        "end": 32.93,
+        "text": "Hi everyone. So in this video, we are going to start a new algorithm which is Bellman-Ford. This is also an algorithm to find the shortest path for a given vertex to all other vertices. So this is also our shortest path algorithm. Now as we have seen in the last video is that this Bellman-Ford works such that it relaxes edges in any order, but it do it V-1 times."
+      },
+      {
+        "lecture": 113,
+        "file": "113. 20b. Intuition Behind Bellman Ford Algorithm.mp4",
+        "start": 33.37,
+        "end": 58.6,
+        "text": "so digextra pick minimum and relax outgoing edges, dig shortest path pick the vertices in the topological order and the relax outgoing edges but it relaxes edges in any order but it do it multiple times let's just see this algorithm so suppose this graph is given to you and before even i start this algorithm let me ask you one question suppose like somehow in this graph"
+      },
+      {
+        "lecture": 113,
+        "file": "113. 20b. Intuition Behind Bellman Ford Algorithm.mp4",
+        "start": 782.48,
+        "end": 814.05,
+        "text": "and there is a name of this property that is called path relaxation property even though name is not important in fact it is not popular name but yeah path relaxation property it is what they call it property it says that if you relax the edges in the order of shortest path in between whatever you do does not matter you will ultimately get the shortest path cost right okay now comes Bellman Ford I will tell you about that what they have done"
+      }
+    ]
+  },
+  {
+    "id": 340,
+    "lecture": 113,
+    "title": "Repeated relaxation with Bellman-Ford · Trace",
+    "concept": "Bellman-Ford repeatedly relaxes every directed edge. After k full passes, distances are correct for shortest paths using at most k edges, and an in-place pass may propagate even farther. Bellman-Ford does not assume the next local minimum is final. It repeatedly scans every edge, allowing signed costs to propagate, then checks whether a reachable negative cycle keeps improving distances.",
+    "teachingSteps": [
+      "Bellman-Ford repeatedly relaxes every directed edge. After k full passes, distances are correct for shortest paths using at most k edges, and an in-place pass may propagate even farther.",
+      "Relax all edges for up to V-1 full passes",
+      "Stop on a no-change full pass or test another pass for a reachable negative cycle"
+    ],
+    "foundation": {
+      "title": "Repeated relaxation with Bellman-Ford",
+      "idea": "Bellman-Ford repeatedly relaxes every directed edge. After k full passes, distances are correct for shortest paths using at most k edges, and an in-place pass may propagate even farther. Bellman-Ford does not assume the next local minimum is final. It repeatedly scans every edge, allowing signed costs to propagate, then checks whether a reachable negative cycle keeps improving distances.",
+      "terms": [
+        "Pass: inspect every directed edge once.",
+        "V-1: maximum edges in a simple path.",
+        "Reachable negative cycle: prevents finite shortest walks for affected vertices."
+      ],
+      "example": "If edge order is C→D, B→C, A→B, one in-place pass may advance only one edge along A→B→C→D. Another order may advance farther in that same pass."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "With V=8, how many full passes suffice for Bellman-Ford’s standard simple-path guarantee?",
+        "answer": 7,
+        "explanation": "A simple path has at most V-1 edges.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "If E=32, performing exactly V-1=7 full passes attempts how many edge relaxations?",
+        "answer": 224,
+        "explanation": "Multiply the complete-pass count by E; this excludes the extra cycle-check pass.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "When is Bellman-Ford early termination safe?",
+        "options": [
+          "After a full edge pass makes no distance changes.",
+          "After one inspected edge makes no change.",
+          "After discovering the first destination."
+        ],
+        "answer": 0,
+        "explanation": "A no-change full pass means every currently reachable edge already satisfies its relaxation inequality."
+      },
+      {
+        "type": "choice",
+        "prompt": "An unreachable negative cycle exists in another component. Must it invalidate shortest paths from A?",
+        "options": [
+          "No: only a source-reachable negative cycle affects this source’s distances.",
+          "Yes: every negative cycle affects every source.",
+          "No: Bellman-Ford can never detect negative cycles."
+        ],
+        "answer": 0,
+        "explanation": "The cycle test only starts improving relaxations from vertices with finite source distance."
+      }
+    ],
+    "algoLab": "bellman",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.46,
+    "excerpt": "Hi everyone. So in this video, we are going to start a new algorithm which is Bellman-Ford. This is also an algorithm to find the shortest path for a given vertex to all other vertices. So this is also our shortest path algorithm. Now as we have seen in the last video is that this Bellman-Ford works such that it relaxes edges in any order, but it do it V-1 times.",
+    "sourceReferences": [
+      {
+        "lecture": 113,
+        "file": "113. 20b. Intuition Behind Bellman Ford Algorithm.mp4",
+        "start": 0.46,
+        "end": 32.93,
+        "text": "Hi everyone. So in this video, we are going to start a new algorithm which is Bellman-Ford. This is also an algorithm to find the shortest path for a given vertex to all other vertices. So this is also our shortest path algorithm. Now as we have seen in the last video is that this Bellman-Ford works such that it relaxes edges in any order, but it do it V-1 times."
+      },
+      {
+        "lecture": 113,
+        "file": "113. 20b. Intuition Behind Bellman Ford Algorithm.mp4",
+        "start": 33.37,
+        "end": 58.6,
+        "text": "so digextra pick minimum and relax outgoing edges, dig shortest path pick the vertices in the topological order and the relax outgoing edges but it relaxes edges in any order but it do it multiple times let's just see this algorithm so suppose this graph is given to you and before even i start this algorithm let me ask you one question suppose like somehow in this graph"
+      },
+      {
+        "lecture": 113,
+        "file": "113. 20b. Intuition Behind Bellman Ford Algorithm.mp4",
+        "start": 782.48,
+        "end": 814.05,
+        "text": "and there is a name of this property that is called path relaxation property even though name is not important in fact it is not popular name but yeah path relaxation property it is what they call it property it says that if you relax the edges in the order of shortest path in between whatever you do does not matter you will ultimately get the shortest path cost right okay now comes Bellman Ford I will tell you about that what they have done"
+      }
+    ]
+  },
+  {
+    "id": 341,
+    "lecture": 113,
+    "title": "Repeated relaxation with Bellman-Ford · Apply",
+    "concept": "Bellman-Ford repeatedly relaxes every directed edge. After k full passes, distances are correct for shortest paths using at most k edges, and an in-place pass may propagate even farther. Bellman-Ford does not assume the next local minimum is final. It repeatedly scans every edge, allowing signed costs to propagate, then checks whether a reachable negative cycle keeps improving distances.",
+    "teachingSteps": [
+      "Bellman-Ford repeatedly relaxes every directed edge. After k full passes, distances are correct for shortest paths using at most k edges, and an in-place pass may propagate even farther.",
+      "Relax all edges for up to V-1 full passes",
+      "Stop on a no-change full pass or test another pass for a reachable negative cycle"
+    ],
+    "foundation": {
+      "title": "Repeated relaxation with Bellman-Ford",
+      "idea": "Bellman-Ford repeatedly relaxes every directed edge. After k full passes, distances are correct for shortest paths using at most k edges, and an in-place pass may propagate even farther. Bellman-Ford does not assume the next local minimum is final. It repeatedly scans every edge, allowing signed costs to propagate, then checks whether a reachable negative cycle keeps improving distances.",
+      "terms": [
+        "Pass: inspect every directed edge once.",
+        "V-1: maximum edges in a simple path.",
+        "Reachable negative cycle: prevents finite shortest walks for affected vertices."
+      ],
+      "example": "If edge order is C→D, B→C, A→B, one in-place pass may advance only one edge along A→B→C→D. Another order may advance farther in that same pass."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A pricing service scans edges to propagate signed route costs. With V=4, how many full passes suffice for Bellman-Ford’s standard simple-path guarantee?",
+        "answer": 3,
+        "explanation": "A simple path has at most V-1 edges.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "If E=20, performing exactly V-1=3 full passes attempts how many edge relaxations?",
+        "answer": 60,
+        "explanation": "Multiply the complete-pass count by E; this excludes the extra cycle-check pass.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "When is Bellman-Ford early termination safe?",
+        "options": [
+          "After one inspected edge makes no change.",
+          "After discovering the first destination.",
+          "After a full edge pass makes no distance changes."
+        ],
+        "answer": 2,
+        "explanation": "A no-change full pass means every currently reachable edge already satisfies its relaxation inequality."
+      },
+      {
+        "type": "choice",
+        "prompt": "An unreachable negative cycle exists in another component. Must it invalidate shortest paths from A?",
+        "options": [
+          "Yes: every negative cycle affects every source.",
+          "No: Bellman-Ford can never detect negative cycles.",
+          "No: only a source-reachable negative cycle affects this source’s distances."
+        ],
+        "answer": 2,
+        "explanation": "The cycle test only starts improving relaxations from vertices with finite source distance."
+      }
+    ],
+    "algoLab": "bellman",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.46,
+    "excerpt": "Hi everyone. So in this video, we are going to start a new algorithm which is Bellman-Ford. This is also an algorithm to find the shortest path for a given vertex to all other vertices. So this is also our shortest path algorithm. Now as we have seen in the last video is that this Bellman-Ford works such that it relaxes edges in any order, but it do it V-1 times.",
+    "sourceReferences": [
+      {
+        "lecture": 113,
+        "file": "113. 20b. Intuition Behind Bellman Ford Algorithm.mp4",
+        "start": 0.46,
+        "end": 32.93,
+        "text": "Hi everyone. So in this video, we are going to start a new algorithm which is Bellman-Ford. This is also an algorithm to find the shortest path for a given vertex to all other vertices. So this is also our shortest path algorithm. Now as we have seen in the last video is that this Bellman-Ford works such that it relaxes edges in any order, but it do it V-1 times."
+      },
+      {
+        "lecture": 113,
+        "file": "113. 20b. Intuition Behind Bellman Ford Algorithm.mp4",
+        "start": 33.37,
+        "end": 58.6,
+        "text": "so digextra pick minimum and relax outgoing edges, dig shortest path pick the vertices in the topological order and the relax outgoing edges but it relaxes edges in any order but it do it multiple times let's just see this algorithm so suppose this graph is given to you and before even i start this algorithm let me ask you one question suppose like somehow in this graph"
+      },
+      {
+        "lecture": 113,
+        "file": "113. 20b. Intuition Behind Bellman Ford Algorithm.mp4",
+        "start": 782.48,
+        "end": 814.05,
+        "text": "and there is a name of this property that is called path relaxation property even though name is not important in fact it is not popular name but yeah path relaxation property it is what they call it property it says that if you relax the edges in the order of shortest path in between whatever you do does not matter you will ultimately get the shortest path cost right okay now comes Bellman Ford I will tell you about that what they have done"
+      }
+    ]
+  },
+  {
+    "id": 342,
+    "lecture": 114,
+    "title": "Negative edges and reachable negative cycles · Discover",
+    "concept": "Bellman-Ford handles negative edges. After V-1 full passes, another improving relaxation from a reachable vertex proves a reachable negative cycle; an unreachable negative cycle does not affect the chosen source. Bellman-Ford does not assume the next local minimum is final. It repeatedly scans every edge, allowing signed costs to propagate, then checks whether a reachable negative cycle keeps improving distances.",
+    "teachingSteps": [
+      "Bellman-Ford handles negative edges. After V-1 full passes, another improving relaxation from a reachable vertex proves a reachable negative cycle; an unreachable negative cycle does not affect the chosen source.",
+      "Relax all edges for up to V-1 full passes",
+      "Stop on a no-change full pass or test another pass for a reachable negative cycle"
+    ],
+    "foundation": {
+      "title": "Negative edges and reachable negative cycles",
+      "idea": "Bellman-Ford handles negative edges. After V-1 full passes, another improving relaxation from a reachable vertex proves a reachable negative cycle; an unreachable negative cycle does not affect the chosen source. Bellman-Ford does not assume the next local minimum is final. It repeatedly scans every edge, allowing signed costs to propagate, then checks whether a reachable negative cycle keeps improving distances.",
+      "terms": [
+        "Pass: inspect every directed edge once.",
+        "V-1: maximum edges in a simple path.",
+        "Reachable negative cycle: prevents finite shortest walks for affected vertices."
+      ],
+      "example": "If edge order is C→D, B→C, A→B, one in-place pass may advance only one edge along A→B→C→D. Another order may advance farther in that same pass."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "With V=8, how many full passes suffice for Bellman-Ford’s standard simple-path guarantee?",
+        "answer": 7,
+        "explanation": "A simple path has at most V-1 edges.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "If E=32, performing exactly V-1=7 full passes attempts how many edge relaxations?",
+        "answer": 224,
+        "explanation": "Multiply the complete-pass count by E; this excludes the extra cycle-check pass.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains negative edges and reachable negative cycles?",
+        "options": [
+          "Bellman-Ford handles negative edges.",
+          "Input assumptions cannot affect correctness.",
+          "One successful example proves the method for every graph."
+        ],
+        "answer": 0,
+        "explanation": "Bellman-Ford handles negative edges. After V-1 full passes, another improving relaxation from a reachable vertex proves a reachable negative cycle; an unreachable negative cycle does not affect the chosen source."
+      },
+      {
+        "type": "choice",
+        "prompt": "An unreachable negative cycle exists in another component. Must it invalidate shortest paths from A?",
+        "options": [
+          "No: only a source-reachable negative cycle affects this source’s distances.",
+          "Yes: every negative cycle affects every source.",
+          "No: Bellman-Ford can never detect negative cycles."
+        ],
+        "answer": 0,
+        "explanation": "The cycle test only starts improving relaxations from vertices with finite source distance."
+      }
+    ],
+    "algoLab": "bellman-cycle",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 193.47,
+    "excerpt": "Now you notice one thing here is that here in fact you have negative edge Still Bellman Ford is working, right? So in the negative edge also Bellman Ford works So Bellman Ford does not care about negative or positive edges. So negative edges are allowed in Bellman Ford Which means let's suppose let me take one example where our die extra was not working Let's let me take one example. So where I said that suppose if we apply die extra",
+    "sourceReferences": [
+      {
+        "lecture": 114,
+        "file": "114. 20c. Examples of Bellman Ford _ Time complexity.mp4",
+        "start": 193.47,
+        "end": 228.63,
+        "text": "Now you notice one thing here is that here in fact you have negative edge Still Bellman Ford is working, right? So in the negative edge also Bellman Ford works So Bellman Ford does not care about negative or positive edges. So negative edges are allowed in Bellman Ford Which means let's suppose let me take one example where our die extra was not working Let's let me take one example. So where I said that suppose if we apply die extra"
+      },
+      {
+        "lecture": 114,
+        "file": "114. 20c. Examples of Bellman Ford _ Time complexity.mp4",
+        "start": 328,
+        "end": 357.18,
+        "text": "Okay, this relaxation order is basically the shortest path order only. So I think in the next iteration also nothing will change. Let's just check it. BC it will not change and then AC it will also not change and then AV it will also not change. So here after two iterations you are getting the final cost. I mean here after one iteration only you are getting the final cost but that is okay. At most you will be requiring two iterations. But digestor is saying that the cost to A to C should be 2 because it does not work on the negative edges."
+      },
+      {
+        "lecture": 114,
+        "file": "114. 20c. Examples of Bellman Ford _ Time complexity.mp4",
+        "start": 713.9,
+        "end": 743.61,
+        "text": "So let me just, you know, run this Bellman Ford on this graph also. Let's suppose source vertex is 8. Now here, do you have negative cycle? No, because this is 6 plus 6, 0 and then the cost of this cycle is 4. So you do not have negative cycle, but you do have negative edge. Now, there are 1, 2, 3, 4, 5 vertices, which means you need to relax 5 minus 1 4 times. And then just one last time to check whether there's a negative cycle or not."
+      }
+    ]
+  },
+  {
+    "id": 343,
+    "lecture": 114,
+    "title": "Negative edges and reachable negative cycles · Trace",
+    "concept": "Bellman-Ford handles negative edges. After V-1 full passes, another improving relaxation from a reachable vertex proves a reachable negative cycle; an unreachable negative cycle does not affect the chosen source. Bellman-Ford does not assume the next local minimum is final. It repeatedly scans every edge, allowing signed costs to propagate, then checks whether a reachable negative cycle keeps improving distances.",
+    "teachingSteps": [
+      "Bellman-Ford handles negative edges. After V-1 full passes, another improving relaxation from a reachable vertex proves a reachable negative cycle; an unreachable negative cycle does not affect the chosen source.",
+      "Relax all edges for up to V-1 full passes",
+      "Stop on a no-change full pass or test another pass for a reachable negative cycle"
+    ],
+    "foundation": {
+      "title": "Negative edges and reachable negative cycles",
+      "idea": "Bellman-Ford handles negative edges. After V-1 full passes, another improving relaxation from a reachable vertex proves a reachable negative cycle; an unreachable negative cycle does not affect the chosen source. Bellman-Ford does not assume the next local minimum is final. It repeatedly scans every edge, allowing signed costs to propagate, then checks whether a reachable negative cycle keeps improving distances.",
+      "terms": [
+        "Pass: inspect every directed edge once.",
+        "V-1: maximum edges in a simple path.",
+        "Reachable negative cycle: prevents finite shortest walks for affected vertices."
+      ],
+      "example": "If edge order is C→D, B→C, A→B, one in-place pass may advance only one edge along A→B→C→D. Another order may advance farther in that same pass."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "With V=4, how many full passes suffice for Bellman-Ford’s standard simple-path guarantee?",
+        "answer": 3,
+        "explanation": "A simple path has at most V-1 edges.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "If E=20, performing exactly V-1=3 full passes attempts how many edge relaxations?",
+        "answer": 60,
+        "explanation": "Multiply the complete-pass count by E; this excludes the extra cycle-check pass.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "When is Bellman-Ford early termination safe?",
+        "options": [
+          "After one inspected edge makes no change.",
+          "After discovering the first destination.",
+          "After a full edge pass makes no distance changes."
+        ],
+        "answer": 2,
+        "explanation": "A no-change full pass means every currently reachable edge already satisfies its relaxation inequality."
+      },
+      {
+        "type": "choice",
+        "prompt": "An unreachable negative cycle exists in another component. Must it invalidate shortest paths from A?",
+        "options": [
+          "Yes: every negative cycle affects every source.",
+          "No: Bellman-Ford can never detect negative cycles.",
+          "No: only a source-reachable negative cycle affects this source’s distances."
+        ],
+        "answer": 2,
+        "explanation": "The cycle test only starts improving relaxations from vertices with finite source distance."
+      }
+    ],
+    "algoLab": "bellman-cycle",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 193.47,
+    "excerpt": "Now you notice one thing here is that here in fact you have negative edge Still Bellman Ford is working, right? So in the negative edge also Bellman Ford works So Bellman Ford does not care about negative or positive edges. So negative edges are allowed in Bellman Ford Which means let's suppose let me take one example where our die extra was not working Let's let me take one example. So where I said that suppose if we apply die extra",
+    "sourceReferences": [
+      {
+        "lecture": 114,
+        "file": "114. 20c. Examples of Bellman Ford _ Time complexity.mp4",
+        "start": 193.47,
+        "end": 228.63,
+        "text": "Now you notice one thing here is that here in fact you have negative edge Still Bellman Ford is working, right? So in the negative edge also Bellman Ford works So Bellman Ford does not care about negative or positive edges. So negative edges are allowed in Bellman Ford Which means let's suppose let me take one example where our die extra was not working Let's let me take one example. So where I said that suppose if we apply die extra"
+      },
+      {
+        "lecture": 114,
+        "file": "114. 20c. Examples of Bellman Ford _ Time complexity.mp4",
+        "start": 328,
+        "end": 357.18,
+        "text": "Okay, this relaxation order is basically the shortest path order only. So I think in the next iteration also nothing will change. Let's just check it. BC it will not change and then AC it will also not change and then AV it will also not change. So here after two iterations you are getting the final cost. I mean here after one iteration only you are getting the final cost but that is okay. At most you will be requiring two iterations. But digestor is saying that the cost to A to C should be 2 because it does not work on the negative edges."
+      },
+      {
+        "lecture": 114,
+        "file": "114. 20c. Examples of Bellman Ford _ Time complexity.mp4",
+        "start": 713.9,
+        "end": 743.61,
+        "text": "So let me just, you know, run this Bellman Ford on this graph also. Let's suppose source vertex is 8. Now here, do you have negative cycle? No, because this is 6 plus 6, 0 and then the cost of this cycle is 4. So you do not have negative cycle, but you do have negative edge. Now, there are 1, 2, 3, 4, 5 vertices, which means you need to relax 5 minus 1 4 times. And then just one last time to check whether there's a negative cycle or not."
+      }
+    ]
+  },
+  {
+    "id": 344,
+    "lecture": 114,
+    "title": "Negative edges and reachable negative cycles · Apply",
+    "concept": "Bellman-Ford handles negative edges. After V-1 full passes, another improving relaxation from a reachable vertex proves a reachable negative cycle; an unreachable negative cycle does not affect the chosen source. Bellman-Ford does not assume the next local minimum is final. It repeatedly scans every edge, allowing signed costs to propagate, then checks whether a reachable negative cycle keeps improving distances.",
+    "teachingSteps": [
+      "Bellman-Ford handles negative edges. After V-1 full passes, another improving relaxation from a reachable vertex proves a reachable negative cycle; an unreachable negative cycle does not affect the chosen source.",
+      "Relax all edges for up to V-1 full passes",
+      "Stop on a no-change full pass or test another pass for a reachable negative cycle"
+    ],
+    "foundation": {
+      "title": "Negative edges and reachable negative cycles",
+      "idea": "Bellman-Ford handles negative edges. After V-1 full passes, another improving relaxation from a reachable vertex proves a reachable negative cycle; an unreachable negative cycle does not affect the chosen source. Bellman-Ford does not assume the next local minimum is final. It repeatedly scans every edge, allowing signed costs to propagate, then checks whether a reachable negative cycle keeps improving distances.",
+      "terms": [
+        "Pass: inspect every directed edge once.",
+        "V-1: maximum edges in a simple path.",
+        "Reachable negative cycle: prevents finite shortest walks for affected vertices."
+      ],
+      "example": "If edge order is C→D, B→C, A→B, one in-place pass may advance only one edge along A→B→C→D. Another order may advance farther in that same pass."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A pricing service scans edges to propagate signed route costs. With V=5, how many full passes suffice for Bellman-Ford’s standard simple-path guarantee?",
+        "answer": 4,
+        "explanation": "A simple path has at most V-1 edges.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "If E=10, performing exactly V-1=4 full passes attempts how many edge relaxations?",
+        "answer": 40,
+        "explanation": "Multiply the complete-pass count by E; this excludes the extra cycle-check pass.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "When is Bellman-Ford early termination safe?",
+        "options": [
+          "After discovering the first destination.",
+          "After a full edge pass makes no distance changes.",
+          "After one inspected edge makes no change."
+        ],
+        "answer": 1,
+        "explanation": "A no-change full pass means every currently reachable edge already satisfies its relaxation inequality."
+      },
+      {
+        "type": "choice",
+        "prompt": "An unreachable negative cycle exists in another component. Must it invalidate shortest paths from A?",
+        "options": [
+          "No: Bellman-Ford can never detect negative cycles.",
+          "No: only a source-reachable negative cycle affects this source’s distances.",
+          "Yes: every negative cycle affects every source."
+        ],
+        "answer": 1,
+        "explanation": "The cycle test only starts improving relaxations from vertices with finite source distance."
+      }
+    ],
+    "algoLab": "bellman-cycle",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 193.47,
+    "excerpt": "Now you notice one thing here is that here in fact you have negative edge Still Bellman Ford is working, right? So in the negative edge also Bellman Ford works So Bellman Ford does not care about negative or positive edges. So negative edges are allowed in Bellman Ford Which means let's suppose let me take one example where our die extra was not working Let's let me take one example. So where I said that suppose if we apply die extra",
+    "sourceReferences": [
+      {
+        "lecture": 114,
+        "file": "114. 20c. Examples of Bellman Ford _ Time complexity.mp4",
+        "start": 193.47,
+        "end": 228.63,
+        "text": "Now you notice one thing here is that here in fact you have negative edge Still Bellman Ford is working, right? So in the negative edge also Bellman Ford works So Bellman Ford does not care about negative or positive edges. So negative edges are allowed in Bellman Ford Which means let's suppose let me take one example where our die extra was not working Let's let me take one example. So where I said that suppose if we apply die extra"
+      },
+      {
+        "lecture": 114,
+        "file": "114. 20c. Examples of Bellman Ford _ Time complexity.mp4",
+        "start": 328,
+        "end": 357.18,
+        "text": "Okay, this relaxation order is basically the shortest path order only. So I think in the next iteration also nothing will change. Let's just check it. BC it will not change and then AC it will also not change and then AV it will also not change. So here after two iterations you are getting the final cost. I mean here after one iteration only you are getting the final cost but that is okay. At most you will be requiring two iterations. But digestor is saying that the cost to A to C should be 2 because it does not work on the negative edges."
+      },
+      {
+        "lecture": 114,
+        "file": "114. 20c. Examples of Bellman Ford _ Time complexity.mp4",
+        "start": 713.9,
+        "end": 743.61,
+        "text": "So let me just, you know, run this Bellman Ford on this graph also. Let's suppose source vertex is 8. Now here, do you have negative cycle? No, because this is 6 plus 6, 0 and then the cost of this cycle is 4. So you do not have negative cycle, but you do have negative edge. Now, there are 1, 2, 3, 4, 5 vertices, which means you need to relax 5 minus 1 4 times. And then just one last time to check whether there's a negative cycle or not."
+      }
+    ]
+  },
+  {
+    "id": 345,
+    "lecture": 115,
+    "title": "Early stopping and edge-order effects · Discover",
+    "concept": "A full Bellman-Ford pass with no distance changes is a safe stopping condition. Stopping after one unchanged edge is unsafe; edge order changes propagation speed within an in-place pass. Bellman-Ford does not assume the next local minimum is final. It repeatedly scans every edge, allowing signed costs to propagate, then checks whether a reachable negative cycle keeps improving distances.",
+    "teachingSteps": [
+      "A full Bellman-Ford pass with no distance changes is a safe stopping condition. Stopping after one unchanged edge is unsafe; edge order changes propagation speed within an in-place pass.",
+      "Relax all edges for up to V-1 full passes",
+      "Stop on a no-change full pass or test another pass for a reachable negative cycle"
+    ],
+    "foundation": {
+      "title": "Early stopping and edge-order effects",
+      "idea": "A full Bellman-Ford pass with no distance changes is a safe stopping condition. Stopping after one unchanged edge is unsafe; edge order changes propagation speed within an in-place pass. Bellman-Ford does not assume the next local minimum is final. It repeatedly scans every edge, allowing signed costs to propagate, then checks whether a reachable negative cycle keeps improving distances.",
+      "terms": [
+        "Pass: inspect every directed edge once.",
+        "V-1: maximum edges in a simple path.",
+        "Reachable negative cycle: prevents finite shortest walks for affected vertices."
+      ],
+      "example": "If edge order is C→D, B→C, A→B, one in-place pass may advance only one edge along A→B→C→D. Another order may advance farther in that same pass."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "With V=4, how many full passes suffice for Bellman-Ford’s standard simple-path guarantee?",
+        "answer": 3,
+        "explanation": "A simple path has at most V-1 edges.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "If E=20, performing exactly V-1=3 full passes attempts how many edge relaxations?",
+        "answer": 60,
+        "explanation": "Multiply the complete-pass count by E; this excludes the extra cycle-check pass.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains early stopping and edge-order effects?",
+        "options": [
+          "Input assumptions cannot affect correctness.",
+          "One successful example proves the method for every graph.",
+          "A full Bellman-Ford pass with no distance changes is a safe stopping condition."
+        ],
+        "answer": 2,
+        "explanation": "A full Bellman-Ford pass with no distance changes is a safe stopping condition. Stopping after one unchanged edge is unsafe; edge order changes propagation speed within an in-place pass."
+      },
+      {
+        "type": "choice",
+        "prompt": "An unreachable negative cycle exists in another component. Must it invalidate shortest paths from A?",
+        "options": [
+          "Yes: every negative cycle affects every source.",
+          "No: Bellman-Ford can never detect negative cycles.",
+          "No: only a source-reachable negative cycle affects this source’s distances."
+        ],
+        "answer": 2,
+        "explanation": "The cycle test only starts improving relaxations from vertices with finite source distance."
+      }
+    ],
+    "algoLab": "bellman-stop",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 737.51,
+    "excerpt": "and let's suppose this is 1 2 1 whatever 1 2 1 2 something like that and let's suppose you are choosing in this order only first you relax this first you then you relax this then you relax this then you relax this then you relax this then you relax this then obviously this is the final final distances that you have you do not need to relax it 1 2 3 4 5 you do not really relax it 4 times you can if you are very very lucky then if you are relaxing if you are relaxing this order then you can just quit your algorithm so that is why I can early terminate well-being 4 this is called early termination",
+    "sourceReferences": [
+      {
+        "lecture": 115,
+        "file": "115. 20d. Bellman ford proof and Early termination.mp4",
+        "start": 737.51,
+        "end": 767.27,
+        "text": "and let's suppose this is 1 2 1 whatever 1 2 1 2 something like that and let's suppose you are choosing in this order only first you relax this first you then you relax this then you relax this then you relax this then you relax this then you relax this then obviously this is the final final distances that you have you do not need to relax it 1 2 3 4 5 you do not really relax it 4 times you can if you are very very lucky then if you are relaxing if you are relaxing this order then you can just quit your algorithm so that is why I can early terminate well-being 4 this is called early termination"
+      },
+      {
+        "lecture": 115,
+        "file": "115. 20d. Bellman ford proof and Early termination.mp4",
+        "start": 767.61,
+        "end": 796.14,
+        "text": "So I'm not sure about the terminology here. So I picked this terminology from machine learning. In machine learning, like we have something called convergence. If your model is converged, then generally we call it early termination. We terminate it. We do not, you know, run it more number of iterations. So there we call it epochs. Okay. So these are some terminologies. Anyway, like we can, we can early terminate this Bellman fault. How? I will, I will, maybe I will just have one variable. Maybe I will say relax."
+      },
+      {
+        "lecture": 115,
+        "file": "115. 20d. Bellman ford proof and Early termination.mp4",
+        "start": 949.08,
+        "end": 981.64,
+        "text": "And if you're returning, then you do not need to run it. Otherwise, if you even run it, this is E times. So overall, it will be 2E or 3E. So let me write 3E. Then which means it is just theta of E or order of E. Theta of E. In best case. See, this best case is completely misleading. It is not useful in the practice. But anyway, like someone asked you that if you terminate Bellman-Ford early, then what could be the best case? You can say it is just order of E. So let me write here. Bellman-Ford. Bellman-Ford. Worst case."
+      }
+    ]
+  },
+  {
+    "id": 346,
+    "lecture": 115,
+    "title": "Early stopping and edge-order effects · Trace",
+    "concept": "A full Bellman-Ford pass with no distance changes is a safe stopping condition. Stopping after one unchanged edge is unsafe; edge order changes propagation speed within an in-place pass. Bellman-Ford does not assume the next local minimum is final. It repeatedly scans every edge, allowing signed costs to propagate, then checks whether a reachable negative cycle keeps improving distances.",
+    "teachingSteps": [
+      "A full Bellman-Ford pass with no distance changes is a safe stopping condition. Stopping after one unchanged edge is unsafe; edge order changes propagation speed within an in-place pass.",
+      "Relax all edges for up to V-1 full passes",
+      "Stop on a no-change full pass or test another pass for a reachable negative cycle"
+    ],
+    "foundation": {
+      "title": "Early stopping and edge-order effects",
+      "idea": "A full Bellman-Ford pass with no distance changes is a safe stopping condition. Stopping after one unchanged edge is unsafe; edge order changes propagation speed within an in-place pass. Bellman-Ford does not assume the next local minimum is final. It repeatedly scans every edge, allowing signed costs to propagate, then checks whether a reachable negative cycle keeps improving distances.",
+      "terms": [
+        "Pass: inspect every directed edge once.",
+        "V-1: maximum edges in a simple path.",
+        "Reachable negative cycle: prevents finite shortest walks for affected vertices."
+      ],
+      "example": "If edge order is C→D, B→C, A→B, one in-place pass may advance only one edge along A→B→C→D. Another order may advance farther in that same pass."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "With V=5, how many full passes suffice for Bellman-Ford’s standard simple-path guarantee?",
+        "answer": 4,
+        "explanation": "A simple path has at most V-1 edges.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "If E=10, performing exactly V-1=4 full passes attempts how many edge relaxations?",
+        "answer": 40,
+        "explanation": "Multiply the complete-pass count by E; this excludes the extra cycle-check pass.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "When is Bellman-Ford early termination safe?",
+        "options": [
+          "After discovering the first destination.",
+          "After a full edge pass makes no distance changes.",
+          "After one inspected edge makes no change."
+        ],
+        "answer": 1,
+        "explanation": "A no-change full pass means every currently reachable edge already satisfies its relaxation inequality."
+      },
+      {
+        "type": "choice",
+        "prompt": "An unreachable negative cycle exists in another component. Must it invalidate shortest paths from A?",
+        "options": [
+          "No: Bellman-Ford can never detect negative cycles.",
+          "No: only a source-reachable negative cycle affects this source’s distances.",
+          "Yes: every negative cycle affects every source."
+        ],
+        "answer": 1,
+        "explanation": "The cycle test only starts improving relaxations from vertices with finite source distance."
+      }
+    ],
+    "algoLab": "bellman-stop",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 737.51,
+    "excerpt": "and let's suppose this is 1 2 1 whatever 1 2 1 2 something like that and let's suppose you are choosing in this order only first you relax this first you then you relax this then you relax this then you relax this then you relax this then you relax this then obviously this is the final final distances that you have you do not need to relax it 1 2 3 4 5 you do not really relax it 4 times you can if you are very very lucky then if you are relaxing if you are relaxing this order then you can just quit your algorithm so that is why I can early terminate well-being 4 this is called early termination",
+    "sourceReferences": [
+      {
+        "lecture": 115,
+        "file": "115. 20d. Bellman ford proof and Early termination.mp4",
+        "start": 737.51,
+        "end": 767.27,
+        "text": "and let's suppose this is 1 2 1 whatever 1 2 1 2 something like that and let's suppose you are choosing in this order only first you relax this first you then you relax this then you relax this then you relax this then you relax this then you relax this then obviously this is the final final distances that you have you do not need to relax it 1 2 3 4 5 you do not really relax it 4 times you can if you are very very lucky then if you are relaxing if you are relaxing this order then you can just quit your algorithm so that is why I can early terminate well-being 4 this is called early termination"
+      },
+      {
+        "lecture": 115,
+        "file": "115. 20d. Bellman ford proof and Early termination.mp4",
+        "start": 767.61,
+        "end": 796.14,
+        "text": "So I'm not sure about the terminology here. So I picked this terminology from machine learning. In machine learning, like we have something called convergence. If your model is converged, then generally we call it early termination. We terminate it. We do not, you know, run it more number of iterations. So there we call it epochs. Okay. So these are some terminologies. Anyway, like we can, we can early terminate this Bellman fault. How? I will, I will, maybe I will just have one variable. Maybe I will say relax."
+      },
+      {
+        "lecture": 115,
+        "file": "115. 20d. Bellman ford proof and Early termination.mp4",
+        "start": 949.08,
+        "end": 981.64,
+        "text": "And if you're returning, then you do not need to run it. Otherwise, if you even run it, this is E times. So overall, it will be 2E or 3E. So let me write 3E. Then which means it is just theta of E or order of E. Theta of E. In best case. See, this best case is completely misleading. It is not useful in the practice. But anyway, like someone asked you that if you terminate Bellman-Ford early, then what could be the best case? You can say it is just order of E. So let me write here. Bellman-Ford. Bellman-Ford. Worst case."
+      }
+    ]
+  },
+  {
+    "id": 347,
+    "lecture": 115,
+    "title": "Early stopping and edge-order effects · Apply",
+    "concept": "A full Bellman-Ford pass with no distance changes is a safe stopping condition. Stopping after one unchanged edge is unsafe; edge order changes propagation speed within an in-place pass. Bellman-Ford does not assume the next local minimum is final. It repeatedly scans every edge, allowing signed costs to propagate, then checks whether a reachable negative cycle keeps improving distances.",
+    "teachingSteps": [
+      "A full Bellman-Ford pass with no distance changes is a safe stopping condition. Stopping after one unchanged edge is unsafe; edge order changes propagation speed within an in-place pass.",
+      "Relax all edges for up to V-1 full passes",
+      "Stop on a no-change full pass or test another pass for a reachable negative cycle"
+    ],
+    "foundation": {
+      "title": "Early stopping and edge-order effects",
+      "idea": "A full Bellman-Ford pass with no distance changes is a safe stopping condition. Stopping after one unchanged edge is unsafe; edge order changes propagation speed within an in-place pass. Bellman-Ford does not assume the next local minimum is final. It repeatedly scans every edge, allowing signed costs to propagate, then checks whether a reachable negative cycle keeps improving distances.",
+      "terms": [
+        "Pass: inspect every directed edge once.",
+        "V-1: maximum edges in a simple path.",
+        "Reachable negative cycle: prevents finite shortest walks for affected vertices."
+      ],
+      "example": "If edge order is C→D, B→C, A→B, one in-place pass may advance only one edge along A→B→C→D. Another order may advance farther in that same pass."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A pricing service scans edges to propagate signed route costs. With V=6, how many full passes suffice for Bellman-Ford’s standard simple-path guarantee?",
+        "answer": 5,
+        "explanation": "A simple path has at most V-1 edges.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "If E=18, performing exactly V-1=5 full passes attempts how many edge relaxations?",
+        "answer": 90,
+        "explanation": "Multiply the complete-pass count by E; this excludes the extra cycle-check pass.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "When is Bellman-Ford early termination safe?",
+        "options": [
+          "After a full edge pass makes no distance changes.",
+          "After one inspected edge makes no change.",
+          "After discovering the first destination."
+        ],
+        "answer": 0,
+        "explanation": "A no-change full pass means every currently reachable edge already satisfies its relaxation inequality."
+      },
+      {
+        "type": "choice",
+        "prompt": "An unreachable negative cycle exists in another component. Must it invalidate shortest paths from A?",
+        "options": [
+          "No: only a source-reachable negative cycle affects this source’s distances.",
+          "Yes: every negative cycle affects every source.",
+          "No: Bellman-Ford can never detect negative cycles."
+        ],
+        "answer": 0,
+        "explanation": "The cycle test only starts improving relaxations from vertices with finite source distance."
+      }
+    ],
+    "algoLab": "bellman-stop",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 737.51,
+    "excerpt": "and let's suppose this is 1 2 1 whatever 1 2 1 2 something like that and let's suppose you are choosing in this order only first you relax this first you then you relax this then you relax this then you relax this then you relax this then you relax this then obviously this is the final final distances that you have you do not need to relax it 1 2 3 4 5 you do not really relax it 4 times you can if you are very very lucky then if you are relaxing if you are relaxing this order then you can just quit your algorithm so that is why I can early terminate well-being 4 this is called early termination",
+    "sourceReferences": [
+      {
+        "lecture": 115,
+        "file": "115. 20d. Bellman ford proof and Early termination.mp4",
+        "start": 737.51,
+        "end": 767.27,
+        "text": "and let's suppose this is 1 2 1 whatever 1 2 1 2 something like that and let's suppose you are choosing in this order only first you relax this first you then you relax this then you relax this then you relax this then you relax this then you relax this then obviously this is the final final distances that you have you do not need to relax it 1 2 3 4 5 you do not really relax it 4 times you can if you are very very lucky then if you are relaxing if you are relaxing this order then you can just quit your algorithm so that is why I can early terminate well-being 4 this is called early termination"
+      },
+      {
+        "lecture": 115,
+        "file": "115. 20d. Bellman ford proof and Early termination.mp4",
+        "start": 767.61,
+        "end": 796.14,
+        "text": "So I'm not sure about the terminology here. So I picked this terminology from machine learning. In machine learning, like we have something called convergence. If your model is converged, then generally we call it early termination. We terminate it. We do not, you know, run it more number of iterations. So there we call it epochs. Okay. So these are some terminologies. Anyway, like we can, we can early terminate this Bellman fault. How? I will, I will, maybe I will just have one variable. Maybe I will say relax."
+      },
+      {
+        "lecture": 115,
+        "file": "115. 20d. Bellman ford proof and Early termination.mp4",
+        "start": 949.08,
+        "end": 981.64,
+        "text": "And if you're returning, then you do not need to run it. Otherwise, if you even run it, this is E times. So overall, it will be 2E or 3E. So let me write 3E. Then which means it is just theta of E or order of E. Theta of E. In best case. See, this best case is completely misleading. It is not useful in the practice. But anyway, like someone asked you that if you terminate Bellman-Ford early, then what could be the best case? You can say it is just order of E. So let me write here. Bellman-Ford. Bellman-Ford. Worst case."
+      }
+    ]
+  },
+  {
+    "id": 348,
+    "lecture": 116,
+    "title": "Connect every site at minimum total cost · Discover",
+    "concept": "A minimum spanning tree connects all vertices of a connected undirected weighted graph with no cycle and minimum total edge weight. It has V-1 edges and is a different objective from shortest source-to-vertex paths. An MST is a tree spanning a connected undirected weighted graph. It minimizes the sum of chosen edge weights, rather than independently minimizing every source-to-vertex route. Ties may give multiple optimal trees.",
+    "teachingSteps": [
+      "A minimum spanning tree connects all vertices of a connected undirected weighted graph with no cycle and minimum total edge weight. It has V-1 edges and is a different objective from shortest source-to-vertex paths.",
+      "Accept only edges joining different components",
+      "Stop after V-1 accepted edges in a connected graph"
+    ],
+    "foundation": {
+      "title": "Connect every site at minimum total cost",
+      "idea": "A minimum spanning tree connects all vertices of a connected undirected weighted graph with no cycle and minimum total edge weight. It has V-1 edges and is a different objective from shortest source-to-vertex paths. An MST is a tree spanning a connected undirected weighted graph. It minimizes the sum of chosen edge weights, rather than independently minimizing every source-to-vertex route. Ties may give multiple optimal trees.",
+      "terms": [
+        "Spanning: includes every vertex.",
+        "Tree: connected and acyclic.",
+        "Cut: partition vertices into two nonempty sets.",
+        "Disjoint set: tracks which vertices are already connected."
+      ],
+      "example": "A triangle with all edges of weight 1 has three different MSTs. Each selects any two edges, with total cost 2."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A spanning tree connects 5 vertices. How many edges does it contain?",
+        "answer": 4,
+        "explanation": "A connected acyclic graph on V vertices has V-1 edges.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A triangle has all three edge weights equal to 1. What is its MST total weight?",
+        "answer": 2,
+        "explanation": "Any two edges connect all three vertices without a cycle.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains connect every site at minimum total cost?",
+        "options": [
+          "One successful example proves the method for every graph.",
+          "A minimum spanning tree connects all vertices of a connected undirected weighted graph with no cycle and minimum total edge weight.",
+          "Input assumptions cannot affect correctness."
+        ],
+        "answer": 1,
+        "explanation": "A minimum spanning tree connects all vertices of a connected undirected weighted graph with no cycle and minimum total edge weight. It has V-1 edges and is a different objective from shortest source-to-vertex paths."
+      },
+      {
+        "type": "order",
+        "prompt": "Build a minimum spanning tree with Kruskal.",
+        "items": [
+          "Sort edges by nondecreasing weight",
+          "Check whether the endpoints are in different components",
+          "Accept and union different components, otherwise skip",
+          "Finish after V-1 accepted edges in a connected graph"
+        ],
+        "explanation": "Disjoint sets certify connectivity and prevent a selected cycle."
+      }
+    ],
+    "algoLab": "mst",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0,
+    "excerpt": "Hi everyone. So in this video we are going to see minimum spanning tree or MHD in short form. So let's just see that what is a spanning tree and what is a minimum spanning tree. For now let's take a graph which is connected and undirected. So spanning tree is defined for undirected graph only. So in general they are defined for undirected graph and spanning tree is a tree which is connected subgraph and contains all the vertices and has no cycle.",
+    "sourceReferences": [
+      {
+        "lecture": 116,
+        "file": "116. 29a. Why Minimum Spanning Trees.mp4",
+        "start": 0,
+        "end": 28.71,
+        "text": "Hi everyone. So in this video we are going to see minimum spanning tree or MHD in short form. So let's just see that what is a spanning tree and what is a minimum spanning tree. For now let's take a graph which is connected and undirected. So spanning tree is defined for undirected graph only. So in general they are defined for undirected graph and spanning tree is a tree which is connected subgraph and contains all the vertices and has no cycle."
+      },
+      {
+        "lecture": 116,
+        "file": "116. 29a. Why Minimum Spanning Trees.mp4",
+        "start": 29.37,
+        "end": 55.96,
+        "text": "So, I will come to minimum spanning tree, the topic of discussion is minimum spanning tree, but before that I want to explain this spanning tree, then I will come to this minimum point later. So, let me explain this spanning tree first. Suppose that this graph is given to us. And then what I will do, this is an undirected connected graph, so what I will do, I will take all the vertices, here I have 4 vertices, I will take 4 vertices and I will see"
+      },
+      {
+        "lecture": 116,
+        "file": "116. 29a. Why Minimum Spanning Trees.mp4",
+        "start": 107.29,
+        "end": 135.81,
+        "text": "Now let's come to this minimum spanning tree idea. Suppose that a graph is given to us which is a weighted graph. Now in this weighted graph some weights of the edges are there and now I want to find out the minimum spanning tree. So first I will say that how many spanning trees are there? There must be many possible spanning trees. So if you want to connect let me just copy this graph and let me show you the spanning trees only."
+      }
+    ]
+  },
+  {
+    "id": 349,
+    "lecture": 116,
+    "title": "Connect every site at minimum total cost · Trace",
+    "concept": "A minimum spanning tree connects all vertices of a connected undirected weighted graph with no cycle and minimum total edge weight. It has V-1 edges and is a different objective from shortest source-to-vertex paths. An MST is a tree spanning a connected undirected weighted graph. It minimizes the sum of chosen edge weights, rather than independently minimizing every source-to-vertex route. Ties may give multiple optimal trees.",
+    "teachingSteps": [
+      "A minimum spanning tree connects all vertices of a connected undirected weighted graph with no cycle and minimum total edge weight. It has V-1 edges and is a different objective from shortest source-to-vertex paths.",
+      "Accept only edges joining different components",
+      "Stop after V-1 accepted edges in a connected graph"
+    ],
+    "foundation": {
+      "title": "Connect every site at minimum total cost",
+      "idea": "A minimum spanning tree connects all vertices of a connected undirected weighted graph with no cycle and minimum total edge weight. It has V-1 edges and is a different objective from shortest source-to-vertex paths. An MST is a tree spanning a connected undirected weighted graph. It minimizes the sum of chosen edge weights, rather than independently minimizing every source-to-vertex route. Ties may give multiple optimal trees.",
+      "terms": [
+        "Spanning: includes every vertex.",
+        "Tree: connected and acyclic.",
+        "Cut: partition vertices into two nonempty sets.",
+        "Disjoint set: tracks which vertices are already connected."
+      ],
+      "example": "A triangle with all edges of weight 1 has three different MSTs. Each selects any two edges, with total cost 2."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A spanning tree connects 6 vertices. How many edges does it contain?",
+        "answer": 5,
+        "explanation": "A connected acyclic graph on V vertices has V-1 edges.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A triangle has all three edge weights equal to 1. What is its MST total weight?",
+        "answer": 2,
+        "explanation": "Any two edges connect all three vertices without a cycle.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Kruskal considers an edge whose endpoints are already connected. What should it do?",
+        "options": [
+          "Skip it because accepting it would create a cycle.",
+          "Accept it simply because it is next in sorted order.",
+          "Reset the component sets and accept it."
+        ],
+        "answer": 0,
+        "explanation": "Cuts require tie-aware claims; Kruskal accepts only safe component-joining edges."
+      },
+      {
+        "type": "order",
+        "prompt": "Build a minimum spanning tree with Kruskal.",
+        "items": [
+          "Sort edges by nondecreasing weight",
+          "Check whether the endpoints are in different components",
+          "Accept and union different components, otherwise skip",
+          "Finish after V-1 accepted edges in a connected graph"
+        ],
+        "explanation": "Disjoint sets certify connectivity and prevent a selected cycle."
+      }
+    ],
+    "algoLab": "mst",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0,
+    "excerpt": "Hi everyone. So in this video we are going to see minimum spanning tree or MHD in short form. So let's just see that what is a spanning tree and what is a minimum spanning tree. For now let's take a graph which is connected and undirected. So spanning tree is defined for undirected graph only. So in general they are defined for undirected graph and spanning tree is a tree which is connected subgraph and contains all the vertices and has no cycle.",
+    "sourceReferences": [
+      {
+        "lecture": 116,
+        "file": "116. 29a. Why Minimum Spanning Trees.mp4",
+        "start": 0,
+        "end": 28.71,
+        "text": "Hi everyone. So in this video we are going to see minimum spanning tree or MHD in short form. So let's just see that what is a spanning tree and what is a minimum spanning tree. For now let's take a graph which is connected and undirected. So spanning tree is defined for undirected graph only. So in general they are defined for undirected graph and spanning tree is a tree which is connected subgraph and contains all the vertices and has no cycle."
+      },
+      {
+        "lecture": 116,
+        "file": "116. 29a. Why Minimum Spanning Trees.mp4",
+        "start": 29.37,
+        "end": 55.96,
+        "text": "So, I will come to minimum spanning tree, the topic of discussion is minimum spanning tree, but before that I want to explain this spanning tree, then I will come to this minimum point later. So, let me explain this spanning tree first. Suppose that this graph is given to us. And then what I will do, this is an undirected connected graph, so what I will do, I will take all the vertices, here I have 4 vertices, I will take 4 vertices and I will see"
+      },
+      {
+        "lecture": 116,
+        "file": "116. 29a. Why Minimum Spanning Trees.mp4",
+        "start": 107.29,
+        "end": 135.81,
+        "text": "Now let's come to this minimum spanning tree idea. Suppose that a graph is given to us which is a weighted graph. Now in this weighted graph some weights of the edges are there and now I want to find out the minimum spanning tree. So first I will say that how many spanning trees are there? There must be many possible spanning trees. So if you want to connect let me just copy this graph and let me show you the spanning trees only."
+      }
+    ]
+  },
+  {
+    "id": 350,
+    "lecture": 116,
+    "title": "Connect every site at minimum total cost · Apply",
+    "concept": "A minimum spanning tree connects all vertices of a connected undirected weighted graph with no cycle and minimum total edge weight. It has V-1 edges and is a different objective from shortest source-to-vertex paths. An MST is a tree spanning a connected undirected weighted graph. It minimizes the sum of chosen edge weights, rather than independently minimizing every source-to-vertex route. Ties may give multiple optimal trees.",
+    "teachingSteps": [
+      "A minimum spanning tree connects all vertices of a connected undirected weighted graph with no cycle and minimum total edge weight. It has V-1 edges and is a different objective from shortest source-to-vertex paths.",
+      "Accept only edges joining different components",
+      "Stop after V-1 accepted edges in a connected graph"
+    ],
+    "foundation": {
+      "title": "Connect every site at minimum total cost",
+      "idea": "A minimum spanning tree connects all vertices of a connected undirected weighted graph with no cycle and minimum total edge weight. It has V-1 edges and is a different objective from shortest source-to-vertex paths. An MST is a tree spanning a connected undirected weighted graph. It minimizes the sum of chosen edge weights, rather than independently minimizing every source-to-vertex route. Ties may give multiple optimal trees.",
+      "terms": [
+        "Spanning: includes every vertex.",
+        "Tree: connected and acyclic.",
+        "Cut: partition vertices into two nonempty sets.",
+        "Disjoint set: tracks which vertices are already connected."
+      ],
+      "example": "A triangle with all edges of weight 1 has three different MSTs. Each selects any two edges, with total cost 2."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A network service wants minimum total connection cost. A spanning tree connects 7 vertices. How many edges does it contain?",
+        "answer": 6,
+        "explanation": "A connected acyclic graph on V vertices has V-1 edges.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A triangle has all three edge weights equal to 1. What is its MST total weight?",
+        "answer": 2,
+        "explanation": "Any two edges connect all three vertices without a cycle.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Kruskal considers an edge whose endpoints are already connected. What should it do?",
+        "options": [
+          "Accept it simply because it is next in sorted order.",
+          "Reset the component sets and accept it.",
+          "Skip it because accepting it would create a cycle."
+        ],
+        "answer": 2,
+        "explanation": "Cuts require tie-aware claims; Kruskal accepts only safe component-joining edges."
+      },
+      {
+        "type": "order",
+        "prompt": "Build a minimum spanning tree with Kruskal.",
+        "items": [
+          "Sort edges by nondecreasing weight",
+          "Check whether the endpoints are in different components",
+          "Accept and union different components, otherwise skip",
+          "Finish after V-1 accepted edges in a connected graph"
+        ],
+        "explanation": "Disjoint sets certify connectivity and prevent a selected cycle."
+      }
+    ],
+    "algoLab": "mst",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0,
+    "excerpt": "Hi everyone. So in this video we are going to see minimum spanning tree or MHD in short form. So let's just see that what is a spanning tree and what is a minimum spanning tree. For now let's take a graph which is connected and undirected. So spanning tree is defined for undirected graph only. So in general they are defined for undirected graph and spanning tree is a tree which is connected subgraph and contains all the vertices and has no cycle.",
+    "sourceReferences": [
+      {
+        "lecture": 116,
+        "file": "116. 29a. Why Minimum Spanning Trees.mp4",
+        "start": 0,
+        "end": 28.71,
+        "text": "Hi everyone. So in this video we are going to see minimum spanning tree or MHD in short form. So let's just see that what is a spanning tree and what is a minimum spanning tree. For now let's take a graph which is connected and undirected. So spanning tree is defined for undirected graph only. So in general they are defined for undirected graph and spanning tree is a tree which is connected subgraph and contains all the vertices and has no cycle."
+      },
+      {
+        "lecture": 116,
+        "file": "116. 29a. Why Minimum Spanning Trees.mp4",
+        "start": 29.37,
+        "end": 55.96,
+        "text": "So, I will come to minimum spanning tree, the topic of discussion is minimum spanning tree, but before that I want to explain this spanning tree, then I will come to this minimum point later. So, let me explain this spanning tree first. Suppose that this graph is given to us. And then what I will do, this is an undirected connected graph, so what I will do, I will take all the vertices, here I have 4 vertices, I will take 4 vertices and I will see"
+      },
+      {
+        "lecture": 116,
+        "file": "116. 29a. Why Minimum Spanning Trees.mp4",
+        "start": 107.29,
+        "end": 135.81,
+        "text": "Now let's come to this minimum spanning tree idea. Suppose that a graph is given to us which is a weighted graph. Now in this weighted graph some weights of the edges are there and now I want to find out the minimum spanning tree. So first I will say that how many spanning trees are there? There must be many possible spanning trees. So if you want to connect let me just copy this graph and let me show you the spanning trees only."
+      }
+    ]
+  },
+  {
+    "id": 351,
+    "lecture": 117,
+    "title": "Safe cuts, heavy cycles and tied weights · Discover",
+    "concept": "A lightest edge crossing a cut belongs to some MST, but ties do not force it into every MST. A uniquely lightest cut edge is mandatory; a uniquely heaviest cycle edge belongs to no MST. An MST is a tree spanning a connected undirected weighted graph. It minimizes the sum of chosen edge weights, rather than independently minimizing every source-to-vertex route. Ties may give multiple optimal trees.",
+    "teachingSteps": [
+      "A lightest edge crossing a cut belongs to some MST, but ties do not force it into every MST. A uniquely lightest cut edge is mandatory; a uniquely heaviest cycle edge belongs to no MST.",
+      "Accept only edges joining different components",
+      "Stop after V-1 accepted edges in a connected graph"
+    ],
+    "foundation": {
+      "title": "Safe cuts, heavy cycles and tied weights",
+      "idea": "A lightest edge crossing a cut belongs to some MST, but ties do not force it into every MST. A uniquely lightest cut edge is mandatory; a uniquely heaviest cycle edge belongs to no MST. An MST is a tree spanning a connected undirected weighted graph. It minimizes the sum of chosen edge weights, rather than independently minimizing every source-to-vertex route. Ties may give multiple optimal trees.",
+      "terms": [
+        "Spanning: includes every vertex.",
+        "Tree: connected and acyclic.",
+        "Cut: partition vertices into two nonempty sets.",
+        "Disjoint set: tracks which vertices are already connected."
+      ],
+      "example": "A triangle with all edges of weight 1 has three different MSTs. Each selects any two edges, with total cost 2."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A spanning tree connects 6 vertices. How many edges does it contain?",
+        "answer": 5,
+        "explanation": "A connected acyclic graph on V vertices has V-1 edges.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A triangle has all three edge weights equal to 1. What is its MST total weight?",
+        "answer": 2,
+        "explanation": "Any two edges connect all three vertices without a cycle.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains safe cuts, heavy cycles and tied weights?",
+        "options": [
+          "A lightest edge crossing a cut belongs to some MST, but ties do not force it into every MST.",
+          "Input assumptions cannot affect correctness.",
+          "One successful example proves the method for every graph."
+        ],
+        "answer": 0,
+        "explanation": "A lightest edge crossing a cut belongs to some MST, but ties do not force it into every MST. A uniquely lightest cut edge is mandatory; a uniquely heaviest cycle edge belongs to no MST."
+      },
+      {
+        "type": "order",
+        "prompt": "Build a minimum spanning tree with Kruskal.",
+        "items": [
+          "Sort edges by nondecreasing weight",
+          "Check whether the endpoints are in different components",
+          "Accept and union different components, otherwise skip",
+          "Finish after V-1 accepted edges in a connected graph"
+        ],
+        "explanation": "Disjoint sets certify connectivity and prevent a selected cycle."
+      }
+    ],
+    "algoLab": "mst-cut",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.98,
+    "excerpt": "Let's now talk about two properties of minimum spanning trees. First is cut property and another one is cycle property. Let's see these two properties. So cut property says that the smallest edge crossing any cut must be part of all minimum spanning trees. Let's just see this property in detail. But before that we need to see what is a cut. So one disclaimer is that this video is going to be a short video. The reason is that I am not going to",
+    "sourceReferences": [
+      {
+        "lecture": 117,
+        "file": "117. 29b. Cut and Cycle properties of MST.mp4",
+        "start": 0.98,
+        "end": 31.25,
+        "text": "Let's now talk about two properties of minimum spanning trees. First is cut property and another one is cycle property. Let's see these two properties. So cut property says that the smallest edge crossing any cut must be part of all minimum spanning trees. Let's just see this property in detail. But before that we need to see what is a cut. So one disclaimer is that this video is going to be a short video. The reason is that I am not going to"
+      },
+      {
+        "lecture": 117,
+        "file": "117. 29b. Cut and Cycle properties of MST.mp4",
+        "start": 873.18,
+        "end": 901.72,
+        "text": "there is a cycle let's suppose c is a cycle does there is a mxt that contains all the edges obviously no no mxt can contain all the edges of the cycle so there should be some edge that it is not containing so which ones it should not be containing the answer is the heaviest edge the maximum cost edge and this is by the cycle property cycle property says that a maximum cost edge cannot be a part of a minimum spanning tree maximum cost edge in the cycle see that's what the cycle property says"
+      },
+      {
+        "lecture": 117,
+        "file": "117. 29b. Cut and Cycle properties of MST.mp4",
+        "start": 1171.31,
+        "end": 1199.71,
+        "text": "let's suppose this is your cycle in your sorry in your graph not in MST then whatever is the largest edge whatever is the largest edge it cannot be cannot be part of any MST part of any MST so currently I'm assuming that edge weights are distinct if edge weights are not distinct then here in in case of all it will be some in case of this any it will be some"
+      }
+    ]
+  },
+  {
+    "id": 352,
+    "lecture": 117,
+    "title": "Safe cuts, heavy cycles and tied weights · Trace",
+    "concept": "A lightest edge crossing a cut belongs to some MST, but ties do not force it into every MST. A uniquely lightest cut edge is mandatory; a uniquely heaviest cycle edge belongs to no MST. An MST is a tree spanning a connected undirected weighted graph. It minimizes the sum of chosen edge weights, rather than independently minimizing every source-to-vertex route. Ties may give multiple optimal trees.",
+    "teachingSteps": [
+      "A lightest edge crossing a cut belongs to some MST, but ties do not force it into every MST. A uniquely lightest cut edge is mandatory; a uniquely heaviest cycle edge belongs to no MST.",
+      "Accept only edges joining different components",
+      "Stop after V-1 accepted edges in a connected graph"
+    ],
+    "foundation": {
+      "title": "Safe cuts, heavy cycles and tied weights",
+      "idea": "A lightest edge crossing a cut belongs to some MST, but ties do not force it into every MST. A uniquely lightest cut edge is mandatory; a uniquely heaviest cycle edge belongs to no MST. An MST is a tree spanning a connected undirected weighted graph. It minimizes the sum of chosen edge weights, rather than independently minimizing every source-to-vertex route. Ties may give multiple optimal trees.",
+      "terms": [
+        "Spanning: includes every vertex.",
+        "Tree: connected and acyclic.",
+        "Cut: partition vertices into two nonempty sets.",
+        "Disjoint set: tracks which vertices are already connected."
+      ],
+      "example": "A triangle with all edges of weight 1 has three different MSTs. Each selects any two edges, with total cost 2."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A spanning tree connects 7 vertices. How many edges does it contain?",
+        "answer": 6,
+        "explanation": "A connected acyclic graph on V vertices has V-1 edges.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A triangle has all three edge weights equal to 1. What is its MST total weight?",
+        "answer": 2,
+        "explanation": "Any two edges connect all three vertices without a cycle.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "A lightest edge crossing a cut ties with another lightest edge. What can be guaranteed?",
+        "options": [
+          "It is forced into every MST.",
+          "It can never occur in any MST.",
+          "It belongs to some MST, but need not belong to every MST."
+        ],
+        "answer": 2,
+        "explanation": "Cuts require tie-aware claims; Kruskal accepts only safe component-joining edges."
+      },
+      {
+        "type": "order",
+        "prompt": "Build a minimum spanning tree with Kruskal.",
+        "items": [
+          "Sort edges by nondecreasing weight",
+          "Check whether the endpoints are in different components",
+          "Accept and union different components, otherwise skip",
+          "Finish after V-1 accepted edges in a connected graph"
+        ],
+        "explanation": "Disjoint sets certify connectivity and prevent a selected cycle."
+      }
+    ],
+    "algoLab": "mst-cut",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.98,
+    "excerpt": "Let's now talk about two properties of minimum spanning trees. First is cut property and another one is cycle property. Let's see these two properties. So cut property says that the smallest edge crossing any cut must be part of all minimum spanning trees. Let's just see this property in detail. But before that we need to see what is a cut. So one disclaimer is that this video is going to be a short video. The reason is that I am not going to",
+    "sourceReferences": [
+      {
+        "lecture": 117,
+        "file": "117. 29b. Cut and Cycle properties of MST.mp4",
+        "start": 0.98,
+        "end": 31.25,
+        "text": "Let's now talk about two properties of minimum spanning trees. First is cut property and another one is cycle property. Let's see these two properties. So cut property says that the smallest edge crossing any cut must be part of all minimum spanning trees. Let's just see this property in detail. But before that we need to see what is a cut. So one disclaimer is that this video is going to be a short video. The reason is that I am not going to"
+      },
+      {
+        "lecture": 117,
+        "file": "117. 29b. Cut and Cycle properties of MST.mp4",
+        "start": 873.18,
+        "end": 901.72,
+        "text": "there is a cycle let's suppose c is a cycle does there is a mxt that contains all the edges obviously no no mxt can contain all the edges of the cycle so there should be some edge that it is not containing so which ones it should not be containing the answer is the heaviest edge the maximum cost edge and this is by the cycle property cycle property says that a maximum cost edge cannot be a part of a minimum spanning tree maximum cost edge in the cycle see that's what the cycle property says"
+      },
+      {
+        "lecture": 117,
+        "file": "117. 29b. Cut and Cycle properties of MST.mp4",
+        "start": 1171.31,
+        "end": 1199.71,
+        "text": "let's suppose this is your cycle in your sorry in your graph not in MST then whatever is the largest edge whatever is the largest edge it cannot be cannot be part of any MST part of any MST so currently I'm assuming that edge weights are distinct if edge weights are not distinct then here in in case of all it will be some in case of this any it will be some"
+      }
+    ]
+  },
+  {
+    "id": 353,
+    "lecture": 117,
+    "title": "Safe cuts, heavy cycles and tied weights · Apply",
+    "concept": "A lightest edge crossing a cut belongs to some MST, but ties do not force it into every MST. A uniquely lightest cut edge is mandatory; a uniquely heaviest cycle edge belongs to no MST. An MST is a tree spanning a connected undirected weighted graph. It minimizes the sum of chosen edge weights, rather than independently minimizing every source-to-vertex route. Ties may give multiple optimal trees.",
+    "teachingSteps": [
+      "A lightest edge crossing a cut belongs to some MST, but ties do not force it into every MST. A uniquely lightest cut edge is mandatory; a uniquely heaviest cycle edge belongs to no MST.",
+      "Accept only edges joining different components",
+      "Stop after V-1 accepted edges in a connected graph"
+    ],
+    "foundation": {
+      "title": "Safe cuts, heavy cycles and tied weights",
+      "idea": "A lightest edge crossing a cut belongs to some MST, but ties do not force it into every MST. A uniquely lightest cut edge is mandatory; a uniquely heaviest cycle edge belongs to no MST. An MST is a tree spanning a connected undirected weighted graph. It minimizes the sum of chosen edge weights, rather than independently minimizing every source-to-vertex route. Ties may give multiple optimal trees.",
+      "terms": [
+        "Spanning: includes every vertex.",
+        "Tree: connected and acyclic.",
+        "Cut: partition vertices into two nonempty sets.",
+        "Disjoint set: tracks which vertices are already connected."
+      ],
+      "example": "A triangle with all edges of weight 1 has three different MSTs. Each selects any two edges, with total cost 2."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A network service wants minimum total connection cost. A spanning tree connects 8 vertices. How many edges does it contain?",
+        "answer": 7,
+        "explanation": "A connected acyclic graph on V vertices has V-1 edges.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A triangle has all three edge weights equal to 1. What is its MST total weight?",
+        "answer": 2,
+        "explanation": "Any two edges connect all three vertices without a cycle.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "A lightest edge crossing a cut ties with another lightest edge. What can be guaranteed?",
+        "options": [
+          "It can never occur in any MST.",
+          "It belongs to some MST, but need not belong to every MST.",
+          "It is forced into every MST."
+        ],
+        "answer": 1,
+        "explanation": "Cuts require tie-aware claims; Kruskal accepts only safe component-joining edges."
+      },
+      {
+        "type": "order",
+        "prompt": "Build a minimum spanning tree with Kruskal.",
+        "items": [
+          "Sort edges by nondecreasing weight",
+          "Check whether the endpoints are in different components",
+          "Accept and union different components, otherwise skip",
+          "Finish after V-1 accepted edges in a connected graph"
+        ],
+        "explanation": "Disjoint sets certify connectivity and prevent a selected cycle."
+      }
+    ],
+    "algoLab": "mst-cut",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 0.98,
+    "excerpt": "Let's now talk about two properties of minimum spanning trees. First is cut property and another one is cycle property. Let's see these two properties. So cut property says that the smallest edge crossing any cut must be part of all minimum spanning trees. Let's just see this property in detail. But before that we need to see what is a cut. So one disclaimer is that this video is going to be a short video. The reason is that I am not going to",
+    "sourceReferences": [
+      {
+        "lecture": 117,
+        "file": "117. 29b. Cut and Cycle properties of MST.mp4",
+        "start": 0.98,
+        "end": 31.25,
+        "text": "Let's now talk about two properties of minimum spanning trees. First is cut property and another one is cycle property. Let's see these two properties. So cut property says that the smallest edge crossing any cut must be part of all minimum spanning trees. Let's just see this property in detail. But before that we need to see what is a cut. So one disclaimer is that this video is going to be a short video. The reason is that I am not going to"
+      },
+      {
+        "lecture": 117,
+        "file": "117. 29b. Cut and Cycle properties of MST.mp4",
+        "start": 873.18,
+        "end": 901.72,
+        "text": "there is a cycle let's suppose c is a cycle does there is a mxt that contains all the edges obviously no no mxt can contain all the edges of the cycle so there should be some edge that it is not containing so which ones it should not be containing the answer is the heaviest edge the maximum cost edge and this is by the cycle property cycle property says that a maximum cost edge cannot be a part of a minimum spanning tree maximum cost edge in the cycle see that's what the cycle property says"
+      },
+      {
+        "lecture": 117,
+        "file": "117. 29b. Cut and Cycle properties of MST.mp4",
+        "start": 1171.31,
+        "end": 1199.71,
+        "text": "let's suppose this is your cycle in your sorry in your graph not in MST then whatever is the largest edge whatever is the largest edge it cannot be cannot be part of any MST part of any MST so currently I'm assuming that edge weights are distinct if edge weights are not distinct then here in in case of all it will be some in case of this any it will be some"
+      }
+    ]
+  },
+  {
+    "id": 354,
+    "lecture": 118,
+    "title": "Kruskal joins different components · Discover",
+    "concept": "Kruskal processes undirected edges in nondecreasing weight order and accepts an edge only when its endpoints are in different components. A disjoint-set structure tracks these components and prevents cycles. An MST is a tree spanning a connected undirected weighted graph. It minimizes the sum of chosen edge weights, rather than independently minimizing every source-to-vertex route. Ties may give multiple optimal trees.",
+    "teachingSteps": [
+      "Kruskal processes undirected edges in nondecreasing weight order and accepts an edge only when its endpoints are in different components. A disjoint-set structure tracks these components and prevents cycles.",
+      "Accept only edges joining different components",
+      "Stop after V-1 accepted edges in a connected graph"
+    ],
+    "foundation": {
+      "title": "Kruskal joins different components",
+      "idea": "Kruskal processes undirected edges in nondecreasing weight order and accepts an edge only when its endpoints are in different components. A disjoint-set structure tracks these components and prevents cycles. An MST is a tree spanning a connected undirected weighted graph. It minimizes the sum of chosen edge weights, rather than independently minimizing every source-to-vertex route. Ties may give multiple optimal trees.",
+      "terms": [
+        "Spanning: includes every vertex.",
+        "Tree: connected and acyclic.",
+        "Cut: partition vertices into two nonempty sets.",
+        "Disjoint set: tracks which vertices are already connected."
+      ],
+      "example": "A triangle with all edges of weight 1 has three different MSTs. Each selects any two edges, with total cost 2."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A spanning tree connects 7 vertices. How many edges does it contain?",
+        "answer": 6,
+        "explanation": "A connected acyclic graph on V vertices has V-1 edges.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A triangle has all three edge weights equal to 1. What is its MST total weight?",
+        "answer": 2,
+        "explanation": "Any two edges connect all three vertices without a cycle.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Which statement correctly explains kruskal joins different components?",
+        "options": [
+          "Input assumptions cannot affect correctness.",
+          "One successful example proves the method for every graph.",
+          "Kruskal processes undirected edges in nondecreasing weight order and accepts an edge only when its endpoints are in different components."
+        ],
+        "answer": 2,
+        "explanation": "Kruskal processes undirected edges in nondecreasing weight order and accepts an edge only when its endpoints are in different components. A disjoint-set structure tracks these components and prevents cycles."
+      },
+      {
+        "type": "order",
+        "prompt": "Build a minimum spanning tree with Kruskal.",
+        "items": [
+          "Sort edges by nondecreasing weight",
+          "Check whether the endpoints are in different components",
+          "Accept and union different components, otherwise skip",
+          "Finish after V-1 accepted edges in a connected graph"
+        ],
+        "explanation": "Disjoint sets certify connectivity and prevent a selected cycle."
+      }
+    ],
+    "algoLab": "kruskal",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 123.31,
+    "excerpt": "I hope the idea is clear that what we are going to do, we are basically going to pick safe edges. And how to pick those safe edges is still a question. But suppose that there is some edge that I can 100% say that that will be in the MST, I will include that in MST. And now to answer this question that how to find a safe edge, there are two criteria. Two popular criteria as I will say, one is Kruskal algorithm, another one is Prim's algorithm. So these two algorithms just to one thing, they just find out the safe edges.",
+    "sourceReferences": [
+      {
+        "lecture": 118,
+        "file": "118. 29c. Kruskal Algorithm.mp4",
+        "start": 123.31,
+        "end": 150.83,
+        "text": "I hope the idea is clear that what we are going to do, we are basically going to pick safe edges. And how to pick those safe edges is still a question. But suppose that there is some edge that I can 100% say that that will be in the MST, I will include that in MST. And now to answer this question that how to find a safe edge, there are two criteria. Two popular criteria as I will say, one is Kruskal algorithm, another one is Prim's algorithm. So these two algorithms just to one thing, they just find out the safe edges."
+      },
+      {
+        "lecture": 118,
+        "file": "118. 29c. Kruskal Algorithm.mp4",
+        "start": 151.1,
+        "end": 179.37,
+        "text": "which means they just say that, okay, this is the edge that must be in the MST. At every iteration in the loop, they will say that, okay, this is the edge that must be in the MST based on the different criteria. Basically, Kruskal runs on the different criteria, Prince runs on the different criteria. Okay? And let's just first study this Kruskal's algorithm. Kruskal's algorithm says that take the smallest edge first. This is a greedy algorithm. These both are greedy algorithms only. Okay? These both are greedy algorithms."
+      },
+      {
+        "lecture": 118,
+        "file": "118. 29c. Kruskal Algorithm.mp4",
+        "start": 652.62,
+        "end": 680.88,
+        "text": "So if you use union find data structure, there is some special data structure if you use that Then we are going to check the cycle in just constant time then in this case alpha is just order of 1 or theta of 1 here alpha is order of v plus e So the final Kruskal's time complexity comes out to be e log e plus e into 1 which means it is just e log e only Which is for the sorting time"
+      }
+    ]
+  },
+  {
+    "id": 355,
+    "lecture": 118,
+    "title": "Kruskal joins different components · Trace",
+    "concept": "Kruskal processes undirected edges in nondecreasing weight order and accepts an edge only when its endpoints are in different components. A disjoint-set structure tracks these components and prevents cycles. An MST is a tree spanning a connected undirected weighted graph. It minimizes the sum of chosen edge weights, rather than independently minimizing every source-to-vertex route. Ties may give multiple optimal trees.",
+    "teachingSteps": [
+      "Kruskal processes undirected edges in nondecreasing weight order and accepts an edge only when its endpoints are in different components. A disjoint-set structure tracks these components and prevents cycles.",
+      "Accept only edges joining different components",
+      "Stop after V-1 accepted edges in a connected graph"
+    ],
+    "foundation": {
+      "title": "Kruskal joins different components",
+      "idea": "Kruskal processes undirected edges in nondecreasing weight order and accepts an edge only when its endpoints are in different components. A disjoint-set structure tracks these components and prevents cycles. An MST is a tree spanning a connected undirected weighted graph. It minimizes the sum of chosen edge weights, rather than independently minimizing every source-to-vertex route. Ties may give multiple optimal trees.",
+      "terms": [
+        "Spanning: includes every vertex.",
+        "Tree: connected and acyclic.",
+        "Cut: partition vertices into two nonempty sets.",
+        "Disjoint set: tracks which vertices are already connected."
+      ],
+      "example": "A triangle with all edges of weight 1 has three different MSTs. Each selects any two edges, with total cost 2."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A spanning tree connects 8 vertices. How many edges does it contain?",
+        "answer": 7,
+        "explanation": "A connected acyclic graph on V vertices has V-1 edges.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A triangle has all three edge weights equal to 1. What is its MST total weight?",
+        "answer": 2,
+        "explanation": "Any two edges connect all three vertices without a cycle.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Kruskal considers an edge whose endpoints are already connected. What should it do?",
+        "options": [
+          "Reset the component sets and accept it.",
+          "Skip it because accepting it would create a cycle.",
+          "Accept it simply because it is next in sorted order."
+        ],
+        "answer": 1,
+        "explanation": "Cuts require tie-aware claims; Kruskal accepts only safe component-joining edges."
+      },
+      {
+        "type": "order",
+        "prompt": "Build a minimum spanning tree with Kruskal.",
+        "items": [
+          "Sort edges by nondecreasing weight",
+          "Check whether the endpoints are in different components",
+          "Accept and union different components, otherwise skip",
+          "Finish after V-1 accepted edges in a connected graph"
+        ],
+        "explanation": "Disjoint sets certify connectivity and prevent a selected cycle."
+      }
+    ],
+    "algoLab": "kruskal",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 123.31,
+    "excerpt": "I hope the idea is clear that what we are going to do, we are basically going to pick safe edges. And how to pick those safe edges is still a question. But suppose that there is some edge that I can 100% say that that will be in the MST, I will include that in MST. And now to answer this question that how to find a safe edge, there are two criteria. Two popular criteria as I will say, one is Kruskal algorithm, another one is Prim's algorithm. So these two algorithms just to one thing, they just find out the safe edges.",
+    "sourceReferences": [
+      {
+        "lecture": 118,
+        "file": "118. 29c. Kruskal Algorithm.mp4",
+        "start": 123.31,
+        "end": 150.83,
+        "text": "I hope the idea is clear that what we are going to do, we are basically going to pick safe edges. And how to pick those safe edges is still a question. But suppose that there is some edge that I can 100% say that that will be in the MST, I will include that in MST. And now to answer this question that how to find a safe edge, there are two criteria. Two popular criteria as I will say, one is Kruskal algorithm, another one is Prim's algorithm. So these two algorithms just to one thing, they just find out the safe edges."
+      },
+      {
+        "lecture": 118,
+        "file": "118. 29c. Kruskal Algorithm.mp4",
+        "start": 151.1,
+        "end": 179.37,
+        "text": "which means they just say that, okay, this is the edge that must be in the MST. At every iteration in the loop, they will say that, okay, this is the edge that must be in the MST based on the different criteria. Basically, Kruskal runs on the different criteria, Prince runs on the different criteria. Okay? And let's just first study this Kruskal's algorithm. Kruskal's algorithm says that take the smallest edge first. This is a greedy algorithm. These both are greedy algorithms only. Okay? These both are greedy algorithms."
+      },
+      {
+        "lecture": 118,
+        "file": "118. 29c. Kruskal Algorithm.mp4",
+        "start": 652.62,
+        "end": 680.88,
+        "text": "So if you use union find data structure, there is some special data structure if you use that Then we are going to check the cycle in just constant time then in this case alpha is just order of 1 or theta of 1 here alpha is order of v plus e So the final Kruskal's time complexity comes out to be e log e plus e into 1 which means it is just e log e only Which is for the sorting time"
+      }
+    ]
+  },
+  {
+    "id": 356,
+    "lecture": 118,
+    "title": "Kruskal joins different components · Apply",
+    "concept": "Kruskal processes undirected edges in nondecreasing weight order and accepts an edge only when its endpoints are in different components. A disjoint-set structure tracks these components and prevents cycles. An MST is a tree spanning a connected undirected weighted graph. It minimizes the sum of chosen edge weights, rather than independently minimizing every source-to-vertex route. Ties may give multiple optimal trees.",
+    "teachingSteps": [
+      "Kruskal processes undirected edges in nondecreasing weight order and accepts an edge only when its endpoints are in different components. A disjoint-set structure tracks these components and prevents cycles.",
+      "Accept only edges joining different components",
+      "Stop after V-1 accepted edges in a connected graph"
+    ],
+    "foundation": {
+      "title": "Kruskal joins different components",
+      "idea": "Kruskal processes undirected edges in nondecreasing weight order and accepts an edge only when its endpoints are in different components. A disjoint-set structure tracks these components and prevents cycles. An MST is a tree spanning a connected undirected weighted graph. It minimizes the sum of chosen edge weights, rather than independently minimizing every source-to-vertex route. Ties may give multiple optimal trees.",
+      "terms": [
+        "Spanning: includes every vertex.",
+        "Tree: connected and acyclic.",
+        "Cut: partition vertices into two nonempty sets.",
+        "Disjoint set: tracks which vertices are already connected."
+      ],
+      "example": "A triangle with all edges of weight 1 has three different MSTs. Each selects any two edges, with total cost 2."
+    },
+    "questions": [
+      {
+        "type": "number",
+        "prompt": "A network service wants minimum total connection cost. A spanning tree connects 4 vertices. How many edges does it contain?",
+        "answer": 3,
+        "explanation": "A connected acyclic graph on V vertices has V-1 edges.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "number",
+        "prompt": "A triangle has all three edge weights equal to 1. What is its MST total weight?",
+        "answer": 2,
+        "explanation": "Any two edges connect all three vertices without a cycle.",
+        "tolerance": 1e-8
+      },
+      {
+        "type": "choice",
+        "prompt": "Kruskal considers an edge whose endpoints are already connected. What should it do?",
+        "options": [
+          "Skip it because accepting it would create a cycle.",
+          "Accept it simply because it is next in sorted order.",
+          "Reset the component sets and accept it."
+        ],
+        "answer": 0,
+        "explanation": "Cuts require tie-aware claims; Kruskal accepts only safe component-joining edges."
+      },
+      {
+        "type": "order",
+        "prompt": "Build a minimum spanning tree with Kruskal.",
+        "items": [
+          "Sort edges by nondecreasing weight",
+          "Check whether the endpoints are in different components",
+          "Accept and union different components, otherwise skip",
+          "Finish after V-1 accepted edges in a connected graph"
+        ],
+        "explanation": "Disjoint sets certify connectivity and prevent a selected cycle."
+      }
+    ],
+    "algoLab": "kruskal",
+    "minutes": 5,
+    "ready": true,
+    "contentVersion": 1,
+    "contentStatus": "reviewed",
+    "start": 123.31,
+    "excerpt": "I hope the idea is clear that what we are going to do, we are basically going to pick safe edges. And how to pick those safe edges is still a question. But suppose that there is some edge that I can 100% say that that will be in the MST, I will include that in MST. And now to answer this question that how to find a safe edge, there are two criteria. Two popular criteria as I will say, one is Kruskal algorithm, another one is Prim's algorithm. So these two algorithms just to one thing, they just find out the safe edges.",
+    "sourceReferences": [
+      {
+        "lecture": 118,
+        "file": "118. 29c. Kruskal Algorithm.mp4",
+        "start": 123.31,
+        "end": 150.83,
+        "text": "I hope the idea is clear that what we are going to do, we are basically going to pick safe edges. And how to pick those safe edges is still a question. But suppose that there is some edge that I can 100% say that that will be in the MST, I will include that in MST. And now to answer this question that how to find a safe edge, there are two criteria. Two popular criteria as I will say, one is Kruskal algorithm, another one is Prim's algorithm. So these two algorithms just to one thing, they just find out the safe edges."
+      },
+      {
+        "lecture": 118,
+        "file": "118. 29c. Kruskal Algorithm.mp4",
+        "start": 151.1,
+        "end": 179.37,
+        "text": "which means they just say that, okay, this is the edge that must be in the MST. At every iteration in the loop, they will say that, okay, this is the edge that must be in the MST based on the different criteria. Basically, Kruskal runs on the different criteria, Prince runs on the different criteria. Okay? And let's just first study this Kruskal's algorithm. Kruskal's algorithm says that take the smallest edge first. This is a greedy algorithm. These both are greedy algorithms only. Okay? These both are greedy algorithms."
+      },
+      {
+        "lecture": 118,
+        "file": "118. 29c. Kruskal Algorithm.mp4",
+        "start": 652.62,
+        "end": 680.88,
+        "text": "So if you use union find data structure, there is some special data structure if you use that Then we are going to check the cycle in just constant time then in this case alpha is just order of 1 or theta of 1 here alpha is order of v plus e So the final Kruskal's time complexity comes out to be e log e plus e into 1 which means it is just e log e only Which is for the sorting time"
+      }
+    ]
   }
 ];
