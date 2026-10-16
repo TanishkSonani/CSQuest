@@ -1,0 +1,11 @@
+# Monthly activity and learner profiles
+
+Open **Progress** and scroll to the monthly calendar. Use the month picker or arrows to browse any past month. **This month** returns to the current month. Selecting a day shows its XP; **Daily XP history** opens the full month's daily values and total. Future days are marked upcoming. The calendar combines saved daily XP across available subjects; the existing course-specific progress cards remain scoped to the selected subject.
+
+Daily activity is taken from existing saved progress, including historical imports. No database migration or new activity collection is required. Missing activity is shown as zero; lifetime XP without dated history is not assigned to invented dates. A study day requires positive XP. Longest streak counts consecutive recorded days, and current streak allows the learner to study today if their last active day was yesterday.
+
+In **Social**, open a learner's name in suggestions, search results, friend cards or rankings. Friends also have an explicit **View profile** action. Accepted friends see summary and course comparisons plus a monthly calendar and daily XP chart with both learners. Profile months and the expanded history stay selected during Social refreshes and theme changes. Study dates follow each learner's local day, so activity near midnight may appear on adjacent dates for different time zones.
+
+`GET /api/social/profile?userId=<uuid>` requires authentication. Discoverable learners and public league participants expose identity only to nonfriends. Pending requests do not grant analytics access. Detailed summaries and aggregate daily XP are available to the profile owner and accepted friends, and access is checked on every request. Raw answers, drafts, round history and account credentials are excluded. A profile for a hidden learner is unavailable to unrelated users. Removing a friend removes their access to detailed analytics.
+
+Verification: `npm test` covers month boundaries, leap years, cross-subject totals, streaks and profile authorization. `node --env-file=.env tests/activity-browser.cjs` exercises monthly history, discovery, friend consent and comparison, responsive layouts, theme changes and revoked friendship access in an isolated PostgreSQL schema.

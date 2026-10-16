@@ -22,6 +22,12 @@ test('friend consent, private comparisons, saved-round scores, invitations and c
  try{
   const a=client(),b=client(),c=client(),guest=client();await a.register('social_alice');await b.register('social_bob');await c.register('social_cara');
   assert.equal((await guest.request('social/overview')).status,401);
+  assert.equal((await guest.request('social/profile?userId='+a.id)).status,401);
+  assert.equal((await a.request('social/profile?userId=invalid')).status,400);
+  const publicProfile=(await a.request('social/profile?userId='+b.id)).data;
+  assert.equal(publicProfile.user.id,b.id);assert.equal(publicProfile.relationship,'none');assert.deepEqual(publicProfile.learners,[]);assert.equal(publicProfile.canRequest,true);
+  const selfProfile=(await a.request('social/profile?userId='+a.id)).data;
+  assert.equal(selfProfile.learners.length,1);assert.equal(selfProfile.relationship,'self');
   const suggestions=(await a.request('social/overview')).data.suggestions;
   assert.deepEqual(suggestions.map(user=>user.id).sort(),[b.id,c.id].sort());
   assert.deepEqual(Object.keys(suggestions[0]).sort(),['avatar','displayName','id','username']);
@@ -37,7 +43,12 @@ test('friend consent, private comparisons, saved-round scores, invitations and c
   assert.equal((await a.request('social/friends/respond',{userId:b.id,response:'accept'})).status,403);
   assert.equal((await b.request('social/friends/respond',{userId:a.id,response:'accept'})).status,200);
   assert.equal((await c.request('social/friends/respond',{userId:a.id,response:'accept'})).status,404);
+  a.progress.daily={'2024-02-28':20,'2024-02-29':40};
   await a.earn();await b.earn(40);
+  const friendProfile=(await b.request('social/profile?userId='+a.id)).data;
+  assert.equal(friendProfile.relationship,'friend');assert.equal(friendProfile.learners.length,2);
+  assert.deepEqual(friendProfile.learners.find(user=>user.id===a.id).daily,{'2024-02-28':20,'2024-02-29':40});
+  assert.ok(!JSON.stringify(friendProfile).includes('history'));assert.ok(!JSON.stringify(friendProfile).includes('password'));assert.ok(!JSON.stringify(friendProfile).includes('recovery'));
   const compare=await a.request('social/compare?userId='+b.id);assert.equal(compare.status,200);assert.equal(compare.data.learners.find(row=>row.id===a.id).weekXP,60);
   assert.ok(!JSON.stringify(compare.data).includes('recoveryHash'));assert.ok(!JSON.stringify(compare.data).includes('data":'));
   const board=await a.request('social/leaderboard?scope=friends');assert.equal(board.data.rows[0].id,a.id);assert.equal(board.data.rows[1].xp,40);
@@ -68,8 +79,11 @@ test('friend consent, private comparisons, saved-round scores, invitations and c
   assert.ok((await b.request('social/overview')).data.notifications.some(row=>row.kind==='challenge-invite'&&!row.readAt));
   await b.request('social/notifications/read',{});assert.ok((await b.request('social/overview')).data.notifications.every(row=>row.readAt));
   await b.request('social/settings',{discoverable:false});assert.equal((await c.request('social/search?q=social_bob')).data.learners.length,0);
+  assert.equal((await c.request('social/profile?userId='+b.id)).status,404);
+  assert.equal((await a.request('social/profile?userId='+b.id)).data.learners.length,2);
   assert.ok(!(await c.request('social/overview')).data.suggestions.some(user=>user.id===b.id));
   await a.request('social/friends/respond',{userId:b.id,response:'remove'});assert.equal((await a.request('social/compare?userId='+b.id)).status,403);
+  assert.equal((await a.request('social/profile?userId='+b.id)).status,404);
  }finally{await new Promise(resolve=>server.close(resolve));await fixture.dispose();}
 });
 

@@ -60,7 +60,7 @@ export function createServer({store:providedStore}={}){
    if(!['GET','HEAD'].includes(req.method)){send(405,{error:'Method not allowed'});return;}
    let file;
    if(url.pathname.startsWith('/shared/')){
-    const match=url.pathname.match(/^\/shared\/(engine|worked-examples|experience|avatars|calculator|visual-models|ds-models|ds-advanced|ds-final|ds-coding|algo-models|algo-graphs|algo-final)\.js$/);
+    const match=url.pathname.match(/^\/shared\/(engine|worked-examples|experience|activity|avatars|calculator|visual-models|ds-models|ds-advanced|ds-final|ds-coding|algo-models|algo-graphs|algo-final)\.js$/);
     if(!match){send(404,{error:'Not available'});return;}
     file=path.join(root,'packages','learning',match[1]+'.js');
    }else{

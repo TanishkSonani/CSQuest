@@ -20,5 +20,6 @@ test('guest startup modules work without database access and revalidate compress
   const head=await fetch(base+'/shared/worked-examples.js',{method:'HEAD'});assert.equal(head.status,200);assert.equal(await head.text(),'');
   const index=await (await fetch(base)).text();assert.match(index,/src="\/bootstrap.js"/);
   assert.equal((await fetch(base+'/shared/not-allowed.js')).status,404);
+  assert.equal((await fetch(base+'/shared/activity.js')).status,200,'Calendar startup dependency stays public');
  }finally{await new Promise(r=>server.close(r));}
 });

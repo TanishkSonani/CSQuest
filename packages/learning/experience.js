@@ -75,7 +75,7 @@ export function habitSummary(values,today=localDate()){
  const week=Array.from({length:7},(_,i)=>{const date=shift(today,i-6);return {date,xp:daily[date]||0,active:(daily[date]||0)>0};});
  let date=(daily[today]||0)>0?today:shift(today,-1),streak=0;
  while((daily[date]||0)>0){streak++;date=shift(date,-1);}
- return {todayXP:daily[today]||0,today:stats[today]||{rounds:0,questions:0,correct:0,practiceRounds:0},week,streak,activeDays:week.filter(d=>d.active).length};
+ return {daily,todayXP:daily[today]||0,today:stats[today]||{rounds:0,questions:0,correct:0,practiceRounds:0},week,streak,activeDays:week.filter(d=>d.active).length};
 }
 export function serializeRound(round,subjectId,now=Date.now()){
  if(!round||round.finished)return null;

@@ -12,13 +12,13 @@ const friendship=async(client,a,b)=>(await client.query('SELECT * FROM csquest_f
 const friendIds=async(client,id)=>(await client.query("SELECT CASE WHEN user_low=$1 THEN user_high ELSE user_low END AS id FROM csquest_friendships WHERE (user_low=$1 OR user_high=$1) AND status='accepted'",[id])).rows.map(row=>row.id);
 const notify=(client,userId,actorId,kind,challengeId=null)=>client.query('INSERT INTO csquest_social_notifications(user_id,actor_id,kind,challenge_id) VALUES($1,$2,$3,$4)',[userId,actorId,kind,challengeId]);
 const ranked=rows=>rows.map((row,index)=>({...row,rank:1+rows.filter(other=>other.xp>row.xp).length,position:index+1}));
-async function summaries(client,ids,courses,now){
+async function summaries(client,ids,courses,now,includeDaily=false){
  if(!ids.length)return [];
  const users=(await client.query('SELECT u.id,u.username,u.display_name,u.avatar,p.time_zone FROM csquest_users u JOIN csquest_social_profiles p ON p.user_id=u.id WHERE u.id=ANY($1::uuid[])',[ids])).rows;
  const data=(await client.query('SELECT user_id,key,value FROM csquest_user_data WHERE user_id=ANY($1::uuid[])',[ids])).rows;
  const {start,end}=weekBounds(now);
  const weekly=(await client.query('SELECT user_id,sum(xp)::integer AS xp FROM csquest_activity_events WHERE user_id=ANY($1::uuid[]) AND created_at>=$2 AND created_at<$3 GROUP BY user_id',[ids,start,end])).rows;
- return users.map(user=>({...identity(user),...learnerMetrics(Object.fromEntries(data.filter(row=>row.user_id===user.id).map(row=>[row.key,row.value])),courses,now,{timeZone:user.time_zone}),weekXP:weekly.find(row=>row.user_id===user.id)?.xp||0}));
+ return users.map(user=>({...identity(user),...learnerMetrics(Object.fromEntries(data.filter(row=>row.user_id===user.id).map(row=>[row.key,row.value])),courses,now,{timeZone:user.time_zone,includeDaily}),weekXP:weekly.find(row=>row.user_id===user.id)?.xp||0}));
 }
 async function leagueRows(client,entry){
  const {start,end}=weekBounds(Date.parse(entry.week+'T12:00:00Z'));
@@ -121,6 +121,12 @@ export async function handleSocial({store,actor,req,url,send,courses,now=Date.no
     else await client.query('DELETE FROM csquest_friendships WHERE user_low=$1 AND user_high=$2',pair(id,target));
     return {ok:true};
    });
+  }else if(action==='profile'&&!write){
+   const target=uuid(url.searchParams.get('userId')),relation=target===id?null:await friendship(pool,id,target);
+   const user=(await pool.query('SELECT u.id,u.username,u.display_name,u.avatar,p.discoverable,p.league_enabled FROM csquest_users u JOIN csquest_social_profiles p ON p.user_id=u.id WHERE u.id=$1',[target])).rows[0];
+   if(!user||(target!==id&&!user.discoverable&&!user.league_enabled&&!relation))fail(404,'Learner profile is not available.');
+   const canCompare=target===id||relation?.status==='accepted';
+   result={user:identity(user),relationship:target===id?'self':relation?.status==='accepted'?'friend':relation?.status==='pending'?relation.requested_by===id?'outgoing':'incoming':'none',canRequest:user.discoverable&&target!==id&&!relation,learners:canCompare?await summaries(pool,[...new Set([id,target])],courses,now,true):[]};
   }else if(action==='compare'&&!write){
    const target=uuid(url.searchParams.get('userId'));
    if(target!==id&&(await friendship(pool,id,target))?.status!=='accepted')fail(403,'Accept a friend request before comparing learning progress.');
