@@ -17,3 +17,9 @@ Checks performed in isolated PostgreSQL-backed Edge sessions:
 - Automated suite: 132 tests, 130 passed locally and two optional compiler-dependent skips.
 
 Run `node --env-file=.env tests/responsive-layout-browser.cjs` for the populated-layout regression. Screenshots and machine-readable results are written to ignored `qa-results/layout-audit/`.
+
+## Desktop Learn workspace
+
+Above 950px, Learn uses an anchored tools column that stays below the top bar as the document scrolls to the current lesson. Unit selection, the unit guide and a return-to-current-lesson action remain at the top of that column. Daily goals, quests and study rhythm are compact; an expandable monthly XP calendar shares the column. On short screens the column scrolls independently, with unit controls remaining pinned inside it. Above 1400px it widens to 320px. Phone and tablet layouts retain their existing flow.
+
+`node --env-file=.env tests/desktop-learn-browser.cjs` checks an existing learner entering a later lesson, document scrolling, independent tools scrolling, pinned controls, calendar/history, unit switching, guide and return actions at 1024x600, 1366x768, 1440x900 and 1920x1080 in both themes, plus mobile/tablet fallback. Existing product, frontend and subject-switch browser regressions also passed.
