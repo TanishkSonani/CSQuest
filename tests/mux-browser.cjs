@@ -1,3 +1,4 @@
+const {finishJourney}=require('./journey-helper.cjs');
 const {chromium}=require('../tooling/browser-qa/node_modules/playwright');
 const assert=require('node:assert/strict'),fs=require('node:fs');
 (async()=>{const browser=await chromium.launch({headless:true,executablePath:'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe',args:['--disable-gpu']});try{
@@ -6,13 +7,13 @@ const assert=require('node:assert/strict'),fs=require('node:fs');
  await page.evaluate(()=>{localStorage.clear();localStorage.setItem('csquest-subject','dl');localStorage.setItem('csquest-theme','dark');localStorage.setItem('dl-quest-v1',JSON.stringify({version:1,xp:0,completed:Array.from({length:126},(_,i)=>i),mistakes:[],settings:{sound:false}}));});
  await page.reload();await page.waitForFunction(()=>document.querySelector('.course-label')?.textContent.includes('DIGITAL LOGIC'));
  await page.locator('a[href="#roadmap"]').last().click();await page.locator('[data-unit="2"]').click();
- await page.locator('[data-lesson="126"]').click();assert.equal(await page.locator('.lecture-teaching li').count(),3);await page.locator('[data-action="begin"]').click();
+ await page.locator('[data-lesson="126"]').click();assert.equal(await page.locator('.lecture-teaching li').count(),3);await finishJourney(page);
  await page.waitForSelector('.mux-circuit');assert.equal(await page.locator('.mux-selector').count(),2);assert.match(await page.locator('.mux-output').innerText(),/Routing I0/);
  await page.locator('[data-mux-bit="0"]').click();assert.match(await page.locator('.mux-output').innerText(),/Routing I1/);
  await page.locator('[data-action="check-answer"]').click();await page.waitForSelector('.answer-footer.incorrect');assert.equal(await page.locator('.mux-selector:not([disabled])').count(),0);
  const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('dl-quest-v1')).mistakes[0]);assert.match(saved.lastAnswer,/Select 01.*I1/);
  await page.locator('[data-action="exit"]').click();await page.locator('[data-action="leave"]').click();await page.locator('a[href="#errors"]').last().click();
- await page.locator('[data-retry-key="126:0"]').click();await page.locator('[data-action="begin"]').click();await page.locator('[data-mux-bit="1"]').click();assert.match(await page.locator('.mux-output').innerText(),/Routing I2/);assert.equal(await page.locator('.mux-input.routed').count(),1);
+ await page.locator('[data-retry-key="126:0"]').click();await finishJourney(page);await page.locator('[data-mux-bit="1"]').click();assert.match(await page.locator('.mux-output').innerText(),/Routing I2/);assert.equal(await page.locator('.mux-input.routed').count(),1);
  assert.equal(await page.evaluate(()=>document.querySelector('dialog').scrollWidth<=innerWidth),true);await page.screenshot({path:'qa-results/mux-routing-dark-mobile.png'});
  await page.locator('.lesson-theme-toggle').click();assert.equal(await page.evaluate(()=>document.documentElement.dataset.theme),'light');await page.screenshot({path:'qa-results/mux-routing-light-mobile.png'});
  await page.locator('[data-action="check-answer"]').click();await page.waitForSelector('.answer-footer.correct');assert.deepEqual(errors,[]);

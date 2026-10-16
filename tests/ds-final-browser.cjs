@@ -1,3 +1,4 @@
+const {exploreJourney}=require('./journey-helper.cjs');
 const {chromium}=require('../tooling/browser-qa/node_modules/playwright');
 const assert=require('node:assert/strict'),fs=require('node:fs');
 (async()=>{
@@ -7,7 +8,7 @@ const assert=require('node:assert/strict'),fs=require('node:fs');
   await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const base=`http://127.0.0.1:${server.address().port}`;
   browser=await chromium.launch({headless:true,executablePath:'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'});const context=await browser.newContext({viewport:{width:320,height:740},reducedMotion:'reduce'});
   assert.equal((await context.request.post(base+'/api/account/register',{headers:{'X-CSQuest-Request':'1'},data:{username:'final_visual',displayName:'Visual Learner',avatar:'chip',password:'a memorable test passphrase'}})).status(),200);
-  const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));await page.goto(base);await page.locator('.subject-picker').click();await page.locator('[data-subject="ds"]').click();await page.locator('[data-lesson="0"]').click();await page.locator('.ds-lab').waitFor();
+  const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));await page.goto(base);await page.locator('.subject-picker').click();await page.locator('[data-subject="ds"]').click();await page.locator('[data-lesson="0"]').click();await exploreJourney(page);await page.locator('.ds-lab').waitFor();
   const seen=new Set();for(const lesson of lessons.slice(219)){
    if(seen.has(lesson.dsLab))continue;seen.add(lesson.dsLab);await page.evaluate(async lesson=>{const {dsLab}=await import('/ds-labs.js');document.querySelector('.lesson-intro').innerHTML=dsLab(lesson);},lesson);
    const root=page.locator('.ds-lab');await root.locator('[data-ds-control="n"]').fill('5');await root.locator('[data-ds-control="n"]').dispatchEvent('input');const model=finalDSModel(lesson.dsLab,5);

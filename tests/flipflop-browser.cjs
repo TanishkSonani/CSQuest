@@ -1,3 +1,4 @@
+const {finishJourney}=require('./journey-helper.cjs');
 const {chromium}=require('../tooling/browser-qa/node_modules/playwright');
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),{pathToFileURL}=require('node:url');
 (async()=>{
@@ -21,7 +22,7 @@ const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('n
    await page.locator('.lesson-theme-toggle').click();assert.equal(await page.evaluate(()=>document.documentElement.dataset.theme),'light');
    if(lecture===71)await page.screenshot({path:'qa-results/jk-worked-example-light-mobile.png'});
    if(q.type==='truth'){
-    await page.locator('[data-action="begin"]').click();await page.waitForSelector('.truth-table');
+    await finishJourney(page);await page.waitForSelector('.truth-table');
     assert.equal(await page.locator('.truth-row:not(.truth-heading)').count(),q.rows.length);
     assert.equal(await page.locator('.truth-heading').evaluate(el=>getComputedStyle(el).gridTemplateColumns.split(' ').length),q.labels.length+1);
     for(let row=0;row<q.rows.length;row++)await page.locator(`[data-truth-row="${row}"][data-truth-value="${row===0?1-q.answer[row]:q.answer[row]}"]`).click();
@@ -29,11 +30,11 @@ const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('n
     assert.equal(await page.evaluate(()=>document.querySelector('dialog').scrollWidth<=innerWidth),true);
     if(lecture===68){await page.locator('.lesson-theme-toggle').click();await page.screenshot({path:'qa-results/sr-state-table-dark-mobile.png'});}
     await page.locator('[data-action="exit"]').click();await page.locator('[data-action="leave"]').click();await page.locator('a[href="#errors"]').last().click();
-    await page.locator(`[data-retry-key="${id}:0"]`).click();await page.locator('[data-action="begin"]').click();
+    await page.locator(`[data-retry-key="${id}:0"]`).click();await finishJourney(page);
     for(let row=0;row<q.rows.length;row++)await page.locator(`[data-truth-row="${row}"][data-truth-value="${q.answer[row]}"]`).click();
     await page.locator('[data-action="check-answer"]').click();await page.waitForSelector('.answer-footer.correct');
    }else{
-    await page.locator('[data-action="begin"]').click();
+    await finishJourney(page);
     if(q.type==='match')for(let i=0;i<q.pairs.length;i++){await page.locator(`[data-match-left="${i}"]`).click();await page.locator(`[data-match-right="${i}"]`).click();}
     else if(q.type==='order')for(const item of q.items)await page.getByRole('button',{name:item,exact:true}).click();
     else if(q.type==='number')await page.locator('#number-answer').fill(String(q.answer));

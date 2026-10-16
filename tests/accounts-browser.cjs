@@ -1,3 +1,4 @@
+const {finishJourney}=require('./journey-helper.cjs');
 const {chromium}=require('../tooling/browser-qa/node_modules/playwright');
 const assert=require('node:assert/strict'),fs=require('node:fs/promises'),path=require('node:path'),{pathToFileURL}=require('node:url');
 (async()=>{
@@ -24,7 +25,7 @@ const assert=require('node:assert/strict'),fs=require('node:fs/promises'),path=r
  await page.locator('[data-avatar-filter]').selectOption('mythic');assert.equal(await page.locator('.avatar-option:visible').count(),3);
  await page.locator('[data-avatar-filter]').selectOption('clash');assert.equal(await page.locator('.avatar-option:visible').count(),4);
  await page.locator('[data-avatar-filter]').selectOption('all');assert.equal(await page.locator('.avatar-option:visible').count(),22);
- await page.goto(base+'/#learn');await page.locator('[data-lesson="0"]').click();await page.locator('[data-action="begin"]').click();
+ await page.goto(base+'/#learn');await page.locator('[data-lesson="0"]').click();await finishJourney(page);
  await page.keyboard.press('1');await page.keyboard.press('Enter');await page.waitForSelector('.answer-footer.correct');await page.keyboard.press('Enter');
  const {lessons}=await import(pathToFileURL(path.join(process.cwd(),'courses/coa/content/lessons.js')).href),pairs=lessons[0].questions[1].pairs;
  for(let i=0;i<pairs.length;i++){

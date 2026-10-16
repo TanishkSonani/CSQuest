@@ -1,3 +1,4 @@
+const {finishJourney,exploreJourney}=require('./journey-helper.cjs');
 const {chromium}=require('../tooling/browser-qa/node_modules/playwright');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
@@ -18,7 +19,7 @@ const fs=require('node:fs');
   assert.match(models.pointer.steps[2][2],/modifies x/);assert.match(models.recursion.steps.at(-1)[2],/6/);assert.match(models.heap.steps[2][2],/must not be read/);assert.match(models.bits.steps[0][2],/signed interpretation -1/);assert.match(models.matrix.steps[0][2],/element is 6/);
   async function open(id){
    await page.evaluate(async id=>{const {store,flushAccount}=await import('/account-client.js');store.setItem('csquest-drafts-c','[]');store.setItem('c-quest-v1',JSON.stringify({version:1,xp:0,completed:Array.from({length:id},(_,i)=>i),settings:{sound:false}}));await flushAccount();},id);
-   await page.reload();await page.locator(`[data-lesson="${id}"]:not(.locked)`).click();await page.locator('.c-lab').waitFor();
+   await page.reload();await page.locator(`[data-lesson="${id}"]:not(.locked)`).click();await exploreJourney(page);await page.locator('.c-lab').waitFor();
   }
   async function exit(){await page.locator('[data-action="exit"]').click();await page.locator('[data-action="leave"]').click();}
   const seen=new Set();
@@ -42,12 +43,12 @@ const fs=require('node:fs');
    await page.locator('[data-action="check-answer"]').click();await page.locator('.answer-footer.correct').waitFor();await page.locator('[data-action="next-question"]').click();
   }
   // First-round retry, completion, XP and next-lesson navigation.
-  await open(0);await page.locator('[data-action="begin"]').click();await page.locator(`[data-choice="${(lessons[0].questions[0].answer+1)%3}"]`).click();await page.locator('[data-action="check-answer"]').click();await page.locator('.answer-footer.incorrect').waitFor();await page.locator('[data-action="next-question"]').click();
+  await open(0);await finishJourney(page);await page.locator(`[data-choice="${(lessons[0].questions[0].answer+1)%3}"]`).click();await page.locator('[data-action="check-answer"]').click();await page.locator('.answer-footer.incorrect').waitFor();await page.locator('[data-action="next-question"]').click();
   for(const q of [...lessons[0].questions.slice(1),lessons[0].questions[0]])await answer(q);
-  await page.locator('.celebration').waitFor();await page.locator('[data-action="next-lesson"]').click();await page.locator('.c-lab').waitFor();await exit();
+  await page.locator('.celebration').waitFor();await page.locator('[data-action="next-lesson"]').click();await exploreJourney(page);await page.locator('.c-lab').waitFor();await exit();
   const progress=await page.evaluate(async()=>{const {store}=await import('/account-client.js');return JSON.parse(store.getItem('c-quest-v1'));});assert.ok(progress.completed.includes(0));assert.ok(progress.xp>0);
   // Build a complete program by tapping and dragging, with correction and reload.
-  await open(2);await page.locator('[data-action="begin"]').click();for(const q of lessons[2].questions.slice(0,3))await answer(q);
+  await open(2);await finishJourney(page);for(const q of lessons[2].questions.slice(0,3))await answer(q);
   const builder=lessons[2].questions[3];assert.equal(await page.locator('[data-action="check-answer"]').isDisabled(),true);
   await page.locator('.c-token-bank').getByRole('button',{name:builder.answer[0],exact:true}).dragTo(page.locator('[data-program-slot="0"]'));
   assert.equal(await page.locator('[data-program-slot="0"]').innerText(),builder.answer[0]);
@@ -58,9 +59,9 @@ const fs=require('node:fs');
   await page.locator('[data-action="check-answer"]').click();await page.locator('.answer-footer.incorrect').waitFor();assert.equal(await page.locator('[data-program-slot="0"]').isDisabled(),true);await page.locator('[data-action="next-question"]').click();
   await answer(builder);await page.locator('.celebration').waitFor();await page.locator('[data-action="finish"]').click();
   // An entered code answer survives reload without exposing its solution.
-  await open(1);await page.locator('[data-action="begin"]').click();await answer(lessons[1].questions[0]);await page.locator('#number-answer').fill(String(lessons[1].questions[1].answer));await page.reload();await page.locator('[data-lesson="1"]').click();assert.equal(await page.locator('#number-answer').inputValue(),String(lessons[1].questions[1].answer));await exit();
-  for(const u of units.slice(0,-1)){const id=(u.range[1]+1)*3-1;await open(id);await page.locator('[data-action="begin"]').click();for(const q of lessons[id].questions)await answer(q);await page.locator('[data-action="next-lesson"]').click();assert.equal(await page.locator('.lesson-intro h1').innerText(),lessons[id+1].title);await exit();}
-  for(const [width,theme] of [[1440,'light'],[390,'dark'],[320,'light']]){await page.setViewportSize({width,height:900});await page.evaluate(theme=>document.documentElement.dataset.theme=theme,theme);await page.locator('[data-lesson="183"]').click();await page.locator('.c-lab').waitFor();assert.equal(await page.evaluate(()=>document.querySelector('dialog').scrollWidth>innerWidth),false);await page.screenshot({path:`qa-results/c-${width}-${theme}.png`});await exit();}
+  await open(1);await finishJourney(page);await answer(lessons[1].questions[0]);await page.locator('#number-answer').fill(String(lessons[1].questions[1].answer));await page.reload();await page.locator('[data-lesson="1"]').click();assert.equal(await page.locator('#number-answer').inputValue(),String(lessons[1].questions[1].answer));await exit();
+  for(const u of units.slice(0,-1)){const id=(u.range[1]+1)*3-1;await open(id);await finishJourney(page);for(const q of lessons[id].questions)await answer(q);await page.locator('[data-action="next-lesson"]').click();assert.equal(await page.locator('.lesson-intro h1').innerText(),lessons[id+1].title);await exit();}
+  for(const [width,theme] of [[1440,'light'],[390,'dark'],[320,'light']]){await page.setViewportSize({width,height:900});await page.evaluate(theme=>document.documentElement.dataset.theme=theme,theme);await page.locator('[data-lesson="183"]').click();await exploreJourney(page);await page.locator('.c-lab').waitFor();assert.equal(await page.evaluate(()=>document.querySelector('dialog').scrollWidth>innerWidth),false);await page.screenshot({path:`qa-results/c-${width}-${theme}.png`});await exit();}
   assert.deepEqual(errors,[]);console.log('C passed: all 16 labs, keyboard and playback, code puzzles/retries, saved answers/XP, all six unit transitions, mobile and themes.');
  }finally{if(browser)await browser.close();await new Promise(resolve=>server.close(resolve));await fixture.dispose();}
 })().catch(error=>{console.error(error);process.exitCode=1;});

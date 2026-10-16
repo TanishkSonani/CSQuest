@@ -1,3 +1,4 @@
+const {finishJourney}=require('./journey-helper.cjs');
 const {chromium}=require('../tooling/browser-qa/node_modules/playwright');
 const assert=require('node:assert/strict');
 (async()=>{
@@ -7,7 +8,7 @@ const assert=require('node:assert/strict');
  page.on('pageerror',e=>errors.push(e.message));
  await page.goto('http://127.0.0.1:4173');await page.waitForSelector('.next-step');
  await page.locator('[data-action="continue"]').first().click();await page.waitForSelector('.lesson-intro');
- await page.locator('[data-action="begin"]').click();
+ await finishJourney(page);
  await page.waitForFunction(()=>document.querySelector('.challenge-content')?.getAnimations().length>0);
  await page.locator('[data-choice="0"]').click();
  assert.equal(await page.locator('.challenge-content').evaluate(el=>el.getAnimations().length),0,'Selecting an answer must not replay the question entrance');

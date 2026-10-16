@@ -1,3 +1,4 @@
+const {finishJourney}=require('./journey-helper.cjs');
 const {chromium}=require('../tooling/browser-qa/node_modules/playwright');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
@@ -7,7 +8,7 @@ const fs=require('node:fs');
  const page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];
  page.on('pageerror',e=>errors.push(e.message));
  await page.goto('http://127.0.0.1:4173');await page.waitForSelector('.next-step');
- await page.locator('[data-action="continue"]').first().click();await page.locator('[data-action="begin"]').click();
+ await page.locator('[data-action="continue"]').first().click();await finishJourney(page);
  await page.keyboard.press('2');await page.keyboard.press('Enter');await page.waitForSelector('.correct-solution');
  await page.keyboard.press('Escape');await page.locator('[data-action="leave"]').click();
  assert.equal(await page.locator('[data-action="resume-saved"]').count(),1);
@@ -30,7 +31,7 @@ const fs=require('node:fs');
  await page.waitForSelector('.unit-banner');assert.equal(await page.locator('.rightbar .daily-card [role="progressbar"]').getAttribute('aria-valuemax'),'40');
  await page.goto('http://127.0.0.1:4173/#practice');await page.locator('[data-practice-mode="quick"]').click();
  assert.match(await page.locator('.lesson-intro').innerText(),/2/);
- await page.locator('[data-action="begin"]').click();
+ await finishJourney(page);
  for(let i=0;i<2;i++){
  const state=await page.evaluate(()=>JSON.parse(localStorage.getItem('csquest-drafts-dl'))[0]);const q=JSON.parse(state.queue[state.index].signature);
  if(q.type==='choice')await page.locator(`[data-choice="${q.answer}"]`).click();
@@ -51,6 +52,6 @@ const fs=require('node:fs');
  }}
  await page.evaluate(()=>{localStorage.setItem('csquest-subject','coa');localStorage.setItem('coa-quest-v1',JSON.stringify({version:1,completed:Array.from({length:18},(_,i)=>i),settings:{sound:false}}));});
  await page.goto('http://127.0.0.1:4173/#learn');await page.reload();await page.waitForSelector('[data-lesson="18"]');assert.equal(await page.locator('.path-node.current').getAttribute('data-lesson'),'18');
- await page.locator('[data-action="continue"]').first().click();await page.locator('[data-action="begin"]').click();assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('csquest-drafts-coa'))[0].lessonId),18);assert.deepEqual(errors,[]);console.log('Saved rounds, keyboard controls, targeted practice, goals, milestones, catalog and responsive themes passed.');
+ await page.locator('[data-action="continue"]').first().click();await finishJourney(page);assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('csquest-drafts-coa'))[0].lessonId),18);assert.deepEqual(errors,[]);console.log('Saved rounds, keyboard controls, targeted practice, goals, milestones, catalog and responsive themes passed.');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exit(1);});

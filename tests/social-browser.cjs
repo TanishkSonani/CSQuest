@@ -1,3 +1,4 @@
+const {finishJourney}=require('./journey-helper.cjs');
 const {chromium}=require('../tooling/browser-qa/node_modules/playwright');
 const assert=require('node:assert/strict');
 (async()=>{
@@ -15,7 +16,7 @@ const assert=require('node:assert/strict');
   await page.goto(base+'/#social');await page.waitForSelector('.social-stats');return {context,page,user};
  }
  async function finishRound(page){
-  await page.goto(base+'/#learn');await page.locator('[data-lesson="0"]').click();await page.locator('[data-action="begin"]').click();
+  await page.goto(base+'/#learn');await page.locator('[data-lesson="0"]').click();await finishJourney(page);
   for(const question of lessons[0].questions){
    if(question.type==='choice')await page.locator(`[data-choice="${question.answer}"]`).click();
    else if(question.type==='match')for(let index=0;index<question.pairs.length;index++){await page.locator(`[data-match-left="${index}"]`).click();await page.locator(`[data-match-right="${index}"]`).click();}

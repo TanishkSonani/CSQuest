@@ -1,3 +1,4 @@
+const {finishJourney,exploreJourney}=require('./journey-helper.cjs');
 const {chromium}=require('../tooling/browser-qa/node_modules/playwright');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
@@ -27,7 +28,7 @@ const fs=require('node:fs');
   assert.deepEqual(await page.locator('[data-catalog-subject]').evaluateAll(cards=>cards.slice(0,5).map(card=>card.dataset.catalogSubject)),['coa','dl','c','ds','aptitude']);
   await page.locator('[data-catalog-filter="available"]').click();assert.equal(await card.isVisible(),true);
   await card.locator('[data-subject="aptitude"]').click();
-  await page.locator('[data-lesson="0"]:not(.locked)').click();await page.locator('.aptitude-lab').waitFor();
+  await page.locator('[data-lesson="0"]:not(.locked)').click();await exploreJourney(page);await page.locator('.aptitude-lab').waitFor();
   await page.locator('[data-action="exit"]').click();await page.locator('[data-action="leave"]').click();
   await page.unroute('**/subjects.js');
   const values=await page.evaluate(async()=>{
@@ -36,7 +37,7 @@ const fs=require('node:fs');
   assert.ok(Math.abs(values.interest.compound-1210)<1e-7);assert.equal(values.work.days,2);assert.equal(values.sets.union,16);assert.equal(values.sets.neither,4);assert.deepEqual(values.rounding,{floor:-2,ceiling:-1});assert.equal(values.absolute.distance,3);
   async function open(id){
    await page.evaluate(async id=>{const {store,flushAccount}=await import('/account-client.js');store.setItem('csquest-drafts-aptitude','[]');store.setItem('aptitude-quest-v1',JSON.stringify({version:1,xp:0,completed:Array.from({length:id},(_,i)=>i),settings:{sound:false}}));await flushAccount();},id);
-   await page.reload();await page.locator(`[data-lesson="${id}"]:not(.locked)`).click();await page.locator('.aptitude-lab').waitFor();
+   await page.reload();await page.locator(`[data-lesson="${id}"]:not(.locked)`).click();await exploreJourney(page);await page.locator('.aptitude-lab').waitFor();
   }
   for(let topic=0;topic<15;topic++){
    await open(topic*3);
@@ -47,7 +48,7 @@ const fs=require('node:fs');
    await page.locator('[data-action="exit"]').click();assert.equal(await page.locator('[data-action="leave"]').innerText(),'EXIT LESSON');await page.locator('[data-action="leave"]').click();
   }
   // Complete a visual number-line round, including an incorrect answer and retry.
-  await open(30);await page.locator('[data-action="begin"]').click();
+  await open(30);await finishJourney(page);
   await page.locator('#visual-answer').fill('6');await page.locator('#visual-answer').dispatchEvent('input');
   await page.locator('[data-action="check-answer"]').click();await page.locator('.answer-footer.incorrect').waitFor();await page.locator('[data-action="next-question"]').click();
   for(const q of [...lessons[30].questions.slice(1),lessons[30].questions[0]]){
@@ -60,7 +61,7 @@ const fs=require('node:fs');
   await page.evaluate(async()=>{await(await import('/account-client.js')).flushAccount();});
   const saved=(await(await context.request.get(base+'/api/account/session')).json()).data;assert.ok(JSON.parse(saved['aptitude-quest-v1']).completed.includes(30));
   // Verify negative-number visual puzzles, keyboard adjustment, reload and practice.
-  await open(34);await page.locator('[data-action="begin"]').click();await page.locator('#visual-answer').focus();await page.keyboard.press('ArrowRight');
+  await open(34);await finishJourney(page);await page.locator('#visual-answer').focus();await page.keyboard.press('ArrowRight');
   await page.locator('#number-answer').fill('-2');await page.locator('[data-action="check-answer"]').click();await page.locator('.answer-footer.correct').waitFor();
   await page.reload();await page.locator('[data-lesson="34"]').click();await page.locator('.answer-footer.correct').waitFor();
   await page.locator('[data-action="exit"]').click();await page.locator('[data-action="leave"]').click();

@@ -14,7 +14,7 @@ test('Algorithms publishes a stable, completed-source-backed prefix with beginne
   assert.equal(l.id,id);assert.equal(l.lecture,Math.floor(id/3));assert.equal(l.ready,true);assert.equal(l.questions.length,4);assert.ok(l.foundation.idea.length>100);assert.equal(l.teachingSteps.length,3);
   const source=JSON.parse(fs.readFileSync(new URL(`../courses/algo/data/transcripts/${l.lecture}.json`,import.meta.url)));assert.ok(source.sourceCompletedAt);
   for(const r of l.sourceReferences)assert.ok(source.segments.some(s=>s.start===r.start&&s.end===r.end&&s.text.trim()===r.text));
-  for(const q of l.questions){const answer=q.type==='order'?q.items:q.answer;assert.equal(grade(q,answer),true,`${id}: ${q.prompt}`);if(q.type==='number'){assert.ok(Number.isFinite(q.answer));assert.equal(grade(q,q.answer+1),false);}if(q.type==='choice'){assert.equal(new Set(q.options).size,q.options.length);assert.equal(grade(q,(q.answer+1)%q.options.length),false);}assert.doesNotMatch(q.prompt,/\b(lecture|video|instructor|recording)\b/i);}
+  for(const q of l.questions){const answer=q.type==='order'?q.items:q.type==='match'?q.pairs.map((_,i)=>i):q.answer;assert.equal(grade(q,answer),true,`${id}: ${q.prompt}`);if(q.type==='number'){assert.ok(Number.isFinite(q.answer));assert.equal(grade(q,q.answer+1),false);}if(q.type==='choice'){assert.equal(new Set(q.options).size,q.options.length);assert.equal(grade(q,(q.answer+1)%q.options.length),false);}assert.doesNotMatch(q.prompt,/\b(lecture|video|instructor|recording)\b/i);}
   if(id%3===2)assert.match(l.questions[0].prompt,/service|routine|catalog|scheduler|batch|feed|file|list|contest|dashboard|ranking|location|image|lookup|inventory|sorter|transaction|explorer|report|stream|planner/i);
  }
 });
@@ -37,6 +37,8 @@ test('Merge, partition, inversion and binary-search traces satisfy independent o
 });
 test('Small-decrement and geometric recurrence examples agree with direct independent costs',()=>{
  function cost(n){return n<2?1:cost(n-1)+cost(n-2)+1;}
- for(const l of lessons.filter(l=>l.algoLab==='fibonacci')){const q=l.questions[0],n=Number(q.prompt.match(/T\((\d+)\)\./)[1]);assert.equal(q.answer,cost(n));}
- for(const l of lessons.filter(l=>l.algoLab==='geometric')){const q=l.questions[0],n=Number(q.prompt.match(/T\((\d+)\)\./)[1]);let total=1;for(let size=n;size>1;size/=2)total+=size;assert.equal(q.answer,total);}
+ let checked=0;
+ for(const l of lessons.filter(l=>l.algoLab==='fibonacci'))for(const q of l.questions.filter(q=>q.type==='number'&&q.prompt.includes('T(n-1)+T(n-2)'))){const n=Number(q.prompt.match(/T\((\d+)\)\./)[1]);assert.equal(q.answer,cost(n));checked++;}
+ for(const l of lessons.filter(l=>l.algoLab==='geometric'))for(const q of l.questions.filter(q=>q.type==='number'&&q.prompt.includes('T(n)=T(n/2)+n'))){const n=Number(q.prompt.match(/T\((\d+)\)\./)[1]);let total=1;for(let size=n;size>1;size/=2)total+=size;assert.equal(q.answer,total);checked++;}
+ assert.ok(checked>=2,'Both recurrence examples remain covered after quiz diversification');
 });

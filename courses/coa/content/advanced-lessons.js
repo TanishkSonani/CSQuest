@@ -285,7 +285,7 @@ n('1 KiB cache, 16-byte blocks, four ways. Sets?',16,'1024 / (16 × 4) = 16 sets
 n('Sixteen sets require how many set-index bits?',4,'log2(16) = 4 bits select the set.'),
 n('32-bit addresses, 1 KiB four-way cache, 16-byte blocks. Tag bits?',24,'32 - 4 set bits - 4 offset bits = 24 tag bits.'),
 m('Match cache organizations.',[['Direct mapped','One way per set'],['Two-way associative','Two ways per set'],['Fully associative','One set containing all lines']],'Associativity changes how many candidate slots a mapped block can occupy.'),
-cache(2,2,'LRU',[0,2,0,4,2]),
+{...cache(2,2,'LRU',[1,3,1,5,3]),revision:2},
 n('64 total cache lines, four ways. Sets?',16,'The 64 lines form 16 groups of four ways each.'),
 n('Block 13 in four sets maps to which set?',1,'13 mod 4 = 1, independently of which way holds it.'),
 c('When a mapped set has an empty way, a miss…',['Fills the empty way without evicting a valid block','Must evict a different set','Is impossible'],0,'Replacement of valid data is unnecessary while the requested set has a free slot.'),

@@ -1,3 +1,4 @@
+import {reviewAlgorithmQuizzes} from '../courses/algo/authoring/quiz-review.mjs';
 import fs from 'node:fs/promises';
 import {topics} from '../courses/algo/content/topics.js';
 import {guideFor,questionsFor} from '../courses/algo/content/teaching.js';
@@ -18,6 +19,8 @@ for(const topic of topics){
  for(let stage=0;stage<3;stage++)lessons.push({id:topic.id*3+stage,lecture:topic.id,title:topic.label+' · '+['Discover','Trace','Apply'][stage],concept:guide.idea,teachingSteps:[topic.focus,...guide.steps.slice(-2)],foundation:{title:guide.title,idea:guide.idea,terms:guide.terms,example:guide.example},questions:questionsFor(topic,stage),algoLab:topic.key,minutes:5,ready:true,contentVersion:1,contentStatus:'reviewed',start:refs[0].start,excerpt:refs[0].text,sourceReferences:refs});
  evidence.push({id:topic.id,topic:topic.label,sourceFile:source.file,sourceCompletedAt:source.sourceCompletedAt,lessonIds:[topic.id*3,topic.id*3+1,topic.id*3+2],anchors:refs});
 }
+const quizReview=reviewAlgorithmQuizzes(lessons);
+if(quizReview.unresolved.length)throw Error('Adjacent quiz repetition: '+JSON.stringify(quizReview.unresolved));
 const ranges=[['Algorithmic thinking',0,1],['Growth and bounds',2,9],['Counting work and input cases',10,16],['Recurrence trees',17,23],['Master theorem and its limits',24,30],['Transforming recurrences',31,34],['Divide and combine',35,39],['Stable merging',40,47],['Bottom-up merging',48,51],['Many streams and storage',52,55],['Extrema and comparison budgets',56,64],['Inversions and ranking disagreement',65,70],['Geometry, powers and matrices',71,74],['Pivots, selection and search',75,82],['Sorting choices and lower bounds',83,88],['Graph exploration',89,92],['DFS structure and dependencies',93,100],['Breadth-first paths and coloring',101,103],['Greedy shortest paths and queues',104,111],['Shortest paths with signed costs',112,115],['Minimum-cost spanning networks',116,118],['Prim and tree exchanges',119,125],['Prefix codes and merge costs',126,132],['Scheduling and divisible items',133,139],['Reusable states and stair problems',140,146],['Longest common subsequences',147,154],['Matrix-chain optimization',155,159],['Whole-item knapsack',160,164],['Reachability, change and route DP',165,169]];
 const units=ranges.map(([title,from,to],id)=>({id,title,subtitle:topics[from].label+' to '+topics[to].label,range:[from,to],color:id%2?'orange':'green',icon:id>=15?'map':'rocket',goal:'Explain the rule, trace a small input, then justify the result. '+topics[from].focus}));
 const lecturePlans=topics.map(t=>[t.label,t.focus]);

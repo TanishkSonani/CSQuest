@@ -1,3 +1,4 @@
+const {finishJourney}=require('./journey-helper.cjs');
 const {chromium}=require('../tooling/browser-qa/node_modules/playwright');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
@@ -74,7 +75,7 @@ const fs=require('node:fs');
    if(await toggle.getAttribute('aria-checked')==='false')await toggle.click();
    assert.ok(await toggle.evaluate(el=>el===document.activeElement),'Settings retain keyboard focus');
    await page.locator('[data-action=motion]').click();assert.equal(await page.locator('html').getAttribute('data-motion'),'reduced');
-   await page.goto(`${base}/#learn`);await page.locator('[data-action=continue]').first().click();await page.locator('[data-action=begin]').click();
+   await page.goto(`${base}/#learn`);await page.locator('[data-action=continue]').first().click();await finishJourney(page);
    await answerCurrent();await page.locator('[data-action=check-answer]').click();await page.locator('.feedback').waitFor();
    assert.ok(await page.evaluate(()=>window.audioAudit.notes>0&&window.audioAudit.stops>window.audioAudit.notes),'Repeated cues replace active sounds');
    await page.screenshot({path:`${directory}/lesson-feedback-390.png`});
@@ -82,7 +83,7 @@ const fs=require('node:fs');
    await page.keyboard.press('Escape');await page.locator('[data-action=leave]').click();await page.locator('[data-action=discard-saved]').click();
    await page.locator('.path-sidekick').first().click();assert.equal(await page.locator('.path-sidekick .byte-mascot').first().getAttribute('data-mascot-state'),'celebrate');
    await page.goto(`${base}/#settings`);await page.locator('[data-action=sound]').click();const notesBeforeMute=await page.evaluate(()=>window.audioAudit.notes);
-   await page.goto(`${base}/#practice`);await page.locator('[data-practice-mode=quick]').click();await page.locator('[data-action=begin]').click();
+   await page.goto(`${base}/#practice`);await page.locator('[data-practice-mode=quick]').click();await finishJourney(page);
    for(let i=0;i<2;i++){
     await answerCurrent();
     await page.locator('[data-action=check-answer]').click();await page.locator('.answer-footer.correct').waitFor();await page.locator('[data-action=next-question]').click();

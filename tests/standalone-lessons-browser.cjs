@@ -1,3 +1,4 @@
+const {finishJourney}=require('./journey-helper.cjs');
 const {chromium}=require('../tooling/browser-qa/node_modules/playwright');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
@@ -34,14 +35,14 @@ const fs=require('node:fs');
    assert.doesNotMatch(await page.locator('dialog').innerText(),/\b(lecturer|transcripts?|recordings?)\b/i);
    assert.ok(await page.evaluate(()=>document.querySelector('dialog').scrollWidth<=innerWidth),`${subject}:${id} overflows`);
    if([0,173].includes(id))await page.screenshot({path:`qa-results/topic-${subject}-${id}.png`});
-   await page.locator('[data-action=begin]').click();await page.locator('[data-action=concept-hint]').click();
+   await finishJourney(page);await page.locator('[data-action=concept-hint]').click();
    await page.locator('.topic-foundation').waitFor();assert.ok(await page.locator('.foundation-terms').isVisible());
    assert.equal(await page.locator('[data-source-info]').count(),0);
   }
   // A rewritten timing question must retain its own assumptions in isolated practice.
   await page.evaluate(async()=>{const {store,flushAccount}=await import('/account-client.js');const data=JSON.parse(store.getItem('dl-quest-v1'));data.completed=Array.from({length:174},(_,i)=>i);data.mistakes=[{key:'173:1',due:0,status:'needs-review',wrongAttempts:1}];store.setItem('dl-quest-v1',JSON.stringify(data));store.setItem('csquest-drafts-dl','[]');await flushAccount();});
   await page.goto(base+'/#errors');await page.reload();await page.locator('[data-retry-key="173:1"]').click();
-  assert.match(await page.locator('.worked-example').innerText(),/C4 = G3/);await page.locator('[data-action=begin]').click();assert.match(await page.locator('.challenge-content h1').innerText(),/P3P2P1P0C0/);
+  assert.match(await page.locator('.worked-example').innerText(),/C4 = G3/);await finishJourney(page);assert.match(await page.locator('.challenge-content h1').innerText(),/P3P2P1P0C0/);
   assert.deepEqual(errors,[]);console.log('Standalone lesson browser checks passed: all 399 database-served lessons, 14 sample intros/refresher flows, isolated practice context, mobile layout and chest screenshot.');
  }finally{await browser?.close();await new Promise(resolve=>server.close(resolve));await fixture.dispose();}
 })().catch(error=>{console.error(error);process.exitCode=1;});

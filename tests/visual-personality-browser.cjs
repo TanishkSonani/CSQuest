@@ -1,3 +1,4 @@
+const {finishJourney}=require('./journey-helper.cjs');
 const {chromium}=require('../tooling/browser-qa/node_modules/playwright');
 const assert=require('node:assert/strict'),fs=require('node:fs/promises');
 (async()=>{
@@ -12,7 +13,7 @@ const assert=require('node:assert/strict'),fs=require('node:fs/promises');
  await page.locator('[data-action="continue"]').first().click();await page.waitForSelector('[data-mascot-state=welcome]');
  await page.locator('.lesson-intro .mascot').screenshot({path:'qa-results/byte-welcome.png'});
  assert.equal(await page.locator('.lesson-intro .byte-right-arm').evaluate(el=>getComputedStyle(el).animationName),'byte-wave');
- await page.locator('[data-action="begin"]').click();await page.locator('[data-action="concept-hint"]').click();assert.equal(await page.locator('.concept-hint [data-mascot-state=thinking]').count(),1);
+ await finishJourney(page);await page.locator('[data-action="concept-hint"]').click();assert.equal(await page.locator('.concept-hint [data-mascot-state=thinking]').count(),1);
  await page.locator('[data-choice="1"]').click();await page.locator('[data-action="check-answer"]').click();await page.waitForSelector('.feedback [data-mascot-state=encouraging]');await page.locator('.feedback-symbol .mascot').screenshot({path:'qa-results/byte-encouragement.png'});
  await page.keyboard.press('Escape');await page.locator('[data-action="leave"]').click();
  await page.goto('http://127.0.0.1:4173/#account');await page.locator('[data-account="tab"][data-tab="register"]').click();

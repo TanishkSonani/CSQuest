@@ -1,3 +1,4 @@
+const {finishJourney,exploreJourney}=require('./journey-helper.cjs');
 const {chromium}=require('../tooling/browser-qa/node_modules/playwright');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
@@ -15,13 +16,12 @@ const fs=require('node:fs');
    for(const subject of ['coa','dl','c','ds','aptitude','algo']){const {lessons}=await import(`/courses/${subject}/lessons.js`);for(const lesson of lessons){const html=topicDiagram(lesson,subject);if(!html.includes('figcaption')||html.includes('undefined'))throw Error(`${subject}/${lesson.id}`);const template=document.createElement('template');template.innerHTML=html;rendered.set(template.content.querySelector('figure').dataset.topicVisual,html);count++;}}
    return {count,visuals:[...rendered.values()]};
   });assert.equal(audit.count,1461);
-  await page.locator('[data-lesson="0"]').click();await page.locator('.topic-foundation .topic-visual').waitFor();
+  await page.locator('[data-lesson="0"]').click();await page.locator('.lesson-notes>summary').click();await page.locator('.topic-foundation .topic-visual').waitFor();
   // Render every diagram family at 320px and exercise keyboard-adjustable ranges.
   for(const html of audit.visuals){await page.evaluate(html=>document.querySelector('.lesson-intro').innerHTML=html,html);const control=page.locator('[data-visual-control]').first();if(await control.count()){await control.focus();await page.keyboard.press('ArrowRight');}assert.equal(await page.evaluate(()=>document.querySelector('dialog').scrollWidth>innerWidth),false);}
   await page.locator('[data-action="exit"]').click();await page.locator('[data-action="leave"]').click();
   await page.locator('.subject-picker').click();await page.locator('[data-subject="aptitude"]').click();await page.locator('[data-lesson="0"]').click();
-  assert.equal(await page.locator('.teaching-process').count(),1);
-  const process=page.locator('.teaching-process');await process.locator('[data-teaching-next]').click();assert.match(await process.locator('[role="status"]').innerText(),/Step 2/);
+  await exploreJourney(page);assert.equal(await page.locator('[data-journey-phase="1"]').count(),1);
   await page.locator('[data-open-calculator]').click();await page.locator('.calculator-panel').waitFor();
   await page.keyboard.type('(200*25%)+3');await page.keyboard.press('Enter');assert.equal(await page.locator('.calculator-display').innerText(),'53');
   await page.locator('[data-calculator-key="clear"]').click();await page.keyboard.type('1/0');await page.keyboard.press('=');assert.match(await page.locator('.calculator-message').innerText(),/divide by zero/);
@@ -29,9 +29,9 @@ const fs=require('node:fs');
   assert.equal(await page.evaluate(()=>document.querySelector('.calculator-panel').scrollWidth>innerWidth),false);
   await page.keyboard.press('Tab');assert.equal(await page.evaluate(()=>document.activeElement.closest('.calculator-panel')!==null),true);
   fs.mkdirSync('qa-results',{recursive:true});await page.screenshot({path:'qa-results/calculator-mobile.png'});
-  await page.keyboard.press('Escape');assert.equal(await page.locator('.calculator-panel').count(),0);assert.equal(await page.locator('.lesson-intro').count(),1);assert.equal(await page.locator('[data-open-calculator]').evaluate(el=>el===document.activeElement),true);
+  await page.keyboard.press('Escape');assert.equal(await page.locator('.calculator-panel').count(),0);assert.equal(await page.locator('.learning-journey').count(),1);assert.equal(await page.locator('[data-open-calculator]').evaluate(el=>el===document.activeElement),true);
   // Numeric answer remains unchanged and Enter in the calculator never grades a puzzle.
-  await page.locator('[data-action="begin"]').click();
+  await finishJourney(page);
   const {lessons}=await import('../courses/aptitude/content/lessons.js');let index=0;
   while(await page.locator('#number-answer').count()===0){const q=lessons[0].questions[index++];await page.locator(`[data-choice="${q.answer}"]`).click();await page.locator('[data-action="check-answer"]').click();await page.locator('[data-action="next-question"]').click();}
   await page.locator('#number-answer').fill('123');await page.locator('[data-open-calculator]').click();await page.locator('[data-calculator-key="clear"]').click();await page.keyboard.type('6*7');await page.keyboard.press('=');await page.keyboard.press('Control+Enter');assert.equal(await page.locator('.calculator-display').innerText(),'42');await page.keyboard.press('Escape');assert.equal(await page.locator('#number-answer').inputValue(),'123');assert.equal(await page.locator('.answer-footer.incorrect').count(),0);

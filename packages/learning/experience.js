@@ -1,4 +1,5 @@
 import {localDate,normalizeProgress,available,shuffle} from './engine.js';
+import {normalizeLearningState} from './lesson-journey.js';
 
 const count=n=>Math.max(0,Math.min(100000,Math.floor(Number(n)||0)));
 const datePattern=/^\d{4}-\d{2}-\d{2}$/;
@@ -79,7 +80,7 @@ export function habitSummary(values,today=localDate()){
 }
 export function serializeRound(round,subjectId,now=Date.now()){
  if(!round||round.finished)return null;
- return {version:1,subjectId,id:round.practice?'practice':`lesson:${round.lesson.id}`,savedAt:now,lessonId:round.lesson.id,practice:round.practice,mode:round.mode||'recommended',studySeconds:count(round.studySeconds),queue:round.queue.map(e=>({lessonId:e.lesson.id,questionIndex:Number(e.key.split(':')[1]),signature:JSON.stringify(e.q),first:e.first})),index:round.index,cleared:[...round.cleared],total:round.total,firstCorrect:round.firstCorrect,xp:round.xp,hearts:round.hearts,combo:round.combo,intro:round.intro,feedback:round.feedback,value:round.value,matchLeft:round.matchLeft??null,rightOrder:round.rightOrder??null,orderPool:round.orderPool??null,coachRevealed:round.coachRevealed===true,showHint:round.showHint===true,hints:round.hints||0,results:round.results||{}};
+ return {learning:normalizeLearningState(round.learning),version:1,subjectId,id:round.practice?'practice':`lesson:${round.lesson.id}`,savedAt:now,lessonId:round.lesson.id,practice:round.practice,mode:round.mode||'recommended',studySeconds:count(round.studySeconds),queue:round.queue.map(e=>({lessonId:e.lesson.id,questionIndex:Number(e.key.split(':')[1]),signature:JSON.stringify(e.q),first:e.first})),index:round.index,cleared:[...round.cleared],total:round.total,firstCorrect:round.firstCorrect,xp:round.xp,hearts:round.hearts,combo:round.combo,intro:round.intro,feedback:round.feedback,value:round.value,matchLeft:round.matchLeft??null,rightOrder:round.rightOrder??null,orderPool:round.orderPool??null,coachRevealed:round.coachRevealed===true,showHint:round.showHint===true,hints:round.hints||0,results:round.results||{}};
 }
 export function restoreRound(draft,subjectId,lessons){
  try{
@@ -106,6 +107,6 @@ export function restoreRound(draft,subjectId,lessons){
   }
   if(draft.rightOrder!==null&&(!Array.isArray(draft.rightOrder)||q.type!=='match'||draft.rightOrder.length!==q.pairs.length||new Set(draft.rightOrder).size!==q.pairs.length||draft.rightOrder.some(n=>!Number.isInteger(n)||n<0||n>=q.pairs.length)))return null;
   if(draft.orderPool!==null&&(!Array.isArray(draft.orderPool)||q.type!=='order'||draft.orderPool.length!==q.items.length||new Set(draft.orderPool).size!==q.items.length||draft.orderPool.some(item=>!q.items.includes(item))))return null;
-  return {...draft,lesson,queue,cleared:new Set(draft.cleared),results:draft.results&&typeof draft.results==='object'?draft.results:{},intro:draft.intro===true,value:v,studySeconds:count(draft.studySeconds)};
+  return {...draft,learning:normalizeLearningState(draft.learning),lesson,queue,cleared:new Set(draft.cleared),results:draft.results&&typeof draft.results==='object'?draft.results:{},intro:draft.intro===true,value:v,studySeconds:count(draft.studySeconds)};
  }catch{return null;}
 }

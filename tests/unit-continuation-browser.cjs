@@ -1,3 +1,4 @@
+const {finishJourney}=require('./journey-helper.cjs');
 const {chromium}=require('../tooling/browser-qa/node_modules/playwright');
 const assert=require('node:assert/strict');
 (async()=>{
@@ -16,7 +17,7 @@ const assert=require('node:assert/strict');
   assert.equal((await context.request.post(base+'/api/account/data',{headers,data:{revision:0,changes:{'coa-quest-v1':JSON.stringify({version:1,xp:560,completed:Array.from({length:14},(_,id)=>id),settings:{sound:false}})}}})).status(),200);
   const page=await context.newPage(),errors=[];page.on('pageerror',error=>errors.push(error.message));
   await page.goto(base+'/#learn');await page.locator('[data-lesson="14"]:not(.locked)').waitFor();await page.waitForLoadState('networkidle');
-  await page.locator('[data-lesson="14"]').click();await page.locator('[data-action="begin"]').click();
+  await page.locator('[data-lesson="14"]').click();await finishJourney(page);
   for(const q of lessons[14].questions){
    if(q.type==='choice')await page.locator(`[data-choice="${q.answer}"]`).click();
    else if(q.type==='match')for(let i=0;i<q.pairs.length;i++){await page.locator(`[data-match-left="${i}"]`).click();await page.locator(`[data-match-right="${i}"]`).click();}
