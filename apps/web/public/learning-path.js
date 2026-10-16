@@ -2,7 +2,7 @@ import {icon,mascot} from './icons.js';
 import {available,escapeHtml as h} from '/shared/engine.js';
 import {codingLabCard} from './ds-coding.js';
 
-let observer,frame,visibilityObserver,jumpFrame,pendingJump=false;
+let observer,frame,visibilityController,visibilityFrame,jumpFrame,pendingJump=false;
 const expressions=['welcome','thinking','happy','encouraging'];
 const messages=['One bit at a time!','Curiosity looks good on you.','Small steps. Big ideas.','You have got this!'];
 const cheers=new WeakMap();
@@ -28,7 +28,7 @@ export function learningPathView({unit,lessons,lecturePlans,progress,current}){
  return `<div class="learning-path ${unit.color}">${groups}<div class="unit-finish">${icon('trophy')}<span class="page-eyebrow">YOUR NEXT MILESTONE</span><h3>${done===topics*3?'Foundation built!':'Keep your curiosity going.'}</h3><p>${h(unit.goal)}</p></div>${codingLabCard(unit,progress)}</div>${current&&!progress.completed.includes(current.id)?`<button type="button" class="jump-current btn primary" data-action="jump-current" aria-label="Scroll to your current lesson" hidden>${icon('arrow')} CURRENT LESSON</button>`:''}`;
 }
 
-export function clearLearningPath(){observer?.disconnect();visibilityObserver?.disconnect();cancelAnimationFrame(frame);cancelAnimationFrame(jumpFrame);}
+export function clearLearningPath(){observer?.disconnect();visibilityController?.abort();cancelAnimationFrame(visibilityFrame);cancelAnimationFrame(frame);cancelAnimationFrame(jumpFrame);}
 
 export function scrollToCurrentLesson(focus=false){
  const node=document.querySelector('.path-node.current');if(!node)return;
@@ -48,10 +48,18 @@ export function decorateLearningPath({autoScroll=false}={}){
  const current=root.querySelector('.path-node.current'),jump=document.querySelector('.jump-current');
  if(jump){
   if(!current)jump.hidden=false;
-  else{visibilityObserver=new IntersectionObserver(entries=>{const entry=entries[0];jump.hidden=entry.isIntersecting;jump.classList.toggle('points-down',entry.boundingClientRect.top>innerHeight/2);},{rootMargin:'-100px 0px -100px 0px',threshold:.5});visibilityObserver.observe(current);}
+  else{
+   // A large scroll can skip the node without crossing an intersection
+   // threshold. Measure on scroll too so the return control still appears.
+   visibilityController=new AbortController();
+   const update=()=>{const box=current.getBoundingClientRect();jump.hidden=box.bottom>100;jump.classList.toggle('points-down',box.top>innerHeight/2);};
+   const schedule=()=>{cancelAnimationFrame(visibilityFrame);visibilityFrame=requestAnimationFrame(update);};
+   window.addEventListener('scroll',schedule,{passive:true,signal:visibilityController.signal});
+   window.addEventListener('resize',schedule,{passive:true,signal:visibilityController.signal});update();
+  }
  }
  // A hash change can render the same path again before the first frame runs.
  // Carry its scroll intent forward until the current node has been positioned.
- pendingJump=current&&(pendingJump||autoScroll);
+ pendingJump=Boolean(current&&Number(current.dataset.lesson)>0&&(pendingJump||autoScroll));
  if(pendingJump)jumpFrame=requestAnimationFrame(()=>{jumpFrame=requestAnimationFrame(()=>{if(root.isConnected){scrollToCurrentLesson();pendingJump=false;}});});
 }

@@ -32,11 +32,14 @@ const nextLesson=()=>lessons.find(l=>l.ready&&available(l.id,lessons,progress)&&
 const save=()=>{try{store.setItem(storageKey,JSON.stringify(progress));}catch{toast('Your browser could not save progress. Export a backup in Settings.');}};
 function toast(text){$('#toast').textContent=text;$('#toast').classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').classList.remove('visible'),4000);}
 let audioContext;
+const activeSounds=new Set();
+let lastSoundAt=0;
+function stopSound(){for(const osc of activeSounds){try{osc.stop();}catch{}}activeSounds.clear();}
 function sound(kind='correct'){
  if(!progress.settings.sound)return;if(typeof kind==='boolean')kind=kind?'correct':'incorrect';
  const notes={tap:[660],correct:[523,659,784],incorrect:[330,294,262],lesson:[523,659,784,1047],streak:[587,740,880,1175],cheer:[784,988,1175]}[kind]||[523,659,784];
- try{audioContext??=new AudioContext();if(audioContext.state==='suspended')audioContext.resume();const start=audioContext.currentTime;
-  notes.forEach((frequency,i)=>{const at=start+i*(kind==='tap'?.035:.105),osc=audioContext.createOscillator(),gain=audioContext.createGain();osc.connect(gain);gain.connect(audioContext.destination);osc.type='sine';osc.frequency.setValueAtTime(frequency,at);gain.gain.setValueAtTime(0,at);gain.gain.linearRampToValueAtTime(kind==='tap'?.018:.045,at+.012);gain.gain.exponentialRampToValueAtTime(.001,at+(kind==='tap'?.075:.19));osc.start(at);osc.stop(at+(kind==='tap'?.08:.2));});
+ try{const now=performance.now();if(kind==='tap'&&now-lastSoundAt<90)return;lastSoundAt=now;stopSound();audioContext??=new AudioContext();if(audioContext.state==='suspended')audioContext.resume();const start=audioContext.currentTime;
+  notes.forEach((frequency,i)=>{const at=start+i*(kind==='tap'?.035:.105),osc=audioContext.createOscillator(),gain=audioContext.createGain();osc.connect(gain);gain.connect(audioContext.destination);activeSounds.add(osc);osc.onended=()=>{activeSounds.delete(osc);osc.disconnect();gain.disconnect();};osc.type='sine';osc.frequency.setValueAtTime(frequency,at);gain.gain.setValueAtTime(0,at);gain.gain.linearRampToValueAtTime(kind==='tap'?.018:.045,at+.012);gain.gain.exponentialRampToValueAtTime(.001,at+(kind==='tap'?.075:.19));osc.start(at);osc.stop(at+(kind==='tap'?.08:.2));});
  }catch{}
 }
 const visibleSubject=()=>loadingSubject||selectedSubject;
@@ -49,6 +52,7 @@ function openNavigation(){
  openDialog(`<div class="modal-heading"><div><span class="page-eyebrow">YOUR LEARNING SPACE</span><h2>Explore CSQuest</h2></div><button class="icon-button" data-action="close" aria-label="Close navigation">${icon('close')}</button></div><nav aria-label="More pages">${[...navItems,['account','chip','My profile'],['settings','settings','Settings']].map(([id,i,label])=>`<a class="nav-item ${route===id?'selected':''}" href="#${id}" data-action="close" ${route===id?'aria-current="page"':''}>${icon(i)}<span>${label}</span>${icon('chevron')}</a>`).join('')}</nav>`,'navigation-dialog');
 }
 function render(){
+  const previousFocus=focusKey(document.activeElement);
   clearLearningPath();
   applyTheme();
   if(!authenticated()){session=null;closeDialog();$('#app').innerHTML=loginView(themeButton());return;}
@@ -61,11 +65,12 @@ function render(){
  if(route==='social')mountSocial();
  if(route==='learn'&&!loadingSubject){const key=selectedSubject.id+':'+activeUnit+':'+nextLesson()?.id;decorateLearningPath({autoScroll:key!==pathEntryKey});pathEntryKey=key;}else pathEntryKey=null;
  animatePage($('#main'),selectedSubject.id+':'+route+':'+(route==='learn'?activeUnit:''));
+ if(previousFocus)document.querySelector(previousFocus)?.focus({preventScroll:true});
 }
 function rightbar(){const ctx=uxContext();if(loadingSubject||['account','settings','subjects'].includes(route))return '';return `${dailyCard(ctx)}${route==='learn'?questsCard(ctx):''}${weeklyCard(ctx)}`;}
 function learnView(){const unit=units[activeUnit],begin=unit.range[0]*3,end=(unit.range[1]+1)*3;const total=end-begin,done=progress.completed.filter(id=>id>=begin&&id<end).length;const current=nextLesson();
- return `<div class="page-eyebrow">YOUR LEARNING PATH <span class="tiny-pill">${courseCompletion(progress,lessons.length).percent}% · ${courseCompletion(progress,lessons.length).completed} / ${lessons.length} levels</span></div><div class="welcome"><div><h1>A little wiser,<br>one bit at a time.</h1><p>${h(selectedSubject.name)}. One small lesson at a time.</p></div><div class="welcome-chip">${icon('binary')}<span>BUILD YOUR<br><b>BRAINPOWER</b></span></div></div>
- ${learnExtras(uxContext())}<div class="unit-banner ${unit.color}"><div><span>SECTION ${unit.id+1} · UNIT ${unit.id+1}</span><h2>${unit.title}</h2><p>${unit.subtitle}</p></div><button class="guide-button" data-action="units" aria-label="Choose a course unit">${icon('map')}</button><div class="unit-track"><div style="width:${done/total*100}%"></div></div><small>${done} of ${total} levels complete</small></div>
+ return `<div class="page-eyebrow">YOUR LEARNING PATH <span class="tiny-pill">${courseCompletion(progress,lessons.length).percent}% · ${courseCompletion(progress,lessons.length).completed} / ${lessons.length} levels</span></div><div class="welcome"><div><h1>Small steps.<br><span>Brilliant discoveries.</span></h1><p>${h(selectedSubject.name)}</p></div><div class="welcome-companion">${mascot(progress.completed.length?'happy':'welcome')}<span>YOUR NEXT WIN AWAITS</span></div></div>
+ ${learnExtras(uxContext())}<div class="section-heading path-section-heading"><h2>Your adventure</h2><span>${icon('map')} UNIT ${unit.id+1} OF ${units.length}</span></div><div class="unit-banner ${unit.color}"><div><span>SECTION ${unit.id+1} · UNIT ${unit.id+1}</span><h2>${unit.title}</h2><p>${unit.subtitle}</p></div><button class="guide-button" data-action="units" aria-label="Choose a course unit">${icon('map')}</button><div class="unit-track"><div style="width:${done/total*100}%"></div></div><small>${done} of ${total} levels complete</small></div>
  <div class="path-intro"><span>${icon('leaf')} Small steps. Strong foundations.</span><button class="text-button" data-action="guide">UNIT GUIDE ${icon('book')}</button></div>
  ${learningPathView({unit,lessons,lecturePlans,progress,current})}`;}
 
@@ -171,7 +176,7 @@ document.addEventListener('click',e=>{const b=e.target.closest('button,a[data-ac
  else if(action==='close')closeDialog();else if(action==='begin'){sound('tap');session.intro=false;renderSession();$('#modal-root dialog .challenge-content h1')?.focus({preventScroll:true});}else if(action==='check-answer')checkAnswer();else if(action==='next-question'){sound('tap');nextQuestion();}else if(action==='cpu-step'){sound('tap');const q=session.queue[session.index].q;session.value.accumulator+=q.steps[session.value.steps++];renderSession();}
  else if(action==='exit')confirmExit();else if(action==='resume')renderSession();else if(action==='leave'){session=null;closeDialog();render();}else if(action==='finish'){session=null;closeDialog();render();window.scrollTo(0,0);}
  else if(action==='practice-errors')startPractice(progress.mistakes.filter(m=>m.status!=='resolved').map(m=>m.key));
- else if(action==='sound'){progress.settings.sound=!progress.settings.sound;save();render();}
+ else if(action==='sound'){progress.settings.sound=!progress.settings.sound;if(!progress.settings.sound)stopSound();save();render();}
  else if(action==='export'){const url=URL.createObjectURL(new Blob([JSON.stringify({...progress,subjectId:selectedSubject.id},null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download=`csquest-${selectedSubject.id}-progress-${localDate()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('Progress backup exported.');}
 });
 document.addEventListener('input',e=>{if(['number-answer','hex-answer'].includes(e.target.id)&&session){session.value=e.target.value;const check=$('[data-action="check-answer"]');if(check)check.disabled=!canCheck(session.queue[session.index].q,session.value);persistSession();}});
