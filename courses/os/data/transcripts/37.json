@@ -1,0 +1,1906 @@
+{
+  "id": 37,
+  "title": "037. File System Implementation.mp4",
+  "file": "037. File System Implementation.mp4",
+  "seconds": 9207.16,
+  "segments": [
+    {
+      "start": 0.53,
+      "end": 315.82,
+      "text": " Hi everyone. Good morning. Can you hear me? So let's start. Let me share my screen. So today we are going to see one topic which is file system as you know, right? So let me start with the introduction. So we are going to see file system. Now in today's lecture, what we will see is basically mostly about the file system implementation. What do I mean by that?",
+      "avg_logprob": -0.08809742541874156,
+      "no_speech_prob": 0.59326171875
+    },
+    {
+      "start": 316.3,
+      "end": 350,
+      "text": " So basically, like, I mean, there are two things. One is that hardware hardware related things that that how how does your secondary memory looks like. So hardware things. Another one is that implementation related things. So what do I mean by hardware things? It means that like if I say that how like in our syllabus, it is mostly magnetic disk only like there is no HD or flash drives are not there.",
+      "avg_logprob": -0.16249999859753778,
+      "no_speech_prob": 0.302490234375
+    },
+    {
+      "start": 350.46,
+      "end": 379.92,
+      "text": " So in this particular chapter, which is the hardware chapter, like you deal with the things that how does your memory looks like, how does secondary memory looks like, which means mostly magnetic tapes in our syllabus. So",
+      "avg_logprob": -0.15287642417983574,
+      "no_speech_prob": 0.1650390625
+    },
+    {
+      "start": 380.22,
+      "end": 402.3,
+      "text": " If I talk about the hardware, then it is like that, how does it actually function, what is the seek time, rotation time and all of this delays and all. So it is related to hardware. But in today's lecture and in operating system, we will see how to implement the file system on top of that. So what do I mean by that? There is a hardware.",
+      "avg_logprob": -0.14658203125,
+      "no_speech_prob": 0.332763671875
+    },
+    {
+      "start": 408.18,
+      "end": 452.74,
+      "text": " and in that hardware like you can have any type of hardware but specifically for the gate purpose we have magnetic disk only right now today we will see that if you want to store some data on this hardware 1 2 store some data on to this hardware then how to do it data means here",
+      "avg_logprob": -0.1764547418931435,
+      "no_speech_prob": 0.8056640625
+    },
+    {
+      "start": 453.04,
+      "end": 488.42,
+      "text": " I mean files like if you want to store some files so here like mostly we will refer to files only I mean data and files are same here okay so this thing we are going to see today like this part we will see this part you will see in other course maybe in coa and like mostly it is in coa but I think deepak will take in in dbms because deepak told me that it's in the flow so he might take in the dbms only",
+      "avg_logprob": -0.1131628801425298,
+      "no_speech_prob": 0.349365234375
+    },
+    {
+      "start": 488.98,
+      "end": 517.08,
+      "text": " Or I don't know if he has taken this magnetic disk classes already, but anyway, it is in COA. He might take also in the DBMS. It doesn't matter. But yes, this is a chapter that we will see in the COA. But here, from the operating system perspective, I will just tell you that how to store files on top of that. So let's start this file system. And specifically, let me tell you that what we are going to see is file system implementation.",
+      "avg_logprob": -0.15182782667425443,
+      "no_speech_prob": 0.410400390625
+    },
+    {
+      "start": 526.47,
+      "end": 550.73,
+      "text": " So what is a file like I mean let's start with very basic question that what is a file? File is just a data in some format, which means it could be having some extension maybe dot PDF Maybe dot mp3 Maybe dot mp4 something like that, right? So it is a data in some format. That's all like you all know what is a file, right? Now, what is a file system?",
+      "avg_logprob": -0.16590589351868362,
+      "no_speech_prob": 0.29248046875
+    },
+    {
+      "start": 551.49,
+      "end": 578.61,
+      "text": " basically file system is a way that provides a way to store files that how to store a file how to name file how to store the metadata of the file and so on and so forth so basically how to manage those files on the hardware like you can you can say something like that right file system is basically how to manage those files manage the files on hardware",
+      "avg_logprob": -0.1015625015522043,
+      "no_speech_prob": 0.438720703125
+    },
+    {
+      "start": 582.96,
+      "end": 603.5,
+      "text": " And since operating system basically manages the hardware and operating system, whatever data you are storing on the hard disk is the area of operating system, which means operating system will tell you how to store and what are the things that you can do. So that is why this file system comes under the operating system syllabus.",
+      "avg_logprob": -0.12543402730472505,
+      "no_speech_prob": 0.08251953125
+    },
+    {
+      "start": 605.2,
+      "end": 631.83,
+      "text": " Okay. So let's start with very basic, basic questions that what is a file type. So file type could be dot C, dot GIF or anything. Right. So these are the few file types and you might be knowing most of them dot jp, dot txt, dot tx, tx is latex file type, dot ps, dot pdf and, and like that. Right. Okay. So Mohammed is asking, sir, why file system is necessary? Like you will get to know once you understand what is a file system. Okay.",
+      "avg_logprob": -0.27777777166448087,
+      "no_speech_prob": 0.46875
+    },
+    {
+      "start": 632.14,
+      "end": 659.1,
+      "text": " So this, like you can answer this slide after five, 10 minutes only. So let's just go in the flow. So these are the file types, right? And these are very common file types that photo I have taken, I think from 10 and one book, right? Okay, yeah, from 10 and one. So as I have written here, so anyway, like, these are the common file types. Now, let's see that what are the operations that you can do on these files?",
+      "avg_logprob": -0.1624098583482779,
+      "no_speech_prob": 0.0999755859375
+    },
+    {
+      "start": 659.43,
+      "end": 693.23,
+      "text": " Maybe you can create a new file, maybe you can rename some file, maybe you can open, read, write like that, right? So there are many, many operations that you can do. I'm just listing down few operations. These are some common operations that you can do. Now, what we want to do, basically we want to store these files on the disk, right? That's what file system does. But what is our objective? I mean, when we want to store files on disk, then",
+      "avg_logprob": -0.09750884729173948,
+      "no_speech_prob": 0.50732421875
+    },
+    {
+      "start": 693.55,
+      "end": 724.19,
+      "text": " What are the objective? I mean, what should be the key feature? Okay, what should be the key feature for the file system? Yes. So, Mayoki is saying, easy to fetch. Yes, that's very nice answer. Very, very nice answer. Easy to fetch. Right.",
+      "avg_logprob": -0.2683971836682289,
+      "no_speech_prob": 0.28173828125
+    },
+    {
+      "start": 724.63,
+      "end": 752.33,
+      "text": " So, I mean, that EG term is subjective. I think you mean like efficiently fetching. I mean, whenever you want to fetch some data, then it should not be too much time to just locate that okay, where is the data, right? I mean, there could be hardware constraints, which means like if hardware is slow, if your magnetic disk is rotating very slowly or seeking the sector very slowly, then it's another thing. But as a software implementation, you should not take too much time to fetch the file, right? So efficient fetching, you can say.",
+      "avg_logprob": -0.1392045493953484,
+      "no_speech_prob": 0.119140625
+    },
+    {
+      "start": 756.19,
+      "end": 785.81,
+      "text": " So what do I mean by software and hardware like hard see if there are hardware constraints, then you cannot do anything. What do I mean by software constraint is that like suppose there is a hardware, right? Suppose there is a hardware or there's a disk. Let's not worry about what are these disk and all like you will get to study this in another course. But suppose there is some file that is stored stored here, right? Let's suppose in this sector, there is some file that is stored. Then you should not take too much time to just calculate that where it is stored.",
+      "avg_logprob": -0.18340164447417023,
+      "no_speech_prob": 0.76318359375
+    },
+    {
+      "start": 786.12,
+      "end": 829.78,
+      "text": " right so efficient fetching means that you should not take too much time just to calculate that where your file is you should not take too much time to just calculate where is your file right this is one thing can anyone suggest me another thing yeah less to search and any other thing anyone what should be some other key features",
+      "avg_logprob": -0.11938476492650807,
+      "no_speech_prob": 0.91943359375
+    },
+    {
+      "start": 839.64,
+      "end": 870.22,
+      "text": " Anything that is coming to your mind? Okay. So, yeah, time we have discussed. Second thing could be like, I mean, you can say that once you store the file, it should not be, I mean, there are many things. It should not get mixed with some other file. I mean, it's not like that you are storing some file and when you are retrieving, you are getting some other file, right? I mean, file should not get mixed up, maybe. You should know where is the start of the file, where is the end of the file, maybe, right?",
+      "avg_logprob": -0.1245659761249073,
+      "no_speech_prob": 0.814453125
+    },
+    {
+      "start": 877.39,
+      "end": 917.03,
+      "text": " And yeah, there could be many many other features that you can think of and the list can go on. So let's just see that few common ways to implement any file system. Then we will go to a modern day file system. So basically the idea here in this lecture, what we are going to do is that we will see few common ways to implement file system, which means what?",
+      "avg_logprob": -0.12451775280045874,
+      "no_speech_prob": 0.73876953125
+    },
+    {
+      "start": 917.36,
+      "end": 949.61,
+      "text": " that there could be I mean let's suppose I tell you that okay this is one of the suggested way that you can this is how you can store the files maybe okay I will tell you that okay there is one way maybe method one that says that okay this is how you can store the files you should store files similarly there there will be some method other some method two",
+      "avg_logprob": -0.11583333412806193,
+      "no_speech_prob": 0.1488037109375
+    },
+    {
+      "start": 949.9,
+      "end": 978.42,
+      "text": " that I will tell you like based on this method, this is how you should store the files. There could be some other method, but like we will discuss three, four methods and then we will see that okay, this is how you should store the files. So all of these methods say their own story that okay, this is how you should store the files. See, this is how you should store the files. This is how you should store the file. And then like I will call them just in common ways. I mean, which means like these are some common ideas. That's how we can store the files. Then we will see",
+      "avg_logprob": -0.16796874604893453,
+      "no_speech_prob": 0.51953125
+    },
+    {
+      "start": 979.55,
+      "end": 1017.86,
+      "text": " Once that is completed, once we understand some common ways, then we will see how modern file systems are implemented, which means that how Windows is implementing their file systems, how maybe Mac is implementing, and how Linux is implementing, how Unix is implementing, something like that.",
+      "avg_logprob": -0.17722038846266897,
+      "no_speech_prob": 0.387451171875
+    },
+    {
+      "start": 1018.03,
+      "end": 1047.11,
+      "text": " So we will see that how these operating systems are implementing their file system. So what they will do, like, let's suppose I talk about Windows, then what Windows will do? Maybe Windows can take some of the ideas from this method too. Okay, let's assume that Windows is taking some of the ideas from method too. Maybe let's suppose I will say that Windows, the way Windows is implementing its file system, maybe, okay, just to tell you the example, I will say that Windows is implementing their file system is like 90% ideas are taken from the method too.",
+      "avg_logprob": -0.15494791666666666,
+      "no_speech_prob": 0.9189453125
+    },
+    {
+      "start": 1048.59,
+      "end": 1062.67,
+      "text": " And let's suppose 10% ideas are taken from method 3, something like that, right? So basically, once we get to know that what are the common ways to implement the file system, then we can easily understand these modern file systems, which means",
+      "avg_logprob": -0.17277643657647646,
+      "no_speech_prob": 0.387939453125
+    },
+    {
+      "start": 1062.94,
+      "end": 1092.34,
+      "text": " Like whatever these modern file systems are implementing, somewhere they are like using these ideas. Obviously, these are very advanced file systems. But yeah, but they, they, they just use these ideas and modify these ideas. So also the plan of this lecture is that we will just see the common ways and then we will go to that how modern is like systems implement the file system. Okay. So there's one question. What are the other systems also? So file system is better than other. I'm not getting what does the other system means?",
+      "avg_logprob": -0.18443080809499537,
+      "no_speech_prob": 0.2333984375
+    },
+    {
+      "start": 1093.6,
+      "end": 1138.35,
+      "text": " Here in this slide you have the doubt or the previous one. Can you tell me the slide number? Okay. So there is file system is just a common common name. Okay. You can implement the file system in many ways, which means like one of the way file system is basically how to store the file, how to store the file. This is the major component of the file system that how to store the file. Okay. So the major component I can say is that how to store files. Right. I mean,",
+      "avg_logprob": -0.12384259259259259,
+      "no_speech_prob": 0.90185546875
+    },
+    {
+      "start": 1138.65,
+      "end": 1158.85,
+      "text": " this is like once you answer this question then most of the questions are answered so there could be many ways to implement file systems so we will see some of the ways and then we will go to the modern file systems right okay so before that let me tell you few terminologies so there is something called sector or a block which is unit of atomicity which means",
+      "avg_logprob": -0.08427868150684932,
+      "no_speech_prob": 0.238037109375
+    },
+    {
+      "start": 1159.97,
+      "end": 1186.71,
+      "text": " Suppose I want to write some file to write some byte to a sector or maybe read some byte to a sector then in a file. So what I want to do, I want to modify let's suppose just one byte in a file modify one byte in a file. So it's not like that I can just fetch one of the byte.",
+      "avg_logprob": -0.19408481738397054,
+      "no_speech_prob": 0.474609375
+    },
+    {
+      "start": 1186.97,
+      "end": 1216.41,
+      "text": " right so i have to fetch a sector or it is also called block so i have to fetch a sector or a block and not just byte so suppose if i want to read a single byte then what i will do read a sector containing that byte or let's suppose i want to modify that byte then modify that byte and write the entire sector byte so it's not like that you can read bytewise okay here you have to read at least one sector or you have to write at least one sector so the atomic unit okay",
+      "avg_logprob": -0.0659970209712074,
+      "no_speech_prob": 0.92724609375
+    },
+    {
+      "start": 1216.7,
+      "end": 1238.81,
+      "text": " in this file system is always sector or block right this is how this file system works now generally the size of the sector or the size of the block it depends obviously on your file system but generally i think like in many file systems it is 4qv okay yeah",
+      "avg_logprob": -0.16507522651442774,
+      "no_speech_prob": 0.6533203125
+    },
+    {
+      "start": 1240.96,
+      "end": 1266.62,
+      "text": " So now let's see a few of the terms like what is a directory, what is a file and all, and then we will see that how to implement the file system. So this is the plan of this lecture. So this is a complete plan where we will see some of the methods. Then we will map these methods to the modern day file system. So how these modern day file system are actually implementing their file system using some of these methods.",
+      "avg_logprob": -0.15498992063665903,
+      "no_speech_prob": 0.60009765625
+    },
+    {
+      "start": 1267.93,
+      "end": 1303.04,
+      "text": " So before that, let's just go through a few terms. So there is something called directory. Directory is also a file. In fact, in Unix, whatever we are going to see is basically with reference to Unix. I mean, Unix is one of the base design. You can say Unix is one of the base operating system. And once you understand this Unix, then you can say that maybe Linux",
+      "avg_logprob": -0.10031959930942817,
+      "no_speech_prob": 0.7890625
+    },
+    {
+      "start": 1304.39,
+      "end": 1333.79,
+      "text": " and Mac, both are basically derived from this Unix only. I mean, you can say it is a base of Linux and Mac. So basically, once you understand this Unix, then Linux and Mac are just an enhancement of this Unix. And Windows is a little bit different, but we will study everything with respect to Unix. And in Gate also, they have apps with respect to Unix only. So we will see that. So anyway, let's come to this definition directly. So in Unix,",
+      "avg_logprob": -0.14489293443383994,
+      "no_speech_prob": 0.8779296875
+    },
+    {
+      "start": 1334.09,
+      "end": 1364.86,
+      "text": " there like everything is a file if you have just a file maybe if you have just maybe this file then this is also file these folders are also file I mean the way they manage they say that everything is a file okay but if it is a folder then I have I can also call them as a directory got it so this is also file this is a file tell me is this a file yes this is also file but we will call it it is a directory okay so basically",
+      "avg_logprob": -0.11067708139307797,
+      "no_speech_prob": 0.8271484375
+    },
+    {
+      "start": 1365.48,
+      "end": 1394.2,
+      "text": " directory is also a file in Unix everything is file this is very important everything is file with special bit set in metadata to indicate that it is directory so what is the metadata that you will get to know which means that every file is having some indicator okay so every file let's suppose there is a file and this file is having some metadata so this is a file it is a file and it is having some metadata",
+      "avg_logprob": -0.17513020531762213,
+      "no_speech_prob": 0.79052734375
+    },
+    {
+      "start": 1394.62,
+      "end": 1422.68,
+      "text": " I will talk about the metadata in more detail in just a minute but one of the field of this metadata tells you that whether this file is a directory or a just a plain file which means maybe if you say it is zero then maybe zero means it is a file and maybe if you say it is one then it means it is a directory so in the metadata you will store the bit that will tell you whether it is a file or directory right",
+      "avg_logprob": -0.08155382118291325,
+      "no_speech_prob": 0.5068359375
+    },
+    {
+      "start": 1423.13,
+      "end": 1449.19,
+      "text": " now metadata i will talk about in just a minute okay i hope that is clear that everything is a file it is just a like if it is a folder then i will call it a directory it the way i treat it i mean the all the operations and everything is just like a file only i mean obviously there there will be some some little bit changes in in the implementation detail but we should not bother about it okay i mean the way we look at the file and the directory is the same thing",
+      "avg_logprob": -0.10085937716066837,
+      "no_speech_prob": 0.412353515625
+    },
+    {
+      "start": 1451.46,
+      "end": 1478.14,
+      "text": " Now let's talk about the metadata. What is the metadata? Metadata is basically the information of the file. Maybe what is the name of the file and I will talk about the iNode. What is the location maybe like where this file is stored maybe, right? And what is the size of this file? Can you write to this file or this is just a read-only file? At what time it got created a user identification if there are multiple users? What is the",
+      "avg_logprob": -0.1937499971687794,
+      "no_speech_prob": 0.169921875
+    },
+    {
+      "start": 1478.63,
+      "end": 1505.81,
+      "text": " okay these are the few things in the metadata like for example let's suppose if you right click and in the Mac if you go to get info or in the windows if you click on the properties right there is something called properties in the windows and in the Mac there is something called get info so if you if you right click on the running file then you if you go to the properties then you will see something like this right then it will tell you okay what is the size where the where is this store and like that right okay",
+      "avg_logprob": -0.13945677235861806,
+      "no_speech_prob": 0.9091796875
+    },
+    {
+      "start": 1513.43,
+      "end": 1540.31,
+      "text": " Actually, like what I'm wondering that I have taken this screen shot from internet and then I just see that users less as CHMI double TA. Okay. It seems like such a middle. It's not obviously it is, it is not such a middle, but this users less CHMI double TA seems like it's such a middle. Okay. So I hope you understood that what is a metadata, right? Like it is just the information of the file.",
+      "avg_logprob": -0.28766446427295084,
+      "no_speech_prob": 0.203125
+    },
+    {
+      "start": 1540.86,
+      "end": 1571.18,
+      "text": " Now, in this metadata, obviously there is one more bit that I just talked about that is having a zero or one, whether it is a file or directory. So these are a few small, small definitions. Now, the bigger question is that how to store this metadata? And since I'm talking in terms of Unix only, so you can say that in Unix, there is something called some data section that is called Inode. So this, all of this information, all of this information is stored in",
+      "avg_logprob": -0.17010613854201334,
+      "no_speech_prob": 0.66455078125
+    },
+    {
+      "start": 1572.5,
+      "end": 1597.53,
+      "text": " some data structure that is called iNode. So now let's just see what is iNode. iNode is just something which stores file metadata. So what are the iNodes? It stores the metadata for a file that which means which data belongs to the file size owner access right in these things. iNode stands for index node.",
+      "avg_logprob": -0.1788428993643941,
+      "no_speech_prob": 0.5400390625
+    },
+    {
+      "start": 1597.81,
+      "end": 1627.19,
+      "text": " you will get to understand this I know more because in this today's lecture we will just see the I know I know many times okay so if you are not 100% clear that how it is storing the metadata it will get clear okay like I mean just just in five minutes it will get clear so let me just read this paragraph that I have taken from one university that I know is a data structure that describes the metadata of the files regular files and the directory so for both of the both of the I mean type of the file whether it is directory or just a regular file we have the I know",
+      "avg_logprob": -0.14733987406265636,
+      "no_speech_prob": 0.71826171875
+    },
+    {
+      "start": 1627.39,
+      "end": 1661.86,
+      "text": " right now uh it is store the metadata one i node represents one file or one directory so if you are having one i node which means i mean for every i node for every file or directory you have one i node for every file or directory you have one i node okay and i node is composed of several fields such as ownership size",
+      "avg_logprob": -0.13444495556959465,
+      "no_speech_prob": 0.391845703125
+    },
+    {
+      "start": 1662.38,
+      "end": 1690.19,
+      "text": " Okay, it is to the metadata. So whatever the metadata you want to store, it can store modify time and permissions reference count and these things like data block pointers. Okay, you will get to understand this data block pointers, because I think that is coming multiple times, the data blocks and these things. Okay, this I know one of the very, very important feed in the I know I notice this data block point only. But yeah, you will understand note that the I notes are not included. I know it does not include a file.",
+      "avg_logprob": -0.25851003639400005,
+      "no_speech_prob": 0.283935546875
+    },
+    {
+      "start": 1691.02,
+      "end": 1718.74,
+      "text": " Okay, so I know does not have a does not include a file or directory. Note that the I know does not include a file or directory name of files. I know number can be okay if you want to find the I know number you can just type LS minus I and that will tell you the I know so for all your I know so for I know so for all file in your current directory.",
+      "avg_logprob": -0.27202561533594705,
+      "no_speech_prob": 0.388427734375
+    },
+    {
+      "start": 1718.94,
+      "end": 1752.43,
+      "text": " okay if you just just type this command then it will tell you i nodes of the all i node number of the all five so basically i node uh is every i node is having one number that is called i node number so yeah there are two important points second point is that every i node has one number that is called i node number right and what does the i node store it stores the metadata so let's see this in more detail so",
+      "avg_logprob": -0.10138693820224719,
+      "no_speech_prob": 0.28466796875
+    },
+    {
+      "start": 1752.77,
+      "end": 1784.85,
+      "text": " every file or maybe a directory whatever you want to say this file is basically nothing but inode which means a metadata plus the actual data so inode stores the metadata so inode means metadata so simply you can say every file is having the metadata which means like these kind of information plus the actual file so how to store that metadata in the inode now let's answer this question what does inode of a file contain",
+      "avg_logprob": -0.12748162465936996,
+      "no_speech_prob": 0.9033203125
+    },
+    {
+      "start": 1785.23,
+      "end": 1799.51,
+      "text": " can you tell me what is what does i note of the file contain it contains metadata right yes and and what does the data of the file contain",
+      "avg_logprob": -0.29401041368643444,
+      "no_speech_prob": 0.28125
+    },
+    {
+      "start": 1800.99,
+      "end": 1829.51,
+      "text": " So just the data, right? I mean, so these are not very fancy questions. I have just, I mean, like made that slide just to make you understand that just to convince you that, okay, you have understood that, right? So I know it is just containing the metadata and like there are two things in the file. One is the I know another one is the data. So I know contains the metadata and data is just data, right? Okay. Now how to index the content of a file. So.",
+      "avg_logprob": -0.23408829564348274,
+      "no_speech_prob": 0.68896484375
+    },
+    {
+      "start": 1829.96,
+      "end": 1862.66,
+      "text": " Let's just see that suppose that there is an iNode number which means let's suppose 19 which means let's suppose you have a file which means maybe you have a file which is foo.c or maybe anything okay maybe let's suppose that memory underscore management.pdf this is your file then this file will be represented by one meter data and that is having one iNode",
+      "avg_logprob": -0.18095703050494194,
+      "no_speech_prob": 0.71728515625
+    },
+    {
+      "start": 1862.82,
+      "end": 1905.17,
+      "text": " I mean, this file will be having one I know and there will be one I know number of that I know, right? So let's suppose that I know number is 19. So I hope you are getting this is a I know number. This is an I know number of file. This memory management.pdf. So every file has I know, which has the I know number, right? Now, what I have written here is that I know to identify by the I number or the I know number.",
+      "avg_logprob": -0.22567807011446864,
+      "no_speech_prob": 0.81298828125
+    },
+    {
+      "start": 1905.47,
+      "end": 1942.51,
+      "text": " corresponding to its index in the i node table. So basically how to get that i node number that is important which means that i know that okay this file has some i node number but how to get that i node number this is my question right so the question is that how to get that i node number suppose that this file is stored in a desktop then i will say maybe okay user",
+      "avg_logprob": -0.13741987313215548,
+      "no_speech_prob": 0.92578125
+    },
+    {
+      "start": 1943.96,
+      "end": 1972.41,
+      "text": " I don't know maybe okay home or something let's suppose desktop directly and then the path of this file is like this okay suppose this file is stored on the desktop and the path of this file is something like this and now my question is that how to get the iron number of this this particular file then what I will do I will go to just a parent directory what is the parent directory it is desktop which means desktop is a folder",
+      "avg_logprob": -0.12881747700951315,
+      "no_speech_prob": 0.81298828125
+    },
+    {
+      "start": 1972.85,
+      "end": 2005.17,
+      "text": " right in like if you uh if you go to that uh c drive or something in the windows then you will be having desktop as a folder so desktop is a folder or maybe you can have another folder in that folder you have uh one file which is memory management dot pdf now tell me is desktop a directory or not yes it is a directory so since it is a directory will not it be having a inode it will be having a inode right so there will be inode for desktop",
+      "avg_logprob": -0.0903124974668026,
+      "no_speech_prob": 0.93505859375
+    },
+    {
+      "start": 2006.67,
+      "end": 2034.37,
+      "text": " iNode for desktop now in that iNode it looks like in that iNode like it will be having a metadata for the for the desktop okay that's very interesting so let me talk about this like what I'm currently talking about is that iNode of the directory see I have just told you that how what do I mean by iNode of the file",
+      "avg_logprob": -0.1362621776469342,
+      "no_speech_prob": 0.263916015625
+    },
+    {
+      "start": 2034.7,
+      "end": 2079.4,
+      "text": " I mean if you talk about the inode of the file it contains the metadata and the how does the metadata look like it like like this is the metadata for a file but for a directory what could be the metadata okay so inode for a directory and there are two things one is inode for a file now let me quickly talk about inode for a file now it contains the metadata metadata means it means",
+      "avg_logprob": -0.1212349419134209,
+      "no_speech_prob": 0.4296875
+    },
+    {
+      "start": 2079.76,
+      "end": 2112.55,
+      "text": " that I mean there could be many many things the name of the file something right what is the name of the file or what are the dates on which it got created whether like I mean what is the read permission right permission like that right permissions and one of the important field in this I know is that where is this file store right where is this file store",
+      "avg_logprob": -0.16970486587120426,
+      "no_speech_prob": 0.892578125
+    },
+    {
+      "start": 2113.42,
+      "end": 2135.66,
+      "text": " which is called data block pointer is this okay to everyone like this is this is how I know for a file look like now let's just talk about I know for a directly directory so how does I know for a directly look like so suppose that",
+      "avg_logprob": -0.18062500149011612,
+      "no_speech_prob": 0.398681640625
+    },
+    {
+      "start": 2135.93,
+      "end": 2165.53,
+      "text": " I talk about I0 for a directory then it differs in just you know one or two places which means here there is no data for the directory at least I mean you do not have any data associated with the directory it's just a folder I mean the actual data is in the files so these all things are same I mean the name date maybe these all things are same but what do you think I mean the file is having two things which is metadata and the actual data right so there will be actual data",
+      "avg_logprob": -0.11397059115709043,
+      "no_speech_prob": 0.84326171875
+    },
+    {
+      "start": 2165.66,
+      "end": 2206.6,
+      "text": " So let's suppose this is the data block data block, which is the actual data. Is this okay to everyone? Like this is how I know for a file look. Now let's just see I know for a directory. Now here this I know will be pointing to data block again again again the data block of the directory. Okay, just like just like the I know for a fight. So it also points to data block of directory. But the question is that what does this data block content?",
+      "avg_logprob": -0.18522452150733726,
+      "no_speech_prob": 0.552734375
+    },
+    {
+      "start": 2206.94,
+      "end": 2243.58,
+      "text": " of the directory what do you think we don't have real data i mean we don't have the files there right i mean if you have let's suppose some pdf file you will be storing the pdf file i mean the all the information of the pdf file where this pdf file is stored like in this in this inode not in this inode right yes pointer to the inode of a file reference to the file yes yes yes so yeah almost all of you are correct",
+      "avg_logprob": -0.08791035218070252,
+      "no_speech_prob": 0.94140625
+    },
+    {
+      "start": 2243.98,
+      "end": 2280.3,
+      "text": " that what does it contain it basically contain that what is the inode number okay what is the inode number of the file let's suppose you have a file in this directory okay maybe memory management dot pdf okay so yeah just a second let's suppose that you have a file in this directory maybe memory management dot pdf then what does this data contain",
+      "avg_logprob": -0.13682725321915415,
+      "no_speech_prob": 0.391357421875
+    },
+    {
+      "start": 2280.58,
+      "end": 2312.84,
+      "text": " this data content memory management dot pdf inode number it will map your file number to the inode number the data of this this directory contains the mapping that is called inode table okay this is called inode table so you're getting my point basically let's suppose that you finally like i will connect all the links don't worry okay but suppose that somehow you get to know that what is the inode of desktop okay this is let's suppose inode",
+      "avg_logprob": -0.12331989439584876,
+      "no_speech_prob": 0.787109375
+    },
+    {
+      "start": 2313.69,
+      "end": 2350.72,
+      "text": " Okay, let's take some other folder name maybe I know of my I know of let's suppose Operating systems, right? Or maybe I know of let me just call studies Let's suppose that you get to know somehow you get to know I know of the studies directory and In this directory you have stored this memory management.pdf. So what I will do",
+      "avg_logprob": -0.2372916603088379,
+      "no_speech_prob": 0.36767578125
+    },
+    {
+      "start": 2351.11,
+      "end": 2379.15,
+      "text": " i will i will i want to check that uh how to get that memory management memory management dot pdf so i will go to the data of this directory which will tell me that where is this memory management dot pdf is stored so i will say that i don't at at the i don't number 19 so i will go to the i don't number 19 okay i will go to the i don't number 19 that okay like i will say that uh yes so this is let's suppose i don't number 19 i will say to here the metadata",
+      "avg_logprob": -0.10435267544484564,
+      "no_speech_prob": 0.82275390625
+    },
+    {
+      "start": 2379.74,
+      "end": 2426.08,
+      "text": " okay metadata of memory management dot pdf is stored right sorry so metadata of memory management dot pdf is stored here now from here i will get to know what are the data what is the actual data actual data i will get to know like this so what will what will happen i will go to the i node of the directory from there i will get to know the i node number then i will go to that i node and then i will get the actual data so basically the data block of the directory",
+      "avg_logprob": -0.06629022041169724,
+      "no_speech_prob": 0.8017578125
+    },
+    {
+      "start": 2426.57,
+      "end": 2460.12,
+      "text": " contains the inode table. Are you getting my point? Okay. So let me connect the dots. So what I mean, yeah. So this is, let's suppose your directory could be any directory. Then if you go to, let's suppose the data block of the directory, let's suppose this is the data block of the directory, right? So there could be many data blocks. I mean, I will talk about this a little later. I mean, the file or the data of the directory of the file could be separated at many places, right?",
+      "avg_logprob": -0.14493534277225362,
+      "no_speech_prob": 0.802734375
+    },
+    {
+      "start": 2460.35,
+      "end": 2487.75,
+      "text": " So I will talk about this later. Let's not worry about it for now, which means there could be many data blocks also, but yeah, let's not worry about it. Okay. So I will go to the data block of this and then I will check that. Okay. What if, if I want to go to foo, then okay, I will check what is the I know number of the foo. And once I get the I know number, then what I will do, I will, I will go to that particular file using that I know number, I know number 18 is here. And then I will go to that. Okay. Data of which here, right?",
+      "avg_logprob": -0.16280594905773244,
+      "no_speech_prob": 0.266357421875
+    },
+    {
+      "start": 2488.27,
+      "end": 2516.53,
+      "text": " and data fuse again could be separated at multiple places. So let's suppose one of the one of the blog is here and other blog is there. So I will I will tell you that how the data blog is actually stored. So this is the topic of discussion today. But anyway, like I just wanted to tell you that what is I know. Okay, so let's not worry about too much. Like if you're convinced that what is I know, then then we can move from this topic. Like, I mean, I just wanted to tell you that for I know of the file is just just metadata and pointers to the",
+      "avg_logprob": -0.18689437984496124,
+      "no_speech_prob": 0.7685546875
+    },
+    {
+      "start": 2516.98,
+      "end": 2550.92,
+      "text": " Actually, similarly here also metadata and font is true the actual data, but the actual data Could contain I mean it again depends on your implementation Could contain the actual data of this directory could contain the I node. Okay Now tell me suppose this is I node of a directory. This is I node of a Direct which is having some metadata, okay",
+      "avg_logprob": -0.3917410624878747,
+      "no_speech_prob": 0.9111328125
+    },
+    {
+      "start": 2552.89,
+      "end": 2568.73,
+      "text": " which means what do I mean by metadata which means it will tell you that what is the name of the directory and what is the I mean what are the ownership rights and all right so some metadata is there now suppose like",
+      "avg_logprob": -0.14479167064030965,
+      "no_speech_prob": 0.484130859375
+    },
+    {
+      "start": 2571.13,
+      "end": 2595.93,
+      "text": " There there like as I just told you that there are some pointers to the to the I know table basically right that will tell you that okay this this who is who is just told at which I know or whatever right so suppose instead of that can I do something like this here in the I know itself can I have something like this who dot see or maybe any file name let's suppose this is",
+      "avg_logprob": -0.2611328225582838,
+      "no_speech_prob": 0.1290283203125
+    },
+    {
+      "start": 2596.19,
+      "end": 2623.16,
+      "text": " like this is stored at only one data block. I mean every file is just taking one particular data block only. Let's suppose I just tell you that okay, what is the start of that data block? Maybe let's suppose I say that it is at data block three, maybe okay. Let's suppose I say it is a data block three and maybe some memory management.pdf is a data block or maybe 27.",
+      "avg_logprob": -0.19791666529644494,
+      "no_speech_prob": 0.5283203125
+    },
+    {
+      "start": 2623.67,
+      "end": 2660.6,
+      "text": " and some other file is a data block 35 right something like this which means that i am saying it is a i node of a directory which is having some metadata and which is also telling whatever the files are stored where are the registers is this a possible implementation is this a possible implementation tell me yes right so i wanted to make you clear that it's not like a hard and fast truth in fact like i'm not 100 percent sure",
+      "avg_logprob": -0.12176724052292177,
+      "no_speech_prob": 0.712890625
+    },
+    {
+      "start": 2660.88,
+      "end": 2690.76,
+      "text": " but in fact in earlier windows versions okay in windows 95 95 right it's the same it's the correct version right so in windows 95 if i'm if i'm not wrong then this kind of implementations were used okay i mean whatever i'm telling you just a possibility this could be the case where you are saying that okay this file is stored maybe maybe at this location i mean you just tell me that okay this file is stored at this location instead of you know telling me",
+      "avg_logprob": -0.07242838192420702,
+      "no_speech_prob": 0.59375
+    },
+    {
+      "start": 2690.99,
+      "end": 2719.81,
+      "text": " that okay first go here and from that i don't get the information may not be directly like i mean i don't want to do that much headache okay i just want to tell you that okay this file is stored at this location that's all i can do this kind of implementation also so there could be any kind of implementation maybe i can just tell you that okay uh if you want this file then go to this i know number add this i know number also you will first get the metadata and then if you want to actually get the actual data then you can go to this block or maybe this block number whatever is stored here i can",
+      "avg_logprob": -0.05581665149657056,
+      "no_speech_prob": 0.71337890625
+    },
+    {
+      "start": 2720.06,
+      "end": 2740.82,
+      "text": " I can store this let's suppose this is 35 okay let's suppose I am just storing here only that 435 right so basically instead of going here then getting the ideal number then from there getting the 35 I can also store 435 I mean this is one of the very naive implementation that we can have I hope you got my point",
+      "avg_logprob": -0.17566636511508157,
+      "no_speech_prob": 0.283447265625
+    },
+    {
+      "start": 2741.05,
+      "end": 2758.01,
+      "text": " So anyway, like these are not much interesting because these are implementation dependent. I mean, if they have to ask you something, then they will give you that whole detail that how they're actually implementing the things. But the thing is that you should know that what is I know, it just restored the metadata. Okay. Is this clear that what is I know?",
+      "avg_logprob": -0.15281249483426412,
+      "no_speech_prob": 0.11090087890625
+    },
+    {
+      "start": 2758.25,
+      "end": 2779.73,
+      "text": " If I talk about iNode of a directory, then it stores the metadata. Then along with that, based on the implementation, it can store maybe the iNode table. I mean, it can point it to the iNode table. Or maybe this 435, it can directly store here. I mean, depends on you. So these are the abstract concepts. Like the actual implementation is dependent on you, how you're implementing.",
+      "avg_logprob": -0.18274456537936046,
+      "no_speech_prob": 0.2454833984375
+    },
+    {
+      "start": 2786.92,
+      "end": 2809.38,
+      "text": " So this, uh, this slide I have taken from Stanford. So what they want to say. So basically, uh, let's suppose I want to store this food or see in a, in a hard disk, right? So every, uh, like this file will be divided into the blocks and, uh, every block will be stored on the, uh, on the disk. It's not like you are, you are, uh, storing as a byte wise, you will divide that file into the blocks.",
+      "avg_logprob": -0.21771815939331954,
+      "no_speech_prob": 0.20703125
+    },
+    {
+      "start": 2809.79,
+      "end": 2832.28,
+      "text": " so like you can store something like this so file fs means file system file systems use the collection of this block so this file which is just a collection of this block now what what i want from the file system is that i will tell that okay i want to get this particular line or this particular i want to go to this particular line or this particular you know offset from this file maybe maybe i will say",
+      "avg_logprob": -0.1273531626506024,
+      "no_speech_prob": 0.374755859375
+    },
+    {
+      "start": 2832.62,
+      "end": 2862.85,
+      "text": " that let's suppose this file is having many many bytes or like let's not talk about the bytes in terms of bytes let's talk about in terms of just line okay let's suppose 10 10 line it is having i want to i want to get that okay this is the this is my file and i want maybe fourth line or fifth line right so i will give you the file number i will i will tell you that what i want right i mean i will tell you the offset that i'm looking for then the file system should be smart enough to tell me that where is that particular line stored right it will tell me in that disk that where it is stored",
+      "avg_logprob": -0.06925516782846666,
+      "no_speech_prob": 0.9013671875
+    },
+    {
+      "start": 2863.28,
+      "end": 2885.74,
+      "text": " so this is the job of the file system which means given I'm interested in fetching a file and particular offset then file system should get me the disk address at where it is stored right so it is very much similar to the memory management I mean in memory management what we used to do we used to give a virtual page number like or maybe the offset also right like I",
+      "avg_logprob": -0.13538239719836334,
+      "no_speech_prob": 0.5107421875
+    },
+    {
+      "start": 2886.65,
+      "end": 2911.15,
+      "text": " or maybe the logical address, whatever you want to say, okay, logical address and then you convert the logical address to the physical address, right? So that used to, like we used to do that in the memory management, but in the file system, what we will do, we will do the similar thing. We will take this food or sea and whenever I say directory, it means the directory I node, okay? So directory means directory I node.",
+      "avg_logprob": -0.2017952119733425,
+      "no_speech_prob": 0.86181640625
+    },
+    {
+      "start": 2914.48,
+      "end": 2949.96,
+      "text": " So this food or see I will I will take this food or see I will first go to the directory I know probably I mean this is again just one of the implementation then I will go okay 44 is my maybe I know number of the five right this is the I know the number of the five and then using that I know number probably okay using that I know number and the offset that I have maybe 512 right so I will I will actually get to know so this is the this is the 44th I know",
+      "avg_logprob": -0.17113095578693208,
+      "no_speech_prob": 0.9296875
+    },
+    {
+      "start": 2951.21,
+      "end": 2978.61,
+      "text": " and then maybe I will say that this is my offset. So initially I have let's suppose 4.c okay suppose I have 4.c comma 512 which means in this 4.c I want 512 line number let's suppose right then it means that I will first get that where is this 4.c I will go okay this is in the 44th iron number then I will go to the 44th iron number I will say that okay you have the metadata right you have the metadata with you",
+      "avg_logprob": -0.1608009668229853,
+      "no_speech_prob": 0.8779296875
+    },
+    {
+      "start": 2979.85,
+      "end": 2999.3,
+      "text": " Then what else you have? You have the pointers to the actual data, right? This is the 44th. I don't know. This is the pointer to the actual data. Now, I will say, okay, where is the pointer? I from here, I want to go 512 down and then maybe I will get the disk address. So anyway, like these are low level details. These are not much important. But what I want to say is that.",
+      "avg_logprob": -0.21456185567010308,
+      "no_speech_prob": 0.1949462890625
+    },
+    {
+      "start": 2999.56,
+      "end": 3028.73,
+      "text": " like you have the file number offset with you finally want to convert that to a disk address this is your ultimate goal of the file system i mean one of the goal of the file system to convert your your logical parameters which are the file number and offset to your actual physical or the disk address right so anyway till this point only one thing should be clear which is like what is the inode right so what are the inodes so inode is just a metadata it contains some metadata and obviously metadata means like pointer to the",
+      "avg_logprob": -0.09843750283831641,
+      "no_speech_prob": 0.09771728515625
+    },
+    {
+      "start": 3028.99,
+      "end": 3059.73,
+      "text": " uh disc blocks also data blocks also right okay now uh there are few more terms before i actually go to the implementation of the file system let's just understand few more terms and then we will see the actual implementation of the file system so uh like now you understood what is your inode and then uh there are two things that you understood that uh one is file and another one is directory now let's just see that how to implement those directories",
+      "avg_logprob": -0.07760416658388244,
+      "no_speech_prob": 0.35302734375
+    },
+    {
+      "start": 3059.93,
+      "end": 3087.34,
+      "text": " which means like can you have a directory inside a directory can you have a two directories in just one one place or something like that right how many files you can have in a directory something like that so there has been in like if I just talk about the history then there has been many approaches that that are that are you know implemented and that people have used so one approach is that single directory for the entire system which means",
+      "avg_logprob": -0.10365189118094223,
+      "no_speech_prob": 0.416015625
+    },
+    {
+      "start": 3087.66,
+      "end": 3114.29,
+      "text": " that you just have one directory one folder in the entire system whatever file you have here like cat or whatever file you have okay so you have just a one directory and all the files are stored in that directory only these are maybe the pointers to the inode these are maybe the pointers to the direct disk block seven depends on their implementation so let's suppose this is the inode of directory right",
+      "avg_logprob": -0.1256922506078889,
+      "no_speech_prob": 0.209228515625
+    },
+    {
+      "start": 3116.84,
+      "end": 3135.75,
+      "text": " So like what are these pointers may be may be directly to the disc blocks may be there may be to the to the pointer to the I nodes of these files. I mean, let's not worry about these implementations. But here I want to tell you that yeah, one of the possibility to implement the directory itself is that you just have one directory only.",
+      "avg_logprob": -0.23141891811345075,
+      "no_speech_prob": 0.0933837890625
+    },
+    {
+      "start": 3135.93,
+      "end": 3164.69,
+      "text": " okay there are no other directories you just have one directory so this is called single level directories like this is just for the historical purpose i'm telling you like this has been implemented i mean this has been proposed at least so this is a short history of the directory another possibility is that you have single directory for each user so if you have you know like in your universities and in the labs that you might have seen that there are username passwords that are given to you right",
+      "avg_logprob": -0.09757487064537902,
+      "no_speech_prob": 0.74951171875
+    },
+    {
+      "start": 3165.15,
+      "end": 3194.39,
+      "text": " So which means like when you log in using that username password, you get to see your own folder only, right? So basically, maybe like another approach could be like I can have multiple users and I will be having just one folder for each user. If I want to store my files, I can store in this file only, this folder only. If you want to store your file, then you can store in the user2, maybe user3 can store its own file in the user3 folder only. So basically just one folder.",
+      "avg_logprob": -0.15937500257383694,
+      "no_speech_prob": 0.81787109375
+    },
+    {
+      "start": 3194.74,
+      "end": 3225.03,
+      "text": " for each user there's two label directory that's called two label directory third thing is that hierarchical name space so basically here what do I have I have pre-structured directory which means I have a root and and like this is the modern system that we use I mean just like you can have any number of directories any number of you know directories at any level and then you can store any number of files at in the any folder right so this is just what we use in today's system",
+      "avg_logprob": -0.10500919446349144,
+      "no_speech_prob": 0.6337890625
+    },
+    {
+      "start": 3226.08,
+      "end": 3251.57,
+      "text": " Just for the historical purpose, I told you that there could be two, three designs possible, then obviously this is the most feasible one that people are using. Now, let's just see that if you have a disk, then what does this disk contain? Suppose this is a disk that you have, this is a complete disk, then what does this disk contain? Maybe some inodes.",
+      "avg_logprob": -0.1635742200538516,
+      "no_speech_prob": 0.11224365234375
+    },
+    {
+      "start": 3253.24,
+      "end": 3288.91,
+      "text": " let's if you if you have remember if if you just remember then I was telling that okay this is I know number 49 like that right so maybe maybe it can contain all the I knows that it has right all the I knows at one place maybe it can contain something like this all I knows in one place maybe maybe some of the area is dedicated to just you know most of the area basically not some of the area most of the area is dedicated to actual data data files right",
+      "avg_logprob": -0.15810244353776126,
+      "no_speech_prob": 0.5078125
+    },
+    {
+      "start": 3290.69,
+      "end": 3317.39,
+      "text": " so I mean you can use your disk in any way but the way we have seen till now is basically we are having the inodes for the directory and we are having the actual data so we can store inodes at all of the inodes at one place and we can store all of the actual data in some other place now it depends on the implementation obviously till now I have not told you that how to store the actual data which means if I have a file of let's suppose 1GB",
+      "avg_logprob": -0.10164062149822711,
+      "no_speech_prob": 0.054962158203125
+    },
+    {
+      "start": 3317.68,
+      "end": 3344.66,
+      "text": " Should I be storing that continuously? Should I be breaking that in parts? Or how should I be keeping track of the blocks or like that, right? So that's what it is still a mystery. Like how to store a file in the, in like how to, how to resolve that. I mean, how to store the actual data. It is still a mystery. But what I'm telling till now is that if you have multiple components, one is the actual data of all the files, like, I mean, how to store that actual data, I know, send these things. So you, you can organize your disk in some way.",
+      "avg_logprob": -0.1466165346310551,
+      "no_speech_prob": 0.267578125
+    },
+    {
+      "start": 3344.9,
+      "end": 3370.82,
+      "text": " So in all unit systems, these are divided into five parts. So any disk is divided into five parts. One is boot block. That can boot a system by loading from this block. I mean, whatever information is needed. Maybe this disk is, let's suppose, implementing some specific file system. Then there is a boot block.",
+      "avg_logprob": -0.11158288129861804,
+      "no_speech_prob": 0.5107421875
+    },
+    {
+      "start": 3373.93,
+      "end": 3399.41,
+      "text": " that that will tell you maybe that will tell you that it is it is implementing let's suppose h hfs file system right or maybe some some file system right i mean whatever information that is needed to know from from the operating system perspective which means os should know that okay how this disk is organized right i mean where is the i know where is the actual data like how this disk is actually organized how i partitioned the disk maybe this information is in the is in the boot block",
+      "avg_logprob": -0.12951030927835053,
+      "no_speech_prob": 0.333251953125
+    },
+    {
+      "start": 3400.24,
+      "end": 3419.88,
+      "text": " another I mean this is not much important but I'm just telling you that how it is actually could be implemented another thing is super block super block could be the second second partition where you are specifying the next three areas in content the head of free list I notes free list of the I notes so basically",
+      "avg_logprob": -0.2375252061793881,
+      "no_speech_prob": 0.289794921875
+    },
+    {
+      "start": 3420.27,
+      "end": 3443.79,
+      "text": " So per block can contain that. Okay. Where are your maybe, uh, I mean, which, which this disc blocks are free basically. Okay. I will tell you what and tell you about the free list later, but yeah, free, which disc blocks are free and where are the, where are your I notes are restored and I notes, let's suppose I restored actually here. So it is the I node area that all of the I nodes are restored here. Maybe the file, this is a huge space. Okay. This, like, like, this is a huge area.",
+      "avg_logprob": -0.30836776268383687,
+      "no_speech_prob": 0.1524658203125
+    },
+    {
+      "start": 3444.01,
+      "end": 3465.63,
+      "text": " this is a huge area the actual data is stored let's suppose in this area and let's suppose they reserve some of the area for the swap area which means that whole the process that have been stepped out of the memory if you remember that we store sometimes in case of virtual memory or in case of demand paging we store some of the pages in the in the hard disk",
+      "avg_logprob": -0.11040295817350086,
+      "no_speech_prob": 0.157958984375
+    },
+    {
+      "start": 3465.77,
+      "end": 3489.19,
+      "text": " that the swept out pages could be stored in some, some dedicated area like that, right? I mean, you can organize your disk in any, any way, but one of the organization that all unit systems are using in this way. Okay. So, yeah, I mean, just, I just wanted to tell you that you can organize in any way, but this is just one of the way. So, yeah, I think they have divided and the fifth part is the swipe area.",
+      "avg_logprob": -0.15269182991273333,
+      "no_speech_prob": 0.351318359375
+    },
+    {
+      "start": 3491.56,
+      "end": 3518.82,
+      "text": " See, this picture I have taken, then they might not be having any specific dedicated area for the SAP area. I mean, dedicated block for the SAP area, but that is OK. I mean, it depends on the implementation part. So you have boot block, super block, or inode list, and data blocks like that. Boot block usually contains a bootstrap code, like how to understand it. It will tell you that what is the structure of this particular hard disk. Super block will tell you the size, number of files, free blocks, like that, right?",
+      "avg_logprob": -0.1743489599476258,
+      "no_speech_prob": 0.2457275390625
+    },
+    {
+      "start": 3519.07,
+      "end": 3549.25,
+      "text": " and where are your I nodes are restored and actual I nodes are restored. Actually all the I nodes are let's suppose I'm storing here and data blocks are actually going to this is again a huge area. That is actually contain the real data and file directories organized into the tree like instruction. Anyway, so I hope you understood till now that what I mean what are the things that that we are going to deal with in the file system. So common terms are I node right and.",
+      "avg_logprob": -0.26374999433755875,
+      "no_speech_prob": 0.1729736328125
+    },
+    {
+      "start": 3549.73,
+      "end": 3582.5,
+      "text": " I think that's only like, I mean, this is the only common term that that we might be using again and again. So the whole purpose till now was just to convince you that what is your I know it is just containing the metadata, right? And to give you the feel that yes, you can actually implement the file system in any way that you want. Okay. So let's just understand the most important part of the file system is that how to store the data in this data blocks. Okay. How to store the data, how to store your files.",
+      "avg_logprob": -0.1298744591892275,
+      "no_speech_prob": 0.61669921875
+    },
+    {
+      "start": 3583.9,
+      "end": 3611.9,
+      "text": " Before that, maybe you can answer these two, three small, small questions that what unistructure is used to keep track of the sector allocated to the given file, which means if let's suppose this file is divided into multiple blocks or multiple sectors, and this is getting stored, let's suppose this part, this is the file, this is getting stored in some sector, this is getting stored in some other sector, then how to keep track of all of this using.",
+      "avg_logprob": -0.1523840255344037,
+      "no_speech_prob": 0.369384765625
+    },
+    {
+      "start": 3615.04,
+      "end": 3642.63,
+      "text": " using which data structure I do keep track of all of this maybe I know right I know yes so I will be keeping track of all of this you will I mean this is the actually the part of the whole lecture that how to divide it how to store and these things how to store that in the I know but yeah I'm just telling you upfront that all of this are stored in the I know which means there will be one I know that will be having some metadata that can also have that okay",
+      "avg_logprob": -0.13760829916094788,
+      "no_speech_prob": 0.6767578125
+    },
+    {
+      "start": 3643.25,
+      "end": 3673.59,
+      "text": " Let's suppose this is just like a page table. The first block of this or the zeroth block or the first block like that is in which actual disk address. Maybe I can tell you this is disk address or the block. I mean, this is stored here. This is stored here like that. This Ionode can tell you. So what is the smallest addressable piece of data on the disk? Can I address any byte? If I want to, let's suppose, modify any byte, then what I need to do?",
+      "avg_logprob": -0.162162155181438,
+      "no_speech_prob": 0.51318359375
+    },
+    {
+      "start": 3673.91,
+      "end": 3704.35,
+      "text": " I need to deal in the sector or block. Yes, that's right. So sector, what is a persistent named collection of the data? Okay, so basically the collection of data is called file, right? So here it is this sector of the block, it is file and I node file header index block. So anyway, like it depends on the on the terminology in the Unix system, it is called I node, or maybe you can also call it file header or the index block. Okay.",
+      "avg_logprob": -0.16826922403505215,
+      "no_speech_prob": 0.90966796875
+    },
+    {
+      "start": 3706.12,
+      "end": 3734.34,
+      "text": " Yeah, so now let's go to the most important part, which is the file implementation, which means how to allocate disk space to the file. What I mean by that, like, you have a disk, right, which is having a lot of space, and you have couple of files, you have this file, this file, right, this is file one, file two, like that. You want to store these files on this disk.",
+      "avg_logprob": -0.11013926849093127,
+      "no_speech_prob": 0.57958984375
+    },
+    {
+      "start": 3734.81,
+      "end": 3776.77,
+      "text": " Then how to allocate maybe you want to divide you want to have a continuous maybe real allocation Maybe you want to divide that file or whatever ways like Then once you you know once you decide upon that okay how to store the next question is that how to store the metadata I mean how I notes are organized right so there are two questions that one is that how to Store file right maybe continuously or divide into blocks right maybe",
+      "avg_logprob": -0.2185639911109493,
+      "no_speech_prob": 0.9072265625
+    },
+    {
+      "start": 3777.5,
+      "end": 3808.21,
+      "text": " And like this is one question. I mean that disk is always divided into the blocks or sectors. If I want to divide the file into chunks, OK, let me just write chunks or maybe if I want to divide the file into chunks, then all the blocks I can do it. Otherwise I can store that to continuously. And once I decide that, OK, this is how I want to store the store the files, then then now I need to answer that how I nodes are organized, right? I mean, what does the I node contain?",
+      "avg_logprob": -0.1778207901304802,
+      "no_speech_prob": 0.56982421875
+    },
+    {
+      "start": 3817.9,
+      "end": 3847.92,
+      "text": " So how to allocate this on the disc to the files. There are a few common allocation methods. Let's just see the next slide. So one of the method is contiguous method. And I will tell you one of the like small variation of that method that is extend based contiguous method basically variation to the contiguous only. Right. So this method is just a variation to the continuous. Similarly, like there is something called linked method that is also having one variation that is the fat table or file allocation table, which is a variation to link.",
+      "avg_logprob": -0.154590701634905,
+      "no_speech_prob": 0.77197265625
+    },
+    {
+      "start": 3848.35,
+      "end": 3878.35,
+      "text": " Similarly, we will see one more method to allocate the file on the disk, which is index index to method. And we will see that one of the small variation, which is multi index. Okay. So we will analyze these six methods, maybe, or maybe three, three methods. I mean, whatever you want to call. So let's just call three plus three, six methods. You will just see these six methods. And we will solve gate p by q on based on these methods, right? And how to evaluate these methods is basically some key metrics are there.",
+      "avg_logprob": -0.14909958031217932,
+      "no_speech_prob": 0.359619140625
+    },
+    {
+      "start": 3878.58,
+      "end": 3907.82,
+      "text": " like I will I will compare between two methods maybe like based on some metrics whether whether internal fragmentation is there or external fragmentation is there whether if I want to grow the file later okay once I allocate the file on the disk if I want to write or if I want to increase the size can I increase the size later okay how fast is to find the data now maybe the sequential access is better here or maybe random access better in better in in which implementation which means like",
+      "avg_logprob": -0.1034342439379543,
+      "no_speech_prob": 0.0875244140625
+    },
+    {
+      "start": 3907.91,
+      "end": 3932.71,
+      "text": " linked implementation or maybe fact table implementation is having better sequential or better random something like that so there are key metrics on which we will be evaluating these methods like is it easy to implement and if I want to actually implement this then how much size the iron orders are taking which means do I have the metadata storage is too high right that's also a problem so there are some metrics on which we will be evaluating these methods is this okay till now",
+      "avg_logprob": -0.11718750334857556,
+      "no_speech_prob": 0.10675048828125
+    },
+    {
+      "start": 3932.95,
+      "end": 3954.04,
+      "text": " So till now we have not studied much just I convinced you that what is the inode and now we are going to see that how to store those files on the disk and then we will see that what are the advantages and disadvantages of these storage techniques. So first method is contiguous allocation which means if this is a file",
+      "avg_logprob": -0.14062499345252008,
+      "no_speech_prob": 0.0225830078125
+    },
+    {
+      "start": 3954.28,
+      "end": 3986.52,
+      "text": " you can just store this file into different different disc blocks so these are the disc blocks i will divide that file into disc blocks obviously i mean but you will be storing in the contiguous spacing right maybe maybe uh some last block you may not fill fully so you can see that uh one of the disadvantage could be can anyone tell me quickly this is called what kind of fragmentation internal fragmentation right yes so this is called internal fragmentation",
+      "avg_logprob": -0.16290837492455135,
+      "no_speech_prob": 0.350341796875
+    },
+    {
+      "start": 3986.81,
+      "end": 4012.43,
+      "text": " So maybe let's just talk about this contiguous method and advantage and disadvantage. So here one of the thing is that if you want to store in the contiguous fashion, then maybe file one is storing here and maybe you are storing file two here, right? You are storing file two here. Now user has to specify the length of length to the file system. User specify the length file system allocates space all the ones.",
+      "avg_logprob": -0.18235085464336656,
+      "no_speech_prob": 0.049224853515625
+    },
+    {
+      "start": 4012.8,
+      "end": 4039.5,
+      "text": " which means later you cannot grow obviously like I mean once you stored it later if you want to write some more things on this file can you write can you increase your ppt size can you increase your pdf size can you increase your text file size later in this kind of implementation obviously no right I mean because after this file there is some other file stored if that is contiguous then how can grow this so you have to specify the length at the time of allocation only I mean at the time of storage only",
+      "avg_logprob": -0.14085255375186218,
+      "no_speech_prob": 0.28662109375
+    },
+    {
+      "start": 4039.85,
+      "end": 4071.84,
+      "text": " and what does this i node of the metadata contains it contains the starting location and the size of the file so i node here has a metadata obviously and what else is contained it do not need to contain the pointers do it need to contain the pointer to each of the block tell me do it need to contain the pointer to each of the block obviously no right it just contain the pointer to the first block right contains the starting location of the pointer to the first block",
+      "avg_logprob": -0.15658602470992714,
+      "no_speech_prob": 0.7744140625
+    },
+    {
+      "start": 4072.14,
+      "end": 4099.85,
+      "text": " and what else it should contain it should also contain what are the size obviously like i mean how much uh how much bytes or in terms of sector or whatever unit you are defining so it it contains that okay this is uh this is the starting location and from here and this is the ending location like that right so it just contain two things start and end it does not contain the pointer to each of this uh each of the blocks obviously that's not required so it just contain start and end so for example",
+      "avg_logprob": -0.12886757307713576,
+      "no_speech_prob": 0.432861328125
+    },
+    {
+      "start": 4100.36,
+      "end": 4143.5,
+      "text": " I think yeah I have the example so it has the start I mean base and length is three something like that right so this is what your inode contains yes just like array yes so I hope that is clear right so suppose that you have this then what happens if file c needs two sectors right which means that if file c is there and you have stored file a and file v and you want to store file c can you store the file c here can you store the file c here",
+      "avg_logprob": -0.10706313722291771,
+      "no_speech_prob": 0.791015625
+    },
+    {
+      "start": 4143.75,
+      "end": 4171.85,
+      "text": " obviously no because you do not have to contiguous blocks so that is why you cannot restore the file c so that is one of the another problem that you can see so there are couple of problems maybe right maybe you can list down all of them let me just see if i have yeah so what are the advantage advantage is that obviously it is easy to implement low storage overhead which means the inode size is just less i don't just have to store two variables to specify this area for the file right what are those two variables maybe start location",
+      "avg_logprob": -0.11632740743663333,
+      "no_speech_prob": 0.51220703125
+    },
+    {
+      "start": 4175.94,
+      "end": 4212.84,
+      "text": " and length. Sequential access is fast here because everything is sequential. So if you want, let's suppose that data in the sequential fashion, you want from here to here, I mean, you can keep on, keep on, keep on accessing the data in the sequential fashion. So there is no problem in the sequential access. Fast to compute the data location for the random addresses. I mean, let's suppose, in fact, if you just want to go for the random location, so it is good for the sequential, it is also good for the random. Why it is good for the random?",
+      "avg_logprob": -0.11491935610050155,
+      "no_speech_prob": 0.78466796875
+    },
+    {
+      "start": 4213.12,
+      "end": 4244.1,
+      "text": " let's suppose in this file i want to go at the offset 500 then i will check i can i can quickly check where is this 500 i mean in which data sector it is it is there right how can i check i mean i will just divide that 500 with block size right and then i will i will get to know okay if this is the offset then i will divide this with the block size and let's suppose block size is five oh sorry block size is 100 let's suppose okay or maybe 250 let's suppose block size is 250 then i will get to know",
+      "avg_logprob": -0.06389266304347826,
+      "no_speech_prob": 0.927734375
+    },
+    {
+      "start": 4244.51,
+      "end": 4271.4,
+      "text": " that okay this particular is stored in maybe second block maybe 0 1 2 something like that right it is stored here and offset I can let's suppose it is 5 1 0 then I will get to know that okay this is stored in the second block and what is the offset can you tell me quickly the offset maybe I will go to this second block and after maybe 10 bytes right offset is 10 very easy to calculate",
+      "avg_logprob": -0.12321159297443297,
+      "no_speech_prob": 0.82373046875
+    },
+    {
+      "start": 4271.77,
+      "end": 4301.78,
+      "text": " So it is, I hope you are okay with that. I mean, you can easily calculate that where this 5, 1, 10 is stored. So it is good for the random data also. I mean, it's not like it's just good for the sequential access, but it is good for the random access also, right? So it is fast sequential, fast random, both are good here. And yeah, easy to implement low storage and these things are there. But fragmentation, external fragmentation could be large.",
+      "avg_logprob": -0.14134838169923536,
+      "no_speech_prob": 0.2470703125
+    },
+    {
+      "start": 4302.14,
+      "end": 4334.42,
+      "text": " and yeah if you want you can say that small I mean internal fragmentation is always very small just just one disk block at most right so maybe small internal right and obviously one of the drawback is difficult to grow files so these are the drawbacks but these are the benefits is this okay everyone now",
+      "avg_logprob": -0.10169057572474245,
+      "no_speech_prob": 0.21435546875
+    },
+    {
+      "start": 4334.71,
+      "end": 4364.99,
+      "text": " let's just see one of the variation to that so like we have just seen the contiguous now contiguous like this extend base is also contiguous but it is just a small enhancement to the contiguous okay now let's just see extend base allocation which is also a contiguous but what I will do I will be having multiple contiguous regions which means earlier I had to store that into one contiguous region also only but here I will I will be having multiple contiguous region let's suppose that",
+      "avg_logprob": -0.08671101514655764,
+      "no_speech_prob": 0.310302734375
+    },
+    {
+      "start": 4366.48,
+      "end": 4396.14,
+      "text": " If I have these contiguous and these contiguous, then maybe I will say that okay, I can store my file into two contiguous regions, something like that, right? So each region is an extent, which means like I will call this region as an extent. This is just a terminology. Metadata contains a small area of entries, designating extents, which means the metadata will be having",
+      "avg_logprob": -0.18109940154006682,
+      "no_speech_prob": 0.77685546875
+    },
+    {
+      "start": 4396.6,
+      "end": 4428.51,
+      "text": " the inode will be having basically all the extents information which means it will tell you what is the start of the first extents what is the end of the first extents start and end like that so each entry start and the size of the extents something like that so what I will do instead of if I am not able to find the contiguous everywhere then I am in continuation one go so I will be having multiple contiguous that's all in fact that has been implemented",
+      "avg_logprob": -0.1927614827849427,
+      "no_speech_prob": 0.65869140625
+    },
+    {
+      "start": 4428.99,
+      "end": 4464.57,
+      "text": " in very early windows okay this idea as I said like okay this idea has been implemented just a second let me complete so this idea has been implemented in I think MS-DOS which is one of the very starting Windows version right MS-DOS so like as I said like what we are going to do the plan of this lecture is something like this see what we are going to do we are just going to okay where is the slide",
+      "avg_logprob": -0.13939606339743968,
+      "no_speech_prob": 0.9111328125
+    },
+    {
+      "start": 4465.92,
+      "end": 4495.28,
+      "text": " Yeah, we are just going to understand few of the methods like one of the method could be the contiguous right contiguous Extend based something like that right or maybe extend based continuous some some variation to the contiguous and we will see that how to store those files using some of the methods Okay, I mean there are three plus three six methods and then we will see that okay How the modern operating systems are taking use of these methods, right? So that's the idea now the extent based methods",
+      "avg_logprob": -0.1766237818142947,
+      "no_speech_prob": 0.654296875
+    },
+    {
+      "start": 4495.64,
+      "end": 4507.26,
+      "text": " is used in early Windows, okay, in early Windows version, which is MS-DOS. Now, currently, I think they use new technology file system, NTFS.",
+      "avg_logprob": -0.2177220430029066,
+      "no_speech_prob": 0.0745849609375
+    },
+    {
+      "start": 4507.55,
+      "end": 4535.95,
+      "text": " in windows and ntfs also use some of the ideas from method one some of the ideas from method two something like that right i mean these are very very complex obviously and like people have been working for years and years just to come up with one file system and we do not need to go i mean we do not need to obviously take our research on that but we will just see the few methods slightly right is this killer to everyone that what like how we are proceeding right so it should be clear that whether it is useful or not",
+      "avg_logprob": -0.11248553082070968,
+      "no_speech_prob": 0.55712890625
+    },
+    {
+      "start": 4536.12,
+      "end": 4568.39,
+      "text": " so we are just seeing some of the basic ideas right these these are the some of the basic ideas some of the common ideas and then we will see that how these common ideas are getting actually implemented in the modern operand modern file system that windows is using right and mac is using something right so let's just see these methods first now is this extended to everyone that we are just having different different contiguous regions right",
+      "avg_logprob": -0.14304315760022118,
+      "no_speech_prob": 0.69287109375
+    },
+    {
+      "start": 4569.02,
+      "end": 4592.24,
+      "text": " So what are the advantage and disadvantage to that? It is again easy to implement maybe low storage file can grow over time. Yeah, this is this is advantage now. I mean earlier it was a disadvantage, but now it is it is a good thing. I mean earlier I was not able to grow file over the time, but now I can grow fast sequential access simple to calculate random access. I mean it is also fast.",
+      "avg_logprob": -0.18128550763834606,
+      "no_speech_prob": 0.11627197265625
+    },
+    {
+      "start": 4592.44,
+      "end": 4611.74,
+      "text": " if you want to go randomly let's suppose if you want to again calculate 512 then maybe you can check okay in which extent it is right maybe using the start and maybe simple calculation you can do and you can you can actually find out that okay in which extent it is and then offset also you can easily calculate so it's not a big deal to calculate the offset in the extend number right",
+      "avg_logprob": -0.05922851492650807,
+      "no_speech_prob": 0.5048828125
+    },
+    {
+      "start": 4612.22,
+      "end": 4637.69,
+      "text": " Everyone is convinced on this point, how to calculate the random matters. For the random matters, it is simple. We are not going to do it, but you can calculate in which extent your byte is. What are the disadvantages? Help with the external fragmentation, but still is a problem. It somehow helps with the external fragmentation, which means let's suppose if you want to store this file C, that needs two sectors.",
+      "avg_logprob": -0.2171699411413643,
+      "no_speech_prob": 0.10418701171875
+    },
+    {
+      "start": 4638.06,
+      "end": 4666.54,
+      "text": " then then maybe maybe like let's suppose the my minimum extent size should be let's suppose two blocks or three blocks something like that then also like I mean it is still a problem that if I want to let's suppose store some file then maybe maybe it is not desirable to have to to less extent I mean to to less sake of the extent right I mean it helps to the external fermentation which means like if some contiguous chunks of the memory is left then I can assign that to",
+      "avg_logprob": -0.19897958894773404,
+      "no_speech_prob": 0.591796875
+    },
+    {
+      "start": 4666.79,
+      "end": 4692.12,
+      "text": " that to some file or maybe here also some contiguous chunk is left I can assign that to some file but if suppose just one one blocks are left everywhere here and there then it is difficult to manage right okay yeah theoretically you can manage that's not a problem but but that's not the idea of the extent I mean we want the contiguous memory like the whole purpose of the extent will be defeated then right",
+      "avg_logprob": -0.12387048156864672,
+      "no_speech_prob": 0.385986328125
+    },
+    {
+      "start": 4692.43,
+      "end": 4720.05,
+      "text": " if we are if we are not having the contiguous memory if you are just allocating my file from here here here then we are not even having the contiguous memory then then this pros whatever the pros I was having maybe sequential access pros that will not be a pro anymore right because I am not having the contiguous memory so the basic idea is that I want to have the contiguous memory as as long as possible right if that is not there then then some of the pros will not be there so extant is still a contiguous base so",
+      "avg_logprob": -0.11500563170458819,
+      "no_speech_prob": 0.626953125
+    },
+    {
+      "start": 4720.35,
+      "end": 4744.73,
+      "text": " I'm just making use of some of more sectors that are left unfilled. Maybe I want to store my file completely in this block but let's suppose I cannot store and maybe I just need four more sectors or four more blocks then I can maybe take help of four more blocks from somewhere else. That's the only idea. Don't think that I'm going to store my file in different blocks that will defeat the purpose of continuous memory allocation.",
+      "avg_logprob": -0.1402815947165856,
+      "no_speech_prob": 0.2073974609375
+    },
+    {
+      "start": 4747.95,
+      "end": 4775.58,
+      "text": " Now another memory allocation is the linked allocation. So one of that is continuous. Another one is linked. Now, let's just see the linked allocation. Now all blocks are the file on the linked list, which means that this is my file will be divided into few blocks or maybe number of blocks. And then I will be doing what I will be having a pointer. Let's suppose this is my block one. I mean the file. Let's suppose foo. Okay.",
+      "avg_logprob": -0.18909438243325877,
+      "no_speech_prob": 0.5458984375
+    },
+    {
+      "start": 4775.88,
+      "end": 4802.06,
+      "text": " who is divided into less than 1, 2, 3, 4, 5, 5 blocks. So I will divide that into 5 blocks. I will store that into somewhere in the disk. I will store that somewhere in the disk. I will store that somewhere in the disk, store somewhere in the disk, somewhere in the disk. And all of these blocks are linked together. Then what do you think this inode should contain? It should just contain pointer to the first block. Or should it contain the pointer to all the blocks? Just pointer to first block is enough, right?",
+      "avg_logprob": -0.11633403010728981,
+      "no_speech_prob": 0.2032470703125
+    },
+    {
+      "start": 4802.38,
+      "end": 4831.93,
+      "text": " because if you are having pointer to first block then you can actually access all the blocks I mean it depends on the implementation but yeah that's the idea here that you are having the pointer to the first block okay so what do you think could be the advantage here obviously there will not be any fragmentation I mean external fragmentation will not be there wherever is the is that like block is available you will make use of that block file can grow easily with the time",
+      "avg_logprob": -0.09206988894811241,
+      "no_speech_prob": 0.10955810546875
+    },
+    {
+      "start": 4832.35,
+      "end": 4861.01,
+      "text": " Also easy to implement though awkward to spare space for the disk pointer per block. Yeah, I mean it is easy to implement, but you have to have one little extra space or maybe if you're let's suppose pointer size is maybe four bytes or eight bytes, then you have to have some eight bytes extra. Okay, you cannot allocate the complete complete sector to just one block. You have to, you know, spare eight bytes extra. That's all.",
+      "avg_logprob": -0.18351064020014823,
+      "no_speech_prob": 0.7353515625
+    },
+    {
+      "start": 4861.47,
+      "end": 4886.1,
+      "text": " I mean some little extra overhead that you have. So disadvantage could be large storage. Oh, yeah. So one pointer per block, you have to maintain one pointer per block. So this could lead to eventually some large storage cost, because you have to maintain one point per block, right? Potentially slow sequential access. Yeah, if you want to, if you want to access this.",
+      "avg_logprob": -0.14687500484287738,
+      "no_speech_prob": 0.2041015625
+    },
+    {
+      "start": 4886.8,
+      "end": 4912.93,
+      "text": " Then it is slow. Reason being is that you have to go like this. I mean, if you're fetching this block, then after this block, you will get to know, okay, you have to fetch this block. Then you will get to know, you have to fetch this block. All blocks are not sequential. It's not like that you can directly go to some block. Similarly, random access also. But random access addresses are not easy to calculate. So both are disadvantage here.",
+      "avg_logprob": -0.12947512309528092,
+      "no_speech_prob": 0.23681640625
+    },
+    {
+      "start": 4919.62,
+      "end": 4943.72,
+      "text": " I mean it depends on that how you're like storing the data maybe if you're storing like this in like I know they just storing address of first block then then you afford the random access you have to like go like this only right there is no way I mean there is only just one way to access the data",
+      "avg_logprob": -0.23339844192378223,
+      "no_speech_prob": 0.171142578125
+    },
+    {
+      "start": 4946.41,
+      "end": 4970.51,
+      "text": " Anyway, like these are not much important, but once you understand that what we are doing then then it is it is good because then in the in the question they will they will just tell you that I mean they will not ask you these philosophical questions maybe if they have to ask something they will give the exact details that okay I mean this is how exactly it is storing this is how it is storing and then tell me just like so we will solve all the questions don't worry.",
+      "avg_logprob": -0.15792410318948785,
+      "no_speech_prob": 0.377197265625
+    },
+    {
+      "start": 4971.53,
+      "end": 5000.85,
+      "text": " Now, there is one variation to this link allocation, which is called, this is a very important variation, and which is called a file allocation table, fact table. So there has been a gate PYQs on this variation. In fact, there has been, I think, a gate PYQs for every of this, right? I think there is a gate PYQ for extant waste also. Anyway, let's not worry about it. We will see those PYQs. I have that in the slides. But this is very important variation.",
+      "avg_logprob": -0.1511291999275945,
+      "no_speech_prob": 0.291015625
+    },
+    {
+      "start": 5004.09,
+      "end": 5039.97,
+      "text": " Okay, this variation or yeah, this variation has been used in MS-DOS, not that extend one. So I told that extend one was in the MS-DOS, right? So anyway, let's not worry about it. I mean, these are just basic ideas, but yeah, this variation has been used in MS-DOS. So what this variation says, like currently what do I have? I have pointers on each of the disc blocks. So what this variation says is that, let me just tell you, let's suppose that this is your current situation, right? Then this says,",
+      "avg_logprob": -0.16369048269495132,
+      "no_speech_prob": 0.9482421875
+    },
+    {
+      "start": 5040.36,
+      "end": 5078.9,
+      "text": " take all of these right take all of these this one this one these all of these pointers bring all of these pointers to one place okay and let's call this table as a fact table okay bring all pointers to one place that's what it says so basically like it says that store linkless pointers outside the block and in a file allocation table so bring all of these pointers to one place in the file allocation table now",
+      "avg_logprob": -0.09444754322369893,
+      "no_speech_prob": 0.448486328125
+    },
+    {
+      "start": 5079.51,
+      "end": 5105.99,
+      "text": " There will be, how does this file allocation table look like? Let me just tell you. So there will be one entry for every sector or every block in this file allocation table. This is file allocation table. And in this, there will be, let's suppose you have, let's suppose any number of blocks, maybe let's suppose from zero to number of blocks minus one. I mean, in your,",
+      "avg_logprob": -0.14420956092722276,
+      "no_speech_prob": 0.255126953125
+    },
+    {
+      "start": 5107.64,
+      "end": 5140.83,
+      "text": " uh hard disk let's suppose there are any number of sectors or the blocks okay generally we call them with respect to hard disk i think we call them as sectors okay so any number of sectors minus one which means uh let's suppose you have uh any number of sectors then what i will do i will i will store here then let's suppose my file is i think i have the example yeah let's suppose my file is this 643 okay let's suppose these are the two files that i have this is 643",
+      "avg_logprob": -0.0781249963463499,
+      "no_speech_prob": 0.89990234375
+    },
+    {
+      "start": 5141,
+      "end": 5175.92,
+      "text": " so what i will store in the six let's suppose this is six okay what i store in the six is that this is linked to which one this is linked to four i will store four here and what i store in the four that this is i mean this is from zero one two like that right this is linked to three and what i stored in three that this is basically the end of the file which means let me explain you what is happening here",
+      "avg_logprob": -0.07808207401207515,
+      "no_speech_prob": 0.85302734375
+    },
+    {
+      "start": 5177.48,
+      "end": 5202.32,
+      "text": " Can you understand what is happening here like without I explained you further suppose if I don't explain Can you guess what is happening? So basically like this is a big table which is having all of your sectors right and then Then all of the pointers are in this table only then what I will do if my file a is having this kind of allocation then",
+      "avg_logprob": -0.12433978453488417,
+      "no_speech_prob": 0.2255859375
+    },
+    {
+      "start": 5203.17,
+      "end": 5232.4,
+      "text": " which means 6 is linked to 4 I mean after 6 there should be 4 and after 4 there should be 3 then instead of storing pointer here instead of storing pointers here I will store these pointers here like 6 is linked like after 6 there should be 4 and after 4 I will go to 4 and from 4 I should go to 3 which means I will bring all of the pointers in this table let's suppose this file 2 then file 2 is having 2 1 so in 2 I will be having entry 4 1",
+      "avg_logprob": -0.1546415436793776,
+      "no_speech_prob": 0.78076171875
+    },
+    {
+      "start": 5232.88,
+      "end": 5264.93,
+      "text": " which means this two is linked to one and then at one I will say this is end of five which means let's suppose if I want to access the file A then what I will do in the I node only in I node I will store just one pointer which is six okay I mean maybe I will store the pointer to this particular entry in the I node then instead of you know instead of going to going to the first block",
+      "avg_logprob": -0.1347880819063077,
+      "no_speech_prob": 0.85791015625
+    },
+    {
+      "start": 5265.3,
+      "end": 5292.58,
+      "text": " of this i will go to this and then i will say that okay uh this the uh first block is at six that i know right first block is the six block uh is stored as a six if i want to calculate where is the second block i will i will go here only i will calculate okay second block is here if i need to calculate where is the third block i will go okay here something like that right okay this is the first block and there's the second block and if i want to know where's the third block like that so basically i will keep all of the pointers in one table at one place",
+      "avg_logprob": -0.0809601781469199,
+      "no_speech_prob": 0.6982421875
+    },
+    {
+      "start": 5293.62,
+      "end": 5324.53,
+      "text": " And what is the advantage I will talk about, but is the idea clear that what we are doing? So instead of storing the pointers here, I will store the pointers in one table. So what does this fact says, store linked list pointers outside the block in a file allocation table. One entry for each block. So if you have in your disk, if you have let's suppose a thousand blocks or something, then you have from zero to 999 entries. This is a big table file allocation table. Now linked list of entries for each file.",
+      "avg_logprob": -0.18584070796460178,
+      "no_speech_prob": 0.8681640625
+    },
+    {
+      "start": 5325.66,
+      "end": 5359.81,
+      "text": " Yeah, like here you will be having basically, okay, okay, this is linked to this, this is linked to this, something like this. So here you are having all the pointers. Now, suppose if I want to calculate that, let's suppose if I want to calculate that this file, okay, some file is there, let's suppose this file is having one, two, three, four, and where is this fourth one is stored, then I will go maybe to the first here, then second, third, and then I will get to know where is the fourth one stored, okay.",
+      "avg_logprob": -0.14591733258097403,
+      "no_speech_prob": 0.86865234375
+    },
+    {
+      "start": 5360.06,
+      "end": 5393.46,
+      "text": " So all up is asking sir does each entry have a data block pointer to which entry this is a fat table and I know table is different I know it is different I know it will be having I know it will be having just one entry so if I talk about the I know I know it will be having just one entry to the initial fat entry each entry have a data block data block pointer to okay in the fact no it doesn't have the data block pointer it just tell you that okay",
+      "avg_logprob": -0.20015625089406966,
+      "no_speech_prob": 0.66259765625
+    },
+    {
+      "start": 5393.69,
+      "end": 5423.42,
+      "text": " which data block number is there and you do not need to have a data block point or something like once you know that that what is the data block number then data block number and the data block address both are actually same I mean you can easily calculate with the let's suppose six number maybe that what is the data block size you can multiply that and you can easily calculate the address right pointer is just an address right so if you want to calculate the address then you can easily calculate now what do you think could be the advantage of this system",
+      "avg_logprob": -0.1070814195576064,
+      "no_speech_prob": 0.46484375
+    },
+    {
+      "start": 5428.43,
+      "end": 5474.32,
+      "text": " See, it is still a pointer chasing. So it is still a pointer chasing. So what do you think could be the advantage of the system? So I do have one fact table, right? One fact table, four, whatever number of files I have, if I have 1000 files, then the fact table is just one. And whenever I say directory, I mean I node of the directory, okay? So it is I node of the directory. Maybe this I node for the file, it is just containing that, okay, you should go here.",
+      "avg_logprob": -0.19462719664239048,
+      "no_speech_prob": 0.92041015625
+    },
+    {
+      "start": 5474.53,
+      "end": 5502.48,
+      "text": " it is not containing the inode table or something it will say you should go here mostly the implementation are like that okay in most of the implementation the directory inode just contain that I mean in these two implementation actually at least okay like in these two implementation in the above two the directory inode just contain that okay what is the first status because it does not have to contain that like",
+      "avg_logprob": -0.1371193894973168,
+      "no_speech_prob": 0.160888671875
+    },
+    {
+      "start": 5503.59,
+      "end": 5534.01,
+      "text": " what are the all the you know where are all the blocks generally if you just know the first address in the continuous or in the link then everything is fine right so in this continuous or link generally like directly i know itself is containing the first address first block anyway let's not worry about it you will get to understand from the questions that what do they mean so suppose if you want to if you want to access this three then earlier how much how much like pointer access that you had to do you had to go to six",
+      "avg_logprob": -0.09888392573311215,
+      "no_speech_prob": 0.44775390625
+    },
+    {
+      "start": 5534.32,
+      "end": 5568.03,
+      "text": " You have to go to four, then you have to go to three. Like that you are calculating, right? And here also you have to go to six, you have to go to, from the six, you have to go to four, then you have to go to three, something like that. Here also three pointer axis, here also three pointer axis. So what is the difference? See, earlier what was happening, like if you want to go to three, right, you have to bring that block in the main memory, you have to bring that block in the main memory, then you will get to know, okay, maybe this is the address that I'm looking for.",
+      "avg_logprob": -0.13585993161438203,
+      "no_speech_prob": 0.6533203125
+    },
+    {
+      "start": 5568.27,
+      "end": 5596.31,
+      "text": " then what you will do you will go to that address you have to bring that in the main memory right then only you can do some operation maybe read write whatever you want to do you have to bring that block in the main memory so you will read the pointer here right and then you will you will go okay okay i'm interested in this particular block like that you will be accessing three so you will bring this six in the main memory you will bring four in the main memory and then finally you get to know what is the address of three right",
+      "avg_logprob": -0.06779119338501584,
+      "no_speech_prob": 0.69140625
+    },
+    {
+      "start": 5597.98,
+      "end": 5628.8,
+      "text": " But here what you will do you will bring this fat table in the main memory Okay, if if that you can do otherwise some part of the fat table Okay, let's assume that you can bring the whole fat table in the main memory bring fat in main memory Then what you will do in the main memory you do I mean you do not need to have too much IO operations You are just doing one IO operation which means from this IO means like from the secondary storage you are bringing something on the main memory that's called IO So you will do one IO operation here",
+      "avg_logprob": -0.17404891382093016,
+      "no_speech_prob": 0.857421875
+    },
+    {
+      "start": 5629.01,
+      "end": 5651.69,
+      "text": " you will bring the fact table in the main memory and then you will calculate this three so whatever this is happening this is happening in the main memory okay I mean this pointer chasing is in the main memory earlier pointer chasing was in the like I mean you have to do too much of IO you have to bring that then calculate the address of this bring this calculate the address of this but here just bring this and then",
+      "avg_logprob": -0.15690887943807855,
+      "no_speech_prob": 0.399658203125
+    },
+    {
+      "start": 5652.15,
+      "end": 5681.11,
+      "text": " I mean this obviously you can bring this in most probably you can bring this because this is just continuing the pointer it is it should not be too big file right I mean you cannot bring a complete hardest to the main memory I mean if you can bring the complete hardest to the main movie then what is the point of having heartaches right if that is so small so you cannot bring the whole all of the blocks in the main movie then you can calculate you cannot calculate that okay this is having the pointer to force something like that right but you can bring this fact table all right I mean this should be the small table is this killer to everyone",
+      "avg_logprob": -0.18386627906976744,
+      "no_speech_prob": 0.7958984375
+    },
+    {
+      "start": 5681.39,
+      "end": 5716.48,
+      "text": " you will bring that in the main memory. This pointer chasing you will do the main memory. But here earlier what you used to do, you used to bring six, then bring four, then bring three. I hope that is okay. So it is still a pointer chasing, but can bring the entire fact table. Okay. I mean, file allocation table in the main memory. So can be cheap compared to Dix access, right? So suppose that entry size is 16 bits, which means in this, let's do a question.",
+      "avg_logprob": -0.19815341193567623,
+      "no_speech_prob": 0.8740234375
+    },
+    {
+      "start": 5716.84,
+      "end": 5751.08,
+      "text": " in this file allocation table each entry it can have just 16 bits each entry can have 16 bits so tell me what does this each entry contain what does this each entry contain block number or the address address you can calculate later maybe like by multiplication simple multiplication maybe let me just have the block number right i mean address if you want you can store but it is unnecessarily making your size bigger",
+      "avg_logprob": -0.07597155085740945,
+      "no_speech_prob": 0.767578125
+    },
+    {
+      "start": 5751.4,
+      "end": 5796.5,
+      "text": " so let's just type the block number because block number and interest are one to one meeting once you know the block number is five then address could be just a five and two block size something like this right so this is having a block number if this is 16 bit then how many blocks are possible how many blocks are possible two power 16 blocks so what they're asking is what is maximum size of fact what is the size of this if it is containing 16 bits yeah",
+      "avg_logprob": -0.12159242219430336,
+      "no_speech_prob": 0.6533203125
+    },
+    {
+      "start": 5798.17,
+      "end": 5833.5,
+      "text": " so it can contain at most there will be 2 power 16 blocks so it can contain at most 2 power 16 entries am i am i right yes i think it can contain at most 2 power 16 entries and if i ask you okay these these many blocks are there and if they say that this 512 bytes is size of one block then what are the size of your maximum size of the file system or the or the hard disk what could be like these many blocks are there and",
+      "avg_logprob": -0.10636393058424194,
+      "no_speech_prob": 0.87109375
+    },
+    {
+      "start": 5833.78,
+      "end": 5879.03,
+      "text": " 512 is size of one block, then it will be the size. So what are the maximum size of the fat table? Fat table can contain 2 power 16 entries, right? Because there are 2 power 16 blocks, 2 power 16 blocks and one entry for each block. That's why there are 2 power 16 entries. Okay, given this size, you can multiply this 2 power 16 blocks are there and one block size is 512, then you will be getting",
+      "avg_logprob": -0.18538410930583873,
+      "no_speech_prob": 0.9384765625
+    },
+    {
+      "start": 5879.37,
+      "end": 5913.24,
+      "text": " 32 mbi 2 power 9 into 2 power 16 that is 2 power 5 into 2 power 20 which is 32 mb okay now let's read this paragraph that i have taken from galvin so what they have to say about this fact table just let's just quickly read it an important variation to the linked allocation is the use of fact table so this was a variation right if you remember that was a variation of the linked",
+      "avg_logprob": -0.11525735504486982,
+      "no_speech_prob": 0.8408203125
+    },
+    {
+      "start": 5913.52,
+      "end": 5943.81,
+      "text": " so in the link to what we used to have we used to have the pointers here but now what we did we just bought all the pointers in one take okay so what is the benefit of this like we have to we have to do the pointer chasing but that will be just in main memory this simple but efficient method of disk space allocation was used by MS-DOS operating system a section of disk at the beginning of each volume is set aside to the container table so yeah so basically if you remember",
+      "avg_logprob": -0.15918935584549856,
+      "no_speech_prob": 0.5458984375
+    },
+    {
+      "start": 5944.33,
+      "end": 5974.68,
+      "text": " let me just connect the dots I mean it depends that how you are implementing but but if you remember then like I have said like in the old Unix disk these are divided into five parts right one boot block super block something like that I mean it depends on your implementation so if you are implementing the fat table then what they do they divide into maybe three parts four parts I mean depends on implementation but one of the part they are saying one of the part they designated that to a fat table",
+      "avg_logprob": -0.12728850287620466,
+      "no_speech_prob": 0.29736328125
+    },
+    {
+      "start": 5974.84,
+      "end": 6007.65,
+      "text": " I mean, whatever the size, like the fact table size, they store that fact table in the one of the part. So that's what they have written. See, they're saying the section of the disk at the beginning of each volume is set aside to the content of content of the table. So you can divide your disk into number of parts and you can contain your fade table and maybe one of the section. They are not seeing the first section, but one of the section, right? In one of the section, you can, you can have. Okay. And then maybe, maybe you can have your iNodes.",
+      "avg_logprob": -0.2074519184919504,
+      "no_speech_prob": 0.417724609375
+    },
+    {
+      "start": 6008.68,
+      "end": 6037.66,
+      "text": " you can have disk or like actual data or whatever right? It depends on the implementation. The table has one entry for each disk block and it indexed by the block number. The FAT is used in much the same way as linked list. The directory entry contains the block number of the first block of the file. The directory entry contains the block number of the first block of the file. Directory means the I node, I node of the directory, okay? So generally they just call directory.",
+      "avg_logprob": -0.16865809422497655,
+      "no_speech_prob": 0.7763671875
+    },
+    {
+      "start": 6038.14,
+      "end": 6067.9,
+      "text": " but it is iNode of the directory. So this iNode of the directory entry contain. This is the iNode of the directory. Let's suppose here in this directory, there are two files, then it will contain the pointer to the first address of this file. If this file is stored in the 643, then it will contain the pointer to the six location in this fact table. That's what they're saying. Contains a block number of the first block of the file.",
+      "avg_logprob": -0.17007212054270965,
+      "no_speech_prob": 0.7841796875
+    },
+    {
+      "start": 6068.57,
+      "end": 6090.67,
+      "text": " The table entry index by the block number contains the block number of the next block in the file. The chain continues until it reaches the last block, which has a special end of the file value on the table entry. An unused block is indicated by the table value 0. So maybe I can have a special value 0. If that is 0, maybe I can say it is not in used. Something like that.",
+      "avg_logprob": -0.11930147199069753,
+      "no_speech_prob": 0.60888671875
+    },
+    {
+      "start": 6094.13,
+      "end": 6122.97,
+      "text": " Allocating a new block, a file is simple matter of finding the first zero values. If you want to allocate a new block, you can just find where are the zeros and based on that you can assign, right? Okay. The file allocation, file allocation, FAT, file allocation, table allocation scheme can result in a significant number of disk head seats unless the file is cached. Obviously, if you're not caching that file, then you have to, you know, have to do that all of the disk.",
+      "avg_logprob": -0.1799715982242064,
+      "no_speech_prob": 0.8388671875
+    },
+    {
+      "start": 6125.01,
+      "end": 6158.38,
+      "text": " What they're saying the file allocation table scheme can result in the significant number of disk head seeks unless the FAT is cached Yeah, so I mean what what you can do you can even store that FAT in the in the cache cache memory not not in just in the main memory You can that stored in the cache memory also if you're not storing that in the cache memory then again and again Probably you have to you know once the file operation is done then suppose you have to do another operation on another file Maybe you have to again bring that FAT in the main memory",
+      "avg_logprob": -0.19478284491825912,
+      "no_speech_prob": 0.732421875
+    },
+    {
+      "start": 6158.63,
+      "end": 6191.73,
+      "text": " So instead of again and again bringing the FAT in the main memory, you can just cache it. The file head must move to the start of the volume to read the FAT and outlog it. So I think that's the normal thing. A benefit is that random access time is improved because the disk head can find the location of any block by reading the information in the FAT. Random access time is improved. Why the random access time is improved? Suppose you want to randomly access something.",
+      "avg_logprob": -0.12568264620975383,
+      "no_speech_prob": 0.1922607421875
+    },
+    {
+      "start": 6192.64,
+      "end": 6221.2,
+      "text": " Then yes, I think the same story because you can, you can do all of the operations in the main memory in just one IU, right? You can bring maybe all of the fat in the main memory and then you can just do one IU and then you can calculate, okay, what is the option for the random access? If you want to go to some location, you can easily calculate what should be the block number, what should be the offset in just one IU. Because the disk head can find the location of any block by reading the information in the fact, right? So by the reading the information in the fact,",
+      "avg_logprob": -0.17296511627906977,
+      "no_speech_prob": 0.491455078125
+    },
+    {
+      "start": 6221.45,
+      "end": 6252.53,
+      "text": " you can find out that okay where is your particular uh particular byte number is stored and then you can do that in just one iu okay so what are the pros fast random access only search cache file so if you can cache it then it is great uh like it it will be having fast random access what are the disadvantages or cons it is having a large storage overhead for the fact table obviously it could be a huge table right because you have to store uh block number for every every block so",
+      "avg_logprob": -0.1291824561176878,
+      "no_speech_prob": 0.80078125
+    },
+    {
+      "start": 6252.92,
+      "end": 6286.14,
+      "text": " it could be a huge table also potentially slow sequential access because the data is not obviously stored in sequential that was the disadvantage in just in linked list right so in the linked list implementation potentially slow sequential access was there the same disadvantage will get carry there also because we are not having any continuous allocation now let's see this question that question I have taken from IIT Bombay I mean from one of the lecture from IIT Bombay",
+      "avg_logprob": -0.10003591936895218,
+      "no_speech_prob": 0.11114501953125
+    },
+    {
+      "start": 6286.62,
+      "end": 6334.89,
+      "text": " so what they are saying consider a fat table system okay where the disk is divided into m byte blocks and every fat entry can store a n bit block number block sizes i think m bytes right and every fat entry can store n bit block number okay in every every fat entry there are n bits so number of blocks are 2 over n what is the maximum size of disk partition that can be managed by such flat",
+      "avg_logprob": -0.15253430077942406,
+      "no_speech_prob": 0.91650390625
+    },
+    {
+      "start": 6335.5,
+      "end": 6375.5,
+      "text": " Fat design what is the answer if these are the number of blocks These this is the size of the block you can just multiply both right? Yeah, these many bites you can manage Let's see this great question a file allocation table fat based file system is being used and total overhead of each entry in the fat is four bytes in size so basically Each entry sizes four bytes right given a",
+      "avg_logprob": -0.2327724345601522,
+      "no_speech_prob": 0.95361328125
+    },
+    {
+      "start": 6376.25,
+      "end": 6415,
+      "text": " 100 into 10 is power 6 byte disk on which file system is stored and data block size is 10 is power 3 bytes. So what are the number of blocks? 10 is power 4, right? I mean 100 into 10 is power 6, is 10 is power 8, 10 is power 3, 10 is power 5. Number of blocks are 10 is power 5. The maximum size of a file that can be stored on a disk of unit 10 is power 6 bytes.",
+      "avg_logprob": -0.17496744403615594,
+      "no_speech_prob": 0.91943359375
+    },
+    {
+      "start": 6418.72,
+      "end": 6468.37,
+      "text": " The maximum size of a file that can be stored on this disk in units of 10s for six whites So what do they mean by the in the units of 10s for six whites? What do what do they mean by that? This is block size right block sizes 10s for six I mean in the units of 10s for six whites means like each block sizes to like the unit they are talking about which means block size Number of blocks are given block size is given. This is given what they're asking",
+      "avg_logprob": -0.22566105812214887,
+      "no_speech_prob": 0.87841796875
+    },
+    {
+      "start": 6468.67,
+      "end": 6553.21,
+      "text": " Can you calculate now? OK, block size 10 is power 3. Data block size 10 is power 3. Just a second. This is 10 is power 3. The maximum size of a file that can be stored on the disk, the maximum size of a file, this is 4 bytes. These are the number of blocks. OK, so case is saying 4 into 10 is power 5. 4 into 10 is power 5. This is what you're saying.",
+      "avg_logprob": -0.16389628246109536,
+      "no_speech_prob": 0.72412109375
+    },
+    {
+      "start": 6566.65,
+      "end": 6611.33,
+      "text": " Maximum size of a file that can be stored. If I want to store some file, then why it is limited by something? I mean, the file size could be anything. I can store any big size, but they're saying in the units of 10s46, let's just see the solution. What does this, okay, I do not have solution here. The maximum size of the file that can be stored on a disk in the units of 10s46.",
+      "avg_logprob": -0.17330994548238055,
+      "no_speech_prob": 0.9140625
+    },
+    {
+      "start": 6619.05,
+      "end": 6658.2,
+      "text": " Oh, okay, got it. So whatever is your file size, I mean, let's suppose your final answer is X, then I think I need to divide that answer with 10, 4, 6, right? So what is your file size, then the final answer will be something like this. So this should be a final answer. I think that's what they mean, that whatever your answer in bytes you get in bytes, file size in bytes, that's what you need to divide with 10, 4, 6. Okay, let's just calculate in the bytes.",
+      "avg_logprob": -0.13155455786292836,
+      "no_speech_prob": 0.76123046875
+    },
+    {
+      "start": 6658.6,
+      "end": 6713.44,
+      "text": " maximum size of file that can be stored in the disk prior location division system which being total level each entry is four bytes file size can be of disk size that's what i'm thinking that why i'm limiting the file size let's just look at the solution okay so what we need to do like this is number of blocks that are given it means that these are number of entries these are number of entries so",
+      "avg_logprob": -0.16716867721224404,
+      "no_speech_prob": 0.63671875
+    },
+    {
+      "start": 6719.76,
+      "end": 6772.78,
+      "text": " number of entries are 10 to the power 5 and then one entry size is 4 bytes it means the size of radical location table will be 4 into 10 to the power 5 bytes and then total size of the disk is 100 into 10 to the power 6 bytes so total disk size which is basically equal to",
+      "avg_logprob": -0.24205942622950818,
+      "no_speech_prob": 0.74658203125
+    },
+    {
+      "start": 6773.19,
+      "end": 6834.29,
+      "text": " you can say 10 is power 3 to 10 is power 5 bytes. Now, if you have these parameters, then let's just calculate the space left to store 5. Now, in units of 10 is power 6, it is basically divided by 10 is power 6. So, yeah, this is the final answer 999.6 MB. Yeah.",
+      "avg_logprob": -0.21343316117094624,
+      "no_speech_prob": 0.410888671875
+    },
+    {
+      "start": 6834.78,
+      "end": 6875.9,
+      "text": " It was easy question only, but the language was somewhat not much clear. So now let's go to the final method, which we have index allocation, which is the most important method that we have. So let me just quickly tell you that what we have seen. So we have seen the contiguous and extend ways linked and fact table now index and multi-level index like these two are yet to do. So see this linked allocation solves the",
+      "avg_logprob": -0.16268887198888338,
+      "no_speech_prob": 0.61328125
+    },
+    {
+      "start": 6876.22,
+      "end": 6905.94,
+      "text": " problem of external fragmentation and the size declaration I mean there were two problems that in the contiguous maybe the external fragmentation was there and you have to declare the size size at the time of creation linked has solved both of the issues of the contiguous allocation like these two issues of the contiguous allocation was solved using link so anyway like this paragraph I have taken from galvin okay so what they're saying is that however the linked allocation cannot support",
+      "avg_logprob": -0.08877060324936123,
+      "no_speech_prob": 0.32958984375
+    },
+    {
+      "start": 6906.65,
+      "end": 6951.73,
+      "text": " efficient direct access like if you want to directly access something right I mean if you want to directly just a second yeah I don't know that okay so if you want to directly access something then they are saying that you cannot do it right so it cannot support the direct access since the pointers to the blocks are scattered within the blocks themselves all over the disk and must be received in the order so basically the pointers are scattered scattered all over the blocks",
+      "avg_logprob": -0.12447331192788114,
+      "no_speech_prob": 0.9267578125
+    },
+    {
+      "start": 6951.99,
+      "end": 6980.17,
+      "text": " if you're using the fat then it is an enhancement but still it is a direct access I mean still you have to do the pointer chasing right in the fat also you do the pointer chasing now what we have here in the index allocation it solves the problems by bringing all the pointers together in one location that is what index block which means you do not have the linking anymore here in the index block you do not have the linking anymore what you have like whatever your files let me just show you see",
+      "avg_logprob": -0.13468749448657036,
+      "no_speech_prob": 0.53564453125
+    },
+    {
+      "start": 6980.86,
+      "end": 7012.84,
+      "text": " These are your files. Let's suppose this is your file is stored here. Let's suppose your file is stored here. I mean, at multiple location, it can be stored. Suppose it is stored here. It is stored here. It is stored at some places. Then what I will do, I will, I will bring all the pointers in just one I know. I mean, earlier, the I know was having just pointed to one, one of the sector, the first sector, but here I will be having in the I know itself, I will be having all the pointers. It is okay to everyone very easy.",
+      "avg_logprob": -0.2139050387596899,
+      "no_speech_prob": 0.69921875
+    },
+    {
+      "start": 7013.5,
+      "end": 7045.99,
+      "text": " So I will bring all the pointers in the iNote itself. Earlier I was having just one pointer at the iNote and a starting pointer. But now I will bring all the pointers to the iNote. So let's just see this in more detail and it is most important allocation method. Now the file has the arrow pointers, index to a block. Allocate block pointers continuously in metadata. Just must set the maximum length of the file created.",
+      "avg_logprob": -0.1698369537682637,
+      "no_speech_prob": 0.455078125
+    },
+    {
+      "start": 7049.47,
+      "end": 7077.58,
+      "text": " meant in the multiple list of the block pointers so what they're saying is that allocate block pointers continuously in the metadata yeah so what you what you will do let's suppose your file is divided into a couple of blocks right and let's suppose this is the sector number 10 this is the sector number let's suppose 23 this is 35 something like this so here I will do continuously like where is my sector where is my block number one okay or the block number zero",
+      "avg_logprob": -0.12718414170767672,
+      "no_speech_prob": 0.81884765625
+    },
+    {
+      "start": 7077.82,
+      "end": 7110.8,
+      "text": " where is my block number one where is my block number two where is my block number three four five like that I will be continuously having like where is where my block number one two three four five like that I will be having the pointer to the sectors directly here so like what pointers allocate block pointers continuously like continuously means like for block pointer one then after that only block pointer two right I mean if you are getting confused I don't think it is even important line so let me just remove it must set the maximum length when calculated",
+      "avg_logprob": -0.14917452310053808,
+      "no_speech_prob": 0.689453125
+    },
+    {
+      "start": 7111.46,
+      "end": 7141.91,
+      "text": " Yeah, this is this is one disadvantage here reason being is that I mean you you do not need to set the length Exact length, but you need to set the maximum length. You need to tell that you cannot grow more than some some bytes, which means let's suppose your I node What what do I have in I know the matter data and the block pointers here, which means it will block to the sector 1 it will block to the sector 2 now tell me here what you can say",
+      "avg_logprob": -0.19859374746680258,
+      "no_speech_prob": 0.8974609375
+    },
+    {
+      "start": 7142.14,
+      "end": 7187.63,
+      "text": " that you can at most if these are the four pointers four pointers then what you will say that you can at most have how many I mean if you have space for the four centers in the iNode then you can at most use four sectors. If you have space for four pointers in iNode then you can use at most four sectors. So basically here the size is limited",
+      "avg_logprob": -0.15635016560554504,
+      "no_speech_prob": 0.14453125
+    },
+    {
+      "start": 7187.95,
+      "end": 7215.31,
+      "text": " I mean, you cannot grow after a maximum size. That's what they are saying. So allocate pointers to the creation. So what is the disadvantage is that maintain a multiple list of block pointers. I'm not sure what is the context of this slide. So actually, I'm removing this slide because I'm not sure what was the context.",
+      "avg_logprob": -0.14755721663085508,
+      "no_speech_prob": 0.0966796875
+    },
+    {
+      "start": 7215.58,
+      "end": 7241.51,
+      "text": " of that. So anyway, like I hope you understood that here, if you are having just one pointer to each, then you are basically limiting yourself by the maximum size, you cannot grow after after four sectors, the skillet everyone. Now we will remove the that limitation in just a while, but I hope that is clear. Right. So let's suppose these are the two files that you have, then what you will be having this is the I node one, you will be having pointers to",
+      "avg_logprob": -0.18795955721654145,
+      "no_speech_prob": 0.308349609375
+    },
+    {
+      "start": 7242.22,
+      "end": 7267.31,
+      "text": " All of the sectors wherever wherever this block is located wherever this block is located so that's how you can you can spread your data in the multiple sectors and all of the pointers that you have right that you can have directly here now tell me If you want to have a random access can you have here? Will the random random access will be tough or easy? It is easy right?",
+      "avg_logprob": -0.17678284683288673,
+      "no_speech_prob": 0.263427734375
+    },
+    {
+      "start": 7267.55,
+      "end": 7293.65,
+      "text": " you can directly calculate that where you want to go and maybe in this sector and based on that you can directly go right. So both sequential and random RIG because if you want to access the data sequentially then also you can access which means that after this block let's suppose if you want to go to this block then all of the information is in just one place.",
+      "avg_logprob": -0.17948191318857043,
+      "no_speech_prob": 0.042083740234375
+    },
+    {
+      "start": 7294.16,
+      "end": 7321.24,
+      "text": " I mean, if you want to go at this block, and then if you want to go to this block, then you can go, why? Because you have the pointer here directly with you. And similarly, if you want to go randomly, then also you can go. I mean, you can calculate the address. What are the disadvantages? The mapping table requires large chunk of continuous space. Yeah, this is our disadvantage, which means if you want to map, then there will be a large space that Inode will be taking. So Inode size is big, right?",
+      "avg_logprob": -0.11305147346829166,
+      "no_speech_prob": 0.07952880859375
+    },
+    {
+      "start": 7328.07,
+      "end": 7388.88,
+      "text": " so basically what is happening here that if you are having a small i node then what is the disadvantage if you are let's suppose having just four entries maximum file size is limit if you are having big i node then what is the problem let's suppose it can contain a thousand entries or something like this so maximum file size is larger than enough but what is the problem can anyone suggest me the problem",
+      "avg_logprob": -0.1845703175291419,
+      "no_speech_prob": 0.36572265625
+    },
+    {
+      "start": 7393.05,
+      "end": 7433.82,
+      "text": " maximum file size is because you can use tennis for five sectors something like this but what will the problem problem is I know size itself is big have you understood the problem in both the cases if you're even a small I know then it is a problem because your file cannot grow much larger if you're having big I know then also it is a problem right but let's suppose I mean what do I mean by file cannot grow let's suppose that initially you are you are having just you know few sectors to use",
+      "avg_logprob": -0.17581917765071092,
+      "no_speech_prob": 0.56396484375
+    },
+    {
+      "start": 7434.25,
+      "end": 7472.34,
+      "text": " let's suppose there are 10 sectors you can use okay 10 entries initially let's suppose only two sectors are useful i mean this will be containing the address of this the only two sectors are useful but later the file file grows okay then what you will do let's suppose if later you grow you can easily assign one more sector and then you can write the address here very easily right if the file grows later so that's what you can do so",
+      "avg_logprob": -0.1271945291690612,
+      "no_speech_prob": 0.84423828125
+    },
+    {
+      "start": 7472.64,
+      "end": 7500.39,
+      "text": " uh like i mean but it it can go to just a maximum limit if this is just four entries you can at most use four sectors but if there are 10s for five entries you can use many many sectors there are 10s for five sectors but the i-node size will be big can you suggest me a way where i can still have lesser i-node size and and i can have you know maximum uh file size should not be compromised which means with this small i-node size i can have",
+      "avg_logprob": -0.12358631236212594,
+      "no_speech_prob": 0.71435546875
+    },
+    {
+      "start": 7500.57,
+      "end": 7548.38,
+      "text": " a maximum like good enough maximum file size. Okay. You got my question. Can we have a method by which we can have a small I node size is still large maximum file size. So answer is yes. We will do multi-level indexing. So let's just see how it is useful. Okay. So",
+      "avg_logprob": -0.2469223511941505,
+      "no_speech_prob": 0.89892578125
+    },
+    {
+      "start": 7549.06,
+      "end": 7594.9,
+      "text": " I mean, if you are having a big, big I node, okay, let's suppose it is a big I node, then there are a problem. Big I node is basically use less for most of the files. Okay, big I node is use less, use less for most of the file. Why? Because most of the files are small. So suppose you are having big I node, then this data, I mean, these sectors you are not using. So these entries are just null. And they are two power 20 entries. This is the same problem that we have faced in the page tables.",
+      "avg_logprob": -0.21937500143051147,
+      "no_speech_prob": 0.533203125
+    },
+    {
+      "start": 7595.26,
+      "end": 7618.42,
+      "text": " so large possible file size that's that's okay i mean if you want you can grow it but lot of unusuality i mean for mostly i mean in the practical sense it is the case large actual size table needs large contiguous diction okay so uh how to solve this problem what i will do i will give you multi-level indexing so here i will say",
+      "avg_logprob": -0.1353462819714804,
+      "no_speech_prob": 0.2423095703125
+    },
+    {
+      "start": 7618.73,
+      "end": 7647.17,
+      "text": " that if we are using this continuous chunks then let me index them by by maybe this particular block okay this particular block will be having address of these things and if you're using just this chunk then let me just you know say that okay this particular maybe maybe I can say if you're using just one chunk here maybe I can say let me directly point it which means what I will do I will be having multi-level of indirection and directions which means I will say that okay if there is just one chunk that it is just as old",
+      "avg_logprob": -0.08792613954706625,
+      "no_speech_prob": 0.78515625
+    },
+    {
+      "start": 7647.46,
+      "end": 7677.96,
+      "text": " like old i was doing directly pointing right there are multiple chunks then i will i will assign a block that will point to them and i will just point to that block okay so let's just see that how it is working so basically like iNode will be either directly pointing okay these are the direct pointers okay or it will be pointing to something okay it will be pointing to some block which actually points to right it is pointing to some block which actually points to your sectors",
+      "avg_logprob": -0.07356085824339013,
+      "no_speech_prob": 0.85693359375
+    },
+    {
+      "start": 7678.44,
+      "end": 7711.42,
+      "text": " so could be indirect pointers also this is indirect pointer how does it help for legacy so basically i will be having direct blocks i will be having single indirect i can have double indirect which means it will point to something that will point to something that will point to data i can have triple indirect also which means it will point to something that will point to something that will point to something that will point to data something so what is the benefit and you know advantage and disadvantage of this advantage is very clear which means",
+      "avg_logprob": -0.0979269790177298,
+      "no_speech_prob": 0.80908203125
+    },
+    {
+      "start": 7711.87,
+      "end": 7738.61,
+      "text": " if I want to grow okay if I let's suppose that these are direct blocks are used okay which means let's suppose these are maybe 2 power 10 entries then suppose I have used all of the sectors of this then if I want to grow one more time then I can assign that and then just one entry here can handle let's suppose these are again 2 power 10 entries that just one entry can handle these 2 power 10 sectors",
+      "avg_logprob": -0.14861918639305027,
+      "no_speech_prob": 0.459228515625
+    },
+    {
+      "start": 7739.46,
+      "end": 7766.3,
+      "text": " Suppose I just use this one entry and maybe I need to have more space. Maybe I can have this one entry. This one entry is giving you how much space. Maybe 2 power 10 into 2 power 10 into 2 power 10 like we will just see it more carefully. I'm not 100% sure which means like it will point to something that will point to 2 power 10 and that is like each of entries basically having a point in to the size of 2 power 10 data bytes.",
+      "avg_logprob": -0.17471591059607688,
+      "no_speech_prob": 0.1976318359375
+    },
+    {
+      "start": 7766.93,
+      "end": 7796.79,
+      "text": " something like this which means if I want to point to something this one entry is making me enable to have a file of size at least this I am just maintaining one entry and I can point to the chunk of size this at most so basically my iNode is still less and still I can point to a huge file but what is the disadvantage obviously the disadvantage is",
+      "avg_logprob": -0.19013935307393204,
+      "no_speech_prob": 0.9619140625
+    },
+    {
+      "start": 7797.02,
+      "end": 7826.69,
+      "text": " multiple level of access. I mean, first I need two accesses, then multiple pointer chasing again, right? Yes. So let's just do a simple calculation. Maybe there are many, many questions that we can do in this calculation. Let's just do a few of them, and then we will solve some gateway based on that. So like most of the questions here, just deal with that what could be the maximum file size. Let's just see this. So consider file system with 2048 byte blocks. So block size is given to you.",
+      "avg_logprob": -0.16803728619165587,
+      "no_speech_prob": 0.430908203125
+    },
+    {
+      "start": 7831.92,
+      "end": 7865.74,
+      "text": " 2 power 20 bytes and 32 bit disk okay which means that like total it is having 32 bits yeah so it means like 2 power 32 bytes you can have in disk it means number of blocks that you can have is 2 power 32 upon 2 power 20 which means it is 2 power 12 blocks",
+      "avg_logprob": -0.1745233076103663,
+      "no_speech_prob": 0.86767578125
+    },
+    {
+      "start": 7868.62,
+      "end": 7902.28,
+      "text": " These many blocks you can have each file has 12 direct pointers Okay, so 12 direct pointers One single indirect it means what it will point to something Which will point to which will point to your actual data Okay, this will point to the actual data. I mean this will point to the data blocks This will point to a data block of size how much block size is 2.2",
+      "avg_logprob": -0.2355925309193599,
+      "no_speech_prob": 0.79443359375
+    },
+    {
+      "start": 7902.82,
+      "end": 7948.6,
+      "text": " this will point to 2.26 now how many pointers i can have in one of the block number of pointer can you tell me number of the pointers that you can have in one block number of pointers maybe let's just see this okay so 32 bit disk size which means like no these are these many blocks are there which means i need i need these are number of blocks what is the size of the pointer",
+      "avg_logprob": -0.141673017565797,
+      "no_speech_prob": 0.85400390625
+    },
+    {
+      "start": 7949.88,
+      "end": 7991.06,
+      "text": " Size of the pointer like a block address size basically if these many blocks are there. I think 2 power 20 right see What I want to ask I want to ask that in one block Okay, whatever is the size of this block? What is the size of this block? 2 power 20. Okay 2 power 20 bytes is this block I want to I want to ask you if this block has to hold",
+      "avg_logprob": -0.18721418391640593,
+      "no_speech_prob": 0.84130859375
+    },
+    {
+      "start": 7991.72,
+      "end": 8029.14,
+      "text": " some addresses okay this is block address block address if this block has to hold some address then how many addresses it can hold is my question clear now first I need to calculate that what is the size what are number of bits we require to address one block right what are the number of bits we require to address one block",
+      "avg_logprob": -0.12866210262291133,
+      "no_speech_prob": 0.78515625
+    },
+    {
+      "start": 8029.5,
+      "end": 8068.98,
+      "text": " how to calculate it disk is 2 power 32 right I mean 32 bits here one block is of 20 bytes 2 power 20 bytes so it means there are 2 power 12 blocks right there are 2 power 12 blocks so for each block how many bits I need for each block I need 12 bits so block address is basically 12 bits is this okay to everyone",
+      "avg_logprob": -0.12935268261602947,
+      "no_speech_prob": 0.615234375
+    },
+    {
+      "start": 8071.74,
+      "end": 8120.81,
+      "text": " actually I have also not solved these questions like I am just doing in class so block address is 12 bits right and and what else is given to me so I want to check that how many addresses it can hold so let's just check now 2 power 20 bytes is a total 2 power 20 into 8 bits total it can hold by 12 I don't think we can even divide just a second",
+      "avg_logprob": -0.14289952116676524,
+      "no_speech_prob": 0.79345703125
+    },
+    {
+      "start": 8125.93,
+      "end": 8161.29,
+      "text": " How large of the disk can this file system support? 2 power 32 blocks are there. 2 power 32 blocks are there. Oh 32 bit base. Okay, okay, okay, sorry. So 32 bit disk here means that this is block addressable basically. So it means it doesn't mean that these are 2 power 32 byte. Disk size is not 2 power 32 byte. Disk size is 2 power 32 blocks. Okay. So number of blocks are 2 power 32.",
+      "avg_logprob": -0.19856770290061831,
+      "no_speech_prob": 0.873046875
+    },
+    {
+      "start": 8161.5,
+      "end": 8201.88,
+      "text": " if they are saying 32-bit disk it means number of blocks are 2 power 32 yeah so if these many number of blocks are there then how many bits you required like for 2.21 block if 2 power 32 blocks are there 32 bits right yes so i look at 32 bits so we look at 32 bits here and 2 power 20 byte block is there which means each block can hold how many entries",
+      "avg_logprob": -0.15605710170887135,
+      "no_speech_prob": 0.8818359375
+    },
+    {
+      "start": 8211.62,
+      "end": 8253.54,
+      "text": " 2 power 20 is given right or not given okay this is sorry 2 power 11 this is 2 power 11 sorry about it so this is 2 power 11 so it means yeah so it means each block can hold 2 power 11 bytes is total and each is 32 bits means 4 bytes side which means 2 power 9 entries it can hold 2 power 9 entries it means like 2 power 9",
+      "avg_logprob": -0.13384046523194565,
+      "no_speech_prob": 0.68505859375
+    },
+    {
+      "start": 8254.51,
+      "end": 8297.65,
+      "text": " blocks I mean entries it can hold now let's just do this question okay so let me just copy this now I know that okay each one can hold 2 power 9 now see what they are saying is that you are having a block okay so you are having a block of size 2 power 11 bytes or maybe you can say 2 power 9 entries",
+      "avg_logprob": -0.14130435041759326,
+      "no_speech_prob": 0.8427734375
+    },
+    {
+      "start": 8298.57,
+      "end": 8327.46,
+      "text": " i mean both are same i mean in terms of entries each entry size is i think 4 bytes right so 2 power 9 entries you can have this is the block size right now you have 12 direct pointers so in in an i node you have 12 direct pointers so let's suppose these are the direct pointers so it means they are pointing to 12 into each block size is 2 power 11 bytes these many bytes one single indirect which is it it is pointing to something",
+      "avg_logprob": -0.17747962280460025,
+      "no_speech_prob": 0.95849609375
+    },
+    {
+      "start": 8328.39,
+      "end": 8361.16,
+      "text": " which is pointing to 2 power 11 so how many are these these are 2 power 9 entries and each is pointing to 2 power 11 so singly indirect because of the singly indirect it is pointing to 2 power 9 entries and each is pointing to 2 power 11 right one doubly indirect it is pointing to something which is pointing to this one so basically doubly indirect means it is pointing to something and each of this",
+      "avg_logprob": -0.11774553305336408,
+      "no_speech_prob": 0.78955078125
+    },
+    {
+      "start": 8361.48,
+      "end": 8391.44,
+      "text": " is also pointing to 2 power 9 and then this is pointing to 2 power 11 bytes so these are 2 power 9 these are 2 power 9 and then 2 power 11 right I mean you just need to multiply by 2 power 9 also so because of like I mean direct these are the 12 direct 2 power 11 is the size okay one singly indirect okay so one into I mean if you want you can write one otherwise let's leave it",
+      "avg_logprob": -0.10156250169331377,
+      "no_speech_prob": 0.8251953125
+    },
+    {
+      "start": 8391.71,
+      "end": 8431.66,
+      "text": " 2 power 11 plus 1 doubly indirect it can point to these many data and one triple indirect so you can point to these this much data I mean total you can have at max this much file size and you cannot grow more than this so whatever is this number right yeah so this number is this one this is 2 power 11 is size and 12 plus 2 power 9 plus 2 power 9 into 2 I mean 2 power 9 square and 2 power 9 yeah that is correct",
+      "avg_logprob": -0.1392121083558874,
+      "no_speech_prob": 0.90576171875
+    },
+    {
+      "start": 8432.09,
+      "end": 8465.98,
+      "text": " Okay. How large of the file can this file system support? How large of a disk can this file system support? So yeah, disk size is 2 power 32 blocks. So 2 power 32 into 2 power 11, right? In terms of bytes. You got the point. So here 32 bit disk means this is 2 power 32 blocks. Here the addressable unit is blocks. This is important.",
+      "avg_logprob": -0.14872332008146658,
+      "no_speech_prob": 0.83056640625
+    },
+    {
+      "start": 8470.86,
+      "end": 8502.72,
+      "text": " so maybe lets do more questions how 2 power 9 is coming because each block can hold how many entries you just need to calculate that each block can hold how many entries so block sizes 2 power 11 bytes and there are 2 power 32 blocks right there are 2 power 32 blocks it means what you need each one is containing here it is containing the block address you need 32 bits because these many blocks are there right",
+      "avg_logprob": -0.13462271505012746,
+      "no_speech_prob": 0.93994140625
+    },
+    {
+      "start": 8502.99,
+      "end": 8532.81,
+      "text": " if 2 power 32 blocks are there you need 32 bits to address them so each one is containing 32 bits and the block size is 2 power 11 so how many entries each block can have each block can hold 2 power 9 entries right each block can hold either you can say that that 2 power 11 bytes or you can say that 2 power 9 entries I mean you need to check that what is the entry size entry size means what is the entry here block address block address is 32 bits which means 4 bytes",
+      "avg_logprob": -0.0979269790177298,
+      "no_speech_prob": 0.68408203125
+    },
+    {
+      "start": 8533.13,
+      "end": 8563.38,
+      "text": " So that's how we are calculating this 2 power 9. So this calculation is very, very important that how to calculate this 2 power 9. I mean, you just need to check that how many entries it can hold. It is easy. Entry here is about block address, which is a 4 bytes. So if it is 2 power 11 bytes, each entry is a 4 bytes, then you need to divide that. Now let's do this question. This question I have taken from IIT Bombay assignment. So what are they saying? Consider file system.",
+      "avg_logprob": -0.13914332050701667,
+      "no_speech_prob": 0.5927734375
+    },
+    {
+      "start": 8565.58,
+      "end": 8595.24,
+      "text": " So consider a file system with the 512 byte block, assume an inode of a file can hold pointers to n in direct data blocks. And a pointer to single n direct data blocks. Okay, so what is the size? 512 bytes. So if direct is n, then 512 is one size into n. So these many bytes I can point to like that. And then and a pointer to a single indirect, right?",
+      "avg_logprob": -0.2130208378036817,
+      "no_speech_prob": 0.79638671875
+    },
+    {
+      "start": 8595.68,
+      "end": 8636.1,
+      "text": " So, how many entries will be there? What is the block size? 512? What is the number of blocks? Yeah, it is given there. Further, as you know, single indirect block can hold pointers to M other data blocks. So, number of entries are given to me is M, right? Number of entries are M. So, it means that if I have one single indirect each, here I have M.",
+      "avg_logprob": -0.12833567147844294,
+      "no_speech_prob": 0.63427734375
+    },
+    {
+      "start": 8636.41,
+      "end": 8678.74,
+      "text": " each is pointing to 512 bytes right so it is m into 512 what is the maximum size i think this is the maximum size right yeah m plus n into 512 let's solve this question again okay this question has to deal with i think the similar story consider secondary storage system of 2tb right so can anyone tell me what is 1tb equal to 2 power how much it is mb is 20",
+      "avg_logprob": -0.1261029460850884,
+      "no_speech_prob": 0.92138671875
+    },
+    {
+      "start": 8679.17,
+      "end": 8712.45,
+      "text": " GB is 30, so TB is 40, right? So it is 40 bytes. And 2 TB means 2 power 41 bytes. So this is 2 TB. Now, assume that the file system uses a multi-level inode data structure to track data blocks of the file. The inode has 64 bytes of the space available to store pointers to the data blocks. Okay, so this is interesting. They are saying",
+      "avg_logprob": -0.18014706373214723,
+      "no_speech_prob": 0.91162109375
+    },
+    {
+      "start": 8712.84,
+      "end": 8746.5,
+      "text": " that the inode itself has 64 bytes allocated for the pointer whatever type of pointer you want to store they are saying it is having 64 bytes maybe direct indirect whatever type of pointer you want to store doesn't matter the inode has 64 bytes of the space available to store including a single okay include all the pointers right what is the maximum file size that can be stored in such a file system yeah this is nice one can everyone tell me single indirect double indirect",
+      "avg_logprob": -0.11217730816291727,
+      "no_speech_prob": 0.1468505859375
+    },
+    {
+      "start": 8746.88,
+      "end": 8774.24,
+      "text": " so if you want to have maximum if you want to point to maximum and now if it is a given a choice that you can store any type of pointer here which type of pointer you will prefer direct indirect or i mean direct single indirect or double indirect we will double indirect right i mean if you want to have a maximum file size so all of the pointer let me prefer for this question is double indirect type right",
+      "avg_logprob": -0.09977409692413836,
+      "no_speech_prob": 0.2802734375
+    },
+    {
+      "start": 8778.52,
+      "end": 8819.36,
+      "text": " Now double indirect means like each Each block is having how much how many entries? Okay, so this is Total size and how many blocks are there? This is 2 power 9 2 power 9 is your block size. So these are number of blocks Is this open to everyone? So it will be 2 power 32, right? These are number of blocks. These are the number of blocks which means",
+      "avg_logprob": -0.2490234337747097,
+      "no_speech_prob": 0.87255859375
+    },
+    {
+      "start": 8819.72,
+      "end": 8864.22,
+      "text": " entry size is 32 bits and total size is 2 power 9 bytes block size is 2 power 9 bytes entry size is 32 bits which is equal to 4 or 2 power 2 bytes then number of entries are 2 power 7 these many entries are there in one block now if you if you want to use double then it means 2 power 7 into 2 power 7 and",
+      "avg_logprob": -0.057291666977107525,
+      "no_speech_prob": 0.6494140625
+    },
+    {
+      "start": 8864.48,
+      "end": 8915.77,
+      "text": " each one will be pointing to one block of 2.9 bytes. So each double can point to this much data. And how many doubles you have? So in 64 bytes, how many doubles you can have? Can anyone tell me this answer? In 64 bytes, we can store number of pointers, any type of pointers because size is equal to 64 upon what is the...",
+      "avg_logprob": -0.16243912879522746,
+      "no_speech_prob": 0.72900390625
+    },
+    {
+      "start": 8917.41,
+      "end": 8949.44,
+      "text": " pointer like at the size which is same as 2 power 2 bytes yeah it is now also bytes 2 power 2 4 bytes is this okay to everyone which will be 16 entries so you can have 16 double type of pointers i mean any type of pointer right i mean it does not matter which type of pointer one to store so 16 pointers you can store you will prefer right 16 number pointers this is number pointers and obviously you will prefer all of them to be double",
+      "avg_logprob": -0.13340693291114725,
+      "no_speech_prob": 0.9404296875
+    },
+    {
+      "start": 8949.7,
+      "end": 8990.52,
+      "text": " so that is why 16 into this much is your final answer this much data you can point to right so this is 2 power 4 plus 7 11 and 9 20 27 27 bytes because these are the number of pointers these this isn't this isn't byte right 2 power 27 bytes is this okay to everyone let's just see this 128 data block each",
+      "avg_logprob": -0.12109375234161104,
+      "no_speech_prob": 0.748046875
+    },
+    {
+      "start": 8998.89,
+      "end": 9055.72,
+      "text": " number of data blocks are 16. I'm number pointers 16 of which 14 are direct. Oh, who said 14 are direct? So they are not saying that 14 are direct. Then why they have assumed that 14 are direct? The single indirect stores. Okay, I don't know. This solution doesn't seems good to me.",
+      "avg_logprob": -0.2335707652656471,
+      "no_speech_prob": 0.451171875
+    },
+    {
+      "start": 9064.36,
+      "end": 9091.98,
+      "text": " The iNode has 64 bytes of space available to store pointers to the including a single indirect block. A single, okay, direct and single. Okay, okay, and several direct blocks. Okay. Sorry about the confusion. So you can have as many as direct block you want, but you can have at most one single indirect, so one double indirect. So if there are 16 possible entities that you have, then obviously you will be having one for double.",
+      "avg_logprob": -0.226480264726438,
+      "no_speech_prob": 0.5986328125
+    },
+    {
+      "start": 9094.16,
+      "end": 9129.5,
+      "text": " one for single obviously right I mean because if you can use one double one single and obviously 14 added so based on that you can calculate the size okay but yeah if they say that you can use as many as you want then you will prefer to have all the double right taken so this question is also easy question you can do as an homework okay and maybe we can continue a few of the questions in the next next class",
+      "avg_logprob": -0.16387867717181934,
+      "no_speech_prob": 0.82861328125
+    },
+    {
+      "start": 9130.34,
+      "end": 9150.82,
+      "text": " So these questions are good questions. We can continue them in the next class. And you can just try these gate questions. These are the good gate questions that we have based on what we have studied today. The extension that continuous and extension of the index, extension of the index allocation means multi-level indexing.",
+      "avg_logprob": -0.16382211538461539,
+      "no_speech_prob": 0.02587890625
+    },
+    {
+      "start": 9159.57,
+      "end": 9192.35,
+      "text": " So you can try these questions and then we can have our next class. So these are the type of the questions that we have solved. So in the next class, so maybe tomorrow, today evening, or maybe tomorrow morning, so we can solve all of the remaining questions, right? And then we will be finishing the file system. So in the file system, you just have all of these methods and some of the problems based on those methods that I talked about, right? So these are the methods that we have. These are the methods and just some problems based on this method.",
+      "avg_logprob": -0.09726562382032473,
+      "no_speech_prob": 0.4580078125
+    },
+    {
+      "start": 9196.42,
+      "end": 9200.58,
+      "text": " Okay, thank you everyone. Thank you so much. Take care. Bye-bye.",
+      "avg_logprob": -0.23519737469522575,
+      "no_speech_prob": 0.1279296875
+    }
+  ],
+  "sourceCompletedAt": "{\"file\":\"037. File System Implementation.mp4\",\"language\":\"en\",\"probability\":0.9267578125,\"processing_seconds\":306.5000956058502,\"device\":\"cuda\"}"
+}

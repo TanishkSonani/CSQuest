@@ -8,11 +8,11 @@ import {topics} from '../courses/algo/content/topics.js';
 
 test('Every available lesson has beginner bridges, an example and a guided teaching sequence',async()=>{
  let count=0;
- for(const subject of ['coa','dl','c','ds','algo','aptitude']){
+ for(const subject of ['coa','dl','c','ds','algo','aptitude','os']){
   const {lessons}=await import(`../courses/${subject}/content/lessons.js`);
   for(const lesson of lessons){const journey=lessonJourney(lesson,subject);assert.ok(journey.terms.length>=2&&journey.terms.length<=7);assert.ok(journey.idea.length>20);assert.ok(journey.example.length>20);assert.ok(journey.steps.length>=2);for(const term of journey.terms){assert.ok(term.term&&term.meaning.length>30);}assert.doesNotMatch([journey.idea,journey.example,...journey.steps,...journey.terms.map(t=>t.meaning)].join(' '),/\b(as discussed|as we saw|in the lecture|watch the lecture|already know)\b/i);count++;}
  }
- assert.equal(count,1461);
+ assert.equal(count,1578);
 });
 test('Quiz identities ignore option rotation, contextual prefixes, field order and match row order',()=>{
  const a={type:'choice',prompt:'What is 2+2?',options:['4','5','6'],answer:0,explanation:'Add.'};
@@ -21,7 +21,7 @@ test('Quiz identities ignore option rotation, contextual prefixes, field order a
  const pairs=[['a','b'],['c','d']];assert.equal(questionIdentity({type:'match',prompt:'Pair.',pairs}),questionIdentity({type:'match',prompt:'Pair.',pairs:[...pairs].reverse()}));
 });
 test('No lesson repeats a quiz item inside itself, its topic or the two preceding lessons',async()=>{
- for(const subject of ['coa','dl','c','ds','algo','aptitude']){const {lessons}=await import(`../courses/${subject}/content/lessons.js`);for(const lesson of lessons){const prior=new Set(lessons.filter(l=>l.id<lesson.id&&(l.id>=lesson.id-2||l.lecture===lesson.lecture)).flatMap(l=>l.questions.map(questionIdentity)));for(const q of lesson.questions){const key=questionIdentity(q);assert.ok(!prior.has(key),`${subject}:${lesson.id}: ${q.prompt}`);prior.add(key);}}}
+ for(const subject of ['coa','dl','c','ds','algo','aptitude','os']){const {lessons}=await import(`../courses/${subject}/content/lessons.js`);for(const lesson of lessons){const prior=new Set(lessons.filter(l=>l.id<lesson.id&&(l.id>=lesson.id-2||l.lecture===lesson.lecture)).flatMap(l=>l.questions.map(questionIdentity)));for(const q of lesson.questions){const key=questionIdentity(q);assert.ok(!prior.has(key),`${subject}:${lesson.id}: ${q.prompt}`);prior.add(key);}}}
 });
 test('Ungraded learning state round-trips without XP, hearts, completion or answer changes',async()=>{
  const {lessons}=await import('../courses/coa/content/lessons.js'),lesson=lessons[0],round={lesson,practice:false,queue:lesson.questions.map((q,i)=>({q,lesson,key:`0:${i}`,first:true})),index:0,total:4,cleared:new Set(),intro:false,feedback:null,value:null,firstCorrect:0,xp:0,hearts:5,combo:0,learning:{...newLearningState(),phase:1,visited:[0,1],explored:true}};

@@ -9,6 +9,7 @@ export function diagramKind(subject,lesson){
  if(subject==='aptitude')return 'aptitude:'+lesson.lab;
  if(subject==='ds')return 'ds:'+lesson.dsLab;
  if(subject==='algo')return 'algo:'+lesson.algoLab;
+ if(subject==='os')return 'os:'+lesson.osLab;
  throw Error('No visual subject: '+subject);
 }
 const controls={

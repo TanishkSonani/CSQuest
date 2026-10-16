@@ -10,7 +10,7 @@ const assert=require('node:assert/strict'),fs=require('node:fs');
   const context=await browser.newContext({viewport:{width:390,height:844},reducedMotion:'reduce'}),page=await context.newPage(),errors=[],failures=[];page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()>=400&&!r.url().endsWith('/api/account/session'))failures.push(r.status()+' '+r.url());});
   assert.equal((await context.request.post(base+'/api/account/register',{headers:{'X-CSQuest-Request':'1'},data:{username:'guided_learner',displayName:'New Learner',avatar:'chip',password:'a memorable test passphrase'}})).status(),200);
   await page.goto(base);await page.locator('.unit-banner').waitFor();fs.mkdirSync('qa-results/journeys',{recursive:true});let total=0;
-  for(const subject of ['coa','dl','c','ds','algo','aptitude']){
+  for(const subject of ['coa','dl','c','ds','algo','aptitude','os']){
    const course=await(await context.request.get(base+'/api/course-content?subject='+subject)).json();
    await page.goto(base+'/#subjects');await page.locator(`[data-subject="${subject}"]`).click();await page.locator('.unit-banner').waitFor();
    const ids=[0,Math.floor(course.lessons.length/6)*3+1,course.lessons.length-1];
@@ -32,6 +32,6 @@ const assert=require('node:assert/strict'),fs=require('node:fs');
     await page.locator('[data-action=exit]').click();await page.locator('[data-action=leave]').click();total++;
    }
   }
-  assert.deepEqual(errors,[]);assert.deepEqual(failures,[]);console.log(`Guided learning passed: ${total} early/middle/final lessons across six courses; optional notes, real interactions, pause/reload, no unearned XP/completion and 320px–desktop layouts.`);
+  assert.deepEqual(errors,[]);assert.deepEqual(failures,[]);console.log(`Guided learning passed: ${total} early/middle/final lessons across seven courses; optional notes, real interactions, pause/reload, no unearned XP/completion and 320px–desktop layouts.`);
  }finally{await browser?.close();await new Promise(resolve=>server.close(resolve));await fixture.dispose();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

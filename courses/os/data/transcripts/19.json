@@ -1,0 +1,1444 @@
+{
+  "id": 19,
+  "title": "019_Recording_Lecture_19_Atomic_Hardware_Instructions_an.mp4",
+  "file": "019_Recording_Lecture_19_Atomic_Hardware_Instructions_an.mp4",
+  "seconds": 7381.248,
+  "segments": [
+    {
+      "start": 149.46,
+      "end": 197.41,
+      "text": " Hi everyone. How are you doing? Okay. So let's get it started. Hi. Okay. So we were discussing about the hardware related solutions, right? So a disabling interrupt is not very, I mean, it's not a very good choice as you know why, right? So why it is not a good choice? So firstly, that if we want to disable the interrupts, then first of all, that",
+      "avg_logprob": -0.16228692741556602,
+      "no_speech_prob": 0.06390380859375
+    },
+    {
+      "start": 197.69,
+      "end": 229.73,
+      "text": " Can we solve firstly only on the single processor? I mean, it cannot be solved on the multiple processor. So if there are multiple processors, then disabling in the interrupt is not a solution. I mean, it's not a feasible solution, basically. Right? OK. So the critical section problem could be solved by simply via a single processor environment if we could prevent interrupt from occurring while a shared variable has been modified in this way. OK. I think we have studied all of this, right? And what is the problem?",
+      "avg_logprob": -0.11704414782174137,
+      "no_speech_prob": 0.126953125
+    },
+    {
+      "start": 230.11,
+      "end": 273,
+      "text": " that it's not a feasible for multi-processor environment, right? So from multiple textbooks, we have seen this as a problem. So from Galvin, we have seen that this is a problem. From Ten Boom also, we have seen this is a problem. So they're saying it is unattractive because it is unwise to give user to turn off the interrupts, okay? So that's why also it is not desirable that we don't want user to give that control that you can turn off the interrupts, okay? And this is from",
+      "avg_logprob": -0.1844019333607164,
+      "no_speech_prob": 0.1837158203125
+    },
+    {
+      "start": 273.73,
+      "end": 303.11,
+      "text": " Now, let's just see the second solution, which is basically providing the atomic instructions. So what do I mean by that? Let me let me just tell you. So basically what we are looking for now. So we are looking for some support from the hardware and the support will be in terms of providing the atomic instruction from the hardware itself, which means which means that we are looking for something called as a read modify write. Okay, something called as a read.",
+      "avg_logprob": -0.16625975957140326,
+      "no_speech_prob": 0.3251953125
+    },
+    {
+      "start": 307.71,
+      "end": 346.06,
+      "text": " modify write we want to we want to get support from the hardware which provides this read modify write just as one instruction okay that's also called as RMW so basically there are I mean couple of architecture there are couple of processors that provide different different set of operations so let's just see them so one of the most popular one is test and set",
+      "avg_logprob": -0.1672991094844682,
+      "no_speech_prob": 0.06396484375
+    },
+    {
+      "start": 346.37,
+      "end": 370.95,
+      "text": " which says that this test and set is just one instruction in the hardware, just like move, okay, move, load, just like this. It is, you can say it is like a TSL, okay, test and set a log, okay, something like this. So basically it is just one instruction that does multiple things, okay, without interrupt, which means that this is one atomic instruction. So what does this does?",
+      "avg_logprob": -0.159410115038411,
+      "no_speech_prob": 0.029052734375
+    },
+    {
+      "start": 371.23,
+      "end": 462.57,
+      "text": " let's just see this is test and test instruction which is provided by the hardware it said whatever we are passing okay whatever value we are passing it said that to be one and return is the previous value okay uh maybe i can uh i can motivate this idea i mean we have already done test and set but uh in multiple lines so let me just see that yeah maybe maybe this one",
+      "avg_logprob": -0.14042207172938756,
+      "no_speech_prob": 0.07122802734375
+    },
+    {
+      "start": 462.91,
+      "end": 500.08,
+      "text": " So do you remember this is our first implementation? I mean our first try. Do you remember that? Okay, so what we have done here, we were just checking, okay, we were just testing whether this busy is zero or not, right? So this was our first try, if you remember, I mean in the software, as a software solution, this was our first try. So what we were checking, we were checking just busy is one or not, right? If it is one, then I will wait.",
+      "avg_logprob": -0.13729745163409798,
+      "no_speech_prob": 0.044952392578125
+    },
+    {
+      "start": 501.41,
+      "end": 527.66,
+      "text": " If it is one, I will wait. If it is zero, then I will go to the next line and I will take a log. So it is just like a log. I'm saying that now it is locked. So basically now I'm keeping this VG to be one. So basically what I'm doing, I'm doing two things. Can you tell me what this is like testing? Test if VG is one. Test if VG is one.",
+      "avg_logprob": -0.18846649484536082,
+      "no_speech_prob": 0.382080078125
+    },
+    {
+      "start": 528.05,
+      "end": 553.82,
+      "text": " if let's suppose bg is zero then it will go to the next line right if bg is zero then it will go to the next line and then what it is it is setting if bg is zero is this okay everyone",
+      "avg_logprob": -0.2333984443296989,
+      "no_speech_prob": 0.1522216796875
+    },
+    {
+      "start": 554.28,
+      "end": 582.92,
+      "text": " So basically in our very first implementation, the idea was like this that we want to test if busy or interested or maybe log or whatever you want to call it. So there was one variable that we have taken. And now we were saying that, okay, if that variable or if someone else is interested, then I will be waiting here. If no one else is interested, then I will go inside and I will be waiting. So this kind of implementation was not working. Can you tell me why? What was the problem with this implementation?",
+      "avg_logprob": -0.0828406516764615,
+      "no_speech_prob": 0.04876708984375
+    },
+    {
+      "start": 584.6,
+      "end": 628.12,
+      "text": " Because it is not providing the mutual exclusion, right? Not providing the mutual exclusion, both the processes can just execute their first line, right? That's why this was not working. So it doesn't provide, it doesn't provide mutual exclusion, right? Is this okay to everyone? Okay. So basically, basically here we were testing and then we were setting. That was happening in two different lines.",
+      "avg_logprob": -0.14693147195390907,
+      "no_speech_prob": 0.110595703125
+    },
+    {
+      "start": 628.33,
+      "end": 654.38,
+      "text": " I mean this was in fact our very first idea and we wanted to do it but that was happening in two different lines so now with the hardware support what we want to do we want to do this test and set this whole thing we don't want any preemption here okay we want to do this whole thing at just one line it's the idea killer to everyone I mean we want to do both of these things whether it is zero or one or whatever we want to test it and then we want to set it to one",
+      "avg_logprob": -0.12367334814285333,
+      "no_speech_prob": 0.0677490234375
+    },
+    {
+      "start": 655.35,
+      "end": 688.22,
+      "text": " Okay. So that's what this test and set is doing. This is saying that we want to set this PTR to one and it will return its previous value, which means, which means so test and set. It is, it is one atomic instruction. Okay. It is one atomic instruction. I will talk about it in a detail. So here, what we want to say that what it is doing, right? It is basically, it is, you can say it is setting the",
+      "avg_logprob": -0.182240094878886,
+      "no_speech_prob": 0.6162109375
+    },
+    {
+      "start": 692.96,
+      "end": 731.49,
+      "text": " value 21 and returns the previous value. Okay, which means let's suppose, let's suppose I call this test and set for some variable, let's suppose x, which is initially zero. Okay, now I call this test and set. Let's suppose inside the value. Tell me, will you be, I mean, will you go inside the",
+      "avg_logprob": -0.2612847226361434,
+      "no_speech_prob": 0.0914306640625
+    },
+    {
+      "start": 732.14,
+      "end": 770.95,
+      "text": " okay inside the value let's suppose I'm calling it then okay I will I will introduce a value in a minute but before that tell me what it returns here it will return zero right for first it will return zero right I mean whenever I'm calling with x equal to zero it will return zero so the effect of this it will return zero and the value of x is one right now it is one",
+      "avg_logprob": -0.12856867578294542,
+      "no_speech_prob": 0.54248046875
+    },
+    {
+      "start": 771.3,
+      "end": 818.52,
+      "text": " Now, suppose I'm calling it for x equal to one, suppose I'm calling it for x equal to one, then what? Then it will return one. I mean, basically, you can see there is no impact on that, right? So it will, it will return one and the value of x will also be one. Cool. So that's what this test and site is doing. Now, uh, I can tell you the stress and set implementation. So basically this is how it may look like. Basically it is saying if you, if you pay a little attention here, this is a slide from galvin.",
+      "avg_logprob": -0.17102713178294573,
+      "no_speech_prob": 0.35546875
+    },
+    {
+      "start": 818.9,
+      "end": 851.38,
+      "text": " so what it is saying is that just see here that whatever value I'm passing okay it will return that old value if you if you notice it will return the old value and I will set it to true or one right I will set it to one so that's that's how it will look like is this okay everything now now this I mean whatever whatever it is written here do you think that this is a code I mean if this is a code then it cannot be atomic right",
+      "avg_logprob": -0.11098582720019154,
+      "no_speech_prob": 0.12152099609375
+    },
+    {
+      "start": 852.79,
+      "end": 878.19,
+      "text": " So basically it is just an idea I wanted to convey, which means that that this is not implemented like this. Okay. So what do I mean by that? Okay. What do I mean by that? See here. Okay. This slide is from 10 mom. So what do you mean by that? So it is basically one instruction, just like move or something. Okay. We just sing test and set log that works as follows. It reads the content from the memory.",
+      "avg_logprob": -0.16111288995158915,
+      "no_speech_prob": 0.0850830078125
+    },
+    {
+      "start": 878.76,
+      "end": 905.76,
+      "text": " memory world log into the register RX. So basically there is, this is the memory. Okay. I mean, whatever, let's suppose X or whatever the, the variable you are having. So basically that variable will be stored some in some memory. So this is the memory address. So what it will do, it will read from this memory address, right? It reads the content of the memory address, memory world log into register RX, then it stores a non-zero value in the memory address log. Okay. So.",
+      "avg_logprob": -0.20369839996372888,
+      "no_speech_prob": 0.2286376953125
+    },
+    {
+      "start": 906.59,
+      "end": 936.71,
+      "text": " basically it is storing it is storing one basically right finally the value of x final value of x is one log or u x or log whatever right x or whatever you want to call it so basically final value of x is what I mean to say that this is something which is returning which is returning the old value and it is setting this x to be one and it is just one instruction it is just one instruction",
+      "avg_logprob": -0.16255647913519158,
+      "no_speech_prob": 0.48095703125
+    },
+    {
+      "start": 938.78,
+      "end": 968.12,
+      "text": " Okay, so maybe we can we can see some example after that it will be more clear. Okay, so, so what is this? This is just one idea. Okay, just to tell you that it that's how we can write but obviously like it's it is not the not the thing that we have written in the in the operating system or anywhere as a code. It is just one instruction as you can see from this galvin also. Okay, remember this is atomic instruction. Okay, all of this is just one instruction. It is not multiple lines.",
+      "avg_logprob": -0.14857220495569295,
+      "no_speech_prob": 0.39306640625
+    },
+    {
+      "start": 968.74,
+      "end": 987.57,
+      "text": " Which is supported by the hardware Okay, so basically basically test and set is just one of them Which is doing something maybe there are some other examples some some hardware may support some instruction called fetch and add So what this fetch and add is doing it add the value to some ptr and returns its previous value",
+      "avg_logprob": -0.22492439275787723,
+      "no_speech_prob": 0.131103515625
+    },
+    {
+      "start": 988.14,
+      "end": 1006.3,
+      "text": " Okay. Similarly, there is compare and swap. It is doing something PTR. It is comparing and returning to returning for something. So basically there are multiple instructions that are supported by multiple hardware. For example, for example, if you have a test and set, then it is supported by most architectures.",
+      "avg_logprob": -0.21704100910574198,
+      "no_speech_prob": 0.127685546875
+    },
+    {
+      "start": 1006.49,
+      "end": 1034.39,
+      "text": " Okay. If we have exchange, this is supported by Intel AT6 hardware. If we have compare and swap, then this is supported by some other processors, something like that. But this test and set is most popular and it is supported by most of the processors. So do you need to remember that what this test and set is doing, what this fetch is doing, what is compare and swap is doing? The answer is, they should be telling in the question that there is one atomic instruction test and set. This does this.",
+      "avg_logprob": -0.19294724989374842,
+      "no_speech_prob": 0.37451171875
+    },
+    {
+      "start": 1036.47,
+      "end": 1065.41,
+      "text": " I mean, there could be any number of instructions, right? I mean, any number of processors can support any number of instructions. So that is why tomorrow I can have my own hardware and I can support my own atomic instruction. So that is why they need to tell that what this particular instruction is doing. So similarly, you do not need to remember that what this test and set is doing, what this fetch and add is doing. You do not need to remember what this compare and set is doing. So that's why you don't read these definitions also.",
+      "avg_logprob": -0.12560614737971076,
+      "no_speech_prob": 0.462646484375
+    },
+    {
+      "start": 1065.95,
+      "end": 1122.27,
+      "text": " Okay. I mean, these definitions are correct. I'm not saying this is incorrect, but what I'm trying to say that you don't need to remember that. Okay. Don't need to remember the definition. They will tell in the question. Okay. Cool. So I hope that is fine to everyone. Now, let's just see further. So basically what I'm trying to say here is that there is some atomic instruction that hardware can support and we can make use of that atomic instruction. Okay. Maybe with some question, it will be more clear.",
+      "avg_logprob": -0.11570582166314125,
+      "no_speech_prob": 0.304931640625
+    },
+    {
+      "start": 1123.76,
+      "end": 1149.41,
+      "text": " So we are looking at test and set. I mean, test and set is most popular. That's why I'm just taking the example of test and set to give you the idea. Okay. So this is from Cornell University. Maybe we can read this paragraph quickly. So what they're saying in the last lecture, we found out we had to work very hard to correctly synchronize two threads. I mean, using the Peterson solutions, I think they're talking about that. That if we if we have some software solution, right?",
+      "avg_logprob": -0.1345170417969877,
+      "no_speech_prob": 0.0163116455078125
+    },
+    {
+      "start": 1156.41,
+      "end": 1179.11,
+      "text": " synchronous truth or even harder to convince ourselves that our eventual solutions are correct. So basically a convincing is also also hard in case of software solution. As you can see that we need to check multiple things, right? Progress, bounded weighting and these things that is okay. But I mean, we need to check many of the things and then we need to convince ourselves that okay, this solution is working. This is inherently harder.",
+      "avg_logprob": -0.2088068197058006,
+      "no_speech_prob": 0.09912109375
+    },
+    {
+      "start": 1179.42,
+      "end": 1207.53,
+      "text": " writing a sequential code because instead of considering a single path of execution, there are exponential number of path to consider. So basically, I mean, if you are having, let's suppose, I don't know what they are trying to say, but I think they are saying that if you are having, let's suppose, two threads, T1 and T2, then how many interleavings are possible here? Let's suppose this is having n instructions or something like that, right? This is also having n instructions.",
+      "avg_logprob": -0.13136573577368701,
+      "no_speech_prob": 0.10791015625
+    },
+    {
+      "start": 1208.78,
+      "end": 1236.3,
+      "text": " So maybe total number of instructions are two, I mean total number of instructions are two N, right? Then you will be having two N instructions, one, two, three, I mean, there will be two N instructions. So there will be two N positions, you can say, there will be two N positions. And at every position, either this instruction will come or this instruction will come. So any one of this will come. So which means I think every position is having two possibilities. So maybe there are two proper two N positions that you have.",
+      "avg_logprob": -0.1403532572414564,
+      "no_speech_prob": 0.09039306640625
+    },
+    {
+      "start": 1236.56,
+      "end": 1268.27,
+      "text": " total 2 power 2 n interleaving positions that you can have maybe right that's what they're trying to say the two power length length possible sequence of operations that you are having okay maybe they're trying to say this is this understood that what i just explained you that there are two two n positions and at every position you can have any of the any of the instruction so that's why there are two power two n something like that there may be these many interleavings are possible right okay so these many interleavings are possible",
+      "avg_logprob": -0.1666193188591437,
+      "no_speech_prob": 0.55908203125
+    },
+    {
+      "start": 1271.99,
+      "end": 1299.87,
+      "text": " Now, what they're trying to say is that this is inherently harder than writing a sequential code because instead of considering a single path of execution, there are exponential path. So basically, if we are having some software solution or something, then we need to check that it is working for all the exponential path. And yeah, we have some other ways to check. Obviously, we have our own ways to check, but still it is hard to convince.",
+      "avg_logprob": -0.10427989430077698,
+      "no_speech_prob": 0.065185546875
+    },
+    {
+      "start": 1300.2,
+      "end": 1325.34,
+      "text": " A small amount of hardware support can help considerably by automatically reading and writing an address in memory without any other processes changing in between. We can write fairly simple looking code.",
+      "avg_logprob": -0.2513392720903669,
+      "no_speech_prob": 0.08099365234375
+    },
+    {
+      "start": 1325.61,
+      "end": 1360.72,
+      "text": " okay simple locking code so basically they are saying that if it can take the help from hardware then we can write fairly simple code okay that's what they are trying to say we discussed two common hardware parameters for this task what are those two common one is the disable interrupt another one is atomic instructions okay so let's just see at this atomic instructions once more",
+      "avg_logprob": -0.10244278315926941,
+      "no_speech_prob": 0.2568359375
+    },
+    {
+      "start": 1361.06,
+      "end": 1387.92,
+      "text": " So maybe we can read this paragraph also that I have taken from Illinois University. So they are saying that there is a problem with software solutions that are slow. So what is the solution? We can leverage CPU automations operations like test and set. So we can take help from the hardware. That's what they are saying. So basically, I mean, if I combine both of these slides, they're trying to say, I mean, the Cornell University is trying to say that if we take help from the hardware, then at least our code will look simpler.",
+      "avg_logprob": -0.1341712008351865,
+      "no_speech_prob": 0.037872314453125
+    },
+    {
+      "start": 1389.08,
+      "end": 1434.26,
+      "text": " So I can say that code will look simpler and the Illinois University is saying that not only code will look simpler, it is also fast. Okay. So the software solutions were slow. So this is also fast. So that's why we can go for the hardware support. So basically code will be with the hardware support with the atomic instructions. What is the first thing? Code will look simple. Yes. Second thing, it is fast.",
+      "avg_logprob": -0.12847222106324302,
+      "no_speech_prob": 0.244140625
+    },
+    {
+      "start": 1436.93,
+      "end": 1465.21,
+      "text": " Anything in the hardware is fast than writing the code. So let's just see the example of Test and Set. Test and Set is just one of the atomic instruction. There could be some other atomic instruction also. So CPU provides the following as one atomic instruction. That's what they're saying. So what does this do? They set the old value to one and returns the old value only. So you're returning the old value only.",
+      "avg_logprob": -0.14366318782170615,
+      "no_speech_prob": 0.070556640625
+    },
+    {
+      "start": 1465.47,
+      "end": 1499.19,
+      "text": " I mean, they should be telling you that what this test and set is doing. So that's why the definition might not be that important. Okay. According to me, they should tell because there are many instructions. You might not remember all of them. Right. So they should tell you that what this test and set is doing. We will see the PYQ. I don't remember in the PYQ what they are doing. Maybe I can quickly check. Here, have they defined it? Okay. In the PYQ, in this particular question, I think they have not defined, right? The stretch and set.",
+      "avg_logprob": -0.21183205583623346,
+      "no_speech_prob": 0.08978271484375
+    },
+    {
+      "start": 1500.18,
+      "end": 1532.92,
+      "text": " Actually, this test and set is too popular. So maybe that is a reason. Okay. So your fetch and that they have defined is an atomic read modify, right? RMW, right? RMW instruction, um, that is the value of the memory. And yeah, they have defined this fetch and it and test and set. They have not defined. Okay. Not an issue. So you can remember this test and set, but otherwise they will be defining in most of the cases. Okay. So what does, does this test and set is doing? It is basically, uh,",
+      "avg_logprob": -0.21465163213796304,
+      "no_speech_prob": 0.2286376953125
+    },
+    {
+      "start": 1533.25,
+      "end": 1566.25,
+      "text": " It is returning the old value and setting the value to be one. Okay. So, uh, is this, is this how you're implementing? No, not that the above above is the definition, not implementation. Okay. So there's a, uh, difference between definition and implementation. Definition is just an idea that this is how it is doing. This is not the actual implementation. It is supported by the hardware and this slide is from Gelbin. Okay. So this is just a definition, not implementation. That's very simple idea. I hope you understood. So basically there's a hardware supported instruction that we have now.",
+      "avg_logprob": -0.14002862777418762,
+      "no_speech_prob": 0.77587890625
+    },
+    {
+      "start": 1570.5,
+      "end": 1591.65,
+      "text": " If the machine supports test and site instruction, then we can implement the mutual exclusion by declaring the Boolean variable log initialize to false. So let's suppose initially, initially, lock is false. Now, tell me what this code will be doing. Let me just go to the next page and let's just see that what it is doing.",
+      "avg_logprob": -0.17506601734900137,
+      "no_speech_prob": 0.1263427734375
+    },
+    {
+      "start": 1593.41,
+      "end": 1623.37,
+      "text": " let's suppose that there are there are multiple threads that wants to execute this code although I can write only once but I'm just writing maybe let's suppose twice there are two threads P1 and P2 okay P1 and P2 what is the shared variable here shared variable is log which is false initially let's suppose suppose P1 wants to execute this I mean let's suppose there's a race between P1 and P2 then tell me a mutual exclusion is satisfied or not here mutual exclusion is satisfied or not",
+      "avg_logprob": -0.11974158560713896,
+      "no_speech_prob": 0.40185546875
+    },
+    {
+      "start": 1624.59,
+      "end": 1642.89,
+      "text": " So what is happening here lock will be I mean the moment we execute this lock will be one lock will be true or one or whatever I it will be true or one or let me just call it zero maybe okay I mean you can you can have Boolean variable or integer variable it doesn't matter okay so lock will be",
+      "avg_logprob": -0.24053029603127277,
+      "no_speech_prob": 0.11236572265625
+    },
+    {
+      "start": 1643.93,
+      "end": 1673.87,
+      "text": " like I can say the mutual exclusion let me just check the mutual exclusion if somebody wants to enter then like this is just atomic instruction right so lock will be one and it will return zero since it is returning zero that's why it will it will get entered and since it is it is atomic instruction so either this will be executing or this will be executing so once p1 is entered here once p1 is entered here tell me can p2 enter no right because now lock is one right now lock is one okay so I hope you are getting it",
+      "avg_logprob": -0.11150567897341468,
+      "no_speech_prob": 0.4453125
+    },
+    {
+      "start": 1674.01,
+      "end": 1707.47,
+      "text": " So the moment P1 entered, now lockage 1. Since lockage 1, so P2 will be stuck in the loop. P2 will be stuck in the loop. Okay? Stuck in the loop. I hope that is okay to everyone. Now tell me is progress satisfied here? So how to check for progress? We will be checking. We will be checking two processes, whether like whether",
+      "avg_logprob": -0.20030120517834124,
+      "no_speech_prob": 0.165283203125
+    },
+    {
+      "start": 1708.06,
+      "end": 1736.74,
+      "text": " at least one can go or not so at least one can definitely go right if lock is initially zero then at least one will definitely go if one of the I mean if one of the process alone wants to enter then I think that will go right that's easy to check I think because this is hardware supported instruction this just this is just one instruction so I think this is easy to check okay progress okay just consider this while one okay this is this is inside the infinite loop okay this is inside the infinite loop consider this this is inside the infinite loop",
+      "avg_logprob": -0.134232949804176,
+      "no_speech_prob": 0.457275390625
+    },
+    {
+      "start": 1738.16,
+      "end": 1786.64,
+      "text": " So you can say that progress is satisfied Tell me bounded waiting Progress is satisfied But bounded waiting is not satisfied, right? Bounded waiting as you can see is not satisfied Why? Because if one of the processes here another process in the loop then it can go out and it can go again in I mean nobody is stopping it to do that, right? So in this particular implementation the bounded waiting is not satisfied Is this okay to everyone?",
+      "avg_logprob": -0.16037570492605144,
+      "no_speech_prob": 0.382568359375
+    },
+    {
+      "start": 1786.97,
+      "end": 1821.3,
+      "text": " So basically it's not like that everything is satisfied here, the bounded weighting is not satisfied here. So let's suppose that you, I mean, it is up to you whether you really care about the bounded weighting or not. Let's suppose you don't care about the bounded weighting, then you can implement this, okay? Then you can implement this as a solution. If you really care about the bounded weighting, then maybe you won't be implementing it, okay? It depends on your use case, but yeah, bounded weighting is not satisfied. That is for sure, okay?",
+      "avg_logprob": -0.15473790346614777,
+      "no_speech_prob": 0.2498779296875
+    },
+    {
+      "start": 1821.42,
+      "end": 1864.38,
+      "text": " I hope you understood this, right? If progress is there, then deadlock cannot be there. Progress is there, then deadlock cannot be there. Because progress is satisfied, then it cannot be a deadlock situation. So I can say that there is one drawback here, which is bounded weighting is not satisfied. Can you think of any other drawback? Can you even think of any other drawback? Yes, busy weight is another drawback. Busy weight is another drawback, which means it is",
+      "avg_logprob": -0.15347546784677238,
+      "no_speech_prob": 0.341552734375
+    },
+    {
+      "start": 1864.66,
+      "end": 1891.34,
+      "text": " I mean, the moment it is doing something in the critical section, this is in the loop only. So you can say this is our drawback here. I mean, this was the drawback since day one. We have not resolved this drawback yet. In the software solutions also, we were having the while loop. We were saying that it will hashtag in the while loop. The moment we were saying it is hashtag in the while loop, the busy waiting is not resolved. So it is also having the busy wait.",
+      "avg_logprob": -0.14662905575500595,
+      "no_speech_prob": 0.650390625
+    },
+    {
+      "start": 1901.32,
+      "end": 1932.03,
+      "text": " I hope you understood. So basically, like we will see that if we can resolve this busy wait later or not. But yeah, this bounded waiting is definitely not satisfied here. So maybe we can read this slide from the university. Challenge so far was to design a solution, assuming instructions are supported only load and store. If reading and writing can be done in one instruction, designing solution is much easier. A popular instruction test and set, which is like this.",
+      "avg_logprob": -0.1508223753226431,
+      "no_speech_prob": 0.253173828125
+    },
+    {
+      "start": 1933.93,
+      "end": 1963.39,
+      "text": " seems simple, but can be used to implement complex synchronization schemes. Similarly, powerful instructions, there are other powerful instructions supported by other hardware also, which are this. I mean, the same slide that we have. Advantages, let's just see the advantage from the billion installing. So let's just see that what this book is saying. The properties of machine instruction approach. The use of special machine instruction is to enforce mutual exclusion has a number of advantages. It is applicable to any number of processes,",
+      "avg_logprob": -0.13824405102502732,
+      "no_speech_prob": 0.087646484375
+    },
+    {
+      "start": 1963.84,
+      "end": 1993.8,
+      "text": " on either a single process or multiple processors sharing main memory. So basically, it is very good, which means that it is either there is just one process or there are multiple process or process, which means that Peterson's solutions work just for two processors. But it is for any number of processors, first of all, and also any number of processors also. Just like, I hope you remember that Peterson solution, if you remember.",
+      "avg_logprob": -0.19815340858291497,
+      "no_speech_prob": 0.45751953125
+    },
+    {
+      "start": 1997.52,
+      "end": 2036.61,
+      "text": " then it was for two processes only. Do you remember this? And also, I mean, yeah, that is true that I agree that can be implemented in multi-processor environment, can be implemented in multi-processor environment. Okay, but it was just for two processes.",
+      "avg_logprob": -0.15280719884371352,
+      "no_speech_prob": 0.07879638671875
+    },
+    {
+      "start": 2037.25,
+      "end": 2093.36,
+      "text": " Now, there was one hardware supported, supported thing that we have seen, which was disable the interrupt. Here can be implemented. It can be implemented for any number of processes. And second thing is, it is not possible to implement or maybe unfeasible. I'm writing not possible because actually it is almost very much, very much in practical. So I'm writing not possible for multiple processes.",
+      "avg_logprob": -0.17742846026478043,
+      "no_speech_prob": 0.04522705078125
+    },
+    {
+      "start": 2099.6,
+      "end": 2134.7,
+      "text": " Now, these were the two things. I mean, this was a software solution that was a working software solution that was a working hardware solution. Now, in this hardware solution that we have, what is that? What do we currently have? We have test and set or the atomic instruction. So it is actually doing both the things. That's what they are saying. So this test and set, this is basically any number of processes.",
+      "avg_logprob": -0.15486111839612324,
+      "no_speech_prob": 0.492919921875
+    },
+    {
+      "start": 2137.42,
+      "end": 2181.89,
+      "text": " any number of processors. Okay. So that's what this test and set is saying. It's still, there's a drawback which was busy waiting. I mean, we are still in the while loop. Okay. Yes. Yes, Akash. So Akash Manji is saying that there's a drawback. I mean, still there is one issue which is busy waiting. Yes. That's the issue that we haven't dealt with yet, right? I agree. Okay. So now let's just move further. So that's what the standard one is saying, I think.",
+      "avg_logprob": -0.20786373146244738,
+      "no_speech_prob": 0.7529296875
+    },
+    {
+      "start": 2182.13,
+      "end": 2209.71,
+      "text": " that in terms of advantage, sorry, William is telling the same, in terms of advantage, it can be on any number of processors or any number of processors. It is simple and therefore easy to verify. So when we were doing this particular exercise, this particular exercise, whether progress, boundary waiting, these are satisfied or not, how much time you have taken? I think very easily you have done it, very quickly you have done the things. So that's what they are saying that it is simple and easy to verify.",
+      "avg_logprob": -0.16247106315913024,
+      "no_speech_prob": 0.56201171875
+    },
+    {
+      "start": 2211.98,
+      "end": 2236.78,
+      "text": " It can be used to support multiple critical sections. Each critical section can be defined by its own variable. Basically, if you are having multiple critical sections or multiple shared variables in different different processors, so you can have a different, I mean, for one critical section, you can have different one variable. For another kind of critical section, you can have other kind of test and set variable.",
+      "avg_logprob": -0.16669922266155482,
+      "no_speech_prob": 0.1981201171875
+    },
+    {
+      "start": 2237.26,
+      "end": 2278.83,
+      "text": " Anyway, this is not a much advantage that can be even done in any of the cases. Now disadvantage, let's just see the disadvantages here. Busy waiting was possible and since bounded waiting is not satisfied, that is why starvation is possible, right? Since, okay, busy waiting is employed and starvation is also possible. Is this okay to everyone? That these are the disadvantages here. Okay, so what is the starvation? Starvation means that you don't get a chance to execute, right?",
+      "avg_logprob": -0.13023290009993427,
+      "no_speech_prob": 0.52001953125
+    },
+    {
+      "start": 2279.18,
+      "end": 2311.88,
+      "text": " you maybe keep on waiting forever. So let's suppose that there are two processes, it might be the case that this process even can go on, go on, go on, enter and P2 never get a chance. Some, okay, maybe I can just clarify this. What do I mean to say this? See, let's suppose that initially lock is zero. Okay, initially there is a variable which is a shared variable lock is zero.",
+      "avg_logprob": -0.15489130985477698,
+      "no_speech_prob": 0.0826416015625
+    },
+    {
+      "start": 2312.8,
+      "end": 2345.37,
+      "text": " Now, suppose this particular process P1 executed and it will definitely get entered. Okay. Now critical section, it will be okay. Okay. I mean, it will, it will get into the critical section. Now, what will happen? This P2 will be waiting here, right? P2 is waiting here and P1 is in the critical section, right? P1 is in the critical section. Now, can this happen that P1 can go out and go in again? Yes, this can happen, right?",
+      "avg_logprob": -0.11552372836956272,
+      "no_speech_prob": 0.344482421875
+    },
+    {
+      "start": 2345.86,
+      "end": 2377.21,
+      "text": " So P1 can go out and go in again in the critical section. Now P2 is still waiting. Now tell me, now tell me can this happen, can this happen that P1 go out, lockage falls and now P2 get interrupted. Lockage falls, lockage again falls and now P2 can get interrupted. Can this also happen? See this can also happen that P2 can get interrupted. But that's not the idea of explaining the bounded waiting, which means that",
+      "avg_logprob": -0.1546256170414462,
+      "no_speech_prob": 0.126953125
+    },
+    {
+      "start": 2377.45,
+      "end": 2406.66,
+      "text": " Like you are showing me that there is one execution where P2 can get entered. I'm not interested in that execution. I'm interested. Is there any counter example? Is there any execution where P2 doesn't get entered at all? So yes, we can show some sequence of instructions that can repeat that P2 will not get entered at all, which means P1 go out and P2 doesn't get scheduled yet. P2 has not been scheduled. The moment P1 is in the critical section, at that time only P2 gets scheduled. Now P2 gets scheduled.",
+      "avg_logprob": -0.12122395572563012,
+      "no_speech_prob": 0.8447265625
+    },
+    {
+      "start": 2406.97,
+      "end": 2436.95,
+      "text": " now tell me is now can the p2 get entered in the critical section and p1 is already in the critical section no right so basically basically suppose p2 is so unfortunate that p2 get get a chance to execute only when p1 is in the critical section p1 is coming out at that time it is not getting a chance but p1 is in the critical section at that time it is getting a chance then then you will say p2 will never get a chance to execute right so basically there are sequence of instructions that can repeat that can lead",
+      "avg_logprob": -0.09019251932789173,
+      "no_speech_prob": 0.6455078125
+    },
+    {
+      "start": 2437.19,
+      "end": 2468.21,
+      "text": " P24 wait forever. Okay. So basically that's how this, these things work. I mean, you take any of the property either mutual exclusion, progress, bounded waiting, you need to show that, okay, there is some execution, some possible execution where this property is not satisfied. If this is satisfied, we are not interested. You need to, I mean, you need to check whether it is not satisfied or not. You're getting the point. So basically whenever P1 is in the critical section, let's suppose at that time P2 is getting a chance.",
+      "avg_logprob": -0.12920167340951808,
+      "no_speech_prob": 0.7119140625
+    },
+    {
+      "start": 2468.46,
+      "end": 2501.38,
+      "text": " then P2 will wait forever. So I can say starvation is there. So there are questions regarding is bounded waiting starvation directly related or not and these things I will tell you. So basically here I mean actually bounded waiting and dialogue itself can occur together.",
+      "avg_logprob": -0.18749999365320913,
+      "no_speech_prob": 0.1085205078125
+    },
+    {
+      "start": 2501.68,
+      "end": 2525,
+      "text": " So that's why the with the boundary waiting even satisfied. Okay. I will tell, as I said, like I will, I will tell about it later. So, so maybe we can park these questions. Okay. For now. So what I mean to say that I will clarify that what is the relation between boundary waiting progress, starvation, dialogue and these things. So currently let's not worry about these things. Just see that what is happening in this particular code. Okay. So I don't want to complicate the things. So here.",
+      "avg_logprob": -0.165021928517442,
+      "no_speech_prob": 0.07781982421875
+    },
+    {
+      "start": 2525.34,
+      "end": 2547.62,
+      "text": " since p2 may not ever get a chance that's why bounded weighting is not there and hence starvation basically these are closely related but in you know some superficial example there may be okay i will i will tell you those examples okay so related to bounded weighting deadlock these things so but yeah bounded weighting starvation you can see they are very closely related okay so starvation is possible here",
+      "avg_logprob": -0.1171875,
+      "no_speech_prob": 0.06610107421875
+    },
+    {
+      "start": 2547.94,
+      "end": 2573.62,
+      "text": " because P2 may ever not get a chance right when a process leaves a critical section and more than one process is waiting the selection of the waiting yeah that's also the case right selection of the waiting process is also arbitrary right which means that if there are multiple processes that are waiting let's suppose this process get in there but there are multiple processes that are waiting okay in the while loop then then",
+      "avg_logprob": -0.13749999701976776,
+      "no_speech_prob": 0.1513671875
+    },
+    {
+      "start": 2573.77,
+      "end": 2607.68,
+      "text": " then let's suppose this process get inter and it doesn't want to come again that's okay but but this process may keep on waiting and this process can get inter then this process can get inter and let's suppose there is some other process come that can get inter so this process may keep on waiting one of the process it is possible that one of the process may keep on waiting in the while loop right so that's why starvation is definitely there okay so these are the disadvantages that i have taken again from the william stalling okay the advantages are",
+      "avg_logprob": -0.10951450826334101,
+      "no_speech_prob": 0.88525390625
+    },
+    {
+      "start": 2607.95,
+      "end": 2637.48,
+      "text": " are also from the William Stolling and this is also from the William Stolling. I hope the disadvantages are also clear that what are the disadvantages here? BG waiting is there, starvation is there, these things, right? Now, let's just see this question. This question has been asked in year 2009. So what they're trying to say that you're implementing this entry section and exit section using, I think, test and site, they're implementing in test and site. Okay.",
+      "avg_logprob": -0.2880108170211315,
+      "no_speech_prob": 0.1923828125
+    },
+    {
+      "start": 2638.19,
+      "end": 2691.38,
+      "text": " In the above solution, x is a memory location associated with the critical section and initialized to 0. Now, consider the following statement. The above solution to the critical section problem is deadlock free. Let's just see this. Let's suppose that you have this multiple processes are executing this. The solution is starvation free. Let's suppose there are multiple processes that want to execute this. Is this starvation free?",
+      "avg_logprob": -0.19288792726637302,
+      "no_speech_prob": 0.52099609375
+    },
+    {
+      "start": 2692.49,
+      "end": 2721.19,
+      "text": " We have just seen that it is not establish and free right so we have seen this so no it is deadlock free. I think yes like I mean I don't see there is a Dependence on each other. I mean the process will be waiting for each other. So seems like it is a deadlock free, right? The process enter critical section in the first and first order. No, there is no queue. Do you think there's a queue? If the first and first order is there, do you think that that will starve ever?",
+      "avg_logprob": -0.2016173265220826,
+      "no_speech_prob": 0.38720703125
+    },
+    {
+      "start": 2722.82,
+      "end": 2749.44,
+      "text": " Then we have the finite bound, right? If the first and first order is there, then there is a finite bound that after that I will go in the critical section. I don't think we are maintaining any queue or something, right? So we are not maintaining any queue. So it's not there. See, either 1 is true or 3 is true. Sorry, either 2 is true or 3 is true. One of them will be true. Sorry, what I'm saying? The solution is starvation free, no.",
+      "avg_logprob": -0.17803899082568808,
+      "no_speech_prob": 0.29443359375
+    },
+    {
+      "start": 2751.73,
+      "end": 2782.83,
+      "text": " Okay, I mean, if this is true, this is true, then the solution is actually the starvation free. If there's a fee for order or something, if if I'm maintaining some order and I'm, I'm saying that after that many process you will go, then solution is definitely starvation free, right? Anyway, so basically I'm not maintaining any queue, right? So I'm not maintaining any queue. More than one process can enter in the critical section at a time, mutual exclusion. They are talking about the mutual exclusion. I think mutual exclusion is satisfied. So that's why this is also not true, right? So maybe",
+      "avg_logprob": -0.16944444356141267,
+      "no_speech_prob": 0.935546875
+    },
+    {
+      "start": 2783.35,
+      "end": 2823.76,
+      "text": " Option A is the correct answer. But no guaranteed process eventually. Okay. So option is the correct answer here. Easy question. I hope you understood this. Okay. Now let's just see this question. This is a little more interesting question. So what they're trying to say is that fetch and add is an atomic read modify write instruction that reads the value of the memory location. I mean, it will first read, increment it to the value I and returns the old value. Okay. So which means",
+      "avg_logprob": -0.1838942336348387,
+      "no_speech_prob": 0.642578125
+    },
+    {
+      "start": 2824.11,
+      "end": 2854.24,
+      "text": " which means let's suppose l value is zero then what this will return for l value zero what this will return it will return zero and what is the final value final value of l will be one okay okay let's suppose l is five then what it will return it will return five and the final value will be six yes i hope you understood okay so that's what they are saying it will it will face the value increment it and returns the old value okay and but increment",
+      "avg_logprob": -0.11085526284418608,
+      "no_speech_prob": 0.46435546875
+    },
+    {
+      "start": 2855.92,
+      "end": 2883.16,
+      "text": " it is used as a pseudocode so on below implement a busy wait log okay so they are having some busy wait log i mean while l equal to one which means they are having a while loop which is again and again happening okay l is an unsigned integer shared variable initialized to zero so basically this is unsigned in the sense that it cannot be negative right even if you decrement it it will be the positive value",
+      "avg_logprob": -0.13112570430067452,
+      "no_speech_prob": 0.218505859375
+    },
+    {
+      "start": 2883.63,
+      "end": 2913.93,
+      "text": " So anyway, like I don't think we are decrementing it even, but I'm just telling you, it is an unsigned integer, shared as initialized value is zero. The value zero corresponds to the log being available. Okay, so they've given a semantic or semantic or the meaning of zero also. Zero means log is available while any non-zero value means log is not being available. So basically they are saying something like this, maybe I can go to the next page. They are saying that they're implementing fetch and add.",
+      "avg_logprob": -0.20257190898456404,
+      "no_speech_prob": 0.39306640625
+    },
+    {
+      "start": 2914.28,
+      "end": 2973.15,
+      "text": " Now L is something which is zero means it is available lock is available that's how they want to implement it and non zero means one to any other value means lock is occupied or not available. So okay let's suppose there are multiple processes right the multiple processes executing this maybe I can go to the next page also let's suppose these are the three processes executing this",
+      "avg_logprob": -0.18876689209325895,
+      "no_speech_prob": 0.31103515625
+    },
+    {
+      "start": 2974.64,
+      "end": 3001.19,
+      "text": " Suppose L value initially 0. Now this is the critical section in between right? This is the critical section obviously. I'm not writing it but I hope you understood right? In between there is a critical section. L value initially 0. Let's suppose P1 executed. Will P1 be able to execute this critical section? This will be false I think. Since this is false I think it will yeah L equal to 0 means it is available. Basically that's what they meant.",
+      "avg_logprob": -0.17424242966102832,
+      "no_speech_prob": 0.151123046875
+    },
+    {
+      "start": 3001.4,
+      "end": 3041.04,
+      "text": " right so if if l equal to zero is initially there and p1 execute this will will be able to enter in the critical section i think yes right okay and what is the final value of l it will enter in the critical section and final value of l will be i think one okay suppose now p2 executed p2 will do what p2 will say that okay this value fetch and add l1 it will it will say that uh like instead of one that will be two but this one is true right",
+      "avg_logprob": -0.10271139457529667,
+      "no_speech_prob": 0.59228515625
+    },
+    {
+      "start": 3041.41,
+      "end": 3078.22,
+      "text": " it is true any long zero is actually true so the value of l will become 2 here is it so good to everyone now now before executing l equal to 1 let's suppose you are going to p3 now tell me the value of l here the value of l here l will be 3 right l will be 3 2 has happened and now it will be 3 okay now now",
+      "avg_logprob": -0.20353618126950765,
+      "no_speech_prob": 0.309814453125
+    },
+    {
+      "start": 3080.05,
+      "end": 3109.98,
+      "text": " I think the P2 or P3 or one of them may be P0, P2, P3. One of them will get executed again. Now L value again will be either 0 or 1. Okay, let's not worry about this P1. Let's suppose P1 is doing its own work. Okay, so let's suppose we are talking about this P2, P3 currently. Now the L is 2 and then L is 3. And then again, let's suppose P2 or P3, one of them is happening. Then L value will be again 1. Agented. Okay, so let me see the options.",
+      "avg_logprob": -0.14050751790068203,
+      "no_speech_prob": 0.69189453125
+    },
+    {
+      "start": 3111.1,
+      "end": 3146.67,
+      "text": " fails as AL can overflow. We will see this fails as AL can take on non-zero value when lock is actually available. Okay. I think fail and fail and work, they are saying in the sense that if AL is zero, then they wanted to get enter. If AL is non-zero, then they don't want to get enter. I mean, the mutual exclusion they want to look for, right? Okay. Do you think that multiple processes can be there in the critical section at the same time?",
+      "avg_logprob": -0.17202240186479856,
+      "no_speech_prob": 0.7490234375
+    },
+    {
+      "start": 3146.94,
+      "end": 3195.07,
+      "text": " let's just see this I think if one of the processes here then this value will be non-zero right because that is one then only this process has got inter the moment it got inter it value this value will be 1 but now if any other process is executing it cannot get entered into the critical section I think right okay so let's suppose that both are I mean they both are doing this thing so basically it will be 2 3",
+      "avg_logprob": -0.1686789799820293,
+      "no_speech_prob": 0.6240234375
+    },
+    {
+      "start": 3195.41,
+      "end": 3232.48,
+      "text": " but again so l value will be two and then maybe it is three then again it will be one right one of the process will be one and then maybe if this process can make it two but again this process can make it one like that so basically it will be two three one two three one like this right so if this is three number of processes then maximum value could be three right if these are the three number of processes then the maximum value of l is right three",
+      "avg_logprob": -0.08560854933763805,
+      "no_speech_prob": 0.6083984375
+    },
+    {
+      "start": 3233.69,
+      "end": 3278.04,
+      "text": " Now, suppose there are 10 processes that we have. Suppose there are 10 processes that we have. Tell me the maximum value L can take. 10 or 11. I think L will be 1. The moment it is in the critical section, L will be 1. It can make L2 and then it can print. It can make L equal to 2. I think 10. So maximum L could be if there are 10 processes.",
+      "avg_logprob": -0.1482619395416774,
+      "no_speech_prob": 0.76904296875
+    },
+    {
+      "start": 3281.87,
+      "end": 3315.41,
+      "text": " and then eventually it will be 1 only it might go anywhere from 1 to 10 okay that's fine so that is okay now let's suppose L is now 0 I mean this process execute this L to be 0 now can the multiple processes get entered that's what I'm seeing can the multiple processes get entered in the critical section again see the moment it is 0 then one of the processes who gets scheduled it will only pass right",
+      "avg_logprob": -0.15597747682138932,
+      "no_speech_prob": 0.316162109375
+    },
+    {
+      "start": 3316.24,
+      "end": 3345.85,
+      "text": " One of the processes who got scheduled, it will say that of a zero, which I mean old value zero, so it will only pass and it will make it to one. So I don't think multiple processes can get ever entered in the critical section. Because whenever I leave zero and let's suppose there are multiple processes that is there, then you will say that one of the processes will be just passing the check and then it will be entered in the critical section and L will be again one. From zero, it will be again one, right?",
+      "avg_logprob": -0.18860619891006336,
+      "no_speech_prob": 0.76611328125
+    },
+    {
+      "start": 3346.59,
+      "end": 3389.29,
+      "text": " because that's what fetch and add touch. So seems like it is working. Let me see the answer. B is the choice. Oh, L can take the non-zero value when lock is actually available. Yeah, that's interesting. Yes, yes, yes. So I mean, can you tell me how, how it is possible? Basically, all the processes may get stuck. Can you tell me how? It is easy to check basically. All the processes may get stuck.",
+      "avg_logprob": -0.15523437693715095,
+      "no_speech_prob": 0.294677734375
+    },
+    {
+      "start": 3396.23,
+      "end": 3416.77,
+      "text": " I think it is easy, maybe you people have gassed it, so L is 0, let's suppose this process is executing L is 0, but now L is immediately 1, which means this fetch and add got executed and now L is immediately 1. Okay, so basically I mean if you are writing this in two lines.",
+      "avg_logprob": -0.2309283088235294,
+      "no_speech_prob": 0.1072998046875
+    },
+    {
+      "start": 3417.45,
+      "end": 3445.89,
+      "text": " unnecessarily you are doing this in two lines see earlier do you remember that in test and set what we what we were doing we were just having one line of fetch one line of test and set right only one line but if you're doing two lines then there's a problem what is the problem l is zero then if one of the process execute this then it is okay but instead of this they directly execute l equal to one i mean they previously have executed this this this this particular line and now they directly execute l equal to one which means l is now non-zero",
+      "avg_logprob": -0.11351902446021205,
+      "no_speech_prob": 0.6708984375
+    },
+    {
+      "start": 3447.29,
+      "end": 3490.83,
+      "text": " And there is no one who can make L0 again, right? So L is now one and everyone will get stuck, okay? So this is not a very tough question. I think that was easy question only. Have you understood this? Or should I explain this again? Let me know quickly. Okay, that was very easy, right? See, suppose you just have two processes. Suppose L value initially 0. Now, this process is let's suppose in the critical section, P1.",
+      "avg_logprob": -0.16773897131868437,
+      "no_speech_prob": 0.7431640625
+    },
+    {
+      "start": 3491.95,
+      "end": 3514.43,
+      "text": " Now what will the value fail? It will be 1 because this fetch and add it must have executed right and that's why it is 1 because of this fetch and add and this is false and then it has come here. That's why it is 1. Now who will make it 0? This P1 will only make it 0 right and P2 is let's suppose here P2 will make it what? P2 will say it is 2 right?",
+      "avg_logprob": -0.22093413593948527,
+      "no_speech_prob": 0.2347412109375
+    },
+    {
+      "start": 3515.2,
+      "end": 3543.59,
+      "text": " i mean p2 let's suppose p2 will say this 2 and then again p2 will say it is 1 and then again it is 2 1 2 1 p2 will be doing something like that i mean it will be rotating between 1 and 2 right now suppose p2 is here p2 is about to p2 about to execute this line p2 is here at that time tell me the value of log actually it doesn't matter but actually tell me the value of log it will be 2 because 1 was already there and it will be executing this then it will be 2 right that's easy",
+      "avg_logprob": -0.10852864906191825,
+      "no_speech_prob": 0.25390625
+    },
+    {
+      "start": 3544.11,
+      "end": 3573.77,
+      "text": " I mean, actually it doesn't matter, but anyway, the problem here is that this is the P2 saying L is 2. Now P1 got executed and P1 is making L2 be 0. And now the issue here is that the P2 will again make it 1 from using this I mean, that has already executed the fetch and add and now it will make it 1. Now, once it is 1, no one can make it 0.",
+      "avg_logprob": -0.22722739805566503,
+      "no_speech_prob": 0.436767578125
+    },
+    {
+      "start": 3574.47,
+      "end": 3607.27,
+      "text": " and neither p1 nor p2 both will say that okay this is two this is something like that no one can make it zero only p1 could have made it zero and now p1 p1 and made it zero after that you are executing this line see let's suppose let me just tell you step by step let's suppose p2 is in the critical section at that time as all of you know that lock is one right here lock is one okay",
+      "avg_logprob": -0.1120074758225161,
+      "no_speech_prob": 0.71875
+    },
+    {
+      "start": 3608.87,
+      "end": 3634.85,
+      "text": " P2 goes out, log will be 0. Can P2 go in? Can P2 go in? This is P2. Now P2 will say that okay, log is 0 and then it will be false. It will be false, so P2 can go in, right? So P2 will say it is 1 because of fetch and add and P2 can go in. So once P2 is out, P1 is out at that time, P1 is executing this, then that's fine.",
+      "avg_logprob": -0.18971108743604623,
+      "no_speech_prob": 0.371337890625
+    },
+    {
+      "start": 3635.48,
+      "end": 3664.7,
+      "text": " I mean P2 will get into the critical section. But instead of executing this line, if let's suppose P2 is at this line, I mean P2, whenever this log has been made to 0 by P1, which means P1 is going out, this log has been made to 0 by P1, it is going out. At that time, if P2 is executing at L equal to 1, then L will be 1 and no one can make it 0 again. Yes, yes.",
+      "avg_logprob": -0.13506610261706206,
+      "no_speech_prob": 0.427978515625
+    },
+    {
+      "start": 3665.03,
+      "end": 3696.92,
+      "text": " so that's true so basically executing l equal to 1 just after l equal to 0 is an issue yeah that's very nicely written has everyone understood this if you if you execute after l equal to 0 after l equal to 0 if you execute this this while then it's not an issue right then you can then the p2 can get in but if p2 is executing l equal to 1 because p2 can be at any stage right if p2 is executing l equal to 1 then this is an issue",
+      "avg_logprob": -0.07578890770673752,
+      "no_speech_prob": 0.1839599609375
+    },
+    {
+      "start": 3698.44,
+      "end": 3733.74,
+      "text": " P2 could be here at this moment or could be here let me know if that is fine or there is still an issue okay that's fine right you can just tell me if if you don't understand didn't understand now so basically after l equal to 0 basically this okay P1 l equal to 0 now if you are executing this while fetch and add fetch and add by P2 then that's fine",
+      "avg_logprob": -0.1451028972500708,
+      "no_speech_prob": 0.85302734375
+    },
+    {
+      "start": 3734.06,
+      "end": 3762.96,
+      "text": " it's not an issue i mean after that if you are executing this line that's not an issue what is the issue issue is that you are executing this line can you execute this line yes because p2 could be at any stage right could be executing this or could be executing this so you can uh you can directly set it to one now what is the problem in in setting it to one is this okay everyone that after l equal to zero immediately after l equal to zero if you are executing this l will be one now problem here is that if l is one or l is non zero no process can get entered now",
+      "avg_logprob": -0.10767389191014151,
+      "no_speech_prob": 0.658203125
+    },
+    {
+      "start": 3763.72,
+      "end": 3794.32,
+      "text": " because it will be two or something and then every process will be just incrementing it. No one is decrementing it. So basically it will not be zero again. It cannot be zero again. Once it is one, then now it cannot be zero. Only process even could have made it zero because of this release log. Now no one else can make it zero. So that's the problem. This is a deadlock situation. So you can say that every process will get stuck. So here fails.",
+      "avg_logprob": -0.1468750068119594,
+      "no_speech_prob": 0.837890625
+    },
+    {
+      "start": 3795.35,
+      "end": 3828.19,
+      "text": " as AL can take a non-zero value when the lock is actually available, right? Yes. So basically in these kind of questions, these are the easy questions only in synchronization. All we have to do is that you have to just check that, okay, where the permission was possible, okay? Where the permission is possible. Now coming to this option A, this, I mean, actually, to be honest, this also seems okay because AL can also overflow. I mean,",
+      "avg_logprob": -0.20640624985098838,
+      "no_speech_prob": 0.397705078125
+    },
+    {
+      "start": 3828.97,
+      "end": 3858.26,
+      "text": " at those times this was just mcq so maybe they have given as bi is the correct answer but i think l can also overflow can you tell me how but it is very unlikely obviously it is very unlikely it is generally uh not the case that you have exponential number of processors it is almost impossible for any computer let's suppose you have 2 power 32 number of processors okay i mean it is almost impossible but still i'm saying so if there are 2 power 32 number of processors uh like",
+      "avg_logprob": -0.13202335647862368,
+      "no_speech_prob": 0.3984375
+    },
+    {
+      "start": 3858.56,
+      "end": 3885.84,
+      "text": " obviously it is it is it is not possible but still still I'm just saying if it is 2 power 32 number processes if there are 10 processes then maximum value could be 10 if there are 2 power 32 processes then the maximum value will be 2 power 32 which is L overflow condition okay L can overflow also but that's very very unlikely I mean theoretically if you say then yes it it is possible yes so theoretically it is possible it is definitely possible but practically actually it is not possible",
+      "avg_logprob": -0.16269329405322516,
+      "no_speech_prob": 0.1168212890625
+    },
+    {
+      "start": 3886.06,
+      "end": 3922.25,
+      "text": " So maybe, I mean, for this particular gate question, if we claim, then maybe we can say that A and B both are true. If we claim this question, okay. So maybe both are true. Maybe let me just see this answer, best answer. There is no overflow because after this, the only chance of overflow is the larger number of processes, larger than the size of an execute the check condition of value.",
+      "avg_logprob": -0.21590909378772433,
+      "no_speech_prob": 0.12841796875
+    },
+    {
+      "start": 3922.78,
+      "end": 3943.85,
+      "text": " but not equal to which is highly improbable. So actually even this number of processor processes exist in the computer is also highly improbable. Right. So that's why this is not a good option. But theoretically, as I said, like it is possible. No, it doesn't work correctly. Right. Works correctly. Does this work correctly? No.",
+      "avg_logprob": -0.1940789534465263,
+      "no_speech_prob": 0.07952880859375
+    },
+    {
+      "start": 3944.16,
+      "end": 3974.52,
+      "text": " which means correctly means that the way they have defined the correctly in the sense is that they are saying the value of L is zero corresponding to the log which is available and non-zero means that log is not available. So I mean log is available but the value was non-zero as we have seen. So I mean these are just analysis questions so maybe you might have understood this.",
+      "avg_logprob": -0.19996044077450717,
+      "no_speech_prob": 0.0732421875
+    },
+    {
+      "start": 3976.74,
+      "end": 4016.75,
+      "text": " Yeah, if it is MSQ, then A and B both theoretically both can be answered. Yes. So there is one homework question. You can try it later. So this is easy question. You can just try it later based on fetch and add. Okay. This is based on the fetch and add. The solution is there on the next page. You can just try this question. This is the solution. Since it is solution is written. So maybe you can try. Now are we done?",
+      "avg_logprob": -0.18962378525039525,
+      "no_speech_prob": 0.477294921875
+    },
+    {
+      "start": 4017.4,
+      "end": 4051.85,
+      "text": " which means in terms of synchronization have we achieved everything that we ever wanted to do. So hardware solutions are fast. Definitely we have seen this, right? But there's a problem. What is the problem? Problem is starvation as we have seen that boundary weighting is a problem. BG weight was also the problem. So this problem was also in the software solutions. So there's a solution of all of this problem could be the semaphore. Let's just see that. Okay. Okay. So maybe I can directly go to the semaphore first.",
+      "avg_logprob": -0.17068325715549923,
+      "no_speech_prob": 0.51318359375
+    },
+    {
+      "start": 4052.15,
+      "end": 4079.08,
+      "text": " So semaphore was was invented in 1965. Okay, by Digextra. So have you heard about Digextra? This is the same scientist that you are thinking. Okay, the shortest path algorithm. Yeah, so semaphore has been given by Digextra in 1965. Okay, so let's just see this semaphore invented by renowned computer scientist as just as just",
+      "avg_logprob": -0.24453125540167092,
+      "no_speech_prob": 0.029327392578125
+    },
+    {
+      "start": 4082.06,
+      "end": 4114.74,
+      "text": " So basically he was a Dutch scientist and that's why like the semaphore names, you will see that P and V was there. So I will, I will tell you what, what does this mean? But yeah, he has invented this semaphore. Okay. So you can consider the semaphore just like an, just like a variable. So maybe you can say that consider it just like integer variable. Okay. Which means it will be taking some integer value.",
+      "avg_logprob": -0.15301452652372496,
+      "no_speech_prob": 0.8505859375
+    },
+    {
+      "start": 4115.34,
+      "end": 4158.57,
+      "text": " you can decrement it or you can increment it I mean there are only two possible operations only two possible operations incremented or decremented which means you can't even read the value if someone asks you okay can you tell me what is the value of semaphore no I mean you don't have any access to the read the value you can't directly assign the value apart from the initialization okay I mean initialized basically you can say apart from the initialization you can't directly assign any value",
+      "avg_logprob": -0.0974628742378537,
+      "no_speech_prob": 0.54052734375
+    },
+    {
+      "start": 4158.87,
+      "end": 4188.78,
+      "text": " okay you can't say okay this is the semaphore I can say it is 10 and in between of the execution no you can't directly read the value you can't say s plus 5 or s plus 10 you you can't modify its value you can just call two operations which is increment and decrement okay just like an integer variable so let me first explain that what it is and then we will we will see that how it is helpful to us okay so can only be accepted to atomic instructions okay or operations so which is increment and decrement no operation",
+      "avg_logprob": -0.10619469132043619,
+      "no_speech_prob": 0.3935546875
+    },
+    {
+      "start": 4189.15,
+      "end": 4220.06,
+      "text": " to read the value of the counter or the semaphore counter or semaphore so basically there is no operation by which you can read the value you don't know what is the value current value you can just increment or decrement it okay yeah so basically these are the two only supported operation on the on the semaphore which is p and v so it supports the atomic operations other than the initialization okay instead of i mean other than the initialization you can initialize definitely apart from that there are only two operations which is p and v",
+      "avg_logprob": -0.08255912041341937,
+      "no_speech_prob": 0.53759765625
+    },
+    {
+      "start": 4220.62,
+      "end": 4250,
+      "text": " P is for decrement, V is for increment. Actually these like I have not written the full form maybe okay so these are the full form of I mean some Dutch name okay so maybe I don't I don't know but there is a Dutch name uh Dutch basically you can say a phrase or Dutch verb which started with P and that English meaning is down okay so since Dijkstra was a Dutch scientist he has given the name based on his own native language.",
+      "avg_logprob": -0.19457237563635174,
+      "no_speech_prob": 0.62841796875
+    },
+    {
+      "start": 4250.64,
+      "end": 4277.12,
+      "text": " P and V. P means down in Dutch. I mean some words start with P, that means down and some words start with V, that means incremental up. So we will call it P and V. So these are the popular operations. You call it PV, you call it weight signal, you call it down up. So some people call it P, some people call it down, some people call it weight. So all are just to decrement. All are decrement.",
+      "avg_logprob": -0.20012625570249076,
+      "no_speech_prob": 0.63623046875
+    },
+    {
+      "start": 4285.67,
+      "end": 4326.59,
+      "text": " And we same as we same as up. It is same as signal. It means increment by man. Okay. So Roshesh has done Google search or maybe he is knowing Dutch. Okay. So he's helping. So maybe I can paste those full forms. So this is when you have learned Dutch. So maybe it was a Google search. Obviously it was a Google search site. Okay.",
+      "avg_logprob": -0.2694359879668166,
+      "no_speech_prob": 0.51416015625
+    },
+    {
+      "start": 4327.19,
+      "end": 4361.26,
+      "text": " so thanks for that okay that has been asked in college quiz for one mark okay good college okay so let's just continue now i guess they can ask anything so now basically let's just continue now p uh p means down or you will be decrementing by one or maybe a weight and v means up or second okay so semaphore uh semaphore support two operations as i said weight or down or uh or p which means the decrement",
+      "avg_logprob": -0.117788464649693,
+      "no_speech_prob": 0.345703125
+    },
+    {
+      "start": 4361.66,
+      "end": 4404.47,
+      "text": " okay block I will tell you and the signal means increment okay so there are two type of semaphores one is counting semaphore that can take any integer value another one is binary semaphore that takes value only 0 and 1 okay it doesn't take negative value so it doesn't take but they can take negative values okay they can take any in fact any integer value so counting semaphore can take any integer value and binary semaphore will be taking 0 and 1 only now semaphores can be used for",
+      "avg_logprob": -0.10834316037735849,
+      "no_speech_prob": 0.81591796875
+    },
+    {
+      "start": 4404.95,
+      "end": 4426.97,
+      "text": " binary semaphore can provide the mutual exclusion so basically since we have seen there are two types of semaphore one is counting semaphore one is binary semaphore so if you're using binary semaphore then they generally use for the mutual exclusion if you're using counting semaphore i mean for now these terms might be very alien okay that what i'm talking about but let me just go through the slides and you will get to understand okay don't worry",
+      "avg_logprob": -0.08715820537569623,
+      "no_speech_prob": 0.119873046875
+    },
+    {
+      "start": 4427.23,
+      "end": 4454.9,
+      "text": " So basically we have two types of semaphore, one is binary semaphore that we will be using for the mutual exclusion, counting semaphores can represent the resource with a multiple instance. So, okay, I will tell you that what does this counting semaphore mean? So again, there are two types of like semaphores, one is a mutex semaphore or binary semaphore. We call it, I mean, maybe this university is calling mutex semaphore, maybe because mutex means we use for this for mutual exclusion.",
+      "avg_logprob": -0.1440972268071949,
+      "no_speech_prob": 0.0213775634765625
+    },
+    {
+      "start": 4455.3,
+      "end": 4487.33,
+      "text": " okay or binary semaphore because we use binary semaphore for the mutual exclusion rate. Now represent single access to the resource I mean they basically say that if you want to access the resource then you can access only I mean only one process can access at one time. Now this counting semaphore says that if let's suppose the initial value of counting semaphore is 5 then I'm saying that for this resource maybe for this critical section",
+      "avg_logprob": -0.1473214354488876,
+      "no_speech_prob": 0.1431884765625
+    },
+    {
+      "start": 4487.71,
+      "end": 4515.82,
+      "text": " five five processes can go inside at one time I mean if I'm saying this is this is let's suppose if I'm saying n okay then n process can go at one time okay if the initial value is n if the initial value is let's suppose here here the initial value could be 0 or 1 if the initial value is 1 that it means that one process can go if at one time if it is 0 then no process can go generally we obviously have the initial value to be 1 right so generally we have the initial value to be 1 here",
+      "avg_logprob": -0.08572635081437258,
+      "no_speech_prob": 0.69287109375
+    },
+    {
+      "start": 4516.1,
+      "end": 4556.56,
+      "text": " and initial value here could be anything if it is n then what does this mean that five let's suppose it is five then five process can go in the critical section at one time okay so i'm not writing it because it is already there in the next slides so let's just continue semaphore again these are the slides yeah these are the Dutch names these are the Dutch names historically weight is also known as p and signal is also known as p okay so basically what we want to do",
+      "avg_logprob": -0.10164141730226652,
+      "no_speech_prob": 0.439697265625
+    },
+    {
+      "start": 4556.82,
+      "end": 4585.88,
+      "text": " we want to implement the semaphore but this is a basic layout now let me just tell you that what we want to do let's just see this definition let's suppose i want to wait wait means down so which means if this s if already it is zero negative then it is basically waiting it is a it is a spin lock which means it is waiting in this value otherwise i will be decrementing it okay so",
+      "avg_logprob": -0.07848837477869766,
+      "no_speech_prob": 0.279296875
+    },
+    {
+      "start": 4586.3,
+      "end": 4622.36,
+      "text": " have you understood this code then what this code trying to say it is saying that if s is already negative i mean you just understand this weight as to decrement okay you just understand basically there are two things weight and signal now weight is just to decrement and signal is just to increment you just understand like this for now you can understand like this that weight will be decrementing and signal will be incrementing is this killer to agreement only only thing is that if it is already negative",
+      "avg_logprob": -0.10220025289727717,
+      "no_speech_prob": 0.6396484375
+    },
+    {
+      "start": 4622.97,
+      "end": 4667.63,
+      "text": " Okay, if it is already negative, then they are saying that that you can you can wait here. Okay, you can wait here. They're saying something like this. I mean, there are different, different implementation. We will see that. But, but essentially, where it will be decrementing and signal will be incrementing. Okay. Now I can copy these definitions from Galvin and let me tell you what they're trying to say. So, I mean, the work of this weight is to decrement and the work of the signal is to increment. Right. And now currently I'm telling you the counting semaphores.",
+      "avg_logprob": -0.18181818610791003,
+      "no_speech_prob": 0.59130859375
+    },
+    {
+      "start": 4667.93,
+      "end": 4719.33,
+      "text": " so this is the implementation of counting semaphores okay maybe maybe before before the counting semaphore maybe i can tell you the implementation of binary semaphores sorry the slides are not very well ordered but yeah okay let me just tell you how to implementation of binary semaphores now binary semaphores are basically allowed to take only two values what are those zero and one okay so this is p or weight or whatever you want to say",
+      "avg_logprob": -0.07843223247635231,
+      "no_speech_prob": 0.08258056640625
+    },
+    {
+      "start": 4719.68,
+      "end": 4752.29,
+      "text": " should i be calling weight or p i mean some people will will say that weight some people will say p so maybe i can use p and p right okay so these are the i mean these are the two functions that we will be using for the binary semaphore now p is used to decrement right and since you know the binary semaphore can only take zero and one value so if it is already zero can you decrement it further no right because as i told you that it can only alternate between zero and one",
+      "avg_logprob": -0.07915684320735482,
+      "no_speech_prob": 0.8818359375
+    },
+    {
+      "start": 4752.54,
+      "end": 4782.36,
+      "text": " So maybe you can say whenever you are calling P, it is as good as saying s equal to 0. Let's suppose s is there. I mean earlier if it is 0, then it is good. If earlier it is not 0, then you will make it 0. Earlier it is 1, then you will make it 0. Then what should I write here in V? Maybe I can say s equal to 1. If earlier 1, no problem. Earlier 0, I will increment it to 1. That's how I can very easily implement this P and V. Is this okay to everyone?",
+      "avg_logprob": -0.15625000218065774,
+      "no_speech_prob": 0.787109375
+    },
+    {
+      "start": 4791.59,
+      "end": 4820.85,
+      "text": " Now there is one more thing that is to be added here which is Q which means that these semaphore also maintain a Q. Every semaphore has its own Q. Now what will I do? I will check here, I will check that before making it s equal to 0. I mean I ultimately want to make it s equal to 0 but before making it s equal to 0. If s is already 0 and I am calling P then what should I do? Should I not block this process? Which means",
+      "avg_logprob": -0.17379128075433228,
+      "no_speech_prob": 0.426513671875
+    },
+    {
+      "start": 4821.15,
+      "end": 4864.64,
+      "text": " I mean, what is a little problem here is that you can say, let's suppose I'm having this critical section, this is V. So maybe I'm having something like this, and then there's another process which is doing something like this, critical section. So this is process one. This is process one. This is process two. These are the two processes. Now, suppose",
+      "avg_logprob": -0.15722656678408384,
+      "no_speech_prob": 0.362548828125
+    },
+    {
+      "start": 4865.06,
+      "end": 4895.9,
+      "text": " as is a binary semaphore which has been initialized to be one this is p1 this is p2 now if p1 execute this these are first of all these are the atomic instructions okay atomic these are the atomic which are supported by operating system i will tell about more detail and in the next class today we will just understand the semaphore and we'll solve few questions so suppose this is an atomic instruction which means",
+      "avg_logprob": -0.11431393421244347,
+      "no_speech_prob": 0.06866455078125
+    },
+    {
+      "start": 4896.18,
+      "end": 4930.36,
+      "text": " that here whatever is happening inside this is just atomic okay so now suppose it execute this and do you know what is this ps it is as good as saying s equal to zero and what is ps it is as good as saying let's suppose s equal to one okay these are the definitions now now what i'm trying to say here is that let's suppose that you uh you execute this ps s value is initially one the moment you execute it what will be the value of s after that zero right s will be zero okay",
+      "avg_logprob": -0.09739583219800677,
+      "no_speech_prob": 0.72021484375
+    },
+    {
+      "start": 4930.64,
+      "end": 4960,
+      "text": " Now this P1 is in the critical section, P1 is here. Now tell me, what should happen if P2 wants to execute this PS? Then this S will be again, it will be again saying okay from 0 to 0 and it will be again in the critical section. But is this desirable? At least mutual exclusion should be there. I don't think it is desirable. Are you getting my point? So basically if now P2 executes this critical section, then",
+      "avg_logprob": -0.1857638925012916,
+      "no_speech_prob": 0.059722900390625
+    },
+    {
+      "start": 4960.37,
+      "end": 4990.43,
+      "text": " I mean this ps then it should not pass through this ps so for that what we can have we can we can ask p2 to wait here which means we can modify this code and we can say that here while as a colloquial 0 if s is already 0 you wait in this right is this okay to everyone so I can just modify this p something like this okay",
+      "avg_logprob": -0.19058387628511378,
+      "no_speech_prob": 0.1790771484375
+    },
+    {
+      "start": 4992.05,
+      "end": 5035.03,
+      "text": " If s is already zero, I will ask it to wait and I think this is the correct and good code. So this is how we can implement the binary semaphore. Let me know if there is any doubt. So basically, what I'm trying to say is that, I mean, there is no problem with this code. So I will say that what you can do, you can just like, let me just do one thing, let me just execute again. So suppose that people want to execute.",
+      "avg_logprob": -0.1274553526015509,
+      "no_speech_prob": 0.1715087890625
+    },
+    {
+      "start": 5035.36,
+      "end": 5065.54,
+      "text": " if p1 wants to execute and the semaphore value is initially 1, sorry if it is initially 1 then what will happen then will p1 get inside the critical section or not if it is initially 1 then p1 will get inside the critical section right it will get inside the critical section i think so now p1 will get inside it will make the value to be 0 now if p2 wants if p2 wants then this p will say that okay since it is already 0 you wait here in this value right you wait here in this value so p2 will not be allowed here right",
+      "avg_logprob": -0.09824219041814407,
+      "no_speech_prob": 0.90625
+    },
+    {
+      "start": 5065.8,
+      "end": 5105.68,
+      "text": " P2 will not be allowed to go if P1 is already in critical section. I hope that is very much fine to everyone. So that's how we can implement the semaphore. But does this serve the purpose that we started with? Do you remember we started with some motivation? Let me just tell you the motivation we started with. We were saying, now are we done? Okay. So hardware solutions we have seen that are fast, but the problem was starvation.",
+      "avg_logprob": -0.12073863410588467,
+      "no_speech_prob": 0.43896484375
+    },
+    {
+      "start": 5105.99,
+      "end": 5135.53,
+      "text": " and Vigivating. So still the Vigivating, at least you can clearly see that Vigivating is still there, which means we are still in the while loop. So, so what we can do, since we are taking the help from the operating system, so let's just extend this help further. So what we'll say that, okay, inside the operating system, we will, I will tell you the actual code, but for now I'm just telling you the basic idea. So we will say that, okay, let's just do one thing. Instead of asking it to Vigivate, what can I do? Can anyone suggest me something here? Yes.",
+      "avg_logprob": -0.12000868164209856,
+      "no_speech_prob": 0.78857421875
+    },
+    {
+      "start": 5135.87,
+      "end": 5204.18,
+      "text": " so i can ask it to sleep right so i will say that okay let me maintain a queue for every for every semaphore i will maintain a queue right so what i'm trying to say that this is a problem which is a busy wait problem right so i will say instead of doing this instead of you know using the semicolon here what should i be saying maybe i can say just that okay you go and sleep right you go and sleep the only difference between this code",
+      "avg_logprob": -0.07625325776947041,
+      "no_speech_prob": 0.69091796875
+    },
+    {
+      "start": 5204.47,
+      "end": 5237.56,
+      "text": " And this code is that here I'm just asking it to sleep. See earlier, earlier, that was the code. Okay. Let me also tell the earlier code earlier. This was the code. Now this is the code. Can you see the difference here? The difference is that I'm just asking to sleep in this case. I'm saying that you leave CPU, you go and sleep. Okay. Cool. So now tell me, is this a busy wait? Now, if, if.",
+      "avg_logprob": -0.14744179184530296,
+      "no_speech_prob": 0.059600830078125
+    },
+    {
+      "start": 5237.82,
+      "end": 5265.97,
+      "text": " p1 let's suppose there is a processor p1 that has already executed this p and there is a processor p2 that has sorry not the processor process there is a process p1 that wants to execute this p and is in the critical section now now if p2 wants to execute this p then what will happen it will say that okay the value of semaphore initially was 1 now it is 0 because of the p1 now value of semaphore is 0 that's why i will go and sell it",
+      "avg_logprob": -0.12394831214959805,
+      "no_speech_prob": 0.2607421875
+    },
+    {
+      "start": 5266.34,
+      "end": 5295.24,
+      "text": " P2 is going to sleep. P2 will leave the CPU. Okay. Which means, since it is in the operating, like this code will be in the operating system. So operating system will do what? Operating system will say that, okay, we'll ask the P2 to say that, okay, can you, can you go and sleep? Right? Okay. Now, now, can, can operating system directly ask or there should be some process? I mean, if directly asked, then who will wake up, right?",
+      "avg_logprob": -0.18257319390236795,
+      "no_speech_prob": 0.236572265625
+    },
+    {
+      "start": 5295.94,
+      "end": 5344.63,
+      "text": " So operating system will say that instead of I directly ask you to sleep, let me do one thing. Let me put you in the queue and then I will ask you to sleep. So that I maintain a queue, separate queue. So every semaphore has its own queue. Maybe I can write it here. Every semaphore. So I will ask this P2, I mean, I will say that if S is already zero, I will, I mean operating system will put it in the queue and then after that block,",
+      "avg_logprob": -0.1639204596931284,
+      "no_speech_prob": 0.76416015625
+    },
+    {
+      "start": 5344.86,
+      "end": 5391.5,
+      "text": " okay after that silly block or whatever you want to call but first put in the queue is this okay everyone so that whenever whenever i'm calling this week now now before making h2p1 i will check i will check i will check something and what is that if there is something already in queue then i will wake that process right so i will say if something then",
+      "avg_logprob": -0.16173986526759895,
+      "no_speech_prob": 0.3203125
+    },
+    {
+      "start": 5399.07,
+      "end": 5440.36,
+      "text": " since it is first and first out you can you can use first and first of V4Q then I will I will be waking up the first in process basically then wake one of the process right the process basically one of the process it will be waking and then you can make as equal to okay so maybe I can tell you with the example that how it is working so basically now we have come up with this particular code let's see that how it is working let's suppose there are multiple processes okay maybe three processes wants to execute",
+      "avg_logprob": -0.15303737899967443,
+      "no_speech_prob": 0.185302734375
+    },
+    {
+      "start": 5440.76,
+      "end": 5479.31,
+      "text": " this particular set of four. Okay, suppose there are four or five processes. Now, suppose this process as value initially is one, this process in the critical section, tell me the value of s, it will be zero. Now, suppose this process wants to get executed. Now, let's suppose it is P2, it is P3, it is P4, it is P5. And there's a queue, right? Initially it is empty. Now, this process wants to get executed. Now, since it is already zero, P2 will be in the queue.",
+      "avg_logprob": -0.13313801797727745,
+      "no_speech_prob": 0.69091796875
+    },
+    {
+      "start": 5480.67,
+      "end": 5508.68,
+      "text": " Suppose now this process also wants to get executed, T3 will also be in the queue. Suppose T4 wants to also get executed, T4 will also be in the queue. All are in the queue. Now, this leaves and now what is the value of, this process wants to leave and it is executing V. What this V will do, we will wake up. So as value will be 1, if you notice that it is doing two things.",
+      "avg_logprob": -0.21858552882545873,
+      "no_speech_prob": 0.0950927734375
+    },
+    {
+      "start": 5508.96,
+      "end": 5538.67,
+      "text": " it is saying if q is not empty then i will wake up one of the process it is not not in the q and s believe me now now interestingly look at look at this code so c c this p you you you are executing this p you are you are you are saying that okay block i mean you you blocked it and now now what you will do you will you will again execute this that okay this while s equal equal zero is is s zero now no right",
+      "avg_logprob": -0.1513980225512856,
+      "no_speech_prob": 0.131103515625
+    },
+    {
+      "start": 5538.96,
+      "end": 5568.2,
+      "text": " So basically, now you are not in the loop and now you will make it zero. Now you will make it zero and then you will say that, okay, I'm going inside the critical section. This P is completed. Now you will go inside the critical section. Is this okay to everyone? Okay. So basically, now let's suppose that P3 and P4 both are in the queue. Now let's suppose P5 at GQ, then P5 will say that since",
+      "avg_logprob": -0.19796874314546586,
+      "no_speech_prob": 0.0997314453125
+    },
+    {
+      "start": 5568.72,
+      "end": 5596.8,
+      "text": " Since s is already zero, that's why it is in the queue. Now v happens, then we will make one of the process out. We will make one of the process out. And then this p3, p3 will go in and then this p3 v, whenever this p3 executing its own v, then one of the process will be out. And then whenever p4 is executing its own v, then this p5 will be out, like that it will be happening.",
+      "avg_logprob": -0.1526144766571498,
+      "no_speech_prob": 0.1884765625
+    },
+    {
+      "start": 5597.46,
+      "end": 5625.08,
+      "text": " So basically you don't need to go all of this story. I mean, you don't need to maintain a queue or these things for the question. It will be easy. Like for the questions, they won't be asking much typical questions. Okay. Maybe they have asked one or two questions related to queue and all, but they will be just asking that based on this simple implementation, even if you don't have queue. Okay. Don't worry about the queue. Maybe, maybe if you just know that, okay, if, I mean, you just need to know if it is zero, then, then it will wait.",
+      "avg_logprob": -0.11574519574642181,
+      "no_speech_prob": 0.145263671875
+    },
+    {
+      "start": 5625.43,
+      "end": 5654.06,
+      "text": " if it is if it is not zero I mean if it is zero still you're calling this p you are going to wait if you're going to call this v do you think that v is ever going to wait v is not for the wait I mean in any in even the real definition right v is not for the wait if you're calling v will you get ever blocked no right v is not not blocked so basically all you need to know that if you're calling p for s equal to zero you may you may be stuck",
+      "avg_logprob": -0.10572430017952607,
+      "no_speech_prob": 0.48388671875
+    },
+    {
+      "start": 5654.48,
+      "end": 5683.45,
+      "text": " If you are calling V, it will be 1, okay? S will be 1, right? If you are calling V, then S will be 1. If you are calling P, then S will be 0. And if S is already 0, you will get 0. That's all. Is this okay to everyone? I mean, if you want, you can mend in the queue and all, but it won't be necessary to understand, to solve the questions. So, yeah, this is the slide from IIT Bombay.",
+      "avg_logprob": -0.17933559176084157,
+      "no_speech_prob": 0.1302490234375
+    },
+    {
+      "start": 5683.72,
+      "end": 5717.03,
+      "text": " For the binary semaphore implementation, I think they are saying the same thing that p means if it is already zero then block it Otherwise, this is s equal to zero right if it is if it is non zero If sorry if the if the queue is not empty then then wake up some something from the queue. Otherwise, it's equal to one Okay. Anyway, you don't need to Remember the actual definitions just remember that okay whenever you're calling p if it is already zero you won't pass it",
+      "avg_logprob": -0.1906550549543821,
+      "no_speech_prob": 0.302978515625
+    },
+    {
+      "start": 5717.23,
+      "end": 5756.48,
+      "text": " if it is if it is one then you will pass it we we means you you will make it one something like that okay cool now let's just see the counting semaphore now okay counting semaphore implementation so it is also very easy it is just saying that okay if the value maybe yeah this is the counting semaphore implementation counting semaphore is useful what can you tell me it is saying that if the value of counting semaphore let's suppose is five then what does this mean",
+      "avg_logprob": -0.06556372439452246,
+      "no_speech_prob": 0.2529296875
+    },
+    {
+      "start": 5756.97,
+      "end": 5797.1,
+      "text": " At most five processes can be in the critical section at any time. If it is one, then at most one process. If it is two, then at most two process. If it is three, then at most three process. So it means at most this slide I have taken from Galvin. This is from Galvin. So let's just see that what they're saying. So this is the implementation of content semaphore. If you're calling this weight, first thing that you need to do is decrement.",
+      "avg_logprob": -0.14612267842447316,
+      "no_speech_prob": 0.024261474609375
+    },
+    {
+      "start": 5797.42,
+      "end": 5825.99,
+      "text": " if you're calling the signal first thing that you need to do is increment okay as we talked earlier so weight will be decrementing and signal or the V will be incrementing right now after decrement if you find out that okay value is less than zero if value is negative then you will block the process if after increment you find out that okay the value is basically still negative basically still less than or equal to zero which means that that you need to wait some process so let me just tell you what does this mean see",
+      "avg_logprob": -0.0937499981022106,
+      "no_speech_prob": 0.262451171875
+    },
+    {
+      "start": 5827.08,
+      "end": 5869.58,
+      "text": " Let's suppose the counting seven four n is two at any moment. Okay, then what does this mean? There may be two processes. Okay, we can allow allow to enter in categorization, right? Now, interestingly, let's suppose it is minus three. Then what does this mean? It means that q size is three. Basically, there are three processes are blocked. There are there are three blocked processes.",
+      "avg_logprob": -0.225472389612087,
+      "no_speech_prob": 0.79541015625
+    },
+    {
+      "start": 5870.51,
+      "end": 5911.32,
+      "text": " Okay, block processes in the queue. So basically, let's suppose I raise minus three, you are calling V three times. So what does this V does? V is basically making, I mean, incrementing it. So after one time, n will be minus two. Here n will be, I mean, after one time increment, here n will be minus two, then n will be minus one. And after this increment, after whenever you are incrementing, after this n will be minus, minus two, then minus one.",
+      "avg_logprob": -0.18678977652029558,
+      "no_speech_prob": 0.802734375
+    },
+    {
+      "start": 5914.74,
+      "end": 5930.31,
+      "text": " After this last increment, it will be zero. So as already you have three processes in the queue, so even though it is zero, don't you think you need to wake up the last process?",
+      "avg_logprob": -0.20107887365988322,
+      "no_speech_prob": 0.2225341796875
+    },
+    {
+      "start": 5932.97,
+      "end": 5974.01,
+      "text": " Okay. So even though it is zero, you need to wake up some, some process basically. So that's what this implementation is saying that even though if it is negative, then you definitely need to wake up even after incrementing it is negative. So basically a negative value tell you that you need to wake up. Okay. There is minus one means there is one process in the tube. So some people basically just have strictly less than zero, strictly less than zero. Tell me is this, is this okay to have strictly less than zero? Actually, actually this could be fine.",
+      "avg_logprob": -0.12623697395126024,
+      "no_speech_prob": 0.76953125
+    },
+    {
+      "start": 5974.31,
+      "end": 6004.11,
+      "text": " if we are shifting maybe okay maybe you can shift this as value plus plus i mean we need to check uh very carefully but maybe if you're shifting it later i'm incrementing later i'm first checking whether negative then let me wake up one of the let me remove one of the process and then i will increment maybe now it is fine right but if i'm first incrementing okay then maybe this less than equal to zero is important are you getting my point so basically weight and signal decrement and increment if after decrement if the value is negative",
+      "avg_logprob": -0.07249436668447547,
+      "no_speech_prob": 0.211181640625
+    },
+    {
+      "start": 6004.66,
+      "end": 6038.96,
+      "text": " Okay, then you will put that in the in the basically let's suppose initially it was zero after decrement. It has got minus one. Then what does this mean? Can I allow this process? No, I will I will basically keep this process in the waiting queue. Okay, let me know that is fine. So basically, basically, yeah. So after, I mean, after decrement, if the value is negative, then I will keep this process in the waiting queue because if it is zero, let's suppose if it is zero,",
+      "avg_logprob": -0.16302544458777504,
+      "no_speech_prob": 0.599609375
+    },
+    {
+      "start": 6039.23,
+      "end": 6069.81,
+      "text": " and and the process execute this weights weight then what will happen then i will say that i will not allow at the zero i will not allow at the zero i will decrement it i will put in the weight queue if it is one will i will allow the process to pass this weight if it is one then i will allow if it is two then if it is positive value i will allow if it is negative even in the count in semaphore or or or any any binary semaphore any semaphore if you just need to remember one thing that that this p in any semaphore",
+      "avg_logprob": -0.08412965073073206,
+      "no_speech_prob": 0.7421875
+    },
+    {
+      "start": 6071.87,
+      "end": 6107.42,
+      "text": " like if the initial value or the basically input value, okay, or as is non zero, then only allow. I mean, if as is zero, it will block the process. If as is zero, it will block the process, right? Is this okay to everyone? So if as is zero, it will block the process. That's what we need to understand. Either it is binary semaphore or context semaphore, okay? Or you can say if",
+      "avg_logprob": -0.18894974226804123,
+      "no_speech_prob": 0.70849609375
+    },
+    {
+      "start": 6119.43,
+      "end": 6144.15,
+      "text": " Now in the binary semaphore, can it further decrement S? No. Actually, I think I'm too much confusing you. Let's just focus on one of the semaphore. Let's just focus on the counting semaphore only. So the job of P is to decrement S. If S is 0, let's suppose you just tell me how to implement this. If S is 0, I don't want to allow. And I want to do two things.",
+      "avg_logprob": -0.14611695072438458,
+      "no_speech_prob": 0.36181640625
+    },
+    {
+      "start": 6146.1,
+      "end": 6186.85,
+      "text": " if s equal to 0 then block I also want to do decrement I want to do these two things by this tell me how can I do that you tell me any any any possible code here maybe I can say maybe I can first decrement right maybe I can say that okay I mean if not only as 0 even if less than 0 I mean 0 or negative basically then I want to block you tell me the possible code here",
+      "avg_logprob": -0.12679597118805194,
+      "no_speech_prob": 0.78759765625
+    },
+    {
+      "start": 6187.1,
+      "end": 6228.28,
+      "text": " can i say that if s is less than equal to zero zero negative then block it and then then uh i mean i would i whenever it get wake up i also want to decrement right so decrement it i also want to decrement it will this work i think this should work right or do you think any problem here i think this should work okay or otherwise otherwise i can say i can i can first decrement i can first decrement",
+      "avg_logprob": -0.0753906226820416,
+      "no_speech_prob": 0.382568359375
+    },
+    {
+      "start": 6228.46,
+      "end": 6258.12,
+      "text": " or maybe i can say that okay i have decremented it now it now at zero also i want to block it right so i will say that okay the after decrement it might be negative so here here should i be writing if s less than equal to zero then block or or just s less than zero then block only less than zero right because if i am writing less than equal to zero then it will be a problematic situation right because at one also i will be blocking so basically i want to do these two things you you can write the code in anyway it doesn't matter actually right",
+      "avg_logprob": -0.08520921610169492,
+      "no_speech_prob": 0.58203125
+    },
+    {
+      "start": 6258.74,
+      "end": 6300.06,
+      "text": " So this also works, this also works. So I want to block it whenever I say zero negative and I also want to decrement it. This is how p works. Now we say, we say that, that if s is already negative or I mean less than or equal to zero, which means there is someone, someone in queue, right? Then wake up and I also want to increment it. Let's suppose I'm first incrementing s plus plus.",
+      "avg_logprob": -0.15131579355189675,
+      "no_speech_prob": 0.59375
+    },
+    {
+      "start": 6302.67,
+      "end": 6338.84,
+      "text": " Then, sorry, if s is less than zero, less than zero, then there is someone in that queue. If it is strictly negative, then there is someone in that queue. If I am first incrementing, let's suppose it was minus one, then it will be zero, then I need to still wake up, right? How are you getting my point? So basically, let's suppose incoming value was s equal to minus one. Now, after s plus plus, it is zero, but I still need to wake up it. So I will say that if s is less than equal to zero,",
+      "avg_logprob": -0.1395,
+      "no_speech_prob": 0.85791015625
+    },
+    {
+      "start": 6339.06,
+      "end": 6374.36,
+      "text": " then wake up why because minus one then i want to wake up yes it will be zero and less than equal to zero dissatisfying then then wake up minus two then then it is less than zero i also i i want to wake up here also right at minus one minus two i also i want to wake up at both the conditions so this will work now tell me this will work or not maybe i can i can uh increment it later so s plus plus now tell me what should i write here if s is i think strictly less than zero then",
+      "avg_logprob": -0.09044200316205755,
+      "no_speech_prob": 0.81494140625
+    },
+    {
+      "start": 6379.41,
+      "end": 6405.62,
+      "text": " You can write any code it doesn't matter basically. So idea of P and V is that P won't allow the negative thing. We will say that if something is in the queue, you wake up and it will increment basically. We will increment, people will decrement. But P will not allow negative, right? And okay, let's not worry about the queue and all. It's just that P will decrement and we will increment. Is this okay to everyone? And also remember that P will not allow the negative. Okay.",
+      "avg_logprob": -0.2121340060556257,
+      "no_speech_prob": 0.35009765625
+    },
+    {
+      "start": 6405.91,
+      "end": 6459.41,
+      "text": " I mean if the if the incoming is negative or zero in any of the case people not allow it just remember just remember one thing if the incoming if s is zero or s is negative he will not let it pass this is the thing and for for we always let it pass whatever it is right increment",
+      "avg_logprob": -0.15637807670186776,
+      "no_speech_prob": 0.1502685546875
+    },
+    {
+      "start": 6461.99,
+      "end": 6487.78,
+      "text": " and always increment basically always increment that's all let's not worry about the queues and all okay is this okay everyone if if you are executing p if the value of s is zero negative it won't pass it okay and it will decrement it later I mean whenever it get a chance okay so let's just",
+      "avg_logprob": -0.18176269135437906,
+      "no_speech_prob": 0.295166015625
+    },
+    {
+      "start": 6499.86,
+      "end": 6526.34,
+      "text": " Okay, so let's just follow this definition only, which is saying that, I mean, we need to follow one of the definition, which is saying that I think we need to decrement it first, and then it is saying that after that you will be checking, okay? So maybe we can follow one of them. And I think for the quotients, we might not need this queue definition at all. So let's just do one thing. Let's just try to solve one quotient, okay? Let's suppose they are saying that the semaphore value is initially zero.",
+      "avg_logprob": -0.10776085055564061,
+      "no_speech_prob": 0.06268310546875
+    },
+    {
+      "start": 6526.75,
+      "end": 6569.74,
+      "text": " Could be the counting sample, could be the binary sample. Generally, generally if they are not specified and generally if they are saying that 01, they are playing in 01, then it is a binary sample. But if they are not specified, you can take it to counting sample. It won't matter basically. So what they are saying, they want to enforce a sequence which is saying that A2 should happen and then if then this B4 should happen. So what should be the weight and signal you should be writing? After A2 only B4 should happen. So after the weight, sorry, after A2,",
+      "avg_logprob": -0.16178642107745794,
+      "no_speech_prob": 0.4208984375
+    },
+    {
+      "start": 6570.27,
+      "end": 6603.98,
+      "text": " Maybe, maybe I can write V because semaphore initially 0. Here I can write maybe P. If I'm writing P here, then it will, it will be stuck here. It will be stuck because semaphore is 0. It will be stuck here. If I'm writing P here and it can go past only after, after execution of this V. So maybe this V and this P will, will make this execution possible. No, you cannot write P before that because semaphore is initially 0. If you're writing P, then it will also get stuck.",
+      "avg_logprob": -0.13893229539195698,
+      "no_speech_prob": 0.80859375
+    },
+    {
+      "start": 6604.24,
+      "end": 6635.21,
+      "text": " a2 will never get executed semaphore is already zero so you don't need to decrement it right so maybe you can write v here only and then then p after that after like before before yeah so this is v that you're writing sorry this is p that you're writing and this is v which means that you will be incrementing then only this v4 will be happening is this okay to everyone so this semaphore like we are using the semaphore to enforce the sequence also",
+      "avg_logprob": -0.12623762140179626,
+      "no_speech_prob": 0.399658203125
+    },
+    {
+      "start": 6635.45,
+      "end": 6672.16,
+      "text": " so we can use the semaphore to enforce the sequence also okay now let's just see more questions now what they are saying in a particular time of computation the value of counting semaphore is 7 so they are saying the counting semaphore value may be n or something they are saying that to be 7 then 20p operations and 15v operations are completed on the semaphore the resulted value of the semaphore if you are using p then it will decrement right so it is 7 minus 20",
+      "avg_logprob": -0.11868990212678909,
+      "no_speech_prob": 0.66162109375
+    },
+    {
+      "start": 6672.48,
+      "end": 6719.09,
+      "text": " and if you're using V then it will increment so every V will increment so it is saving minus 20 plus 50 which is 2 so i think that is easy question okay now let's just solve this accounting semaphore has been initialized to zero then six uh weight operations and four signal operations are completed on the on the semaphore okay so has been initialized to 10 six weight and four signal right i think sorry the final value is",
+      "avg_logprob": -0.15217013392183515,
+      "no_speech_prob": 0.1767578125
+    },
+    {
+      "start": 6719.93,
+      "end": 6752.99,
+      "text": " This is minus 2, I think the final rule is 8. So it is the correct answer. Okay. Now let's see this question. This is little interesting question. What they're saying, a shared variable x is initialized to 0, which operated by the four concurrent processes, w, x, y, z as follows. Each of the process, w and x read from the memory increment and store. So basically w is one process, x is another process, y and z. So w and x, they are saying,",
+      "avg_logprob": -0.23224431818181818,
+      "no_speech_prob": 0.69921875
+    },
+    {
+      "start": 6753.31,
+      "end": 6784.3,
+      "text": " it read increment and then write okay so similarly x is also doing the same thing read increment and write now each of the process y and z read from read x from the memory decrements by two so they are saying this y and z read decrement let's suppose two and then write similarly z is doing same thing read decrement and write",
+      "avg_logprob": -0.06634963854499486,
+      "no_speech_prob": 0.89013671875
+    },
+    {
+      "start": 6789.16,
+      "end": 6833.05,
+      "text": " Each process before reading X invoke P. So each process before reading X invoke P. So this is the P operation on a counting semaphore S and invoke V on the semaphore S after studying. So basically this, all of this is basically protected by P and V. So they are saying that each process, maybe I can go to the next page. What is the maximum value of X after all processes complete execution? So this is P.",
+      "avg_logprob": -0.17960349141910512,
+      "no_speech_prob": 0.82421875
+    },
+    {
+      "start": 6833.52,
+      "end": 6879.63,
+      "text": " This is me. So they are saying maximum value of x. Initial value of that semaphore. Counted semaphore is given or not? Shared variable x initialized to 0 is operated. Four concurrent process. Maximum possible value of x. Okay. And then the initial value of the semaphore. Okay. Initialized to 2. Semaphore s is initialized to 2. Okay. So s is initialized to 2 they have said. So basically s is initially 2. Now tell me what is the maximum value? x is initially 0. What is the maximum value?",
+      "avg_logprob": -0.23201885559256114,
+      "no_speech_prob": 0.93359375
+    },
+    {
+      "start": 6879.93,
+      "end": 6962.26,
+      "text": " that you can have for x so they're reading the value of x incrementing it right so for the maximum I think we need to we need to make sure that these decrement uh actually I mean the decrement by two should not be basically I mean finally written is this possible yeah I think this is possible right can you tell me the possible execution okay this is the last question and then we can continue maybe tomorrow if you want to so s equal to two means what how many processes can be there in the critical section at any time",
+      "avg_logprob": -0.09671585565363919,
+      "no_speech_prob": 0.7138671875
+    },
+    {
+      "start": 6964.66,
+      "end": 6988.82,
+      "text": " So if you're executing this P, then what does this mean? S will be 1. And now that is in the critical section. Basically, I mean, that particular process, let's suppose W is in the critical section. Now, let's suppose you ask this X to also execute this P. Then what is the value of S now? 0. So now this X also in the critical section.",
+      "avg_logprob": -0.21037946162479265,
+      "no_speech_prob": 0.17041015625
+    },
+    {
+      "start": 6989.53,
+      "end": 7014.58,
+      "text": " Can this Y with the critical section after executing this, this P answer is no, it will get stuck, right? So zero, it won't allow zero negative. So basically it will not allow. Similarly, it will also not allow this chat. So after executing this P, maybe it is minus one after executing this P, maybe it is minus two, but it will not allow both of the processes, right? Both of the process will get stuck. I mean, this is just one of the possible flow that I'm just telling you.",
+      "avg_logprob": -0.16587611873235023,
+      "no_speech_prob": 0.1290283203125
+    },
+    {
+      "start": 7014.82,
+      "end": 7041.74,
+      "text": " okay now if you want this decrement to just to be you know nullify then what you can do you can ask one of the process to read the value which is x equal to zero right now s is one now suppose w is in the critical section at that time what you can do you can ask this y to finish completely i mean y to execute y to go inside the critical section write it whatever you want to write you can ask this y to finish completely you can ask this jet to finish completely right",
+      "avg_logprob": -0.07888349413293079,
+      "no_speech_prob": 0.1343994140625
+    },
+    {
+      "start": 7042.38,
+      "end": 7070.6,
+      "text": " So, as this y unjust to finish completely while you have already read this process already read the value of x to be 0. Now, even if y finish completely then the value of x will be the final value of x will be minus 2 and then because of this the final value of x will be minus 4 but it won't matter. Why? Because this process is already read in already read the value of x to be 0 it will increment it will write to be 1 right it will write x to be 1 even though it is minus 4 it will write to be 1.",
+      "avg_logprob": -0.207759533519462,
+      "no_speech_prob": 0.44189453125
+    },
+    {
+      "start": 7071.2,
+      "end": 7103.15,
+      "text": " Similarly, it will, now you can ask this to execute, it will write to it too. So final value, the maximum value you can get is two. How? By allowing both the increments and nullifying both the decrements. You don't want to decrement, you just want to increment. Similarly, the minimum value could be minus four. You can basically disallow, you can basically disallow both of these increments and you can just allow all of them decrements. Right? Is this okay to estimate? Now, suppose if I ask the same question,",
+      "avg_logprob": -0.17581407963728704,
+      "no_speech_prob": 0.51953125
+    },
+    {
+      "start": 7103.5,
+      "end": 7155,
+      "text": " but here the semaphore to be instead of two if I ask that to be one suppose the initial value of the semaphore is one then then what is the minimum or maximum value see if I ask ask as to be one then how many process can be there in the critical section at any time only one right only one so I don't think there is there is any interleaving which is possible which means that you can can you nullify anything here which means see",
+      "avg_logprob": -0.10929446122081009,
+      "no_speech_prob": 0.46923828125
+    },
+    {
+      "start": 7155.34,
+      "end": 7184.26,
+      "text": " If this is in the critical section, then this is the only thing in the critical section. This increment will be done. You cannot nullify this increment by asking anyone else to do some execution, basically. I mean, if s is one, then exactly one process will be there in the critical section. So this is the proper implementation of the critical section in the sense that here, this will get executed completely. Then only you can allow this any other process, which means once any of the process in the critical section,",
+      "avg_logprob": -0.10068633010454267,
+      "no_speech_prob": 0.1624755859375
+    },
+    {
+      "start": 7184.53,
+      "end": 7214.07,
+      "text": " then you cannot allow any other process at that time you cannot you cannot nullify any any other increment or decrement so in this case if s equal to 1 then then maximum will be I mean maximum minimum both are same right same which is which is plus 1 plus 1 minus 2 minus 2 which is minus 4 and minus 2 right so here both are same which is minus 2 nothing can be done here if s is 1 but if s is 2 or something",
+      "avg_logprob": -0.0909476907842833,
+      "no_speech_prob": 0.3798828125
+    },
+    {
+      "start": 7214.37,
+      "end": 7260.62,
+      "text": " then then you can see the possibility that okay i'm allowing one of the processes in the i have allowed one of the processes in the particular section i have read one of the value and then maybe i can nullify by by sequential execution or by enter something like that right have you understood that what we are trying to explain okay so do you want to do this this question also maybe let's just do one thing maybe we can uh we can start at 10 okay and we can have one more class probably so what do you want do you want to continue today or tomorrow",
+      "avg_logprob": -0.11910636226336162,
+      "no_speech_prob": 0.4873046875
+    },
+    {
+      "start": 7260.98,
+      "end": 7298.02,
+      "text": " anything will be fine okay okay we can continue tomorrow so there are a few questions that we want to solve we can continue tomorrow okay so you can you can try all of these questions as an homework and then we can see so thank you everyone it is just you know like introduction to semaphore maybe maybe my way of explaining a way of explaining you may confuse you regarding the queue and all but you don't need to worry about queue and all okay I mean to solve the questions you don't need to worry about the queue and all you just need to know only this thing which I told you",
+      "avg_logprob": -0.09427083140860001,
+      "no_speech_prob": 0.564453125
+    },
+    {
+      "start": 7298.28,
+      "end": 7328.2,
+      "text": " which is that if it is zero negative p won't allow right that's the only thing p won't allow if it is zero negative okay this is the only thing you need to remember and also have you noticed one thing which is that the semaphore is used for the uh for the uh basically you can say sequential execution i mean to enforce the execution that okay after this this will happen to enforce the execution the semaphore can be used and also if the value of semaphore even the counter semaphore if it is one",
+      "avg_logprob": -0.08600917103093698,
+      "no_speech_prob": 0.047607421875
+    },
+    {
+      "start": 7328.48,
+      "end": 7365.12,
+      "text": " then it will be used for the mutual exclusion. Only one process will be allowed in the critical section at any time. So it can be used for the critical section. It can be used for the enforcing, enforcing that, okay, after this only this will happen, right? This is also very nice property of the semaphore that you are enforcing the sequence. Okay, so we will continue tomorrow, right? Okay, regarding those things that you've developed about net weighting, we will discuss. Don't worry, right? Okay, so thank you everyone. Take care. Bye-bye.",
+      "avg_logprob": -0.17137896446954637,
+      "no_speech_prob": 0.40625
+    }
+  ],
+  "sourceCompletedAt": "{\"file\":\"019_Recording_Lecture_19_Atomic_Hardware_Instructions_an.mp4\",\"language\":\"en\",\"probability\":0.96875,\"processing_seconds\":241.19735026359558,\"device\":\"cuda\"}"
+}

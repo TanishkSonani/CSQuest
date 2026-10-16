@@ -1,3 +1,49 @@
-// Populate from completed transcripts before publishing this subject.
-export const units=[];
-export const lecturePlans=[];
+export const units=[
+ {id:0,title:'Programs become processes',subtitle:'From booting the computer to creating a running program',range:[0,4],color:'pink',icon:'chip',goal:'Follow a program from disk into memory, see what fork and exec change, and trace parent and child processes.'},
+ {id:1,title:'Threads and CPU scheduling',subtitle:'Share a processor fairly and keep work moving',range:[5,13],color:'teal',icon:'rocket',goal:'Compare processes and threads, read the ready queue, and simulate CPU scheduling by hand.'},
+ {id:2,title:'Communication and synchronization',subtitle:'Coordinate concurrent work without races or deadlock',range:[14,22],color:'green',icon:'target',goal:'Make shared data safe with critical sections, atomic operations, locks and semaphores.'},
+ {id:3,title:'Memory and virtual addresses',subtitle:'Translate addresses, keep pages close and respond to misses',range:[23,34],color:'orange',icon:'chip',goal:'Trace segmentation and paging, calculate address translation costs, and model page replacement.'},
+ {id:4,title:'Deadlocks and file systems',subtitle:'Allocate resources safely and find data on storage',range:[35,38],color:'purple',icon:'map',goal:'Recognize deadlock, test safe allocations, and follow files from a name to disk blocks.'}
+];
+
+export const lecturePlans=[
+ ['Operating systems and computer startup','What the operating system does when a computer starts','Separate hardware, system software and applications'],
+ ['From a program file to a process','How code and data become a running process','Load program segments and initialize process state'],
+ ['fork creates a child process','What a parent and child inherit at fork','Trace two process snapshots after fork'],
+ ['Read process trees and fork traces','Count children and follow each fork return','Build the process tree in execution order'],
+ ['exec replaces a process image','How a process starts a different program','Keep the process identity while replacing its code image'],
+ ['User mode and kernel mode','Why applications request protected operating system services','Follow a system call across the protection boundary'],
+ ['User and kernel threads','What threads share and what each thread owns','Compare user-level and kernel-level thread management'],
+ ['Thread mapping and context switches','Map many user threads to kernel threads','Switch saved CPU state between runnable threads'],
+ ['Process states and schedulers','Move a process between ready, running and blocked','Identify which scheduler makes each decision'],
+ ['Scheduling goals and FCFS','Compare waiting time, turnaround and response','Simulate first-come-first-served scheduling'],
+ ['Shortest-job scheduling','Choose the shortest available CPU burst','Compare SJF and SRTF on arrival times'],
+ ['Round-robin time sharing','Give each ready process a bounded CPU turn','See how the time quantum changes response and switching'],
+ ['Scheduling mixed CPU and I/O bursts','Let a process block for I/O and rejoin the ready queue','Trace preemption and I/O completion events'],
+ ['Priority scheduling and starvation','Choose by priority while keeping low-priority work alive','Use aging to reduce starvation'],
+ ['Interprocess communication','Exchange data between separate processes','Choose shared memory or message passing'],
+ ['Concurrency and race conditions','See how instruction interleavings change shared data','Compare unsafe updates with serialized execution'],
+ ['The critical-section problem','Protect shared state with mutual exclusion and progress','Check the three correctness requirements'],
+ ['Test critical-section algorithms','Trace competing entries through a shared lock','Identify safety and liveness failures'],
+ ['Peterson’s solution','Coordinate two processes with flags and turn','Trace Peterson’s two-process entry protocol'],
+ ['Atomic instructions and hardware support','Make lock updates indivisible','Compare test-and-set and interrupt masking limits'],
+ ['Semaphores','Use a counter and wait/signal operations to coordinate work','Trace permits and blocked waiters'],
+ ['Producer-consumer buffers','Bound a queue with empty, full and mutex semaphores','Track buffer slots and permits after each operation'],
+ ['Readers, writers and dining philosophers','Reason about shared reads, exclusive writes and resource cycles','Spot starvation and deadlock in classic coordination patterns'],
+ ['Base and bounds, then segmentation','Protect process memory and translate logical segments','Check bounds and compute physical addresses'],
+ ['Segmentation examples and fragmentation','Fit variable-size segments into free memory','Compare external fragmentation and compaction'],
+ ['Paging and fixed-size frames','Split virtual memory into pages and physical memory into frames','Translate a page number through a page table'],
+ ['Single-level page-table calculations','Separate virtual address fields and page-table entries','Calculate page, offset, frame and table size'],
+ ['Multilevel page tables','Allocate lower page tables only where addresses are used','Walk directory and table indexes'],
+ ['Multilevel translation practice','Follow every index and combine the final frame with the offset','Count table entries and memory references'],
+ ['Page-table space and translation tradeoffs','Compare a flat table, hierarchical tables and cached translations','Estimate table memory and translation steps'],
+ ['Reviewing memory allocation schemes','Compare segmentation, paging and their address translation','Choose a scheme from fragmentation and protection needs'],
+ ['Segmentation with paging','Page each segment while retaining logical segment boundaries','Translate segment, page and offset in sequence'],
+ ['Demand paging and page replacement','Load a page only when it is first needed','Compare FIFO, LRU and optimal replacement'],
+ ['TLBs and virtual-memory performance','Cache recent translations and account for page faults','Calculate effective access time from hit and fault rates'],
+ ['TLB, dirty pages and page-fault costs','Include write-back and disk-read time in a page fault','Trace a dirty replacement and compute its full cost'],
+ ['Deadlock conditions and resource graphs','Understand why processes can wait forever in a cycle','Check the four necessary conditions and a wait-for graph'],
+ ['Deadlock prevention, avoidance and Banker’s algorithm','Grant a request only when a safe completion order remains','Find a safe sequence after a proposed allocation'],
+ ['Disks and file-system layout','Connect directories and file metadata to storage blocks','Compare contiguous, linked and indexed allocation'],
+ ['File-system implementation practice','Trace file blocks, free space and disk requests','Choose allocation and disk scheduling for a workload']
+].map(([title,subtitle,goal],id)=>({id,title,subtitle,goal}));

@@ -18,7 +18,7 @@ test('compressed course bundles use database content and remain available during
   const warm=await fetch(base+'/api/course-content?subject=dl',{headers});assert.equal(warm.headers.get('cache-control'),'no-store');assert.equal((await warm.json()).lessons.length,294);
   const replacement={...content,lessons:[{id:700,title:'Database bundle'}]};await fixture.store.pool.query("UPDATE csquest_course_documents SET data=$1 WHERE course_id='dl' AND path='learning.json'",[replacement]);
   assert.equal((await (await fetch(base+'/api/course-content?subject=dl',{headers})).json()).lessons[0].title,'Database bundle');
-  assert.equal((await fetch(base+'/api/course-content?subject=os',{headers})).status,404);
+  const osResponse=await fetch(base+'/api/course-content?subject=os',{headers});assert.equal(osResponse.status,200);assert.equal((await osResponse.json()).lessons.length,117);
   assert.equal((await fetch(base+'/api/course-content?subject=missing',{headers})).status,400);
   await fixture.store.pool.query("DELETE FROM csquest_sessions WHERE user_id=(SELECT id FROM csquest_users WHERE username='course_loader')");assert.equal((await fetch(base+'/api/course-content?subject=dl',{headers})).status,401);
  }finally{if(lock){await lock.query('ROLLBACK');lock.release();}await new Promise(resolve=>server.close(resolve));await fixture.dispose();}

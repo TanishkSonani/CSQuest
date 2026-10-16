@@ -3,7 +3,7 @@ import {execFileSync} from 'node:child_process';
 import {lessonJourney} from '../packages/learning/lesson-journey.js';
 import {questionIdentity} from '../packages/learning/quiz-identity.js';
 import {diagramKind} from '../packages/learning/visual-models.js';
-const subjects=['coa','dl','c','ds','algo','aptitude'],report={scope:'All currently available lessons',baseline:'a96dad4',courses:[],warnings:[]};
+const subjects=['coa','dl','c','ds','algo','aptitude','os'],report={scope:'All currently available lessons',baseline:'a96dad4',courses:[],warnings:[]};
 function duplicates(lessons){let adjacent=0,topic=0,within=0,global=0;const seen=new Set();for(const lesson of lessons){const prior=lessons.filter(l=>l.id<lesson.id),recent=new Set(prior.filter(l=>l.id>=lesson.id-2).flatMap(l=>l.questions.map(questionIdentity))),same=new Set(prior.filter(l=>l.lecture===lesson.lecture).flatMap(l=>l.questions.map(questionIdentity))),local=new Set();for(const q of lesson.questions){const key=questionIdentity(q);adjacent+=Number(recent.has(key));topic+=Number(same.has(key));within+=Number(local.has(key));global+=Number(seen.has(key));local.add(key);seen.add(key);}}return {withinLesson:within,previousTwoLessons:adjacent,sameTopic:topic,laterOrEarlierInCourse:global};}
 for(const subject of subjects){
  const {lessons}=await import(`../courses/${subject}/content/lessons.js`);let baseline=structuredClone(lessons);

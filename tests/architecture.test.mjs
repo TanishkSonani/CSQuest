@@ -54,21 +54,23 @@ test('shared server serves both subjects and shared modules while isolating priv
    assert.equal((await signedFetch(`${base}/courses/${id}/lessons.js`)).status,200);
    const transcript=await (await signedFetch(`${base}/api/transcript/0?subject=${id}`)).json();assert.equal(transcript.id,0);assert.ok(transcript.segments.length);
   }
+  const osStatus=await (await signedFetch(`${base}/api/status?subject=os`)).json();assert.equal(osStatus.completed,39);assert.equal(osStatus.total,39);
+  assert.equal((await signedFetch(base+'/courses/os/lessons.js')).status,200);
   assert.equal((await signedFetch(base+'/shared/engine.js')).status,200);assert.equal((await signedFetch(base+'/shared/worked-examples.js')).status,200);
-  assert.equal((await signedFetch(base+'/courses/os/lessons.js')).status,404);
+  assert.equal((await signedFetch(base+'/courses/os/lessons.js')).status,200);
   assert.equal((await signedFetch(base+'/api/status?subject=missing')).status,400);
   for(const route of ['/courses/dl/course.json','/courses/dl/data/progress.json','/runtime/services.json','/config/courses.mjs','/api/video/0','/shared/../config/courses.mjs'])assert.equal((await signedFetch(base+route)).status,404,route);
   assert.equal((await signedFetch(base+'/api/status',{method:'POST'})).status,405);
  }finally{await new Promise(resolve=>server.close(resolve));await fixture.dispose();}
 });
 
-test('one importer supports planned subjects and duplicate recording basenames independently',async()=>{
+test('one importer links authored lessons to duplicate recording basenames independently',async()=>{
  const directory=await fs.mkdtemp(path.join(os.tmpdir(),'csquest-import-'));assert.equal(path.dirname(directory),os.tmpdir());
  try{
   const analysis=path.join(directory,'data/source-analysis');await fs.mkdir(path.join(analysis,'transcripts'),{recursive:true});
   await fs.writeFile(path.join(analysis,'inventory.json'),JSON.stringify([{file:'Part1/lesson.mp4',transcriptStem:'lesson-one',seconds:60},{file:'Done/lesson.mp4',transcriptStem:'lesson-two',seconds:120}]));
   for(const stem of ['lesson-one','lesson-two']){await fs.writeFile(path.join(analysis,'transcripts',stem+'.done'),'{}');await fs.writeFile(path.join(analysis,'transcripts',stem+'.jsonl'),JSON.stringify({start:0,end:1,text:stem}));}
-  const status=await syncCourse({subject:'os',root:directory});assert.equal(status.completed,2);assert.equal(status.imported,2);assert.equal(status.authoredLevels,0);assert.equal(status.lessonSources.length,0);
+  const status=await syncCourse({subject:'os',root:directory});assert.equal(status.completed,2);assert.equal(status.imported,2);assert.equal(status.authoredLevels,117);assert.equal(status.lessonSources.length,6);
   assert.equal(JSON.parse(await fs.readFile(path.join(directory,'data/transcripts/0.json'),'utf8')).segments[0].text,'lesson-one');
   assert.equal(JSON.parse(await fs.readFile(path.join(directory,'data/transcripts/1.json'),'utf8')).segments[0].text,'lesson-two');
  }finally{await fs.rm(directory,{recursive:true,force:true});}

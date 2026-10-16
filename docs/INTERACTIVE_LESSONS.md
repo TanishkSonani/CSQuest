@@ -1,8 +1,8 @@
 # Interactive lessons
 
 Every currently available lesson in COA, Digital Logic, C, Data Structures,
-Algorithms and Aptitude now has a guided learning sequence before its quiz.
-The 1,461 lessons provide 4,383 teaching stages:
+Algorithms, Aptitude and Operating Systems has a guided learning sequence
+before its quiz. The 1,578 lessons provide 4,734 teaching stages:
 
 1. **Meet the idea:** a short introduction, a visual and tappable definitions.
 2. **Explore it:** change an input, step through a model or focus parts of a
@@ -43,7 +43,7 @@ preceding lessons. Some questions recur farther apart in other course units;
 the report lists these separately. This is not a claim that every exercise
 across an entire course is globally unique.
 
-The terminology bridge improves the rendered notes across all six courses.
+The terminology bridge improves the rendered notes across all seven courses.
 The audit found no flagged lecture-dependent wording in the current notes;
 these automated checks and representative browser reviews do not replace a
 line-by-line editorial review of every explanation.
@@ -63,7 +63,7 @@ rebuilds just this review and its change report.
 - `node --env-file=.env tests/lesson-tools-browser.cjs`
 - Subject-switch, social, product-polish and unit-continuation browser checks.
 
-The guided browser check exercises early, middle and final lessons in all six
+The guided browser check exercises early, middle and final lessons in all seven
 courses at 320px, 390px and desktop widths, interaction gates, reduced motion,
 pause/resume and absence of unearned rewards. The shared-module startup test
 also checks that the new dependency is accessible before authentication.
