@@ -1,14 +1,16 @@
 // Exercise the real ungraded teaching flow; never patch lesson state to skip it.
 async function exploreJourney(page){
+ await page.locator('.lesson-intro,.learning-journey,.challenge-content').first().waitFor();
  if(await page.locator('.lesson-intro [data-action=begin]').count())await page.locator('.lesson-intro [data-action=begin]').click();
  if(!await page.locator('.learning-journey').count())return;
- if(await page.locator('[data-journey-phase="0"]').count()){await page.locator('[data-journey-card]').first().click();await page.locator('[data-journey-next]').click();}
+ if(await page.locator('[data-journey-phase="0"]').count()){await page.locator('[data-prediction-answer]').first().click();await page.locator('[data-journey-next]').click();}
  await page.locator('[data-journey-phase="1"]').waitFor();
 }
 async function finishJourney(page){
+ await page.locator('.lesson-intro,.learning-journey,.challenge-content').first().waitFor();
  if(await page.locator('.lesson-intro [data-action=begin]').count())await page.locator('.lesson-intro [data-action=begin]').click();
  if(!await page.locator('.learning-journey').count())return;
- if(await page.locator('[data-journey-phase="0"]').count()){await page.locator('[data-journey-card]').first().click();await page.locator('[data-journey-next]').click();}
+ if(await page.locator('[data-journey-phase="0"]').count()){await page.locator('[data-prediction-answer]').first().click();await page.locator('[data-journey-next]').click();}
  if(await page.locator('[data-journey-phase="1"]').count()){
   const button=page.locator('.journey-explorer button:not([disabled]):visible').first();
   if(await button.count())await button.click();

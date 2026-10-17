@@ -13387,3 +13387,7 @@ export const lessons=[
     "start": 137
   }
 ];
+
+import {attachTeachingNotes} from '../../../packages/learning/instructional-notes.js';
+import {teachingNotes} from './teaching-notes.js';
+attachTeachingNotes(lessons,teachingNotes,'cn');

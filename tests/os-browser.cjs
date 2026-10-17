@@ -15,10 +15,10 @@ const assert=require('node:assert/strict'),fs=require('node:fs');
    await page.evaluate(async id=>{const {store,flushAccount}=await import('/account-client.js');store.setItem('os-quest-v1',JSON.stringify({version:1,xp:0,completed:Array.from({length:id},(_,i)=>i),settings:{sound:false}}));await flushAccount();},id);
    await page.reload();await page.locator(`[data-lesson="${id}"]`).click();await page.locator('.lesson-intro').waitFor();
    assert.equal(await page.locator('.lesson-intro > details').evaluate(el=>el.open),false,'Notes are optional');
-   await exploreJourney(page);const lab=page.locator('.os-lab');await lab.waitFor();assert.ok(await lab.locator('.os-process-model,.os-timeline,.os-memory-map,.os-cache-model,.os-resource-graph,.os-buffer,.os-path-model').count());
+   await exploreJourney(page);const lab=page.locator('[data-concept-player]');await lab.waitFor();assert.ok(await lab.locator('[data-scene-art] table').count());
    assert.ok(await page.locator('[data-journey-next]').isDisabled(),'Model must be explored');
-   const control=lab.locator('[data-os-value]'),before=await lab.locator('.os-model-art').innerHTML(),current=Number(await control.inputValue());await control.fill(String(current<8?current+1:current-1));assert.notEqual(await lab.locator('.os-model-art').innerHTML(),before,'Changing an input changes the model');assert.ok(await page.locator('[data-journey-next]').isEnabled());
-   const visual=lab.locator('.os-node,.os-process-card,.os-memory-cell,.os-slot,.os-actor,.os-token,.os-frame').first();if(await visual.count())assert.equal(await visual.evaluate(el=>getComputedStyle(el).animationName),'none','Reduced motion disables decorative animation');
+   const before=await lab.locator('[data-scene-caption]').innerText();await lab.locator('[data-scene-next]').click();assert.notEqual(await lab.locator('[data-scene-caption]').innerText(),before,'Advancing changes the explanatory state');assert.ok(await page.locator('[data-journey-next]').isEnabled());
+   assert.equal(await page.evaluate(()=>document.getAnimations().filter(a=>a.playState==='running').length),0,'Reduced motion disables animation');
    for(const width of [320,390,1440]){await page.setViewportSize({width,height:900});assert.ok(await page.evaluate(()=>document.querySelector('dialog').scrollWidth<=innerWidth),`${id} learning flow fits ${width}px`);}
    await page.setViewportSize({width:390,height:844});await finishJourney(page);await page.locator('.exercise').waitFor();assert.equal(await page.locator('.lesson-progress').getAttribute('aria-valuenow'),'0');
    if([0,27,66,99,116].includes(id))await page.screenshot({path:`qa-results/os/${id}-quiz-gate.png`});

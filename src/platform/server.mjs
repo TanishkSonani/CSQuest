@@ -53,14 +53,14 @@ export function createServer({store:providedStore}={}){
     }
     if(url.pathname.startsWith('/courses/')){
      const match=url.pathname.match(/^\/courses\/([-a-z0-9]+)\/([a-z0-9-]+\.js)$/),course=match&&courses.find(c=>c.id===match[1]);
-     const source=course?.status==='available'?await store.module(course.id,match[2]):undefined;
+     const source=course&&(course.status==='available'||match[2]==='concept-preview.js')?await store.module(course.id,match[2]):undefined;
      send(source===undefined?404:200,source===undefined?{error:'Course content is not available'}:source,source===undefined?'application/json':'text/javascript; charset=utf-8');return;
     }
    }
    if(!['GET','HEAD'].includes(req.method)){send(405,{error:'Method not allowed'});return;}
    let file;
-   if(url.pathname.startsWith('/shared/')){
-    const match=url.pathname.match(/^\/shared\/(engine|worked-examples|experience|activity|lesson-journey|avatars|calculator|visual-models|ds-models|ds-advanced|ds-final|ds-coding|algo-models|algo-graphs|algo-final)\.js$/);
+   if(url.pathname.startsWith('/shared/')||url.pathname==='/packages/learning/instructional-notes.js'){
+    const match=url.pathname.replace('/packages/learning/','/shared/').match(/^\/shared\/(instructional-notes|teaching-models|engine|worked-examples|experience|activity|lesson-journey|avatars|calculator|visual-models|ds-models|ds-advanced|ds-final|ds-coding|algo-models|algo-graphs|algo-final)\.js$/);
     if(!match){send(404,{error:'Not available'});return;}
     file=path.join(root,'packages','learning',match[1]+'.js');
    }else{

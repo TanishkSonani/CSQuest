@@ -112,7 +112,7 @@ export async function buildReviewed(base=root){
  const coverage=units.flatMap(unit=>Array.from({length:unit.range[1]-unit.range[0]+1},(_,i)=>unit.range[0]+i));
  if(JSON.stringify(coverage)!==JSON.stringify(rows.map((_,i)=>i)))throw new Error('DBMS unit ranges do not cover every recording exactly once.');
  await fs.writeFile(path.join(base,'content','curriculum.js'),`// Generated DBMS curriculum mapped to all recorded topics.\nexport const units=${JSON.stringify(units,null,2)};\nexport const lecturePlans=${JSON.stringify(lecturePlans,null,2)};\n`);
- await fs.writeFile(path.join(base,'content','lessons.js'),`// Three guided, source-linked learning stages per DBMS recording. Skipped-audio topics are labeled inferred-title-only.\nexport const lessons=${JSON.stringify(lessons,null,2)};\n`);
+ await fs.writeFile(path.join(base,'content','lessons.js'),`// Three guided, source-linked learning stages per DBMS recording. Skipped-audio topics are labeled inferred-title-only.\nexport const lessons=${JSON.stringify(lessons,null,2)};\nimport {attachTeachingNotes} from '../../../packages/learning/instructional-notes.js';\nimport {teachingNotes} from './teaching-notes.js';\nattachTeachingNotes(lessons,teachingNotes,'dbms');\n`);
  const report={reviewedLectures:rows.length-inferred.length,reviewedLevels:lessons.filter(lesson=>lesson.contentStatus==='reviewed').length,authoredLevels:lessons.length,questions:lessons.reduce((sum,l)=>sum+l.questions.length,0),inferredLectures:inferred.length,inferred};
  console.log(JSON.stringify({subject:'dbms',...report}));
  return {lessons,report};

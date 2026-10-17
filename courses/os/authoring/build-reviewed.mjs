@@ -77,7 +77,7 @@ for(let lecture=0;lecture<topics.length;lecture++){
  }
 }
 if(lessons.length!==topics.length*3||units.at(-1).range[1]!==topics.length-1)throw Error('OS course coverage is incomplete.');
-await fs.writeFile(path.join(root,'content','lessons.js'),`// Generated from reviewed OS topics and completed transcript evidence.\nexport const lessons=${JSON.stringify(lessons,null,2)};\n`);
+await fs.writeFile(path.join(root,'content','lessons.js'),`// Generated from reviewed OS topics and completed transcript evidence.\nexport const lessons=${JSON.stringify(lessons,null,2)};\nimport {attachTeachingNotes} from '../../../packages/learning/instructional-notes.js';\nimport {teachingNotes} from './teaching-notes.js';\nattachTeachingNotes(lessons,teachingNotes,'os');\n`);
 export async function buildReviewed(){
  const report={reviewedLectures:topics.length,reviewedLevels:lessons.length,questions:lessons.reduce((sum,l)=>sum+l.questions.length,0),evidence:lessons.reduce((sum,l)=>sum+l.sourceEvidence.length,0)};
  console.log(JSON.stringify({subject:'os',...report}));return {lessons,report};

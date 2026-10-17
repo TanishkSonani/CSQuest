@@ -10,3 +10,7 @@ export const lessons=topics.flatMap((topic,lecture)=>topic.titles.map((title,par
  }),minutes:5,ready:true,contentVersion:1,cLab:topic.lab,
  foundation:{title:topic.label,idea:topic.idea,terms:topic.terms,example:topic.example}
 })));
+
+import {attachTeachingNotes} from '../../../packages/learning/instructional-notes.js';
+import {teachingNotes} from './teaching-notes.js';
+attachTeachingNotes(lessons,teachingNotes,'c');

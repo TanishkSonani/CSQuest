@@ -62,10 +62,11 @@ function drawing(kind,a,b){
  }
 }
 export function aptitudeIllustration(lesson){const d=definitions[lesson.lab];return drawing(lesson.lab,d[2][0][5],d[2][1]?.[5]||0);}
+export function aptitudeScenes(lesson){const d=definitions[lesson.lab],control=d[2][0];return [...new Set([control[2],control[5],control[3]])].sort((a,b)=>a-b).map(value=>{const view=drawing(lesson.lab,value,d[2][1]?.[5]||0);return {title:control[1]+' = '+value,art:view.art,caption:view.text};});}
 export function aptitudeLab(lesson){
  const d=definitions[lesson.lab];if(!d)return '';
  const a=d[2][0][5],b=d[2][1]?.[5]||0,view=drawing(lesson.lab,a,b);
- return `<section class="aptitude-lab" data-aptitude-lab="${lesson.lab}"><span class="tag green">EXPLORE THE IDEA</span><h3>${d[0]}</h3><p>${d[1]}</p><div class="lab-art lab-replay">${view.art}</div><div class="lab-controls">${d[2].map(([key,label,min,max,step,value])=>`<label><span>${h(label)} <output data-lab-output="${key}">${f(value)}</output></span><input type="range" data-lab-control="${key}" aria-label="${h(label)}" min="${min}" max="${max}" step="${step}" value="${value}"></label>`).join('')}</div><p class="lab-insight" aria-live="polite">${h(view.text)}</p><button type="button" class="text-button" data-lab-replay>REPLAY VISUAL</button><small class="muted">Experiment freely. This separate example earns no XP and does not reveal your puzzle’s answer.</small></section>`;
+ return `<section class="aptitude-lab" data-aptitude-lab="${lesson.lab}"><span class="tag green">EXPLORE THE IDEA</span><h3>${d[0]}</h3><p>${d[1]}</p><div class="lab-art lab-replay">${view.art}</div><div class="lab-controls">${d[2].map(([key,label,min,max,step,value])=>`<label><span>${h(label)} <output data-lab-output="${key}">${f(value)}</output></span><input type="range" data-lab-control="${key}" aria-label="${h(label)}" min="${min}" max="${max}" step="${step}" value="${value}"></label>`).join('')}</div><p class="lab-insight" aria-live="polite">${h(view.text)}</p><button type="button" class="text-button" data-lab-replay>RESET EXPERIMENT</button><small class="muted">Experiment freely. This separate example earns no XP and does not reveal your puzzle’s answer.</small></section>`;
 }
 document.addEventListener('input',event=>{
  const control=event.target.closest('[data-lab-control]');if(!control)return;
@@ -75,5 +76,5 @@ document.addEventListener('input',event=>{
 });
 document.addEventListener('click',event=>{
  const button=event.target.closest('[data-lab-replay]');if(!button)return;
- const art=button.closest('[data-aptitude-lab]').querySelector('.lab-art');art.classList.remove('lab-replay');void art.offsetWidth;art.classList.add('lab-replay');document.dispatchEvent(new Event('aptitude-interaction'));
+ const root=button.closest('[data-aptitude-lab]');for(const input of root.querySelectorAll('[data-lab-control]')){input.value=input.defaultValue;input.dispatchEvent(new Event('input',{bubbles:true}));}document.dispatchEvent(new Event('aptitude-interaction'));
 });

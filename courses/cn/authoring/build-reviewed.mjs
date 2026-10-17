@@ -74,7 +74,7 @@ export async function buildReviewed(base=root){
  const coverage=units.flatMap(unit=>Array.from({length:unit.range[1]-unit.range[0]+1},(_,i)=>unit.range[0]+i));
  if(JSON.stringify(coverage)!==JSON.stringify(inventory.map((_,i)=>i)))throw new Error('CN unit ranges do not cover every recording exactly once.');
  await fs.writeFile(path.join(base,'content','curriculum.js'),`// Generated Computer Networks curriculum: six units covering every completed recording.\nexport const units=${JSON.stringify(units,null,2)};\nexport const lecturePlans=${JSON.stringify(lecturePlans,null,2)};\n`);
- await fs.writeFile(path.join(base,'content','lessons.js'),`// Three source-linked, guided learning stages with an interactive network lab for every topic.\nexport const lessons=${JSON.stringify(lessons,null,2)};\n`);
+ await fs.writeFile(path.join(base,'content','lessons.js'),`// Three source-linked, guided learning stages with an interactive network lab for every topic.\nexport const lessons=${JSON.stringify(lessons,null,2)};\nimport {attachTeachingNotes} from '../../../packages/learning/instructional-notes.js';\nimport {teachingNotes} from './teaching-notes.js';\nattachTeachingNotes(lessons,teachingNotes,'cn');\n`);
  const report={reviewedLectures:inventory.length,reviewedLevels:lessons.length,authoredLevels:lessons.length,questions:lessons.reduce((sum,l)=>sum+l.questions.length,0),interactiveLabs:topics.length};
  console.log(JSON.stringify({subject:'cn',...report}));return {lessons,report};
 }

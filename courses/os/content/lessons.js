@@ -9739,3 +9739,7 @@ export const lessons=[
     "start": 116
   }
 ];
+
+import {attachTeachingNotes} from '../../../packages/learning/instructional-notes.js';
+import {teachingNotes} from './teaching-notes.js';
+attachTeachingNotes(lessons,teachingNotes,'os');

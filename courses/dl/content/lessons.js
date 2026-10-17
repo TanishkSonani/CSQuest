@@ -35,3 +35,7 @@ function topic(id){
 export const lessons=lecturePlans.flatMap((plan,lecture)=>{const t=topic(lecture);return Array.from({length:3},(_,part)=>{const reviewed=reviewedLessons.find(l=>l.id===lecture*3+part);if(reviewed)return reviewed;return {id:lecture*3+part,lecture,title:plan[part+1],start:0,concept:t.concept,anchors:t.anchors,questions:t.questions.slice(part*4,part*4+4).map((q,index)=>{if(q.type!=='choice')return q;const shift=(lecture+part+index)%q.options.length;return {...q,options:[...q.options.slice(shift),...q.options.slice(0,shift)],answer:(q.answer-shift+q.options.length)%q.options.length};}),minutes:4,ready:false,contentStatus:'Original teaching exercises; awaiting completed transcript reference'};});});
 
 for(const lesson of lessons)lesson.foundation=topicGuideFor(lesson.lecture);
+
+import {attachTeachingNotes} from '../../../packages/learning/instructional-notes.js';
+import {teachingNotes} from './teaching-notes.js';
+attachTeachingNotes(lessons,teachingNotes,'dl');

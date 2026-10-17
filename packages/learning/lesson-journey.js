@@ -111,5 +111,5 @@ export function lessonJourney(lesson,subject){
 export function newLearningState(){return {phase:0,card:0,visited:[],explored:false,step:0,trace:0,completed:false};}
 export function normalizeLearningState(value){
  if(!value||typeof value!=='object')return null;
- return {phase:Number.isInteger(value.phase)?Math.max(0,Math.min(2,value.phase)):0,card:Number.isInteger(value.card)?Math.max(0,Math.min(6,value.card)):0,visited:Array.isArray(value.visited)?[...new Set(value.visited.filter(i=>Number.isInteger(i)&&i>=0&&i<=6))]:[],explored:value.explored===true,step:Number.isInteger(value.step)?Math.max(0,Math.min(20,value.step)):0,trace:Number.isInteger(value.trace)?Math.max(0,Math.min(20,value.trace)):0,completed:value.completed===true};
+ return {phase:Number.isInteger(value.phase)?Math.max(0,Math.min(2,value.phase)):0,card:Number.isInteger(value.card)?Math.max(0,Math.min(6,value.card)):0,visited:Array.isArray(value.visited)?[...new Set(value.visited.filter(i=>Number.isInteger(i)&&i>=0&&i<=6))]:[],explored:value.explored===true,step:Number.isInteger(value.step)?Math.max(0,Math.min(20,value.step)):0,trace:Number.isInteger(value.trace)?Math.max(0,Math.min(20,value.trace)):0,completed:value.completed===true,...(typeof value.prediction==='boolean'?{prediction:value.prediction}:{})};
 }

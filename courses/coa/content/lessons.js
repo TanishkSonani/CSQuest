@@ -87,3 +87,7 @@ export const lessons=[
 lessons.push(...advancedLessons);
 
 for(const lesson of lessons)lesson.foundation=topicGuideFor(lesson.lecture);
+
+import {attachTeachingNotes} from '../../../packages/learning/instructional-notes.js';
+import {teachingNotes} from './teaching-notes.js';
+attachTeachingNotes(lessons,teachingNotes,'coa');

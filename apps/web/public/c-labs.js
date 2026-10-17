@@ -1,3 +1,4 @@
+import {canPlay,watchPlayback,playbackLabel} from './playback-lifecycle.js';
 import {escapeHtml as h} from '/shared/engine.js';
 const cell=(name,value,active=false)=>`<div class="c-cell ${active?'active':''}"><small>${h(name)}</small><strong>${h(String(value))}</strong></div>`;
 const row=(...cells)=>`<div class="c-memory">${cells.join('')}</div>`;
@@ -58,7 +59,7 @@ export function cLab(lesson){
  if(!lesson.cLab)return '';
  const kind=lesson.cLab,a=kind==='string'?'cat':settings[kind]?.[4]||0,b=kind==='matrix'?1:kind==='struct'?3:0;
  const model=cModel(kind,a,b),step=model.steps[0];
- return `<section class="c-lab" data-c-lab="${kind}" data-c-step="0"><span class="tag green">EXPLORE THE CODE</span><h3>A tiny program, made visible.</h3><pre class="c-lab-code"><code>${h(model.code.join('\n'))}</code></pre>${controls(kind)}<div class="c-stage"><h4>${h(step[0])}</h4><div class="c-art">${step[1]}</div><p class="c-insight" aria-live="polite">${h(step[2])}</p></div><div class="c-playback" ${model.steps.length===1?'hidden':''}><button class="btn secondary" type="button" data-c-back disabled aria-label="Previous code step">BACK</button><button class="btn primary" type="button" data-c-next>NEXT STEP</button><button class="text-button" type="button" data-c-play aria-pressed="false">PLAY</button><span class="c-step-count" role="status">1 / ${model.steps.length}</span></div><small>Explore this separate example freely. It earns no XP and does not change your puzzle answers.</small></section>`;
+ return `<section class="c-lab" data-c-lab="${kind}" data-c-step="0"><span class="tag green">EXPLORE THE CODE</span><h3>A tiny program, made visible.</h3><pre class="c-lab-code"><code>${h(model.code.join('\n'))}</code></pre>${controls(kind)}<div class="c-stage"><h4>${h(step[0])}</h4><div class="c-art">${step[1]}</div><p class="c-insight" aria-live="polite">${h(step[2])}</p></div><div class="c-playback" ${model.steps.length===1?'hidden':''}><button class="btn secondary" type="button" data-c-back disabled aria-label="Previous code step">BACK</button><button class="btn primary" type="button" data-c-next>NEXT STEP</button><button class="text-button" type="button" data-c-play aria-pressed="false">${playbackLabel()}</button><span class="c-step-count" role="status">1 / ${model.steps.length}</span></div><small>Explore this separate example freely. It earns no XP and does not change your puzzle answers.</small></section>`;
 }
 function redraw(root){
  const a=root.querySelector('[data-c-word]')?.value??Number(root.querySelector('[data-c-control="a"]')?.value||0),b=Number(root.querySelector('[data-c-control="b"]')?.value||0),model=cModel(root.dataset.cLab,a,b);
@@ -66,10 +67,10 @@ function redraw(root){
  root.querySelector('.c-lab-code code').textContent=model.code.join('\n');root.querySelector('.c-stage h4').textContent=step[0];root.querySelector('.c-art').innerHTML=step[1];root.querySelector('.c-insight').textContent=step[2];root.querySelector('.c-step-count').textContent=(index+1)+' / '+model.steps.length;
  root.querySelector('[data-c-back]').disabled=index===0;root.querySelector('[data-c-next]').textContent=index===model.steps.length-1?'REPLAY':'NEXT STEP';
 }
-const playback=new WeakMap();
-function stop(root){clearTimeout(playback.get(root));playback.delete(root);const button=root.querySelector('[data-c-play]');button.textContent='PLAY';button.setAttribute('aria-pressed','false');}
+const playback=new Map();
+function stop(root){clearTimeout(playback.get(root));playback.delete(root);const button=root.querySelector('[data-c-play]');button.textContent=playbackLabel();button.setAttribute('aria-pressed','false');}
 function play(root){
- if(!root.isConnected){stop(root);return;}
+ if(!root.isConnected||!canPlay()){stop(root);return;}
  const length=cModel(root.dataset.cLab).steps.length;
  root.dataset.cStep=(Number(root.dataset.cStep)+1)%length;redraw(root);
  if(Number(root.dataset.cStep)===length-1){stop(root);return;}
@@ -83,10 +84,12 @@ document.addEventListener('input',event=>{
 });
 document.addEventListener('click',event=>{
  const button=event.target.closest('[data-c-next],[data-c-back],[data-c-play],[data-c-bit]');if(!button)return;const root=button.closest('[data-c-lab]');
- if(button.hasAttribute('data-c-play')){if(playback.has(root)){stop(root);return;}if(Number(root.dataset.cStep)===cModel(root.dataset.cLab).steps.length-1)root.dataset.cStep=0;button.textContent='PAUSE';button.setAttribute('aria-pressed','true');playback.set(root,setTimeout(()=>play(root),1200));return;}
+ if(button.hasAttribute('data-c-play')){if(!canPlay()){stop(root);root.dataset.cStep=Math.min(Number(root.dataset.cStep)+1,cModel(root.dataset.cLab).steps.length-1);redraw(root);return;}if(playback.has(root)){stop(root);return;}if(Number(root.dataset.cStep)===cModel(root.dataset.cLab).steps.length-1)root.dataset.cStep=0;button.textContent='PAUSE';button.setAttribute('aria-pressed','true');playback.set(root,setTimeout(()=>play(root),1200));return;}
  stop(root);
  if(button.hasAttribute('data-c-bit')){const control=root.querySelector('[data-c-control="a"]');control.value=Number(control.value)^(1<<Number(button.dataset.cBit));root.querySelector('[data-c-output="a"]').textContent=control.value;}
  else if(button.hasAttribute('data-c-back'))root.dataset.cStep=Math.max(0,Number(root.dataset.cStep)-1);
  else root.dataset.cStep=(Number(root.dataset.cStep)+1)%cModel(root.dataset.cLab).steps.length;
  redraw(root);document.dispatchEvent(new Event('c-interaction'));
 });
+
+watchPlayback(playback,stop);

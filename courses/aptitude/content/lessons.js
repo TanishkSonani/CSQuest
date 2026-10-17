@@ -15,3 +15,7 @@ export const lessons=topics.flatMap((topic,lecture)=>topic.titles.map((title,par
  }),minutes:4,ready:true,contentVersion:1,contentStatus:'Standalone topic lesson with original scenarios',lab:topic.lab,
  foundation:{title:topic.label,idea:topic.idea,terms:topic.terms,example:topic.example}
 })));
+
+import {attachTeachingNotes} from '../../../packages/learning/instructional-notes.js';
+import {teachingNotes} from './teaching-notes.js';
+attachTeachingNotes(lessons,teachingNotes,'aptitude');

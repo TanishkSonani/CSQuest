@@ -18,7 +18,7 @@ const assert=require('node:assert/strict');
    await page.evaluate(async id=>{const {store,flushAccount}=await import('/account-client.js');store.setItem('cn-quest-v1',JSON.stringify({version:1,xp:0,completed:Array.from({length:id},(_,i)=>i),settings:{sound:false}}));store.setItem('csquest-drafts-cn','[]');await flushAccount();},id);
    await page.reload();await page.locator('[data-action="units"]').click();await page.locator(`.unit-choice[data-unit="${unit}"]`).click();
    await page.locator(`[data-lesson="${id}"]`).click();await page.locator('[data-action="begin"]').click();
-   await page.locator('[data-journey-phase="0"]').waitFor();await page.locator('[data-journey-card]').last().click();await page.locator('[data-journey-next]').click();
+   await page.locator('[data-journey-phase="0"]').waitFor();await page.locator('[data-prediction-answer]').first().click();await page.locator('[data-journey-next]').click();
    const explorer=page.locator('.cn-lab');try{await explorer.waitFor({timeout:8000});}catch{console.log('CN lab debug',lecture,lab,course.lessons[id].cnLab,errors,await page.locator('.lesson-dialog').innerText().catch(()=>''));throw new Error(`CN lab missing for lecture ${lecture}`);}assert.equal(await explorer.locator('[data-cn-view]').count(),1,`${lecture}:${lab.kind} model is mounted`);
    assert.doesNotMatch(await explorer.locator('[data-cn-view]').innerText(),/NaN|undefined|null/);
    const control=explorer.locator('[data-cn-input]').first();if(await control.count()){if(await control.evaluate(el=>el.tagName)==='SELECT')await control.selectOption({index:Math.max(0,await control.locator('option').count()-1)});else await control.evaluate(el=>{el.value=el.max;el.dispatchEvent(new Event('input',{bubbles:true}));});}
