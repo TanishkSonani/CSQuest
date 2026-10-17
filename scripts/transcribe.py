@@ -131,25 +131,65 @@ def transcribe(course, model, args, av):
     destination = output / "transcripts"
     destination.mkdir(parents=True, exist_ok=True)
     inference = model
+    skipped = []
     if args.batch:
         from faster_whisper import BatchedInferencePipeline
         inference = BatchedInferencePipeline(model=model)
+    source_root = source_directory(course)
+    if not source_root.is_dir():
+        raise FileNotFoundError(f"Recording directory unavailable: {source_root}")
     for row in rows:
         stem = row.get("transcriptStem", Path(row["file"]).stem)
         complete = destination / (stem + ".done")
+        skip = destination / (stem + ".skip")
+        if skip.exists():
+            if complete.exists():
+                raise RuntimeError(f"Recording cannot be both completed and skipped: {row['file']}")
+            reason = json.loads(skip.read_text(encoding="utf-8"))
+            skipped.append({"file": row["file"], "reason": reason.get("reason", "Intentionally skipped")})
+            print(f"SKIP {course['id']}: {row['file']} ({skipped[-1]['reason']})", flush=True)
+            continue
         if complete.exists():
             continue
-        file = source_directory(course) / row["file"]
+        file = source_root / row["file"]
         if not file.is_file():
-            raise FileNotFoundError(f"Recording drive unavailable: {file}")
+            error = FileNotFoundError(f"Recording is missing: {file}")
+            if not getattr(args, "skip_errors", False):
+                raise error
+            write_json(skip, {"file": row["file"], "reason": str(error), "errorType": type(error).__name__})
+            skipped.append({"file": row["file"], "reason": str(error)})
+            print(f"SKIP {course['id']}: {row['file']} ({error})", flush=True)
+            continue
         if not row.get("audio_streams", 1):
-            raise RuntimeError(f"Recording has no audio: {row['file']}")
+            error = RuntimeError(f"Recording has no audio: {row['file']}")
+            if not getattr(args, "skip_errors", False):
+                raise error
+            write_json(skip, {"file": row["file"], "reason": str(error), "errorType": type(error).__name__})
+            skipped.append({"file": row["file"], "reason": str(error)})
+            print(f"SKIP {course['id']}: {row['file']} ({error})", flush=True)
+            continue
         write_json(output / "worker.json", {"pid": os.getpid(), "subject": course["id"], "script": str(Path(__file__).resolve())})
         write_json(output / "status.json", {"phase": "transcribing", "current_video": row["file"], "device": "cuda" if args.gpu else "cpu"})
         print(f"START {course['id']}: {row['file']}", flush=True)
         began = time.time()
         kwargs = {"batch_size": 4, "word_timestamps": True} if args.batch else {}
-        segments, info = inference.transcribe(str(file), beam_size=5, vad_filter=True, condition_on_previous_text=False, **kwargs)
+        try:
+            segments, info = inference.transcribe(str(file), beam_size=5, vad_filter=True, condition_on_previous_text=False, **kwargs)
+            segments = list(segments)
+            if not segments:
+                raise RuntimeError(f"No speech segments produced: {row['file']}")
+        except Exception as error:
+            if not getattr(args, "skip_errors", False):
+                raise
+            for suffix in (".jsonl", ".srt"):
+                partial = destination / (stem + suffix)
+                if partial.exists():
+                    partial.unlink()
+            reason = f"{type(error).__name__}: {error}"
+            write_json(skip, {"file": row["file"], "reason": reason, "errorType": type(error).__name__})
+            skipped.append({"file": row["file"], "reason": reason})
+            print(f"SKIP {course['id']}: {row['file']} ({reason})", flush=True)
+            continue
         # Rewrite interrupted output. The importer only reads after the done marker.
         with (destination / (stem + ".jsonl")).open("w", encoding="utf-8") as text, (destination / (stem + ".srt")).open("w", encoding="utf-8") as subtitles:
             count = 0
@@ -159,11 +199,9 @@ def transcribe(course, model, args, av):
                 subtitles.write(f"{count}\n{subtitle_stamp(segment.start)} --> {subtitle_stamp(segment.end)}\n{segment.text.strip()}\n\n")
                 subtitles.flush()
                 print(f"{segment.start:.1f}-{segment.end:.1f} {segment.text}", flush=True)
-        if not count:
-            raise RuntimeError(f"No speech segments produced: {row['file']}")
         write_json(complete, {"file": row["file"], "language": info.language, "probability": info.language_probability, "processing_seconds": time.time() - began, "device": "cuda" if args.gpu else "cpu"})
         print(f"DONE {course['id']}: {row['file']}", flush=True)
-    write_json(output / "status.json", {"phase": "transcription_complete_analysis_pending"})
+    write_json(output / "status.json", {"phase": "transcription_complete_analysis_pending", "skipped": skipped})
 
 
 def main():
@@ -178,6 +216,7 @@ def main():
     action.add_argument("--launch", action="store_true")
     parser.add_argument("--gpu", action="store_true")
     parser.add_argument("--batch", action="store_true")
+    parser.add_argument("--skip-errors", action="store_true", help="Mark per-recording transcription errors as skipped and continue")
     args = parser.parse_args()
     courses = manifests()
     if args.subject:
@@ -203,6 +242,8 @@ def main():
             command.append("--gpu")
         if args.batch:
             command.append("--batch")
+        if args.skip_errors:
+            command.append("--skip-errors")
         with (runtime / "transcription.log").open("a", encoding="utf-8") as log:
             process = subprocess.Popen(command, stdout=log, stderr=subprocess.STDOUT, creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0)
         write_json(lock, {"pid": process.pid, "subject": args.subject or "all", "script": str(Path(__file__).resolve())})

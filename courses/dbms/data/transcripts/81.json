@@ -1,0 +1,1360 @@
+{
+  "id": 81,
+  "title": "Serializability Introduction",
+  "file": "081. Lecture 5 - Serializability Introduction.mp4",
+  "seconds": 6092.88,
+  "segments": [
+    {
+      "start": 462.96,
+      "end": 500.56,
+      "text": " Hi everyone. So welcome back to go classes. Now in this lecture, we will see the introduction of serializability and what we use this serializability for. Can anyone tell me why we study the serializability? What is the use? What is the application of serializability? The application is preserving the isolation because isolation property we want to preserve. Yes or no? Whenever multiple many transactions are executing concurrently,",
+      "avg_logprob": -0.14009233564138412,
+      "no_speech_prob": 0.67919921875
+    },
+    {
+      "start": 501.33,
+      "end": 530.68,
+      "text": " so in interleaved fashion if many transactions are executing then we want to make sure that those transactions they feel okay every transaction get the feeling that they are executing in isolation okay so this is our topic for today in this lecture we will see concurrency control introduction and serializability introduction and preserving isolation this property we will see now let's start now",
+      "avg_logprob": -0.11454665429995094,
+      "no_speech_prob": 0.40380859375
+    },
+    {
+      "start": 532.81,
+      "end": 562.27,
+      "text": " So first let's see the next terminology that is schedule or you can call it history. What is this? So let's check it out. So schedule or history? What is the definition of schedule? Let's take it out. So the schedule is basically I can say the concurrent execution of transaction that is called schedule. So what is the schedule? The transactions are executing, right? Okay. So they are executing concurrently in the interleaved fashion. Then the order of execution of operations.",
+      "avg_logprob": -0.14713541754320555,
+      "no_speech_prob": 0.34521484375
+    },
+    {
+      "start": 562.68,
+      "end": 592.25,
+      "text": " from all the various transaction is called the schedule. So what is the schedule? Actually schedule means your concurrent execution. Very simple. Like if I give you a transaction for a moment, let's assume this is a transaction. And in this transaction, these are the actions. These are the operations A1, A2, A3. And there is another transaction, which have these operations B1, B2, B3. Then what is a schedule? What is a schedule? Or for simplicity, let's assume like for simplicity, let me assume that",
+      "avg_logprob": -0.1736567922328648,
+      "no_speech_prob": 0.2261962890625
+    },
+    {
+      "start": 592.52,
+      "end": 613.48,
+      "text": " you have only two operations so t1 has two operations a1 a2 and t2 has two operations b1 b2 you tell me one thing this a1 a2 okay these are the operations in the transaction t1 these are given by whom like who decide who will decide that these operations will will happen in this order who will decide that",
+      "avg_logprob": -0.08705357270581382,
+      "no_speech_prob": 0.34375
+    },
+    {
+      "start": 613.82,
+      "end": 641.69,
+      "text": " so this is yes programmer will decide that right okay so the transaction the programmer okay if you are doing the programming okay then you will decide that okay these operations will happen in this order similarly these operations will happen in this order yes or no so definitely we should not change this order correct this a1 a2 after a1 a2 should happen after b1 b2 should happen this you already know in this order they should execute now what is the schedule so this is called transaction this is a transaction",
+      "avg_logprob": -0.09703125335276126,
+      "no_speech_prob": 0.779296875
+    },
+    {
+      "start": 642.58,
+      "end": 672.17,
+      "text": " Okay, I can call it transaction T1. This is your transaction T2. So these are two transactions. Now, what is a schedule? Schedule, what is schedule? The another name of schedule is basically the history. Okay, so what is that? So you can notice, what is a schedule? Schedule means history, means how they are executing this. Remember, after A1, A2 should happen and after B1, B2 should happen. But this can happen, right? That maybe A1 executes.",
+      "avg_logprob": -0.21016328721433072,
+      "no_speech_prob": 0.385498046875
+    },
+    {
+      "start": 672.56,
+      "end": 699.44,
+      "text": " then maybe b1 can execute okay then maybe maybe b2 can execute and then maybe a2 can execute so this is called schedule is this clear to everyone like this is your time this is your timeline I can say so you can see that first a1 is executing then b1 is executing interleaved fashion can you notice they are executing inter in interleaved fashion yes or no they are executing interleaved execution or I can say concurrent execution you can call it",
+      "avg_logprob": -0.13873354761224044,
+      "no_speech_prob": 0.17626953125
+    },
+    {
+      "start": 699.74,
+      "end": 729.36,
+      "text": " interleaved execution or you can call it concurrent execution so you can see that these transactions they are executing in interleaved fashion so this is a this is a particular schedule i can say that this whatever you have seen this is called a schedule s1 i can say this is your schedule s1 for example what is the schedule s2 can i say this is a schedule you tell me one thing can i say this is a schedule that a1 executing then a2 executing then b1 executing then b2 executing can i say this is a schedule yes of course this is also a schedule",
+      "avg_logprob": -0.08055409551167689,
+      "no_speech_prob": 0.55029296875
+    },
+    {
+      "start": 729.68,
+      "end": 758.92,
+      "text": " are very simple this is also schedule because the execution can happen like this do you agree that execution can happen like this so this is your I can say this is a serial execution you can clearly see this is a serial execution or I can say this is a serial schedule you can call it serial execution or you can call it serial schedule okay or you can call it a serial schedule so this is your serial schedule now one more thing one more thing remember something important I want to ask you so",
+      "avg_logprob": -0.10730229401770904,
+      "no_speech_prob": 0.347412109375
+    },
+    {
+      "start": 759.22,
+      "end": 786.64,
+      "text": " again you have so these are your transactions t1 t2 these are the transactions you tell me is this a schedule i'm giving you some schedules uh some uh some sequence i'm giving you you tell me is this a schedule like if i give you s3 and s3 is like this at b1 executes b2 executes okay then a1 executes then a2 executes is this a schedule like this they execute is this a schedule yes this is also a schedule okay this is another serial schedule is this a schedule that",
+      "avg_logprob": -0.08022279906328078,
+      "no_speech_prob": 0.249267578125
+    },
+    {
+      "start": 787.02,
+      "end": 815.68,
+      "text": " Let's assume A1 executes, then B2 executes, then A2 executes, then B1 executes. Is this a schedule? Is this a schedule? You tell me. This can, this is never a schedule. Remember, this can never happen, right? Very simple here. C, A, okay. This is the order in which T1 should execute. Okay. The operations of T1 should execute in this order and operations of T2, they should execute in this order because these are written by programmer. These are written by programmer in this order.",
+      "avg_logprob": -0.16184896069268387,
+      "no_speech_prob": 0.6806640625
+    },
+    {
+      "start": 816.06,
+      "end": 844.24,
+      "text": " the programmer will write them in this order. Okay, so programmer has written them in this order. So now you can easily see that this a2 cannot happen before a1, agree? Yes or no? This b2 cannot happen before b1. It's like this. For example, let me give you one example. Let me give you like let's assume I have written one transaction, a transaction I'm writing so that you can transfer the value from account a you can transfer the value",
+      "avg_logprob": -0.15269182991273333,
+      "no_speech_prob": 0.5810546875
+    },
+    {
+      "start": 844.55,
+      "end": 873.01,
+      "text": " to account b okay let's assume 50 rupees i want to transfer from account a to account b and i'm writing this transaction so what will happen first you will read the account a then you will you will basically decrease the a by 50 and then you will write then you will write this a now what will happen now you will read account b and then you will increase this by 50 you will increase this by 50 and then you will write this b so you cannot this order we should follow",
+      "avg_logprob": -0.06501115744515341,
+      "no_speech_prob": 0.7705078125
+    },
+    {
+      "start": 873.21,
+      "end": 902.12,
+      "text": " definitely yes or no in this order you should execute this order in this order you should execute you tell me one thing you tell me one thing can you execute like this like for example what i do before reading i'm executing this a i'm i'm i'm removing the 50 from a before reading like like before before reading i'm doing this and then i'm then i'm reading okay and then i'm then i'm being b let's then i'm writing b",
+      "avg_logprob": -0.12034574785131089,
+      "no_speech_prob": 0.71484375
+    },
+    {
+      "start": 902.58,
+      "end": 931.54,
+      "text": " Then I am writing B. So randomly I am doing things. So you tell me does that make sense? Does it make sense? You tell me that so you can notice write B and then you are reading B. Okay. Does it make sense to tell me? Definitely not. Yes or no. So you can notice that definitely within a transaction, you cannot change the order. Okay. Yes or no. So you can see that within a transaction, you cannot change the order. Is this clear to everyone? So this is a note you can write.",
+      "avg_logprob": -0.1332236770213696,
+      "no_speech_prob": 0.73974609375
+    },
+    {
+      "start": 932,
+      "end": 963.72,
+      "text": " What is that whatever happens whatever whatever whatever happens within a transaction you can never change the order of operations within a transaction Okay Remember within a transaction The order can never change the order of operations can never change the order of operations Can or I can say must never change can or I can say must Never change is this clear",
+      "avg_logprob": -0.15661621489562094,
+      "no_speech_prob": 0.6591796875
+    },
+    {
+      "start": 964.15,
+      "end": 993.49,
+      "text": " tell me is this point clear so within a transaction this I can say order of operation they should never change it will not make sense that first you are like you can see this is nonsense that first you are decrementing the value of a by 50 and then you are reading a let me tell you like in herafiri movie there is a joke in the herafiri movie he calls the press ravel baurav he calls for a suit he says that a musta suit silde okay so he calls the I can say teller",
+      "avg_logprob": -0.2421874936331402,
+      "no_speech_prob": 0.564453125
+    },
+    {
+      "start": 993.79,
+      "end": 1021.63,
+      "text": " two basically I can say two stitches a suit and the teller says that the same scenario here so you can take it out okay so anyway so you can see that within a transaction remember within a transaction the order of operation that should never change that can never change that must never change",
+      "avg_logprob": -0.2136787217960023,
+      "no_speech_prob": 0.316650390625
+    },
+    {
+      "start": 1021.83,
+      "end": 1051.2,
+      "text": " So whatever you do. So remember, this is not a schedule. Like you are doing B2 before B1. Okay. So this should never happen. So this is not a schedule. Is this clear to everyone? Please tell me. Please tell me is this clear? So you can do whatever you want. For example, you can do this. This is fine. You can do A1, then you can do B1, then you can do A2, then you can do B2. That is fine because you can notice because you can notice after A1, A2 is happening and after B1, B2 is happening. Okay. So this is fine. This is a schedule.",
+      "avg_logprob": -0.1095905172413793,
+      "no_speech_prob": 0.73779296875
+    },
+    {
+      "start": 1051.69,
+      "end": 1080.81,
+      "text": " so what is the schedule is that clear so that is the reason schedule is also called history schedule the another word for schedule is history how the things are happening okay in which order the things are happening so when transactions are executing several transactions are executing concurrently then in the interleaved fashion they are executing then order of execution of operations from the various transactions that is known as schedule is the definition clear to everyone please tell me let me know is the definition clear and the important thing what is that",
+      "avg_logprob": -0.09422348785882044,
+      "no_speech_prob": 0.4345703125
+    },
+    {
+      "start": 1081.56,
+      "end": 1110.52,
+      "text": " within a transaction the operation should not change they should appear in the same order as they are in the transaction so for every transaction that will participate in the schedule that participate in the schedule the order of operations of TI in S must appear in the same order as they appear in TI is this point clear like here after A1 A2 is happening so in the schedule also after A1 A2 should happen after A1 A2 should happen after A1",
+      "avg_logprob": -0.14320054552057288,
+      "no_speech_prob": 0.80224609375
+    },
+    {
+      "start": 1110.83,
+      "end": 1138.43,
+      "text": " after a1 a2 should happen after a1 a2 should happen and you can notice similarly for b1 after b1 b2 should happen you can notice okay after b1 but here you can notice after b2 b1 is happening so this is wrong so this is not a schedule please tell me is this clear to everyone so within a transaction the order should not change okay so you can this is another example you can take like here you have three operations t1 has three operations t2 has three operations then you tell me what is a schedule",
+      "avg_logprob": -0.08474099139372508,
+      "no_speech_prob": 0.77880859375
+    },
+    {
+      "start": 1139.38,
+      "end": 1167.86,
+      "text": " Can I say this is a schedule that complete A1 then A2 then A3 and then B1 happens then B2 happens then B3 happens. Is this a schedule? Yes, this is a schedule. So I can call it schedule S1. Okay, this is a history. This is how they can execute no problem. Can they execute like this that A1 happens then B1 happens then B2 happens then A3 happens then A2 happens then B3 happens. Can this can they execute like this? No, they cannot execute like this because remember remember",
+      "avg_logprob": -0.13768696326475877,
+      "no_speech_prob": 0.62255859375
+    },
+    {
+      "start": 1168.3,
+      "end": 1197.72,
+      "text": " in the transaction in this order things are happening the operations are executing in this order so in the schedule in the schedule also they should execute in this order after a1 a2 should come after a2 a3 should come okay this is the problem it is clear so remember this is not a schedule okay remember this is the schedule for example i can do this b1 is executing then a1 is executing then a2 is executing then b2 is executing then b3 executing and then a3 executing this is fine this is clear",
+      "avg_logprob": -0.1110701635479927,
+      "no_speech_prob": 0.80712890625
+    },
+    {
+      "start": 1198.12,
+      "end": 1228.09,
+      "text": " Okay, so tell me, did you understand what is a schedule? Let me know, did you understand what and what is not a schedule? So tell me, I'm asking you, how many schedule you can create? This is my question. My question is T1 has three operations, T2 has three operations. So how many schedules? How many schedules for T1 comma T2? How many schedules you can create for T1 comma T2?",
+      "avg_logprob": -0.15167885178581197,
+      "no_speech_prob": 0.333984375
+    },
+    {
+      "start": 1228.65,
+      "end": 1259.1,
+      "text": " containing t1 comma t2 how many schedules you can create so there are three operations in t1 and this would happen in this order and there are three operations in t2 and this would happen in this order so how many schedules you can create which involve involving t1 comma t2 how many schedules involving t1 comma t2 you can create tell me so can I say six factorial can I directly say six factorial that all the six can happen in any order can I say six factorial no this is wrong because",
+      "avg_logprob": -0.10952670264591291,
+      "no_speech_prob": 0.857421875
+    },
+    {
+      "start": 1259.46,
+      "end": 1287.28,
+      "text": " after a2 a1 cannot come after a3 a2 cannot come okay so you can solve this question very easily we have already seen in the combinatorics yes or no we are in in the combinatorics we have already seen what is the method one see the method one is like this ultimately in the schedule how many positions will be there you tell me that in the schedule how many positions will be there in the schedule there will be six positions agree do you agree there will be six positions in these six positions",
+      "avg_logprob": -0.07985276786180642,
+      "no_speech_prob": 0.492919921875
+    },
+    {
+      "start": 1287.69,
+      "end": 1312.79,
+      "text": " three positions will be taken by T1 right yes or no in these six positions you select three positions for T1 there are there are six chairs you can you can think like this there are six chairs from these six chairs for this family for this family you select three chairs yes or no for this family you select three chairs once you select three chairs for T1 family",
+      "avg_logprob": -0.10457136622957282,
+      "no_speech_prob": 0.06903076171875
+    },
+    {
+      "start": 1313.23,
+      "end": 1343.09,
+      "text": " How many okay, let's assume you select this chair you select this chair and you select this chair in how many order in how many order in how many order they can sit this family in how many order they can sit they can sit in only one order because definitely a1 should come here. Definitely a2 should come here. Definitely a3 should come here. Do you agree? Okay, there are six chairs from these six years you select three chairs for this family for this family you select three chairs. Okay, let's assume you select these three chairs.",
+      "avg_logprob": -0.164336623983425,
+      "no_speech_prob": 0.8447265625
+    },
+    {
+      "start": 1343.3,
+      "end": 1373.5,
+      "text": " Then they will, they will sit in these three chairs in only one way. There is only one way for T1 family. Then in the remaining, in the remaining chairs, in the remaining chairs, automatically the T2 family can sit on only one way. Yes or no? In the remaining chairs, the T2 family can sit in only one way. There is only one way for T2 family. So this is your answer. So your answer is what? Your answer is 63. Is this clear to everyone? You can calculate this value.",
+      "avg_logprob": -0.08324115044247787,
+      "no_speech_prob": 0.806640625
+    },
+    {
+      "start": 1373.85,
+      "end": 1403.28,
+      "text": " So, can anyone tell me what is this value? Anyone? 6 C3. So, that value you can calculate. I think that will be 20. Okay, you can check it out. So, 20 schedules you can create. Is this clear to everyone? Let me know. Is this clear to everyone? Please tell me. This is your method number one. What is method number two? The same question you can solve with the method number two. You tell me one thing. If they are fixed, if their order is fixed, if their order is fixed,",
+      "avg_logprob": -0.11879006053647424,
+      "no_speech_prob": 0.59912109375
+    },
+    {
+      "start": 1403.82,
+      "end": 1432.83,
+      "text": " You can treat them as same AAA. Are you yes or no? Yes or no? Like if their order is same, like you can't change their order then what is the benefit? Agree or not? How many orders? Tell me, tell me, tell me. How many orders they can have? You tell me this point, how many orders they can have? Number of orders they can have, only one. They can only, we can only put them in only one order. So you can treat them AAA because how many orders for this? Tell me, how many permutations are these?",
+      "avg_logprob": -0.14637499713897706,
+      "no_speech_prob": 0.76171875
+    },
+    {
+      "start": 1433.13,
+      "end": 1461.33,
+      "text": " how many permutations for this only one permutation only single permutation so you can treat them as because see okay so you can treat them a similarly these three people they can sit in how many how many ways you can put them in how many ways you can arrange them in how many ways only one way yes or no after b1 b2 should come after b2 b3 should come so can you treat them as bbb agree or not",
+      "avg_logprob": -0.09469436502063668,
+      "no_speech_prob": 0.79443359375
+    },
+    {
+      "start": 1461.69,
+      "end": 1488.17,
+      "text": " so finally what you have finally you need to create permutations of what tell me finally you need to create permutations of what permutations of 3a 3b permutations of this so what is the number of permutations of this that will be 6 factorial divided by 3 factorial 3 factorial yes or no tell me tell me tell me so your again answer is 20 so this is your method number 2",
+      "avg_logprob": -0.13391543837154612,
+      "no_speech_prob": 0.37451171875
+    },
+    {
+      "start": 1489.01,
+      "end": 1520.25,
+      "text": " Did you understand the two method method number one method number two both of them. Did you understand? Tell me method one method two both of them. Did you understand? Let me know. Okay. So this is how you can do. Okay. You can use any of them. Does not matter. Okay. So very simple in the combinators. We have already seen all these things combinators lectures. You can just watch very simple. There are six chairs in the method one. I can assume that in the schedule there will be six chairs, right? You will have total six chairs.",
+      "avg_logprob": -0.1411415328664228,
+      "no_speech_prob": 0.76416015625
+    },
+    {
+      "start": 1520.54,
+      "end": 1547.78,
+      "text": " There are six chairs. From these six chairs, three chairs should go to this family. Yes or no. There are six chairs and from these six chairs, three chairs should go to this family. So from the six chairs, you select three chairs for even family. Now, if I select these chairs for even family, this chair, this chair and this chair, if I select these chairs, then the even family can sit in only one way. The even family will sit only one way. The even family.",
+      "avg_logprob": -0.15297618366423107,
+      "no_speech_prob": 0.257568359375
+    },
+    {
+      "start": 1548.53,
+      "end": 1577,
+      "text": " automatically automatically in the remaining chairs the T2 family can sit in only one way so your answer will be 63 that will be 20 so your method 1 method 2 I hope you understood so 20 schedules you can create okay total 20 schedules you can create is this clear from these 20 schedules how many are serial so total 20 schedules are there if you have to T1 is A1 A2 A3 and T2 is B1 B2 B3",
+      "avg_logprob": -0.16024305787351395,
+      "no_speech_prob": 0.642578125
+    },
+    {
+      "start": 1577.4,
+      "end": 1614.49,
+      "text": " Tell me how many schedules are serial? What is the number of serial schedules? Only two. Complete even then T2. Only two are there because either you complete even then you T2 or you okay or you do this. Either you do this or you do this. Only two schedules are there. Okay, your answer will be two. How many non-serial? How many non-serial? Schedules which are not serial. Schedules which are not serial. So the answer will be total minus two. This is the total number of schedules.",
+      "avg_logprob": -0.15937499766764435,
+      "no_speech_prob": 0.74267578125
+    },
+    {
+      "start": 1615.99,
+      "end": 1644.75,
+      "text": " This is the serial number of schedules. The answer will be 18. These many non serial that will be 18. Okay. I hope this understood. This is understood. Please tell me. So what is a serial schedule? Serial schedule means serial execution of several transactions. Okay. You have several transactions, their serial execution and what is a concurrent schedule or I can say interleaved schedule. You can call it concurrent schedule. You can call it interleaved schedule. You can call it parallel schedule. All these words are same.",
+      "avg_logprob": -0.1636363677003167,
+      "no_speech_prob": 0.724609375
+    },
+    {
+      "start": 1645.08,
+      "end": 1666.3,
+      "text": " You can call it concurrent, you can call it parallel, all these things are same because only one CPU. Yes or no? Tell me. Only one CPU. Because only one CPU is there, you only have one CPU. So whether you call parallel, you call concurrent, you call interleaved, ultimately which word is best? Which word is best? That is interleaved. Yes or no?",
+      "avg_logprob": -0.16117931884669123,
+      "no_speech_prob": 0.2685546875
+    },
+    {
+      "start": 1666.52,
+      "end": 1694.31,
+      "text": " This is the best word, but you can use any of them because there is only one CPU. So interleaved execution of several transactions that is called concurrent schedule. For example, two transactions are on your screen. There is a transaction T1. There is a transaction T2. There are two transactions. Now for these two transactions, you can now you can see these are the two transactions. Now you can create a schedule on your screen. This is a schedule. Tell me this schedule. Is this serial schedule? Is this schedule serial? You tell me that",
+      "avg_logprob": -0.14695582012164182,
+      "no_speech_prob": 0.43896484375
+    },
+    {
+      "start": 1695.01,
+      "end": 1724.52,
+      "text": " okay so yes this is a serial schedule right so you have two transactions this is a transaction T1 this is transaction T2 you can clearly see that they are executing like this T2 is executing completely then T1 is executing completely so you can see that this is serial execution one more thing I want to tell you this is serial execution can I say this is interleaved execution can I say this is interleaved execution can I say can I say this execution is interleaved can I say let me know",
+      "avg_logprob": -0.10524339185884365,
+      "no_speech_prob": 0.87060546875
+    },
+    {
+      "start": 1725.13,
+      "end": 1755.71,
+      "text": " Can I say this interleaved execution? Yes, this is interleaved execution also. This is interleaved execution also because interleaved execution does not say that you must have this, I can say, you must have known serial. This is interleaved execution also. This is serial execution also. So remember, every serial schedule is interleaved also. Every serial schedule is concurrent. Is this clear to everyone? Please tell me. Every serial schedule is a concurrent. Is a concurrent also.",
+      "avg_logprob": -0.13467262358892532,
+      "no_speech_prob": 0.68505859375
+    },
+    {
+      "start": 1756.59,
+      "end": 1786.59,
+      "text": " Okay. So remember every serial schedule, every serial schedule is concurrent also because this concurrent does not say that you must have mixing. You must have mixing. It is not like that. It says that you, you can have mixing. Yes or no, you can mix them in any order. But whatever you do, this order must be same. Like within T2, this order should not change. This order should not change and this order should not change. You can mix them. Remember, is this point clear to everyone? Please tell me. So remember every serial schedule is concurrent also.",
+      "avg_logprob": -0.13190857142456308,
+      "no_speech_prob": 0.82568359375
+    },
+    {
+      "start": 1786.87,
+      "end": 1814.72,
+      "text": " so this is serial execution also this is interleaved execution also this is serial schedule also so i can say this is serial schedule also and this is a concurrent schedule also is this clear so every serial schedule is a concurrent tell me is this clear to everyone let me know so every serial schedule is a concurrent remember this is serial also concurrent also now what about this one is this serial is this serial serial",
+      "avg_logprob": -0.09500385802469136,
+      "no_speech_prob": 0.31787109375
+    },
+    {
+      "start": 1815.18,
+      "end": 1844.88,
+      "text": " all the actions of T1 are executing then all the actions of T2 are executing yes this is also serial schedule and you notice that this is also serial schedule and every serial schedule is concurrent so this is concurrent also okay this schedule is concurrent also every serial schedule is concurrent remember here this is a serial schedule but what is the serial order the order is this T1 then T2 yes or no I can say T2 is followed by T1 okay T sorry T1 is followed by T2 I can say",
+      "avg_logprob": -0.09996966207490383,
+      "no_speech_prob": 0.67333984375
+    },
+    {
+      "start": 1845.1,
+      "end": 1873.49,
+      "text": " T1 is followed by T2 or I can say T2 follows T1 you can say T2 follows T1 or you can say T1 is followed by T2 it's followed by T2 okay so you can notice or you can write like this that after T1 T2 is happening so this is your serial schedule after T1 you are doing T2 okay so very simple similarly here you can notice this is a serial schedule after T2 T1 is executing",
+      "avg_logprob": -0.08976236800663173,
+      "no_speech_prob": 0.6103515625
+    },
+    {
+      "start": 1874.02,
+      "end": 1904.12,
+      "text": " You first execute T2, then you execute T1. So this is your serial schedule T1, T2, T1 and this is your T1, T2. What about this one? Can I say this is serial schedule? Can I call it serial schedule? Tell me, can I call it serial schedule? The answer is no. This is not a serial schedule. But can I call it concurrent schedule? Yes, this is a concurrent schedule, right? So remember, this is a concurrent schedule. So this is not a serial schedule, but this is a concurrent schedule. Okay, what about this one?",
+      "avg_logprob": -0.10705566476099193,
+      "no_speech_prob": 0.63525390625
+    },
+    {
+      "start": 1904.84,
+      "end": 1933.62,
+      "text": " One more thing, I can call it non-serial schedule. Okay. This schedule is basically non-serial schedule. So this is a non-serial schedule. What about this one? Again, you cannot do the same thing. This is not serial. You can again see that this is not serial schedule. So this schedule is not serial schedule. This serial is basically non-serial, I can say. I can say that this is a non-serial schedule. This is what you can say. Also, you can call it concurrent schedule.",
+      "avg_logprob": -0.08733974104253654,
+      "no_speech_prob": 0.59521484375
+    },
+    {
+      "start": 1937.34,
+      "end": 1969.87,
+      "text": " You can call this concurrent schedule. Okay. So like this, it is executing some operations of T1, then some operations of T2, then some operations of T1. So this is the interleaved fashion interleaved fashion. So the time is going like this. Remember, this is the timeline. The time is going like this. Okay. In this order, the time is going. Similarly, here also you can notice in this order, the time is going. So this is your, I can say timeline. Okay. Now let's move on. So finally, what are the point? The first point is, remember, every serial schedule is also concurrent.",
+      "avg_logprob": -0.14084981799983293,
+      "no_speech_prob": 0.71728515625
+    },
+    {
+      "start": 1970.33,
+      "end": 1999.54,
+      "text": " This is the first point, okay? Every serial schedule is also concurrent now. The next point. Serial schedule will always preserve the consistency, right? Serial schedule that is always going to preserve the consistency. Can anyone tell me why? What is the reason? Serial schedule will always preserve consistency. Why? Because we assume that every transaction will preserve consistency. Yes or no? Very simple. By definition or I can say by assumption, sorry. Yes or no? So the reason you already know why",
+      "avg_logprob": -0.13221154476587588,
+      "no_speech_prob": 0.7998046875
+    },
+    {
+      "start": 1999.82,
+      "end": 2034.34,
+      "text": " so because we assume because we assume that every transaction preserves consistency yes or no that every transaction that every transaction preserves consistency okay so this is what we assume we assume that every transaction every transaction yes or no so remember because we assume we assume that every transaction preserves consistency so that is the reason",
+      "avg_logprob": -0.06864754147216921,
+      "no_speech_prob": 0.59765625
+    },
+    {
+      "start": 2034.62,
+      "end": 2060.32,
+      "text": " that is the that is the reason this serial schedule is always consistent this serial schedule will always preserve consistency okay is this clear to everyone but what about concurrent schedule tell me what about concurrent schedule i can say that may or may not preserve consistency yes or no concurrent schedule may or may not concurrent schedule may or may not preserve consistency but do we okay now you tell me one thing concurrent schedule can create problems",
+      "avg_logprob": -0.08349609076976776,
+      "no_speech_prob": 0.210693359375
+    },
+    {
+      "start": 2060.84,
+      "end": 2090.04,
+      "text": " Sometimes it can create problems. Sometimes it will not create problem. So you want to come to the schedule or you want serial schedule. Tell me what you want. What is better? Serial schedule or concurrent? Definitely concurrent. You want concurrent schedule. Just think about it. Okay. In the real life, if you don't have concurrent execution, you will not use many apps, many applications you will not use. For example, in the go classes, just think about it. In the go classes, if you cannot was the same lecture simultaneously, there are.",
+      "avg_logprob": -0.22871767845133256,
+      "no_speech_prob": 0.642578125
+    },
+    {
+      "start": 2090.82,
+      "end": 2118.94,
+      "text": " there are many students okay hundreds of students are there now those students if there is a condition that okay like you have to watch the videos in a serial manner then then no one will take go classes course yes or no are you getting my point okay so a lot of a lot of loss will happen agree or not so you can notice that there is a same video just think about it in the go classes there is a same video same lecture exactly same lecture many students can watch it in parallel right yes or no",
+      "avg_logprob": -0.11320465540184695,
+      "no_speech_prob": 0.82958984375
+    },
+    {
+      "start": 2119.21,
+      "end": 2147.06,
+      "text": " like this is your same lecture let's assume so you can notice that let's assume this is go classes this is your go classes dbms module six lecture five okay so now you can notice that at the same time many users can watch it yes or no at the same time they can use it they can access it so I can say this is a shared data yes or no if you notice this lecture can I call it that this is shared",
+      "avg_logprob": -0.10086805729402436,
+      "no_speech_prob": 0.446044921875
+    },
+    {
+      "start": 2147.96,
+      "end": 2178.5,
+      "text": " This is shared by several transactions. This is shared by several transactions. Okay, so you can see that. Of course, definitely what I'm saying, I can say what I'm saying that. So this is shared by several transactions. Now, okay, many students, several students, they can watch it simultaneously. Now, you can clearly see that if there is a condition that you have to watch the lecture in a serial manner, then a lot of problem will happen.",
+      "avg_logprob": -0.13079896415631795,
+      "no_speech_prob": 0.603515625
+    },
+    {
+      "start": 2178.77,
+      "end": 2207.29,
+      "text": " Okay, definitely a lot of problem will happen. Okay, we like then many students they will not be able to watch the lectures. Okay, so you can clearly see that we want we want concurrent execution. Why we want concurrent execution? We want concurrent execution for better performance, you will get better performance, you will get better disk utilization, better CPU utilization, better throughput, okay, better response time. So everything will be better. That is the reason we want concurrent schedules. Okay, so very simple.",
+      "avg_logprob": -0.1443058937214888,
+      "no_speech_prob": 0.448974609375
+    },
+    {
+      "start": 2207.55,
+      "end": 2235.24,
+      "text": " now one more thing i want to tell you like how the concurrent is how can you use the concurrency like for example this concurrency how can you use you can use this in a very careful manner yes or no this concurrency you must use in a careful manner because concurrency can create problems you already know that concurrent schedule can create a problem it can it can bring inconsistency this concurrent schedule can create inconsistency in your database",
+      "avg_logprob": -0.06566011235955056,
+      "no_speech_prob": 0.2108154296875
+    },
+    {
+      "start": 2235.69,
+      "end": 2264.18,
+      "text": " okay so you must definitely take care in the concurrency so for example let me tell you like how can you use concurrency you can do like this let's assume there is a transaction and there is a transaction T2 there is a transaction T3 let's assume this is doing this operation okay A-40 let's assume you are doing this operation this operation so this operation will happen where tell me tell me this operation will happen where",
+      "avg_logprob": -0.1451527044515718,
+      "no_speech_prob": 0.6171875
+    },
+    {
+      "start": 2264.46,
+      "end": 2291.7,
+      "text": " in the disk or in the CPU. This operation will happen here, disk or CPU. So this will happen in the CPU, right? Okay, for this operation, you need CPU. So definitely this operation, this subtraction operation will be done by the CPU, by the arithmetic logical unit, there is a ALU. Okay, by the ALU, this operation will be done. So definitely this operation will happen in the CPU. At the, okay, now you can notice when this operation is happening in the CPU. Okay.",
+      "avg_logprob": -0.16122158576141704,
+      "no_speech_prob": 0.73681640625
+    },
+    {
+      "start": 2292.03,
+      "end": 2320.56,
+      "text": " when this operation is happening in the CPU at that point of time so do you wait or can you like this T2 can it read can it read something can it read something yes of yes of course so this is the disk access this is the disk access so you can notice when this operation is going on this CPU is doing this operation now once you start this operation first you start this operation now the CPU is doing this operation",
+      "avg_logprob": -0.11291787808024606,
+      "no_speech_prob": 0.131103515625
+    },
+    {
+      "start": 2320.91,
+      "end": 2349.03,
+      "text": " you have started this operation remember you started this operation at that point of time now CPU is busy with this operation so i can say t2 can i say t1 is idle at this point of time for some for some point of time t1 will be ideal because CPU is doing the operation do you agree yes or no because yes or no so this t1 will be ideal i can say idle for some time this t1 will be idle for some time in that time what we can do this t2 can do the disk access",
+      "avg_logprob": -0.09710864388497076,
+      "no_speech_prob": 0.68359375
+    },
+    {
+      "start": 2349.92,
+      "end": 2378.73,
+      "text": " Similarly you can notice after this you tell me let's assume this T2 is doing the CPU at this point of time now this CPU is doing the I can say this this T2 is doing the CPU using the CPU so now this T2 is using CPU now you tell me at this point of time what we can do at this point of time you can start the access you can start the disk access of T3 and after starting this you tell me one more thing when this is busy with the disk access",
+      "avg_logprob": -0.10270023982501725,
+      "no_speech_prob": 0.406494140625
+    },
+    {
+      "start": 2378.98,
+      "end": 2406.22,
+      "text": " after starting after starting this you can also start the I can say this access of this also so this is what I'm saying I'm saying that this is how you can use concurrency okay when someone like when this T1 is busy with CPU then T2 can access the disk when T2 is busy with CPU then T3 can access the disk T1 can access the disk okay so this is how you can do the better utilization of what okay like this like this what you are doing like this you are doing what",
+      "avg_logprob": -0.08452380725315639,
+      "no_speech_prob": 0.173828125
+    },
+    {
+      "start": 2406.51,
+      "end": 2434.87,
+      "text": " like this you are doing better disk utilization your disk is not idle for long time yes or no do you agree this is better disk utilization and this is better CPU utilization okay so it is better disk utilization better CPU utilization and response time is also better for example you just think about it and tell me like if I do serial manner okay let's because only one CPU you have so only one operation you can start at any point of time",
+      "avg_logprob": -0.08409662407705154,
+      "no_speech_prob": 0.552734375
+    },
+    {
+      "start": 2435.31,
+      "end": 2465.21,
+      "text": " we are assuming that there is only one CPU only one disk this is our assumption our assumption is only one CPU our assumption is only one CPU only one disk so of course at the same time you cannot do two things but you can start them do you agree yes or no like for example when T1 has started this this operation has been started now CPU is busy now this CPU this T1 is using the CPU this T1 it is using the CPU at that time you can start disk",
+      "avg_logprob": -0.10220025289727717,
+      "no_speech_prob": 0.80078125
+    },
+    {
+      "start": 2465.47,
+      "end": 2492.13,
+      "text": " this access you can start okay when T2 is busy with CPU then you can access this start the disk access of T1 okay so this is how you can do okay so better disk utilization and better CPU utilization you tell me one more thing let me assume that there are and better response using concurrency you can also have better response what I mean by that let's see that so because of concurrency you can have better response time",
+      "avg_logprob": -0.11413434010812606,
+      "no_speech_prob": 0.65380859375
+    },
+    {
+      "start": 2496.73,
+      "end": 2523.21,
+      "text": " Better response time. How can you have better response time? Just assume that this T1 is a very small transaction. Just think about it. Let's assume this is a very very very small transaction and this T2 is a very huge transaction. Okay. So this is a huge transaction. Let's assume T3 is also a huge transaction. Let's assume T4 is also a huge transaction. Now, if you do serially, there will be a problem. Do you agree? Do you agree that if you do serial execution, what will happen?",
+      "avg_logprob": -0.09285910407963552,
+      "no_speech_prob": 0.453369140625
+    },
+    {
+      "start": 2523.95,
+      "end": 2550.81,
+      "text": " in the serial execution if you do like this first you do t2 it will take a lot of time it will take a lot of time then you will do t3 it will take a lot of time then you will do t4 it will take a lot of time then finally t1 will come okay you tell me one thing t1 is very small t1 is very small you tell me one thing response time is very bad yes or no can you see the response time is bad these are huge transactions let's assume these are huge transactions now definitely you can see that",
+      "avg_logprob": -0.06487772101941316,
+      "no_speech_prob": 0.2467041015625
+    },
+    {
+      "start": 2551.04,
+      "end": 2579.74,
+      "text": " The I can say the response very poor response time. Can I say very poor response time? Yes or no. This is very poor response time. This type of problem you've seen in the operating system. Have you seen this in the FCFS? This type of Convoy effect. Okay. This type of situation is called Convoy effect in the operating system. Your first come first serve first in first out. Okay. That algorithm has the that suffers with the Convoy effect. This type of situation you have already seen there.",
+      "avg_logprob": -0.14005160277042913,
+      "no_speech_prob": 0.6357421875
+    },
+    {
+      "start": 2580.04,
+      "end": 2607.54,
+      "text": " so you can notice that this is very poor response time very poor now but you can notice if you do the concurrent execution then that is better agree or not so when you do the concurrent execution then can what can happen this T1 will execute some operations now let's assume T1 is busy with CPU let me assume T1 is busy with CPU at that point of time for example uh oh sorry uh let's assume this T2 is busy with CPU this T2 this T2 is a huge schedule",
+      "avg_logprob": -0.0926670756670508,
+      "no_speech_prob": 0.29833984375
+    },
+    {
+      "start": 2607.95,
+      "end": 2635.47,
+      "text": " Okay, it is busy with CPU at that point I'm maybe T3 is also there. Okay T3 can run at this point of time T3 can use the disk now. Okay, so you can notice that T4 can run then then T1 can also run and that's it even is small. So now T1 will be over. Yes or no T1 will be completed. So T1 will be completed. So definitely there is a better response time if you have concurrent execution. So do you agree that there will be a better response time. Yes or no. So very simple.",
+      "avg_logprob": -0.169207314892513,
+      "no_speech_prob": 0.677734375
+    },
+    {
+      "start": 2635.71,
+      "end": 2667.77,
+      "text": " So because of this concurrency, you will have better response time, better CPU utilization, better disk utilization. Okay. All these things are better and better throughput. What does throughput means? What does throughput means? What does throughput means? This throughput means in given amount of time, like in given amount of time, how many schedules you can do? How many transactions you can complete? Okay. Within given amount of time. Okay. In a, I can say in given amount of time or I can say per unit of time.",
+      "avg_logprob": -0.13302751746746377,
+      "no_speech_prob": 0.267822265625
+    },
+    {
+      "start": 2668.44,
+      "end": 2698.79,
+      "text": " you can call it in given amount of time or I can say that for example I can say per unit of time per unit of time you can decide what is the unit like one minute one to one hour one second so per unit of time okay how many transactions we can how many transactions can execute yes or no how many how number of transactions that that can execute number of transactions that can execute is this clear to everyone",
+      "avg_logprob": -0.13709078055052532,
+      "no_speech_prob": 0.81689453125
+    },
+    {
+      "start": 2699.05,
+      "end": 2728.27,
+      "text": " please tell me so this is your throughput throughput means per unit of time okay within like per second per minute per hour whatever okay so per unit of time that unit you can decide that is your choice like whether you decide per second or per hour or per day that is your choice okay so per unit of time how many transactions number of transactions that can execute this is throughput so definitely this throughput is better with the concurrent yes or no better this better throughput with the concurrency with the concurrent execution",
+      "avg_logprob": -0.11224489727494669,
+      "no_speech_prob": 0.86767578125
+    },
+    {
+      "start": 2729.3,
+      "end": 2758.38,
+      "text": " Very simple. Okay. So with the concurrent execution, it will be better. When you do the concurrent execution, then you will get a better throughput because you, you can utilize when one transaction is busy, the status is busy with CPU at that, that time you can utilize utilization you can do. Similarly, when T3 is busy with disk that utilization you can do. Okay. So you can clearly see that you will have, you will get a better throughput. So these are the advantages. So we want. Finally, I can say throughput is better resource utilization is better.",
+      "avg_logprob": -0.16452205406517542,
+      "no_speech_prob": 0.88671875
+    },
+    {
+      "start": 2758.74,
+      "end": 2786.5,
+      "text": " Okay. So all these things we have seen and finally I can say average response time is better. All these things are better. Okay. Now you tell me one thing. Did you find some like, are you thinking that you have seen all these things before early in some other subject? All these things that I told you just now, have you seen them some in some other subject? Yes. In operating system. Let me tell you there are many similarity in operating system and in DBMS.",
+      "avg_logprob": -0.11331992279184927,
+      "no_speech_prob": 0.35888671875
+    },
+    {
+      "start": 2786.86,
+      "end": 2816.33,
+      "text": " there are many similarity in the operating system there is a concept of process there is a concept of process and that concept that concept is very I can say identical that is identical to transaction so your process concept is identical to transaction okay and your process scheduling concept that is I can say process scheduling concept okay that is I can say that is very similar to your transaction concurrent execution",
+      "avg_logprob": -0.09359164163470268,
+      "no_speech_prob": 0.6611328125
+    },
+    {
+      "start": 2817.15,
+      "end": 2846.25,
+      "text": " okay so this process scheduling concept that is very similar to concurrent execution of transaction I am just saying that they are identical like okay they are I can say analogy this is nothing but analogy okay so very simple is this clear to everyone tell me so this operating system and DBMS they have the analogy and let me tell you what happened that many questions of your operating system they can be converted just just replace this process word with the transaction and they can be created in DBMS and this has happened in the gate exam",
+      "avg_logprob": -0.11197916557099305,
+      "no_speech_prob": 0.65869140625
+    },
+    {
+      "start": 2846.6,
+      "end": 2873.66,
+      "text": " In the gate exam, there is operating system question and that same question as it is without any change what they did the gate exam what it did the same question they are this operating system question was there in the gate exam I think I don't I don't remember it okay let's assume 2005 you can check it out okay so this operating system question is there in the gate 2005 now after 10 years after 10 years okay so",
+      "avg_logprob": -0.1989462191975394,
+      "no_speech_prob": 0.7001953125
+    },
+    {
+      "start": 2873.96,
+      "end": 2903.65,
+      "text": " after 10 years the same question came in dbms almost after 10 years the same exactly same question came in dbms okay and the only what they did you can check that question the only thing they did this process word they changed with the transaction word basically that same question they converted into a dbms question exactly same question this word they changed with this word okay and you can see you can you can check it out basically that is very similar question",
+      "avg_logprob": -0.07859205454587936,
+      "no_speech_prob": 0.54150390625
+    },
+    {
+      "start": 2904.03,
+      "end": 2932.23,
+      "text": " So this also can be done. So there are many similarity in operating system and DBMS. This process is very similar to very analogous to transaction. So this is the analogy you can draw. So there are some questions that you can convert into, I can say, questions of process. Those you can convert into questions about transaction. Similarly, questions related to transaction, you can convert into questions related to process. Of course, not for all. I'm not saying that every question.",
+      "avg_logprob": -0.13921875,
+      "no_speech_prob": 0.201416015625
+    },
+    {
+      "start": 2932.79,
+      "end": 2962.03,
+      "text": " You cannot do this for every question because this is just an analogy, nothing else. Okay. So, but you can do this for some questions and the gate exam has done it. Okay. So anyway, so finally we have seen isolation, right? This isolation we have already seen what is this isolation property? Give a pseudo field that you are executing alone. This pseudo field you give. So this isolation property we have already seen now. Now I told you how to ensure I saw isolation. You tell me that if you want to ensure isolation, what you will do.",
+      "avg_logprob": -0.17681624644841903,
+      "no_speech_prob": 0.7041015625
+    },
+    {
+      "start": 2963.29,
+      "end": 2993.7,
+      "text": " Ensure isolation. Then the idea is very simple. You know that who has the isolation. So you already know that let's assume you are thinking. Okay, just just think like this. Let's assume you are thinking that how to do this, how to ensure isolation when you have when you are doing concurrent execution. So let's assume this is what you are thinking that ensure isolation for concurrent execution. So when you have concurrent execution, then how to ensure isolation. Let's assume you are thinking then what you will think you will think that",
+      "avg_logprob": -0.1627252324744388,
+      "no_speech_prob": 0.80224609375
+    },
+    {
+      "start": 2993.9,
+      "end": 3022.73,
+      "text": " you will see who is already who already has the isolation right yes or no you will think that see this is your idea you already know the serial serial execution i can say preserves isolation this you already know okay now you will think that if serial execution is preserving isolation if it is already preserving isolation then can i do this that basically i allow those this is the idea idea is very simple this idea is that that allow those transactions",
+      "avg_logprob": -0.10219840289548386,
+      "no_speech_prob": 0.6396484375
+    },
+    {
+      "start": 3023.4,
+      "end": 3054.63,
+      "text": " allow those concurrent executions those concurrent executions which are whose effect I can say okay so whose effect is equivalent to some serial schedule yes or no equivalent to some some serial schedule so if your if your effect okay so here these are the words",
+      "avg_logprob": -0.16238839285714285,
+      "no_speech_prob": 0.7080078125
+    },
+    {
+      "start": 3054.89,
+      "end": 3083.83,
+      "text": " whose effect is equivalent to some serial schedule so if you can do that then definitely I can say this is the idea then you can ensure the isolation for concurrent execution so tell me did you understand this idea because you already know that serial execution will preserve the isolation because in the serial execution you are executing one after other okay so this is the idea that you allow concurrent execution only those concurrent execution you allow whose effect is equivalent to is equivalent to some serial schedule",
+      "avg_logprob": -0.061899039607781633,
+      "no_speech_prob": 0.64697265625
+    },
+    {
+      "start": 3084.25,
+      "end": 3115.53,
+      "text": " Okay. So this is the definition. This is the, this is how you can do the preserve the isolation. And let me tell you, this is the definition of serializability. Okay. This concept is called serializability. So this idea, let me tell you the name of this idea is it is called serializability. This idea that is called serializability. So serializability means basically those concurrent executions we allow whose effect is equivalent to some serial schedule. Okay. Very simple. So this is your idea.",
+      "avg_logprob": -0.10824887400811857,
+      "no_speech_prob": 0.626953125
+    },
+    {
+      "start": 3115.89,
+      "end": 3144.06,
+      "text": " is this clear to everyone so remember serializability what it means you can say that being equivalent to being equivalent to some serial schedule okay very simple now so very simple this this idea now one very important thing i want to tell you that is this serializability definition what the definition says let's let's assume you have a schedule s please understand this serializability definition because a lot of tricky questions i can ask you",
+      "avg_logprob": -0.1064338224775651,
+      "no_speech_prob": 0.472900390625
+    },
+    {
+      "start": 3144.94,
+      "end": 3174.27,
+      "text": " Okay. And a lot of misconceptions many students have. So what I'm going to tell you now, please understand this carefully. What is the definition of serial liability? Serial liability definition. What that definition is. The definition is like this. Let's assume you have a schedule. Now this can be concurrent schedule or serial schedule. Basically, this is any concurrent schedule. Remember, every serial schedule is also concurrent. Yes or no? So let's assume this is a concurrent schedule S. Now what I'm saying, I'm saying that",
+      "avg_logprob": -0.174690318537188,
+      "no_speech_prob": 0.387451171875
+    },
+    {
+      "start": 3176.42,
+      "end": 3206.73,
+      "text": " when can you say that as is serializable when can you say this as is a serializable I am not saying serial I am saying as is serializable so as is serializable if and only if this word is very important for every possible initial state for every remember for every possible initial state for every possible initial data state this is very important for every for every I can say initial",
+      "avg_logprob": -0.12611606833222624,
+      "no_speech_prob": 0.71044921875
+    },
+    {
+      "start": 3207.11,
+      "end": 3241.67,
+      "text": " database state for every initial database state what should happen what should happen i can say that the effect of s the effect of s is the same as is the same as some serial schedule is the same as some serial schedule okay so these are the words you should focus what are the words first of all every for every initial database issue these words are very important please understand",
+      "avg_logprob": -0.09760274217553334,
+      "no_speech_prob": 0.63037109375
+    },
+    {
+      "start": 3242.06,
+      "end": 3271.46,
+      "text": " because I have seen this many students what they do they don't fuck I don't know why they don't focus on these words every some so these words are very important yes or no see so this is the first word this is very important that s is serializable when can you say that s is serializable s is serializable if for every initial database state of course every initial consistent yes or no you should always start in the consistent state correct okay so for every initial consistent database state effect of s",
+      "avg_logprob": -0.10875619136460937,
+      "no_speech_prob": 0.7197265625
+    },
+    {
+      "start": 3271.8,
+      "end": 3301.47,
+      "text": " is the same as some serial schedule is this clear to everyone remember sometimes what will happen sometimes it will happen that for some initial state if you have this let's assume let's assume let's assume if you have for some initially state if this happens for some initially state let's assume this happens then can you call it serializable tell me tell me tell me can you call it serializable let me know if this happens then can I call it serializable for some",
+      "avg_logprob": -0.11836357238472149,
+      "no_speech_prob": 0.79736328125
+    },
+    {
+      "start": 3301.72,
+      "end": 3331.2,
+      "text": " initial state for some initial state if this happens then can i call it serializable the answer is no okay then then may or may not be serializable then we cannot guarantee serializability okay then may or may not then as may or may not be serializable as may or may not be serializable because remember you know okay so for something if happens i don't care for every initial state this would happen",
+      "avg_logprob": -0.16444359338138162,
+      "no_speech_prob": 0.38330078125
+    },
+    {
+      "start": 3331.53,
+      "end": 3360.42,
+      "text": " okay remember so so as or as may or may not be serializable serializable so this is the definition please understand this definition is this clear to everyone let me know okay so for this is the definition ultimately serializable means that for every initial database state the effect of s is same as some of the serial schedule and remember this point okay please remember that this you can understand remember what you have to remember",
+      "avg_logprob": -0.12905092886936517,
+      "no_speech_prob": 0.76904296875
+    },
+    {
+      "start": 3364.13,
+      "end": 3401.52,
+      "text": " Okay, something like that. Okay. So like I'm just writing it in simple words, faulty words shows correct time two times a day twice a day shows correct time twice a day. So remember, okay. So understand this. So remember this, this point, because this is going to be useful now. Okay. Anyway, now let's see this point. Now one by one, I am going to see, uh, I'm going to give you some, uh, questions and let's take it out. Is this serial schedule? Sorry. Uh, first of all, you tell me, is this serial schedule? You tell me that.",
+      "avg_logprob": -0.1628964550014752,
+      "no_speech_prob": 0.62939453125
+    },
+    {
+      "start": 3401.73,
+      "end": 3429.33,
+      "text": " Is this serial schedule? You tell me very simple thing I'm asking. Is this serial schedule? Yes. Okay. So let's just complete this immediately. So you tell me serious. This is not a serial schedule, right? This is a concurrent schedule. And let me assume that consistency requirement is A is equal to B. I'm giving you that should be given, right? Yes or no? Agree or not? So the database consistency requirement I'm giving you. The database consistency requirement I'm giving you.",
+      "avg_logprob": -0.18209695760334763,
+      "no_speech_prob": 0.455810546875
+    },
+    {
+      "start": 3431.14,
+      "end": 3457.56,
+      "text": " This consistency requirement. Let's assume this is a equal to b. Okay. Is this clear? This is the consistency requirement database consistency requirement for the database. This is the consistency requirement that a should be equal to b. Let's assume now what I'm saying. Now you tell me is this serializable? This is you do on your screen. Is this serializable? What it means? Is this serializable? So here you can notice that.",
+      "avg_logprob": -0.18262768240385158,
+      "no_speech_prob": 0.17138671875
+    },
+    {
+      "start": 3457.87,
+      "end": 3485.03,
+      "text": " now let's assume that a comma b initially you take some value for example let's assume 30 30 initially these are the value you tell me here what will happen at this point of time what will happen in the database what is the value of a in the database database what is the value of a that is 130 right okay that will be 130 now you tell me okay now this is the concurrent execution this is not serial execution at this point of time when you read a what value you will read",
+      "avg_logprob": -0.08412247519902509,
+      "no_speech_prob": 0.1798095703125
+    },
+    {
+      "start": 3485.8,
+      "end": 3514.46,
+      "text": " when you read a what value you will read so here what will happen in as what value you have in as what is the value in as the value is 130 right yes or no because when you read you will read from the database and in the database the value is 130 so you will read from the database and you're already your value of is 130 so this as will have value 130 now tell me in the database what is will be the value of a please tell me in the database what is going to be the value of a",
+      "avg_logprob": -0.12967289636068255,
+      "no_speech_prob": 0.6796875
+    },
+    {
+      "start": 3515.35,
+      "end": 3543.24,
+      "text": " You will put the value of S in the A. So that will be 260. Now A value, okay, A has 260. You tell me about this one. You tell me about this one at this point of time. What will be the in the database? What will be the value of B? Tell me in the database, what is going to be the value of B? That will be again. So you cannot, that will be one six, one 30. That will be one 30. Now you tell me about this one. Now when you read this, what will be the S value?",
+      "avg_logprob": -0.2079133003229095,
+      "no_speech_prob": 0.5986328125
+    },
+    {
+      "start": 3544,
+      "end": 3573.23,
+      "text": " now again you are reading again you are reading so you will read from the database from the database you will read B so here S value will be basically 130 and now you tell me about this one when you write in the database what will be the value of B in the database that will be once that will be 260 right yes or no you tell me one thing you tell me one thing can I say that this is serializable can I say this is serializable can I call it",
+      "avg_logprob": -0.09552190967441834,
+      "no_speech_prob": 0.52197265625
+    },
+    {
+      "start": 3573.48,
+      "end": 3602.38,
+      "text": " See, there is a mistake I have done. What is the mistake? There is a mistake I have done. What is that? For a specific value I have done. Yes or no? Are these things I have done for the specific value? Do you agree or not? Yes or no? Do you agree that for a specific value I have done? But you can check it out. The same thing will happen if for random value. You can check it out. Like if I have some random value, like let's assume xx. If you have xx, then the same thing will happen. Here the database value will be 2x. Okay, so here the",
+      "avg_logprob": -0.1542119523105414,
+      "no_speech_prob": 0.701171875
+    },
+    {
+      "start": 3604.56,
+      "end": 3630.8,
+      "text": " The data base value here will be x plus. You can check it out. It will be x plus 100. So actually this will work. You can just check it out. Okay. I'm just telling you that it will work for every initial state. Whatever initial state you take, it will work. This is what I'm telling you. Is this clear? You can check it out. I'm taking x comma x. This is what I'm taking because consistency requirement is equal to b. So the initial state I'm taking consistent xx because",
+      "avg_logprob": -0.1440818626268775,
+      "no_speech_prob": 0.58642578125
+    },
+    {
+      "start": 3631.07,
+      "end": 3660.09,
+      "text": " As I told you consistency requirement is equal to be so the initial initially you must have a consistent state. You are starting in a consistent state. Now you can see that what your database value will be. Tell me at this point of time your that will be twice of X plus 100. Now the same thing you can see that here the value of B will be X plus 100. Okay. So what as will read what as will read as will read X plus 100. Finally, what your database value will be.",
+      "avg_logprob": -0.17767857029324485,
+      "no_speech_prob": 0.50048828125
+    },
+    {
+      "start": 3660.82,
+      "end": 3689.4,
+      "text": " Finally, what your database value, the database value B, that will be 2 into X plus 100. So, can you notice that now you tell me this schedule, does it preserve consistency? This schedule, does it preserve consistency? Does it preserve consistency? Yes, of course, this is preserving consistency, right? See this and this. This is definitely preserving consistency. This schedule will always preserve consistency. Yes, or no, I can say that this schedule will preserve.",
+      "avg_logprob": -0.18476160285399132,
+      "no_speech_prob": 0.40478515625
+    },
+    {
+      "start": 3690.87,
+      "end": 3721.47,
+      "text": " consistency okay this schedule will always always always whatever whatever state you start this schedule will always preserve consistency you tell me one more thing you tell me one more thing this is the result that you are getting for a random values I am taking do you agree that I am considering all the states do you agree that I am considering all the initial states when I take x comma x when I take x comma x I am taking all all the initial states but I did not see",
+      "avg_logprob": -0.11374327732670692,
+      "no_speech_prob": 0.82421875
+    },
+    {
+      "start": 3721.8,
+      "end": 3751.24,
+      "text": " okay some states I did not consider like where you have a is 30 and B is 40 should I consider that should I consider that initially a is 30 B is 40 should I consider that are you know because the consistency requirement is already given to you in the question the consistency requirement is a equal to b so you should always start in the consistent in the consistent state you should always start in this state so do you agree that I covered I have covered all the initial states do you agree because I am taking",
+      "avg_logprob": -0.1594987688678326,
+      "no_speech_prob": 0.69384765625
+    },
+    {
+      "start": 3751.6,
+      "end": 3782.25,
+      "text": " I am not taking specific value, I am taking random value x comma x. So I have covered all the situations, all the initial states I have considered. Okay. Now you tell me one more thing. This schedule, this is equivalent to which serial schedule? This result, this result, who will get, who will give you this result? Which serial schedule will give you this result? This serial, which serial schedule is going to give you this result? Tell me. Tell me. Let me know. Which serial schedule?",
+      "avg_logprob": -0.19270832988399048,
+      "no_speech_prob": 0.5771484375
+    },
+    {
+      "start": 3783.82,
+      "end": 3813.4,
+      "text": " will give me this result consider this schedule let's call it schedule as ultimate you can call it schedule as whatever yes which is see which serial schedule will give me this result tell me so that is T1 after T2 yes or no first even then T2 first even then T2 so you can clearly see that previous concurrent schedule previous concurrent schedule this previous concurrent schedule for",
+      "avg_logprob": -0.22479167143503825,
+      "no_speech_prob": 0.80029296875
+    },
+    {
+      "start": 3815.3,
+      "end": 3848.97,
+      "text": " every initial state yes or no for every initial state gives the same effect gives the same effect or result same effect or I can say result okay as serial schedule T1 then T2 as serial schedule T1 then T2 okay so remember for every initial state",
+      "avg_logprob": -0.12034254592771713,
+      "no_speech_prob": 0.8447265625
+    },
+    {
+      "start": 3849.18,
+      "end": 3878.73,
+      "text": " for every initial I can say for every initial database consistent state for every initial database consistent state it will give you the same effect the same result it will give you always always as serial schedule t1 to t2 so can I say so can I say it is serializable so can I say it is serializable yes or no so can I say this is serializable of course because for every initial state whatever initial state you take this will give you same effect",
+      "avg_logprob": -0.10903532511514166,
+      "no_speech_prob": 0.74365234375
+    },
+    {
+      "start": 3879.11,
+      "end": 3908.84,
+      "text": " it will always give you the same effect as serial schedule even as this execution okay this execution and our and our this execution they will always have the same effect always whatever initially state you take whatever so can I say that this concurrent schedule is so previous concurrent schedule what does that tell me so previous concurrent schedule is serializable is this clear to everyone that is serializable",
+      "avg_logprob": -0.12842465263523467,
+      "no_speech_prob": 0.8203125
+    },
+    {
+      "start": 3909.31,
+      "end": 3939.32,
+      "text": " Let me know. Please tell me. You can check it. You can just check it. You find T1 then T2. You find this. You see the effect of this. What this will do? If you do this, if you do this serial execution, I can give you this as a homework. If you do this serial execution T1 then T2, if you do this manually, by analysis, if you do this serial execution, then again what will happen? Then again this will happen. If you start in the initial state this,",
+      "avg_logprob": -0.17982456257991625,
+      "no_speech_prob": 0.50341796875
+    },
+    {
+      "start": 3939.66,
+      "end": 3969.12,
+      "text": " then your final effect will be this what your final effect will be that will be 2 into x plus 100 and B will be 2 into x plus 100 this is what I am saying is this clear mavit if you see this serial schedule if you see the serial execution then this will also give you the same effect okay the same effect the same effect this concurrent execution is giving you for every initial state so that is the reason we can call it serializable this is the definition of serializable",
+      "avg_logprob": -0.12149234496209087,
+      "no_speech_prob": 0.599609375
+    },
+    {
+      "start": 3969.39,
+      "end": 3999.35,
+      "text": " is this clear to everyone please tell me no t2 to t1 will not give you this you can check it out okay you can check it out t2 to t1 will not give you this this effect see t2 then t1 if you see then what will happen first you do t2 and then you t1 if you do this then what will happen if you start in a equal to x b equal to x then what your final value will be that will be 2x plus 100 see that will be 2x plus 100 are you getting my point",
+      "avg_logprob": -0.06332964812759805,
+      "no_speech_prob": 0.7939453125
+    },
+    {
+      "start": 3999.69,
+      "end": 4029.59,
+      "text": " So that will be 2x plus 100 and the B value will be 2x plus 100. So this is what I'm saying. I'm saying that C but just C that is fine like consistency of course the serial schedule will create the consistency but this is not the same effect. Please understand this word same effect. This is not the same effect same result as this concurrent schedule. Tell me T1 then T2 or T2 then T1 which is giving you same effect.",
+      "avg_logprob": -0.1609534373392864,
+      "no_speech_prob": 0.2088623046875
+    },
+    {
+      "start": 4029.86,
+      "end": 4060.26,
+      "text": " on the database as this concurrent schedule mayuk is this clear what i'm saying this concurrent schedule will give you this effect on the database this concurrent schedule will not give you this effect on the database is this clear let me know this concurrent schedule is giving you this effect same effect as this t1 to t2 for every initial state this will happen so that is the reason i can say",
+      "avg_logprob": -0.05163261179740612,
+      "no_speech_prob": 0.76708984375
+    },
+    {
+      "start": 4060.56,
+      "end": 4089.21,
+      "text": " this concurrent schedule is serializable and I can say equivalent to what and I can say equivalent to equivalent to t1 then t2 and we only want some serial schedule yes or no I told you that we only want equivalent to some serial schedule please understand this please focus on this word some serial schedule we want effect to be equivalent to some serial schedule we don't want effect to be equivalent to all serial schedule",
+      "avg_logprob": -0.10384908418466406,
+      "no_speech_prob": 0.406982421875
+    },
+    {
+      "start": 4089.63,
+      "end": 4119.16,
+      "text": " this effect must be same as some serial schedule so you can notice this is this concurrent schedule will give you the same effect as this serial schedule is this clear or not please tell me any doubt or a consistency see the consistency will be obviously preserved because this is serial schedule the consistency will always be preserved this is also serial schedule this is also serial schedule they will always preserve consistency but but but",
+      "avg_logprob": -0.12980769460017866,
+      "no_speech_prob": 0.615234375
+    },
+    {
+      "start": 4119.45,
+      "end": 4149.18,
+      "text": " this concurrent execution is giving you the same effect as this concurrent as this serial schedule you can notice this is not giving you the same effect as this so that is the reason I can say that this concurrent schedule is equivalent to T1 then T2 and that is enough yes or no being equivalent to some serial schedule is enough being equivalent to one serial schedule is enough yes or no",
+      "avg_logprob": -0.10366981947108318,
+      "no_speech_prob": 0.72021484375
+    },
+    {
+      "start": 4149.93,
+      "end": 4179.41,
+      "text": " is this clear to everyone in the next class it will become more clear okay don't worry in the next in the next lecture it will become more clear so we will see the remaining things in the next lecture but let me tell you something very interesting if you have already studied this this serializability if you have already studied from some other resources let me tell you that we will study tomorrow what we are going to study the serializability we will study I am just telling you what we will study tomorrow we will continue the serializability",
+      "avg_logprob": -0.10894097070451136,
+      "no_speech_prob": 0.92333984375
+    },
+    {
+      "start": 4180.75,
+      "end": 4208.08,
+      "text": " serializability don't worry if you understood this very good if you did not understand don't worry tomorrow it will become clear okay tomorrow it will become very clear if you did not understand the last example if you did not understand the previous example then don't worry I will make it clear this will become crystal clear so tomorrow okay tomorrow we will study this serializability but let me tell you that we will study two type of serializability",
+      "avg_logprob": -0.06921523675489961,
+      "no_speech_prob": 0.5966796875
+    },
+    {
+      "start": 4208.46,
+      "end": 4240.09,
+      "text": " One is called conflict serializability. There are two types of serializability that we will study. One is conflict serializability. And what is another? We will study two types of serializability. One is conflict serializability. And another is a view serializability. Okay. So this is what we will study. Now we will also see that this conflict serializability. If something is conflict serializable, that is also view serializable.",
+      "avg_logprob": -0.09627278932991128,
+      "no_speech_prob": 0.330322265625
+    },
+    {
+      "start": 4240.65,
+      "end": 4270.99,
+      "text": " like if something if any schedule is conflict serializable that is also view serializable now you tell me one thing is it possible that something is serializable but not view serializable is it possible that some schedule is serializable but not view serializable is it possible I'm asking those students who have already studied from some other resources I'm asking this question to those students is it possible",
+      "avg_logprob": -0.16710633349109005,
+      "no_speech_prob": 0.472900390625
+    },
+    {
+      "start": 4271.44,
+      "end": 4300.24,
+      "text": " that some schedule is serializable but not view serializable the answer is yes it is possible so we will see this that serializability is a bigger thing so something can be view serializable but not be serializable so this is what we will see in the next class serializable so remember this conflict serializability we will study view serializability we will study but remember remember remember this",
+      "avg_logprob": -0.05750593344999265,
+      "no_speech_prob": 0.446044921875
+    },
+    {
+      "start": 4300.95,
+      "end": 4331.58,
+      "text": " serializability is a bigger face this is a bigger game okay so there are some things there are some schedules which are serializable but which are not view serializable okay every view serializable is serializable but there are many schedules which are serializable but not view serializable and this is what we will study in the next lecture okay so now tomorrow we will study this don't worry",
+      "avg_logprob": -0.09810697268217038,
+      "no_speech_prob": 0.423095703125
+    },
+    {
+      "start": 4331.84,
+      "end": 4360.28,
+      "text": " I have already taken actually this this example I have already taken see this this example this this schedule on your screen this schedule is serializable but we will see that this is neither view serializable this is nor conflict serializable I will tell you this in the next lecture I will tell you that this schedule on your screen this schedule this schedule on your screen this is serializable we will prove it don't worry I don't worry we will prove it this is serializable",
+      "avg_logprob": -0.1304853658409829,
+      "no_speech_prob": 0.67236328125
+    },
+    {
+      "start": 4360.67,
+      "end": 4388.47,
+      "text": " but this is not view serializable this is not a conflict serializable but this is serializable okay and this schedule is taken from the Ulman book from the Ulman I have taken this schedule and this is a serializable schedule but this is not a view serializable this is not a conflict serializable okay and this is what we will study in the next lecture so many beautiful things are coming and if you have already seen if you have already studied from some other resources many of your misconceptions will clear in the next lecture.",
+      "avg_logprob": -0.10384728569748267,
+      "no_speech_prob": 0.2227783203125
+    },
+    {
+      "start": 4388.75,
+      "end": 4414.77,
+      "text": " okay so beautiful lecture is coming tomorrow and tomorrow we will start at 4pm okay at this point of time we will start so that we can cover at least this completely we can cover okay at least this okay so anyone has any doubt see in this lecture I told you serializability if you did not understand forget about it because anyway I will again start tomorrow okay whatever we have seen today in the serializability",
+      "avg_logprob": -0.08494917348206761,
+      "no_speech_prob": 0.23291015625
+    },
+    {
+      "start": 4415.14,
+      "end": 4442.06,
+      "text": " from serializability the definition of serializability the example of serializability all these things i will again tell you tomorrow with many examples more questions many examples so if this i can say if this example of serializability that i have taken if you did not understand this it is fine okay it is fine if you did not understand this previous example don't worry about it tomorrow i will again start okay i will give i will take many examples many questions and i will make i will make sure",
+      "avg_logprob": -0.09210937567055226,
+      "no_speech_prob": 0.71484375
+    },
+    {
+      "start": 4442.37,
+      "end": 4472.98,
+      "text": " that this serializability becomes your favorite topic in entire Gates levels. Okay. This is very interesting. Let me tell you, you will never feel, I can say, bored when you are solving the questions of serializability, you will never feel bored. Okay. So that is what we, that we will make sure. Okay. So anyway, so tomorrow we will continue that anyone has any doubt so far. Don't ask any doubt from serializability that I will, that I will cover tomorrow. Before that, do you have any doubt?",
+      "avg_logprob": -0.13548519527703,
+      "no_speech_prob": 0.6181640625
+    },
+    {
+      "start": 4473.27,
+      "end": 4496.27,
+      "text": " in the acid property are the acid property clear crystal clear not only clear crystal clear so are the acid property clear can you handle any question any variation of the and what is database consistency is this clear consistent database inconsistent database is that clear what this means is that clear like now can you say okay consistent database means this and inconsistent database means this",
+      "avg_logprob": -0.05859375065740417,
+      "no_speech_prob": 0.297607421875
+    },
+    {
+      "start": 4496.54,
+      "end": 4522.78,
+      "text": " and all your things like transactions, schedule, what is the definition of schedule, what is the definition of transaction, okay, all these things like whatever we have seen, element, read operation, write operation and concurrent execution, serial execution, all these things. So tomorrow we will start serializability and a lot of questions we will see. So I think the most beautiful lectures are coming. The next two or three lectures will be most beautiful. Okay. So thank you everyone. And very soon we will finish the DBMS. See.",
+      "avg_logprob": -0.1468749991872094,
+      "no_speech_prob": 0.1455078125
+    },
+    {
+      "start": 4523.08,
+      "end": 4549.79,
+      "text": " I think I think like one one lecture for conflict serializability tomorrow conflict serializability will be over one lecture for view serializability and one for these protocols okay all these protocols and one lecture for recovery I think four more days four more days and your syllabus will be over from my side and then we will start the revision and practice a lot of revision a lot of practice we will do I will provide you a schedule",
+      "avg_logprob": -0.10701308330131132,
+      "no_speech_prob": 0.1737060546875
+    },
+    {
+      "start": 4550.19,
+      "end": 4577.33,
+      "text": " And just follow that schedule. This is my suggestion to you because see I have I myself have correct gate exam multiple times like all in a ring 5367206256. So some of those rings are hard to remember. Okay. So anyway, what I'm saying that I will make sure that I will create the schedule for your revision for your practice and in the law in the next I can say in the remaining time almost two months from four to four. Okay.",
+      "avg_logprob": -0.17831829896907217,
+      "no_speech_prob": 0.34228515625
+    },
+    {
+      "start": 4577.61,
+      "end": 4605.61,
+      "text": " From fourth, we can start and four to four, there will be two months. So in the two months, we will do a lot of practice. We will do complete revision. We will do. And I will make sure that all the things are covered from the gate exam point of view. Once the revision will start, remember, there will be no proof. I will not provide you any proof in the last two months. No proof, nothing. All the proofs that I wanted to provide, I've already provided you. So in the next two months, we will only focus from the gate exam point of view. You know, only from the gate exam point of view, we will just keep solving questions.",
+      "avg_logprob": -0.12223639445645469,
+      "no_speech_prob": 0.248779296875
+    },
+    {
+      "start": 4606.19,
+      "end": 4635.03,
+      "text": " okay questions variations questions variations we will give first priority to the gate exam okay then uh previous gate exam question we will give them first priority then we will give the priority to our test series because in the test series many standard questions i have put all those are standard questions so this is what we will do okay so don't worry about it we will do all these things yes gate pyqs have the first priority we will solve each and every gate pyq in our next two months each and every gate pyq but remember i will not do any proof",
+      "avg_logprob": -0.08291103818395117,
+      "no_speech_prob": 0.630859375
+    },
+    {
+      "start": 4635.77,
+      "end": 4664.6,
+      "text": " Okay, in the next two months, no proof. No, I can say unnecessary details. We will just keep solving questions. That is, that will be our target. I can say practice through questions. That is what we will do in the next two months. Okay. Now, I also want to discuss the DRDO exam. So if, if you are not attempting the DRDO exam, then you can leave. There is no problem. Okay. This is for those students who are going to attempt the DRDO exam. This is my experience. I want to suggest.",
+      "avg_logprob": -0.11666229242036323,
+      "no_speech_prob": 0.55078125
+    },
+    {
+      "start": 4665.05,
+      "end": 4699.36,
+      "text": " I want to discuss with you. Okay. So you can leave if you are not attempting the DRDO exam. Now, let me discuss the DRDO, my DRDO experience. Okay. So let me tell you a few things. First of all, I think I attempted the DRDO exam in, I think, I don't remember exact date, but in December, I think 2019 or January 2020. Okay. At that time, there was a DRDO exam.",
+      "avg_logprob": -0.14497422680412372,
+      "no_speech_prob": 0.299560546875
+    },
+    {
+      "start": 4700.05,
+      "end": 4729.41,
+      "text": " When I was in ISC at that time, I think I was in third semester, I think. So third or first, fourth semester, I was in third or fourth. Now, at that time, this DRD exam, this descriptive, you know, this is subjective exam. DRD exam is a subjective. This is not objective. There will be subjective exam. One more thing I want to tell you, the questions will be directly from your notes. I'm telling you. Okay. Like for DRD exam, I can tell you that whatever coaching you join, you can correct it.",
+      "avg_logprob": -0.186737800274438,
+      "no_speech_prob": 0.8564453125
+    },
+    {
+      "start": 4729.68,
+      "end": 4757.45,
+      "text": " Okay. For the DRDO exam, you don't need go classes. Okay. I am, I'm telling you very, very clearly. I'm telling you because in the DRDO exam, they don't ask you to apply your brain. This you can keep at your house and you can go to the DRDO exam. You will not use it. Let me tell you. And one more thing I want to make it clear that I'm only telling you my DRDO experience because maybe they can change the pattern. I don't know. Okay. So this year.",
+      "avg_logprob": -0.090704452057006,
+      "no_speech_prob": 0.29931640625
+    },
+    {
+      "start": 4758.21,
+      "end": 4785.37,
+      "text": " Maybe they can change the pattern or they will keep the same because most probably they will keep the same. It, it, it is very rare that they will change the pattern. They will change their, I can say behavior. Okay. So it is very rare. So, but I'm again telling you this is disclaimer. Please notice that like after the DRD exam, don't come to me and then, then say, sir, you, you were telling me don't use this. Okay. But in the DRD exam, there were many, many analytical questions. Okay. So please don't do that.",
+      "avg_logprob": -0.12100147309265738,
+      "no_speech_prob": 0.607421875
+    },
+    {
+      "start": 4785.56,
+      "end": 4814.5,
+      "text": " because I am telling you my experience of my DRD exam in 2019 December or 2020 January at that point of time I attempted this DRD exam and I cracked it I was selected for the interview but I think at that point of time I was in fourth semester when this interview call came and it was a coincidence let me tell you the same day gate exam was there in 2020 my interview was I think 4th of 5th February",
+      "avg_logprob": -0.1406250044532206,
+      "no_speech_prob": 0.7060546875
+    },
+    {
+      "start": 4814.85,
+      "end": 4842.79,
+      "text": " in the DRDO. So they were calling me to Delhi. I was in Bangalore. I was in ISC. Okay. On the same day, when my interview was scheduled in Delhi with DRDO, my gate exam was there in the Bangalore. So I preferred gate exam because anyway, I did not want to join DRDO. My reason was because I wanted to become teacher. I wanted to come into the field of gate exam. So that is the reason I did not join DRDO. But DRDO is a very, I can say",
+      "avg_logprob": -0.10061961245434038,
+      "no_speech_prob": 0.477783203125
+    },
+    {
+      "start": 4843.24,
+      "end": 4863.53,
+      "text": " I have many friends in the DRDO many senior actually those are not recent friends. I can say they joined DRDO. I think maybe more than 10 years ago. So they are very senior in DRDO. Okay. Maybe some interview I can take with them and one more thing that so DRDO is very nice. I can say it is a very nice place. All those people who are from DRDO.",
+      "avg_logprob": -0.1064338224775651,
+      "no_speech_prob": 0.30224609375
+    },
+    {
+      "start": 4863.69,
+      "end": 4891.71,
+      "text": " they are very disciplined people like in the ISC I think there were two people from DRDO in my batch in my 2018 to 2020 batch there were two people from DRDO and there were multiple people from army from air force okay so from all the institutes there were I think one or two people were there okay so these DRDO people I am telling you they were very disciplined very disciplined and I can say very sincere so I think maybe because of them I like DRDO",
+      "avg_logprob": -0.11637369636446238,
+      "no_speech_prob": 0.2607421875
+    },
+    {
+      "start": 4891.9,
+      "end": 4920.02,
+      "text": " because I've seen those two, those two DRDO person. So anyway, so what I'm saying that this experience that I'm telling you, this is only for that DRDO exam. I don't know whether they will change the pattern or not. Okay. But if they do not change the pattern and most probably they will not change the pattern, most probably they will follow the same pattern. So how the questions will come. Let me tell you every question will be like your semester exam. Every question will be very big. Like you will just, I can say your",
+      "avg_logprob": -0.10156249671669329,
+      "no_speech_prob": 0.4599609375
+    },
+    {
+      "start": 4922.32,
+      "end": 4949.9,
+      "text": " So you can notice like every question is going to be very dumb question in my DRD exam every question was dumb like one question was for eight marks truth table they were writing they gave in propositional logic there was one question they have given some some formula is given p or q and r or something okay so some four variables they gave four variables they gave a propositional logic formula they gave and the question was this write the truth table",
+      "avg_logprob": -0.16113280640407043,
+      "no_speech_prob": 0.63916015625
+    },
+    {
+      "start": 4950.71,
+      "end": 4979,
+      "text": " So, of course, this is a dumb question, right? Yes or no? So, there was one question on BFS. You have to write the BFS algorithm. The question was, write the BFS algorithm. So, you just have to write the BFS algorithm. There was one question on Turing machine. They were asking to create a Turing machine for A power n, B power n, C power n, D power n. I mean, seriously, it will be a huge Turing machine. Also, it will depend on the definition of Turing machine.",
+      "avg_logprob": -0.11092458628425914,
+      "no_speech_prob": 0.42041015625
+    },
+    {
+      "start": 4979.42,
+      "end": 5006.58,
+      "text": " which definition you are using yes or no there are many definitions of Turing machine which definition you are using it will depend on that so ultimately basically this was a question and you can see this was a dumb question but anyway this this question was there so one question was creating Turing machine one question was write the BFS algorithm one question was write the truth table and there was some more question like one question was from the computer network from the security",
+      "avg_logprob": -0.11623263880610465,
+      "no_speech_prob": 0.331787109375
+    },
+    {
+      "start": 5007.39,
+      "end": 5036.6,
+      "text": " They were asking, like, what is this authentication, the definition they were asking, like, authentication, definition, I think, okay, seek. So from the, you know, in computer network, there is a, now this is not in the gates levels, but in the computer network, there is a part security that is, that has been removed from the gates levels in the computer network. Okay. So, so from that, there were one question. Okay. So that was also that they were asking some definitions.",
+      "avg_logprob": -0.2229455966088507,
+      "no_speech_prob": 0.6376953125
+    },
+    {
+      "start": 5037.02,
+      "end": 5066.5,
+      "text": " some words were given and they were asking write the definition of every word like what is the authentication and some words were there. So I am not like I don't remember the other words but one word was authentication and there were some similar words and they were asking the definition. So there was one question like this. So like this total I think total eight questions were there in the exam. You have to just write you have just you just have to write there was no analytical question. Let me tell you no analytical question in that exam you can only pass",
+      "avg_logprob": -0.11851283156179956,
+      "no_speech_prob": 0.53271484375
+    },
+    {
+      "start": 5066.96,
+      "end": 5095.54,
+      "text": " that exam you can correct if you have idea of every topic you don't need in depth understanding you don't need that like in the go classes what we are teaching you problem solving skills analytical skills you know all these things are not required for the gate exam let me tell you I'm clearly telling you you can correct the gate exam by by learning from anyone okay you can learn from anyone you can take it okay because these simple simple things everyone will teach okay and there is no problem solving skills even if you buy hard you can take it",
+      "avg_logprob": -0.13932291666666666,
+      "no_speech_prob": 0.6484375
+    },
+    {
+      "start": 5096,
+      "end": 5122.14,
+      "text": " Even if you buy hard the concepts, okay. Even if you don't understand the proof, then also you can create it. Okay. There is no analytical question. There is no problem solving questions. So all the questions are very straightforward. Like, and one more thing, because of this, you, uh, like just, just think about it. If you don't know BFS algorithm, then you cannot solve it. So in the DRDO exam, you can solve from your memory. Basically, I can see memory based questions are there in the DRDO exam, most probably.",
+      "avg_logprob": -0.13300619342110373,
+      "no_speech_prob": 0.205078125
+    },
+    {
+      "start": 5122.4,
+      "end": 5143.9,
+      "text": " Okay, so I don't know whether the pattern will be same or not because at that in the DRDO exam, they came the authorities, they came at the end. This does not happen in the gate exam, but this this happened in the DRDO exam. My center was in in Bangalore in some school. My center was there and I and one of my friend was there in the same room. We were sitting and we were writing software.",
+      "avg_logprob": -0.1520944172714619,
+      "no_speech_prob": 0.1768798828125
+    },
+    {
+      "start": 5146.11,
+      "end": 5174.67,
+      "text": " One more thing I want to tell you there were there were two sessions in the DRDO. There were two sessions. Okay. So you can check it out. I think in the DRDO, there will be two sessions. You can check it out one session or two sessions at my time. There were two sessions. Okay. So between, uh, between two sessions, there was a break of, uh, I don't remember maybe one hour, one or two hour break was there. So there were two sessions from 9 30 to 12 30 and from two 30 to five 30. Okay. So there were two sessions. One more thing at the end of the second session.",
+      "avg_logprob": -0.12825989294395174,
+      "no_speech_prob": 0.75244140625
+    },
+    {
+      "start": 5176.21,
+      "end": 5181.87,
+      "text": " these DRDU people came, I can say some authorities came and they were asking for the feedback of the paper.",
+      "avg_logprob": -0.2040625047683716,
+      "no_speech_prob": 0.572265625
+    },
+    {
+      "start": 5182.28,
+      "end": 5212,
+      "text": " They were asking this, like can students can give some feedback about the paper and I gave this feedback that sir, there is no question which needs your problem solving skills. All these questions are memory based questions. Like all these questions are like semester exam questions. If you if you know, you can solve it. If you don't know, you can, you cannot solve it. Basically, you cannot use your brain. Okay. Like with your problem solving skills, you cannot do anything. Either you know, either you don't know, it is binary, the DRDO exam. Okay. The DRDO question, these are binary.",
+      "avg_logprob": -0.1623798037950809,
+      "no_speech_prob": 0.716796875
+    },
+    {
+      "start": 5212.34,
+      "end": 5238.54,
+      "text": " either you know it or you don't know it that's it when you read the question immediately you will know you don't know it then you can you can skip it okay and of course one more thing you don't skip it like in your semester exam you already have the practice to write just just write okay because anyway six hour exam what you will do okay in six hour you have to write something so just just write this is my suggestion all the questions that you that you understand like if there is a question that you already know that okay now you can solve it",
+      "avg_logprob": -0.054481906162803635,
+      "no_speech_prob": 0.5361328125
+    },
+    {
+      "start": 5238.74,
+      "end": 5268.4,
+      "text": " for example if there is a question on truth table then please write it very clearly okay because there will be let's assume eight questions are there you will not know two three questions that you will not have any idea because the syllabus is used they can ask you any question from anywhere okay so let's assume there is a question for which you don't have any idea then you solve that question at the end okay for that question you can write something like whatever comes to your mind users write it like your semester exam but those questions which you which you have the understanding",
+      "avg_logprob": -0.09270368223743779,
+      "no_speech_prob": 0.55517578125
+    },
+    {
+      "start": 5268.85,
+      "end": 5293.45,
+      "text": " for those questions please write very clearly like if there is a question about BFS algorithm then please write very clearly what is the BFS algorithm okay the algorithm you write that you know as we write for example like for every vertex V belonging to this this this this okay so like that starting one starting vertex let's assume S is the starting vertex so something like that so you write the BFS algorithm very clearly so these type of questions are in the DRD exam",
+      "avg_logprob": -0.12861222861915506,
+      "no_speech_prob": 0.3505859375
+    },
+    {
+      "start": 5293.69,
+      "end": 5323.47,
+      "text": " okay so this is my experience and when they were asking for the feedback then there were many students they were giving feedback and this is what this was my feedback to them then please improve the I can say standard of the DRD exam because the questions are like semester exam the paper is very similar to the tier three semester exam okay so you should definitely improve the level okay maybe you can make it objective or but anyway I think the this is my idea that I think that",
+      "avg_logprob": -0.10754654318728346,
+      "no_speech_prob": 0.276123046875
+    },
+    {
+      "start": 5323.64,
+      "end": 5352.03,
+      "text": " the same pattern they will follow. Okay. So after the DRDO exam, you can tell me your experience, what was your experience, but this is my experience that I told you. So in the last, I think last 10 days are remaining. When is the DRDO exam? Can you tell me? When is the DRDO exam? So I think it is on 11th December. Okay. So how many days are remaining? So, okay. Almost 13 days are remaining. You can check 12 days are remaining in these 12 days. This is my suggestion to you.",
+      "avg_logprob": -0.09906775159996097,
+      "no_speech_prob": 0.328369140625
+    },
+    {
+      "start": 5352.24,
+      "end": 5381.52,
+      "text": " Just go through all the concepts of all the subjects, not in depth. Don't go in depth. Don't go into variations. Just go through all the concepts of all the subjects. Like go through the truth table, BFS algorithm, DFS algorithm, Prims algorithm, Kruskal algorithm. Okay, these things. No need to solve the variations in only few days are remaining. Anyway, in these days, this is just my suggestion that you use these these days to go through all the subjects, all the concepts on the surface level you can study.",
+      "avg_logprob": -0.1438577627313548,
+      "no_speech_prob": 0.2802734375
+    },
+    {
+      "start": 5381.84,
+      "end": 5410.64,
+      "text": " Okay, everything on the surface level just just go through it like a finite automata. It is possible that they can they can give you some question about finite automata draw a finite automata for this language, a language they can give you and they can ask you to create a finite automata. This type of question they will ask you. Okay, so don't for the next I can say for the next 12 days, don't go into variations. Don't go into depth. Don't go into proof. Just just go through all the concepts, all the subjects on a surface level.",
+      "avg_logprob": -0.1376793009580159,
+      "no_speech_prob": 0.5869140625
+    },
+    {
+      "start": 5410.96,
+      "end": 5439.92,
+      "text": " This is my suggestion to you for the next 12 days. So I hope this will help you in your DRD exam. This was my experience. I don't remember all the questions, but these were the questions I remember I told you. I think four questions I remember right now. Those questions I told you. Now you can get the idea of the other questions also. One more question was there from the scheduling. In operating system, one question from scheduling. So some data was given to you and you have to apply all the scheduling algorithm.",
+      "avg_logprob": -0.10867745888286404,
+      "no_speech_prob": 0.583984375
+    },
+    {
+      "start": 5440.33,
+      "end": 5467.43,
+      "text": " It was not like only one scheduling algorithm you have to apply. So all the scheduling algorithm you have to apply and you have to, you have to find out average waiting time or something. So in that question, you have to apply FCFS, SRTF, SZF, round robin, everything you have to apply. And finally, you have to give some average waiting time of that. So this type of questions, you can get some idea. This type of questions were in my get in my DRD exam. Okay. I only remember these questions and",
+      "avg_logprob": -0.17254849382001777,
+      "no_speech_prob": 0.1881103515625
+    },
+    {
+      "start": 5468.13,
+      "end": 5496.09,
+      "text": " If you can maybe on the Google, you can find out some more questions from the previous DRDO exam. But I think in in all the DRDO exam, the questions will be very similar to this. So you can see very straightforward questions are there. Yes or no. Correct. OK. So this is my suggestion that get exam and DRDO exam. These are very, very, very different. This DRDO exam is very close to your semester exam. You just have to go through all the concepts on a surface level. OK.",
+      "avg_logprob": -0.11486486607306712,
+      "no_speech_prob": 0.166259765625
+    },
+    {
+      "start": 5496.98,
+      "end": 5526.17,
+      "text": " easy, easy concepts you can go through. If there is a complicated concept, you can just leave it. Okay. All the easy, easy concepts of all the subjects, just go through them. Just go through all the definitions, terminology, algorithm, all these things. Okay. So I hope this will help you in your DRDO exam and all the best for your exam. So anyone has any doubt you can ask like for the DRDO. I did not appear for the interview because on the same day I was having the gate exam and fortunately I",
+      "avg_logprob": -0.11953816371681415,
+      "no_speech_prob": 0.69677734375
+    },
+    {
+      "start": 5526.45,
+      "end": 5553.48,
+      "text": " secured 53 rank in the gate exam in that year. So in 2020, February, my gate exam rank was 53. And on the same day, I was having the DRDO interview, and I did not appear. Okay. So Malvith is asking why I appeared for the gate exam again, because I wanted to get into this field. I like, I think when I was preparing for the gate exam at that time,",
+      "avg_logprob": -0.14311079917983574,
+      "no_speech_prob": 0.47314453125
+    },
+    {
+      "start": 5553.82,
+      "end": 5577.74,
+      "text": " I told all my friends that I will become a teacher for the gate exam okay so basically for me gate exam is just to get the experience so that I can help students for me gate exam only serve this purpose the only purpose is that so that I can get the experience what type of questions are there what type of paper is there so that I can help",
+      "avg_logprob": -0.0958116322548853,
+      "no_speech_prob": 0.1500244140625
+    },
+    {
+      "start": 5577.92,
+      "end": 5607.58,
+      "text": " students okay so that experience I can share with the students and I can help them like for example in the next two months I am going to do this okay so the next two months I will I will basically share with you how every year I am getting that these rings see let me tell you that whenever I appear for the get exam I don't like it's not like every subject I know you can clearly see for example at this point of time for the last two years I am teaching TOC discrete mathematics DBMS digital logic",
+      "avg_logprob": -0.10406839924882043,
+      "no_speech_prob": 0.85791015625
+    },
+    {
+      "start": 5607.9,
+      "end": 5636,
+      "text": " this subject compiler design this subject i'm teaching so you can clearly see that i don't have a good understanding of the remaining subjects because for the two years i did not study them yes or no correct but still i'm getting those ranks so for example combined network sachin is teaching combined network okay so for the last two years sachin is teaching i'm not teaching combined network so but still uh uh similarly like c programming sachin is teaching c programming i'm not in touch with c programming for the last two years",
+      "avg_logprob": -0.13361565169887007,
+      "no_speech_prob": 0.2130126953125
+    },
+    {
+      "start": 5636.32,
+      "end": 5664.58,
+      "text": " I'm only in touch with my subjects. Okay. Uh, but still I'm securing those ranks, uh, like, as I told you to 206, uh, 53, uh, 256. So these are the ranks I'm securing. And the, what is the reason I will share with you in the next two months? Okay. We will do a lot of revision. We will do a lot of practice. And with my experience, I will, uh, I will design this revision schedule, this revision schedule and practice schedule. I will design according to my experience. And I can tell you one thing, like.",
+      "avg_logprob": -0.12645348837209303,
+      "no_speech_prob": 0.296875
+    },
+    {
+      "start": 5664.93,
+      "end": 5690.31,
+      "text": " I can tell you one thing you can take like no one I like I should not say no one but very rare people are there who can have that experience of the gate exam which I have because I have already correct the gate exam with some good rings with top ranks multiple times four times and there are some rings like there is another ring in 26 in 2016 or 17 I had rank",
+      "avg_logprob": -0.1679180187064332,
+      "no_speech_prob": 0.04425048828125
+    },
+    {
+      "start": 5692.54,
+      "end": 5723.07,
+      "text": " 1200 okay so like 1200 so like that so I have a good experience of the gate exam how the gate exam works that experience I have and that experience I will share with you and I will plan this revision session this practice session I will plan according to my experience of gate exam okay so anyway so any other doubt please tell me let me know any other doubt okay please don't ask those doubts which will not help you",
+      "avg_logprob": -0.08654203647304148,
+      "no_speech_prob": 0.86572265625
+    },
+    {
+      "start": 5723.34,
+      "end": 5756.52,
+      "text": " please ask something which will help you please ask any doubt related to DRDO exam do you have any doubt let me ask you those students who are appearing for the DRDO exam how many of how many of you are appearing? ISRO exam I don't have any experience the reason is I'm not I'm not qualified for ISRO exam I think in the ISRO exam there is some criteria for BTEC like you can check it out I never appeared in the ISRO exam because there is some criteria related to",
+      "avg_logprob": -0.10704627360862035,
+      "no_speech_prob": 0.69873046875
+    },
+    {
+      "start": 5756.72,
+      "end": 5785.68,
+      "text": " BTEC okay so because of that criteria I don't I don't satisfy that criteria of BTEC so that is the reason I am I have never appeared in the ISRO exam so I don't have experience of that but I have seen the questions of ISRO exam and those are very straightforward questions from the gate exam they copy all the questions are basically the copy of let me tell you each and every ISRO question is copy of some from internet from internet they will copy the question each each question",
+      "avg_logprob": -0.10256807107736568,
+      "no_speech_prob": 0.74072265625
+    },
+    {
+      "start": 5786.38,
+      "end": 5812.25,
+      "text": " So I think if you have prepared well for the gate exam, then you can easily correct the ISRO exam. It's like, see gate preparation implies every preparation. Like using the gate preparation, you can create DRDU exam, ISRO exam, TFR exam, NAT exam, all these exams you can create. Neelit exam. Your gate exam is a perfect exam. This is not a preparation of one exam. Let me tell you. Gate preparation is preparation of all the competitive exams in compute science.",
+      "avg_logprob": -0.16515770916626832,
+      "no_speech_prob": 0.205078125
+    },
+    {
+      "start": 5813.74,
+      "end": 5844.27,
+      "text": " So gate, this gate preparation, this gate exam is a beautiful exam. It prepares you for all the exams. Okay. Any other doubt? Please tell me. Yes, you have any doubt related to DRDO? Please tell me. Did it help you like this experience from this experience? Did it help you? You can, you can let me know. Okay. So if you have any, any more doubt, you can ask, but I think like I, whatever I remember, I told you and I don't remember more than this.",
+      "avg_logprob": -0.14013671183160373,
+      "no_speech_prob": 0.59912109375
+    },
+    {
+      "start": 5844.64,
+      "end": 5873.58,
+      "text": " and maybe I will find someone who has recently joined DRDO maybe last year or last to last year so if there is someone who has recently joined DRDO I will try to find out and I will take their interview if you know someone who has recently joined DRDO in last 1 or 2 years or maybe 3 years in last 1 to 3 years if someone has joined DRDO if you already know then please let me know I will contact them",
+      "avg_logprob": -0.09787570559576655,
+      "no_speech_prob": 0.77099609375
+    },
+    {
+      "start": 5873.87,
+      "end": 5905.35,
+      "text": " and I will take their interview. I will ask them their experience and maybe it will help you. Any other, any other point? Some extra topics are there other than it. Yes, yes. In the DRDO, there are some extra topics. All the, I think, I think all the subjects or get exam are already in the syllabus. Let me tell you one more thing. In the DRDO exam, it's not like you have to solve all the questions. Okay. Because no one will be able to solve all the questions because the syllabus is very huge. Okay. And the questions are very, I can say",
+      "avg_logprob": -0.12215358527131782,
+      "no_speech_prob": 0.5634765625
+    },
+    {
+      "start": 5905.6,
+      "end": 5934.8,
+      "text": " very, very tedious questions. Like they are asking you to create Turing machine. One question is related to Turing machine. So many students will not be able to do that, right? Yes or no. So this is what I'm telling you that it's not like that. Uh, there are, there are two papers, one more thing. There are two papers. So you don't have to solve every question. Of course you write every question, but you don't have to solve every question in a correct way. Uh, even if you do, I can say, uh, even if you handle all the gate subjects. Okay.",
+      "avg_logprob": -0.11278195824838222,
+      "no_speech_prob": 0.8125
+    },
+    {
+      "start": 5935.07,
+      "end": 5963.17,
+      "text": " all the gate subjects if you handle then I think you will be able to correct DRDO very easily so you don't have to worry about the extra subjects like for example software engineering you don't have to worry about that okay just handle the questions which are from the gate syllabus those questions you solve that will be enough to correct DRDO exam okay case is asking partial marks are there I don't know about that I think this is a subjective exam so they will give you partial marks because",
+      "avg_logprob": -0.10634566683854375,
+      "no_speech_prob": 0.327392578125
+    },
+    {
+      "start": 5963.56,
+      "end": 5994.01,
+      "text": " it is a subjective exam so the examiner can give you out of eight he can give you eight six seven two five zero okay so it is a subjective exam so i think the calculation will happen according to that okay and remember one more thing there are multiple parts as i told you there was operating system question scheduling question in that question all the algorithm you have to apply so if you apply only two algorithms and you don't apply the remaining algorithm then i think you will get the partial marks okay so",
+      "avg_logprob": -0.07675780937075614,
+      "no_speech_prob": 0.77734375
+    },
+    {
+      "start": 5994.33,
+      "end": 6024.13,
+      "text": " definitely you will definitely get the partial marks. Okay. Arnav is asking, sir, go classes will in future go classes will make something for UGC net as well. Yes, that is in the plan. Okay. I think next year, some, we can launch something related to UGC net. Okay. We will think about it, but it is definitely in the plan. There are many things which are in pipeline. Okay. So right now our focus is completely on the gate exam.",
+      "avg_logprob": -0.17663690703255788,
+      "no_speech_prob": 0.6171875
+    },
+    {
+      "start": 6024.69,
+      "end": 6052.53,
+      "text": " So next year we will think or maybe next to next year we will think but definitely these things are in the pipeline. These things are in our thoughts and we will see how we can implement them. See, whatever we want to implement we you have already seen in the gate exam in the in the in the go classes gate content you can see without to perfection we are not able to go for anything. So we will make sure that if we are starting anything new like UGC net course if we are starting or",
+      "avg_logprob": -0.15267857824053083,
+      "no_speech_prob": 0.10687255859375
+    },
+    {
+      "start": 6053.1,
+      "end": 6082.45,
+      "text": " competitive coding course or machine learning course if we are starting any course then we will make sure that our content is basically it is a quality content it is not just I can say it is not just a poor content okay so we will make sure once our once we are once we are sure once we are I can say once we are confirmed that our content is going to be very quality and very best content we can serve then we will start okay okay thank you everyone",
+      "avg_logprob": -0.10677083044923762,
+      "no_speech_prob": 0.61328125
+    },
+    {
+      "start": 6082.89,
+      "end": 6092.41,
+      "text": " See you tomorrow. Thank you. Thank you, Mahavit. Thank you.",
+      "avg_logprob": -0.21831597636143366,
+      "no_speech_prob": 0.03997802734375
+    }
+  ],
+  "sourceCompletedAt": "{\"file\":\"081. Lecture 5 - Serializability Introduction.mp4\",\"language\":\"en\",\"probability\":0.8681640625,\"processing_seconds\":144.07872414588928,\"device\":\"cuda\"}"
+}

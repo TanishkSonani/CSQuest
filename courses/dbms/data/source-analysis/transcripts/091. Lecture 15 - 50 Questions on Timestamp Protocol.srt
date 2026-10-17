@@ -1,0 +1,1340 @@
+1
+00:00:11,730 --> 00:01:02,440
+Hi everyone. Welcome to Go classes. So before we start, please tell me is the audio video volume is everything clear? Let me know. So in this session, we will solve a lot of questions on time stamp protocol. Basically, the idea, the content of this lecture is we will see the revision. First of all, what is this time stamp? This time stamp based protocol in the concurrency control. Basically, this is a concurrency control protocol.
+
+2
+00:01:02,960 --> 00:01:26,800
+and so first we will see the revision of this time stamp based protocol and then we will solve 50 questions on it okay so basically all the variations all the type of questions we will cover we will solve all the gate questions on this topic on this time stamp protocol all the gate questions we will solve all the Ulman questions and all the standard questions so basically a lot of questions we are going to solve in this lecture
+
+3
+00:01:27,070 --> 00:01:55,550
+Let me tell you that this lecture is basically the revision of time stamp protocol this time stamp protocol is This is a concurrency control protocol in the transaction management in the DBMS Okay, so on this protocol for this protocol we will do the revision we will see the summary all the important points and also Total 50 questions covering each and every important point covering each and every possible variation Okay
+
+4
+00:01:55,820 --> 00:02:14,130
+So let's start this. So let's start the session now. So first we will see the summary of time stamp protocol. Okay. This time stamp protocol we have already seen in our course in our in our DBMS course. We have already seen this.
+
+5
+00:02:14,520 --> 00:02:43,250
+So, you know this this DBMS complete course in this complete course we have already seen if we have already studied time-stamp protocol all the protocols like two phase locking protocol time-stamp protocol Thomas right rule all these concepts we have already seen in our DBMS complete course So this is just a revision revision and practice you can see a lot of practice Okay, so let's start now So let's see the summary of time-stamp protocol. So, you know that there are two type of people
+
+6
+00:02:43,960 --> 00:03:12,380
+forget about DBMS forget about this time stamp protocol in the real life in the real life we have two type of people there are type one I can say there are type one people who believe that your actions will decide your fate yes or no so your fate is decided by your actions this is some people believe that your actions will decide your fate and there are some people who believe that your fate is already decided you are just acting according to it yes or no
+
+7
+00:03:12,650 --> 00:03:37,870
+So there are two types of people in the real life, do you agree that there are two types of people? So you may have seen, I don't know what type you are but see basically there are two types of people, one type they believe that your actions will decide your fate, okay? So your fate can change according to the actions and there are other type of people who believe that your fate is already decided, your fate is already decided, you are just acting according to it.
+
+8
+00:03:38,280 --> 00:04:06,780
+Now similar thing happens in the in the concurrency control protocols also So there are two type of protocols one is locking protocol like your two-phase locking protocol This two-phase locking protocol is I can say type one people this locking protocol this two-phase locking protocol This is type one person it means it believes That your actions will decide your fate and time is time protocol this time is time protocol This is type two people
+
+9
+00:04:07,280 --> 00:04:34,700
+this time stamp protocol is based on this idea that your fate is already decided you are just acting according to it okay so this is our topic this time stamp protocol so what this time stamp protocol says this time stamp protocol says that your fate is already decided okay before you when you are born okay so when you are born your fate is already decided you are just acting according to it so what I want to say I want to say that
+
+10
+00:04:34,970 --> 00:05:04,310
+the locking protocol like your two-phase locking protocol in the two-phase locking protocol the order of conflicting operations the order of conflicting operations is determined at the run time when the transactions are executing okay when the transactions are executing then this order of conflicting operations is determined in the two-phase locking protocol so this is the same idea as basically your actions will decide your fate okay your actions will decide your destiny
+
+11
+00:05:04,800 --> 00:05:31,980
+Similarly, there is another protocol, this is time stamp ordering protocol. This protocol believes, this is based on the idea that the order of the serializability order is determined before the transactions execute. Before the transactions are executing, already the serializability order is decided. I know you are not understanding right now, so let me explain this. Let me quickly explain this.
+
+12
+00:05:34,060 --> 00:06:04,400
+what this time stamp protocol this time stamp protocol i will short i will write it tsp tsp means time stamp protocol okay it simply means time time stamp protocol okay so what this time stamp protocol says this time stamp protocol says that over the order of conflicting operations is pre-decided this tsp this time stamp protocol what it says it says that it says that in any schedule whatever schedule you take
+
+13
+00:06:05,640 --> 00:06:35,940
+In any schedule, remember, in any schedule, whatever schedule you take, in any schedule, the serializability order is pre-decided. The serializability order. The serializability order. Means serializability order means what? Serializability order. What that means? Serializability order means means your equivalent serial schedules. Serializability order. That means your equivalent serial schedules, correct? Okay. Equivalent serial schedule. So the equivalent serial schedule.
+
+14
+00:06:37,330 --> 00:07:06,830
+is pre-decided is already decided in any schedule the serializability order is is decided in advance is decided before transactions execute is decided before transactions execute okay so the transactions will execute after but when they are born when the transactions are born this serializability order is already decided decided before transactions execute okay so let me explain this
+
+15
+00:07:07,060 --> 00:07:36,320
+little bit more see what i am saying i am saying that let's assume that in this tsp in this time stamp protocol what happens before we see this time stamp protocol let me tell you what is the difference between time stamp protocol and the locking protocol your two phase locking protocol 2pl what is the difference between two phase locking protocol and time stamp protocol let me give you the analogy this analogy i am giving this analogy consider this analogy
+
+16
+00:07:36,600 --> 00:08:06,770
+This time stamp protocol is basically everything is decided when you are born So when you are born when when transaction is I can say when transaction starts So when the transaction starts means when you are born then everything is already decided for example if the boy happens then this TSP like they are like parents you can consider that this time stamp protocol they are like parents you can consider them as parents let's assume they are parents So there are two types of parents
+
+17
+00:08:07,770 --> 00:08:34,950
+Let's assume there are also parents. So you can see that there are two types of parents. Now this TSP, Timestamp protocol, these parents, they decide everything when their child is born. Okay? In this TSP, these parents, these TSP parents, they decide everything when their child is born. For example, if the boy, if it is boy, then it will be, then it will become what? If it is boy, then it will become engineer.
+
+18
+00:08:35,420 --> 00:09:04,830
+Okay, if it is girl then it will become Then she will become what? Then she will become a doctor So you can see that there are these type of parents, these are the TSP parents Okay, so this is decided when child is born Child means your transaction So when the child child means your transaction So when the transaction is born When child is born Okay, it is decided Means what it will become So your fate is decided when you are born
+
+19
+00:09:05,210 --> 00:09:29,010
+this is this type of parents are basically TSP time stamp protocol these parents and these two phase locking protocol these are advanced I can say I can say that these are more flexible parents I can say that these are more flexible parents these parents are more flexible they say that okay we will see what our child will do and according to their actions according to their interest we will see what they will become
+
+20
+00:09:29,280 --> 00:09:56,000
+Okay, so I can say basically interest of the child will determine what they will become Okay, so here I can say interest of child Interest of child determines Determines their career Okay, determines their career So you can see these are the two type of parents These are the two type of protocols Did you understand this analogy? I know this is analogy but don't worry You will understand
+
+21
+00:09:56,260 --> 00:10:23,380
+you will understand what is this time stamp protocol and what is this two phase locking protocol the difference you will understand but this analogy did you understand that there are two type of parents similarly there are two type of protocols okay so in this time stamp protocol what happens let me tell you in this time stamp protocol in this time stamp protocol what happens that it says that if transactions are born like this let's assume let's assume the transactions are coming like this the transactions arrival
+
+22
+00:10:23,900 --> 00:10:52,540
+let's assume the transactions is I can say arrival the transactions arrival is like this let me assume that first this transaction came let me assume first this transaction came O then this transaction came Y okay let me assume this transaction middle so where basically I am saying that this is the younger transaction because this came last this is the old transaction let's assume these are the transactions it means this transaction came first then this transaction came let me assume that
+
+23
+00:10:52,810 --> 00:11:22,150
+this transaction came at time let me assume at time t equal to zero okay this transaction came let's assume at time t equal to one okay this transaction came at time t equal to two so you can see that this is a young transaction this is a old transaction and this is a middle transaction these are the transactions so basically this is their arrival arrival means they are born they are born in this order okay so transactions are born in this order this is their
+
+24
+00:11:22,460 --> 00:11:50,720
+I can say birth order. Okay, so this is their birth order now what this TSP says what this what this protocol says this protocol What this protocol says this protocol says that Okay, so this protocol says that if there is any conflict see this is old This is a middle. This is young. So what this transaction says remember, this is young This is young. Okay, this came last
+
+25
+00:11:51,140 --> 00:12:17,830
+this came last like this came at time this came at time t equal to 2 okay so this was born at time t equal to 2 so this was born at time t equal to 2 and you can notice this was born at time at time t equal to 0 so this is old this is old transaction and this is some middle transaction and this is some middle transaction so what this tsp says this this
+
+26
+00:12:18,290 --> 00:12:45,690
+Timestamp protocol, what this protocol says? This protocol says that all the conflicting operations should be in this order. Okay, what this protocol says? Let me tell you. This protocol says that you should not have any conflict in this order. You should not have any conflict from younger to older. See, there should be no conflict. For example, you do read operation here.
+
+27
+00:12:46,060 --> 00:13:15,410
+Okay, this is a conflict operation, right? Yes or no? Can I say this is conflict? Can I call it? Yes, this is conflict because this is read operation, this is write operation, this is read x, this is write x So this is a conflict, this is a conflict Now what this TSP says? This TSP says that in this order, in this order the conflict is not allowed So this conflict, in this order the conflict is not allowed Okay, so this in this order the conflict is not allowed Okay, this order is not allowed
+
+28
+00:13:18,150 --> 00:13:45,710
+this order of conflict operations this order of conflict operations not allowed not allowed did you understand what this what this TSP is saying this TSP is basically saying let me tell you this TSP this time stamp protocol this basically says that all the conflicting operations all the conflicting operations must be in this order okay basically this TSP says that
+
+29
+00:13:46,100 --> 00:14:18,700
+All the whole conflicting operations must be in this order. All conflicting operations must be in the order, in the order of transaction time stamp. Okay, means in the order of transaction time stamp. Like this is, you can say this is the time stamp of transaction Y. This is the time stamp of transaction O. So this should happen in that order of transaction time stamp. Means in the order the transactions are born.
+
+30
+00:14:19,180 --> 00:14:47,840
+In the order transactions are born. I can simply say, I can simply say, in the order, in the order of, in the order transactions are born. In the order transactions are born. Tell me, did you understand? This is simple rule. Are you getting my point? This TSP, these parents, these are, I can say, they decide everything in advance. They don't care about the actions. These TSP parents, these parents, what they say? These parents, they say that,
+
+31
+00:14:48,560 --> 00:15:16,630
+whatever be the accent, I don't care whatever are the accents, these TSP parents, this protocol, this time stamp protocol, what this protocol says, this protocol says that, I don't care in which order transactions, what are the accents of the transactions, I don't care what are the accents, okay, I don't care what are the accents of the transactions, if they are, if they are born in this order, if they are born in this order, means this is young, okay.
+
+32
+00:15:16,890 --> 00:15:46,450
+and this is old if they are born in this order this is the I can say this is their born order this is their birth order so if they are they are coming in this order then then then all the conflict also should happen in this order I only allow the conflicts in this order these these these type of this conflict order allowed this conflict order this conflict order allowed okay is this clear to everyone tell me
+
+33
+00:15:46,750 --> 00:16:20,160
+Did you understand this point? The point is very simple that this type of the reverse direction conflict is not allowed. So you can see that for example some it is writing and let's assume it is writing. So this is a conflict and this order not allowed. This conflict is not allowed. So again you can notice this is a conflict right? This is a conflict but remember this order not allowed. This conflict order not allowed is not allowed.
+
+34
+00:16:22,460 --> 00:16:49,070
+this conflict order is not allowed is this clear? this conflict order is not allowed similarly for example maybe maybe this is reading maybe this is reading this is also conflict read x write x this conflict order not allowed maybe maybe you can see maybe this is writing this is reading maybe this is writing this is reading this conflict order is also not allowed okay so these are not allowed these are not allowed you tell me a simple question I am asking is this allowed
+
+35
+00:16:49,470 --> 00:17:16,620
+like is this allowed tell me like w y right y is this allowed w y and here you have w x is this allowed tell me simple question I am asking you tell me is this allowed is this allowed this is this allowed tell me this is not even a conflict yes this is allowed no problem yes this is allowed because this is not even a conflict please understand that here you are writing y
+
+36
+00:17:17,360 --> 00:17:47,520
+Okay, this this here you are writing why here you are writing X. So this is not even a conflict Not even a conflict. This is not even a conflict. So this is allowed. There is no problem. This is not even a conflict So this is the complete explanation of this TSP. So did you understand this mindset of TSP? Did you understand the mindset of time stamp protocol? This time stamp protocol mindset. Did you understand this TSP?
+
+37
+00:17:48,090 --> 00:18:15,930
+this mindset what is the mindset there this mindset did you understand this mindset of tsp protocol okay this protocol did you understand this protocol is basically saying that this protocol is basically saying that all the conflicting operations must happen in the order of transaction arrival okay all the conflicting operations all the conflicting operations
+
+38
+00:18:17,420 --> 00:18:51,980
+remember very simple very simple all the conflicting operations must happen must happen in the order of in the order of transaction arrival in the order of transaction arrival transaction arrival time okay is this clear is this clear to everyone that all the conflicting operation this is important that all the conflicting operations they must happen they must happen
+
+39
+00:18:52,560 --> 00:19:20,760
+in the order of transaction arrival time in the order of transaction arrival time now let me tell you that this transaction arrival time this is basically called time stamp okay so this transaction arrival time this transaction arrival time this transaction arrival time at what time this was submitted at what time this is basically called time stamp this is basically time stamp of a transaction
+
+40
+00:19:21,220 --> 00:19:50,360
+what it simply means let me tell you it simply means that when a transaction is born then it is given a time stamp okay so it simply means that when a time when a transaction is born when a transaction is born born means submitted or I can say created when a transaction is created then okay when a transaction T is born then T is assigned T is assigned what it is assigned
+
+41
+00:19:50,720 --> 00:20:18,830
+it is assigned a time stamp a time stamp it is assigned it is like a birth date okay this time stamp is assigned so you can see it is assigned a time stamp this time stamp is it is similar to the birth date it is similar to the birth date okay so you can see it is it is very similar to the birth date that when a transaction is when a transaction is born when a transaction is created then transaction is assigned a time stamp we assign it a time stamp
+
+42
+00:20:19,130 --> 00:20:45,790
+and this of course this time will always increase for example for example if there is a transaction let's assume this is the transaction this is the transaction TI let's assume T1 starts okay first transaction T1 starts then let's assume this is the time this is the time that is going on so you can notice this is the time this is the time now let's assume T transaction T1 starts then let's assume transaction T3 starts
+
+43
+00:20:47,300 --> 00:21:13,610
+Then let's assume T transaction T3 starts then let's assume transaction T2 starts Okay, so in this order if they are starting then what will happen? Then it simply means that in this order then what will be the time stamp? Let me tell you let me tell you what will be the time stamp The time stamp will be like this The time stamp will be assigned so remember so because this is starting first because transaction T1 is starting first
+
+44
+00:21:13,910 --> 00:21:40,470
+then this transaction T1 will have some time stamp maybe that time stamp can be anything for example maybe 50 this transaction T3 will have some time stamp of course it will be more because time stamp always increases it's like birth date always increases right yes or no for example you are born today if someone will if someone will be born after one year then you can see the birth date will be more the birth date will be more right yes or no
+
+45
+00:21:40,670 --> 00:22:10,020
+the birth rate will be more so similarly so this t3 will have some time stamp may be may be 70 then this t2 will have some time stamp may be 100 so you can notice this time stamp always increases it is it always increases it always increases with time with actual time it always increases with actual time is this clear so this is simple point that every transaction when it is born every transaction when it arrives
+
+46
+00:22:10,760 --> 00:22:36,940
+When it is submitted to the system, then it is assigned a time stamp. Time stamp is like a birth date. Okay, and what this TSP protocol says, what this time stamp protocol says, this time stamp protocol says that all the conflicting operations must happen in this order. Okay, so you can see that. One more thing I want to tell you, you tell me if there is, if you have a time stamp of transaction T1,
+
+47
+00:22:37,310 --> 00:23:06,230
+If it is more than time stamp of transaction T2 then who is older? Tell me who is older? Who is older? Who is older transaction? If transaction T1 time stamp is more than transaction T2 time stamp then who is older transaction? Which transaction is older? So you can clearly see that time stamp will always increase. It means this is younger. It means this is younger transaction.
+
+48
+00:23:06,730 --> 00:23:36,090
+Okay, and this is definitely older transaction right because it's like birth rate It's like birth rate So if this birth rate is less than this birth rate then definitely this is a younger transaction and this is a older transaction So here T2 will be the older transaction Okay, so very simple point. I want to tell you this is a note What is the note that so if basically if you have time stamp of transaction T if that is less than time stamp of transaction T dash
+
+49
+00:23:36,510 --> 00:24:07,720
+then in this situation what we will say then in this situation remember this T will be the older transaction this will be the older transaction and this will be the younger transaction and this will be the younger transaction okay and if if this is older transaction this is younger transaction then what TSP says what time stamp protocol says so what this TSP time stamp protocol says this TSP says that if if time stamp of T
+
+50
+00:24:08,290 --> 00:24:37,790
+is less than time stamp of t dash means this is basically then what this TSP says this TSP says that all the conflicting operations remember all the conflicting operations will happen in this order so the conflicting operations can only happen in this order very simple so if there is any conflicting operation conflicting operation can only happen in this order okay means first this will happen then this will happen so here the time is increasing
+
+51
+00:24:38,570 --> 00:25:11,070
+here the actual time is increasing so you can see that conflicting operations will happen in this order so this will be the order of conflicting operations this will be the order of conflicting operations this will be the order of conflicting operations similarly okay in this order the time is going so in this order in this order it is not allowed like this type of order this type of conflict order is not allowed okay so this is this type of not
+
+52
+00:25:11,410 --> 00:25:41,410
+allowed so if this type of conflict this type of conflict order is not allowed so this is a simple concept I hope you understood this concept so everything is predetermined basically this TSP everything is predetermined that in this order conflicts should happen in the order of their arrival now let me tell you a small difference between this TSP versus 2PL protocol this time stamp protocol versus 2PL protocol a simple scenario I am giving
+
+53
+00:25:41,930 --> 00:26:10,820
+a simple very simple scenario I am giving first let me give you the analogy let me give you the analogy the analogy is like this the analogy is like this in the TSP a simple thing cannot happen see in the TSP in the time stamp protocol this type of simple thing also not allowed like this is a boy this is a girl okay so let's assume these are the parents these are the TSP parents so in the TSP this type of simple thing is also not allowed
+
+54
+00:26:11,270 --> 00:26:41,450
+So you can see for example boy becomes doctor Okay, or maybe so boy becomes doctor and maybe girl becomes air hostess So this type of thing is also not allowed Okay, so you can see this is also not allowed Are you getting my point? The analogy I'm just telling you that this type of simple thing is also not allowed Not allowed But in this 2PL it is allowed In this 2PL this situation will be allowed In this 2PL this situation will be allowed
+
+55
+00:26:42,940 --> 00:27:07,810
+so this is just an analogy now let me let me give you actual scenario like consider this transaction let me assume there is a transaction there is a transaction t there is a transaction t dash you have two transaction and let me assume this is the order means this is the older transaction this is the older transaction and this is a younger transaction okay now this is the older transaction this is a younger transaction now you can see that this type of simple
+
+56
+00:27:08,220 --> 00:27:44,280
+you use a simple question I am asking very simple question I am asking let's assume it is writing it is writing some item X it is reading some item X is it allowed by 2PL this schedule is it allowed by 2PL simple question I am asking very simple question I am asking is this allowed by 2PL is this schedule look at this schedule is this schedule allowed by 2PL is this schedule allowed by 2PL is this simple schedule allowed by 2PL tell me
+
+57
+00:27:44,700 --> 00:28:13,650
+a very simple schedule that is given to you is this simple schedule allowed by 2PL is this schedule allowed by 2PL the answer will be yes the answer will be yes you can it is simply allowed by 2PL right because what you can do is it allowed by 2PL the answer will be yes the answer is going to be yes because what you can do you can just simply take the exclusive lock you can take the exclusive lock right so here you can take a request for the exclusive lock on X
+
+58
+00:28:13,880 --> 00:28:41,700
+then you can unlock this X and then you can take a shared lock on X and then you can unlock X. So this is definitely allowed in the 2PL, right? Correct? This schedule is definitely allowed in the 2PL because you can request exclusive lock on X, then you can perform this write X, then you can unlock X. Similarly, this T can take shared lock on X, then it can perform read X, then it can unlock X. So this schedule is definitely allowed by 2PL.
+
+59
+00:28:41,960 --> 00:29:17,970
+But you can notice, is this allowed by TSP? Is this allowed by TSP? A simple question. Is this allowed by TSP? Is this schedule allowed by TSP? By time stamp protocol. Will the time stamp protocol allow this schedule? The answer is clearly no. Because you can notice that this is a conflict and the conflict in this order, the conflict should not happen. You can see that in this order, the conflict should happen in this order.
+
+60
+00:29:18,340 --> 00:29:46,020
+in this order so you can notice this is a conflict this is a conflict and this is not allowed so this conflict order not allowed is not allowed so this conflict order you can easily see that this is not allowed is this clear please tell me let me know is this clear to everyone that this conflict this simple this simple example is giving you everything like this simple transaction this simple schedule
+
+61
+00:29:46,530 --> 00:30:18,770
+this simple schedule is allowed by 2PL but it is not allowed by TSP so can I say this TSP has a predetermined mentality right yes or no this TSP what is this TSP and 2PL what is the difference between TSP and 2PL it determines okay it determines it determines order of conflicts order of conflicts at runtime right yes or no at runtime it will determine at runtime it will determine it is very flexible
+
+62
+00:30:19,270 --> 00:30:50,250
+at run time it will determine okay so this 2PL this two phase locking protocol it will determine order of conflicts this order of conflicts it will determine at the run time right yes or no but in this TSP this has a predetermined mentality so it predetermines it predetermines order of conflicts order of conflicts it predetermines order of conflicts okay so this is something the difference between 2PL and TSP
+
+63
+00:30:50,590 --> 00:31:18,630
+This time this time is time protocol and 2PL. This is the difference So it will it will determine at runtime this 2PL it will determine at runtime at runtime it will determine But you can notice this TSP will determine predetermine the order of conflicts So this is very simple explanation of a time is time protocol So what this time is time protocol says it says that your fate fate means Your fate means serializability order is already
+
+64
+00:31:19,160 --> 00:31:49,340
+is already decided in the order you are born in the order you are born you just need to stick to it okay in the order you are born it is already decided similarly for example so you can see serializability order is decided in advance when you are born your future your serializability order is already decided a very simple scenario so all you have to remember that in the time stamp protocol this is the simple rule what are the time stamp protocol rule let me tell you only simple rule
+
+65
+00:31:49,610 --> 00:32:17,850
+There is no other rule, only simple rule. What is the simple rule of time is temp protocol? A very one simple rule of time is temp protocol that if the transactions are if this is the order of time transactions like let's assume time is temp of transaction T is less than time is temp of transaction T dash. Okay. It means then this time is then this TSP what it says then order of conflicts.
+
+66
+00:32:21,620 --> 00:32:57,070
+order of conflict operations what should be the order of conflict operations in any schedule in any schedule the order of conflict operations in any schedule okay so these are the two transactions transaction t, transaction t dash then the answer is that order of conflict operations okay in any schedule between t comma t dash what's okay should be should be in the order
+
+67
+00:32:58,120 --> 00:33:24,940
+should be, should be must be in the order of t then t dash okay should be in this order very simple so this is a simple thing that this is your t this is your t dash so whatever conflict operation you take this should be the order of conflict operations remember this is the actual time that is going on this is the actual time that is going on and this this should be the order of conflicts
+
+68
+00:33:26,350 --> 00:33:57,040
+This should be the order. This is the order of conflicts. Okay. Very simple. So that's it. Now let's move on. So this is the rule. You can read this rule. So serializability order is decided in advance. Your serializability order, the serial schedule. Tell me in the TSP, what is the equivalent serial schedule? Like this is a simple question. I'm giving you that there is a TSP time is temp protocol. Scheduler is there.
+
+69
+00:33:57,580 --> 00:34:27,320
+Okay, this scheduler is there Let's assume And also let me assume that there are three transactions You have three transactions You have three transactions One is older, then one is middle, then one is younger And I am saying that time stamp of older is less than time stamp of middle is less than time stamp of younger Means this Y is basically the younger This Y is basically the younger Okay
+
+70
+00:34:27,780 --> 00:35:00,800
+now there is a schedule now what will be the serializability order if you create this TSP allows some schedule let's assume this TSP let's assume this TSP allows a schedule of O,M,Y okay so this TSP allows a schedule of O,M,Y then what is the serializability order then what is equivalent serial schedule tell me what is equivalent serial schedule
+
+71
+00:35:02,090 --> 00:35:29,230
+what is the equivalent serial schedule so there is some schedule S you have some schedule S and I am saying that what is the what is equivalent serial schedule what is equivalent serial schedule tell me the answer is going to be this is the equivalent serial schedule O then M then Y okay this is what I am saying so everything is predetermined tell me tell me tell me a simple question I am asking a simple question that
+
+72
+00:35:29,570 --> 00:35:54,370
+Do you care about the, about the actions of O, M, Y? Do you care about what O will do, what M will do, what Y will do? Do you care about it? No, we don't care. Okay, so it's like this, when a child is born, you decide that if it is boy, it will become, he will become engineer, if it is, if she is a girl, then she will become doctor. So you don't care what is their interest.
+
+73
+00:35:55,080 --> 00:36:20,800
+you don't care what they will do in the future you have predetermined their career you have predetermined this is what TSP does, this is what time stamp protocol does time stamp protocol does this time stamp protocol determines the serializability order in advance so serializability order, this serializability order it is determined in advance by time stamp protocol
+
+74
+00:36:21,360 --> 00:36:51,580
+a simple rule what is a simple rule that in any schedule whatever schedule you create the order of two conflicting operations should be in the order of their transaction time stamp this statement this line understood this line is understood right in any schedule whatever schedule you take the order of two conflicting operations should be in the order of their transaction time stamp okay very simple if it is not if it is not then then what
+
+75
+00:36:52,040 --> 00:37:23,180
+If not, then what? For example, if this happens, by the way, let's assume that this transaction T, this transaction T days, and if by the way, if this happens that in this order, if things happen, like remember, this is the time that is going on. In this order, time is going on. So let's assume this right happens first, then after sometime this read happens. Now what? Now what? Are you getting my point? I am simply saying that this is a conflict.
+
+76
+00:37:23,690 --> 00:37:55,850
+this is a conflict and the transaction T is older the transaction T is older because you can you can notice this transaction T has more time stamp higher time stamp this has higher time stamp okay now if this happens then what if this happens then what let me tell you a simple rule what is a simple rule if you are late it is your fault is this clear if you are late this is a simple rule that if you are late you it is your fault
+
+77
+00:37:57,070 --> 00:38:25,350
+So if your turn is gone, it is your fault. If you are late, it is your fault. And if it is your fault, this TSB says that, if this TSB says, if it is your fault, then abort. If it is your fault, if it is your fault, then abort. So whose fault it is? Tell me. The person who is late. Yes or no? If you are late, then it is your fault.
+
+78
+00:38:25,800 --> 00:38:54,030
+this is a simple rule if you are late it is your fault and if it is your fault then you abort then you will abort so this is what I am saying simple that in this tell me who is late remember this is the time time is going in this direction in this direction time is going so definitely this t is late right yes or no this t is late here I can say t is basically late this transaction t is basically late so so t
+
+79
+00:38:54,430 --> 00:39:24,380
+so T rollbacks so T aborts okay so here what will happen basically we can't allow this this this conflict order we can't allow remember very simple point that this order not allowed this conflict order not allowed this conflict order not allowed we cannot allow this conflict order this is not allowed so who is late T is late so T will rollback very simple okay so because this operation is already done
+
+80
+00:39:24,720 --> 00:39:55,100
+remember very simple point this operation is already over this operation is already over now now now when this operation happens then here the T will abort okay here the T aborts tell me will this operation happen T is aborting I am simple question I am asking will this operation happen will this operation happen no this operation will not happen because we will decide we will decide that okay this operation cannot happen
+
+81
+00:39:55,470 --> 00:40:23,970
+Okay, this operation cannot happen, so T aborts So this operation will not happen, remember This operation will not happen, this is unsuccessful This is unsuccessful Okay, this is unsuccessful, so this This operation will not happen, this operation This is unsuccessful This operation is unsuccessful So very simple So I hope all the points are clear Now let's move on, so this is what I am saying that See read this
+
+82
+00:40:24,260 --> 00:40:53,460
+this paragraph if you understand then you have understood time stamp protocol this is a very simple protocol let me tell you if you are not understanding then okay just focus on this line and don't worry about it by the end of this lecture you will become expert of this this protocol i promise you you will become expert of this protocol you will be able to handle any variation any question any standard question gate question whatever any proof you can also prove things
+
+83
+00:40:54,020 --> 00:41:22,730
+So, let's see this. In any schedule, the order of conflict operations should be determined. Whatever schedule you take, the order of two conflicting operations should be in the order of their transaction time stamp. This is the first thing. If not, if not in this order, then the transaction which is late is aborted. If not in this order, then the transaction which is late is aborted and restarted with a new fresh time stamp.
+
+84
+00:41:23,460 --> 00:41:53,930
+Okay, and restarted with a new fresh time stamp. We will start it with a new fresh time stamp. Okay, this is the complete situation. So if you are late, it is your fault. Simple. Now let me tell you, now we will see a lot of questions, 50 questions we are going to solve. But before that, one thing I want to tell you that what this time stamp protocol does, this time stamp protocol implementation, this implementation, how the implementation happens.
+
+85
+00:41:54,540 --> 00:42:24,950
+let me just simply tell you this implementation I am telling you the idea you understood the time stamp protocol idea you have understood now let's see how the implementation will happen this implementation how to implement this so to implement this what we do for every data item we for every data item also we define remember for every transaction we have time stamp but for every data item x if you have any data item x we define we have something called we define
+
+86
+00:42:25,420 --> 00:42:54,160
+read time stamp what we define we define read time stamp this read time stamp we define read time stamp of x we will call it RTS read time stamp of x we also define write time stamp of x we also define means for every item for every element we define write time stamp and what is read time stamp and what are these let me tell you these are basically who is the youngest transaction
+
+87
+00:42:54,520 --> 00:43:24,070
+who did the right read operation and who is the youngest transaction who did the right operation okay so you can see the definition here what is the read time stamp of x see this read time stamp of x for any database element x we have two time stamp okay we have two time stamp so what is the read time stamp of x the read time of stamp of x is basically the highest time stamp of transaction which is reading x which is the youngest transaction who is reading x basically
+
+88
+00:43:24,810 --> 00:43:56,110
+Youngest transaction reading X. Basically, who is the youngest? Who is the youngest transaction? Who is the youngest transaction reading X? Who is the youngest transaction reading X? Similarly, what is the right time stamp of X? What is the highest time stamp of transaction that is writing X? Means, who is the youngest transaction? Who is the youngest transaction writing X? Who is the youngest transaction?
+
+89
+00:43:56,970 --> 00:44:24,730
+writing x so very simple so this is the concept for every item for every data element we define these so let me let me take example with example you tell me assume that there are three transactions again I am saying that you have three transactions let's let's assume that your total three transactions are there I'm giving you three transactions T1 T2 T3 okay let me assume that
+
+90
+00:44:25,030 --> 00:44:53,640
+time stamp of T3 is less than time stamp of T1 is less than time stamp of T2 this is what I am saying okay what I am saying I am saying that time stamp of T3 this time stamp of T3 is less than time stamp of T1 less than time stamp of T2 so you can see this is the youngest right correct this is the youngest if you notice this is the oldest so this T3 is the oldest T2 is the youngest and T1 is middle now
+
+91
+00:44:54,320 --> 00:45:24,310
+Now you consider some questions like I'm giving you t1, t2, t3 you tell me like let's assume this is reading x you tell me all the answers that I'm asking for example let's assume this is reading x this is reading x this is reading x this is reading x and this is reading x or maybe yeah okay so you tell me what are the time stamp of x at this point of time at this point of time you tell me at this point of time
+
+92
+00:45:24,570 --> 00:45:52,210
+What is the read time stamp of X? What is that? At this point of time, what is the read time stamp of X? Remember this, please keep this in mind that you have three transactions T1, T2, T3 where T3 is the oldest, T2 is the youngest and T1 is some kind of middle. So you tell me, this you keep in mind that T3 time stamp is less than T1 time stamp is less than T2 time stamp. Now simple question I am asking that
+
+93
+00:45:52,980 --> 00:46:21,980
+if these operations are happening then what is the read time is stamp of x here for this element x you have this element x this element x read time is stamp so remember read time is stamp read time is stamp will be what who is the youngest transaction who did the read operation the answer will be T2 remember this T2 is the youngest transaction to do the read operation okay so don't see this like are you getting my point don't don't I'm not saying that the actual time
+
+94
+00:46:22,280 --> 00:46:52,620
+see that the time is going like this the time the actual time is going like this i am saying who is the youngest transaction i am saying who is the youngest transaction who did the read operation so remember this is the youngest transaction because of this so i can say the answer will be t2 because this t2 is the youngest transaction to do the read operation this is the youngest transaction to to read x
+
+95
+00:46:53,390 --> 00:47:23,100
+This is the youngest transaction to read x Clear? Is this clear to everyone? Is this clear? Answer will not be t3, answer will be t2 Because t2 is the youngest This is the order t3, t1, t2 So the answer will be t2 Now let me tell me another question I am asking For example, let's assume This is read, this does the read operation, this does the read operation Then this does the read operation Now you tell me what is the Read time is time of x
+
+96
+00:47:23,870 --> 00:47:54,810
+Again I am asking read time stamp of X, what that will be? Read time stamp of X, what is that? Who is the youngest? Who did the read operation? So you can notice the answer will be T1. This T1 is the youngest to do the read operation. Okay, this T1 is going to be the, this T1 is the youngest. This is the youngest transaction or I can say to do read operation. To do read X. Okay, so this is the youngest transaction to do the read X. Very simple.
+
+97
+00:47:55,280 --> 00:48:24,160
+okay tell me the answer for this question if this does not happen now the answer will be what? now the answer is going to be what? okay now the answer will be what? now in this situation the answer will be what? answer will still be T1 answer is still going to be the T1 okay in this question also the answer is still going to be the T1 because T1 is the youngest to do the read operation I hope this point is clear very simple point
+
+98
+00:48:24,580 --> 00:48:53,600
+Tell me another question I am asking for example let's assume this this T1 does the right operation this does the right operation this does the right operation this does the right operation okay some schedule I am giving you now you tell me what is the okay now in this situation what is the right time is temp of x tell me what will be the right time is temp of x what is going to be the right time is temp of x
+
+99
+00:48:54,960 --> 00:49:28,190
+the answer again will be t2 because again t2 is the youngest t2 is the youngest you can notice t2 is the youngest or I can simply say that t2 is the youngest to perform the right operation now let me tell you a simple thing that actually this this this schedule will not be allowed actually what will happen let me tell you because you know see there is will this schedule be allowed simple question I am asking is this schedule allowed is this schedule allowed
+
+100
+00:49:30,580 --> 00:50:00,620
+by time stamp protocol is this schedule allowed by time stamp protocol tell me this schedule is this schedule allowed by time stamp protocol and the answer is no because what is happening see first of all you all okay the best way is you always write in the time stamp order first of all this is the time stamp order you always write transactions the schedule you always write in this order are you getting my point what I'm saying see you this is confusing right do you agree that this is confusing because
+
+101
+00:50:01,060 --> 00:50:35,960
+t3 is oldest t2 is youngest so do you agree that this is confusing do you agree with me that this is confusing so what you can do for simplicity you can just put them in this order t3 then t1 then t2 in this order you can put them this is the youngest or I can say this is the highest time stamp this has highest time stamp this has highest time stamp okay now in this order you put them now you you can see that
+
+102
+00:50:36,350 --> 00:51:05,380
+Remember the time was going on this in this direction Remember the time The actual time was going in this direction So it means First T1 was doing the right operation First this was doing the right operation Then this T2 was doing the right operation And then this T3 was doing the right operation Is this allowed by 2PL? Sorry TSP Is this allowed? This is fine, right? This is fine There is no problem here, this is fine But this is a
+
+103
+00:51:05,510 --> 00:51:38,840
+not fine, yes or no this conflict order not allowed you can notice this conflict order not allowed we do not allow this conflict order because the conflict order should be like this this is the conflict order this is this is the conflict order this is the conflict order so this conflict order is not allowed who is late tell me who will abort who is going to abort simple question this conflict order not allowed so who is going to abort so you can easily see that
+
+104
+00:51:39,070 --> 00:52:08,410
+at this point of time t3 aborts because t3 is late so at this point of time t3 aborts so t3 will abort remember this is unsuccessful this operation will be unsuccessful this operation does not happen so this operation is basically unsuccessful so this operation actually will not happen ultimately the right time stamp of x will be only t2 the right time stamp of x that will be t2 so you can easily see that
+
+105
+00:52:08,870 --> 00:52:39,780
+if I ask you what is the right time stamp of x that will still be t2 because this is unsuccessful operation so don't consider the unsuccessful operation when you have this read and write time stamp when you determine this then don't consider the unsuccessful so remember unsuccessful transactions you don't consider so is this clear to everyone what is for any element did you understand what is read time stamp and write time stamp so very simple definition you can see the definition
+
+106
+00:52:40,250 --> 00:53:06,060
+the read time stamp of x is the highest time stamp of the transaction okay this read time stamp of x what is that? that is the highest time stamp of a transaction highest time stamp of a transaction who is doing the read operation? who is doing the read operation? and the write time stamp of x is the highest time stamp of a transaction that is doing the write operation so very simple
+
+107
+00:53:06,550 --> 00:53:37,190
+this is how we do the implementation of TSP time stamp protocol this is how we do the implementation now are ok now are you ready for 50 questions actually not 50 actually almost 60 questions I have taken are you ready for all these questions can you take your copy pen because I want correct answers from you for every question for each question you should give me correct answer ok total 50 questions back to back I am going to ask you ok just take your copy pen keep your copy pen with you
+
+108
+00:53:37,540 --> 00:54:07,910
+Okay, and then you answer all these questions now. Let's start Selfish start, please tell me give me yes or no Are you ready to solve all these questions yourself? You will solve them yourself. I'm going to ask them back-to-back Okay, and by the end of this lecture you will become expert you will become I can say like a professor of this time-stamp protocol So, let's see the first question the question number one Let's see this question first of all. Let me give you some context
+
+109
+00:54:08,330 --> 00:54:37,720
+In all these questions I am assuming in all these questions in all these questions what I am assuming you are I am assuming three transactions one is Y another is M another is O I am saying that Y is the youngest transaction okay this Y this Y is the youngest transaction it means it has the highest time stamp O is the oldest transaction it means it has the lowest time stamp and M is some middle age transaction okay so this is the assumption now you solve this question
+
+110
+00:54:38,090 --> 00:55:12,930
+Tell me the answer for this one. Is the following allowed or not in the time stamp protocol? Simple question. Question number one. Is this allowed in the time stamp protocol or not? Remember this is transaction. Remember this is a transaction. This is transaction. Transaction Y reads data item X. Then at some later, at any later point of time, at any later point of time, this transaction M writes item X. Is this allowed? Is this allowed or not?
+
+111
+00:55:13,240 --> 00:55:41,610
+Tell me, simple question I'm asking, is this allowed or not? The transaction Y is reading data item X. Okay, if you are confused, then always draw the chart. Always, always, always, if you are confused, always draw the chart. So what is the chart? You know that Y is youngest. There is Y, there is O, there is M. These are the transactions. Okay, these are the transactions. Always draw the chart.
+
+112
+00:55:42,350 --> 00:56:10,570
+okay don't give me wrong answer always draw the chart y is reading data item x so this y is reading data item x it is reading data item x then at some later point of time after some point of time m writes item x after some point of time maybe okay after some point of time m writes item x is this allowed basically the time is going like this the actual time the actual time is going like this
+
+113
+00:56:10,950 --> 00:56:40,110
+So first this operation is happening, maybe this operation is happening at time t equal to 2 and maybe this operation is happening at time t equal to 13 So the time is going like this, is this allowed tell me? A simple question? So the answer is no, this type of ordering is not allowed, this conflict order is not allowed, right? Yes or no? Because you can notice the TSP, the time stamp protocol says that in this order, this is the conflict order
+
+114
+00:56:40,830 --> 00:57:11,670
+remember this is the conflict order this is the conflict order so this is the serializability order so this is definitely not allowed so who will tell me what will happen then if it is not allowed then what will happen here who will roll back who is going to roll back so here I can say this M rollbacks okay so here I can say that M rollbacks M will rollback and it will it will start restart remember this O M Y
+
+115
+00:57:12,340 --> 00:57:43,680
+this is reading x this is writing x after some point of time this is not allowed so here what will happen this is unsuccessful first of all this is unsuccessful okay this is unsuccessful here I can say M at this point of time I can say that M rollbacks and restarts okay M will restart with which time is time M restarts with which time is time with its original time is time
+
+116
+00:57:44,170 --> 00:58:13,660
+with its original time stamp or a new time stamp simple question i am asking m will restart with the original time stamp with the old time stamp or with the new time stamp the answer will be with the new time stamp with the new time stamp why? this i will answer after some time okay now you might be thinking why like see this will happen but why with the new time stamp you might be thinking why right? is there anyone who is thinking why? why new time stamp?
+
+117
+00:58:13,930 --> 00:58:43,480
+Why not the old-time stamp? See, the M will roll back. M will restart with new-time stamp. Why not with old-time stamp? What is the reason it will not start with old-time stamp? This I will tell you after some time. Okay, don't worry. This we will see. We will see. I will give you the proof. I will give you the proof. Don't worry. That we will see. But anyway, it will restart with a new-time stamp. A new-time stamp it will start. Okay.
+
+118
+00:58:43,800 --> 00:59:12,780
+So anyway, so this is your question. So this is not allowed. You can see the answer will be not allowed. So for this question, the answer will be not allowed. Now let's move on to the next question. Tell me the answer for this one. Question number two. Tell me the question number two. Is the following allowed or not allowed in the TSP in the time stamp protocol? M reads this is a transaction. This is a transaction.
+
+119
+00:59:13,540 --> 00:59:45,260
+so this transaction reads data item x it is reading data item x then at some later point of time why is writing item x if you are confused order always draw the chart okay so there are three transactions old middle young this is the order you can see that this is the order of conflicts this is the serializability order this is the serializability order now the question is saying that m is reading item x it is reading item x
+
+120
+00:59:45,700 --> 01:00:13,460
+then after some point of time it is writing item x so there is no problem right yes or no it is fine this order of conflict is fine correct this conflict order is fine this conflict order is fine so definitely this is allowed I can say right yes or no so this will be allowed this is going to be allowed very simple because this conflict order this conflict order is fine we don't have any problem with this conflict order
+
+121
+01:00:14,070 --> 01:00:44,710
+The time-ish temp protocol says that conflict order should be in the order of their time-ish temp You can notice the time-ish temp order is also this and this order is also this So this, this is the time-ish temp order This is the time-ish temp order of transactions This is the time-ish temp order of transactions And you can see that this is the conflict order And they are same, right? They are same So the conflict order is same as
+
+122
+01:00:44,930 --> 01:01:19,760
+the time stamp order of the transactions so this is allowed what about this question question number three tell me the answer for question number three is this allowed or not another simple question transaction remember this is transaction this is a transaction this is the oldest transaction so this is a transaction transaction over reads data item X then at any later point of time transaction Y writes item X tell me is this allowed
+
+123
+01:01:20,060 --> 01:01:48,340
+the answer will be again allowed because this is fine there is no problem this is old this is middle this is so it is reading item x then after some after some point of time this conflict order is fine yes or no this is perfectly fine this this is perfectly fine okay there is no problem so this is allowed what about this one what about this question if you have any doubt in any question you can tell me I will answer it so don't don't don't keep any doubt
+
+124
+01:01:48,650 --> 01:02:17,700
+make sure that you become expert make sure that this time is temp protocol becomes so easy that even after 2 year, 3 year, even after 10 years also if anyone ask you time is temp protocol you can answer it this is the purpose of this lecture I want you to understand time is temp protocol so nicely that after 10 years also if someone ask you what is time is temp protocol you can explain whatever question, whatever variation comes in the gate exam you can handle it so you tell me the answer for this question
+
+125
+01:02:18,030 --> 01:02:47,000
+the transaction M is reading item X then at any later point of time O is writing item X this is definitely not allowed yes or no this is definitely not allowed because you can easily see what the question is saying the question is saying that there is O there is M there is a transaction Y this is the time stamp order so you can see that now the question is saying that M is reading data item X and then at any later point of time O is writing data item X
+
+126
+01:02:47,480 --> 01:03:20,320
+so this order this is definitely not allowed this is the conflict order this conflict order is not allowed so we don't allow this conflict order so at this point of time what will happen this will become unsuccessful first of all this will become unsuccessful this operation will not happen remember this operation will not happen and at this point of time I can say that at this point of time this transaction O this transaction O aborts it aborts and restarts
+
+127
+01:03:21,260 --> 01:03:48,650
+and restarts with new or old time stamp and restarts with new or old time stamp with a new time stamp why? we will see after sometime don't worry with a new time stamp it will restart with a new time stamp what is the reason? we will see after sometime okay let's see this question is this allowed or not? so that young transaction is writing data item X
+
+128
+01:03:49,800 --> 01:04:20,630
+then at any later point of time m is writing data item x so again this is not allowed correct this order is not allowed very simple okay now let's see the next question tell me the answer for this one question number six o is writing data item x then at any later point of time m is writing data item x this is this is fine there is no problem because you can see o this is transaction o m y so it is writing item x
+
+129
+01:04:20,900 --> 01:04:47,980
+after some point of time it is writing item x this is perfectly fine there is no problem this conflict order is perfectly fine so this is allowed okay now what about this question number 7 quickly is this allowed or not transaction y writes item x then at any later point of time o writes item x this is definitely not allowed okay so this is your o and y this is writing item x and after some point of time
+
+130
+01:04:48,380 --> 01:05:21,810
+it is writing item x this is definitely not allowed this is a conflict this is a conflict and hence this is not allowed what about this question so here m is writing data item x sorry o is writing data item x after some time y is writing item x this is allowed there is no problem here okay in this there is no problem so like this you can easily solve this question also question number nine o is writing item x o is writing data item x
+
+131
+01:05:22,050 --> 01:05:49,470
+this transaction O that is writing data item X after some point of time Y is reading item X it is writing item X after some point of time it is reading item X this is also conflict but this conflict is fine right yes or no this is allowed because old middle young so you can notice this is writing item X after some point of time this is a conflict but this conflict is allowed this is reading item X you can see this is a conflict this is a conflict but this is fine
+
+132
+01:05:50,640 --> 01:06:19,810
+This conflict order of fine. Okay, so there is no problem. So here this will be allowed. What about this question? Tell me quickly in the answer. What is the answer here? Question number 10. Transaction Y is writing data item X. It is writing data item X. And then this O is reading. See this is also conflict, right? This is writing item X. Then this is like, this is your O, M, Y. So this is writing item X. And after some point of time, this is reading item X.
+
+133
+01:06:20,040 --> 01:06:50,070
+so this is a conflict you can easily see this is a conflict read comma write write comma read so this is a conflict and this is not allowed this order of this conflict order is not allowed okay so this is definitely not allowed what about this question tell me what about this one transaction m is writing item x and then some point of time y is writing reading item x okay so uh so again this is fine there is no problem here
+
+134
+01:06:50,430 --> 01:07:18,990
+this is because this is the transaction M so it is writing item X then after some point of time it is reading item X this conflict order is fine there is no problem okay so this is allowed so like these are the questions all the variations I am covering actually that is the reason see similar questions all these but now some nice questions are coming don't worry like this is the final question so tell me M is writing item X then O is reading item X
+
+135
+01:07:20,120 --> 01:07:50,040
+So this is not allowed, right? Because you can notice O, M, Y, M is writing item X, then after some point of time O is reading item X, this is not allowed, correct? This is definitely not allowed. So here the answer will be not. Okay. And what about this one? What about this one? M is reading item X and then at any later point of time O is reading item X. Is this allowed? Is this allowed or not? Question number 13.
+
+136
+01:07:50,400 --> 01:08:20,100
+Tell me the answer for question number 13. What is the answer for question number 13? M is reading item X. Then so this O, M, Y, M is reading item X. After some point of time O is reading item X. Is this allowed or not? See this is allowed because this is not even a conflict. This is not even a conflict. Please understand that this is not conflict. This is not conflict pair. Read-read is not a conflict.
+
+137
+01:08:21,020 --> 01:08:49,680
+Okay, please understand this read-read is not a conflict This is reading, this is reading Read-read is not a conflict So this is allowed So there is no problem here This is allowed Because this is not even a conflict That is the reason this is allowed Okay, what is the answer for this one? For this question O is reading, M is reading No problem, this is not even a conflict This is allowed This is not even a conflict There is no conflict here So this is, I can say this is not even a conflict pair
+
+138
+01:08:56,020 --> 01:09:24,240
+This is not even a conflict pair. So this is allowed. Similarly, this is also like why is reading? Why is reading or is reading? So there is no problem. This is also allowed because this is not a conflict. Okay, as long as there is no conflict. So these are the questions done. So far the questions that we have seen, these are just to check your understanding of what is allowed, what is not allowed. So, okay, in these 15 questions, are you comfortable with the question number 1 to 15?
+
+139
+01:09:25,100 --> 01:10:01,920
+Question number 1 to 15. Are you comfortable? Are you comfortable with question number 1 to 15? Tell me. Did you understand what is allowed, what is not allowed in the time stamp protocol? Let me know. Yes or no. So if you are watching this video as a recorded video, if any student is watching this video, not live, but as a recorded lecture, then please comment. Okay. Comment and like. Now let's move on. Now let's see question number 16.
+
+140
+01:10:02,690 --> 01:10:32,230
+Question number 16, please tell me the answer for this one. In a schedule, there is a schedule that is generated. In a schedule that is generated allowed by time stamp protocol, there is a schedule which is generated by time stamp protocol. Assume that transaction T reads item X. At some later point of time, transaction G writes item X. What can you say about time stamp of T comma G? Did you understand the question? Question is very simple. Question is saying that, read the question carefully.
+
+141
+01:10:32,690 --> 01:11:04,070
+there is a schedule which is generated which is allowed by time stamp protocol so a schedule is already allowed by time stamp protocol assume that transaction t reads item x some at some later point of time transaction g writes item x what you can say about time stamp of t comma g okay so are you understanding the question is saying that there is a time transaction tsp time stamp protocol allows it allows a schedule s there is a schedule s
+
+142
+01:11:04,330 --> 01:11:33,160
+okay so in this schedule S what happens in this schedule S this happens that there is a transaction G there's transaction T G and the transaction T reads item X then G after some point of time G writes item X so what can you say about time is tempo of T comma G the answer will be what you can easily see that if this is happening the time is going like this the time is going like this so you can easily see that
+
+143
+01:11:33,480 --> 01:12:03,120
+in this order if the things are happening then their their order also must be same so i can say this can never happen right that t is greater than g this can never happen do you agree do you agree that this can never happen i can say that either t is same as g or t is less than or equal to g okay either t can be same as g remember one more thing i want to tell you two different transactions never have same time stamp okay two
+
+144
+01:12:03,850 --> 01:12:46,260
+different transactions two different transactions can never have same time stamp time stamp is something time stamp is something this is this is always increasing this is something always increasing okay time stamp that is something that is always increasing so two can never have time stamp for example this is a question let's assume there is there are two transactions there is transaction T1 there is transaction T2
+
+145
+01:12:47,260 --> 01:13:17,560
+If time stamp of transition T1 is equal to time stamp of transition T2, what can you say? Then what can you say? Tell me then what you can say? Simple question I am asking. Then what you can say? If they have same time stamp then what you can say? Then the answer will be T1 is same as T2. Then they will be same transaction. Okay, so two different transactions can never have same time stamp. So the answer will be here that either they can be same transaction or
+
+146
+01:13:17,820 --> 01:13:46,920
+okay so in the options if you have this this is also correct there is no problem see in the options if this is there this is also fine or they can be same okay either they are the same transaction or t is less than equal to g so very simple this question number 16 did you understand this question number 16 now let's see the question number 17 tell me the answer here there is a schedule that is allowed by time stamp there is a schedule and we are saying that assume that transaction t is writing item x
+
+147
+01:13:47,580 --> 01:14:17,640
+after some point of time g is writing item x, write write then what you can say again the similar question we are saying that there is a t there is a g we don't know their time stamp but this is saying that this is writing item x after some point of time this is writing item x then what you can say about their time stamp order what you can say about time stamp of t,g what can we say about time stamp of t,g again the answer will be what? answer will be t time stamp of
+
+148
+01:14:17,920 --> 01:15:01,590
+I can say the time stamp of T will be less than equal to time stamp of G Okay, this time stamp of T will be less than equal to time stamp of G Sorry, here basically I am saying time stamp Okay, let's move on So this is the question So again you can notice that time stamp of T will be less than equal to time stamp of G Next, what is the next? Let's see this question Question number 18
+
+149
+01:15:02,310 --> 01:15:29,870
+again there is a schedule that is generated allowed by time stamp transaction T is reading item X after some point of time transaction G is reading item X what you can say so transaction T is reading item X then after some point of time transaction G is reading item X what can you say about their time stamp what can we say about their time stamp nothing can be said yes or no we can we can say nothing nothing can be said
+
+150
+01:15:32,080 --> 01:16:02,660
+nothing can be said right because there is a transaction T, there is a transaction G you have two transactions this is reading item X after some point of time this is reading item X we cannot say anything all the possibilities are fine this all the possibilities are fine we cannot say anything about time stamp of I can say time stamp of T time stamp of G are not comparable or information is not sufficient okay because information not sufficient it simply means that information not sufficient
+
+151
+01:16:04,110 --> 01:16:32,910
+we don't have sufficient information so this information is not sufficient okay for this question the information is not sufficient we cannot say anything about their time stamp nothing can be said because remember simple thing I am saying that let me assume a simple thing I am saying that these things are fine in TSP in time stamp protocol these things are fine for example let's assume there is T1 there is T2 and there is T3 and let's assume this is their time stamp ordering
+
+152
+01:16:33,170 --> 01:17:04,980
+let's assume this is the order of time stamps so I am saying that this is the order of time stamp this is the order of time stamps now remember these things are perfectly fine these things like these things are perfectly fine for example this is reading this is reading x then this is reading x there is no problem there is no okay it is perfectly fine because this is not a conflict pair this is not a conflict pair so these things are perfectly fine for example this is writing item x
+
+153
+01:17:05,260 --> 01:17:35,390
+and this is writing item Y this is also perfectly fine remember this is also perfectly fine because these are not conflict pair so this is also fine so this is what I am saying that as long as you don't have conflict pair these things are fine like this is writing item Y this is writing item Z this is reading item X okay so all these things this is reading item X all these things are fine this is perfectly fine there is no problem okay
+
+154
+01:17:35,640 --> 01:18:10,750
+so as long as you don't have conflict it is fine like this is not this is not fine for example this is writing item x and after some point of time this is reading item x so this is not fine this is not allowed okay because this is a conflict this is a conflict pair so this is not allowed let's move on to the next question this is the question you are waiting for some of you are waiting for this question do you write so let me tell you this is a fourth question the question is from korth
+
+155
+01:18:11,690 --> 01:18:39,140
+What the question is saying? The question is saying that why? What is the reason? What is the reason? You give me the reason. So the question is asking for why? Why an aborted transaction restarts with a new time stamp instead of old time stamp? What is the reason? Can you tell me? Like in the time stamp protocol, when a transaction is rolled back under time stamp ordering, it is assigned a new time stamp.
+
+156
+01:18:39,970 --> 01:19:09,260
+Why we can't give it the old-time stamp? What is the reason? What is the reason we give it a new-time stamp? Why we cannot give it old-time stamp? This is a question from the court. This is a standard question. Yes, very good, Yubraz. Very good. This is the question 19. Because it will again roll back. The answer is very simple. The answer is very simple. Why? The answer is very simple. Because it will again roll back. Because...
+
+157
+01:19:09,290 --> 01:19:36,020
+it will again roll back it will again roll back it will again abort if this happens see what I am saying let me tell you what I am saying now consider this scenario just consider this scenario let's assume this transaction there is a transaction T I am giving you a transaction T okay or maybe transaction T1 now in this transaction T1 let's assume it wants to read item X okay
+
+158
+01:19:36,420 --> 01:20:03,910
+it wants to read item x it wants to read item y and so on so this is what this transaction wants to do now consider this scenario just consider this scenario let me assume that time stamp of t1 is less than time stamp of t2 okay let me assume assume this assume that time stamp of t1 is less than time stamp of t2 let's assume now assume this happens
+
+159
+01:20:04,850 --> 01:20:33,760
+Okay, let's assume again I am saying that T2 let me give you the transaction T2 also let me give you let me give you transaction T2 this T2 what it does it writes item Y what it does it writes item Y okay now consider this scenario that you already know that this is the timeline yes or no this is the time stamp order what is the time stamp order this is the time stamp order that this T1 and then this T2 this is the time stamp order correct
+
+160
+01:20:34,290 --> 01:21:03,110
+now consider this scenario what happens you know that time stamp of t1 is less than time stamp of t2 okay this time this t2 is writing item y and this t1 is reading x reading y now you can see that if this happens like let's assume this is t1 this is t2 let me assume that it reads item x then it writes item y then it reads item y now tell me what will happen remember this tell me what will happen like this is reading item x
+
+161
+01:21:03,740 --> 01:21:31,220
+this is writing item Y then it is reading item Y this scenario happens now tell me what will happen now tell me tell me tell me what will happen now this is not allowed correct yes or no this is not allowed so if this is not allowed then what will happen then here T1 rollback so at this point of time T1 will rollback correct they definitely T1 will rollback okay now assume you start with
+
+162
+01:21:31,800 --> 01:22:01,360
+again if you start let's assume again you start this T1 now this T1 will rollback this T1 has rollbacked okay this T1 has rollbacked so this T1 is gone T1 is gone T1 is gone T1 is gone okay this T1 is already gone now this restarted T1 this is the restarted T1 if the restarted T1 has less time if you restart it if you restart with the original time stamp if T1 is restarted
+
+163
+01:22:01,420 --> 01:22:30,460
+Tell me now, can you see the problem? If T1 restarts with all the time stamp Can you see the problem? Can you see the problem? If transaction T1 restarts with all the time stamp This is restarted T1 So if you start with all the time stamp Then again it is older Then again it is older, right? Yes or no? Then again what will happen?
+
+164
+01:22:32,410 --> 01:23:05,400
+this is the time that is going on the time is going on like this again what will happen it will restart okay again what will happen the same thing will happen that it will read x it will read y again this will roll back again again again again again this will roll back again T1 rollbacks again T1 rollbacks so now is this crystal clear that we cannot restart any transaction with the old time stamp
+
+165
+01:23:05,960 --> 01:23:46,570
+Is this crystal clear? Tell me, please, please tell me. Is this crystal clear? Then in time stamp protocol, in this time stamp protocol, aborted transaction, aborted transaction, must restart with new time stamp. Yes or no? It must start with new time stamp. Else, it will, else, else, it will again roll back. Else,
+
+166
+01:23:47,120 --> 01:24:24,750
+it again it again rollbacks is this crystal clear tell me that it must start with new time stamp let me know please tell me is this question clear because this is a core question this is a standard question this is important this is core these questions from the standard resources they come in the gate exam as it is standard questions from the standard resources come in the gate exam as it is
+
+167
+01:24:25,240 --> 01:24:55,880
+So this is a fourth question So is this understood that we cannot We must start with new time stamp We must start with new time stamp We cannot start with old time stamp Because if you start with old time stamp Then it will again roll back It is going to again roll back So you must start with new time stamp Now let's move on to the next question number 20 Question number 20 Tell me the answer
+
+168
+01:24:56,590 --> 01:25:24,690
+True or false? Simple question, true or false? The time is temp sedular, there is a sedular, time is temp sedular, assumes that the time is temp order of transactions, okay, basically this time is temp sedular, there is a time is temp sedular, this assumes that the time is temp order of transactions, the time is temp order of transactions is also the serial order in which they must appear to execute.
+
+169
+01:25:25,680 --> 01:25:55,250
+is also the serial order in which they must appear to execute they must appear to execute so this is statement is true this is the basic idea of TSP yes or no this is the basic fundamental idea of the TSP do you agree correct or not this is the fundamental idea that in TSP the equivalent serial schedule is basically the same in the same order as the time stamp order of the transactions so this is true
+
+170
+01:25:55,470 --> 01:26:32,820
+this statement is true because in the TSP what happens in the time stamp protocol what happens in this time stamp protocol for any schedule for any schedule as what will happen the equivalent serial schedule the equivalent serial schedule this equivalent serial schedule has the this equal serial schedule is the is in the order I can say is in the order of time stamps of transaction
+
+171
+01:26:34,160 --> 01:27:04,340
+time stamps of transactions so this is the definition actually let me tell you this statement is just a definition right in the order of time stamp of transactions so this statement is true and this is just a definition of time stamp protocol question number 21 tell me the answer tell me the answer for question number 21 in any schedule the transaction that executes the first data access has the least time stamp
+
+172
+01:27:05,170 --> 01:27:36,410
+in any schedule the transaction that executes the faster data access has the least time stamp is this true? what this question wants to say let me tell you is this true that if this happens let's assume there is T1, there is T2, there is T3 if this happens that if this happens that this is doing the faster data access this is doing the faster data access okay then let's assume this is doing the data access then let's assume this is doing the data access like this is what I'm saying
+
+173
+01:27:37,220 --> 01:28:09,150
+then let's assume this is doing the data access so now you tell me can I say this will have the least time stamp can I say t2 has the least time stamp can I say that t2 has the least time stamp can I say does it imply tell me does like does it imply this complete situation does it imply t2 has least time stamp tell me has the least time stamp the answer is very clearly no let me tell you the answer is no
+
+174
+01:28:09,420 --> 01:28:40,780
+The this statement is false. Why this statement is false? Remember, it does not mean that time stamp is time stamp means the transaction arrival. Remember this point. So remember what is time stamp of transaction? Time stamp is given when transaction arrives. Okay. To any transaction to any transaction. So whatever transaction you take to any transaction T when time stamp is given. Tell me time stamp.
+
+175
+01:28:41,150 --> 01:29:23,670
+this time stamp when this is given this time stamp is assigned when t arrives or created or submitted to the system okay so when it arrives in the system so remember when it arrives in the system then time stamp is given to it so for example here it can happen it is possibility that maybe this is the least time stamp there is no problem for example let's assume there is a time stamp t1 okay so time stamp t2
+
+176
+01:29:24,480 --> 01:29:53,700
+it is perfectly fine remember so this is actually the least time stamp you can see this is the least time stamp this is the least time stamp and there is no problem like this is perfectly fine for example maybe maybe this T2 is doing the read operation then this T1 is doing the write operation something like this so all these things are fine are you getting my point so it is it is actually older it is actually older
+
+177
+01:29:54,110 --> 01:30:25,640
+it does not mean it does not mean that it will do the access first it will do the first access so is this clear question number 21 are you comfortable that in any schedule the transaction that will execute the first data access has the least time stamp the answer is false this statement is false let me tell you this is a standard question from the olman book this is a olman question okay so question number 21 is done now let's see so this is the note
+
+178
+01:30:26,060 --> 01:30:57,110
+the time stamp ordering protocol so very simple you already know this you already know that time stamp ordering protocol ensures that any conflicting read and write operations are executed in the time stamp order okay this is the idea that in the time stamp ordering protocol any conflicting read operation write operation will execute in the time stamp order this we already know now let's see this question some beautiful questions we are going to solve now so tell me right now
+
+179
+01:30:57,530 --> 01:31:38,250
+Till question number 22, are you comfortable? Question number 1 to question number 22, so far are you comfortable? Did you understand everything? Tell me, did you understand? Did you clearly understand everything? Can you visualize all the concepts that you are learning? Can you visualize? Like in your mind, can you visualize? Did you clearly understand? Okay, so, now, this is fine. Read this statement.
+
+180
+01:31:40,700 --> 01:32:25,950
+Answers that any conflict will happen in the time stamp order. This is the statement. We are saying that every conflict order will happen in the same order as the time stamp order. So this statement is fine. Question number 22. Do you have any doubt in the question number 22? Where is question number 20? Okay, so I think there is no question number 22, right? Okay, so I can say 21. We have done only question 21. This was the question 21. Okay, okay.
+
+181
+01:32:26,270 --> 01:32:53,540
+So anyway, everything is clear now. All the doubts are clear. Now let's see the next question. So tell me the answer for this one. This is another nice question. Tell me. So which action will be taken by the time is time scheduler? What action will it take? Will it allow? Will it rollback? What it will do? Which action will be taken by the time is time scheduler? Read this question.
+
+182
+01:32:56,700 --> 01:33:26,960
+tries to read data item X, but the right time of X indicates this. Read this question and tell me the answer. Correct answer I want. Transaction T, this transaction T tries to read item X, but the right time of X, but the right time of X, see this, right time of X indicates that transaction T
+
+183
+01:33:28,340 --> 01:33:58,760
+time is temp of transition t is less than try time is temp of x so in these questions what is the best way can you tell me what is the best way to solve this question to solve this question what is the best way the best way is create a chart okay the best way is to create a chart what you do what the question is saying the question is saying that there is a transaction t okay there is a transaction t wants to wants to read x
+
+184
+01:34:00,390 --> 01:34:32,260
+it wants to read x but what the quesany saying the quesany saying that time stamp of t is less than right time stamp of x okay time stamp of t is less than right time stamp of x so what is the diagram actually see what it means this is the what is the highest this is this means the highest transaction time stamp the highest time stamp what this means this means the highest time stamp right
+
+185
+01:34:33,740 --> 01:35:09,390
+of transaction okay so this WTS of X what this means this means that this is the highest time stamp of transaction successfully writing X correct now the question is saying that this time stamp of T is less than this what it means it means this is the T and there is some bigger transaction there is a some bigger transaction who has already written X do you agree do you agree that there is some bigger transaction who has already written X
+
+186
+01:35:10,340 --> 01:35:41,600
+there is some bigger transaction who has already written x now this T1 wants to read x this conflict is not allowed this conflict is not allowed this is interesting question right finally finally I can say a good question for the gate level for the gate exam so in the gate exam like this type of question comes they give you this equation they give you this equation and then they ask you what it will do what action will be taken please tell me did you understand this
+
+187
+01:35:42,010 --> 01:36:44,480
+the question is very simple, we are saying that first of all right time stamp of x is given to you the question is saying right time stamp of x is greater than time stamp of t right time stamp of x okay it means so you just read the question and solve this try this give me a second hello hi everyone so okay is this question clear to everyone then what is happening that because time stamp the right time stamp of x what it means
+
+188
+01:36:44,870 --> 01:37:11,350
+that who is writing X who is writing X so there is a there is a so which is the highest transaction which is the youngest transaction to write X so basically there is a transaction younger transaction who has already written X then this transaction is writing X then this transaction T is reading X so this is not allowed in this situation what will happen this is unsuccessful right correct this is unsuccessful
+
+189
+01:37:16,690 --> 01:37:56,380
+this is unsuccessful read so here what will happen here transaction T rollbacks and restarts with what so what action will be taken action will be taken T rollbacks and restarts with new time stamp okay and it will restart with new time stamp okay so it will restart with new time stamp so very simple so you can see actually this diagram you can notice this is the diagram from the Ulman book this diagram you can notice what is happening see
+
+190
+01:37:56,700 --> 01:38:26,120
+this transaction t wants to read but the right time stamp of x is already greater remember this t wants to read this t wants to read wants to read x so what is happening it's happening something like this let's assume this is the time that is going on in this direction time is going on what is happening that this t started first remember so maybe this t actually started first this is the time stamp of t
+
+191
+01:38:26,860 --> 01:38:58,270
+so this t started first after this some transaction u started some transaction u what the question is saying maybe the u is writing maybe maybe this is equal to u maybe there is a transaction u maybe there is a transaction u which is writing x maybe there is a transaction u which is writing x so there is a transaction u which is writing x here write x is done by u okay after this after this
+
+192
+01:38:58,620 --> 01:39:44,510
+this transition T wants to read X so definitely this is not allowed in this order the conflict cannot happen so in this order the conflict cannot happen so this is not allowed in this order the conflict cannot happen anyway you understood so let's move on now let's see this question question number 24 can you tell me the answer for this question number 24 give me the answer for this which action will be taken so tell me what is the answer for this one
+
+193
+01:39:46,850 --> 01:40:15,300
+Which action will be taken? Transaction T tries to write data item element X. Okay, it wants to write item X. However, the read item of X, basically this equation is given to you. Basically, this equation is given to you. Okay, the read item of X indicates that some other transactions should have read the value written by T, but it read some other value. Okay, so basically this equation, focus on this equation. Just focus on this equation.
+
+194
+01:40:15,950 --> 01:40:44,980
+what the question is saying there is a transaction T the question is saying like this there is a transaction T it wants to write item X okay it it it wants to write item X remember and the question this equation is saying this equation is given what the equation the equation is this that time stamp of T is less than read time stamp of X okay this is given now you just create the chart
+
+195
+01:40:45,450 --> 01:41:23,310
+What you do you just create the chart first of all what this means first of all what this means this means the Which is the youngest transaction? This is the I can say this is this is the highest This is the highest time stamp. Okay, so remember this is the highest time stamp of transaction Reading X successfully reading X Okay, so this is your RTS means read time is temp of X
+
+196
+01:41:23,570 --> 01:41:53,430
+So who is the youngest person to read X? Okay, so this is the, I can say this is the youngest transaction to read X. Who is the youngest person, who is the youngest person to read X? Who is the youngest person to read X? So basically there is a, this is greater than, this is basically, what it means? Means T wants to write X. So this T, this transaction T wants to write X. It wants to write X. This is what you want to do. But, but, but.
+
+197
+01:41:54,230 --> 01:42:28,250
+Already there is some younger transaction, there is some younger transaction has already read the item X. So this is again a conflict, yes or no? This is again a conflict and this is again not allowed. Again this is not allowed. Again what will happen? Here this will be unsuccessful. Again here what will happen? Here I can say transaction T rollbacks. Is this clear? Please tell me.
+
+198
+01:42:29,330 --> 01:42:57,160
+Is this clear? So here again the transaction T rollbacks. So what action will be taken? The action will be T rollbacks. Here also T rollbacks. Very simple. Now let's move on. So these are simple, simple questions. So you can just easily see. Tell me the answer for this question quickly. Quickly tell me the answer for this one. Is this schedule allowed by 2PL? On your screen a schedule is given to you. Is this schedule?
+
+199
+01:42:58,020 --> 01:43:28,640
+Is this schedule allowed by time stamp protocol? Is this allowed by time stamp protocol? These are the time stamps. These are the time stamps that are given to you. These are the time stamps. What is the first thing you will do? Tell me. In the GATE exam, if this question comes, actually this is a ULMAN question, let me tell you again. Let me tell you again, this is a ULMAN question. If this question comes,
+
+200
+01:43:30,220 --> 01:43:59,680
+this is a standard question if this question comes in the exam as it is then what is the first thing you will do? what is the first thing you will do? first you will convert this transaction into because remember here see please understand that this is the oldest this is the oldest this is the youngest so what is the first thing you will do in the gate exam if this question comes what will you do the first thing first you will convert yes
+
+201
+01:44:00,550 --> 01:44:27,980
+you because you are not comfortable with this order you are not comfortable with this but you are very comfortable if I write like this like this T2 is 150 okay then this T3 is 175 and then this T1 this T1 is 200 you are very comfortable can I say you are very comfortable with this order you are very comfortable with this order right yes or no correct
+
+202
+01:44:28,280 --> 01:44:57,740
+now everything remember the time is going like this the time is going like this what it means everything else will be like this so this T1 is reading item A this T1 is reading item B so this T1 will read item B okay it will read item B then then this T2 reading item A then this T3 reading item C then this T2 reading item A then this T3 reading item C next then T1 is writing B writing A
+
+203
+01:44:58,090 --> 01:45:31,660
+T1 is writing B writing A then T2 is writing C then T2 is writing C and then T3 is writing A then T3 is writing A okay that's it so now you tell me if this schedule allowed or not on your screen this is the first thing to do now we are comfortable I can say now we are comfortable now we are comfortable right yes or no
+
+204
+01:45:31,920 --> 01:46:01,140
+with this order we are comfortable we are more comfortable with this order so now you tell me so you can easily check that just find the conflict just find the conflict pairs so where are the conflict pairs just find the conflict pairs so you can see that this is a conflict this conflict is perfectly fine yes or no this conflict look at this this is a conflict and this is a perfectly fine do you agree do you agree that this conflict order is fine
+
+205
+01:46:01,470 --> 01:46:30,950
+this conflict order is fine so we don't have any problem with this conflict order this conflict order is perfectly fine what about this order what about this order what about this order this is this conflict order is not allowed yes or no this is not allowed if this is not allowed then who will roll back so this is unsuccessful so what will happen so this will become unsuccessful so here you can notice this at this point of time I can say T3 rollbacks
+
+206
+01:46:34,600 --> 01:47:10,300
+so this will be unsuccessful so remember that this operation is unsuccessful unsuccessful so this will be rollback so this will be gone okay so this is going to be gone rollback okay so this is gone so very simple that this point will be gone this transaction this transaction will be gone and after that there is no problem so here is this allowed the answer is no if this schedule allowed the answer will be no
+
+207
+01:47:10,600 --> 01:47:42,020
+the T1 they're basically T1 rollbacks sorry which rollbacks T3 rollbacks so I can say T3 rollbacks T3 rollbacks is this understood is this understood that T who sorry that is T2 sorry sorry sorry that is T2 so T2 rollbacks sorry that is T2 so that T2 will rollback that is T2 so here the T2 will rollback okay so T2 rollbacks
+
+208
+01:47:42,540 --> 01:48:15,330
+So this is not allowed and T2 will rollback. Very simple. Okay and once T2 rollbacks, now there is no problem. So once T2 will rollback, see now the T2 will be gone. Now the T2 has rollbacked. The T2 has rollbacked. Will there be any other rollback? T2 has gone. T2 has gone. Remember T2 has gone. Now is there any other rollback? Is there any other rollback? T2 rollbacked. T2 rollbacked. T2 rollbacked. Now is there any other problem?
+
+209
+01:48:15,920 --> 01:48:48,350
+Do we have any other conflict? There is no other conflict, right? Yes or no? So this is perfectly fine. So this is perfectly fine, fine by TSP. So there is no other rollback. The only rollback will happen for T2. So for this question, remember this is Ulman Queson. For this Queson, T2 will rollback. Ultimately, here this T2, this T2 is going to rollback. This T2 rollbacks. Very simple Queson. So now you can solve actually all the variations, all the Quesons you can easily solve.
+
+210
+01:48:50,020 --> 01:49:26,830
+So you can notice. So here you can notice that T2 will roll back. Let's move on. Let's see this question. This is another question from the from which university some I think Stanford or Berkeley something. So tell me the answer for this one. How many transactions will roll back? How many transactions are aborted by the time stamp scheduler? How many transactions will be aborted by the time stamp scheduler? This is your question number 26. Question number 26. How many are going to be aborted?
+
+211
+01:49:27,290 --> 01:49:58,640
+by the time stamp scheduler and the question has already given you the information that the time stamps are 1 2 3 4 5 so basically this is already in the time stamp order this is already in the time stamp order these are already given to you now let's find out which are the conflict or conflict just just find out the conflict pairs all you have to find is conflict pairs this is perfectly fine yes or no there is no problem this is perfectly fine
+
+212
+01:49:59,620 --> 01:50:36,770
+We don't have any problem here. There is no problem. So I can say this is fine. I can say this is the red ones are fine. Okay. So this is what I'm saying. These are fine, fine arrows. And when I write like this, then these are not allowed arrows. This color means not allowed arrows. Okay. So not allowed arrows. What are the not allowed arrows? See, you can see this is not allowed. Correct. This is a definitely not allowed. Okay.
+
+213
+01:50:36,940 --> 01:51:06,070
+But what is the first thing that will rollback? See, what is the first thing that will rollback? So this is allowed, this is allowed, always go step by step. Always go step by step. Okay, remember, you must always go step by step. So you can see that this will, this is also fine. Now, what else? So this is WX. So this is not fine, correct? This is the first thing that will rollback. Do you agree?
+
+214
+01:51:06,420 --> 01:51:39,700
+this is the first thing that will roll back so because this is not fine okay so this is not allowed arrow so remember here who will roll back so at this point of time this is unsuccessful please understand that this is already unsuccessful this is already unsuccessful and at this point of time already who is gone T2 gone T2 roll back okay at this point of time already T2 roll back so T2 is going to roll back clear
+
+215
+01:51:40,510 --> 01:52:08,160
+So, will T1 roll back? Tell me. Simple question I am asking. Will T1 roll back? Alright, T2 is roll backing. This is a beautiful question. Let me tell you. This is a beautiful question because the reason is very simple. See, when you are here, already T2 is gone. Correct? At this point of time, already T2 is gone. Do you agree that at this point of time already T2 is gone? At this point of time? T2 is already rolled back.
+
+216
+01:52:08,820 --> 01:52:45,250
+so t2 is gone at this point of time this is what I am saying that t2 is already gone okay so this t2 will be already gone just remove it just remove it t2 is already gone at this point of time t2 is already gone okay so now you can notice t1 will not roll back there is no problem here there is no problem here we don't have any problem here so t1 will not roll back okay is this clear so remember t1 will not roll back
+
+217
+01:52:47,610 --> 01:53:21,160
+isn't it a beautiful question tell me are you finding this question beautiful or not see the mistake let me tell you what is the mistake this is a big mistake what is the big mistake now you can notice that the big mistake let me tell you so now you can notice that this will not roll back so there is no problem this will not roll back this will not abort so is this clear this is a big mistake this is a big big big mistake what is the big mistake
+
+218
+01:53:22,190 --> 01:53:55,080
+Can you tell me what is the big mistake? What is the big mistake? Big mistake is if you do like this, for example, okay, if you randomly go, if you randomly go and you abort this T1, and you abort T1, if you randomly go and you abort T1, this is a big mistake. Do you agree? This is a big mistake. Tell me. Will you keep this mistake in mind? Will you keep this mistake in mind that
+
+219
+01:53:55,370 --> 01:54:29,230
+t1 will not abort remember t1 will never abort because there is no issue there is no issue no issue there is no issue there is no issue so this is a big mistake if you go randomly because in this question something beautiful is happening what is that something beautiful because it is already aborting see this something beautiful is happening because this is not a problem because it is already gone is this point clear let me know
+
+220
+01:54:29,920 --> 01:55:07,650
+because this is already aborted this t2 is already aborted so this t1 will not aborted this t1 will not aborted because t2 already aborted remember the time is going like this so things will happen one by one okay all these things are happening one by one one by one all these things are happening one by one so this is the reason I have taken this question this is a standard question and I hope this type of question comes in the gate exam
+
+221
+01:55:07,980 --> 01:55:34,480
+you will find this type of question in which test series in the go-classes test series because all the nice questions all the questions where basically which can improve your knowledge all the questions which can make sure that your misconceptions are gone all the questions to remove your misconceptions to improve your knowledge those are already in the go-classes test series so in the go-classes test series you will find similar questions to this
+
+222
+01:55:35,650 --> 01:56:07,980
+very similar questions are already available on the go classes test series so you can attempt that test series for more beautiful and for more amazing questions so you can see here that this T1 will not roll back okay what else tell me what else now is there any problem who will roll back so this T1 now let's move on now let's see this okay what about this so after this T1 who will roll back now you can notice this will roll back yes or no
+
+223
+01:56:08,230 --> 01:56:43,750
+So at this point of time, who will rollback? So at this point of time, T3 rollbacks. At this point of time, T3 abort. So this T3 will abort. Now this T3 is also aborted and that's it. Then there is no other problem. So finally the answer will be that two transactions are aborting. Okay, this T1, T2. So these are the aborted. These are aborted. So the answer will be what? The answer will be two transactions aborted. Tell me, did you understand this question?
+
+224
+01:56:44,440 --> 01:57:13,660
+let me know did you understand this question please tell me did you understand this question please tell me very simple very but but this is a beautiful question and this is a gate I can say gate exam will ask you this type of question because the gate examiner knows that you will make this mistake you will go randomly you will not go according to the time always go according to the time this is how the things are happening okay already this will be aborted so there is no problem here so the Steven will not abort
+
+225
+01:57:13,950 --> 01:57:50,050
+So this is a simple question and the answer will be two. Two rollbacks will happen. Two transactions will rollback. Two transactions will abort. So this is your question number. Question number 26. Let's move on. So far all the question number 26 are they clear? So far are you comfortable? Till question number 26. Question number 1 to question number 26. Are you comfortable? Did you understand crystal clear? Like this crystal clear understanding did you have? Crystal clear understanding do you have now?
+
+226
+01:57:58,160 --> 01:58:29,640
+Tell me. Okay. So let's move on now. Now let's see this question number 27. Tell me the answer. Timestamp protocol ensures conflict serializability. Timestamp protocol, it will ensure conflict serializability. The answer is yes or no. And if it is yes then why? Timestamp protocol will ensure conflict serializability. It will ensure conflict serializability. The answer is yes or no. If it is yes then why?
+
+227
+01:59:02,960 --> 01:59:36,720
+okay so tell me the answer the answer will be yes the answer will be yes it will ensure conflict serializability but why what is the reason can you tell me the reason it will ensure conflict serializability there is no doubt there is no doubt it will ensure conflict serializability but what is the reason what is the reason why because the reason is very simple because whatever conflict will happen will happen in the order of transactions yes or no see this TSP this TSP guarantees it ensures
+
+228
+01:59:37,810 --> 02:00:10,140
+it ensures that it ensures conflict serializability why? see it will ensure conflict serializability serializability what is the reason? because because all the conflict operations will happen in the order of transaction time stamp yes or no? it will ensure conflict serializability because all conflict operations all conflict operations will happen in which order? tell me in which order they will happen
+
+229
+02:00:10,530 --> 02:00:48,100
+all conflict operations happen in happen all conflict operations happen in the order of in the order of time stamps in the order of time stamps correct in the order of transaction time stamps so all the operations that will happen all the conflict operations will happen in the order of transaction time stamps what I want to say I want to say is that all the conflicting operations they will happen
+
+230
+02:00:48,460 --> 02:01:23,880
+in this order do you agree in this order that in this order they will happen that transaction with less time stamp to transaction with more time stamp do you agree do you agree that in this order things will happen tell me do you agree that in this order the conflict will happen every conflict will happen all the conflict operations will happen in this order okay every conflict operation is going to happen in this order
+
+231
+02:01:24,530 --> 02:01:53,250
+all the conflict operations they will happen in this order from time stamp with less time transaction with less time stamp to transaction with more time stamp in this order the conflict operations will happen okay so you can so in the precedence graph you will never have cycle so in precedence graph can you ever have cycle so in precedence graph can you ever have cycle simple question so in the precedence graph we can never have cycle correct
+
+232
+02:01:53,610 --> 02:02:35,150
+we can never have cycle is this clear? in the precedence graph we can never have cycle because your precedence graph will go like this there is a transaction T1 with time stamp is equal to let's assume 100 so from here there will be arrow like this T2 and the time stamp is let's assume 200 you can never have this arrow this arrow is never possible never possible this is never possible is this clear? tell me
+
+233
+02:02:36,310 --> 02:03:06,580
+Did you understand the proof? The proof is important. Did you understand the proof that the precedence graph can never have cycle? This precedence graph that you will create, it will never have cycle. Because the conflict will happen in this order. If you have transaction T1, transaction T2, transaction T3 in this order if you have, then conflict will happen in this order like write x, then the conflict will happen in this order. Only in this order conflict can happen. So you can never have
+
+234
+02:03:06,820 --> 02:03:40,090
+you can never have this like from t1 to t2 from t2 to t3 you can never have this this you can never have okay right this you can never have you can never have this we can never have this so in the precedence graph we can never have cycle understood the proof did you understand the why did you understand the proof prove it so did you understand it so time is time protocol will ensure conflict serializability
+
+235
+02:03:40,560 --> 02:04:09,670
+it will always ensure confidentiality that is yes okay but the what is the proof what is the proof the proof is that the proof is that you can never have cycle in the precedence graph in the precedence graph the precedence graph that you create in that precedence graph you can never have cycle because you can never have this type of situation this cyclic situation you can never have so that is the reason I can say TSP time stamp protocol ensures
+
+236
+02:04:10,480 --> 02:04:44,610
+Conflict serializability. What about this question? What is the answer for this one? Time is time protocol suffers from deadlock. Will it suffer from deadlock? Will it suffer from deadlock? The answer is no. But why? Can you prove it? Can you prove it? Why? Can you prove it? Can you prove why? It will never suffer from deadlock. Can you prove why? Because we never wait. A transaction never waits. Yes or no?
+
+237
+02:04:45,000 --> 02:05:14,050
+Because a transaction never waits. Did you see? Did you notice that? Because a transaction never waits. Transaction never waits. Yes or no? Never waits. A transaction never waits. It will immediately abort. Do you agree? It will immediately abort. If transaction is not granted a request, it will abort. If transaction is not granted, I can say.
+
+238
+02:05:14,980 --> 02:05:46,520
+if transaction is not able to do operation is not able to do an operation then it abort then it abort yes or no then it immediately abort it will never wait did you notice it will never wait it is never waiting a transaction will never wait no transaction will ever wait okay like some problem happens it will roll back some problem happens it roll back so for example if some problem happens
+
+239
+02:05:47,000 --> 02:06:17,520
+like if this type of problem happens then immediately what will happen at immediately here T1 rollbacks so T1 will never wait so here again T1 rollbacks so you can easily see that immediately the transition will rollback you will never wait no transition ever waits it will again it will just rollback so very simple that it does not suffer from the deadlock because we never wait is this uh basically the explanation the reason is this reason clear
+
+240
+02:06:18,190 --> 02:06:46,320
+The reason is clear that a transaction will never wait. If you are not able to perform some operation, then you will abort. Then you will immediately roll back. So you will never wait. So because you are never waiting, so there is no possibility of deadlock. What about starvation? What about starvation? Timestamp protocol suffers from starvation. It suffers from starvation. Is it true? Does it suffer from starvation?
+
+241
+02:06:48,470 --> 02:07:18,140
+Time stamp protocol, does it suffer from starvation? This is your question number 29. The answer is yes. It suffers from starvation because maybe you can again roll back. You come back, you restart and again you can roll back. You restart again, you can roll back. You restart again, you can roll back. So starvation is possible. Yes or no? Starvation is possible. So the answer will be yes. Starvation is possible because maybe, maybe, see, consider this scenario. T1 is less than T2.
+
+242
+02:07:18,480 --> 02:07:46,370
+Now let's assume T1 rollbacks. Let me assume T1 rollbacks. Okay, so for example this is write and this is read. Now let me assume that T1 rollbacks. So here what will happen at this point of time? T1 rollbacks. Okay, T1 rollbacks. Now let's assume T1 comes to the system again. Again T1 comes to the system. Again again again T1 comes to the system. So again let's assume this T1, this T1 restarts. This T1 restarts.
+
+243
+02:07:46,730 --> 02:08:17,590
+but again the same situation happens let's assume there is a t3 which again has write operation and then this read operation then again what will happen then again what will happen then again the steven rollbacks so starvation can happen because maybe you can again continue the rollback okay maybe the future transactions maybe they can again make you rollback okay actually for example maybe the steven is a long transaction maybe the steven is a roll long transaction
+
+244
+02:08:18,370 --> 02:08:48,440
+Maybe this T1, T1 is a long transaction. Maybe this T1 is a long transaction. Maybe this is a long transaction. So many things it will do and again it will roll back. Is this clear? Ekta, Yubra, Sumant. Is this clear that you have a long transaction. When it comes back, again you roll back. Okay, very simple scenario I am giving. So let's say there is a long, this T1 is a long transaction, this T1. This is a very long transaction. Let's assume.
+
+245
+02:08:48,870 --> 02:09:18,850
+let me assume this is a long transaction now you can notice it will again come to the system then it can again rollback because of t3 again it will come to the system again it will rollback because of something new so like this long transaction can rollback many times yes or no this long transaction it can rollback many times so the starvation is possible so there is a possibility of starvation remember we have
+
+246
+02:09:19,100 --> 02:09:46,760
+so you can notice that there is a possibility of starvation of long transaction if you have a long transaction then there is a possibility of starvation because the short transactions they will repeatedly cause you starvation sorry cause you abort okay so very simple this is the simple scenario so this T1 is a long transaction very long transaction and it will again roll back because of T2 again because of T3 and so on so like this
+
+247
+02:09:46,930 --> 02:10:16,110
+So the role, so starvation is definitely possible. What about this question? Time stamp protocol ensures recoverability. Is this true? Time stamp protocol, does it ensure recoverability? Does it ensure recoverability? The answer is no. And you can easily create a counter example. You can very, very, very easily create a counter example. Like consider this example, consider T1 and this time stamp is less than T2. Let's assume. Okay.
+
+248
+02:10:16,390 --> 02:10:48,350
+t1 time stamp is less than time t2 time stamp maybe this is the right operation this is the read operation this is perfectly fine and this is the commit okay and this is the commit so this is you can clearly see this is perfectly fine yes or no this is allowed by tsp correct or not are yes or no this is allowed by tsp yes or no this is perfectly fine this is fine this is perfectly fine this is allowed by tsp you can commit here so this t okay and this
+
+249
+02:10:48,590 --> 02:11:25,640
+T1 can abort here so you can you can order this is not recoverable this is a not recoverable so recoverability is not ensured okay recoverability will not be ensured you can easily see that this is not recoverable this this schedule is not recoverable okay let's move on time stamp protocol avoids cascading rollback is it true time stamp protocol avoids cascading rollback tell me
+
+250
+02:11:27,770 --> 02:11:51,870
+Does it avoid cascading rollback? Does it avoid cascading rollback? Again the answer is no. It does not avoid cascading rollback. You can easily again give a counter example. For example, let's assume T1. Let's assume there is a T2. Let's assume there is a T3. Let's assume there is a T4. Let me assume this is writing item X. It is reading X.
+
+251
+02:11:56,660 --> 02:12:27,090
+Now notice what is happening. At this point of time, if this T1 aborts, let's assume this T1 aborts, then automatically what will happen? See this is reading, this is reading also, this is also reading, this is also reading. So everyone is reading from T1 and at this point of time if T aborts, then who will abort? Then automatically T2 has to abort, T3 has to abort, T4 has to abort.
+
+252
+02:12:27,860 --> 02:12:57,930
+Okay, so all of them have to abort. So this is your cascading rollback. Yes or no? This situation is called cascading rollback. So cascading rollbacks are happening. Yes or no? Cascading rollbacks are happening. So does it avoid cascading rollback? The answer is no. Does it avoid cascading rollback? The answer is no. Question number 31, the answer is no. Okay, so you can easily see at this point of time if T1 fails,
+
+253
+02:12:58,600 --> 02:13:26,720
+at this point of time if T1 fails for any reason for any reason if T1 fails or aborts then cascading rollback will happen so okay very simple so very easily you can see this is the summary the complete summary I am telling you this is the complete summary please see this the time is time ordering protocol guarantees serializability confit serializability because because all the arcs in the precedence graph will be like this
+
+254
+02:13:26,960 --> 02:13:55,660
+transaction with smaller time stamp to transaction with larger time stamp. Okay. So there is no cycle in the precedence graph. So conflict serializability is definitely. So I can say actually the conflict serializability is guaranteed. The conflict serializability is guaranteed. Recoverability is not guaranteed. Cascade free is not guaranteed. Okay. These things are not guaranteed. These things are not guaranteed. But freedom from deadlock is guaranteed because no one ever waits.
+
+255
+02:13:56,070 --> 02:14:27,570
+no transaction ever waits there is no transaction who will ever wait there is no waiting okay so very simple is this clear in this question see if this T1 fails because of any reason then T1 must roll back yes or no in question we saw not all roll back see particular consider this scenario in this scenario T2 is reading from T1 T3 is reading from T1
+
+256
+02:14:27,720 --> 02:14:59,820
+T4 is reading from T1 every transaction is reading from T1 so if T1 fails then T2 should roll back T3 and T4 they all should roll back so this is called cascading rollback okay so cascading rollback is possible in the time stamp protocol so I can say in time stamp protocol cascading rollback possible okay cascading rollback possible it is possible
+
+257
+02:15:00,090 --> 02:15:52,410
+okay let's move on now now let's see this question so which question number question number 32 standard question i have taken question number 32 tell me the answer this is a washington university question the source of this question let me tell you this is the sources washington university washington university question so tell me the answer question number 32 you are writing something and if i cheat from you if i cheat from you so i'm reading from you
+
+258
+02:15:52,650 --> 02:16:21,010
+now if you roll back then I also have to roll back right yes or no so that we have already seen in the in the recoverability did you watch the recoverability lecture recoverability strict schedule recoverable schedule cascade less schedule all these concepts we have already seen you can watch that video in our dbms complete course go classes dbms complete course you can watch the recoverability lecture there we have seen all the scenario
+
+259
+02:16:21,460 --> 02:16:50,740
+all the possibilities all the basically all the gate questions everything we have seen so please watch that so tell me the answer for this question what is the answer how many of the statements are true how many of the following statements are true which of them is true deadlock is not possible with time stamp protocol deadlock is never possible with time stamp protocol this is correct because no one waits because no one waits yes or no
+
+260
+02:16:51,070 --> 02:17:19,440
+Because we never wait. Because no transaction waits. Because no transaction ever waits. Okay, so this is correct. This statement is definitely correct. This statement is true. A transaction that arrives later to the system always has a smaller time stamp. A transaction that arrives later to the system always has a smaller time stamp. This is wrong.
+
+261
+02:17:20,050 --> 02:17:56,080
+This is wrong. It will actually have larger time stamp. Yes or no? It will actually have larger time stamp. So for example, this smaller, this smaller must be larger. It must be larger time stamp. So if you arrive late, you will have larger time stamp. Okay. Now let's see the next. Next you can notice the precedence graph for the time stamp algorithm. So you can see that the precedence graph, the precedence graph for the time stamp algorithm.
+
+262
+02:17:56,780 --> 02:18:29,040
+has edges from smaller time stamp to larger ones so yes this is correct the third one is definitely correct okay the third one is definitely correct in the precedence graph what will happen in the precedence graph in the precedence graph the transaction with the transaction with less time stamp okay these edges will be from this transaction to this transaction okay so this is actually correct this is statement number three is correct
+
+263
+02:18:29,580 --> 02:18:59,640
+a right is only performed now let's see the option number 4th look at the option number 4th a right is only performed if this is only if this is only if a right is performed only if transaction has time stamp greater than read time stamp of that data item so this is also correct yes or no this is also correct this statement is also correct because this is only if statement see
+
+264
+02:19:00,090 --> 02:19:34,190
+look at the statement number fourth what the statement number fourth is saying this is saying that a right is performed right for example right x by t happens happens when it happens only if this is only if only if means only if means this direction only if is the forward direction okay only if transaction this t time is time time stamp of t is greater than equal to
+
+265
+02:19:36,160 --> 02:20:11,960
+Read time stamp for data item. Time stamp for data item. So tell me is this correct? Is this correct? Simple question I am asking. First of all what is the direction of only if? You tell me a simple question I am asking. You tell me true or false. Tell me what is P only if Q? What is P only if Q? Can you tell me? What is P only if Q? What is that? P only if Q is P implies Q.
+
+266
+02:20:12,650 --> 02:20:42,030
+right yes or no p only if q that is p implies q so here actually you can see that this means this only if you can remove and you can put this arrow you can put this arrow so if this right operation is happening if this t is doing the right operation if this is happening then what should happen if this should be successful if this should be successful then what should happen then definitely
+
+267
+02:20:42,470 --> 02:21:12,880
+this time stamp of t must be greater than the read time stamp of x so this is definitely true so this statement is actually true yes or no this statement is actually true this statement is actually true but tell me a beautiful question i want to ask if i remove this only if so this statement this statement number fourth is actually true you can see look at this statement number fourth this statement number fourth is actually true but in this statement number fourth
+
+268
+02:21:13,290 --> 02:21:52,810
+if I remove this only if I remove this only now what please understand if I remove this only this word only if I remove now this statement is false now this statement is false okay are you getting my point I am saying that if you remove this only then this is if now you tell me is this true or false so you notice that p if q what is that that is q implies p okay
+
+269
+02:21:53,050 --> 02:22:27,270
+so here this if basically means that this implies this this implies this now this is false why this is false tell me what is the reason this is false this is false what is the reason this is false can you tell me can you tell me why this is false time stamp is greater than read time stamp than why it is false like this is your t this is the transaction t and this is some other transaction t dash
+
+270
+02:22:27,630 --> 02:23:05,840
+Let's assume this is the right operation it is doing. So if at this point of time, transaction time is greater than read time is time of x, then what is the problem? Can I say this will be successful? When it will be successful? A simple question I am asking. When it will be successful? When it is going to be successful?
+
+271
+02:23:13,970 --> 02:23:44,700
+it will be successful if and only if this happens what happens that this time stamp of t must be greater than read time stamp of x and time stamp of t must be greater than write time stamp of x so both must happen is this clear? yes very good so remember this simple point I am telling you that a simple point this end is there means
+
+272
+02:23:45,200 --> 02:24:17,010
+if you want this to be successful so this is the situation that this t wants to let's assume this t it wants to write item x now this will be successful when it will be successful it will be successful if and only if okay this will be successful if and only if two things would happen this transaction time stamp should be greater than the read time stamp of x and and also basically
+
+273
+02:24:18,690 --> 02:24:47,160
+also the time stamp this time stamp of t must be greater than right time stamp of x so very simple so this should happen okay so when this when both of them will happen then you can do it then you can do it in this situation you can do it so did you understand a simple if and only if can change the can change the statement so for this particular question for this question I can say the answer will be this is true this is true
+
+274
+02:24:48,530 --> 02:25:20,180
+And this is true. So the answer will be three. Three statements are correct. Okay. The answer is going to be three. Total three statements are correct. But remember a simple thing. If you remove the only if, then this is false. Now this will become false. If you remove the only if, then it will become false. Okay. This statement number fourth, it will become false. If you remove only if, okay, let's move on. So this was your question number 32. Now let's see.
+
+275
+02:25:20,470 --> 02:25:56,490
+there is a thomas right rule what is this thomas right rule this we have already seen let me just quickly tell you what is this thomas right rule what this thomas right rule says okay this thomas right rule means twr thomas right rule what is this thomas right rule this is basically this says that everything else is same as uh tsp only one case is changed okay this thomas right rule it says this is about right this is related to
+
+276
+02:25:56,670 --> 02:26:27,400
+right rule means this is related to the right operation what this rule says it this rule basically says that if you want to do right operation like this t and this there's this t dash and let's assume you want to do the read you want to do the right operation and this has already done the read operation then what we should do then what we should do tell me then what we should do see here there is no here it would it will be same as your normal tsp so here you will roll back
+
+277
+02:26:28,430 --> 02:26:59,520
+Okay, so here you will roll back T Okay, so remember here you will roll back to Here you will roll back T because this is read-write conflict Okay, so this read-write conflict This read-write conflict Same as TSP Same as TSP, is this clear? This read-write conflict it will be same as TSP This Thomas Wright rule it says that Read-write conflict will be same as TSP
+
+278
+02:26:59,800 --> 02:27:34,290
+it will be same as TSP the only change will happen when you have right-right conflict when you have this right-right conflict this is the only change okay in this change actually what happens in this change we ignore this this T we don't roll back here here we don't roll back we just ignore this WX okay no roll back ignore this ignore ignore this WX don't roll back
+
+279
+02:27:34,570 --> 02:28:04,410
+Do not roll back. So don't roll back this T. Just ignore this WX. Ignore, ignore, ignore. It's like ignore and continue. Don't roll back. No roll backing T. So we don't roll back T. No roll back T. Just ignore this. This will be ignored. It will be completely ignored. We will not perform this. It will be completely ignored. The reason we have already seen in the lecture. See the reason is actually very simple. What is the reason? Let me tell you.
+
+280
+02:28:04,670 --> 02:28:32,770
+why why we can ignore this because remember in this order things should happen do you agree do you agree that in this order in this order conflict operations should happen so in this order if conflict operations would happen like t and t dash in this order if conflict operations should happen and let's assume this is also doing that this is what I'm saying see what I'm saying understand this clearly let's assume this is also doing the right operation
+
+281
+02:28:33,130 --> 02:29:06,730
+this is also doing the right operation in this order the things should happen this is the order of serializability this is the order of serializability now you tell me in this order if things should happen then what should be the final right of x? who should do the final right of x? tell me this is the ideal I can say this is the ideal order of conflict operations so you tell me who will do the final right of x?
+
+282
+02:29:07,110 --> 02:29:40,980
+Who is going to do the final right of X? So definitely this T dash will do the final right of X. So you can notice this is the final right of X. X by T dash. So anyway this will be overwritten. Do you agree that anyway this will be overwritten? Do you agree that this will be overwritten by T by T dash? This will be overwritten by T dash. Yes or no? This operation, look at this operation, look at this operation, this operation by T. Look at this.
+
+283
+02:29:41,370 --> 02:30:10,020
+this will be overwritten by t-dash it will be overwritten by t-dash okay so if it is overwritten by t-dash final write will be done by t-dash then what we can do if t-dash has already done write then you just ignore this see if t-dash has already done write this t-dash this would reflect in the database yes or no do you agree that this would reflect in the database
+
+284
+02:30:10,700 --> 02:30:40,010
+should reflect in database this should reflect in system in database this should reflect in the database this one this should reflect in the database so what you can do just simply ignore this don't roll back just simply ignore this very simple very very very simple that just simply ignore this don't roll back don't roll back just simply ignore this because ultimately if you ignore this let me assume you just ignore this then ultimately
+
+285
+02:30:40,410 --> 02:31:09,270
+this will be reflected in the database and this is what you want this is what you want that this t days right operation should be reflected in the database this t days should do the right operation the final right operation should be done by t days and this is what you want and this is happening so that is perfectly fine so just ignore this W just ignore this this this right operation you ignore and you continue the you continue the just just continue
+
+286
+02:31:12,430 --> 02:31:42,930
+T continues ok just ignore this and T continues that's it so this is your Thomas right rule very important thing I want to tell you in the Thomas right rule this is very important thing that this is very very very important what is very important in the Thomas right rule remember read write conflict is same as as your TSP so if you have this type of transaction T T dash ok now you tell me if I do write operation here
+
+287
+02:31:43,410 --> 02:32:22,080
+and I do write operation here then let's assume read operation here is this allowed by thomas right rule is this allowed by thomas right rule is this allowed by tsp is this allowed by thomas right rule thomas right rule is this allowed by them so definitely this is not allowed by tsp you can clearly see that this is not allowed by tsp not allowed by tsp so this is definitely not allowed by tsp
+
+288
+02:32:22,390 --> 02:32:56,350
+so there is no problem here this is not allowed by TSP but remember this will be allowed this will be allowed by thomas right rule allowed by thomas right rule but but but but but this will not be allowed by thomas right rule okay this is not allowed by thomas right rule is this clear so this is not allowed by thomas right rule ultimately ultimately here T will roll back ultimately here T will roll back
+
+289
+02:32:56,720 --> 02:33:26,240
+So this T will roll back here. This will be ignored. See this will be ignored. This will be ignored. But here you will roll back. So this is an important point that I want to tell you. Many students will make mistake here. What they will do? They are so focused on this right right. See Thomas right rule. Whenever some student will see this. That Thomas right rule. Immediately they will think about right right.
+
+290
+02:33:27,130 --> 02:33:59,660
+they do not think about this is not allowed this is fine but this is not allowed is this understood that this is not allowed in the thomas right rule in the thomas right rule this is allowed this is fine this will be ignored you will ignore this but this is not fine is this clear to everyone very simple thing so remember thomas right rule does not allow this like for example you have read here you have write here this is not allowed
+
+291
+02:34:04,650 --> 02:34:42,690
+this is not allowed okay similarly if you have so very simple so these are the points I want to tell you as I told you this right this read this is not allowed okay so this is your Thomas right rule now let's see this question tell me the answer tell me the answer can I say Thomas right rule TSP time is temp protocol with Thomas right rule with Thomas right rule it ensures conflict serializability can I say
+
+292
+02:34:42,990 --> 02:35:13,830
+Can I say Thomas Wright rule? It ensures conflict serializability? It ensures conflict serializability? The answer will be no. Okay, now this will not ensure conflict serializability. Now it can generate non-conflict serializable schedule. For example, I can give you like T1, like T1, like T2, like T3. Consider this scenario that let's assume you are doing the read operation here.
+
+293
+02:35:14,160 --> 02:35:44,110
+you are doing the right operation here let's assume this is the order you are doing the right operation here and then you are doing the right operation here so again you cannot this is not conflict serializable yes or no this schedule if you notice this is view serializable you can check it out we have already seen what is view serializable and how to check it so this is view serializable this is not conflict serializable this is not conflict serializable but this is allowed by
+
+294
+02:35:46,490 --> 02:36:20,020
+this is allowed by thomas right rule so you cannot this is allowed by thomas right rule this is allowed by thomas right rule okay it will be allowed by thomas right rule it will be ignored we will basically ignore this it will be ignored so thomas right rule will allow this is this clear thomas right this will be allowed but remember this is allowed by thomas right rule but this is not confit serializable
+
+295
+02:36:21,670 --> 02:36:50,500
+this is not confit serializable but still this is allowed by thomas right rule so ultimately can i say tell me can i say thomas right rule ensures confit serializability can i say thomas right rule will guarantee conflict serializability using thomas right rule can i say only confit serializable schedule will be generated the answer is no using thomas right rule using thomas right rule
+
+296
+02:36:50,710 --> 02:37:23,700
+Non-confid serializable schedule also can be generated Okay? Using Thomas' right rule So this is not that Using Thomas This is not allowed by TSP Remember This is not allowed by TSP Because here you will rollback Okay, here T1 rollbacks So this is not allowed by TSP By the TSP By the Timestamp protocol it is not allowed But it is allowed by Thomas' right rule Okay? By Thomas' right rule it will be allowed
+
+297
+02:37:24,140 --> 02:38:00,150
+it is non-conflict serializable so again I am telling you you can notice if you have TSP if you have this TSP this time stamp protocol this TSP generates only only conflict serializable schedules conflict serializable schedules okay so this TSP it will only generate conflict serializable schedules this statement is correct
+
+298
+02:38:00,660 --> 02:38:30,290
+It will generate only conflit serializable schedules. So it's like this. These are all the conflit serializable schedules. These are all conflit serializable schedules. This is what TSP will generate. So whatever TSP will generate will be conflit serializable. Remember there are some conflit serializable schedules TSP cannot generate. Can you give me one example of conflit serializable schedule which is TSP cannot generate? One example.
+
+299
+02:38:30,860 --> 02:39:02,250
+Can you give me one example of conflict serializable schedule not allowed by, not generated by TSP? Can you give me? Can you give me one conflict serializable schedule, one example of conflict serializable schedule which is not allowed by TSP? Can you give me? Can you give me? Very very very easy. Very very easy. A simple example you can take like this. Right item A. Right item A. That's it.
+
+300
+02:39:02,660 --> 02:39:33,740
+Or I can say write item A, read item A. That's it. So you can see this is Confit serializable. But this is not allowed by, not generated by TSP. It is not generated by TSP. Okay? This will not be allowed by TSP. So you can note this is not allowed by TSP. So you can see that this TSP will generate Confit serializable. But there are some Confit serializable schedules which are not generated by TSP.
+
+301
+02:39:34,290 --> 02:40:11,910
+So TSB generates only conflate serializable schedules. Okay. And one more note, one more note, using Thomas Wright rule, you can generate some schedules which are not conflate serializable. Okay. So I can say using Thomas Wright rule, we can generate, okay. Using Thomas Wright rule, we can generate, we can allow, we can allow.
+
+302
+02:40:13,540 --> 02:40:47,130
+or generate some non-conflict serializable schedules some non-conflict serializable schedules okay so using this Thomas Wright rule using this Thomas Wright rule you can generate you can allow some non-conflict serializable schedules non-conflict serializable schedules are also allowed okay and you can generate some non-conflict serializable schedules which are view serializable some view serializable
+
+303
+02:40:49,150 --> 02:41:18,640
+but non-confident serializable schedules you also you can generate. Example we have already seen okay the example we have already seen that using the Thomas Wright rule using this Thomas Wright rule what you can do using this Thomas Wright rule you can allow you can generate some view serializable but non-confident serializable schedules okay example you already know example is this T1, T2, T3 this is the read operation this is the read operation then this is the write operation
+
+304
+02:41:19,790 --> 02:41:52,690
+then this is the right operation this is the right operation so this is the example you can very easily see the example so this will be ignored okay so you can easily see that this is view serializable this schedule on your screen this schedule is view serializable not conflict serializable and this is allowed by Thomas Wright rule this is allowed by Thomas Wright rule tell me the answer for this question can you tell me quickly
+
+305
+02:41:53,810 --> 02:42:37,300
+quickly tell me the answer for this question let me know first let me check what is this question number question number 33 okay so let's see this question number 34 tell me the answer quickly tell me this schedule is given to you which what are the possible values of p comma q this is what we have to find what are the possible values of p comma q for which the schedule is allowed by thomas right rule but not by basic time stamp protocol this is given
+
+306
+02:42:37,740 --> 02:43:22,040
+that T2 has more time stamp than T1. Time stamp of T2 is more than time stamp of T1. Deepan is asking, what is the main objective of thomas right rule? What extra feature it will provide? Thomas right rule will provide you more concurrency. Yes or no? See, thomas right rule will provide you more concurrency. If schedule, see this thomas right rule, this is the purpose. This thomas right rule provides more concurrency. More concurrency than TSP.
+
+307
+02:43:23,040 --> 02:43:52,990
+more concurrency it will provide what it means? it means that if there is some schedule which is allowed by TSP it is also allowed by so it is see this is a note that if schedule is allowed if the if the schedule as is allowed by TSP if it is allowed by TSP it will automatically be allowed by Thomas right rule okay it will automatically be allowed by Thomas right rule
+
+308
+02:43:53,830 --> 02:44:24,300
+by thomas right rule so it is going to automatically be allowed by thomas right rule ok so if it is allowed by tsp then it will be allowed by thomas right rule but some extra sedules will be allowed by thomas right rule this is not correct means thomas right rule will give you some more concurrency better concurrency is this clear dipan so for example you can take this example t1 t2 a simple example you can take that this is right operation
+
+309
+02:44:24,890 --> 02:45:06,160
+this is right operation you can see this schedule is not allowed by TSP you can easily see this is not allowed by TSP but this is allowed by Thomas right rule this is allowed by Thomas right rule okay so this Thomas right rule will give you more concurrency more schedules are allowed this is like this let me tell you like these are the Thomas right rule schedules these are the Thomas right rule right rule schedules okay
+
+310
+02:45:08,520 --> 02:45:39,020
+These are supersets of TSP. These are supersets of TSP. So you can see that Thomas Wright's role will give you more concurrency. It will give you more concurrency. Deepan, is this clear? Tell me. Deepan, is your doubt clear? That Thomas Wright's role will give you more concurrency. Better concurrency it will give you. If schedule is allowed by TSP, it will also be allowed by Thomas Wright's role. So you can easily see that.
+
+311
+02:45:39,390 --> 02:46:13,710
+everything that is allowed by TSP is allowed by thomas rightroll but thomas rightroll will give you more concurrency okay now let's see this question tell me the answer for this one so let's take option A WBWC if I put WB here if I put WC here is this allowed by TSP is this allowed by TSP yes this is allowed by TSP right yes or no so clearly this is allowed by TSP
+
+312
+02:46:15,850 --> 02:46:48,720
+clearly this is allowed by TSP also if it is allowed by TSP it is automatically allowed by what? it is automatically allowed by what? it is automatically allowed by Thomas Wright rule yes or no? it is allowed by TSP so it is automatically allowed by Thomas Wright rule so this option is not correct because this is saying but not allowed because of this okay so this option is not correct what about this WAWA if I put WA here
+
+313
+02:46:49,610 --> 02:47:22,710
+if I put WA here now you can easily see this is not allowed by TSP this is not allowed by TSP this is not allowed by time stamp protocol is this allowed by Thomas Wright rule this is also not the answer because because because because see this this is not allowed by Thomas Wright rule also again did I did I tell you that this is the most common mistake people do
+
+314
+02:47:23,440 --> 02:47:56,230
+Did I tell you people focus whenever you see this word Thomas right rule, your mind only goes here. Why are you forgetting this is not allowed? Thomas right rule, this is allowed, this is fine. But this is not allowed, right? Why are you forgetting this? So this is not allowed by Thomas right rule by TSP comma Thomas right rule. So this is also not correct. So the answer will be none of these.
+
+315
+02:47:57,640 --> 02:48:29,370
+Answer is going to be none of these. Is this clear? Tell me. Ekta, SM, Dipan. Is this clear? So the answer will be none of these. Because this is not allowed. See this is the right A. Look at this. You are doing right A. You are doing read A, right A. This is not allowed. So the answer will be option 4. This is going to be the answer. So take care. Don't make this mistake. Again and again I am telling you.
+
+316
+02:48:30,870 --> 02:49:02,200
+Before this question, did I tell you this point? Before this question, before you solving this question, I already told you this point. Still you are making mistake. Don't do that. Tell me the answer for this one quickly. Very quickly, tell me the answer. Which action is taken by time-stamp-sedular? Which action will be taken by time-stamp-sedular? I am asking for a time-stamp-sedular. Sedular receives a request write x by transaction t.
+
+317
+02:49:02,650 --> 02:49:33,760
+and this is given to you this equation is given to you that t is time is time is greater than this and time is time is greater than this so tell me means a request is coming from t t wants to write okay this transaction t it wants to write x it wants to write x this transaction t wants to write x okay this transaction t it wants to write x and already it is saying that this
+
+318
+02:49:34,010 --> 02:50:10,160
+Transition T is greater than the time stamp is greater than this and greater than this. Then it is it should be allowed. Yes or no? Or a time stamp of T is greater than read time stamp of X and time stamp of T is greater than write time stamp of X. So definitely it will be allowed in these two situations. This will be allowed. So what is the action taken by the, what action will be taken? The action will be allowed. Okay. This allowed operation action will be taken.
+
+319
+02:50:10,540 --> 02:50:40,050
+very simple because already everything is perfect everything is perfect there is no problem so it will be allowed what about this question question number 36 Thomas right rule now the same question with Thomas right rule the same question with Thomas right rule again this will be allowed again this will be allowed because if it is allowed by TSP it will be allowed by Thomas right rule yes or no or if it is allowed by
+
+320
+02:50:40,290 --> 02:51:19,110
+allowed by TSP if it is allowed by TSP it is automatically allowed by Thomas Wright rule yes or no so if it allowed by TSP then it is automatically allowed by Thomas Wright rule so the same question with the Thomas Wright rule it will be allowed what is the next question tell me the answer for this one what action will be taken this is given you want to write you want to write remember you want to write transaction T wants to write
+
+321
+02:51:20,560 --> 02:51:51,110
+Now the time stamp is greater than read time stamp, but time stamp is less than write time stamp. So again this will not be allowed. Yes or no? So you have to T, T will roll back. This is the action. Action that will be taken is T will roll back. Correct? Here T will roll back because the question is saying that this T wants to write item X. But what the question is saying that this is perfect. There is no problem here. So this is perfect.
+
+322
+02:51:51,470 --> 02:52:25,130
+But the question is saying that there is some other transaction has already written X. This is not allowed. This is not allowed by TSP. This will not be allowed by TSP. Yes or no? Will this be allowed by Thomas Wright rule? Consider this condition. This condition is given to you. There is no problem with the read operation. We don't have any problem with the read operation.
+
+323
+02:52:26,360 --> 02:52:59,840
+we have no problem with the read operation so read operation is perfect with the thomas right rule what action will be taken with the thomas right rule the action will be taken is allowed okay because there is no problem with the read operation see no problem with read operation no read write issue so there is no read write issue but the issue is but the issue is right right so this is allowed by thomas right rule so it will be allowed by thomas right rule
+
+324
+02:52:59,950 --> 02:53:30,670
+okay is this clear? because read the question the question is saying that there is no issue with the read operation your transaction T time stamp is already greater than read time stamp of X so there is no there is no issue here there is no issue here no read write issue we have no read write issue but there is a issue with write operation so that is allowed there is no problem so this will be ignored basically this will be ignored and you can do the computation
+
+325
+02:53:32,450 --> 02:54:05,880
+okay so remember here what will happen what action will be taken let me sorry sorry sorry sorry sorry not allowed you should not say allowed you should say ignored ignored but T not rollback sorry for that so it will be it will not be allowed it will be rollback sorry it will be ignored okay is this clear what I'm saying it will not be allowed it will not be allowed I can say this I can say this operation will be ignored
+
+326
+02:54:07,160 --> 02:54:41,550
+This operation will not be allowed. I can say this operation unsuccessful. This is still unsuccessful operation. Okay, this will be ignored, but the transaction will not roll back. So the operation will be ignored. Is this clear? Operation ignored, but the transaction is not rolled back. We will not roll back the transaction. What about this question? Tell me the answer. Time is temp scheduler. You want to write x, but the time is temp.
+
+327
+02:54:41,720 --> 02:55:12,800
+so basically this T wants to write X but but but there is someone with more time stamp there is someone with more time stamp has already read X so definitely this is not allowed yes or no definitely this is not allowed by TSP TSP does not allow it and the same thing happens for so here I can say TSP will not allow so what accent will be taken what accent is going to be taken
+
+328
+02:55:13,120 --> 02:55:49,110
+So T rollbacks. T will rollback. Okay. If the same question I ask you for Thomas right rule, then then also the action will be taken is T rollbacks. Again the T rollbacks because this is not allowed in Thomas right rule also. In Thomas right rule also this is not allowed. Okay. So these are the questions that we have seen. This is the summary you can read. This is a summary you can read.
+
+329
+02:55:50,560 --> 02:56:25,980
+All these summary you can easily read. So tell me did you understand everything that we have seen? Did you understand? Let me know. All the things that we have seen in this class, in this session, did you understand everything? Let me know. So this is your time stamp protocol. Can you say that you are expert of time stamp protocol now? Can you say this? Can you say that you are expert of time stamp protocol? Please tell me. Let me know.
+
+330
+02:56:28,410 --> 02:57:02,890
+so did you understand this time stamp protocol in a crystal clear way in a very crystal clear way did you understand this time stamp protocol so should I ask you some questions or maybe we can see the remaining questions we can see in the I can give you a quiz today what we can do I can give you the remaining questions I can give you as a quiz and then we can see the solutions in the next session okay I can give you a quiz
+
+331
+02:57:03,650 --> 02:57:39,840
+this quiz you try and then today it will be uploaded okay on the gate or from website this will be uploaded so you try this you try this quiz and then we will see the solution of this quiz okay the solutions we will see live we will see solutions again on live on go classes YouTube channel on go classes YouTube channel okay so a quiz I will give you from my side basically everything
+
+332
+02:57:40,220 --> 02:58:10,040
+Every concept, every point, every variation in time-stem protocol is over. I hope you understood. Can you visualize the time-stem protocol now? In the gate exam, if any question comes from time-stem protocol, are you confident that you will be able to solve? Are you confident that you will be able to solve whatever question comes in the gate exam from this protocol? From this time-stem protocol, whatever variation, whatever standard question comes, you will be able to solve.
+
+333
+02:58:10,380 --> 02:58:46,150
+okay so this is your time stamp protocol I hope you understood if you understood please comment on the video okay so please comment if you understood if you understood how much you understood and what was your favorite part what was your favorite question basically your review if you understood then please comment okay on this video you please comment your review so today this quiz will be uploaded on this quiz on gator for website on gator for
+
+334
+02:58:47,320 --> 02:59:28,080
+website on the gate or flow website remember not on the go classes website on the gate or flow website this quiz will be uploaded it will be free in the exam section it is free and you can try this solutions we will discuss live in the next session tomorrow we can discuss okay so thank you everyone see you tomorrow so please like and comment this session whatever you understood I hope you understood everything so
+
+335
+02:59:28,350 --> 02:59:31,790
+please like and comment okay thank you bye
+

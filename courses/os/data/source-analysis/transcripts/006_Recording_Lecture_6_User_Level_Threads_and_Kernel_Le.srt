@@ -1,0 +1,648 @@
+1
+00:00:35,150 --> 00:01:05,090
+Hi everyone. Can you hear me? Hi Ravi. Hello Nidhi. Hi Satyam. Hi Vishnath. Hello Shivam. Hello Akash. Hi Nitesh. Hi Sangeet. Hello Haimant. Hi Arunma. Okay. So let's get started. Hello Rishesh. So as you know that we are going to start with the threads. Okay. So we have just talked a little bit about the threads that why we even need it. So can everyone tell me why we need the threads?
+
+2
+00:01:05,470 --> 00:01:44,800
+because like there might be some application that that might want to perform the similar task and it is not a good idea to perform the similar task on the using the different different processes and why that is the case why why we do not want different processes yes because of the inter process communication and context switch so why we do not want different processes for similar tasks because
+
+3
+00:01:49,340 --> 00:02:23,810
+Inter-process communication. Why we need to have inter-process communication? Because these are the similar tasks, right? I mean operating on almost the same thing. And maybe because of the context switch and all. Okay, what is the context switch? We will discuss it later. Good. So let's just start with the topic threads. Now threads are basically you can do that in the concurrent fashion or you can also parallelize that.
+
+4
+00:02:24,030 --> 00:02:57,670
+so it will depend on the hardware that you have if you have the enough hardware then you can definitely parallelize I mean you can run that in a parallel but if you do not have enough hardware then obviously like you have to run that in a sequential manner right so this is the sequential execution and why that is the case because we have here just one core CPU just one CPU right okay but if you have multiple cores then what you can do you can turn them in parallel okay
+
+5
+00:02:59,610 --> 00:03:52,720
+Now, we talked about that what are the things that Threadshare, so let me just quickly write those all things that Threadshare. Okay. Just a second. Okay. So what are the things that Threadshare and what are the things that Threadshare does not share? Okay. So what are the things that, so do you remember what are the things that Threadshare, do you remember about it? So I can say
+
+6
+00:03:52,970 --> 00:04:26,390
+that these are the things along with the heap right I mean whatever the things written here along with the heap so which means code data file these are the things that thread share along with the heap okay okay and what are the things that thread does not share registers right registers and stack okay
+
+7
+00:04:36,850 --> 00:05:10,560
+Now, then after that we talked about like, I mean, what are the old addresses space? How does the old addresses space looks like? So this is how the old addresses space looks like, which means old means that earlier, without any threading, right? Old means without, without any threading, any threads. This is how it looks like. But if you have multiple threads, then it will look like something like this, right? New means with threads, with threads. Okay.
+
+8
+00:05:12,210 --> 00:05:41,830
+Sorry. So now let's get started with our new things. So threads are of two type. One is user level. Another one is kernel level. Right? Okay. Now, what is the user level thread? User level thread means like we are making the threads using the function code. And what are the kernel level threads? Kernel level threads are we are making the threads using the system code, which means we are taking the help of system. Basically, I mean, we are taking the help of operating system. These are the kernel level threads.
+
+9
+00:05:42,250 --> 00:06:19,970
+And we will even look about these two types of threads in more detail now. Okay. So for each thread, there is a new PCB. Since Canon only can create the PCB, hence system call is needed. I mean, okay, basically PCB is there also. PCB is there also. It's not like that. TCB is not there. So you call it TCB basically. Here you can call it, we have TCB. Here also you can call it TCB. Okay.
+
+10
+00:06:20,720 --> 00:06:51,990
+I'm not sure if this line is very much appropriate. So I'm just removing it. So how to create the user level threads or how to initiate the user level threads, we can do that using the system using using some libraries. And similarly for the kernel level threads, you can you have some library that help us. Okay. So even even in the gal when they talked about the thread libraries, generally in the in the top notch standard book, they do not talk about I mean, the library and these things like I mean,
+
+11
+00:06:52,320 --> 00:07:22,620
+They may talk about, but they do not much emphasis on these things. But surprisingly, like this thread library is just so popular that even Galvan has that particular block or particular chapter, I mean, particular section dedicated to it. Okay. So, so basically, if you're using the thread library and the thread library, if they are making, if they're making the local function call in the user space, then not a system call, then it is a user thread. If you are making
+
+12
+00:07:25,890 --> 00:07:49,120
+If you are making a system call then it is a kernel level thread. I mean you can say the kernel level threads are done using the system calls. And you don't need to worry about the implementation part because there are libraries that does this. So now let's talk about what are the usual level threads. So suppose
+
+13
+00:07:49,500 --> 00:08:15,450
+that you have I mean this is the address space this is the notation address space means one process okay one process so suppose you have one process or one address space and this is basically a notation of thread and in that particular process you have multiple threads let's suppose this is how it looks like since it is a usual level thread then it means what it means that
+
+14
+00:08:15,730 --> 00:08:44,530
+The kernel is not visible. For the kernel, the usual level threads are not visible. For the kernel, it is just one process. The kernel will think that this is just one process. Which means how the kernel sees. So I think I talked about this yesterday also. So this is how the kernel will see them. The kernel will think that this is just one process. If this is so, could everyone see? These are the usual level threads. But the kernel will not see them like this.
+
+15
+00:08:44,760 --> 00:09:13,920
+kernel will see that okay these are i mean these are the three processes only and if i talk about the kernel level threads okay if i talk about the kernel level threads then this is how the kernel i mean for the kernel level thread this is how the kernel sees which means kernel will be aware about each of these threads and hence what you can do you can basically make the efficient use of the of the hardware why because operating system knows that these are the multiple threads so are you getting it see
+
+16
+00:09:14,410 --> 00:09:51,170
+For the usual level threads, like kernel doesn't know whether the thread even exists, which means, which means, right. Now, if I, if I talk about the, let me just write it here, if I talk about the kernel level threads, then this is how, this is how they look. I mean, this is how the kernel sees about the kernel level threads. So these are the kernel level threads. Okay. Which means kernel is aware about each of the thread. Okay. So now,
+
+17
+00:09:51,610 --> 00:10:04,440
+In the usual level, since kernel is not aware about each of the threads, then what will happen? Will you be able to make the efficient use of the hardware? No, right?
+
+18
+00:10:04,740 --> 00:10:32,790
+because since the operating system is manager of the hardware which means operating system is someone who who allocates the hardware or allocates the cpu if or the schedule schedule the process or the thread so but if you if the if the operating system or the kernel does not know that there are multiple threads within that process so it will just schedule that process i mean not the thread which means inside this process whatever thread is running that is okay okay so little bit idea might might be getting clear now tell me
+
+19
+00:10:33,630 --> 00:11:02,740
+I mean, you might not have heard about it, but still, if I just ask you, what do you think like, do you think that in the first of all, what is operating system? It is a code or it is hardware? It is definitely a software, right? It is a code. Then tell me, do you think that in the operating system, we need something called as maybe, maybe scheduler? Do you think that there should be scheduler dot C or something like that, some functions, maybe scheduler dot C, right? And why we need it?
+
+20
+00:11:03,740 --> 00:11:33,710
+I mean, if you're writing in C, then I'm, I'm, I'm writing it. Why we might be needing, needing the scheduler. So operating system, I mean, one thing is clear that operating system must have a scheduler, right? I mean, I'm calling it scheduler.c. I mean, just to tell that it is a code. Okay.
+
+21
+00:11:34,820 --> 00:12:03,170
+so what it might be doing maybe let's suppose I mean we will talk about the scheduling obviously in detail okay and we might talk about some some implementation things there but suppose these are the p1, p2, p3 these are the three processes maybe maybe I can write the scheduler dot c maybe the scheduler is a function okay maybe just as a function what it might be doing whatever the current PCBs that we have okay depending on the scheduling algorithm it might be you know looping loop through
+
+22
+00:12:04,340 --> 00:12:50,480
+all the PCBs, all the PCBs in the system. And then what it might be doing, it might be looping through all the PCBs and maybe picking one of them based on the criteria, picking something like that. I mean, what I'm saying that these might be typical two steps that the scheduler might be having. Okay. Now, since scheduler or the operating system does not know that there are since different PCBs that we have,
+
+23
+00:12:50,730 --> 00:13:16,920
+right there are different processes that we have this is all about I mean whatever even if we have the thread control block that are inside the user space only okay that are not supported by the kernel so since kernel does not know that we have the different processes or the different threads then this scheduler also does not know that's why scheduler want to be able to make the good decision okay for the usual level thread but do you think can I mean
+
+24
+00:13:17,140 --> 00:13:55,040
+okay let me ask you one question let's suppose you have you have this okay you have this which means you have one process where you are having multiple multiple pcb multiple threads let's suppose you have this okay suppose this is these are the multiple threads in the user space okay these are the assume that these are the threads in the user space okay now since there is one cpu and
+
+25
+00:13:55,520 --> 00:14:31,310
+and CPU will be or the CPU scheduler or maybe the OS scheduler or the kernel scheduler or the scheduler. I mean, there are three schedulers you might have heard about. Do you know the names? Medium term scheduler, short term scheduler, long term scheduler, like that, right? So we will talk about the scheduler and schedulinger later, but this is one of the scheduler. This scheduler can even tell me which scheduler I'm talking about it here. Okay, someone is asking, how can OSF the scheduler.c? Why not? You can have multiple files, right?
+
+26
+00:14:32,030 --> 00:14:58,980
+OS is not just one file I mean OS code might not be just one file you can have multiple files and you can include one into the another right you can just do hash include a scheduler.c hash include scheduler.c something like that right I mean it could be a function also I'm not saying it need not to be put in the separate file I'm not saying this it could be the function also could be the cc file also I don't think that there should be any problem in that okay as far as I think okay so
+
+27
+00:15:00,920 --> 00:15:25,490
+I mean, this is one of the scheduler, maybe the short term scheduler or long term scheduler. We will talk about all the medium term scheduler. We will talk about it, obviously, in the scheduling. But what I'm trying to convey is that scheduler is just one piece of code that someone has written. Can anyone tell me who has written this scheduler code? Who might have written this? Maybe some operating system designer, right? Yes, OS coder, some person, I mean, some human, right? Some OS designer might have written this? Yes.
+
+28
+00:15:30,220 --> 00:16:11,850
+and which will basically be looping through the PCBs and which will be doing all the things cool now what I am trying to say here let's suppose these are the threads in the user space and since kernel doesn't know about these threads so can I take the help of the scheduler which is in the kernel can we take help from scheduler dot I mean kernel scheduler to schedule the threads so obviously the answer is no right
+
+29
+00:16:12,090 --> 00:16:41,010
+We cannot take help from the kernel scheduler, but still, still don't you think that as a user, I may also might be having my own preferences that I might want to schedule them. You know, I want to schedule this particular, this particular thread maybe most of the time, and I don't want to schedule this most of the time, maybe let's suppose 50% of the time I want to schedule this 25% of the time I want to schedule this 25% of the time I might want to schedule this. What I'm trying to say is that maybe I
+
+30
+00:16:41,390 --> 00:17:09,090
+Don't you think that I as a user might be having my own criteria to schedule? Maybe the round-dropping is one of the criteria and first come first serve might you might have heard about it. And these are the different scheduling algorithm, but apart from the popular ones, I might be having my own scheduling criteria, right? Maybe I want round-dropping, maybe I want first come first serve, whatever like scheduling algorithm I might want. But don't you think that I, I mean, I might be having the choice, right? So should you think that I should not be having any choice?
+
+31
+00:17:10,730 --> 00:17:18,770
+or I should be having like I mean as a user when I'm writing the threads then shouldn't I be having some choice to schedule my own threads?
+
+32
+00:17:20,570 --> 00:17:42,150
+So obviously, right? I mean, since I'm writing these threads, so I must be having some choice that, okay, since these threads should be operated. I mean, I know as a user, I know that this thread may be a heavy. It might be doing the heavy computation. I might prefer to do this 50% of the time, maybe, right? I mean, depending on the usage or something. So I might be having my own scheduling criteria.
+
+33
+00:17:42,730 --> 00:18:23,850
+Right. Maybe, maybe the popular ones, there are some popular criterias, but let's not worry about it. Maybe, maybe my own scheduling criteria. So what I'm trying to say here is that I might be having my own scheduling criterias, right? So let me write it here. So who is I here? User, right? User might be having my own preferences to schedule. Now.
+
+34
+00:18:24,210 --> 00:19:06,640
+Since I cannot take help from the OS scheduler or OS kernel, so how I will be scheduling any guesses? Since I cannot take any help from the kernel scheduler, so how I might be scheduling those threads? Enter process communication? No, I don't think, I mean like, these are not even the processes, right? Okay, so any guess? Okay, user level thread manager.
+
+35
+00:19:07,170 --> 00:19:38,140
+user functions may be mayuk has some nice answer mayuk is saying user level third manager so yes it is it is it is something good answer i think so maybe i can i can write it here so what i my question is that my question is that how i should be i should be scheduling this uh use the threads right so i hope the question is clear to everyone that i cannot take i cannot take help from os scheduler
+
+36
+00:19:47,270 --> 00:20:34,390
+I cannot take help from a scholar. So how I'm supposed to. So the answer here is that I mean, let me just write about my official usual level thread manager. I mean, let me just elaborate on this answer. So answer could be, I mean, this is, this is the possibility that I can think of. Do you want to think anything else? Thread schedule, schedule are implemented. Yes, that's extremely nice. So basically the answer is this.
+
+37
+00:20:35,810 --> 00:21:04,750
+See the all story that I built that we have the scheduler and all right all the story that I built is basically just to tell you the scheduler is not some magic I mean we we or the some OS coder right OS designer might have written this this function or this this particular piece of code So as a user who is restricting me who is restricting me to just copy paste this is anyone restricting me to copy patient this in my own user space Tell me
+
+38
+00:21:07,250 --> 00:21:26,750
+So can't I copy this scheduler.c in my own user space, which means in my own program? I think I can do this, right? So basically, basically, this is the same answer that Sangit is saying that you just own scheduler.c maybe. Yes, that's perfect answer, right? So you just own scheduler.c.
+
+39
+00:21:27,160 --> 00:21:42,880
+Thread scheduler implemented in user space. So nobody is stopping me to just copy the scheduler that was in the kernel code. I can also write my own. Or maybe if I can find somewhere the open source code, then I can copy the scheduler.
+
+40
+00:21:43,740 --> 00:22:15,130
+So what I can do, I mean, I can download the Linux that is open source code. So I can download the Linux code. I can see that how the scheduling is happening there and I can just copy that in my user space. And then then I might be managing. So as a user, I know these are the three threads. But do you think that all of the like, I mean, so the answers are correct here, but do you still think that I have to do all of this? I mean, don't you think it's too hectic to just create a user level thread?
+
+41
+00:22:15,600 --> 00:22:47,800
+I need to write the scheduler. I need to manage all the threads. Don't you think it's too hectic? So what do you think? I mean, any way out of that? No, I cannot take help from the kernel because kernel is not aware about it. Yes. So answer is libraries. Yes, that's a perfect answer. So I can say since all of this is repetitive task, isn't it repetitive task? I mean, do you think that I only want the user threads?
+
+42
+00:22:48,730 --> 00:23:26,320
+I mean, you may also want the user thread, right? So there are many, many users and today I want, tomorrow you may want and maybe day after tomorrow I may again want and maybe like many millions of users are using the operating system. They are writing the codes and again and again, I don't think that they should be worrying about too much about the scheduler.c and these things. So that's why what we have, we have the thread libraries, right? So we have thread libraries, which has everything.
+
+43
+00:23:27,100 --> 00:23:36,080
+Okay, everything means what? The scheduler, thread manager, whatever, right? Whatever required. They were already copied, okay?
+
+44
+00:23:36,440 --> 00:23:58,800
+thread manager will tell you that how many number of threads are there and so on. So if you want, then you may also write your own on scheduler that nobody is stopping you. But if you want, you can you can definitely use those thread libraries. So anyway, like implementation details here are not required. But only thing that I'm trying to convey is that that this is whatever is happening here is at the usual level.
+
+45
+00:23:59,160 --> 00:24:29,050
+And which means the only difference between the between the kernel level threads and user level thread is that that kernel is not not seeing those threads. That's the only difference. There is no other difference, which means the scheduling mechanism. I can do it here. Whatever I can do in the kernel threads, I can do it here also. But all of all of these things are happening in the user space only. Is this little bit clear to everyone? I have one very interesting question after that. If that is clear, then I will be asking that question. Okay.
+
+46
+00:24:29,560 --> 00:24:56,680
+So let me ask you that question. That is very interesting question. I'm not sure how many of you will be able to answer this. Yes, you won't be able to, you know, since the kernel is not aware about the threads, so you want to be able to schedule two threads from one process to two different CPUs, right? I mean, it won't be possible. Yes, we won't be able to utilize if we have the extra CPUs in that case.
+
+47
+00:24:56,990 --> 00:25:20,690
+okay anyway but that that is not the idea about it which means that generally generally it's not the case that we have too much of CPUs and we have you know we have many threads to just schedule them i mean generally it's not the case which means that i will tell you what are the benefits of the usual level thread but it currently seems that there is no benefit right i mean if kernel even doesn't know the threads then it is there is no benefit but there are definitely benefits i will tell you about it
+
+48
+00:25:20,860 --> 00:26:14,750
+I mean currently it is like that kernel is not able to schedule then why we are using those threads but still there are benefits I will tell you okay anyway let me ask you the question that I have on top of my mind can user label thread run I'm not sure if I'm posing the question correctly but still run kernel code what do you think yes so answer is yes the reason is that we definitely can have the system called there also right okay
+
+49
+00:26:33,100 --> 00:27:05,040
+Anyway, that was that might not be very interesting question, but still might be just, you know, might not be clicking directly because you must be thinking it is a user level thread. But why not? I mean, it is if I'm if I want to execute the kernel code is just like that. I cannot execute the kernel code in the user space. I have to go in the kernel space. Okay, cool. Okay. So I have one more question. I'm not sure if today is the correct time to ask that question.
+
+50
+00:27:05,350 --> 00:27:34,560
+but maybe I can ask it okay let me just ask that question that's not directly related with the thread but it just came into my mind because we are dealing with such things see suppose there are like two processors maybe p1 and p2 you might have a little bit idea or heard about the contact switching which we will talk about it later but suppose there is one cpu and and currently p1 is running right and I want to schedule this p2 then
+
+51
+00:27:36,620 --> 00:28:02,520
+then how I will be scheduling. Maybe I want to schedule maybe because of many reasons. So P1 might want to do this access or P1 might want to, P1 might have finished. Maybe there's a quanta, that is, I mean, round up in quanta, that is, I mean, there is something called round up in quanta and round up in quanta of P1 might have been over. So there might be several reasons for that. I might want to schedule the P2.
+
+52
+00:28:03,720 --> 00:28:30,780
+Or maybe some something else. I mean, there are there are different processes. I want to schedule one of them. Okay. Currently P1 is running. Now, how can you can you guess that how we might be, we might be scheduling? Maybe I need to, I need to call something called a scheduler.c or maybe scheduler function, right? So I need to call something. I mean, basically to schedule this P2 or any one of them, I need to, I need to call scheduler. Is this okay to everyone?
+
+53
+00:28:32,550 --> 00:29:11,860
+To schedule this P2, P2, P3 or P4. So let's assume that P1 is running. We want to schedule other process now. Maybe because of any region. Okay. What are the possible regions? We will discuss obviously in the detail. Maybe it may wants to block and there is something called, I mean, voluntarily leaving the CPU. Let's suppose P1 wants to voluntarily leave the CPU. You can also do that using a system called yield.
+
+54
+00:29:12,360 --> 00:29:45,620
+Okay, there's a system called yield and if you are if you are having that system called within the P1 it will voluntarily leave the CPU it will say that okay for some time I want to leave the CPU I mean you can ask the P1 to voluntarily leave the CPU or maybe P1 there are many reasons as I told you that maybe it has been finished maybe it has quantized over there are many many reasons for that you want to schedule the different process we will do it we will basically first schedule or first run schedule uh scheduler right
+
+55
+00:29:47,840 --> 00:30:20,640
+schedule or run whatever you want to call or run should you learn? Okay, should you learn? Cool. Now, is this okay? I mean, currently I haven't told you the question, but the description is okay that P1 is running. We want to schedule some other process to schedule some other process. We first have to schedule the scheduler. Right? I mean, it might not look very intuitive, but that is how it is. Right? I mean, if you want to obviously schedule some process, there should be some piece of code that will be scheduling or you can just randomly pick.
+
+56
+00:30:20,950 --> 00:30:50,100
+or you will be picking based on the scheduling criteria right so even if you want to randomly pick that that is also let's suppose one scheduling algorithm that then also that there should be some scheduler so to schedule some other process itself we want to schedule the scheduler now my question is that who is going to schedule the scheduler right so who is going to schedule the scheduler i mean uh agent at the uh agent at the vixie cycle that okay i want to schedule something for that i want to schedule the scheduler so how to schedule the scheduler itself
+
+57
+00:30:51,840 --> 00:31:25,680
+So, my question here is that, how to schedule the scheduler itself? So, the question is, any guess? Just think in terms of programming perspective, okay? Just think, leave over the hardware. Just think that how, as an OS designer, what are the possibilities that you may be thinking? How to schedule this, the...
+
+58
+00:31:47,380 --> 00:32:19,680
+OS will be scheduling but how OS will get to know that I mean the answers are correct That's correct that OS will be scheduling but how the OS will let itself get to know that I need to run the scheduler Who will tell OS that you need to run the scheduler now? Yes interrupts So basically basically what will happen? Let's suppose you're using using the hardware I mean you are using round dropping or any any algorithm that we will talk about later So basically what will happen that there will be the interrupt
+
+59
+00:32:20,140 --> 00:32:45,360
+Okay. And that interrupt will be because of because of maybe P1, P1 quantize over. Okay. There will be some interrupt. I think the interrupt, do you remember the interrupt of the system calls like fork and all the usual system calls? What was that interrupt? Instruction name? What was that instruction name? I think syscall, right? So I think syscall was the instruction name. Yeah.
+
+60
+00:32:45,600 --> 00:33:08,150
+Cisco was the instruction name earlier in case of usual, I mean system calls. But here if I want to schedule the scheduler, then what will happen? There's a system call, specifically system call. Exactly, sorry, I don't remember the syntax, but I think this is SH, S-H, S-E-H-E-D. I mean, in most of the system, I think this is the instruction name. Anyway, so there is an instruction name. This is the instruction name.
+
+61
+00:33:08,560 --> 00:33:36,730
+but this itself is some interrupt basically what's going to happen whenever the quantize over or P1 is basically making some dis access or P1 wants to block itself then these things are basically happening let's suppose P1 is requesting for some IO device okay then these things are essentially happening using using what P1 wants to request some IO device then how it will be doing using system call write you're getting my point okay
+
+62
+00:33:37,080 --> 00:34:20,730
+so interrupt we are not going to discuss interrupts are not required it is just same as system call you can understand same as system call so here what I am trying to say is that if P1 timer is over so this is basically here if you are using hardware timer then it is hardware interrupt interrupt if timer is maintained using the hardware okay timer or counter whatever is maintained have you heard about the counter in the digital logic
+
+63
+00:34:29,750 --> 00:35:14,910
+If OS maintaining, if there is a variable inside the OS itself, inside the OS code, generally it is not the case, but still inside the OS code, then maybe software interpret, right? Why you think it is not a usual case? Why you think? Can anyone think that if I want to let's suppose keep a timer for any process, then why you think it is not a good approach to have some variable in the OS code?
+
+64
+00:35:15,110 --> 00:35:39,710
+Whenever the process is running, I can have that in the PCB, right? Every PCB can have some timer or something, right? So why we are not having some variable in the PCB? Maybe, I mean, it is preferred, basically, it is preferred. Any guesses? Is quotient clear to everyone? So...
+
+65
+00:35:39,710 --> 00:35:57,270
+okay I think we are digressing from the topic but okay so like I mean I will just quickly wrap up what I'm trying to say so it is a little destruction from the threads okay so we will we will come back to the threads but let me just quickly wrap up what I'm saying here yes
+
+66
+00:35:58,350 --> 00:36:19,410
+So basically if you're doing that in the OS, then the problem is that at every clock cycle, maybe I just want to decrement the counter at every cycle. So I don't think it is an increment or decrement, whatever. I don't think it is a good approach to again and again, switch from user space to kernel space and all right. You're getting my point. So basically this counter, if OS maintain this, then this counter will be in the
+
+67
+00:36:20,320 --> 00:36:54,220
+Uh, you know, kernel space in the PCB, something like that. I mean, every information about the process is in the PCB, right? So it's not a good idea. Maybe, maybe it's not a good idea to again and again switch between the user space and kernel space. So that's why it might not be preferred. That's why we have that in the hardware. Anyway, if even timer is over, so there will be hardware interrupt. Otherwise, let's suppose P1 is accessing, accessing some IU, then it will let's suppose write system call, write system call or something.
+
+68
+00:36:56,150 --> 00:37:26,350
+Okay. Then in that case, in that case, basically there will be system call or the software interrupt. Actually, system call and software interrupt are mostly used interchangeably. Okay. Or, okay, we will, I mean, you will get to study in the computer organization that what are the software interrupts. But since whatever is happening using, you know, the code, you can say it is a, it is a software interrupt. System call is just a code. So that's where it is a software interrupt, right? System calling is just a code.
+
+69
+00:37:27,160 --> 00:37:58,220
+Or you will get to understand more definitions. Basically, the software interrupt is synchronous. Okay. Synchronous means what? That can even tell you what does the synchronous might mean? Any guesses? I will summarize all the things that we are talking. But for now, let me just discuss in the flow. So what is the synchronous? Any idea? Synchronous means whatever you are doing that is in the current flow, right? I mean, you wanted to do the right system call or someone asks you to do the right system call?
+
+70
+00:37:58,630 --> 00:38:24,300
+Or you yourself has that in the code. You have that in the code, right? Or someone just inserted that line of code of write system call in your piece of code. No, right? So you have that. So basically synchronous means whatever I am doing, it is in the line. But let's suppose P1 is executing something. And then suddenly timer is over.
+
+71
+00:38:24,940 --> 00:38:52,900
+was that you decided the timer is going to over some hardware or some OS code has decided someone else right some external activity or maybe let's suppose you are I mean your program is getting executed and you have just one CPU and suddenly there is IO request the CPU has to serve or something like that then basically these are called asynchronous asynchronous means you are in the flow suddenly something happened that is asynchronous synchronous means you are in the flow you yourself wanted to do that right
+
+72
+00:38:53,150 --> 00:39:24,200
+Anyway, the software interrupts are also synchronous in the sense that you yourself wanted to do it. Okay, system calls are also called a software interrupt. Or maybe, I mean, we will, you will study that in the computer organization, but here I can make one quick table, basically, you can, I mean, quick flow, flow chart. So you will discuss this interrupts in the, there's a part of COA. Okay. But
+
+73
+00:39:24,620 --> 00:40:02,750
+with respect to OS if you want to know I mean not with respect to OS in the sense that with respect to system call I mean in the in the OCOA you might not be discussing system calls so that's why I need to make this diagram okay so there there are software interrupts there are hardware interrupts okay what are the hardware interrupts maybe hardware timer what are the other hardware interrupts can anyone tell me maybe maybe mouse click okay
+
+74
+00:40:04,350 --> 00:40:36,790
+any activity from the IO devices like that and software interrupts are again you can think like this are again of two types actually these are terminology dependent but anyway are again of two types which is you can say system call and here I don't know maybe you can call it software interrupt itself or maybe the trap you can call it okay trap so traps are generally people call it them as a software interrupt only now system call as you know what is the system called trap means like maybe
+
+75
+00:40:37,220 --> 00:41:07,200
+uh trap or faults okay maybe maybe like that uh divide by zero i mean you are executing a program and suddenly divide by zero happens right and since divide by zero is is not a good choice so that's why it will be a system call it will be or the software interrupt it will basically interrupt it will say that okay can you handle it so there will be some different interrupt handler for the divide by zero or maybe the page fault or these kind of things right page fault or maybe segmentation fault right so basically uh i mean you can say the software interrupts
+
+76
+00:41:07,630 --> 00:41:38,870
+are itself of two types, either the system calls or some other things, maybe the page fault or maybe the segmentation fault. Divide by 0 itself is basically some exception. Anyway, I hope you are getting this. This is one picture that you will be seeing again in the interrupt in the computer organization. But why I'm telling you this picture here, even though you are going to see in the computer organization, can anyone guess it? Can anyone guess it?
+
+77
+00:41:39,100 --> 00:41:51,180
+Maybe, maybe because in the, in the company organization, you will just see here, you will just see till here. Okay. I mean, you will not see with respect to the system code. You might just see this, just this, this classification. Okay.
+
+78
+00:41:51,870 --> 00:42:14,690
+Okay, maybe the system call might not be discussed there. But yeah, some people call it just a type of software interrupt system call out just a type of software interrupts. So that's why that's why in most of the operating system, there is no specific, you know, some mechanism to handle system call, it is just a type of software interrupt. So the way we are handling the software interrupt, it means the same way, which means there will be system call table, people call it interrupt table.
+
+79
+00:42:14,920 --> 00:42:40,510
+using the interrupt table we are handling the system call. Exactly the same way. Just the name convention is different. People might call it interrupt table. That's all. Anyway, so I hope you got it that why I'm writing it here because in computer organization you may see till here only. Is this clear? Is this clear that in the computer organization you may see till here only? I want to make my intention clear that why I'm writing it in the operating system slides.
+
+80
+00:42:40,860 --> 00:43:00,930
+why I'm writing because in the in the computer organization again I'm saying you may see till here but with respect to system call I just want to make some distinction that what are the system call I mean where does the system call fall in this category okay cool again to be very honest these are the terms I mean
+
+81
+00:43:01,430 --> 00:43:31,050
+Maybe some people or not people, I mean, maybe some well-known author or some university, they just call this the whole thing. I mean, I'm calling the software interrupts a trap. Maybe some authors call it the whole thing, either with software interrupt or hardware interrupt, they call it trap. They say it is a trapping to kernel. I mean, some authors say it is a trapping to kernel in whatever way you do, trapping to kernel. I mean, they say the trap and interrupts are same. It is just a terminology to be honest.
+
+82
+00:43:31,500 --> 00:44:03,500
+Okay, so let's not worry about it. Okay, so coming to this part, what I was saying that there might be some some regions because of that, even, I mean, we want to schedule something else, right? And those all of those regions will be will be causing the system call, maybe even timer is over, it is a system call, people wants to access any hardware, maybe, maybe memory, CPU or whatever, I mean, maybe the disk access, whatever it wants to do, it is also a system call.
+
+83
+00:44:03,770 --> 00:44:33,930
+it is okay to everyone interrupt system call anyway so basically if p1 is getting scheduled out that will be done using a system call so basically okay i'm just telling you one thing have you heard about uh this ready queue run queue run uh i'm running right whatever the running and then waiting state and these things i mean some transitions have you heard about it something like this maybe maybe you might have seen this so every transition here do you think that it will be just done just like that
+
+84
+00:44:34,180 --> 00:45:04,430
+Do you think this OS is required? OS code is required to do this from here to here, here to here. Obviously, right? We need the operating system support. Since we need the operating system support, that's why every transition will be a system call. Agented? Every transition here. Okay? So, because since we need the operating system support to go from here to here, here to here or whatever, I mean, any transition we are making, because all of these states are in the condom. It is the operating system dependent states.
+
+85
+00:45:05,960 --> 00:45:34,540
+So that's why we need the system call in any transition. So what I'm saying here is that if P1 is running and I want to schedule something else, okay, maybe P1 has finished, maybe P1 has finished or maybe P1 is going to the waiting or whatever I'm doing it. So am I not changing the state of P1 from running to maybe waiting or running to finish or something like that? Since I'm changing the state of this P1 and as I just told you that any of this transition is a system call. Is this okay to everyone?
+
+86
+00:45:34,870 --> 00:46:21,530
+any of the transition so so this will come later but still I'm just writing any transition between okay is using a system called any transition or thus that's very much obvious so this diagram is just scheduling state diagram which we will see later but
+
+87
+00:46:21,900 --> 00:46:52,110
+The point here I'm trying to make is that if you're moving P1 from any state may be running or any any state to any other state, it is done using a system call. Okay. Is this okay to everyone? Nayan Kumar, is this okay to you? Now, if that is clear, then let's just quickly come back to what I was asking is that if P1 wants to go from any state may be running to any other state, then we need a system call there. And in that system call,
+
+88
+00:46:52,370 --> 00:47:31,130
+there will be an instruction just like fork was having the sis call instruction right there will be instruction that is the instruction schedule okay and that instruction will be will be doing what can anyone guess it it will be basically calling the function or the calling the function in the kernel space which is the scheduler function okay this will call okay so now just to you know summarize everything what I what I just said see
+
+89
+00:47:34,800 --> 00:48:07,740
+P1 was running, right? P1 was running. We want to schedule something else. I mean, now P1 want to running on CPU basically, okay? To execute or deal with the, let's suppose IO, okay? Or execute some IO device. I mean, we want to interact with IO device.
+
+90
+00:48:16,630 --> 00:49:06,780
+want to wait or something I mean maybe the blocking state or something so basically I mean we want to we want to move out from people from the running state to some other state then then basically we are moving out at that time we need to call system call right in that system call and in that system call there is a instruction schedule that will be scheduling the scheduler is this okay to everyone
+
+91
+00:49:30,160 --> 00:50:29,040
+I mean, for example, instruction name obviously will depend on the system, but for example, schedule, okay. Schedule, that will schedule the scheduler. And then, once you schedule the over scheduler, then what will happen? That over scheduler will schedule some other process, right? Okay. Is this, are these steps okay? I mean, little bit, because we are anyway going to see these steps in the scheduling. Little bit, are these steps okay? Okay, let's not worry about the dispatcher and these things. We will talk about the dispatcher scheduler and these things, right?
+
+92
+00:50:32,490 --> 00:51:00,510
+In the assembly, I mean, whenever you are basically making any system call that is leading the P1 to move out from one state to another state, maybe the right system call or something, that is basically leading the P1 to move out from one state to another state, that will be basically done using the scheduling instruction. In the assembly code, that will be there. Anyway, more discussion, don't worry about it, more discussion we will be having in the scheduling lecture.
+
+93
+00:51:05,060 --> 00:51:27,220
+But are you getting interested in the operating system? I mean, the way we are looking at the operating system might be very different, right? I mean, we are not directly jumping, okay, this is the state, this is the state. So you should be, I mean, for many of the students, it might be, it might be the case, obviously for most of you, it might be the case that this little information might be very new, that okay, from here to here also we need a system call, right?
+
+94
+00:51:27,900 --> 00:52:02,430
+So for how many of you this, this, this information was very new that, okay, from moving from one state to another state, self is a system. Okay. So, yeah, so, so don't worry if there are little, little things that you might not be able to connect because at the end of the lectures that, I mean, maybe at the end of two, three lectures, if that particular topic is spread over two, three lectures, then you will be getting, getting the connection between the topics. Okay. So, but by the way, it is, it is easy interesting to be honest. Okay.
+
+95
+00:52:02,750 --> 00:52:28,870
+And you will, you will see many new things in the deadlock. I mean, people study the bankers algorithm in the, in just a plain raw way. Okay. There is a, there is a algorithm called bankers algorithm. You might have heard about it. That's, that's a very later topic, deadlock. Okay. And the deadlock, there's a bankers algorithm. People just, just buy harder, buy harder steps. The core, core feel of the bankers algorithm is little missing that I feel so, but we will, we will study that in very good detail. Okay. So.
+
+96
+00:52:29,580 --> 00:52:58,340
+And in the memory management, obviously you will see many things new because memory management is the core of operating system. So here what I was saying that can a user level thread run a kernel code? Okay. That question, I think is answered. Now what I was saying that how to schedule the scheduler itself using the extraction that is okay. So basically I started, I think with this question that I cannot take the help from operating system scheduler. So how can, how can I suppose to schedule the schedule them?
+
+97
+00:52:58,860 --> 00:53:47,740
+I need to write my own scheduler. Right. We need to write. So what is the answer we need to write? I need to write basically my own scheduler. Right. And which means obviously I don't don't need to do it again and again, but there are libraries to help us. So let me write it here. Don't worry. There are libraries to help us. So let me just move with the slides that what is there. Let's just do this question.
+
+98
+00:53:48,080 --> 00:54:28,070
+what are the one major advantage and major disadvantage of user threads user level threads let's just let's just write down all of your answers whatever you say maybe we can talk about the disadvantage first okay maybe we can talk about the disadvantage just tell me what are the disadvantages whatever you are writing we we can i mean we can write it here not visible to kernel okay this is one disadvantage to kernel hence hence
+
+99
+00:54:29,740 --> 00:55:09,220
+may be, may be, I mean OS cannot make good decision about the scheduling, right? Cannot make decisions about scheduling, scheduling based on, based on available, available hardware, which means what is the hardware CPUs, right?
+
+100
+00:55:09,440 --> 00:55:37,020
+I mean, this is one example. Oh, I mean, where I'm calling the hardware. I mean, hardware could be any, any other thing that let's suppose that multiple resources are available. But since OS OS things that okay, let's suppose multiple printers are available. But OS things that okay, there is only one thread who is looking for printer. But let's suppose there are multiple threads which are looking in one single program. Okay. In one single program, there are multiple threads who are looking for the printer. But since you're scheduling just one at a time, right?
+
+101
+00:55:37,290 --> 00:56:06,070
+then OS doesn't know that okay there are multiple threads who are looking for the printer since I have 10 printers I believe but still only one of them is working okay this is one disadvantage should we link difficulties yeah that's almost covered here if the single thread is blocked the whole process is halted yes that's that's very nice so basically what are the other major disadvantage is that let's suppose you are running something and one of the one of the thread is blocked right maybe maybe because of some some operation that they want to do
+
+102
+00:56:06,200 --> 00:57:09,180
+Can you hold just a second? Hello? Yeah. So, not visible to the kernel. Yeah, one major disadvantage might be that let's suppose there are multiple threads, right? In the user space itself, there are multiple threads, right? Now, what might so happen that let's suppose this thread, this thread, this is accessing some IO, okay? IO. And because of that, it is blocked, right? Hence,
+
+103
+00:57:14,090 --> 00:57:49,820
+By the way, do you know that why I'm doing the IO, then why we don't only CPU? I mean, for the IO, why we do not need CPU? Any guesses? Have you heard about something called DMA? Yes. So there is something called DMA device. What is the full phone? Sorry. Device manager. Direct memory access. Yeah. Direct memory access. So yeah. So anyway, like you will study the DMA in the computer organization. Cool. So what I'm saying here is that
+
+104
+00:57:50,000 --> 00:58:21,670
+that let's suppose this is accessing IU hence it is blocked but since for the kernel or for the operating system let's suppose it is CPU and in between OS is sitting for the operating system this is just one process and operating system will think that since it was running it is blocked so operating system will think that okay this process is blocked so operating system will put OS will put the complete process
+
+105
+00:58:22,670 --> 00:59:07,840
+in the block state okay which means that if one of the thread is blocked in the user space then complete process is blocked there's one of the major disadvantage see here who has written about the threads so if one thread is blocked because of iu then all the threads get blocked is this okay everyone what they are writing so if one of the thread is blocked then then the whole process will get blocked so this is one of the major disadvantage i can i can say and what do you think what are the advantages here
+
+106
+00:59:27,240 --> 01:00:15,500
+it is fast fast to create right why because because no system called needed what else so basically like I mean we I have not formally talked about the contact switching but contact switching is basically switching between the two processes of two kernel level threads so here there is no contact switching order right I mean kernel doesn't have to maintain the states right so I can say kernel doesn't have to maintain the different states
+
+107
+01:00:29,270 --> 01:01:10,060
+different states of different threads. So who you think who is going to maintain, right? User will do it. And how we are going to do it? Using the libraries, right? I mean, there are libraries that help us. Yes, so there are libraries that definitely going to help us. So basically, since kernel doesn't have to maintain the different states for the different threads, hence, hence, contact switching is not needed, right?
+
+108
+01:01:20,920 --> 01:02:21,350
+What else you think let me just read out your answers It is a lightweight that is agree that I agree. What do you think? What could be the other advantages? Yeah, no system call that is covered Maybe I mean I'm just listing out if someone like these advantages at the end of the day These are the advantages, but still I mean if someone like those advantages, then it is good. Otherwise, that's fine. So Maybe we we have our own scheduler there, right?
+
+109
+01:02:24,910 --> 01:02:54,080
+I mean, we can write our own scheduler if we want. So which means like, let's suppose I want to prioritize some particular thread and like that. So I can definitely do it. I mean, I don't need to depend on the scheduling that is basically OS dependent, right? So I can have my own scheduling. Whatever random scheduling whatever is in my mind, I can definitely do it. I don't need to the kernel support here. Okay. Nayan Kumar is saying that explain the second point. So kernel, see, since these threads.
+
+110
+01:02:54,420 --> 01:03:41,490
+Okay, just tell me, are these threads known to kernel? Are these threads known to kernel? No, right? Operating system doesn't know this. Since OS doesn't know this, so OS for OS, it is just one PCB, right? OS will not maintain the different PCBs. It is just one PCB, one process. That's why, like, the OS doesn't have to maintain the different states. What do I mean by different states like that, see? Just a second. Where is the diagram? C.
+
+111
+01:03:41,850 --> 01:04:12,760
+for every thread there is a state what are the states that what are the registers what are the stack pointer and these things right for every thread is having states but these states are not maintained by the kernel who is going to maintain these states user right so there is a assembly code and in that assembly code this is move r1 thousand like that right so whenever let's suppose this is the assembly code of the thread one thread one right this is the assembly code of thread one let's suppose there is a assembly code of thread two thread two
+
+112
+01:04:13,200 --> 01:04:44,320
+First of all, tell me, are these assembly codes known to the compiler? I mean, as a user, do we know these assembly codes? Or we don't know this? No, we know, right? I mean, anyway, we write the high-level program, but ultimately, we can also write the, if you want, we can also write the assembly level. Just for the convenience, we write the high level. So, at least the compiler knows the assembly, right? Compiler knows the assembly. So, basically, these assemblies are known to the user, at least.
+
+113
+01:04:44,740 --> 01:05:13,540
+So what I'm trying to say here is that that whenever you are having thread one and whenever you are having the thread to code at that time since we are telling the compiler using the library that okay this is a thread one this is a thread two so first of all tell me the compiler knows or not that these are the two threads we are telling the compiler using the user-level library right so since compiler knows that these are the two threads we are telling the compiler using some mechanism or some library that's why whenever compiler is writing something something here let's suppose compiler is writing some assembly here load
+
+114
+01:05:14,620 --> 01:05:42,230
+R1 comma 2000 or whatever now tell me are these same values are the same values R1 this R1 this R1 what do you think are these R1 same R1 same I mean R1 is same at least because there is just one unique register name R1 R1 is same that's not an issue but but but
+
+115
+01:05:42,590 --> 01:05:55,890
+Whenever you are having this thread, whenever you are running this thread, since compiler knows now, now I'm going to run the thread to, I mean, there's a thread to code, but maybe, maybe before the thread to code, it might be doing something, what it might be doing, it might be saving all.
+
+116
+01:05:56,780 --> 01:06:21,000
+our registers value or whatever right all register value or something right so before start before start of this thread to code I might be having some function which is basically going to I might be having some assembly code or some function which is going to basically store or the save all the registers or whatever I mean whatever the kernel is doing that are done by user that are done in the user space that's what I'm trying to say okay so anyway
+
+117
+01:06:21,410 --> 01:06:57,190
+So what I'm saying that these are the states that we have that R1, what is the value of R1, what is the stack pointer and all. So all of these states are maintained by the user using the libraries. So kernel doesn't have to maintain the states. That's what I'm saying. Is this bit of bit clear? Okay. Hammond is saying that can we say that kernel thread will have more control of kernel and user level thread will have less control of kernel. Threads doesn't control kernel, control kernel threads.
+
+118
+01:06:57,820 --> 01:07:21,440
+sorry kernel kernel control threads not threads control kernel right I mean control in the sense it is it is just a scheduling so kernel knows about those threads so it can it can control in any way it wants but since kernel doesn't know usual level threads then it may not be doing the good decisions about the scheduling at all okay so so basically kernel maintains the states
+
+119
+01:07:21,660 --> 01:08:06,930
+You don't have to maintain, I'm sorry, user maintain the states, kernel doesn't have to maintain the states. We have our own scheduling algorithm, right? Our own scheduler here. What are the other advantages that you can think of? Slight weight, okay. You don't need context switching, right? So no context switching. That's important. Context setting is not there. So basically this point is saying no, no context switching, right? They can run on any OS.
+
+120
+01:08:07,310 --> 01:08:31,090
+Yeah, I mean, kernel level threads also can run on any OS. Yeah, I mean, yeah, okay, okay. Basically, there in the kernel level threads, you, you should be, you should be having the thread manager and all in the kernel, right? I mean, that's, so basically, that is an advantage. I agree. But that is the kind of advantage that is not relevant in the two days, but in the sense that
+
+121
+01:08:31,340 --> 01:09:06,660
+so you are writing one as an advantage but theoretically that's an advantage which i can definitely write the advantage you are saying is that that they can run on any OS theoretically this is an advantage what i what i mean to say let me just explain tell me tell me can kernel kernel level threads run on any OS can kernel level threads run on any OS no why because there we need support from operating system
+
+122
+01:09:06,990 --> 01:09:26,590
+If operating system doesn't have the thread manager, operating system doesn't have anything related to the thread, then obviously you can't run, right? We need more support there. So, but actually this advantage is not much relevant. Why? Why? I mean, in the comparison to the kernel thread, this advantage is not much useful. Can anyone guess?
+
+123
+01:09:27,350 --> 01:09:52,990
+If I compare that to the kernel level threads, kernel level threads are also having the similar advantage because they can also run on any US in two days but because all the operating systems support kernel level threads. That's why this advantage, it is theoretical advantage, but not not as a comparatively you comparatively in two days but it is not advantage. Yeah, there were times. Yeah, I agree. There were times earlier. I don't remember the OS names. Okay, so.
+
+124
+01:09:53,950 --> 01:10:25,430
+I think in the embedded systems, in the embedded systems there were time when they were not supporting the kernel level threads. Some OS, embedded OS were not supporting the kernel level threads. At that time you can say that these were the advantages. But now this is not, comparatively it is not advantage anymore. You are getting my point? So comparatively if you say, it is not, everyone quoted what I am trying to say.
+
+125
+01:10:31,600 --> 01:11:02,390
+because because kernel level threads can also run in NUS in the sense that every OS supports the kernel level threads nowadays. Okay, so I think these are the advantages that we have. Let me just quickly see the answers that are given here. So the biggest advantage is efficiency. No traps to the kernel are needed to switch the threads. The ability to have their own scheduler can also be the important advantage for certain applications. Right. See, they have also say the efficiency. Contact switching is not there. The ability to have their own scheduler on customer scheduler.
+
+126
+01:11:02,430 --> 01:11:40,210
+is also the advantage right okay I've just seen okay I have taken this from some university I don't have the link here but anyway the biggest disadvantage that one thread if the one thread block then the entire process block this is the biggest disadvantage right so you can say if one thread block then you are going to block entire process cool so I hope this is understood to everyone what are the advantages and what are the disadvantages yes
+
+127
+01:11:44,850 --> 01:11:57,010
+Okay, so user levels threat disadvantage. I think I have one more slide here. Since the OS does not know about the existence of the user level threads, it may take the poor scheduling decisions, right? So it may run a process that only has the ideal threads.
+
+128
+01:11:58,530 --> 01:12:27,590
+Okay, which means that the process is not doing anything. And still it may, it may run this. I mean, it doesn't know that what thread is doing basically. If a user level thread is waiting for IO, the entire process will wait. Yeah, that's a big disadvantage. Solving the problem requires a communication between the kernel and the user level thread manager. Yeah. So basically, user level thread manager will be scheduling the thread. I mean, user level thread manager will be scheduling, right? It will be scheduling. So what they're saying is solving this problem.
+
+129
+01:12:28,210 --> 01:12:55,820
+Look at this communication between the kernel. I mean, yeah, basically that for the kernel, it is just one process. So whatever you should do, it will, it will schedule that. I mean, whatever the usual level threat manager will schedule, it will schedule that particular thread on the CPU. Since the OS just know about the process, it should use the process, basically scheduling things, these things for the kernel thread, the more threads a process create, the more time slice of OS will dedicate it to it. Okay. For the kernel threads, the more threads the process creates. Yeah.
+
+130
+01:12:56,140 --> 01:13:25,450
+if you are having multiple kernel threads then what might so happen let's suppose you are using run problem and if you are using if you are having five kernel threads then basically five equal chances will be given to this i mean basically what i'm saying let's suppose this is p1 this is p2 it is having five threads i mean kernel level threads okay it is having two two kernel level threads then who will be running more tell me who will be running more p1 will be running out of seven times people will be running five times
+
+131
+01:13:25,660 --> 01:13:55,530
+And P2 will be running two times. That's what they are saying. For kernel threads, the more threads the process create, the more time slice the OS will dedicate to it. Okay. Cool. Maybe if it is not clear, then in the scheduling, it will get clear that what I'm saying here. Okay. Now let's quickly talk about the kernel level that we have already seen. Uh, I don't think there is any point we have left, but still, uh, for the sake of completion, let's go over the slides. So kernel knows the threads, right? Now you know this. Let's just read out this slide. OS manage the threads and process or address space.
+
+132
+01:13:56,000 --> 01:14:31,550
+all thread operations are implemented in kernel first rule all of the threads in a system you can read it out later kernel threads are cheaper than processes yeah process creation is still it's still you know uh costlier so basically if i have let's suppose three choices okay one is that create a process using i mean it is just fork agjek as you have seen it is just one example okay using fork and agget create agjek create
+
+133
+01:14:39,980 --> 01:15:25,910
+which you think is the most costlier so arrange them let's suppose I ask you arrange them in the cost arrange them in the decreasing order of cost so the answer is one is the heaviest then two then three okay so one is most costly why that is the case
+
+134
+01:15:26,600 --> 01:15:54,660
+Because for the process creation, you are completely creating two different addresses, right? Two different addresses space. Here, you still share some addresses space, right? What are the things that you share? It is just a management that who is managing, either user is managing those, those states of candle is managing. It is a different thing, but still the space is same, right? You're just, are you copying, let's suppose heap, are you copying code? Are you copying everything here? In the threads, are you copying code?
+
+135
+01:15:55,130 --> 01:16:31,200
+for the different different threads still they share the code right they still share the code they still share maybe the data and many things they share so basically that's why you're not creating the other different addresses space so here we are creating two different addresses space right creating entire addresses space that's why it is costly okay and there are many other things that happens in the fork
+
+136
+01:16:31,550 --> 01:17:04,630
+So basically this creating the new process itself is a costlier. So that's what they are saying that kernel threads are cheaper than processes, at least cheaper than processes, but obviously costlier than the user threads, which means it is in between cheaper than the processes, but costlier than the user level threads. Okay. But they are still pretty expensive. Okay. Anyway, now what are the summary? In the summary, I can say that a single thread execution streams within a process.
+
+137
+01:17:05,210 --> 01:17:35,710
+What is a thread? A single execution is streamed within a process. Okay. Okay. Uh, switching between user thread is faster, uh, between kernel threads is not, uh, because, uh, faster than kernel kernel thread since the context switch is not required there. Okay. User level threads may result in kernel making poor scheduling decisions, resulting in sure, uh, resulting in slower process execution than if kernel level threads were used. So that's what we know, right? Okay. Now let's just quickly see the performance example.
+
+138
+01:17:36,040 --> 01:17:50,720
+So this is just one practical that someone has done. I have just copy pasted that. So someone is saying that I have run on this machine, some specific machine. I have done the process creation on some specific machine.
+
+139
+01:17:56,950 --> 01:18:25,510
+So someone is saying that I have done this fork on some specific machine and kernel thread on the same machine, user thread on the same machine. So that person has found out that, okay, it is taking 251 microsecond, it is taking 94 microsecond, it is just taking 4.5 microsecond. Anyway, so like they're saying that it is kernel threads are 2.5x faster and user threads are even 20x faster than the processes, I think.
+
+140
+01:18:27,040 --> 01:18:58,220
+No, 20x faster than this kernel threads, which means I think maybe even 40, 40, 40 times or 50 times faster than this process creation. I mean, this is just one performance example that I have here. What it is written, let me just read it out. When CPU transition to the supervisor mode and start running the kernel code because of this call accession or interrupt, it is still in the context of the current thread code that thread execute comes from the.
+
+141
+01:18:59,970 --> 01:19:39,050
+Okay. I mean, this is just one paragraph. I think I forgot to delete it, but okay, let it be there. It is just one information that that is being shared. Okay. So let's just solve these questions. Tell me if it is true or false, the OS provides the illusion to each thread that it has its own address space. You understand about that address space, right? Okay. Are you really thinking it is true? Why, why you think it's true?
+
+142
+01:19:39,440 --> 01:20:08,480
+If OS is providing that illusion, then don't you need inter-process communication there to communicate between the threads? If OS is providing that illusion, it's not okay. Don't worry about that. It is a user-level thread or kernel-level thread. Whatever thread, okay? If it is not mentioned, it is just a general thread. I mean, usual kernel won't be mattering, won't matter to this question actually. So you can take user or kernel, doesn't matter to this question. It is, I mean, do you think, what is the difference between user-level thread and kernel-level thread?
+
+143
+01:20:09,040 --> 01:20:36,910
+The only core difference is that everything that we manage is in the user space there. If it is user level thread, right? Using the thread library in the user space, everything that we do in the kernel level thread is done using the kernel code or the OS code. That's the only difference, right? I mean, that's the only core difference I can say. Okay. So some people, okay, let me ask this question again. If you want to revise your answer, you can revise your answer. So tell me, does OS provide the illusion to each thread that it has its own address space?
+
+144
+01:20:43,380 --> 01:21:12,890
+So basically as you know that OS is saying OS is saying that you have code command, right? You have heap command. Since you have heap command, you have code command. These things OS is saying you have common, right? Data command, something like that. So OS is not saying that you have different, different heap. Is OS saying that you have different, different heap? Is OS saying you have a different, different code, right? No, right? OS is not saying you have different, different heap. OS is just saying you are sharing that. So OS is saying that you have your own heap, your own address space completely.
+
+145
+01:21:13,290 --> 01:21:58,520
+Answer is no, right? I don't think. I mean, we will see the answer, but for now I think it's no. Why? Because OS doesn't say every thread is having its own heap code etc. Let's just see this with kernel level threads, multiple threads are the same process can be scheduled on the multiple CPU simultaneously with kernel level threads, multiple threads are multiple threads from the same process.
+
+146
+01:21:59,360 --> 01:22:38,220
+Can we screw this on the multiple CPUs? Okay, just tell me. I think this is yes, right? This is true. This is true. Let me see the answer. Yeah, this is false. And this is true. Why this is false? Each process has its own atta space, but the third and the same atta space share that atta space. I mean, they share the same code, same heap like that, right? They share the same atta space. Oh, nice. AI syllabus is out. That's great. Okay. Okay.
+
+147
+01:22:38,760 --> 01:23:18,540
+Definitely. Can you can you send that service here? So, uh, in the kernel kernel level threads, multiple threads are having the same address. Okay. So I think this is true, right? Now let's just do this question. If a user level thread is blocked for IO operation, then kernel of OS will perform context switching to run another user level thread, which is not blocked. If a user level thread is blocked for IO operation, then kernel of OS, what do you think it is? I think it is false, right? Okay.
+
+148
+01:23:19,440 --> 01:24:12,060
+Have you understood? I mean, they are saying that if one thread is blocked, then you will should do another throw. I don't think that is the case. Let's just do this many to one. Okay. Sorry. There's many to one. We will, we will see in a while. Let's just solve this again. This we might see because we have not talked about the ready blocked and running formally. We will, we might see this later. Okay. Let's do this question, which seems quite good. Now this question is saying that suppose that there are three processes exist in the system.
+
+149
+01:24:12,340 --> 01:24:40,250
+as described in the table below suppose that the system uses primitive round robin scheduling okay currently you might not be knowing the round robin right actually i put these questions thinking that these just look at the small things but these are the optional questions you try to do it okay these are some optional questions you try to do it at your home i'm not doing it in the class because they are saying round robin scheduling that's the only reason but it's a good question it's a very good question actually this question is saying that that
+
+150
+01:24:40,890 --> 01:25:09,390
+If the threads are implemented entirely at the user level, let's suppose you know the round dropping. Okay, let's quickly do this A part. If the threads are user level threads with no support from the operating system, which thread might be possibly executing at the beginning of the next quantum? So they are saying T11 is running. Then which might be running? Let's suppose it is MSQ. It is MSQ options are this. So what are the answers in MSQ for this A?
+
+151
+01:25:30,070 --> 01:25:57,130
+This is a good question in the sense that, see, if these are the usual level threads, then kernel doesn't know that inside this program, there are multiple threads, right? So if kernel has scheduled one of them, I mean, then in the next, it is going to schedule one of the process, this or this. So either it is going to schedule P2 or P3, which means either it will depend on the user level scheduler. It is going to schedule either this, this or this, right? So basically you will say that answer is BCD, right? Answer is BCD.
+
+152
+01:25:58,140 --> 01:26:28,940
+Okay, you just try doing this question. This is a good question, I think. Is this okay to everyone? Because Karnal is going to schedule P2 or P3. P2 or P3 means that either W2 or T21 or T22 or T31 like that. Okay. Good. See, P1 is already running. They are saying that currently P1 is running, right? T11 or P1 is running. Basically, this is inside the P1. P1 is already running. Next time, who will run? If it is next one, then P2 or P3, right? P2 or P3 means either this thread, this thread or this thread.
+
+153
+01:26:29,090 --> 01:27:02,640
+Never, never inside this. I mean, never this T1, two or T1, three, something like that, right? Okay. You can do this question also. Uh, the answers on the next page. So these are the answers. You can do this as an homework. Let's just see this question. A blocking kernel schedule thread blocks all the threads in the process. Is this true or false? If it is kernel level, then it doesn't do that. Threads are cheaper to contact switching than process.
+
+154
+01:27:03,130 --> 01:27:36,380
+yes in the process you have to basically keep track of everything i mean maybe other things which are not even shared right so that's why this is true a blocking user-level thread will block all the process yes that serves it true these are the answers let's just do this question indicate which systems which statements are true which are false regarding the single process a single process and its threads so let's suppose there is a single process p1 and it is having some threads
+
+155
+01:27:36,670 --> 01:27:57,400
+so which are true and false that's what they're asking cool we will be seeing this okay so what you can do there are some gate questions also do you want to do these good gate question as in homework first all of the gate questions or you want me to solve them in the class directly okay there's some okay
+
+156
+01:28:03,050 --> 01:28:30,350
+So what you can do, you can do these gate pvqs as an homework, right? Let me directly move to some, some more theoretical concept and then you can do all of these gate pvqs and all of the quotients as an homework and then we can discuss. Okay. Don't worry, we will be discussing, but you can do as an homework also first. Okay. So there are, there are something called as multi-threading models or many to one, one to many, these models. Do you want to guess that what this model might be? So let me just tell you that let's suppose there is many to one model.
+
+157
+01:28:30,830 --> 01:29:18,650
+So what means, I mean, if you're having only user level thread, then what will happen? All of the user level thread will map to just one process of one kernel level thread. So many user level threads map to a single kernel thread. So if you're having only user threads, then this many to one model is by default, right? I mean, many of the user level threads are mapping to the single kernel thread, something like that. And if you're having one to one.
+
+158
+01:29:22,670 --> 01:29:56,160
+Then it means, it means what? Each user-level thread map to the kernel thread. Okay, so basically these are user-level, I don't know if I've written correctly or not. I mean each thread here that we have each thread in the process, right? Each thread basically. Each thread maps to the kernel-level thread. Okay, which means whatever thread you have, it is just a kernel-level thread. In that case, you call it one-to-one.
+
+159
+01:29:56,410 --> 01:30:43,260
+so if you have only kernel level threads then this is the default case right there could be one more mapping possible where are many usual level threads i mean let's suppose these are mapping to just one thread these are mapping to just another thread something like that okay which means many are mapping to one other thread so allow i mean this is not very common allow many usual level threads to be mapped to many kernel threads
+
+160
+01:30:43,530 --> 01:31:11,690
+around the operating system to create a sufficient number of kernel threads. So basically, if you are having many user level threads, which are, which are mapped to let's suppose one kernel level thread, then you will say of some other other user level that are mapping to some other kernel level thread, then you will say it is many to many, which is, which is not very common. Okay. I will, I will tell you the details about the mapping. Don't worry. So actually this, these details might be taking a little bit of time. So let's do one thing. Okay. So tomorrow we will be discussing all of the quotients and this mapping.
+
+161
+01:31:11,990 --> 01:31:36,760
+okay I mean it will be taken half an hour probably so tomorrow what we will be doing we will be basically discussing all of these questions first okay you try all of these questions and and today I haven't given you the much explanation about the mapping but since it might take a little bit of time and we have the TOC class so yeah we will be talking about this particular mapping in the tomorrow's class okay so today what we have studied based on this just try to solve all of these questions
+
+162
+01:31:37,230 --> 01:32:10,400
+Right. And then tomorrow we will be starting. We, I'm not sure if tomorrow we can start, but, uh, but most probably we will be starting the scheduling algorithms. Okay. So we just need to study, I think, uh, one or two topics, which is, uh, contact switching and, uh, boot loader and these things. And after that, we need to start the scheduling. Cool. Yeah. Okay. So let's meet tomorrow. Okay. So take care, everyone. Bye bye. Yeah. Bye.
+

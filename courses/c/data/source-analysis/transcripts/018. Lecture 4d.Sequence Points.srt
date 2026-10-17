@@ -1,0 +1,132 @@
+1
+00:00:00,020 --> 00:00:25,980
+Hi everyone. So today we are going to look at one small topic which is called sequence points in C. Let's just see that what does it mean to say sequence point in C. So suppose that if I have a sentence or a line which is saying x equal to a plus plus. Suppose if I have this line and the value of a is let's suppose 5. Okay. I mean before this. So suppose the value of a is 5.
+
+2
+00:00:26,690 --> 00:00:54,330
+Now after executing this line if I just ask you what is the value of x then you will say if I just print so PF means print f if I just print the value of x if I just print the value of a then you will say That here the x is still 5 but a will get incremented to 6 agent it and why you are saying so because this a plus plus is post increment operator and as we know that this post increment result will be executed
+
+3
+00:00:54,860 --> 00:01:21,520
+after the semicolumn which means in the next line so in the next like if you are assigning this that a to x then it will happen and then then this will get incremented like this that's how this post increment works right okay so basically we are saying that after the semicolumn the effect which is a plus plus is getting getting placed right so which means that after the semicolumn this a is getting incremented
+
+4
+00:01:21,860 --> 00:01:50,860
+so now let me write here that after the semicolon okay so after the semicolon a get incremented in newline that's what we know okay now let me let me just put more technical detail here which means instead of saying semicolon can i just say
+
+5
+00:01:51,060 --> 00:02:14,760
+that there is some technical some technical word here which which we call sequence point okay so instead of saying semicolon I just want to call it sequence point so I will say that after the sequence point after the sequence point this this particular thing is called sequence point okay I mean this semicolon so I will say after the sequence point A will get incremented
+
+6
+00:02:15,150 --> 00:02:44,750
+so basically these are called side effect side effect means like i mean the purpose of this line is basically maybe you can say that not to increment the a but to assign the value of a and a to x and then the value should get incremented in the next time or something like that so basically these are called side effect and there is a technical line which is basically after the sequence point all side effect get take place but anyway let's not worry about those terms so basically what i'm saying here is that i'm saying that if you're writing x equal to a plus plus then after the semicolon this a
+
+7
+00:02:45,160 --> 00:03:13,100
+this a get incremented so instead of saying instead of saying semicolon what I'm saying after the sequence point this a get incremented that is the only difference between between the wordings okay instead of calling semicolon I'm saying sequence point so basically there are many other sequence points also okay I mean few other sequence points also so there are few other sequence points sequence points and after those sequence points
+
+8
+00:03:13,340 --> 00:03:39,160
+Always this A++ or whatever, whatever the post increment operator or post decrement, or pre increment, pre decrement, whatever is there, that effect get take place. So there are other sequence points also. So other sequence points also exist. I can say other sequence points also exist. So basically I will conclude this, don't worry, but just listen what I'm saying here.
+
+9
+00:03:39,340 --> 00:04:12,910
+So what I'm saying is is basically I started with the idea of x plus plus right? I'm sorry a plus plus I'm saying that after the semicolon this effect get take place So instead of just calling it semicolon. I'm calling it same sequence point. So that's the only difference that I made Okay, and then I'm saying that this semicolon is just one example of the sequence point So semicolon I can say it's just one of them. Okay, so semicolon is one of the sequence point just one of the
+
+10
+00:04:16,580 --> 00:04:43,660
+Now, let's take another example. Let's suppose that instead of doing x equal to a plus plus, I am interested in doing x equal to a plus plus plus a plus plus something like that. Okay. Suppose I'm interested in doing something like that. Then what do you think the value of x will be here? And what do you think the value of a will be here? So, like, these are the two questions which are, which we are asking now.
+
+11
+00:04:43,970 --> 00:05:05,530
+just listen here very carefully that a plus plus means that a will get incremented but after the sequence point it will definitely get incremented but before the sequence point it may or may not which means that it's not like that it will not get incremented it is dependent on the compiler which means like based on the compiler optimization it will either increment it immediately
+
+12
+00:05:05,740 --> 00:05:25,680
+I mean maybe before executing this A or maybe before executing this A it will not increment it like you don't know actually. So basically here you will say here the A value is 5 but when you go to this A then you don't know whether this is like now the A has become 6 and now this value is 6 or A is still 5.
+
+13
+00:05:26,260 --> 00:05:54,680
+which means you don't know you don't know that this a like I mean you're you're performing you're thinking like that okay x equal to a plus plus and then you're adding a plus plus two times right so it's not like that I mean so here when you when you cross this plus when you cross this plus then at that point in time you don't know whether the value of a is still five or it has been six because a plus plus we have just executed and that's why we don't know that here it is five but we don't know that before executing the next day
+
+14
+00:05:54,880 --> 00:06:13,880
+compiler has decided to increment that to 5 from 5 to 6 so a was 5 a was 5 initially and then before here compiler has already incremented that to 6 and now it will be 5 plus 6 and then later it will be it will be 7 you don't know right or maybe maybe it is still 5 it is still 5
+
+15
+00:06:14,740 --> 00:06:35,420
+I mean it is still 5, this A is still 5 at this point and then it A++ will make it 6 in the next line. So it is maybe 5 plus 5, maybe 5 plus 6, you don't know actually. So basically the C does not specify any rule for that. So what I am trying to say here is that if you trying to access this A multiple times before the sequence point.
+
+16
+00:06:35,670 --> 00:07:04,390
+okay see you are doing some pre increment or post increment or whatever right so pre increment pre decrement post increment post decrement something like that so if you're doing some some some of this operation and you're doing you're accessing two times or multiple times before the sequence point see after this sequence point see in this example after this sequence point i'm hundred percent sure that a will get incremented but since you're accessing a two times before in business just once you can spend you don't know whether the whether the next a
+
+17
+00:07:04,600 --> 00:07:36,420
+will be reflected value of a or not reflected value of a. So that's why let's not worry about all of this. So which means that if I say if I say x equal to a plus plus plus a plus plus let's not try to even understand this. This is just I can say just a completely useless statement. Okay. So these kinds of statements are completely useless. Why? Because we are trying to access. We are trying to modify.
+
+18
+00:07:37,840 --> 00:08:11,170
+axis you can say I mean let me just write in this way you're trying to modify the value of a multiple times multiple times before sequence right before once you can spend and hence this is this is undefined okay this is in capital bold just write it this is undefined in C
+
+19
+00:08:11,810 --> 00:08:39,610
+which means C language doesn't say anything about it, okay? C language doesn't say that the value of A, like the value of A will be reflected or not. It is left to the compiler. So this decision is left to compiler. So I have seen many gate aspirants, they just worry about these kind of code. So don't worry about these kind of code where you are modifying the value of A multiple times before this semicolon.
+
+20
+00:08:39,880 --> 00:09:10,210
+So all of these codes, all of these codes which is like a plus plus plus a plus plus whatever right a plus plus minus a plus plus or whatever a plus plus minus or plus whatever in two multiplication whatever right minus a minus minus a minus minus a or whatever you are doing and if you are doing it multiple times even even more than more than one time maybe two times three times if you're doing doing such kind of things then this is undefined Okay, this is undefined
+
+21
+00:09:10,600 --> 00:09:39,340
+Which means this is compiler dependent. Compiler dependent means there is no error. I mean if you execute it, there is no error. But now compiler will do the modification based on its convenience. Because C language doesn't say anything. So it is compiler independent. So this should be very much clear to everyone. Or something like this also. I mean if you are accessing two times, maybe see here, if you are doing something like this, then this is also compiler dependent.
+
+22
+00:09:39,630 --> 00:10:09,050
+which means you are incrementing first or assigning basically before this semi column you are accessing this two times and at one of the time you are modifying so basically these kind of things are undefined okay you're accessing this two times and and one of the time you are modifying so these kind of things are undefined so I hope you are understanding my point so if you're doing it before the sequence one so semi column is one of the sequence point here if you're doing multiple times before the before one of the sequence point then these things are very very undefined okay cool
+
+23
+00:10:09,980 --> 00:10:46,270
+Now let's just see what are the other sequence points in C programming. So sequence points means what? After that, after that point, the changes will definitely take place. After that point, after that point, the changes will definitely take place. Right? This is what sequence points mean.
+
+24
+00:10:47,070 --> 00:11:14,790
+and now there are like you do not need to know this but still like I'm just telling you there are other sequence points also like semicolon is one of them and if you have seen this if statement which means if for loop while loop or whatever right while statement these also sequence point which means what do I mean by that that if you're writing if plus plus i or i plus plus let me write i plus plus i plus plus and if you're writing some statement let's suppose printf i and the value of i
+
+25
+00:11:15,020 --> 00:11:49,700
+here is let's suppose something three or something then you are 100% sure that that before before this I mean just after this okay just after this after this i value will be will be four why because i value will be incremented because this if if four loop while loop switch statement switch case or whatever right so these are basically sequence points conditional operator is also sequence point
+
+26
+00:11:50,080 --> 00:12:22,030
+Okay, because see this conditional operator and if is very much equivalent So conditional operator is once you can point which means if you write anything here Let's suppose I plus plus then then this at this point I value will be incremented Okay, so which means which means if you write something let's suppose if you write Just a second. Yeah, so let's suppose if you write something like this maybe I plus plus print fi else print F
+
+27
+00:12:22,330 --> 00:12:55,200
+Okay, something like this, okay? Anyway, like basically what I'm saying that you go here or here or here based on the value of i++ then this i will be incremented, okay? This is the incremented value. Because this is just a fails. This is just a fails. That's why. Okay, I hope you understood this. And similarly, there is one more sequence point which is also very, very important, which is basically the conditional, sorry, those logical operators.
+
+28
+00:12:55,660 --> 00:13:26,760
+so logical operators like this and then these operators these operators are also sequenced when this is also very very interesting which means if you say that something like this if you say i plus plus and if you write end and if you access the value of i this is the incremented value of i okay incremented value of i and now suppose instead of this end suppose if i just have if i just have i plus plus and instead of this end i have plus
+
+29
+00:13:27,050 --> 00:13:49,560
+then can you say anything about this this this will be incremented value of i or not no you don't know right this may be incremented may not be increment like that so basically this is this is undefined this is undefined but this is very well defined right this is very well defined why because there's a sequence point involved in this
+
+30
+00:13:49,830 --> 00:14:17,930
+So you can do you can do multiple times axis after the sequence point. That's not a problem. But if you're doing before before just once you can spend let's suppose before this semicolon, then it is a it is a problem. Okay, I hope you are getting like what I'm trying to say. So basically the all the all conclusion of this short video is that like don't do all of this. This all of this is nonsense. Okay, don't try to print all of this. This is completely useless. This is the only thing I want to convey in this particular short video. I hope you understood.
+
+31
+00:14:18,230 --> 00:14:41,890
+okay and yes this this last thing which is that end-end and or this these operators are also sequence point we will make or make use of this thing in the next video okay because like sometimes we need to we like I mean we basically need to know that how these are working as a sequence point so we will see that in the next video but for this video I just want to conclude on one thing again that all of this that we have talked
+
+32
+00:14:42,170 --> 00:14:59,590
+All of this is just nonsense. These all of this are completely undefined which means it is not syntactically wrong. The compiler will compile it. That's not a problem. But when you try to run it, then whatever output you are getting, you cannot argue about that output because that is a compiler dependent output.
+
+33
+00:14:59,850 --> 00:15:20,010
+Okay. So C language doesn't say anything out of this. So don't worry about this. Like that's not even, obviously gate won't even ask such of these things. Right. And gate has never asked it is just for your sake of convenience because, because some people will definitely do it. And if I don't tell it, then, then it will a problem to them. So that's why I'm just telling in this video. I hope you understood. Okay. Thank you so much.
+

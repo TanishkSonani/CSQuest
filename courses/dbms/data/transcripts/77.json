@@ -1,0 +1,1521 @@
+{
+  "id": 77,
+  "title": "Transaction, Database Consistency",
+  "file": "077. Lecture 1 - Transaction, Database Consistency.mp4",
+  "seconds": 6688.04,
+  "segments": [
+    {
+      "start": 457.9,
+      "end": 539.43,
+      "text": " Hi everyone. Hi all. So is the audio video volume is everything fine? Please tell me. Is the audio volume video is everything fine? Do you feel any echo or is the audio clear? Is there any echo or something? Let me know. So let's start now. Okay. So now we are starting our last module of DBMS in database management system. So this is the last module. This is the last chapter that is",
+      "avg_logprob": -0.10295139013065233,
+      "no_speech_prob": 0.361328125
+    },
+    {
+      "start": 539.85,
+      "end": 564.53,
+      "text": " transaction management, concurrency control and recovery. Okay, so these three topics we need to study. First, we will study what is transaction, what is transaction management, what is concurrency, what is concurrency control and what is recovery. Okay, so we need to study one, then we need to study two, then three, then four and then five. Basically, total five things we have to study. Okay, transaction management, concurrency control and recovery. Now,",
+      "avg_logprob": -0.11447704210877419,
+      "no_speech_prob": 0.32666015625
+    },
+    {
+      "start": 565.17,
+      "end": 594.67,
+      "text": " in in this is our lecture one for the module six in the in this module this is the lecture one in this lecture what what we are going to study so what we will study is transaction what is a transaction what is the definition of transaction okay now then we will study what is basically acid property what is database consistency consistent database inconsistent database read write operations and concurrent execution so these are the topics for today okay so now let's start this now let me tell you",
+      "avg_logprob": -0.08627351798037047,
+      "no_speech_prob": 0.35546875
+    },
+    {
+      "start": 594.88,
+      "end": 623.81,
+      "text": " Before we start this chapter, let me tell you this is the most interesting, most intuitive and very easy topic. Okay, so from this topic, let me tell you if if two or three marks will come in the gate exam from this complete topic, either two or three, these many marks will come in the gate exam. Definitely these many marks will come guaranteed. Okay, there is a guarantee every year to three marks will come from this topic. And let me tell you these are the I can say these marks are very easy marks.",
+      "avg_logprob": -0.08600852597843517,
+      "no_speech_prob": 0.62939453125
+    },
+    {
+      "start": 624.09,
+      "end": 652.91,
+      "text": " Okay, but not for all. Okay, let me tell you like the this topic is not a is not like a process scheduling. Okay, see from the process scheduling, you will get the marks. Correct. Okay, everyone will get the marks from the process scheduling. But this transaction management, this is a topic. This is a topic which is very easy once you understand. Okay, see once you understand this is really, really interesting and really easy topic. Okay, so these two three marks are I can say these are very easy marks.",
+      "avg_logprob": -0.12618581990578345,
+      "no_speech_prob": 0.470458984375
+    },
+    {
+      "start": 653.21,
+      "end": 671.01,
+      "text": " okay and these are guaranteed marks for those who understand the concepts okay now let me tell you this lecture one is going to be very interesting so this lecture one okay this lecture current lecture so this is going to be very interesting and the reason let me tell you the reason is that many misconceptions I am going to clear",
+      "avg_logprob": -0.06708829199510907,
+      "no_speech_prob": 0.1331787109375
+    },
+    {
+      "start": 671.27,
+      "end": 693.61,
+      "text": " okay so if you have already studied this topic okay this transaction what is the transaction what are acid properties so if you already have studied this topic from some resource okay then I can guarantee that there will be some misconceptions okay if you have not studied from standard resources of course if you if you have already studied from the standard resources then that is very good",
+      "avg_logprob": -0.1121651756976332,
+      "no_speech_prob": 0.1746826171875
+    },
+    {
+      "start": 693.82,
+      "end": 717.6,
+      "text": " okay but remember if you did not study from standard resources then there will be some misconceptions that I am going to clear in this lecture okay so this is going to be a very interesting lecture now let's start this okay so at the end I am going to take many questions from the acid properties and from the all the topics that we see today okay so we are going to take a lot of questions now let's start so the lecture number one",
+      "avg_logprob": -0.0741309697708387,
+      "no_speech_prob": 0.113037109375
+    },
+    {
+      "start": 717.85,
+      "end": 746.85,
+      "text": " So this is our complete I can say this is our complete module six. Okay. So this is our module six. Now in this module six one by one we will study. Okay. So first we will study this transaction processing then we will study concurrency control then we will study recovery manager. So one by one we will study this then this then this okay in this lecture we will study this in the next lecture in the next two lecture we will study this and then okay then this we will study. Okay. So like this.",
+      "avg_logprob": -0.1234948408166203,
+      "no_speech_prob": 0.59765625
+    },
+    {
+      "start": 747.16,
+      "end": 772.02,
+      "text": " now let's see start so here first of all you might be thinking what is a transaction right okay so far we have seen SQL we have seen normalization we have seen how to write a query how to retrieve data okay so basically and indexing how to store data how to retrieve data so all the things we have seen now you might be thinking what is this new thing yes or no what is this new word what is the definition of this new word and why we study this",
+      "avg_logprob": -0.09090169100090861,
+      "no_speech_prob": 0.08514404296875
+    },
+    {
+      "start": 772.33,
+      "end": 800.75,
+      "text": " first of all what is the definition then why we study this and then you might be thinking what is transaction management in this transaction management what do we manage like what we study in this then you might be thinking what is concurrency then you might be thinking what is concurrency control what we try to control okay like we are controlling something but what we try to control we are managing something what we try to manage okay so all these things what are these things and why we study these things that is a question you might be thinking so let's see one by one",
+      "avg_logprob": -0.06930106372705527,
+      "no_speech_prob": 0.46435546875
+    },
+    {
+      "start": 801.11,
+      "end": 829.49,
+      "text": " Tell me one thing if I ask you if I ask you if anyone ask you if anyone ask you what DBMS does tell me in one word what your answer will be like in two words or one word in one statement what your answer will be what typically happens in a DBMS in a database management system in a database so what typically happens if you have a database system what typically happens managing data very good okay very good very good so can I say data access okay",
+      "avg_logprob": -0.16190158876966923,
+      "no_speech_prob": 0.60888671875
+    },
+    {
+      "start": 829.7,
+      "end": 856.8,
+      "text": " Can I say that typically in the DBMS, okay, data access happens, you have the data, you have the data, you will access the data, you will read the data, you can change the data. If you want to write the data, you can write the data. If you want to read the data, you can read the data. This is your hard drive. In the hard drive, so remember, this is your hard disk. In the hard disk, you have the data. So you already have some, like, okay, some tables are there. So there are some tables. So there are some tables.",
+      "avg_logprob": -0.07716346136652506,
+      "no_speech_prob": 0.287353515625
+    },
+    {
+      "start": 857.6,
+      "end": 878.14,
+      "text": " We have already seen how to store these tables. We have already seen indexing file, file organization, all these things we have already seen. Now you can notice what you will do. You will read the data. Correct. You can read the data. If you want to change either. Okay. It is not mandatory to change. Right. Okay. Maybe maybe you only want to read the data. But if you want, you can write the data also.",
+      "avg_logprob": -0.17927632206364683,
+      "no_speech_prob": 0.3056640625
+    },
+    {
+      "start": 878.4,
+      "end": 907.42,
+      "text": " or you can change the data also so you can modify also so i can say you can write also so can i say that in a database in a dbms these things happen frequently yes or no data access happens very frequently so what typically happens in a dbms okay that is i can say data access it typically it happens very frequently either you will read or you will write or both of them you will do first you will read then you will change okay so all these things you can do correct now tell me one thing tell me one thing so when you do",
+      "avg_logprob": -0.05564692904028976,
+      "no_speech_prob": 0.7021484375
+    },
+    {
+      "start": 908,
+      "end": 936.48,
+      "text": " these data access then what operations are involved on the like you might be thinking that to retrieve the data if you want to access the data you will write a SQL query right yes or no what you might be thinking that sir if I want to read the data in the in the database in the database some table is there okay some multiple tables can be there but data is there and if I want to retrieve the data then I can write a SQL command right yes or no correct if I want to read the data to read the data to read the data what you can do",
+      "avg_logprob": -0.07031250071891568,
+      "no_speech_prob": 0.61669921875
+    },
+    {
+      "start": 936.74,
+      "end": 965.8,
+      "text": " You can write a SQL command. Okay. So to read the data, you can write a SQL command and tell me one more thing. Tell me one more thing. So here you can write a SQL query command. If you want to store the data, if you want to write the data, then also you can write SQL command, right? DML. I told you. Okay. DML, DDL. So in the SQL, there are, there are many parts in the SQL. There is DDL data definition language. There is DML in this DML, in this DML, one small part is query.",
+      "avg_logprob": -0.13918269952902426,
+      "no_speech_prob": 0.5546875
+    },
+    {
+      "start": 966.37,
+      "end": 990.77,
+      "text": " Yes or no data retrieval. That is one small part. There are many other parts. Okay. Yes or no. Do you agree? So in the SQL, you have these commands like in the SQL, you can create a table. If you want to create a table, you can create a table. You can delete a table. Okay. Similarly, you can retrieve the data. If you want to read the data, you can read the data and you can change the data. You can modify the data. You can write the data. If you want to insert a new row.",
+      "avg_logprob": -0.08232179752066116,
+      "no_speech_prob": 0.09942626953125
+    },
+    {
+      "start": 991.27,
+      "end": 1018.9,
+      "text": " insert a new record that also you can do okay so many things you can do agree or not so this is what I'm asking that if you want to read then you can write a SQL command and if you want to write then also you can write a SQL command okay if you want to write in the database in the database if you want to write then also you can write a SQL command but tell me one thing this SQL is this a high language or low language this SQL this is like this is the English type of language right yes or no so this is a high level language correct",
+      "avg_logprob": -0.08924787788320396,
+      "no_speech_prob": 0.41455078125
+    },
+    {
+      "start": 1019.16,
+      "end": 1048.6,
+      "text": " Okay. So this is like an English type of language. Okay. Very simple. Like your C language, your Java language, your Python language. So this is a high level language. Now I'm asking when you whatever SQL command you are writing, whether to read the data or to write the data, whatever you are doing, okay, on the in the DBMS, whatever, whatever you are doing, reading or writing, whatever, then tell me on the low level, what do you think? What are the basic operations that are involved? What are the very fundamental operations like very, very, very fundamental operations that are involved?",
+      "avg_logprob": -0.1358173133088992,
+      "no_speech_prob": 0.59765625
+    },
+    {
+      "start": 1049.08,
+      "end": 1078.49,
+      "text": " Tell me. What are fundamental operations like a primitive or I can call it primitive or I can say very basic operations that are involved. So when you read or write. When you access the data. So what are the basic operations that are involved. So can I say those are read and write operations. Yes or no. Correct. Yes or no. Can I say can I say that read operation and write operation. These are involved. These are the basic operations that are involved. What you can do. You can read the data from the disk. Okay. Possibly you can write the data.",
+      "avg_logprob": -0.13012295033110946,
+      "no_speech_prob": 0.8359375
+    },
+    {
+      "start": 1078.8,
+      "end": 1107.28,
+      "text": " Okay, so you can read the data you can read from the from the disk to main memory you can read. If you want to write, you can write also. Okay, so you can change the data and then you can modify into the disk also. So this is what you can do. This is what I'm telling you. See, maybe your target is to only read. Maybe your target is to only read. If your target is to only read, you don't want to change the data. Okay, so this is your hard drive. This is your hard drive and your target.",
+      "avg_logprob": -0.09407018741867582,
+      "no_speech_prob": 0.43310546875
+    },
+    {
+      "start": 1107.64,
+      "end": 1136.82,
+      "text": " this is your hard drive this is your disk in the disk you have your database correct okay so in the disk you have the database now you tell me one thing if your target is to only read then what you will do in this situation to read the data you want to just show the data then what you will do very simple that you will bring it to main memory this is your main memory okay so what you can do whatever data you want to read that you that block will come of course okay agree so for example let's assume you want to read this data",
+      "avg_logprob": -0.06892975769211761,
+      "no_speech_prob": 0.7265625
+    },
+    {
+      "start": 1137.02,
+      "end": 1166.7,
+      "text": " okay this is the data to be read so let's assume this is the data element this is I can say this is the data item we want to read okay this is the data item we want to read but okay tell me in the main memory will only this data item will come is it okay will only this data item will come will only this will come no this will not come the entire block will come right okay so very simple point that entire block is going to come let's assume this is the entire block okay let me assume let me assume that",
+      "avg_logprob": -0.048282655912476616,
+      "no_speech_prob": 0.7138671875
+    },
+    {
+      "start": 1167.06,
+      "end": 1196.8,
+      "text": " This is the entire block. Okay. So I am assuming this is the entire block block containing our data item block containing desired data item. Yes or no. So this is our block containing desired data item. So this block you will block will go in the main memory in the main memory. There is a buffer. I told you. Okay. In the main memory, there is a buffer. Okay. So you have a buffer. So there is a space in the main memory. So this buffer is there.",
+      "avg_logprob": -0.11421130611782983,
+      "no_speech_prob": 0.67529296875
+    },
+    {
+      "start": 1197.1,
+      "end": 1224.28,
+      "text": " and in this buffer you can put okay so you are reading the data okay you are reading the block this block is coming read this block this block will come and you this block will come in this in this buffer okay and then you can read agree or not so if you only want to read do we need to do anything else okay do we need to write this again do we do we need to write this again there is no need okay so if you only want to read then this is the only action that is involved so if you only want to read",
+      "avg_logprob": -0.03737331208613542,
+      "no_speech_prob": 0.599609375
+    },
+    {
+      "start": 1224.57,
+      "end": 1240.83,
+      "text": " okay this is the only thing you want to do you only want to read then you can read from here and then you can discard this this is the memory copy can i say this is the copy can i say this is a copy yes or no yes can i say this is a copy in memory can i say this is a copy in memory",
+      "avg_logprob": -0.08723958117374475,
+      "no_speech_prob": 0.15966796875
+    },
+    {
+      "start": 1242.83,
+      "end": 1266.37,
+      "text": " can I say this is a copy in memory so once you read this okay after you read this after your work is done then from the main memory you can remove this there is no need your disk will not change your hard drive your hard drive is not changing your database is not changing so if your target is to only read this is what you can do now you tell me one thing if your target is to read and then according to that okay you want to write for example",
+      "avg_logprob": -0.09646381673059966,
+      "no_speech_prob": 0.28955078125
+    },
+    {
+      "start": 1266.62,
+      "end": 1294.16,
+      "text": " Okay, please understand this. Please understand this carefully. What I am saying, I am saying that your target is to read plus write. Your target is to read plus write. What it means? It simply means that, for example, let's assume you want to double the salary. Okay, you want to double the salary. You want to double the salary. Then tell me, will you have to read the previous salary? If you want to double the salary, do you need the previous salary? Is it mandatory that you need the previous salary?",
+      "avg_logprob": -0.10197731984400116,
+      "no_speech_prob": 0.294189453125
+    },
+    {
+      "start": 1294.6,
+      "end": 1321.76,
+      "text": " Yes, correct. Okay, so you need the previous salary. So what you are going to do, so let's assume you want to so in this situation, you have to read also, you have to write also, do you agree? Okay, you have to read also, you have to write also, because you want to double the salary. So in that situation, this old salary you have to read. Okay, then you have to change it in the main memory and then you will store it on the drive. So this is what you are going to do. Okay, in this situation, what operation is involved? Let me tell you.",
+      "avg_logprob": -0.14309210929655491,
+      "no_speech_prob": 0.311279296875
+    },
+    {
+      "start": 1322.06,
+      "end": 1351.76,
+      "text": " let me tell you in this situation this is what you are going to do so first you will read block okay containing salary okay so let's assume you want to double the salary of some particular employee okay so let's assume salary equal to so double the salary this is what you do okay for employee number maybe okay some employee ID is equal to 101 okay for this employee you want to double the salary then in this situation what you will do first you will read the block containing",
+      "avg_logprob": -0.06916118656334123,
+      "no_speech_prob": 0.5068359375
+    },
+    {
+      "start": 1352.15,
+      "end": 1380.83,
+      "text": " this i can say this salary ok salary of employee ID 101 into main memory yes or no into main memory so you will read the block from the disk you will read the block into main memory so after that what you will do ok inside main memory you will change ok in main memory you will change this is what you are going to do in main memory you are going to change in main memory double the salary",
+      "avg_logprob": -0.10727896386893784,
+      "no_speech_prob": 0.73876953125
+    },
+    {
+      "start": 1381.19,
+      "end": 1412.04,
+      "text": " okay in main memory what you do double salary and then what you do then you store back to store back to disk is this correct is this clear to everyone tell me okay in the main memory because who will double are you tell me who has the power to double cpu right yes or no who has the power to double this tell me who has the power to double this who has the power to create this operation to to execute this operation so this operation will be done by what okay that will be done by the cpu",
+      "avg_logprob": -0.06982886791229248,
+      "no_speech_prob": 0.796875
+    },
+    {
+      "start": 1412.33,
+      "end": 1440.61,
+      "text": " ok so are you getting my point ok very simple thing I am saying that so what you will do this block ok this block you will read this entire block you will read in the main memory this will come to the main memory and then what you will do then in the main memory you will double the salary ok so this this salary you will double in main memory and then you will store back to disk so this is what you are going to do see ok read plus write follow so this is the process let's assume this is the let's assume this is the salary",
+      "avg_logprob": -0.13356633667360274,
+      "no_speech_prob": 0.71240234375
+    },
+    {
+      "start": 1441.57,
+      "end": 1469.85,
+      "text": " this is the salary sale of employee id equal to 101 ok so this is the sale where salary is stored are you getting my point ok this is the sale where salary is stored for the employee id 101 and this is your let's assume this is the block so this is your block ok so in this situation what is what is going to happen this is your main memory in the main memory there is a buffer ok so this is your main memory",
+      "avg_logprob": -0.11938201912333456,
+      "no_speech_prob": 0.75830078125
+    },
+    {
+      "start": 1470.23,
+      "end": 1499.42,
+      "text": " I can call it main memory in this main memory you have a buffer so this is your buffer this is your buffer now in this buffer what you will do you will read this so this will come here okay this will come here in the buffer it will come now in the buffer it has come who has come it has come like this this this sale has come now what you can see what you will do now now you will assign this to a new variable",
+      "avg_logprob": -0.07932692111193479,
+      "no_speech_prob": 0.313232421875
+    },
+    {
+      "start": 1499.73,
+      "end": 1527.67,
+      "text": " okay so okay what you are going to do this salary you will put in a new variable so this is a variable I can say basically this is a temporary variable are you getting my point this is a some temporary variable this is some temporary variable this is some temporary program variable because some program will be there right CPU will execute what CPU will execute some program agree or not or a CPU can execute only some program okay so I can say this is a temporary some program variable",
+      "avg_logprob": -0.07696143648725876,
+      "no_speech_prob": 0.68212890625
+    },
+    {
+      "start": 1528.7,
+      "end": 1557.49,
+      "text": " some temporary program variable in this program variable you will put the salary then what you will do the CPU will do this the CPU is going to do this so then then basically the CPU will do this I can say okay so here I am writing this basically I can say that CPU so the CPU is going to do this CPU is going to multiply this basically okay and store into T correct now T has what now tell me now T has what now T has the updated value can I say",
+      "avg_logprob": -0.12242267795444764,
+      "no_speech_prob": 0.7412109375
+    },
+    {
+      "start": 1557.81,
+      "end": 1586.78,
+      "text": " Can I say T now has the updated value? Okay. So now T has the updated value and then what you can do this updated value this updated value you can put in the in the in here. Okay. So tell me did we update the hard drive so far? Did we update the database because your database is here? Tell me did we update the database? Did we update update the database? We did not. Okay. We did not update. Do we have to update the database?",
+      "avg_logprob": -0.1521503718772737,
+      "no_speech_prob": 0.73046875
+    },
+    {
+      "start": 1587.64,
+      "end": 1616.9,
+      "text": " our target is to update the database our target is to double the salary so now what we are going to do then what we are going to do this block we will store this block we are going to store is this clear then this block store back so this block we are restored is this point clear so we are reading this block and then we are restoring this block and whatever changes we want to make we are making them in the main memory in the main memory we are making the changes and then we are restoring the block in the",
+      "avg_logprob": -0.1126916284831065,
+      "no_speech_prob": 0.91552734375
+    },
+    {
+      "start": 1617.14,
+      "end": 1644.97,
+      "text": " in the hard drive now your database is changed yes or no now your database you have changed the database so the salary you wanted to double you have done that salary now tell me so far are you understanding see so far I did not use the word transaction I did not use the word transaction very common sense I'm using okay like whatever we have seen simple simple things I'm doing that you have a database and you either you can read the database or you can write into the database you can update the database",
+      "avg_logprob": -0.06698638495832386,
+      "no_speech_prob": 0.6064453125
+    },
+    {
+      "start": 1645.55,
+      "end": 1674.87,
+      "text": " Tell me one more thing. What is the another possibility? So one possibility is that you are only reading Another possibility is that you are reading followed by writing basically read followed by right This is what you are doing read followed by right. Okay. So these are the two possibility. Is there any other possibility? Is there any other possibility? Consider this possibility now the consider this possibility see consider this possibility only right possibility Consider this possibility. See I'm giving you one right",
+      "avg_logprob": -0.13289474311627839,
+      "no_speech_prob": 0.68701171875
+    },
+    {
+      "start": 1675.16,
+      "end": 1703.66,
+      "text": " see one thing one thing tell me if i want to store the salary like if i want to change all the salary to 100 okay suddenly i want to change the salary to 100 i don't care what was the initial salary okay for example or maybe validity i want to change the validity to i want to change the validity this validity i want to change this new validity i want to create 365 days okay this is what i want to do",
+      "avg_logprob": -0.05064655009699964,
+      "no_speech_prob": 0.4521484375
+    },
+    {
+      "start": 1703.85,
+      "end": 1732.29,
+      "text": " So this 365 days I want to put in the I want to put in the validity. Okay, I want to change this validity for a student. Let's assume there is a student. Okay, student as one. So for this student as one, I want to change this validity. Now you tell me one thing. Do you care about the previous value of validity? Do you care about the previous value of the validity? Do you really care? No, we don't care. Yes or no. So we don't care about that. Now in this situation, what you will do",
+      "avg_logprob": -0.1274739553531011,
+      "no_speech_prob": 0.58544921875
+    },
+    {
+      "start": 1732.52,
+      "end": 1759.26,
+      "text": " very again very simple so this is again your hard drive this is your hardest let's assume this is the as I told you that there is a this is the file and let's assume here let's assume let's assume that this is the let's assume what this this is your validity let's assume this is the validity column or I can say this is the validity sale okay so this is the validity sale of I can say student",
+      "avg_logprob": -0.1097341924905777,
+      "no_speech_prob": 0.3916015625
+    },
+    {
+      "start": 1761.23,
+      "end": 1785.99,
+      "text": " student s1 this is the validity cell of a student s1 now you tell me if I want to change this I want to write I want to change this I want to make it 365 can I do that in the hard drive can I do that inside the hard drive can I do that of course not of course not yes or no inside the hard drive you cannot do so what you will have to do this is your disk and this is your database okay so I can say this is your database",
+      "avg_logprob": -0.09500000037252904,
+      "no_speech_prob": 0.371826171875
+    },
+    {
+      "start": 1786.74,
+      "end": 1814.96,
+      "text": " now inside the hard drive we cannot change so what you have to do again you have to bring to the main memory okay again in the main memory because CPU is necessary okay CPU CPU is necessary so you can bring to main memory in the main memory there is again a buffer okay there is a buffer in the main memory let's assume this is the area we are calling it buffer area okay so in the main memory there is a buffer area again who will come in the main memory tell me again who is going to come again you cannot this block will come",
+      "avg_logprob": -0.09593187017483754,
+      "no_speech_prob": 0.308837890625
+    },
+    {
+      "start": 1815.27,
+      "end": 1842.65,
+      "text": " okay this block is going to come so this block read is happening yes or no tell me what I am reading am I reading the validity or am I reading the block did I read the validity or did I read the block this is very important okay this is very important now see you won't realize this but I will tell you that this is very important that what you are reading we are reading the block not reading the we don't read the validity yes or no because we do not need to read the validity",
+      "avg_logprob": -0.08555453694334217,
+      "no_speech_prob": 0.30322265625
+    },
+    {
+      "start": 1843.2,
+      "end": 1866.1,
+      "text": " We only have to change the validity. I don't have to read the validity, but I have to read the block. Agree or not? Why I have to read the block? What is the reason? What is the reason I have to read the block? Because I cannot change inside the disk. I need CPU. I need to bring this to the main memory so that I can do the changes. So what I will do? This block will come now. Now this block is here.",
+      "avg_logprob": -0.1185661761784086,
+      "no_speech_prob": 0.22607421875
+    },
+    {
+      "start": 1866.44,
+      "end": 1895.38,
+      "text": " now this block is here and this is your that cell ok this is what you want to update now in this situation remember remember remember remember very important thing I am telling you in this situation you will not read this validity ok this validity you will not read where directly what you will do directly what you are going to do directly this command you are going to execute ok so some some t value you will take again again some t value you will take ok and let's assume that t value you will keep that as 100 ok some t value",
+      "avg_logprob": -0.12434287689556585,
+      "no_speech_prob": 0.83984375
+    },
+    {
+      "start": 1895.61,
+      "end": 1921.59,
+      "text": " sorry, 365. So some t value will have the value 365. This is your again, this is your program variable. Some programming you are doing some program. Okay, is this one clear some programming you will do agree or not. Are you have to do some programming that program will go to the CPU. So you have to do some programming. So this is a program variable. And in your program what you will write in your program what you will write you will write that t is equal to 365.",
+      "avg_logprob": -0.1455078198073002,
+      "no_speech_prob": 0.317138671875
+    },
+    {
+      "start": 1921.91,
+      "end": 1945.97,
+      "text": " Yes or no, so some program you are going to write some programming. Yes, SQL program you are going to write very good. Okay, some SQL program you are going to write. Okay, so this is what I'm saying that so this is a SQL program variable or you can simply call it program variable because it does not matter like which program you are writing. Okay, so let's assume this is a program variable. Now, what you are going to do very simply this directly you are going to store. See, I'm not reading the very tree.",
+      "avg_logprob": -0.15288253989199113,
+      "no_speech_prob": 0.392578125
+    },
+    {
+      "start": 1946.28,
+      "end": 1976.39,
+      "text": " I did not read the validity. I am directly storing this 365 into here. I don't care what is the previous value here. Okay, the previous value does not matter to me. Then finally what I will do, then this block I will store back. Yes or no? Yes or no? This block I will store back. So this is called only write. Okay, this type of write, this type of write is called blind write. Okay, this type of write, what do you call them? This type of write, we call them blind write. Because we are writing without reading.",
+      "avg_logprob": -0.11369410871974821,
+      "no_speech_prob": 0.86767578125
+    },
+    {
+      "start": 1976.83,
+      "end": 2003.51,
+      "text": " see this type of right is called blind right because we are not reading we are writing without reading we don't care what is the validity okay without looking at the validity without looking at the element without looking at the data we are we are writing it okay so this is called blind right so tell me did you notice in your DBMS whatever you do ultimately that is a read write sequence ultimately some read write things are happening whatever you do in your DBMS",
+      "avg_logprob": -0.1031936811549323,
+      "no_speech_prob": 0.09295654296875
+    },
+    {
+      "start": 2003.77,
+      "end": 2022.81,
+      "text": " like whatever data you access you read the data you write the data you modify the table you I can say you create a new table okay so at the low level can I say everything that you do that is a read write sequence can I say this is a sequence of read write operation some read operation some write operation some read operation some write operation so can I say that",
+      "avg_logprob": -0.09179687761777156,
+      "no_speech_prob": 0.1363525390625
+    },
+    {
+      "start": 2023.15,
+      "end": 2036.69,
+      "text": " at the lowest level at the low level everything that you do in a dbms every action that you perform in a dbms every SQL command that you create on the dbms that converts into a sequence of read and write operation do you agree",
+      "avg_logprob": -0.11365684852577172,
+      "no_speech_prob": 0.073974609375
+    },
+    {
+      "start": 2037.1,
+      "end": 2061.66,
+      "text": " Okay, every command that you are writing every SQL command that you are writing every like SQL query that you are writing whether you want to retrieve the data you want to write the data you want to change the data you want to read the data whatever you want to do ultimately some program you will write some SQL command you will write some SQL program you are going to write and that that that is basically at the lowest level at the low level that is a sequence of read write operations. Do you agree? Yes or no?",
+      "avg_logprob": -0.10178571144739787,
+      "no_speech_prob": 0.2423095703125
+    },
+    {
+      "start": 2062.01,
+      "end": 2091.59,
+      "text": " that is a sequence of read write operation at the lowest level and this sequence of read write operation is called transaction that's it this is your definition of transaction are you getting my point this is the definition of transaction so transaction basically means that this is just a sequence of read write operation okay are you getting my point in simple words in simple words transaction is a sequence of read write operations and some other operations see read write and some other operations like here you can notice multiplication is happening",
+      "avg_logprob": -0.12768554346015057,
+      "no_speech_prob": 0.72216796875
+    },
+    {
+      "start": 2091.92,
+      "end": 2121.1,
+      "text": " okay so can I say transaction is a sequence of read write and some arithmetic operations some arithmetic operations are also happening like multiplication is happening here I can say that multiplication is happening you are reading you are doing the multiplication you are writing so I can say that transaction is a sequence of read write and and arithmetic operations correct so I can say what what happens in a dbms that is data access okay and one more thing which operation happens for data access at the low level",
+      "avg_logprob": -0.09574467799764999,
+      "no_speech_prob": 0.5498046875
+    },
+    {
+      "start": 2121.45,
+      "end": 2147.51,
+      "text": " very simple either right read will happen so you can read the data into main memory you can modify into the main memory and then you can write back to the disk this is what you can do okay one more thing that these read writes these are the operations that keep on happening in the dbms yes or no at the lowest level at the low level these are the operations read write operations these are the operations that keep happening on the low level and they they create a transaction",
+      "avg_logprob": -0.12064145003494463,
+      "no_speech_prob": 0.423583984375
+    },
+    {
+      "start": 2147.82,
+      "end": 2177.69,
+      "text": " So what is a transaction if you ask me in a simple words so the transaction is very simple transaction in simple words in simple words that is sequence of read write operations on database items whatever is your database item like salary salary of employee this is an employee in that employee this is a salary like this is a student in this is when this is the validity so I can say that read write operation on database items okay so the sequence of read write operation this is a transaction is this clear to everyone let me know tell me",
+      "avg_logprob": -0.14776142199452108,
+      "no_speech_prob": 0.34716796875
+    },
+    {
+      "start": 2178.03,
+      "end": 2206.21,
+      "text": " So this is the definition of transaction. You can read this definition. So what are the definition? Transaction is seen by DBMS. Okay. From the DBMS point of view, from the DBMS software point of view, this transaction, what is this transaction? This is a series of actions. Okay. And what are the actions? See, remember, okay, from the DBMS point of view, from the, from DBMS point of view, or I can say from this DBMS software point of view. So what happens?",
+      "avg_logprob": -0.14606584422290325,
+      "no_speech_prob": 0.302490234375
+    },
+    {
+      "start": 2206.62,
+      "end": 2234.73,
+      "text": " from this point of view from this dbms point of view i can say what is a transaction what is a transaction transaction is basically i can say this is sequence of sequence of actions so this is a transaction this is a sequence of actions like fast action second action third action fourth action okay and what are these here for example these actions are like read operation maybe you can do some read operation maybe like you are reading some i can say maybe you are reading some element a",
+      "avg_logprob": -0.07590460589057521,
+      "no_speech_prob": 0.213134765625
+    },
+    {
+      "start": 2235.05,
+      "end": 2262.95,
+      "text": " Some element a you are reading okay, so you are reading some element a you are writing some element a You are writing some basic you are changing the element a and you can do some arithmetic operations also for example Maybe you are incrementing a plus 10. Okay, so this is what you are doing or maybe you can do this for example, maybe like you B is equal to okay, or maybe something like let's assume t is equal to this is a temporary variable. Okay, so t is equal to 100",
+      "avg_logprob": -0.16271034355920094,
+      "no_speech_prob": 0.2230224609375
+    },
+    {
+      "start": 2263.32,
+      "end": 2292.41,
+      "text": " And let's assume what you are doing. You are doing the blind right. Okay. Like in the element B, you are putting the T. Okay. So this is what I'm saying that can you notice that your DBMS from the DBMS point of view, this transaction is a sequence of operations sequence of actions and what are the actions involved? So sequence of actions and what are the sequence? What are the actions here? What are the actions here? Tell me. So sequence of actions. What are the actions? I can say this is a read action. You can read the data.",
+      "avg_logprob": -0.1332571193939302,
+      "no_speech_prob": 0.2568359375
+    },
+    {
+      "start": 2292.88,
+      "end": 2322.26,
+      "text": " you can write the data you can do arithmetic arithmetic or i can say arithmetic and logical operations yes or no you can do arithmetic and logical operations so these are the actions is this clear this is your transaction so transaction is a sequence of read operations write operations and arithmetic and logical operations so series of these actions this is called a transaction is this clear to everyone let me tell you one thing",
+      "avg_logprob": -0.10125812036650521,
+      "no_speech_prob": 0.73486328125
+    },
+    {
+      "start": 2322.48,
+      "end": 2351.54,
+      "text": " one thing I am telling you whatever you have done so far like for example you have written some SQL query okay to create a table to create a schema okay to create a new row to insert a row to delete a row or maybe I can say to retrieve record for example SQL retrieval queries we have written like select where okay select from where these type of queries we have written basically whatever you have done at the lowest level what happens it gets converted to transaction it gets converted into a transaction at the lowest level",
+      "avg_logprob": -0.09106923749341685,
+      "no_speech_prob": 0.73828125
+    },
+    {
+      "start": 2351.88,
+      "end": 2381.68,
+      "text": " everything at the lowest level is a transaction. So at the lowest level, you can see that everything gets converted. Okay, it will be converted into a sequence of simple, simple operations. So whatever like very complex query you've written, let's assume, okay, very complex things you are doing, very complex things you are doing, those complex things also at the lowest level, they are nothing but a sequence of read, write and arithmetic logical operations. So this is your transaction. Is this clear? Tell me, let me know.",
+      "avg_logprob": -0.13039772266691382,
+      "no_speech_prob": 0.71044921875
+    },
+    {
+      "start": 2381.88,
+      "end": 2414.55,
+      "text": " so very simple this is the definition of transaction like for example this is a transaction on your screen like let's assume that you want to transfer you want to transfer $50 from account A to account B this is what you want to do you tell me like without looking at this what do you think what you should do what do you think what you should do so let's see so what do you want to do you want to transfer $50 you want to transfer from account A to account B okay so let's assume that this is your hard drive in this hard drive",
+      "avg_logprob": -0.08497807239754158,
+      "no_speech_prob": 0.42626953125
+    },
+    {
+      "start": 2414.78,
+      "end": 2438.15,
+      "text": " what happens in this hard drive let's assume this is a table this is a table and in this table what you have let's assume that this is the this is the account a okay so 50 so let's assume this is the entry for account a and this is the entry for account b so let's assume these are the elements and what do you want to do you want to transfer $50 from account a to account b",
+      "avg_logprob": -0.10201671225733536,
+      "no_speech_prob": 0.302734375
+    },
+    {
+      "start": 2438.47,
+      "end": 2465.16,
+      "text": " Okay, it is also possible that it they may be in the same block. They may be in different block. Everything is possible. Okay. Yes or no. Correct. It is also possible. It is also possible that maybe they are in the different block like for example, maybe this is in a different block and this is in a different block that is also possible. There is no problem. Okay. So that is also possible. Now this is what I'm saying. So now what you will do what accent you will do. So in this situation first you will read. So ultimately a transaction will be created.",
+      "avg_logprob": -0.11396329731695236,
+      "no_speech_prob": 0.31005859375
+    },
+    {
+      "start": 2465.55,
+      "end": 2495.26,
+      "text": " Ultimately, whatever you will write some SQL command. Will you write the transaction? Tell me. Will you write the transaction? No, you will write some SQL command, but that SQL command will get converted will be converted into transaction. So let's directly write a transaction. So what you are going to do, you are going to read read this item a this item a you will read in some variable t. Okay, in some variable t. So this a item you are reading in a variable t. This is a temporary variable as I told you.",
+      "avg_logprob": -0.13758296038197204,
+      "no_speech_prob": 0.70068359375
+    },
+    {
+      "start": 2495.53,
+      "end": 2524.62,
+      "text": " as I told you this is nothing but this is a temporary program variable some programming variable okay so you will what you will do so this is what you are going to do let me tell you like you will this is the main memory this is the main memory in the main memory first you will read this so this whatever is your block so this block will come okay in the main memory this block will come in this block there is a so what you are going to do so remember read a comma t",
+      "avg_logprob": -0.09539062254130841,
+      "no_speech_prob": 0.56787109375
+    },
+    {
+      "start": 2524.85,
+      "end": 2553,
+      "text": " so when you do this read a comma t now what will happen now this t has the value whatever was the value whatever was the value that value is in t now is this clear so this value whatever is the value that value is in t now now this value this t has this value now you tell me what will happen next tell me what will happen next what do you need to do next so this t has the value a now you are going to do the second action that will be have that will happen is t is equal to t minus 50 yes or no",
+      "avg_logprob": -0.08289546776661831,
+      "no_speech_prob": 0.50927734375
+    },
+    {
+      "start": 2553.32,
+      "end": 2581.1,
+      "text": " from t you will remove t-50 and then what you will do then you will put then you will in this a you will what you are going to do in this a what you are going to do in this a you will write this t yes or no this updated t you will write in this a are you getting my point please tell me remember remember in for this right what you are doing see first you are reading this a into t whatever is the value of a that you will read in the t",
+      "avg_logprob": -0.07850796488278053,
+      "no_speech_prob": 0.52294921875
+    },
+    {
+      "start": 2581.42,
+      "end": 2609.22,
+      "text": " Then what you will do this T you will you will change this T in the CPU in the CPU. This T will get modified. Okay, this T equal to T minus 50. So this T this will happen in the inside the CPU inside the CPU. Now this T has the new value. Yes or no. Correct. Now this T has the new value. This T now finally what you will do finally this T you can write into the A. Yes or no. This T you are writing into the A. Now what is the next thing will happen.",
+      "avg_logprob": -0.18179347903832146,
+      "no_speech_prob": 0.6484375
+    },
+    {
+      "start": 2609.6,
+      "end": 2639.48,
+      "text": " at this point of time remember at this point of time at this point of time for simplicity i'm telling you for simplicity actually see at this time at this point of time will you write this block this block will you change in the database this block will you change in the database this block will you change in the database at this point of time okay you may or may not remember you may or may not this is not in our control let me tell you let me tell you this is not in our control after some time i will tell you so for",
+      "avg_logprob": -0.08529829599640586,
+      "no_speech_prob": 0.78662109375
+    },
+    {
+      "start": 2639.7,
+      "end": 2668.12,
+      "text": " for now let's make this assumption let's make this assumption that you are writing this in the main memory in the disk let's make this assumption let me tell you that whether we whether we whether we change this basically whether we this updated block this is the updated block the modified block this modified block we put in the disk or not that is not our decision let me tell you after sometime I will tell you whose decision who will make this decision that I will tell you but for now",
+      "avg_logprob": -0.09197809032558166,
+      "no_speech_prob": 0.4150390625
+    },
+    {
+      "start": 2668.34,
+      "end": 2697.93,
+      "text": " let's assume that you have written okay is this clear let's assume you have written so in the hard drive you have written is this clear let me know is this clear at this point of time let's assume this is written for now simply for simplicity let's assume that you have written this now what you are going to do now what is the next action then you will read the then you will read b okay yes or no then this b you will read because we want to transfer a amount from a to b you tell me one more thing tell me one more thing",
+      "avg_logprob": -0.06208881676981324,
+      "no_speech_prob": 0.623046875
+    },
+    {
+      "start": 2698.29,
+      "end": 2719.81,
+      "text": " If you want to transfer $50 to the account of B, do you need the previous value of B? If you want to transfer $50 from account A to account B, do you need the value of B? Of course you need the value of B. You will do the addition, right? Tell me. Of course you need the value of B. Are you getting my point?",
+      "avg_logprob": -0.1203124973922968,
+      "no_speech_prob": 0.279296875
+    },
+    {
+      "start": 2720.41,
+      "end": 2747.62,
+      "text": " Do you don't you need like I For example, let's assume you have a thousand dollars at this point of time in your account. You have thousand dollars Okay, and I transfer $50 to you then suddenly will you have 1050 or should you have a 50? So do you have 50 or should you have 1050? Okay, see very simple point. I'm asking. Okay, so of course So you cannot this is not a blind right. You have to read are you getting my point? So that is the reason I'm reading",
+      "avg_logprob": -0.1907087042927742,
+      "no_speech_prob": 0.6328125
+    },
+    {
+      "start": 2748.29,
+      "end": 2776.53,
+      "text": " Please understand why I am reading please understand why I read this I am reading this be why I am reading this be did you understand please tell me Did you understand why I am reading this be? See this block we will read are a blow reading the block is not same as the reading as the Is not same as reading the value right? Yes or no? Are you getting my point like here validity in this situation? We were reading the block reading the block is not same as reading the Element yes or no?",
+      "avg_logprob": -0.17923677927599505,
+      "no_speech_prob": 0.58154296875
+    },
+    {
+      "start": 2777.16,
+      "end": 2803.16,
+      "text": " reading the block is not same as reading the validity we did not read the validity here yes or no agree or not in this case we did not read the validity in this case in this case we were only reading the block we did not read the validity but now what we are doing we have to read this okay so you have to read this b and again you can use this variable t because again this t is dead yes or no did you notice this t is dead now now this t is dead",
+      "avg_logprob": -0.08304687201976776,
+      "no_speech_prob": 0.34619140625
+    },
+    {
+      "start": 2803.53,
+      "end": 2831.21,
+      "text": " this T is dead so again you can use this T or you can use T1 that is your choice see that is your choice you can use T or T1 that does not matter because this T is anywhere dead this is anywhere gone okay so you can read again this B into T then what you will do then this T you will make T plus 50 in the CPU inside the CPU this will happen inside the CPU this will happen and after that what you will do after that the new value of T you will store in the B yes or no",
+      "avg_logprob": -0.08572443398562345,
+      "no_speech_prob": 0.54931640625
+    },
+    {
+      "start": 2831.74,
+      "end": 2860.18,
+      "text": " the new value of t you will store in the B and then let's assume that as I as I will tell you for simplicity for simplicity let's assume that block this block of B also you have updated okay this was a block of B this block of B also you have updated so this is your program is this clear let me know tell me is this point clear very simple see I am just telling you this is just an overview all the concepts will become more clear as we go on this is just an overview use your common sense nothing more",
+      "avg_logprob": -0.13094896296842382,
+      "no_speech_prob": 0.62255859375
+    },
+    {
+      "start": 2860.35,
+      "end": 2889.9,
+      "text": " nothing more than that just use your common sense nothing more than that all the parts will become more and more clear now let me tell you one more thing see let me tell you for convenience force okay for convenience what we do for convenience let me tell you for convenience we don't write this t okay we only write this a are you getting my point for convenience we only write this a but it actually means that this actually means a comma t are you getting my point let me know is this point clear",
+      "avg_logprob": -0.07375000096857548,
+      "no_speech_prob": 0.697265625
+    },
+    {
+      "start": 2890.11,
+      "end": 2917.9,
+      "text": " see for i'm actually i wrote this like for example this read a comma t i wrote i wrote a comma t means this value you put in the t but for convenience okay this same thing this same thing for convenience or i can say this is just a convenient notation for convenience the same thing okay is written like this the same thing is written like this read a but both are same",
+      "avg_logprob": -0.0699066539089401,
+      "no_speech_prob": 0.1312255859375
+    },
+    {
+      "start": 2918.25,
+      "end": 2946.17,
+      "text": " okay remember both are same if you are confused at any point of time if you are confused remember both are same so this read a comma t means that you are reading the value of a in a variable t this a value you are putting in a variable t in a temporary variable t the same thing the same thing we write as a read read a means you are reading a of course in some temporary variable yes or no of course in some temporary variable okay so this is the this is just for convenience similarly similarly",
+      "avg_logprob": -0.1106770821646148,
+      "no_speech_prob": 0.42919921875
+    },
+    {
+      "start": 2946.66,
+      "end": 2973.6,
+      "text": " this right a comma t it means that this t you are putting in a and it means that this a you are putting in t now this right a comma t this is same as you are simply writing as a right a but this is actually same as that you are putting this t into this okay one more thing actually when you use this notation when we are using this notation at that point of time we assume if you are using this notation if anyone",
+      "avg_logprob": -0.11276041741172473,
+      "no_speech_prob": 0.2398681640625
+    },
+    {
+      "start": 2974.07,
+      "end": 3001.39,
+      "text": " if anyone is using this notation then they are assuming that this t is a basically this this temporary variable this is a are you getting my part this temporary variable is a means this element is also a and this temporary variable is also a are you go are you getting my part okay so this temporary variable is also a and this element is also a so basically i can say that they are using this a as temporary variable they are using this a as a",
+      "avg_logprob": -0.0950520809325907,
+      "no_speech_prob": 0.1544189453125
+    },
+    {
+      "start": 3001.7,
+      "end": 3030.48,
+      "text": " as a temporary variable also this same name they are using as a temporary variable also the same name this is what I am saying the same name A as a temporary variable also anyway this point will become more clear right now this point will not be not be as clear as it will be okay for now just assume just assume that for now I am telling you only it's just a overview you know in the first few pages of the book if you see any book",
+      "avg_logprob": -0.1441066577706648,
+      "no_speech_prob": 0.869140625
+    },
+    {
+      "start": 3030.73,
+      "end": 3058.36,
+      "text": " in any book the first first lecture that has all the summary yes or no in that summary you will not understand agree or not okay so you will understand you will understand that once you go through all the chapters then you will understand but anyway the first page is just a summary of the entire book for the entire book what is the summary that is so similar to that i'm just giving you some summary if you understand very good if you don't understand if you have some doubt just wait okay every point",
+      "avg_logprob": -0.0592578137665987,
+      "no_speech_prob": 0.6181640625
+    },
+    {
+      "start": 3058.67,
+      "end": 3087.36,
+      "text": " we will see one by one every point we will see just wait now let's see this example for example this is a SQL program when you write this SQL program internally what will happen tell me internally what will happen just wait if you have any doubt just wait just wait every point will come slowly slowly every point will come you tell me one thing so this is a SQL program internally what will happen at the lowest level what will happen okay at the low level what will happen at low level",
+      "avg_logprob": -0.06543975761256267,
+      "no_speech_prob": 0.61767578125
+    },
+    {
+      "start": 3088.64,
+      "end": 3119,
+      "text": " at low level it will be converted into a transaction there will be a transaction yes or no at the low level there will be a transaction okay now can you just write the transaction first of all you tell me if you want to perform this action do you need to read the balance if you want to perform this action do you need to read the balance yes you need to read the balance yes or no if you want to perform this at present then definitely you need to read followed by write I can say this is read",
+      "avg_logprob": -0.0806280358613116,
+      "no_speech_prob": 0.6708984375
+    },
+    {
+      "start": 3119.26,
+      "end": 3150.14,
+      "text": " followed by right okay read balance followed by right balance so this is a read balance followed by right balance now here what you will do so this is what you are going to do first of all you will read first of all let me assume that first you might be thinking that see this account is a table yes or no in your hard drive so this is your hard drive in the hard drive this is the hard drive in the hard drive this account is a table this is the account table let's assume let's assume this is the account table",
+      "avg_logprob": -0.05515769696621983,
+      "no_speech_prob": 0.7451171875
+    },
+    {
+      "start": 3152.1,
+      "end": 3180.69,
+      "text": " in this account table there is an ID in this account table this is the I can say this is the account ID see this is the account ID is equal to 31414 this is the account ID and this is the salary of this this is the balance of this account ID yes or no this is the balance this is the balance of this I can say 31414 account can I say this",
+      "avg_logprob": -0.12138672163709999,
+      "no_speech_prob": 0.70849609375
+    },
+    {
+      "start": 3180.92,
+      "end": 3210.02,
+      "text": " tell me yes or no is this clear okay there can be more there can be more there can be more but i can say that there is a there is a row there is a record there is a record which is for this account for this account this is the row and let's assume this is the salary now our focus should be on what tell me on which element our focus should be our focus should be on this element or this element first or second our focus should be on which element yes we want to change this element yes or no this is our desired data element this is our data element",
+      "avg_logprob": -0.07543330094894442,
+      "no_speech_prob": 0.41455078125
+    },
+    {
+      "start": 3210.33,
+      "end": 3238.17,
+      "text": " Yes or no, I can say this is your data item. This is your desired data item. This is the data item we want to change. Yes or no, correct. So I want to change this data item. Now what I'm going to do in this situation, what I'm going to do first of all, I will read this first of all what I will do. Let's assume that let's call this data item a for a moment. I am calling this data item a. So what is the data item a? What is data item a? This is the data item a. Is this clear?",
+      "avg_logprob": -0.12198572869845263,
+      "no_speech_prob": 0.2257080078125
+    },
+    {
+      "start": 3238.45,
+      "end": 3266.26,
+      "text": " this is the data item a only this much only this much this is the data item a look at this this is the data item a so let me assume this is the data item a then what I'm going to do first I will read the data item a what it will mean actually what it means I'm writing what it means also okay everything that we are doing I'm writing what it means I'm writing what it means so you tell me and I'm writing where this action is happening",
+      "avg_logprob": -0.07627051541901599,
+      "no_speech_prob": 0.249267578125
+    },
+    {
+      "start": 3266.58,
+      "end": 3295.25,
+      "text": " Okay, so you cannot anyway. So what this means when I write a reading, it simply means that the variable name is also a it simply means there is a temporary variable a. Okay, in this situation, there is a temporary variable a. Are you getting my point in this situation? There is a temporary variable a and in this variable a you are putting a. Okay, is this clear? The temporary variable is also a in that variable a you are putting a. So remember this is the data item. Okay, this is the data element.",
+      "avg_logprob": -0.1426991171541467,
+      "no_speech_prob": 0.55419921875
+    },
+    {
+      "start": 3295.93,
+      "end": 3325.96,
+      "text": " or I can say this is our data element and this is the temporary variable so the temporary variable also has the name a this is a simple point okay so basically in the temporary variable a you are putting a now the temporary variable a has the value a now what you will do now what you will do you will change you will do this so on on this this is a temporary variable or what this action in this action this is this is a temporary variable or what tell me",
+      "avg_logprob": -0.10822368421052632,
+      "no_speech_prob": 0.483154296875
+    },
+    {
+      "start": 3326.28,
+      "end": 3356.24,
+      "text": " yes this is a temporary variable right yes or no so remember here this is a temporary variable of course this a this is your temporary variable a so this is this is the sorry this is the temporary variable a now after that what you will do after that what you will do the third action what you are going to do very simple just put it put this in the a okay this you put in a so right a right a means what now this right a means what this right a means in the a you are putting a so tell me",
+      "avg_logprob": -0.11047021348342717,
+      "no_speech_prob": 0.79150390625
+    },
+    {
+      "start": 3356.46,
+      "end": 3385.75,
+      "text": " The first A is the data element or temporary variable, the first A array. Now you are doing this. So it means this is the data item. Yes. So now the first A is the data item and this was your temporary variable. This was your temporary variable. So this is just a convenient notation. Is this convenient notation clear to everyone? But the better notation, the another notation, what is the another notation that is more better? But actually, okay, so this is another notation that what you do this A you put in T.",
+      "avg_logprob": -0.19642857249294007,
+      "no_speech_prob": 0.1373291015625
+    },
+    {
+      "start": 3386.11,
+      "end": 3415.27,
+      "text": " and then you do this t equal to t minus 100 and then you do this right a t okay so here basically this t you are putting in a so this is a this is also correct this is also correct and this is also correct is this clear both are correct but tell me which is which is actual like which is actually happening this first or the second this is second and this is first the actual happening is second this is convenient yes or no",
+      "avg_logprob": -0.1267361177338494,
+      "no_speech_prob": 0.65673828125
+    },
+    {
+      "start": 3415.51,
+      "end": 3445.24,
+      "text": " this is convenient remember this is just a convenient notation this is just a convenient notation but actually this is what actually happens okay is this clear let me know very simple okay this is more readable yes or no this is more reading friendly this is more reading friendly but why what is the reason this is like we follow this we use this most of the time because this is more logical",
+      "avg_logprob": -0.07432291348775227,
+      "no_speech_prob": 0.392333984375
+    },
+    {
+      "start": 3445.94,
+      "end": 3476.29,
+      "text": " See this is more logical because it's a very simple that you are reading a you are You are decrementing a and you are writing a so this is logical. This is purely logical and This is I can say this is what actually happens Is this point is this point clear? This is what actually happens and this is purely logical This is purely logical Okay, so anyway both are correct Now so I am just giving you some examples remember now you tell me one more thing. This is your question",
+      "avg_logprob": -0.14271349600045988,
+      "no_speech_prob": 0.74609375
+    },
+    {
+      "start": 3476.73,
+      "end": 3507.02,
+      "text": " Do you need read followed by write in this question? Do you need read followed by write in this question? Do you need read followed by write? No, you don't need because ultimately the salary you are setting to 100. You don't care about the previous salary. So in this situation, you don't need to read in this situation. There is a I can say there is no need to read. There is a blind right. You can blindly write. So actually, okay, this is the SQL command. Ultimately, there will be a transaction. A transaction will be created for this.",
+      "avg_logprob": -0.10566086334283234,
+      "no_speech_prob": 0.6494140625
+    },
+    {
+      "start": 3507.84,
+      "end": 3537.43,
+      "text": " and the transaction that will be created will have only one line okay that is your right okay let's assume this this element let's assume this you can notice this element I can say let's assume what is this a this a is the salary of eid 921 okay so this is a is the salary of 921 so this is the so this is your element a so what you will do just simply this so this is your transaction is this clear",
+      "avg_logprob": -0.12173763425140591,
+      "no_speech_prob": 0.498291015625
+    },
+    {
+      "start": 3537.82,
+      "end": 3565.54,
+      "text": " see you are not reading anything yes or no did you notice we did not read a did you notice we are blindly writing a we did not read a did you notice we are blindly writing a we did not read a okay so this is another this is example of blind right because you are setting the salary to 100 you don't care about the previous salary so these examples that we have seen now you might be having some doubts yes or no correct some doubts you might be having so far what we have seen",
+      "avg_logprob": -0.09142945308496456,
+      "no_speech_prob": 0.403564453125
+    },
+    {
+      "start": 3565.87,
+      "end": 3595.16,
+      "text": " So far I only told you some examples. Just to give you some idea about what is a transaction. You forget about everything. What happens in a read operation? That I will tell you. What happens in a read operation? What happens in a write operation? So all these things I will tell you. What is an element? What is a database element? All these things I will tell you. Forget about all these things. Now you tell me one thing. Did you understand what is a transaction? That can you explain to anyone? This is the only target. So far",
+      "avg_logprob": -0.13585805198398687,
+      "no_speech_prob": 0.6513671875
+    },
+    {
+      "start": 3595.43,
+      "end": 3624.99,
+      "text": " the only thing you have to understand is what is a transaction nothing else don't worry about anything else just tell me can you explain this to anyone that what is a transaction so transaction basically is it in a very simple words you can say in simple words transaction is a sequence of read write and arithmetic and logical operations so what is a transaction transaction is sequence of actions sequence of actions series of actions list of actions in this what are the actions read or read action",
+      "avg_logprob": -0.10945991702053857,
+      "no_speech_prob": 0.443603515625
+    },
+    {
+      "start": 3625.29,
+      "end": 3655.68,
+      "text": " right action and arithmetic logical actions. So these are the actions in a transaction. This is what we this is what is called transaction. Okay. So this is the idea. Now let's see more. So now let's see the definition of transaction. So what is the transaction? You can check it out. So the transaction is very simple that so here you can notice. So one more thing. So actually one more thing is missing in the transaction definition from the DBMS point of view.",
+      "avg_logprob": -0.11478960514068604,
+      "no_speech_prob": 0.55322265625
+    },
+    {
+      "start": 3655.9,
+      "end": 3686.75,
+      "text": " this is a transaction is a sequence of actions I can say I can say that this transaction this transaction from the dbms point of view it is a sequence of actions it is a sequence of tasks from the dbms point of view it is like this okay so this is from dbms point of view yes or no from dbms point of view this is like this at sequence of actions but tell me from user point of view what is this from user point of view from user point of view",
+      "avg_logprob": -0.063751518147663,
+      "no_speech_prob": 0.1629638671875
+    },
+    {
+      "start": 3687.02,
+      "end": 3713.39,
+      "text": " Does user know these things are happening? Does user know these things are happening? Tell me. Does user know these things are happening? No, he does not know. Tell me one more thing. Whenever you transfer some data from your account to your friend's account for you, this is a single action. Okay, like is it two actions like, okay, I will transfer you the money so that will that that will come there, then that will come there, then this will happen, then this will happen, then it will come to your in your account. Yes or no?",
+      "avg_logprob": -0.11836922394127405,
+      "no_speech_prob": 0.61376953125
+    },
+    {
+      "start": 3713.83,
+      "end": 3743.78,
+      "text": " This this you you don't say this yes or no what you will say you will say that you will say that This is a one action. I'm okay. This I'm doing the UPI so from my account to my friend's account. I'm sending the data. This is single action. Yes or no Similarly, for example, you want to book a ticket if you are booking a ticket for you. This is one single action. Yes or no one single logical action that I'm booking the ticket Whenever you order food from the tomato or swiggy, then that is a single action that you are ordering the food",
+      "avg_logprob": -0.16699218179564923,
+      "no_speech_prob": 0.83203125
+    },
+    {
+      "start": 3744.12,
+      "end": 3767.5,
+      "text": " but within your single action from the dbms point of view many actions are involved yes or no so from the user point of view from user point of view what i can say from user point of view transaction is a single logical action remember transaction is a single single logical action lower i can say single logical task is this clear",
+      "avg_logprob": -0.1642992381345142,
+      "no_speech_prob": 0.07220458984375
+    },
+    {
+      "start": 3767.82,
+      "end": 3796.32,
+      "text": " So from the user point of view, transaction is a single logical task. For example, you want to transfer money from your account to your friend's account. That is a single logical task. Similarly, for example, when you are booking a ticket, that is a single logical task. Whenever you order a food, that is a single logical task from your point of view. But inside many things are there. Okay, whatever you are doing, your single logical task gets converted into many actions. So from the DBMS point of view, this is a sequence of actions. Okay, read action.",
+      "avg_logprob": -0.0949666975829445,
+      "no_speech_prob": 0.2491455078125
+    },
+    {
+      "start": 3797,
+      "end": 3826.02,
+      "text": " write action, some arithmetic operation, logical operation, read operation, write operation, arithmetic operation. So I can say from the DBMS point of view, this is a series of actions. This, okay, but from the user point of view, this is a single logical task. So this is the final definition you can notice. What is a transaction? So the transaction is basically our single logical task on the database that corresponds to a transaction. Yes or no? Whatever is your single logical task? For example, you tell me, is this a single logical task for you?",
+      "avg_logprob": -0.14406780279793982,
+      "no_speech_prob": 0.73193359375
+    },
+    {
+      "start": 3826.3,
+      "end": 3851.96,
+      "text": " for you don't worry about the dbms is this a single logical task making a reservation yes this is a single logical task similarly you can notice issue a book from the library that is a single logical task transfer money from your account to another account that is a single logical task so all these are single logical tasks from your point of view for you these are single logical tasks okay so whenever you create a single logical task on the database that correspond to a transaction",
+      "avg_logprob": -0.08207325108589665,
+      "no_speech_prob": 0.43310546875
+    },
+    {
+      "start": 3852.42,
+      "end": 3884.61,
+      "text": " and a transaction from the dbms point of view that is a sequence of read write actions and some arithmetic logical actions. Okay, which make one logical task. Is this clear? So what is a transaction? Tell me is this clear? So what is a transaction? So transaction is you can say transaction is a single logical task, a single logical task from user point of view. The definition of transaction, I can say transaction is a single logical task. Okay, which",
+      "avg_logprob": -0.16897551054807053,
+      "no_speech_prob": 0.48681640625
+    },
+    {
+      "start": 3885.74,
+      "end": 3920.63,
+      "text": " from dbms point of view what happens which from dbms point of view which from dbms point of view is a sequence of actions yes or no is a sequence of actions of actions now what are these actions these actions can be read these actions can be write these actions can be arithmetic and logical operations so these actions can be arithmetic operations and logical operations arithmetic and logical",
+      "avg_logprob": -0.15584414965146548,
+      "no_speech_prob": 0.376220703125
+    },
+    {
+      "start": 3921.07,
+      "end": 3950.06,
+      "text": " operations. So this is the definition of a transaction. This is the complete definition of transaction. The transaction is a single logical task, which from DVMS point of view, from the DVMS point of view, this is a sequence of actions, read action, write action, arithmetic and logical operations. So this is the transaction. This is the definition of transaction. Like all these are the examples of transaction whenever you go to supermarket and you do the checkout. So this supermarket checkout stock market. Okay, so online purchase.",
+      "avg_logprob": -0.14245035241697437,
+      "no_speech_prob": 0.64501953125
+    },
+    {
+      "start": 3950.41,
+      "end": 3974.65,
+      "text": " all these things. These are the examples of transactions. So these are logical, single logical task for you. Okay, from your point of view, these are single tasks, but from DBMs point of view, these are sequence of actions. Is this clear? Let me know. These are sequence of actions from DBMs point of view. Now, let's see the next. Now what we are going to do. So in this transaction management, what we study, you might be thinking, sir,",
+      "avg_logprob": -0.1508184557869321,
+      "no_speech_prob": 0.15771484375
+    },
+    {
+      "start": 3974.86,
+      "end": 4045.36,
+      "text": " I understood what is a transaction but what we study in this chapter like what is transaction processing so whenever you are creating a transaction then what are the problems that can happen tell me like can anyone tell me what are the problems that can happen whenever sorry for that just give me a second hi everyone yes so what I'm saying tell me whenever you are creating a transaction whenever you are creating some you are basically doing some transaction then what are the problems that can happen",
+      "avg_logprob": -0.1177819301576718,
+      "no_speech_prob": 0.64404296875
+    },
+    {
+      "start": 4046.36,
+      "end": 4073.04,
+      "text": " Before that you tell me whenever like for example on the IRCTC website you are booking this is the IRCTC website on this let's assume you are booking a ticket should this happen one after one or these things should happen concurrently. Tell me. Of course these many things are happening many users are concurrently they are accessing the same website many users maybe they are accessing the same train yes or no.",
+      "avg_logprob": -0.1767113022506237,
+      "no_speech_prob": 0.11663818359375
+    },
+    {
+      "start": 4073.67,
+      "end": 4102.63,
+      "text": " concurrently many users are accessing the same train the same website okay on the same website the same train in the same train also maybe they are putting the same choices yes or no they are also putting the same choices that for example in the same train they are looking for one ac so you can notice for the same seat at the same time there are many contenders yes or no so very simple that many contenders many many concurrently many people are concurrently accessing the same data",
+      "avg_logprob": -0.0719401069606344,
+      "no_speech_prob": 0.7392578125
+    },
+    {
+      "start": 4103.22,
+      "end": 4132.99,
+      "text": " It is possible. Yes or no. Many people, they are accessing the same data at the same point of time. For example, let's assume this is a, this is the, I can say this is a seed. Okay. This may be seed number or maybe I actually see it number will not be visible on the IR cities website, but you can consider this as a geometry. Okay. You can consider this as some geometry or Amazon. You can consider this as Amazon. And let's assume this is the only piece, one last piece of this is the last piece.",
+      "avg_logprob": -0.19012605643072047,
+      "no_speech_prob": 0.82568359375
+    },
+    {
+      "start": 4135.04,
+      "end": 4163.81,
+      "text": " of some mobile okay some iphone okay whatever so let's assume this is the last piece of iphone then all these people they are simultaneously they are accessing this but what are the issues that can happen one okay tell me what are the issues that can happen so this issue can happen that it is like this issue can happen that okay these four people can book it yes or no there is last piece of iphone but these four people can book it this issue can happen so this issue is happening because of what this issue is happening because of",
+      "avg_logprob": -0.07175925560295582,
+      "no_speech_prob": 0.7294921875
+    },
+    {
+      "start": 4164.09,
+      "end": 4193.52,
+      "text": " because of concurrency because concurrently many people are accessing the same thing okay so this issue can happen so tell me one more thing because of this issue should we not have concurrency because of this issue should we not have concurrency we should definitely have concurrency if we don't have concurrency then a lot of problem will happen on the amazon website if concurrency is not there then no one will use the amazon website yes or no this website no one is going to use",
+      "avg_logprob": -0.08382161186697583,
+      "no_speech_prob": 0.68896484375
+    },
+    {
+      "start": 4193.79,
+      "end": 4221.77,
+      "text": " if there is no concurrency so very simple that these problems will happen because of concurrency so we need concurrency control yes or no so here what is happening let me tell you it is happening that this person is running some transaction whenever you are purchasing this phone okay this iPhone you are purchasing so you are running some transaction he is running some transaction he is running some transaction maybe same or different transaction it is also possible that maybe they are running the same transaction this and this they are running the same transaction",
+      "avg_logprob": -0.07677135048526348,
+      "no_speech_prob": 0.275634765625
+    },
+    {
+      "start": 4222.26,
+      "end": 4250.18,
+      "text": " this and this they are running the same transaction so or maybe different transaction whatever happens same or different whatever happens you can notice that concurrently at the same time okay many transactions are running at the same time concurrently many transactions are running so definitely what what can happen some problem can happen so you can notice concurrent execution of several transactions some problem can happen so that problem we have to take care yes or no we have to handle that that problem now you tell me one more thing",
+      "avg_logprob": -0.0884046080865358,
+      "no_speech_prob": 0.72021484375
+    },
+    {
+      "start": 4250.38,
+      "end": 4278.15,
+      "text": " if a single transaction is executing then some can some problem happen can you think about some problem which can happen when a single transaction is happening okay like just assume that in the entire world you are the only one you are the only one who is making a transaction no one else is there okay let's assume now tell me when you are making a transaction you are the only one then can some problem happen yes definitely problems can happen for example you are you are transferring some",
+      "avg_logprob": -0.07766297010965245,
+      "no_speech_prob": 0.1708984375
+    },
+    {
+      "start": 4278.37,
+      "end": 4308.05,
+      "text": " amount from your account to your friend's account and let's assume it is a very frequent problem that let's assume the money gets debited from your account but it does not credited to your friend's account so this this is definitely a problem yes or no is this problem because of concurrency is this problem because of concurrency you tell me are you getting my point very simple point I'm saying that let's assume you are transferring the data okay this data you are transferring from your account to your friend's account it gets debited your money is gone",
+      "avg_logprob": -0.11437218267101425,
+      "no_speech_prob": 0.94091796875
+    },
+    {
+      "start": 4308.35,
+      "end": 4335.66,
+      "text": " But it did not it did not it did not go to your friend's account. So definitely there is a problem. So you can notice problems can happen. Remember problems can happen because of single transaction execution and because of concurrent transaction execution. So because of both these problems can happen. Yes or no. Agree or not. So remember problems can happen. This is what I'm saying that this is what I'm saying. Problems can happen because because of two situations. So problems can happen.",
+      "avg_logprob": -0.10646445764338269,
+      "no_speech_prob": 0.4052734375
+    },
+    {
+      "start": 4335.88,
+      "end": 4363.66,
+      "text": " when single transaction is executing when a single transaction is executing or when several transactions are executing concurrently so in this situation also problem can happen when a single transaction is executing and example you can notice that for example amount A to B you are transferring let's assume this is $500 and you want to transfer $50 to amount B to account B okay this problem can happen what happens that let's assume this amount debited",
+      "avg_logprob": -0.1063988097012043,
+      "no_speech_prob": 0.44140625
+    },
+    {
+      "start": 4365.81,
+      "end": 4397.45,
+      "text": " debited from A okay but you can notice this is not credited to B not credited to B so this is the problem that can happen when single transaction is executing more problems can happen similarly when several transactions are happening then also then also problem can happen as I told you okay so like for example maybe what problem can happen this problem can happen that two people booking the same seat yes or no two people booking same seat",
+      "avg_logprob": -0.11106927423592074,
+      "no_speech_prob": 0.9267578125
+    },
+    {
+      "start": 4398.94,
+      "end": 4426.86,
+      "text": " So these type of things should not happen. Agree or not? We should avoid these type of things like this. We should avoid this. We should avoid. So these type of things we should avoid. So these are the problems that can happen. These are the problems that can happen. So what we have to do? We have to avoid these problems. This is what we study in the transaction management. So if if I ask you what we study in the transaction management, then what you will say, you will say we want to avoid these problems. The problems that are happening because of single transition execution.",
+      "avg_logprob": -0.1040625023841858,
+      "no_speech_prob": 0.23828125
+    },
+    {
+      "start": 4427.34,
+      "end": 4454.91,
+      "text": " those problems we want to avoid and also we want to avoid the problems which are happening because of concurrent execution of transactions so remember these problems we want to avoid and this is what we study in the transaction management in the transaction management so remember basically let me tell you this is your dbms software right correct dbms software is a very huge software like this is a dbms software very huge in this dbms software let me tell you there are many parts",
+      "avg_logprob": -0.11307565962013445,
+      "no_speech_prob": 0.327392578125
+    },
+    {
+      "start": 4455.47,
+      "end": 4488.11,
+      "text": " there are many components like there is a component called query manager there is a component called query manager there are many more components there is a component there is a component which is called transaction management there is a component the name of this component is transaction manager like in your compiler you have many components yes or no in the compiler you have lexical syntax semantic so like that you have many components similarly here also in the dbms software you have many components there is a query manager there is transaction management",
+      "avg_logprob": -0.12046875312924385,
+      "no_speech_prob": 0.74169921875
+    },
+    {
+      "start": 4488.49,
+      "end": 4518.78,
+      "text": " Okay, there are many more. There are many more. Now in this one more thing, let me tell you, there is another. There is another that is recovery manager. There is another component. This is the another component that is recovery manager. This is the recovery manager. So there is a recovery manager. There is a transaction manager. And let me tell you inside this transaction manager, there is a small part which is there is another component inside this sub component. Inside this, there is another component that is",
+      "avg_logprob": -0.13494988095085575,
+      "no_speech_prob": 0.410400390625
+    },
+    {
+      "start": 4519.1,
+      "end": 4549.02,
+      "text": " concurrency controller that is concurrency concurrency controller i can say concurrency control component concurrency control component is this clear tell me is this point clear so remember in the dbms software there are many components in the dbms software this dbms is a huge software in this software you have query manager recovery manager transaction manager many many components are there in this transaction manager there is a sub component",
+      "avg_logprob": -0.09851372151113139,
+      "no_speech_prob": 0.366943359375
+    },
+    {
+      "start": 4549.6,
+      "end": 4579,
+      "text": " Okay, there is a sub component which is concurrency control component. So, so far, whatever we have seen, like, okay, all the problems that are happening. So, okay, you want to handle those problems. So for that, these two components are involved. Are you getting my point? These two components, the transaction manager and the recovery manager, these two components, they work together. It's not like it is not like it will work separately. It will work separately. It's not like that. They work together. Okay, so they will, they will work in coordination.",
+      "avg_logprob": -0.13313008517753788,
+      "no_speech_prob": 0.8662109375
+    },
+    {
+      "start": 4579.5,
+      "end": 4607.66,
+      "text": " so this component and this component they work in coordination they will help each other to remove these problems that are happening like these problems that can happen as I told you two people are booking the same seat this problem should not happen this problem also should not happen that amount is debited but amount is not credited okay so this problem should not happen so all the problems that are happening that are possible to avoid these problems I can say that these two components are responsible transaction manager recovery manager okay",
+      "avg_logprob": -0.0811767578125,
+      "no_speech_prob": 0.53564453125
+    },
+    {
+      "start": 4608.11,
+      "end": 4630.81,
+      "text": " this recovery manager will come into photo when this recovery manager will come into picture when problem has already happened yes or no when problem has already happened then this recovery manager will come into picture when your when the problem is already I can say when the problem has already occurred then in this situation this recovery manager will come into picture but I can say that these two",
+      "avg_logprob": -0.11119058434392365,
+      "no_speech_prob": 0.591796875
+    },
+    {
+      "start": 4631.06,
+      "end": 4658.18,
+      "text": " components, they will work in coordination as we will see. So when we study the recovery manager at that time, we will see that these two are working in coordination. Some information. Okay. So they will share the information and they will help each other. So this is the idea. So this is your, I can say that. So these two parts that you can see these two parts, what they do, they handle the access to data. They control the access to data. So these two components, which two component, one component is recovery manager.",
+      "avg_logprob": -0.10375548605071871,
+      "no_speech_prob": 0.45849609375
+    },
+    {
+      "start": 4658.62,
+      "end": 4686.52,
+      "text": " this recovery manager component and another is your transaction manager component means concurrency control component okay so these two components they handle the control I can say they control the access to data so what are the things they have to maintain they have to mention sorry they have to they have to make sure that data is because of some failure data is not I can say corrupted yes or no because of system failure this data is not lost for example here you can notice",
+      "avg_logprob": -0.12447331192788114,
+      "no_speech_prob": 0.4638671875
+    },
+    {
+      "start": 4686.77,
+      "end": 4716.51,
+      "text": " some system failure. Let's assume here some failure happens. Now, because of this failure, what will happen? This amount is debited, but this is not credited. So because of this failure, now, who will make sure that because of this failure, you don't lose your money? Who will make sure? Who will make sure that because of this failure, you will not lose your money? Who will make sure recovery manager? Okay. So recovery manager will make sure that you don't lose your money. So remember data must be protected even in the face of system failure.",
+      "avg_logprob": -0.08945312798023224,
+      "no_speech_prob": 0.90869140625
+    },
+    {
+      "start": 4716.81,
+      "end": 4744.49,
+      "text": " so the system recovery manager will make sure he it is the responsibility of recovery manager to make sure that you don't lose your data okay one more thing because of concurrently many things are happening concurrently many transactions are happening so because of that also data should not be corrupted or I can say inconsistency should not come like for example you can notice two people are booking the same seat this type of problems should not come and this is the responsibility of concurrency control component okay now",
+      "avg_logprob": -0.07800419060225339,
+      "no_speech_prob": 0.38037109375
+    },
+    {
+      "start": 4744.94,
+      "end": 4774.4,
+      "text": " So whatever we have seen so far, this is just I can say this is just a motivation. Now we will see everything one by one. So far, whatever we have seen, you might be having many doubts, but now we will see one by one everything. So some terminology one by one, we will see now, please understand whatever I'm telling you because these things are very important. Now we will not mix anything. So far, I'm mixing everything. So far, you you have seen that I was telling you element read write everything I was telling you buffer.",
+      "avg_logprob": -0.16565147964125973,
+      "no_speech_prob": 0.57373046875
+    },
+    {
+      "start": 4774.81,
+      "end": 4803.01,
+      "text": " Okay, reading the blog writing the blog all these things temporary variable. So all these things I was telling you but remember now we will see everything one by one. We will not mix anything. So now you understand whatever you understood so far that is fine. If you did not understand forget about it. So far whatever we have seen that does not matter. You can forget about it. That is just a motivation for this subject or I can say that is just the idea of the subject in the subject what we study why we study. Okay. What are the things that we that are involved.",
+      "avg_logprob": -0.13649276958024206,
+      "no_speech_prob": 0.329345703125
+    },
+    {
+      "start": 4803.3,
+      "end": 4828.42,
+      "text": " okay what are the concepts what are the terminology that we have we have to see in this topic in this chapter that is what I told you but now whatever I am going to tell you these are the concepts okay so from now onwards questions will be created is this clear from now onwards the questions are going to be created so focus now the first concept we need to see is a database element so what we will see",
+      "avg_logprob": -0.0665945039097085,
+      "no_speech_prob": 0.1064453125
+    },
+    {
+      "start": 4828.68,
+      "end": 4853.87,
+      "text": " we will see some terminology one by one we will see some terminology you understand all the terms and then we will see their applications how to use them so one by one just understand everything let's see the first thing that is database element now you let me let me let me ask you on the high level what are the elements in a database inside a database what do you see on the high level on the high level",
+      "avg_logprob": -0.06315888787608549,
+      "no_speech_prob": 0.08917236328125
+    },
+    {
+      "start": 4854.2,
+      "end": 4882.63,
+      "text": " what do you see when you see a database on the high level on the conceptual level what do you see in a database you see some relations correct you see some very good some relations you are seeing okay some tables some records some attributes correct so these are the things you can see on the high level yes or no on the low level everything is element that's it this is the definition of element whatever is whatever you see on the high level you see relation you see record you see tuple attribute okay all these things that you see",
+      "avg_logprob": -0.08667452682582837,
+      "no_speech_prob": 0.68408203125
+    },
+    {
+      "start": 4882.97,
+      "end": 4911.54,
+      "text": " or everything, everything is an element on the low level. So what is a database element? The database element is nothing but all these things are element now. Is this clear? So database, this is composed of elements. So everything is an element. For example, your relation is an element. Your block is an element. Your individual tuple is an element. In particular, I can say one more thing. See, your entire tuple can be an element.",
+      "avg_logprob": -0.1337076824468871,
+      "no_speech_prob": 0.76220703125
+    },
+    {
+      "start": 4911.94,
+      "end": 4944.93,
+      "text": " your entire relation can be element your block is also element one more thing a particular field value of a particular record is also element okay or something else that also can be element so what is element this so I can say that for example let's assume this is a table this is a table let's assume this is your student table this is your student relation so this is also element and one more thing in this student relation you have rows correct these are the rows",
+      "avg_logprob": -0.10827106115934641,
+      "no_speech_prob": 0.8203125
+    },
+    {
+      "start": 4945.21,
+      "end": 4974.58,
+      "text": " so these are also element and in this you have block for example i can say this is a block for example this is a block this is also element and one more thing this particular this particular value this is also element is this clear what is the element in this in this row in this row this particular field this is also element so what are the elements you can check that this is an element this is an element this block is an element",
+      "avg_logprob": -0.0739080286161466,
+      "no_speech_prob": 0.36962890625
+    },
+    {
+      "start": 4975.16,
+      "end": 5004.6,
+      "text": " This entire record is an element. This entire tuple is an element. And this particular, you can see this particular, this is also an element. So all these things are elements. Is this clear? So from the transaction management point of view, remember for the transactions from the transaction in the low level on the low level, everything in the database is an element or data item. Is this clear? The definition of element is clear. The definition of data item. What is a data item? So from the transaction processing point of view,",
+      "avg_logprob": -0.13070101807783316,
+      "no_speech_prob": 0.260009765625
+    },
+    {
+      "start": 5005.57,
+      "end": 5034.95,
+      "text": " Everything is a data item. Everything is an element. Database is basically represented as collection of data items. Okay. Is this clear? Everything is a data item. Whether your block is an item, this relation is a data item and you can notice your tuple, your entire tuple can be an element. Or similarly, a particular field value of a particular record that is also data element. So what is an element? Is this clear? So from the transaction processing point of view,",
+      "avg_logprob": -0.15060333627285344,
+      "no_speech_prob": 0.76220703125
+    },
+    {
+      "start": 5035.23,
+      "end": 5064.84,
+      "text": " A database is nothing but a collection of data items. Okay. Is this clear? Very simple. So this is the definition of data item. Now, so one more thing, each data item has a unique name. But how to do that? Each data item, I'm saying that each data item has a unique name. Maybe address what we can use for a name. Can anyone tell me? I want to give every element. I want to give a unique name. Then what I can do to give unique name.",
+      "avg_logprob": -0.11463200586421468,
+      "no_speech_prob": 0.300048828125
+    },
+    {
+      "start": 5065.77,
+      "end": 5094.77,
+      "text": " to give unique name what I can do I can use the address yes or no for example you can you can see that if like for every record also there is a record address yes or no for record there is a record address for block there is a block address is this clear so for every data element you can assign the address as the name so finally you can see that each data item has a unique name okay is this point clear for example you can assign the address as a name",
+      "avg_logprob": -0.09713273195876289,
+      "no_speech_prob": 0.84228515625
+    },
+    {
+      "start": 5095.24,
+      "end": 5124.76,
+      "text": " Like your block, let's assume your disk block. So your disk block has address. So that address you can use as the name of that disk block. Similarly, your record, whatever record you take, that has a record address. So that record address you can take as a name. Now you might be thinking, sir, inside a record, this also, this also has a address. Yes or no? This also has a address because this also, if this is a fixed record, then you can calculate this. Yes or no? Is this clear to everyone?",
+      "avg_logprob": -0.16292735195567465,
+      "no_speech_prob": 0.85986328125
+    },
+    {
+      "start": 5125.15,
+      "end": 5152.29,
+      "text": " if this is a fixed length record if this record is fixed length record then you can calculate this address we have already seen this how to calculate do you remember we have already seen this like if this is 100 then how to calculate this how to calculate this so all these things we have already seen so ultimately what I'm saying okay you don't have to worry about it but what I'm saying that every data element has a unique name and you in worst case what you can do you can use the address as the name okay this",
+      "avg_logprob": -0.06434256738086916,
+      "no_speech_prob": 0.369873046875
+    },
+    {
+      "start": 5152.51,
+      "end": 5184.75,
+      "text": " record address block address these addresses you can use as the name so ultimately every data item has a name has a unique name this is your first topic this is your first terminology so what is the element is that clear what is element that is clear now the manzan is asking data item one greater than data item two the same record yes everything is possible you can basically you can do the operation on anything yes or no",
+      "avg_logprob": -0.1441076868269817,
+      "no_speech_prob": 0.77587890625
+    },
+    {
+      "start": 5185,
+      "end": 5213.42,
+      "text": " See, you can do the operation on entire record. You can do an operation on one block. Like, for example, let me let me ask you one thing. If I want to update all the employee salary of all the employee, I want to make 100. Then in this situation, did you notice that your block entire block is a data element? Yes or no? If I want to create, I can say you I want to do this that every earlier, sorry, every your entire relation is a data element in this situation.",
+      "avg_logprob": -0.18536931655623695,
+      "no_speech_prob": 0.466796875
+    },
+    {
+      "start": 5213.82,
+      "end": 5243.28,
+      "text": " i want to do this for every employee i am making salary equal to 100 for every employee so in this situation your employee table complete employee relation that is a data element is this clear so everything is a basically element from the data from the transaction point of view from the transaction manager point of view everything is a element okay everything is element element a element b element c element d so everything has a unique name every element has a unique name for us let me tell you",
+      "avg_logprob": -0.15297378839985018,
+      "no_speech_prob": 0.7607421875
+    },
+    {
+      "start": 5243.44,
+      "end": 5270.44,
+      "text": " From now onwards, we will only use A, B, C, D. These type of things we will use. Are you getting my point? From now onwards, we will only use A, B, C, D, A, B, C, D, A, B, C, D. But I am telling you that in your, from the transaction manager point of view, everything is an element. Your transaction manager does not care about, okay, is this relation, is this attribute, is this record. Your transaction manager does not care. Your transaction manager only sees that, okay, this is an element, this is an element, this is an element, this is an element.",
+      "avg_logprob": -0.11068618995743199,
+      "no_speech_prob": 0.51904296875
+    },
+    {
+      "start": 5270.72,
+      "end": 5301.58,
+      "text": " element A, element B, element C, element D. So from the transaction manager point of view, your database is a collection of elements. Tell me, is this point clear to everyone? Let me know. From the transaction manager point of view, everything is an element. The next point is, this is very important to understand that is a state of database. What is a state of a database? This is very, very, very important to understand. Let me tell you. Again, okay, see, this is very important to understand what is a state of a database and what is consistency of database.",
+      "avg_logprob": -0.10962500262260437,
+      "no_speech_prob": 0.61669921875
+    },
+    {
+      "start": 5302.12,
+      "end": 5331.28,
+      "text": " So what is the state of database that is just a snapshot means value of every element Yes or no see from the transaction point of view if you if you see from the transaction point of view from the transaction point of view or I can say from the low level point of view transaction means low level yes or no correct so transaction means I can say low level so you can notice from low level point of view what I can say I can say your complete database your entire database is just a",
+      "avg_logprob": -0.11894132440187494,
+      "no_speech_prob": 0.3125
+    },
+    {
+      "start": 5331.49,
+      "end": 5362.54,
+      "text": " I can say it is just a collection of elements. Everything is element. It is just a collection of elements. Or I can say data items. So it is just a collection of elements or data items. Now you tell me, so if your database is collection of elements, then what will be database state? What will you state of database current state of database that will be value of all the elements? Yes or no? Is this clear? What is the state of database? State of database means",
+      "avg_logprob": -0.1332720541486553,
+      "no_speech_prob": 0.53515625
+    },
+    {
+      "start": 5362.86,
+      "end": 5392.4,
+      "text": " I can say snapshot of the database. So state of the database that is snapshot of the database means currently I can say database state means database instance. So what is the database state? So a database has a state which is the value of each of its element. Every element has some value. Okay. So from the transaction point of view, everything is a element. Everything, everything, everything from your database is nothing but set of I can say set of elements and every element has a value. Correct.",
+      "avg_logprob": -0.1322057082236392,
+      "no_speech_prob": 0.7236328125
+    },
+    {
+      "start": 5392.65,
+      "end": 5422.4,
+      "text": " every element has a value every element has a value so this is what i am saying that what is the database state database state means every database has a state which is the value of each of its elements can database state change can database state change of course yes or no of course the database state can change it can keep changing you can keep changing yes or no so database state can you can keep changing the value of the elements for example the salary",
+      "avg_logprob": -0.07215589820668938,
+      "no_speech_prob": 0.56640625
+    },
+    {
+      "start": 5422.83,
+      "end": 5452.46,
+      "text": " salary of employee s1 you have some employee s1 for him the salary is also element so you can keep changing there is no problem so remember elements the state the database state will keep changing it will keep changing keep changing so what is the database state that is nothing but database instance it is like database snapshot it is like database snapshot so this is your database snapshot currently at this point of time what is the value of all the elements this is your database snapshot",
+      "avg_logprob": -0.11846127425846846,
+      "no_speech_prob": 0.8125
+    },
+    {
+      "start": 5452.77,
+      "end": 5480.82,
+      "text": " now this is very important that what is a consistent database and what is inconsistent database what is a consistent database what is inconsistent database so what is consistent database so let me tell you that see whenever you are creating a database there are some there are some integrity constraints yes or no whenever you are creating some database then what what happens there are some integrity constraints",
+      "avg_logprob": -0.10055803560784884,
+      "no_speech_prob": 0.1431884765625
+    },
+    {
+      "start": 5481.28,
+      "end": 5513.86,
+      "text": " like you have many integrity constraints are there like for example primary key uh i can say primary key foreign key so there are some integrity constraints okay what are the integrity constraints tell me there are for example i can say uh primary key yes or no like primary key constraint like foreign key constraint okay your functional dependencies your null constraints okay candidate key and so on so there are many many many okay there are entity integrity so there are many constraints",
+      "avg_logprob": -0.06190951826960542,
+      "no_speech_prob": 0.8515625
+    },
+    {
+      "start": 5514.32,
+      "end": 5544.97,
+      "text": " integrity constraints is there any other constraint tell me is there any other constraint on your database now let me tell you there is something called application dependent constraints these are application dependent these are application dependent constraints these are the application dependent constraint these will depend on the application these are in the mind of the application developer where are these these are in the mind",
+      "avg_logprob": -0.09851792454719543,
+      "no_speech_prob": 0.445068359375
+    },
+    {
+      "start": 5545.8,
+      "end": 5576.28,
+      "text": " Where are these? These are in the mind of application developer. For example, you might not be at this point of time, you will not understand this, but let me give you example. You tell me so you can. Okay, what I'm saying, I'm saying that I will explain this. I will explain this. What is this application dependent constraints? So see in every database, whatever database you take in every database, what happens? There are some integrity constraints like what will be the primary key? This would be the primary key.",
+      "avg_logprob": -0.14481027384421655,
+      "no_speech_prob": 0.310791015625
+    },
+    {
+      "start": 5576.52,
+      "end": 5605.31,
+      "text": " So then primary key constraint is there. Okay, then there is a entity integrity constraints. Yes or no, there is a entity integrity constraints. So there is I can say uniqueness constraints. Like, okay, yes or no, you can uniqueness and so on. So like foreign key constraint, functional dependency, these are the constraints. These are the integrity constraints. These are fine that that is fine. These are easy to I can say enforce. Yes or no. Yes or no. These are quite easy to enforce.",
+      "avg_logprob": -0.19487028062905906,
+      "no_speech_prob": 0.73046875
+    },
+    {
+      "start": 5606.32,
+      "end": 5633.3,
+      "text": " You can easily enforce these. Okay, then these are no difficult these you can very easily do Now you tell me the another thing is application dependent constraints. These are these are in the mind of application developer Okay, I will explain what are these but ultimately ultimately when everything is fine Then we call that your database is consistent. Are you getting my point? Are you getting my point that when everything is fine when everything is fine",
+      "avg_logprob": -0.16551598126805106,
+      "no_speech_prob": 0.3232421875
+    },
+    {
+      "start": 5633.61,
+      "end": 5660.06,
+      "text": " then we called okay all these things are basically these are called all these things all these things these are called consistency requirements okay these are called consistency requirements these are called consistency requirements is this clear what are consistency requirement so these things are consistency requirement like integrity constraints these things must be perfect okay functional dependency violations should not happen",
+      "avg_logprob": -0.0772569477558136,
+      "no_speech_prob": 0.281494140625
+    },
+    {
+      "start": 5660.46,
+      "end": 5686.33,
+      "text": " primary key violations should not happen uniqueness this constraint violation should not happen so foreign key violations should not happen so these these things and also some things which are in the mind of application developer these things so if you if you include all these now let me one more one more thing I want to tell you these are called explicit these are called explicit constraints it will be clear just wait I know you are",
+      "avg_logprob": -0.11926423937459535,
+      "no_speech_prob": 0.09930419921875
+    },
+    {
+      "start": 5686.59,
+      "end": 5716.68,
+      "text": " having some doubts these are called explicit constraints and these are called implicit because these are in the mind of the application developer yes or no application so these are the in the mind of the application developer and these are explicit constraints and which are easy to manage see these are easy to enforce yes or no these are very easy to enforce these integrity constraints these you can very easily easily enforce we will see example of these we will see that but ultimately what i'm saying that if you combine all of them",
+      "avg_logprob": -0.06449298438977222,
+      "no_speech_prob": 0.634765625
+    },
+    {
+      "start": 5716.94,
+      "end": 5745.8,
+      "text": " then that is called consistency requirement. Is this clear? If you combine all of them, all of them, you combine that is called consistency requirement. Now I'm saying that if all these things are perfect, if there is no violation, if all these things are perfect, then we will say that your database is in consistent state. So your database state, your database state. So what is a database state that database state can be either consistent state means snapshot. Yes or no.",
+      "avg_logprob": -0.12276785524219883,
+      "no_speech_prob": 0.2459716796875
+    },
+    {
+      "start": 5746.54,
+      "end": 5776.69,
+      "text": " okay state means snapshot state means snapshot or I can say state means instance so your database instance at this point of time your database that can be in consistent state either your database can be in consistent state or your database can be in consistent state consistent state means subchangasi or I can say all basically all constraints okay all consistency requirements are perfect",
+      "avg_logprob": -0.12228260783181674,
+      "no_speech_prob": 0.6806640625
+    },
+    {
+      "start": 5777.45,
+      "end": 5801.55,
+      "text": " Is this clear? All consistency requirements perfect. All consistency requirements fulfilled. Requirements hold. So when all the consistency requirements are holding, then in this situation, we will say that your database is in the consistent state means everything is perfect in the database. There is no problem. Okay. All the consistency requirement are holding.",
+      "avg_logprob": -0.12371735385994413,
+      "no_speech_prob": 0.134033203125
+    },
+    {
+      "start": 5801.96,
+      "end": 5828.68,
+      "text": " like for there is no violation of foreign key there is no violation of functional dependency there is no violation of application dependent constraints so there is no violation everything is perfect then we will say that your database is in consistent state and inconsistent state means some consistency violation can i say yes or no some constraint violation some constraint violation okay then this is called inconsistent state",
+      "avg_logprob": -0.06668526572840554,
+      "no_speech_prob": 0.348388671875
+    },
+    {
+      "start": 5829.05,
+      "end": 5857.89,
+      "text": " Is this clear? What is consistent state? What is inconsistent state? Is this clear? It is not clear. I know it is not clear. Okay. It will be clear now. Let's take example. But ultimately what I'm saying see a database has a state. Every database has a state which is value of its elements. So database state simply means that it is a snapshot of the database at this point of time. What is the database value for every element? What is the value that is your database state? Now your database state can be consistent.",
+      "avg_logprob": -0.1056385901959046,
+      "no_speech_prob": 0.248779296875
+    },
+    {
+      "start": 5858.24,
+      "end": 5885.56,
+      "text": " or it can be inconsistent consistent state means what consistent state means it means that all the constraints of the database are fulfilled okay all the constraints are fulfilled see all the constraints remember all the constraints like for example for example key constraint or I can say your database schema constraint integrity constraints so they must be fulfilled however more more more",
+      "avg_logprob": -0.07098388730082661,
+      "no_speech_prob": 0.70703125
+    },
+    {
+      "start": 5886.97,
+      "end": 5912.83,
+      "text": " Consistent state must also satisfy implicit constraints which are in the mind of a database designer. You might be thinking, sir, what this means in the mind? Yes or no? Agree or not? You might be thinking, sir, what this means in the mind? What this means? So let me tell you the example. You tell me if you are creating the application for IRCTC, then what consistency is in your mind? Forget about all other things.",
+      "avg_logprob": -0.13956705573946238,
+      "no_speech_prob": 0.287841796875
+    },
+    {
+      "start": 5914.48,
+      "end": 5944.29,
+      "text": " IRCTC specific consistency is in your mind you tell me that IRCTC specific consistency which is specific to IRCTC tell me from the IRCTC point of view IRCTC developers point of view what is a consistency which they have to take care one consistency you give me one consistency requirement you give me one requirement that is same seats should not be booked by multiple people yes or no very good yes or no same seat",
+      "avg_logprob": -0.12841235495161737,
+      "no_speech_prob": 0.771484375
+    },
+    {
+      "start": 5944.59,
+      "end": 5972.83,
+      "text": " should not be booked by multiple people do you agree that this is a application dependent consistency requirement yes or no this is what i'm saying see this application dependent constraints so depending on the application there are some constraints for example in the irctc i can say one one seed should not be booked by multiple people that should not happen okay so i can say that is a application dependent constraints for example another situation like from the",
+      "avg_logprob": -0.06789434213368666,
+      "no_speech_prob": 0.55419921875
+    },
+    {
+      "start": 5973.47,
+      "end": 6002.86,
+      "text": " one another situation it can happen like total number of reserved seats that should not be more than total number of seats do you agree total number of reserved seats that should not be more than total number of seats so these type of things I can say these type of things you should take care like for example the aeroplane in the airline this you should take care that okay people are booking people are booking it should not happen that total number reserved seat that is more than the total number of seat in the aeroplane that should not happen okay",
+      "avg_logprob": -0.10221354118375867,
+      "no_speech_prob": 0.83740234375
+    },
+    {
+      "start": 6003.1,
+      "end": 6032.78,
+      "text": " let me tell you it happens in the real life sometimes it can happen actually you go to a you go you have a ticket you have a ticket and still it has happened in the some situations that you have a ticket but still they will deny the seat they will say that aeroplane is full it has happened you can check it out you can watch some video on the youtube you can check it out so you have the ticket but still what they will say they will say flight is full they will say flight is full okay you have the ticket still they will say flight is full",
+      "avg_logprob": -0.06219692753049834,
+      "no_speech_prob": 0.55908203125
+    },
+    {
+      "start": 6033.15,
+      "end": 6062.8,
+      "text": " So you can see that they are not fulfilling the consistency requirement. Yes or no? They should definitely take care that number of reserved seats should not be more than number of total seats. So this is what I'm saying that there are some consistency requirements. Yes or no? For example, for from the bank point of view, what are the consistency requirement from the bank point of view? From the bank point of view, I can say like your amount is debited. Okay, I can say you tell me one thing. You are transferring some amount from your account to another account.",
+      "avg_logprob": -0.09571953806556574,
+      "no_speech_prob": 0.765625
+    },
+    {
+      "start": 6063.09,
+      "end": 6090.73,
+      "text": " like let me ask you this question read this question and tell me read this question and tell me the answer assume that go airline okay so yeah this is just for publicity of go classes so assume in a go airline database data item a there is a data item a see this data item a represents number of unreserved seats number of unreserved seats that is represented by data item a this is the number of unreserved seats",
+      "avg_logprob": -0.06420617747580869,
+      "no_speech_prob": 0.2430419921875
+    },
+    {
+      "start": 6091.11,
+      "end": 6119.68,
+      "text": " and data item B represents number of reserved seats okay and the total number of seats is 300 then you can you find can you find one database state consistency requirement can you give me one consistency requirement can you give me that is what yes very good that is a plus b should be equal to 300 this would always be 300 yes or no okay is this clear are you getting my point what I'm saying application dependent consistency requirement",
+      "avg_logprob": -0.14109003526114283,
+      "no_speech_prob": 0.68896484375
+    },
+    {
+      "start": 6120.46,
+      "end": 6148.69,
+      "text": " yes or no consistency requirement so that everything is very consistent consistency requirement application dependent consistency requirement are you getting this point like see this question and tell me the answer like here data item e represents the number of android students in the go classes in the go classes how many android students are there and data item t represents number of students in the private telegram group then for the consistency requirement what should happen",
+      "avg_logprob": -0.11382516086856022,
+      "no_speech_prob": 0.46484375
+    },
+    {
+      "start": 6149.1,
+      "end": 6177.46,
+      "text": " for the consistency requirement what should happen it should happen that t must be less than equal to e yes or no t i can say t should not be more than e agree or not t should not be more than e are you getting my point is this point clear so this is specific for go classes yes or no like this tell me tell me who who wanted this consistency requirement like this consistency requirement that okay telegram group should have less than equal to number of",
+      "avg_logprob": -0.08555536474222722,
+      "no_speech_prob": 0.353271484375
+    },
+    {
+      "start": 6177.64,
+      "end": 6206.65,
+      "text": " private telegram group should have less than equal to number of enrolled students then who is deciding this who is deciding this yes or no go classes okay yes or no is this clear to everyone is this clear to everyone okay so you can notice this is decided by go classes now let's see this question tell me the answer now for any payment transfer whenever you are doing some payment transfer that transfers some amount from account A to account B you are transferring some amount from account A to account B",
+      "avg_logprob": -0.08674291237113402,
+      "no_speech_prob": 0.85302734375
+    },
+    {
+      "start": 6207.66,
+      "end": 6236.08,
+      "text": " For any transfer, okay, whatever transfer you take, what is the consistency requirement? Like what should happen? Tell me what should happen? What is the consistency requirement? See the summation must be exactly same. Yes or no. I can say that I can say that this is account A plus account B that summation, the summation must be constant. Do you agree? The summation must be constant. Okay. So yes or no.",
+      "avg_logprob": -0.17214132828468626,
+      "no_speech_prob": 0.59130859375
+    },
+    {
+      "start": 6236.4,
+      "end": 6263.93,
+      "text": " even if for example even if some failure is there you are transferring okay if amount is gone if it is successful then also it will be constant and if it is not successful amount has come back to you you are transferring amount has come back to you then also this is constant so can I say a plus b should be constant this is the consistency requirement now is this point clear what I am saying consistency tell me this is a very very very important topic you will not realize this I know",
+      "avg_logprob": -0.0743798349321503,
+      "no_speech_prob": 0.264404296875
+    },
+    {
+      "start": 6264.27,
+      "end": 6292.32,
+      "text": " you are not realizing this but this is very important what is consistent database many times I will use the word consistent database consistent database I have seen many students they use the word consistent database consistent database what is consistent database they don't know this have you seen this maybe maybe you have used the word consistent database but what is this consistent like what are you saying when you say consistent database what do you mean okay are you getting my point tell me",
+      "avg_logprob": -0.1111505658111789,
+      "no_speech_prob": 0.513671875
+    },
+    {
+      "start": 6292.82,
+      "end": 6321.76,
+      "text": " So now if I say database is consistent, do you understand what I want to say? Tell me. Do you understand what I want to say when I say consistency? A state of database you understood. Okay, you one by one you tell me. Did you understand the state of database? A state of database means current current situation. It is the current situation for every element. What is the value? What is the current value of every element? Yes or no. So a state of database means current snapshot.",
+      "avg_logprob": -0.16324404307774135,
+      "no_speech_prob": 0.4765625
+    },
+    {
+      "start": 6322.28,
+      "end": 6348.44,
+      "text": " so state I can say database state means database instance that is snapshot at this point of time what is the value of every element this is the state now there can be two type of state consistent state inconsistent state okay so you tell me one thing what is a consistent state consistent database what is a consistent database when can I say your database is consistent when can I say this your database is consistent when",
+      "avg_logprob": -0.11926423937459535,
+      "no_speech_prob": 0.1424560546875
+    },
+    {
+      "start": 6348.82,
+      "end": 6378.44,
+      "text": " All the requirements, all the consistency requirements are fulfilled. Yes or no? All the consistency requirements are fulfilled. Agree or not? All the consistency requirement. These are the consistency requirement. So when all the, when all the consistency requirement are holding, then I can say your database is consistent. Inconsistent means some constraint is violated. Is this clear? Let me know. Tell me, is this clear to everyone? So, okay, this you understood.",
+      "avg_logprob": -0.12310855592551985,
+      "no_speech_prob": 0.72314453125
+    },
+    {
+      "start": 6379.42,
+      "end": 6402.4,
+      "text": " Did you understand this that there are some explicit constraints like integrity constraints like primary key, foreign key, functional dependency. Okay. These constraints. These are very easy to enforce. You can very easily to enforce this. Yes or no. Do you agree? These are very easy for anyone. Okay. Like, but you tell me the actual game happens here for the IRCTC. I think the major problem is maybe.",
+      "avg_logprob": -0.17051235967597297,
+      "no_speech_prob": 0.326904296875
+    },
+    {
+      "start": 6402.79,
+      "end": 6430.95,
+      "text": " they have to handle that same seat in any situation whatever happen same seat should not go same seat should not go to two people okay for every bank every bank for every bank like phone pay or I can say not a bank but phone pay Google pay if you say what is the major problem that they are facing tell me or I can say what is the frequent issue that they get that is amount is debited but it is not credited yes or no my amount is debited but I did not receive it back okay it has been five days then they will say",
+      "avg_logprob": -0.10379464006317514,
+      "no_speech_prob": 0.64404296875
+    },
+    {
+      "start": 6431.13,
+      "end": 6459.35,
+      "text": " It will come back to you in in two weeks. Okay. Agree or not? So you can notice these are the actual things that we have to we have to make sure here we have to actually do the some work. Actually, these are very easy to implement. You can very easily very easily you can implement these but the actual thing is this the application dependent constraints. Okay. And remember these are they depend on the application developer. Yes or no. So these are in the mind of the developer. Okay.",
+      "avg_logprob": -0.14290979167200485,
+      "no_speech_prob": 0.759765625
+    },
+    {
+      "start": 6459.61,
+      "end": 6488.43,
+      "text": " like when we create the go classes app so at that time we have some some consistency requirement agree or not yes or no when you create your own company you tell me tomorrow when you create your own company some requirement you will have in your mind you will have some requirement that okay i need this this this my company is is related to this this this service and i want these this consistency requirement yes or no whatever happens this should not happen whatever happens this should happen so i can say that these are some",
+      "avg_logprob": -0.09562499731779099,
+      "no_speech_prob": 0.88330078125
+    },
+    {
+      "start": 6488.78,
+      "end": 6515.8,
+      "text": " application dependent constraints these are called implicit constraints and these are in the mind of the application developer okay and these are the main things I can say for any application for any software these are the main things these are the main challenges I can say okay so ultimately I can say your database can be consistent your database can be inconsistent consistent database means everything is fine subchangasi you know there is a meme subchangasi so consistent state means",
+      "avg_logprob": -0.10822088364511728,
+      "no_speech_prob": 0.268310546875
+    },
+    {
+      "start": 6516.12,
+      "end": 6539.47,
+      "text": " all the consistency requirements are holding and inconsistent state means some some violation is there okay so these examples are these examples clear tell me like this example you can notice a plus b equal to 300 this example t should be less than equal to e all these examples are they clear so ultimately this is the definition now you tell me have you seen this",
+      "avg_logprob": -0.06657858543536242,
+      "no_speech_prob": 0.117919921875
+    },
+    {
+      "start": 6539.87,
+      "end": 6567.19,
+      "text": " that many people they use the word consistent database consistent database consistent but they don't understand what is this mean what this means yes or no have you seen this maybe maybe you have seen this like on the in the telegram groups when some people are discussing or maybe you have you have also experienced this that we use the word consistent database consistent database but we don't really understand what this means okay so finally I hope you understood is this clear so consistent state of database",
+      "avg_logprob": -0.09593413625994036,
+      "no_speech_prob": 0.398681640625
+    },
+    {
+      "start": 6567.6,
+      "end": 6596.14,
+      "text": " satisfies all the requirements satisfies all the constraints specific to the schema as well as other constraints which are which are in the mind okay as well as which are in the mind of the database designer so these also we should make sure so is this clear this terminology so remember depending on the application depending on the application depending on the problem depending on the transaction there are some some database consistency requirements yes or no",
+      "avg_logprob": -0.06264833728723888,
+      "no_speech_prob": 0.56298828125
+    },
+    {
+      "start": 6596.82,
+      "end": 6623.98,
+      "text": " Depending on the application, there are some consistency requirements in the mind of the developer. These are part of database consistency. Okay. What are the other things which are part of database consistency? These are part of database consistency. What are other things which are part of database consistency? These are like integrity constraints. Yes or no? Those are also part of database consistency. Integrity constraints. Very good.",
+      "avg_logprob": -0.12604802319916283,
+      "no_speech_prob": 0.8671875
+    },
+    {
+      "start": 6624.43,
+      "end": 6653.13,
+      "text": " So now let's see the third terminology. Let's see this. So so far this is clear. Okay, so let's take a break or shall we continue? Tell me. Now we need to see what is read write operation. Okay, so let's take a break. We can meet after. Let's take a small break. Actually, I want to complete whatever I have taken this all the slides which I have taken. I will take I want to complete them. Okay, so let's take a small break at",
+      "avg_logprob": -0.1686921227309439,
+      "no_speech_prob": 0.5966796875
+    },
+    {
+      "start": 6654.32,
+      "end": 6683.08,
+      "text": " in 15 minutes we will meet okay after that there will there will not be a long break we will take only 5 minute break after that okay so I want to complete actually this all the slides that I have taken all these slides I want to complete today I want to complete acid properties and a lot of questions I have taken on acid properties okay so that that I want to complete so let's take a small break I think 10 minute break will be fine so please we will meet back at 15 minute okay 8 30 okay",
+      "avg_logprob": -0.10794771448350869,
+      "no_speech_prob": 0.87939453125
+    },
+    {
+      "start": 6683.66,
+      "end": 6686.72,
+      "text": " Thank you everyone 830 we will start again okay",
+      "avg_logprob": -0.4904119534925981,
+      "no_speech_prob": 0.5087890625
+    }
+  ],
+  "sourceCompletedAt": "{\"file\":\"077. Lecture 1 - Transaction, Database Consistency.mp4\",\"language\":\"en\",\"probability\":0.9384765625,\"processing_seconds\":158.36835527420044,\"device\":\"cuda\"}"
+}

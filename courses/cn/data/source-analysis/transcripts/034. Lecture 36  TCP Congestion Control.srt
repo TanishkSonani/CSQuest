@@ -1,0 +1,732 @@
+1
+00:00:00,370 --> 00:00:26,000
+Hi everyone, how are you doing? Okay, so today we are going to start with TCP congestion control, right? Good. So this is a new topic, which we have not studied till now, but we will study now, right? Should we start? Let me know if there is any doubt from any of the previous session. Okay, so let's get started.
+
+2
+00:00:27,330 --> 00:00:46,010
+So, if you recall that TCP was a reliable protocol, which means that we ensure that the data is delivered reliably, which means that data is delivered uncorrupted and there is an order delivery of the data. So, that's what we have already discussed. So, these are the features of TCP.
+
+3
+00:00:48,400 --> 00:01:10,120
+As we know, this TCP is a reliable protocol. So it must ensure that data should be encrypted. It should be in order. It should be like TCP is a byte stream protocol. It means that it takes the bytes, like data in terms of the bytes, right? So which means that if it is application, then
+
+4
+00:01:10,480 --> 00:01:41,260
+it takes the data in terms of byte so it is not the responsibility of application to make the data in segment or something right so TCP can take the data in terms of the byte and it can make its own segment so that's why we call it byte stream okay so now you might recall that TCP is basically end to end right which means that client will be at one end and server will be at another end and in between there is an internet do you recall this diagram so in between there is a there is an internet right now
+
+5
+00:01:42,450 --> 00:02:09,090
+Is this the same case? Is this the same case with data link layer? In data link layer, do also we have the same case? Which means in data link layer also do we have internet in between? No, right? See, if at data link layer we are providing let's suppose some flow control or congestion, some flow control or error control mechanism that we have seen, right? So that was hope to hope. So that was nothing, no internet in between. But here we have internet in between.
+
+6
+00:02:10,030 --> 00:02:39,000
+So when I say internet in between it means there are many many things in between right let's suppose you want to connect from here Okay, let's suppose you want to connect from here to here Then there are this router in between maybe you can go to this router through this router then to this router. I mean there are many many path, right? There are many many path in between is this so could everyone Now now what we want to do we want to basically make sure that our data is is basically reaching
+
+7
+00:02:39,350 --> 00:03:13,230
+reaching in order and it is also reaching reliable we want to make sure this which means that we don't uh we uh i mean irrespective of the path it is taking irrespective of the path it is taking we want to make sure the data is reaching reliably so so we have already seen the flow control which means flow control is saying that this is this is the as a receiver is telling to the sender that okay this is my receiving window right so in the flow control what we have seen that there is a receiver window right
+
+8
+00:03:13,470 --> 00:03:50,420
+so in the flow control we have seen that there is a receiver window so let me draw the diagram again see there is a sender there is a receiver right this is sender this is receiver so now let's suppose this is sender this is a receiver now this receiver is saying that see you can send the data maybe i'm expecting from some byte maybe 5001 and whenever it is sending the acknowledgement it also said the receiving window right
+
+9
+00:03:50,910 --> 00:04:18,340
+RWND we were saying RWND receiving window. Maybe it is saying that okay, I can hold maybe let's suppose 1000 bytes, right? 1000 bytes. So it is good. I mean, we are taking care of the receiver. It is really good. But are we taking care of this router? Are we taking care of this router? Are we taking care of this router? Are we taking care of this router? Are we taking care of this router? And so on, right? We are taking care of the receiver, but in between the routers may also get overloaded or overwhelmed. So
+
+10
+00:04:18,690 --> 00:04:46,810
+so we are not taking care of the routers we are taking care of the receiver in the flow control but there are in between many many routers so we should we take care of the routers or not just tell me in the TCP or in the transport layer should we take care of the routers also should we take care of the internet in the between or not see in the data link layer that was not the problem but in the transport layer this is a problem right we need to take care we need to take care of the internet in the between
+
+11
+00:04:47,590 --> 00:05:16,810
+So not only the receiver, right? We need to take care at the internet in the between. So for example, let's suppose this is a sender, this is a receiver. In link layer or the data link layer transmission, we were only taking care of this. Do we have internet in between? No, right? But we have internet in between here, right? Whenever we are talking about transport layer communication. So we have internet in between. Now we need to take care about this outer also, this outer also and so on. So we need to take care about these things also. Have you understood?
+
+12
+00:05:17,260 --> 00:05:26,640
+what I'm trying to say. So Satyam is saying that won't be taken care at network layer.
+
+13
+00:05:26,900 --> 00:05:56,000
+no at any layer is independent so if transport layer is providing that responsibility of you know reliable and in order and you know like byte stream data then transport layer is the only responsible it means that the transport layer is independently responsible and any anyway like at the network layer we don't have the congestion the congestion control flow control these things right network layer we have ip which is also unreliable so here here we need to take care of these routers in the between
+
+14
+00:05:56,680 --> 00:06:22,560
+That's what we will do in transport layer and that's what the topic of today which is called congestion control. Okay, so if you notice the today's topic is TCP congestion control. So what is this congestion control? Let me just tell you the definition first. See flow control we have seen it is adjusting the sender rate to keep from overwhelming the slow receiver, which means if receiver is slow, then we will take care of that.
+
+15
+00:06:23,150 --> 00:06:53,470
+Right, so that's what flow control it take care of take care of the receiver but congestion control says They are adjusting the sender rate to over overloading the network network means the routers in the between so we need to take care of the receiver We also need to take care of the routers in between so we need to take care of the both now if we take care of the receiver Then we call it flow control if we take care of the network in between we call it congestion control Okay, is the definition killer to everyone so see here
+
+16
+00:06:53,630 --> 00:07:22,910
+that congestion like whenever the sender is sending so there could be congestion in between now we need to also check that what is this congestion I mean how the data is getting flowed and if the data is correctly reaching to the receiver or not so we need to take care of these things also understood okay so this is the topic of today now obvious question is that how do we know that network is congested and how do we even handle this congestion so see
+
+17
+00:07:23,190 --> 00:07:54,630
+What we have what we have in our hand. This is a sender. This is a receiver Now what do you think we will the center will get to know there is a congestion? What do we have in our hand? We will be receiving at most ACKs, right? ACKs are in our hand. I mean based on the ACK we can we can see if if there is a congestion, right? So how do we how do we know the network is congestion? congested or not based on ACKs, right? And how do we handle that congestion?
+
+18
+00:07:55,640 --> 00:08:37,250
+if there is a congestion then what we can do so any any guess I mean the intuitive idea could be we should be slow down the rate or we should be faster than the rate if there is a congestion in the network should we slow down or should we slow down or should we fasten up we should slow down right so how do we handle this congestion we will slow down I mean center will slow down okay is this understood to everyone cool okay
+
+19
+00:08:37,520 --> 00:09:05,660
+So how do we know based on the ACKs if let's suppose we are not getting ACK then we will slow down right we will slow down okay so the problem here is that we want to avoid congestion with no central coordination which means we don't have any central authority that is telling us that there is a congestion or not and no knowledge from peers like we don't have any knowledge from routers also right any peer routers also we don't have any knowledge from routers and no direct network feedback and we don't also have the network feedback
+
+20
+00:09:06,320 --> 00:09:36,460
+So how to solve that? All you see are essentially ACKs, right? You only have ACKs in your hand. Okay. So now let's just let's just see that how TCP handle the congestion. So the basic idea is that and host, which means the sender and receiver, they will be adjusting the sending rate and based on the implicit feedback from the network, which means based on the implicit feedback here means the ACKs. Okay.
+
+21
+00:09:37,860 --> 00:10:16,800
+So, let's just see that how TCP is handling the congestion. So congestion, how it can detect the congestion, we can detect congestion where the loss of packet. If there's a loss of packet, we will see there's a congestion, right? Okay, so it means if there is a loss of packet, then congestion, right? And if there is a congestion, then how do we handle it? We will slow down the rate, right? We will slow down. So very easy idea.
+
+22
+00:10:17,370 --> 00:10:40,940
+So the basic structure is that upon receiving the ACK we will increase the rate we will get to know that okay I mean the AC like packets are getting delivered so we will increase the rate or should we not increase the rate if we are getting the ACK successfully should we increase or should we keep it constant what do you think we should increase right why to optimize it to have more efficiency
+
+23
+00:10:42,850 --> 00:11:10,870
+So if you don't increase, then I don't think it is a good idea, which means let's suppose you are just sending one packet at a time. You're getting ACK for one packet. You're sending one packet, you're getting ACK for one packet. Do you think you should send two packets next time or just one packet only? Two packets, right? So basically, the basic idea could be you're sending one packet. If you're getting ACK, then send probably two packets this time.
+
+24
+00:11:11,470 --> 00:11:40,040
+if you are getting ACKs then send maybe more packets maybe more packets maybe 4 packets let's suppose this time also you are getting ACKs then send maybe more packets let's suppose that this time also
+
+25
+00:11:40,280 --> 00:12:06,320
+you are uh you are getting acks then uh instead of four you can you can send six you can send eight right because for four things seems to be fine so maybe you can send eight packets and let's suppose for eight packets you are not getting acks then what you will say you will say now eight is eight is two babe now what we can do we can just slow it down right maybe maybe four see for four we were getting ack for four we were getting ack
+
+26
+00:12:06,690 --> 00:12:41,510
+For one we were getting ACK, for two we were getting ACK, for four we were getting ACK, for eight we are not getting ACK. Maybe I can go to which number? Do you want to suggest any number? Yeah, six seems good, maybe, right? Maybe six seems good. Six. Actually, I mean, it is just a heuristic you are telling me, right? I mean, there is no algorithm that you have applied. Maybe just based on your intuition you are telling that six seems good, right? What about five? What about five? Do five seem good? Five also maybe, right?
+
+27
+00:12:41,760 --> 00:13:23,500
+because 4 is good enough maybe 5 I can try whatever 7 may be probably right so we will see we will see we will see that how to how to go if 8 if at 8 we are getting a CK so we are not getting a CK then what we can do see earlier what we were doing you you remember the binary search I mean it's just like that okay see let's suppose let's suppose we are playing a game okay and I ask you to guess a number I have one number in my mind
+
+28
+00:13:31,250 --> 00:14:12,090
+I ask you to guess the number then what you will do let's suppose I mean in my mind actually you don't know but let's suppose in my mind it's 40 okay in my mind it is 40 you don't know it but I ask you to guess this number so how you will start will you start with 1000 will you start with 1000 will you say that okay 1000 I can I can just tell you yes or no okay you give me 1000 I will say no right will you start with 1000 or you will start with 10,000 or you will start with 100
+
+29
+00:14:12,430 --> 00:14:51,840
+you have no clue you have no clue from where to start right then what you will do you can start with anything right you can start with more you can start with less so i can just tell you that greater than the number is greater or lesser i can just help you with that let's suppose you you start with one i will say no it is no i have greater number in mind then what you will do you will say that probably two right two then then
+
+30
+00:14:53,740 --> 00:15:27,180
+I will say no. I have again greater number in mind, right? You will say again, will you say three? Will you say three? You can say three, but let's just see that what if you say four? Then I will say no, I have even greater number in mind. Then what you will do? You will say eight, right? You will say eight. Then I will say no, I have greater number in mind. Then similarly, you might say 16. Then you might say 32. Then you might say
+
+31
+00:15:27,420 --> 00:16:09,750
+For like 60 and 32 I will say I have greater number in mind but the moment you say let's suppose next number which is 64 right 64 let's suppose you say 64 I will say I have lesser number in mind so I will say no no I have lesser number in mind I mean it's just like a binary search then you will say okay for 32 greater it's it's must be between 32 and 64 right for 32 it is greater
+
+32
+00:16:10,170 --> 00:16:41,220
+and if I double this up which means 64 it is lesser maybe you will just pick middle number maybe 48 or something right you will just pick middle number okay you if you say 48 I will say no I have great sorry lesser number in mind then probably you will you will say maybe 40 or something right so now you will say 40 because 48 and 32 what is middle of that 38 32 and 48 maybe you are choosing the middle one this is 80 right
+
+33
+00:16:41,420 --> 00:16:59,280
+so now this time you will probably say okay 40 then okay yes this is my number so what i'm saying that if you don't have any idea then what you will be doing you you will probably keep on doubling right you will you will initially keep on doubling so that's what we will do here
+
+34
+00:16:59,450 --> 00:17:28,870
+if you don't know that how much network can handle you will keep on doubling keep on doubling keep on doubling the moment you say no no no it is too much it is it is too much you will say oh it is too much then what we can do we can again go to the middle of that that's not an issue but the tcp algorithm suggests that what we can do we can now start linearly okay which means if four is okay and eight is too much then then next time we will be sending five okay five packets then six packets okay
+
+35
+00:17:29,130 --> 00:17:58,150
+If if this five is fine, uh, then then we will sending six packets. If at six, we are facing the drop. Okay. Six at six, we, the packet is getting dropped. Then what we will say that five is optimal, right? Five is optimal. Five is our answer. So how TCP is handling it is saying, okay, one, two, four. Good. Right. At eight, we are saying that, okay, too much because the packet is getting lost. If eight is too much, then what is the next next thing to do? We can say five. We can say six like that, right?
+
+36
+00:18:05,150 --> 00:18:37,090
+Okay, so I hope you understood that what I'm trying to say Okay, so let me know if there is any issue here that how we how this TCP is dealing with the congestion Do you have any better strategy to deal with the congestion? So how TCP is dealing have you understood? So it is saying you're sending one Then you're sending two packets Two packets are fine. You're sending four packets four packets are fine. Then you're sending eight packets If eight packets are not fine, then what you're doing?
+
+37
+00:18:38,510 --> 00:19:13,590
+Then you are sending five packets, right? Then you are sending five packets. Then you are sending five packets. If five packets are fine, then you are sending, let's suppose, six packets. If six packets are not fine, but five was fine, then what is the optimal one? Some drop here, some drop here, right? Then five is the optimal one. Then you will say, okay, five is the optimal one. Okay, understood how it is happening. So how TCP is starting with this problem? TCP is starting with one packet.
+
+38
+00:19:14,260 --> 00:19:41,680
+I mean now some smaller number okay need not to be exactly one but but the TCP implementation says that it like we can start with one but you can you can start with any smaller number basically right so maybe you can directly start with four it's not not a big issue okay you can directly start with two also but but TCP says that let's just start with one okay the standard algorithm says that let's just start with one and then keep on doubling keep on doubling keep on doubling the moment you find the find there is a congestion then what you will do
+
+39
+00:19:42,490 --> 00:20:10,470
+You will say that okay, this time let's just let's just slow it down. Okay, maybe maybe let's just go to five. Okay, let's just go to five Okay, so you will get to understand more Basically, if there's a congestion then there are different strategies to deal with one is slow start another one is called congestion avoidance We will see that right? Okay, so if there's a congestion then it like I mean some people may say that if there's a congestion then why we are starting with five
+
+40
+00:20:10,970 --> 00:20:43,330
+Maybe maybe the congestion is so severe at this point in time that we should again start with one Okay, so we will see the strategies that TCP is having. This is just one general idea that we can have Have you understood this general idea that what I'm trying to say? Let me know if there's any doubt So Satyam is asking one doubt, which is that if sender doesn't get ACK, then it means there's a congestion. Yeah, that is that is
+
+41
+00:20:43,950 --> 00:21:15,770
+like you can say the one of the I mean that is that is quite only way to detect the congestion basically that if sender is not getting the not getting the ACK then sender will think there's a congestion right okay cool now actually we need to we need to understand this in a bit more detail so let's just go to the further slides so in TCP flow control we were having the receiver window do you remember the receiver window that was in the header itself right the receiver window was in the header itself
+
+42
+00:21:16,110 --> 00:21:58,590
+Now in TCP congestion control, we will maintain or the sender will maintain another window, which is called congestion window. OK. So sender will maintain this. OK. So this congestion window is telling that how much network can handle. Suppose network can handle. For example, this is the network. Let's suppose this network can handle. Just a second. Suppose the network can handle. Let's suppose this is the network. Network can handle 10 segments at a time.
+
+43
+00:22:00,190 --> 00:22:32,110
+at this current situation network can handle 10 segments at a time and this can handle 20 segments at a time so sender should send how much this can buffer or this can handle 20 segments at a time and network can handle 10 then segment should send 10 only and suppose network can handle 50 then it can still handle just 20 then only 20 suppose network can handle 50
+
+44
+00:22:32,410 --> 00:23:03,580
+this can handle 200 then 50 so you are getting my point right so whichever is minimum I mean whatever network can handle whatever sender this receiver can handle so you need to take the minimum of both of them and then you will get to know that what should sender send so if I just say what should be the sender window size then it will be whatever network can handle and whatever receiver can handle it will be minimum of both of them so congestion window is that
+
+45
+00:23:03,800 --> 00:23:48,830
+what network can handle at a time network can handle okay this is this is what congestion window is and receiver window is that what receiver can handle and sender should send minimum of both of them now who is going to tell the receiver window size who is going to tell the size receiver himself right receiver himself will will is going to tell that what is how much you know i can handle that's what receiver going to tell
+
+46
+00:23:49,270 --> 00:24:17,700
+and who is going to tell who is going to tell this congestion window that what network can handle who is going to tell this yeah no one is going to tell yes we have to find out this and that's what congestion control is right no one is going to tell and we have to find out so how we can find out this is let's suppose some number this is let's suppose some number 40 how we are going to guess this 40 maybe maybe
+
+47
+00:24:18,080 --> 00:24:45,380
+Some some kind of binary search like one two four like that, right? Just again we played so this is some unknown number that you don't know, right? This is some unknown number and you want to guess this number So so can network response can can network tell you just like just like I told you see I told you if you remember that that the number in my mind is greater or number in my mind is lesser can network also tell you What do you think?
+
+48
+00:24:46,290 --> 00:25:18,420
+Can network tell you that number the congestion window number is greater or lesser if you get some number? No network can tell how you will be sending you will be sending and if there's a ACK then you will network will say yes yes I can maybe increase increase if you as long as you are getting ACK you keep on increasing right? As long as you are you are getting ACK you keep on increasing and then the moment you get a drop you will say no no like I cannot handle that much you just slow down right?
+
+49
+00:25:18,780 --> 00:25:49,130
+So basically you will keep on keep on doubling probably right I mean this is one strategy that you can keep on doubling and then if there is a there's a loss of the packet then you will just slow down okay so network can definitely tell so that's what the number that we are like that we want to guess and that is what that is what congestion control is okay that how to guess this number and once we guess this number then we will take minimum of fourth of them that will be the center window size
+
+50
+00:25:51,500 --> 00:26:16,360
+Okay, let's just see. So we have receiver window here. We have a congestion window also, and sender will be the window will be the minimum of both of them. So what is the congestion window? How many bytes can we send without overwhelming routers? Right, computed by sender. It is computed by sender using congestion control algorithm. What is flow control window or the advertised window?
+
+51
+00:26:16,720 --> 00:26:49,110
+this is basically how many words can be sent without overwhelming receivers buffer determine by the receiver and report it to the sender it is determined by the receiver and sender will be taking the minimum of both of them okay generally the receiver window size is quite larger than the congestion window okay it's in general it happens anyway okay so let's just see that how to how to guess that number which means how to know that what is the congestion window size because the whole exercise is to guess that number only
+
+52
+00:26:50,200 --> 00:27:19,920
+okay so what we will be doing we will start we will be starting slowly which means we will say okay let me just send one packet maybe then two packets then four packets then eight packets so we will be starting slowly right so we will be starting slowly that's why we will say that it is a slow start and exponential increase and then we will be keep on doubling keep on doubling keep on doubling is this fine to everyone so we will be starting slowly and it is exponential increase which means we will be keep on doubling
+
+53
+00:27:20,450 --> 00:27:56,840
+But can we keep on doubling always? What do you think? So you are sending one packet, then two packets, then four packets, then eight packets, right? Then 16, then 32, okay? Then 32 packets, then 64 packets. Let's suppose there are 64 packets, there's a loss. There's a loss of packet, right? I mean one packet, two packets, five packets, whatever, but there's a loss of packet. Whenever you are sending 64 packets, there's a loss of some packets, right?
+
+54
+00:27:57,070 --> 00:28:28,770
+Maybe just one packet, maybe two packets or whatever, right? So, but there's a loss of some packets. Then what is the next number that you might be choosing? 32 was fine. 64, there's a loss, maybe 33, maybe 33. Okay. So, I mean, this is one strategy or maybe some of you can say that 33 might be also too much because the network might be really, really, really congested, too, too worst. So, maybe, maybe you can just send one packet. You can just go to solo start.
+
+55
+00:28:29,040 --> 00:28:53,740
+You can just again start slowly. Maybe some of you might suggest something like this. There's nothing wrong in 1 or nothing wrong in 33. This is just anything that you can do. Is there anything wrong in 1? Any reasoning wrong in 1? No, I mean you may say that the congestion is so severe that you just relax for some time. You just start with 1 again. So with this reasoning, this one is fine.
+
+56
+00:28:54,660 --> 00:29:22,030
+33 is also fine. You may say that, okay, the 32 earlier we sent 32. Now 32 was good. What about now 33, right? So with this reasoning, 33 is also fine. So I mean, you can have any reasoning and you can send any number packet. That's not an issue. But the whole idea is that you should understand that what is happening. So we will be keep on doubling, keep on doubling. And then the moment we send, we feel there is a congestion, we can, we can just slow it down, right? So slow down is the key point.
+
+57
+00:29:22,330 --> 00:29:50,930
+Now, how you are slowing down, whether you are going to 1, whether you are going to 10, whether you are going to 33, it will depend, right? How you are slowing down, it might depend. But you need to slow down, that is for sure. Okay. Now, one thing is there that we are basically waiting for some loss. It's like that we are driving very unsafe because there was no accident and the moment we got some accident, after that we are driving safely.
+
+58
+00:29:52,090 --> 00:30:26,730
+Should that be their strategy? See what I'm saying that you drive very unsafe I mean you keep on doubling keep on doubling the moment you feel there is some accident now you will be cautious Should we do that? Or should we be cautious from the very beginning? So what I mean to say what I mean to say that that there's a loss here, right? There's a loss here should we ever should we avoid even this loss or should we not avoid this loss? We should avoid even this loss, right? so
+
+59
+00:30:27,550 --> 00:30:57,090
+so what we can do here can anyone suggest me see just don't worry these are just ideas we will have many examples we will understand this very clearly these are just random ideas here and there all of these dots will get connected okay if you are not understanding anything all of these got dots will be connected so currently my question is that you will keep on doubling keep on doubling keep on doubling that's fine now this strategy itself has a problem that keep on doubling itself has a problem so what is the what is the implicit problem with keep on doubling
+
+60
+00:30:57,740 --> 00:32:15,770
+that ultimately there is bound to loss you will definitely incur a loss right you will definitely incur a loss you can't keep on doubling so this keep on doubling strategy seems good but it is having one implicit problem have you understood that implicit problem first of all let me know but it is bound to have a loss right can you avoid this loss to have a loss at some point in time we want to avoid this loss okay let's just see the ideas
+
+61
+00:32:16,150 --> 00:32:43,240
+So, Sangeet is saying we may know at which point we need to slow down in advance to have a nice, this is a very nice idea. Okay. Spidey is also saying some idea. So, let me just do one thing. Let me write both of the ideas here. So, Sangeet is saying that if in advance we can just maybe know somehow that okay, that loss may occur.
+
+62
+00:32:43,990 --> 00:33:12,900
+because definitely we will not know that at what point in time loss will occur but if somehow we know that if loss may occur maybe at maybe let's suppose at 40 loss may occur right or at 50 loss may occur then should we directly go to 64 no right if we somehow somehow can guess okay 32 is itself too big I should not go to I should not jump to 64 so maybe from 32 itself I can go linearly 33 34 like that right so if we somehow can you know have some number
+
+63
+00:33:13,150 --> 00:33:47,050
+uh initially then it might help us right yeah one idea that could be that you increase slowly from one two two two three then four five six so this is one idea that you increase slowly this is one idea another idea so basically there are two ideas right so let's just combine these two ideas and let's just see what we have from these two ideas see now now sanghiti is saying that
+
+64
+00:33:47,340 --> 00:34:16,890
+Or maybe let me just take the Spidey idea first. So he's saying that we have, we send one, then we send two, then we send three, then we send four, then we send five. By this way, if there's a loss, then that won't be too much loss. I mean, which means that if four is good enough, five is not good enough, then we are not losing too much. We might be just losing one or two packets here because four was actually correct one. So we might be just losing one or two packets.
+
+65
+00:34:17,290 --> 00:34:51,440
+So, is this idea good that we just increase linearly? What do you think? It is good, but it is very slow, right? It is very slow. Actually, let's suppose the real number itself is 128. Then we will be taking too much time to go to 128, right? It will take too much time. We can go slow, but it will take too much time. So, what is the next idea? Next idea is very nice. It is saying,
+
+66
+00:34:51,770 --> 00:35:19,740
+the next idea could be we can we can double not an issue we can double we can keep on doubling but till the still a certain point after a certain point we go linearly see see here here if we go linearly from very start then it's very slow right but can I do something like this from 1 to 2 to 4 to 8 to 16 to 32 I go like this
+
+67
+00:35:20,030 --> 00:35:51,420
+then then somehow okay i'm just guessing i don't know whether 32 is a good number or 16 is a good number but after a certain point okay after a certain point okay if i don't get any loss if i get a loss then i will take care but let's suppose 30 till 32 i'm not getting any loss then should i wait for the loss should i should i go for 64 and and see that there is a loss it's not a good idea to go to 64 directly right because 64 seems very big number so so maybe i can say that after 32 i will be increasing linearly like this right so see
+
+68
+00:35:51,990 --> 00:36:19,940
+we want to increase linearly but after a certain point in time if we increase linearly from very beginning it is very slow but after still still certain point in time at least I can I can take some bat right I can I can risk I can take a risk in this region is this good enough that initially I can take a risk right till this certain point till a certain point in time I can take a risk but after a certain point in time I will increase linearly have you understood what I'm trying to say
+
+69
+00:36:21,450 --> 00:36:48,820
+Okay, so the certain point in time is called threshold Okay, so the threshold till threshold or Actually, this phase is called slow start. So it's called slow start threshold till slow start threshold Let's suppose it is 32 if slow start threshold is 32 then you keep on increasing keep on doubling till 32 and after 32 you linearly increase For example, let's suppose they say the slow start threshold
+
+70
+00:36:50,520 --> 00:37:21,910
+Actually this phase initial phase is called through slow start. That's why I mean this is called slow start threshold. Let's suppose this is given to be let's suppose this is given to be 16. Then how you will be doing from one you will go to two from two you will go to four from four you will go to eight from eight you will go to 16 from 16 you will go to 17 right because I have reached my threshold if I reach my threshold then I will go to
+
+71
+00:37:22,250 --> 00:37:48,200
+17 now, then 18, then 19 like that. And let's suppose at 19, I am getting some loss, then maybe 18 is a good number and I will fix that to 18. So, I will have some initial threshold. So, this is you can say some pre-agreed threshold. This is some, I mean some initial threshold.
+
+72
+00:37:54,190 --> 00:38:28,750
+That is some pre-agreed value that okay till this point. I will be going double. So it's the best of both word, right? It's you can say it's a best of Both which means what I mean to say that you are you are increasing Exponentially also, but after a certain point time, you don't want to take risk. That's why you are going linearly That's why we can say it's a best of both words Okay, so let me just show you
+
+73
+00:38:28,980 --> 00:39:02,820
+that how it might look like see can you see this graph so we say that this is slow start threshold we say that till this threshold we are going exponentially I mean we are starting with one mss mss means maximum segment size okay so we are starting with one segment and then uh then we are saying that okay now we are increasing uh like exponentially this is just a exponential graph right we are increasing exponentially after a point in time we are increasing linearly and maybe maybe you can say okay
+
+74
+00:39:03,800 --> 00:40:07,110
+after certain point in time that will be just constant I mean obviously you can't keep on increasing linearly also right after certain point in time that will be just constant is this graph okay to everyone let me know so here initially we can take a bet later on we don't want to take a risk so this is how it may look like let me know if you have any doubt yes they balance you
+
+75
+00:40:07,310 --> 00:40:47,050
+so the balance is saying that can we say we need to move slowly once it get big yes we need to move slowly means you need to increase the congestion into slowly okay yeah so now let's just see this in more detail now can you can you see that there are two parts of the graph can you see there are two parts of the graph earlier we are increasing exponentially later we are increasing linearly so TCP call these two different phases okay two different phases
+
+76
+00:40:47,420 --> 00:41:18,020
+which means TCP call it slow start but exponentially increase okay slow start exponentially increase because we are increasing exponentially we are starting very slow right why we are starting why we are calling it slow start because we are starting with one mss only we are starting with very less number of segments generally it is one only okay you may start with two three whatever but generally it is one only so we are starting very slowly but rapidly we are increasing
+
+77
+00:41:18,360 --> 00:41:58,900
+and after a point in time after a point in time we are saying that now we want to increase it linearly so TCP call it two phases first phase here from here to here we call it slow start phase and second phase is called additive increase phase okay there are two phases we call it slow start phase and additive increase phase so see here so for the TCP congestion there are two policies slow start exponential increase
+
+78
+00:41:59,160 --> 00:42:30,580
+next phase is called congestion awareness phase because we are basically very careful here so we are calling it congestion awareness phase or we also call it additive increase phase okay additive we are increasing additively not we are not increasing exponentially so we call it additive increase phase okay now let's just see how how things are going on right cool now actually this is this story that I told you it seems seems to be good but there will be
+
+79
+00:42:30,900 --> 00:42:57,300
+One catch and what will that catch? What if there are laws right? What if there are laws? What if you incur a loss? So let's just see what if you incur a loss? Yeah, MSS actually after this lecture, we will look at this MSS which is related to m2u So you do remember m2u at the detailing clear. There's a certain size you cannot fit in right and in some network So this m2u and mss are closely related so
+
+80
+00:42:57,910 --> 00:43:26,170
+whatever is the M2U you just subtract that Ethernet sorry that IP header and so on then you will get the MSS so we will talk about the MSS also in the next lecture but you can understand it's some segment size here we are talking about right it will be in the bytes so basically it's one segment size we are saying let's suppose you cannot send more than 1400 bytes from the transport layer okay so transport layer should not be able to send more than 1400 bytes something like that so there is some
+
+81
+00:43:26,420 --> 00:43:58,540
+some size that in the bytes okay we will talk about this mss in more detail when we talk about tcp options and all okay so anyway so currently we understand this is segment size good now suppose suppose you are you are increasing right you are doubling doubling doubling and maybe like your idea was let's suppose your slow start threshold is let's suppose slow start threshold is let's suppose 32
+
+82
+00:44:01,630 --> 00:44:33,060
+which means that you initially guess that till 32 things will be fine you initially guess it right so initial this is the initial threshold which means you initially guessed it that till 32 things will be fine but unfortunately let's suppose at 8 okay at 8 whenever you are sending 8 packets the moment you send 8 packets right you incur a loss can this happen
+
+83
+00:44:33,920 --> 00:45:04,700
+See, initially you guessed that till 32 things will be good enough. But can this happen that at 8 only you are saying that there is a packet loss? Practically anything can happen, right? So, which means you started with 1, you made it 2, you made it 4, you made it 8, you wanted to do it 16, you wanted to do it 16, but then you saw that okay, whenever you are sending 8 packets, then there is a packet loss. Okay, can this happen? First of all, tell me.
+
+84
+00:45:05,480 --> 00:45:40,180
+In the normal scenario, in the normal scenario, it will go from 8 to 16 to 32, then to 33, then to 34. This is the normal scenario. When there's a no packet loss, okay? When there's a no packet loss, you will, you will move, I mean, you will increase your congestion window size, something like this. But if there's a packet loss, let's suppose at 8 itself, there's a packet loss, then what will happen? Let's just see. Okay. So what do you think what, what we should do?
+
+85
+00:45:47,080 --> 00:46:20,700
+if at 8 itself is a packet loss then what should be the next next size that you should be having here yeah you should slow down to how much no if at 8 itself is a packet loss you can't have 9 right you can't have 9 so now now you can slow down maybe you some people can say you may go to 1 some people can say okay from 8 you go to 2 some people can say you go to 5 some people can say you go to 4 okay
+
+86
+00:46:20,970 --> 00:46:56,810
+I mean, there are different different things that you can apply. Some people can say you go to seven or something like that. Right. But let's just see what TCP says. Okay. TCP. Let's just see what TCP says. TPC. The TCP says that what kind of loss is this? Okay. Which means the TCP first identify that what kind of losses is this type of loss, which means that loss could be of because of two regions. Okay. So let me just tell you that what are those two regions?
+
+87
+00:46:57,100 --> 00:47:34,220
+from which loss can happen. So TCP says that there are two ways in which we can identify the loss. What are those two ways? Let's just see. See, let's suppose you're sending some packets, right? Let's suppose you're sending some packets. Then what may so happen that all of these packets may get lost, right? All of these packets may get lost or there, I mean, there could something like this, there could be something like this, that maybe one of them is getting lost.
+
+88
+00:47:34,470 --> 00:48:15,940
+maybe this is reaching this is also reaching this is also reaching can this happen all all packets are lost can this happen let me know yes right so this can definitely happen now TCP says that that we should be identifying that what kind of loss is this is all packets are getting lost or just one or two so if all packets are getting lost then let's suppose TCP is maintaining one timer for this then timeout will happen will happen right then timeout will happen
+
+89
+00:48:18,760 --> 00:48:44,290
+If all pickers are getting lost then timeout will happen. If just let's suppose this is the getting lost then what will happen if this is reaching at that time it is sending the ACK and let's suppose that this this is basically I mean I'm just writing the packet numbers although it is basically sequence number and so on but let's suppose this is 5 packet number 567 so can you tell me the ACK here? Can you tell me the ACK here?
+
+90
+00:48:45,000 --> 00:49:19,480
+Can you tell me TCP which is a completely basic right? Can you tell me the ACK here? What are those ACKs? They will say 666 Right? Sorry 555 They will say I'm expecting 5, I'm expecting 5, I'm expecting 5 So basically if 5 is lost then everyone will say I'm expecting 5, I'm expecting 5, I'm expecting 5 Although, although TCP will store it But still they will say I'm expecting 5, I'm expecting 5, I'm expecting 5 But here Do we get any ACKs?
+
+91
+00:49:19,780 --> 00:49:48,740
+if all packets are lost or maybe most of them are lost, do we get ACKs? No, right? So it is a way to identify that if we are getting a timeout, it means most probably many of the packets are lost because we are not receiving ACKs. So most probably many of the packets are lost. If we are not getting timeout, I mean before, I mean we will be getting timeout obviously after certain point in time, we will be getting the timeout. But before this timeout,
+
+92
+00:49:49,560 --> 00:50:15,380
+We are getting acknowledgement, which means, which means just maybe one or two packets are lost. So maybe many of the packets have been delivered. That's the only reason we are getting ACKs. Is this fine? So basically, I mean timeout will happen, but generally this timeout timer is too big, then this is RTT, right? This will be the RTT. So this RTT is lesser and timeout timer is too big.
+
+93
+00:50:16,290 --> 00:50:45,270
+so basically we will be getting we will be getting one ack here we will be getting another ack here another ack here and so on right so we will be keep on getting ack if only one or two packets are lost so which congestion is severe by the way this congestion is is severe this congestion is severe which one first one or second one first one is severe right in first one in first one if all packets are lost this is a heavy congestion here mild congestion or slight congestion
+
+94
+00:50:45,880 --> 00:51:20,440
+Right. So you can say it's a heavy congestion. This is okay. Now, now TCP says that if we can identify what kind of congestion it is, whether it is heavy or it is mild, based on that, I will be taking the action. So for now, let's say that at this eight, let's suppose it's a very heavy congestion, which means you are sending eight packets and, and most of them got lost, right? And, and you got the time out here.
+
+95
+00:51:20,800 --> 00:51:50,810
+which means if we are getting a timeout it means a heavy congestion so TCP says timeout means heavy congestion and if we are getting ACKs right we call it duplicate ACKs because see this is duplicate right these are the duplicate ACKs so if we are getting duplicate ACKs then it's a mild congestion if my English is correct then mild means I mean lighter than heavy right okay so so basically basically if we if we have if we are sending it and now
+
+96
+00:51:51,120 --> 00:52:21,720
+now if there is a congestion at that point in time TCP says that what kind of congestion it is let's suppose this is a timeout kind of congestion then TCP says oh it is a heavy congestion let's just let's just avoid everything let's just start from 1 if it is a heavy congestion I will start from 1 if it is a mild congestion okay maybe I can again start from 4 if it is a mild congestion so TCP says that based on the congestion I will be taking the call is this fine so based on the congestion
+
+97
+00:52:21,990 --> 00:52:52,730
+if it is a heavy congestion if it is a timeout then then i will go to i will start from 1 if it is a mild congestion then i will start from half of the window which means i will start from 4 then 5 then 6 like that right okay so if it is a mild congestion which means duplicate acks if i'm getting duplicate acks then i will start from the whatever the current congestion window size i will start from half of that okay is this fine to everyone
+
+98
+00:52:53,270 --> 00:53:18,640
+So, let me just, let me just give you more idea. So, basically TCP says that if I am getting duplicate ACKs and I mean that could be any number, heroistically they say that okay, if we are getting three duplicate ACKs, okay, that it means it is a mild congestion, which means this packet is lost but at least three after that have been reached, okay. I mean there is no mathematical justification that why they are there.
+
+99
+00:53:18,700 --> 00:53:49,700
+they are having this three it's just a heuristic thing which means just just some number they want to take that okay this packet is lost but after that at least three have been reached so so it's mean it's a mild congestion not too heavy so let me just give you the example let's suppose let's suppose that slow start threshold is let's suppose 32 okay you start with one then then what you will do in the next next round you will be sending how many packets you will be sending two then you will be sending
+
+100
+00:53:50,140 --> 00:54:31,490
+4, then you will be sending, 8, then you will be sending, 16, then you will be sending, 32, then you will be sending, 33, then you will be sending, 34, then 35, and then so on, right? Okay. This is the normal case. Is this understood to everyone? Now, let's suppose, let's suppose that, that we say something like this. Okay. At 16, at 16, we say that it
+
+101
+00:54:31,640 --> 00:55:07,160
+like we are supposed to go to 32 and then 33 but at 16 we say there's a congestion that is because of timeout can you tell me how many packets I should send now one packet only right one packet then then two then four then eight now let's suppose again again we feel there's a congestion at eight again we feel there's a congestion but this time we feel that this is because of three duplicate AC gates I mean we sent eight packets one of them may be lost
+
+102
+00:55:08,170 --> 00:55:38,350
+But after that three had been reached right through duplicate AC case then Then in that case, can you tell me what should be the next? Next window how many we should send we should start from 4 now right? We should start from 4 and then obviously we should not go to 8 I mean now start linearly 4 then 5 then 6 like that, right? Let's suppose at 6 also we go to the congestion Because of timeout, can you tell me how many packets we should send now? 1, right? 1
+
+103
+00:55:38,670 --> 00:56:18,830
+and then we will say one, two, four and so on. So we will be selling like this. We will keep on doubling. Is this fine? Okay, maybe a little bit it is fine. It will be more clear. Let me just explain you. So maybe the idea is okay to everyone that we are basically differentiating in the type of congestion, whether it is a timeout kind of congestion or it is a three duplicate ACKs.
+
+104
+00:56:19,420 --> 00:56:57,400
+So let's just summarize everything with the slides. Let's just see that what we have studied so far. So we will be saying that we will be starting slowly, sender start slowly, start with a small congestion window, maybe, maybe with one, right? Initially, let's suppose connection window size is one and double congestion window for each RTT with no loss. If there is no loss, then we will keep on doubling, right? Till, till threshold. Is this okay to everyone? So the Beyonce is asking, in case of timeout, we will double
+
+105
+00:56:58,800 --> 00:57:28,400
+in case of timeout we will go to 1 we will say that okay it's a severe congestion because timeout has been occurred it means no packet has been reached so it's a severe congestion okay so we will go to 1 but in case of 3 duplicate ACKs we will just half it if it is 8 then we will start from 4 and go linearly right okay so let's just see how the solution start is happening so initially we have 1 congestion window then if this 1 ACK has been reached then we will double this to 2
+
+106
+00:57:28,750 --> 00:58:17,800
+then we will if after one RTT we will double this to four then after one RTT we will double this to eight this is which phase slow start exponential increase right this is slow start exponential increase okay now uh now let's just see that how this slow start is working so basically in each RTT what you're doing you're doubling right in each RTT you're doubling now they may ask that if you're getting one ack then what you're doing see for example here what is happening
+
+107
+00:58:18,250 --> 00:58:51,960
+let me just tell you then in each RTT you are doubling so if the event is RTT you are doubling what is the event is let's suppose ACK and then what you are doing which means see here initially congestion window is 1 and then after one RTT we are saying that now let me make it 2 so by the way this diagram is from 4 version okay so after one RTT we are saying 2 after one more RTT we are doubling it up can we also say that in each ACK the moment I receive the ACK
+
+108
+00:58:52,100 --> 00:59:20,360
+I am increasing the congestion window by 1 which means initially it was 2 at this moment at this moment what should be the congestion window at each ACK can I say that I am increasing by 1 what should be the congestion window it should be 3 at this ACK what should be the congestion window it is 4 at this ACK what should be the congestion window 5 at this ACK it is 6 at this ACK it is 7 at this ACK it is 8 so ultimately it is 8 so there are two ways of saying either you say that you are doubling
+
+109
+00:59:20,700 --> 00:59:56,370
+okay you are doubling at each RTT or you say you are increasing by one increasing by one at each ACK both are same okay why because see how many packers are there four so you will be receiving four ACKs so basically the moment you receive all of these four ACKs you will do plus four or maybe you can say you are doubling it up
+
+110
+00:59:56,650 --> 01:00:30,850
+So at each RTE to a doubling or or you say it increasing by one at each ACK both of this interpretation are same Is this okay everyone? For example, for example, let's suppose I'm sending I'm sending 10 packets Okay, once all of this 10 has been reached all of this 10 ACK has been reached what should be my congestion window will be 20 right once all of this all of this ACK has been reached now tell me
+
+111
+01:00:31,130 --> 01:01:06,920
+once the first ack has been reached what should we do the congestion will do it will be initially it was 10 initially it was 10 once the one of the ack has been reached then it will increase by 1 at this point in time it will increase by 1 right at this point in time it will increase by 1 after 10 it will increase by 1 1 1 so ultimately it will increase by 10 so which means there are two ways of saying that at each RTT you are doubling or at each ack you are increasing by 1 okay both of the ways are fine
+
+112
+01:01:07,140 --> 01:01:40,410
+in slow start we do this so this is slow start what is the next phase it is called congestion avoidance phase or you call it additive increase something like that right so let's see the next phase basically see here that linear increase per ack okay in each ack you are increasing by one or you say or you say exponential increase per RTT both are the same ways of saying okay for each ack it is linear increase let me know if that is fine to everyone
+
+113
+01:01:46,450 --> 01:02:29,210
+Or should I explain this again? Okay. Okay. So would you like to answer this? Just a second. Would you like to answer this? In slowest start, a sender doubles its window size. Every RTT, if all send packets are acknowledged. This is true or false. This is true. Okay. Now, now let me just ask you one variation of this. In slowest start, sender doubles its RTT.
+
+114
+01:02:30,420 --> 01:03:29,580
+Double says window size, every ACK, every packet is acknowledged. Is this true or false? This is false. Let me ask you one more question. Sender increase, increase its window by one. Every packet is acknowledged. Something like that. So this is true.
+
+115
+01:03:32,130 --> 01:04:09,890
+So I hope you understood that now the interpretation I'm talking about. Okay. Yeah. Okay. Sure. So see here, see this diagram, which I have taken from for ocean. So in this diagram, as you can see that whenever you are sending this packet, right? This packet is getting acknowledged. So we are calling RTT when all the packets are getting acknowledged. So basically we are calling this time as RTT. Now, now if you're getting one ACK, if you're increasing my one, for example, let's suppose you are sending two packets.
+
+116
+01:04:10,630 --> 01:04:37,660
+So you are getting, let's suppose, two echelon measurements. Now the moment you get this, you will be increasing by one. The moment you get this, you increase by one. So ultimately, ultimately, your congestion window is four. Right? But this is another way of saying that at every RTT, earlier it was two. Now it will be four. Why? Because you will be ultimately increasing by two. Because for this packet, you will be increasing one. For this packet, you will be increasing one. So for every packet, you are just increasing one.
+
+117
+01:04:38,070 --> 01:05:20,640
+So ultimately it will get increased by 8. Why? Because if this packet gets acknowledged, increased by 1, 1, 1, 1. So you will be ultimately increasing by 4 more. Okay. So that's how we are saying that doubling at every RTT or increasing at each ACK, both are the same thing. Okay. Cool. So let's just see if you can solve this question. See this question. This question has been asked in Gate 2018.
+
+118
+01:05:21,340 --> 01:05:54,230
+So what are they saying? Consider the following segment regarding the slow start phase of the TCP congestion control. So they are asking about the slow start phase, right? Note that congestion window stands for the TCP congestion window and MSS window denotes the maximum segment size, okay? So MSS means the segment size, maximum segment size. The congestion window increased by two MSS on every successful acknowledgement. Does it increase by two MSS? What do you think it is? Two or false? This particular statement, this is false. It is increased by
+
+119
+01:05:54,770 --> 01:06:34,140
+One MSS only right the congestion will be approximately double on each successful acknowledgement at each agreement. It does is double No, this is also false Increase one MSS every RTT does is increase by one MSS only. I think this is also false What about this one? This is true, right? This is true. So that's why I think C is the correct answer Okay, so that was easy question that has been asking get to the end
+
+120
+01:06:35,360 --> 01:07:03,090
+18 and that was for one mark. Okay, just a small interpretation that you need to know to solve this question. Coming back to this. So basically, like we say that we are increasing the window at each acky one, or maybe at each RTT, we are doubling it. Okay, these are the two, two things which are actually the same thing. Anyway, coming back to the slow start, so we are doubling, doubling, doubling, right at each RTT, we are doubling it up.
+
+121
+01:07:03,600 --> 01:07:16,340
+So this is the slow start phase. That's what we know. Now we are just basically reading out the slides and then we will solve few questions so that everything will get connected. So let's just read this paragraph that what they are saying.
+
+122
+01:07:16,830 --> 01:07:43,850
+TCP start the slow start algorithm and sets the slow start threshold variable to pre agreed value. So initially, whatever, whatever the value you agree, I mean, this is some heuristic, maybe 32 or something. Okay. So whatever you, you, you think as a sender, you can just, just say that, okay, let's just have this as a value. Normally in the multiple of MSS and congestion window to one MSS in this state, as we said before, each time ACK arrived, the size of congestion windows increase, increase by one.
+
+123
+01:07:44,180 --> 01:08:33,300
+we know that this policy is very aggressive and exponentially increase anyway now let's just see another phase which is linear increase or additive increase right additive increase or the linear increase here at each RTT at each RTT what we do we do we double we increase by one right at each RTT we increase by one is this fine to everyone no this is additive increase so which means which means that this is the next phase
+
+124
+01:08:33,560 --> 01:09:03,000
+which means that if let's suppose 32 is the solo start threshold then 1, 2, 4, 8, 16, 32 and now we intern into this phase so here we say it is 33, 34 like this right so at each RTT we are just increasing by 1 which means once we send all of this 33 has been acknowledged all of once all of this 33 has been acknowledged we will just send 34 now okay so for example let's suppose the initial it is 4 then once all of these 4 has been acknowledged then the congestion window size is 5
+
+125
+01:09:03,350 --> 01:09:48,630
+then the congestion would be size 6, then the congestion would be size 7, okay. Is this fine to everyone? Now, now you tell me, now you tell me, here in this phase, can I say that in each RTT we are increasing by 1? Is this two or false? Increase by 1? In each ACK, what we are doing? See, see, are we increasing by 1 in each ACK? The answer is no. See here, initially congestion would be 5.
+
+126
+01:09:48,890 --> 01:10:18,480
+right once we get five acks then we increase by one so in five acks we increase by one so in each ack what we are doing in one ack we increase by one upon five as entered so which means which means if the congestion window size is five right then in five ack we are increasing by one so which means in each ack how much we are increasing one by five if the congestion window size is five
+
+127
+01:10:18,760 --> 01:10:48,430
+So if the congestion window size is 6, then in each ACK, basically in the whole congestion window, we increase by 1. So in the whole congestion window, I mean, these many accolades we get, then we increase by 1. So in one ACK, how much we are increasing? 1 upon congestion window size. Yes, 1 upon congestion window size. In one ACK, we are increasing this much only. Are you getting my point? See, you need to just understand that in each RTT, what you are doing? In each RTT, you are increasing by 1.
+
+128
+01:10:48,810 --> 01:11:21,930
+Each RTT means, in each RTT how many acknowledgement you will be getting? Congestion window size acknowledgement, right? Congestion window size acknowledgement. So, so basically in each congestion window acknowledgement which means here the five acknowledgement you are increasing by one. So in one acknowledgement you are increasing by one upon five. Okay. So maybe you can just try this question now. Do you want to try this? In the congestion evidence, a sender increases this window size by one.
+
+129
+01:11:22,260 --> 01:12:06,950
+packet for each acknowledgement in congestion avoidance increases for each agreement does it increase by 1 no right so that's why it is false increases by 1 MSS for every RTD for every RTD you are increasing by 1 not for each acknowledgement okay so for each acknowledgement how much you are increasing increase by 1 upon congestion window size okay why because in whole congestion window you are increasing by 1 right in CWND
+
+130
+01:12:07,410 --> 01:12:58,860
+increase women. See, you can see from Foreogen also. See here that whenever an ACK arrives, the congestion window will be increased by congestion window plus one upon congestion window, right? If you want, I can write it there also. So, by the way, the question they have asked in Gate 2018, can you say that this, that question is exactly same as this question? The question at Pringston University, they have just asked about the slow start phase, right?
+
+131
+01:12:59,180 --> 01:13:33,820
+This is exactly same. They're just asking in every RTT what you're doing. So as I told you that many times in computer networks, it happens that that the questions are just copied. So this question at Princeton University that I have adjectives taken, okay, no modification adjectives, I have taken this question, that question and gate 2018 question that they have asked is actually same. Okay, now let's just get back to basics that what we are studying.
+
+132
+01:13:37,240 --> 01:14:05,380
+So we have seen that there are two phases that we will either be doubling it up in every RTT, which means that once you send all the packet, and if we receive all the acknowledgement, we will double it up if we are in the solo start. If we are in the congestion evidence phase, we will just increase by one, right? So this is the one diagram that we have seen. Now, let's just talk about the losses. So basically, there are two kind of losses that we can anchor. One is that timeout, another one is three duplicate ACKs.
+
+133
+01:14:05,740 --> 01:14:44,130
+timeout means if entire window was lost buffer may be full or something then there may be some region so it means that this is a heavy congestion right this is light congestion or micro congestion or whatever they are saying okay so they are saying that not all losses are same duplicate ac case which means still getting ac case timeout means much more serious not enough duplicate ac case must have suffered several losses okay we will adjust the rate differently for each case
+
+134
+01:14:45,030 --> 01:15:12,090
+Now, what they're saying that if you're getting duplicate ACKs, then it is not that serious. Then whatever your current congestion window is, you just divide by two, which means let's suppose, let's suppose you are saying that, okay, from one, two, three, four, sorry, from one, two, four, and then eight, then 16, here you get three duplicate ACKs, okay? You send 16, but you, you anchor three duplicate ACKs. Then what you will do? What should be the next size of the window?
+
+135
+01:15:13,640 --> 01:15:52,560
+with the current congestion windows 16 you send 16 packets and now you got 3 duplicate acks you are saying 8 okay and then you start linearly okay so here 8 and then obviously 9 then 10 and then so on right so this is 3 duplicate acks now let's suppose the current congestion windows 10 right and then you got timeout here okay you got timeout here so if you're getting the timeout then what you are saying if you're getting the timeout in that case you go to the slow start again
+
+136
+01:15:52,910 --> 01:16:25,610
+Okay, so which means you will start from one so you will start from one now you will start from one one two like this till what point One two four till what point Can you directly go to eight or something? So basically there will be the slow start threshold right the slow start threshold will be basically this window Okay, whatever the current congestion window is divided by two. So what will the slow start threshold now? So so the slow start threshold will be five so which which means
+
+137
+01:16:25,910 --> 01:16:53,430
+after four you can't go to eight so you can go to five after four you can go to five then six and so on right so let me just explain you what is happening here suppose you start with one then two then three then four sorry then four then eight then sixteen and let's suppose still 32 okay new you are starting let's suppose the slow start threshold initially initially who will tell you
+
+138
+01:16:55,240 --> 01:17:25,790
+initially it is algorithm or this is some some predefined value some some some predefined value right so let's suppose this is this has happened to be too big maybe maybe anything okay let's suppose it is 64 or something but at this point in time at this point in time you got time out okay at this point in time you got time out now you tell me what should be the next window size if there's a time out there's a severe congestion it will be one right now
+
+139
+01:17:26,300 --> 01:17:56,000
+Now, since you are going to slow start, so you also need to know what is the slow start threshold. It is not 64 now. So, it will be the current congestion window divided by 2. And it makes sense also. See, do you again want to repeat the same story? Do you again want to go to 1, 2, 4, 8, 16 and 32? Do you again want to repeat the same story? Obviously not, right? Obviously not. So, it makes sense to stop at 16 itself, right? So, basically, they are saying that you go to the slow start,
+
+140
+01:17:56,470 --> 01:18:37,560
+and then you keep it current congestion window divided by 2 which is 16 now this is 1 now again you go to 2, 4, 8 now you will go to 16 definitely but let's suppose before 16 you got 3 duplicate SDKs right now you tell me now you tell me what should what you should do what should be the next window size yes sujeet so in TCP it is it is implicit that 3 duplicate SDKs means that there's a mild congestion okay I mean this is just heuristic
+
+141
+01:18:37,940 --> 01:19:11,680
+So it is just implicit. I mean, there is no mathematics behind it, but they have just practically found out that okay, three seems to be a good idea. Okay. So now if there are three duplicates, you may go to four, and then five, then six, then seven, and then eight, then nine, then 10, and so on. Let's suppose at 10, you got time out. Then what should be your next window? It should be one. And what should be your slow start threshold till what point you should be doing it?
+
+142
+01:19:12,150 --> 01:19:45,880
+It will be 5, right? Okay. By the way, whenever there is a 3-3 duplicate ACK, which means you are entering into congestion avoidance phase, right? You are, I mean, the linear increase phase. At that time, does this slow start threshold really matter to you? No, right? At that point in time, this doesn't matter because you will be anyway increasing linearly. Whenever you are in the slow start phase, whenever you are increasing exponentially, actually at that time, it matters. So anyway, don't worry about it. You just understand that at time out, you will be
+
+143
+01:19:46,110 --> 01:20:17,480
+going to one and the solostar threshold will be half of the current window which is five now okay which means one two and then four should you directly go to eight no right till five you can go till five you can definitely go okay maybe let's suppose it is six let's suppose it is six then till six you can go it makes sense to go to till six right so similarly if it is five then you can go till five then let's suppose five then what should do the next next number you should be writing six seven eight nine
+
+144
+01:20:17,880 --> 01:20:48,210
+10 11 12 13 14 let's suppose that 14 you again incurred timeout okay you again incurred timeout can you tell me what should be the next window 1 and the threshold will be 7 right okay then from 1 to then 4 and then should you write 8 5 6 7 what should you write here you should directly write 7 right you should you should reach till 7 only
+
+145
+01:20:48,720 --> 01:21:18,100
+Then 8, then 9, then 10, then 11, then 12, 13, 14, 15. This time let's suppose 16, 17. You get 3 duplicate ACKs. What you should write here? Now next time you will be sending how many? 9, right? 9, 10, 11 and so on. Understood? What is happening here? This is the whole story of this TCP.
+
+146
+01:21:18,740 --> 01:21:53,740
+Okay, there is nothing else. I mean with this you can solve all the questions that whenever you get Timeout, it's a severe congestion. Whenever you get three duplicate ACK, it's a mild congestion. That's all they're trying to say Okay Yeah, certain I will come to your point. So certain is saying do we need to remember this? I will I will come to this Okay, so let's just read this what they're saying Laws indicated by timeout, right? So congestion set to one MSS if there's a timeout
+
+147
+01:21:54,030 --> 01:22:26,390
+And if these are three duplicate ACKs, congestion a window is cut in half and then grow linearly. Window grow exponentially and solo start. So, I hope you understood. Now you tell me which phase is this, which phase is this and which phase is this. So, in which phase we are here, we are starting with one MSS, maybe it is growing exponentially. So, maybe solo start. Then, then.
+
+148
+01:22:27,590 --> 01:23:06,270
+What do you think what might have happened? And then we again, so this is the congestion window, right? This is this is the congestion window. You can say This is a window. So we made this window. We made this window Very less something lesser, but not one not one. What do you think what what might have happened here? Yeah, three duplicate AC, right? Then then we dropped it down Then after that we we are in which phase. Can you tell me this phase is which one?
+
+149
+01:23:10,490 --> 01:23:43,800
+linear increase or congestion avoidance right congestion avoidance some people call it AIMD also AIMD means additive increase I mean linear increase but if there's some problem then multiple decrease okay multiple decrease you don't need to remember these names I'm just telling AIMD additive increase multiple decrease or congestion avoidance you just call it congestion avoidance okay then what do you think what might have happened here again three duplicate ICs then then we are again in congestion avoidance phase
+
+150
+01:23:44,250 --> 01:24:17,620
+then what do you think what might have happened here this time timeout right timeout that's why we are going to one then again okay after timeout here in this particular diamond diagram we are saying that again we are in the congestion evidence right in this particular diagram but generally we go to the solos start only okay okay but yeah this is the timeout here so let's just summarize this particular flow that what we have
+
+151
+01:24:17,850 --> 01:24:50,720
+we are either in the slow start phase or in the congestion evidence phase right now if we are in slow start phase then also the congestion can occur or then also congestion I mean so basically let me write it so we are in the slow start phase can we go to the congestion evidence at what time we will go into congestion evidence if there is no loss can we go yes we need to go right so we will be going whenever the congestion window size right the congestion window size
+
+152
+01:24:51,270 --> 01:25:21,460
+will be greater than equal to slow start threshold right I mean if this condition meet we will go into the congestion evidence directly or should we wait or should we wait for the loss no right I mean we can have some threshold value here right okay now let's suppose we are in the slow start only and now all of a sudden there is a congestion okay but this congestion is let's suppose because of the timeout then where will we go in which phase we will be going
+
+153
+01:25:24,540 --> 01:26:06,780
+We will be going to the slow start again, right? We will be going to the slow start again. Let's suppose we are in the slow start but this time there is a congestion and this is because of the three ACKs. Three duplicate ACKs. We will be going where? In the congestion awareness phase, right? And we will set the congestion window size to be half of the current window, right? Here, what will we set for the congestion window size? To be one. And what is the slow start threshold? What should be?
+
+154
+01:26:10,570 --> 01:26:44,740
+congestion window divided by 2 whenever we are going to the slow start the slow start threshold will be current congestion window divided by 2 now from this from this if there is no loss do we ever go to slow start if there is no loss no right okay now now tell me if let's suppose there is a loss but this loss is because of time out then where we will go we will go to slow start right the same thing congestion window will be this and then
+
+155
+01:26:45,110 --> 01:27:20,500
+if that loss is because of the 3 ac case then we will go to the congestion avoidance itself right and the congestion window size is again 1 by 2 condition okay I mean this is what this diagram is trying to say have you understood this so in case of timeout in case of timeout what is happening in case of timeout we are always going to the slow start right in case of timeout we are always going to the slow start because timeout is a severe congestion then we are always going to the slow start
+
+156
+01:27:21,180 --> 01:27:55,600
+in case of three duplicate ac case it's not that severe that's why we are going to the congestion evidence phase right so in case of timeout we go to the slow start it's a very easy like not that tough understood okay so let's just see here by the way this diagram is from forogen okay the same thing this diagram is also from forogen so so initially we are increasing exponentially but let's suppose threshold is 16
+
+157
+01:27:55,900 --> 01:28:25,000
+okay then we will after the threshold we will increase linearly but let's suppose timeout occur if timeout occur we will immediately drop down right immediately drop down and then we will increase exponentially and let's suppose there's the threshold here then because timeout occurred at I think 20 window when window was 20 so that's why the threshold they have kept it to 10 and then then you are increasing till threshold then after that let's suppose you are increasing linearly but suddenly 3 duplicate ACK right because of that you will drop down but not to 1
+
+158
+01:28:25,900 --> 01:28:59,140
+you will drop down to the current current whatever the current congestion window you will you will make it half right you will drop down here and then then something like this is this is this okay to everyone okay now let's just solve this question so this question I have taken this from yeah from the pension university itself okay let's just solve this question so this is from pension university so what they're saying name the event it be which occurs what that causes the sender to decrease the window so what might have happened what do you think
+
+159
+01:28:59,310 --> 01:29:41,170
+What might have happened here? Three duplicate ACKs. Yes. So A is the correct answer here, right? A is the correct answer. Okay. So name the event at D. What might have happened at D? What do you think? Timeout, right? Timeout. Name the event at F. Yeah, again, three duplicate ACKs. Okay. I don't have answer here, but yeah, this is three duplicate ACKs. Now consider, now they are saying, they are saying in this question that consider
+
+160
+01:29:43,400 --> 01:30:15,000
+The curve slope labeled by point a okay, this this let's just consider this curve slope that is labeled by point a Why does the TCP window behave in such a manner? Rather than having a linear slope put another way Why would it be bad if a region a had a linear slope? Okay. Why do you don't want to have a linear slope here? What do you think? What is the problem if we have a linear slope? Yeah, very slow. You can take a bet here, right? So you can say you can take a chance here
+
+161
+01:30:15,530 --> 01:30:56,890
+So initially you can take a bet. We did quickly discover the maximum acceptable throughput that the past support. Otherwise, additive increase could take too long. Now, let's just see what they are saying. Assume the network has the maximum segment size of some 1000 bytes and the RTT is also given 100 milliseconds. So they are saying the MSS is given to be as 1000 bytes and the RTT
+
+162
+01:30:57,130 --> 01:31:29,740
+is given to be 100 milliseconds. Assume at the time 0, the sender attempts to open the connection. Also assume the sender can write a full windows worth of data instantaneously. So sender can write the full window data instantaneously. Which means the application is not a bottleneck, which means application can provide the full window all together. So the only latency that you need to worry about is the propagation delay of the network.
+
+163
+01:31:30,780 --> 01:32:11,680
+Let's just see what they're saying next so they are asking that if the mss and RTT is given to you Then they're asking that RTT and mss, okay? How much time has a progress by the point B? If you are starting at t equal to 0 then how much time you have taken? Till your window size has been at 8k so 8k means how many mss? It is 8 into Let me take in K in 10 10 is power 3 only
+
+164
+01:32:11,930 --> 01:32:40,210
+so it is 8ms right 8ms so you start with one mss how much time you you must have taken till 8ms from one you will go to two then you will go to insulate start right you are in this phase then you will go to four then you will go to eight right so so you start with one and then you get ack then you do send two you are saying this is another i mean this is basically one one rtt
+
+165
+01:32:40,570 --> 01:33:13,480
+right from one to two from one to two you are saying this is one RTT you have spent this is I mean you just draw the vertical bar here this is one RTT this is another RTT this is another RTT so how many RTTs you have spent from one to eight to make the window size of eight you have spent how many RTTs one two three only right you have spent three you just make the vertical bars to make the window size of eight okay so to make the window size of eight you have spent three RTTs only
+
+166
+01:33:15,760 --> 01:33:45,570
+See, initially Windows size is 1, to make it 2, to make it 2 you have spent 1 RTT, to make it from 2 to 4 you have spent 2 RTT's, right? So 1 RTT, 2 RTT's only, to make it 4, to make it 8 you have spent 3 RTT's. But after 3 RTT's it will be 8 only, which means you are ready to send 8. Are you sending it? After 3 RTT's have you sent 8? See, after 3 RTT's you are just ready to send 8, okay? So, which means that after 1 RTT you are just ready to send 2.
+
+167
+01:33:45,750 --> 01:34:20,890
+After one RTT, one more RTT, ready to send four. After one more RTT, you are ready to send eight. So you just draw the vertical line. Okay. So after how many RTTs you are ready to send eight or the congestion window jet, three RTTs, one, two, three. Okay. So how many RTTs you have taken till you reach to the point B? Three RTTs. So what should be the answer? 300 milliseconds. Is this correct? Let's just read this question. Assume that network has this. Assume sender up.
+
+168
+01:34:21,020 --> 01:34:48,330
+Okay, at time equal to 0, at times to open the connection. Just to open the connection, just to send SIN and then SIN plus ACK. How many RTTs you will be taking? And then ACK. How many RTTs you will be taking at T equal to 0? From T equal to 0, you will be taking one RTT to get SIN plus ACK. Just one RTT from here to here. Can you say the connection is established at this point in time? Can you start sending the data right away?
+
+169
+01:34:50,740 --> 01:35:18,610
+Can you start sending the data right away? So before sending the data, how many RTTs you have spent just to establish a connection before sending the data so in like see to make it eight you are spending three RTTs here but even before that you are also spending one more RTT right because they they want to like as per the question they want to basically like count from the very beginning they are saying a time equal to zero send sender times to open the connection
+
+170
+01:35:21,170 --> 01:36:02,470
+So that's why 400 is the given answer here. Okay. I mean, generally, the 400 is not the answer. Generally, they don't, don't start from very, very beginning. But yeah, if they start from beginning, now I hope you, you have the answer. Okay. Let's just, let's just continue with this question. So this question I have taken from Pringston University as it is. Okay. There is no modification also. As it is, I have taken all of these questions. I mean, the same part are from Pringston University only.
+
+171
+01:36:10,120 --> 01:36:41,030
+Let's just see this question. This is question number six of the same part now They're saying that if that is again, how much time has progressed between points C and D? From this point to this point, how much time they have you have progressed? See It is eight. Can you guess this? What it should be if it is eight mss, right eight mss You always talk in terms of mss. Then can you guess this? This must be four right this much because you make the congestion window half
+
+172
+01:36:41,240 --> 01:37:27,720
+this must be four mss now you are starting with four mss and you are going linearly then from four you will go to five you want to go to sixteen right six seven eight nine ten eleven twelve okay so how much time one two three four five six seven eight nine ten eleven twelve right so twelve RTT's you have spent are they asking from the very beginning they are not asking from the very beginning just cnd right
+
+173
+01:37:27,950 --> 01:38:00,490
+So I think C should be the answer here. Okay. Let's just do this question. They are saying E and F, they're asking the same thing about E and F. So from this window size is basically, should it be one, it should be one right? I mean, this, the diagram is not very accurate, but I think it should be one, one MSS at least, right? Because we never go to zero window. Okay. So how much time you have progressed from E to F?
+
+174
+01:38:01,240 --> 01:38:33,590
+F is 10, so from 1 to 10 MSS, this 10 K means 10 MSS. 1, 2, then, what is the threshold here? Okay, this is an interesting question. Threshold is, can you tell me the threshold? See, there was timeout here, so threshold must be 8, right? So, till 8 you can go like this, 1, 2, 4 and 8, then you need to go linearly, 9, 10, 11, 12, 13, 14, 15 and 16, okay?
+
+175
+01:38:36,340 --> 01:39:30,910
+So, this is 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11. 11 entities. But that's not the option. Between E and F. Sorry. F is just 10. I don't know why I have to... Okay. F is just 10. 1, 2, 3, 4, 5. Right? 1, 2, 3, 4, 5 only. But 5 is not the option. I think 600 is the answer.
+
+176
+01:39:31,340 --> 01:40:10,880
+Actually, it is touching zero. It was my initial doubt also. So we're just waiting for one RTT for for what even I mean, uh, this is F is 10. So till eight, you will go like this, right? One, two, two, four, four, eight, eight, two, nine and nine to 10. Yeah, this should be a little more clear because it is touching zero. That is also my doubt.
+
+177
+01:40:16,860 --> 01:40:47,990
+see here it is not touching zero it seems like I mean we need to really zoom in so assuming that you have spent okay don't worry in the gate exam it will be clear so assuming that you have spent one RTT okay here here itself before one then the answer is 600 don't worry it will be clear right then the answer is 600 okay so these questions we have solved let's now quickly solve few questions and then we will just wrap up the session so what they're saying
+
+178
+01:40:48,530 --> 01:41:24,930
+In the slow start phase of TCP congestion algorithm, the size of the congestion window in the slow start does not increase, increase linearly, increase quadratically, increase exponentially. I think this is easy question. Maybe you can do it. So answer is D. Can you solve this one? So what this question is saying? Let the size of congestion window of TCP connection is 32 KB.
+
+179
+01:41:26,010 --> 01:41:57,760
+so congestion window size is given to you is 32 kb but you you need to know in the segment so how many mss it is the maximum segment size is 2 kb which means it is 16 mss right because the maximum segment size is 2 kb that's why it is 16 mss and now they are saying there is a timeout okay if the if there is a timeout then do you really know that that what is the congestion window or it is dependent on the on the version you know the congestion window right it is one and the slowest start threshold is slowest start threshold is
+
+180
+01:42:00,660 --> 01:42:30,190
+8 because it is half of this. Okay. Now they're saying that there's a timeout and at the timeout timeout has occurred at this. So that's why I have changed the parameters. So now these are my parameters. The round trip time of the connection is 100 milliseconds. Okay. And the maximum segment size uses two KB. So they're saying that you are starting with one MSS. I mean, the size is given to be two KB. So you start with one MSS because you are in the slow start phase.
+
+181
+01:42:30,660 --> 01:43:01,170
+the time taken by tcp connection to get 16 mss so you from this one you want to get 60 and these are the parameters can you tell me i think this is also the same question right almost same question from the pension university okay so can you tell me it is 1 then 2 then 4 then 8 then 9 10 11 12 13 14 15 16 right so how many RTDs
+
+182
+01:43:01,370 --> 01:43:45,820
+One, two, three, four, five, six, seven, eight, nine, 10, 11. Okay. So 11 oddities you will be having. So which means 1100 milliseconds, right? Is this okay to everyone? Okay. Now let's go to the next question. Let's go to the next question now. So do you want to try this question as a homework for now? Maybe you can try this question as a homework, right? And then this question, I think we have done. Yeah.
+
+183
+01:43:46,130 --> 01:44:12,550
+so there are just one or two more questions we will be doing it tomorrow so you just try all of these questions which are remaining as a homework right just see if you are able to solve this question so here the fifth transmission only means only means the fifth transmission of the whole window okay cool so we will be meeting in the next class right thank you everyone take care bye bye
+

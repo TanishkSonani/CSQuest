@@ -1,0 +1,616 @@
+1
+00:00:15,600 --> 00:00:49,910
+Hi, everyone. Hello, Akash. Hi, everyone. Hello, Roshesh. Hi, Hemant. Hi, Akash. Hi, Satyam. Hello, Vishwanathan. Okay. Okay. So, hi, Hemant. Let's get started, right? Okay. Hi, Ravi. Cool. So, let's get started. So, today we are going to see, I mean, we are going to continue our discussion on the critical section. Cool. Today, like I think it is going to be an interesting discussion. So, let's just go further.
+
+2
+00:00:50,980 --> 00:01:29,650
+So, I mean, our topic is synchronization that we want to study, right? So, I think we have seen these examples. Okay. So, race condition now we know what is your race condition and all, right? Okay. Cool. So, till this point, we have seen. So, this is a diagram that we ideally want to achieve, right? So, ideally, we want to achieve this. Okay. So, I didn't get a point, Nishant. So, what are you saying? Full screen means? Okay.
+
+3
+00:01:29,970 --> 00:02:05,950
+So I think everything is good, right? Okay. Okay. So let's get it started. Now, now what we want to do, we ideally want to achieve this diagram. So which means that this is our ideal case, which means if we want the concurrent execution, then at least we want this, right? So, so basically this is, this is what we ultimately want to achieve. Now, now to achieve this, there are many solutions that we can do. Okay.
+
+4
+00:02:06,220 --> 00:03:02,030
+So this is, I'm saying this is what we ideally want to achieve. Cool. So this is what is happening. Okay, sorry. So now before I proceed further, let's just solve one problem based on the discussion that we did yesterday. So what they're saying that suppose that we have two threads, thread one is doing this code and thread two is also doing the same code. First tell me that thread one and thread two both has to do different code or they can do the same code. Anything, right? Could be different, could be same.
+
+5
+00:03:02,460 --> 00:03:47,060
+is this okay everyone? okay anything right okay so basically this is thread one this is thread two and now we are saying that what is the value of final count and let's suppose this count is shared so what is the final count value if you want to solve this question okay tell me if you are if you are seeing multiple values then tell me minimum value tell me the maximum value tell me the minimum value and tell me the maximum value if if both of the threads are doing in the concurrent fashion are you sure that minimum is 10 yeah maximum is 20 that I agree
+
+6
+00:03:48,020 --> 00:04:16,100
+because this will be incrementing I mean if this is doing then this will increment this this will run you can understand like this this will run till 10 times basically this will be running 10 times right this will be also running 10 times I mean from i equal to 0 to i equal to 9 that is okay like let's not worry about the absolute value of i but but this will be running 10 times that is for sure so since this will be running 10 times and this will be and both the quotes are running 10 10 times then it it must mean that the maximum value will be 20 that is for sure
+
+7
+00:04:16,380 --> 00:04:58,140
+So I can say the maximum value is 20. That is, that is for sure. Now minimum value is interesting. Can anyone tell me the right answer for the minimum value? Some people are saying nine, some people are saying 10. Yes, count plus plus is equal, same as count equal to count plus one. Okay. No, maximum final value could be 20, right? Maximum value is 20. Why? Because this is executing and this is, I mean, you can execute all of this code. This is, this is doing the count to be 10 because it is running 10 times, right? The final value of count will be 10.
+
+8
+00:04:58,410 --> 00:05:48,210
+if you do this and here the final value of count will be if you do after that then it will be 11 12 13 like that it can go to 20 so count will be finally 20 if you do after thread one you do thread two vice versa right then then it will be 20 what is the minimum value okay just think about it okay this is quite interesting question so just think about the minimum value okay let me let me go to the next page and let me try to you know have some
+
+9
+00:05:48,650 --> 00:07:04,150
+uh analysis let's just see i'm actually i'm also not sure what it can be but uh we can have the analysis right okay uh just a second meanwhile you can have the analysis right okay so uh let me let me do some analysis maybe it is it is 10 maybe it is 11 maybe it is two maybe it is five let's just see so uh these are i mean these are the uh two threads which are executing right so what we can do we can uh just analyze this
+
+10
+00:07:04,410 --> 00:07:26,170
+by copy pasting on the next page. Okay, let's just see what it will behave. Suppose, I mean, I don't know the assembly, but of this, but let me just try to write the assembly. So what is the assembly of count plus plus? Maybe maybe the three lines. Okay, actually, let's not worry about but but yeah, count plus plus will be having some three lines of assembly, right?
+
+11
+00:07:26,850 --> 00:07:54,130
+And then I think this loop will say that, okay, something like this. I mean, this loop will, there will be some, let's suppose, okay, I'm not worrying about the assembly, but let's suppose there's some label l and this loop will say that like something like this, go to this label again and again. I think somehow this assembly will look like this. So basically there will be three lines instead of this count plus plus, and then this will, this will be decrementing the value of i may be right. This will be decrementing the value of i. Okay, decrementing the value of i.
+
+12
+00:07:54,390 --> 00:08:20,250
+to be one and then probably it will check that uh that jump if not zero jump not zero something like that i i think there are some instructions and then then it will go to uh this level again right so anyway like there will be there will be the three lines of code and then this will keep on happening again and again that's the crux is this so good everyone i mean in assembly it will look like this right okay you don't need to know assembly i also i also don't know the assembly here anyway let's not worry about it now
+
+13
+00:08:21,510 --> 00:09:06,820
+Now let's just keep, let's just put this assembly aside. Let's not worry about this assembly also. So what will be happening? There will be three lines, right? Can anyone tell me what, what are those three lines for the count plus plus? Count plus plus will be executed using three lines. Maybe, maybe I might be having it here, right? Something like this. Yeah. A load increment store or something like this. Okay. Okay. So let me, let me write those three lines. This is load.
+
+14
+00:09:07,490 --> 00:09:34,310
+And then you will be, which means you will be loading into some register. And then what you will do, you will be incrementing this, maybe add or increment whatever you want to do. Maybe I can say increment this R1. Okay. Let's suppose two one. I think, I think increment by default, let's suppose it is, it is just taking one argument and it means that it will increment to one or maybe add R1, whatever you want to write. Okay. Doesn't matter. Okay. So add, now suppose there's one more instruction, add R1, one.
+
+15
+00:09:34,720 --> 00:10:00,110
+And let's suppose the final one is store, right? Store the value of R1 to 1000, something like this. Okay. Maybe the syntax may be incorrect, but let's not worry about the syntax. So this is the three things that this count plus plus will be doing. Now, initial value of count at zero, it is given to us. Okay. Initial value of count at zero. Initial value of count at zero and count is shared, right? Count is shared also. Cool. Now what do we want to do?
+
+16
+00:10:00,360 --> 00:10:33,760
+you want to check that if both of the threads are executing this count equal to 0 again and again I mean these three lines again and again then what will the minimum value maximum will happen when both are doing sequentially right I mean when will maximum will happen can anyone tell me when I'm not losing any update right maximum will happen maximum will happen when I think there is a latest gate P by Q for this right but that was using the semaphore I think okay so when we are
+
+17
+00:10:33,940 --> 00:11:07,080
+I think there are latest gate PYQ regarding the same thing. We are not losing any update. Any update means any increment. So basically serial execution. I mean, this will give you the maximum. There might be some other interleaving which can give you the maximum, but this will definitely give you the maximum. Let's talk about the minimum. So when can minimum happen? When I can lose as many updates that I can write. So what may so happen?
+
+18
+00:11:07,360 --> 00:11:31,500
+that this R1, R1, maybe initially I will be loading the value to be 0 and then I want to be doing anything. Okay. I have loaded to 0. This is the thread one. Now thread 2 will say, thread 2 will say, I will load to 0. Okay. I will increment, this will happen and I will finally do this count to be 10. Right. And now, now this thread one will start executing. Are you getting my point?
+
+19
+00:11:31,860 --> 00:12:09,370
+so basically thread 1 has just executed once only only one iteration has executed this load which means it has seen the value 0 now thread 2 is happening completely all the loop and everything is happening then in that case the value of i will be finally sorry value of count will be finally 10 now but this thread 1 but this thread 1 has only seen this 0 then it will start incrementing and then finally it will increment to 10 only so basically all of the thread 2 updates can be just lost is this ok everyone right
+
+20
+00:12:09,820 --> 00:12:44,430
+Okay, so Suji is asking how T2 can directly initialize R1 as 10? No, T2 is not initializing R1 as 10. What I'm saying that this T2 is happening, like thread 1 is seeing just this, it is loading this R1 value to be 0 and now thread 2 is happening. Okay, now thread 2 is happening completely. In that case, that thread 2 will, all the updates of the thread 2 will be lost. Right. Okay. So, so one possible execution, but
+
+21
+00:12:44,780 --> 00:13:42,340
+See, like, I don't know if it is minimum or not, but I'm just telling you one possible execution, right? Sorry, so one possible execution could be. Do you think it will be minimum? If I'm losing all of the 32 updates, who thinks it will be minimum? How? We can, T1, T1 is doing just one instruction, T2, finish, T2, start and finish completely, okay?
+
+22
+00:13:42,700 --> 00:14:25,270
+and then T1, T1, T1, resume and finish, right? So if I follow, if I follow this, this, let's suppose you can, in this case, in this case, the final value is final count is 10. But is this minimum? Is this minimum? That is my question. Let me just tell you the answer is no. Okay. This is, this is not minimum. Okay. Actually, Anise is saying that minimum could be two. Okay. How it will be two. So this is not minimum. I'm telling you the answer.
+
+23
+00:14:25,550 --> 00:15:42,400
+you just need to tell me that how how it is doing right so is this okay to everyone that if I follow this particular sequence where like my idea is this right this was my idea this was my idea so if I lose all of this t2 updates then I am having the final value is 10 but is this minimum answer is no you need to tell me why why it is not minimum so aakash has one answer right what he's saying is something like this he's saying that even first read
+
+24
+00:15:42,700 --> 00:16:17,390
+Okay, so basically these are the three things it will read modify and write you can you can understand read modify I mean read it from the memory modify it locally and then write to the right. So these are the three instructions that we're doing for for any thread what they're doing read from memory memory write sorry modify locally and then write to memory right
+
+25
+00:16:22,120 --> 00:16:57,560
+So Akash has one one answer and I think Anish also has one has a similar answer and other people also has a similar answers, right? So let me just, you know, I mean, since he has written step by step, so let me let me just see what he's saying. He's saying that T1 is first reading. So what it will read first? It will read zero, right? So he's saying that one idea could be T1 is first reading. Okay. So maybe I can I can write it here. T1 will read zero, right?
+
+26
+00:16:57,980 --> 00:17:23,960
+And then T2, you don't run T2 for all the, all the iterations, you, you finish the nine iterations. So T2, T2 finish nine iterations. This nine is important, not the 10 iterations. Okay. Nine iterations. Earlier, what I was doing earlier, I was basically saying that T1 is just doing one instruction. Miss T1 is reading. And then I was asking T2 to finish completely. But currently,
+
+27
+00:17:24,360 --> 00:17:58,480
+Currently, I am saying that instead of you to finish completely, just finish nine instructions. Is this okay to everyone? I want to save this the 10th one for some purpose. Okay. Whatever I'm writing is this killer to everyone. Like what is the difference between earlier and now? Okay. Okay. So now what do I want? Now I will, I will ask T1 to, since it has read zero. Okay. So it will write it T1. I mean T1 modify and write it. So modify.
+
+28
+00:18:00,810 --> 00:18:40,940
+and write to memory. Now, since it is written to the memory, I will ask T2 to do the 10th execution. So now T2 will start the 10th iteration. Can anyone tell me what T2 will read in the 10th iteration? Can anyone tell me? It will read one.
+
+29
+00:18:41,360 --> 00:19:14,360
+Why it will read one is the skillet everyone just try to understand the sequence why it will read one because T1 has written to the memory right since T1 has written to the memory and T1 T1 must have written one right so that's why it will start the 10th 10th iteration and it will it will basically read one Okay, it will read one in the 10th iteration now locally you can modify anytime it doesn't matter now do you do want me to write to
+
+30
+00:19:14,650 --> 00:19:43,430
+okay i mean it will add add and it will write so these are the these are the three three instructions that are remaining for the t2 so for the minimum value what do you want do you want to do you want this t2 to happen i mean see t1 just executed one instruction only now if i just ask t2 to do this then maybe it is not a good idea i will save this i will say that okay you have written read read one and now you are going to write two but seems like it is very low value so you write it later
+
+31
+00:19:44,910 --> 00:20:10,890
+Right. Yes. So it is a good idea to preempt it here only, which means I will say that you start your execution, read one, add you, you can add any time I may be like after, after you can preempt it here, preempt it here. It doesn't matter. Basically reading is important. You can add, since you're doing it locally, you can do it anytime. It doesn't matter actually. Okay. Anyway, so basically you are reading one, you're adding it, not adding it. You can add it later also after Pemption also. It doesn't matter. So let's suppose that you are preempting it here. Now you ask Steven.
+
+32
+00:20:11,580 --> 00:20:47,140
+Okay, now you ask T1 to finish it completely. It doesn't matter at all. Okay, even finish completely even finish completely. Whatever T1 is writing, will this matter to you? No, right? Because anyway, anyway, T2 is going to override, right? So anyway, T2 is going to override. So it won't matter to you. So now, now you can say that T2, right? T2 will write to
+
+33
+00:20:51,310 --> 00:21:20,420
+So, I think Anish also has written step by step. Let me just see if his steps are matching to what we have written here. Okay. Actually, these are the three steps that we need to do. These are the three steps, right? Right to the memory and this thing. And do you think this between step matter much? I mean, where you're preempting after, I mean, for the preemption, this step will matter or not? No, right?
+
+34
+00:21:20,710 --> 00:21:50,450
+I mean, you can preempt it here. You can preempt it here. Actually, it won't matter because you are doing it locally. Okay. Anyway, so Anisha has written some, some answer maybe I can write it here. So you sing first instruction to all the instruction nine times second and third instruction. T1 is now basically writing one to the memory. Now you asked you to read this one and then you ask this T1 to finish all of those, all of the things. And yes, I think this is very much correct. It is understood to everyone. So what we are doing, we are asking.
+
+35
+00:21:50,890 --> 00:22:35,850
+t1 to modify to one right i mean sorry we are asking that okay t1 see what we are doing we are asking so basically we are we are asking t1 to read minimum possible value what is the minimum possible value i mean initially it was zero right so we are asking t1 to read right so t1 will read zero now what we are saying we are asking this p1 to preempt
+
+36
+00:22:36,150 --> 00:23:09,070
+after that we are asking okay now since it is it has read the minimum possible value now you can print it okay now t1 remped and t2 scheduled since t1 has already already read the zero which is the minimum possible value you schedule t2 you ask this t2 to do all of the things okay to do schedule you ask finish all except last iteration right
+
+37
+00:23:15,710 --> 00:24:01,920
+it will finish except the last iteration now now you ask this t1 to write okay you ask this t1 to write now t2 t1 to write so here here how many iterations of t1 has finished now what we want we want this t2 to just read just we want this t2 to read one right we have written the one
+
+38
+00:24:02,110 --> 00:24:41,580
+right we have written the one in the memory because this this will write one in the memory so we want t2 to read this one only right so we want t2 I think this is complex problem I was not expecting that to go that much complex but anyway I think I should have taken it later but I hope that is fine right so t1 sorry we want t2 to just read one right just read one only one instruction right
+
+39
+00:24:42,230 --> 00:25:23,670
+only read let's suppose there are only two instructions read and write I'm just omitting the between instruction because it doesn't matter you you do it anywhere okay so there are only two instructions read it modify it and write it so read if it is reading one then write will be two okay write will be the modified one now now since t2 is red one now is the win situation for me now from here it should be easy how now t1 scheduled and finished completely and t2 t2
+
+40
+00:25:24,250 --> 00:26:03,280
+Last iteration P2 will write, right? Interesting, isn't it? Okay, okay. So we can have, we can have many other variations to this problem. Okay. So there is one question where, which is like quite a variation to this problem. In that question, what I did, I mean, that was some standard university question. I think in multiple places that question was found. Maybe at Stanford University and at Berkeley University, that question was there.
+
+41
+00:26:03,720 --> 00:26:27,570
+I had almost similar question but instead of count plus plus I had count plus equal to two I think as far as I remember I don't remember the actual question but that question is in the test series okay yes if it is a if it is a instead of thread set is a program doesn't matter the answer will be same okay so I think there are two three variations are possible and you will find those variations in the test series
+
+42
+00:26:27,900 --> 00:26:58,470
+okay don't don't try to solve now because it will it will it will it will loss your interest through the test series questions so here uh here in this in these kind of questions two three other variations are possible but i have kept those variations through the test series okay so now basically one thing is for sure like i mean uh don't worry about this particular question but one thing is for sure that here in in these kind of things like what is happening like since you are having a shared data and this is called critical section why because this is shared data
+
+43
+00:26:58,630 --> 00:27:31,420
+So shared data code is called critical section. So one thing is for sure that we need a critical section solution, right? Okay. Can you suggest me the solution here? There is something called mutual exclusion. So basically we want, okay, what could be the solution? The solution theoretically, actually, this is little theory. So you need to pay attention to the every word, okay, mutual exclusion.
+
+44
+00:27:35,840 --> 00:28:14,140
+Just like in the theory there is a I mean if there's a there exist a for all these things matter a lot, right? So similarly these things matter here also. So just pay attention to the definition of mutual exclusion. What do you want? We want we want at most one process in critical section, right? This is what mutual exclusion says that they should be at most one process in the critical section. Okay, so will this solve my problem? What do you think?
+
+45
+00:28:14,480 --> 00:28:56,150
+Will this solve my problem? Yes, it will solve to some extent. So how many of you think that it will solve my problem? If I just allow at most one process in the critical section at a time, then will it solve my problem? Okay, some of you are saying no. Why? Why no? Some of you are saying yes. Why no? I'm more interested in the people who are saying no. Why you think it will not solve your problem? Don't go to the technical words. Okay, progress, bounded weighting. Don't go to the technical words.
+
+46
+00:28:56,550 --> 00:29:29,070
+tell me intuitively like why no see what this what the solution is saying the solution that we have just proposed is saying that we want at most one process in the critical section right so what may so happen I mean this is a good idea but but this is I mean theoretically if I just say then this is not the complete thing that that we want right what may so happen let's suppose so basically okay yeah
+
+47
+00:29:29,310 --> 00:29:59,340
+So basically, this is a general idea that if we have multiple processes, if this is a critical section, this is a critical section area, okay, this is a critical section area, then the general idea is that we will be having entry and exit to the critical section. Okay. So, so basically, basically, a general idea is that we want, we want, I mean, if this is a critical section, then we want entry and exit of the critical section, right, which means we will be writing a code for the entry, we will be writing a code for exit.
+
+48
+00:29:59,760 --> 00:30:29,710
+Okay. So this is the general idea. Now the only question remains that how to implement this, uh, this entry, anti-critical section and exit critical section code. So basically what I'm trying to say here is that that we will be writing some code before entering in the, in the critical section that will make sure that this mutual exclusion is happening. And once, once I leave the critical section, I will say that, okay, now, now I'm done. Now you can enter or something like this, right? Now tell me, tell me.
+
+49
+00:30:30,280 --> 00:31:01,280
+I'm giving you a very simple idea. Let's suppose this is a thread one, this is a thread two. Before entering in the critical section, maybe it is count plus plus. Before entering into the critical section, I'm having some code that need to make sure the mutual exclusion. Actually, this is not very easy. I can't just write a code which will make sure the mutual exclusion is not very easy. So maybe I can try it. If I fail, then don't mind.
+
+50
+00:31:03,030 --> 00:31:30,390
+Is the idea clear that what we are trying to do? At least like in the lecture, what I'm trying to do? Am I conveying my point here? So what I'm trying to do, I'm trying to write a code in T1, which will be the entry code and T2 also that code may also be the different. Okay, for T1 and T2, the code, the entry codes may be different. It doesn't matter. Could be same also, could be different also entry exit code for the thread and thread to could be same, could be different, doesn't matter because both are the different threads and they can have that they're on different code. Right.
+
+51
+00:31:30,750 --> 00:32:04,990
+Now, what I want to do, I want to write something here, something here that makes sure the mutual exclusion. Can you suggest me? Okay. Actually, I have been the bad programmer. Okay. So since many, many years, so I also just following the legacy, I can write some bad code. Okay. But, but yeah, that will make sure the mutual exclusion. I'm a horrible programmer and I can write some code. I can write just one line that will make sure the mutual exclusion, but it is a horrible code.
+
+52
+00:32:05,800 --> 00:32:39,670
+Maybe I will write something like this. Maybe. Maybe here. Here. Okay. And here also. That will make sure. Don't worry. As I promised that it will make sure the mutual exclusion, but, but it may be the horrible one. So maybe I'm writing while one. Okay. Tell me if I write this while one, while one means what? It is true. And the semicolon means what? If it is true, then it will be in the loop.
+
+53
+00:32:40,010 --> 00:33:10,340
+I hope first of all let me just tell you the syntax while one this this is what it it means that there is nothing in the body is the syntax clear the syntax what does this say if I'm writing the semicolon it means that there is nothing in the body right okay so basically I hope the syntax is clear now tell me tell me have I followed the mutual exclusion definition here am I allowing am I allowing more than one process in the critical section
+
+54
+00:33:11,480 --> 00:33:47,190
+Can more than one process can t1 and t2 both both can both can enter in the in this critical section Let's suppose this is a critical section can both can enter in the critical section Actually, you forget about both none will enter right you forget about both none will enter as I told you that I will make sure that mutual exclusion will be satisfied According to the theory that I have written here right according to the theory that at most one process should enter in the critical section It is not saying mutual exclusion is not saying that at
+
+55
+00:33:47,350 --> 00:34:20,530
+exactly one or something like that right it is saying at most one process you can ask to enter so i'm following this definition i have written this entry code okay in the exit it is not necessary that you write some code in the exit or entry so and in the exit i'm not writing any code okay that's okay so in the entry code if i'm writing something like this it is allowing the mutual exclusion it is it is the solution which satisfies this mutual exclusion still it is not desirable isn't it are you getting my point so my point here is that the only point that i want to convey is that
+
+56
+00:34:20,750 --> 00:34:48,530
+even if the mutual exclusions condition if there is some solution someone propose you some solution which satisfy the mutual exclusions only the mutual exclusions will you accept the solution let's suppose that you are running a company and you are asking some service based company maybe TCS or some services company to implement in your company or maybe you are a client okay let's suppose you are a client and you are you are you are going to some company you are saying that okay give me the mutual exclusion solution problem
+
+57
+00:34:48,830 --> 00:35:18,360
+company will like you company will ask you that what is the mutual exclusion you will say that this is a mutual exclusion explosion I want to follow this and company will say say you that okay let me implement it and company will say you that okay you implement this this this condition whatever you have written it's followed but will you accept the solution no right so basically what I'm trying to convey here is that you you want to what you want to do you want to write the critical section solution but it seems like mutual exclusion is not
+
+58
+00:35:18,680 --> 00:35:54,040
+is not the only only criteria there might be something that I need to add to the mutual exclusion are you getting my point so so my point here is that mutual exclusion is good good but may not be the only thing that I want right there may be something else that I want along with the mutual exclusion so here I can say the given solution right so the this given given solution this satisfies satisfy mutual exclusion
+
+59
+00:35:56,180 --> 00:36:47,500
+exclusion, but, but it's a horrible solution, right? Okay. So, so finally, I, I, I arrived at the conclusion that, that we want, we want something along with the mutual exclusion, right? We want plus some, some, some extra conditions we want conditions to solve critical section problem, right? Okay.
+
+60
+00:36:48,170 --> 00:37:22,300
+Can anyone tell me technically, okay, don't go technical. I know you will say progress boundary waiting. Can anyone tell me that what we might be looking for? So basically the mutual exclusion is saying that we want at most one, which means we want, we want less than equal to one, right? Somehow, somehow, let's suppose if I have some extra condition, this extra condition can say greater than equal to one.
+
+61
+00:37:22,920 --> 00:37:52,940
+Then along with the mutual exclusion, if it is less than equal to 1, this is greater than equal to 1, then let's suppose somehow I write something and then this will be greater than equal to 1, right? Along with this, along with this and this, I mean, whatever the extra condition may be, but if I'm saying that extra condition somehow is imposing greater than equal to 1, mutual exclusion is saying atomization means less than equal to 1, then what does this mean? Then this will be exactly 1, yes. So this, I mean, these two conditions will imply the exactly 1, right? So maybe, maybe I can aim for greater than equal to 1 condition.
+
+62
+00:37:54,780 --> 00:38:26,730
+Right. Okay. So, so there is some condition, which is progress, which, which ensure, which ensure greater than equal to one. So, uh, I will, I will come back to this particular site, but let me defend the progress. Okay. So this progress is some condition that will say greater than equal to one. Now, first tell me, have you understood the need of, need of some extra condition? We need some extra condition, right? Okay. And that extra condition is something called progress.
+
+63
+00:38:27,460 --> 00:39:05,950
+Let's just, let's just see that what this progress says. Yeah. So Arturo is saying something, maybe it is on the same line. That's why I can just copy this. So he's saying if critical section is empty and if someone comes, which is eligible to enter, then we should allow to enter. Yes, that's very nice. So basically, so basically what we want, I mean, we want to have the progress in the critical section. So what is happening here? This is a deadlock kind of deadlock, right? So basically things are stuck.
+
+64
+00:39:06,190 --> 00:39:34,710
+I mean the the process are stuck here so if some let's suppose that some process wants to enter okay so what is happening here in the solution what is wrong with this solution maybe maybe that can that can tell you the idea of the progress right so what is wrong with this let's just analyze analyze this before coming to the progress okay let's quickly analyze that what is wrong with this particular solution I mean I know that you know that what is wrong but still maybe we can analyze it little more so
+
+65
+00:39:35,220 --> 00:40:08,200
+So let's suppose that this T2, I mean this T2 might be having the long code, right? It's not necessary, it is just having one code. So there are multiple lines that T2 is having and somewhere in the between, this is one line, right? Similarly, T1 might be having multiple lines and somewhere in the between, right? This is the critical section. Okay. Now suppose T2 is here, I mean T2 is not, T2 doesn't even know that there is a critical section. I mean, it is just executing some line, right? T2 is here. And
+
+66
+00:40:08,460 --> 00:40:47,350
+T1 wants to enter in the critical section. Can it enter in the critical section? It cannot enter, right? So the fundamental problem could be that as Aruthuram is saying that if some process is eligible to enter, want to enter an eligible to enter, then why you are stopping it, right? So the fundamental problem that with the solution could be that T1 wants to enter and nobody else wants to enter and we are stopping T1 for no reason, right? So basically, there is a technical term which is called progress that says
+
+67
+00:40:47,690 --> 00:41:45,020
+that says that I mean in layman terms I can tell you that there should be some progress in the critical section progress which means what there should be no deadlock so progress says that there should be no deadlock actually this has been defined in two two lines one line says that there should be no deadlock and another line says that I mean this is little lengthy if a process wants to enter in the critical section and nobody else wants to enter
+
+68
+00:41:45,260 --> 00:42:38,200
+At that time, this process should be granted, right? If P wants to enter in critical section and no one else wants to enter, want to enter in critical section, then P should get entered. Okay. Is this line okay to everyone? Like we will be having a formal definition. You can consider this as an informal definition. So this is saying that if P wants to enter in the critical section and nobody else wants to enter, just like this, right? P wants to enter, then it should get entered.
+
+69
+00:42:39,180 --> 00:43:04,680
+So basically we should be putting the extra conditions to the solution of critical section that is for sure. So now I'm defining the extra condition based on the observation maybe we had we have just done. So if someone some process wants to enter in the critical section and no one else wants to get into then it should get into. Is this a fair condition? Sounds good, right? So it sounds good that he has like, I mean this should be the condition. Second condition will be if multiple process wants to enter. So here.
+
+70
+00:43:04,940 --> 00:43:40,820
+if you if you observe that only the p wants to enter p2 i mean the other process might not want to enter at the same time right if multiple process wants to enter then what should be the case what do you think i mean just just apply apply your common common sense and then tell me if multiple process wants to enter then then what what should be the case okay exactly one okay uh
+
+71
+00:43:41,720 --> 00:44:29,200
+Okay. Yeah. I mean, ultimately we want this, but mutual exclusion is always, I mean, mutual exclusion is saying that at most one, so less than equal to one is already there. Okay. Akash is saying that all should get chance one by one. I will, I will get to that. I mean, there is some another term, which is called bounded waiting. I mean, we will, we will see that if that is required or not. Okay. So you might be talking about it. So what do we want as a second condition? If multiple process wants to enter. So if multiple process, then what do you think?
+
+72
+00:44:40,540 --> 00:45:08,790
+Then, can I even quickly fill it? Yeah, make one enter is the final thing but according to this progress definition, it says at least one, okay? It doesn't say objective one, it says at least one. At least one should get entered. I mean, progress says that, I mean, as a term says that progress, progress means that there should be a progress in critical section, right?
+
+73
+00:45:09,210 --> 00:45:46,780
+Okay, so if multiple process wants to enter then progress as per this progress definition it doesn't say the mutual exclusion Okay, it says that okay, at least ek koto jaane doh Why you are why you are asking everyone to stuck, right? So so it says that at least one should get into Is this okay to everyone? Actually in other words no deadlock It actually means no deadlock agar multiple process if multiple process wants to enter
+
+74
+00:45:47,140 --> 00:46:17,860
+then they should not be waiting for each other deadlock okay i will i will define what is the deadlock maybe i think till now we have not defined even the deadlock but yeah so uh basically basically it is saying that if multiple process one function then at least one at least one okay so some people are saying second definition is contradicting the mutual exclusion yeah it is like i mean have i said that the progress progress and mutual exclusion are not even related i mean i have not said that the progress should should be following the mutual exclusion right
+
+75
+00:46:21,900 --> 00:46:59,160
+Okay, which one to enter how to decide that is that is the implementation thing that is that is another thing, but let's just focus on the definition of this progress. So, so, so now let's just talk about the mutual exclusion and progress both in just one picture. And let's just see after mutual exclusion and progress, do we still need any other condition? Okay. So basically what does the mutual exclusion says? Let's suppose this is critical section and they are multiple. This is mutual exclusion. What it says.
+
+76
+00:46:59,470 --> 00:47:41,930
+that if the multiple process wants to enter then at most one right at most one this is P1, P2, P3 it says that at most one should get entered so which means less than equal to one now progress says if multiple process wants to enter P1, P2, P3 then at least in critical section progress should be done progress means execute it okay if someone wants to execute then let it be let allow this okay
+
+77
+00:47:42,240 --> 00:48:23,530
+if someone wants to execute then allow this multiple process wants to execute according to the progress you can allow multiple processes according to the progress if let's suppose only one process wants to end up then what does progress says okay if just allow yes so basically progress says that you can say here it is basically at most one at most one should be allowed right and here it is saying that at least one so it is actually saying greater than equal to one okay
+
+78
+00:48:29,870 --> 00:49:03,460
+okay cool now let's suppose let's suppose I have I have in some solution I have mutual exclusion someone give me that okay I have written some code that satisfy the mutual exclusion which means my entry code that will not allow more than one also also satisfy the progress also satisfy the progress let's suppose that my solution is satisfying both of them okay mutual exclusion progress then what will I say to that great I mean then it means it means
+
+79
+00:49:03,690 --> 00:50:32,880
+exactly when processes are out. Yes. Do you think it will solve my problem of critical section or there is some extra condition we might require along with mutual exclusion and progress? Yes. So actually we need one extra condition. Can you think intuitively that what could be that extra condition? So let's consider a scenario where multiple process wants to enter.
+
+80
+00:50:33,420 --> 00:51:07,070
+I have only mutual exclusion and progress. Let's consider a scenario where multiple process wants to enter. And I have only mutual exclusion and let's suppose this is before. Okay. In this solution, basically they have to write the entry code. They have to go through the entry code. And in this code, basically I did something which allow the mutual exclusion. I mean, which is basically saying mutual exclusion and progress, which means it will allow one of them, right? It will allow exactly one of them, right? This, this gateway will, will allow.
+
+81
+00:51:18,600 --> 00:51:47,720
+Unfortunately, just doing this will not solve my problem. I mean, in reality, it doesn't solve my problem of the critical section problem, basically. Yes. Yes. So I think everyone is correct. So what could be the potential problem here? That if I'm allowing exactly one, that is fine that I'm allowing P1. But let's suppose somehow, somehow I'm again and again allowing.
+
+82
+00:51:48,420 --> 00:52:15,880
+Okay, I mean, I'm writing some code that I'm again, I can really allow this P1 basically, okay. So basically, basically just listen here, maybe it is, sorry, actually, this is little technical things. So in the first goal, you might not understand, but with the example, you will get to understand. So what I'm trying to say, the potential problem could be that you're allowing P1, I mean, you will allow one of them, maybe P1, P2, anyone, you're allowing that. And then everyone is interested, right? Everyone is waiting in the
+
+83
+00:52:16,080 --> 00:52:48,210
+critical section area so basically this is entry section okay so this is this is the entry section right this is the critical section this is the exit section now here i'm letting letting the p1 pass i will say the p1 p1 is good good enough like p1 is passed now i'm asking p2 p2 p3 p4 to wait in the lobby so let's suppose it is a lobby lobby means it is just so far so far sets are there i'm asking this okay
+
+84
+00:52:49,750 --> 00:53:20,860
+Okay. Maybe I can take one example. I don't know. Okay. Let me try to take one example. Suppose, suppose this is some office. Let's suppose that the like PM is there, right? PM is there and PM is basically let's suppose allowing people to meet him. Okay. Let's suppose there are multiple people wants to meet PM. But before, before meeting PM, let's suppose they say that, okay, if you want to meet PM, then what you can do, you can wait here, right?
+
+85
+00:53:21,090 --> 00:53:58,930
+I mean, this is the sofa set that is put here. These are the sofa sets. I will ask that, okay, you people wait here. I mean, I don't know if I can make a sofa here, but I don't know. So basically, I will ask people, I will say people that you can wait here, right? So these are the sofa sets that we have. I will say that, okay, you can wait here. It's not a cute sofa, but anyway, that is fine. So you can wait here. I can ask people to wait here. Now, let's suppose
+
+86
+00:53:59,260 --> 00:54:28,800
+Let's suppose the multiple people are waiting on these sofas, right? Multiple people are waiting. Now, let's suppose I'm saying that, okay, P2 is here. I mean, P2 is waiting here, let's suppose, and P3 is waiting here and so on and so forth, right? P2 is here, P3 is here, P4 is here. And there is someone, I mean, some authority who is saying that, okay, P1, he's saying that P1, you can go and meet PM, okay? He's saying that P1, you can go and meet PM. Now, P1 is meeting PM. And at that time, what this P2, P3, P4 are doing? Can anyone tell me?
+
+87
+00:54:31,730 --> 00:55:09,630
+Waiting, right? They are waiting. Yes. So if when P1 is meeting, so you can say something like this, when P1 is meeting with PM, P2, P3, P4 are waiting. Tell me, tell me, can P1 and P2 both can go at the same time to meet PM? No, right? Why not? Because, because here I'm assuming that we have implemented mutual exclusion plus.
+
+88
+00:55:10,050 --> 00:55:37,390
+progress okay mutual exclusion plus progress let's suppose I've implemented the mutual exclusion plus progress yes due to the security concern so let's suppose that multiple people can't go exactly one will go because let's suppose there's some algorithm that security algorithm that has been implemented and that algorithm says that okay only exactly one will go now P1 has entered into the critical section okay I mean has met Pm now let's suppose P1 is so greedy
+
+89
+00:55:37,730 --> 00:56:07,660
+and what he wants to do he says that okay I have met it and then he left it then again he came back and he is saying that okay I again want to meet PM can this happen? can people come out and then again say that okay I again want to meet PM can this happen? definitely why not right? I mean he may again say that he again want to meet PM so do you think that I will let other people wait I will say that okay you
+
+90
+00:56:08,410 --> 00:56:37,070
+you go and you can reinter. Can I allow this P1 to reinter sequentially? I mean P1, P1, and then immediately can I allow this P1 to reinter? I don't think it is a good thing, right? If I immediately allow, then what will happen? Then it will keep on happening. I mean P1 may keep on, keep on, keep on, keep on, keep on meeting Pm, right? And other people are obviously not full. So basically,
+
+91
+00:56:37,510 --> 00:57:07,780
+basically what I'm saying what I'm trying to say is that if if I'm implementing mutual exclusion and progress it might not be the good it might not be the good solution why because some process is entering in the critical section then I don't want the the same process to get entering the critical section immediately so is the is the things killer the words are killer to everyone will I ever allow this P1 to again enter in the critical section I can I can allow the P1 but not immediately
+
+92
+00:57:08,630 --> 00:57:33,690
+Okay, I can allow the P1 to get into the critical section. That is fine, but not immediately. That is the requirement that I am looking for. What is the problem with the immediate? Can anyone guess? What is the problem if I immediately allow this P1? P1 is meeting agit and then immediately I am again allowed. P1 is again interested. Then there is a chance that others are waiting forever. Yes.
+
+93
+00:57:35,860 --> 00:58:13,540
+so I can allow the allowing even to get into the critical section again is not an issue just understand this okay but immediately allowing is the issue so so I don't want even to reinter immediately right immediately to critical section while
+
+94
+00:58:18,280 --> 00:58:46,820
+I will don't worry actually these are the little things that I need to build upon and then you will get to understand with the examples but here just understand metaphorically or with the you know I mean with the non-technical examples but once you see the code you will you will get to understand clearly but is this requirement clear is this the fair requirement for the critical section solution or it is just unnecessary things I'm putting tell me see you you agreed about the about the you know progress that okay mutual exclusion
+
+95
+00:58:47,200 --> 00:59:07,790
+only mutual exclusion what not very fair because someone can fool me like this then I said that okay let's have exactly one solution right I mean let's have something that enforce me exactly one so so I I brought progress to you now after progress I'm I'm saying after progress I'm saying that okay is the progress only enough then I'm coming up with some example
+
+96
+00:59:08,120 --> 00:59:38,450
+Okay. I'm coming up with some, some maybe the non-technical agenda, something like this. And I'm trying to convince you that mutual exclusion and progress both combinedly are not enough. If you're allowing one, that's okay. That's a good thing. But that is not enough. Maybe one extra condition I need, which it looks like this, that I don't want people to reinter immediately. This immediately what is important. I don't want to reinter immediately while others are waiting. Is this okay? Non-technically, I mean, without the code example is the definition. Okay.
+
+97
+00:59:39,520 --> 01:00:11,830
+Okay. Now tell me one thing. Now tell me one thing. Suppose I take the same case, I take the same case but with a little, little variation. Okay. So here, interestingly, there is no one else. There is no one else. There is no one else. There is no one else. There is no one else. There is no one else. There is no one else. There is no one else. There is no one else. There is no one else. There is no one else. There is no one else. There is no one else. There is no one else. There is no one else. There is no one else. There is no one else. There is no one else. There is no one else. There is no one else. There is no one else. There is no one else. There is no one else. There is no one else. There is no one else. There is no one else. There is no one else. There is no one else. There is no one else. There is no one else. There is no
+
+98
+01:00:11,450 --> 01:00:43,210
+PM and that person. So what is happening? That person wants to enter. Let's suppose since it was the only process, there was no problem. I mean, according to the Mitchell exclusion and progress solution, I allowed this P1 to enter and in the critical section and P1 has met the PM. Now let's suppose P1 again wants to meet immediately. Immediately again wants to meet. Can I allow this P1? Now the only difference between earlier case and this case is that here no one is waiting. See, this is the thing that I agree.
+
+99
+01:00:43,590 --> 01:01:45,190
+I don't want people to reinter immediately while others are waiting now now if others are not waiting can I allow immediately reinter immediately then answer is yes okay so if others are not waiting then there's not an issue okay so let me write it here that if okay now tell me in this condition whatever I'm writing have I already written it in mutual experience in progress or I do I need to make sure it explicitly
+
+100
+01:01:47,880 --> 01:02:19,570
+Do mutual exclusion and progress both commonly say this condition implicitly. See mutual exclusion progress says that exactly one. Actually progress's definition that is in the two lines. So the first line is saying, if any process wants to enter, no one else wants to enter. No one else is interested, no one else is in the sofa set. So sofa set, no one else in the lobby. If no one is waiting, then progress itself is saying that okay, you allow it.
+
+101
+01:02:20,460 --> 01:02:50,000
+Okay. So basically progress is having two, two lines of definition. We will, we will have some practice and you will get to understand that what is happening. So basically it is saying that if progress, two line key definition, first line, it is saying, okay. Second line, it is saying if multiple progress process wants to enter, see progress has two lines, right? And the definition itself progress has two lines. It says, it says that if multiple process wants to enter, this is the.
+
+102
+01:02:51,100 --> 01:03:30,190
+one thing that progress says, then you allow, at least one. This is the one thing that progress says. Second thing that progress says that if only one process wants to enter, no one else is waiting on the lobby right, only one process, then what does this say? Yes, so allow it. So I hope you understood.
+
+103
+01:03:37,550 --> 01:04:06,980
+If you understand Hindi, then he's saying, P1 alone wants to enter in the paper, in the critical section, so he will be like, So there is a wrap, right? So okay, that's a very nice analogy. So I hope you understood that progress itself is saying that if only one process is interested, you make it progress, right? So basically, the second line is already there in the progress. That was already there in the progress. That's what I'm saying. I mean, I do not need to explicitly write it here.
+
+104
+01:04:07,240 --> 01:04:44,390
+Okay. So, so this is already there. Sorry. This is already there in the definition of the progress. So one thing is sure that I need one extra condition. Okay. So one second, this is taken. This is already there in the definition of progress. So one thing is for sure I need some extra condition. That is what what we somehow got convinced and that extra condition is this right.
+
+105
+01:04:48,200 --> 01:05:14,600
+So basically this condition was already there. I mean, I don't need to rewrite it again and again. This condition was already there. So let me just reiterate that what we wanted to say. First, we came up with the definition of mutual exclusion, which says that allow at most one, right? This is what technical definition of mutual exclusion is, which means it says less than equal to one.
+
+106
+01:05:15,560 --> 01:05:45,590
+Then we were not very happy with this particular only mutual exclusion. The region is very simple. If I'm not around anyone, basically in case of deadlock, the mutual exclusion is by default satisfied. Okay. You might not understand deadlock here, but, uh, but, okay, let's not worry about it. So basically, uh, we said that deadlock should not be there, right? So that's why we, we introduced progress. Progress is saying that progress. You know, deadlock is not there. We will, we will come back to the deadlock, but not worry about it for now. So progress says that allow, allow.
+
+107
+01:05:45,910 --> 01:06:17,700
+at least one, one process, right? Which means it is greater than a problem. But both of this were not, I mean, combined, both of this is saying that exactly one that I agree, right? So, combinedly, combinedly, both of this were saying exactly one. But still, I'm not happy with my solution. The reason was that, that one process can reinter again and again. That was the reason, right? So basically,
+
+108
+01:06:18,110 --> 01:07:10,260
+Basically, I wanted to put one more condition that technically it's called bounded waiting. Okay. Technically, I mean, this is a technical limit, which is bounded waiting. Now it is saying that you do not re-enter. You don't allow the to re-enter. Okay. So what it says, can anyone tell me like we have already discussed it. Can I write the definition here? Yeah. So don't re-enter immediately. Yes. Don't re-enter immediately.
+
+109
+01:07:14,890 --> 01:07:44,100
+Okay, there is one more thing I need to I think write it, which is otherwise this won't be the complete sentence if others are waiting. Okay, just just this thing. Okay, if others are waiting, if others are not waiting, then then you can allow. Otherwise, it will not be actually the complete sentence. Oh, awesome. So Mansi has written the perfect definition do not allow to reinter immediately to reinter immediately. Okay, don't allow to reinter immediately if others are waiting. Yes, that's the perfect definition.
+
+110
+01:07:48,330 --> 01:08:15,800
+So basically, all of this give me the final solution of the critical section. I mean, if there is some solution that can implement all of this, then I'm very, very happy. So let's just quickly come back to the PM example. Let's suppose I have some algorithm that basically follow this mutual exclusion, progress and bounded waiting.
+
+111
+01:08:19,770 --> 01:08:55,750
+Now, let's suppose this is PM, PM is sitting here and there is a sofa or some lobby. This is the lobby, which I can also call weight area. Now suppose multiple process wants to enter. Okay, multiple persons basically. I'm very sure that PM might not be just dealing with the processes. He might not be even knowing what is the process. But yeah, he let's suppose multiple, multiple persons wants to enter and wants to meet him.
+
+112
+01:08:56,280 --> 01:09:52,630
+Then suppose there is some security solution that is following all of this. Now tell me, can this security solution allow multiple processes to meet at the same time? No. Okay. Okay. So, so basically, basically what I'm saying here. So, so it will, I mean, multiple will not be allowed because of the mutual exclusion, right? Okay. This is first thing that it will do. Now the second thing that I want to ask is that
+
+113
+01:09:54,930 --> 01:10:39,100
+Will it say that, okay, none can enter? Will it say none can enter? Okay, no, not you, not you, not you, not you. Why? Why not? Yes. So, basically, because of the progress. Because progress says that progress should be there. Okay. If process wants to enter in the critical section, at least allow one of them, right? No. Progress says at least allow one of them. At least allow, basically, right? One. Okay. Now, the final thing is that, suppose some process
+
+114
+01:10:39,440 --> 01:11:08,090
+is there let's suppose some some processes are in the waiting area okay some processes are in the waiting area they're waiting now can this P1 enter and then can it reinter can P1 reinter in the critical section so the answer is no right i won't i won't do this if some processes are waiting if some process is not waiting it's not an issue so basically i will say okay if if others if p2 p3 p4 are waiting and
+
+115
+01:11:11,760 --> 01:11:43,180
+P1 is in critical section. If that's the case, in that case, I won't allow P1 to reinter, right? Okay. I hope that is fine. So seems like that if I, if I follow this mutual excellent progress and modern waiting, this finally gives me some, uh, some Bible solution to the critical section, right? Now I can, if I'm implementing this, then, then it is a very good thing to do. Okay. So that's great. So finally,
+
+116
+01:11:43,550 --> 01:12:26,990
+Finally, we have arrived with something, some theoretical definitions that, okay, if I'm following all of this, then my solution is at least good. Yes. So if the solution follows all of this, then it is a critical section solution. Okay. So if any solution, so I think we have conveyed the idea of the critical section solution. Now, see, okay, this lecture might have taken some time.
+
+117
+01:12:27,200 --> 01:12:53,960
+But I hope that was that was worth discussing that we need we need these conditions. So generally, what happens? I mean, like, I mean, I'm not sure. But what happens that if you if you just read from any other place, then they will directly tell you that, OK, we need these three solutions may not may not motivate the idea. So so it like, actually, I wanted the trade off that it may take that time to motivate the idea. But I hope that time is worth basically, right? Because these things are necessary to understand the synchronization.
+
+118
+01:12:54,510 --> 01:13:23,350
+So let's just quickly read the theoretical, you know, definition that I written here. Mutual experience says if P1 is executing the criticism, no other process can be executing the critical sections. Yeah, so no other process. If that is there in the critical section, okay, I will tell you the proper definition. So that's also the proper definition. But let's just quickly read it. If no process is executing the critical section, some process was to enter in the critical section, then only those processes that are not executing in the remainder section can participate in the deciding.
+
+119
+01:13:25,610 --> 01:13:51,740
+Okay. There are just a bound or limit on number of times that a process are allowed to enter in the critical section. That was a definition from Galvan. Okay. That skin shot is not complete, but don't worry about it. So basically, don't worry. I will, I will give the skin shot later in the next class, but yeah, let me just delete it from here. So don't worry. I will, I will give the, that skin shot was not complete. So that's why I'm removed it. So basically now.
+
+120
+01:13:53,080 --> 01:14:33,590
+Now one thing is sure that that these are the three things that we want right now The next question could be that how do we do it? How do we do it? Right? How do we do it? Which means what do you think how we can do it? Maybe maybe one one thing could be as a user as a user We can write some code. This is the one thing. What could be other things? Can we ask operating system using a system call right?
+
+121
+01:14:33,910 --> 01:14:59,520
+we can ask operating system obviously using system call to help us what could be the other thing as a user we can write we can ask operating system maybe maybe we can ask also the hardware okay hardware in the sense that we can say that okay whenever you are executing the critical section you you
+
+122
+01:15:00,110 --> 01:15:35,800
+Maybe, I mean, there could be multiple options, but you can say that, okay, disable the interrupts. You don't even allow the contact switching. Okay. If the hardware is not allowing the contact switching, it is saying, okay, don't interrupt me. Then, then, uh, I don't think that anyone can, uh, can print, right? So maybe like, we will see that what are the supports that we can, we can seek from the hardware, but yeah, we can, we can ask hardware also. We can take, take hardware help also. So, uh, these are the three things that we can do. If you want to, uh, if you want to implement.
+
+123
+01:15:36,220 --> 01:16:16,540
+Okay, not just mutual exclusion. I mean, this is, this is particularly about the mutual exclusion, but in general, in general, about the critical section solution also, right? So we can ask, we can write our own code, we can, we can have the hardware support or we can have the OS support also, right? Now, let's just do one thing. We, let me, I mean, okay, do you think that it is a good idea to start to seek help from others? Maybe, maybe we can help ourselves, right? Okay. So let's just, let's just see if we can, if we can write our own code.
+
+124
+01:16:16,960 --> 01:16:46,100
+Okay, let's just see if we can write some code to solve this critical section problem. Let me quickly read out these slides what they're saying progress is the purpose of this condition is to make sure that either some process currently in the critical section and doing some work or there is at least one process that wants to enter in the critical section it will and then do some work in both the cases some work is getting done. Anyway, like you can read out these slides doesn't matter. Okay.
+
+125
+01:16:47,620 --> 01:17:18,570
+Boundary rating any process P is not bypass with some other process. Yeah bypass means that someone is waiting right someone is waiting bypass means like I mean someone is waiting and you are saying some other processes to do the work right so which means let's suppose this P2 P3 and P4 are waiting P2 P3 and P4 are waiting and then this P1 is bypassing right P1 is bypassing again and again that should not be allowed so that's what wanted waiting stage in the layman terms
+
+126
+01:17:19,330 --> 01:17:49,950
+So don't worry that how this hardware can help us, how this OS can help us, how we can write our own code. We will see that. I'm just suggesting that what could be the possible things that we can do. So don't worry that how we are doing it. We will see this, obviously. All of this is okay, but how to solve the questions. I mean, this must be your question. That question, how to do it, how to do it, these are your questions. Okay, the theory part is well done, but let's just see how to solve the questions.
+
+127
+01:17:52,440 --> 01:18:35,110
+So let's just write a okay. Let's just help ourselves. Let's just write a code, which actually does what? Which, uh, which solve the critical section problem. Okay. Let me, maybe I can call it attempt one. I'm not sure if I will be successful, but there is no harm in trying, trying, right? So, uh, we want to write a code that solve critical section problem, which means, which means solve critical section problem means satisfy, satisfy.
+
+128
+01:18:39,430 --> 01:19:17,830
+mutual exclusion, progress and vulnerability. Let's just have the attempt one. So let's suppose these are the two processes, maybe P1 and P2 and these are their critical section. Before the critical section, I want to write some code. I want to write some entry code and also the exit code. So entry exit codes that I want. Is the idea clear that what we want?
+
+129
+01:19:24,530 --> 01:19:52,520
+so now let me let me try doing it let's suppose that let's suppose there is a common variable which is count that they both want to modify okay count equal to zero there is a shared variable okay shared data that they both want to modify maybe count plus plus count minus one whatever right shared data
+
+130
+01:19:53,640 --> 01:20:27,640
+now let's suppose I mean this is the data but there is some metadata or I mean some extra variable that I need to share to you know I mean have to have some sync so let's suppose I'm saying Boolean or some integer may be interested okay so there is some more variable that I'm saying interested I mean that is also shared so basically these two variables are shared can anyone tell me why counter share because because they both want to like modify the count why interested is some variable that I've taken to be shared
+
+131
+01:20:27,840 --> 01:21:20,720
+because somehow I want to communicate to both of them right so I'm making some variable to be shared okay along with the actual actual data this is just one example this could be some some real data or something okay cool so let's suppose before into entering in the critical section I will say while maybe I will say while interested immediately after this let's suppose initially both are not interested okay so
+
+132
+01:21:22,200 --> 01:21:51,960
+I mean, I'm just trying. I'm not sure if they actually, the good thing about the trying is that that I can say that, okay, even if I write some wrong code or something, then at the end, I can say that, okay, see, I told you I was just trying. Okay. So, so it need not work. So that's the good thing about this particular time. Anyway, so I will say that, okay. Interested is one like now I'm interested. Suppose the initially I was not interested. So, so this will be false and I will come here. I will say, okay, I'm now interested.
+
+133
+01:21:52,450 --> 01:22:34,380
+Now this is the critical section that I have and once I leave the critical section, I will say I am not interested, okay? Interested equal to 0. Means what I am saying, maybe I can go to the next page. So basically what I am trying to say is something like this. So initially there is some interested variable which is false. Let's suppose no process is interested. I mean this is some attempt, there is nothing, I mean there is no magic in this.
+
+134
+01:22:34,450 --> 01:23:07,000
+this is one just attempt was a huge of count count is a variable count is a shared variable which is in the critical section this is a count plus plus there must be a shared data that we are dealing with so count is some variable it is not in the it is not useful for my solution it is in the critical section so let's suppose this is p1 this is p2 interested is a common variable okay interested is a shared variable which is initially let's suppose 0 now suppose
+
+135
+01:23:08,880 --> 01:23:32,140
+Suppose P1, okay, suppose P1 says that okay, P1 execute this first, P1 says that okay, interested, interested, do you understand that what does this mean? It is same as saying, maybe I can go to the next page. Basically this thing is same as saying, interested equal to true, right?
+
+136
+01:23:42,890 --> 01:24:14,300
+is not equal to zero equal to two or one okay I mean don't worry about the eject syntax and all so basically I'm writing one but don't worry okay about the true and one are not exactly same but don't worry about it so just just consider that interest rate is a Boolean variable anyway so basically it is it is just checking whether interest rate is one or not okay it is just checking whether interest rate is one or not I mean if it is one it will stuck in the loop so basically if interest rate is one then so if interest rate is one then it will stick
+
+137
+01:24:14,550 --> 01:24:48,780
+if interested is 1 then stuck okay cool so first there's a shared variable okay there's a shared variable so first interested is 0 then i'm saying that okay if it is 0 then you can bypass i mean 0 means it is false it will not not enter in the loop it will say now i'm interested and now it is in the critical section let's suppose p1 is in the critical section okay at that time p1 get preempted and p2 wants to enter tell me can p2 enter
+
+138
+01:24:51,850 --> 01:25:30,510
+So what I'm trying to say that if P1 is in the critical section at that time, P1 get preempted, can P2 enter? What is the value of interested now? What is the value of P1 is here? It should be 1, right? Because it must be modified by why this interest is equal to 1. So it is 1. Okay. So it is 1. Now what I'm saying that if P1 is in critical section, get preempted and P2 wants to enter.
+
+139
+01:25:35,630 --> 01:26:06,070
+Then, can it enter? Answer is no. Okay. That's great. That's really great. It means it seems like a good solution. Agented. P1 is in the critical section. It can't allow P2. Do you think the mutual exclusion is satisfied here? Seems like mutual exclusion is satisfied, but it's not. So, what is the reason?
+
+140
+01:26:06,450 --> 01:26:42,810
+What may so happen? I mean, see, I will tell you the step-by-step procedure that how to check a mutual experience satisfied or not. Don't worry. Okay. I will tell you the step-by-step procedure. But for now, just understand it in the night. I will tell you very step-by-step procedure. Don't worry. I mean, for mutual experience progress and bounded weight, I will tell you everything step-by-step. Okay. So here, here, what I'm trying to say is that this code doesn't satisfy the mutual experience. Let me tell you why. So what is happening?
+
+141
+01:26:43,070 --> 01:27:11,080
+that I am saying that P1 is in the critical section P2 wants to enter and can't enter that's good but what what may so happen that let's suppose P1 execute this this thing it will say that okay interested is zero it means P1 is here right P1 is here and now P2 also P1 get preempted and P2 also execute this thing actually these are some you know some sensitive points where you need to check that okay where where to preempt okay where to preempt like that so let's suppose that P2 also also wants to enter and P2 P2 is here now
+
+142
+01:27:11,720 --> 01:27:43,610
+because P interest rate is 0 so P1 is here before setting the interest rate to be 1 it get preempted and now P2 is here I mean P2 execute this and P2 is here so both will say that interest rate is 1 and both are in the critical section at the same time right so it doesn't satisfy the mutual exclusion so I can say it doesn't satisfy mutual exclusion so it was
+
+143
+01:27:44,130 --> 01:28:13,090
+I mean, it was one of the very necessary condition to have mutual exclusion and it is not even satisfying the mutual exclusion. So I don't think it is a good idea to implement this kind of solution. So this attempt that I was trying to make is basically a failed attempt. So what we want ultimately, we want ultimately to satisfy all of this condition and even the mutual exclusion itself is not satisfied. So don't worry, we will have a very systematic way that how to check the mutual exclusion. But here,
+
+144
+01:28:13,370 --> 01:28:41,620
+here intuitively it may it I mean intuitively it may give you the idea that mutual exclusion is not satisfied because maybe both are executing this while while interested at the same time and then both can get entered and it is not not satisfying right okay okay so basically finally what we want we want some solution that that satisfy all of the conditions but here the mutual exclusion as alone is not satisfied so what we can do we can have we can have multiple attempts okay
+
+145
+01:28:42,030 --> 01:29:11,810
+So maybe this is the first try. I think this is what we did, right? Is this the same thing we did? Yeah. So I think this is the same thing we did instead of busy. I was just calling it interest. Okay. I mean, the variable name is different, but anyway, like I have taken this as a from slide from somewhere else. So the variable name was different, but yeah, this was a, they also did as a first try. This is the first time we also did as a first try. So this is the first try that that got failed, but maybe let's have another try. Maybe.
+
+146
+01:29:12,130 --> 01:29:39,090
+let's have another try so what we will do we will be trying multiple times till we get succeed okay so we will be I mean we will be seeing that what is the potential problem here and how we can remove it so what is the potential problem here know how we can remove it so why are we having the try and not directly why I'm not giving directly a solution because once you see the see how you how you are getting filled then you will see that how to analyze the code right
+
+147
+01:29:39,480 --> 01:29:59,580
+See in the synchronization, everything is that how to analyze the code. Everything is like you're being a tester. Okay. You know the developer and tester. So gate ads job is just like a developer. They will give you the developed code. Maybe, maybe. Yeah. So let's suppose they are asking that, okay, mutual experience, satisfy or not in this particular question. So they are just like a developer. Now you need to test their code.
+
+148
+01:29:59,860 --> 01:30:29,280
+Okay. So to test their code, whether their code is good or not, whether this code is satisfying mutual exclusion progress and these things. So to test their code, you should be knowing that what are the, you know, I mean, you should be having a thorough understanding of the analysis. So that's why we will be having multiple codes. And then, then we will be getting the idea that how to check the code, right? Whether it is a good code or not. So, so basically the plan of the next few slides, which we will be continuing later is that that we will be first seeing the, seeing more solutions.
+
+149
+01:30:30,000 --> 01:30:48,840
+And also we will be seeing that, okay, how to actually check these three conditions, okay, step by step, we will be seeing the things and then we will be seeing the gate questions. Then after those gate questions, you will get to get to know that, okay, how to check the mutual exclusion, how to check bounded weighting progress and these things, right? So I think in many of the questions, they have asked the same thing. See here.
+
+150
+01:30:49,260 --> 01:31:27,770
+So in the menu of the questions, they have asked the same thing. So they have asked, I think, five to six or maybe more. I mean, this is just a starting of the topic. That's why you can have just five, six, five, six things where you don't have the technical idea about other things, right? So we will be having these things and then we will be going to the actual solution. Okay. So the plan of the next lecture is that we will be first seeing our tries, then we will be seeing that where it is failing. So maybe I can tell you the plan of it will be the
+
+151
+01:31:29,650 --> 01:32:31,360
+Formal method you can say or step-by-step method to check mutual exclusion, progress and vulnerability. Then we will try our own solutions. Then we will see gate PYQs where they are failing right and then we will see the
+
+152
+01:32:31,930 --> 01:33:17,860
+the final solution of the critical section problem that can be solved by user, right? Which is the real solution, the actual solution, actual working, okay, actual working solution. We will see the actual working solution of the critical section problem. Okay, so that's what we will do. This is the plan of next lecture. And then once you once you understand that, okay, using the user, we can do it, then we will see that how operating system can help us, how hardware can help us. Okay. So I think that is good.
+
+153
+01:33:20,770 --> 01:33:46,990
+No, we will not be continuing today, we will be continuing tomorrow, don't worry. So I think today I will upload the slide right away and then if you want you can try out these questions or maybe you can try out tomorrow, whatever you want. So I hope that is okay to everyone and for today lecture I can say that if you have not understood anything,
+
+154
+01:33:47,230 --> 01:34:16,680
+That is fine. The reason being is that today we have mostly went 30 gone. Okay. We were just building the basics. Now, sometimes what happens when we are, you know, building the theoretical basics at that time, if you're not actually dealing with the problems at that time, you might not understand the things. So once the tomorrow lecture will happen, after that, you will get to understand the things. Okay. Because then you will be seeing the problem and where, where these things are failing or not failing like that, right? Okay. So thank you, everyone. Take care. Okay. Bye-bye.
+

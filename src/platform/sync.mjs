@@ -20,7 +20,8 @@ export async function syncCourse(options={}){
   let alive=false;if(worker.pid){try{process.kill(worker.pid,0);alive=true;}catch(e){alive=e.code==='EPERM';}}
   const lectures=[],lessonSources=[];
   for(let id=0;id<inventory.length;id++){
-    const row=inventory[id],stem=row.transcriptStem||path.parse(row.file).name,done=await readJson(path.join(analysis,'transcripts',stem+'.done'));
+    const row=inventory[id],stem=row.transcriptStem||path.parse(row.file).name,done=await readJson(path.join(analysis,'transcripts',stem+'.done')),skip=await readJson(path.join(analysis,'transcripts',stem+'.skip'));
+    if(done&&skip)throw new Error(`Lecture ${id} cannot be both transcribed and skipped.`);
     const target=path.join(data,'transcripts',`${id}.json`);let imported=false;
     if(done){try{
       const existing=await readJson(target);
@@ -33,7 +34,7 @@ export async function syncCourse(options={}){
       }
     }catch(e){await fs.appendFile(path.join(data,'monitor.log'),`${new Date().toISOString()} Import failed for ${id}: ${e.message}\n`);}}
     if(imported)lessonSources.push(...linkLessons(await readJson(target),lessons));
-    lectures.push({id,file:row.file,title:lecturePlans[id]?.[0]||row.file,seconds:row.seconds,transcribed:Boolean(done),imported});
+    lectures.push({id,file:row.file,title:lecturePlans[id]?.[0]||row.file,seconds:row.seconds,transcribed:Boolean(done),imported,skipped:Boolean(skip),skipReason:skip?.reason||null});
   }
   let lessonBuild=null;
   if(course.builder&&base===canonical){
@@ -41,16 +42,17 @@ export async function syncCourse(options={}){
     const build=await buildReviewed(base);lessonBuild=build.report;
     for(const lesson of build.lessons){const entry=lessonSources.find(l=>l.id===lesson.id);if(entry)Object.assign(entry,{start:lesson.start,excerpt:lesson.excerpt,references:lesson.sourceReferences,sourceReferences:lesson.sourceReferences,linkMethod:'reviewed lecture-specific teaching',contentVersion:lesson.contentVersion,title:lesson.title,concept:lesson.concept,teachingSteps:lesson.teachingSteps,questions:lesson.questions,contentStatus:lesson.contentStatus});}
   }
-  const completed=lectures.filter(l=>l.transcribed).length,imported=lectures.filter(l=>l.imported).length;
+  const completed=lectures.filter(l=>l.transcribed).length,imported=lectures.filter(l=>l.imported).length,skipped=lectures.filter(l=>l.skipped).length;
   const totalSeconds=inventory.reduce((n,l)=>n+(l.seconds||0),0),completedSeconds=lectures.filter(l=>l.transcribed).reduce((n,l)=>n+(l.seconds||0),0);
   let logUpdatedAt=null;try{logUpdatedAt=(await fs.stat(path.join(analysis,'transcription.log'))).mtime.toISOString();}catch{}
-  const phase=completed===lectures.length&&imported===lectures.length?'complete':completed===lectures.length?'import-error':status.phase==='failed'?'failed':alive?'running':'stopped';
-  const snapshot={checkedAt:new Date().toISOString(),sourceAvailable:true,phase,workerAlive:alive,total:lectures.length,completed,imported,totalSeconds,completedSeconds,percent:totalSeconds?Math.round(completedSeconds/totalSeconds*100):0,currentLecture:phase==='running'?lectures.find(l=>l.file===status.current_video)?.id??null:null,logUpdatedAt,checkIntervalSeconds:60,error:status.error||null,lectures,lessonSources,authoredLevels:lessons.length,sourceLinkedLevels:lessonSources.filter(l=>l.ready).length};
+  const terminal=completed+skipped===lectures.length;
+  const phase=terminal&&imported+skipped===lectures.length?'complete':completed+skipped===lectures.length?'import-error':status.phase==='failed'?'failed':alive?'running':'stopped';
+  const snapshot={checkedAt:new Date().toISOString(),sourceAvailable:true,phase,workerAlive:alive,total:lectures.length,completed,imported,skipped,totalSeconds,completedSeconds,percent:totalSeconds?Math.round(completedSeconds/totalSeconds*100):0,currentLecture:phase==='running'?lectures.find(l=>l.file===status.current_video)?.id??null:null,logUpdatedAt,checkIntervalSeconds:60,error:status.error||null,lectures,lessonSources,authoredLevels:lessons.length,sourceLinkedLevels:lessonSources.filter(l=>l.ready).length};
   if(lessonBuild)Object.assign(snapshot,{reviewedLectures:lessonBuild.reviewedLectures,reviewedLevels:lessonBuild.reviewedLevels,reviewedQuestions:lessonBuild.questions,awaitingEditorialReview:lessonBuild.awaitingEditorialReview});
   await atomicJson(snapshotFile,snapshot);
   if(previous.completed!==completed||previous.phase!==phase||previous.sourceAvailable===false)await fs.appendFile(path.join(data,'monitor.log'),`${snapshot.checkedAt} ${phase}: ${completed}/${lectures.length} transcribed; ${imported} imported; ${snapshot.percent}% of audio completed.\n`);
   if(phase==='complete'){
-    const noticeFile=path.join(data,'TRANSCRIPTION_COMPLETE.md'),notice=`# Transcription complete\n\nAll ${imported} transcripts have been imported. ${lessonSources.length} authored levels are linked to source text. Machine transcripts may mishear formulas; practice problems state explicit assumptions.\n`;
+    const noticeFile=path.join(data,'TRANSCRIPTION_COMPLETE.md'),skipNotice=skipped?` ${skipped} lecture(s) were intentionally skipped.`:'',notice=`# Transcription complete\n\nAll ${imported} transcripts have been imported.${skipNotice} ${lessonSources.length} authored levels are linked to source text. Machine transcripts may mishear formulas; practice problems state explicit assumptions.\n`;
     let existing='';try{existing=await fs.readFile(noticeFile,'utf8');}catch{}
     if(existing!==notice)await fs.writeFile(noticeFile,notice);
   }

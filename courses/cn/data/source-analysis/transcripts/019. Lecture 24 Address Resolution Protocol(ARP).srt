@@ -1,0 +1,804 @@
+1
+00:00:00,080 --> 00:00:23,410
+Hi everyone. So today we are going to study a new topic which is address solution protocol. Okay. Cool. So till now we have studied few topics in in data link layer and particularly in computer networks. So this is completely a new topic which is not related to your previous of any of the topic. Okay. Cool. So let's just consider a case.
+
+2
+00:00:23,790 --> 00:00:53,660
+let's suppose that you want to send some packet from one host to another host and then we will see that why we actually need this address address logician protocol okay suppose there's a host right suppose this is the host and let's just name it h1 okay this host wants to send a packet to another host which is here let's suppose these are the two routers in between and the host another host which is here right
+
+3
+00:00:54,220 --> 00:01:27,960
+Let's suppose this host is H2. Now, first tell me, are these two hosts, which are, which is H1 and H2, are these two hosts in the same network? So what do you think? No, right? So these two hosts, which is H1 and H2 are in different network, definitely. How many networks are here? This is one network. I mean, whatever is connected to this is one network. This is another network. This is another network. So there are three networks, right? As you know. Okay. Now,
+
+4
+00:01:28,650 --> 00:02:04,610
+Let's let's say there's this host wants to send H1 wants to send packet to H2. Okay. This is our problem statement in the sense that we want to see that how we can solve this particular problem. Okay. H1 wants to send some package to H2. Now what H1 needs, if he wants to send some package to H2, what H1 needs is IP address. So H1 will be needing IP address of H2.
+
+5
+00:02:04,840 --> 00:02:34,450
+So let's suppose that this IP address is maybe you can keep it IP some some IP one or something maybe H1 IP okay so maybe let me just call it IP one okay or maybe H1 IP okay let's just call it IP H1 okay let's just call it IP H2 IP H2 okay so what H1 needs if he wants to send some packet to H2
+
+6
+00:02:36,040 --> 00:03:07,410
+It will be needing something called as IP address of H2, right? I mean, that is obviously for sure. So let's suppose that H1 has the IP address of H2. Okay. Okay. So H1 has IP address of H2. Okay. H1 already has IP address of H2, let's suppose. And if he wants to send the package to H2, then can he directly send? Yeah, why not? So what it will do? It will, it will form a packet in the packet. It will say that, okay.
+
+7
+00:03:07,640 --> 00:03:32,580
+in the packet you need to mention actually two things one is called source ip source ip another one is called destination ip so what is the source ip can you tell me in this case what is the source ip it will be ip h1 right what is the destination ip ip h2 right and that's how this packet will be from i mean there will be some data obviously along with that and
+
+8
+00:03:32,780 --> 00:04:01,280
+The data will be heading some header that's called the network layer header. We will see that in a very good detail, which is called IP IP header. Okay. IP header will be containing these two things. Anyway, if you remember the overall idea that we were having header for every, every layer, do you remember that? That I mean, this, this host, this H1 will be having every layer. So starting from application layer, like data will be encapsulated in the application layer header.
+
+9
+00:04:01,940 --> 00:04:32,430
+that will be encapsulated in transport layer header that will be encapsulated in data sorry network layer header generally like we only have IP protocol here that will be encapsulated in data link layer header right so at data link layer I mean just like at network layer we use IP every time okay we will see that in more drill and similarly at data link layer you can use any protocol but all the other protocol and all the other technologies almost absolute apart from Ethernet and Wi-Fi
+
+10
+00:04:32,700 --> 00:05:05,670
+okay so there is something called 802.11 that is Wi-Fi protocol Wi-Fi header or there is some Ethernet header anyway like that is not in the syllabus so you can understand that this is a data link layer header link layer header right are these things okay everyone okay so now this packet will get transmitted and inside the network layer header I have two field one is called source IP another one is called destination IP okay okay
+
+11
+00:05:06,030 --> 00:05:33,470
+So now this particular packet will will be having source IP and destination IP and interestingly there is another another header that will be encapsulated in this particular particular data. So how it is happening? Let me just tell you that how it is happening from the scratch. So H1 wants to send the packet right now H1 will be forming H1 will be forming some
+
+12
+00:05:34,860 --> 00:06:05,710
+You can say packet, right? So there will be the data application data that H1 wants to send the data will first encapsulated into Okay, the data will first encapsulated into application layer header. Let's suppose you are using HTTP. I mean, depending on the protocol, you can have anything right at application layer. There are many, many protocols. Let's suppose HTTP we are using so HTTP header, then transport layer header at transport layer. There are there are again many, many protocols that let's suppose we are using TCP.
+
+13
+00:06:06,010 --> 00:06:36,210
+okay then network layer header at network layer also there are many many protocols let's suppose we are using ip then data link layer header and at data link layer we have many many protocols i mean popularly only two protocols basically ethernet and wi-fi right so let's suppose we are using ethernet okay so that's how the packet will be formed is it so could everyone that this data will get upended to different different type of protocols or different different type of headers and then this data will be sent right okay
+
+14
+00:06:36,820 --> 00:07:00,440
+now now we want to send this data right now inside the network layer header itself there are two field what are those two field that we just talked in the in the previous section so let's just let's just call this entire thing okay as some abstract way where i'm just calling i'm just you know ruling out all of this i'm just calling this
+
+15
+00:07:00,660 --> 00:07:32,880
+as payload okay you can call payload payload means that i mean apart from header whatever is remaining is basically generally called payload okay so this is payload so what i'm saying here is that that this particular thing whatever it is actually it is none of my interest for now so that's why i'm just calling it payload if this is okay to everyone otherwise you will get confused this okay this is tcp xtp okay i'm just calling it data or if you want you can call it data okay i'm just calling this entire thing as data
+
+16
+00:07:41,840 --> 00:08:12,950
+Right? Okay. So this data will be having IP header and similarly Ethernet header. In this IP header, I have source IP and destination IP. Similarly, there is something called as physical address or the MAC address. And in the Ethernet header, we have physical addresses, source physical address and destination physical address. Right? Okay. Now, now there are four fields that I'm currently interested. Source IP, destination IP, source physical address is also called
+
+17
+00:08:13,310 --> 00:08:44,470
+MAC address, source MAC address and destination MAC address. Okay. These are the four fields that I'm interested in. So what is the source IP here? Whenever you are sending a packet, what is the source IP? The source IP will be IPH1, IPH1. The destination IP will be IPH2. The source MAC will be, let's suppose, m, mH1, MACH1, MAC address of H1. And the destination MAC is what?
+
+18
+00:08:50,050 --> 00:09:11,040
+So, yeah, that's actually very interesting. The destination MAC address is MAC address of R1. Okay. So that's what we will look in this entire lecture today. Okay. So this is, I mean, what is this destination MAC address? How do we get destination MAC address and many, many questions, including gate P by which and everything we will solve today.
+
+19
+00:09:11,380 --> 00:09:40,840
+Okay, so these things are very intuitive. What is the source IP destination IP source Mac also intuitive? But destination Mac is actually the next hop Mac. Okay, whatever is the next hop? What is the next hope it will be transferring? So it will H1 will be first sending to R1, R1 will be sending to R2 and R2 will be sending to H2. Right. So what is the next hope? This is basically the destination Mac address. So now you can now can you just tell me what is this? This is Mac address of R1. Okay, you will understand this in very good detail today. Don't worry.
+
+20
+00:09:41,120 --> 00:10:11,760
+Okay, so destination MAC address is always the address of next hop. Right. So here the address of next hop is R1 MAC. So that's why it will be R1 MAC. So whatever, whatever, like you can say this packet will be containing. Okay, let me just remove all of this drama. Let's just only focus on these four fields, which I'm mostly interested in. So what are these four fields in the packet? Okay, these four fields will be something like this. If you talk about if you talk about the packet leaving it
+
+21
+00:10:12,300 --> 00:10:42,700
+H1, right? The packet leaving H1 will be having these four fields. Is this okay to everyone? Okay. Now it will be reaching, this packet will be reaching to R1, right? See, this H1 cannot directly send to H2. So that's why first it will send to R1. And then it will request R1 to send to H2. Then R1 will say that, okay, I cannot also send directly to H2. I will send to R2. Okay. Then R2 will say that, okay, this host is in my network. If this host is in my network, then I can directly send. Okay.
+
+22
+00:10:43,230 --> 00:11:28,300
+So here here now this packet will be reached to R1 now now you tell me what are these addresses when it reaches to R1 what is the source source IP what is the source IP here whenever it is at R1 now let's just talk at R1 okay would you like to would you like to write all of these all of these fields so this is at R1 okay what is the source IP
+
+23
+00:11:28,580 --> 00:11:51,680
+basically now now again very interesting thing this source IP destination IP never change these two fields never change okay these two fields which are the source IP and the destination IP these two fields never ever change whatever is fixed I mean if you change them if you change the destination IP obviously like this host it will never reach to the host right and similarly if you change the source IP
+
+24
+00:11:51,930 --> 00:12:25,360
+Then this host, if we want to send the acknowledgement, then it will never be reaching to this H1, right? So basically, basically the source IP and destination IP never get changed. These two are the field which never get changed. And what are the fields which will keep on changing hope by hope? These are the two fields which keep on changing hope by hope. Now you tell me what will the source Mac here? What will the source Mac? It will be, it will be Mac address of R1, right? Mac address of R1. The source Mac will be Mac address of R1. The destination Mac.
+
+25
+00:12:25,690 --> 00:12:53,410
+will be MAC address of R2 okay see initially initially it was MAC address of H1 and because because this is H1 to R1 so MAC address of H1 is source MAC address of R1 is the destination now it is R1 to R2 right now it is R1 to R2 so hence hence these are the parameters right if it is R1 to R2 if it is leaving to R1 then these are the parameters now let's just talk here now whenever it is it is at R2 then
+
+26
+00:12:53,850 --> 00:13:50,030
+then what are the fields here okay so at r2 can you can you tell me what are the fields right yeah that is correct so basically at r2 the fields are like this so here the source MAC address and the destination MAC address will again get changed and now the source MAC address will be MAC address of now it will be MAC address of r2 and the destination MAC address will be MAC address of h2 yeah that is correct okay
+
+27
+00:13:51,680 --> 00:14:18,870
+Now this is the story at R2, right? This is the story at R2. Now it will be delivered to H2. Yeah, so if you notice that this is the story at H1, this is at H1, this is at R1, this is at R2. So what are the constant fields which are not going to change? The IP addresses, right? IP addresses are the constant field which are not going to change. And what are the fields which will keep on changing?
+
+28
+00:14:20,650 --> 00:15:15,470
+The Mac addresses Mac at source and destination Mac addresses will keep on changing will keep on changing will keep on changing, right? So let me write it. So these These will never change IP addresses and the Mac addresses will Keep on changing. Okay. Hope by hope Let's just see this particular diagram from for ocean. Okay. So, uh, let's just see this particular diagram from for ocean
+
+29
+00:15:26,240 --> 00:16:00,810
+Yeah, are you able to see this? Maybe let me just Yeah, so can you can you see this diagram from frozen? So basically, let's just understand this diagram that what they're trying to say They're saying that this let's about this allies wants to send some packet to Bob. Okay. Now, this is one router. This is another router. So how many routers are there two routers just like my case. Okay, so here also there are two routers now
+
+30
+00:16:01,160 --> 00:16:27,000
+This is one network, I mean this shaded portion is one network, shaded portion is another network, shaded portion is another network. So how many networks are here? We have three networks in total, right? Three networks. Now, if let's suppose this network address they have called, they're calling it IP address as N1, they're calling the link address or maybe the data link layer address as L1 here. So the MAC address is L1 and the IP address is N1. Similarly, N2 is the IP address.
+
+31
+00:16:27,240 --> 00:16:51,960
+with network layer at us and L2 is a link layer or the data link layer at us right so let's suppose these are the N2 L2 this is N4 L4 I mean for this router yeah basically there will be two interface so for every interface there will be different different network layer at us for every interface there will be different data link layer at us okay so we will solve more question don't worry like for now just try to understand with this particular diagram okay and then
+
+32
+00:16:52,120 --> 00:17:24,890
+you are having this n5l5 which is basically network address and the ip address and the mac address ip address mac address like that okay so suppose this allies wants to send to Bob so what is the uh what is the let's suppose if i if i have this particular i think i have this diagram in my slide yeah so let's suppose if i ask you here itself that what is the fields here that allies will be using so now can you tell me so let me just remove the fields here
+
+33
+00:17:26,220 --> 00:17:55,050
+Okay, fields of all these three packets. Now, tell me what are the fields that that allies will be using for this packet? What is the source source? What are the format they're using? Okay, first they're writing the Mac addresses. So what is the maybe destination Mac address? What is the source Mac address? What is the destination IP? What is the source IP? Can you tell me these these fields in the order?
+
+34
+00:17:55,450 --> 00:18:28,790
+for this for this packet leaving it allies so destination mac address will be in the order can you tell me destination mac address will be l2 right destination mac address will be l2 and the source mac address will be l1 destination ip will be if we want to send the packet to bog then the destination ip will be n8 okay n8 and the source ip will be n1 right source ip will be n1 so l2 l1 n8 and n1
+
+35
+00:18:28,960 --> 00:19:01,830
+Okay, so L to L1. I mean, okay, let's just write in that order. So let's just write in that order just to be consistent. So these are the fields that allies will be using to send the packet. Okay, the first packet will be sent like this. Now, the packet will be reached to this R1. Now, can you tell me that the packet leaving R1, which means the packet here, right, the packet here will be having what fields the packet here, this packet will be having what fills in the same order.
+
+36
+00:19:02,220 --> 00:19:33,860
+So what is the destination Mac? What is the destination Mac? The destination Mac will be L5. And then, then if I ask you the source Mac, it is L4. Then source IP won't change N1 and N8, right? These two won't change actually, right? These two won't change. Okay. So these two you can write directly. Okay, you will be keep on changing only other fields. So if you notice this N1 and it won't change, right? This N1 and it is same everywhere. Okay, this won't change.
+
+37
+00:19:34,250 --> 00:20:07,290
+Okay, just the last question. What is the what is the fields here? What is the fields here in the same order? So the destination Mac will be this will be elite Okay, so the destination Mac will be elite. What is the source source Mac? It will be l 7 and then you are having n 1 and 8 right n 1 and 8. Okay, elite l 7 elite l 7 n 1 and 8, right? So that's how it is happening. Have you understood a little bit?
+
+38
+00:20:07,770 --> 00:21:18,160
+That how it is happening whenever you are sending a packet the MAC addresses are keep on changing hope by hope and the IP addresses remain same, right? Okay, so this is the diagram that we have and the source is for agent, right? Let me also write it here that MAC addresses keep on changing hope by hope IP addresses remain same throughout the journey. But why is the case? We will understand. Okay now now
+
+39
+00:21:18,440 --> 00:21:48,260
+let's just understand why that is the case I mean why we need to keep on changing the MAC addresses and why the IP addresses remain same let's just understand this so suppose that there is one host here there is one host here h1 there is one router here r1 there is another router here r2 there is there is one host here let's suppose which is h2 okay now suppose this h1 wants to send the package to h2
+
+40
+00:21:48,520 --> 00:22:18,320
+Now as I told you that the MAC addresses will keep on changing hope by hope and the IP addresses will remain same. So why we need to change the MAC addresses hope by hope? Why can't I just say that okay H1 is sending the packet to H2 then the source MAC address is H1 then destination MAC address is also the H2 MAC address. Why I can't say directly this? So the reason is because that whenever you are sending a packet within the network okay whenever see this is one network
+
+41
+00:22:18,600 --> 00:23:06,170
+This is another network, this is another network, right? How many networks are here? Three networks. So whenever we are sending the packet within the network, at that time we send the packet using the MAC address. So which means if H1 sends the address, H1 sends the packet to R1, okay? At that time, do H1 really need the IP address of R1? So if my question is that, if H1 send any packet to R1,
+
+42
+00:23:07,100 --> 00:23:40,220
+Then do do H1 really need IP address of R1? The answer is no. Okay. The answer is big no. So answer is no. Basically, basically, even before, even before the IP addresses, the communication between the same network used to happen, right? That is called LAN. LAN means local area network. I mean, if we have
+
+43
+00:23:40,380 --> 00:24:04,420
+small number I mean that's theoretical concept obviously like there's a small and large we don't know I mean what do we call a smaller what do we call a large we I can't say something like this but yeah if this is some small number of basically a host that you are having then generally we say that this is forming one net one line line or subnet I mean both are you can understand just like a same thing okay so line or subnet so basically this is one subnet now
+
+44
+00:24:04,710 --> 00:24:33,170
+this networking concept or the subnetting concept or the maybe the router concept I mean this IP concept has been introduced very late but before that if you want to even even communicate between the between the same network then we used to communicate using the MAC addresses right using the MAC addresses we can definitely communicate I mean we don't need any IP address to communicate to R1 so why we need IP addresses if the MAC addresses itself are unique why we need IP addresses let's suppose this H1 wants to send the packet to H2
+
+45
+00:24:33,350 --> 00:25:17,170
+Then why we even need the IP addresses? Why we need the IP address of H2? Yes, very nice. So because of the navigation or because of the routing, so basically this IP addresses are IP addresses do follow something called as hierarchical structure, right? Maybe you can say it is useful for the router, basically IP addresses, hierarchical structure in the sense that
+
+46
+00:25:17,500 --> 00:25:45,940
+I think there are even websites that can tell you that this IP address is this IP address is from which location, which means this IP address is basically generally the location wise, which means in this location, okay, this IP addresses are location wise, you can understand like this IP addresses are location wise, which means you can say that, okay, in this particular area, in this particular area,
+
+47
+00:25:46,270 --> 00:26:05,810
+Generally, I can say that this IP address range that we are following is basically maybe from here to here. In this particular area, this is the IP address range because this IP address is in hand of whom? This is basically ISP who provides the IP address. So if this is all in the same subnet, I mean ISP generally say that if this is all in the same subnet, I'm
+
+48
+00:26:06,980 --> 00:26:28,380
+the same IP addresses to all of you, right? Same range of IP addresses to all of you. So basically, this is location wise. You can say that given the IP address, I can even tell that, okay, I mean, I don't know if we can tell, but the government obviously can tell because they must be having the data of everything. So government can tell that, okay, given the IP address that this IP address is belonging to which particular area.
+
+49
+00:26:28,640 --> 00:26:55,860
+Okay, if I'm in Bangalore, then they can tell that, okay, this particular IP address belongs to, let's suppose I'm in Indira Nagar at Bangalore, okay, this particular IP address may be belonging to the Indira Nagar. So that's how they basically catch the thieves or catch the hackers, right? So that's why the, if you reveal the IP address, then generally, generally they can find out or the government can find out the location of yours. Okay, because these are the location wise. And that's why these IP addresses are helping you to navigate or to route.
+
+50
+00:26:56,320 --> 00:27:25,310
+Is this point clear that how they help to navigate because we have seen that in the very first few lectures Okay, so basically the routers follow the particular hierarchy Okay, if something is starting from this I mean if something is starting from 192.0, let's suppose something then router will be having some table that okay then send it to some interface maybe L1 or I1 or something like this, right? So that's how the router works and that's how the route aggregation everything works So basically this IP addresses help us to navigate
+
+51
+00:27:26,610 --> 00:28:05,390
+Okay, or the routing. Let me know if that is clear. Otherwise, I will just explain this once more that how the IP addresses are helping for the routing. Okay, should I explain the how, how, how does the routing work? Okay, so I think maybe you can just was the previous lectures because we have spent four lectures just just in explaining the how, how does the routing work, right?
+
+52
+00:28:05,950 --> 00:28:34,990
+Okay, so the longest prefix match and these things we have already explained like based on that router just mess the Destination, I mean it has the destination IP address the packet destination IP address It just mess that which of the following entries matching and based on that it just route the packet, right? So based on the IP addresses router just out of the packet, okay? Okay, so so whenever you are within the same network at that time You don't need any routing table or anything. You can directly send okay within the same network. You always can directly send
+
+53
+00:28:35,410 --> 00:29:27,690
+if you are if two devices of two hosts are within the same network then they can directly communicate they can directly communicate there are many applications if you I don't know if you if you have used any of that like sometimes what happens that maybe you are on automobile and you're connected to the router and suppose you want to send something to your laptop
+
+54
+00:29:27,980 --> 00:29:57,190
+then what are the ways maybe you can connect with bluetooth or maybe if you're on the on the iphone and maybe on the mac then there is something called airdropper and these things right but but there are applications i don't remember the names but their applications they require you to connect the mobile and your laptop to the same wi-fi do you know this so your mobile right your mobile mobile and laptop should be connected to same wi-fi same wi-fi right
+
+55
+00:29:57,470 --> 00:30:23,950
+they say that you should be connected to same Wi-Fi then we will help you to transfer the data right we will help you to transfer the data from mobile to laptop or laptop to mobile something like that so also how they are how they are basically enabling this because because once you connected to same Wi-Fi then in that case you are in the same network in that case they can directly communicate okay they can directly communicate right yeah share it is one of them IP messenger I think right yeah gender
+
+56
+00:30:24,350 --> 00:30:51,620
+So there are there are many applications. So this they say that if you are connected to the same by five, then we can help you to transfer the data. So how they are helping you to transfer the data because you can directly communicate if you are in the same network, right? Okay. Is this point okay to everyone? Now, now you tell me this H1 and R1 in the same network on the different network. They're in the same network. They don't even know don't even need the network layer.
+
+57
+00:30:51,820 --> 00:31:22,480
+Okay, if they're in the same network, they can directly communicate. They don't even need the network layer. They don't even need the IP addresses, right? Okay, did I mean this H1 IP addresses, let's suppose the IP address concept is not even in the in the picture, then also H1 can send the packet to R1 definitely. Okay, because because there is no navigation needed, you can directly send. If you can directly send, you don't need the navigation, you don't need IP addresses, right? You need the IP addresses just because of the navigation. And if you can directly send, there is no need of IP addresses.
+
+58
+00:31:22,800 --> 00:32:57,680
+So, so if you can directly send network, you never need IP address, right? Is this okay to everyone? Because IP addresses is helpful for the navigation and we don't need navigation, right? We don't need to navigate in case of direct transfer. Okay. Okay. So I hope you understood that if two devices or two host are the same network, then you can just use the MAC addresses, right? So, so.
+
+59
+00:32:58,310 --> 00:33:20,230
+If you want to send the package from H1, so we started with the motivation that we want to send package from H1 to H2. Now in that case, you will be sending hope by hope. First, you will be sending to R1. This R1 will be sending to R2. This R2 will be sending to H2. So this will be done in 3 hopes, right? 1, 2, 3. Now,
+
+60
+00:33:20,520 --> 00:33:49,720
+Now the source IP and destination IP will be same because that's where the navigation will be happening that this R1 will get to know if there are multiple interface there R1 will get to know that okay where to transfer where not to I mean where to send where not to send like that right so then for the navigation source IP and destination IP I mean the destination IP and source IP is obviously necessary for this host to know that from whom I'm getting the data right and if you if you want to send the acknowledgement or want to communicate then then communicate using the source IP so anyway this destination IP is basically there to the navigation
+
+61
+00:33:49,840 --> 00:34:20,280
+and the source IP is also the constant source and destination IP both are constant and now whenever we are sending the packet from here to here you need the MAC address of R1 you need the MAC address of R2 you need the MAC address of H2 is this okay to everyone for hope to hope you don't need IP address you just use the MAC addresses right okay now now you might be you might be wondering that why we are not only using MAC address why we are not only using the IP addresses see the IP addresses are needed right
+
+62
+00:34:20,670 --> 00:34:47,840
+Anyway, like, can you bypass the IP addresses? Tell me. Can you bypass the IP addresses? Which means, can you not have the IP addresses? No, right? Why? Because now, how you will navigate? If you don't even have the IP addresses, then how you will navigate? Can anyone suggest me any method to navigate? Maybe someone can say that, okay, we can use the MAC addresses, right? I mean, we can make the MAC addresses in such a way that they are also following the hierarchy. Okay?
+
+63
+00:34:48,250 --> 00:35:13,120
+I mean like we can say that okay starting from this are in that location or something like that. So they can also follow the hierarchy. Is this possible for the MAC addresses to follow the hierarchy? Just think about it. The answer is no. Because this is location wise. See this is location wise. Once you say that okay.
+
+64
+00:35:14,000 --> 00:35:43,020
+See, this is also dynamic, which means this is location wise. Once you say that, okay, my laptop Mac address is basically belonging to some particular, I mean, if I'm in this particular location in Dharanagar, if I'm in this particular location, then only my Mac address is working, which means that if I'm making the Mac address also the hierarchy, then for my lifelong, I always have to use the laptop on the same position. I cannot move it from one area to another area.
+
+65
+00:35:43,340 --> 00:36:13,000
+Because once I move it, the routing will disturb. I'm getting my point. So just imagine that my laptop has a fixed IP. Okay, laptop has fixed IP. Okay, that cannot be changed. Okay, if I'm connected to this Wi-Fi, if I'm connected to my Jaipur's Wi-Fi, if I'm connected to Bangalore Wi-Fi, Bombay Wi-Fi, it won't be changed. Okay, let's suppose. Then in that case, in that case, how the navigation will be happening.
+
+66
+00:36:13,400 --> 00:36:23,220
+see navigation is actually the thing that has to do physically router need to know the location the physical location okay it's not the some hypothetical concept or some software or something right
+
+67
+00:36:23,440 --> 00:36:50,460
+I mean, this is done in the software but it is not like some piece of code. This is a distributed environment, right? So if my laptop is having fixed IP, then I cannot move my laptop from anywhere to anywhere because then that has to sit in the same location because routers, if I have to move from somewhere to anywhere else, then router has to know that where I moved. So all the routers in the world has to know that where I moved.
+
+68
+00:36:50,730 --> 00:37:15,570
+and just imagine that that like billions of people in this world and then they are moving here and there daily and then daily about routing schemes are getting changed so it's obviously not scalable right are you understanding because i've already explained this that's why maybe i'm little quick here if you want i can i can explain this again see what i'm trying to say what i'm trying to say that we need ip addresses and mac addresses both
+
+69
+00:37:15,840 --> 00:37:40,580
+Why? IP addresses for the navigation and IP addresses are the logical addresses. See, once the location is fixed, once I'm in the Bangalore, then my IP address is assigned. Okay? And then, for this particular IP address, you can see it's a location wise. I will give this range IP address to anyone in this location. Okay? Whoever is coming in this location, in this area, whoever is coming, I will assign the IP addresses based on that.
+
+70
+00:37:40,800 --> 00:38:09,900
+it's not like that they will come with their own ip address okay they will not come come with their own ip address they will first come and i will assign the ip address as an isp i will assign the ip address okay so for particular location ip addresses are fixed right that's why they are very very helpful in the navigation okay so ip addresses are definitely needed and now within the network if you want to communicate then then you need the mac address but my question was that that within the network also why you can't use the ip addresses
+
+71
+00:38:10,680 --> 00:38:39,620
+Which means which means if let's suppose that I mean maybe you want to send R1 that is fine. Maybe you can have the have the IP addresses here, right? You can send using the IP address. Why you need the MAC addresses? Let's suppose this R2, I mean packet has been delivered to R2 and R2 finally has to deliver to S2. Then I'm saying that R2 need the MAC address of S2. I R2 cannot send using the IP address of S2. Why that is the case? So see my first question was why IP addresses is needed?
+
+72
+00:38:39,980 --> 00:39:11,270
+I hope you got the idea because of the navigation right right because of the navigation now my second question is that why MAC address is unneeded okay why MAC address is unneeded so basically you will get to understand in DSCP there is some protocol DSCP so using that like we basically dynamically change the IP addresses right so which means suppose the S2 IP address is something and let's suppose there is one more device okay S3 or maybe this device is not yet up
+
+73
+00:39:11,470 --> 00:39:39,450
+okay let's suppose this is uh let's suppose h2ip address is something right now we will explain this again but for now just understand like this that let's suppose that h2 is down okay h2 is down and h1 wants to send some package to h2 and h2 is down at the same moment s3 is up s3 is up is this possible is this possible yes that is definitely possible that h2 is down and s3 is up right and this s3 is ph assign
+
+74
+00:39:39,720 --> 00:40:11,620
+IP address 2 which is S3 same as it has assigned to S2 okay some IP address that has been assigned to S2 it is assigning the same IP address to S3 because it doesn't want to waste the IP address okay because if some host is down it doesn't want to waste that IP address it will reallocate that IP address so ISP is assigning the IP address which was same as S2 now in that case what will happen now if H1 is sending using the IP address okay I mean let's suppose this maybe this R2 is sending using the IP address final send is using the IP address
+
+75
+00:40:11,850 --> 00:40:40,500
+then what will happen because see within this network within this network I can do this right within this network I can assign this h2ip address to h3 can I assign this h2ip address to to somewhere here to somewhere here no right this is location wise IP addresses are within network wise okay this network is having some some range of IP addresses so I cannot assign it to somewhere here okay I should be assigning to the same network so within this network maybe maybe the IP addresses may interchange
+
+76
+00:40:41,080 --> 00:41:19,360
+right within the network only it can interchange it cannot interchange with some other network so that is fine till R2 till R2 things were fine because till R2 I am saying that okay it doesn't matter this IP address whatever you are sending to I mean R2 wants to send to H2 that is fine but basically this IP address is changing internally if IP address is changing internally do you really think it will it will bother us till R2 till R2 will it bother us if IP address are changing internally tell me see
+
+77
+00:41:19,780 --> 00:41:45,090
+till r2 i'm saying that i'm about to send to some some network right till r2 i'm i'm not even bothered that okay to which host i'm sending till r2 i'm saying okay i want to send to some network so navigation is happening based on the network okay this network is here this network is here and so on so once once a packet has been reached to r2 then only i'm i'm i'm little bit careful i need to be careful whether should be delivered to h2 or h3 right something like this is this okay so so
+
+78
+00:41:45,450 --> 00:42:11,770
+So now what I'm saying here is that, that if this IP addresses are fluctuating within the network, then till R2, till R2 means the packet is delivering to till R2, it doesn't matter to me. If it is fluctuating within the network, let me know if that is fine to everyone. Now, once I finally send from R2 to H2 or H3, then I need to be careful. Now, if I'm sending using the IP addresses, and now let's suppose this IP address has been assigned to this, then this will be a problem, right? This is a problem.
+
+79
+00:42:12,080 --> 00:42:31,960
+this will be wrongly delivered to S3 and H3 will be thinking that why it has been delivered I have not even requested it or something like that right okay so till R2 till R2 that's not an issue but after R2 I need the MAC addresses so that's why the MAC addresses also needed right to final delivery
+
+80
+00:42:32,350 --> 00:43:01,390
+so within the network if you want to deliver within the network okay within the network if you want to deliver you deliver using the MAC addresses that's why the MAC addresses keep on changing keep on changing within the within the hope okay for this hope it will keep on changing for source and destination it will again change for source and destination it will again change right so within the hopes MAC addresses will keep on changing and within the I mean within this hope basically if you want to if you want to communicate with from this h1 to h2 then the IP addresses will be same
+
+81
+00:43:03,490 --> 00:45:01,600
+Okay. Is this okay to everyone? Cool. So maybe if you want, I can write it. So the question was that first question was that why we need IP addresses, right? So what is the answer in one word? Yeah, for the routing. The second question was that why we need Mac addresses? If we already have IP addresses, here answer is yeah, IP can be dynamic changing and can be assigned and can be
+
+82
+00:45:04,550 --> 00:46:00,850
+assigned to different horse horse in the same network. Right. So for final delivery, I need the Mac address. Okay. So coming back to this now, what we wanted to do, we wanted to send some packet from H1 to H2. Now the IP addresses of source and destination will be the same, but the Mac address will keep on changing. Okay. I hope that is fine. Now, now let's just come to the question that how
+
+83
+00:46:01,130 --> 00:46:35,770
+this h1 will get through the ip address of this h2 right i mean see this h1 there are there are many many questions that that we want to answer at this point in time so uh this h1 see ultimately this h1 wants to send some packet right to r1 r1 and it wants to send to r2 and it wants to send i mean it will be finally sending to h2 this is h1
+
+84
+00:46:36,230 --> 00:47:33,100
+So now there are many many things that this H1 also need to know and along the way everyone need to know. So what is the first thing that H1 needs to know? Source IP address, right? I mean what is my own IP address, right? I mean the source IP address. What else? Destination IP address. What else? Source Mac. Destination Mac, right? These are all the things that this H1 needs to know. Is this okay to everyone? All of this.
+
+85
+00:47:33,690 --> 00:48:03,940
+Now, how you think that H1 will get to know the source IP address, my own IP address, how you think I will get to know? There is a protocol that we will study tomorrow that is called using DHCP, okay, DSCP. How it will get to know the destination IP address that where I want to send the packet? There is a protocol that is called DNS, okay. We will study them later. Okay, don't worry about it. This DSCP we will study tomorrow. DNS we will study later. This is application layer protocol. We will study this later.
+
+86
+00:48:04,790 --> 00:48:43,620
+The source Mac address is anyway known to me. Right. I mean, this is, this is in my network interface card. You can say this is anyway known to me. Right. And how it will get to know the destination Mac address. Sorry. Uh, yeah, that's fine. So now you tell me how it will get to know the destination Mac address. There is some protocol that is called ARP. Okay. That's what we want to study today. So don't worry. These things will get connected. Let's just first see the ARP.
+
+87
+00:48:43,880 --> 00:49:11,910
+Okay, so if you are getting confused, then let me just tell you step by step that that what we want to do. So this this particular host will be basically having four fields source IP address. Let's suppose the IP address is nodes that the Russian IP address is node. Okay, so suppose the source IP address is it already know the source IP address, it already know where it wants to send it already know that suppose the Russian IP address is already know, right.
+
+88
+00:49:12,220 --> 00:49:38,740
+and the source MAC let's suppose this is also it already know that okay what is my own MAC that is already know the destination MAC destination MAC address okay this is currently unknown this is unknown why because I only know that where I want to send I mean ultimately I want to send to this H2 right ultimately I want to send to H2 but currently I don't know the next hop address the destination MAC address is basically the next hop address that is unknown
+
+89
+00:49:41,870 --> 00:50:10,470
+I know my IP address, where I want to send, I know my own things, right? I know my own things. I also know that where I want to send, ultimately, I mean, the IP address, right? But I don't know the next hop address. It is so good, everyone. So, to help you that where to, I mean, how to find out this next hop address, there is a protocol that is called ARP, okay? So, let's just see this protocol, which is called address resolution protocol. So, what it will be doing, it will be helping us.
+
+90
+00:50:10,670 --> 00:50:40,850
+to get to know what is the next hope address help us okay let's just understand this and then you will get to understand the whole picture very clearly okay let's just see that what is ARP protocol and before that there is a few slides about this Ethernet address basically this Ethernet
+
+91
+00:50:41,130 --> 00:51:13,780
+is the only protocol that we use as the data link layer so just like at network layer we use only protocol which is IP okay similarly we use the Ethernet or some Wi-Fi or I mean Wi-Fi which is 802.11 I mean these are the protocols which are not on the syllabus but interchangeably this Ethernet address and MAC addresses we use interchangeably basically okay the Ethernet address or MAC address we use interchangeably it is 48 potatoes but which will look something like this okay the MAC address will look something like this which is 48 potatoes now
+
+92
+00:51:14,300 --> 00:51:37,320
+in in case of ip address we have we have seen in the module one that in case of iv address if you want to broadcast then we will be having all the ones right if you want to broadcast this 255.255.255 this is the broadcast status if you want to broadcast within the network right this is the broadcast status if one host want to send to every other host within the network then it can send using the status
+
+93
+00:51:37,670 --> 00:52:11,320
+okay at ip this is the broadcast address now similarly at mac also at the data link layer also this is the broadcast address that we use which is all the ones if you use all the ones in the hexadecimal it will be ffff right so these are how many bits can you can you just count this is hexadecimal so this is four bit combinedly this is eight bits so eight into six this is 46 bit address okay the mac address is 46 bit address so generally doesn't follow any hierarchy so
+
+94
+00:52:11,660 --> 00:52:40,690
+I mean there is no hierarchy or there is no something like that okay if I start from A3 then go here I mean we cannot navigate using this right we cannot navigate using this now these are the 48 bit addresses the initial 24 bit address are I mean although you don't need to know but the initial 24 address is basically something called vendor ID okay whoever is making the chip the network interface card so if Intel is making then Intel has these as vendor IDs okay
+
+95
+00:52:41,410 --> 00:53:08,030
+And the last 24 bit is basically assigned by the vendor. Okay, it can be anything. It can be just like a kind of serial number anyway. So basically, basically, this initial 24 bits are depending on that whether it is Intel or or ARM or any other, any other company which is making the network interface card. So it depends on that. And the later, I mean, the later these 24 bits, basically just like within the within the vendor, what is the serial number of this particular network interface card?
+
+96
+00:53:08,240 --> 00:53:34,930
+or something like that. Anyway, you don't need to know the the particular breakdown of this Mac address, but I hope you understand that this cannot be used for the navigation. Okay. And if you want to use the broadcast status, you can use something like this. For example, if you want to have the Unicast status, see this is like this is something called Ethernet frame. Okay. Although that is not in the syllabus, I'm just showing you for once. So basically, I mean, there is something called Ethernet protocol.
+
+97
+00:53:35,930 --> 00:54:06,830
+just like that we have IP protocol in network layer and IP protocol we will see in your very very good detail IP header and everything so for now I'm just showing you a glimpse of Ethernet header in that header you will be having source and destination IP okay there will be the source IP sorry source and destination MAC address so this is a destination MAC address this is source MAC address so which is 48 bit or or you can say 6 bytes okay and if you want to have broadcast then you can have FFFF everywhere in the destination okay if you want to have broadcast
+
+98
+00:54:07,290 --> 00:54:47,560
+in the destination put f f f f f okay so now let's just start arp protocol now have you understood the need of arp protocol so what is the need of arp protocol suppose this host wants to send to some other host then first it will be sending to the router right first it will be sending to the router which is let's suppose r1 this is let's suppose r2 this is let's suppose h2 right now
+
+99
+00:54:48,670 --> 00:55:53,140
+Whenever it wants to send to R1, it needs, since this R1 is within the network, that's why it needs the MAC address of this R1. Right? We need the MAC address of this R1. H1 needs the MAC address of R1. And hence we need, we need ARP protocol. Okay? So ARP will help us to get this MAC address of R1. Yeah. Yes. That is right, Sangit. So Sangit is also saying the same thing that ARP is used to find Next Hope Mac. Okay. So,
+
+100
+00:55:53,530 --> 00:56:23,310
+Now let's just move to the next slide. So let's just see what it is written here. Now we are saying that ARP is each host and router needs a link layer address MAC address to identify itself in the local area network or the subnet, right? I mean, we interchangeably might use this LAN local area network or subnet. Okay. And also a network layer address IP address to identify its position in the internet. Okay. So we need a MAC address to communicate within the subnet or within the local area network. And we need IP address to communicate within the internet.
+
+101
+00:56:24,040 --> 00:56:57,090
+Can we communicate within the internet using the MAC address? See, MAC addresses are also unique. MAC addresses are also unique everywhere. So can we communicate to any host within the network just using the MAC address? No. Why? Why that is the case? Why we can't communicate using the MAC addresses of the destination address? Because the MAC addresses are not helpful for the navigation. MAC addresses are
+
+102
+00:56:57,340 --> 00:57:19,930
+not helpful for the navigation so Mac addresses can't can't navigate that's why we can't use the Mac addresses to send in the network but why we can send within the network why we can send within the network because within the network there is a direct link right there's a direct link we will do directly sending so if you want to send directly you can definitely use this right okay
+
+103
+00:57:20,490 --> 00:57:49,410
+I mean, although, and also this is very small network, local area network. So, so even though there is, let's suppose there is no hierarchy or no navigation possible, still we can do what? We can just hard code. I mean, let's suppose there are devices in between, they can hard code it. Okay. They can say that, okay, if this is the Mac address, then this is basically at this interface. If this is the Mac address, then I need to go to this interface. I mean, what I'm saying that based on the Mac address, they can, they can keep on having the interface IDs.
+
+104
+00:57:50,060 --> 00:58:22,120
+But if we do that for the for the Internet, then it is too much, right? For the Internet, there is too much Mac addresses. So you cannot have, you can have, you can have something like this. I mean, the table cannot contain something like this, right? Okay, I hope you understood. But, but within the, within the small network, you can definitely do this. Okay. If you want to. Anyway, coming to this point, that ARP provides a mechanism to translate the IP address into the hardware address, which is the Mac address, right? Okay.
+
+105
+00:58:22,520 --> 00:58:48,840
+So suppose that this is a router and these are the two host now suppose this router or maybe this could be anything this could be host this could be router or anything so suppose this is some device and it knows its ip address mac address I mean everyone knows every everyone's I mean their own ip addresses and mac address right everyone knows their own ip addresses and mac addresses now this router wants to send or maybe let's suppose some packet to someone and
+
+106
+00:58:49,700 --> 00:59:41,500
+or maybe you can say I mean these are some devices don't worry about this router and host okay this diagram is made by me so I think I put a router but it could be anything okay it could be hosted these could be router or something suppose suppose this router okay ultimately let's suppose that maybe you can understand like this let's suppose I mean these devices could be anything that's the only point I'm making but let's suppose that you have some host here okay which is connected to some router
+
+107
+00:59:41,830 --> 01:00:05,750
+which is connected to this router, and this host is basically wants to send some packet to H1. Okay, let's suppose this wants to send some packet to H1, then packet will be reached to this router, this router will be sending to this router. And then this router will be finally sending to let's suppose this host wants to communicate to let's suppose H2, then this router will be sending to H2. Is this okay to everyone? I mean, that's how we do, right? Now, let's just see that
+
+108
+01:00:06,040 --> 01:00:31,100
+at the final stage what is happening okay which means this router this router will be sending to this h2 so how it will be getting the mac address of this h2 is this okay everyone that router wants to send some packet to h2 but it needs the mac address of h2 now we are going to see that how it can send with i mean using the help of arp so currently it's known its own ip address in mac addresses and everyone knows their own ip address in mac address and i just want to i just want to basically
+
+109
+01:00:31,860 --> 01:01:07,780
+uh like let you know that how this router can send to this h2 using the arp which means first this router should be knowing the mac address of this h2 then it will be sending right okay so how it will get the the mac address of h2 so what do you think so see it knows this router got some packet okay it knows that okay it wants to send some packet to 10.0.0.3 i mean obviously the source ip is there right or do you think the source ip will be changed
+
+110
+01:01:09,630 --> 01:01:30,330
+See, if this host wants to send to this H2, then do you think the source IP will be changing, hope by hope? No, right? Source IP will not be changing. So source IP is anyway there. I mean, this router knows the source IP. Now, if this router or any device maybe is your host or something, I mean, if this is host, it could be the case that host wants to send to router using the ARP router wants to send. Okay, you can consider any of the case. So
+
+111
+01:01:30,950 --> 01:02:18,000
+We will be seeing the cases later on, but for now just see that this is any device which wants to send to H2. It knows the IP address of H2, but it doesn't know the MAC address of H2, right? So it knows this, knows. So what it will be doing? Can you just guess what it might be doing? So this router wants to know the MAC address of this host, right? So what it will do? It will say that, see, I have the IP address.
+
+112
+01:02:18,900 --> 01:02:46,700
+Now I don't know the Mac address. So I will do one thing. I will send a request packet. Okay. I will send a request packet and I will say that see, uh, this is, I mean, this, that is called ARP request. So this router will be sending something called as ARP request. It will say that see, uh, the source Mac address it knows, which is, which is something like this, right? Okay. Uh, I mean, you can write six also. Sorry about it. Yeah. The source Mac address you anyway know, which is a one, two, three, four, five, six. Let's suppose, right?
+
+113
+01:02:47,160 --> 01:03:16,900
+And then source IP address is also known. Let's suppose this router itself wants to send, right? And the destination IP address is also known, right? Something like this. Now, I mean, the source IP address, the destination IP address may depend on, may depend that what is the origin or origin of this packet and what is the final destination of this packet. Let's suppose the original itself is this. I mean, let's not worry about the source IP and destination IP at this point in time because the source IP and destination IP could be anything, right? Depends on the origin. So, origin of the packet. So, that's why
+
+114
+01:03:17,340 --> 01:03:55,440
+Let's suppose this source IP, National IP, could be anything. Let's not worry about it. Yeah, so just a second. So this is basically ARP request. Okay, this is the ARP packet. Now here, what is happening? The source MAC address I know, the destination MAC address I don't know, right? Is this okay to everyone that I put the question mark here? That's the destination MAC address I don't know. So that's why I put the question mark here. Now, it will say that see ARP request, it will send the ARP request, it will say that who has this IP? Okay, that's called AIP request.
+
+115
+01:03:55,720 --> 01:04:27,560
+ARP request means it will be sending to everyone and it will be asking who has this IP. Now, this request will be called broadcast request. I mean, it will be broadcasting, broadcast broadcast request. This request will be the broadcast request. It will say that who has this IP. Now, what do you think that I should be putting here in the destination, in the destination Mac address? Yes, I should be putting all the ones, which means FFFF because this is a broadcast request.
+
+116
+01:04:27,800 --> 01:05:01,780
+Since it is a broadcast request, that's why I need to put all the F here. I need to put all the Fs. See, I don't know the destination Mac. So since I'm basically sending this packet, it's called ARP request packet. This is a new packet which I have created. This router will be creating a new packet which is called ARP request packet. ARP, right? H2 and H1 and this router all are in the same network.
+
+117
+01:05:02,710 --> 01:05:30,660
+They might be connected using something called switch. Okay. There is there could be some device called switch. We will see the switch. I mean, these devices in the next to next lecture. Okay. And after two, three lectures, we will see that how we can interconnect different kind of host in different host in the same network. We will see that. Okay. So for now, let's not worry about that how they are connected. Okay. They might be connected using the switch. They might be directly connected to this router using the same interface. Okay. So now
+
+118
+01:05:31,000 --> 01:06:00,340
+this packet is basically ARP request packet here the source okay this is this is different from the original packet okay this is not the original packet earlier I thought this original packet so since this is this is the new packet that is being generated to this router R then the source IP is this router RP address the destination IP is this one only right so so the source MAC address is my own MAC address and the destination MAC address is the broadcast broadcast address and this is the ARP request packet now this packet has some special format
+
+119
+01:06:00,650 --> 01:06:28,500
+right? This packet has some special format and if this is broadcasted, then every host will be comparing its IP address with the destination IP address. Okay. It will say that, okay, is this the same IP address I'm looking for? I mean, this packet is looking for. So this packet is basically looking for 10.0.0.3. So that's why, that's why this, this host will say that, okay, you are not mean to me. This host will say that, okay, you are mean to me and you are asking since this is a ARP request packet, you are asking for the
+
+120
+01:06:28,720 --> 01:06:58,710
+destination address right destination mac address so it will reply now okay so it will it will say that okay now i will be replying that arp reply will be saying that okay my ip address is this and my mac address is this so it will say so what is the first first thing that is happening it will say that okay who is having this particular ip so it knows the ip address so it will say that who is having this particular ip 10 dot 0 dot 0 dot 3 right who is having this particular ip this is arp request arp request
+
+121
+01:06:59,030 --> 01:07:32,110
+is basically saying that who is having this particular IP. Okay. Now, maybe I can just see in the photosion. So there will be a ARP packet that will be generated. And this ARP packet will be having some fixed format. So basically the format of this ARP packet is something like this. So maybe I have that also in the slides. See, there will be the ARP packet and this ARP packet will be having its own header.
+
+122
+01:07:32,440 --> 01:07:56,590
+So just like just like IP header like we will see the IP header in these things later on but just like IP header this ARP packet will also be having its own header and once you generate this ARP packet that will be get encapsulated in another another header which is the Ethernet header so this ARP uses this data link layer service which is the Ethernet header this is the Ethernet header so what is happening here just like
+
+123
+01:07:56,700 --> 01:08:25,030
+just like if you remember there is a IP header right just like IP header which get encapsulated in the Ethernet header similarly you don't have IP header here you have ARP header here okay ARP header also get encapsulated in the Ethernet header so what we are saying this ARP packet will be having I mean some special structure that special structure is given here right so this is the ARP packet this is how the ARP packet would look like which will be containing
+
+124
+01:08:28,140 --> 01:08:56,020
+source address, destination address, I mean MAC addresses and the IP addresses, okay. So this is the ARP packet. As you can see from this figure, this is called ARP packet, right? Now this ARP packet basically have some special format that is saying that, okay, I mean that is not required for us, but I'm just telling you that that is happening. These four important fields, it is saying that, okay, what are the source hardware address, which is what I know, what is the source protocol means or the source IP address basically, okay, which is what I also know. I also know this also.
+
+125
+01:08:56,240 --> 01:09:25,490
+Now, I don't know this destination hardware address, right? I don't know this destination hardware address. So what will I do? I will just broadcast. Okay, I will just broadcast. See here. Yeah, ARP request, then I will do what I will just broadcast, right? So this packet is getting broadcasted to everyone. Now, whoever is containing whoever is containing the IP address which I'm looking for, that will just reply and the reply will be unicast. So maybe I can show you something like this.
+
+126
+01:09:27,000 --> 01:09:54,530
+that it will be just saying that who is having who is having this particular IP address so that's why it will just broadcast this right now it will be sending to all of them now this h2 will be replying that okay I'm having this IP address so h2 will say that see I'm having this IP address so that's why h2 will be replying like this right so that's all I mean that's how it is working now now the reply back packet will be containing the destination Mac address now tell me this reply will be unicast or broadcast
+
+127
+01:09:55,090 --> 01:10:22,240
+Whenever this H2 wants to send the packet, then will it be sending the packet to everyone or just to R? Since R has requested its MAC address, so it can definitely send the Unicast address, right? It can definitely send using the Unicast address or using the Unicast method. Why? Because it always knows what is the... I mean, whenever this H2 is sending, then it always knows what is the MAC address of this R, right?
+
+128
+01:10:22,590 --> 01:10:57,370
+if it knows the Mac address of this R then it can send so let me just tell you again that what is happening here see let's suppose it could be two devices let's suppose this is R this is some host okay and within this network let's suppose there are many other host now now since initially since this router doesn't do the Mac address of this so it will say it will just broadcast it will say that okay who is having
+
+129
+01:11:00,720 --> 01:11:45,250
+Some IP address, okay This now this this will say that I'm having okay. This will just unicast Yeah, it's an it is a data link layer header. Okay. I'm having this IP and My Mac address is this that's all you need to know for the ARP. Okay Something okay. My Mac address is this. Okay. Now there are I mean there could be two cases in ARP Although these these cases are very intuitive, but let's just see that what are these two cases? So what can happen?
+
+130
+01:11:45,470 --> 01:12:18,120
+maybe you're sending some packet to within the network or maybe you're sending some packet outside the network, which means you want to know some packet outside the network. So, so I make it up outside the network. So basically, let's suppose that you want to send, you want to send this is H1, you want to send to H2, which is in the different network. Now, what may so happen if this is in a different network, then then you will be first sending to R1, right? So if
+
+131
+01:12:18,340 --> 01:12:51,480
+If the target is in a different network, then will you be sending directly? I mean, you will be having the MAC address of H2 directly. No, right? You will be having the MAC address of this is called the router or the first router, which where you will be sending. That's also called default gateway, right? Default gateway. Default gateway is, I mean, we talked about it in the previous classes. Do anyone remember? Default gateway is called the first router where this will be sending.
+
+132
+01:12:52,080 --> 01:13:13,260
+If it ultimately want to send this in this as to then first it will be sending to the default gateway. This is the case one. Okay. The case two is that if ultimately it wants to send within the same network. So whenever this R2 wants to send ultimately within the same network, right? Ultimately, it wants to send to within the same network. Then this is this is I can say case two.
+
+133
+01:13:13,440 --> 01:13:50,180
+I mean, this is very, just for the thirdical purpose, I'm having two cases. Case one is that the source and destination are in the same network. In that case, use ARP to find out the destination physical address directly. If the source and destination are in the different network, then sender looks at the routing table, find the IP address of the default gateway, and then find the, use the ARP to find the default gateway physical address. Okay. Now you will be sending to the default gateway. This could be the case two. See, for example, in case one, both are in the same network, right? If both are in the same network,
+
+134
+01:13:50,450 --> 01:14:20,760
+you will just say that okay let me let me basically find the vertical address of the receiver directly now this receiver i mean these could be any of the devices this receiver could be host this could be router the sender could be host or sender could be router right if both are in the same network you will be just using the arp to find the uh mac address of this receiver directly if both are in the different network then what you will do you will be going to the default gateway okay you will be going to the default gateway that's all
+
+135
+01:14:28,160 --> 01:14:58,560
+Okay, that's all I want to say here. Now, let's just see some of the very, very nice, nice questions. And then you will get to understand that how this ARP is working. Okay, if both are in the same network, then you will be just basically using ARP to find out the MAC address of this direct, I mean, final destination. If both are in a different network, then you will be just using the ARP to find out the default gateway address. Okay. Now, as I said that ARP request is broadcast, which means
+
+136
+01:14:58,880 --> 01:15:31,060
+that if someone is sending maybe host or router okay someone is sending ARP request then it will say that okay who is having this IP address right who is having this IP address okay and then once once this this host get to know that okay they are asking about this i mean my my mac address it will be unicast the reply will be unicast okay so this reply will be unicast now let's just see some of the questions that i have here can you solve this question
+
+137
+01:15:33,350 --> 01:16:02,290
+So this question has been asking gate 2005. So what this question is saying the ARP use for finding IP address of DNS. So DNS you will see later, but, but definitely it is not for the IP address, right? It is definitely not for the IP address. So I mean, if this is, it is definitely not for the IP address. So that's why this question is very, very easy finding the MAC address that correspond to the IP address, right? Okay. You want to find the MAC address to correspond to this particular IP address. That's why you are sending the ARP request. You will see that. Okay.
+
+138
+01:16:02,670 --> 01:16:35,470
+corresponding to this IP address who is the I mean who is having this particular IP address and for that you will be forming a different different packet which is called ARP packet right which is different from your original packet okay so D is the correct answer here let's just see this question which has been asked very recently in gate 2021 so what they're saying destination MAC address so the let's just consider two statement destination MAC address of ARP reply is broadcast address
+
+139
+01:16:36,430 --> 01:17:34,430
+destination maker does often arb replies broadcast what do you think the reply is not broadcast okay request is broadcast yes right request is broadcast so that is why what is the answer c is the answer right cool is this calculated to everyone okay now now let's just see this question what they are saying they are saying let's suppose there's one router here okay there's only one router here and there are different uh switches basically this is one network
+
+140
+01:17:35,670 --> 01:17:51,450
+This is one network. This is another network. There are only two networks. So what they are saying? Suppose C wants to send ARP request and this ARP request is the very first time sent in the network above.
+
+141
+01:17:52,030 --> 01:18:21,800
+Okay, which means that is even before the original A to B diagram. Okay. So basically C wants to send some ARP request. You just consider like this. Then how many of the 18 hosts in the network receive the frame containing the ARP request? If C wants to send ARP request, request will be broadcasted. Okay. So if it is broadcasted, then it will be sent to everyone in the particular network, in the particular network. So how many devices are there in the particular network? One.
+
+142
+01:18:22,160 --> 01:18:57,640
+two three four five six seven eight and two this also right nine so it will be sent to all of these nine right all of these nine so all the nine other hosts in the left network will receive the ARP now this ARP is also having something called as ARP table i mean each router also has ARP table
+
+143
+01:18:57,920 --> 01:19:23,080
+which means it doesn't obviously make sense let's suppose this this this is doing some arp request it get to know that okay uh see initially everyone has their own ip and their own mac right their own ip and their own mac let's suppose this wants to know the mac address of this particular ip then once it knows the mac address of this particular ip it will be just saving it here which means it will be saying that okay i know that this ip and this mac are related something like that right is this okay everyone
+
+144
+01:19:23,450 --> 01:19:53,460
+that what I'm trying to say is that that arp also has every every of the device has something called as arp cache okay arp cache what does this arp cache has it has the mapping once you put the arp request and once you get the arp reply you will map it I mean you will be caching it okay you will be not again and again requesting is this fine now let's suppose that initially all of these cases like these tables are basically caches let's suppose initially all of these caches are empty okay now what they're trying to ask is that
+
+145
+01:19:54,270 --> 01:20:20,210
+that the diagram below shows the two subnets connected by the router for each host and router port the IP addresses and the MAC addresses are shown initially the ARP table of the host are and the router are empty okay suppose A sends a packet to B suppose this A sending a packet to B A wants to send a packet to B and there's a router in between right there's a router in between there's a router in between and these are the networks these are the two networks that we have here
+
+146
+01:20:21,080 --> 01:20:50,820
+show the content of ARP table after the packet B reaches 2, after the packet reaches to B. Once this packet has been finally reached to B, can you tell me the ARP cash table here? So tell me which entry it will be having? It will be first having, it will be first sending, I mean having the ARP request right? So can I say this, I mean one of the entry here will be something like this? Can I say one of the entry here will be something like this?
+
+147
+01:20:54,450 --> 01:21:26,810
+With this IP, there's a Mac. With this IP, there's a Mac. Because it is sending to B. No, right? Yes, no. No. Because it doesn't, it doesn't even care about the B Mac address, right? It only cares about the B IP address. It will be only cared about the next hop. Within my network, what are the Mac addresses? Atmex, it can care for that, right? So it will be sending to this, this hop, right? So it only knows, it only knows that, okay. This is 1, 2, 3, 4. Corresponding to that, I have this Mac address. Right? Something like this. Okay.
+
+148
+01:21:27,140 --> 01:22:03,340
+it only knows the MAC address list now tell me can i have something like this also that it also knows this this particular MAC and this particular IP no right no it will be just having this one entry okay now tell me this particular this particular router so see see it will be getting the ARP request at that time it will be caching right it will be getting ARP request from whom from A it will be getting ARP request so it will be caching it it will say that okay let me just cache it maybe in future
+
+149
+01:22:03,660 --> 01:22:42,880
+maybe it is needed right okay now what else what else will it be having just one entry or or or some other entry also it will be also also having one more entry which one it will say that okay i will be having the ARP request to be so at that time i will be getting some ARP reply right so at that time i will be caching it right this this particular cache will be here this particular cache will be here right now what about this it will be getting ARP request from whom from this router
+
+150
+01:22:43,250 --> 01:23:20,180
+so it will be also caching something can you tell me what it will be caching what it will be caching only one entry which one it will be caching something like this it will be saying that okay i will cache something like this right for this particular router so as you can see these are the answers right is this killer to everyone that how arp is working okay let's make it a little more interesting let's just see this question so what they're saying or maybe
+
+151
+01:23:20,490 --> 01:23:48,280
+Okay, let's just see this question. Or maybe let's do this question first, which I wanted to solve. Okay, this is extremely interesting question. Let's just do this first. And then we will move to some other questions. Okay. So what they're saying, this question, by the way, is from Berkeley University. I don't have a link here, but yeah, this is from Berkeley University. So I was above, okay, above or below anything is fine. I was a picture of network with two bridges. Okay, bridge is just one device which works at the data link layer. I mean, this is one network only.
+
+152
+01:23:48,590 --> 01:24:16,800
+okay I mean this is bridge and switch we will see later but this router divide the networks but this bridge doesn't divide the network so this is the entire network okay this is just one device so there are two bridges they are saying B1 and B2 and there is one router okay that is called R2 okay each interface is labeled with both IP addresses and the MAC address okay so each interface here for the bridge also okay for bridge there are three interface for R2 also there are three interface
+
+153
+01:24:17,110 --> 01:24:38,610
+for this bridge to interface just like that right so each interface is having their own ip address and their own mac address imagine that a host source slash h1 so basically this host is sending a packet to another host this h1 is sending a packet to h2 okay h1 is sending all the way from a from this to h2 let's suppose please answer the following question
+
+154
+01:24:39,880 --> 01:25:46,270
+Okay, so basically is this clear the network is clear to everyone that how and which is the source and which is the destination? So this is basically the source H1 wants to send the packet to H2. Now, let's just answer all of these questions. How many networks are shown above? So can you tell me the networks here? Okay, these are three, right? One, two, three. Three or two, tell me. Yeah, yes, this is three. Okay, so
+
+155
+01:25:47,410 --> 01:26:21,730
+This is the three network that we have taken just before the packet reaches bridge be one. What is the layer to destination? Okay, so just just before the I mean just packet is here if some packet ultimately you understood right the packet wants to get to this as to so they are saying just before it reaches to be one What should be the Mac address layer to address or the layer to destination me Mac address of the destination? What it should be? Let's have the options here. Let's have the four options
+
+156
+01:26:22,290 --> 01:26:55,020
+Okay, one is that as to dot Mac Okay, it is not visible this this portion is not visible This network is not visible or the questions. Okay, network is not visible. Okay, let me just go to this page So what I'm asking is this visible now? So what this question is asking is that that just before just before this I mean see ultimately want to send from here to here, right? Ultimately want to send from here to here. So but just before this this pack packet V6 to this be one
+
+157
+01:26:55,370 --> 01:27:44,740
+What is the destination Mac address this packet might be containing? Okay, so Just a second. Maybe let me just put it here Okay, if you answer this it is actually very very tricky question to be honest and Most of you will be doing the silly mistake Okay, so let me have the options the options here are as to dot Mac B to a dot Mac R to a dot Mac
+
+158
+01:27:49,950 --> 01:28:23,410
+b1a.mech ABCD, which one is the answer? Okay. So most of you are saying D is the answer, right? D, Delhi. So most of you are saying D is the answer. This is wrong. Why? Is this the default gateway? Is this the default gateway? Default gateway is always this router, right? This router. The bridge is not the default gateway. So it always sends to the default gateway, right? It wants to send to this. It's so happened that this bridge in the between.
+
+159
+01:28:23,950 --> 01:28:56,620
+This host doesn't even know that, okay, this bridge is not between. It will just generate a packet. It will just generate a packet. It will say the source IP source IP is my own, right? This is H1 dot IP H1 IP. So it will say, see, let me write it. So it will, it will be having four things. The first thing source IP, right? This is the packet which is reaching here, the source IP. It will be my own IP, the destination IP, H2 dot IP.
+
+160
+01:28:58,460 --> 01:29:38,520
+Source Mac, my own Mac because I am sending it and I ask you the destination Mac, right? Destination Mac. So what is the destination Mac? It will say that I will send to the default gateway, right? I am sending to the default gateway. It is passing through the bridge. It is not my business. Okay. It is passing through the bridge. It is by coincidence. It is passing through the bridge. So the destination Mac address here is not the bridge Mac address, the default gateway, which is this router, which is basically R2A.Mac. So
+
+161
+01:29:38,890 --> 01:30:20,140
+for this B. Okay, I don't know if it is visible or not. But yeah, can you see a little bit? This is R2A dot make little bit if you are able to see. So let's just see the next question now. Okay, this was just I was just showing the answer, but I just quickly switched so that you don't see the other answers. So let's just see this question number C. So now they're saying when H1 sends out the ARP query, what is the reply to that query? When H1 sends out the ARP query, what is the reply to that query?
+
+162
+01:30:20,640 --> 01:31:19,950
+So H1 is sending out, H1 where is H1? Yeah, it is sending out ARP query. It will, it will send the ARP query to whom? To everyone, right? To everyone in this network. So what is the reply that he will be getting? He will be getting the destination MAC addresses, right? R2 it won't make. Okay. Now let's just do the next question. Okay. Is this visible? Question in the diagram. Okay. Okay. Now let's just see this. So what they're saying just before the packet reaches.
+
+163
+01:31:21,240 --> 01:31:58,090
+bridge B2 Okay, what is the Mac address layer to address means data link layer. Okay, this is a layer to basically what is a source address? So source address they are asking this time the options could be R2 a dot Mac R2 B dot Mac R2 C dot Mac and H1 dot Mac So R2 C dot Mac, right? So here I hope that is clear to everyone. This is R2 C dot Mac just after the packet leaves R2
+
+164
+01:31:59,780 --> 01:32:37,460
+What is the layer 3 source? Just after the packets leaves this R2. Layer 3 means network address. I mean they are asking IP address, right? Source IP address. That's also interesting. The source IP address is which? It always same, right? It always remain same. So this is h1.ip. It's a nice one. Okay. So does the entry b2a.mech appear in b1's forwarding table? b2a.mech. No, this b2mech address is not even relevant to this b1. Okay.
+
+165
+01:32:37,940 --> 01:33:11,840
+Not at all. I mean these, this doesn't bother about the Mac addresses of outside this network, right? So obviously no, it doesn't bother about the Mac addresses of outside this network. Okay, so these are the answers. If it is visible, then you can check it later on, okay? Good. Okay, this question we have done, this is done. Sangeet is asking, Ashman is sending in the same network, then V1Bridge is the next hope.
+
+166
+01:33:13,610 --> 01:33:40,990
+No, it will be sending directly if Ashman is sending to the in the same network Then if I mean if this is sending to this hope this particular hope or I mean, oh, sorry this particular host then it will be having it will be having this particular Host a Mac address it will not be having this if it is not sending to be one it is not having this be one Okay, I mean it will be directly sending to this in between the topology says that in between be one is coming That is okay in between be one is coming that is okay, but it will be sending directly to this
+
+167
+01:33:42,370 --> 01:34:11,920
+Okay, a B1 is coming between that is okay. We will see that this is a bridge. This is also having a forwarding table based on the MAC address. Okay, based on the MAC address, these bridges are having the forwarding table. We will see this in the next lecture itself. Okay, so these bridges are basically having the forwarding table. We will see that, but it will be basically saying that, okay, this particular, if it is sending to this particular host, then it will be sending directly, it will first reach to bridge, then this bridge based on its forwarding table will be deciding
+
+168
+01:34:12,210 --> 01:34:39,990
+that okay to which interface I should be sending okay so bridge also have the forward and table just like router okay then it can send to this I mean it will never be containing b1 mac address as the destination mac address if it is not sending to b1 bridge is not known to h1 it is known to h1 only when it wants to send to this b1 h1 and b1 are related only when h1 wants to deal with b1 if h1 doesn't want to deal with b1
+
+169
+01:34:40,140 --> 01:35:08,240
+If H1 wants to someone else outside the network, it will be not caring about this B1, it will be caring only about the default gateway, right? If H1 wants to send within the network, then it will be having their Mac address, it doesn't care about this B1. If H1 wants to send to the B1 only, then only it cares about the B1 Mac address, otherwise it never ever cares about the B1 Mac address. If H1 wants to send to B1 only, then only it cares about the B1 Mac address, otherwise it never cares about the B1 Mac address, okay?
+
+170
+01:35:09,840 --> 01:35:52,130
+If it wants to send within the same network, then also it will be having the MAC address of this particular host, not for the B1. Yeah, right. Okay, so now let's just move to the next portion. Is this okay to everyone? How the things are happening here? Okay, so it is easy only, like this is the source and if it wants to send outside the network, it will reach to this particular router. If it wants to send within the network, it will reach to that particular thing. I mean, it will directly be writing that particular thing address, right?
+
+171
+01:35:52,510 --> 01:36:30,470
+it will directly writing this particular thing address and if that b1 is in the between that is okay i mean that's perfectly fine if the b1 is coming in the between so let's see this okay sorry this question is done now let's see this question now what they're saying consider this network shown in the figure below suppose a would like to send ip datagram to d and assumes a arp cache does not contain d's mac address okay a would like to send to d okay so these are this is the router these are the switches okay switches which doesn't divide the network
+
+172
+01:36:30,830 --> 01:37:26,230
+which means how many networks are here one network and one network so there are two networks only right now they are saying that A wants to send to something to D then let's just answer the following question okay there are a few questions that we want to answer let's just see if you can answer now okay so what they are saying the first question is that is this visible so let's just see now is this better so the first question they are saying will A perform the ARP query to find the B's MAC address
+
+173
+01:37:27,370 --> 01:38:02,560
+What do you think to find beach Mac at us? A will perform the AIP query, but not to find the beach-beach Mac at us. So the answer is no, right? So here, here you can say no. In the Ethernet frame or the data link layer frame, containing the IP datagram, destination to D. I mean, the original packet will be having something like this, right? This is the data. This is IP. This is Ethernet, something like this. Question is saying that just answer the following questions.
+
+174
+01:38:02,950 --> 01:38:36,960
+I mean, question is saying that A wants to send some packet to D. At that time, just answer the following question. Now, in the Ethernet frame, that is delivered to the router. What are the source and destination IP and MAC addresses? So what are the source and destination IP addresses that is delivered to the router? MAC address, source and destination IP and the MAC address. So source IP is, I think, A, source IP, destination IP, source MAC, and destination IP.
+
+175
+01:38:39,930 --> 01:39:16,220
+so that has been delivered to this router so which means source IP will be A and this is this is D source MAC address will be will be can I even tell me S1 right I mean if the switch is in between then the switch will be sending or this this A will be sending tell me A will be sending right A will be directly sending because that's in the same network so A will be directly sending the switch happens to come in between that is fine okay
+
+176
+01:39:16,600 --> 01:39:50,630
+And what is the destination Mac address? That will be this router, right? I'm just writing R. Okay. So, suppose host A would like to send an IP datagram to host B. Just a second. So the question is there. Suppose A would like to send the IP datagram to D. And assume A ARP doesn't get it. Okay. Now they're changing the question, I think. Suppose host A would like to send IP datagram to B. Okay. Within this, they want to send within the same network. And neither A JRP content B is Mac address nor B JRP content.
+
+177
+01:39:51,120 --> 01:40:22,030
+age Mac at us, okay? I mean the ARPs are empty basically. Further, suppose there's switches, forwarding table contents, entries for host B, and the router only, okay? So basically they are saying that this, there's something called switch forwarding table that also has a mapping. I mean, basically it says that, okay, if this is the Mac at us, I will send to this particular interface, just like router. Do you remember router forwarding tables? There we have the IP address and the interface, right?
+
+178
+01:40:23,200 --> 01:40:49,260
+in the routing forwarding table we have the IP address in the interface similarly in the switch forwarding table we have the MAC address in the interface okay we will see that in the next lecture don't worry okay next lecture I think okay so we will see the switch and and the router at these things specifically with the switch devices I mean switch forwarding table everything we will see very clearly but for now just just see here that let's suppose that they just switch forwarding table which is having a MAC address in the interface address now they are saying
+
+179
+01:40:50,240 --> 01:41:25,670
+Let's suppose this is interface 1, this is interface 2, this is interface 3. They are saying that this switch is containing, okay, switch is containing entries for host b and router only. So basically it is saying that if this is b.mac, so basically let me write it here. So switch is basically containing two entries only. This switch is saying if it is b.mac, then I will send to which interface. If someone wants to go to b.mac, I will send to which interface.
+
+180
+01:41:26,360 --> 01:41:48,270
+Can you tell me the interface number 3, right? If someone wants to send to r.mag, then I will send to which interface 2. So these are the 2 entries that only switch contains. That's what the question says. The switch has only 2 entries for B and R. Now they are saying what action the switch will perform once it receives the ARP request message. So A wants to send to B.
+
+181
+01:41:49,560 --> 01:42:27,880
+in that case it will be basically A will be having ARP request message and it will be broadcasting right who is having that message who is having that something like this so what actions the switch will be performing in that case just sending it to B I mean I don't think there is any other action so it will block here it will not send it to router it will not send to router or bullet send to router it can only send to this B right it can only send to this B tell me see this is the ARP request right
+
+182
+01:42:28,140 --> 01:42:57,500
+ARP request is broadcast. ARP request is broadcast. So it doesn't, I mean, you don't even have this B dot Mac. I mean, here, here, whenever a sending, it doesn't even has a B Mac address. It will say that, okay, just broadcast it to everyone. So it will just send to everyone, right? It will send to everyone. Okay. So sorry if I, I'm, I was confusing you. So sorry if you really got confused. Okay. So it will send to everyone. Is this okay to everyone? Because A will broadcast. A will broadcast, right? Now let's just see this.
+
+183
+01:43:05,950 --> 01:43:35,730
+What actions which will broadcast the interface to both the interface right it will broadcast then to both the interface as receive a happy Okay, the broadcast status and S1 will update the forwarding table to include them Okay, this particular thing we will see later that it also updated forwarding table. So basically now tell me Interestingly, see let's just see this here only there is entire lecture for that That is planned that is called learning bridge, but for now just see here see a sending some packet to
+
+184
+01:43:36,690 --> 01:44:03,320
+now you tell me if it is broadcasting some packet and as this switch is having some forwarding table which is this now tell me now doesn't switch know that what is the age mac address doesn't switch know that it is coming from which interface doesn't switch know that age having age on the which interface can't the switch also update its own forwarding table
+
+185
+01:44:03,650 --> 01:44:35,310
+It will be helpful, right? Whenever B is sending the unicast, it will be helpful for this switch. Agented. That it can instead of sending to this router, the unicast, it can send to A. So that's called learning, okay? That's called learning. Learning switch, okay? Or bridge. That's called learning. So we will see this learning switch or the learning bridge later on. But actually that's how the switch or the bridge learn. I mean switch and bridge actually both are the same thing. Okay? Exactly same thing. You can consider both exactly same thing.
+
+186
+01:44:35,530 --> 01:45:06,790
+So that's called learning bridge, which means whenever you get the packet, I will update it quietly from which Mac and from which interface. Now I just learned it, right? Is this okay to everyone? Whenever a packet comes to me, I will see that this Mac and this interface are linked to this particular Mac address, so let me just quickly update my forwarding table. This learning switch we will see later on, but maybe the glimpse of this you have understood, right?
+
+187
+01:45:08,220 --> 01:45:45,710
+This is another topic. Okay. Now, and as well, we'll update this for running table to include an entry to host a ticket. ARP ARQ request also content age may get us. So let's just have the questions here. Maybe I can just explain this particular question clearly and then you can ask your doubts, right? Okay. So the C is okay to everyone that if a wants to sense to be, then if it is having its own entry, then it will be broadcast. It will be sending to everyone. It will send in to everyone.
+
+188
+01:45:46,240 --> 01:46:22,410
+then the reply reply will be unicasted if this is the reply then this reply will be getting through the switch and switch has already learned that where is a so that's why switch will not forward here switch will only forward to this particular direction that's why it is unicast right yeah this one will broadcast that's what I'm saying a whenever it is getting the packet it will broadcast to everyone right whenever it is by getting a packet from a it will broadcast to everyone but the reply will be unicasted okay let's just see this will the router also receive the arp request message
+
+189
+01:46:26,790 --> 01:47:02,540
+Will the router also receive the ARP request message? What do you think? Yes, right? I mean request message will be delivered to everyone. To be and to router. What about the reply? Once the host b receives a reply, it will not receive, right? Once the host b receives ARP request message, okay? Once it receives the ARP request message, it will send back to host A and ARP response message. But will it send the ARP query message to send the ARP's Mac address? So it wants to send to A again, right?
+
+190
+01:47:02,990 --> 01:47:35,620
+it wants to send to, is this a reply, this wants to send to A again it will be, will it be again having the ARP request that okay I don't know your MAC address or B always knows the A's MAC address what do you think? B knows right, how? because that is in the ARP packet right in ARP packet I already have A's MAC as a source right and destination MAC address like I mean broadcast address this is broadcast address, destination MAC address and A's IP, B's IP these things I already have in the
+
+191
+01:47:35,850 --> 01:48:19,150
+in the ARP packet these all the fields are already there in the ARP packet right so we already know the MAC address of A so it obviously won't send it okay what will switch do once it receives ARP response message from host B what will switch do once it receives ARP response message from host B if this response will it be forwarded to everyone to router and to A or only to A only to A right right why because switches are intelligent it has already learned
+
+192
+01:48:19,360 --> 01:48:59,830
+that, okay, where is the A? Where is A? It will already learn. Have you understood? So it will only forward to A. Is this learning switch or learning bridge, this idea is literally clear to everyone? So don't worry, there is another lecture of one hour just for this learning switch. Okay, we will be doing some interesting questions here. ARP table doesn't have the, okay, what you're asking? Yeah, if IP, yeah, your question is nice. So Satyam is saying that if IP address are getting changed,
+
+193
+01:49:00,080 --> 01:49:21,340
+then how ARP will be updated. Yeah. So basically this ARP whenever there is a change in IP address. So at that time it will be basically known to everyone. I mean, whoever is having the ARP cash and also the ARP cash is basically for some limited time. Okay. You will get to understand using the DSCP. I mean, you can't just update it just like that basically for some time.
+
+194
+01:49:21,580 --> 01:49:43,880
+you promise I mean whenever you assign some IP address you promise that okay for five minute at least I'm giving to you okay so ARP table also know that what is the promise time okay what what DSCP server or what ISP has promised so ARP also knows that okay the promise time was five minutes right so ARP also knows uh using that so we will see in the DSCP later on okay this is the least time that uh that is there
+
+195
+01:49:44,060 --> 01:50:32,820
+that uh i mean whenever the dscp or some isp are sending the ip address at that time they know that okay that has been assigned for one hour or something like that right okay anyway have you have you understood this question completely let me just quickly explain this question again okay so let's just see what this question is asking okay so let's just try to solve this question so what they're saying is that will a perform the arp if a wants to send to d
+
+196
+01:50:33,080 --> 01:51:03,130
+will i perform the arp for for this d just tell me quickly no right no okay it will not not perform arp for d it will perform arp for this default gateway this router right in the ethernet frame containing the ip that is delivered to router what are the source and destination i i mean these these fields whenever it is delivered to out router so source ip a destination ip this d destination ip d source mac what does the source make a right
+
+197
+01:51:03,850 --> 01:51:33,890
+What is the destination Mac? Can everyone tell me this quickly? What is the destination Mac? This must be R. Yes, this must be R. Now, suppose host table would like to send, would like to send to B, right? Now they're saying what and what action this switch will perform. If it would like to send to B, and this is the switch routing table or the switch forwarding table, then what action will perform? It will send to both R1, this router and the B because it is broadcast. So it will send to both and it will also update its own forwarding table.
+
+198
+01:51:34,090 --> 01:52:05,020
+because it is a intelligent device so it is basically called learning switch right it will also also update its own forwarding table okay it will send to everyone it will also update its own forwarding table will router also receive the arp request message will router receive tell me immediately yes once host b receive the arp request message once host b is receiving the arp message will it be again performing arp to get the mac address of a no
+
+199
+01:52:05,740 --> 01:52:40,770
+What will the switch do? Once it receives the ARP response, whenever it is receiving the ARP response, what will the switch do? It will send to A or to both, I mean, to router and A. Send to A only, right? Now, I hope you understood this ARP in very crystal clear way. The answers are here. If you want, you can read out them later on. Okay. I mean, the typed answer are also here. Okay. So that is all. I mean, these are the all questions we have here.
+
+200
+01:52:41,020 --> 01:53:09,640
+now i hope you have understood that how arp is working very clearly right so everything about the arp cache and how these things are working once you watch this lecture lecture one more or maybe you can just refer the annotated notes you will get to understand this more clearly okay have you understood this nicely that how this arp is working whenever you are sending the packet then the next default gateway and these things right very clearly you have understood right okay so thank you everyone
+
+201
+01:53:10,420 --> 01:53:28,040
+In the next lecture, we will be seeing the DSCP and a few other protocol which is bootp, RARP and DSCP. And then we will be uploading one or two more lectures for the data link layer and then we will be starting with the network layer. Okay. So thank you everyone. Take care. Bye bye.
+

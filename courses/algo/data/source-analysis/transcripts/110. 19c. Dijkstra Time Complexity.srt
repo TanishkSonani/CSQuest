@@ -1,0 +1,268 @@
+1
+00:00:00,460 --> 00:00:28,820
+Let's not talk about digested time complexity. So what we do in digested is that, so let me tell you what we do. So given any graph, let's suppose this is the graph that is given to us, and then if we run digested on this graph, then what we do, we basically extract every vertex and then we relax outgoing edges. That is all we do. So I will say that initially I will initialize the priority queue
+
+2
+00:00:29,080 --> 00:00:58,980
+for the source it is 0 and for everything else it will be having infinity infinity infinity now i will be extracting just one vertex from this which means i will say that okay this vertex is final and i will be relaxing all the outgoing edges that is all we do and this was the diextra code right now if you talk about the time complexity of diextra then i will say that you are just doing two things now let's take an example of undirected graph
+
+3
+00:00:59,290 --> 00:01:26,990
+or let me take first example of directed graph let's suppose this is a directed graph then what you do I mean how many times you relax any edge so you pick one vertex you relax outgoing edges that is all you are doing and how many times you are relaxing these outgoing edges exactly at once why because you are picking this vertex and you will never ever pick this again because you are extracting that so that is why exactly once you are
+
+4
+00:01:27,230 --> 00:01:59,090
+relaxing exactly once we relax any outgoing edge any edge basically so this is this was the case of directed what if the the graph is undirected let's suppose the graph is undirected then how many times you're relaxing see if the graph graph is undirected then also you are relaxing exactly once how you will be picking this and then you will relax this as you will relax this as
+
+5
+00:01:59,560 --> 00:02:27,780
+Now you once you have relaxed this edge, then you will not relax this again. Why? because the moment you pick this edge as your next vertex or somewhere down the line you will picking this vertex as a vertex from the priority queue and then you will not be relaxing this edge again. You will be relaxing this edge exactly at once either via this or via this. If you relax via this
+
+6
+00:02:27,990 --> 00:02:59,250
+then you will not relax by this, right? If we are relaxing by this, then you will not relax by this. So, this edge is shared that I agree. But you will be relaxing this edge exactly at once either by this or by this. So, we relax every edge exactly once. This is what we do in register. So, in overall sense you can say that you are relaxing every edge exactly once and relaxing means what? Relaxing just means that you are updating the distance.
+
+7
+00:02:59,730 --> 00:03:39,360
+so which means you are decreasing the key which means what we are doing we are relaxing every edge of we are relaxing we are decreasing the key exactly once and how many edges are there there are e edges there are e edges so you are performing that means you are performing decrease key or relax or relax exactly e times and what else you are doing you are doing just two things
+
+8
+00:03:39,600 --> 00:04:06,460
+You're picking a vertex, you're relaxing out two integers. Picking a vertex, relaxing out two integers. Picking a vertex means what? You're extracting min. So how many times you're picking the vertex? Since there are V vertexes, you will be picking V times. Which means this extract min will run V times. See, this while loop will run itself V times. Why? Because initially, the queue is 0, infinity, infinity, infinity. And every time, you're just extracting one vertex from this queue.
+
+9
+00:04:06,850 --> 00:04:41,950
+So, since there are v vertices, that is why this while loop will run v times. So, if I am not going to, you know, talk about the complete code, I am just asking you that how many times you are going to extract a min. You are going to extract a min v times. So, you will say in overall sense, if there are v vertices, then you are going to extract min v times. So, that's all you are doing with the vertices and edges.
+
+10
+00:04:42,370 --> 00:05:15,500
+Now if I if I just you know try to write it more compact way then you can say that the total time complexity will be total complexity is equal to e which are number of edges into see e times you are doing what e times you are you are relaxing any any any edge right which means you are decreasing key e times so e into time 4
+
+11
+00:05:15,820 --> 00:05:46,430
+decrease key if you are using heap then decrease key time will be i think log v because the heap size is v because this priority key will be having all the vertices so what number of vertices are v so in case of heap this decrease key will be log v anyway let me write the general formula the total time complexity will be e times you are decreasing key and v times time of remove min you are extracting or removing the min that's all
+
+12
+00:05:46,730 --> 00:06:12,300
+about director time complexity. So you will say e into time for decrease key plus v into time for removing. Now it will depend which data structure you are using. If you are using heap as a priority queue then this will be log v and so decrease key will be log v and remove is also log v. If you are using heap, if you are using heap. So there are many many options.
+
+13
+00:06:12,660 --> 00:06:53,670
+if you are using heap then this is the case if you are using linked list as a priority queue then this will be something else if you are using array then this will be something else but the general formula is this which means you can say that time complexity of digestra is equal to you will say e into time for decrease key plus v into time for remove women that is all so this is general formula
+
+14
+00:06:54,120 --> 00:07:25,300
+But here is one small catch the catch is that this is this these things are okay if we are using adjacency list Basically for the adjacency list you do not need to put any efforts for the to find the neighbors But if we are using adjacency matrix Then the formula will remain same But there will be extra efforts to find the neighbors and then you will say in this formula only so let me just write it for adjacency list
+
+15
+00:07:25,900 --> 00:08:08,740
+and for the adjacency matrix in this formula only you are going to have some extra term let me write that extra term also so here this is for adjacency list and for adjacency matrix you will be having some extra term let me write it that will be v square which means you will be going to this adjacency matrix which is which is which is having v square entries you will be going to this adjacency matrix fully to find out that okay what are the adjacencies
+
+16
+00:08:09,580 --> 00:08:38,210
+Now this is just you know vague idea, but I want to give you some mathematical proof of this Okay, using the code that we have So I hope you got the vague idea that yes the time complexity is looking like this that we are we are decreasing exactly at once for every edge and we are removing mean or extracting mean v times we are decreasing key or we are relaxing EHS So that is why we have this formula, but we can formalize it also
+
+17
+00:08:38,590 --> 00:09:07,310
+So let me try doing it. So let's suppose this is your code and in this code I want to formally analyze this code. Which means that I want to use this while loop and for loop and I want to see that what is happening. Let's just try doing it. Let me just copy this and let me try some mathematical formulas. So what I will do?
+
+18
+00:09:07,700 --> 00:09:37,150
+I will say that you are using a while loop and you are using a for loop. So in this while loop and for loop you you are basically in this while loop you are running this for loop inside. So I will say that let me use this thing let me say that you are running your let me sum over all the all the vertices you which means all the vertices and in this you are doing two things you are basically extracting min so let me write it here time for
+
+19
+00:09:37,420 --> 00:10:12,380
+remove min and then you are doing for every adjacent v of u you are relaxing the edge which means for this for loop also I will be writing one summation and I will say v which is adjacent of u and what what you're doing relaxing which means time for decrease key so what we can say that we are basically representing this for loop using this summation sorry this by loop using this summation and
+
+20
+00:10:12,630 --> 00:10:39,830
+this for loop that you have inside this value using this submission. So this submission is representing your for loop. You may think that I'm making things complicated, but trust me, this is the best way I can do things systematically. Okay, don't get afraid whenever you see some submission at these things. These are here to make our life simple, not to make our life complicated. You should be thinking like in that way.
+
+21
+00:10:40,570 --> 00:11:09,570
+okay so this while loop you can you can think like a summation that you are you are basically doing for every vertex if you are not much convinced let me let me try you know some unrolling so instead of you instead of summation and all you can think something like this see there are v vertices so you will be doing for i equal to 1 i mean for vertex number 1 like let me write v1 you will be doing for v1 something for v1 something for v2 similarly for vn and then you will be summing all all the things up
+
+22
+00:11:09,680 --> 00:11:34,340
+Now what you are doing for V1 is basically you are extracting min, so time for extracting min or remove min. Let me use different color. So here you are doing remove min for every vertex and then you are also doing this kind of thing which means you are finding the adjacent and then you are relaxing the edge.
+
+23
+00:11:34,590 --> 00:12:08,400
+so let me let me say that these are if you're using the adjacent the matrix and the adjacent list then it will depend on that that is why let me just represent this using the summation only okay so you will say that this will be for all the neighbors for all neighbors of b1 relax time for relax or decrease because this relaxation is nothing but decrease see here this relaxation is nothing but decrease key this is the major role which is playing in the relaxation otherwise relaxation is very simple
+
+24
+00:12:08,780 --> 00:12:38,080
+this relaxation is saying if v is I mean if you are if you are relaxing something you will first of all check whether the vertex that you are relaxing I mean let's suppose this is u this is v but if it is if it is in the queue then only you will decrease the key so and and if dv that the earlier distance is greater and the new distance you are finding from u is smaller then you will just decrease the key this operation this operation is basically decrease key and you will update the pointer so anyway coming to this point
+
+25
+00:12:38,330 --> 00:13:08,070
+that you can yeah so you can you can basically like write like this and then ultimately you will say if you sum all of this up then it will be just one summation inside one summation you will you will be having this movement and then plus this so i'm just writing using a summation formula okay so finally we have this for the di extra time complexity so i can say that this is a general formula for the di extra time complexity don't think that this is complicated it is very very easy
+
+26
+00:13:08,360 --> 00:13:35,620
+Otherwise like if you if you are you know not much convinced then you can also use directly this formula that we have derived Okay, let me just go over it. So this formula that we have derived in case of adjacency list This will be the formula in case of adjacency matters. This is the formula I will actually come to this these two formulas only via this summation Okay, so by using this summation only I will come to those two formulas. Let me let me tell you how so
+
+27
+00:13:36,720 --> 00:14:04,480
+basically there like this expansion will depend on different different things that what kind of data structure you are using for the graph representation whether you are using adjacency list or you are using adjacency matrix see here you are using list or matrix and for the private queue you can you you have couple of options you can use heap you can use unsorted array you can use sorted array there is something called Fibonacci heap I will tell you about it there is a link list and there could be couple of couple of more options
+
+28
+00:14:04,870 --> 00:14:34,110
+So this, this depend on the combo, which means what kind of graph representation you are using, what kind of priority queue you are using. So let me do one thing. So for this formula, let me just, you know, just put this summation inside, which means, so these were the two terms, this is one term, this is another term, let me put this summation inside and let me unroll this, which means I'm just saying summation of ai plus bi is nothing but summation of ai.
+
+29
+00:14:34,820 --> 00:15:04,200
+plus summation of bi which means I'm just saying that put this summation into like distribute this over the plus so for AI for bi also I think that is okay. I mean that is doable. Let me just give you example So plus AI plus bi is what if you if you just do it then let's suppose this is a1 and b1 only a1 a1 a2 and b1 b2 So this will be summation this summation will be saying let's suppose for i equal to 1 to 2 this will be saying a1 plus b1 plus
+
+30
+00:15:05,030 --> 00:15:32,180
+a2 plus v2 that is how you will unroll this now if you unroll this also then also you will be getting the same thing let me tell you i equal to 1 to 2 i equal to 1 to 2 if you unroll this then also a1 plus a2 plus b1 plus v2 this is your first summation this is your second summation so see here these two things are actually same these two things are actually same because these two things are same so anyway you can you can put the summation inside that's all I'm doing here
+
+31
+00:15:32,860 --> 00:16:00,020
+okay so you can put this submission inside and then you will be having this this is this is for removing and this is for update key or the or the relax operation or the decrease key whatever now let me let me do one thing let me directly go to the point where I will be I will be using adjacency list and I will be using heap and there are like there is another combination where I can use adjacency matrix and I can use heap
+
+32
+00:16:00,220 --> 00:16:30,270
+So let me do one thing let me use adjacency list and heap and let me see how this formula is helpful to me So see here one thing that this remove min is not dependent on the on the graph representation only this finding the neighbors is dependent on the graph representation This is solely the this term is basically dependent on the on the on the priority that we are using if you're using heap then this remove min is going to take log of V
+
+33
+00:16:30,600 --> 00:16:54,110
+Why V? Why not E? Because this like the priority queue will be having V number of entries for everybody just one entry that is why this is log V okay you can note it down that priority queue this is log V because priority queue size is V because priority queue this PQ means priority queue size is V that is why
+
+34
+00:16:54,640 --> 00:17:23,770
+Now this term will always be if it is log V and if you are running it V times, this is V log V So this is independent on of this this graph representation, but whether it is a list or matrix Then the second term is crucial. It is based on the graph representation that we have So let's just see that how the second term is coming out to be so let me go to the next page and let me Let me just probably copy the second term
+
+35
+00:17:24,890 --> 00:17:58,440
+or maybe the whole thing now let me expand this second term so it is saying that for every vertex go to its neighbors and update the keys which means let me write for v1 it is doing something for v2 it is doing for v3 like that for vn it is doing something for v1 what it is doing I mean it will go to the neighbors and how many neighbors are there if you're using adjacency list then you will you will be just finding the neighbors in order of one so there are degree neighbors so which means you will say degree
+
+36
+00:17:58,970 --> 00:18:29,240
+of v1 into update key because there are degree of v1 neighbors and for every neighbor you are updating the key I mean you are relaxing basically and relaxing may or may not lead to update key but for the overestimate I am just saying that you are updating key for every neighbor okay I mean just to have a upper bound so which means you will say that time to update key and that is what you are doing for adjacency list this is only for adjacency list
+
+37
+00:18:33,450 --> 00:19:04,520
+Now similarly for b2 also same same story for b3 also same story for bn also same story Which means that you will be saying it will be also degree of v2 into time to update key And so on so if you add all of this then you will be getting this will be update key time to update key will be common and Then this will be degree degree of v1 degree of v1 plus degree of v2 like that plus degree of v1 vn
+
+38
+00:19:04,800 --> 00:19:37,930
+and then finally you will be getting this whole thing as e or 2 e does not matter because this is asymptotic notations so let me just write e which means e into update key that is what you are getting in case of adjacency list so the final answer in case of adjacency list is v log v plus let me go to the next page v log v plus e into e into update key time to update key this is case for adjacency list now what if there is adjacency matrix
+
+39
+00:19:38,560 --> 00:20:08,090
+In case of adjacent matrix, you are actually doing little extra. Let me do one thing. Let me just make some space for the adjacent matrix. Let's suppose this is what you are doing for adjacent list and now let me write for adjacent matrix also. This is just the second term. So for adjacent matrix, what you are doing? Just look at this carefully. For adjacent matrix, you are having 1010 like that, right? So what you are doing?
+
+40
+00:20:08,510 --> 00:20:35,650
+you are going here and then if it is never then you are updating key if it is not never you are going going here extra I mean this is just extra then you are going here then you are going here then you are okay then you will find that okay if it is never you are you are updating key then one idea is that for every every vertex in case of edges in the matrix what you are doing for every vertex let me just say that you are updating the key for all of this which means V into update key time to update key
+
+41
+00:20:37,420 --> 00:21:05,960
+it is it is little overestimate because we are n into time to update key so if n is the number of vertices so you can also write n but anyway let me write v so it is little overestimate because you are not updating key for at least these zeroes because these are not even neighbors so you are not updating key for all the v's you are only updating key for some of the like some of the vertices which are the only neighbors so which means like you can write like this but it is just overestimate
+
+42
+00:21:07,330 --> 00:21:37,210
+ok so that is why let me let me do one thing let me now try V into something because it will be just overestimate let me just see that for how many you are actually updating the key so you are going you are updating the key for degree only which means you are doing two things you are updating the key into for time to update key that is what you are you are anyway doing but you are also going to these vertices let me let me tell you in the next page see you are doing what let's suppose
+
+43
+00:21:37,610 --> 00:22:04,180
+This is your, this is just as the metrics, you are going here, updating the key, you are not updating key, not updating key, and then updating the key, not updating key, not then updating the key light. Then which means, you are updating key for degree times only, degree of viewing into time to update key. That is okay. But you are also spending some time here, just to go here, just to go here, just to go here, just to go here. And how many zeros are these?
+
+44
+00:22:05,710 --> 00:22:34,000
+You are spending constant amount of time that is okay order of 1 into how many zeros are there? n minus number of zeros are n minus degree of V1 because degree of V1 are number of ones So these are number of ones and then then this will be n minus degree of V1 this will be number of zeros So these are the zeros in any row and these are the ones in any row
+
+45
+00:22:36,460 --> 00:23:05,670
+For four ones you are you are spending degree of V1 time, but for zero you are just spending constant time Now you will do what you will be writing this this same thing here. Let me let me probably you know Go to the next page or should I be writing here only let me okay Let me go to the next page and let me let clearly see for every vertex V1 V2 V1 V2 till Vn what you are doing V1 V2 till Vn what you are doing is
+
+46
+00:23:05,610 --> 00:23:35,660
+you are spending some time for zeros which is some time for ones which is degree of b1 b1 ones are there and you are updating the key update key and then you are spending some time for zeros also which is n minus degree of b1 into constant time only constant time you are spending in case of adjacency list you do not spend any time for zeros you only spend time for ones so only this term was there this term was not there
+
+47
+00:23:35,960 --> 00:24:08,780
+Okay, so this is adjacency matrix and this is just a second term So now you will be writing degree of V1 into time to update key plus and minus degree of V2 into time to update key plus and minus degree of V2 into order of 1 like that you will be keep on doing and then finally if you add all of this you will be getting so I think in the first term you will in the first term is actually same which means you will be getting T of update key
+
+48
+00:24:12,410 --> 00:24:31,880
+into this will be just this submission will be just e that that we have already done plus these are the n terms so n square and this order of one you can just ignore order of one I mean multiply by one it does not matter so n square minus this if you term if you add all of this it will be e it will be so n square or v square does not matter
+
+49
+00:24:32,180 --> 00:25:05,010
+so just write like this and then if you take e common from both of this then you will be getting let's suppose this is update key let's suppose having log b time or let me write in general so this you just take e common then you will be having e into time to update key minus 1 plus n square and then this 1 is just constant so you can just ignore this then finally you are having e into time to update key plus n square
+
+50
+00:25:06,350 --> 00:25:34,960
+and earlier what you were getting earlier you were getting this thing see here earlier you were getting time to update key into e but now you are getting time to update key into e plus n square so there will be n square extra and that that is what we argued also see here here initially we said like when we were going informally then also we said that there will be n square term for the adjacency matrix let me just show you
+
+51
+00:25:35,230 --> 00:26:09,030
+see here here i said there will be v square for the adjacent matrix extra see this term will be same in adjacent matrix or adjacent list this term will be same and this is for the zeroes sorry for the ones which means for the neighbors you are spending the same time for the neighbors you are spending same time this is the extra thing that you are getting for the zeroes only for zeroes this is because of the zeroes that you are getting right see what let me let me just summarize this what we are doing
+
+52
+00:26:09,470 --> 00:26:39,150
+in case of adjacency matrix and in case of adjacency list. Let's suppose this is your adjacency matrix. Now in matrix you are doing everything that you were doing for the list also. But you are having extra 0's. So basically you are actually traversing this which is v square time you are just taking to traverse. And then you are obviously updating the key for these ones. Which means
+
+53
+00:26:39,960 --> 00:27:10,810
+or whatever you are doing I mean this is just for extra traversal and then whatever you are doing for adjacency list so whatever what we did did for adjacency list which means adjacency list and adjacency matrix both are having almost same time complexity but in the matrix there will be always v square extra so let me summarize these things see here this this will be your okay
+
+54
+00:27:10,970 --> 00:27:37,000
+this will be your final time complexity this summation the first term will be v into time to remove in time to remove one then plus then this is plus and then the second term in case of adjacency list it is just e into how many times you are relaxing e times e into time to update key but here in the matrix you will be having v square extra now instead of instead of using this formulation I will be using these two formulation only okay
+
+55
+00:27:37,210 --> 00:28:06,180
+I will not be using summation and all, I will be just saying in case of adjacency list use this in case of matrix just add every square. That is all. Now let me go to the earlier question where I said that how much time you will be spending in case of adjacency list and in case of adjacency matrix. Now can you tell me how much time you are spending? Just use this formula. Let me probably copy this there also. So in adjacency list you are spending this much. Now can you answer this question?
+
+56
+00:28:13,370 --> 00:28:40,890
+So, can you answer this question now? If I ask you that in case of adjacency list that you will be spending this, I mean this formulation, let me not worry about this summation and all. So, this summation will be finally just this one. Let me not worry about this summation and all. So, in case of adjacency list, this will be V into remove min plus E into time to update key. So, how much time you are having for the remove min in case of heap? So, you will say that V into to remove min
+
+57
+00:28:41,120 --> 00:29:10,420
+remove mean in case of heap will be taking log V and update key will also be taking log V. So you will be having T log V sorry V log V V log V this is first term and then plus E log V which means E plus V log V. Now if I ask you that how much time you will be spending in case of HSS matrix then just add V square just add V square in case of HSS matrix. Now tell me
+
+58
+00:29:10,690 --> 00:29:38,000
+what about this this e plus v can i can i write can i write this e plus v log v this is e plus v log v can i write this this as just e log v or v log v something like that see if i have e plus v then can i write it e or can i write it v then answer is no see this e could be as good as v square so that is why
+
+59
+00:29:38,270 --> 00:30:06,890
+I will whenever I have I have comparison between E and V I will I will keep it as it is because this E could be as large as V square so I cannot just say that it is just V because it could be very much under estimate and I cannot also say that it is E because that will be overestimate if E is what if E is just V see this E could be could be V square could be V in case of connected graph it is it is at least V minus 1
+
+60
+00:30:07,600 --> 00:30:35,210
+and at most v square it could be v square or could be v so this e plus v if I talk about this e plus v then let me write here then this e plus v could be your v square plus v or could be v square sorry v plus v which means this e plus v could be finally v square or could finally be v it depends on that how many edges are there so that is why you whenever you have e and v comparison just leave it as it is
+
+61
+00:30:35,390 --> 00:31:02,770
+you are not going to you know write it just e or just v similarly if you have e plus v square let's suppose you you you compare between e and v square then you always write it v square why because this e could be whatever it is it could be v it could be v or it could be v square whatever it is finally it will be v plus v square then also v square if it is v square plus v square then also v square so if it is e plus v square then always write v square
+
+62
+00:31:03,000 --> 00:31:33,660
+if it is just e plus v then leave it as it is leave it as it is because it could be it could v square it could be v okay and what if if it is if you want to compare between e versus or let me say log e versus log v then in this case both are same because even if it is v square then it is just two log v so log log e is same as log v okay in case of log both are same
+
+63
+00:31:33,840 --> 00:32:04,100
+in case of just you know if you're just comparing directly then e is same as v i mean e plus v square is same as v square and if you have e plus b then leave it as it is okay so coming to this point here you have v log v plus e log v and finally e plus v log b so for adjacency matrix you will say whatever you have for adjacency list which is e log b because uh let me write v log b first v log b because you are extracting min plus you're relaxing every edge once
+
+64
+00:32:04,460 --> 00:32:35,160
+that is why this and then you are having just v square extra this is for adjacency matrix if you are using heap now there are couple of more options i mean you you may use let me write this is e plus v log v and then this is e plus v log v plus v square now you may use unsorted array you may use sorted array you may use linked list like that now just for the exercise try to fill all of this
+
+65
+00:32:35,420 --> 00:33:05,430
+using this formula very very easy you just need to know that what is time for removing what is time for update key for all of this that we have already seen in the data structures it is very easy just try try this out and then we will be doing this in the next lecture okay this is just this next lecture is going to be just two or three or maybe five minute video it is it is just going to be five minute video because I just I will be just telling you that how to fill this right okay if there is any doubt you can comment it out just just to sum up all the things
+
+66
+00:33:05,670 --> 00:33:37,890
+that we are basically doing exactly once relax so that is why there are e relax and v remove min so that is why e relax means e relax means that you are having e log v time and v remove min means you are having v log v time so e plus v log v is your answer right so see here e relax and v remove min but in adjusting matrix you are just having v square extra that is all
+
+67
+00:33:40,180 --> 00:33:44,390
+Okay, so now you can fill all of these entries. Thank you
+

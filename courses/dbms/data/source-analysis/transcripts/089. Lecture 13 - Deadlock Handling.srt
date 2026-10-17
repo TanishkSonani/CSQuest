@@ -1,0 +1,540 @@
+1
+00:02:56,460 --> 00:03:30,790
+hi everyone welcome to go classes so in this lecture we will study deadlock handling in the transaction management from the transaction point of view we will study what is deadlock handle handling how to handle the deadlock how to prevent that prevent the deadlock and if the deadlock has occurred then how to recover from the deadlock okay so all these points we will study deadlock prevention deadlock detection and recovery okay so this is our topic for this lecture
+
+2
+00:03:31,170 --> 00:04:00,150
+So this is from transaction management point of view. The same topic you will also study in the operating system. In the operating system, in the operating system, this deadlock handling you have already seen, like how to prevent the deadlock, how to avoid the deadlock and how to recover from the deadlock, how to detect the deadlock. Okay. So all these things you have already seen in the operating system, but from the DBMS point of view, from the transaction management point of view, how to handle the deadlock. That is our chapter. That is our content.
+
+3
+00:04:00,510 --> 00:04:29,120
+for this lecture so we've already seen that in this type of situation you can create deadlock is possible in the two phase locking in the two phase locking protocol deadlock is possible correct like for example if your transaction T1 is right x right y your transaction T2 is right y right x then in this situation in the two phase locking this deadlock is possible what you will do you will take exclusive lock on a then you will write a okay this T1 will write a
+
+4
+00:04:29,330 --> 00:04:58,470
+then this t2 will take exclusive lock but see this t2 will take exclusive lock on b then it will write b now there is a problem what is the problem now t1 wants exclusive lock on y t2 wants exclusive lock on x but both of them have to wait for each other see t1 wants exclusive lock on y okay but it has to wait it has to wait for t2
+
+5
+00:04:59,200 --> 00:05:29,220
+and you can notice t2 wants exclusive lock on x but this t2 has to wait for t1 okay right yes or no is this clear to everyone so actually this this is a comma b so you can just change it this is some this is just a comma b these items these items are basically a comma b like this is item a this is item b this is item b this is item a okay so very simple so there is a deadlock possibility now you can notice
+
+6
+00:05:29,480 --> 00:05:58,920
+here t1 is waiting for t2 what t1 wants it wants exclusive lock on b this is what t1 wants so it will wait for t2 because t2 has exclusive lock on b so this t1 is waiting for t2 t1 is thinking t2 will release the lock now t2 is waiting for t1 t2 is thinking that i want exclusive lock on a but t1 has exclusive lock on a so let me wait
+
+7
+00:05:59,230 --> 00:06:27,130
+so that T1 can release the exclusive lock on A. So T1 is waiting for T2, T2 waiting for T1. This type of situation is called deadlock. None of them can progress. This is your deadlock. Both of them are waiting for each other. Okay. Now, let's see how to prevent the deadlock. First of all, what is deadlock? Let me tell you the definition of deadlock. Let's see the deadlock definition says that if you have a system in which you have many transactions,
+
+8
+00:06:27,980 --> 00:06:58,570
+and there exist a set of transaction in which every transaction is waiting for other transaction okay then that is called deadlock situation so what is deadlock situation remember the deadlock situation is like this that you have a set of transaction you have a system in the in the system let's assume there is a set of transactions you have many transactions let's assume in this system there are you have many transactions for example you can have transaction
+
+9
+00:06:58,940 --> 00:07:27,470
+Let me call it transaction one, transaction two, transaction three, transaction four and so on. So let's assume these are the transactions. Now, when can I say deadlock is there in the system? This system, I can say in the system deadlock is there. So I can say deadlock happens when deadlock will happen. Deadlock happens when there exists a set of transactions. Please understand that we don't need all the transactions, but there exists a set of transactions.
+
+10
+00:07:28,360 --> 00:08:10,140
+there exist a set of transactions such that in this set everyone is waiting for other okay basically every transaction in this set every transaction in this set is waiting for other transaction waiting for other transaction to release logs to release logs so this is the situation this is called deadlock situation what happens that let me assume that you have
+
+11
+00:08:10,440 --> 00:08:38,590
+in your system you have many transactions for example in your system you have transaction transaction t1 transaction t2 transaction t3 t4 t5 okay so these are the transactions you have now assume that consider this set t1 t2 t3 now consider this set in this set what happens that in this set let's assume everyone is waiting for another t1 is waiting for t2 let me assume t2 is waiting for t3 and t3 is waiting for t1
+
+12
+00:08:39,210 --> 00:09:07,720
+now you can notice that I can say that there is a deadlock yes or no so in this situation because there exists a set there is a set of transaction in which every transaction is waiting for another transaction now T1 is waiting for T2 T2 is waiting for T3 T3 waiting for T1 so this type of situation is called deadlock okay I can say deadlock is there in this system this system has deadlock or I can say
+
+13
+00:09:07,950 --> 00:09:35,950
+this in the system deadlock has occurred in the system deadlock has occurred is this clear tell me the definition of deadlock is clear or not let me know so that you can see there is a system this is the definition you can check it out when can you say system is deadlocked look at this definition system is deadlocked if there is a set of transaction such that every transaction in this set is waiting for another transaction in this set very simple definition
+
+14
+00:09:36,300 --> 00:10:08,600
+in this situation you can say system is deadlocked so you can see here that this is your system there is a deadlock I can say system deadlocked your system is deadlocked remember one thing that your system is deadlocked it does not mean that all the transactions in the system they are in the deadlock okay are you getting my point in the system you have thousands of transactions there are thousands of transactions in the system you can have many hundred hundred thousand of transactions you can have
+
+15
+00:10:08,840 --> 00:10:38,050
+but in the system some set of transaction or I can say some set of transaction is such that every transaction in this set is waiting for another transaction then this type of situation is called deadlock so I can say system is deadlocked when some set of transaction is like this okay some set of transaction is in this format then I can say your system is deadlocked is the definition clear to everyone what is the definition a system is in deadlock state
+
+16
+00:10:38,470 --> 00:11:06,740
+if there exist a set of transaction please understand a system is deadlocked if there exist a set of transaction so that every transaction in this set is waiting for another transaction in this set this type of situation will be called deadlock you tell me a simple thing like here you can notice there is a deadlock this t1 des is waiting for t2 des and t2 des is waiting for t1 des this t1 des wants write lock on x
+
+17
+00:11:07,410 --> 00:11:36,490
+But this lock is taken by T2ds. Okay, you can notice this T2ds has the read lock. So this T1 has to wait for T2 and this T2 wants write lock on Y, but this T1 has write read lock on Y. So this T2 has to wait for T1. So this is another possibility. Okay. So very simple. You can see that this is the deadlock. Your system is in the deadlock. Now you tell me a simple thing. If you already know that system is in the deadlock, what you can do?
+
+18
+00:11:37,260 --> 00:12:10,260
+if you already know system is in deadlock what you will do if system is already in deadlock if system is already in deadlock then what you will do let me assume that system is already in deadlock then one of the transaction you will abort yes or no agree or not if you know that already system is in the deadlock if you already know this the system is already in the deadlock then definitely what you will do then you will abort one of the transactions yes or no abort
+
+19
+00:12:11,690 --> 00:12:41,080
+one or I can say some of the transaction one or I can say some of the transactions about some of the transaction or I can say about one of the transactions so if you do this abort or kill okay or rollback so rollback one of the transaction or some of the transactions you do this so then of course your system will get out of the deadlock so if your system is already in the deadlock then one or I can say some of the transactions you can rollback okay now let's see deadlock prevention
+
+20
+00:12:41,900 --> 00:13:11,000
+deadlock prevention scheme prevention means deadlock will never happen if you do these things okay what this prevention says remember this is the definition of deadlock prevention this you have already seen in the operating system what this deadlock prevention says this deadlock prevention says prevention name is prevention it says that if you do this if you implement this then deadlock will never happen and you will never have to check again okay this is the benefit see
+
+21
+00:13:11,340 --> 00:13:40,460
+if we implement deadlock prevention if you implement this if we implement deadlock prevention let me call it DP so if you implement this DP deadlock prevention then deadlock can never occur first of all that is the point deadlock can never occur deadlock will never possible deadlock will never be occur and also you don't have to check okay and you don't have to do anything other than this and
+
+22
+00:13:40,820 --> 00:14:17,150
+You don't have to periodically check. You don't have to periodically check for it. Periodically check for deadlock. Okay. Is this clear? What are the definition of deadlock prevention? Deadlock prevention means that deadlock will never occur and you don't have to check. There is no need to check periodically for the deadlock to avoid deadlock. Basically, there is something called deadlock avoidance in the operating system where you use the banker algorithm, right? Yes or no?
+
+23
+00:14:17,470 --> 00:14:48,280
+banker algorithm deadlock avoidance in that what happens deadlock avoidance says that let deadlock uh deadlock avoidance says that i will i will check the deadlock periodically and just before it occurs i will prevent it are you getting my point i will avoid it like deadlock avoidance says that i will periodically check after every operation i will check okay so after every request i will check like this is what deadlock avoidance says it says that
+
+24
+00:14:48,560 --> 00:15:16,390
+after every request I will check and if I think that deadlock is possible then I will reject that request okay is this clear I will check after every request I will check if I think that deadlock will be possible or deadlock might be possible then I will reject that request so I will avoid deadlock okay very simple so anyway this is your deadlock prevention the deadlock prevention is saying that if you implement deadlock prevention
+
+25
+00:15:16,760 --> 00:15:48,860
+that deadlock then deadlock can never occur it can never occur and there is no need to check for deadlock okay so very simple you can just rest if you implement this deadlock prevention what are the deadlock prevention schemes in the operating system you have some deadlock prevention schemes what are those two schemes you have already seen in the operating system deadlock prevention schemes what are those the first scheme is your conservative approach yes or no
+
+26
+00:15:49,350 --> 00:16:23,350
+The first scheme that is a conservative approach that is a conservative approach. What is the conservative approach? Take all the locks before you start. Yes or no. Correct. This is the conservative approach that what you do. Take all the locks. Take all the locks before transaction starts. Take all the locks before transaction starts. This is this is deadlock prevents and scheme. This you have also seen in the operating system.
+
+27
+00:16:24,020 --> 00:16:55,680
+Okay, so I will not go into the detail. You already know that if you take all the logs before you start before transaction starts execution before transaction start execution, what you can do just take all the logs, take all the logs before that. Okay, this is called conservative. This is also called conservative 2PL. Yes or no, this is also called conservative 2PL. The another name of this is a conservative 2PL. So in the conservative 2PL, what you do, you take all the logs.
+
+28
+00:16:56,060 --> 00:17:24,780
+each and every lock take all the locks before before the transaction starts this is approach in this approach deadlock will never be possible if you do this then deadlock will never never never be possible why deadlock is never possible can anyone tell me in this approach why deadlock is never possible in this approach like why this approach is preventing deadlock deadlock will never be possible because you are taking all the resources so you will never wait for anyone do you agree
+
+29
+00:17:25,280 --> 00:17:56,790
+You are taking all the resources before you start your execution. You are taking all the resources you need. So you will never wait for anyone. So definitely deadlock is never possible. So this is your deadlock prevention scheme. What is another deadlock prevention scheme? What is another deadlock prevention scheme from your operating system? You tell me deadlock prevention scheme, another deadlock prevention scheme from the operating system system, numbering the resources.
+
+30
+00:17:57,400 --> 00:18:31,170
+Yes or no. Correct. Numbering the resources like what you do, you give a partial ordering the resources, you put a partial ordering the resources, partial ordering the items, the data items. Correct. Yes or no. You put a partial order on the data items, putting partial ordering on data items and then and accessing them only in this order, accessing items,
+
+31
+00:18:35,930 --> 00:19:10,950
+only according to this order yes or no it is clear access them in this order using that order so what you do on the data items all the data items that you have you put some partial ordering on them okay and after putting this you access all these items only in that order or I can say access items only according to this order or I can say in that order okay very simple so in this what will happen let me tell you
+
+32
+00:19:11,570 --> 00:19:42,670
+like something like this will happen what you will do all the locks you will basically all the data items that you have in your system all the data items for example, let's assume data item a data item b data item c data item d so you will put some partial ordering partial ordering it does not mean that you have to put one two three you don't have to do that what you can do you can do something like this one if you know that these two things can never be used together tell me tell me if you know that
+
+33
+00:19:43,070 --> 00:20:12,510
+these two things, these two items can never be, uh, can never be accessed by the same data by the same, uh, transaction. Then what do you can do? Tell me if you already know that B, C, these two items, they can never be accessed by the same transaction. The same transaction will never access both of them. Then what you can do, you can put two, two, no problem, three, and then you can put three, then you can put four, something like this. So this ordering you can put on the data items.
+
+34
+00:20:13,340 --> 00:20:45,000
+This is called partial ordering. So what you are doing, you are putting a partial ordering on data items you can put. So this type of partial ordering you can put on the data items. Now what you can do? Now if let's assume this even wants to access this even has to access. Let's assume. Let me assume it. This even needs to access. It needs to access a comma C comma F. Okay. It needs to access a comma C comma F. Then what did this even will do?
+
+35
+00:20:45,430 --> 00:21:15,600
+then what this even will do it will access a first okay very simple it will access a first first it will access for a then it will access for c and then it will access for f so in this order it will have to access so very simple so what you do very simple that this is the another deadlock prevention scheme so deadlock will never be possible if you do this on the data items on your database you put partial ordering and then what you do
+
+36
+00:21:15,660 --> 00:21:43,530
+you access the items only in this order only according to this order you access the item okay is this clear so in this situation also what will happen the deadlock will never be possible okay but of course see in this you have to there is it is not always possible that you can put the partial ordering so this this approach is also not always possible similarly this approach is also not always possible this approach
+
+37
+00:21:44,020 --> 00:22:13,390
+this is also not always possible because sometimes we don't know what are the things I will access yes or no before starting the remember before starting the execution sometimes we don't know what are the what are the items I will access correct okay so this approach is also not practical let me tell you this approach is not used also in this approach there is a problem of starvation or I can say there is a problem of delay starvation or I can say delay your transaction
+
+38
+00:22:13,790 --> 00:22:41,670
+because you're transitioning waiting for all the locks your transaction wants all the locks before starting so it is possible that you will not get the all the locks okay it is possible so so that is the reason i can say that there is a possibility of starvation here and this is not a practical approach because before starting execution sometimes we don't know what are the items i will use what are the locks i will use
+
+39
+00:22:42,220 --> 00:23:09,370
+so this approach is not practical this is not used let me tell you this is not practical approach also this approach is good but this is this also has many I can say many disadvantage because in this approach the programmer has to know the ordering yes or no there are many data items you have to put the ordering and sometimes it is not possible and the programmer has to know what is the ordering on the data items so basically there are many things here
+
+40
+00:23:10,000 --> 00:23:40,380
+Now, so these are the prevention scheme we have seen. What is the third one? This is interesting. And most of the gate questions will come from this, this third one. Okay. Now the scheme that we are going to discuss, these are most important, most important schemes, very, very, very important schemes. So remember these schemes that I'm going to discuss all the previous schemes were, I can say those were stupid. Okay. From those schemes, you understood those schemes. These are very easy, but these are the most important schemes.
+
+41
+00:23:41,800 --> 00:24:16,000
+deadlock prevention schemes which use which use a transaction time is time which use a transaction time is time what it means what this means transaction time is time what this means see when transaction is created then at that time at at what time it it was created okay yes or no so that time is unique correct two transactions they have unique time is time yes or no because transaction time is time what it means it means basically
+
+42
+00:24:16,640 --> 00:24:48,560
+It means basically the time at which a transaction was created at which a transaction was created. Okay, so you can check the time system clock from the system clock in your system. There is a clock tick tick tick tick. So you can see from the system clock, you can check what is the time that time you can assign to the transaction that okay, this is your time is time. So time at which transaction was created. This time you can assign
+
+43
+00:24:49,070 --> 00:25:17,530
+to the transaction as the transaction time stamp. So you tell me one thing if there is a transaction T1 after this transition T2 was created then what will happen to the time stamp? This time stamp and this time stamp what will happen? There is a time stamp of T1. There is a time stamp of T2. What will happen to those? So definitely the old transaction will have less time stamp and the new transaction will have more time stamp. So you can see that this is all the transaction.
+
+44
+00:25:18,400 --> 00:25:51,700
+and this is a young transaction younger this is older is this point clear to everyone what I'm saying so when a transaction is created when your transaction is created at that time at what time it was created so that time you can assign to the transaction that this is your time is time like your birthday this is your birthday okay so time is time is similar to your birthday I can say it is similar to birthday so something like that
+
+45
+00:25:52,020 --> 00:26:21,220
+So what I'm saying that once your transaction is created at that would that time that time from the system clock that time you can assign to the transaction that will be the transaction time is time now you can easily see that if there are two transaction and the transaction time is time is less is less than time is tempo of this transaction then definitely this is old and this is younger correct very simple. So this is the concept of transaction time is time now what will happen.
+
+46
+00:26:22,230 --> 00:26:57,100
+Now, deadlock prevents a scheme which will use transaction time stamp. There are two schemes. Let's see one by one. The first scheme is called wait-die. Wait-die scheme. What this scheme says? Wait-die. The name itself is telling you wait-die. You tell me one thing. To whom will you give more priority? Old or younger transaction? Tell me. Old or younger transaction? To whom you will give more priority?
+
+47
+00:26:57,880 --> 00:27:36,190
+more priority like whom to give more priority whom to give more priority which transaction you should give more priority old or younger the reason yes old will be given more priority what is the reason tell me the correct reason don't give me this this respect the older ones don't give me that reason okay because these are the transactions these are not people so tell me whom will you give more priority
+
+48
+00:27:36,530 --> 00:28:06,340
+You will give more priority to the older one but why? Tell me the correct reason. I want the correct reason why we are giving more priority. Why we should give more priority to the older transaction? Tell me one of them you have to abort. Older, younger. One of them you have to terminate. One of them you have to kill. Which will you kill? One of them you have to kill. Which will you kill?
+
+49
+00:28:06,780 --> 00:28:37,220
+you will kill the younger why what is the reason think about it what is the reason you are killing younger because if it is older then it has done more computation yes or no if it is older then definitely maybe it has created it has done more computation yes or no more computation it might have performed there is a possibility that more computation it might have performed it might have done it might have done okay very simple point that
+
+50
+00:28:37,580 --> 00:29:08,500
+If it is old, then more computation it might have done. So definitely this we should this we should give more priority. Okay. Now let's see this scheme. What this scheme is saying? Wait, die, scheme. What this scheme is saying? The name itself is telling you wait and die. Now you tell me if it is wait and die, who will wait and who will die? Who will wait and who will die? Tell me in this scheme, who will wait and who will die? So who was the who will wait?
+
+51
+00:29:08,760 --> 00:29:40,910
+all transaction can wait and who can die who will die young transaction will die okay so all transaction can wait and the young transaction will die very simple now what this actually says this actually says that let's assume let me assume this transaction ti wants wants to access a okay wants to access item a or I can say want to lock item a want to lock item a
+
+52
+00:29:41,340 --> 00:30:13,460
+this is the point this transition TI won't to lock item A but TJ holds lock on A okay holds lock on A so there are two transactions let me assume that TI wants to lock on A and TJ holds the lock on A so there are two transactions now you tell me a simple thing simple thing so who wants so TI wants TI wants to lock A
+
+53
+00:30:13,790 --> 00:30:40,670
+simple thing ti wants to lock a and tj tj holds lock on a so there are two transactions let me assume now there are two cases what is the case one the case one if ti is old if time step of ti if that is old means ti is old right yes or no correct if this happens it means who is old
+
+54
+00:30:41,300 --> 00:31:08,610
+it means who is old it means ti this ti is old it simply means that this ti is old so the person who wants he is old so this ti is old transaction and it wants lock on a so what will you do you will wait this ti or die with this ti only two options you have wait or die only two options you have wait or die this transition old transition wants transition ti wants okay so
+
+55
+00:31:08,990 --> 00:31:42,040
+this transition TI will wait in this situation what will happen in this case one TI waits okay TI waits for TJ to complete very simple this TI will wait for TJ to release very simple okay so in this situation because TI wants to lock A and TI is the old transaction TJ holding lock so TI is the old transaction an old person is wanting to lock A so
+
+56
+00:31:42,440 --> 00:32:15,710
+it can wait okay so ti because this is the old ti you can see this is the old so this can wait for tj to release lock what is the case 2 what is the case 2 that ti is younger are you getting my point ti is younger tj is holding but ti is younger ti is younger then what will happen means ti is young then what will happen what will happen to ti then
+
+57
+00:32:16,170 --> 00:32:43,990
+then what will happen to TI? everything will happen to TI because TI wants, TJ already has TI wants this TI wants to lock on A so TI is younger TI wants to lock on A but TI is younger then in this situation TI aborts TI dies TI dies means it aborts very simple so that's it is this clear?
+
+58
+00:32:45,950 --> 00:33:14,630
+is this point clear so there is simple approach wait and die who will wait old will wait and young will die old will wait young will die so if old person wants access then it can wait if young person wants access then it will die simple isn't it simple please tell me did you understand this so in this in this wait die approach what this wait die approach says
+
+59
+00:33:16,550 --> 00:33:50,320
+What this way the scheme says this scheme says that let's assume item a is already held. Let's assume item a held by held by some transaction T held by T. Let me assume. Okay, held by T. So this item a that is already held by T. Simple. Item a assume this held by T. Now, now, if younger than T wants to access a then what will happen?
+
+60
+00:33:51,060 --> 00:34:22,470
+if younger than T wants A if younger okay if younger than T if younger than T wants A then what will happen tell me quickly if wants A wants to access A wants to lock A then what will happen tell me in this situation what will happen younger than T wants to lock A then what will happen so this younger will die okay yes or no this younger will die die or abort this younger will abort
+
+61
+00:34:23,040 --> 00:34:59,430
+And if older than T wants, if older than T wants, wants to log A, then what it will do? Then what it will do? Then what it will do? It will wait. It will wait. It will keep waiting for T to release. If this understood wait and die scheme, did you understand? So older will wait, younger will die in this scheme. Very simple. If this understood, please tell me, can I go further? Very simple scheme.
+
+62
+00:34:59,820 --> 00:35:40,630
+Now let's see this scheme. This scheme, the another scheme, the second scheme is, won't wait. This is another scheme, won't wait. So tell me who will want, who will want and who will wait? Who will want and who will wait? Who, okay, who will want, like, who will want the other person? Who can want the other person? One of them will want the other person. Who can want the other person? Old can want the other person. Very good.
+
+63
+00:35:41,050 --> 00:36:13,270
+okay very very very good so old can wound old can wound wound means abort okay old can wound the other person and younger will wait so you can see younger will wait younger waits and older can wound the other transaction the older can order the old old old transition can wound the other other transaction so again you can notice who is powerful old or younger
+
+64
+00:36:13,960 --> 00:36:47,650
+old or younger who is powerful again old is powerful because old can wound the other transaction wound means abort okay wound simply means abort again I am telling you wound simply means abort what this scheme says this scheme says that again assume that this TI wants to lock A okay this TI wants to lock A and let us assume TJ or TJ already
+
+65
+00:36:50,900 --> 00:37:19,780
+Holds, lock on A. Consider this scenario. Okay? TI wants to lock A and TJ already holds lock on A. Now you tell me what will happen. What is the case one? The case one, the time, this TI is the older. I mean time step of TI is less than time step of TJ. Means basically this TI is older. So the older person wants and the younger person holds.
+
+66
+00:37:20,970 --> 00:37:51,630
+ok older person wants younger person holds then tell me what will happen this older person wants younger person holds then this TI will wound TJ snatch from younger very good snatch from younger so what will happen this old TI this old TI wounds wounds means aborts aborts young TJ ok is this clear so it will wound the TJ it will
+
+67
+00:37:51,880 --> 00:38:27,600
+won't the tj and snatched from him and snatched from tj and snatched lock a from tj simple so this is your approach what is the case to what is the case to the case to is that this ti is younger this ti is a younger the ti wants but this ti is younger can it snatched can it wound can it roll back the old one
+
+68
+00:38:28,460 --> 00:39:04,220
+Can it wound the old one? In this situation, this TI waits. In this situation, simply this TI waits for TZ to release. So did you understand both of them? So again, you can notice in this wound wait, what happens? Very simple approach. These are interesting, right? Even reading them is also interesting. Once you understand them, these are very, very, very interesting. What this wound wait says? This wound wait says that old. Old in need. Old in need.
+
+69
+00:39:07,470 --> 00:39:40,210
+Wants, aborts, young in, uh, young. Okay. Old in need, wants young. And you can notice young in need. If young is in, in the need, young in need, waits for old. This is the simple point. So, this is your answer. So please tell me, did you understand both of them? There is a wait-dye scheme. There is a scheme of wait-dye. Did you understand this? And there is a scheme of won't wait.
+
+70
+00:39:41,380 --> 00:40:13,670
+in both of them what will happen in both of them all this powerful in both of them you can notice all this powerful in both of them in both of them who will die in both of them who will actually die in both of them young dies yes or no in both of them only young will die in both of them young dies means young will abort okay but there is one more very important point in both of them extremely important point
+
+71
+00:40:14,120 --> 00:40:46,020
+actually that point you tell me there is extremely very very very important point in these two very important point that we did not see so far so when younger will die it will again come back yes do you agree it will again come back so when when a transaction dies if a transaction aborts it will again come back it will be started with new transaction
+
+72
+00:40:46,330 --> 00:41:18,590
+Latest transaction or it will be started with the original time stamp. It will be, okay, when a transaction aborts, okay, it will restart. It will restart after some time. Okay, it will restart after some time. So the time stamp will be what? The original, why? What is the reason? Tell me, what is the reason? When a transaction aborts, it will restart after some time, but, but, but, but.
+
+73
+00:41:22,350 --> 00:42:00,110
+with the old time stamp so that it can have more priority yes or no so that it can have more priority with its own with its own with its own old time stamp with its own old time stamp so that it can have more priority so okay to avoid starvation to avoid starvation do you agree to avoid starvation in both these approach
+
+74
+00:42:00,570 --> 00:42:31,450
+to avoid starvation this will happen just think about it what i am saying consider this example let me assume these are the transactions t1 then t2 then t3 these are the transactions let's assume this is the time stamp ordering this is the time stamp ordering now what i am saying i am saying that let me assume that this t1 is old you can clearly see this is old and this t3 is basically young now what will happen
+
+75
+00:42:32,220 --> 00:43:02,940
+Now, let me assume that this T2 will die. Now, if this T2 comes with the same time, see, let's assume T3 will die. Let me assume. Let me assume T3 dies. Okay. Are you getting my point? Let me assume T3 dies. If this T3 dies, it comes back after some time and with a new time stamp, then there is a problem. What is the problem? See, what is the problem? See, very simple. I am saying that T1 is there. Let's assume it is executing. Let's assume T2 dies. Okay. At this point of time,
+
+76
+00:43:03,280 --> 00:43:33,120
+t2 dies let me assume t2 dies now if t2 dies now t2 comes back again with a new time stamp with the latest new time stamp okay new time stamp new latest then what is the problem then the problem is this now it is again younger then again the old person can make it die like okay it wants so this t1 can want this now between t3 also has come now this t3 can want this t2
+
+77
+00:43:34,920 --> 00:44:04,700
+So are you getting this point? So it will keep, it is possible that it will, this T2, if you keep doing, if you keep giving it new latest time stamp, it will keep becoming younger, younger, younger, younger. Yes or no? If you keep giving a new time stamp, if you keep giving latest time stamp, then what will happen? It will become, it will keep becoming younger, younger, younger. So it will keep, it will keep aborting, it will keep rollbacking.
+
+78
+00:44:04,990 --> 00:44:44,950
+So definitely starvation will be there. Okay. In this situation, starvation will be there. Are you getting my point? So very simple thing that there are two cases. Case one, what is the case one? Rollback or I can say aborted transaction. It started with this is the case one that aborted transaction. The transaction that is aborting, aborted transaction is starting with what? It's starting with new latest time stamp. Then what will happen? Then
+
+79
+00:44:45,260 --> 00:45:17,200
+What will happen? It will become younger. It has become younger. Yes or no? It has become younger. Aborted transaction T, then T has become younger. You can notice then T has become younger. Again less priority. Then T has become younger. Younger means less priority. Younger means less priority. So T has become younger. So what it means? It means that it is possible. Okay, possible T1 will again rollback.
+
+80
+00:45:18,050 --> 00:45:53,600
+possible T can again rollback again abort okay if you keep doing this it will keep aborting keep aborting so this T may keep aborting T may keep aborting so in this situation I can say starvation yes or no this is called starvation so in this case one what we got in this case one we got starvation we got starvation okay very simple
+
+81
+00:45:53,980 --> 00:46:26,840
+Now, in the case 2, what is the case 2? What is the case 2? That you, or aborted transaction is starting with its original time stamp. Its original, old time stamp. Okay. Aborted transaction T, it is starting with its original old time stamp. Then what will happen? Then this T, then this T is older. Then this T has become older. Yes or no? Then this T is older now.
+
+82
+00:46:28,450 --> 00:47:00,450
+So more priority. So this T has more priority now. If it is more priority, then definitely I can say no starvation. Okay. So in this situation, there is no starvation. So very simple. This is the complete analysis of this topic. Please tell me, did you understand? So remember this by default, this won't wait and won't die. Sorry, this weight by default, this weight die in this weight die approach.
+
+83
+00:47:01,020 --> 00:47:39,730
+or whether you take wound weight approach whether you take this approach or whether you take this approach in both the approaches what will happen in both the approaches in both of them they in I can say in both of them aborted transaction starts with what tell me aborted transaction starts with its original its original all the time stamp to avoid
+
+84
+00:47:44,530 --> 00:48:15,140
+Starvation Simple This is your complete explanation of this topic I hope you understood this So you won't wait and Sorry, wait, die and won't wait Now which of them is preemptive? Like which of them is preemptive? Wait, die In which of them preemption is possible? Preemption, preemption In which of them preemption is possible? Yes, in this you can preempt because won't means you are preempting, right? Yes or no?
+
+85
+00:48:15,470 --> 00:48:47,460
+won't simply means preempt you are preempting preempt and abort this is what won't says so here you can see this approach this is a non preemptive approach this approach is non preemptive like we don't disturb the the person who is executing okay non preemptive means don't disturb the person who is executing don't disturb don't disturb executing transaction
+
+86
+00:48:47,980 --> 00:49:19,670
+okay executing transaction like the transaction that is already executing so don't disturb it but this is preemptive this is preemptive because the old person can preempt it okay is this clear very simple this is non preemptive the person who is executing the transaction who is executing don't disturb it okay yeah it is possible that of course it is possible that I myself can preempt I myself can
+
+87
+00:49:20,040 --> 00:49:46,800
+kill myself okay in this in this society is possible like you can see that if the younger transaction if the younger transaction is a younger transaction wants the data wants to log the data which is already taken by the older transaction then the younger transaction will die but that is not preemption right yes or no we are not preempting anyone is this clear
+
+88
+00:49:47,260 --> 00:50:17,010
+so here the younger transaction will die but that is by himself by itself the younger transaction will die by itself no one is killing it it will kill itself okay so there is no preemption similarly but here you can notice the old transaction will will abort the younger transaction so here this is preemptive and this is non preemptive so this is your chapter I hope you understood the complete chapter all the preempts wait die
+
+89
+00:50:17,400 --> 00:50:46,370
+the wound weight okay all these things we have already seen and this is an important point that both in weight die and wound weight scheme a rolled back rolled back transaction is started with original time stamp the older transaction has had precedence over newer ones and starvation is avoided this is important so this is the complete chapter that we have seen now one last thing is remaining but before that you can see basically what is happening the younger transition is saying this
+
+90
+00:50:47,060 --> 00:51:22,080
+Okay. Correct. I can say the younger transaction. We can say the younger transaction has this situation, the younger transaction in the way die or won't wait. Okay. So definitely you are basically killing the younger transaction every time. Very simple. Okay. So that's it. Now this you already know, deadlock detection in the operating system you have already seen what you will do. Like if you don't have deadlock prevention, so far we have seen deadlock prevention. Correct.
+
+91
+00:51:22,590 --> 00:51:54,010
+so far what we have seen so far we studied deadlock prevention we studied deadlock prevention this is what we studied but these are expensive these deadlock prevention these are actually we don't apply them in the real life so so far we have studied deadlock prevention prevention means deadlock will never occur so is there any anything to check is there anything to check please tell me deadlock will never occur is there anything to check
+
+92
+00:51:54,800 --> 00:52:28,670
+is there anything to detect will never occur so in this situation there is nothing to check you never have to check there is no detection required so deadlock will never occur so no detection required I can say so no detection required no detection required okay no deadlock detection required no deadlock detection required but if we don't apply this then what will happen if we don't
+
+93
+00:52:28,880 --> 00:53:02,300
+use this deadlock prevention then what will happen if we don't implement if we don't implement this deadlock prevention then what will happen then deadlock will be possible correct okay so if we don't implement it if we don't implement this deadlock prevention then deadlock possible if deadlock possible then what you will have to do then deadlock will be possible then periodically you will check for detect deadlock yes or no then what you will do
+
+94
+00:53:02,610 --> 00:53:34,900
+you will periodically you will detect deadlock detect deadlock and then recover and then recover recover means kill one of the transaction okay very simple so for deadlock detection this is the next topic that is deadlock detection for deadlock detection what you what you can do in the operating system what you do for deadlock detection tell me in the operating system for the deadlock detection what you do you create a graph
+
+95
+00:53:35,380 --> 00:54:07,020
+resource allocation graph in the operating system resource allocation graph you create here you what you do in this you create something called wait for graph so for deadlock detection what you do let me tell you this deadlock detection for this deadlock detection we create a wait for graph this wait for graph we create okay wait for graph wait for graph is created okay
+
+96
+00:54:07,390 --> 00:54:37,830
+this graph the name of the graph is wait for graph this is created very similar to the in this graph what happens who are the nodes in this graph who are the vertices who are the nodes the nodes are the transactions the nodes are the transactions which transition is waiting for whom so these are the nodes and you can notice this age when do we put this age t i to p j this age is put when do we put this age this age we put
+
+97
+00:54:38,180 --> 00:55:11,380
+when ti is waiting for tj okay this we put it simply means this edge means that ti waiting for tj okay this ti this is a waiting for tj this ti is waiting for tj so very simple so this is the graph that we create and every transaction remember it's like this a transaction is there then this is the transaction then this is the transaction this type of graph we create that let's assume t2 waiting for t3
+
+98
+00:55:12,030 --> 00:55:42,550
+T3 waiting for T1 and let's assume T2 waiting for T1. You tell me in this, do we have a deadlock? This is a wait for graph. This graph is called wait for graph. The name of this graph is wait for graph. Is there any deadlock in this graph? There is no deadlock. Why? See, you can see that T2 is waiting for T3. T2 is waiting for T1. But you can notice T1 is not waiting for anyone, right? Yes or no? Arrest C.
+
+99
+00:55:42,860 --> 00:56:12,320
+t2 cannot happen because t1 is waiting for t2 t2 is waiting for t1 this t2 is waiting for t3 so we cannot execute t2 t2 cannot be executed t3 cannot be executed because t3 is waiting for t1 but t1 can be executed it is free to execute yes or no it is free to execute so what will happen you can notice t1 can execute fast
+
+100
+00:56:13,410 --> 00:56:43,200
+then who can execute then T2 can execute then T2 can execute so like this they can execute this is the execution order yes or no so this is the execution order so definitely I can say that no deadlock I can say there is no deadlock because T1 is free to execute T1 is not waiting for anyone T2 is waiting for T3 T2 is waiting for T1 T3 is waiting for T1
+
+101
+00:56:43,500 --> 00:57:15,190
+T1 is free to execute it can execute so this is the execution order now you tell me about this one if I do this then what will happen now T2 waiting for T3 T3 waiting for T1 T1 waiting for T2 then this is called deadlock deadlock this is the situation of deadlock so deadlock will possible if and only if wait for graph as cycle okay deadlock is there if and only if this is if and only if statement this is very important
+
+102
+00:57:15,750 --> 00:57:45,480
+so the system is in deadlock the system is in deadlock state if and only if if and only if the wait for graph has a cycle in the wait for graph you have a cycle this is if and only if means if you have cycle then there will be deadlock if you have deadlock then there will be cycle so this is your very simple algorithm that what you do you create this tell me this graph is dynamic or not
+
+103
+00:57:46,860 --> 00:58:18,830
+this graph this wait for graph is the dynamic or static this wait for graph this is dynamic it is dynamically changing this is dynamically changing remember this is dynamically changing what it means it means that let's assume many transactions are executing a lot of transactions are executing hundred thousands of transactions are executing okay so this this graph is actually dynamically changing remember this wait for graph like let's assume as initially
+
+104
+00:58:19,400 --> 00:58:49,820
+T1, T2, T3 are there initially. After some time, what happens? After some time, T1 waits for T2. After some time, after one hour, T2 waits for T3. After one hour, T1 does not wait for T2. After one hour, T1 waits for T3. After one hour, let's assume T2 waits for T1. After one hour, this does not happen. T2 does not wait for T3. Are you getting my point?
+
+105
+00:58:50,370 --> 00:59:16,040
+is this clear? so the wait for graph is dynamically changing we dynamically keep putting the edges and we dynamically keep changing this so this is actually dynamically changing whenever t1 is waiting for t2 then you put the edge basically okay whenever very simple whenever at any point of time remember at any time at any time
+
+106
+00:59:16,680 --> 00:59:50,090
+if ti waiting for tj then what you do then what you do tell me if ti waiting for tj then put age then put ti to tj age this age you put okay then just put this age and at any point of time whenever ti is not waiting for tj okay ti no longer no longer waiting for tj then you remove this age
+
+107
+00:59:52,720 --> 01:00:21,910
+then you remove this is okay. So this is dynamically changing this graph. Finally, you can see, tell me which of these graph is in deadlock, which of these system is in the deadlock, this system or this system, which system is in the deadlock. So you can clearly see in this system, this system is not in deadlock because who is free to do tell me which transition is free, which transaction is free to happen. You can notice T 17 cannot happen.
+
+108
+01:00:22,340 --> 01:00:53,360
+because T17 is waiting for T18 T17 waiting for T19 T19 waiting for T18 T18 waiting for T20 but T20 can happen first this can happen then T18 can happen then T19 can happen then T17 can happen similarly but here you can notice there is a cycle there is a cycle in the graph so this is the system is in the deadlock because there is a cycle in the graph okay very simple
+
+109
+01:00:54,310 --> 01:01:46,070
+Now you tell me, is this system in the deadlock? This is my question. Let's assume I give you wait for graph. The wait for graph is like this. T1, T2, T3. Is this system in the deadlock? Tell me. This system is in the deadlock or not? Look at this system and you tell me, is this system in the deadlock? Like consider this system. Is this system in deadlock? Is the system deadlocked? Again, the answer is yes. Okay. Yes, the system is deadlocked.
+
+110
+01:01:46,230 --> 01:02:17,230
+Remember, as I told you, do we require all the transaction in the deadlock? Do we require all the transaction in the cycle? Do we require that? Do we need all the transaction in the cycle? Do we need that? I did not say that. I did not say that. I said that in the wait for graph, there exists a cycle. Yes, there exists a cycle. So this is system deadlocked. Okay, this is what we are saying. We are saying that the system is deadlocked if and only if
+
+111
+01:02:17,450 --> 01:02:47,630
+we have a cycle we are not saying that all the transition must be in the cycle okay we are not saying that all the transition must be in the cycle of course these two can happen this can happen this can happen but this is still this is a deadlock because these three people are you can see these this set of transaction they are waiting for each other so definitely this system is deadlocked okay yes so very simple
+
+112
+01:02:48,960 --> 01:03:20,130
+Let's see this question. Tell me the answer for this quickly. Very quickly. Tell me the answer. Which of these so complete given the graph below wait for graph is given to you. You don't have to read this. You already know this. This you already know. Don't worry. This is just the description. This is just the definition of wait for graph. Okay. Tell me which graph is deadlock free. Which system is deadlock free. So you can see that this system is deadlock free. This system is not deadlock free.
+
+113
+01:03:20,980 --> 01:03:53,240
+Just look for cycle. Okay. This system is definitely not deadlock free. Right. This system is not deadlock free. And you can see that this system is deadlock free. There is no cycle. What about the third one? What about the third one? There is a cycle. There is a cycle. There is a cycle. Okay. In the third, you have a cycle. So there is a cycle you can check. You can check. There is a cycle.
+
+114
+01:03:53,920 --> 01:04:31,060
+So because we have a cycle, so definitely this is not deadlock free. Okay. What about the next? Again, there is a cycle. So this is also not deadlock free. There is a cycle. So this is also not deadlock free because there is a cycle. Okay. So very simple. Deadlock free means there is no cycle. Deadlock free means a cyclic a cyclic wait for graph. Okay. Very simple. So the answer will be only option one. Okay. Now let's move on. So this is your chapter and
+
+115
+01:04:31,330 --> 01:04:59,450
+Whenever you detect a deadlock, then what you will do? Whenever you have detected the deadlock, then what you will do? Kill one of the transaction. Which one? Kill one of the transaction. Which one? Which one? Whenever you have detected the deadlock, then you will kill one of the transaction. Which one? Yes, the transaction which had done less computation. We will prefer to kill that transaction. So when you can easily see that, basically, once you are in the deadlock,
+
+116
+01:04:59,690 --> 01:05:27,990
+if the system is already in the deadlock situation then some of the transaction you will have to abort which transaction we have to abort which transaction we have to abort that is called victim selection that is called victim selection like which transaction to kill whom to kill we are deciding whom to kill then generally what we do then generally what we do generally we we take the transaction which is running for small time I can say
+
+117
+01:05:28,330 --> 01:05:57,490
+Generally, we avoid selecting the transaction which has been running for a long amount of time means it has done a lot of upgrade. So what we do, we instead we select the transaction that has not made many changes. The younger transaction we select. Okay. We can select the younger transaction we can select to kill. So one of the transition we will kill, which transition we will kill, we will kill the younger transaction because it has not computed. It has not done many computation.
+
+118
+01:05:58,090 --> 01:06:26,500
+okay so this transition we will kill very simple and how to handle the starvation tell me this weight die and wound weight are they handling the starvation weight die approach and wound weight approach are they handling the starvation are they avoiding the starvation of course they are avoiding the starvation right in the weight die and wound weight there is no starvation right because you are also there is no starvation correct
+
+119
+01:06:26,770 --> 01:06:56,990
+because once you abort a transaction, then you will start it with its original old-time stamp. So there is no starvation that we have already seen. Mavith, correct. We have already seen that in the weight die, in the wound weight, there is no starvation, they handle the starvation. What is another approach for handling the starvation? Like when you have, tell me, when you are aborting a transaction too many times, another approach is FCFS. First come, first serve.
+
+120
+01:06:57,210 --> 01:07:26,080
+yes or no if you want to handle the starvation then you can apply the first come first serve approach correct yes or no okay first come first serve approach you can do so that you can handle the first come first serve on the transaction the transition who is older you execute it okay basically if if a transition is waiting for a long time you execute that so this type of techniques you can apply anyway we have already seen this now let's move on that's it
+
+121
+01:07:26,370 --> 01:07:54,470
+so now we only have the gate questions to do can i give you these questions as a homework see there are many gate questions on this topic the topic that we have seen on this topic there are many gate questions like you can see this is a gate 2016 question this is gate 2004 question all these questions are on the same topic on the same topic all these questions this is this is another gate question on the same topic this is another gate question on the same topic
+
+122
+01:07:55,910 --> 01:08:24,490
+Can you notice there are a lot of great questions on the same topic? So can I give you these questions as homework? This question, this question, this question, this question. So try them. I have full confidence on you. You will be able to do. We will discuss in the next class, but don't worry. You can do these questions easily. You can do. Okay. I have full confidence on you. Okay. So this is your chapter. We have done two phase locking. 2PL is over. Variations of 2PL is over.
+
+123
+01:08:24,860 --> 01:08:53,520
+deadlock handling over wait for graph over wait die won't wait these approaches they are over so basically almost your dbms is over almost the almost dbms is over let me tell you let me tell you most of the dbms questions are from whatever we have seen so far okay so now you can now at this point of time you can try all the test series questions okay
+
+124
+01:08:55,100 --> 01:09:21,560
+This is a suggestion to all the go classes students that now you can attempt at this point of time, you can attempt go classes test series, get off for test series, go classes test series. These you can attempt. Dbms is over recovery manager is remaining. This recovery manager time stamp protocol. I know, I know the topics which are remaining, but these are not big topics. These are small, small topics. We will again.
+
+125
+01:09:22,110 --> 01:09:52,680
+one day we will sit and we will finish it okay recovery manager and time stamp protocol we will complete in one day and also this join algorithms okay so these three topics join algorithm recovery manager and this time stamp protocol so these three we will complete in a single day we will complete but but you can try all the test series all the test you can try now okay all the go classes test test get off for test everything you can try
+
+126
+01:09:52,950 --> 01:10:21,660
+you can consider that dbms is over these three topics which are remaining we will complete in a single day we will complete but your dbms is basically i can say from the gate exam point of view almost your dbms is over okay don't worry about these three topics i will cover in a single day maybe tomorrow or day after tomorrow okay within the next next week okay within the next week one day we will cover it okay so that's thank you everyone so now
+
+127
+01:10:22,450 --> 01:10:50,830
+I can say now our focus will be mostly on the revision. Maviti Singh pipeline. Yes, of course, I will take pipeline. Don't worry. I will take each and every gate question of pipeline and I will discuss it with complete analysis. So do not worry about it. But it will take some time. Maybe after two week. Okay. Maybe two week it will take. But after two week, one day from morning to evening, I will only discuss the gate PYQ of pipeline.
+
+128
+01:10:51,290 --> 01:11:19,930
+each and every gate PYQ of pipeline I will discuss with complete analysis. So do not worry about it. Okay. Now our focus will be mostly on the revision. Okay. Is this clear? So from tomorrow onwards, our focus, like I can say my and Sachin, our focus will be on the revision and also these remaining topics. Okay. So we are not going to forget about these remaining topics. We will cover them as I told you pipeline questions I will cover.
+
+129
+01:11:20,380 --> 01:11:49,290
+Okay. And, uh, these, these three topics in the DBMS, I will cover all these things I will cover. Don't worry about it. But now you can also do your revision, make your strategy. Okay. And for the next 50 days, put your best efforts. Do not worry about anything. Whatever, like, whatever, uh, topic is remaining, I will cover it. So do not worry. Okay. Now do the complete focus on the mock test revision. Okay. And also.
+
+130
+01:11:49,600 --> 01:12:18,530
+we will provide you summary lecture do not worry about it like dbms summary lecture i will start providing you from tomorrow okay you will keep getting the dbms uh gate exam question you try to solve all the gate exam questions of dbms i will also solve them in the revision course in the gate pyq course i will also solve them you also try them okay so thank you everyone see you tomorrow in the uh gate pyq session uh either you can watch it live all the gate pyq sessions
+
+131
+01:12:19,160 --> 01:12:46,610
+Either you can watch them live or you can watch them recorded. I'm not saying that you have to watch it live. Save your time. We don't have any problem. Okay. It is your choice. If you want to watch it live or if you want to watch it recorded, that is your choice. But whatever you do, basically make the best use of the remaining time, make the best use of the remaining 50 days. Okay. Like for example, if there is a session, I'm taking the gate PYQ session for first logic. Okay.
+
+132
+01:12:46,980 --> 01:13:16,050
+for the first order logic let's assume there is a two hour session that two hour session you can watch in 2.0 speed okay and you can cover it in half an hour or maybe one hour so that two hour session you can watch in half an hour or one hour the remaining time in the entire day that you can give to your own preparation to your own revision your own gateway by q solution okay so self-study is very important in the next 50 days so that is the reason
+
+133
+01:13:16,250 --> 01:13:45,970
+our target will be that we will touch every topic we will provide you summary this is our target for the next 50 days this is our work that we will provide you summary we will take at least one question of every topic every at least one gate question of every topic we will take and we will give you complete analysis this is our work for the next 50 days and your work is study make the best use of the remaining time okay i want you to see sorry i want to see
+
+134
+01:13:46,280 --> 01:14:13,600
+you getting top rank in the gate exam many of you many of you have the potential to definitely like I can say get single digit or double digit ring or definitely get into IIT ISE Bangalore old IITs okay so you definitely have that potential many of you have that potential so please make best use of the remaining time and we will see that from the go classes a lot of students will get into the topper list
+
+135
+01:14:13,960 --> 01:14:15,860
+Okay, so thank you everyone see you tomorrow.
+

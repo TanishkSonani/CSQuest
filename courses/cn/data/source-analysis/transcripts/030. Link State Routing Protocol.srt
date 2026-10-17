@@ -1,0 +1,176 @@
+1
+00:00:00,000 --> 00:00:29,090
+now let's just move to another routing algorithm which is called link state routing so distance vector was used in our parent which was the initial internet that we have in 1979 we used to do this distance vector but it has been replaced by link state routing now the primer problem was that was caused its dismay is that the algorithm often took too long to converge after network topology changed okay due to the count to infinity problem can you always solve this count to infinity problem tell me quickly
+
+2
+00:00:29,400 --> 00:00:54,710
+Can you always solve this continuity problem? Answer is no. In some cases, you can solve this using Poisson reverse or a split origin, but in some cases, you cannot solve. If there are three nodes, then maybe you cannot solve. If there are three nodes, then the two nodes instability can be avoided by split origin combined with the Poisson reverse. However, if the instability is between three nodes, then stability cannot be guaranteed. You cannot guarantee that you can always solve this problem.
+
+3
+00:00:56,180 --> 00:01:21,100
+Yeah, so now let's just see link state routing, which is currently the more useful algorithm. But it is very, very easy algorithm. So suppose this is the topology that you have. A is connected to B, A is connected to E with these cores. Okay, these are the cores that we have. These are the cores. And now, in this algorithm, what every router will do? Every router will flood the information, not to just neighbors.
+
+4
+00:01:21,410 --> 00:01:48,930
+to everyone, which means he will he will flood this information to D also, C also, B also, A also and F also. So every router just flood this information to every other one. So what he knows, he says that, okay, distance to A and distance to F I know, which is five and eight. This that's what he knows, right? That's, that's the, that's the vector at E. Now it will, it will get propagated to every network, okay, every router. So this is what link state routing says.
+
+5
+00:01:49,180 --> 00:02:20,390
+that you are going to flood to every router now what is how it is working is basically you are going to have some let's suppose these are the vectors for every router which means like for a i have for a knows about b and e so a knows about b and e b knows about b knows about a c and f right a c and f b knows about a c and f so here i do have a c and f now what are these two fills that i will just come in just a minute okay
+
+6
+00:02:20,690 --> 00:02:52,160
+So, these two fields are not, I mean at this point in time, these two fields are not very interesting to us. So, let me just remove it. So, basically these are the vectors that you have. So, these are the vectors that you have, which means that at A, this is the vector at A, since A knows about B and E, U will be having B and E, B knows about AC and F, U will be like that. Now, what A will do? A will take this vector and will broadcast to everyone or flood to everyone, which means it will just send to the whole topology.
+
+7
+00:02:53,030 --> 00:03:22,350
+So what is the benefit of that? Now, since A will be forwarding this packet to every other network and A will be, since every router is doing same, then A and every other router will be receiving the packets from every router. So at A, if I talk about at A, A will be receiving the router, the vectors from E, D, C, D and F. Earlier, they used to receive only from the neighbors, right? A used to receive only from B and only from E. But now at A, can you tell me how many vectors are there?
+
+8
+00:03:22,930 --> 00:03:53,410
+At A, all the vectors are there, right? I mean, you have the vector for vector at A also. So basically at A, you have 1, 2, 3, 4, 5, 6, 6 vectors, right? Yeah, you have all the vectors at A. So since you have all the vectors at A, it means you know the whole topology. Every router now knows the whole topology. Every router knows whole topology. Because if you know all of this, see, this representation and the graph representation are same.
+
+9
+00:03:53,750 --> 00:04:20,950
+at every router you have this representation which means you have the complete the graph representation so these are called link state packets so if you have all this information then at every node you know what is what is going on like i mean you have the at a you have the whole graph at b also you have the whole graph at e also you have the whole graph so what is the benefit of this now you will say that okay if you have the whole graphs then what you can do you can just apply the shortest path algorithm so it means you can apply the shortest path
+
+10
+00:04:24,010 --> 00:04:57,010
+So what is the better sort of status path? If there is no negative edge, then you will be applying that extra. Okay. You can apply the digest. So that's all. I mean, that is what you have. So basically at a, you can just converts just after one flat. So A will say that, okay, I know that you can apply the digest. So A will get to know that from the source, if A is a source, then what are the nodes that you can reach? Okay, you can reach to B in maybe cost of four.
+
+11
+00:04:57,240 --> 00:05:26,640
+right and you can reach to you can reach to maybe e in the cost of 5 I mean you need to apply the direct star and then a will say that okay I can after applying the direct star as source node as a then I can compute the vector that okay I can reach in how many steps at each other router right that's what you can do I hope you understood so basically that's very easy you can apply the direct star algorithm at every node as a source yes each node apply the direct star each node okay
+
+12
+00:05:27,000 --> 00:05:56,650
+Yeah, single source or this one at every node you will get to, you need to apply the extra and then you will be getting the final vector at the every node. Okay. So that's all. I mean, in link state routing protocol, there is no question apart from this. I mean, that's the only question. But there are little, I mean, one or two more fields that we have, which are called sequence number and age. So apart from these two values, you have two more values, which are sequence number age. Why these two values are important, let's just see. Let's just see why sequence number is important. Okay. So what may happen?
+
+13
+00:05:56,970 --> 00:06:28,210
+that you are sending your packet maybe you are here okay and what may happen that this is sending the packet which is maybe like this okay it is saying that okay this is my linked packet and then okay let's suppose this is also connected then let's suppose that what is happening that this let's suppose that this path is going to take too much of time which means let's suppose okay
+
+14
+00:06:28,870 --> 00:06:51,620
+So let me consider like this. So let's suppose that this path, okay, this path is going to take too much of time. So you send something that will reach after let's suppose two hours. But if you're sending where they pass in since you're flooding in every direction, you will also send by this path. Then then let's suppose it is just reaching in half an hour or maybe one hour. Okay. I mean, it is reaching quite early. Let's suppose it is reaching in one minute.
+
+15
+00:06:52,370 --> 00:07:21,450
+Now, after one minute, it will be getting two vectors. Okay. Uh, sorry, after one minute, it will be getting just one vector and then it will be basically working with this vector only. Okay. And the next one, it will, it will be getting vector from this vector from this line. Then after two hours, it will be getting two vectors probably, or maybe just this, this vector. Okay. Which is, which is saying that, I mean, this is some old vector that you will be receiving. Then in this two hours, maybe there's some topology change that might happen. Right. So basically what may so happen if you're sending something, then.
+
+16
+00:07:21,930 --> 00:07:50,830
+this is some old vector that may decide in the network old old linked packet that is in the network and then it may reach slowly slowly slowly and after maybe after two three days it will reach and then since it is it is containing very very old information then this router this router will let's suppose this router will consider this as a new new information because this router doesn't know that it is very old information right I mean maybe just just half an hour ago
+
+17
+00:07:50,970 --> 00:08:15,130
+I mean, in this networking, it is just taking a fraction of a second. So because the bits are traveling with the speed of light. So anyway, like, let's suppose that it is half an hour old information, which is very old information. So it's still this with this router will accept this information and we change, change. I mean, it's the routing distances based on this. It should not happen. So that's why we have something called sequence number.
+
+18
+00:08:15,460 --> 00:08:44,180
+okay so there is field called sequence number so every every packet will be having some sequence number let's suppose if it is 3 okay so if it is 3 then it means that it is and let's suppose some sum is having 10 some sequence number is 10 then I will say that this 3 this 3 and this is having 10 then I will say this 10 is latest if it is greater than it is latest I will say it is latest okay so I have some way to distinguish that who is latest and who is old so suppose that it has received it has received from a
+
+19
+00:08:44,540 --> 00:09:12,190
+okay it has received something then it will keep track of sequence number that from a from let's suppose it is a okay from a the latest let's suppose it has received the latest as 10 then it will say that okay the latest sequence number that I have received the latest sequence number is equal to 10 okay it will say the latest sequence number is 10 now what's the benefit of this at later point in time if I receive this then I will immediately get to know okay this is the old one have you understood this
+
+20
+00:09:12,560 --> 00:09:38,700
+so basically sequence number how do we it is basically it is helping us to know that which linked state packet is new or which is old how do we know the lsp is new using the sequence number use the sequence number in lsp header generate sequence number oh sorry greater sequence number is newer okay if it is greater than it is okay okay now there is another field which is called age now why this is this age is age is important
+
+21
+00:09:40,020 --> 00:10:09,860
+Suppose your sequence number is garbled, which means let's suppose there is some error and because of that, okay, so let me write Y age field. Suppose your sequence number, you're sending that with maybe, let's suppose it is very, very latest and maybe, I don't know, maybe 6, 5, 4, 4, 0, okay, very latest, okay, very, very latest LSB because the greater the sequence number, the latest status, okay, very, very latest.
+
+22
+00:10:11,600 --> 00:10:42,050
+but what happens that this let's suppose this is one followed by many zeros okay two power thirty zeros and then one zero something like this okay this number in binary this now just because one bit of error just because of one bit of some error okay one bit of error this number this one get changed to zero and then the whole number is just one zero zero which is two power zero two power one two power two which is just four right so now just because of just one bit of error this may get changed to this number may get changed to
+
+23
+00:10:42,280 --> 00:11:11,680
+6 5 4 4 0 may get changed to 4 only which means this is saying old very old very old old lsp so basically just because the sequence number is is garbled okay maybe in 1 bit 2 bit error or whatever then then your the whole idea will get changed i mean if it is very later still you are saying it is very very old so the router will not accept it but what we want we want router to accept it so yes router will not accept it that is okay
+
+24
+00:11:12,520 --> 00:11:39,970
+but agent it a problem yes it is a problem so that is why what we will do we will have one more field which is age age will say that okay there is one more field which is age age will say let's suppose the age is 5 okay then whenever I am sending this packet just like a TTL okay I will decrease this value to 4 and if I am receiving here at 4 then it will say it is the age of this okay suppose that if I am accepting this okay then I will say the age of this packet it just 4 seconds
+
+25
+00:11:41,270 --> 00:12:12,700
+which means after four seconds, I will just discard this packet. So what's going to happen? See, let me just read this, that if the router ever crashed, okay, that's okay. If the sequence number is computed is received instead of four. Okay, let's suppose instead of this, you are receiving a sequence number four, the packet five through. So basically the packet five through all of this will be rejected. Okay, that's another case. So suppose, sorry, this, if this is four,
+
+26
+00:12:13,130 --> 00:12:45,490
+So, they have taken this example that they wanted to accept. So, suppose this is 4 and then this gets changed to a very big number. Let us suppose this gets changed to very big number and which is maybe 655, 655, 40. 655, 40. Suppose that you are sending a packet with a sequence number 4. Now, it is getting changed to 655, 40.
+
+27
+00:12:49,760 --> 00:13:22,040
+Now what the router will do since it is very latest okay since it is very latest outer will think that okay I have just received very latest packet very latest router will keep it now this age will say if there is some some problem if you are keeping some something that's okay but age will say let's suppose age is 4 it will say you keep it don't worry okay based on the sequence number you keep it but you keep it just for the 4 seconds this age will tell you some some unit of time just for the 4 milliseconds or 4 seconds something like that
+
+28
+00:13:22,210 --> 00:13:51,090
+right age will say just keep it just but only for the four seconds and age is age is also working just like a TTL which means whenever you are sending from here to here you will decrement it to four that's also true and also okay it's just a time tick okay I mean you will decrement at every forward and also you will say okay tick tick tick four times if you if there is a tick then you will reject it which means that you will keep it but just for the four seconds so so that if the new packet is coming
+
+29
+00:13:51,400 --> 00:14:18,440
+if the new packet is coming which will be having the LSP something like that maybe five or something right i mean sequence number will be some five then it will accept it okay because it you are going to keep this just for the four second after four second you will forget that you have received something right and then the you will accept it but suppose if you are if you are not forgetting it after four seconds then what will happen can you accept this five the sequence number five can you accept this with the sequence number six no right all of the packet five six seven ten like all of the packet will get wasted
+
+30
+00:14:19,560 --> 00:14:48,540
+So that is why I will say I can keep it, but just for the few seconds, it is having some age, which is which is defined by the age number. Okay. So that's what I have taken from the 10 moment. So it is saying rejected as fluid since the sequence number is this, which is very high. So the solution to the problem is age and age is saying that each sequence number is decremented it once per second or per millisecond or anything like any unit of time. When the age hits zero,
+
+31
+00:14:48,880 --> 00:15:23,600
+The information from the router is discarded. Normally the packets come in say every 10 seconds. So the router only times out when a router is down. So any age field is also decremented by each router. It's just working just like a TTL also and as a timer also. Have you understood this? What I want to say? So I hope you got it right. Now let's just move to the next slide. Should I repeat it? See it is very easy. What I am saying? Let's suppose the sequence number is 4.
+
+32
+00:15:26,570 --> 00:15:56,790
+if it is getting disturbed which is let's suppose this is a very big number suppose then since it is very high number now this is a sequence number so router will accept it right router accept it now next sequence number from this will be 5 and the next sequence number from this will be 6 but all of these lsp will get rejected why can you tell me
+
+33
+00:15:57,810 --> 00:16:23,950
+because router is having very latest packet router will think that okay these are some some not not so good packet that are coming to me right smaller sequence number yes so that's where router will reject and that's not a good idea so that's why I will be having one more field which is age age will say let's suppose if it is 5 then I will keep this packet that's okay based on the sequence number I will keep this packet but just for only 5 seconds after 5 seconds I will forget that this packet even exists so that if new is coming then I will accept it
+
+34
+00:16:24,340 --> 00:16:51,660
+So age is just saying that I can keep it packet, but just for the fact that something like this. Okay. Yeah. So that is all in link state. I mean, there is nothing new. I mean, there is nothing more in the link state, which means it is very easy algorithm. Like let me quickly repeat it that you just have, you just need to apply the direct style algorithm here. Okay. At every node, you need to apply the direct stuff. Now it is having two more fields, which is sequence number and age.
+
+35
+00:16:51,980 --> 00:17:21,040
+and what this sequence number and age will do like why these are important because sequence number is important to distinguish that which packet is new which package is old but if sequence number itself get garbled then it is a problem for me right I can I can just keep the very very uh not useful packet with me for a long time so that's why the sequence number itself get garbled that's why I have the age age will say that you keep based on the sequence number but just for the sometime that that's all right so now let's just see these questions
+
+36
+00:17:21,430 --> 00:17:52,080
+in distance vector routing can the count infinity happen when the link is added to the network so i have shown you that count infinity happens when you are basically let's suppose this is something like this if link if this link get disconnected if you are if you are basically adding some link then then can it happen no it will not happen okay because it is a good range let's suppose this is a this is b this is c if if let's suppose earlier it was not there which means it is infinity it is infinity
+
+37
+00:17:52,510 --> 00:18:22,140
+Now you're adding this. Okay. So earlier it was not there, but now you're adding this. Now immediately we will say that, okay, I got some, some, some new, new, uh, uh, information. So able, like we will say that, okay, let me immediately change to, we will say, let me immediately change to one, which means this one. And then, then like after this, it will immediately change to one and it will be still infinity. Now after one round of exchange only, after one round of exchange, right? Then it will be, it will be one and it will be two. I mean, let's suppose it is one, one.
+
+38
+00:18:22,300 --> 00:18:49,480
+So after just one non-reaction, it gets stabilized. So there's not a count-infinity problem. Why we will count-infinity if there's a good news, right? So if there's a good news, then you do not need to count-infinity. Now, there's an advantage of link state. Link state converges very fast. In just one iteration, it gets converged because you have the whole topology. And distance vector has a less overhead. I mean, there is no flooding, right? So a smaller update traffic. Traffic is less here.
+
+39
+00:18:49,760 --> 00:19:20,360
+and here yeah there is no loop and it also converts fast fast convergence more overs to finally or a malicious nodes faulty or malicious nodes okay because it is basically not having any counter infinity problem okay now let's solve this question counter infinity problem is associated with link state test instructor dns or tcp so i think you know the answer right this is b it is link state now let's see this question what they're saying
+
+40
+00:19:20,840 --> 00:19:47,380
+Consider the following statement about the link state vector routing protocol for a large network with 500 network nodes and 4000 links. Let's suppose this is the network. The computational overhead in link state protocol is higher. Yes, that is true. Computational is higher because you flood everything, right? You flood not just to neighbors, but to everyone. Okay, here you just flood to neighbors. In distance, you flood to neighbors. The distance vector protocol with split origin also.
+
+41
+00:19:47,740 --> 00:20:18,620
+Avoid the looping. Persistent means just a constant looping, right? It keeps on looping. So does it avoid with the split origin? Tell me. Can it avoid the looping problem with the split origin? No, right? Computational overhead means like whatever you are having in a linked state. So there are too much of package transparent. If you're only transparent to neighbors, so you are just transparent to the three.
+
+42
+00:20:18,840 --> 00:20:53,040
+But if you're transparent to everyone, then if there are 500 people, then you will be transparent to the 500 people. So this is, since because of the flooding, the linkage is very costly. Okay. Yeah. And also you are going to run the shortest path algorithm. They are in the distance vector, you just take the minimum, but here you are going to run the shortest path algorithm. So that is why it is costly. Now, now tell me, can distance vector avoid all the looping problem? The answer is no, right? Answer is, this is false. Why? We have seen this in the frozen type. So.
+
+43
+00:20:53,380 --> 00:21:22,930
+If there is a three node stability or maybe more than two nodes, then it does not guarantee, cannot guarantee. So in two nodes, it always guarantee, but in more than two nodes, you don't know. You do not have any current. After topology change, a link state will converge faster than a distance. Yes, that is true. Because link state always converts faster, right? Distance vector may get to count to infinity. It may converge very slow. But also, if not even count to infinity, then also it can converge very slow.
+
+44
+00:21:23,500 --> 00:21:31,750
+So, that is why true falls true. So, what is the correct answer? S1 and S3 are true and S2 is false. Yes, these are the correct answers.
+

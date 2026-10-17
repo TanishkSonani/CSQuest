@@ -1,0 +1,764 @@
+1
+00:03:05,230 --> 00:03:49,600
+Hi everyone. Can you hear me? So let's start in just a second. Yeah. So I hope I'm audible. Now, let's start like we were solving few questions yesterday. So we will be continuing solving some questions and then we will see one more topic today. Okay. So yeah, this question is easy. So we can do agent homework. Now let's move to some next question. So what this question is saying.
+
+2
+00:03:49,900 --> 00:04:20,460
+is that we have seen different file systems right so let me quickly recall you that what we have already seen right there are a few file systems that we were looking at yeah so these are the ones and if you remember that like we have seen contiguous it means that there are if there's a contiguous memory available then we can assign that memory to our file right
+
+3
+00:04:20,800 --> 00:04:49,740
+so there is a variation to the contiguous memory like if you have different chunk of contiguous memory then it is called extend base also right variation to contiguous similarly like we have seen linked linked means like there are there are few chunks available here and there and then i mean few blocks available here and there what i will do i will just link all of those blocks and then we will say that okay this is the link like this all is forming a linked file system and the variation to that is that fact tables
+
+4
+00:04:51,380 --> 00:05:17,100
+So, what is a fat table? Fat table is basically brings all of the pointer in one table, right? So, which means like whatever was the pointer earlier, earlier those were in the disk blocks. Now, there are in one separate disk block. So, all of the pointer in just one block, right? So, this is fat table. Now, what is the advantage of that? Like earlier, if I have to access this three, then I have to do
+
+5
+00:05:18,480 --> 00:05:43,990
+one two and like two read operations like something like that right I mean let's suppose if the chain is too big let's suppose the chain is something like this then to go to end I have to basically perform and minus one read operations which means like I will bring that all of that block into the memory and then I will be reading right so I have to perform and minus one read operations which means I will I will read this
+
+6
+00:05:44,220 --> 00:06:11,580
+I will read this, I will read this, I will read this. And then finally, I will be getting the address of this block. So this is not a very good idea. So that is why they have the FAT based allocation, like FAT based file system, which says that you can bring all of these pointers in one table. And then if you want to get the address of three, you just bring that one table in the main memory. And if it is possible, you can also cache it, right? So if it is possible to cache it, then you just cache it.
+
+7
+00:06:11,870 --> 00:06:49,670
+So that's how it is saving the more I operation like earlier it if it is n-1 IO I operations then probably it is just one I operation right so you can say maybe one or two I operations one two I operations and this this particular file system has been used in in early Windows operating systems okay so but now they have changed it obviously
+
+8
+00:06:50,090 --> 00:07:19,170
+and now they have something called ntfs like new new technology file system and there are some other file system that windows supports so we will see that right so yeah so i hope that is okay like this is just a variation to the linked list and then we have uh index based so in the index which what we do do you remember like all of the blocks pointers we just bring all of the block pointers in the inode itself so whatever it is pointing whatever it is pointing whatever it is pointing now
+
+9
+00:07:19,490 --> 00:07:46,120
+there are advantage and disadvantage of having small and large i nodes so let me just recall you let's suppose that you are having a small i node then then what is the problem if you are having large i node then what is your problem so can you can you quickly guess if you are having let's suppose some only small i nodes then the problem is that you like your maximum file size is very limited right if there are some direct pointers if you are having big i node
+
+10
+00:07:46,300 --> 00:07:56,660
+then you can support more file size but your inode size is too big now there is a variation to that that is called
+
+11
+00:07:56,940 --> 00:08:25,460
+multi-level index, right? Not just index, multi-level index. So we will like we have seen the multi-level index. So in that what we do, we basically says that let's suppose like this, these pointers, these I node pointers are not directly pointing to the blocks. I mean, it can directly point to the blocks, but there are some indirect pointers also, right? It is having direct and indirect pointers. So we have solved a few questions based on that. Like these are some direct and indirect pointers.
+
+12
+00:08:25,920 --> 00:08:59,610
+and yeah now let's just solve more questions so let's solve this question what this is saying that we have different we have seen different file system and support fairly large files that support fairly large files now let's see how large a file varies file system of various type of file systems can support assume for all of the questions in this part the file system blocks are four kilo bytes okay so the block size is given
+
+13
+00:09:00,140 --> 00:09:31,190
+Let me just write BS that is block size is 4 kb. So now they're asking consider a really Consider really simple file system. That's what they're calling direct file system or direct FS Where each in iNode only has 10 direct pointers each of which can point to single file block direct pointers are 32 bit in size Then what is the maximum file size? Okay, so they're saying that each has
+
+14
+00:09:32,210 --> 00:10:08,000
+Each iNode has only 10 direct pointers only 10 direct pointers and then Direct pointers are 32 bit in size Does this matter that what is the size of this pointer? If they are saying that 10 direct pointers I have then I think 10 into 10 and 10 into 4, right? So we can directly do 10 into 4, which means I will say it is 40. So I think it should be just 40. Let me just see the answer Yeah, this is just 48
+
+15
+00:10:08,400 --> 00:10:37,440
+I mean in this case it does not matter what is the size of the pointers because I already know that it can hold 10 pointers and each pointer can each pointer is just a direct pointer so that is why like 10 into 4 because each each pointer can point to 4 kilobyte of block size right okay now let's see the second one what they are saying consider a file system called extend FS okay which construct so here I have just calculated this is 4 into 10
+
+16
+00:10:37,890 --> 00:11:03,180
+right this is 40 now let's see what is the next question saying there is a file system that is extend FS which construct called with a construct called an extent okay so I think this file system is based on extent do you remember what is extent this is just a contiguous memory but it could be just like a segmentation it could be some different two three different contiguous that's all right
+
+17
+00:11:03,530 --> 00:11:36,040
+so it is just a contiguous but maybe if there are two three different contiguous then also it is okay now extant have a pointer base address and the length okay so each extant has a pointer which means its base address and the and the and the length that's what they are saying each extant has the base base address and the length now assume the length field is eight bits okay which means at most
+
+18
+00:11:39,060 --> 00:12:02,640
+At most the length could be 8 bits which means 255 the length at most could be 255 if it is 8 bits Assuming that I know has exactly one extent Okay, and I know has exactly one extent. What is the maximum file size for this extent effects? So this 250 means that so let me just clarify this question what they are saying
+
+19
+00:12:02,930 --> 00:12:23,610
+they are saying that each extent there are there are multiple extents there could be multiple extents and each extent they are saying can hold like each each extent is basically represented by base address and the length and what does this length mean like what should be the unit of this length so here they are saying length in blocks which means
+
+20
+00:12:23,940 --> 00:12:53,230
+that like if i'm saying the length is 255 at most length could be 255 obviously because there are just eight words then this extent is of 255 blocks right suppose this extent has having some length which is let's suppose 60 then it means this extent is having 60 blocks something like that right now they are saying that assuming that inode has exactly one extent okay which means it is pointing to exactly one extent
+
+21
+00:12:57,290 --> 00:13:28,960
+so the length at most 255 you can represent right case I mean the number that you can represent there is 255 it's just absolute number that you can represent so the number that you can represent is 255 it means the length could be at most 255 now assuming that iNode has exactly one extent so whatever iNode is pointing to since it is it is a continuous so generally in the continuous what we have like iNode whatever iNode points to let's suppose this is iNode then
+
+22
+00:13:29,270 --> 00:14:10,100
+whatever is pointing to. So if it is contiguous, then this whole memory is contiguous. But suppose if it is extend base, so this is let's suppose contiguous, but if not contiguous, then I know it will point to first action, right? This is extant one. And then probably this will point to extend to something like this, right? And what could be the size of this? Let's suppose this size is 255 blocks. This size is let's suppose 60 blocks. What is the maximum file size for this extent?
+
+23
+00:14:11,360 --> 00:14:39,810
+Okay, so they are saying that we only have one extent. I mean that I know has exactly one extent. So actually they are only having one extent. So the maximum size of that one extent could be 255, 255 blocks, which means that each block size is 10 kb. So 4 kb. So which means 255 into 4 kb. This can be the maximum size of any extent in the bytes. So maximum size of any extent here given is that
+
+24
+00:14:40,520 --> 00:15:12,430
+maximum size of any extent is 255 blocks. 255 blocks. But in terms of bytes, it could be 255 into how many bytes? 4 kilo bytes. So this is maximum size of one extent. And that's what they are asking. They are saying if I only have one extent, then I think answer should be 255 into 4 kilo bytes, which is 1 megabyte.
+
+25
+00:15:13,830 --> 00:15:56,110
+Okay. I mean, I think it is almost equal to one megabyte. Okay. Now let's see this third question. Consider a file system that uses a direct pointers, right? So they are saying that suppose there is a file system that is using the direct pointers. So let me copy this question on the next page. Consider a file system that is using a direct pointers, but also adds indirect pointers and double indirect pointers. We call this file system is indirect FS. Specifically,
+
+26
+00:15:56,780 --> 00:16:25,620
+and i note within the indirect fs has one direct pointer one indirect pointer and one doubly indirect pointer so basically they have given that one direct one indirect and one doubly indirect pointers as before there are four bytes pointer size is also given and what is the maximum file size so what do you think if it is one direct pointer it will point to one block right one block plus if it is one indirect pointer so one indirect pointer can point to how many blocks
+
+27
+00:16:26,440 --> 00:16:58,830
+if this is one indirect pointer that can point to one block of pointers so how many entries it can hold if each entry size is 4 bytes and this block size is 4 klo bytes then it can hold 2 power 10 entries right so there are 2 power 10 blocks it can point to plus 2 power 10 into 2 power 10 blocks right if it is W indirect
+
+28
+00:16:59,180 --> 00:17:25,920
+so finally answer will be 1 plus 2 power 10 plus 2 power 10 into 2 power 10 okay these many blocks that we can finally point to and if you want to write in the bytes then it will be 1 plus 2 power 10 plus 2 power 20 into block size is 4 kb 4 into 2 power 10 bytes right so this is your answer okay
+
+29
+00:17:26,270 --> 00:17:53,960
+So I think you can write the answer if you want, maybe let me see in what way they have written. Yeah, 1 plus 2 power 10 plus 2 power 10 into 2 power 10 into 4GB. So 4GB plus 4100KB. Anyway, so this is the size that you can represent. Now you just see that with just 11 pointers, we are able to have like this file system basically supports a 4GB file, right?
+
+30
+00:17:54,250 --> 00:18:27,070
+just with one one pointer that's the like kind of power of this multi-level indexing right i mean just with one one pointer you are able to support this four gbfi okay so now let's see this fourth question consider the compact file system called compact fs tries to save as much as possible within the within the inode okay thus so i will be writing the solution here thus two
+
+31
+00:18:27,510 --> 00:18:56,700
+point to the files it stores only single 32 bit pointer to the first block of the file so they're saying that in the inode you don't want to store too much of the things so because you want to you want to compact the space as much as possible you want to save the space as much as possible so let's suppose that in the inode you are not storing too much of the things right now what they're saying that it stores only a 32 bit pointer to the first block of the file so this inode is pointing to just a
+
+32
+00:18:56,890 --> 00:19:32,020
+third first block of the file I mean this is a data block right this is a data block and the pointer size is 32 bit it means that uh what are the number of number of data blocks can you tell me number of data blocks if I had to address with the 32 bit then it must be 2 power 32 data blocks right however blocks within compact fs store
+
+33
+00:19:33,340 --> 00:20:01,690
+4092 bytes of user data and 32 bit next field so they are saying here in this data data block you are storing 4092 bytes plus one pointer of size 32 bit right 32 bit next field much like a linked list and thus can point to the subsequent block or null indicating that there is no more data first draw the picture of the iNode that the file that is iNode and file that is
+
+34
+00:20:02,030 --> 00:20:33,250
+10 kilobytes. So they are saying for the 10 kilobytes, how you will represent the picture. So let's just see this 4092 is 2 power 11, right? Sorry, 2 power 10 is 1024. Then 2 power 12, I think, if you multiply by 4 here, then this will be 4096. And then, okay. And then you have 4 bytes of this. So 4 bytes. So basically,
+
+35
+00:20:33,690 --> 00:21:08,610
+this is 2 power 12 bytes data data blocks i mean the block size is 2 power 12 so let me just write the block size i hope you got it like how i'm writing 2 power 12 right so block size is 2 power 12 how because 2 power 12 is basically this is uh 4096 and and 4096 means 4092 plus 4 right okay yeah data plus pointer yes case that's correct so now
+
+36
+00:21:08,990 --> 00:21:41,300
+what we need to do like that is all now what we need to do we need to check that how how many blocks we will be needing for 10 kW so 10 kW means 10 x 2 power 10 bytes and each is of side 2 power 12 so divided by 2 power 12 how much you are getting so I think that is 2 power 2 okay so it will be 4 and then I think it will be 3 right
+
+37
+00:21:41,770 --> 00:22:12,080
+So I need three blocks. In the three blocks, I'm sure that I will be doing along with the pointer. I mean, if you want, you can calculate, but in the three blocks, we should be able to do it. So we need three data blocks. In three data blocks, we should be able to do it. So if I want to draw the picture, then I will say it will take the three data blocks. So let's just check if the picture is correct or not. Yeah, that needs three data blocks. So I hope that is OK to everyone.
+
+38
+00:22:13,300 --> 00:22:46,610
+Let's just check what else they are asking. So they are asking about this. What is the maximum file size for the compact effects in the above question? What could be the maximum file size? So what do you think could be the maximum file size? It is a little interesting, I think it will be pointing to something. So see the disk size, what is the disk size? If there are a number, these many number of data blocks are possible. Block size is this much. So disk size is two power.
+
+39
+00:22:47,150 --> 00:23:25,050
+32 plus tall right which is how much to power 44 bytes This much deck size is possible now. What is the maximum file size that you can have can you have to power a 44 bytes? I Don't think you can have right. I mean you will be having little lesser So maybe maybe I mean you can you need to store the pointers also So maybe let's suppose this 2 power 44 means if the block size is tall then how many blocks?
+
+40
+00:23:28,300 --> 00:23:57,660
+number of blocks that I can have is basically 2 power 32 right 2 power 32 blocks I can have and each block will be having will be basically wasting I mean these many blocks are there so you are having how many pointers 2 power 32 pointers right so you are basically having number of blocks are 2 power 32 which means
+
+41
+00:23:57,980 --> 00:24:36,710
+Number of pointers that you need right for each block you will be storing one pointer. So number of pointers are also 2 power 32 and each pointer sizes It is I think a four bytes, right? So, okay, so which means like number of bytes Wasted is 2 power 32 ethnic blocks plus four bytes Each block will be having one byte. So these many bytes are in wasted in the pointers basically so to power
+
+42
+00:24:38,790 --> 00:25:36,060
+34 bytes, these many bytes you have wasted in the pointers, right? Is this okay to everyone? These many bytes you are wasting. So what could be the maximum file size? It could be 2 power 44 bytes minus this much, 2 power 33. So the maximum, maximum file size could be 2 power 44 minus 2 power 34, I think. Is this correct or there is something missing? Let's just see the solution, like what they have to say.
+
+43
+00:25:43,210 --> 00:26:16,700
+so they are saying that 2 power 32 these many blocks are there and one block size is this so this is basically total dex size right which is 2 power 44 yeah that's correct and 2 power 34 so this is basically total dex size and how many points how many blocks are there 2 power 32 and each block will be having one pointer so that's why this much space we are wasting so 2 power 44 minus 2 power 34 right 16 TV means 2 power 4 into
+
+44
+00:26:17,940 --> 00:26:48,910
+Like TV I think is 2 power 40, right? So MB is 20, GB is 30, so TV is 40. So yeah, so it is 2 power 44. I mean, it is just an approximation. They have ignored this number. So it is just an approximation, like if you just ignore this one, but yeah, that is okay, right? So you understood that how we are calculating. I mean, these many bytes you have wasted, and this is the total size of the file. Okay. Now let's go to a different question.
+
+45
+00:26:49,370 --> 00:27:20,020
+now they are saying consider file system with 4096 blocks and 32 bit disk block for direct and direct okay so you can calculate the maximum exercise right or maybe let's just do this question for the sake of practice consider file system with 4096 byte blocks okay so block size is given to us which is 4096 bytes and 32 bit disk what does this mean
+
+46
+00:27:20,590 --> 00:27:53,270
+It means that number of blocks are 2 power 32, right? Is this okay to everyone? Like disk is block addressable, which means I mean if it is 32 bit big disk, it means the number of bits, number of blocks, number of blocks are 2 power 32. And file block pointers, 32 bit disk and file block pointers. Each file has 13 indirect pointers, 13 direct pointers.
+
+47
+00:27:53,660 --> 00:28:28,040
+so it means 13 blocks so what is the maximum file size 13 blocks plus four singly indirect so four into uh one block can hold how many entries so number of entries in one block number of entries is equal to whatever whatever is your block size which is 4096 bytes upon how much uh space you should be needing 32 bits right 32 bits business
+
+48
+00:28:29,170 --> 00:28:57,990
+This is in bytes, which means this is four bytes, right? So it will be two power ten Yes, one can't is two power ten So four into two power ten because these many entries one can hold plus a doubly indirect which means two power ten into two power ten Right this this is just one right one doubly in there and a triple indirect Oh, so this two power ten into two power ten into two power ten
+
+49
+00:28:58,380 --> 00:29:41,260
+so this should be the maximum file size let me check the answer they have just multiplied 2 power 32 this is 2 power 30 2 power 32 into this since block pointers are 32 bits okay so the maximum disk size that it can that can be supported okay disk size not the file size the file size they have given here so this is the file size right and yeah we have calculated the file size
+
+50
+00:29:41,530 --> 00:30:11,730
+so the disk size they're asking so i think this answer is for the file size so the disk size is like whatever the number of blocks and then into the block size right so the number of blocks are 2 over 32 into block size block size is 2 over um this number is 2 over 12 right okay so what is the third third question
+
+51
+00:30:12,030 --> 00:30:44,920
+they are asking the third question which is give some reasonable assumption and assumption compute the number of i nodes that can fit into the disk block in one disk block which is of size 2 power 12 bytes how many i nodes i can hold okay they are asking number of i nodes i can hold number of i nodes so what does i node has i node has these pointers how many pointers 13 plus 4 plus 1 5
+
+52
+00:30:45,290 --> 00:31:13,090
+1 2 6 plus 13 so i node has 19 pointers i node has 19 pointers and each pointer size is basically number of blocks 4 bytes right so 19 into 4 bytes so i node has 19 into 4 bytes of pointers which is 76 bytes are just going in the pointers right
+
+53
+00:31:13,360 --> 00:31:41,840
+in the inode there there could be many many fields but just 72 76 bytes so like in just one inode if i just draw a one inode then 76 bytes it is consuming in just pointers 76 bytes this space is 76 bytes is the skillet i have given now they're saying let's let's assume something so let's just assume the 76 in power of two so what is the nearest power so let's assume the total size could be some nearest power
+
+54
+00:31:42,130 --> 00:32:18,140
+128 bytes so let's suppose that i node size is 128 then you can calculate the number of i nodes which means if this is 2 power 7 then the total answer will be 2 power 5 so in one disk block 2 power 12 bytes it has and then it means you're getting a point so disk block size is 2 power 12 bytes and i node size is 76 bytes
+
+55
+00:32:18,610 --> 00:32:55,180
+in pointers pointers plus something extra some metadata right something extra the total let's assume 128 bytes this is our assumption this is our i node size then number of i nodes i nodes in disk block is 2 power 12 upon 2 power 7 which is 2 power 5 so which is 32 i nodes you can store
+
+56
+00:32:58,250 --> 00:33:22,830
+right so this is with the assumption obviously like they will specify the assumption in the question but yeah you can store 32 i nodes per block do you remember by the way how i nodes are stored I mean it depends on the file system but generally what we do we store in one area right that's called i node area in some i node area we store all the i nodes right
+
+57
+00:33:31,490 --> 00:34:02,700
+okay the case is asking if they don't give this pointer info then maximum disk size and file size are same in earlier question you are saying or in this question maybe you are you are asking about this question right okay so if they don't if they don't say that okay how many pointers I'm storing
+
+58
+00:34:05,370 --> 00:34:32,570
+No, like they will specify the file system, like what kind of file system we are using. If we are using index file system, then they will specify the pointers. If they are using not index something like this, then they will specify that, okay, what is the size of these pointers? So it depends on the file system also, right? Yeah. So earlier, earlier, the answer, answer was this. I mean, we were calculating the answer. If you remember, there was some gate P by Q in that the fact table was given, right?
+
+59
+00:34:32,860 --> 00:35:01,820
+And in that, they were asking about the maximum file size. So basically, I mean, it depends on the file system. If that is fat, then you have to calculate in some other way. Maybe in this case, you are calculating in some other way. And in this case, you are calculating in some other way. So there are other ways. I mean, different, different ways in the different, different questions. OK. So now let's maybe move to this. OK. So let's move to this gate P by Q.
+
+60
+00:35:02,270 --> 00:35:37,680
+now they are saying in the index allocation scheme of the blocks to the file the maximum possible size so index allocation scheme in the multi-level indexing and all so the maximum possible size of the file depends on what is the correct answer size of the block and size of address of the block yeah size of the block and how many pointers it can hold it definitely depends see size of the block is is there see if if this is let's suppose our I know
+
+61
+00:35:38,240 --> 00:36:14,220
+if it is pointing to if it is having 12 pointers or something like this right then how much size it is pointing to obviously like if you need to calculate the maximum blocks a maximum file size then you need to check okay if this is tall direct pointers tall direct pointers then how much size it is pointing to basically right how much size it points to right so yes it definitely depends on size of the block and size of address of blocks
+
+62
+00:36:15,890 --> 00:36:49,430
+Okay, so yeah, it also depends on that how many bits I need to require to address that maybe if I need too many bits then Then it will be a problem to me. Maybe that I know cannot hold those many right? So yes, maybe that is true But let's see what is the strongest answer the size of the blocks size of the block definitely number of blocks used for the index number of blocks Used for the index. What does this mean?
+
+63
+00:36:51,400 --> 00:37:18,550
+the number of blocks I'm using for the index I think this means I know size number of blocks that use for the index yes this mean I know I think this mean this means I know size okay I mean how many in how many blocks I'm using to store my my pointers
+
+64
+00:37:19,120 --> 00:37:48,930
+Number of blocks used for the index. I think this mean I know say yes It's definitely depends on the I know say like I mean if your I know size is too large Then you can hold more pointers probably right so yes It depends on the I know say the number of blocks used for the index and the size of the blocks depends on the size of the block depends on the I know size and the size of address of blocks Yes, so it depends on all of them right see Let's just check that what it depends on so if that is when I know
+
+65
+00:37:49,520 --> 00:38:27,880
+Then first of all my question is that how many pointers you can hold and Whatever number of pointers you can hold multiplication of let's just assume the direct pointers only okay. I mean you can extend that to to Indirect pointers also, but let's just assume that I'm talking about the direct pointers also don't get confused Okay, so let's just assume the direct pointers and multiplied by the block size So this is your final answer, right? I mean, this is our final answer
+
+66
+00:38:32,810 --> 00:39:05,690
+so our final answer depends on how many things two parameters one is your block size another one is that number of pointers that each I know can hold so yes block size should be there and if I just you know further decoded number of pointers that I know can hold it depends on multiple factors how many pointers I know can hold maybe what is the size of I know right what is size of I know depends on this this thing you're getting my point right so this thing depends on
+
+67
+00:39:05,890 --> 00:39:41,130
+what is the size of final and let's suppose I know whatever is the size of final it also depends on that what is the pointer size of this address so basically the block address block number of bits for the 2.2 the block address or maybe the pointer size I mean this thing depends on size of final and the pointer size so size of final so totally my final answer depends on size of final and the pointer size I mean number of bits that I'm using 2.21 block
+
+68
+00:39:41,430 --> 00:40:24,170
+so pointer size means number of bits used 2.1 block basically the pointer size and the block size if you just multiply both of them i mean let's suppose the pointer size is let's suppose 12 bits and the block size is let's suppose 2 power 20 bytes can you tell me the disk space here disk size can you tell me the disk size if i'm having 12 bit pointer
+
+69
+00:40:24,700 --> 00:40:59,390
+it means there must be 2 power 12 blocks right and each block size is 2 power 20 bytes so basically these two comprise of the disk size I mean obviously my maximum file size depends on the disk size and what is the size of I know so you can say the disk size like which means like if you're doing the indexing so how long your disk is obviously your file maximum file will depend on the disk size and you can say
+
+70
+00:40:59,610 --> 00:41:30,560
+that if you want to store let's suppose files here then maximum for the maximum file size if you remember the file is nothing but iNode plus I mean the actual actual file data so it means in this you have to store two things iNode iNode and the data right so this they're asking what this data size depends on so data size depends on obviously on the two things so you can say data size
+
+71
+00:41:33,660 --> 00:42:16,960
+is nothing but disk size minus inode size right so it depends on how large your disk is and what are the uh i mean how large your inode is if your inode is less then you maybe you can store more data i mean now if if you are able to able to have the lesser lesser inode and then maybe you can support the more more file right but uh is this the correct argument yeah maybe maybe
+
+72
+00:42:17,700 --> 00:42:44,720
+This is correct, but maybe I think this is more correct that I can say that in the index system, so the way we calculate is basically is something like this, right? So the way we calculate is block size into the number pointers it can hold. So number pointers means number and how it depends on number pointers, size of the eye node and the pointer size. Like this will tell you the how many pointers it can hold. So the size of eye node, pointer size and the block size. So three things.
+
+73
+00:42:45,280 --> 00:43:18,390
+Size of i node which means this thing size of the block block size and the pointer size. So this is a pointer size Last one is a pointer size and the size of address of the block. So this is a pointer size So I think C should be the answer Okay, this is this seems to the strongest answer Yeah, so what they are saying in the index allocation of the maximum file size are derived using the following formula number of addressable blocks Okay, so
+
+74
+00:43:19,720 --> 00:44:00,180
+size of a block upon the block address. So this will tell you that how many pointers it can hold, right? How many pointers and I node can hold a number of block addresses. Anyway, like I think they have done all more same thing. So the C is the correct answer, right? Okay. Now let's go to this question. This question has been asked in gate 2008. The data blocks of a very large file in the UNIX file system.
+
+75
+00:44:00,460 --> 00:44:32,460
+So UNIX file system, it means like just I mean you do not need to remember any file system or something like we have discussed just a just you know common ideas but just for the gate you can assume that UNIX file system is that index indexing or multilevel indexing okay so maybe multilevel indexing. The data blocks are very very large file size in the UNIX okay this is kind of you know memorization question.
+
+76
+00:44:32,950 --> 00:45:08,320
+So if you know that in the Unix file system, they use your multilevel indexing, then I think you can mark this D as a correct answer. So FAT is used in Windows. I think, I mean, you do not need to remember again, like I think, but they have used earlier. So now they are like, we will see, they have used some different technologies, which is NTFS. So D is the correct answer. I do not have the answer with me, but D is the correct answer. Now let's solve this question.
+
+77
+00:45:08,800 --> 00:45:36,420
+in a computer system 4 files sizes of this 4 files of sizes this this this and this so they are having 4 files and they want to store the 4 files 1 file size is 1 1 0 5 0 bytes another file size is something 4 9 9 0 bytes 5 1 7 0 bytes and 1 2 6 4 0 bytes so these are the 4 files that you want to store for storing these files on the disk we can either
+
+78
+00:45:36,840 --> 00:46:11,490
+we can use either 100 byte disk block or 200 byte disk blocks so if these are the files that you want to store now your block size could be 100 bytes or 200 bytes but can't be mixed of these block size I mean either you take this or you take this you can't mix or mix them for each block used to store a file four bytes of bookkeeping information also needed to store on a disk for each block used to store a file
+
+79
+00:46:12,730 --> 00:46:54,900
+okay so you need 4 bytes extra which means 4 bytes bookkeeping information also need to be stored on the disk so if you are let's suppose 411050 if you are using 100 bytes so file size is let's suppose 11050 okay bytes block size is let's suppose 100 bytes tell me how many blocks you will be using number of blocks will be
+
+80
+00:46:56,020 --> 00:47:26,570
+1 1 0 5 0 upon 100 which means 1 1 1 blocks right I mean 1 block will be half filled but yeah these many blocks you will be using now what they are saying for each block okay for each block you need how much of information for each block that you are using to store the file we need we need 4 bytes extra
+
+81
+00:47:28,980 --> 00:47:58,430
+Now what do you think like where I might be needing these four bytes? For each block I need four bytes, but what do you think where I will be needing? Maybe maybe something like this, right? I'm not sure how the file system is implemented. Maybe maybe something like this here. I need four bytes Maybe I need four bytes and just a fact table like maybe something like this I just bring all of them in the fact table. I mean, I am having extra four bytes They are they've not said like where this four bytes are restored
+
+82
+00:47:58,810 --> 00:48:28,050
+they are just saying that we need extra 4 bytes for each block maybe in the fact table i need i need for each of the pointer maybe maybe the 4 bytes okay i don't know right maybe maybe in the i node itself let's suppose i have these many direct 1 1 1 direct pointers okay suppose i have 1 1 1 direct pointers each pointer is pointing to one of the block right so for 1 1 1 blocks i need maybe 1 1 1 like pointers which means each pointer sizes 4 bytes maybe i don't know right
+
+83
+00:48:28,340 --> 00:48:51,860
+I mean, I need that much space, 4 by 4 each block I need on the disk, but where on the disk, let's not worry about it. I hope you are convinced with that, right? So maybe here, maybe here, I don't know, maybe in the linked list, maybe in the flat table, maybe in the, I know, like this index node, right? I know it itself. So you don't know, but that is okay.
+
+84
+00:48:52,750 --> 00:49:25,670
+So 4 bytes of bookkeeping information also need to store on the disk. Thus the total space used to store a file is a summation of the space taken to store the file plus the space taken to the bookkeeping information for the allocated space. So now tell me the total space for this file will be 111 blocks plus 111 into 4 bytes. If each block size is 100 then obviously you can divide that by 100 also.
+
+85
+00:49:25,990 --> 00:49:59,130
+so finally it will be 111 blocks this is 444 which means 45 blocks plus 45 blocks you understood this is 444 bytes and if you divide by 100 then it is 45 blocks so how many blocks you need i think you need 156 blocks for this one you need 156 blocks for the first file for this file you need 156 blocks
+
+86
+00:50:01,230 --> 00:50:42,520
+where each block size is 100 oh sorry if you divide by 100 it is just 5 you need you need 116 blocks so you need 116 blocks where each block size is 100 so what they're asking is that first the total space is this a disk block can can store either bookkeeping information for a file from the data for a file or
+
+87
+00:50:42,960 --> 00:51:11,560
+either bookkeeping information for a file or the data from the file. So basically it's not like that one block cannot restore both. So you cannot say that here I need, here I need like, I mean, you cannot say that 4.44 block I need here, right? And maybe 110.50 blocks I need here and 4.44 blocks I need here. So I can add then you cannot, I mean, you cannot take a seal, which means like you cannot store
+
+88
+00:51:12,020 --> 00:51:40,090
+like this half of the block information you need to store the data to store the data so you just need one block you cannot you cannot say in one block half of the information is the data block right i'm storing the data and maybe in the 44 percent i'm storing the i node part you cannot do that right so they're saying that either you store the data or you store the the bookkeeping information you cannot restore both in just one block okay
+
+89
+00:51:40,830 --> 00:52:17,300
+So what is the total space required for the storing file using 100 by disk block and 200 by disk block? Okay. So if they are asking for the total space, so can you calculate the total space in terms of blocks or in terms of bytes? Maybe in terms of block, let's just calculate in terms of block and then we will go for in terms of bytes. So let's just do it for the 100 block first quickly. Okay. So, so these are the files. Now here I need 400 blocks. I'm doing 116 blocks. Now,
+
+90
+00:52:17,640 --> 00:52:56,290
+here i will be needing for the second one which means 4 9 9 0 second file it will need how many blocks if i divide these many bytes if i divide by 100 it will be needing 50 blocks for the data and if that's the 50 blocks each block need 4 bytes so 200 bytes i mean 50 into 4 right so i need 50 into 4 bytes for bookkeeping which means 200 bytes
+
+91
+00:52:57,690 --> 00:53:33,100
+which means 2 blocks so total blocks I need 52 blocks for the second file so for this I need 52 blocks is this okay to everyone and now can you do similarly here so it will be 52 blocks right I mean for the data blocks only plus each block need 4 bytes which means 8 and 200 sorry yeah 2 0 0 8 bytes I need because each each block need 4 bytes
+
+92
+00:53:33,350 --> 00:54:01,650
+and divide by 100 which is 21 blocks right so sorry 2 blocks sorry 2.008 means 3 blocks so I will be needing 3 blocks which means 55 blocks I need here and similarly you can calculate it maybe 127 blocks you need plus for each block you need 4 bytes so 127 into 4 divided by 100 so which is like let's just do it
+
+93
+00:54:02,050 --> 00:54:29,690
+So maybe 125 into 4, 4 will be your 500. So it will be greater than 500. So it is 5 pounds something, which is just 6, right? So you can just add 6. So which means like this is 3, 3, 1, 3, 3 blocks. So I think these many blocks you need and then you can sum all of this, then you will be adding and you will get in total blocks and then you can calculate in the bytes. So let me see the answer.
+
+94
+00:54:30,720 --> 00:54:58,840
+Yeah, 133 blocks and then if you sum all of this, this is 356 and then these many bytes you need. So these many bytes you need, right? So I think C is the correct answer. And similarly, you can calculate for them 200 size block. Okay. So you just do it as an homework. This is a good question. You can, I mean, good, good question in the sense it will just, you know, make your confidence a little more higher that okay, you can solve this kind of questions. So you can just calculate this as an homework.
+
+95
+00:54:59,920 --> 00:55:41,470
+Let me know if there is any doubt here. Okay. So now let's see the next question. In a file allocation system, which of the following allocation schemes can be used if no external fragmentation is allowed? If you don't want any external fragmentation, then what you can use? Can you use contiguous? I think in the contiguous, let's suppose these are the disc blocks, then external fragmentation is there, right? So suppose these are the two blocks are occupied.
+
+96
+00:55:42,670 --> 00:56:12,980
+and these are the two blocks occupied. So these two blocks you cannot allocate for any file that just need two blocks. So in the contiguous external fragmentation is there and they don't want any external fragmentation. So I think contiguous should not be the answer, but in the linked or in the index, you do not have any external fragmentation. So I think the answer is linked and index. So I think the answer is linked and index.
+
+97
+00:56:14,560 --> 00:56:47,140
+Both linked and index allocation free from the external fermentation. So D is the answer, right? You just do this question as in homework. Again, they are asking about the maximum file size and all. You can do this question. The question has been asked in 2019, the same question only. So you can do it as in homework. This question was of 2017.
+
+98
+00:56:48,320 --> 00:57:14,760
+So basically in the file system, it's just like three, three type of file system. Like once you understand all of them, then it is very easy and we have calculated in all of them, like all type of questions that I can think of, which means like how many, what, what could be the file size, what could be the maximum file size in all of that type. So in the fact, what, what could be the maximum file size in the index and the link like that. So we have done couple of questions and yeah, we will be doing more questions also. And let's just see.
+
+99
+00:57:17,450 --> 00:57:48,610
+So consider a linear list based directly implementation in a file system. Each directory, so this is a MSQ question, they are saying each directory is a list of nodes where, so in a directory what you have, it is a list of nodes where each node contains a file name along with the file metadata. So in each directory, what do you have is that directory in the sense like directory I node something like that, right?
+
+100
+00:57:48,880 --> 00:58:17,880
+I mean there are two kind of I know I mean not that type of I know what I'm just telling that if you have the file then I know for the file and I know for the directory generally I mean in most of the places only in if I have I know for the directory then I just call it is a directory I don't call directory I know okay so directory means like it's a directory I know so we are saying that each directory is a list of nodes so basically directly generally means that they're talking about the directory I know
+
+101
+00:58:19,560 --> 00:58:41,770
+So each directory is a list of nodes, which means in this iNode, you have two things for the file. So do you remember like, what did I say like in the iNode, in the directory iNode, what do you have? I mean, it depends on your file system, but generally, like I told you one of the implementation where I was saying that you are having like here.
+
+102
+00:58:42,250 --> 00:59:10,690
+like it is pointing to some data and iNode table like I mean this foo is iNode number or something like that I mean it depends on the implementation they have given some implementation so let's not worry about it you're like you should be able to understand the question that's my aim so each directory is a list of nodes where each node okay so in this directory you have left list of nodes maybe one node third no second node something like that so in each node contains the file name along with the file metadata
+
+103
+00:59:11,250 --> 00:59:41,160
+so here itself they have the file name which is let's suppose foo comma and they have the file metadata like they do not have maybe the file inode and all right they have the file metadata along with them such as the list of pointers to the data block which means it could be the list of pointers that it is pointing to maybe to the data block something like this right if it is indexed so is the question clear to everyone I mean question should be clear right
+
+104
+00:59:41,440 --> 01:00:09,680
+so here in the in the directory i note itself you are having a file and the file made it okay so you do not have file i nodes in in this particular file system they are saying it is a linear list based directly implementation file system whatever right so consider a given directory foo okay so let's suppose foo is your directory name so you can have some other name here maybe okay maybe let's suppose move okay
+
+105
+01:00:10,810 --> 01:00:39,970
+So they're saying there's a directory which is foo which of the following operation will necessarily require full scan of foo for the successful completion Okay creation of new file in the foo So if you want to create a new file then here do you need a full scan that what are what are the files that you have here? Maybe like F1 F maybe like Whatever the file name. So let me have
+
+106
+01:00:43,310 --> 01:01:12,790
+can you suggest many file name maybe okay let's suppose file one file two okay something like this so if you want to create a new file let's suppose maybe my file then do you need to scan all of the all of those names then i think you need to scan all of those names because the the name you don't want the duplicate name right i mean in a directory there cannot be duplicate names so i think for the creation of new file you have to you have to do that right
+
+107
+01:01:14,890 --> 01:01:45,030
+I mean you have to scan through all of that now deletion of an existing file put the deletion I don't think for the deletion if you just get that file name somehow maybe if you are getting the file directly then for the deletion you do not need full scan put the renaming yes you need because maybe duplicates to ever the duplicates and for the opening also you do not need right for the renaming and the creation you need so the answer is a, c
+
+108
+01:01:52,220 --> 01:02:23,650
+Each file in a directory is uniquely referenced by its name. So directly filename should be different. Yeah, in a directory anyway, like filename should be different, right? Okay, so let's go to this question. In a particular Unix OS, each data block size is this and what is the maximum file size they're asking? I think you can calculate this maximum file size using direct and direct, right? Approximately they're asking, maybe you can ignore direct pointers. Okay, I mean, once you get the whole idea, I mean, once you get the whole summation,
+
+109
+01:02:23,950 --> 01:02:57,670
+then you just approach that to be the nearest gbo or mb so approach to gb is the answer yeah so now let's go to this question okay this is a recent question and this is some good question so let's just see this question what they're saying consider two file systems a and b that uses continuous allocation and linked allocation so there are two different file system one is a right so one file system is a another file system is b one is using linked and another one is using
+
+110
+01:02:57,900 --> 01:03:33,500
+the contiguous file system okay now a file of size 100 blocks is already stored in a and b so you are having 100 blocks file size right and that is already is in a and in b also so these are the 100 blocks let's suppose so which means like this file is stored in a also in b also so here let's suppose this is stored in a this is stored in b now what they're asking is that
+
+111
+01:03:35,350 --> 01:04:06,990
+Now consider inserting a new block in the middle of the file Okay, you want to insert a new block in the Between the 50 and 51th block suppose you want to insert a new block here. Let's suppose it is 50 block Okay, and this is 51th block now if it is a is Contiguous right age contiguous Okay, let's just see what they assume that there are enough free blocks at the end of the file. So here there are enough free blocks and
+
+112
+01:04:07,990 --> 01:04:35,650
+The file control blocks are already in the memory. I mean the I nodes and the metadata basically these these are the metadata that that is already in the memory which means for the metadata you do not need to You do not need to have any I operation basically, right? I mean just to get the address of this you do not need to have any operation Maybe they're using fat or whatever they're using I mean for the country is if that is country is then you just need one point right for the For the start of that
+
+113
+01:04:35,820 --> 01:05:06,930
+right and then everything is continuous so but that pointer is already in the main memory that's what they are saying i mean to get that at us you do not need any eye operation similarly i mean if you want to if it is linked list maybe they are using the fat and yeah but yeah but that is okay so i mean they have not specified the fat so i think we cannot assume the fat for the linked list allocation
+
+114
+01:05:07,320 --> 01:05:36,170
+so let's not assume the fact otherwise they will specify the fact so this is just a plain language like implementation okay assume there are enough free blocks and the file control blocks are already in the memory let the number of disk access required to insert the block in the middle of a so if you want to insert here then you need any i o operations and if you want to insert here in the between 50 and 51 then you need n b i operations they are asking n a plus n b so the question is that
+
+115
+01:05:36,430 --> 01:06:28,700
+if you have this contiguous memory okay let's let's talk about this contiguous memory and if you want to insert if you want to insert some block here which is between 50 and 51 and this is contiguous then how many iu operations you need iu operation means iu operations mean each read is one iu each write is also one iu okay so these are different iu
+
+116
+01:06:29,130 --> 01:07:21,260
+Suppose that you want to insert here, then what you will do? You will go here, you will read these 50 blocks. Agented, you will read 50 blocks. I mean, that's how it will work. You need to read these 50 blocks. Or should I, I mean, do I really need to read these 50-50 blocks? See, like, if this is contiguous allocation and I want to insert something here, I want to insert something here. Do I have to read these blocks?
+
+117
+01:07:21,790 --> 01:07:56,050
+Or I can directly calculate the address of this, like whatever is the address of this. So this is the 51th block. Let's suppose this is the 51th block and I have to insert something here. So I don't think that I need to have anything here, right? So I do not need to read anything here. Yeah, so you can directly calculate this and maybe you can directly go here. Yeah, I think you can directly go here and then let's just see. Then there are 50 blocks here. What do we actually need to do?
+
+118
+01:07:56,410 --> 01:08:27,320
+you need to shift these 50 blocks one block on the right right I mean then only you can insert so yes if you need to read if you need to shift these 50 blocks then each block shifting like you need to shift this block from here to here I mean from this block from here to here like that right so this you need to read and this you need to write also so for each of this block you will be needing one read and one write for each of this block you will be needing one read plus one write
+
+119
+01:08:27,560 --> 01:09:06,590
+for each of this block right so which means you need two operations operations for later 50 blocks two operations for two operations each for later 50 blocks basically is this killer to everyone see you do not need to read or write anything to these blocks i mean you do not care about these blocks you go directly here you want to shift all of these blocks one right
+
+120
+01:09:06,820 --> 01:09:37,220
+so you will shift that here so you will be reading it and writing to this location right obviously this location you can calculate easily i mean these are the 50 blocks you can easily calculate you will be reading this you will be writing to this location so you will be reading and writing each of the blocks so you need two operations for these later 50 blocks i mean two operations each for later 50 blocks which means 100 operations you will be needing now it is just for sifting now you need to insert one here so how many operations you will be needing
+
+121
+01:09:37,640 --> 01:10:08,740
+just to write one block you will be needing one write operation total 101 right so basically for NA you will be needing 101 operations you're getting my point how I'm getting 101 because for these 50 you do not need to any you do not need to do anything and if you want to shift all of this you need to read it you need to write it you need to read it write it read it write it so that is why you need 100 operations and one more operation to write the final block right
+
+122
+01:10:09,100 --> 01:10:58,990
+so that's how you will be needing 101 now let's go to nv where the linked list allocation is there okay suppose suppose this is your 50th block this is your 51th block if you want to insert something here then how many operations you need you have just a pointer to this right you need to read you need to read all of this you do not need to write back but you need to read right so read 50 here
+
+123
+01:10:59,320 --> 01:11:42,770
+you do not need to write right so you just need to read 50 blocks here okay and then finally you get the address then plus one write right finally I mean you will be you will be reading and then finally once you get the address yeah so yeah this is little interesting so once you get the address what you will do to that address I mean once you get this address you have to modify this address right you have to modify this address so 50 read everyone agree 50 read
+
+124
+01:11:43,060 --> 01:12:15,350
+but for the last block for this block for this block you need one write also i mean you need to write you need to modify something here right you need to modify this address i mean you need to modify that to a different block and then that will be pointing here right so you need to modify this so you can say that for this block i mean uh i hope you are getting right 50 reads but one extra write right one write two four fiftieth block
+
+125
+01:12:15,840 --> 01:12:44,190
+because you need to modify this address and then if you want to insert something like once you modify that address right wherever that that block is let's suppose let's suppose that a particular block physically exists somewhere else right the physically that you want to insert that that I just somewhere else I mean physically it can exist anywhere so whatever is the address of that you will actually have that address here so that right is okay now this this address
+
+126
+01:12:45,400 --> 01:13:26,640
+Has to be also modified right this address has to be also modified. So there is one more right to this right one right to this Right One right to this and then you will modify that to this address now How you will be getting this at us that is already there because you have already read it right you can save that in the main memory I mean once you read this pointer you save that in the main memory you You write you write the address of this and then you write back here and then you can easily write I mean
+
+127
+01:13:29,080 --> 01:14:01,500
+Okay for to write here. Can you you have to first read it right? I mean one read it. I need one read also here one day Because you have to first fetch it and then write here and then I mean fetch it and then write and then I mean you have to read it and then only you can write right? I mean without reading how you can write so I think we need 50 plus two up plus three operations 53 operations right and
+
+128
+01:14:01,790 --> 01:14:57,410
+100 operations how many 101 is this answer correct what was the gate answer okay they are saying 52 operations you need this is the 50th block 52 operations let me just check here you just need 52 operations you need to write that you have to read it and you will be writing the address of this yeah this is 51 and for this one this one how many you need you need one read
+
+129
+01:14:57,870 --> 01:15:43,510
+you need to read it right okay um yeah sorry uh the read is not there can anyone tell me why this read is not there see physically this wherever i mean wherever you want to write you you're writing the data i mean there is nothing there is some garbage here right already the adjusting is some garbage you're not going to read that garbage i mean what you will do you have the main memory you have the main memory here
+
+130
+01:15:43,800 --> 01:16:14,580
+From this main memory, there is some data, right? And you want to write that to this block. So there is only one write operation. You don't want to read anything from here. You're getting my point? You will just write your data from the main memory to this block. You don't want to read anything. This is just garbage. This is just empty. I mean, garbage means this is an empty block. So what you will read from here. So you have some data with you. You will be just directly dumping that data in the disk. So there's only one write operation. So there will no read here.
+
+131
+01:16:15,080 --> 01:16:49,890
+So that is why the total operations you will be needing is 52. Should I explain this again? Let me quickly explain this again. So it is a linked allocation. Now let's just check how many read and write you need to insert in this linked list. Suppose this is the 50th block, this is the 51th block. And there is some block, physically that block is here. It could be anywhere but let's suppose physically it is here.
+
+132
+01:16:50,960 --> 01:17:24,640
+now obviously you need to read these 50 blocks to just read this address I mean you want to modify this address but there is no nothing you can do you need to read these 50 blocks so 50 blocks read you need and then you want to modify this so whatever like address you from wherever you want to store your new data let's suppose this is the block address you want to modify this so for here you want to have one write operation and your data is in the main memory obviously and then
+
+133
+01:17:24,940 --> 01:17:54,910
+i mean you can store this pointer this pointer whatever like 51th pointer in the main memory then you will write that in the in this directly you will dump that right with along with your data whatever data you want to write and whatever you just read what you just read this particular pointer in the main memory just save that in some register somewhere right and then you will just write that so there is only one right right to new block one right to fiftieth block
+
+134
+01:17:56,860 --> 01:18:33,360
+So these many read write operations you will be needing which is 52 I operations. Okay. Yeah. And here in the country is you do not need to read them. You, you have to read all of these 50s and write there. Right. I mean, you will fetch it in the main memory. You will write there. I mean, that's how you will do. Okay. Is this okay to everyone? So let's do one thing. Let's solve one more big question. Okay. I mean, big question of the same type.
+
+135
+01:18:35,130 --> 01:19:02,490
+I do have one big question which means like that this question I have taken from some university so this question is of similar type so where they are saying that there's a file that currently consisting 100 blocks assume that file control block and the index block and then case of index allocation okay so either they call it file control block i mean the metadata whatever right either they call it file control block or index block or whatever it's already in the main memory
+
+136
+01:19:03,050 --> 01:19:25,140
+Now calculate how many IE operations are required for the contiguous, linked and indexed single level only, allocation strategies. So currently we have just solved for the contiguous and linked that too just for the insertion in the middle. Now they have all of these three contiguous linked and indexed and not just insertion in the middle.
+
+137
+01:19:25,730 --> 01:19:54,340
+insertion at the end, removal from the beginning, removal from the middle, removal from the end. So this covers all of your variations that you have. All of these three types, all of possible operations that you have. Now let's just check how many IO operations I will be needing in each case. So they are saying that how many, this is 100 blocks that you have, then how many IO operations you need. So I think for the
+
+138
+01:19:55,160 --> 01:20:33,390
+these are the 100 blocks so this is adding in middle right adding in middle so this is what we have just solved and for the contiguous I think I was I was needing 101 here for the linked I was needing 52 but let's just fill all of these entries is this question clear to everyone okay so do you want to try this as in homework or should we try here okay let's just do one thing
+
+139
+01:20:34,090 --> 01:20:42,830
+You are like, I have the solution on the next page. Okay. I have the complete solution on the next page. So there are f like, I mean, in each, like there are f possibilities.
+
+140
+01:20:43,370 --> 01:21:10,750
+like one two three four five six six possibilities and in each possibility there are three type of things right so in each possibility there are three type of things in each possibility there are three type of things so i i do have the solution for all of this so what you can do you can just go through the solution if there is any problem but just try to do this question by yourself okay just spend one hour probably and then you will get to understand each of this like how are you is happening actually okay so since solution is there so i will suggest that you can do it okay
+
+141
+01:21:10,970 --> 01:21:42,200
+so since there is all of the possible variations it will be a good exercise so just do as an homework if there is any doubt you can let me know later okay now let's solve this question suppose a file system can have three disk allocation strategies contiguous a linked index we have just read the information from the file from we have just read the information for a file from its parent directory okay
+
+142
+01:21:42,480 --> 01:22:11,760
+so i mean the metadata i think is already in the main memory that's what they want to say they have just read the information for a file from his parent directory for a contiguous and linked allocation this gives the address of the first block okay so in the in the directory in the parent directory okay let's suppose it is a directory here let's suppose i'm talking about the contiguous now here in the directory they are saying that you have the information
+
+143
+01:22:12,180 --> 01:22:45,060
+that gives the address of the first block for every file you have something like this like address of the first block foo first block address where where is the first block in the country yes first block address and maybe the length right and for the continuous give the address of the first block and for the index it gives the address of the index block okay so what they are saying is that the way we are implementing the file system is something like this see
+
+144
+01:22:45,340 --> 01:23:19,140
+in case of direct in case of contiguous and linked okay this is your i node of the directory or maybe just directly let me just call it directory so i mean directly means directory i node only okay so if you read galvin they they are for the directory they are just saying the directory they are not saying directory i node i mean but that is okay right so here in this suppose if it is contiguous or linked then they are saying that in this case this directory has this thing
+
+145
+01:23:19,340 --> 01:24:07,630
+for every file they are maintaining in this iNode, they are directly maintaining the pointer to first block. That's how the file system is implemented. For continuous, we have just read the information taken. For contiguous and linked, this gives the address of the first block and for the index, this gives the address of the index block. So this is for contiguous and linked, but suppose if it is indexed, so suppose if it is indexed, then what do I have here, pointer to iNode.
+
+146
+01:24:07,950 --> 01:24:53,900
+right index block basically they are saying I mean that's how they have implemented the file system okay address of the index block now suppose like here if I want to get the get the data then what I will do this this is a pointer to inode maybe maybe I will say that okay this is the first block or like that I write I mean the inode will tell me that where are the data blocks okay now we want to read the 10th data block into into the memory 10th data block we want to read in the memory how many disk blocks
+
+147
+01:24:54,220 --> 01:25:34,530
+do we have to read for each of the allocation strategy so we want the 10th data block to read so how many disc block we want to read we have to read suppose here if i if i want to read the 10th data block suppose it is contiguous right suppose if it is contiguous then to read the 10th data block what you will be doing you will be going to the first data block and then maybe yeah so can you tell me for the contiguous
+
+148
+01:25:34,920 --> 01:26:13,880
+if you want to one two three four let's suppose this is a tenth data block if you want to read this tenth data block then how much uh read you need to perform if you just want to read this you have pointed to this you have address of this what you will do will you go through all of this no in case of country yes why you will go through all of this you are given the address of this you can easily immediately you can calculate the address of this right calculate address directly
+
+149
+01:26:17,290 --> 01:27:00,530
+So since you can do it, so how many read you can do if you want to read 10th data block only one read I mean just the just the 10th data block read, right? So how many read you need to do in this case in case of contiguous? That is the case then just one one read one block read, right? Just one one is the answer Now suppose that is linked allocation. Okay. So the same story, but here I do have the link allocation. So now let's just see So I do have a pointer to this
+
+150
+01:27:01,020 --> 01:27:19,800
+And I want to reach to the 10th data block. By the way, just for a minute, this question that we have just solved, this question for 2022 question.
+
+151
+01:27:20,270 --> 01:27:48,950
+In this question, they are asking this NA and NB like we have solved it nicely. I mean what is IO operation and one read one write I mean like that. So what if you want what you can do like I'm not sure how how does this question look like if you like anytime if you if you feel like that okay you can add something to the answer then always try to comment on the get off right or maybe you can put your own answer like like I mean if you understood very well and if you think that you can you can explain in better way then try to contribute on the get off.
+
+152
+01:27:49,280 --> 01:28:27,830
+I mean it will just boost up your confidence okay so here if you want to go to the tenth data block then maybe you cannot calculate this address directly then you have to read all of this nine and plus one ten right so you have to read the ten ten reads so here you need to ten you need to read ten blocks but suppose if it is indexed then how they have implemented the index do you have pointed the first block directly or pointed to iNode you have right iNode block
+
+153
+01:28:28,280 --> 01:29:02,220
+you have pointer to iNode basically which means you will be accessing one block for the iNode like where is the iNode is stored you will be accessing that block and then from that iNode only you will get to know they are they are only having the direct pointers so you will get to know okay where is the 10th block 10th block maybe this is the first block pointer this is the second block pointer they are direct pointers then you will get to know okay well third block pointer fourth block pointer and maybe this is the 10th block pointer right so you have to read
+
+154
+01:29:03,280 --> 01:29:46,120
+this I node block from there, can you calculate this pointer? I think we can easily calculate this pointer easily and then you have to read the 10th block. So how many blocks you need to read? So number of blocks to read 10th block is 1 plus 1, 1 is for I node. So the way they have implemented like this, so we need two blocks. So that is all they're asking me, I think.
+
+155
+01:29:47,130 --> 01:30:15,250
+that question is from Barkley University which is one of the top university okay this question I have given as an homework right this question is quite a good question you just try it as a number and there are various possibilities just try it out okay so now let's just move to a new topic which is very small topic but yeah
+
+156
+01:30:16,250 --> 01:30:44,210
+So anyway, like just a minute, there is one topic that is called virtual file system. So if you see in the, in, in some hard disk or in some, you know, I mean, in most of the operating system, they do have different file system. I mean, they will suggest you whether this is NTFS format or whatever, FAT format or whatever, right? So basically there is something called virtual file system and one operating system using this virtual file system, one operating system.
+
+157
+01:30:45,550 --> 01:31:22,940
+can support multiple file systems okay and how it can be done it can be done using virtual file system anyway this is not forget what I'm just telling you yeah so now there are basically there are basically different type of file systems one is HFS, FAT, NPFS that Windows is using, HFS that Mac is using or like that so now let's quickly see that what the I mean I have the paragraphs here but let's just quickly see that what these paragraphs are saying okay
+
+158
+01:31:23,070 --> 01:31:52,370
+So there are numerous file systems in use for example FAT32 and TFS are windows and HFS is using Mac Linux uses this EXT2, EXT3 and like whatever right UNIX systems uses this UNIX file system EXT2 and something like that so there are many many different type of file systems I mean earlier I think this was just FAT then they have announced it to FAT16 then FAT32 like that right so there are different versions of this FAT and now currently there is
+
+159
+01:31:52,370 --> 01:32:16,310
+using FUT32 I think. So there are different different file system that these operating systems are using. As such the file system is highly operating system dependent. In most case you don't generally have a choice between different file systems. However in some operating system you do and that is done by using virtual file system. If you are having choice then it is done by using virtual file system. And there can be performance impact from the choice.
+
+160
+01:32:16,580 --> 01:32:41,500
+okay so windows ntn 2000 typically give you your choice of the file system okay windows ntn 2000 gives you that um uh file system choice like if you want to use the fat fat 16 fat 32 or maybe ntn something like that right okay so if you want you can read these paragraphs or maybe let me quickly go through them so hfs hfs is one file system that is developed by apple okay and that that is running in mac os
+
+161
+01:32:41,840 --> 01:32:52,560
+two main variants of hfs exists macOS standard hfs and hsf plus and that's all right i mean that's all we need to know so basically they're different type of file systems okay it depends on how you're implementing
+
+162
+01:32:53,120 --> 01:33:21,240
+and now the file allocation table is one file system file allocation table is a brief for FAT is a brief for file allocation table which dates back to the beginning of DOS programming the file allocation table FAT file system was primarily file system in Microsoft older older system as I told you so these are the you know some description if you want you can read them out NTFS latest technology that Microsoft is using Microsoft is using this NTFS new technology file system
+
+163
+01:33:21,620 --> 01:33:50,950
+and there's a paragraph for NTFS. Yeah, that is all. So if you want, you can just read out these two, three paragraphs. Okay. We do not need to obviously go to the detail of this file system, but all I want to tell you that it depends on the implementation, how you're implementing your file system. Okay. Now, let's just see one last topic, which is that how to manage the free space in your files, I mean, in your disk. So, like, whatever the file system you're using, maybe using inode, I mean, index allocation.
+
+164
+01:33:51,650 --> 01:34:04,520
+may be using indexed may be using contiguous may be using linked list you will be having a free space
+
+165
+01:34:04,890 --> 01:34:35,520
+right in the end depths like like you can you can allocate any block from anywhere so basically there will be free blocks here and there right in the contiguous obviously like there will be free blocks free blocks of chunks like suppose this is your disc and you are allocating maybe these two blocks and then maybe this block and then maybe this block so these are the two free blocks that you have so in the contiguous also there are free blocks here and there similarly in the linked list also there are free blocks here and there so there are there are free space here and there right so there is there are free blocks basically
+
+166
+01:34:41,610 --> 01:35:04,910
+and we need to keep track of those three blocks then only we can assign assign them to a data so find the block to use when when we need it is very important so find space quickly this is our primary requirement like I mean however in whatever way we want to we want to keep track of these three blocks now the way should be that if I if I need some free block I should be getting it very quickly
+
+167
+01:35:05,130 --> 01:35:38,990
+Find space very quickly. Keep storage reasonable. I mean, I should not be taking too much of space just to keep track of the free block. You're getting my point? So whatever are the free blocks in the disk, whatever implementation you are using, let's suppose these are the free blocks. This is a free block. Let's suppose this is a free block. This is a free block. So the first criteria is that I should get these free blocks quickly.
+
+168
+01:35:42,710 --> 01:36:31,880
+This is my first criteria. Second one is that I should not waste too much of space to store the information of the free block. So these are my two criteria. Now let's just see how to keep track of this free block. So there are couple of options. One is bit vector, link list, grouping, counting, like that. So let's just see what each of these options is. So one is bit vector. It says that what you do, you just maintain one vector of size n.
+
+169
+01:36:32,280 --> 01:37:02,350
+and each bit here is telling you that if block 0 is free or not if bit i is 0 then block i is free if bit i is 1 then block i is occupied so suppose if this is your disk and that is having let's suppose 10 blocks 1 2 3 4 5 6 7 8 9 10 let's suppose it is having 10 blocks 0 1 2 3 4 5 6 7 8 9 now suppose this is occupied this is occupied
+
+170
+01:37:02,850 --> 01:37:33,700
+and this is occupied so what is your your bit vector your bit vector will be one zero zero one one two three four zeros one two three four zeros and then one and then it will be zero right this is how your bit vector look like is this okay to everyone so i mean bit vector is very easy i mean to implement basically now let's just see that how much space it is taking and is it easy to get the free block directly
+
+171
+01:37:33,990 --> 01:38:13,850
+so what do you think if i want to get the free block is this is this easy to get the free block let's just check so bitvector downside is that it is taking space too much of a space how let's suppose the block size is this this size this then there will be these many blocks these are the number of blocks number of blocks right and then uh these many bits you will be wasting so basically you will be wasting 32 kilobytes 32 kb right
+
+172
+01:38:14,150 --> 01:38:36,220
+and one block size is 2 power uh to 4 kb right so this is the 4 kb so basically you are wasting eight blocks eight blocks four bitmap also it is not very convenient to directly get i mean
+
+173
+01:38:36,460 --> 01:39:05,000
+if i want to check that whether this eighth block is you know is occupied or free then i can check yes i mean i can directly maybe go to the eighth bit somehow right and i can i can directly check but if i want to get all the free blocks then i think i need to do some some operation maybe some sequential operation i need to keep keep keep checking that okay if it is a free or occupied something like that right then getting the free block is also not very convenient here it is just a very naive idea but let's just see some other ideas okay
+
+174
+01:39:05,390 --> 01:39:31,470
+So this free space uh free space linked list is very very very popular. So what we do we basically let's suppose these are the free blocks that I have so I will point to this and this since it is a free block it can like there's there's no problem if I'm holding some pointer here right I mean anyway it is a free block so I'm holding some pointer I don't care I mean I will not count this as a data data space so let's suppose a total space of a hard disk is 500 GB.
+
+175
+01:39:31,870 --> 01:40:00,970
+and the free list is taking let's suppose 10 GB suppose it is taking 10 GB will I be saying that I am taking 500 minus I do have only 500 minus 10 GB 490 GB to store no right I can store in the free block so free block is just holding the data that I do not count if I if I want to store something here I can store that here and now free list is pointing here right so it's not like I want to I have to reserve that data so the free like if it is a free block it can easily hold somewhere some pointers so it's not a problem to me
+
+176
+01:40:01,100 --> 01:40:28,260
+like space is not a problem to me you're getting my point so like it won't it will not take any space like much space i mean it will just take maybe one pointer or the head pointer right it will that these pointers are not taking any space as of like i can say that these pointers are not taking any space okay so that's why it is a very popular scheme so what we will do we will have a linked list of the free uh free blocks right
+
+177
+01:40:29,020 --> 01:40:55,980
+Now, if I want to allocate, let's suppose 10 blocks, then I can allocate from this link list. I can allocate the 10 blocks and this free list will be directly pointing to the 11th block. Something like this. So let's just see. Yeah, so that is about the free list. And now the third technique is called grouping. A third and fourth technique are called grouping and counting, which are basically enhancement of the optimization of this free list only.
+
+178
+01:40:56,300 --> 01:41:34,050
+Okay. I mean this is called free space link list or some people call it free list. Now there are two enhancement. One is counting. Another one is grouping. Okay. Two variations of this. Let's just see those. So group grouping says that store and three blocks in first three block and last entry point to the next block of the first three block. So basically this grouping is saying that let's suppose these are the three blocks and if
+
+179
+01:41:34,430 --> 01:42:03,510
+let's suppose these are the free blocks here and there if this is pointing to this this is pointing to this this is pointing to this so since i have to go sequentially like if i want to get three blocks i have to go here go here go here instead of that what you do okay i mean the current idea in the you know live version or maybe the just a free list the current idea is that i do have free blocks here and there right so suppose there are free blocks here and there
+
+180
+01:42:03,650 --> 01:42:32,120
+this is one free block this is one free block one free block one free block something like this right these are the free blocks here and there suppose so what i do i basically have a pointer from here to here maybe right and then maybe it is pointing to this it is pointing to this it is pointing to this i i do have currently this is this okay everyone now the grouping is saying that what you do you basically group
+
+181
+01:42:32,320 --> 01:42:59,010
+maybe let's suppose three three blocks here basically you store these three pointers here only one two three so it is pointing to this one this is pointing the second one whatever this one and this is pointing to this one so basically you store your three links at together in the first live first block similarly you store the next three here i mean whatever whatever it can point to whatever it can point to like that so what is the benefit of this
+
+182
+01:42:59,260 --> 01:43:35,670
+if you want to get let's suppose if you want to get three three blocks all together then what you will do you know that okay this is pointing to these three then that's how you can directly get the three blocks just using one axis one one blocking right you do not need to go in the sequential way so basically grouping is saying that last entry point to the next block of the free block and store n free blocks in the first free block okay so like we need to store n n entries here and the last entry
+
+183
+01:43:36,040 --> 01:44:20,640
+points to the next block of a free block store any free blocks in the first free block last entry last entry or what last entry points to the next block of free block yeah maybe maybe they mean this so basically uh let's suppose that it is pointing to these three blocks maybe the last entry this one only okay this one let's suppose it is pointing to the next free block i mean here also now now you will be having grouping here okay you will be having grouping here
+
+184
+01:44:20,890 --> 01:44:49,590
+This is going to do this, this is going to do this, this is going to do this. So if you want three blocks, what you will do, you can just get three blocks. But if you want more blocks, then you can take help of this last entry. I mean, that's what they're saying. So these are like, this is not very important to understand in the sense that they will specify, like these are not very standard to say that, okay, this is a grouping. Okay, they have done the grouping. They will specify what they, what they mean by grouping. You just need to understand any, any idea in the question they will specify.
+
+185
+01:44:49,920 --> 01:45:18,460
+that what do what do they mean by their implementation okay next one is counting that specify start block and the number of pentagus free blocks so maybe maybe you can uh there's the free list right so one more variation is the counting that will say that here that specify start block and number of free blocks so here you will say that you are having let's suppose this is the counting that
+
+186
+01:45:25,480 --> 01:45:52,270
+whatever is the start block and the number of contiguous free blocks. So suppose that if you are having contiguous free blocks, generally, generally in practical sense, we do have the contiguous free blocks. So it says that, okay, instead of having that, that as a linked list, you can just see in the, in case of contiguous free blocks, what you can do, you can just say that, okay, this is the pointer. And after that, five blocks are free. Okay. Directly tell me that how many blocks are free in the contiguous fashion. Okay. So
+
+187
+01:45:52,860 --> 01:46:13,120
+this is called counting so basically i if i do have a chunks of free block let's suppose this is one chunk of free block then it will say that okay i have like i will be having a pointer to this it will say okay five five blocks are free now right and then maybe it is pointing to some other other chunk which is which will say okay 10 blocks are free from now
+
+188
+01:46:13,290 --> 01:46:44,240
+then I will go to the 10th block and then it will say okay like 11th like I mean let's suppose the eight blocks are free now so I will go to the 8th block then it will say then how many blocks are free so it is basically the counting and like I mean it is having the contiguous free blocks as just a count is this understood I think it is a good implementation like because instead of instead of having you know the free blocks these are linked why to have these as a linked if they are contiguous
+
+189
+01:46:44,730 --> 01:47:19,970
+So I think this is a good implementation. Yeah. So that is all we have. And I think we are almost, I mean, I think we are done with the operating system in the sense that we have solved, let me just tell you that what we have done. I mean, in the operating systems, with respect to the PYQs, we have solved the synchronization PYQs, right? And I think we have solved almost all multi-level paging PYQs. We have solved scheduling, many scheduling PYQs also.
+
+190
+01:47:20,280 --> 01:47:49,700
+and what else the file system we have solved and yes the like all of the theory is covered so if you have any doubt then you can ask me on the telegram or otherwise like we are going to start some revision session in maybe three four days or maybe four five days at max for the operating system where I will be solving just one or two questions daily so I will be just uploading or maybe taking one live class for 15 minutes okay
+
+191
+01:47:50,070 --> 01:48:00,670
+for 15 to 20 minutes and where I will be solving one or two questions over student daily. Okay. So thank you everyone. Thank you so much. Take care. Bye bye.
+

@@ -1,0 +1,864 @@
+1
+00:00:06,580 --> 00:00:47,000
+Hi everyone. So let's get started today with today's lecture. Okay. So today's lecture number 10 and today we are going to study a few things. One is in the error detection or that is called checksum and another things we are going to see in the flow control. Okay. So let's get started. Okay. So as you already might be knowing that we have completed parity CRC and Hemingold. Is there any problem or is there any issue with these things? Let me know.
+
+2
+00:00:48,220 --> 00:01:20,270
+parity, CRC, hamming, or everything is clear to everyone. So what I'm planning, is this a good idea to have a queue just based on these three, these error detection topics? Just a weekly quiz. I think it will be good, right? Okay. So there will be a weekly quiz just, just based on this error, error detection and error correction topics. Okay. Cool. So let's get started with checksum. So today we are going to see this small topic, which is called checksum. Now, what is this checksum?
+
+3
+00:01:20,690 --> 00:01:36,050
+Here what we do we arrange data into 16 bit 16 bits or maybe I mean it depends on the checksum basically checksum is another method just like parity CRC Heming code these kind of methods checksum is another method to
+
+4
+00:01:36,300 --> 00:02:08,480
+uh to make sure that we are conveying that if there is a there is an error then then we can we can convey at least some of the errors so for example that in parity we can if we are using single bit parity right so i think we can convey if there is a let's suppose we are we are using even parity then we can convey what kind of errors do you remember single bit error and along with that odd bit error right if there is one bit three bit like that right one bit three if we are using
+
+5
+00:02:09,020 --> 00:02:39,240
+Even parity, okay? 1 bit, 3 bit, 5 bit. Similarly, CRC also has some limitations. Similarly, Hamming also has some limitations in the sense that Hamming distance should be large enough to detect or correct some errors, right? Similarly, every of this checksum is also having some limitations. So let's just see this checksum, okay? By the way, this checksum we will again see in TCP or UDP, okay? We will again see this checksum. But for now, let me just brief about it.
+
+6
+00:02:39,980 --> 00:03:08,400
+So what we will do, we will basically divide the data into let's suppose 16 bits or two bytes. So whatever data we want to send, we will divide this data into two bytes. Okay. So suppose this is two bytes of data. I'm representing in hexadecimal. So this zero is nothing but in hexadecimal. These are four zeros. Okay. This is suppose four zeros. This is four zeros again. And this is 00001. So what is the number of bytes here in one row? These are the two bytes.
+
+7
+00:03:08,960 --> 00:03:38,190
+Right. Two bytes. Is this okay to everyone? Why? Because this is one byte, right? This is one byte. This is another byte. Okay. That is why there are two bytes. Cool. Now, uh, what we do, you can, uh, okay, you can ignore this phone now. So what we do, we add the data at whatever is the data, we add the data and then we get our checksum. So let's suppose that data, uh, data is this one. Okay. This complete thing is data.
+
+8
+00:03:38,470 --> 00:04:10,090
+then what we do we divide the data into let's suppose two bytes so let me just tell you step by step that what what we are doing we are having the data and then we will divide this data into two bytes so how so whatever is the data let's suppose I have divided this data into two bytes now this first row is two bytes second row is also two bytes third row is also two bytes and so on this is two bytes now the second step is that I will add add all of this data
+
+9
+00:04:10,300 --> 00:04:39,460
+Okay, this, this is the data that I have. Now, if I want to calculate, let's suppose if I want to calculate CRC, then what we do? I think, I think we append three zeros, I mean, depending on the generator length and we append number of zeros and then we divide with the generator. That's how we basically calculate the CRC. And in checksum, what we do, we basically add all of this. If you add all of this, then I think you will be getting something like this. Okay. So if you add all of this, you will be getting something like this, which is
+
+10
+00:04:39,730 --> 00:05:17,320
+coming out to be this number which is 2DDF1. So this is the number that is coming out of the addition. Now you tell me how many bytes are here or bits are here? These are the 16 bits and these are the extra bits. Some extra bits. I mean apart from 16 bits. Is this okay to everyone? Something extra other than 16 bits. So what we do
+
+11
+00:05:17,550 --> 00:05:50,870
+We take this and then we add it again because ultimately what we want, we want in 16 bits. So what we will be doing, we will taking this carry, this is basically called carry. Okay. We will be taking this carry and we'll be adding this again into this desired number, which is this one. Okay. So this is our sum. Now what we do, whatever the sum we get, we are again taking the carry. We are again, again taking the carry and then we add that carry to the
+
+12
+00:05:51,740 --> 00:06:17,910
+to the sum that we have got so don't worry we will take another example but for now just see that we are adding the data whatever we are getting we are again adding the carry here and that is called sum that is the sum that we are getting okay now this is not the checksum this is just a sum okay we will see that what is the checksum but for now this is okay to everyone if you want to get the checksum then what you do you just compliment this again okay so
+
+13
+00:06:18,280 --> 00:06:48,960
+If you compliment this particular thing, I mean take the ones compliment just like a flipping the bits from 0 to 1 or 1 to 0. Okay. This is the sum that you have got. And if you compliment it, then then you will be getting the checksum. So this is called checksum. Let me tell you step by step that what is happening. See, the very first step is that we have the data. We divided the data into 16 bit words. And then we are adding all of this. Then this is something what we got. Then what we will say
+
+14
+00:06:49,190 --> 00:07:18,040
+that we are again adding back that i mean whatever the carry that we have got we are so step two you can say step two i think which is already written okay so let me write here that have wrapped up let me just call it wrapped up sum okay which means that summing up the carry and then this is what sum you got and then in step three what you got you just complement the sum then you you will be getting the checksum
+
+15
+00:07:19,550 --> 00:07:49,990
+anyone knows that what kind of sum I mean have you ever done this kind of carry wrapped up some anyone anyone has ever done this carry wrapped up some yes that is in the once compliment edition so in checksum we follow once compliment edition okay so for example if you don't know once compliment I can quickly recap you that what is a once compliment I mean how do we add in once compliment and what is a once compliment so for example this minus five
+
+16
+00:07:50,280 --> 00:08:22,990
+can be represented in once complement as this one why okay so maybe I can just give you the example have you seen the once complement video in digital logic once complement addition okay so that kind of addition we are doing here so for example if you have five okay and let's suppose this is plus five and this is suppose
+
+17
+00:08:23,390 --> 00:08:49,360
+uh debuxer has taken the example of plus five and plus four i think right so let me just take the same example and then if you add that then you will be getting plus nine right now what we can do we can do this arithmetic in the ones complement uh ones complement representation basically this plus five will be 101 let's suppose i'm using five bits then it will be something like this plus four will be 00110
+
+18
+00:08:49,810 --> 00:09:11,350
+right this is the plus five in one's complement even in normal binary also right this is the plus four in okay satyam is saying that u2 was debuxer's lectures no i haven't watched like i just asked him whether you have taken whether you have taught this particular concept because i mean if some concept is interrelated then we generally ask to each other that whether you have taught
+
+19
+00:09:11,570 --> 00:09:48,710
+then he just sent me one screenshot that yes, is this what you're looking for? So that screenshot was containing this plus five plus for example. So that's how I remember that he has taken the same example. Anyway, so if you have plus five and plus four, then what you can do, you can, if you add this, this is the representation of plus five in one's compliment, right? Representation of plus five in one's compliment. Okay. And now if you add this,
+
+20
+00:09:48,970 --> 00:10:25,190
+then it will be 11010 right so in once compliment can you tell me what is this number in once compliment in once compliment since it is positive actually doesn't matter it is once compliment or two is compliment or just binary it is positive right so I think it should be okay it is coming out to plus 11 why sorry this is okay this is zero this is zero the four representation is this
+
+21
+00:10:25,520 --> 00:10:54,960
+So that is why I think this should be zero. Okay, so this should be plus nine, right? So it doesn't matter whether it is once complement to its complement because because least more significant bit is zero. So in once complement, this is this is plus nine, right? Anyway, if you have not seen those once complement videos, don't worry about it at all, because that's not required for us. Okay, I just wanted to tell you that that what is the once complement addition, even though if you don't know, don't worry about it.
+
+22
+00:10:55,190 --> 00:11:24,990
+okay anyway like if you know it is beneficial for checksum because checksum computation is done in once complement do you remember the CRC mathematics it is done in it is it is done in modulo to arithmetic right modulo to arithmetic do you remember that okay now this is how once complement is working if you if you have plus five plus four then then that's how we do now suppose let me quickly take the example where it is let's suppose minus four
+
+23
+00:11:25,210 --> 00:11:55,160
+and then you will get to understand that what is a wrapped up sum okay so okay if it is minus four then can you tell me can you tell me what is the representation of minus four in one's complement can anyone tell me four is four is one zero zero i mean uh in five bits there's a four minus four will be i think one one zero one one right one one zero one one is this okay everyone minus four in one's complement is one one zero one one so it is one one zero one one so it will be zero
+
+24
+00:11:55,490 --> 00:12:13,600
+it will be again 0 it will be again 0 again 0 again 0 I think sorry yeah so 0 0 and then 1 is carry then again 0 then 1 is carry then again 0 then 1 is carry then again 0 and 1 is carry right so this is how we are getting right now
+
+25
+00:12:14,000 --> 00:12:42,000
+uh now let's just see step by step what is happening here this is representation of minus 4 in one's complement this is representation of plus 5 in one's complement and then when you add both of this you should be expecting minus 1 so basically in one's complement see this is nothing related to checksum in one's complement what we do we basically have the wrapped up sum right this is the property of one's complement addition so if you if you add this again then you will be getting 1 and followed by
+
+26
+00:12:42,250 --> 00:13:14,630
+one two three four zeroes right now you tell me what is this uh sorry this is plus one now you tell me what is this number this is plus one in once compliment okay so basically in once compliment itself we do this this is nothing related to checksum as as of uh i mean uh as per our discussion basically there is uh checksum which is something uh something just one step after it so in checksum what we do whatever we get after once compliment we just complimented one more time
+
+27
+00:13:14,810 --> 00:13:44,890
+That's all in that's all what we do in Jackson. Anyway, so is this understood to everyone that we have the wrapped up some in once compliment as you can verify that this is plus one and after wrapped up wrapped up some also we are getting plus one. Okay. Cool. So that's how once compliment is working. Should I take more examples to tell you what like how once compliment work maybe minus five plus four something like that. If you've seen the digital video, then I think that's it. That is fine. Or should I be taking more example? Maybe I think
+
+28
+00:13:45,220 --> 00:14:17,450
+I can quickly take minus five here. Okay. If you want to, then what is the answer that you are expecting? You must be expecting minus nine. Let's just see that what is the representation of minus five in one's compliment? Can anyone tell me in five bit, what is the representation of minus five in one's compliment? I think minus four is this in five bit. This is in five bit. Just tell me. So five is basically zero, zero, one, zero, one. So it should be one, one.
+
+29
+00:14:17,670 --> 00:14:45,280
+one one zero one zero right it should be one one zero one zero okay this is minus five this is minus four okay now what you can do you can just add both of this this will be one this will be one this will be zero this will be one this will be zero and then this is triple one right so one one one basically right this will be one one okay now can you just have the wrapped up some can you just add it here if you add it here it will be
+
+30
+00:14:45,640 --> 00:15:14,640
+Can you tell me the final answer? It will be 0. It will be 1, 1, 0, 1. Now, this number in once compliment is basically negative number. That's why you do the once compliment. I mean, minus of, minus of which number it is. So if you remember from once compliment, that is okay. Otherwise, what we do, we see the most significant bit if it is negative. Then this is negative number and negative of what you need to take the once compliment of it, right? Which is 0, 1, 0, 0, 1.
+
+31
+00:15:14,890 --> 00:15:42,900
+So this is I think nine. So this is negative of nine, right? Okay. Anyway, in the decimal, that's how you convert to decimal. So now you know that, uh, how the once compliment is working. Basically, I just wanted to tell you, uh, this particular slide that in once compliment, you do the wrapped up some, there is nothing. I mean, this is not related to checks. This is just a property of once compliment. Okay. Now in checks on what we do, anyone remember? Can you tell me the checks some of these two numbers?
+
+32
+00:15:44,680 --> 00:16:15,980
+If you have got this, then in checksum, what is the answer? What is the checksum? Checksum is just one's complement of this. Okay. Final answer. I mean, whatever the sum you are getting, you just complimented. That's the checksum. So it will be four times one and two. That's the checksum, right? This is checksum. Okay. Okay. So now, uh, this is checksum and this is the data, right? Cool. Now this.
+
+33
+00:16:16,790 --> 00:16:39,580
+checksum and some checksum and some if you if you add again let's suppose for fun only you're adding checksum and some then what is the answer all ones right if you add checksum and some I mean we will see that why we are adding or not but for now is this is this okay like even for fun if we add checksum and some it seems that all all one will be the answer and that is very obvious also why why that is obvious because
+
+34
+00:16:39,930 --> 00:17:05,410
+that's how you got this checksum that is how you got this checksum right if you add this checksum and some you will be getting all ones right anyway we will see that don't worry so let's just see more examples here suppose that this was my data okay i'm adding all of this data in the once complement right i mean don't worry about the once complement and these things anymore because data is data is anyway in binary
+
+35
+00:17:05,660 --> 00:17:24,580
+I mean, you don't have the decimal and then you don't need to convert that to binary for our purpose. I mean, for our computer networking purpose, you don't need to do all of this, right? I mean, data is already in binary from network layer. We are getting the data in binary. We are not getting the data in decimal. I mean, that is the very upper layer. I mean, whenever we store the data.
+
+36
+00:17:24,880 --> 00:17:51,960
+if that I mean whatever way we have stored that is fine I mean we we don't need to convert the decimal to binary at the at the data link layer that's already in binary okay so I mean you don't worry about that how to convert the decimal to binary for our purpose I mean you don't worry about the once complement and all I just motivated the idea that okay in once complement we do the wrapped up some here also we do the wrapped up some if there is a carry that's all I wanted to say anyway
+
+37
+00:17:52,240 --> 00:18:26,250
+So now if you add all of this, this is the sum and if you compliment this sum, this will be the checksum. Now suppose in this example, this was the data which I'm representing in hexadecimal. If this is the sum, then then you see if if this is the sum, then first you have the wrapped up sum, which means you first add this. Now this is the final sum, which I'm calling as wrapped up sum. Is this the answer for your checksum? Tell me. No, currently, no, right.
+
+38
+00:18:26,480 --> 00:19:00,830
+So basically this is just a wrapped up sum. I mean, this is not the checksum. For the checksum, what you do for the checksum, you basically have the compliment of it, right? That's all. So basically what we are doing, we are finding the sum. If there's a carry edit, okay. If there's a carry edit, that's what we are calling wrapped up sum. And then we do the ones compliment of it. That is called checksum. Okay. Cool. That is, that is there in the, in the checksum. Now you tell me, now you tell me.
+
+39
+00:19:01,050 --> 00:19:30,840
+at the receiver side I mean at the center side I hope you understood what we are doing we are breaking the data let's suppose this is the data we are breaking it into into the parts then we are having some some that we are complimenting let me just call data one I mean data one data two just because we are dividing the data into parts right data three and this is some
+
+40
+00:19:31,400 --> 00:20:19,990
+or wrapped up some let me finally call it this is let's suppose wrapped up okay then we compliment it and what we got is called checksum at the receiver side what you think we might can do to check whether this checksum is correct or not yes so at the receiver side what we what we will be doing we will be adding all of the data along with the checksum see this is the sum that you have got right now this is wrapped up some or some
+
+41
+00:20:20,140 --> 00:20:48,590
+So basically, this is the sum that you have got. Now you took the ones complimented. This is the checksum that you've got. Now, what do you think if you add this data and the checksum together, what you will be getting? You will be getting all ones, right? Because because this sum is nothing but wrapped up some. Okay. I mean, at the receiver side, also you do the wrapped up some less not worry about the wrap up and all. Okay. At the receiver side, also you do the wrap up some. So basically, basically, if you do the wrap up some at the receiver side, you will be getting.
+
+42
+00:20:49,020 --> 00:21:28,730
+all once so receiver will do one thing have wrapped up some of data and checksum right so whatever we get it should be all once right it should be all once if it is not all once if it is all once basically then receiver will say no error if yes then no error otherwise receiver will say error if this is no basically which means
+
+43
+00:21:29,050 --> 00:22:23,350
+Receiver will check if all ones are there, right? So receiver compute, compute sum of data and what we call checksum, data and checksum. If receiver get all the ones, now there are two possibilities, okay? If receiver get all ones, then receiver say, what does receiver say? No error, right?
+
+44
+00:22:30,270 --> 00:23:02,070
+Otherwise, receivers say error. Okay. Suppose, like, I mean, suppose in reality, I mean, if you, if you, if you do all this summit, the receiver said, and you are getting all ones in reality, is this no error? In reality, is this no error? If you're getting all ones? See, this is what receiver says. But in reality, it could be error also, right? The way we have seen in CRC.
+
+45
+00:23:02,320 --> 00:23:31,780
+I mean receiver is saying there is no error because uh because receiver is saying based on what based on the if you remember the very first slide that we have seen basically this is the data bits and then whatever checksum or anything we are appending some of the bits which we call uh parity bits right now basically if you remember that this is r right we called it this is f of d another function of d right this is what sender is sending now receiver will do what receiver will be computing
+
+46
+00:23:32,210 --> 00:24:09,910
+function again if this function and this r is basically same right then receiver will say that okay no error but it doesn't mean there is no error which means just like crc if if things are matching which means i say that if sum of everything everything at receiver side is all ones at receiver side is all ones then there may
+
+47
+00:24:10,410 --> 00:25:14,620
+or may not be a right okay if sum of everything at receiver side is is not all ones then there is definitely okay cool so that is all about the checksum they have not asked anything till now from the checksum because that's very small topic and we will again review this checksum in transport layer
+
+48
+00:25:14,820 --> 00:25:39,980
+because this this tcp udp these these things uses the checksum okay so we will we will see that again in the transport layer cool so now currently as you know that we are just learning few of the methods that that is also see these methods that whatever we are seeing the checksum crc parity and i mean in the error control i think we have seen for hamming code these methods right whatever we are we are seeing currently
+
+49
+00:25:40,410 --> 00:26:08,770
+that will be not only useful at the data link layer, but also at the transport layer. So that's the benefit of this, right? I mean, in data link layer, some of the protocol actually data link layer heavily uses this checksum, sorry, CRC. Okay. So a data link layer, they, I mean, most of the protocol uses the CRC. And in TCP UDP, we will see that they use the checksum. So basically, whatever we are seeing is general methods. And then we will say, we will see, again, that, okay, which are the protocol, which are using these methods.
+
+50
+00:26:11,160 --> 00:26:39,060
+Okay, cool. So at the receiver side, see, you can just sum all of this. At the receiver, receiver will do what? Receiver will be getting this data and then just check some, right? If you sum all of this, then what it will be? I mean, this sum is already there. If you sum it again, then it will be all ones. Receiver will be just summing it, summing it all, all the, all, I mean, the checksum and the sum. Okay. There is nothing, I mean, you just need to sum it up. Like what do I, what you are expecting me to show?
+
+51
+00:26:39,820 --> 00:27:05,180
+at the receiver side what it will do it will just take all this data this is the data and this is the checksum if you if you add the data and checksum basically this is the sum that is already there and if you add this data and checksum you will be always getting ones that's all receiver will be checking right whether you are getting all the ones or not okay let me know if that is clear here also if you add this sum
+
+52
+00:27:05,680 --> 00:27:37,520
+Okay, sorry, this is the wrapped up sum. So if you add this, or maybe you can take this checksum and this data, okay, you can take all of this. And if you try to add all of this, then you will be getting all the ones. Should I be showing you? See, at the receiver side, what you will do? Receiver only knows the data. Okay. So and checksum. So this is the receiver. Receiver knows this. Is this okay to everyone? The receiver knows the data and checksum. Let me know.
+
+53
+00:27:38,650 --> 00:28:06,980
+I mean, this is what you have signed, right? So receiver. What receiver will be doing? Receiver will be just adding all of this. So this is the hexadecimal. Let me just take the hint in the sense like we have already added some part of it last last time in the center side. So from there, I can just copy paste. Okay. So all of this, all of this data will be added like this, right? All of the data will be added like this. Is this okay to everyone?
+
+54
+00:28:07,690 --> 00:28:43,120
+I mean, I don't need to add it again, but yeah, all of this data will be added like this. Is this fine? Okay. Now, now instead of, you know, I mean, instead of adding all of this again, let me do one thing. Let me say, let's see. Here, summation of the data is this and checksum is this. So can I add these two quantity instead of adding all of this quantity because I already have this submission? Okay. Let me add these two quantity because the summation of data I already have. Okay.
+
+55
+00:28:43,320 --> 00:29:17,070
+Suppose the summation of data is coming out to be this. Okay, this is sum of data. Is this so good every minute? Let me know. Now, let's just add it out. Now, if you add it, it will be e, b and four, c, d, e and f, right? You will be, you will be getting f here, b and four f, c and three f and then one. If you wrap it up, then you will be getting f, f, f, f, which is all ones, right? This is what receiver will be getting. Then receiver will say no error. Okay.
+
+56
+00:29:18,610 --> 00:29:37,150
+Good. This is what sender is sending. Now receiver will say that, okay, let me add all of this. Is it not hectic to add the data then wrapped up some compliment hectic. I mean, yes, this is hectic in the sense that actually that is done using the hardware mostly, but
+
+57
+00:29:38,400 --> 00:30:08,210
+That is also having the benefit in the sense that this checksum computation is not dependent on just like having code. Do you remember in the hamming code? We were depending on how much data bits we were, we are having. Do you remember that formula? If we are having more data bits, then we need more parity bits, right? So the formula was, I think something like this, two power R must be greater than equal to less of a message plus R plus one. Okay. So this was the formula. So basically here,
+
+58
+00:30:08,510 --> 00:30:48,330
+you I mean let me just write it out that in the hamming code see in hamming code code the parity bits parity bits bits increases if data size increase right okay is the circuit type even which was given by this formula
+
+59
+00:30:49,680 --> 00:31:22,280
+You don't need to know the proof of this formula, but I mean, uh, that is fine. If you, uh, if you just understand the formula, I mean, if you remember the formula, this is quite important, but let me know in checks. Is this, is this true? That if data sizes is, uh, is, uh, increasing, then the number of bits, number of parity bits are fixed, right? Agented. We will always divide the data into 16, 16, 16. Okay. So number of parity bits are fixed here.
+
+60
+00:31:22,540 --> 00:31:52,230
+is this so good everyone in CRC in CRC we need to divide here at least we need to just add okay so uh yes in CRC also it is hectic uh they're also it depends on the generator uh i mean how long generator is uh the number of parity parity will depend on that but here in checksum it it doesn't depend on anything right it is just saying that okay the number of parity bits are fixed cool now looking at this looking at this do you want to guess that okay what kind of error it may not detect
+
+61
+00:31:56,400 --> 00:32:23,020
+I think these two are flipped. I think right. I mean, there are many types of error that cannot detect definitely. If let's suppose this, this get, okay, this get flipped to one, this get flipped to zero. Then I think it will not be able to detect, right? Because it doesn't differentiate like this. So the summation will be same in that case also, right? I mean, whatever combination is making the summation same, it won't be able to detect. Is this okay?
+
+62
+00:32:23,580 --> 00:32:46,490
+So there are many kind of like errors that won't be able to detect, but there are many kind of errors that will be able to detect. Okay. Cool. So this is very small topic and there has not been any question as such. I know that they have asked, but still it is good to know. Again, we will see this in the transport layer. Okay.
+
+63
+00:32:47,350 --> 00:33:12,070
+So, these are the general methods that we have seen. These methods, all of these methods will be coming here and there either in the transport layer protocol or in data link layer protocol. But in our syllabus, the data link layer particular protocol definitions and the particular protocol structures are not there. So, we will not spend time there. In transport layer, we have TCP, UDP, some concrete protocols. There we will be seeing that how checksum is being used.
+
+64
+00:33:12,550 --> 00:33:40,510
+Okay, or any other thing like we are going to see the flow control methods and these things. So these are general methods, which, which are going to come again in the, in the transport layer, all of this methods, like not all of this, basically, I mean, CRC will come, sorry, this checksum will come because TCP, UDP uses checksum. But yeah, I can say in general, like, these are the methods that are being used by protocols. So it should be clear to everyone. It is okay that these are the methods. Okay, we will see that what is the protocol later.
+
+65
+00:33:40,900 --> 00:34:25,240
+okay how they are getting used by protocol cool now we have seen till now we have seen how many services of data link layer do you remember so till now we have seen seen two services of data link layer mainly two services one was framing another one was error control now let's just see third
+
+66
+00:34:26,000 --> 00:35:00,560
+Third service that data link layer is providing. Data link layer is providing to services to whom? Physical layer, network layer, transport layer to whom it is providing the services. Can you tell me? Network layer, yes. Okay, so third one we are going to see is flow control. And fourth one we will see later on that is, do you remember? Yes, access control. This is also very interesting.
+
+67
+00:35:00,890 --> 00:35:12,350
+okay this axis control actually all of these topics are interesting and this data link layer I don't know I mean but it actually a small topic but still explanation take time.
+
+68
+00:35:12,590 --> 00:35:33,870
+I mean Heming code is generally small topic CRC is generally not that big topic but but if intentionally if I want then also I am not able to skip the proofs so if you have noticed then I have kept those videos separately in the in the website like I'm saying that okay if you want to see the CRC analysis then you can see that as an optional video so
+
+69
+00:35:34,450 --> 00:35:58,370
+Generally, those optional videos and these things are not there in many places, but as you know that we can't skip the things. That's why I have taught all of this. It's not like those are useless, obviously. Those are not completely useless. Those give the feeling that you know the topic well. In fact, the CRC analysis was very interesting and they have asked the questions in past also from the CRC analysis.
+
+70
+00:35:58,780 --> 00:36:28,890
+don't worry in the queues we will be having every syllabus okay along with the optional videos so many questions I have already made for the queues and we will see like I mean how the queues goes okay so let's see another service that data link layer provide is basically flow control now what happens let's suppose there is one host okay and there is another host or anything I mean doesn't matter host means any device basically okay let's suppose that
+
+71
+00:36:29,440 --> 00:36:59,180
+it is sending some data to this host now do you think that it should be keep on sending or should at least listen to this particular host that okay whether it has the capacity to store those packets or not I mean what should be the rate of your flow or something like this so even though assume assume there is no error in the channel okay assume for now assume there is no error in the channel still still we need to have some protocol which are called flow control so
+
+72
+00:36:59,500 --> 00:37:48,220
+suppose assume there is no error if there is error then then we have error control methods already but suppose for now assume there is no error then can let's suppose this is host one this is host two can host one keep on sending data to host two what if host two doesn't have enough buffer to store the data right what if host two does not have
+
+73
+00:37:50,610 --> 00:38:29,780
+enough buffer which means it may be possible that okay host to want to say that okay please slow down okay I mean you want to send the data I understand your curiosity but can you please slow down or maybe can you can you just fasten it up because I have the capacity to store the data but you are being very slow okay don't be slow just give me the data quickly okay maybe this host who wants to say something right for example it may want to say can you slow down or maybe it wants to say that can you can you fasten up
+
+74
+00:38:44,360 --> 00:39:14,480
+Right. So something, something that host might, might want to say, even though there is no error. So there could be error. I'm not saying there are no error in the flow control. There could be errors also, but even though there is no error, still we need some protocol. Right. So these protocols are called flow control protocols. Okay. So what could we, I mean, uh, see one of the things that let me write, maybe you should not, uh, assume that there is no error. There, there could be definitely the errors. I'm just saying, even though there is no error.
+
+75
+00:39:14,720 --> 00:40:06,280
+okay there could definitely be the errors in the channel is that channel is noisy okay so let's just see that how we can implement such protocol that can convey the idea that please slow down or please make it quick or something like that right let's just see so the general idea here is that what we will say I mean let's suppose this is the sender okay this is the receiver so the general idea is that
+
+76
+00:40:06,610 --> 00:40:32,360
+we will send some packets right and then then just to make sure that the packet has been arrived to the receiver or maybe just to make sure that the receiver is actually accepting the packet then what we will be having there is something called acknowledgement okay there is something called acknowledgement that we should be having for every packet this is the basic idea for having the flow control okay acknowledgement
+
+77
+00:40:33,670 --> 00:41:02,890
+which means just to make sure that receiver has got that packet okay receiver might not get the packet maybe because of many reasons what could be the reasons maybe receiver does not have enough buffer maybe receiver doesn't get that packet right so maybe the packet itself is is corrupted there could be many possible reasons that receiver may not get that packet so that is why we need to make sure that receiver has got the packet and that's what we will make sure using the ack so this is the basic idea for the flow control
+
+78
+00:41:09,760 --> 00:41:32,440
+Any flow control and this idea is called ARQ automatic repeat request. Okay. We will come to that. So, uh, I hope little bit it might be clear, but before I just go to, I mean, before any of the protocol, which are basically stop and wait and there are some other protocol that we need to see here. Okay. So before I go to any of the protocol there.
+
+79
+00:41:33,800 --> 00:42:22,250
+I mean, those protocols basically having some technical terms in that. I mean, what is the bandwidth of the channel and these things? Okay. So let's just see a few definitions. What is the bandwidth? What is the transmission delay and what, what is other things? Okay. And then I will come back to this slide again. So what is the idea here that we want to study flow control, right? So see, we want to study flow control methods, right? But before that, let us walk.
+
+80
+00:42:22,840 --> 00:43:10,240
+throw some technical definitions like bandwidth and all right like bandwidth transmission delay something like that right transmission delay propagation delay these things so let's just see these technical definitions and then I will come back to this particular slide which is flow control okay so what is a bandwidth bandwidth is maximum amount of data that can be transmitted per unit time per time unit or per unit time which means
+
+81
+00:43:10,560 --> 00:43:47,510
+which means if I say there is a channel okay if I say that bandwidth is bandwidth is let's suppose I say 100 bits or bytes or something okay bytes per second then what does this mean it mean that in one second maximum 100 bytes I can transfer okay I can put on this link basically maximum 100 bytes in one second it means in one second we can put
+
+82
+00:43:48,780 --> 00:44:21,290
+put 100 bytes on wire or the channel or whatever. So in one second, we can basically put a bandwidth is 100 bytes per second. Then one in one second, we can put 100 bytes. So suppose I asked you a question that suppose there's a question which says, suppose bandwidth is 100 bytes per second.
+
+83
+00:44:24,080 --> 00:45:11,490
+Then, then in five seconds, seconds, how much amount of data we can transmit or we can put on the wire? So the answer is, it's an easy question. So answer is, if in one second we can put 100 bytes, then actually all of this will be just aptitude. We will, I mean, whatever we are going to see, this is just multiplication of these things. Okay. But it will be very interesting. Okay. Five into 100, which is 500.
+
+84
+00:45:12,480 --> 00:45:42,840
+bytes. Can you tell me the unit of this? Should it be bytes per second? Is this okay? 500 bytes per second. What is the unit? It is just bytes, right? Only 500 bytes, right? Because, uh, this is the data. I mean, this is basically, uh, seconds in the seconds. This is already bytes per second. So this will be just bytes. So just, uh, you know, focus on the unit also. Okay. So we are going to see many, many numericals. You need to be careful about the units.
+
+85
+00:45:44,780 --> 00:46:14,200
+Now, let's just see. I mean, this is very basic definition, which is the bandwidth, how much amount of data we can transmit or we can put on the channel. Okay. Currently, I'm not using the word transmit. Okay. That is, that is one technical word. That's why I'm not using. So instead of saying transmit, I'm saying put on the link anyway. So higher the bandwidth is basically higher the speed of the network. It is just like bandwidth. You can consider like this. Okay. If the channel is having higher bandwidth, you can consider that. Okay. This is basically the.
+
+86
+00:46:14,610 --> 00:46:41,630
+area of the wire something like that okay if higher bandwidth the higher the area okay I mean just the you can say analogy okay area of wire it can basically contain it can it can transfer let's suppose more data in one second okay or it can take I mean you can put more data in one second here if the area of the wire is basically nothing but bandwidth
+
+87
+00:46:43,520 --> 00:47:12,640
+Anyway, you will get to understand this with more clarity with examples. Okay. So let me just tell you one or two more definition and then we will, we will be seeing the mixed up example of this bandwidth or and these, these things, right? Okay. So now the next definition that we want to see is called transmission and propagation delay. So what is the transmission delay? It says that if you have one host, let's suppose a there is another host, which is B.
+
+88
+00:47:13,530 --> 00:47:43,190
+Now the packet is with, let's suppose A. Now this A wants to send the packet, right? Okay. So if A wants to send the packet, it is just like that. A need to put that packet on the wire, right? So if A need to put that packet on the wire, then there will be some time that A will be incurring. So here two steps are happening. First, A will put that packet on the wire.
+
+89
+00:47:43,400 --> 00:48:17,110
+Maybe I can just show you with this vertical, vertical diagram, which is, I mean, these kind of diagrams are quite popular. Suppose, suppose this is A. This is B. Okay. Okay. Just see this. Suppose this is the packet, which is with A. Now, now this packet needs to be sent to B. Okay. So this packet has to be, has to be on the link. I mean, and then, then, then only it will be traveling.
+
+90
+00:48:17,820 --> 00:48:50,100
+Let's suppose this is the first bit of the packet. This is the first bit of the packet and this is the last bit of the packet Okay, suppose this is the last bit of the packet Which means there must be a packet length. Okay, whatever this is doesn't matter But anyway, I mean there will be the packet length. That's why I'm saying first and last bit. Otherwise, I will just say bit I mean this must be some length. Otherwise, I will just say bit, right? I will be saying first bit last bit. So anyway the packets packet definitely has some length now
+
+91
+00:48:50,490 --> 00:49:20,000
+this is let's suppose let's suppose at t equal to 0 or maybe let me just tell you just for make sure that you understand let's suppose at 10 am okay this is the case at 10 am a thought of sending the data to be okay which means they started the transmission at 10 am it might so happen that this last bit okay this last bit see can you tell me this first bit ghost on the channel let's suppose this is the channel
+
+92
+00:49:20,290 --> 00:49:52,020
+this first bit goes on the channel in how much time this first bit almost immediately okay this first bit to go on the channel will almost immediately so if i ask you that at 10 am where is the first bit you will say you will say that it just entered in the channel right the first bit just entered in the channel tell me where is the last bit at 10 am is it in the channel or is it with a still at sharp 10 am it is still with a right
+
+93
+00:49:52,250 --> 00:50:32,040
+I mean, it just thought of transmitting the data. So it is still with me. Now, there will be some time that you will be anchoring. Okay, this will be anchoring. I mean, or you will be anchoring or the A will be anchoring to put that on the channel. The time is called transmission time. Okay. So let's suppose this time is transmission. Okay. Yeah. Let's suppose this time is maybe five minutes. Okay.
+
+94
+00:50:32,310 --> 00:51:15,310
+suppose this is five minutes now you tell me at what time the last bit of the channel last bit of the data will be on the channel at what time last bit of data will be first on channel it will be 10 0 5 a.m right after five minutes it will be on the channel and at what time the first bit first bit at 10 a.m okay first bit at 10 a.m only i mean almost immediately
+
+95
+00:51:15,630 --> 00:51:47,360
+because this is just I mean there is no having no length basically okay anyway so so basically what I'm trying to say here is that understand this carefully that here is having some data with us okay that data needs to go to the channel right the data needs to let me just use this kind of diagram so a sending something to be let's suppose let's suppose this that it right is that it okay so this is at t equal to
+
+96
+00:51:47,720 --> 00:52:47,130
+10 am and this is it just a second I think I do overwork just because of these these things just to make sure that everything is looking good or not anyway but I hope that's okay I think Deepak sir will never do these things right he will directly overwrite or he will erase this is the situation this is the situation at 10 am and this is the situation at let's suppose
+
+97
+00:52:47,500 --> 00:53:32,570
+ten two or ten three or whatever right suppose okay now this is the situation at ten two and this is the situation now let me write the final situation right at ten five so see this this data started the transmission and it will take some time to transmit right it will take some time to transmit so at after two minutes maybe it is here and after i mean not three more minutes it is here
+
+98
+00:53:32,770 --> 00:54:08,430
+it will take some time to transmit this is what we are calling last bit this is what we are calling last bit this is we are calling first bit so what do you think this transmission time will depend on should it depend on the length what do you think should it depend on the length or it should not be depending on the length i think it should depend on the length right so so i mean definitely should depend on the length right i mean if if this is more length is more
+
+99
+00:54:08,680 --> 00:54:47,110
+Then transmission time will definitely be more, right? Okay. So transmission time depends on LENGTH length of data. Okay. It depends on length of the data and also the bandwidth of channel. If channel is very narrow, okay, it is not allowing you to transmit with a good facility. Then also it will be a problem to you, right? Say you are not the bottleneck.
+
+100
+00:54:47,240 --> 00:55:23,000
+but the channel is bottleneck which means channel is saying that okay I'm not allowing you so and also bandwidth of channel so basically this transmission time that we will denote it by TT that is length upon bandwidth let's suppose length is in bytes suppose this is in bytes this is in let's suppose 100 bytes per second okay so suppose this is bytes per second can you tell me this transmission time unit
+
+101
+00:55:23,500 --> 00:56:15,030
+It will be in the seconds, right? So for example, if I just ask you, okay, how much time would you take to transmit 1000 bytes of data on a channel having bandwidth equal to 100 bytes per second? So what is the answer? 100 bytes you can transmit in one second.
+
+102
+00:56:15,310 --> 00:56:48,900
+So for 1000 bytes you need to take, transmission time will be length upon bandwidth. So it is 10 seconds. It will be taking 10 seconds to transmit all of the data. If bandwidth is more, if bandwidth is more, then obviously the transmission time will be less. So for example, here the bandwidth is let's suppose 1000. Then what is the transmission time? It will be just one second. It will be just one second.
+
+103
+00:56:50,530 --> 00:57:20,560
+cool now now you you have noticed that okay we have put the data on the link right which is I mean we have incurred some time which is called transmission time okay now here after the transmission time let's just focus on one of the bit only maybe you can focus on first bit maybe you can focus on last bit anyone whichever you like which one I should be focusing let's just focus I mean doesn't matter okay let's just focus on the last bit here okay so I mean
+
+104
+00:57:20,730 --> 00:58:03,630
+I'm just telling you the time any bit takes let's suppose this distance is D okay the total distance so here here any bit any bit let's suppose this last bit I'm saying any one bit that takes the time from one end to another end is called propagation delay okay so there is a propagation time which is time to travel for one bit we denote it by TP
+
+105
+00:58:07,780 --> 00:58:44,750
+what do you think this one bit I want to check that how much it is taking from one end to another end okay this one bit I want to check from one end to another end what do you think should it depend on the length of the data no right because this is just one bit I mean there is there is nothing called length of the data here I mean you don't obviously depend on the length of the data so what should depend on should depend on how much distance it is right distance
+
+106
+00:58:48,030 --> 00:59:25,750
+and what else it is a normal formula it is a normal right it is just distance and speed at which you are traveling see once bit is okay bit or any data is in the channel then bandwidth doesn't have any role to play basically how fast it is moving it is have the role to play bandwidth is just the cross-section area okay this area
+
+107
+00:59:26,070 --> 00:59:55,590
+if if this is thick enough you can put more more bits i mean more bits can travel together let's suppose one two three four five so you can see this is the bandwidth okay this is the bandwidth is five bits per second five bits per second i mean one second uh you you can you can load five bits here okay i mean five new bits can come here this is the bandwidth i mean bandwidth has no role to play that how fast it is moving okay once you put the data on the link then bandwidth has no no role to play so if the if i define this propagation time
+
+108
+00:59:55,860 --> 01:00:35,650
+which is tp then it will be it will be just you just think about two stations and end to end the stations so here there's a bit okay that has to travel here then whatever the distance whatever the velocity it is just a distance upon velocity now let's just not worry about this you just answer me one thing let's suppose there is a there is b that's very interesting question okay just answer me this thing can you tell me how much
+
+109
+01:00:36,090 --> 01:01:19,090
+okay the ocean is very interesting and very important also okay how much time time it takes takes from I mean whenever it thinks even think about the transmission think means they just start the turn no just a start the transmission okay from when it thinks things means things I mean just start the transmission how much time
+
+110
+01:01:19,470 --> 01:02:12,090
+it takes from A things about the transmission B completely get the packet what do I mean completely even the last bit okay even the last bit is with me so what do I mean this is the starting okay I mean I want to calculate the time from here to this will be traveling and then finally it will be I mean it will be reaching
+
+111
+01:02:12,380 --> 01:02:56,050
+to the b so it completely get into the b okay it's not like that okay only first of it see i'm what i'm saying let me just tell you see am i asking this am i asking this so i'm not asking this okay so we are not asking this right what we have what we are actually asking is just like this let me just tell you so we are asking this i mean the time this data completely gets into the b
+
+112
+01:02:56,510 --> 01:03:40,170
+which means I am more interested in asking this thing. So we are asking this. Let's just calculate. So from here to here, we are asking that how much time it is taking. This is just an intermediate state. I mean, that will come. I'm not saying that won't come, but we are not asking this. We are asking this. Okay. Cool. Let's just see. See, you will be first putting that on the link. So this is at t equal to zero, right? At t equal to zero, this is the situation.
+
+113
+01:03:40,550 --> 01:04:10,490
+Can you tell me what is the situation at t equal to tt which is the transmission time? So if you just tell me the situation at t equal to tt then you must agree that this will be the situation. I mean you have transmitted it fully. This is the situation at t equal to tt. Do you agree with me? You have transmitted this fully. Now this data has to reach to b.
+
+114
+01:04:11,860 --> 01:04:53,130
+Now you tell me if I want this data to completely get into B, should I be focusing on this bit or this bit? Just tell me. I think the last bit is better to focus, right? If I want this to also reach to B. So let's just focus on this bit. Now you tell me, now you tell me, do you agree with me or not? Just tell me that, that this will be this particular last bit also will be reaching a T equal to TT plus another TP time. This last bit
+
+115
+01:04:53,370 --> 01:05:20,640
+will also be reaching to be don't you agree this is a t equal to zero when you started the you even think about the the transmission right this is a t equal to zero and then after tt time you have transmitted it now i'm focusing on the last bit and this last bit completely get into b is after ttp time so this is the total time by which b completely gets the data okay
+
+116
+01:05:20,890 --> 01:05:46,290
+So this is just one time calculation. I won't do it again and again. Now from now, can we remember one thing is that if I want to completely transmit the data, which means even from the moment that I'm start, even I'm thinking about the transmission, thinking in the sense that I'm starting the transmission. Okay. From the moment I'm thinking about the transmission till the moment it completely get into the B, this is the time I will be taking. Okay. Can we just remember this? This is TT plus TP.
+
+117
+01:05:46,620 --> 01:06:14,930
+transmission plus propagation again and again don't get confused okay let me just focus on the first bit last but don't do this calculation again and again okay this is the time that we will be incurring to to transmit the data completely from the moment that we started start thinking about thinking about the transmission till the moment that we completely get the data okay so this is the total time that we take so if I just ask you this question which was interesting question
+
+118
+01:06:15,190 --> 01:07:04,610
+So the answer here is TT plus T. Transmission and propagation. You think that by this time only the first bit is reaching? By this time only the first bit has just touched the B. Only first bit touched the B or even the last bit touched the B. By this time even the last bit has touched the B. Now let's just do the similar analysis by focusing on the first bit.
+
+119
+01:07:05,560 --> 01:07:38,370
+I mean just for the sake of your understanding because some of you might be thinking about it like why we have not done with the first bit, you can focus on the first bit also. So t equal to zero, do you agree that this is the diagram? I don't need to modify this diagram at t equal to zero. Now at t equal to tt, I think this is the diagram that we'll be getting. Now let's just focus on the first bit only. See, this is the first bit. If I want to focus on the first bit, maybe I can just show you like this.
+
+120
+01:07:38,800 --> 01:08:12,180
+Okay, let's just focus on the first bit. See, if I focus on the first bit, then I'm first writing TP, okay, propagation delay. Can you tell me, is this okay if I say that after T equal to TP, after T equal to TP, sorry, I think I need to
+
+121
+01:08:15,860 --> 01:08:53,000
+I mean, I need to learn something from Deepak sir, not do too much of this. Anyway, so this is my habit. I am not able to control this. So, so what I'm saying, okay, now you tell me after T equal to TP, can I say that this is the situation? Tell me, is this the situation? After T equal to TP? No, right? Can I say this is the situation? The first bit just touched B. Okay, so I can say first bit, is this okay to everyone? That first bit.
+
+122
+01:08:53,240 --> 01:09:35,520
+Just touch it B. Right. Okay. So I'm focusing on the first bit. Now tell me if this may answer, can I say, okay, let's stop and, and whatever you ask what I, what I asked that completely get into the week. Can I say this may answer? No, right. So basically I just need to, I just need to say that. Okay. This is okay. But after T after how much time after T, T P T equal to T P already have occurred.
+
+123
+01:09:36,240 --> 01:10:10,760
+TT more time okay let me just spend TT more time then can I say if I spend TT more time then I am actually here I am like this tell me can I say so you focus on the first bit or last bit it won't matter if you are focusing on the first bit then the analysis is like this then you are saying okay after propagation delay this first bit is reaching here but you
+
+124
+01:10:10,990 --> 01:10:46,010
+still need to take I mean this this packet get into completely into b right do you still need to need to take this transmission time okay so you focus on the first bit or last bit it doesn't matter but the final time is coming up to be this so from now on we will remember that this is the time okay this is important time this is tp plus tt or whatever you want to write this is the time that time reach one packet from
+
+125
+01:10:51,920 --> 01:11:21,680
+or maybe let me just say time to send basically time to send one packet from A to B completely. Okay. There should not be any confusion. Give first bit point G a last one. Okay. Can we can we just agree upon this and move to the next things? Let me know. Okay. This is fine. Right. So this is the time that we need to incur to send one packet.
+
+126
+01:11:22,670 --> 01:11:52,320
+Now, again, these are the definitions. The transmission delay is packet size upon bandwidth, which is L upon bandwidth. Time taken to push all the bits of a packet into a link. Propagation time is time taken to move one bit from one end to another. This is link length, whatever. This is D upon speed, let's suppose B. You can represent it with anything. Maybe you can represent this transmission delay with TT.
+
+127
+01:11:52,730 --> 01:12:22,040
+or propagation delay with TP is this fine or should I be representing maybe delay transmission delay propagation which symbols are good for you the first set of symbols or the second set of symbols anything we can do anything okay so let's just stick with one of them let's just stick with one okay let's just stick with first set of symbols so I'm going to say tt equal to length upon bandwidth okay so TP equal to distance upon velocity
+
+128
+01:12:23,100 --> 01:12:49,960
+Cool. Now let's just do some of the questions here. Okay, before the questions, by the way, there are some other delays that can also anger. So for example, if you are having some device in between, then this device might need to process your data. Okay, may need to check where you are going. Let's suppose you are having some router in between. It may need to process the data. There is something queuing delay, which means maybe maybe your data might not be immediately transferred on the link. Maybe you need to queue it. Okay.
+
+129
+01:12:50,160 --> 01:13:19,450
+That's why queuing delay. So generally, this propagation delay and transmission delay is the most important delays that we have, but there could be processing delay, there could be queuing delay also. Okay. So if I just ask you that what is the time that you need to take from one packet from here to here, then you will say the transmission delay, the propagation delay. This is in general, but if there are, I mean, they will not ever mention it, but if they mention it, then you need to add
+
+130
+01:13:21,080 --> 01:13:43,500
+processing time. You need to add queuing time. Okay. Whatever the extra times, I mean, whatever in between times that you are going to take, you need to add all the times. Okay. Is this okay to everyone? Yeah. This TP plus TTs at least. And if there are devices, if they are queuing your packet, not immediately transferring, right?
+
+131
+01:13:44,140 --> 01:14:15,920
+then then you need to basically spend a queuing delay if they are processing then you need to spend the processing delay actually in the for the numerical purpose they will they will say I mean they have not ever said as far as I know that there is a processing of queuing delay so they will say that ignore these two delays always they will say ignore these two delays okay otherwise like I mean in general this is the formula okay so that is also called end-to-end delay I mean summation of all the delays summation of all delays
+
+132
+01:14:17,810 --> 01:15:14,900
+which means it is transmission, propagation, queuing delay and processing delay. Okay. So generally, generally these two are zero. This is zero, this is zero. So end to end delay is nothing but tt plus tp. That is called end to end delay. Okay. Cool. Now, let's just do a few of the quotients to make sure that you understood things that we have just talked about, right? Okay.
+
+133
+01:15:16,170 --> 01:15:46,550
+So consider two host A and B connected by a single link of rate RBPS. So from the unit, you should be clear that what they have given you. So if they have given you something like this, then it must be the bandwidth, right? So they are saying A and B are connected with a link, which is having some bandwidth of R bits per second. Suppose that two hosts are separated by m meters, which means distance is given to be m meters in the meters they have given. Okay.
+
+134
+01:15:47,050 --> 01:16:02,860
+and suppose the propagation speed okay the speed also the distance and I think we have represented the velocity okay that is given to be s meters per second okay host a is to send a packet of
+
+135
+01:16:03,340 --> 01:16:32,370
+l bits like I was just checking whether these things are consistent if they have given something in meter then every everywhere meter not centimeter if they have given something in second then everywhere second not uh not millisecond something if they are giving in bits then everywhere bits something like that anyway so send uh so they're saying that the length is given to be l bits to host b so what is the propagation time how much time you will be taking to propagate so it will depend on distance and velocity
+
+136
+01:16:33,160 --> 01:17:02,470
+Right. So can you tell me what is the answer here? Distance is m, velocity is v. What is the transmission delay? It will be length upon bandwidth. It will be length upon bandwidth, which is l upon r. What is the end-to-end delay? This is, okay, if they have not given anything, it is just these things. Queuing delay and other things, you can take them at zero, okay? m upon v plus l upon r. So m upon s.
+
+137
+01:17:04,690 --> 01:17:46,570
+okay sorry that velocity is given to be as right so queuing delay and propagation delay generally they are zero is this question fine to have even now now let's just see more question and let's make it little more interesting probably okay sorry about that okay so let's see what they are saying so see here suppose they are saying I mean this text is actually same whatever we had earlier this is actually same okay let me just copy it
+
+138
+01:18:00,680 --> 01:18:35,560
+So they are saying that suppose host A begins to transmit the packet at t equal to 0. Okay. Just a second. Let me remove this. Actually, it is coming in between. I will see what is this later. Okay. Anyway, so what they're saying, the suppose host A, transmit the packet at t equal to 0 at t equal to TT transmission time. Where is the last bit of the packet? What do you think? Just leaving a, right? Just leaving a. Yes.
+
+139
+01:18:35,830 --> 01:19:14,010
+So it is just leaving host A. So this is I can say just leaving. By the way, this is a standard university question. This is from Toronto University. Let's just see this. So here, let's just read it out. What they are saying? They are saying that suppose TP is greater than TT, propagation time is greater. This is A, this is B.
+
+140
+01:19:14,410 --> 01:19:52,710
+propagation time is greater at t equal to tt where is the first bit propagation time is greater which means that okay it will be like this and then it will propagate at t equal to tt where is the first bit of the packet on the link right yes it is on the link the first bit is in the link and has not reached host b okay it has no because the transmission time is basically lesser which means which means see something like this this is a this is b and
+
+141
+01:19:54,460 --> 01:20:23,970
+And this is the situation. Okay. If the transmission time is lesser, if the transmission time itself is, let's suppose greater or something like this, or maybe equal, which means let's suppose equal. Then what does this mean? This means this is the first bit. Okay. So maybe let me just tell you. See, let's suppose the transmission time and the propagation time is equal. Interesting phenomena, right? Transmission time and propagation time are equal. Then what does this mean? It means at t equal to zero, I have something like this. Okay. I mean,
+
+142
+01:20:26,990 --> 01:20:59,020
+just understand this is too much of data okay then only the transmission time is little higher okay so at t equal to 0 it is something like this now now since both are equal you write t equal to TP or TT doesn't matter okay 0 plus TP or TT doesn't matter maybe let me write TP because both are equal so it doesn't matter now this first bit will be here at t equal to 0 I mean this first be bit
+
+143
+01:21:00,430 --> 01:21:37,630
+it started transmission right so that's why the first bit is actually here okay at first bit was here earlier but but after propagation delay where it will be after propagation delay it this first bit will be actually this first bit will be actually here right after propagation delay okay just entering into the yes what about the last bit since this time is also the transmission time that's why last bit is here
+
+144
+01:21:38,220 --> 01:22:26,500
+Okay. This is the first bit. This is last bit. Last bit is here. I hope you understood. I think that is fine. This is the packet. If both times are required. Okay. So let's just do the next question probably. So let's just do this question. Probably you will, you will understand more. So suppose TP is less than TT, which means transmission time is more. Okay. That's interesting. Now at t equal to TT, where is the first bit of the packet?
+
+145
+01:22:26,740 --> 01:23:00,740
+if the transmission time itself is more so after suppose TP is less or the propagation time is lesser transmission is more so which means the propagation is lesser so it will reach after propagation time it will reach here but they are asking after transmission time after transmission time basically the last bit is here that's for sure okay after transmission time last bit is definitely here that's for sure so at the transmission time last bit is here what about the first bit it
+
+146
+01:23:01,010 --> 01:23:22,680
+Must have entered into the bee already, right? Something like this. Interested in the bee. Interesting phenomenon, right? So, it seems like, I mean, you remember those circuit switch and the packet switch, right? I mean, we have the datagram here.
+
+147
+01:23:22,870 --> 01:23:39,190
+the packet switching but in circuit switching you might remember that we continuously send the data right I mean we don't care because it's a dedicated circuit so maybe that kind of scenario might be helpful there but in general our internet doesn't generally happen okay because distance is too large okay
+
+148
+01:23:39,470 --> 01:24:01,290
+And it doesn't generally happen on our internet because there are many, many devices in between. But anyway, like I'm just telling you that that's a common that might be a common phenomena in circuit switching because that's the I mean, we keep on sending the data. We we doesn't even divide the data into the packets, right? Yes, that's also possible. If the two hosts are very, very close, then then this phenomena can occur.
+
+149
+01:24:01,690 --> 01:24:35,780
+Anyway, but the purpose of this question is to make you understand that you understood this first bit, last bit and everything, right? Now, it should be very, very clear that what is happening. Now, see, if you are sending something, then it doesn't matter. I mean, whatever the relationship between propagation and transmission delay, but one thing is for sure that I can say that after, after t, okay, after tp, propagation delay,
+
+150
+01:24:36,220 --> 01:25:41,920
+This is the last bit. Can I say something like this? This is the last bit. After TT. That's for sure. Can I say? Doesn't matter. Whatever is the relationship. Okay? Doesn't matter. Right? And similarly, I can say, I can say that after TT, where is the last bit? Here, right? This is the last bit. Can I say something like this? After TT? Tell me.
+
+151
+01:25:44,420 --> 01:26:15,070
+after the transmission because the transmission is completed right so it should be on the link I mean last bit should be on the link and the propagation of the last bit is completed then it should be on the link if both are equal then last bit I mean if both are equal then sorry this is not last bit this is the first bit yeah this is the first bit the transmission delay so the first bit if it should be on the link if both are equal then here should be the first bit and here should be the last bit
+
+152
+01:26:15,240 --> 01:26:35,420
+Anyway, I hope you understood little bit right. I mean, these are the few things that you can definitely draw in the exam also based on the question you can you can see that okay where where should be that but I mean the way you have solved these questions is just like that. Okay, just like that. Cool. Now, let's just see this particular question which will make things probably more clear.
+
+153
+01:26:35,640 --> 01:27:04,880
+in terms of mathematics okay till now we were just building the intuition but let's just play with some numbers because in the numericals they will be giving you numeric numbers okay not not not like this I mean they may ask the intuition but let's just see with some numeric numbers and then we will be moving to stop and wait okay so let's just see this question this question I have taken from Berkeley University let's just see what they're saying so suppose that speed is given to be 3 into 10 is power 5 kilometer per second
+
+154
+01:27:05,240 --> 01:27:35,740
+Do you recognize this speed? This is same as 3 into 10 is power 8 meters per second, which is same as speed of light, right? So generally at this speed, I mean little lesser obviously, this is speed in the, I can say in the vacuum, but it should be around that. I mean 2 into 10 is power 8 at least, okay? 2 into 10 is power 8 at least. So around this speed, our data travel in the network.
+
+155
+01:27:36,060 --> 01:28:07,880
+Okay, but they have given it to be three to transfer rate for the numerical purpose. That is fine. Cool. Let's just see what is the question. What is the transmission delay if it sends 500 bytes? So let me just do one thing. Maybe I can just copy these three questions. Let me just divide this into three into three. Right. So they are asking what is the transmission delay if a sense of 500 byte packet to be. So these are the bandwidths which are given to me. These are the distances which are given to me.
+
+156
+01:28:08,150 --> 01:28:36,360
+Can you quickly calculate t, t, t, p, everything? Let's just calculate t, p, propagation delay, right? So I think propagation delay from A to B. Let me write AB, like that, right? So it will be distances given to be 3000 kilometer, and this is also in the kilometer, I think. So let me not convert that to meters. That is already in the kilometer, which is 3 into 10 to the power 5.
+
+157
+01:28:39,890 --> 01:29:18,300
+So it is in second. Can you tell me what is this answer? This is 10s power 3. This is 10s power 5. 10s power 2 will be there. 1 upon 100 seconds, right? Similarly, can you tell me the propagation delay here? This will be 6000 kilometer length upon velocity, which is 3 into 10s power 5. I think this should be, since this is double, I mean distance is double and speed is same. So this should be double, right?
+
+158
+01:29:18,760 --> 01:29:49,960
+This is 2 upon 100. So maybe we can write in the millisecond. So this is you multiply by the thousand. It will be the millisecond. So it is 10 milliseconds and this will be 20 milliseconds. Okay. Yes. Cool. So is the propagation time is fine to everyone? Now they're asking the transmission delay if a sends 500 packet to me. So basically the answer of this first question will be length upon bandwidth, right? So what is length?
+
+159
+01:29:51,360 --> 01:30:22,950
+of the packet 500 okay so length is 500 bytes upon bandwidth bandwidth is given to be in the bits okay so now i need to convert that to bytes or maybe that to bits anything is fine right so 500 into 8 bits so bandwidth is 4 into 10 is power 6 mega here is 10 is power 6 okay mega is 10 is power 6 bits per second so it is bits per second
+
+160
+01:30:24,250 --> 01:30:55,400
+So length upon bandwidth. So what is length? 500 into 8 upon 4 into 10 is power 6. So this is 2. This is 1000 upon 10 is power 6. So this is 1 upon 10 is power 3, 10 is power minus 3, which is 1 millisecond, right? In terms of millisecond, it is 1 millisecond. Okay. It is 1 millisecond. Now, this is the transmission delay from A to B. That's what they have asked. Now, let's just go to the B part. Can you do this quickly?
+
+161
+01:30:55,890 --> 01:31:23,630
+This is the propagation delay Okay, propagation delay tell me does this even depend on 500 bits or something 500 data bytes or something No, right? It is it is distance upon velocity. So which we have already calculated It is coming out to be for this particular link. It is coming out to be 10 millisecond What is end to end delay? What is whatever was the this delay? I mean transmission plus
+
+162
+01:31:23,950 --> 01:32:21,060
+this which is 11 millisecond so we don't have other delays okay generally so 11 millisecond is answer here so let me quickly match at least these three so this is one millisecond this is 10 millisecond this is 11 millisecond let me know if these these three questions which are easy but i hope these are fine right okay now let's just do three more questions that they have asked maybe they are a little more interesting okay so let's let's just do these three questions what they're saying what is the end to end delay
+
+163
+01:32:21,400 --> 01:32:49,740
+If A sends 1000 byte packet to B, see, if you remember the propagation time won't change, this is 10 millisecond. Now, they are saying 1000 byte packet, earlier it was 1 millisecond, 1 millisecond for 500 bytes. Now, if they are doubling this length, can you tell me how much time this transmission delay will be doubled? Oh, sorry, how much time, how much time the transmission delay will change?
+
+164
+01:32:50,350 --> 01:33:19,280
+So earlier it was 1 millisecond now it will be 2 millisecond just because they're doubling the time or if you want I can calculate it again which is the transmission time is is 1000 bytes upon bandwidth which is 4 mbps right and since it is in bytes so let me multiply it you can calculate it it will be 2 milliseconds okay actually they're doubling this data so since they're doubling this length then earlier whatever we have got it will be just doubled
+
+165
+01:33:19,610 --> 01:33:47,020
+so now the transmission time here is 2 millisecond now you are changing the data size are you changing any channel property distance or bandwidth or anything no right so the propagation time won't be changing earlier it was 10 millisecond here also it is 10 millisecond so what is the answer 10 plus 2 which is 12 which component of delay is affected by this packet size propagation time or transmission time tell me it is
+
+166
+01:33:48,140 --> 01:34:18,820
+Transmission time, right? It is transmission time. Okay. So let me know if you, if you guys are getting, is this fine? All of these calculations. Okay. So now let's just see this E part. What is the end to end delay? If a sends 500 package to C, that's very interesting. They're asking end to end. If a sends 500 bytes packet. So what do you need to do? You need to check that, okay, how much time it, uh, I mean, how much time you, uh, you take from here to here and how much time you take from here to here.
+
+167
+01:34:19,650 --> 01:34:52,140
+Okay. So let's just do this question. This is little interesting one. Okay. See, I don't know if you remember or not, but this was, if you remember the propagation delay here was 10 millisecond and I think propagation delay here was 20 millisecond, right? Propagation delays were okay. I think. Yeah, this is 20.
+
+168
+01:34:52,410 --> 01:35:20,200
+This is 10. Actually, propagation delay doesn't depend on packet size and all. So this is fixed. If these two are fixed, length and length, sorry, the distance and the speed, sorry, this is the speed, right? So the distance, this and this, the distance and speed are fixed, then the propagation delay is fixed. Okay. So you just need to calculate from A to B and from B to C. So what is the transmission delay from A to B? What is the propagation delay here?
+
+169
+01:35:20,380 --> 01:35:52,250
+What is the transmission delay here? What is the propagation delay here? You just need to check these two things. Let's just quickly check. What is the transmission delay? 500. For 500, if you remember, it was 1 millisecond. Perpocation is 10. Transmission, I think we have not calculated for this. Perpocation is 20. Let's just calculate transmission from this to this. What is the length? 500. Since it is in bytes, let me convert it into bits. Bandwidth. What is the bandwidth?
+
+170
+01:35:54,480 --> 01:36:38,500
+2 Mbps 4 Bs 2 milliseconds right so it is coming out to be 2 milliseconds so final answer is 11 plus 2 okay this is 33 milliseconds right do you know what is this number okay this was my rank in gate yeah anyway so 33 millisecond is the answer here let me just check right
+
+171
+01:36:42,780 --> 01:37:12,860
+Okay. Have you understood this? I mean, that was the easy question only. You just need to do all of this. Now, you tell me why we are, I mean, why we are basically having some transmission delay here or something like that. Agent packet directly, I mean, coming and directly moving. I mean, why we are adding a transmission delay here? I mean, agent it directly coming and directly going. So why this transmission time is we are adding? Are you getting my question?
+
+172
+01:37:13,770 --> 01:37:45,980
+So here you are transmitting, you are putting on the link, that is fine. But here I think it is directly going, why we are not adding these, I mean, we can have propagation delayer, propagation delayer and just transmission diameter. So basically each node has to process that, right? Each node will be processing and that is called store and forward. Internet bugs on the store and forward technique, okay? So each node, node, store and forward, every packet.
+
+173
+01:37:49,510 --> 01:38:19,090
+I mean, until and unless there is some other things which is mentioned, each node store and forward every packet. It is, it is not like that. It is going directly. We will store it, process it, see what is there and then transmit it again. Okay. So each node will store and forward. So it's not like that. It is directly flowing. I hope that is understood to everyone. If that is the doubt to anyone, then you can understand with store and forward. Okay. So each node store and forward. That is a technical term store and forward.
+
+174
+01:38:21,670 --> 01:39:12,540
+Cool. Now, let's just go to this last part, which is f. Okay. So what is this last part is saying? It is saying what is the end to end delay if a sends two packets one after another to see. Yeah, that's interesting, right? A sends two packets, one after another. Transmission time is too low. And okay, after 11, after 11, one packet will reach here. See, after
+
+175
+01:39:13,800 --> 01:40:17,510
+After two, two seconds, two packets will be here, right? Both of the packets will be here. Okay. Can you do this question? You want to try this question? This is interesting. If A is sending back to back, see, I think, yeah, do you want to try this? Okay. Uh, see, both the packets are here, right? Currently. After how much time both packets will get transmitted on the link? If for one packet transmission is one millisecond,
+
+176
+01:40:17,790 --> 01:40:50,660
+then both the packets will get transmitted after 2 millisecond okay now now let me do one thing let me just focus on the last bit of the second packet even now last bit of the second packet will reach to be completely at what point in time after one more propagation delete 10 so here you have two packets right okay so every packet either to exit A
+
+177
+01:40:50,870 --> 01:41:20,320
+or to exit in to enter into be how much time it is taking how much time it is taking basically every packet is taking one millisecond I mean just to basically transmission just for the transmission every packet is taking one millisecond right okay so the moment B has completely got this particular packet and the moment B has got this particular packet basically there will be just one millisecond difference
+
+178
+01:41:20,700 --> 01:41:55,610
+I mean, B has got this packet and then after one millisecond, we will be getting this packet. Now, we will be getting this packet. That is fine. But how much time this packet will be taking to leave this B, the first packet? How much time it will be taking? It will be taking two milliseconds. It will be taking two milliseconds, but one millisecond I have already considered here, isn't it? See, I'm considering that the moment this particular last bit reaches here,
+
+179
+01:41:55,880 --> 01:42:26,800
+it is basically two milliseconds both packet get transmitted plus 10 milliseconds is the point that okay this last bit reaches here is this point is this time okay to everyone both packet got transmitted and both this last bit got reached to be this is the time but last bit got reached to be before I mean before that even before one millisecond right so basically what I'm saying that this bit this bit or maybe I can say this particular packet
+
+180
+01:42:27,210 --> 01:42:54,750
+has got one millisecond earlier than this particular packet, right? So it takes two milliseconds to transmit this packet, but one millisecond I have already encountered here. One millisecond I have already considered here. So it will take one more millisecond for this particular packet, right? And then one more millisecond for this particular packet. Why? Because one millisecond I have already, I mean, see, it will take two milliseconds for this.
+
+181
+01:42:55,430 --> 01:43:25,610
+It will take two milliseconds for this, but while it is transmitting, this is also getting entered, right? So either you consider that it is getting entered or you consider that it is getting transmitted. So basically there is one second of overlap, overlap in the sense that while it is getting entered, it was getting transmitted, which means, which means see this packet, this packet got completely into B and this packet just, just about to enter into B. You tell me what is the time here?
+
+182
+01:43:30,970 --> 01:44:02,370
+See, for this packet to completely get into B, it is t equal to 11, right? Because you forget about everything. This is propagation plus transmission. At t equal to 11, this packet completely get into B. Now, this packet just started entering into B. It started entering into B. It entered the same time it started leaving out of B. Tell me. It will take 1 millisecond to enter into B.
+
+183
+01:44:02,590 --> 01:45:01,210
+But it will take 2 millisecond to get out of the V, right? So after 1 millisecond, after 1 millisecond, it will be in the B. See, we will do it using direct shortcuts later, okay? That's, I mean, that's how we will be, we might not be doing the questions directly. But for now, it is good to understand everything step by step, okay? Just give me a second. Okay, so is this okay to everyone that at t equal to 11, this is happening?
+
+184
+01:45:01,800 --> 01:45:29,320
+I mean at t equal to 11 this packet got completely reached into b because that is that is what the time is right at 11 I mean 11 seconds it will take for any packet to start the transmission to completely get into b okay see once we completely get it only when we will start the transmission it's not like that we can start the transmission partially have you understood this it's because of can I even tell you why
+
+185
+01:45:29,720 --> 01:46:23,210
+Can we start the transmission partially? Yes, it's because of student forward, okay? Student forward. So we cannot start the transmission partially if you are thinking about it. That's why I'm basically making it clear. Okay. Okay, you are not getting at this 11 part. Let me just tell you. See, just a second, let me copy a diagram from here. Okay. So what I'm saying, at t equal to zero, you tell me what is happening. At t equal to zero, let's not worry about the second packet.
+
+186
+01:46:23,550 --> 01:46:53,360
+the first packet only okay at t equal to zero the first packet is here only how much time it will take from here to here if let's suppose the transmission time of this packet is one millisecond and the propagation time of this packet is 10 millisecond how much time it will take from completely from here to completely into into the b okay completely into the b it will take 11 millisecond right so after 11 millisecond it will be completely into the b and
+
+187
+01:46:53,740 --> 01:47:24,360
+when it is completely into the B then only then only we will start the transmission of this packet it's not like that that we can start the transmission of the partial packet it's because of the store and forward okay so at 11 millisecond at 11 millisecond this packet which is the first packet actually first and second packet are just one millisecond away from each other okay at 11 millisecond it is first packet is completely here and and the second packet is just this
+
+188
+01:47:24,600 --> 01:47:55,080
+You can consider like it is like one millisecond like that. Okay. So this second packet is just one millisecond, uh, behind this. So second packet will be, will be here only. Okay. Basically you can, you can consider that. Okay. This last bit. I'm okay. I don't want to confuse you. Basically it's like that, that I'm in the second packet. If you, if you see, then there will be one millisecond of transmission. Okay. So. Okay. Maybe I can explain like this. See at equal to zero, both are here at equal to 11.
+
+189
+01:47:55,530 --> 01:48:25,060
+the first packet is into this and have you understood that second packet is here or should I be explaining it because I need maybe more time I mean I might need to draw some diagram see the second packet will be at t equal to 1 at t equal to 1 is started the transmission right the second packet is here so at t equal to 1 the second packet is here so at t equal to 11 the second packet this bit I mean second packet just is here only is with this only right so at t equal to 11
+
+190
+01:48:25,470 --> 01:48:53,960
+I mean at t equal to 1 it is here right at t equal to 11 it will be here the first bit will be here right is this fine to everyone now now this okay this is the situation at t equal to 11 where it just started entering it just started leaving okay so they are saying that it will take two milliseconds to leave it will take two milliseconds to leave right that's the transmission time of this particular sorry uh yeah
+
+191
+01:48:54,780 --> 01:49:27,060
+that's the transmission time so because because the bandwidth here is half that's why the transmission time is doubled actually okay oh wow that's interesting right bandwidth they have half and the propagation delay sorry the distance they have doubled bandwidth we half kardhi distance we double kardhi right both are double right tt is double tp is double both are double right okay okay so now now
+
+192
+01:49:27,590 --> 01:50:04,890
+After one more millisecond, this will be completely into it, right? This will be completely into it. Is this okay to everyone? So maybe I can draw this. At t equal to 12, this will be completely into it. And this packet will start leaving. I'm sorry, this has already left. Half of them, half of it are already left, right? So this is at t equal to 12. Now t equal to 13, this will be completely left. This first packet will be completely left at t equal to 13.
+
+193
+01:50:05,780 --> 01:50:50,040
+And when it completely left, then only it will it will start at the transmission. It will start the transmission, right? Is this okay to everyone? At equal to 13, this will completely left and this will start the transmission. So I can say this packet is here and this packet is here. Okay. Okay. Now let's just not worry about this because the moment it reaches, let's just only worry about this last bit. So how much time this last bit will be taking to reach to see?
+
+194
+01:50:53,740 --> 01:51:30,800
+From here, can I just worry about the last bit of this? Because the moment this last bit is reaching to C, everything else will anyway reach, right? So let's just worry about this last bit only. How much time this last bit will be taking to reach? Tell me. This is just a propagation plus propagation delay plus the transmission delay, right? This much. The propagation plus transmission. Is this okay to everyone? This last bit will be taking propagation plus transmission. So let me check the answer. This is 35, right? Yeah.
+
+195
+01:51:32,620 --> 01:52:09,520
+Okay. Let me explain this again. Don't worry. See here. This will be very easy now. Okay. Because now I will explain you with some short cut. Here are two packets. Is this okay to everyone? Okay. What do we finally want? We finally want these two packets to completely get into C. Let's just break this problem obviously into two parts, which is from A to B and B to C. Let's just see how much time this A to B will be taking and how much time B to C will be taking. Is this okay to everyone?
+
+196
+01:52:13,890 --> 01:52:44,130
+Now, now let me also write the parameters here. Here the transmission is 1 millisecond, the propagation is 10. Here the transmission is 2 milliseconds and the propagation is 20. You tell me, let me just divide into two parts. Don't worry about this B to C whenever you are thinking about A to B. You tell me, what do I mean to say A to B? It means that these two packets completely get into the B, right? Completely get into the B. Let's not worry about this first packet.
+
+197
+01:52:45,130 --> 01:53:15,160
+Tell me the time, the time from t equal to 0 itself that this last bit get to the b. This last bit get to the b. You just tell me that time. See, after 1 millisecond, it will even start the transmission. Isn't it? This packet will even start the transmission after 1 millisecond. Is this so good everyone? It needs 1 millisecond to start, right? Okay. This is just to get start.
+
+198
+01:53:15,580 --> 01:53:43,820
+Okay, let me know if this 1 millisecond is okay to everyone. Why? Because this is the transmission time of the first packet. But I don't want to say this. I don't want to have that into even my mind. My calculation is like this only. How much time this last bit is going to take from here to here. That's all I want to ask you. Okay. So even this packet start the transmission 1 millisecond. Just 1 millisecond for the transmission. And the last bit is here. The second packet last bit, right?
+
+199
+01:53:44,290 --> 01:54:18,950
+Now, how much time this will take from here to here? 10 more milliseconds. Is this fine to everyone? This is the time, time for last bit of obviously second packet, right? Last bit of second packet. Let me know if that is fine. Can you just calculate for the last bit? Please respond me quickly if you can calculate this last bit. I don't think it is so hard, right? Okay. You know, right? This last bit.
+
+200
+01:54:19,250 --> 01:54:48,110
+even start the transmission 1 millisecond and then one more millisecond to transmitted and then 90 millisecond now tell me whenever last bit is here of the second packet do you really worry about the other packets maybe 10 more packets don't aren't you sure that other packets however maybe 100 more packets aren't those all packets are have been either reached to be or see or something like that okay maybe that has reached to see I don't even bother about it but
+
+201
+01:54:49,150 --> 01:55:17,860
+By the time this last bit is B is at B the already the other I mean all all other packets that were in front of it maybe the some of them at B some of them at C let's not worry about it but I'm sure that they are they have reached somewhere I mean they're they're ahead of me that is I'm sure right this last bit is sure of that okay now just tell me now just tell me about this last bit only how much time this last bit is going to take to travel to the sea
+
+202
+01:55:19,180 --> 01:55:46,550
+Okay, interestingly, interestingly, here, here, okay, you need to just check one thing, here, basically, one millisecond, it will just take to start the transmission again. The reason is that, reason is that, here, for the transmission of this, I mean, this is actually taking two millisecond, right? So the one millisecond, like the calculation that we have done here, the moment it reaches here,
+
+203
+01:55:47,190 --> 01:56:14,860
+by that moment 1 millisecond it has already left I mean already spent 1 millisecond also it has also has to spend the moment is to start the transmission so basically you can say that 1 millisecond just to start the transmission right just to get started now you now you can tell me clearly right now you tell me the answers how much time this will take transmission time is what 2 and then propagation time is what 20 right
+
+204
+01:56:15,670 --> 01:56:40,150
+Yes. So you add all of this. This is three plus two five. This is 30 35 is your answer. Actually, this question became very tricky just because that just because of this be actually the transmissions times are very tricky in the sense that we need to make sure about this particular condition that okay, it cannot start the transmission quickly. If it can start the transmission quickly, it will be a little easier question.
+
+205
+01:56:40,410 --> 01:57:11,700
+but we need to check that okay how much time it be also just taking just to start the transmission so basically you just worry about the last bit of the last packet okay last bit of the last packet and just see that at a how much time it is taking just to get started how much time it is taking just to get started that's all at every node okay will you be wondering that gate has already asked this question no right actually in this computer networks i will tell you uh interestingly okay interestingly i will tell you one thing i will uh
+
+206
+01:57:11,830 --> 01:57:54,110
+almost for, I can say that almost for every good gate question that gate has asked, I will tell you one-to-one mapping to university questions. Okay, this is a question from, okay, from Berkeley University and even little easier question gate has asked. Should we solve that question or you want to solve that as an homework? Okay, so just give me a second. Let me bring that question. So this is the question that gate has already asked. I mean, this question and that question is similar.
+
+207
+01:57:54,580 --> 01:58:30,120
+Okay. You just try out this question as an homework and then we will do it tomorrow. This is a good question. We will definitely do it tomorrow. What do we need to do to solve this question? Just focus on what last week of the last packet. They are saying that you have a file size of this. Okay. And then this is connected. Okay. That has been broken into 1000 packets. So you are having 1000 packets here of each of this, this bits, but doesn't matter how many, however packet we have, it will be easy question. Okay. Actually, it is easier than this question.
+
+208
+01:58:30,320 --> 01:59:10,360
+Let me tell you, you just try out this question. Okay. But we will definitely solve this tomorrow. Now have you understood a little bit of the transmission propagation? Most probably right. Can we transmit two packets simultaneously? No, bandwidth is limited. Okay. So bandwidth is limited. You can't do it. Okay. Cool. So just try out this question. This question is even easier than that question. So we will be meeting tomorrow and tomorrow we will be starting something called as
+
+209
+01:59:10,600 --> 01:59:43,910
+something called as stop and wait which is here okay stop and wait we will be starting stop and end wait now till now we were just getting familiar with the terms okay few terms here and there now tomorrow we will be starting stop and wait okay so let me do one thing let me as om is asking let me just recap this particular question that what I mean to say see whenever you need to transfer multiple packet
+
+210
+01:59:44,250 --> 02:00:12,500
+only thing that you need to focus is that you need to just focus on the last bit of the last packet because the last bit of the last packet reaches to the destination then all the packet must have already reached okay so just focus on last bit of the last packet that's all now sometimes in between in between this last bit of the last packet maybe it has to wait or something you just need to make sure whether it has to wait just to start the transmission okay that also you have to make sure there's a little extra work
+
+211
+02:00:13,130 --> 02:00:40,930
+I don't completely remember but in this question actually it is waiting right I mean in this question though at least we know it is waiting for how much time to start the transmission at B it is waiting for 1 millisecond in this question it is waiting which I have written here but I don't completely remember I think in this question it is not waiting okay I don't remember so don't believe me for that if that is waiting so in this question I think it is not waiting but you can definitely check it out so just focus on the last bit and check
+
+212
+02:00:41,560 --> 02:01:06,970
+Okay, check how much time this last bit of the last packet is taking to here. Okay, this last bit of the last package taking to here is this much, right? Okay, now, now from B2C, how much time this last bit of the last package taking from here to here. Now just make sure that this last bit of the last packet whenever we were talking about, is it even taking some time to get started? Okay, so this is one millisecond that is the time that that you are taking to get started. Okay.
+
+213
+02:01:07,790 --> 02:01:35,070
+So see in computer networks, we will study everything in very detail. If there is something optional, I will definitely tell you that, okay, this proof is optional or this particular derivation is optional. But I will make sure that everything that you get is with the, you know, very clarity. Okay. That's why we have basically, you know, talked about even the bits that, okay, I mean, that, okay, this is the first bit, last bit, this particular question.
+
+214
+02:01:35,390 --> 02:02:03,430
+Okay, that particular question that we have done here from the store into university that this question, right? So here, not this one, so this one. So this question that, okay, where is the first bit? Where is the last bit? This particular question, I searched a lot for this, that kind of question that is there any question where I can talk about even the bit and so on, some intuitive question. So we are just making sure that you understand everything with very clarity. If initially it seems that, okay, it is lengthy or it is, it is tough.
+
+215
+02:02:03,650 --> 02:02:32,610
+then just have some pay sense. Okay. Eventually it will make too much sense. Now we are going to start to stop and wait. There, there are some formulas like efficiency and these things. We make sure that you don't need to remember any formula and those questions will be very, very intuitive to you. Okay. All the data link layer questions are related to efficiency, bandwidth or anything which are relating to the formula computation and these things will be very intuitive to you. Do you don't need to remember any formula there? Okay. The efficiency throughput and anything.
+
+216
+02:02:32,930 --> 02:02:57,990
+We will, we will have it with very, very clarity. Okay. So thank you everyone. Tomorrow we will be starting flow control, which is a stop and wait. Today we have just seen delays and these definitions, right? Which are also very important. Actually there has been two, three questions which have been asked related to something like this. So this is one of the questions that is already there. There are one or two more questions which we can do tomorrow. Okay. Okay. Cool. Thank you everyone. Take care. Bye bye.
+

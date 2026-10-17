@@ -1,0 +1,1064 @@
+1
+00:04:33,520 --> 00:05:05,380
+hi everyone welcome to go classes so in this lecture we will study multi-level indexes and also we will see what is this isam index sequential access method okay so these two topics we need to see in this lecture so far what we have seen we have seen primary index we have seen basically single level ordered indexes right yes or no single level ordered indexes we have seen in this lecture we will see multi-level indexes
+
+2
+00:05:05,480 --> 00:05:36,800
+Also, we will see this concept of ISAM and we will see some practice questions and some gate questions. Okay. So that is what we are going to do now. Let's start. So so far we have seen that so far we have seen single level ordered indexes. So let's see the summary. The summary you already know. So the index you already know what is the index index is a data structure, which we put on the disk hard drive. So this is your data file. This is your index. Okay, like that. So
+
+3
+00:05:37,110 --> 00:06:06,290
+and it will make I can say retrieval of the record will become efficient searching will become efficient if you want to search for any data that will become very efficient using the indexes now there are some different type of single level ordered indexes and these are the primary index clustering index and secondary index so primary index means this is the index which is built on ordered key field of the file right ordered key field of the of the data file
+
+4
+00:06:06,620 --> 00:06:35,640
+you create the index that will be called primary index what is clustering index this is index built on ordered non key field of the file and second index that is index built on known ordering field of the file right yes or no so this screenshot I have taken from IIT Madras NPTEL course now so these concepts we already know and so all the things we already know like for example if your indexing field is a key then in that situation there are two
+
+5
+00:06:35,890 --> 00:07:04,170
+two things possible see your indexing field is a key let's assume okay in the data file in the data file your indexing field is a key then in this situation there are two conditions there are two situations possible either your index either your or your file is physically ordered by the index field right your file your data file is physically ordered by the index field then we will call this primary index and if your data file is not physically ordered
+
+6
+00:07:04,540 --> 00:07:32,780
+by the index field then we will call it second index on key similarly clustering index and second index on known key that you can see if your indexing field is a known key in the data file then there are two situations possible either your file is physically ordered by the by the index field or your file is not ordered by the index field okay so all these types right this is clear yes or no this is clear so all these things we have already seen now
+
+7
+00:07:33,100 --> 00:08:01,600
+primary index, clustering index, second index, second index, all these things we already know. Now let's start. So let's see, multi-level ordered indexes. First of all, so far what we know, so far, okay, so, so far what we know, so far, so far we have seen single level. Correct? This is what we have seen. We have seen single level ordered indexes. Means your index is ordered. Okay, so this is what we have seen so far.
+
+8
+00:08:02,000 --> 00:08:31,200
+single level ordered indexes in this we have seen three type of there are primary indexes clustering indexes secondary indexes in the secondary index we have two okay second index on key secondary index on non key so this is what we have seen so far now okay now you can easily see that what is your excess cost can anyone tell me if you have if you have let's assume I blocks of index let's assume you have I index blocks
+
+9
+00:08:32,370 --> 00:09:06,920
+If you have I index blocks and let's assume you have B data blocks, B data blocks in this situation, what is your access cost? Access cost or you can say IO cost. What is your IO cost? Because you have a you have an index which has I blocks and you have a data file which has B blocks. So what is your IO cost? The IO cost is you can do in because you have a single level index.
+
+10
+00:09:07,290 --> 00:09:33,630
+so you can do this index is ordered right right yes or no so this index is ordered it simply means that your index is ordered your index that is ordered so because your index is ordered so you can do the binary search correct so your answer will be you can do the binary search so number of index blocks log by two okay you can do the binary search plus one plus one and this is for the data block
+
+11
+00:09:34,150 --> 00:10:01,860
+this is you can do this is for data block plus one for data block. So this is what we have seen because your index is ordered. Okay. So in this situation, you can say that your access cost, your IO cost is log, logarithm of I, what is your number of index blocks, logarithm of that, seed value plus one. Okay, this plus one is for the data block. So this is the IO cost. Now, let me tell you that
+
+12
+00:10:02,440 --> 00:10:24,330
+Can you notice this this we want to reduce agree or not see this we need Okay, we can't reduce this agree or not because of course the data block we need this data block we definitely need so we can't reduce this because this is our purpose so whatever you do you want this data block you want this information
+
+13
+00:10:24,670 --> 00:10:54,330
+so you want this information you want to read this information so definitely i this data block i need to access so this data block this one access i definitely need okay there is no like there is no doubt in that i definitely need this access but we want to reduce this right so basically the question is can we reduce this can we reduce this so we are already this this value is coming because of what tell me this value this is coming because of what
+
+14
+00:10:54,590 --> 00:11:22,050
+this value is coming because of binary search on index yes so because of binary search on index this value is coming right and we want to reduce this value can we reduce this value that is our question so that is our target our target is to reduce this value okay and what are the possibilities to reduce this value if we want to reduce this value can anyone tell me what are the possibilities like
+
+15
+00:11:22,400 --> 00:11:49,160
+I want to improve the to improve io cost your io cost first of all let me write your io cost your io cost that is this so number of index blocks logarithm on that log base 2 because we are using the binary search so this 2 is coming because of binary search right okay this 2 is coming because of binary search because of the binary search this 2 is coming so logarithm of number of index blocks
+
+16
+00:11:49,630 --> 00:12:19,150
+and this is your IO cost we want to reduce this IO cost to reduce this IO cost what are the options can we try like some options can you give me to reduce IO cost anyone anyone want to suggest something like how can I reduce the IO cost because these many block access you need from the hard drive these many these many blocks you need to the main memory yes very good my with very good very good okay so to reduce the IO cost what is the
+
+17
+00:12:19,390 --> 00:12:46,840
+what is the first thing that you can do remember what you can do because these many blocks you are accessing from hard drive to the main memory from your hard disk to the main memory these many blocks you are reading you are reading these many blocks so to reduce the IO cost the one thing that I can do is I put index in the main memory yes or no index in a main memory
+
+18
+00:12:47,480 --> 00:13:15,640
+I put index in main memory because index doesn't have a lot of size yes or no like in your book you have thousand pages and index has maybe four or five pages so index does not have very huge size index I can say index is a small like maybe two three pages or maybe five six pages so your data file can be very big very huge your index file will be I can say comparatively very slow sorry very small if this is your data file this will be your index file
+
+19
+00:13:16,160 --> 00:13:46,950
+Okay, so index is basically very small comparing to the data file data file can be very huge, but your index is very small. So this is the one option that I can try that is put index in the main memory. This is one option that I can try. Okay, so you tell me what is the problem with this option? Anyone want to tell me what is the problem with this option? Anyone? Yes, because main memory is not that large. So the problem the problem can happen if your index is comparatively larger.
+
+20
+00:13:47,680 --> 00:14:15,780
+the problem one can happen if your index is larger than the main memory okay if the index if your index is larger than main memory for example maybe your index has a 20 blocks see right now single level index we are talking about I am talking about single level index in the single level index you have a index blocks so this I can be for example this I can be 20 this I can be 50 this I can be 10
+
+21
+00:14:16,220 --> 00:14:45,080
+the index number of index blocks how many index blocks are there how many index blocks are there this is your value of i and this value you can notice this value can be depending on the data file depending on your index size so you can notice this this is the problem one that if index is larger than main memory then what to do then we can't do this right yes agree do you agree that if your index is larger than the main memory then
+
+22
+00:14:45,320 --> 00:15:15,590
+definitely like we can't do this okay this approach we cannot apply if your index is larger than memory then definitely this this approach we cannot apply anyone want to give me problem number two problem number two anyone want to give me problem number two there is another problem that even if index is a let's assume not larger than main memory then also main memory used for many things yes yes or no it's not like main memory is only for the index main memory we use for many things
+
+23
+00:15:15,840 --> 00:15:47,020
+so this main memory what it will say even if even if index this total index size even if index size is less than main memory less than main memory size then also then also what this what this main memory will say tell me what this main memory will say this is the main memory what this main memory will say this will say that I have many things to do yes or no this main memory will say that I have many many things to do
+
+24
+00:15:47,190 --> 00:16:18,200
+man memory has many things to do many I can say many things to accommodate many things to accommodate so you cannot give the man memory for the index only okay yes or no agree or not so the main memory will say that like I have many things to do I need to take care of many process I have to put many process okay at the same time many processes can be in the main memory operating system is also in the main memory when you load it yes or no right or not
+
+25
+00:16:18,400 --> 00:16:47,380
+okay in the main memory in some part operating system will also be there okay all the running processes will be there if there are 10 processes running those 10 processes will be there so this main memory has many things to accommodate right yes or no so so basically this in which situation you can apply this tell me so you cannot give the I can say it is it may not be possible to you know put the index in the main memory right so main memory
+
+26
+00:16:47,860 --> 00:17:22,500
+may not may not be able to put to I can say to take index right yes or no so in which situation this approach you can apply anyone anyone so in this situation this approach is good this approach is good when or I can say this approach is good only when your index size is small right okay your index size is very small
+
+27
+00:17:23,030 --> 00:17:52,130
+like index size is very small how much small maybe 2-3 blocks okay at most 2-3 blocks so maybe index size is very small like maybe I can say almost at most maybe at most 2-3 blocks if you have at most 2-3 blocks then this is fine are you getting my point so if your index if your index is 2-3 blocks if this index is only 2-3 blocks like okay maybe 3 blocks only
+
+28
+00:17:52,490 --> 00:18:19,730
+then you can put it in the main memory so this this approach you can use in this situation okay this then you can put in the main memory you can put it is this clear let me know so this approach is good this approach is good this putting the index in main memory this approach is good only when your index size is very small like your index has only maybe two three index blocks is this clear let me know anyone has any doubt in this
+
+29
+00:18:20,090 --> 00:18:49,140
+so if you have only two three almost I can say at most two three index blocks or maybe four index blocks so basically very small okay then in this situation you can put the index in main memory okay if you put the index in main memory then suddenly what will happen tell me if you put if by chance you put the main memory the index in main memory the all these index blocks are in the in the main memory then suddenly what will happen if you can do this then disk access will become washed
+
+30
+00:18:49,730 --> 00:19:18,450
+access cost this IO cost will become what now your IO cost will become suddenly one only yes or no suddenly it will become only one because you have already put the index in the main memory so you only have to access the data block right yes or no so you only have to access the data block nothing else you only have to access the data block but this approach we cannot use most of the time do you agree
+
+31
+00:19:18,850 --> 00:19:48,600
+like this approach you can you can call it theoretical approach this is just a theoretical approach because in the real life if you notice this type of approach you can use for the primary index for which type of index you can use this approach tell me so this approach maybe this approach might be good for primary index yes or no this approach might be okay like this approach might be useful for the primary index because in the primary index we make one entry for every block
+
+32
+00:19:49,000 --> 00:20:18,080
+so primary index has the less size than the other indexes do you agree because in the primary index we make one entry for one block in the secondary index we make one entry for one record in the clustering index we make one entry for the distinct value okay so you can see that this approach if you notice this approach may be okay okay for primary index
+
+33
+00:20:20,010 --> 00:20:50,110
+yes or no do you agree that this approach may be okay okay for primary index because this primary index has smaller size this primary index has a small size because for every block we create one entry for every data block we create one entry so that is the reason this this approach may be okay okay for primary index so we have to go for the another approach and the another approach is multi-level index this is the another approach that is multi-level
+
+34
+00:20:50,450 --> 00:21:17,670
+index this is the another approach that we need to study so far is this clear what is the motivation for multi-level index anyone has any doubt in this tell me the motivation for multi-level index that motivation is clear why we want to go for multi-level index why we are not putting in the main memory we can directly put in the main memory if you have for example four blocks then you can put in the main memory but there are some problems if your index is big
+
+35
+00:21:18,100 --> 00:21:46,380
+if your index is bigger than main memory then there is problem if your index is less than main memory size but still main memory has many things to do main memory need to need to put operating system and many things process okay so main memory has many things to do so you it is not possible that you can put the index in the main memory of course if your index size is very very very small maybe two three index blocks then in that situation you can do this
+
+36
+00:21:46,740 --> 00:22:14,180
+ok your index size is maybe 2-3 blocks then you can put the index in the main memory in this situation your IO cost will become 1 because in this situation the only data block you need to access because already the index is in the main memory so index you don't have to access ok but this approach is only good when you have index size is very small maybe 2-3 blocks ok so this approach may this approach putting the index in the main memory this approach may be ok ok
+
+37
+00:22:14,520 --> 00:22:44,820
+may be okay okay for primary index because in the primary index for every data block we create one entry so the primary index size is very small okay so this approach may be okay okay so we have to go for another approach that is multi-level index because we want to reduce this factor do you remember agree or not okay this factor will always be there so this factor will always be there this data block will always be there no okay no one can reduce this this data block size will always be there
+
+38
+00:22:44,980 --> 00:23:15,720
+but this factor we want to reduce right agree or not okay we want this factor as less as possible correct okay so we want to reduce this reduce it okay so this is the idea I hope this point is clear tell me is this point clear so this is the idea for multi-level index now is this concept clear like is this statement true that we do multi-level index because your index does not fit in one block
+
+39
+00:23:16,520 --> 00:24:00,740
+is this statement true? is this statement true? tell me we go for multi-level index we go for multi-level index the reason is this because index doesn't fit in one block is this reason correct? anyone is this reason like for the multi-level index if you want to go for multi-level index is this the reason is this the reason is this the reason tell me is this the reason for multi-level index
+
+40
+00:24:01,500 --> 00:24:34,130
+Is this the reason? Okay, if anyone asks you what is the reason for multi-level index? Reason for multi-level index. Is this the reason for multi-level index? And the answer is no. This is not the reason. The answer is no. This is not the reason. So what is the reason then? The reason is very simple that, just think about it. Even if your index has three blocks, that is also fine, right? As long as your index has three blocks, I am fine. Correct?
+
+41
+00:24:34,520 --> 00:25:05,000
+as long as your index has only three blocks I am fine there is no problem okay so if your index has three blocks let's assume your index file that has three blocks okay you have three index blocks I am fine I don't have any problem I don't need to go for the multi-level index okay in this situation there is no need to go for the multi-level index this is very good situation so you can just put in main memory in this situation you can just simply put in main memory
+
+42
+00:25:05,350 --> 00:25:33,920
+so there is no problem so we go for multi-level index the reason is this that if your index size is used then you cannot put in the main memory okay so that is the reason that is the reason we cannot apply this we cannot apply this method if your index size is used maybe your index has let's assume 10 block 20 block okay your index has maybe 7 block okay so if you have a number of blocks is I can say number of blocks is index blocks is
+
+43
+00:25:34,270 --> 00:26:04,160
+Maybe more than 5 or something like that. Okay, maybe more than 10. If your index blocks, number of index blocks is huge, then we cannot apply this method. We cannot put the index in the main memory. So we have to go for something other approach, some other approach. And that other approach is multi-level index. Is this clear? Let me know. Did you notice the same thing happens in the multi-level paging? If you ask anyone, what is the reason for multi-level paging? What they will say?
+
+44
+00:26:04,840 --> 00:26:33,500
+Many people, what they will say? Many students. Many students will say that we go for multi-level paging because the page table does not fit in one page. Right? Yes or no? Many people will say this. There are many teachers that teach like this. Okay. In all these coaching institutes, the teachers, they will teach like this. That we go for multi-level paging because the page table does not fit in one page. That is not the reason.
+
+45
+00:26:34,290 --> 00:27:04,040
+yes or no that is not the reason in the gate exam there are two questions and they are only based on this that what is the reason for multi-level paging the reason for multi-level paging many students they do not understand they understand in a very wrong manner because in all these coaching institutes the teachers are teaching the wrong concepts you know those two gate questions one question is gate 2006 another question is gate 2022 those two gate questions these teachers also cannot solve
+
+46
+00:27:04,250 --> 00:27:32,950
+they are also solving by the wrong method they are also getting the wrong answers because they did not understand the multi-level paging and they are teaching the wrong concepts to the students and students are learning the wrong concepts okay so those to get questions those to get questions they are basically still even after those to get questions also the teachers are teaching the same thing they don't want to change because for the last 20 years they are teaching the same thing the same wrong concepts students are learning
+
+47
+00:27:33,320 --> 00:28:01,550
+you know in the dbms also there are many misconceptions in the normalization complete normalization okay in in all these coaching institutes they are teaching in a very wrong manner okay the decomposition the non-binary decomposition so many concepts many concepts you can notice many students they have misconceptions okay so anyway the multi-level paging we have already seen in the operating system we have already seen what is the correct reason to go for multi-level paging and some variations
+
+48
+00:28:02,450 --> 00:28:24,090
+some variations of the questions also the gate 2022 and gate 2006 those two questions also we have done anyway that multi-level paging and all these things are covered similarly remember here also multi-level index why we go for multi-level index remember one thing that
+
+49
+00:28:24,410 --> 00:28:53,730
+if your number of index blocks is less like if you have two three index blocks or maybe four index blocks if you have three four index blocks then in that situation you can put in the main memory you don't have to go for the multi-level index but still number of index blocks is actually actually larger number of index blocks will be I can say maybe 10 20 30 50 okay so number of index blocks will be larger okay in that situation you cannot do this you cannot put in the main memory so you have to apply some other approach that is multi-level index
+
+50
+00:28:54,220 --> 00:29:28,130
+Okay, but once we go for multi-level index but once we go for months once we decide to go for multi-level index Then we go till the last level Okay, is this clear once we decide to go for multi-level index multi-level index Like once we have decided that we will go for multi-level index then by default Then by default where we will stop at which level we will stop tell me then by default at which level we will stop
+
+51
+00:29:28,930 --> 00:29:58,940
+once we decide once we decide that we will go for multi-level index we are going to for multi-level index then by default I can say the outermost level the outermost level okay has one block has one block is this clear tell me is this clear sometimes the question also okay remember sometimes the question will be like this sometimes the question will be like this that go for multi-level index
+
+52
+00:29:59,180 --> 00:30:27,780
+but we only use two levels okay sometimes the question will be like this that you are going for multi-level index but you are only using two levels then this type of situation also can be created is this point clear in the question if they mention it in the question if they say that we are going for multi-level index but we only go till two level we don't go more level we only go till two level then this type of situation also possible okay is this clear
+
+53
+00:30:28,170 --> 00:30:56,530
+Now, in this type of situation, if your outermost level does not have one block, then what you will do? If your outermost level does not have one block, then what you will do? Then on the outermost level, you have to do the binary search. Is this clear? Let me know. If your outermost level does not have one block, okay? If you have two levels and let's assume outermost block, outermost level, that does not have one block, that has more than one block.
+
+54
+00:30:56,790 --> 00:31:26,410
+then on the outermost level what you will do on the outermost level you will do the binary search then only then one block you will get then one data file are you getting my point okay is this clear to everyone so if the question mentions if the question says that we are going till two level of index two level of multi-level index we are going okay then you have to solve the question according to that but if no information is given okay and if they say that okay do the multi-level index
+
+55
+00:31:26,720 --> 00:31:55,560
+just do the multi-level index just do it okay then by default we have to go till when outermost level has one block this one block we by default we will put in the main memory are you getting my point so the outer most level has one block then there are some blocks here there are some blocks here then there are some blocks here then okay and these are the data files and this is your data file let's assume finally this is your data file what will happen here one access for this then one access for this
+
+56
+00:31:55,850 --> 00:32:28,860
+then one access for this then one access for this total how many what is the io cost in this situation your io cost will be four which is three plus one okay this one this is one is this one is for data block this one is for data block and this three this three is for index levels did you see here we don't apply the did you see here we don't apply the binary search we don't have to apply the binary search because
+
+57
+00:32:29,210 --> 00:32:58,490
+the outer most level has only one block you only have one block on the outer most level okay so one access for this one access for this one access one access total four access which is three plus one okay three because of index levels you have three levels and one because of data block okay so once we decide that we have to go for multi-level index once we decide that then by default we go okay such that outer most level that has one block is this clear to everyone okay
+
+58
+00:32:58,840 --> 00:33:26,720
+So whenever we do the multi-level indexing, okay, then basically we try that outermost level should have one block. Then we stop. Okay. But in the question, if some other information is given, then you can solve the question according to that information. Okay. Is this clear? Now let's see. So let's move on now. Now we will see the multi-level indexing. So first of all, this multi-level index, I will write like MLI.
+
+59
+00:33:27,330 --> 00:33:59,260
+okay this is what I will write in short so that I don't have to write again and again okay this is the short I will use for multi-level index multi-level index means MLI this is how I will write so then this multi-level index what we do first of all single level we already know right yes or no we already know single level like let's assume this is your data file this is the data file so okay so what I'm saying let's assume this is your data file
+
+60
+00:34:00,840 --> 00:34:29,480
+now data file can have many number of blocks correct this data file this data file can have many number of blocks this data file can have so in this data file let's assume you have b number of blocks how many blocks are there let's assume b blocks in the data file now what we do first of all we create one index that is single level index right so this is your first level this is your first level of index and this you already know
+
+61
+00:34:29,740 --> 00:34:59,530
+This first level of index, this can be primary index, clustering index, secondary index, whatever index you take. This is your first level of the index. Now, what is the... Okay, in all the indexes, whether you take primary index, clustering index, secondary index, what is the similarity? Tell me. Okay, look at the index only. Don't look at the file. Do not look at the file, data file. Just look at the single level indexes. Okay, look at all the single level indexes.
+
+62
+00:35:01,350 --> 00:35:35,300
+Look at all the single level indexes. Okay. All of them like you take primary, you take clustering, you take primary index, you take clustering index, you take second index. In all of them, what is happening? Just observe this observation you make and your chapter is over. This observation you make in all of them. If you see the index file, if you look at the index file, so in the index file, what will happen? A very beautiful structure will happen in the index file.
+
+63
+00:35:35,580 --> 00:36:06,940
+in all of them in all of them this will happen that you will have unique search key values this is your search key and this is your block or record pointer whatever this is i can call it pointer either this is record pointer or block pointer but what happens what happens can you see can you see can i consider this as a this is ordered first of all this is ordered and these are unique values and these are unique distinct values
+
+64
+00:36:09,260 --> 00:36:38,860
+distinct values these are unique distinct values do you agree or not tell me whatever index you take whatever index primary index clustering index secondary index whatever index you take look at the index file don't look at the data file look at the index file in the index file you have two fields your search key what is your search key and what is the pointer this pointer can be block pointer record pointer that we have already seen now you look at the search key then this search key is ordered
+
+65
+00:36:39,320 --> 00:37:07,080
+okay it will be in a order so it will be ordered and also can you notice you have unique distinct values right agree you have unique distinct values like repetition cannot happen like this cannot happen 4040 yes or no this cannot happen 4040 this cannot happen okay so this cannot happen 4040 so these are distinctive values so for one moment for one moment you consider this as a file
+
+66
+00:37:07,780 --> 00:37:41,040
+okay for one moment you consider this as a file consider this as a data file consider it as a file as a data file consider it as a file as another data file are you getting my point consider it as another data file for a moment for a moment you consider this as a data file as another data file for a moment you consider like this then what you can do if you consider like this then what you can do
+
+67
+00:37:41,320 --> 00:38:10,980
+yes very good yes very good because if for a moment if you consider this as a another data file then something beautiful you can do okay you can just create the primary index on this right on this you can create the primary index so the second level the second level will be okay because this is ordered and this is distinct values this search key is ordered also I look at this search key this search key is can I say this is ordering key field
+
+68
+00:38:12,260 --> 00:38:42,170
+In index In index inside the index file In index file can I call it ordering key field Tell me Inside the index file not in the data file Inside the index file only look at the index file Inside the index file can I call it ordering key field If you can call it ordering key field then what you can do You can create a second level sparse index You can create a second level You can create for a one block one entry For one block one entry
+
+69
+00:38:42,430 --> 00:39:13,440
+tell me tell me tell me which file will be bigger first level or second level which file will be bigger this is first level you can consider this as a first level you can consider this as first level which will be bigger first level why what is the reason why second level is smaller anyone anyone why second level is smaller what is the reason second level is smaller in the second level also you have two things two entries in the second level also you have search key comma pointer search key comma pointer then why this is smaller
+
+70
+00:39:15,710 --> 00:39:47,860
+anyone in the first level also you have two entries in the first level also you have two two field in the second level also you have two field then why the second level is smaller the reason is very simple because in the second level is a primary index on the index file secondary level this second level this is a primary index on first level yes or no this is a primary index on first level index
+
+71
+00:39:48,300 --> 00:40:14,670
+on this first level you are creating a primary index so for every block one entry you will create or a one entry for an entire block for this entire block only one entry are you getting my point for this entire block only one entry so for one block only one entry so the second level will be smaller again what you can do again what you can do now you can consider the second level as a as a ordered ordered file
+
+72
+00:40:15,740 --> 00:40:49,620
+okay this second level you can consider as an ordered file then you can go for third level in the third level let's assume only one file one block is there so in the third you can go for third level so I can say this third level is what this third level is a primary index on second level this is a primary index on second level for one block you will create one entry for one block you will create one entry okay for one block you will create one entry so finally at okay
+
+73
+00:40:49,860 --> 00:41:16,800
+Your size is getting less and less. The second level has less size. The third level has less size. After sometime you will reach where you have only one block. Do you agree? After sometime you will reach where you have only single block. That's it. This is your multi-level index. Please tell me, is this clear? This is your multi-level index. This is the concept of multi-level index. Very simple concept. So in the multi-level index, what we do?
+
+74
+00:41:17,650 --> 00:41:47,760
+very simple that you look at only the first level okay look at the first level we call it first level let's call it first level index okay or I can call it I1 let me call it or I can maybe I can call it level 1 I can call it index level 1 IL1 IL1 index level 1 so this is your first level index in the first level index you have some blocks there will be some blocks will be there
+
+75
+00:41:48,310 --> 00:42:18,040
+there will be some blocks okay and what you can do here you have two fields you cannot search key comma pointer search key comma pointer search key comma pointer search key comma pointer so these two things you will have now what you can do on this you can create a primary index okay so that will be called second level index second level index so I can say this is index level 2 okay so in the index level 2 what will happen
+
+76
+00:42:18,410 --> 00:42:52,540
+I can say that index level 2 will be something like this so this index level 2 remember this index level 2 this IL2 this IL2 is a primary index on IL1 on IL1 you create a primary index for every block there will be one entry for every block there will be one entry okay so there will be one entry for every block right for there will be one entry for every block like there will be
+
+77
+00:42:52,850 --> 00:43:23,810
+one entry for every block so something like this there will be one entry for every block something like this then what you can do you can go to you can go to third level of index you can go to third level of index you can call it il3 index level 3 this index level 3 what it will be it will be a primary index on il2 and so on you can go till you find only one block is there okay
+
+78
+00:43:24,000 --> 00:43:54,460
+So like this you keep doing and till that till a point when you get only one block this is the concept of multi-level indexing please tell me did you understand so multi-level index understood so your data file your first your first level IL one this then after this level okay then your second level is IL 2 then your third level is IL 3 your fourth level is IL 4 and so on
+
+79
+00:43:54,730 --> 00:44:25,510
+until you get a single block okay so this is your IL4 you can clearly see this is your normal this is your this is your I can say this is your normal either PI or CI or SI on data file on data file agree yes or no yes or no first level the first level is normal primary index either it can be primary index or it can be clustering index
+
+80
+00:44:25,860 --> 00:44:54,520
+or it can be second index on the data file so that is your normal that we have seen in the last class this is your normal index this is your normal single level index okay so this is your normal primary index either this level 1 can be primary index or it can be second index or it can be clustering index on the data file but after that but after that this is what but after that this is a primary index on il1 right this is a primary index on il1
+
+81
+00:44:54,920 --> 00:45:26,560
+This is a primary index on IL-2 and this is a primary index on IL-3 and so on. That's it. This is the idea of a multi-level index. I hope you got it. Okay. Is this clear? Now, let's see some, so again you, this note you can see, what is the note? The note is very simple that, can you notice from second level and onwards?
+
+82
+00:45:28,290 --> 00:46:04,570
+Second level and greater. Second level and greater. Are always sparse. Are always sparse. Okay. Second level and greater. Are always sparse. Okay. One interesting question I want to ask you and you tell me the answer. Why not dance? Why not dance? Okay. Just think about it. Please think about it. No, no, no, no, no. No, think about it. If by chance you create dance, then what will happen? You brass.
+
+83
+00:46:06,650 --> 00:46:55,460
+if second level is dense let's assume okay assume your assume first level assume first level is primary index on data file okay and second level is dense index on first level then problem tell me the problem that will happen some problem will happen yes very good my with very good array then the same thing will keep repeating
+
+84
+00:46:56,130 --> 00:47:27,510
+but think about it take your copy pen take your copy pen and check the same thing will keep repeating the same thing is keep going to repeat because see see okay your first level okay and see what is what is going to happen this is going to happen that if your first level let's assume your first level is already this is your first level I'm giving you first level now let's assume this is a block in first level this is a block in first level
+
+85
+00:47:27,830 --> 00:47:57,760
+This is another block in first level. So there are two blocks in first level. And of course, you know that every entry will be secondary. This search key and block pointer because I have already given you this information that assume that first level is primary index on data file. So this first level, this is a primary index on a data file. Is this clear? So every entry will be what? Every entry will be something like this. Search key one block pointer one. Correct. Correct or not?
+
+86
+00:47:58,090 --> 00:48:30,010
+then search q2 block pointer 2 then search q3 block pointer 3 okay and so on and so on and so on okay now you tell me on the second level what will happen if you create the second level as dense if you create the second level as dense if you create the second level as dense on first level then what will happen tell me if you create the second level the second level if you create dense on the first level then the same thing will happen the same thing duplicate duplication will happen
+
+87
+00:48:30,660 --> 00:49:04,650
+because this record you will put this record you will put this record you will put and can I put more now in the second level inside one block can I put more entries no because the same thing is happening okay because this is the index this is the second level index so I have to put search key comma block pointer search key comma block pointer so the same thing will keep repeating so same thing will keep repeating now again
+
+88
+00:49:04,930 --> 00:49:36,350
+if you create the third level as the now tell me if you create the third level as the dense on the second level then the same thing will keep repeating so can you see the problem can you see the problem why this is always sparse the second level is always always always sparse this always is a very big always this always is a very big always not a small always yes or no because the reason is this that if by chance you create it in dense
+
+89
+00:49:37,170 --> 00:50:11,030
+if by chance your that is dense then what will happen the problem is this all index levels same on index levels copy of each other yes or no copy of each other so till the infinite you can keep going on all index levels will become copy of each other so you can keep going on till the infinite level till the infinite level you can keep going and you will not do any saving infinite level you can keep going on
+
+90
+00:50:11,180 --> 00:50:41,650
+are you getting my point so all the levels will be exactly copy of each other is this clear all index levels they will become exactly copy of each other like this second level first level they will become exactly copy of each other okay so very simple so remember this is very simple point that multi-level index second level and greater second level third level fourth level they are always sparse you cannot make it dance even if you want to make it dance you cannot make it dance yes or no
+
+91
+00:50:42,160 --> 00:51:09,580
+For example, can I make primary index dense? Just tell me this point. Can I make primary index dense? Yes, I can make it dense by default primary index is sparse. But if I want to make it dense, I can make it dense. But the second level, third level, fourth level, you can't even make them dense. If even if you want, even if you want to. Okay. So yes or no, you can never make it dense. So this.
+
+92
+00:51:09,820 --> 00:51:46,730
+second level and greater they are always sparse and you can notice in this multi-level index what is the next point what is the next point in multi-level index so this is always sparse another point is index level k another point is this index level k is is what tell me index level k is what index level k is sparse primary index sparse primary index on
+
+93
+00:51:47,780 --> 00:52:21,950
+index level k-1 on index level k-1 so on the index level k-1 your index level k will be primary sparse index on the index level k-1 and what about index level 1 and what about index level 1 that can be anything that is a normal that can be primary index, clustering index, secondary index on data file on data file okay so that is your normal
+
+94
+00:52:26,620 --> 00:52:56,310
+that is your normal single level primary index clustering index okay so that can be anything that can be anything this is your normal clustering index primary index whatever on the data file that will be on the data file and one more thing the last level we call it top level one more thing the last level okay the last index level we call it top level or you can call it outer level okay so the last index level we call it out top level
+
+95
+00:52:57,810 --> 00:53:35,780
+so last index last means outer outer most outer most level is called top level okay so you but this terminology is very good outer most but by default if by chance if they give you then top level is basically the outer most level we call it top level and the inner most level is called what that is called first level okay so your counting will start from the inner most level so this inner most level
+
+96
+00:53:39,500 --> 00:54:06,440
+is a fast level is level one okay anyway so this is the complete point I hope this point is clear so with example this concept will become more clear right okay so if primary index does not fit in the main memory if you cannot fit this in the main memory then of course the record express access will become very expensive so to reduce the number of block access we need to go for multi-level index okay so the outer indexes they will always be sparse index
+
+97
+00:54:07,330 --> 00:54:35,890
+of the inner index whatever is your inner index if outer index is also very big then you can go for another level another level you can go okay you keep going on until you get a final level so like this you can notice this is the data file okay you can take it out this is your data file this is the record file data file on this this is your first level and on this you are creating another level like this this is your multi-level index so what are the benefits
+
+98
+00:54:36,300 --> 00:55:07,850
+Now let me tell you the benefit first, then we will see some questions on the multi-level index, but let's see the benefit. So we have three approaches. Sorry, so far what we have, we have three approaches. If you're, you tell me, if your data file is ordered, then what are the three approaches? If data file is ordered, anyone? If data file is ordered, then what are the three approaches? Approach one without index. See, if your data file is ordered, then your approach one.
+
+99
+00:55:09,490 --> 00:55:42,210
+approach one without index a lot of cost will be there without index without index the IO cost will be something like like in this question you can notice look at this question in this question if you don't have any index then tell me the answer what will be the IO cost in this question if we and let's assume this is an ordered file let's assume this is an ordered let me assume this is an ordered file then in this situation what is going to be the cost
+
+100
+00:55:43,250 --> 00:56:12,590
+Let me assume this is the ordered file. Then in this situation without index your IO cost is going to be log. You can do the binary search because your file is ordered. So you can do the binary search 9500. Okay, that value. Anyone? I think that value will be this value. Can you check it out? What is this value? This value will be 14 without index. Your cost will be 14. Okay, the second approach. What are the second approach?
+
+101
+00:56:13,720 --> 00:56:45,440
+Approach 2. The approach 2 will be that you have a single level index with a single level index. Okay. So that is your approach with a single level index. So if you only go for single level index, you don't go for multi level index. One for disk access. No, Nikhil. Nikhil, we don't have any index. So answer will be only 14. We don't even have any index without any index. This is your data blocks.
+
+102
+00:56:48,000 --> 00:57:20,630
+this is the number of data blocks okay so here the answer will be 14 only now if you go for single level index then what will happen now in this situation okay take this question actually I am talking about from this question point of view then in this equation let's assume single level has 41 blocks so okay if you go for single level then single level has 49 is 49 blocks then in this situation IO cost will be IO cost will be log i plus 1
+
+103
+00:57:21,230 --> 00:57:53,340
+and here this y value is 49 so that value that will become 6 plus 1 that is 7 some improvement do you agree do you agree some improvement okay now see the approach 3 see the approach 3 that is multi-level index multi-level index now in that in in this approach what is the answer okay 1 1 2 3 only 3 right because only one disc block access because this is only one block so this you will access this will give you the block
+
+104
+00:57:53,630 --> 00:58:24,680
+that you will access this will give you the block that you will access so your final answer is only three the final answer will be what that will be two plus one that is three so can you see this is even more better than this multi-level index this is even more better than the binary search on single level this multi-level index this is better than binary search on single level this is what i want to tell you i just want to tell you this that multi-level index is better alternative
+
+105
+00:58:26,350 --> 00:59:00,800
+is better choice than binary search on single level on single level so on binaries if you do binary search on single level then also this MLI this multi-level index this is a better choice this is the this is what I want to tell you from this example this is only one point I want to tell you and this is that it is clear that without index 14 with single level index 7 and with multi-level index only 3
+
+106
+00:59:01,210 --> 00:59:31,230
+So this multi-level index, this is a better choice than binary search on single-level index. Now let's see question. With the question, this concept will become clear. Okay. So now we are going to do questions. Actually, this question that I'm going to do, it is going to take almost one hour because it is a multi-part question. So can you take your copy pen? Let's, let's take, let's don't, don't take it like a, I'm teaching you something. Don't take like that. Take your copy pen and let's do it together.
+
+107
+00:59:32,290 --> 01:00:00,260
+Okay, so just because this is a very nice question multi part question a lot of parts are there total I think seven parts are there and in each car in each part there are seven questions total seven part in each part seven questions Total how many questions? Almost almost 50 questions. We are going to solve almost Okay, so this is going to be a very big question This only one question will take almost one hour or maybe half an hour. I don't know how much time it will take
+
+108
+01:00:00,470 --> 01:00:29,240
+But take your copy pen and let's do it. Let's do it together. A lot of practice. So this is from the Navate, DBMS book by Navate and Almasri. The exercise number 17.18. Let's solve it. Let's start this. Okay. So you tell me the first, the answer of the first question. The question is on your screen. I am feeling like KBC. Okay. So let's see. So first of all, the question is saying that you have a block size.
+
+109
+01:00:30,040 --> 01:01:04,220
+512 bytes this data you write please because the same data will keep coming again and again so what you do you just write this data one time just write this data one time okay whatever data is given you write it one time so we don't have to read the question again and again so block size is already given to you as 512 bytes what else is given block pointer is given to you block pointer block pointer is given to you as 6 bytes what else is given so this
+
+110
+01:01:04,620 --> 01:01:38,210
+block size is given to you b equal to so this block size this is given to you these many bytes let me call it small b so that I can use capital B for bytes okay is this clear so I am using capital B for bytes so let's use the small b for number of blocks now what else what else is given record pointer size is also given in the same question record pointer block pointer both are given yes or no
+
+111
+01:01:38,440 --> 01:02:10,550
+in the same question and tell me what is the obvious thing record pointer should be bigger than block pointer or not tell me what do you think record pointer size should be greater than block pointer size right because record pointer is equal to block pointer plus offset block pointers plus something else so can you notice that is happening here the block pointer size is six byte and record pointer size is one byte that one extra byte for offset okay so the record pointer size is also given record pointer this is pr
+
+112
+01:02:12,940 --> 01:02:48,490
+That is seven bytes. What else? A file has 30,000 records. So number of records that is 30,000. These many records you have. What else? Oh, fixed length. All the records have the fixed length. Okay. Now you don't have to write this. You don't have to write this. Just calculate the size of the record because every record has fixed length. So record size, the question is saying, question is asking record size. So you find out the record size.
+
+113
+01:02:51,200 --> 01:03:21,000
+what is going to be the record size the record size will be summation of all of them 30 plus 9 just add it just add this 30 plus 9 plus 9 30 plus 9 plus 9 plus 40 plus 10 plus 8 40 plus 10 plus 8 take your calculator 1 plus 4 plus 4 1 plus 4 plus 4 and there is something extra is also given the quesany saying additional byte for deletion marker where will it be
+
+114
+01:03:21,760 --> 01:03:52,380
+Where it will be this additional bite where it is. This is in the record header, right? This you can put in the record header. This is the part of record header in the record header. You can give one bite. Okay. So one bite for the record header. So what are the record size? What is going to be the record size? That will be 116 bytes. This is your record size and you cannot. This is fixed length. The question is already saying that this is a fixed length records. All the records have the same size.
+
+115
+01:03:52,660 --> 01:04:23,440
+So the question number A is done. The answer is 116 bytes. Okay. Now let's see. So now we don't have to see this data again because this question is done. This data we have written. Okay. One time that is fine. Now you tell me the answer for the second question. Calculate the blocking factor and the number of file blocks, assuming an expand organization. So you have an expand organization. So in this situation, what is going to be your answer for.
+
+116
+01:04:24,000 --> 01:05:02,180
+blocking factor. First of all, you find the blocking factor of file. This is called BFR. So what that will be? That will be very simple that you can easily see your block size is 512 bytes. This is the block size. Okay, blocking factor simply means if I ask you what is blocking factor that simply means number of records per block. How many records you can put per block? What is the maximum number of records you can put per block? This is your blocking factor. So the block size is 512 bytes.
+
+117
+01:05:02,900 --> 01:05:33,280
+In the 512 bytes, how many this type of record I can put 116 byte. This is the record size. So in the 512 bytes, how many this type of record I can put that will be this only on his parent organization. So you have to take the floor value. You will take the floor value, not the seal value. So what the answer will be this value you calculate. I think this will be four. You can check it out. Okay. Why we are taking the floor? Why we are not taking the seal value?
+
+118
+01:05:34,020 --> 01:06:00,240
+in the gate exam if you are confused then what you will do in the gate exam by chance if you are confused then what you will do then you will do like this that assume that your block size is your record size is this see your record size is this assume block size is 120 bytes okay your record size is this your record size is this assume block size is 120 bytes is this clear so your record size is 116 bytes
+
+119
+01:06:00,760 --> 01:06:32,770
+Assume your block size is 120 bytes. Then how many record I can put in one block? Tell me how many record I can put in one block? Only one, right? So I have to take the floor. I don't have to take the seal. So I will take the floor. Your answer will be four. This is your blocking factor for the file. Now you tell me the number of number of data blocks or you can say number of file blocks needed. Number of file blocks that are needed. What that will be? That is very simple that first of all, how many records you have?
+
+120
+01:06:33,020 --> 01:07:04,070
+see these many records you can put in one block you can put in single block you can put these many in one block inside one block i can put these many and you want to put these many these many you want to put in one you can put these many now you will take the seal value why we are taking the seal value again you can think like this see see see if you have total six records in one you can put four and total you have six then how many you need yes or no see
+
+121
+01:07:04,350 --> 01:07:34,580
+In one block you can put four, total you have six, then how many blocks you need that will be two. So you have to take the seal, not the floor. Okay. So here the answer will be 7500. These many file blocks. This data also you write because we will use this data again and again. So in your notebook, you write this data that you have 7500 blocks in the future questions. We will use this. So just write all this like blocking factor of the file you write as four.
+
+122
+01:07:35,100 --> 01:08:05,230
+and write this that number of blocks needed is because I will ask you and at that time you can tell me okay is it done so like this so two questions we have done now let's see the third question let's come back to the third question so question number one question two done now let's see question number three is this what the question number three is saying this is saying that suppose that file is ordered in the question he's saying
+
+123
+01:08:05,480 --> 01:08:34,950
+Suppose that file is already ordered by the key field SSN. Okay. Your data file that is physically ordered by the key field SSN. We want to construct primary index on SSN. Very simple thing. You tell me if your file is ordered by the key field SSN and if you create index on that, what it automatically will be called automatically, it will be called physics primary index. Even if this is not given, even if this is not given, then it means this is a primary index. If this word is not given primary,
+
+124
+01:08:35,390 --> 01:09:04,400
+Then also it is primary index Y because your file is ordered by key field. Okay. So anyway, we are creating a primary index on the SSN. Now we have to calculate everything. We have to calculate first of all the, uh, the index blocking factor. And one more thing I want to tell you, what is the fan out of this? Like if I have something like this and let's assume you have three pointers, what is the fan out? What are the fan out? Fan out will be three.
+
+125
+01:09:04,810 --> 01:09:35,490
+okay in this situation the fan out will be 3 I can say fan out of this block fan out will be 3 for this block so for any index block if you consider any index block you consider consider any index block for any index block what will be the fan out what do you think what is going to be the fan out the number the fan out will be what that is the blocking factor yes or no blocking factor so for any index block you can notice
+
+126
+01:09:35,930 --> 01:10:11,470
+the blocking factory if you notice because the blocking factor means what blocking factor means number of records number of index records per block so it simply means that if your number of index records per block if you have four records or five records per block then that will be your fan out will be so it is also called fan out remember some people write it as f o you can write it as f o is this clear so in the question they can also give you fan out of the index block
+
+127
+01:10:11,900 --> 01:10:41,400
+For any index block, the blocking factor is also the fan out. Okay? Now, the same thing he is saying, blocking factor which is the index fan out. We have to calculate this. We have to calculate number of first level index entries. We have to calculate number of first level index blocks. We have to calculate number of levels that we need in a multi-level index. If we go for multi-level index, that is a choice. Yes or no? Going for multi-level index is a choice or mandatory? You tell me this point.
+
+128
+01:10:41,910 --> 01:11:08,800
+going for multi-level index that is a choice or that is a mandatory thing that is a choice that is not a mandatory thing if you don't go for multi-level index in the worst case what will happen in the worst case IO cost will increase yes or no IO cost will increase so going for multi-level index is a choice that is not a mandatory thing if you don't go for multi-level index the IO cost will increase okay so that is the point so if we go for multi-level index then what are the number of levels
+
+129
+01:11:09,330 --> 01:11:42,990
+the total number of blocks if you go for multi-level index and the number of so okay basically everything we have to find in this question now let's let's start so this is the data that we already know and we already know file we already know file blocking factor what was the file blocking factor that was for and what was number of file blocks that was 7500 so this data you already know okay now let's solve the question
+
+130
+01:11:46,530 --> 01:12:18,710
+Now, so let's see the first level. Okay. You tell me about the first level on the first level. Look at the first level because you are creating a primary index. So on the first level, you tell me before we go for another level, you tell me about the first level. What are the record size in the first level index? You have the first level index. So what are the index record size? So the index record size will be what? Will you take block pointer or record pointer?
+
+131
+01:12:18,970 --> 01:12:50,790
+in the question both are given record pointer block pointer both are given because this first level index is a primary index this you already know that this first level index this is a primary index on data file so here you will take the and own ssn what is the size of ssn that is nine bytes this is the size of ssn so the answer will be nine bytes plus the block block pointer that will be that will be 15 bytes so that is your size record size you tell me one more thing
+
+132
+01:12:51,030 --> 01:13:26,430
+you tell me one more thing whatever level you go second or in the second level in the second level or any level like I don't know how many levels but even in the second level or whatever level you take okay what will be the record size what will be the index record size index record size that will be same why what the reason the reason is again same because again you have the you have the search key this is the search key size your search key is SSN this is the search key size
+
+133
+01:13:26,830 --> 01:14:01,960
+plus the block pointer. The block pointer is six bytes. This is the block pointer size. So again, you can notice whatever level you go, your record size, your index entry size will be only this much 15 bytes. So that's it. Now you tell me in the first level, what is the blocking factor? What are the blocking factor in the first level index first level? I can say IL one blocking factor index level one blocking factor. So that is going to be what you can easily see that.
+
+134
+01:14:02,160 --> 01:14:31,060
+the block size is 512 bytes this is the block size in one block how many records you can put how many index records you can put okay in one block because your block size is 512 bytes this is the block size that is given to you the block size is 512 bytes now and your index record size is 15 bytes so in one block how many index records we can put that will be 512 bytes divided by 15 bytes floor value what is this value this value will be 34 so this is your first level
+
+135
+01:14:31,420 --> 01:15:06,770
+So in the first level, in one block, you can put 34. So in the first level, what is the total number of blocks you need? In the first level, the number of blocks that you need, number of IL1 blocks, index level 1 blocks. So that is going to be, so first of all, how many entries? Before that, number of entries, number of IL1 entries, that will be equal to number of blocks in the file, in your file because you are creating a primary index.
+
+136
+01:15:07,030 --> 01:15:35,150
+So in your file, how many blocks are there 7500. So because this is a primary index, this index level one, this is a primary index on the data file. So number of entries will be 7500. For every data file block, we will create one entry in the index level one. So this is going to be our index level entries. Now you tell me the number of index level one blocks. How many blocks we need on the index level one. So that will be these many entries we want.
+
+137
+01:15:35,730 --> 01:16:05,490
+But in one block, we can put only these many entries. In one block, we can put 34 entries. So how many blocks we need? That will be seal value. So that will be 2 to 1. Okay, very good. So these many blocks we need on the first level. Now you tell me on the second level, automatically how many entries? On the second level, automatically number of entries. Number of IL2 entries. How many entries you have to do? That will be equal to
+
+138
+01:16:05,700 --> 01:16:35,650
+number of levels here number of blocks here for every block here you will create one entry in the second level okay so your number of entries will be 2 to 1 this is going to be the number of entries for every block of the first level we will create one entry in the second level now you tell me number of IL2 blocks number of the IL2 blocks in the second level how many blocks you need remember remember remember your size is same in the second level also the record size is 15 bytes
+
+139
+01:16:37,010 --> 01:17:09,700
+So will the blocking factor be same? Will the blocking factor be same? Yes, blocking factor also will be same if you notice the blocking factor. If you calculate the blocking factor of index level 2, that also will be same. That will be 34. Because the index entry size is same, you have the same index entry size. Index entry size of first level is also 15 bytes. The second level also has 15 bytes index entry size. So what is the blocking factor of IL2?
+
+140
+01:17:09,960 --> 01:17:41,710
+on the second level also you can put 34 entries in per block so in one block you can put these many entries in one block okay these many entries you can put in one block we want to put these many entries so how many blocks we need what is the answer you are giving me you are giving me seven answer very good now you tell me for the third level for the third level what is going to be the answer again what is the first of all number of entries number of index level three entries how many entries we need
+
+141
+01:17:42,060 --> 01:18:11,600
+So number of entries we need 7. Okay, okay, okay, okay. And how many entries we can put the third level also has the same blocking factor. Blocking factor will be same in the third level also the blocking factor is in the third level also the blocking factor is 34. That will be same blocking factor is going to be same because in the third level also the record size will be same. So the third level of IL 3 that is 34. So can we put these seven entries in one block?
+
+142
+01:18:13,420 --> 01:18:43,260
+In one block, you can put 34 entries. So we only want to put seven entries. So yes, of course, we can do that. So we can stop at the third level. Can we stop at the third level? Yes. Right. So the answer is very simple. Three levels we need. So in the question, he's asking everything like, uh, for the first part, what is the answer in the question for the first part? What is the answer? The first part is the index blocking factor, the index blocking factor.
+
+143
+01:18:43,550 --> 01:19:12,780
+He is not mentioning the level. Why anyone? He is not mentioning the level because for every level this is same because even your first level is also primary index. Agree or not? Your first level is also primary index and your second level is also primary index. Third level is also primary index. So all the levels are basically sparse and primary index in all the levels you are putting search key and the blocking and the block pointer. So here he is not asking for which level.
+
+144
+01:19:13,100 --> 01:19:46,780
+So the reason is very simple that for all the levels, it is same. So for the first question, answer is 34. For the second question, what is the answer? The second question, the number of first level index entries for the second question, number of first level index entries, number of first level index entries, that will be 7500. 7500. And what is the second thing? The number of first level index blocks. What is that? Number of first level index blocks. That is a two to one.
+
+145
+01:19:47,070 --> 01:20:18,770
+so this will be your answer for the second question for the third question what will be the answer see the third question and tell me the answer the number of levels that will be needed so for the third question index levels remember these are the index levels that will be needed okay we don't consider this data as a that data file we don't consider because see you are creating multi-level index for the index yes or no the multi-level index you create for the index
+
+146
+01:20:19,200 --> 01:20:48,780
+like if you have only single level index you will say only one level is there okay if you have two level then two level so here you will have three levels of the index okay so the number of levels needed if we go for multi level index that will be three the total number of blocks that you need what that will be for the fourth question what will be the answer total number of blocks in the index this is your index your index is this the total number of blocks will be 2 to 1 plus 7 plus 1 so that will be 1 plus 7 plus 2 to 1
+
+147
+01:20:50,380 --> 01:21:22,550
+And you can check it out. Your answer is going to be two to nine. Okay. What is your next answer for the fifth question? Fifth question, the number of block access needed, the number of block access needed to search for and retrieve a record file, given the SSN value. See why this, why this information is given? Why this information is given? Tell me. Tell me, tell me why this information is given because if you search on, if you search on address,
+
+148
+01:21:23,230 --> 01:21:53,970
+if you search on address then what your cost will be if you search on address what your cost will be then your cost will be a lot then your cost will be your cost is going to be as as many blocks you have in the worst case in the average case it will be 7500 by 2 okay so are you getting my point so you can what I'm saying in the fifth question he's asking search search on SSN see if you search on SSN
+
+149
+01:21:54,200 --> 01:22:29,310
+then what your IO cost will be if you search on SSN because we have on SSN we have the on SSN we have what on SSN we have multi-level index we have multi-level index for SSN so IO cost if you search on SSN then your IO cost will be your IO cost is going to be three levels for the index plus one level this is for index levels okay and this is for data this is for data block
+
+150
+01:22:31,190 --> 01:23:02,610
+so your answer is going to be 4 but this question is very beautiful the reason is this the reason is this that they are mentioning that search must be done on SSN yes or no agree or not because they are mentioning because they know they are not stupid they know that if you search on SSN then your answer will be this okay okay okay in the gate exam if they tell you to search on this search on address then your IO cost will be what
+
+151
+01:23:04,690 --> 01:23:36,010
+Your file is not even ordered on the on the on the address. Your file is not even ordered on the address. So IO cost on average, just tell me the average. The average will be 7500 divided by two. Okay. So whatever is that value, you can check it out in the average on the average. This will be the cost, right? 375 0 375 0. That will be the cost. If you search on it address, is this clear? Remember,
+
+152
+01:23:36,350 --> 01:24:06,480
+If you search on SSN, then only IU cost will be this. Because your index is on SSN. Your index you created on SSN. You did not create index on address. So that is the reason this is the reason. Okay. Clear cut. So the question is very clear cut and all the part C we have done. Anyone has any doubt in this part C? Please tell me. Please tell me if anyone has any doubt in this part C. Anyone? Any doubt? Okay. Understood everything. A lot of exercise.
+
+153
+01:24:06,890 --> 01:24:37,310
+now let's see the next next what the next this now suppose that the question is uh this is the next part the part number d this is the part in the same question in the navate dbms book the same question part d uh suppose that file is not ordered by the key field accession very nice question data file is not ordered by the key field accession now if you create an index what that index will be called
+
+154
+01:24:37,580 --> 01:25:06,480
+Do you have to mention that this second reward tell me in the question do they have to mention the second reward? Just tell me this point in the question should they give this like is it mandatory they will give you the second reward. It is not mandatory because the question is saying that your file is not ordered by SSN. Your data file is not physically ordered by SSN and SSN is a key that is a key field. Okay. So if you create index on SSN that automatically will be second index on key.
+
+155
+01:25:07,550 --> 01:25:39,030
+that automatically will be secondary index on key anyway so this is the secondary index that you have created on SSN repeat all the things repeat the previous part CE okay for the secondary index now no not homework let's do it okay because anyway only three questions we are doing so in all the three just do it just take just take the just take it okay this is just for practice let's do it something interesting is going to come
+
+156
+01:25:39,340 --> 01:26:16,390
+Something interesting will come. Okay. What was the first thing that we have to calculate? Anyone? What was the first thing that we have to calculate? The first thing is just calculate the index entry size. You calculate index entry size. So you first of all, you tell me the index entry size. Forget about everything else. You tell me the index entry size. What is the index entry size? The answer will be what? Something interesting is coming or not? Finally.
+
+157
+01:26:17,070 --> 01:26:49,190
+array in the question record pointer is also given and block pointer is also given block pointer is also given record pointer is also given and we are creating secondary index on key we are creating secondary index on key remember you are creating sec your first level if you look at the first level index entry size if you look at the first level if you look at the first level index look at the first level il one so in the first level index what you will do because this first level index
+
+158
+01:26:50,090 --> 01:27:21,750
+Your IL-1. Your IL-1. This IL-1 is a secondary index on key. When you have secondary index on key, then either you can use block pointer or you can use record pointer. Agree or not? See, whenever you have secondary index on key, then either you can use record pointer, either either either you can use record pointer or you can use block pointer. Either you can use record pointer or you can use block pointer.
+
+159
+01:27:22,030 --> 01:27:51,010
+if you get the answer according to record pointer that is also correct if you get answer according to block pointer that is also correct see the gate exam does not care about the defaults i told you what is the default by default you what you will take by default you will take record pointer but see by default you will take record pointer but the gate exam does not work on the defaults it is very rare very very very rare that in the gate exam they will they will rely on the default are you getting my point
+
+160
+01:27:51,400 --> 01:28:15,760
+in the gate exam it is very rare that they will rely on default they will mention it in the gate exam it will be given whether to use block pointer or record pointer i promise you that you can take my promise that it will be mentioned and by chance if this is not given then you solve according to block pointer you will also get marks and you solve according to block pointer
+
+161
+01:28:15,980 --> 01:28:44,990
+So you solve according to record pointer or block pointer in both the situation, you will get marks. No, it will not be a bonus. It will not be a bonus. It will not be marks for all. It will be for these two. You solve according to block pointer, you will get marks. If you solve according to record pointer, you will get marks. So they will give you two answers. If by chance, no information is given in the gate exam, they will give you two answers. Like they will say that, okay, that this 20 is also correct. 40 is also correct. They will not give you range from 20 to 40. Yes or no?
+
+162
+01:28:45,180 --> 01:29:14,590
+They will give you marks for the two answers. If you have done using block pointer, you have done using record pointer. So first of all, from the gate exam point of view, this will be given. But by chance, if it is not given, let's assume by chance, if it is not given, then this is my suggestion to you that you solve according to record pointer. Okay. Why I'm telling you that the reason is very simple that the same question, this exactly same question of the Navate, this has been asked in the, in the university also.
+
+163
+01:29:15,000 --> 01:29:47,670
+there is a university also the same question has been asked in a university assignment and there they have mentioned it the question is as it is but they have clearly mentioned what to take see what i'm saying see what i'm saying i'm saying this see you know that's the second field of index that can be either record pointer or it can be a block pointer in the second index now the same question as it is the same question has been given in a university and the question is exactly same there is no difference but
+
+164
+01:29:48,010 --> 01:30:18,700
+they have given this assumption because they know okay they they know that okay this information was missing in the question do you agree do you agree that this information was missing in the question yes or no tell me okay so this information was missing in the question the exactly same question but this information is given in a university this question i have taken from a university assignment this was a 170 points the question of course there are so many parts
+
+165
+01:30:19,160 --> 01:30:48,500
+So if you do this question, you will get 170 points. Okay. Anyway, you can check it out that this assumption is given in this question that that first level index uses record pointer and the higher level index uses uses the block pointer. So anyway, I told you that by default, you should take record pointer. If no information is given in the question in the question, there is no information given. Then in this situation, you should take block pointer, the record pointer. This you should take by default. This I told you.
+
+166
+01:30:50,810 --> 01:31:22,930
+You should take this as a by default. Okay. So anyway, now let's solve this. So you tell me what is the first level index entry size? What is the actually this information should be given. But anyway, we can take this as a by default by chance. If the information is not given now in this situation, what is the first level index entry size that will be that will be nine bytes for the SSN nine bytes. These are for the SSN and seven bytes for the record pointer.
+
+167
+01:31:25,210 --> 01:31:57,900
+for the record pointer and that will be 16 bytes. Okay, what about the remaining levels? What about the second and higher levels? Second and higher levels. They will use the block pointer right at a yes or no, because the second level is primary index on fast level. Yes or no. Second, say the second level that is a primary index on fast level. Third level is primary index on second level. Fourth level is primary index on third level. So you can clearly see that the second level and higher.
+
+168
+01:31:58,320 --> 01:32:31,610
+they are thus this index entry size vote that will be the index record size that will be 9 plus 6 that will be 15 okay clear is this clear as you can see in this assumption that first level is taking the record pointer first level will take the record pointer and this is mandatory this is mandatory that higher level will take the block pointer this is mandatory okay so anyway so finally this is the idea so you got this
+
+169
+01:32:31,870 --> 01:33:06,210
+now what else we have to calculate so blocking factor we have to calculate so again you tell me the blocking factor this blocking factor of index level one of index level one what is the blocking factor that is very simple that your 512 bytes this is the block size and your index entry size is 16 bytes so you will take the floor what is this value 512 divided by 16 okay that value you are saying 32
+
+170
+01:33:06,620 --> 01:33:47,820
+Okay, what is the blocking factor of IL2 index level 2 and higher and the okay, then the same will be and higher and higher levels. So the blocking factor of IL2 and higher levels, that will be what that will be five to all bytes and the size is 15 bytes. The size is 15 bytes. Why two are a blocking factor. I'm asking why are you saying two submissions are saying to why I'm asking the blocking factor of the
+
+171
+01:33:48,960 --> 01:34:22,980
+blocking factor I'm asking the blocking factor of blocking factor means number of index records per block in one block you can put how many index records so what is that value anyone so five to all bytes divided by 15 bytes this will be 34 so remember this is the blocking factor of the remaining levels and this is the blocking factor of this level is this correct is this correct 15 divided this this 34
+
+172
+01:34:23,330 --> 01:34:56,030
+okay so this is the idea now what the next what next thing was there what was the next thing that we have to find so blocking factor we have found we have found okay one more thing one more thing okay if by chance if i ask you in this question if i ask you what is the blocking factor of index level like if i just ask you blocking factor of index then it simply means that of course the answer you cannot like are you getting my point see in this question
+
+173
+01:34:56,330 --> 01:35:25,570
+you can you can know that will not become ambiguous see in this question actually the question was asking for what this question was asking for the index blocking factor the index blocking factor so it simply means that maybe they are assuming the for the first level they are assuming the block pointer right yes or no the question maker is assuming the block pointer for the first level do you agree do you agree that navate navate the question maker is assuming for the first level they are assuming the block pointer
+
+174
+01:35:26,690 --> 01:35:54,440
+Okay. So these small, small things I just want to point out. But anyway, you don't have to worry from the gate exam point of view in the gate exam, this type of ambiguity will not be there. And in the gate exam by default, you should take record pointer for the second index. For any dense index, whatever dense index you create, you should consider that you should consider for any dense index by default, you should consider the record pointer. Okay. So this is the idea. Now let's solve this. So here
+
+175
+01:35:55,190 --> 01:36:31,320
+This is done. Blocking factor of index level. Now what is the third point? What was the third thing we have to calculate? Yeah, number of first level blocks. So you tell me number of first level blocks. First you tell me what is the number of first level entries. First level index entries. First you tell me about this one. So that will be same as because this is a secondary index. If you see the first level index, this first level index is a secondary index on key.
+
+176
+01:36:31,710 --> 01:37:03,900
+So here number of entries will be same as the data records. So that will be equal to number of records in file in the data file. That will be 30,000. These many entries will be there. So you tell me the, uh, okay. So these many entries will be there. You tell me number of this block needed number of IL one blocks, how many blocks you need. So these many entries we need to put, but we can put these many entries, but we can put these many entries in one block.
+
+177
+01:37:04,270 --> 01:37:37,320
+So these many blocks we need, so that will be 1000, sorry, what that will be? You divide this, so that will be 938, okay, so that is going to be this, very good. So this is your number of IL1 blocks that are needed. These many blocks you need on the first level, on the second level, second level index entries, number of index entries, number of, how many entries will be there? That will be same as the number of levels on the first level.
+
+178
+01:37:38,600 --> 01:38:06,720
+Okay, number of blocks on the first level. So that will be same as number of blocks on index level one. And that is your 938. Now you calculate what is the number of blocks on the second level, number of index level two blocks. So that will be these many entries you want to put. And in one block, you can put these many entries. Okay. So your answer will be 938 divided by 34. That will be
+
+179
+01:38:07,260 --> 01:38:40,310
+34 you divide by 34 because this is the size 34 okay so your answer is 28 next so these are now what about the third level let's see number of third level entries tell me number of third level index entries so that will be same as number of blocks on second level that will be same as number of blocks on second level okay that is your 28 can we put them in a single block
+
+180
+01:38:41,140 --> 01:39:17,860
+can we can we put them in a single block yes because in one block in one block you can put 34 in one block you can put these many entries so these many entries you can put in a single block because the blocking factor you already know that is 34 you can put 34 yes both jagai yes very good both jagai so one block you need on the third level so you tell me number of levels in multi level index that will be three number of blocks
+
+181
+01:39:18,490 --> 01:39:56,830
+index blocks number of index blocks total total number of index blocks that will be 1 plus 28 plus 968 sorry plus 938 so this is going to be your answer okay you can check it out I think 967 very good anything else was okay what the question was asking what was the next part I think all the parts we have done third third part fourth part what was the next part
+
+182
+01:39:57,950 --> 01:40:35,260
+access cost okay yeah access cost what is the access cost access cost if you are searching remember if you are searching based on SSN if you search on SSN then your search cost if I search on SSN then your answer will be 3 plus 1 okay 3 4 index levels and 1 4 data block 1 4 data block so the answer will be 4th so this is very good right okay this is very
+
+183
+01:40:35,690 --> 01:41:08,840
+Very good. Okay. So this is the idea. I hope this is done. So I think all the parts we have done, you can check it out. Did we miss any part? Maybe. Okay. If, if we, if we missed any part, you can check it out. Whatever, whatever was the part. So anyway, this question, we have done the D part. Actually, you can see. Okay. So index. Yeah. This we have done number of entries. This we have done number of this number of total blocks, a number of levels, number of blocks, excess cost.
+
+184
+01:41:09,120 --> 01:41:40,770
+If we search on SSN, yeah, all the parts are done. Now let's see. So the part E. Okay, this is one more. One more. But this actually we need to solve. I can give this as a homework, but actually we need to solve. What is the reason? See this question and tell me. Look at the first two lines and tell me actually we need to solve this. We need to solve. The reason is very simple. Look at the first two lines. This question is based on what? This question is based on second index on non key.
+
+185
+01:41:42,610 --> 01:42:12,910
+secondary index on non key look at the question this is a secondary index on non key this type of question we have not seen okay correct so this is a secondary this clustering index question also also there there's a clustering index question is also there this I can give you as a homework this I will give you as a homework you can try this okay but let's do this question this one last question let's do and then we can we can stop okay
+
+186
+01:42:13,230 --> 01:42:47,640
+shall we do this or after break we should do tell me so okay let's let's do this then we will take a break let's finish this so you can see this is the question what the question is saying suppose the file is not ordered suppose the file is not ordered based on non key field your file is not ordered based on this non key field and we create a second index on this field
+
+187
+01:42:48,240 --> 01:43:19,550
+We are creating second index on this field. Your file is not ordered on this. So this is a second index based on non key. Second index on non key. What is the implementation? How many implementations are there? For the second index on non key, how many implementations were there? Whenever you second index on non key, there are three implementations possible. We can create total three implementations. We have already seen this. Three implementations are possible. Okay, like your implementation one.
+
+188
+01:43:19,940 --> 01:43:48,710
+In the implementation what what what you can do with the search key like if you have a search key with this search key you can put multiple block pointers or record pointers like block pointer 1 block pointer 2 block pointer 3 so variable length records you are getting in the in the implementation to what you can do in the implementation to you can do this for the same value what is the block pointer 1 for the same value what is the block pointer 2 for the same value what is the block pointer 3 okay and the implementation 3
+
+189
+01:43:49,000 --> 01:44:19,400
+in the implementation 3 we have a new level of indirection right so we have a new level new level of indirection i can say this is a new separate level of indirection separate level of pointers we have this is a level of pointers we have what was the by default i told you this was the by default implementation this is the by default implementation and one thing i told you if you remember the disadvantage of this
+
+190
+01:44:19,680 --> 01:44:54,060
+In this your variable length records. In this your variable length. In this your variable length index records. So here your variable length ended. Okay. What was the disadvantage of this? I told you in the multi-level page. I will tell you. Do you remember? I told you that disadvantage of this approach. I will tell you in the multi-level page. Now, can you tell me the answer? Now, did you automatically find the answer? What is the disadvantage of this? I told you in the, I told you that in the multi-level page, we will do.
+
+191
+01:44:54,510 --> 01:45:24,740
+The reason I will tell you in the multi-level paging. Now you tell me what do you think? What do you think? Please tell me. I told you that we don't use the implementation too because a very nice structure will be lost. Yes or no? A very beautiful structure we are getting. Do you agree that in like whatever index you create, whether you create primary index, whether you create clustering index, whether you create second index. Okay. The first level on first level.
+
+192
+01:45:25,360 --> 01:45:59,740
+on first level whatever you create something beautiful is happening something beautiful something beautiful is happening that we have the unique values and ordered correct we have the unique values ordered so these were the unique ordered values unique and ordered values something beautiful right whatever index you take whether you take primary index whether you take clustering index whether you take this second index something beautiful was happening
+
+193
+01:46:00,130 --> 01:46:26,490
+that unique ordered values okay so that beautiful structure will be lost for this second index or non key if you if you do this implementation by chance if you go for this implementation if you go for this implementation then this something beautiful will be lost then we cannot say that secondary okay tell me tell me tell me okay if you repeat this if you repeat like this then can I say second level will be primary index on first level
+
+194
+01:46:28,180 --> 01:46:55,050
+Then can I say second level will be primary index on first level? No. Then what you will say? You will say second level is clustering index on the first level. Yes or no? So this nice structure is getting lost. Okay, because if you do this repetition, 2020, 2020 and so on, if you do this repetition, ordered will be there or ordered will be there. Okay. So what you can say, you can say that if you do this repetition, 2020, 2020, then you will say
+
+195
+01:46:55,260 --> 01:47:26,280
+second level index is a clustering index on the first level okay so i hope that point is clear so this beautiful structure we don't want to lose we don't want to lose this structure okay so so that is the reason this is not used am i saying this can never be used am i saying this can never be used no no this can be used but we don't prefer it we don't prefer it okay so remember this second level this is i can say this is a primary index on level one
+
+196
+01:47:27,430 --> 01:47:57,420
+index level 1 okay I hope this point is clear so these are not preferred this and this they are not preferred this implementation one implementation two these two implementations are not preferred any good gate question any good gate question on this they have to mention which implementation to do agree any well-framed gate question will mention which implementation to do and this is very easy for this book so in the book they are okay in this question they are mentoring using option 3
+
+197
+01:47:59,300 --> 01:48:29,210
+see yes or no in the gate question what they have to do they cannot say option 3 they cannot say implementation 3 in the gate exam yes or no in the gate exam they cannot say that okay use the implementation 3 of go class of the navate yes or no they will have to give you what is this implementation 3 some 3 or 4 pages will be gone yes or no are you getting my point so I told you in the last class that creating a question on second index on non key that is very difficult
+
+198
+01:48:29,510 --> 01:48:53,870
+so that is the reason in the gate exam in any exam there is no question on this topic but we can solve this question just for practice we can just see that okay yes this question also can be solved agree yes or no tell me did you get it okay so this question for self-satisfaction we can do so that we are ready by chance if the gate examiner is very I can say very strict like okay
+
+199
+01:48:57,770 --> 01:49:25,800
+So if he has decided that I will ask one question on second index on non key, then at least go classes, students will be ready. Okay, you should be ready if he is merciless. Yes, very good. Okay, so let's solve this question. So anyway, the question is saying that option three, you have to implement and see all the details are given with an extra level of indirection. We have extra level of indirection that stores the record pointers, this option array. Now finally, they have given this information also.
+
+200
+01:49:26,300 --> 01:49:51,980
+They have also said that you are storing the record pointers. Because I told you you can store record pointer or block pointer. Yes or no? Agree. You can store record pointer or you can store block pointer. So in the question they are saying that record pointer you have to store on the extra level of indirection. Okay. And this some more information is given. Assume that there are 1000 distinct values of the department code and that employees records are evenly distributed.
+
+201
+01:49:52,790 --> 01:50:28,020
+These employee records, these are evenly distributed among these 1000 codes. Okay. Now this question is not a very hard question. Now this becomes very easy because all the details are already given to you. Now let's solve this question. So in the question, we have SI on non key. So in this SI on non key, we have extra level of indirection, right? This extra level of indirection we have. So this is your extra level in the index, extra level of indirection.
+
+202
+01:50:29,460 --> 01:50:58,750
+remember here we okay are we putting two things here tell me tell me tell me are we putting search key comma pointer are we putting search key comma pointer no we are not putting search key comma pointer we are just putting because this is just a list of pointer it's like this okay cool it's like this you have 20 this 20 will this will point to this so this would be block pointer agree agree this would be block pointer this is your first level of index this is your first level of index
+
+203
+01:51:04,160 --> 01:51:34,400
+this is your first level of index so you will point block pointer here here you will point block pointer okay so the block pointer of this so this pointer and here you can put many pointers and here you are using record pointer like record pointer 1 record pointer 2 and so on so you are putting record pointers here okay something like this for example for 30 you will put block pointer that will point here and here you will have many pointers something like this 40
+
+204
+01:51:34,810 --> 01:52:07,700
+you will point this pointer here and this will have many pointers okay and something like this so like this you tell me very simple thing i'm asking how many blocks you need here how many blocks you need here how many blocks you need here so the number of blocks that you need here okay uh no see in the first level index you have what uh look at this first level index first you look at this first level index what is the number of entries
+
+205
+01:52:09,650 --> 01:52:41,500
+In the first level index, what is the number of entries? This you tell me. In the first level of index, what will be the number of index entry? That will be the number of unique distinct non key values, number of distinct agree, number of distinct search key values, whatever is your search key values, this search key is a non key. How many distinct search key values are there in this question? It is given. How many distinct search key values are there? Tell me in this question, it is given.
+
+206
+01:52:41,880 --> 01:53:13,720
+assume there are 1000 distinct values of department code, department code is the search key department code is the search key so here you can easily see that your search key that search key is department code which is a known key okay so that is your search key department code and how many distinct values are there how many distinct values there are 1000 distinct values this is saying okay so number of index entries there here will be 1000 entries in the first level there will be 1000 entries
+
+207
+01:53:14,250 --> 01:53:48,170
+okay one more thing he is saying you tell me one more thing like consider this department code consider this department code like let's assume department code D1 so there will be a pointer do you agree there will be a pointer this pointer will point to this level of indirection this is the this is your I can say extra level of pointers this is the extra level of record pointers okay you tell me how many there will be
+
+208
+01:53:48,960 --> 01:54:19,720
+Okay, those will be how many D1 entries are there? Yes or no? Agree or not? So this will be equal to number of D1 records, number of D1 records in file. How many D1 records are in the file? What is that? You tell me, what is that? The question is showing that your employee records, they are evenly distributed among these values, 1000 values and they are evenly distributed.
+
+209
+01:54:20,880 --> 01:54:54,680
+okay so per department how many per department how many how many employees per department because there are total 30,000 employees okay so you have 30,000 records you have 30,000 employees these many records you have 30,000 and you can notice they are evenly distributed on department codes right they are evenly distributed
+
+210
+01:54:57,900 --> 01:55:30,110
+so this is already given that they are evenly distributed on department codes so here I can say per department you are going to get 30 so that is going to be your number of D1 records that will be 30 correct very simple okay okay okay one more thing can we put 30 record pointers in a single block can we put 30 record pointers in a single block can we put 30
+
+211
+01:55:31,780 --> 01:56:08,450
+record pointers in a single block for that what you will find for that what you will find for that you will find number of record pointers what are the maximum number of record pointers we can put per block for that you will find what are the maximum number of record pointers per block so what are the block size the block size is 512 bytes record pointer size is 7 bytes how many you can put in one block that will be this
+
+212
+01:56:09,300 --> 01:56:40,120
+512 divided by 7. What is that value? Tell me that value. That value is 73. You can put 73 in one block. Okay, so how many blocks you need? How many blocks will be there because of this D1? Yes, for every one value, one block will be there. The answer is yes. So are you getting my point? What is happening? So what will be the number of? Tell me, okay, in the same question. Tell me, okay, one more thing. In the same question.
+
+213
+01:56:40,510 --> 01:57:10,850
+if total number of employees are 80,000 if total number of employees are 80,000 then what is going to happen if total number of employees they are let's assume something like 80,000 then two blocks you need yes or no array for one then something like this will happen you don't have to put an entry here this will point to this is this clear so you don't have to do that you don't have to do that this will point to this are you getting my point
+
+214
+01:57:11,140 --> 01:57:47,390
+if by chance if this happens by chance what i'm saying i'm saying if this happens that you are creating secondary index or non key and let's assume there is a value there is a value 40 okay and this is a pointer so this will point to the extra level of this is your extra level of pointers so by chance if this happens that you need to okay are you getting my point by chance if you need to so here also like for this
+
+215
+01:57:48,020 --> 01:58:18,960
+there are two blocks you need let's assume okay assume let's assume you need two blocks for value 40 okay for this value 40 you need two blocks then what will happen then something like this will happen so you don't have to worry about it but of course the question will not be created so much difficult yes or no they will not create so much difficult question already like with a single level also it is a quite difficult the question is quite difficult even with a single
+
+216
+01:58:19,270 --> 01:59:00,280
+single block so that is the reason this question is very simple that you have only okay so you can put all of them in a single block so finally what you got so this is the final point so let's coming back to the question you tell me what is the number of blocks in that extra level of indirection in in the extra level of indirection tell me in the extra level of indirection what is the number of blocks the answer will be thousand correct
+
+217
+01:59:00,850 --> 01:59:31,110
+The answer is going to be 1000. Yes or no? Why? Coming back to our question. Coming back to our question. I am talking about our question. In our question, you can store them in one. Correct? Yes or no? So there will be 1000 levels, 1000 blocks in that extra level of indirection. Now, now forget about it. Now everything will be same as your multi-level index. Now everything, you can notice.
+
+218
+01:59:31,480 --> 02:00:16,020
+now everything is going to be same as now just focus on the first level index now let's focus on first level of index focus on IL-1 in the IL-1 what is the record what is the number of records what are the number of index entries that is same as thousand that is simply thousand these okay and you tell me what is the size index entry size that will be what that will be oh sorry department code array size of department code
+
+219
+02:00:16,380 --> 02:00:46,040
+don't directly say department code size you check you check the department code size department code size oh it is our kismat you know else maybe maybe you will if the department code size is something else if department code size is less than 40 bytes then you have to take that yes or no so remember you will take the department code size so here you can notice nine bytes why nine bytes this nine byte for department code size
+
+220
+02:00:50,460 --> 02:01:27,660
+So keep your mind open. Yes or no? Keep your mind open. Keep your mind open. Okay. This plus block pointer size, that is six bytes. So your answer will be 15 bytes. This is your IL one. What about IL two? The same thing will happen for IL two because you are taking the block pointer now. Okay. So same thing will happen for any level, whatever level you take. But yeah, index entries will take will change. What will change that will change like for every level, what will happen?
+
+221
+02:01:28,780 --> 02:02:11,070
+for every level of index okay so that index entry size that is 15 bytes what are the blocking factor for all of them what are the blocking factor the blocking factor is 512 bytes divided by 512 bytes divided by 15 this is the blocking factor anyone tell me the answer that is 34 very good okay so that is 34 this is the blocking factor now you can solve the question very easily how many levels you need
+
+222
+02:02:11,370 --> 02:02:51,300
+so on the first level how many blocks first level index blocks so you need these many entries these many entries you need and you can put these many entries so these many blocks you need what is that value thousand divided by 34 thousand divided by 34 this value will be 30 okay very good on the second level second level number of entries second level number of entries that will be equal to 30 that will be equal to 30 and
+
+223
+02:02:51,630 --> 02:03:30,200
+what is the second level number of blocks that will be you need these 30 entries you can put 34 you can put 34 so that will be one okay all of them you can put in single block so number of levels number of levels that will be what number of levels is going to be number of levels is going to be two okay actually number of levels will be three because one extra four in direction
+
+224
+02:03:31,350 --> 02:04:08,210
+number of levels will be this is the extra level extra level for indirection that is also part of the index yes or no that is also the part of index right yes or no that is also part of the index this is also part of the index these are the I can say these are the levels of index that level is coming because of index because of index that level is coming so remember that is also part of the index no no that is fine see actually this is just a terminology that we
+
+225
+02:04:08,420 --> 02:04:37,390
+that that is called extra level are you getting my point see that is called extra level people call it extra level they don't call it first level are you getting my point they don't call it first level they call it extra level are you getting my point see this they call it extra level this terminology you that extra level of indirection but that is what the part of the index these are the levels of index are you getting my point is this clear to everyone tell me is this clear see
+
+226
+02:04:37,970 --> 02:05:07,130
+all these three these are part of index all these three levels are coming because of index but but but we call that that level of pointers we call that extra level of indirection the reason is very simple what is the reason can anyone tell me the reason is very simple because that is not that is not similar to these levels in these levels you put search key comma pointer in that you are only putting pointer yes or no in that level you are only putting pointers and in these levels you are putting search key comma pointers
+
+227
+02:05:07,580 --> 02:05:38,500
+so that is the difference now okay so let's see which question we have done the index blocking factor what is that what was the answer for this index blocking factor the answer was 34 yes the answer was 34 index blocking factor next the number of blocks needed for the level of indirection what is that that is thousand okay very good thousand so let me write all the answers all the answers let me write so for the first question
+
+228
+02:05:39,970 --> 02:06:13,150
+the answer is 34 for the second question the answer is 1000 for the third question what is the third question tell me okay so third question the number of first level index entries and the number of first level index blocks what is that number of first level index entries that will be 1000 and number of first level index blocks that is how much that is 30 okay that is 30 very good
+
+229
+02:06:13,420 --> 02:06:54,880
+okay what is the question fourth answer question fourth answer so the number of levels needed if we make it into multi-level index so that will be three so that will be two plus one that will be three okay this is the extra level of indirection next what is the answer next is the total number of blocks required for the multi-level index and the blocks used in the basic area okay okay see
+
+230
+02:06:56,230 --> 02:07:34,600
+I think there is some ambiguity here in the multi-level index how many levels whether to consider that or not but here actually it is mentioning it okay it is mentioning that total number of blocks how much how many total number of blocks by the multi-level index and the blocks used in the extra level of indirection okay so I think that extra level is not considered as the level of index it is mentioned here but why it is mentioned this is what I am thinking
+
+231
+02:07:35,910 --> 02:08:08,110
+See, I am thinking why this is mentioned. I think this should be given like whether to consider that extra level in the number of levels or not. See, in the number of levels, whether to consider that extra level or not. Are you getting my point? In the number of levels, in the number of levels, in the number of levels of multi-level index, whether to consider that extra level or not.
+
+232
+02:08:22,080 --> 02:08:51,850
+Okay, anyway, I will check it out. Okay, I will check it out. But I think this should be given C because these things you can clearly see these things should be mentioned like whether to consider that or not. Yes or no, these things should be given whether to consider that extra level inside the total number of levels or not. I think this will be given. Okay, so anyway, we will stick to that because very simple. See, this is the part of index. This is part of the index. It's not like
+
+233
+02:08:52,010 --> 02:09:23,360
+this is not part of the index this level is coming because of index are you getting my point without index this level would not even come so this level this level is coming because of the index this is not the part of data file this is the part of the index okay so next question the question is asking what is the total number of blocks so that will be 1 plus 1 plus what is that next in that next level how many blocks total 30 1 plus 30 plus 1000
+
+234
+02:09:23,700 --> 02:09:54,230
+So your answer will be one zero three one any other any other point they are asking the approximate number of block access needed to search and retrieve all the records for a department code if you search on the department code using the index so if you are searching on a department code then what will happen okay one more thing one more thing you want all of retrieve all the records you want to retrieve all the records you want to retrieve are you getting my point see this see this
+
+235
+02:09:54,390 --> 02:10:23,690
+you want to retrieve all the records because that was not a key that was not a key remember your department code was not a key so you want to retrieve all the records so what is the approximate the question is asking approximate only the question is not asking object the question is asking approximately how much so here for the next what that will be that will be one level sorry you have two plus one this is the extra level
+
+236
+02:10:27,760 --> 02:10:59,280
+this is the extra level of indirection so far 3 are fine plus but after that how many blocks after that how many blocks you need to access after that how many blocks you may need to access how many blocks you may need to access tell me in worst case all of the file blocks you may need you may need to access uh not not in worst case what will happen in the worst case what will happen tell me
+
+237
+02:11:01,420 --> 02:11:39,790
+in worst case what is going to happen in the worst case for all the 1000 values they can happen this is the worst case possible in the worst case all 1000 all 1000 records in different blocks yes or no all 1000 records they are in the different blocks so in that case 1000 blocks you need is this clear so in that case you may need 1000 blocks extra in the worst case no for a particular
+
+238
+02:11:40,380 --> 02:12:10,810
+See for a particular employee the question is asking See the question is asking For a specific department code For a specific department code the question is asking For a specific department code What is the total number of records? Sorry, what is the IO cost? What is the block access? How many blocks we need to access? For a particular department code So you can see that for a particular department code what can happen? This
+
+239
+02:12:12,500 --> 02:12:47,350
+See all the thousand records, they can be in the different file blocks, right? Okay, for a particular, wait, okay, 30, 30, right, right. Okay, so 30, because there can be 30 for a particular department code, there can be 30 records. Yes, yes, yes. Okay, correct, correct. For a particular department code, there can be 30 records. So this is the worst case possible that you have to access 30 extra because you can notice, you can notice on for a particular department code.
+
+240
+02:12:49,450 --> 02:13:23,080
+for a specific department code okay there can be there there can be I can there are 30 records there are 30 employee records there are 30 employee records so in the worst case what can happen in the worst case they all can be in different different blocks yes or no because this is a this is not a ordered field the department code is not a ordered field this is completely unordered this is completely unordered
+
+241
+02:13:25,000 --> 02:13:55,360
+okay so in that case what you have to do in the worst case you can count that that will be 30 plus 2 plus 1 so the answer will be 33 in the worst case is this clear the answer will be 33 in worst case okay so this is your question I hope you liked this question see all the questions we have seen now now we have seen every question we have seen question on question on primary index multi-level index
+
+242
+02:13:55,610 --> 02:14:24,910
+multi-level index of primary index, multi-level index of secondary index on key, multi-level index on secondary index on known key. So we have question of every time, every type. Okay, is this clear? Even the question of secondary index on known key. Let me tell you, in the market you will not find this type of question. Only one question is given in the Navate. So that Navate question I have taken. In other books, this question is also not given. Okay, if you check other books, then this question is not given.
+
+243
+02:14:25,160 --> 02:14:52,700
+So only one question I found that is given in the Navate that question I have taken. Okay. I think this is enough practice for this one question is enough practice for second index on non key. You got the idea. Yes or no, that there is extra level of indirection in that extra level of indirection. We can put blog pointer or record pointer. Okay. So you got the idea. Correct. Tell me from this question. Did you understand the idea? What is happening? Let me know.
+
+244
+02:14:54,480 --> 02:15:24,940
+Okay, so we have seen every type of question, every, like I don't think anything is left. Every type of question. Actually, in Navate book, we have completely finished. This Navate book exercises, we have almost finished. Okay, all of them. So anyway, so this question I can give you as a homework, this clustering index question. I think because this we have already done, if you remember, the question based on the clustering index, similar question we have done for the single level we have done and the multi-level you can do.
+
+245
+02:15:25,570 --> 02:15:56,970
+Okay. Can I give this as a homework? Because the every information is given in the question. Don't worry. In this question, all the information is given. So you take this question as a homework and you put your answer in the comments. Okay. Put your answers in the comments. That's it. So this is your multi-level index. Everything is done. Everything is over. Final thing I just want to tell you, this is just for five minutes. Only five minutes. What is this ISAM?
+
+246
+02:15:57,740 --> 02:16:26,870
+Maybe you have seen this like you will see this in some questions. What is this ISAM? This word you will see. Okay. So the full form, let me tell you this full form is indexed sequential access method. This is the name indexed sequential access method ISAM or you can simply say indexed sequential method. Okay. Or you can simply say indexed sequential method. So this is your ISAM. Now, what is this? What is this terminology?
+
+247
+02:16:27,540 --> 02:17:01,310
+let me tell you this IESM this is a combination this is a combination of if you have a sequential file if you have a sequential file on that sequential file on that sequential let's assume this is a sequential file ordered by key ordered by key if this is ordered by key then on this sequential file if you create index what index if you create primary index this combination will be called IESM are you getting my point
+
+248
+02:17:02,790 --> 02:17:33,990
+Are you getting my point? This combination is called ISAM. Sorry, multi-level, multi-level primary, multi-level you create. You create multi-level, you create multi-level primary index. This basically, this will be called ISAM. Is this clear? This is just a terminology, nothing else. You have a sequential file which is ordered by key. Okay. Sequential file ordered by key. On this file, if you create multi-level, multi-level remember.
+
+249
+02:17:34,520 --> 02:18:07,380
+this is important okay multi-level primary index if you create then that will be called ism similarly this is also called ism if this sequential file is ordered by non-key if this is ordered by non-key and you create you create multi-level you create multi-level crusting index this combination is also called ism by default this is the ism by default
+
+250
+02:18:08,690 --> 02:18:41,970
+This is by default ism. Okay. So index the sequential access method, multi-level you are creating this multi-level index plus this combination. You have a sequential file, which is ordered by key plus multi-level index. This combination is called ism. This is just a terminology. So actually how this question will be asked. Let me tell you. So you can check it out. What is this index sequential file? What is this indexed sequential file ism?
+
+251
+02:18:43,920 --> 02:19:12,300
+ISAM what is this index sequential file this is basically like I can say it is like if you have an ordered file with a multi-level primary index on the ordering key field this is used in the IBM okay in the IBM this this was used so this was called so what is ISM this is ISM file what is ISM file ISAM file that means this is an ordered file multi-level primary or clustering index
+
+252
+02:19:12,920 --> 02:19:45,940
+This is called ISM file. How the question will be odd? You might be thinking, sir, how the question will be odd? The question will be like this, that they will give you a file. Okay, they will give you this data file information will be given. This information will be given and they will say that this data file information and they will say that we have index sequential file. Are you getting my point? They will say that we have indexed the sequential access method. We are implementing this.
+
+253
+02:19:46,300 --> 02:20:14,900
+or they will say we have indexed sequential file then automatically what should come to your mind tell me what should come to your mind in this situation you should it should come that on this file basically we are creating a multi-level primary index is this clear see this is what they will say they will say that a file data will be given file information will be given data file information that will be given and they will say that this file is indexed sequential okay either they will say
+
+254
+02:20:15,150 --> 02:20:51,190
+that this file is indexed sequential or something like this, they will say they will say that your file is indexed sequential. Okay. So something like that, or they will use the word ISM. So these words they can use. And then finally, from this, you have to just, uh, you just have to, uh, find out that, okay, that they are talking about that your file you have, they are talking about that your file is ordered on key and you have created and you have created a multi-level primary index.
+
+255
+02:20:52,410 --> 02:21:27,280
+multi-level primary index on file okay so this is how the question will be asked is this clear let me know tell me so this is the only this is just a terminology actually nothing this is just a terminology nothing else or you can say that this is a terminology for multi-level primary index you can you can think like this that this is a terminology for multi-level primary or clustering index is this clear let me know so this is am
+
+256
+02:21:27,740 --> 02:22:12,870
+This is just another terminology for multi-level primary or clustering index. So all these three things, this thing and by default, you have to take primary. If some, if nothing is given, if nothing is given, then by default, you have to take that this is a multi-level primary index or this thing. So basically these are the terminology, nothing else. So some questions you can solve like this is a gate question in the gate question. This ISM is given.
+
+257
+02:22:13,160 --> 02:22:43,550
+What it simply means that index sequential file is given and index sequential file is given. Okay. So what it simply means, what this thing is means, tell me what this thing means index sequential file is there. It simply means that you have a file on which you have created multi-level primary index. Is this clear? Let me know. This question we will solve after the break, but, but you can easily see that from this statement, what you can see from this much, from this much, what you can say.
+
+258
+02:22:43,900 --> 02:23:18,550
+From this much, you can say that you have a file on which you have created multi-level primary index. You have created multi-level primary index. That's it. Okay. Nothing else. So this is this question we will do after the break. Okay. In the next lecture, we will do this question. So like this, you can check it out. So this is your ISAM because what we are doing, we are doing the multi-level primary index. Is this clear? This is your ISAM, multi-level primary index.
+
+259
+02:23:22,450 --> 02:23:53,300
+Second level and all the remaining levels are always sparse only when I say when I say multi-level primary index what it means when I say multi-level primary index what it means only the first level is primary index the remaining levels are always sparse when I say multi-level second index what it means if I say multi-level second index what it means it means only the first level is second index the remaining are always sparse if I say multi-level clustering index
+
+260
+02:23:53,700 --> 02:24:24,180
+it means only the first level is clustering index all the remaining levels are always same in any index whatever index you take primary index on the first level on the first level whatever index you take first primary index second index your clustering index the remaining levels second level third level fourth level the remaining levels always will be full of same they will be sparse for one block one entry yes or no are you getting my point so when I say multi-level secondary index it means
+
+261
+02:24:24,540 --> 02:24:57,980
+that first level is second index the remaining levels are always sparse for one block one entry one block one entry okay so let me let me just tell you these things like so if i say if if the question says multi-level if i say multi-level secondary index then what it will mean then it will simply mean that your first level is secondary index it just means that your first level is second index the remaining levels
+
+262
+02:25:01,680 --> 02:25:34,240
+are always sparse the remaining levels are always I can say they are always sparse and you can notice for example your kth level if you notice kth level is primary index on k-1th level okay clear let me know the same thing you can say for this if I say multi-level clustering index it means your first level is clustering index the remaining levels are always the same if I say multi-level primary index
+
+263
+02:25:34,600 --> 02:26:07,510
+it means first level is primary index it means first level is primary index the remaining things are always the same the remaining things are not even changing yes or no the remaining things are not even changing in this game look at the game the remaining things are not even changing okay clear any other doubt please tell me if you have any any other doubt outer levels will always be sparse implementation of primary index that is what we have seen the kth level
+
+264
+02:26:07,890 --> 02:26:39,300
+is primary index on k minus 1th level okay the disadvantage of multi-level indexing okay in the next lecture I will tell you because we will solve some questions these gate questions we will solve and after that I will tell you the disadvantage of both of them the disadvantage of all these single level or multi-level whatever you take why we go for b plus 3 b tree see now we have to study b tree b plus 3 that we have to study but why we go for that what is the reason we go for that
+
+265
+02:26:39,490 --> 02:27:08,030
+What is the disadvantage with the single level index? What is the disadvantage with the multi-level index? Okay. Whatever is the disadvantage with the single level index that will multiply in the multi-level index. Are you getting my point? The disadvantage will multiply. So the disadvantage that you have in the single level index that will become bigger in the multi-level index. Okay. So that we will see in the next lecture. In the next lecture, we will solve these gate questions also. Okay.
+
+266
+02:27:08,340 --> 02:27:36,800
+So the your chip this chapter is over now basically our next chapter will be B3 B plus 3 that will be our next chapter but in the next lecture we will solve all the questions on all the gate questions we will solve on this topic. Okay let's take a small break how much time tell me 15 minutes can we do only gate questions we will solve okay okay 915 we will start 915 okay thank you
+

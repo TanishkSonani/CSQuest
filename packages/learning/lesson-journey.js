@@ -1,6 +1,29 @@
 // Beginner bridges are shown before subject notation, in both notes and the
 // interactive lesson. Definitions are selected from the actual lesson text.
 const entries=[
+ ['Computer network',/computer network|network link|internet|subnet|routing|packet|frame/i,'A computer network connects devices so they can exchange data using agreed addresses and protocols.',['cn']],
+ ['IP address',/ip address|ipv4|cidr|subnet|next.hop|destination ip/i,'An IP address identifies a network interface for forwarding packets across interconnected networks.',['cn']],
+ ['Packet and frame',/packet|frame|encapsulat|fragment/i,'A packet is forwarded by the network layer; a frame carries that packet across one local link.',['cn']],
+ ['Router',/router|routing|next hop|forwarding/i,'A router connects IP networks and chooses where to forward a packet using its routing information.',['cn']],
+ ['MAC address',/mac address|arp|ethernet|switching|link.layer/i,'A MAC address identifies a link-layer interface on a local network segment.',['cn']],
+ ['Subnet mask',/subnet mask|prefix length|cidr|subnetting/i,'A subnet mask marks which IPv4 address bits identify the network and which bits identify hosts.',['cn']],
+ ['TCP',/\btcp\b|congestion window|receive window|handshake|retransmission/i,'TCP provides a reliable ordered byte stream and uses acknowledgments, windows and timers to coordinate delivery.',['cn']],
+ ['UDP',/\budp\b|datagram/i,'UDP sends messages between ports without built-in retransmission or ordering guarantees.',['cn']],
+ ['DNS',/\bdns\b|domain name|resolver/i,'DNS lets software look up records associated with domain names, including IP addresses.',['cn']],
+ ['HTTP',/\bhttp\b|request.response|web browser/i,'HTTP defines request and response messages used by web clients and servers.',['cn']],
+ ['Network delay',/transmission delay|propagation delay|queueing delay|bandwidth/i,'Network delay includes the time to transmit bits, carry the signal across a link, wait in queues and process a packet.',['cn']],
+ ['Error-control code',/parity|hamming|crc|checksum|syndrome/i,'An error-control code adds check information so a receiver can detect or sometimes correct bits changed in transit.',['cn']],
+ ['Congestion window',/congestion window|\bcwnd\b|slow start|congestion avoidance/i,'TCP’s congestion window limits outstanding data based on the sender’s estimate of available network capacity.',['cn']],
+ ['Database',/database|dbms|relation|schema|transaction/i,'A database is an organized collection of related data that an application can store, query and update.'],
+ ['DBMS',/dbms|database management|transaction|sql|query/i,'A database management system defines, stores and retrieves data while enforcing rules and coordinating safe access.'],
+ ['Relation',/relation|relational|tuple|attribute|table/i,'A relation is a set of tuples that share the same named attributes; a table is a useful visual representation.',['dbms']],
+ ['Tuple',/tuple|row|record/i,'A tuple is one row-shaped set of attribute values in a relation.',['dbms']],
+ ['Candidate key',/candidate key|primary key|key constraint/i,'A candidate key is a minimal set of attributes that uniquely identifies each valid tuple.',['dbms']],
+ ['Functional dependency',/functional dependency|attribute closure|normal form|determinant/i,'A functional dependency X → Y says that rows agreeing on X must also agree on Y.',['dbms']],
+ ['Transaction',/transaction|serializab|commit|rollback|locking|timestamp/i,'A transaction is a sequence of database operations treated as one logical unit.',['dbms']],
+ ['SQL query',/sql|select|nested query|aggregate|having|where/i,'A SQL query declaratively describes rows to retrieve; its clauses filter, combine, group and shape the result.',['dbms']],
+ ['Index',/index|b.tree|b+ tree|isam|search key/i,'An index stores search-key information that helps locate records or pages with fewer reads.',['dbms']],
+ ['Entity',/entity|weak entity|er model|relationship/i,'An entity is a distinguishable real-world object or concept represented in a data model.',['dbms']],
  ['bit',/\bbit|binary/i,'A bit is one binary digit: either 0 or 1.'],
  ['byte',/\bbyte|endian/i,'A byte is a group of eight bits. It can represent 256 different patterns.'],
  ['CPU',/\bcpu|processor|instruction|register|accumulator/i,'The CPU is the part of a computer that executes instructions.'],
@@ -73,8 +96,8 @@ const entries=[
  ,['Deadlock',/deadlock|circular wait|banker|resource graph/i,'Deadlock occurs when a group of processes wait forever for resources held by others in the group.',['os']]
  ,['File block',/file system|filesystem|disk block|inode|directory|allocation/i,'A file system maps names and file metadata to storage blocks and tracks which blocks are free.',['os']]
 ];
-const defaults={coa:['bit','CPU'],dl:['bit','Boolean value'],c:['Variable','Array'],ds:['Data structure','Array'],algo:['Algorithm','Input size n'],aptitude:['Fraction','Rate'],os:['Process','Kernel mode']};
-const allowed={coa:['bit','byte','CPU','Memory address','Register','Operand','RAM','Cache','Hexadecimal','Array','Integer'],dl:['bit','byte','Hexadecimal','Boolean value','AND / OR / NOT','Truth table','State','Clock edge','Integer'],c:['bit','byte','Memory address','Hexadecimal','Variable','Array','Pointer','Function','Loop','Integer'],ds:['Memory address','Variable','Array','Pointer','Function','Loop','Data structure','Stack / queue','Graph','Tree','Algorithm','Input size n','Big O / Theta','Logarithm','Recursion','Probability','Integer'],algo:['Array','Stack / queue','Graph','Tree','Algorithm','Input size n','Big O / Theta','Logarithm','Recursion','Greedy choice','Dynamic programming','Probability','Integer'],aptitude:['Fraction','Percentage','Rate','Integer','Probability','Logarithm'],os:['Process','Thread','Kernel mode','Ready and blocked','Semaphore','Page and frame','TLB','Deadlock','File block']};
+const defaults={coa:['bit','CPU'],dl:['bit','Boolean value'],c:['Variable','Array'],ds:['Data structure','Array'],algo:['Algorithm','Input size n'],aptitude:['Fraction','Rate'],os:['Process','Kernel mode'],dbms:['Database','DBMS'],cn:['Computer network','IP address']};
+const allowed={coa:['bit','byte','CPU','Memory address','Register','Operand','RAM','Cache','Hexadecimal','Array','Integer'],dl:['bit','byte','Hexadecimal','Boolean value','AND / OR / NOT','Truth table','State','Clock edge','Integer'],c:['bit','byte','Memory address','Hexadecimal','Variable','Array','Pointer','Function','Loop','Integer'],ds:['Memory address','Variable','Array','Pointer','Function','Loop','Data structure','Stack / queue','Graph','Tree','Algorithm','Input size n','Big O / Theta','Logarithm','Recursion','Probability','Integer'],algo:['Array','Stack / queue','Graph','Tree','Algorithm','Input size n','Big O / Theta','Logarithm','Recursion','Greedy choice','Dynamic programming','Probability','Integer'],aptitude:['Fraction','Percentage','Rate','Integer','Probability','Logarithm'],os:['Process','Thread','Kernel mode','Ready and blocked','Semaphore','Page and frame','TLB','Deadlock','File block'],dbms:['Database','DBMS','Relation','Tuple','Candidate key','Functional dependency','Transaction','SQL query','Index','Entity'],cn:['Computer network','IP address','Packet and frame','Router','MAC address','Subnet mask','TCP','UDP','DNS','HTTP','Network delay','Error-control code','Congestion window']};
 export function lessonJourney(lesson,subject){
  if(!lesson?.foundation||!Array.isArray(lesson.questions)||!lesson.questions.length)throw Error('A guided lesson needs foundations and exercises.');
  const guide=lesson.foundation,primary=[lesson.title,guide.title,lesson.concept,guide.idea].join(' '),text=[primary,...guide.terms,...lesson.questions.map(q=>q.prompt)].join(' ');

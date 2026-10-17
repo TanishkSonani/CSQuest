@@ -1,0 +1,1084 @@
+1
+00:00:07,060 --> 00:00:35,080
+Hi everyone. So let's get started. Let's just talk about the things that we were doing in the last lecture. So basically, we were saying that using this multi-level paging, we can do what? We can reduce the size of the page table. That was the idea.
+
+2
+00:00:36,780 --> 00:01:10,360
+So before that, do you understand that how does this diagram make sense to everyone? Because at every lecture, the first diagram that you might have noticed in this multi-level paging, I'm showing this only. Because I want to make sure that you understand this. Because this is the crux of multi-level paging. This is, you can say, the crux, that how the address translations are happening.
+
+3
+00:01:13,420 --> 00:01:41,520
+So we said that using multi-level paging, what we can do, we can reduce the size of the page table. But how it is even possible? I mean, till now, it seems that we are increasing the size of the page table, but not reducing it. Let's just see how it is possible. So you might have noticed that in the real, I mean, in most of the processes, what happens that most of the logical address space or the virtual address space is just wasted, right? And what we are actually doing, so basically we are saying,
+
+4
+00:01:41,820 --> 00:02:09,040
+that these are the only pages which are residing in the physical memory and apart from these pages nothing else is residing let's suppose right so that's what we are saying do understand that now using paging what we are doing we are actually having the entries of these also see here see if it is let's suppose multi-level paging then what we can do we can I mean if it is single-level paging first of all then what we are doing
+
+5
+00:02:09,300 --> 00:02:42,540
+okay let me just tell you in the single-level paging what we are doing and then I will tell you what is going to happen in the multi-level paging so basically let's suppose if it is a single-level paging then if it is a single-level paging then what we are saying that we are going to map okay so what we are saying we are going to map each of this in the single-level page table so basically we are going to have one entry for each of this so let's suppose these are these are
+
+6
+00:02:43,330 --> 00:03:10,600
+maybe let's suppose like the size of logical address space or the virtual address space is let's suppose 2 power or maybe 4 GB which is 2 power 32 bytes right let's suppose this is 32 bit logical or virtual address space and the page size could be anything maybe 4 KB or something okay so page size page size is 4 KB then can you tell me the number of pages here
+
+7
+00:03:12,130 --> 00:03:47,480
+the number of pages will be 2 power 20 so you can say 2 power 20 pages and since there are 2 power 20 pages that is why what you will say that I mean you will be having 2 power 20 entries so that is why how many entries are you are having here in the single level page table 2 power 20 entries so here you are having 2 power 20 entries now the intuition is that I mean if we are going for the multi-level page then the intuition is that that what we can do
+
+8
+00:03:47,740 --> 00:04:17,160
+here as you know that these entries are basically I mean pointing to I mean one of the physical page basically maybe you can say that this entry is pointing to this first physical page or whatever right I mean these entries are corresponding to corresponding to this entry is corresponding to this particular page this entry is corresponding to this particular page this entry is corresponding to this particular page like that and so on so the thing here is that that there are two power 20 entries but most of these entries are again waste right
+
+9
+00:04:17,450 --> 00:04:46,230
+just like most of the pages which are waste. So most of these entries are invalid or waste. So what we want to do, we can go for the multi-level paging and we are saying that we can divide this process into multiple, sorry, this page table into multiple chunks. And then what we can do, we can avoid storing this. Okay, this is the intuition. Do you remember the intuition? Right? So the intuition here is that if you are going for the single-level page table, then you want to, you have to store this as it is.
+
+10
+00:04:46,650 --> 00:05:16,710
+but if you're going for the multi-level paystable then you can divide this in chunk and then you can say that okay I will store this chunk I will store this chunk I will not store this chunk I will not store this chunk I will not store this chunk I will not store this chunk and I will store this chunk something like that right this is the intuition here so so now what we are going to do we are going to divide this into we are going to divide this into multiple chunks right maybe I mean whatever the chunk size multiple chunks
+
+11
+00:05:17,050 --> 00:05:49,350
+right we are going to divide this into multiple chunks and then we are going to say that okay here here let's suppose this is just one page table whatever the number of entries it will depend on the chunk size basically um let's suppose okay these are the two power two twenty entries right let's suppose the chunk size here is uh two power ten two power ten entries then how many entries will be here i think two power ten entries right
+
+12
+00:05:49,860 --> 00:06:07,720
+because these are the two power ten chunks so that's why two power ten entries so what you can say that okay this entry is pointing to one of the chunk which will be having two power ten entries this and this entry will be pointing to one of the chunk which will be having two power ten entries and so on right now this entry will be pointing to one of the chunk which is having two power ten entries but let's suppose these two power ten entries are waste
+
+13
+00:06:09,330 --> 00:06:37,690
+this is also pointing to some chunk which is also having to about 10 entries this is also pointing to some chunk which is also having to about 10 entries and let's suppose let's suppose these I mean whatever these are pointing to actually these are pointing to wasted pages okay so these are some of the entries let's suppose these are 10 entries or maybe actually 10 is too small number but let's suppose these are 64 entries okay I mean just for the hypothetical example let's suppose these are these are the 64 entries then can you tell me how many
+
+14
+00:06:38,290 --> 00:07:01,880
+I mean how many pages they are pointing to finally they are basically I mean these they are pointing to 2 power sorry they are pointing to 64 waste wasteful chunks right 64 wasteful chunks these are the 64 entries they are pointing to 64 wasteful chunks and each chunk is basically each chunk is having here some size maybe you can say 2 power 10 entries or something so what we can do we can say that see
+
+15
+00:07:02,560 --> 00:07:31,780
+See, just understand here carefully, we can say that I am going to store this completely. How many entries are wasted here? 64 entries are wasted here. Let's suppose, let's not worry about it. Okay. But still, since it is outermost, I do not have any choice. I will store this completely. Okay. Here I do not have any choice. I will store this completely. But I am going to say that, okay, I will not, I will, I mean, whatever it is pointing to, I will not store that. Okay. Which means I will say it is invalid, it is invalid, it is invalid, it is invalid.
+
+16
+00:07:32,080 --> 00:08:01,850
+So basically, basically, instead of saying 64 into 2 power 10, okay, 64 into 2 power 10, these are the, actually each is pointing to 2 power 10, a chunk size, basically these are the entries here. So here, how many entries are wasted? 64 into 2 power 10. If 64 entries are wasted here, then 64 into 2 power 10 is wasted here. Is this okay to everyone? I mean, little bit you might be getting. So basically, what I mean to say that here, if I need to, okay, here,
+
+17
+00:08:02,220 --> 00:08:34,260
+here i'm having in this case let's suppose i'm having 2 power 16 entries wasted entries wasted right let's suppose this is what i'm saying so if you need to keep if you need to keep invalid invalid invalid so how many how many invalid do you need to keep if if let's suppose this is single level paste table how many invalid do you need to keep if these are the entry wasted then you need to keep 2 power 16 in 2 power 16 invalid entries
+
+18
+00:08:35,170 --> 00:09:05,740
+Right. Now, now the only thing that we are trying to do here is that instead of keeping invalid here, I want to keep invalid at the outer level. That's the only difference. Okay. So which means, which means I will keep these 64 entries and invalid. So I will say, okay, this is invalid. This is valid. This is invalid. So here I'm only keeping 64 entries, which means this, I will say that since it is invalid, so whatever it is content, I'm not even storing it. So finally reduced on to this. See here.
+
+19
+00:09:06,060 --> 00:09:44,870
+here it was a if you remember it was a single level page table it was a single level page table right earlier which was having which was having i can say 2 power 16 wasted entries right which is having 2 power 16 wasted entries is there a lag in the audio or video can i even confirm okay okay so it is having 2 power 16 wasted entries
+
+20
+00:09:47,300 --> 00:10:15,660
+Let's suppose. Suppose this is single level. Is this okay to everyone? Is this diagram making sense? If it is single level, right? It is having 2 power 16 wasted entities because none of this is actually, I mean, this page is saying that, okay, it is not, it is pointing to actually unused. So I will say it is invalid. I will say it is invalid. I will say it is invalid. I will say it is invalid. So basically these are 2 power 16 invalid, wasted or invalid entities, right? I hope that is fine.
+
+21
+00:10:16,280 --> 00:10:48,570
+Now what I want to do, I want to bring one more level of, one more level of, I can say, the page table and instead of keeping, I mean, instead of keeping in list of invalid here, I will keep list of invalid there. So these are the 2 power 16 invalid entries. Now, now, I will say, let's see, instead of, instead of keeping the list of invalid here, okay, I will be keeping list of invalid here. So here, if the chunk size is, if the chunk size here is,
+
+22
+00:10:51,900 --> 00:11:26,690
+2 power 10 entries. Then can you tell me how many invalid here are? Each chunk will be having 2 power 10. So there will be 2 power 16 upon 2 power 10, which is 2 power 6 entries, which will be pointing to useless chunks. So here, there are only 64 entries. Now, these are actually, you might say that, okay, it is nothing. I mean, 2 power 16, 64, there's no big difference. Do you think it's not a big difference?
+
+23
+00:11:28,620 --> 00:11:53,820
+it's a huge difference okay 2 power 16 is a huge I mean it's a very big number and this this 16 is very very less number sorry 64 so basically basically it is a it is a huge difference so so basically here instead of saying that okay in instead of keeping instead of keeping the list of invalid invalid invalid here I will keep the list of invalid here now now how much space now I'm taking after the multi-level paging
+
+24
+00:11:54,080 --> 00:12:38,440
+So let's just solve one question just to make us understand whether we are currently understanding things or not. So let's just say, let's just have the same diagram and let's just try to solve a question. So here, here, so let me tell you the question here. Let's suppose a process having 32-bit
+
+25
+00:12:40,440 --> 00:13:35,220
+Okay, a process having, this is a portion, so let me just put it as a portion. A process having 32 bit virtual address space, page size, 4KB, and just a second. So how many pages will be there? 2 power 2, 10, 2 power 20, right? Okay, and using,
+
+26
+00:13:39,610 --> 00:14:42,320
+only just a second let me just frame the portion to power 16 bytes then using calculate the size of memory that we need then calculate the size of memory we need four page tables okay
+
+27
+00:14:44,710 --> 00:15:24,520
+A, if we are using single-level, B, if we are using two-level, okay? And the chunk size is 2 power 10, okay? Two-level, here's the chunk size, 2 power 10 entries. Or maybe you can say it is same as the page size, where the chunk size is same as the page size, let's suppose, and the page table entry, you can say the page table entry is 4.5. Can you try doing this?
+
+28
+00:15:32,180 --> 00:16:04,740
+So they are saying that there is a process which is having the page size and so on, right? So if you are using single level, how many entries will be there? Page table entries, number of pages, okay? Number of pages will be 2 power 20, hence which is equal to number of page table entries and hence size of page table will be
+
+29
+00:16:10,600 --> 00:16:44,520
+2 power 20 into 2 power 2 byte which is 4 mp is this okay everyone okay now now let's just see if you are using multi-level paging right now they are saying if they if you are using multi-level paging now if you're using multi-level paging in that case what you will do they are saying that the process is actually using 2 power 16 bytes right so number of pages number of pages in the process
+
+30
+00:16:45,110 --> 00:17:13,020
+How many total number of pages in the process? I think 2 power 20 Out of those, number of useful pages How many? 2 power 16 bytes means 2 power 16 divided by What is the page size? 2 power 12 I think 2 power This is 2 power 4, right? 2 power 4, which is 16 pages are useful
+
+31
+00:17:14,970 --> 00:17:52,970
+Okay, 16 pages are useful. So they are saying only 16 pages are useful. If only 16 pages are useful, which is 2 power 4, then what you will do? You will say that, okay, if the only 16 pages are useful, so how many entries are useful here? How many entries are useful here? If 16 pages are useful, then how many entries are useful here? 16 entries, right? So you can say 16 entries. So hence it means that 16 entries are useful.
+
+32
+00:18:00,900 --> 00:18:27,890
+Okay, but let's suppose, okay, I mean, actually it should be given in the question. Don't worry, it will be given in the question. So let's suppose these 16 entries are such that that, I mean, few of the entries are from starting and few of the entries are from end, which means section entries are not all together, which means let's suppose 10 entries are useful here and six entries are useful here or something like that. Okay, so it should be given in the question.
+
+33
+00:18:28,190 --> 00:18:56,050
+so which means that it should be given that okay that I mean what is the basically working working size of the process I mean from where to where the process is actually having some pictures so let's suppose this 16 entries I mean let's suppose that it is given that some of the entries are useful I mean I mean the process is basically having something useful here and something useful here nothing in between okay it should be given in the question so basically the 16 entries what I mean to say the 16 entries you can have any number
+
+34
+00:18:56,520 --> 00:19:18,540
+It is spread like this if 16 pages is useful here total then you can say 6 pages are useful here 10 pages are useful here or maybe you can have any number doesn't matter to me you can say okay 5 pages is useful here 11 pages is useful here I mean you can say anything 2 pages is useful here 12 pages is useful here is it so good everyone what I mean to say that if total 16 pages are useful and further I am making the assumption
+
+35
+00:19:18,860 --> 00:19:49,360
+that I mean not the assumption it should be given in the question that further I'm saying that okay some pages are useful at the start somewhere at the end there is nothing in the between okay should be given in the question is this fine everything okay so whatever number you keep it doesn't matter to me uh 2 12 maybe 1 15 uh ultimately it should be 16 okay ultimately it should be 16 so some pages are useful here some pages are useful here which means some entries out of the 16 some entries are useful here and some entries are useful here is this okay everyone
+
+36
+00:19:51,910 --> 00:20:20,710
+Since some entries are useful here, which are just 16, so basically 100% you are sure if you are going to divide that into 2 power 10 chunk, chunk size is given, right? Okay, so basically chunk size and page size that suppose is same and the page size is how many entries? The page size is given to be 4KB, which means 2 power 10 entries, right? So page size is also given, which is 2 power 10 entries in terms of entries. Is this when they have given?
+
+37
+00:20:22,760 --> 00:20:48,870
+let's suppose at this level I am basically further dividing this particular page table into 2 power 10 entries and let's suppose 5 entries are useful here and 11 entries are useful here so if I am dividing into 2 power 10 entries then these 5 entries will be will be clubbed in one of the chunk right similarly these 10 or whatever 11 entries will be clubbed in one of the chunk because the chunk size itself is 2 power 10 okay
+
+38
+00:20:49,260 --> 00:21:17,550
+10 entries. So basically what I mean to say that these 16 entries that you are talking about, these can be clubbed in just two chunks. Suppose, see, suppose a question is like this, that you are having, this is your page table and this is your virtual address space. Something is, I mean, total 16 pages, but one page here, one page here, okay, one page here, something like this. So suppose question is like this, then you will say in page table,
+
+39
+00:21:17,910 --> 00:21:46,090
+one entry here useful, then one entry somewhere here useful, then one entry somewhere here useful, then one entry somewhere here useful, is this fine to everyone? Now if you're clubbing them, then it is not necessary that all of these four entries can come under just one chunk. Let's suppose chunk size is 2 power time. Since they're scattered, then I think they will, I mean, okay, consider a case that these four entries are together, then they can be clubbed in just one chunk.
+
+40
+00:21:46,330 --> 00:22:11,930
+but if they are scattered like this then maybe you require one chunk for each entry just to cover you may be requiring one chunk we need to see it carefully but are you getting the aptitude what I am trying to say with the numbers we can do it we have the example here but what I am trying to say is that it depends on how your pages are scattered if pages are actually let's suppose in this question they are saying that pages are actually together which means they are saying some pages here
+
+41
+00:22:12,220 --> 00:22:41,080
+okay it is using 16 pages but they have not specified that how many pages here and how many pages here they are saying some pages here some pages here but total 16 pages are useful okay that's what the question says that total 16 pages are useful so so in the page table in the page table okay this is the first level or the innermost page table you can say okay in the page table you say some entries some entries i mean let's suppose if these are five pages useful here so how many entries will be useful here
+
+42
+00:22:42,040 --> 00:23:07,420
+5 entries right 5 entries and similarly let's suppose here 11 pages are useful here so how many how many entries useful here 11 entries here 5 entries so the thing here is that that you can definitely club these 5 entries into one of the chunk only you don't need two chunks to club this 5 entries similarly you can I mean you can club these 11 entries into one of the chunk okay literally you might be getting there there might be some doubts here and there it will get clear don't worry
+
+43
+00:23:08,410 --> 00:23:37,050
+I know what, whatever doubt you are having. I understand it. But little bit are you getting here that if this is, this is a spend like this, then you just need two chunks, right? So basically what I mean to say here is that let 16 entries are useful here. Okay. It is given in the question that 16 entries are useful. Okay. So what you can say that if it is given in the question that 16 entries are useful, then it means I can definitely kill up these 16 entries into two chunks. So basically at the outer most.
+
+44
+00:23:38,280 --> 00:24:09,540
+At the Outermost, can you tell me how many entries are useful? This is an interesting question. At the Outermost, how many entries are useful? Just two entries. Okay, just two entries. One of the entries will be pointing to this chunk. One of the entries will be pointing to this chunk. Just two entries. Right? Now, interestingly, all of these entries may be invalid. Interestingly, I do not have any choice here. Can I say that, okay, I won't restore these entries if this is the Outermost page table? At the Outermost, I don't have choice.
+
+45
+00:24:10,360 --> 00:24:47,590
+Okay, because this is just like flat, flat page table. I have to store this completely into the main memory. Okay. Yeah. So at the outermost, I do not have any choice. So basically, basically what I mean to say here is that that at the outermost, can you tell me number of entries in terms of number of entries or the number of chunks you can tell me? So basically at the hair, how many chunks are useful? One chunk, right? One chunk. I mean, just one chunk you have or maybe in terms of, okay, just first tell me in terms of number of entries. How many entries?
+
+46
+00:24:47,920 --> 00:25:19,090
+to entries actually i was writing chunk because i i can't deal in the entries here because i'm anyway storing the chunk right okay how many entries are useful here 16 entries so can you tell me the size of page table that is required to store you will be storing this completely right how many chunks you will be storing here you how many chunks okay 16 entries that is okay but in terms of let's talk in terms of chunk because anyway i will be storing the chunk so one chunk you will be storing here how many chunks you will be storing here
+
+47
+00:25:23,250 --> 00:25:52,990
+two chunks right awesome that's really great so two chunks you will be storing here that's really great so ultimately how many chunks you are storing I mean one chunk whatever the size of this so maybe you can calculate the size based on the given question what should be the size of this I think but actually a three chunk in total but but you need to but this size may be different from this chunk right so this two chunk of size I think 2 power 10 entries right
+
+48
+00:25:54,960 --> 00:26:21,860
+and this was 2 power 20 2 power 20 divided by 2 power 10 then 2 power 10 entries again here right 2 power 10 entries okay fortunately the size is same okay so 1 into 2 power 10 so basically this is one chunk useful here two chunk useful here now in terms of entries so this one chunk you can calculate the size based on the given question I think I did it correctly so this one chunk is just 2 power 10 entries here here also one chunk is 2 power 10 entries right
+
+49
+00:26:22,190 --> 00:26:50,060
+because total was 2 power 20 entries and chunk size was 2 power 10 so that is why that is why total how many entries you are using I mean in terms of size if I just ask you so basically three chunk and the size is same so that's why 3 into 2 power 10 entries so this is the page table size that you need and and it is also given that what is the size of one entry which is 4 bytes I think right so it is 2 power 2 bytes so basically basically
+
+50
+00:26:52,800 --> 00:27:26,680
+Yes, 12kb. Yes, awesome. So, 12kb only. Now, can you compare this 12kb with this single level 4MB? Huge saving, right? Huge saving you're doing. So, this is just one intuitive question. I mean, the real question will also be the exactly same. Okay, there won't be much difference. But have you understood this question? If you can understand this question, then there will be further question that you can really solve. Let me know. So, see.
+
+51
+00:27:27,080 --> 00:28:03,000
+so see what we did let me just repeat this question maybe if you want to so what we did they said that we are doing we are doing either either single level or multi-level okay so they said how three chunks only two chunks number okay let's just see let's just see again okay I'm just repeating the question if you have any doubt you can now let me know okay so they are saying if you are only having first level page table so basically it is having 2 power 20
+
+52
+00:28:03,920 --> 00:28:39,430
+entries, let me just deal in terms of entries, so if you are just having or one entry size is, page table entry size is given to be is 4 byte, if you are just having this level then A single level, then then it is how much? Size of page table size, PTS page table size 2 power 20 entries and 2 power 2 bytes which is 4 MB basically, right? So this is size of single level page table. Now suppose we decide to go for multi-level page table.
+
+53
+00:28:39,610 --> 00:29:22,530
+So this is the option B. Now let's just understand this carefully. Okay. Multi-level page table. Now they are saying they are saying it is given in the question. What is given in the question? They are saying that see if you're going for, I mean, uh, this, this particular process that we have. Okay. It is, it is given that it uses just 16 pages, 16 pages. And furthermore, it is also given that how those 16 pages are scattered.
+
+54
+00:29:22,900 --> 00:29:52,310
+Do you think this further information should be given or we can escape it? It should be given because if they are scattered in between, if they are scattered in between, then maybe you can't be able to kill them. We will see those kinds of questions also, but let's just focus on this particular thing that these are the 16 pages and these 16 pages, it is also given that these 16 pages are divided into two groups. Okay, so how 16 pages because it is given in the question that the process is using.
+
+55
+00:29:53,330 --> 00:30:16,380
+using only 2 power 16 bytes. So if you convert that 2 power 16 bytes into pages, it will come out to be 2 power 4 pages. It is given in the question that how much, what is the process size? In reality, how much it is growing? See, hypothetically, you can say that, okay, this is too much space available, but in reality, not all programs does this, right?
+
+56
+00:30:17,620 --> 00:31:05,040
+So it is given in the question that the processes is not very big. It is just using to power four pages or the 16 pages. Okay. Yeah. So these, these 16 pages, they are saying it is given further that they are saying that the 16 pair either from starting or from and I mean scattered from starting and ending. Right. Is this okay to everyone? So, so basically it should be given that how these 16, 16 pages are also scattered. Right. So they are saying
+
+57
+00:31:05,370 --> 00:31:32,950
+that you have you have this is the question let's just see from starting it is given the process using 16 pages okay let's forget about the previous question let's suppose this is the fresh question okay so process I mean in terms of instead of given in terms of bytes I'm directly directly telling you the pages okay it is using 16 pages let's not worry about 2 power 16 bytes it is using then from the bytes you are converting to the pages let's suppose it is directly given the 2 power this is 16 pages it is using furthermore it is given furthermore it is given suppose
+
+58
+00:31:33,230 --> 00:32:42,030
+I'm just changing the question now. Okay. Can I change a little bit so that it will be a different question? Okay. Furthermore, it is given that all pages, all pages are from address zero. Okay. Now you need to calculate that what should be the size of page table in case of multi-level page. Can you calculate what is the size? And yeah, chunk size is just as page size. Okay. Page size is 2 power 10 entries. Yeah. So
+
+59
+00:32:42,340 --> 00:33:17,570
+pay size pay size is 2 power 10 entries and which is also the chunk size at everywhere okay whenever you require now what they are saying see they are saying the process is using how many pages the process is using 16 pages okay they are saying all the 16 pages are here 16 pages which means in this flat level page table which is having 2 power 20 entries right the 16 entries are useful
+
+60
+00:33:18,000 --> 00:33:57,010
+and the 16 entries are from starting right now you will say you will say that here if you're dividing that further into 2 power uh 10 pages which means here 2 power 10 entries right and here how many entries uh page size was i think 4 kb right 2 power 12 and uh entries this is the page size right and this is the chunk size okay anyway
+
+61
+00:33:57,950 --> 00:34:35,190
+So is the setup clear to everyone that here we have 16 pages. So 16 entries are useful. So how many entries are useful here at the outermost? Just one entry, right? Just one entry is useful. And now here 16 entries are useful. Now I'm asking, okay, first, can you tell me the address split? Can you tell me the address split? Just for the sake of asking it. See, what is the size of this chunk? 10, 2 power 10. What is the size of one chunk here? What is the size of one chunk here?
+
+62
+00:34:36,010 --> 00:35:04,310
+10, right? What are the size of one chunk here? 12 in terms of entries. So this is the address split, right? This is the address split. Let's suppose this is the first level. This is the second level. Okay. So this is the address split. Now, now, what do I have here is that. So basically, here, here, you have how many entries useful?
+
+63
+00:35:05,510 --> 00:35:35,020
+one entry right one entry but actually I mean that is okay you are saying one entry but in term instead of entries let me let me ask you chunk actually we can't just store individual entry right so storage unit is just chunk for us so that's why I'm asking you number of useful chunks at every level okay number of useful chunks so how many useful chunks are here at this level one chunk how many useful chunk are here at this level if you recall this
+
+64
+00:35:35,600 --> 00:36:11,380
+How many useful chunks? Here also one chunk, because 16 entries, but that can be clubbed in one chunk, okay? Because chunk size here is 2 power 10. So one chunk here, right? One chunk here. Yeah, so this is the page table. I'm asking the page table. So one chunk. What are the size of chunk here? I think size of the chunk at every level level is same, I think, okay? This is 2 power 10 entries. This is 2 power 10 entries. Okay. Now, now, can you tell me, can you tell me what are the size of page table that you require here? So,
+
+65
+00:36:13,430 --> 00:36:38,100
+size of all page tables right all the metadata will be 2 power 10 plus 2 power 10 entries I mean in terms of entries so in terms of chunk these are the two chunks but in terms of entries basically these are I mean 2 power 10 sorry 2 power 11 entries don't do it 2 power 20 okay this is not 10 plus 10 this is I mean 10 plus 1
+
+66
+00:36:38,690 --> 00:37:11,430
+I mean 2 into like that. So basically 2 power 11 entries. In terms of byte, let's suppose there's a 4 byte of one entry, then 4 byte, which is 2 with a little 8kb, 8kb. 8kb process. I mean 8kb page tables. That's all. Have you understood what I'm trying to say? So this is just one intuitive question. Maybe you have understood this. Now, let's just do the real question. Is there any doubt anyone here?
+
+67
+00:37:11,790 --> 00:37:47,420
+that how we are calculating so basically at first it might be little odd but you just need to check one thing that how many chunks are actually useful at at every level okay number of usual chunks so once you once you calculate this then this question will be very easy just see that how many chunks will be useful one entry of the first level points to one chunk which is useful in the second level one entry yeah yeah so it is useful in the second level yes yes that is true okay so here here also
+
+68
+00:37:47,770 --> 00:38:25,840
+here also this chunk is containing how many entries this chunk is containing how many entries 2 power 10 entries but out of those only 16 entries are useful do you think can I further optimize it I mean in this setup can I further can I say that okay out of 2 power 10 only 16 entries are useful can I only save these 16 entries yes reducing this chunk size could be anything could be one thing so basically but in this particular case can we do it no right no
+
+69
+00:38:26,090 --> 00:38:56,020
+So basically, I mean, in this particular case, we can't do it, right? Okay. But that's very good that you people are getting it because that's really very important concept. Okay. Now, let's just do this question or, okay. So at this point in time, what do you want to do? You directly want to do, I mean, we have just started this topic and you directly want to do gate BBQs or just one question. Do you want to have a thrill with the gate BBQs or just first some practice and then get BBQ? What do you think?
+
+70
+00:39:00,740 --> 00:39:32,870
+Okay, one more example. So let's just do one more example, and then you can jump to the gateway queue, right? So, so basically, yeah, let's just do this question. So basically this question, if you can notice, this, this is very easy one, I mean, pay size, they are asking just pay size. But if you can notice, these are having two parts, okay? I mean, ultimately, these are the three parts, but, but this is very easy one. So this is having two parts. Okay, will you be wondering if I say that these two parts has been asked
+
+71
+00:39:33,520 --> 00:40:02,960
+in gate in different different year. I mean this part has been asked in one year. This part has been asked in one year. Okay. So I mean, obviously with relative change of data, but yeah, the, this question is basically containing everything that, that gate has asked till now. Okay. I mean numerically. Yeah. True false question. These things they, they've definitely asked for numerically. I think they're only two, three questions. And this question content everything that gate has asked till now. So let's just do this question first. Okay. So let's just see what this question is saying.
+
+72
+00:40:04,870 --> 00:40:44,940
+So this is saying that you have, you have this as logical address, space, split or the virtual address space. Can you tell me what is the chunk size here? Maybe you can tell, right? And in terms of entities, you can tell by looking at the numbers. Okay. Now, I think you're expert in that. Okay. Now they are saying that, uh, this is 32 bit. That is okay. Three level. That is okay. First time return. Okay. They're saying what is the page size in such system? Can you tell me the page size? This is the first question. Two power eight.
+
+73
+00:40:45,230 --> 00:41:25,820
+which is 256 bytes okay that's all okay let's just move to the second question which is important one this is the second part right maybe i can say b what is the size of page table for the process that uses 256 key of memory started at zero you do this question they are saying all the i mean all the memory the process is using is starting from zero okay i mean the club together not scattered just do this question okay just take your time and do this question and let me know
+
+74
+00:41:38,350 --> 00:42:09,710
+So the very first step that you can do is basically you find out the number of pages which are useful here. Okay. So it is 256 KB is the memory, but you find out the number of pages useful. So can you tell me number of useful pages is 2 power 8 into 2 power 10 bytes and one page size is 2 power 8. So that's why 2 power, I mean divided by 2 power 10, right? 2 power 8 pages are useful.
+
+75
+00:42:12,700 --> 00:42:43,620
+this will give you one idea about one thing which is that that you are saying that okay there are two power eight pages are useful starting from zero okay which means from here only two power eight pages i'm not dealing in terms of bytes let's always deal with in terms of pages and then then here how many entries are useful how many entries are useful so two power eight entries are useful here two power eight entries which are useful here and and let me just
+
+76
+00:42:44,170 --> 00:43:30,430
+uh let me just basically pull this sorry 2 power 10 2 power 10 okay this is 2 power 10 pages right so 2 power 10 pages are useful okay okay so basically if these are the 2 power 10 pages useful here then 2 power 10 entries useful here right okay now you tell me what are the size of the chunk here at this level what are the size of chunk here at this level 2 power 6 right
+
+77
+00:43:30,850 --> 00:44:00,230
+2 power 6 so since 2 power 6 now you tell me number of useful chunks so basically you can say 2 power 10 upon 2 power 6 which is 2 power 4 chunks are useful here because 2 power 4 chunks are useful here that is why at this level at this level 2 power 4 entries are useful 2 power 4 entries are useful then what is the size of the chunk 2 power 8 so how many chunks are useful 1 useful chunk 1 chunk
+
+78
+00:44:00,760 --> 00:44:30,440
+right one chunk is useful here now at this level how many entries it has let's suppose to put in whatever then since one chunk is useful how many entries useful here one entry right so one entry useful here okay let's not worry about actually entry so one chunk useful here right one chunk useful here how many chunks useful here one chunk useful here I mean actually one entry only useful but let's always dealing the chunk because ultimately will be restoring the chunk right now how many chunks useful here
+
+79
+00:44:30,670 --> 00:45:02,530
+I think two power four chunks useful here. Right. So basically these are the chunks which will be in three in three levels. So if I just, you know, I hope this diagram is okay. Let me just remove this. So let me write it here. So basically number of useful chunks. This is one chunk. This is one chunk. This is 16 chunks. Right. Okay. If that is fine, then you can tell me the size of the chunk here.
+
+80
+00:45:02,820 --> 00:45:31,920
+since one chunk can you tell me the size of chunk 2 power 10 so 2 power 10 entries useful here i mean useful in the sense one chunk useful here so you have to store 2 power 10 entries basically right so you have to store 2 power i mean you can say 2 power 8 entries you will be storing or 16 into 2 power 6 entries you will be storing right so total number of entries that you will be storing because the paste you will enter size is same right so okay first tell me can i just sum all of this and can i say 18 chunks
+
+81
+00:45:33,690 --> 00:46:06,650
+Can I sum all of this and can say 18 chunks? Actually, it won't be making sense because the chunk size itself is different. But now can I sum? Can I sum now? Now I can sum because the entry size is same, right? So I will say 2 power 10 plus 2 power 8 plus 2 power 10, right? This is just 2 power 10. These entries, now can you convert these entries into chunks, into bytes? Okay.
+
+82
+00:46:06,860 --> 00:46:52,900
+So actually they, I think they forgot to write it, but the page table entry sizes here, two bytes, I remember it. Okay. So it is two bytes. So, so these many entries, so that is why that is why can you convert that in the bytes? So I think you can do it right now, it will be two power 11 plus two power nine, right? Bytes two power 11 plus two power nine bytes, I think, right? Well, this is two power 11.
+
+83
+00:46:53,430 --> 00:47:30,600
+sorry 2 power 12 plus 2 power 9 2 power 12 plus 2 power 9 so 2 power 9 you can take common this is 2 power 3 plus 1 which is 9 right 9 into 2 power 9 bytes here so whatever right so it is 9 into 2 power 9 bytes why we are writing all entries we have only 2 power 10 entries in page table so we can directly find out the size of page table
+
+84
+00:47:31,070 --> 00:47:59,100
+No, we are finding out the total size that we need. I mean total size of all the page tables. So here I need to store one chunk. Here I need to store one chunk. Here I need to shoot 16 chunks. Okay. So this much I need to store. I cannot avoid it. So that's why I'm finding now. Now I'm finding the size. Okay. So let's just see the answer. Let's just see the answer. Yeah, in three different page tables. Yes, that is fine. So
+
+85
+00:47:59,630 --> 00:48:30,110
+This is the answer of the next question, but this is the answer of this question. So they are saying Here the answer is 1 0 2 4 into 2 256 into 2 Plus 16 into 2. Actually, we have done it at last. Okay. So for now, you can just ignore this into 2. Basically, they are saying 2 power 10 plus 2 power 8 plus 16 into I mean 2 power 6 right 2 power 6 into 2
+
+86
+00:48:30,720 --> 00:48:55,690
+that's what they are saying right let's just match it 2 power 8 and 8 16 into 2 power 6 right and into 2 are they matching see this this and this right into 2 you can do do later so into 2 I mean I have done it later so anyway so this is the answer here okay you can you can calculate the exact number bytes if that is required in the question
+
+87
+00:48:56,130 --> 00:49:28,440
+So have you understood how to solve these questions? I mean very, very easy questions. There is nothing fancy. You just need to see that how many chunks are useful at every level. That's all. Okay. So let's just do one thing. I have many, many questions here. So we will be doing many questions. But to start with, let's just do one of the gate PYQ, which is very recent. Okay. So this PYQ has been asked in 2021. Let's just do this one. So do you want to try it at your own? Just spend five minutes and try it. Okay.
+
+88
+00:49:35,750 --> 00:50:17,870
+So they are saying that process is using 2 GB, right? So ultimately they are using 2 GB, which means 2 power 31 bytes. Now, can you tell me, instead of bytes, can you tell me how many pages are useful here? 2 power 10, right? So basically, basically, instead of bytes, sorry, useful bytes are 2 power 31. But let's just find out useful pages. This is the first step. I mean, just first find out useful pages.
+
+89
+00:50:18,620 --> 00:51:07,440
+Okay, so you need to divide by 2 power 12, which is 2 power 19 pages. Now, let's just see how these pages are scattered. Okay. This is the first step. Now you need to see how these pages are scattered. Let's just see this how these pages are scattered. It is given in this question. Okay, see, see, they are saying the minimum amount of memory.
+
+90
+00:51:07,790 --> 00:51:36,220
+if you want the minimum amount of memory you want them to scattered or you want them to be together think about it contiguous right so this is the hint i mean we will see this this kind of questions don't worry we will see many standard questions where they will just say minimum amount of memory okay they will just say minimum amount of memory it means they are saying that okay the pages are together okay so these are the two together pages which means this is if this is virtual let us space then they are basically having
+
+91
+00:51:36,530 --> 00:52:11,420
+2 power 19 together pages okay now now you can you can just see here how many levels we are using three levels right okay so now you can find out at every level what is happening so now you tell me how many entries are useful here 2 power 19 entries and what are the size 9 right so how many chunks are useful here 2 power 19 entries and chunk sizes 2 power 9 so 2 power 10 chunks are useful here okay these are the chunks
+
+92
+00:52:11,840 --> 00:54:03,380
+Now how many entries are useful here? 2 power, you do it now at your own, okay? You do it at your own Okay, so let's just see this See, what is happening here? That here you are saying 2 power 10 chunks are useful Since these chunks are useful, so how many entries are useful? 2 power 10 entries are useful And each chunk is having 2 power 9 entries So how many chunks are useful? So 2 chunks are useful here, right? 2 chunks Here 2 power 10 chunks Here, then you will say that, okay?
+
+93
+00:54:03,730 --> 00:54:39,440
+how many entries are useful I mean two entries are useful and actually it is just one chunk you need to store so one chunk here right so just find out the chunks and then then get the answer so basically you will say that at this level okay at this level at this level 2 power 10 chunks useful at this level two chunks useful at this level one chunk is useful right and then
+
+94
+00:54:39,930 --> 00:55:11,300
+using that you can find out the number of entries so basically 2 power 9 entries useful I mean you need to actually store 2 power 9 into 2 entries you need to store 2 power 10 into 2 power yeah 2 power 10 into 2 power 98 so basically here let me write in that way I mean that is fine but still this is 2 into 2 power 9 let me write in that way
+
+95
+00:55:11,680 --> 00:55:45,940
+so 2 into 2 power 9 here it is 2 power 10 into 2 power 9 entries and each entry size is 8 bytes so now can you get me the answer what you can do here is that you can just basically tell me the number of entries so 2 power 9 you can take common 1 plus 2 plus 2 power 10 entries okay so which means 3 plus 2 power 10 and then you need to convert that into bytes also right
+
+96
+00:55:46,180 --> 00:56:40,690
+so 8 bytes 2 power 3 you need to multiply so 2 power 3 into 2 power 9 into 3 plus 2 power 10 bytes so this is 2 power 12 this is correct or something is wrong these many chunks you feel okay 3 plus 2 power 10 bytes yeah so yes so let's just solve this further okay i think the answer should be in the kb okay so the answer should be in the kb
+
+97
+00:56:43,690 --> 00:57:26,570
+So basically you can just say this 2 into 2 power 10 I mean 2 power 10 into 2 into 2 power 2 Which is 4 into 3 plus 2 power 10 kb Now can you do this? This is 1024 plus 3 1027 into 4 kb So what is the answer here? 4108 kb, right? All of you have got the same calculation
+
+98
+00:57:33,260 --> 00:58:09,800
+So, all of you have got the same calculation, right? So, 410 is the correct answer. So, okay. So, basically, they're asking in the KB, right? The final answer, they're asking in the KB. So, which means 410 is the correct answer. Okay. Yeah. Okay. Let me know if there is any confusion here. See, what do you just need to do? You just need to calculate the number of chunks useful at every level. That's all. Okay. So, these kind of questions will be very easy after that. Okay. Let me
+
+99
+00:58:10,620 --> 00:58:38,720
+just do one more question now so here this question is little tricky or interesting whatever you want to say in the sense that that this question is basically saying that the pages are scattered here and there okay so maybe what we can do I mean we can do some practice and then then we will come back come to the gateway okay let's just do some practice so let's just do this question let's just do some practice and then we can come come to the gateway again
+
+100
+00:58:41,710 --> 00:59:14,810
+I mean, first, obviously, we need to understand the concept before solving the questions, right? Okay. So let's just understand using the standard questions. So let's just solve this part three now. Now, what they're saying that what is the size of so this is little interesting in the sense that the pages are not contiguous now. Okay. So do you want to try or let me just, okay, let me just do it because this is the very first type of this question, right? So they're saying what is the size of page table for the process?
+
+101
+00:59:15,360 --> 00:59:56,050
+that the code segment is using so basically they are saying that code segment okay code segment or the code I mean section this is not the segmentation this is just a paging okay so this is just a segment is an english word okay I mean they are using the three-level page tables so basically they are saying 48k so this is 48k bytes starting at this address okay there is some address at which this is start yeah
+
+102
+00:59:56,260 --> 01:00:36,860
+let me just write it i'm not able to copy it but okay so starting at this address this is the starting address right now what they're saying there is a data segment this is that is using 600 kb so data segment is using 600 kb and that is starting from some address which is this one okay and then they're saying a stack segment which is using 64 kb
+
+103
+01:00:37,160 --> 01:01:18,150
+okay so there's a stack segment which is using 64 kb which is starting from this and growing upward so basically stack will will will grow right so it will grow upward that's that's what they're saying so stack segment how many 64 kb and which is starting from the status now what is the size of the page table if they're using uh this this particular structure which means this one what is the size of page table do you want to try it or should i be doing it
+
+104
+01:01:18,320 --> 01:01:50,150
+directly maybe I can do it directly right okay let's just understand this question so what they're saying that you are using paging but here instead of directly telling you the number of pages they are saying that I mean the total number of pages they are saying that okay that these are the three sections which are using the pages can you tell me the number of pages that code segment will be using total number of pages I think the page size is given to be this two power eight right so this is 48
+
+105
+01:01:51,460 --> 01:02:26,360
+okay which means 2 over 10 I think I can multiply by the 4 right 48 into 4 by 2 power 8 I think I can multiply by the 4 so whatever the number given here I think I can multiply by the 4 here is this okay to get the number of pages right so basically basically I can say 48 into 4 useful pages right okay so similarly here I can say 160 sorry 600 600
+
+106
+01:02:26,890 --> 01:03:13,330
+into four useful pages in terms of pages i'm just finding out okay useful pages here i'm saying here i'm saying 64 into four useful pages right now can you tell me the total useful pages can i even sum all of this up and then can tell me the total useful pages actually i'm i'm interested in finding out the useful pages that's why i'm just asking you okay so the total useful pages are coming out to be
+
+107
+01:03:14,860 --> 01:03:36,260
+This is our first step, right? Pages are coming up to be 4848 pages. Sorry, 2848. Now, now, interestingly, this total useful pages might not be directly useful to me. Why? Because they are saying these pages are scattered, isn't it?
+
+108
+01:03:36,490 --> 01:04:03,970
+They're saying these pages are scattered. Some pages are starting from here, some pages are starting from here, some pages are starting from here. So I understand that I ask you to calculate this, but actually this is not directly useful. So I can say this is useless. I mean, this calculation is useless because I can't directly use this. Okay. It is fine to everyone. So finding the total, total useful pages here may not be directly helpful to us. So that's why what I'm going to do, I'm going to basically find, going to find the individual useful pages.
+
+109
+01:04:04,300 --> 01:04:38,930
+Tell me the pages here we are using, pages here we are using and pages here we are using. Just tell me the individual calculations. So this is 2192 pages here, right? This is 2400 pages. This is 256 pages. Okay. This is 256 pages. Is this okay to everyone? So we are using, I mean we are using pages in three different basically areas. So basically, basically we can say
+
+110
+01:04:39,340 --> 01:05:10,900
+I mean I can see the eject numbers but I can say that somewhere I am using 192 pages somewhere I am using 2400 pages somewhere I am using 256 pages I mean pages are scattered here is this fine to everyone I mean at least we can understand the question right so pages are scattered here now let's just see that
+
+111
+01:05:11,240 --> 01:05:45,770
+if that is a scenario given to us that okay the pages are scattered like this okay so and the page table uh i mean the virtual address space and these things are given like this so let's just see how uh we are going to compute the like uh the page table size okay cool so tell me if this is single-level page table then how many entries are useful you can say 192 entries are useful here i'm just writing entries
+
+112
+01:05:46,380 --> 01:06:31,280
+okay entries 190 okay 2400 entries are useful here and 256 entries are useful here okay now what is the size of uh this particular chunk 2 power 6 right here the 2 power 6 is the size so which means you need to divide by uh 2 power 6 can you do it 192 sorry so what was the number 192 divided by 192 divided by 2 power 6 is 64
+
+113
+01:06:31,630 --> 01:07:05,040
+which is coming out to be three. Okay, so three chunks are useful. I mean, in terms of entities, you know, but let me just calculate in terms of chunks. So three chunks are useful. Okay, so if it is chunk, I'm just making a square. Okay, just to differentiate that that is chunk. Now, can you divide this with 64 to 400 with 64? Okay, 37. 37. And can you divide others also? All right. So this is four. So these are chunks which are useful.
+
+114
+01:07:05,500 --> 01:07:49,660
+Is this okay to everyone? Chunks which are useful, right? Now, here at this level, at this level, since these chunks are useful, can you calculate the entries useful here? So, 3 entries somewhere here, 3 entries somewhere here, right? 37 entries somewhere here and 4 entries somewhere here. Now, tell me number of chunks which are useful here.
+
+115
+01:07:53,730 --> 01:08:33,510
+Okay, this is 37 or 38. This is 38. Okay. Yeah, we need to take the seal. Yes, that is correct. So tell me number of number of these are the entities here, number of chunks useful here. What is the size of the chunk to power eight, right? So one chunk will be useful here. One chunk will be useful here and one chunk will be useful here. Isn't it? So you can say you can see three chunks are useful here. So one chunk in terms of chunk if I need to write, then I will say 111, right?
+
+116
+01:08:33,780 --> 01:09:06,380
+so let me just square this so i'm just finding out the number of chunks which are useful right then then here how many entities are useful somewhere here one entity somewhere here one entity and somewhere here one entity so three entities are useful so you can say one chunk is in terms of chunk you can say one chunk is useful here right one chunk is useful here three chunks are useful here and whatever the number of chunks which are which are useful here so so one chunk useful here
+
+117
+01:09:07,910 --> 01:09:44,230
+3 chunks useful here and 38 plus 7 which is 45 right 45 chunks are useful here is this fine to everyone ok so now can you tell me in terms of entries so just you know have the sizes here so 1 chunk means 2 power 10 entries 3 chunks means 3 into 2 power 8 entries this is 45 into 2 power 6 entries ok
+
+118
+01:09:45,870 --> 01:10:28,100
+Now you can you can have your answer. Okay. Let me just see the answer directly. Okay. So maybe I can, uh, paste this answer there. So let's just check if we, if the answer is matching or not. So they're saying, they're saying two power 10 into two, we will do later. Okay. So, uh, yeah, that is a question. Okay. So they're saying two power 10, two power 10 into two, we will do later three into two power eight, three into two power eight. Yes. And then into two, we will do later.
+
+119
+01:10:29,190 --> 01:10:59,240
+64 into this 45, 64 into 40. Yes, everything is matching, right? Is this okay to everyone? That the answer is matching. I mean, it should match. Okay. So, so final calculation we can do, I mean, you can just add them and multiply by the page and page table entry size, which is two bytes and can get the final answer, which is coming out to be, which is coming out to be 9344 bytes. Okay. I mean, that is okay to everyone. Okay. This is coming out to be something like this. Cool.
+
+120
+01:11:00,250 --> 01:11:31,040
+So that is how we need to do this question. Have you understood? So basically, this is the second type of question where we understood that, okay, if pages are scattered, then how to solve this question? Okay, if pages were clubbed together, then then how to solve if pages are scattered, then how to solve? Okay, that's the only difficult question that they can ask. Cool. Now let's just do one thing. Let's just let's just try solving this question, which has been asked in gate. Okay, first tell me is there any confusion here? Should I repeat the question again? Or should I repeat the solution again?
+
+121
+01:11:34,940 --> 01:12:06,150
+Yeah, I will come to that, Shivam. Shivam is asking one question, I will come to that. So, first I calculated that, okay, this is 192 pages useful, 2400 pages useful, 256 pages useful. Is this fine to everyone? This calculation? Then, because this 192 pages useful, so somewhere I said, somewhere here, 3 chunks are useful, somewhere here, 38 chunks are useful, somewhere here, 4 chunks are useful. Till now, everything should be fine. Now, I have a question.
+
+122
+01:12:07,830 --> 01:12:41,310
+if this is fine if this is fine see okay i don't know if you will get confused or not but let me just ask it see so i'm saying i'm saying that okay 192 entries which means three chunks and 30 38 chunks and four chunks right so that is fine now what i did i hope that is fine till this point now what i did i said that okay at this level at this level three entries somewhere here three entries somewhere here in terms of entries right
+
+123
+01:12:42,990 --> 01:13:22,030
+38 NT somewhere here and 4 NT somewhere here. Is this fine? I said something like this. Now, now just try to listen carefully. Okay. This is fine, right? Now I said, okay, this will come in one chunk. This will come in one chunk. This will come in one chunk. I mean, that was correct. But can I say directly or there is some calculation I need to do to be 101% sure I need to do some calculation? Can I say directly?
+
+124
+01:13:23,840 --> 01:13:56,740
+is this possible since since since it is it is basically this chunk sizes I think 2 power 8 right 256 entries is this possible is this possible that all of these entries can come under one chunk only is this possible may be right may be possible may be possible right okay okay so see till now nothing nothing wrong till now everything is fine I mean in the whole whole question also nothing wrong but yeah till now there is no confusion
+
+125
+01:13:57,180 --> 01:14:32,250
+but but now see till now why there is no confusion because this is 192 pages this is these pages this is anyway these are the entries these are the chunks that I said right I mean these are the 3 chunks 38 chunks now even even if they are contiguous entries then then will this matter even if they are contiguous entries will this matter no right I mean at this point in time it won't matter even if they are contiguous so because this is the 3 chunks this will span over 38 chunks this will span over 4 chunks now if they are contiguous
+
+126
+01:14:32,890 --> 01:15:03,580
+if they are contiguous then automatically they are also contiguous if they are contiguous then 338 and 4 automatically they are also contiguous isn't it right but anyway but anyway till now even if they are contiguous or not it doesn't matter to us but at this point in time our worry is increasing okay whether they are contiguous or not what if they are contiguous what if they are contiguous they just need one chunk right that is what we need to make sure
+
+127
+01:15:03,950 --> 01:15:33,260
+Is this question clear to everyone? What I'm trying to ask? So we need to make sure whether it is contiguous or not. And that's where in the question they have given the addresses. Some addresses. This is start from this, this is start from this. So that's where these addresses will come into the picture. But generally it doesn't happen that these will be contiguous. And for this question I'm not calculating whether it is contiguous or not. I'm giving it as a homework.
+
+128
+01:15:33,630 --> 01:16:00,540
+Okay. Let me do one thing. Let me do this gate P by Q. Here I will, I will, I will do, I will do the complete analysis, whether these are contiguous or not. These are, I mean, I mean, this P by Q is almost same as this particular question. So let me do one of them. Let me, let me thoroughly analysis that P by Q. And then based on that, you can, you can check whether, whether these entities are contiguous or not. Is this okay to everyone? So what I'm going to do, I'm just repeating the same question using the P by Q.
+
+129
+01:16:00,700 --> 01:16:29,330
+Okay, using this PYQ, I'm just repeating the same question. I will tell you how to analysis, how to analyze whether these are contiguous or not. And then you can do this question. Currently, these are not contiguous. Okay, and that is why the answer is coming up to be this. If let's suppose these are contiguous, then here at this level, what will change? Only at this level, something will change. How many number of chunks you need? If there by chance, if they are contiguous, only at this level, it will change. Only one chunk will be needed. Anything else will change?
+
+130
+01:16:29,560 --> 01:17:00,820
+Even if they're contiguous, no, right? Everything will remain same. Okay. Everything will remain same. Okay. So let's just do one thing. Let's, let's directly do the gateway queue and then you can, you can analyze. It's extremely easy. It's not very tough, but yeah, let's do the gateway queue directly. Okay. Let me know if there is any doubt here. So let me just repeat the question. Okay. Let's not worry about whether they're contiguous or not. I mean, this is a natural question that, uh, that arrived, but yeah, but for now, let's not worry about it. So what we did, we were having, you can say,
+
+131
+01:17:05,150 --> 01:17:31,670
+We were having this process and then this process will be was having 192 pages, right? I mean 192 pages here. I have calculated in terms of pages that how much I will be needing. Okay. This is the very first thing that I need to do. So I need to first calculate in terms of pages. I hope that is fine to everyone. Then what we did then as a second step, I said that, okay, once you calculate in terms of pages at the first level page table, whatever is needed, let's just quickly write it down. So we will be needing some entries, right?
+
+132
+01:17:31,890 --> 01:17:54,410
+some entries and then based on that some chunks so at the first level page table I need 192 entries and which means three chunks and so on right and then 2400 entries which means 38 chunks and then these many entries which means for I mean four chunks and so on so I hope from here I mean once you calculate how many chunks will how many pages we need based on the given question so based on this question okay we have calculated how many chunks we need
+
+133
+01:17:55,690 --> 01:18:24,270
+right so how many chunks so this is this is how many chunks this is how many chunks this is how many chunks how we did we know that okay this is how many in terms of in terms of byte we need byte we know so so what we can do we can divide by the page size now we know these many pages are useful then as a second step now we know okay as a first level these many entries are useful now at the second level at the second level then you can calculate how many entries are useful right so as a second level how many entries are useful you can definitely calculate
+
+134
+01:18:26,350 --> 01:18:46,060
+So three antigens one and then three chunks and then at at final level, this is the one chunk. Okay, that's how we are solving this question. Okay, now let's just do one thing. Let's just let's just do one of the gateway queue and then then you can understand these type of questions little more. Okay, cool. So let's just do this question.
+
+135
+01:18:46,310 --> 01:19:11,470
+which is one of the you know I mean quite hard question I mean hard in the sense that I am almost sure that mostly people I mean mostly people will not be able to understand this question I mean thoroughly reason being is that this question is little turkey in the sense that this question is exactly same as what we just did I mean in terms of the concept what we just did but still like I mean there are very less people who might have done this question
+
+136
+01:19:11,930 --> 01:19:43,180
+okay so that's why like since this question is so unapproachable that the number of upwards are also less okay I mean not too high the reason is that this question is so unapproachable to the people okay so here in this question actually they are they are having some I mean the question was having two parts we are just doing one part and other part was dealing with TLV so we will do other part later so that's why I'm removing the information of TLV okay further okay from this further I'm removing this information region being is that
+
+137
+01:19:44,960 --> 01:20:19,440
+This is currently not required for us. Okay. Now let's just do this question. So what they're saying, they're saying we are using two levels. Okay. Only two level of virtual to physical translation. Page table for both the levels are stored in the main memory. Virtual and physical translation are 32. Okay. Both are 32 bit wide. The memory is byte addressable for virtual. Yes. TLB is a part of OS levels in the sense. Yeah. I mean, it is just one concept. Okay. So memory is byte addressable.
+
+138
+01:20:19,680 --> 01:20:44,790
+for virtual to physical translation the 10 most significant bits of the virtual addresses are used as index into first level pasteable okay so 10 most significant bits they are saying okay they are saying that it is 32 bits and out of those 30 bits 32 bits 10 most significant bits are useful here 10 is here 12 is here I mean that is given in the question 10 10 12 okay
+
+139
+01:20:45,770 --> 01:21:17,190
+Assume that page table entries are okay, page table entry size is also given to be 4 bytes. Now this question is very small. I mean, it's not a very big question, just a two line of question. Okay. It seems like a big question, but it's just a two line of question. So, so what they're saying, suppose a process has a following, following pages in the virtual, virtual addresses space, they're saying to contiguous code pages starting at virtual addresses. Okay.
+
+140
+01:21:17,940 --> 01:21:57,480
+Okay, this is even an easier question Why it is easier? So they are saying that code section is using How many pages? Two pages And data section is using Again they are saying two pages And stack section is using How many pages? Stack page, one page Okay So this is little easier than the earlier question Can you guess why? Why it's seeming to be little easier? They have just solved one thing for us Earlier if you remember
+
+141
+01:21:57,940 --> 01:22:30,740
+Have they given the pages directly? No, right? I mean, just I'm saying that it is just a little useful. I mean, little easy in the sense that earlier they have remembered something like this and then we have converted to the pages that how many useful pages and so on. But yeah, they have they are directly given the pages, which is which is quite good. Okay. Yes, professors are kind enough. Okay. So, so now they are saying that this is two pages, two pages, one pages. Okay. Now, now they must be asking that, okay, what is the size of page table? Okay, two to one, right?
+
+142
+01:22:31,190 --> 01:23:04,660
+So they are saying that two pages somewhere here, let's suppose two pages in the logical or virtual let us space two pages somewhere here and one page somewhere here. This is virtual let us space. Now, can you tell me? Okay. Do you want to have a wild guess? I mean, let's not worry about the exact thing. Let's just have a wild guess. Okay. So, which means what do I mean by that? Let me just tell you. See, this is tentant. All right. So, so can you tell me number of entries here?
+
+143
+01:23:05,390 --> 01:23:38,220
+Okay, I'm not calculating whether these pages are conjugation or not. Okay. Let's just have a wild guess. So maybe, maybe two entries. So one chunk, right? Maybe one chunk here. I mean, two entries, which means one chunk and one entry, which means again, one chunk, right? So, and at this level, maybe three entries, which means again, one chunk. So these chunks are the same. So total, how many chunks? Total, how many chunks? Four chunks. Four chunks total. Each size is two power 10.
+
+144
+01:23:38,500 --> 01:24:12,320
+so which is as good as saying 4 into 2 power 10 entries which is as good as saying 4 into 2 power 10 into the pasteable entry size is given to be 4 bytes right 2 power 2 bytes so this is kb right so 4 into 4 16 kb right 16 kb is the answer here i mean this is just a wild guess okay so why it is a guess why it is not eject i will tell you but yeah see seems to be the correct answer
+
+145
+01:24:13,570 --> 01:24:34,040
+More than 16 definitely not right more than these definitely not now now What is the remaining thing that we need to do? I mean if I'm do if I do it extremely quickly then then I'm coming up with the section give me What is the what is just one thing that I just need to check? See these two pages these two pages and these this is one page now now
+
+146
+01:24:34,310 --> 01:25:05,740
+what if these pages are contiguous right because because at this point in time only if these pages are contiguous then these are just two entries right these are 20 these are just just 20 this is just 180 what if these five entries is contiguous what if this five entries is contiguous if this five entries is contiguous then I mean I need to check basically then it will be just two chunk right so so can we check can we check whether it is contiguous or not that's the only question remaining
+
+147
+01:25:06,060 --> 01:25:37,310
+see I just did a wild guess and C seems to be the answer let me just check the answer actually okay C is the answer right but but to be 101% sure that C is the answer I need to check whether whether these are contiguous entries or not see how many entries you need here two entries in terms of entries two entries two entries one entry so what we can do if these these
+
+148
+01:25:37,900 --> 01:26:11,030
+entries these two entries are in one chunk and these two entries are in one chunk which means what we need to make sure is that in between at least one chunk should be there at least i can say i mean approximately maybe i can i can i'm just guessing okay maybe maybe one chunk should be there if if one chunk is there then i'm sure that okay these are in different different chunk so i can just check whether the one chunk is there or not okay i can just check whether the one chunk is there one chunk means what what is the chunk size 2 over 10 so
+
+149
+01:26:11,340 --> 01:26:43,320
+2 power 10 entries are there or not? Right? Basically, if I can quickly check whether 2 power 10 entries are written between, then I'm sure that okay, these are in different different chunks. So this gap, this gap, I just need to check whether 2 power 10 entries are there or not. Which means here, here, I just need to check 2 power 10. What? 2 power 10, what? Each entry is just one page, right? This is the logical addresses space. So 2 power 10 pages are here or not, right? Similarly, 2 power 10 pages are here or not?
+
+150
+01:26:44,840 --> 01:27:17,790
+That's what we need to check. Let's just check it quickly. Okay. So I hope you understood how we are mapping it. Basically, I just need to make sure that one chunk, which means two over 10 entries, which means two over 10 pages. Can we check it now? Okay. Okay. Let's just do it. Right. Good. Now. Yes. So basically, I will see if there is any, any easy way, like I was thinking that, okay, that's how we can check. Do you think there is any other way? Okay. Let's just do this way first and then we will see that.
+
+151
+01:27:17,950 --> 01:27:51,940
+Okay, what is happening? So we have this Azure, I mean, the process size is like this. So basically, you are saying your code code is starting at 0x, 00, 32 bit. Okay, so let's suppose this is zero 32 bit means eight zeros, four, okay, this is where the code start. Now, what are the pay size, pay size is given to us is
+
+152
+01:27:52,130 --> 01:28:32,110
+2 power 12 which means 4kb right so 2 power 12 bytes this is the paste size given to us is this ok to everyone they are saying you are using two pages here ok this code is using two pages so these are the two pages that code is using two pages which means how many bytes 2 power 13 right 2 power 13 bytes so you just tell me you just tell me let's just forget about it you just tell me if you if you tell me what is the next byte number
+
+153
+01:28:32,370 --> 01:29:02,310
+Can you tell me the next byte number? 0x, 0, 0, 0, 0. Maybe 0, 0, 0, 1. Is this OK to everyone? This is the next byte number, right? So if you want to find out the next byte number, I mean next to next byte number, then it will be 0x, 0, 0, 0, 0. 0, 0, 1, 0. Sorry, not 1, 0. This is not binary. Can you tell me 0, 0, 2, right? I mean, this is the hexadecimal. Is this OK to everyone? OK.
+
+154
+01:29:02,550 --> 01:29:36,430
+Okay, so basically if you want to find out the next next byte, what you're doing, you're just adding that number. Now, if I just ask you, if I just ask you, what is the address after two power 12 bytes, maybe you can add two power tall, right? So if I just ask you, what is the address after two power tall bytes, maybe you can add two power tall and can tell me the answer. So maybe you can say two power tall means one followed by 12 zeros, I think, right? One follows by 12 zeros, right?
+
+155
+01:29:36,720 --> 01:30:15,370
+So tall zero means this is four. I think one will be added here somewhere here, right? So can I say, okay, even if it is not exact, but can I say approximately this will be 0, 0, 0, 0. One will be added here. Can I say that this code will be spanning from this address to this address, from this address to this address? Let me know if there is any issue here.
+
+156
+01:30:15,620 --> 01:30:46,300
+that code is spanning from this address to this address i just added 2 power 12 i mean that's very easy okay i just added 2 power 12 now let's just see what are the next address they are having they are saying the data is spanning i mean data is basically from 0 0 4 okay 5 0 4 and then 5 0 right okay 5 0s and 4 so data is starting from 5 0s and 4 so maybe
+
+157
+01:30:47,190 --> 01:31:22,890
+and stack is starting from somewhere, okay. So maybe data, okay, first tell me, first tell me, do you really think if I'm having 50? See, if I'm having one, two, three, four, this address, okay, this address, just think about it. Do you really think this address and this address are close? I mean, at least, at least, I mean, we will see, I mean, we will see the exact number, but seeming to be little far, right? Okay, so maybe data is starting little far. Yes, these are contiguous.
+
+158
+01:31:23,300 --> 01:31:51,420
+this is given i mean two pages are contiguous pages that is given to us two contiguous code pages okay so so there is some address from which data is starting maybe you can say this is 0x 0 uh 0 4 0 0 0 0 0 okay so this is where the data is starting and now since it is using again uh two pages i think right so maybe you can add two power 12
+
+159
+01:31:51,700 --> 01:32:33,640
+so maybe you can add one one here so maybe you can say it will be from 0x0040100 okay this is data this is data which is using again two pages okay and there is I think this is too far there is a stack which is seeming to be very very far seems to be very very far which is maybe somewhere very near to this this end which is basically using a stack of is
+
+160
+01:32:37,320 --> 01:33:06,660
+0x ff 0x whatever right and triple 0 so basically and then one page it is using right yeah it is actually too much pages away yeah you are right so it is why intuition we can say it is too much pages anyway so basically this is where the hashtag starts and end and somewhere right so let's not worry about it so intuitively you can say what we wanted to check ultimately we wanted to check whether 2 over 10 pages are in between or not right
+
+161
+01:33:08,310 --> 01:33:38,020
+Do you remember the motivation that we wanted to check whether 2 power 10 pages are in between or not? So can you tell me 2 power 10 pages means how many bytes? 2 power 10 pages means how many bytes we want to check? One page size is 2 power 12 bytes. So maybe you can say 2 power 22 bytes. We need to check whether 2 power 22 bytes are in between or not. Is this okay to everyone? That's what we finally want to check. So let's just check it quickly.
+
+162
+01:33:39,310 --> 01:34:32,440
+Tell me 2 power 22 means what one followed by 22 zeros. So so if you add here from here for Charadun art barra sola bees So these many bites right? Pace sizes to portal bites. We want to check two power 10 pages This is in two pages. So basically here each and
+
+163
+01:34:32,830 --> 01:35:15,250
+Each entry is pointing to one page So approximately 2 power 10 entries So how many entries are there? No, decimal will be more messy So binary will be very easy, binary or the hexadecimal So 2 power 10 pages we want to check I am just confirming whether this particular motivation is okay or not 2 power 10 pages means 2 power 22 bytes If I add 2 power 22 here
+
+164
+01:35:22,280 --> 01:36:03,020
+so there will be one somewhere here right I mean here it will be 2 power 22 yeah I think that is correct okay okay so uh so we need to check that 2 power 22 bytes are in between or not is this okay to everyone okay so 2 power 22 bytes means one followed by 22 zeros so if you see these are the 16 zeros this is 20 zeros so this zero if you expand this will be 0 0 0 right
+
+165
+01:36:03,420 --> 01:36:29,640
+20 zeros, 21, 22. So this will be like this. So if you add 2 power 22 here, what will the number? It will be 0x0020, right? This will be 2, 0, 0. This will be 2. Yeah, this number, this 0 will be converted to 2. Okay. And then everything else is same. The 0 will be converted to 2. This is 2, 0. And then 1, 0, 0, 0.
+
+166
+01:36:29,770 --> 01:36:59,850
+something like this so basically you can add it I mean this is this is doable so if you if you add 1 forward by 22 zeros then this is coming out to be 0x0020 but the starting address is 40 right so that's why it is too far okay so since it is too far that is why I can say we are in the safe I mean whatever we just did is actually correct actually they want to be tricking you so much okay I mean don't worry about it they want to be tricking you so much you can you can assume it okay you can assume it that this is too far
+
+167
+01:37:00,940 --> 01:37:32,800
+If if that is the case that they're tricking you, I mean that's very rare. Okay. So again, again, you can quickly check. Actually, here, I don't think you really need to check. Basically, you are adding one into this. If you, I mean, basically, it is too far, right? This is actually too far. Okay. So maybe, maybe you don't need to check here, but yeah, we just checked here. So you are saying that yes, you have the N of distance. That is why here, this won't be contiguous. I mean, this will be different, different entries.
+
+168
+01:37:34,200 --> 01:38:06,270
+Okay, so just skip this calculation, at least have you understood what we quickly did in the sense that okay, that you know that okay, these are the two pages, two pages, two pages, see, once you know that okay, you will be needing, this is actually address division is 101012, okay, so this is two pages, two pages here and one page here, which means, which means two entries here, which means one chunk here, one chunk here,
+
+169
+01:38:07,600 --> 01:38:37,380
+one chunk here, one chunk here, right? So total, four chunks, four chunks in total page tables into one chunk size is given to be 2.10 and that's how you can calculate, right? I mean, quickly you can do it. If you don't check that particular thing, whether it is contiguous or not. Even if you want to check whether it is contiguous or not, then also I don't think it will be too hectic to check. Maybe in the explanation I took some time, but that is also doable.
+
+170
+01:38:37,690 --> 01:39:08,230
+because you just need to add this is this a binary addition right you just need to add it is this fine to everyone how we are doing this this question at least this part at least this part is okay that okay two two chunks i think this part is okay if the pages are scattered around then how to how to do the question right so that's what they're asking if the pages are scattered around okay good so if this is okay then don't worry about it i mean you can forget about this check okay i just
+
+171
+01:39:08,410 --> 01:39:41,330
+I was just curious to see. Let's just see the answer given by Arjun sir. Okay, so Arjun sir is saying first level page table is address using 10 minutes, hence content 2 power 10 entries. Each entries is 4 by hence, now the process uses only three unique entries. So they're saying the process is using only three unique entries. Unique entries at which level? So yeah, two entries here, two entries here, one entry here. Five unique entries, right? Three or five?
+
+172
+01:39:42,100 --> 01:40:27,110
+three unique entries from okay what they did three into four kb they're saying this three page table we need yeah so okay I think that they're talking about this right so these are the three entries we need so basically one chunk one chunk one chunk so they're talking about I think this that these are the three entries we need here and these three entries will be pointing to the this is what they're calling I think first level okay maybe let me just read it again
+
+173
+01:40:31,400 --> 01:41:01,100
+Three unique entities from one zero two four possible entities. So they're saying only three entities will be using from the outermost Okay, hence there are only three second level page tables Yes, so basically we are from the outermost. We just need three entities and three second level page tables are just needed Right and hence that is why these are the three I mean one chunk here and three chunks here one chunk here and three chunks here, okay
+
+174
+01:41:01,980 --> 01:41:33,050
+I think they are not checking that, right? Arjun sir is also not checking it. I mean very carefully. So if you want, you can check it. Maybe otherwise you can escape it. Okay. So these are the three chunks, three entries and then three chunks. Right. So this is three chunks in at this level, one chunk at this level. Okay. So, okay. So he is also not checking, but that is fine. By the way, you understood this, that how it is happening very quickly. You can do if you don't want to check it.
+
+175
+01:41:35,420 --> 01:42:12,010
+two pages here two pages here one page here which means you need you need three entries total right I mean three chunks here so three entries here okay I mean if you check it carefully then you can just check okay whether these these particular entries which is actually the two entries this was the two entries this was the two entries this was the one entry but in the number of chunks this is one chunk if you check it very carefully maybe you can say that okay this is not coming under one chunk okay these are the three chunks which are needed
+
+176
+01:42:12,660 --> 01:42:43,080
+That's all. But you don't need to do it again. Okay. You can just do it very quickly and see the answer. Most probably. And to check also, I don't think it is very tough. You can just add. You just need to add, I think. Okay. So as a teacher, I need to show everything which is possible. But as a student, you can skip this part. Okay. Cool. Now let's just do more questions. Can you do this question? A multi-level page table is preferred in comparison.
+
+177
+01:42:43,760 --> 01:43:06,570
+to single-level page table for translating virtual address to physical address because it reduces the memory access time to read or write. Do you think it will reduce the access time? I think it will increase the access time, right? You first need to go to the outer most, it will increase the access time. It has to reduce the size of the page table needed to implement the virtual address space. I think it will reduce the size of page table.
+
+178
+01:43:06,830 --> 01:43:32,640
+it is required for the TLB actually TLB you have not studied but it is I mean TLB has no relation whether you are using a single level multi-level like that right it helps to reduce the number okay again you have not studied it but that also has no relation number of page faults okay so I think B is the correct answer here it helps to reduce that is true in case of virtual size of the page table can also
+
+179
+01:43:34,510 --> 01:44:01,830
+So, basically, the answer is correct, but I'm sure the explanation is not correct. So, basically, here, because this particular explanation that how it is reducing is unclear to all the experience, not just one or two. This particular explanation that how it is reducing is unclear to all the experience. Let's just see that what he is saying. It helps to reduce the size of page shape needed to implement. That is true. Let's just see the region. In case of big virtual memory page,
+
+180
+01:44:02,390 --> 01:44:29,470
+Size of page table can also be too huge to fit in single page, so we do multi. Do you remember that I told you that this is the misconception that people say that okay, the page table size is too big, then how will I fit in the memory? If the page size is let's suppose 4KB, page table size is let's suppose 4MB, how will I fit in the memory? And then that is why just to fit in the memory, we need to do multi-level paging. I mean, this is a misconception.
+
+181
+01:44:30,240 --> 01:44:51,960
+Do you really need is it forced to do multi-level paging? No, right? I mean this this particular page table can span across multiple pages. So as you can see here, this is there saying that we need to fit it or something. So this is a this is a big misconception that people are having. There are very less people which have the idea about it that yeah, it is still the best answer.
+
+182
+01:44:53,440 --> 01:45:20,540
+Anyway, now it is your turn to modify this. I mean, you write your own answer. Just write one or two answers. You will be very popular as I am again saying. Actually, I want to be popular, to be honest. I want to write the answer for the gateway queues at least. But generally, I don't get time or you can say I am lazy enough. I don't know whether I don't get time or I am lazy. I don't know. But yeah, mix of both. You can say mix of both. So basically, that is why I have not written the answer. But you should write the answer.
+
+183
+01:45:20,730 --> 01:45:47,210
+you should tell everyone that what is the correct logic. So basically, I mean, this fitting and all, this is completely, I mean, I can say misunderstood logic. And by the way, he is not a normal experience. Do you know him? Akash can't say. I mean, you might not be knowing, obviously. I don't remember ejecting, but I think it is 37 or 43 or something. I mean, less than 50, definitely.
+
+184
+01:45:47,830 --> 01:46:25,190
+Or maybe in the 20s, 22, I don't remember. Actually, he's from IIT Bombay. Now he's passed out from IIT Bombay. If I'm not wrong, I mean, IIT Bombay, I'm sure. Under 50, I'm sure. But if I'm not wrong, then he is currently working at Microsoft also. Microsoft or Amazon, one of them. Anyway, so basically, he's not a normal expert. Even the topers at that time used to have this misconception. Cool. So I hope that is fine.
+
+185
+01:46:29,120 --> 01:47:06,170
+Yeah, software engineer at Microsoft. Okay. So Satyam, I think you did LinkedIn search, right? Over the LinkedIn you find out. Okay. Yeah, he's in Microsoft. So, by the way, like this sums up our multi-level paging. So basically, again, I will say that all the, all the things in multi-level paging we did, if this particular thing scared you, then don't worry about it. Otherwise, I think this question was very easy. Weren't you able to solve it? If I just ask you to do like this, right? Just do like this. Okay. So don't worry about the check and all.
+
+186
+01:47:06,390 --> 01:47:36,450
+So again, multi-level paging is finished. So we have solved all the things in multi-level paging, right? Now, again, this is the summary of multi-level paging. Again, I'm saying if you understand that, okay, what is the address translation? What the six means? How does this address translation happening? How to know how much to go down? I mean, that is that we get to know using this offset, right? These things. Okay. So, Sangit, you are saying you have brought in 2021 PBIQ. Yeah, you can definitely ask.
+
+187
+01:47:36,970 --> 01:48:05,370
+Okay, so this is this sums up of multi-level paging. We have done all the things that is required for multi-level paging. And if you ask me to summarize, I will say that, okay, the summary is just like, I mean, the logical address space, you can split it in any way. Okay, in any way you can split, there is no necessary that you need to split like this or like that. Okay, you can split it in any way, depending on the chunk size that you're looking for. Okay, depending on the chunk size that you're looking for. And then this, this is how the address translation happened. And this, this contains the
+
+188
+01:48:05,980 --> 01:48:41,950
+Can I even tell me what it contains chunk number right chunk number Okay, this contents is chunk number Can it contain the byte number directly? No, right? I mean there will be some problem in the hardware Okay, so that's all I mean that is all about the multi-layer pitching Now what you can do what you can do you can just solve all the remaining question if you want Okay, so there are there are multiple questions that I have you can just solve all of these questions
+
+189
+01:48:43,570 --> 01:49:10,150
+Maximum size. Okay. I mean, all of the questions are related to just the size. I mean, how we are reducing the size. Okay. Just a reduction of the size. So all the questions here are related to reduction of the size. So what you can do, you can do these questions as an homework if you want to. Otherwise, you can skip these questions. Okay. So reduction of the size, I hope you understood. Maybe two, three questions you can try. See here, if you're using multi-level paging, what is happening? If you're using linear level paging or the single level paging, then what is happening? All the questions are related to just like this.
+
+190
+01:49:10,380 --> 01:49:43,990
+Just see that 104 white instructions we are using for undergone. I'm using three total page and then what will the sizes? Okay. All the questions are related to sizes and answers are also on the next page. So you can, you can, you can solve these questions if you want and answers will be on the next page. Okay. These are just practice questions that you can have. So do you want me to solve all of these questions in tomorrow's class or we can skip it? I mean, it depends on you, whatever you want. We can do that.
+
+191
+01:49:49,380 --> 01:50:21,380
+Yeah, you can try all of these questions first, definitely. Okay. Okay, that's all. Okay, we will, I mean, you can try and then then we can, we can solve in next class. Now, let me ask you one thing. This is the multi-level page, right? Let's suppose I'm having, I'm having three levels of page tables. Let's suppose this is a physical memory.
+
+192
+01:50:22,120 --> 01:50:52,130
+So suppose one level of page table. I mean the first level page table page tables are restored here somewhere I mean second level is stored here somewhere third level is stored here somewhere and maybe you can say I mean first level means this is let's suppose the first level This is second level. There's a third level. This is the page offset Let's suppose this is the first level. There's a second level. There's a third level and this is the actual or the real you can say the
+
+193
+01:50:52,600 --> 01:51:33,130
+page or the frame suppose that's the case then is this is this diagram okay to everyone that everything is in the memory at the end everything is the memory whether it is a page table or whether it is a process so everything okay everything is in is in physical memory right everything is in physical memory which means from everything I mean I mean page table process or whatever you have right
+
+194
+01:51:33,480 --> 01:52:01,960
+okay so so you will be finding from here from here you will be saying that okay see this is the first level from here you will be you will be going to some entry you will be pointing here from here you will be going to some entry you will be pointing here from here you will be going to some entry and you will be pointing here like that right i mean basically basically everywhere in the everything is in the physical memory and you are pointing to uh somewhere within the physical memory itself i mean you will say that okay uh first level will be pointing somewhere here let's suppose
+
+195
+01:52:02,260 --> 01:52:29,620
+okay and then second label will be pointing to somewhere here then you are pointing to somewhere here like this I mean the pointers are within just a flat flat memory it's just fun to everyone this diagram makes sense okay so everything is in the memory right cool that I mean that is one thing that you should be knowing and you know this okay apart from that I don't think I have anything to say in the multi-level paging so whatever is needed we have covered it in the multi-level paging let me just
+
+196
+01:52:31,080 --> 01:52:55,080
+also verify it I mean I will obviously verify it later but yeah so if you if you see the galvin there are two chapters one is main memory another one is virtual memory so in the main memory they have talked about the paging and all right so you can see here they've talked about the paging and all if you see that in the galvin they talked about this paging this multi-level paging and these things right so this is paging
+
+197
+01:53:01,410 --> 01:53:29,280
+hierarchical paging or the multilayered paging. So they talked about everything. I mean, whatever is required, they talked about it. But do you think it is really possible to understand even what does this spirit mean from this galvan directly? I mean, I'm not saying that you can't study, but what I'm trying to say is that it is not very straightforward to directly understand from the galvan. So basically, in the galvan, they will just write one line.
+
+198
+01:53:29,500 --> 01:53:54,780
+Do you think you can understand this online that what they are actually saying? So basically it will be difficult. So even though I mean even though let's suppose some someone is saying that someone is claiming some aspirant or not some someone else some aspirant and I'm talking in terms of the aspirant some some aspirant is saying sir I have read the galvan. It doesn't mean that he actually knows the things because because galvan wants to see many things in just one line but you can't just directly understand that is a problem.
+
+199
+01:53:55,900 --> 01:54:24,070
+Okay, how does, okay, from the galvan, I'm definitely sure they must have written that, okay, it is basically reducing the size. I don't remember the exit line, but it must be written. It is reducing the size, right? So the hierarchical paging is reducing the size, but I'm sure that experience won't be able to directly understand. So, I mean, that is why we had that much lectures, even though if you see that this hierarchical paging has just finished in one page, that's all.
+
+200
+01:54:24,400 --> 01:55:22,030
+okay that's all in galvin in the next page in fact they have started inverted page table or something like that okay that's all yeah at last they said so where in the right side yeah so page table of particular useful usually each process of page table this table represents is natural okay so which line number you mean this paragraph is this paragraph correct at least
+
+201
+01:55:31,380 --> 01:55:59,800
+Okay, I mean they must have said it. I'm not able to find out where the ejected Okay, so so basically I mean it is it is what I'm saying that it is just in just one or two pages But but we have taken multiple classes, right? So just to make sure that you understand everything. Okay Okay, now you also lost it. No, no worries. Good. So basically just to make sure that you understand everything now again I'm saying that that the only thing in the multi-level paging is that
+
+202
+01:56:00,030 --> 01:56:21,190
+that you you just need to know that how these these things are working and if they give you that what is the reduction in the size then you just need to check that okay how many useful pages are there based on that you can calculate that okay how many useful chunks are there at every level that's all okay these type of questions are also very easy cool so i think we can we can continue tomorrow so that is all i want to say here
+
+203
+01:56:22,800 --> 01:57:13,210
+there is one more thing maybe I don't know if it is the correct time to talk about it but that's called memory alignment I mean here it might not be very much required but there is something called memory alignment and if you want I can just talk about it optionally okay actually it is not in gate syllabus basically so I will just talk in five minutes have you seen those struck lectures in the struck lectures I said that okay see there is an alignment required
+
+204
+01:57:14,620 --> 01:57:48,400
+right if you if you remember it so basically basically what I'm saying here is that that if you have let's suppose if you have the frame okay if you have the frame or the page or the page so basically what we say that this is the page number let's suppose this is the page number indexing start from zero this is the page number five if I tell you the page number can you tell me the byte number here what is the first byte here yes right if this is the page number then what is the byte number maybe you can say byte number
+
+205
+01:57:48,660 --> 01:58:22,970
+is actually equal to uh five into page size okay i hope that is fine so basically basically suppose suppose by some chance by some chance or maybe maybe let me just give you the example uh there's some chunk there's some chunk okay let's suppose there's a page table whatever the size of page table let's not worry about it but maybe that page table is having two power 20 entries okay two power 20 entries and then then there's a chunk
+
+206
+01:58:26,890 --> 01:59:11,920
+2 power 10 entries So how many chunks possible? 2 power 10 So number of entries here 2 power 10 entries Let's suppose some chunk size 2 power 8 entries How many chunks possible here? 2 power 2 In this case 2 power 2 which is 4 Which means 4 entries here Now 4 entries That's all Now tell me number of chunks here which is 4
+
+207
+01:59:17,900 --> 01:59:52,440
+Now, now, if I am saying, if I am just giving you the chunk number, okay? If I am saying this is the physical memory, if I am just giving you the chunk number, which means, if I am saying that, okay, this, this is the chunk, I mean, I have stored this chunk and this is the chunk number 3. Can you tell me the byte number? Definitely, yes. Chunk number, which is 3. You can tell me the byte number. Okay. So, what I am trying to say here is that, if let's suppose that is not aligned, which means, let's suppose this chunk
+
+208
+01:59:52,760 --> 02:00:33,940
+that chunk which is which is the chunk number three right by the way like I mean if you remember that how many bits I required for this chunk to address this chunk that you can calculate right let's suppose this is 2 power 32 2 power 32 entries or bytes or something or maybe let's suppose bytes this is let's suppose 2 power 10 bytes I mean in terms of bytes then can you can you calculate the number of chunks possible here of this size 2 power 22 right
+
+209
+02:00:34,220 --> 02:01:11,120
+Okay, so 2 power 22 chunks are possible. 2 power 22 chunks are possible. So that's why I need 22 bits for this chunk. Let's just first get to understand whether you understand this or not. I mean, I need 22 bits for this chunk. Is this okay to everyone? Now, again, I'm saying this is optional discussion. If you want, we can discuss it. Now, number of chunks are just 4. Why I need 22 bits? Can't I just have 2 bits? Can't I just have 2 bits?
+
+210
+02:01:11,510 --> 02:01:59,940
+why I need 22 bits why 2 bits why not 2 bits why not 2 bits even though the number of chunks are just 4 why not 2 bits why I need 22 bits there's the first thing that I want to I want you to answer yeah we are addressing the same number there are just 4 frames right or the 4 chunks have you understood my question so so I am saying I am saying that okay there are 4 chunks available chunks I am giving to you
+
+211
+02:02:00,140 --> 02:03:03,980
+so basically i'm telling you two things see if you remember there are four chunks i want to store right i just want to store we want to store four chunks four chunks each of size size 2 power 10 bytes physical memory sizes 2 power 32 bytes then number of bits required to address this chunk this is my question number of bits required to address this chunk now 32 bits
+
+212
+02:03:04,340 --> 02:04:00,790
+I mean 32 words, definitely we can do it, but we don't want to do it using the 32 words. You can say minimum number of bits. Actually, I mean, I'm not convinced enough with the answer that Sangeet is giving. Maybe I have not understood your answer. That's why I'm not sure if I understood your answer or I'm not convinced. So maybe I can paste your answer here. Have you understood my question? Is this question clear to everyone that what I'm trying to ask? There are only four chunks. I want to store four chunks.
+
+213
+02:04:01,100 --> 02:04:37,790
+why not just two bits very simple question okay see okay i will come to that first tell me this actually the answer could be two but there is a big problem with this two answer can be two but if i'm i'm restricting myself to be two then the problem will be this see this is the physical memory right if the answer is two
+
+214
+02:04:38,040 --> 02:05:11,560
+then the only the only chunk numbers are allowed to be 0 0 0 1 0 1 0 and 1 1 chunk number could be 0 could be 1 could be 2 could be 3 is this okay everyone if i'm i'm saying it is 2 definitely right which means if i'm saying 0 then from this chunk number can you calculate me the byte number just from this chunk number just multiply by the chunk size you will get the byte number so basically basically if i'm just saying 0th chunk 1th chunk 2nd chunk or 3rd chunk
+
+215
+02:05:11,880 --> 02:05:41,360
+the problem here is that I need to 101% I need to store these chunks in only this area let's suppose this chunk size is whatever this is so let's suppose the chunk size is 2 power 10 then 2 power 10 into 4 I mean these are the 4 chunks so basically I need to specifically I am specifically saying that chunks will be stored in this area only because if you give me the chunk number which is 3 I will say that okay exactly exactly 3
+
+216
+02:05:41,920 --> 02:06:12,840
+chunks are above it, isn't it? Are you getting my point? What I'm trying to convey? So basically, basically, if you say that, okay, just using two bits you want to store, you can store, but you're restricting yourself to too much to be just use that space only. Because if I give you three, then if you're telling me the byte number, then you're actually telling me that, okay, this is after the three chunks, which means this is in this area only. See, let's suppose I'm just using two bits.
+
+217
+02:06:13,370 --> 02:06:45,830
+Okay, then what does this mean? It means that I'm saying the chunk number could be 0, 1, 2, 3, right? What does this 3 number means? What does this 3 number means? It means the number of chunks above it is 3, number of chunks above it is 3. So, so it means I'm specifically saying if just chunk number is 3, I'm specifically saying number of chunks above it is exactly 3, 3 chunks. So basically, basically I
+
+218
+02:06:46,030 --> 02:07:12,740
+Can I store the third number chunk here? Can I store this third number chunk here? Somewhere else. Not here. Not here. Somewhere else. If I store it, there will be a huge problem. The byte number will be completely messed up. Right? So I cannot store it randomly. That is a big problem here. I have to store this at this place only. So the places are exactly fixed. Right?
+
+219
+02:07:13,180 --> 02:07:42,850
+it is not it is not randomly you can allocate okay there's a huge problem here so i hope you understood this so basically don't worry i'm making it very very clear see basically what we are saying what we're actually saying i mean what we actually do we say that this is a physical memory this is a physical memory what i'm saying i'm dividing this physical memory into chunk size okay whatever the chunk size maybe 2 power 10 is a chunk size i'm dividing many many slots how many slots are there 2 power 20 slots are there
+
+220
+02:07:43,730 --> 02:08:13,960
+2 power 22 slots are there. How many chunks I have? Only 4 chunks I have. Only 4 chunks I have. Am I having 2 power 20 chunks? 22 chunks? No. I just have 4 chunks. I want to make use of these 2 power 22 slots. Now I can store in any of these 2 power 22 slots. These 4 chunks. Wherever I am storing, it's not an issue now. Because I will tell the chunk number, right? I will tell the chunk number using the 22 bits. Then I can definitely convert to the byte number.
+
+221
+02:08:16,670 --> 02:08:46,530
+Okay, this is clear that basically what I want to convey here is that see if I am having 4 chunks I mean basically if I am saying that 22 bits are required it doesn't mean that I have 22 chunks 2 power 22 chunks that's why 22 bits are required no see here I am saying that okay the chunk size is 2 power 10 chunk size let's not worry about the number of chunks okay chunk size 2 power 10 physical memory
+
+222
+02:08:48,250 --> 02:09:27,880
+is you understand this right 32 bits now i want to know that number of bits required number of bits required for 2 address 1 chunk right now the thing here is that maybe actually doesn't depend on number of chunks okay do i nearly really care about the number of chunks no right i don't i don't have to care about the number what is the chunk size it is 2 over 10
+
+223
+02:09:28,170 --> 02:09:59,730
+which means how many slots are available it is about the slots how many slots are available so if i just ask you you will you will ask me slots see this this term is important have you understood this the slots need not to be the number of chunks slots could be too big and i just want to store one chunk okay i can store as many as chunk as i want obviously at most number of chunks i can store is number of slots obviously so number of slots that i have these are the slots okay which is 2 power 32 because of the physical memory
+
+224
+02:09:59,980 --> 02:10:32,960
+upon 2 power 10 which is 2 power 22 slots are available these are not chunks now how many chunks I have doesn't matter I can store those chunks into any of the slot doesn't matter understood so basically basically I am saying I am saying that you have you have 2 power 22 slots for chunks right now the chunks as here is now chunks as here is 2 power
+
+225
+02:10:33,930 --> 02:11:06,020
+10 whatever right so chunk size is 2.10 so basically I want to store these are the 2 power 22 slots I want to store doesn't matter maybe I want to store one of the chunk you can you can definitely store now let's suppose I am storing one of the chunk okay only one chunk I have suppose only one chunk we have in that case if you want to store how many slots are available 2 power 22 slots you have can you store this chunk in this slot yes that will be some having some number 22 bit number
+
+226
+02:11:06,730 --> 02:11:40,220
+right every slot is having some 22 bit number every slot now will it be a problem if I store this here will it be a problem for you to get me the byte number no right so basically I'm not restricting myself I'm not restricting if I just say that okay if I just say that okay one or two chance if I just say that okay only one or two words or something like that then I will just restrict myself the area in which I can store right the area I will be restricting if I just suppose the six bits only
+
+227
+02:11:40,540 --> 02:12:11,770
+if i just let's suppose i say 6 bits only then 2 power 6 slots i can use only from the first i getting if i say if i say 10 bits only then 2 power 10 slots i can use only from the beginning if i am saying 2 power 22 bits i mean 22 bits only then 2 power 22 slots i can use from the beginning okay i hope this is okay to everyone okay which is optional obviously okay so that is that is one thing
+
+228
+02:12:12,260 --> 02:12:43,020
+Now you you might you might have noticed one thing that this slot is something weird, right? I mean that we are storing everything in the slot So can I store? Let's suppose let's suppose this is one slot. This is one slot Can I store which is having 2 power 10 size? Okay, how much size this is 2 power 10? How much size this is 2 power 10? Is this fine to everyone? Now now can I store this 2 power 10 into Something like this 2 power 9 bytes here 2 power 9 bytes here
+
+229
+02:12:43,580 --> 02:13:14,510
+Okay, 2.9 bytes here, total 2.10. Can I store half of this in one slot or half of this in another slot? So the answer is no. Answer is no. I mean, if you want, you can do it and that's not desired thing. That's what the alignment says. Okay, so now I'm going to tell you something called as alignment. So basically, this is not allowed. I mean, okay. I mean, if you want, you can do it, but it's not preferred. Right? Cool.
+
+230
+02:13:16,230 --> 02:13:52,120
+So have you understood what I'm trying to say that there are these slots or given one thing is the slot now What I'm saying is that this should be going into one of the slot only if you go if you Store in the half of this slot a half of the slot is not very good thing to do. That's what we are trying to understand now Okay, this is understood. Cool. Now, let's just try to understand one thing suppose There is memory Suppose there is an integer you want to store integer in memory
+
+231
+02:13:56,210 --> 02:14:26,090
+Okay, now I don't know if I will be able to convey this point because to be honest, I was not prepared for this. I just thought that okay, we can do it. Okay. So suppose there is one integer in the memory that I want to store. Now, what are the size of integer? Let's suppose it is a 4 byte. Okay. Suppose this is a 0th byte. This is the first byte. This is the second byte. This is the third byte. So these are the four bytes, right? Now, now suppose I say that I want to store this integer into these four bytes.
+
+232
+02:14:26,270 --> 02:15:15,530
+Is this is this possible? Yes, this is definitely possible. There is nothing wrong with that. Nothing wrong in this. Okay. So I mean, you can, you can definitely store here. Okay. Let's suppose these are the contiguous four ways you want to store here. Now tell me, can you store, can you store this integer here starting from three, three, four, five, six, three, four, five, six, till six. Can you store this integer into this six bytes? What do you think? Yes or no?
+
+233
+02:15:17,320 --> 02:15:43,900
+Okay, so basically into these six bytes, if you want to store, actually you can store, but it's not desirable. The thing here is that there is some some hardware issue. Okay, in the hardware, in the hardware, there are fixed number of data lines. Okay, there's a data bus. This is called data bus. That will be of fix. Let's suppose this is of 64 bit.
+
+234
+02:15:45,360 --> 02:16:14,320
+They will be fixed or do you think it will be changing just based on your code or something I mean once the hardware is always fixed obviously hardware can't change So there is a data bus using the data bus CPU will be fetching the data So if it is 64 bits then what does this mean? In one cycle CPU brings 64 bits to us So CPU locally from the memory it fetches the 64 bits If the data bus is 64 bits then it fetches
+
+235
+02:16:14,670 --> 02:16:51,670
+it fetches cpu fetch if actually it is a computer organization part but still like i just want to tell you one thing about the memory alignment so that's why i'm just discussing here if data was is equal to 64 bits then cpu fetches 64 bits at a time okay now what happens that if you are fetching 64 bit at a time
+
+236
+02:16:52,060 --> 02:17:10,340
+then then basically it either fetches from starting from zero or i mean multiple of 64 or 64 or 64 into 2 basically if you say if you say that okay give me a byte starting from zero to cpu it will say that okay i can give you a byte starting from zero
+
+237
+02:17:10,720 --> 02:17:28,340
+if you say to the CPU that give me a byte starting from 64 it can give you the byte starting from 64 if you say give me a byte starting from 128 it can give you the byte starting from 128 but if you say give me a byte starting from 3 then what it will say any guesses so
+
+238
+02:17:32,400 --> 02:17:59,820
+So I mean you will understand in the hardware that top that why why these limitations are there but it can only address the second I mean it just pick the pick in chunk of 64 and it can only start starting address must be the multiple of 64 so if you're asking for the third white I mean that is possible you can ask it's nothing wrong in that if you're asking for that then it will say that okay even though you're asking for me three it will still fetch you this from zero to 63 it will still fetch you whole thing
+
+239
+02:18:01,040 --> 02:18:29,760
+Okay, even though you're asking, it won't fetch you from 3263 to 63 plus 64 or something like that. Okay, 63. Okay, so it doesn't fetch you from 3264. It still fetch you from 0 to 63. Okay, from 0 to 63. It doesn't do this. Is this fine to everyone? Why that is the case? Because these are the hardware requirements. I mean hardware constraints. Okay, that you might understand in the company organization, otherwise it is not required for the gate.
+
+240
+02:18:30,280 --> 02:18:59,840
+Since it is not required for the gate, that's why I'm just having the one optional discussion. So basically where I have written the option. Yeah, this is the optional discussion. Okay. So is this little bit okay to everyone that that it is always fetching from either zero or 64. It can't fetch you from 32. It doesn't just start from three. See, if you can't get you the bat from three, three to something, okay. It will always give you from zero to 63. Okay. Now, now why it is not desired.
+
+241
+02:19:00,320 --> 02:19:38,700
+to store that at three why does not decide to store it three the integer can can anyone guess so the hardware constraints are okay to everyone then then why does not decide yet is not in power of two that is that is right that is okay i mean other things can be fetched so yeah so i mean the partial this is partially correct so basically basically cpu fetches right uh cpu so if integer is stored at three
+
+242
+02:19:44,170 --> 02:20:37,060
+Then CPU still fetches from 0 to 63, right? CPU still gib bytes Now what is wrong in this? This is my next question, right? So what is wrong in 0 to 63? I mean why why why it's not recommended as you can guess the reason see what we wanted We wanted let's suppose. This is one wide. This is second wide. This is third wide, right? 0 1 2 we wanted from this wide
+
+243
+02:20:37,540 --> 02:21:10,210
+This white, we wanted these four whites, right? We wanted these four whites. CPU gave me from 0 to 63. From 0 to 63. CPU gave me this. And we wanted this. So basically we want something in the middle, right? We want something in the middle. That is why CPU have to do the left shift. It has to be done. The left shift have to be done, right? Are you understanding? The left shift has to be done. And then they need to face this data.
+
+244
+02:21:11,490 --> 02:21:41,500
+So basically this is extra work. I'm doing the one reason is that extra work This is one region of left shift. Okay What could be the other reason is that? Okay, by the way, this first region is okay to everyone that we need to left-shift it and actually we can just fetch from the starting So if we don't want that starting then we need to left-shift it This is one region. The other reason is that let's suppose you are basically storing
+
+245
+02:21:41,980 --> 02:22:07,330
+something this is 0 1 2 3 something let's suppose you are restoring something starting from let's suppose 63 okay this is 0 to 63 you are you are fetching something from 63 or maybe 62 whatever you want okay let's suppose you are storing your integer starting from 62 and then this is 63 this is 64 this is 65 this is your integer okay let's suppose this is your integer
+
+246
+02:22:07,540 --> 02:22:45,200
+I mean, you can do this. That's not a problem. But unnecessarily, you're increasing your program time. Okay. It's not required. It's not desirable, basically. Now, now let's suppose you ask for, okay, give me, give me bytes. That is 62 to 65. Let's suppose you ask for these bytes. Then what will CP do? CP will say first fetch, fetch 0 to 60, 63.
+
+247
+02:22:46,180 --> 02:23:16,390
+because it always has to fetch from 0 I mean from multiple of 64 so basically it will fetch from 0 to 63 then then maybe it will be doing the left shift okay then left shift shift okay sorry these are the bytes right and I was talking in terms of bits cool so okay so actually the address the data okay this is bits sorry
+
+248
+02:23:18,000 --> 02:23:45,140
+Okay, so actually the aptitude will get different. So just consider it bytes. Actually, it's not bytes, but yeah, for now consider it bytes because I have taken everything bytes. Okay. For now consider it bytes. Don't mind it. Okay. So just consider it bytes for now. Anyway, so let's suppose it is fetching from, I mean, at one time it is fetching 64 bytes. Okay. Let's not worry about it. So basically, what you will do if you're fetching 64 bytes, it will fetch from 0 to 63.
+
+249
+02:23:46,810 --> 02:24:15,910
+then 62 keep keep 62 63 then what next cycle next cycle fetch 64 to 64 plus 63 whatever this is and then left okay now left is not right then keep keep 64 65 so basically just because you are storing it here first of all you are increasing the number of cycles
+
+250
+02:24:16,400 --> 02:24:44,470
+agent it will do two times it will it will do in two cycles so so the second reason is that you increase extra cycle you are required right extra cycles cycle you look at and uh and extra work also right i mean extra cycle and the left shift is left shift is definitely the extra work so basically you want to store your integer in the multiple of size of integer okay now it is very interesting so see
+
+251
+02:24:44,880 --> 02:25:17,540
+Okay, by the way, is this okay to everyone that what I'm trying to say? A little bit might be refined, right? So basically, CPU is fetching 64, 64, 64 in chunk of 64. If you are basically spanning across the 64, it will be a little problem to the things. Okay. So it is, is there any doubt? Okay. Yeah, please tell me.
+
+252
+02:25:22,410 --> 02:25:49,370
+So you're saying pre-fetch instruction. I mean, that locality is not an issue. I mean, it's not, it's not the, always the thing that, okay, you will be basically fetching from here and then continuously, it is, it is not the case, right? Maybe you are asking something from here, right? Maybe it will solve your doubt. So let me just continue. If it is, most probably it will solve whatever I just said. Okay. So if you still have that out, you can ask me. So now for now, let me just continue. So basically what I'm saying here is that that,
+
+253
+02:25:50,090 --> 02:26:30,720
+this alignment is a problem right i mean if you are basically keeping something which is not coming in in the in the 64 range then it is a problem now now suppose suppose you are storing one corrector one two store which is a one byte now tell me is should be following any rule where should i store this corrector let's suppose i store this corrector at byte number 62 okay this is my corrector i ask the cpu
+
+254
+02:26:31,090 --> 02:27:09,840
+give me byte number 62 can CPU do CPU require the multiple multiple cycles at least the multiple cycles are not required because CPU will always say okay 0 to 63 right multiple cycles are not required in case of corrector we eat anything so you can say is it okay to everyone that multiple cycles are not required okay so corrector can be stored anywhere basically now now the thing is
+
+255
+02:27:10,040 --> 02:27:42,520
+that if integer is of 4 bits or 4 bytes then we will store this integer in the multiple of 4 only okay so let's suppose data bus okay for now let's suppose data bus is of 8 bytes now which means this is basically a fetching the slot of 888 888 right 888 i mean cp will be a fetching one slot slot of 8 at any given time is this fine to everyone
+
+256
+02:27:44,440 --> 02:28:15,140
+Now, if integer of four bytes, four bytes, let's suppose the integer is of four bytes, then you should be storing this integer either, either from, I mean, in the multiple of four, the address should be in the multiple of four. So address could be zero, could be starting, starting address could be zero, could be four, could be, could be eight, could be sixteen like that, could be eight, could be sixteen like that. Okay. Why that is the case? Because if you're, if you're storing the integer here, or here, or in the lower half here, then
+
+257
+02:28:15,380 --> 02:28:54,280
+then in just one cycle you can always do this because that that is falling under in the slot right is this okay everyone integer is also is falling in in one of the slot it is not spanning across the slot now now if i if i make a rule that okay if i make a rule that anything of size x should be stored stored at the start address
+
+258
+02:28:58,480 --> 02:29:27,910
+which is multiple of x I mean generally this x is in 2 power ok so let me write 2 power so let's suppose something is of 2 power k then it should be starting from 2 power k I mean the starting address should be 2 power k so why this is making sense see suppose some integer so integer is is let's suppose 4 4 bytes integer is not spanning across the across the slots right
+
+259
+02:29:28,410 --> 02:29:58,470
+Okay, I mean, if I make the rule that either it will be here, it will be here, it is not spending across the slots. Okay. What about something of eight bytes? Will it be spending across the slots? No, right? Either since I'm making the rule that it can either start from the starting address could be zero. I mean, could be here, could be here. Okay. I'm making this rule that the starting address must be the multiple of eight. So that particular thing, whatever this is.
+
+260
+02:29:58,640 --> 02:30:30,550
+either here or here or here or here so it won't be it won't be basically spending multiple slots right okay what if what if something is off something is off size 16 will it be spending multiple slots definitely mother 16 to up definitely right so definitely i mean 16 16 because the size itself is saying that it has to spend multiple slots but obviously you can't avoid it
+
+261
+02:30:30,740 --> 02:30:57,600
+obviously you can't avoid it so that is fine I mean because the size itself is bigger that is why I mean that is fine but if the size is smaller then then I hope that is okay if there's a character that is fine the character can be stored anywhere because the character size is one and everything is a multiple of one so character can be stored anywhere if the size is two it will be here here here here I mean it cannot be spent multiple it cannot be spent if I'm saying that okay if I'm making this rule and the database is let's suppose eight bytes then
+
+262
+02:30:57,860 --> 02:31:31,300
+it cannot be spent across multiple slots you can take any size either you will be taking one you will be taking two you will be taking four or you can you will be taking eight right if you were taking 16 then I agree if you're taking 16 then I agree right what is the next size after 16 in 2 power what is the next size in 2 power 32 so basically basically what I'm saying here is that you take any size the starting of that will be will be the starting slot only
+
+263
+02:31:31,550 --> 02:32:00,500
+I mean if it is bigger than it is starting if it is 32 32 then then also you will be saying that it will be either starting from here spanning across four or will be starting from here spanning across four it cannot be like this it cannot be in midway it cannot be start right is this fine to everyone if you take any size it will be starting if it is bigger if it is bigger it will be starting from the starting slot only okay if I'm making this rule if I'm making this rule
+
+264
+02:32:01,760 --> 02:32:20,580
+you take you give me any size if you give me 64 the starting will be see it will be occupying I mean the slots will be something like this so basically this is 64 means eight slots so either it will be in the first year slot or it will be in the next year slot or it will be in the next year slot something like that because because because basically we have made the rule that the
+
+265
+02:32:20,760 --> 02:32:48,240
+the starting address of this particular thing whatever this is right this particular object the starting address of this object must be multiple of 64 so either it will be coming in the first year slot or the next year slot can it happen that it is it is starting from the this this slot itself that's on the second slot or something like this it can't happen right basically you take any size any size since the size in the 2 power it is so beautiful the memory arranged so beautiful that it will be if it is bigger than 8
+
+266
+02:32:48,440 --> 02:33:17,880
+it will be starting from this I mean one of the slot only it can't be it can't be start from middle of the slot if the size is bigger than it if the size is anyway lesser than it then I don't care actually why I don't care because anyway I'm fetching one of the slot right and anyway it will be somewhere here if it is a corrector if it is an integer and then two integer maybe it can come from the between so so whatever size you can think of it can't it can't be basically in the middle of the slot that's very nice thing to observe
+
+267
+02:33:18,880 --> 02:33:46,860
+Okay, and that is what called memory alignment That's what we said in the strut So basically, if the strut size is 2 power k Then it has to start from 2 power k I mean the starting address should be multiple from multiple of 2 power k If it is integer, the starting address must be multiple of 4 If it is float, let's suppose that's of 8 by the starting address must be of multiple of 8 Like that, okay And like if I am doing so, then
+
+268
+02:33:47,620 --> 02:34:21,310
+It is always the case that I am following the memory alignment because this is a comfort organization thing and maybe like I brought it here, maybe like just to make sure that you understand these things. So basically, why I brought it here because I wanted to make sure that you understand this thing first, this one, right? So basically, I wanted to make sure that whatever the slot size I'm making sure, sorry, whatever the chunk size I'm making sure that this chunk
+
+269
+02:34:21,640 --> 02:34:49,800
+is stored, am I making sure here that this chunk is stored at the starting address of 2 power 10, the multiple of 2 power 10, am I making sure? Since I have divided into 2 power 10, 2 power 10, 2 power 10, so wherever I am storing this, wherever I am storing this, this must be multiple of 2 power 10, the starting must be multiple of 2 power 10, this is 1 into 2 power 10, the starting here is 1 into 2 power 10, this is 2 into 2 power 10, the starting here is 3 into 2 power 10, the starting here is 4 into 2 power 10, so basically this rule is itself followed everywhere.
+
+270
+02:34:50,170 --> 02:35:25,120
+So whatever we are doing in this, the way we are restoring the chunk or anything, we are following that rule only. That starting address must be multiple of whatever the size of that thing, object. If the size is two power 10, so I'm actually storing in the starting address of multiple of two power 10. Okay. So maybe it is too overwhelming this lecture because first multi-level paging and these things. So don't worry about it. You can, you can keep this later discussion optional. Okay. Cool. So that's all I want to say.
+
+271
+02:35:26,210 --> 02:35:56,220
+If you have understood this optional thing, it is okay. Otherwise, it is definitely not required for it. So thank you, everyone. Take care. Bye-bye. Okay. Sangeet, you can try that PYQ once and then you can let me know. Okay. Just try it once. Maybe you are missing something. Okay. Thank you.
+

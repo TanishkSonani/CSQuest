@@ -1,0 +1,476 @@
+1
+00:01:20,590 --> 00:01:52,100
+Hi everyone. So how are you doing all? Okay. So in the last class, like I think we have seen inter process communication, right? So the idea of that particular topic is to basically motivate the synchronization. And I mean, we can also motivate synchronization without having the IPC. I mean, it's not that we require the IPC just to motivate this idea. I mean, we can, we need synchronization and not just only IPC. I mean, we also synchronization many other cases. So anyway,
+
+2
+00:01:52,470 --> 00:02:05,990
+So basically, what we have seen is that something like this. So what we have seen is something like this. Basically,
+
+3
+00:02:06,730 --> 00:02:34,460
+we are having some memory maybe in the user space or kernel space let's suppose let's not worry about it but we are having some memory if it is shared memory then it is in the user space otherwise maybe it is in the kernel space and so on so basically let's suppose whatever the memory it has maybe let's suppose in the kernel space message queue we have then there could be multiple processes that are looking at this particular memory right maybe p1, p2, p3 like this right p4 now
+
+4
+00:02:34,860 --> 00:03:11,990
+Since there could be multiple processes that is accessing, maybe reading or writing a single chunk of memory, then there is a chance of inconsistency, isn't it? If multiple processes, I can say if multiple processes try to read and write, actually if they are only reading then it won't matter because reading won't be having any problem, but anyway I will tell you. So read or write.
+
+5
+00:03:14,590 --> 00:03:51,060
+in a shared memory, then we should be careful. Then we should be careful. What do I mean by saying that we should be careful? Let me just tell you. So let me just tell you that what do I mean by saying careful? So suppose that you have maybe one kitchen or maybe some storage room and in that storage room, you have one list.
+
+6
+00:03:52,800 --> 00:04:38,760
+one list. So this is a list of this storage room. Now, this list is basically having a list of the items that this storage room is having. Okay. So this is a list of items. Now, let's suppose this storage could be let's suppose kitchen area or something. Okay. Let's suppose there are two chef. One is this one. Another one is this one. Right. They're two chef. Those, those chefs are basically dealing with this kitchen. And now
+
+7
+00:04:39,200 --> 00:05:10,410
+Let's suppose both of them, both of them need some ingredient. Okay. Maybe, maybe bread. Okay. Both of them need bread. Okay. So suppose both of them, this is the chef one. I'm saying this is chef two. Now this chef one is saying that, okay, I need a bread. This is also saying I need a bread. And, and this list is saying that bread is available. Right. This list is saying that, okay, there is a bread. Bread is available. My bread packet is available. Let's suppose. Okay. So which means here.
+
+8
+00:05:10,800 --> 00:05:45,090
+in the bread it is saying yes it is available okay in this list it is written that okay bread is available now since these two chefs wants to bread then what means what happened they will they will follow some some set of sequence okay so for any chef let's suppose they are following these these three sequences so first check if list has the bread first check if list has bread this is the first thing that any of the chef does
+
+9
+00:05:45,600 --> 00:06:23,740
+Second thing could be collect the ingredient or collect the bread. So collect the bread basically, ingredient, whatever you are looking for. The third thing could be you come out of the storage room and update the list. Come out of room and update the list. Let's suppose these are the sequence of events that any of the chef is doing.
+
+10
+00:06:25,860 --> 00:06:53,550
+So is the idea clear to everyone that what what we are trying to do? So basically just a second So basically we have one storage area in that storage area There there's a list which says that okay the items are available in that storage area or not and then if any of the chef wants to wants to get that item then what what they will be doing they will be basically going to Going to check if if this list is having that particular item or not
+
+11
+00:06:53,760 --> 00:07:37,000
+If the list is having, they will go inside and will collect that particular item and then come outside and update the list. Okay. Let's suppose this is the set of process that any of the staff is doing. Now let's suppose there's a, there is a bread packet here. Okay. There's a bread packet. Okay. Suppose this is a bread packet. Now both of the processes let's suppose wants to take this bread out. I mean they, they are in the need of this bread. So suppose by some chance that the staff will see, sees this board that, okay, there is a bread here.
+
+12
+00:07:37,520 --> 00:08:07,110
+then what he may do he may go inside right he will say that okay I have performed this and just assume just assume that all of this is taking taking I mean kind of I mean it is it is not a computer example it is just you know basic human understanding example so just assume that it is all of us all are taking just you know unit amount of time so it's not like they're collecting the bread and it will take whole lot of amount of time like that I mean this is just a human example I'm just trying to convey one idea so
+
+13
+00:08:07,510 --> 00:08:38,130
+this safe and this safe both wants to take the bread so suppose this sees the board first and says that okay there is a bread inside it will go inside will collect the bread and then will update this list and will say that okay now bread is no more exist now this safe will do what? Are you getting my point? It will say that okay now bread doesn't exist so it will not go inside this particular chef will not go inside is this okay to everyone?
+
+14
+00:08:38,940 --> 00:09:01,670
+that what is the process so basically one of the safe will I mean either the safe one or chef to one of the safe will check that okay there is a bread first they will check that there is a bread then this one of the safe anyone okay let's about the safe one will go inside because bread was there it will collect the bread immediately and it will go outside and then we'll say that okay bread doesn't exist anymore
+
+15
+00:09:02,090 --> 00:09:53,220
+something like that. Now, SAF2 will say that, oh, Brad doesn't exist and it is a very common scenario. There is not an issue here. Can you think about some issue here? When can be the issue? Just think about it. So, the problem could be at one place and what could be that place?
+
+16
+00:09:56,700 --> 00:10:26,680
+when both the both interest in the storage and and once the same bread packet. Yes. So this could be the potential problem. So what means to happen that I mean, if that is happening sequentially, which means that that if if this particular chef is going first and then coming out and then the chef is looking at the bread packet, that is fine. But what means to happen? What means to happen? Just try to understand here. Let me write the sequence of events that can lead to the inconsistency.
+
+17
+00:10:26,900 --> 00:11:05,740
+okay so what are the sequence of events that can lead to inconsistency the first event could be save one okay first could be save one checks that breads are available right and then then it enters into the storage room maybe okay so basically it will check that breads are available and collect so basically the second point that the first one will be doing save one
+
+18
+00:11:09,750 --> 00:11:43,220
+collects the basically go I mean seven go go to collect the bread right goes to collect the bread and then at the same time since this list has not been modified yet since this list is still saying the bread is to is there the problem the potential problem could be okay I mean as a I can say as a first thing that a chef to can do so safe to will also say will also
+
+19
+00:11:43,740 --> 00:12:24,300
+also check that bread is available right and then then it will also go safe too will also also go to collect the bread now suppose that saffron is now doing so basically now saffron is doing something which is basically now saffron is coming out right now saffron has collected the bread that could be the third step that saffron could do saffron has collected
+
+20
+00:12:26,090 --> 00:13:02,130
+the bread and we'll update and updating the list and basically and going to update the list going to update the list now tell me in this scenario will chef to we find that that bread or that bread is already gone away No, right? I mean chef to will say that ok breads are already gone away. So basically chef to will say that there is no more breads. So is it fair to chef to Tell me as a third step chef to will say
+
+21
+00:13:19,340 --> 00:13:51,700
+inconsistency, right? This is inconsistency. Are you getting my point? So basically, I mean, what may so happen? If safe one or safe two, both are doing sequentially things, then it is okay. But if safe one sees the bread, goes inside and safe two also sees the bread and goes inside, it will be a problem. This bread will be allocated to one of them only, right? Either safe one will take or safe two will take, but both are equally eligible. Okay. So maybe I can give you one more usual example here. Suppose
+
+22
+00:13:56,890 --> 00:14:22,240
+So, yeah, so suppose that, like this was a safe example, but suppose that I have another example, which says something like this. I mean, this is also one of the popular example where let's suppose you, you are living in a room where there's a roommate. I mean, let's suppose two people are sharing a fridge. Okay. So at three, at three PM, you arrive home and then you look in the fridge. You say that there is no milk.
+
+23
+00:14:23,260 --> 00:14:51,930
+You live you live for the grocery to collect the milk. So basically you want to buy milk, right? So you live for the grocery now Now meanwhile at 315 since you have left at 315 your roommate has come and then and then maybe at 320 when you arrive at grocery, okay? You arrive at grocery show you are at the grocery show at that time your roommate is looking at in the fridge and Still since there was no milk, so he will also live for the grocery
+
+24
+00:14:54,510 --> 00:15:21,850
+Now you will buy milk and also like when you come back you will put the milk in the fridge and then he will also buy milk and he will also put the milk in the fridge. He will say oh no like I have bought it like you should have told me that you are already buying the milk. So are you getting the inconsistency here? I mean is it fair to the roommate too? I mean this particular person he must be thinking that there is no milk but whenever he is coming back there the milk was already there. So it is basically
+
+25
+00:15:24,610 --> 00:15:54,320
+I mean duplication basically I mean you are you are you are extra storing the milk and you you just wanted let's suppose one packet of milk and don't say me that okay we can make use of two packets that's okay but but let's suppose you only want one packet of milk but you got two packet of milk right okay yeah so so what is the problem here the problem is that there was something in this case it was fridge right in this case
+
+26
+00:15:55,070 --> 00:16:19,440
+they both are caring so that is true so in this case there was a fridge right and this fridge was accessible to both of the roommates right so first roommate has seen this fridge and then there was some data based on the data that particular roommate has my let's suppose I and my roommate and let's suppose this is me this is me and let's suppose this is Deepak okay
+
+27
+00:16:19,740 --> 00:16:25,100
+we actually shared a flat when we started go classes. So I think it could be a good example.
+
+28
+00:16:25,580 --> 00:16:54,580
+Although in real world Deepak might not do this, he will just sleep, eat and teach. So still let's just hypothetically assume that Deepak is also caring about the milk, that okay, whether we have enough grocery or not, but still. So basically let's suppose that Deepak is caring that okay, from two day onwards I will care that there is enough grocery or not. So like I saw that since like generally it used to happen that I was
+
+29
+00:16:54,860 --> 00:17:17,460
+caring more about the grocery and other household stuff. So I was saying that, okay, there is no milk. And generally, like, why would I even care to tell Deepak? Because I know that Deepak won't be even waking up by that time. Okay. But, but suppose somehow on that day, somehow Deepak got woke up and then, okay, instead of arrival, I can say he got woke up. Okay.
+
+30
+00:17:17,690 --> 00:17:44,430
+And then he looked into the fridge and then there was no milk. So basically it is excess of the resources. Basically we are buying something which was not required. So what is the potential or what is the common? Basically what is the common thing in both of this? There is something common. I mean, there is some common area of the storage kitchen or maybe fridge or something that two people or more than two people are looking at, but at a different time. So they are having their own interpretation.
+
+31
+00:17:44,980 --> 00:18:15,350
+so one is modifying this area one is modifying this area and other is basically finding it inconsistent something like that right so so in general we can say that if there is if there is one memory region okay if there is one memory region let's suppose this is a shared variable could be it could be a shared variable shared memory or anything okay let's suppose this is a shared variable and
+
+32
+00:18:15,610 --> 00:18:44,980
+there are multiple processes that wants to modify this variable let's suppose this is p1 this is p2 this is p3 there are multiple processes that are modifying this particular variable then what may so happen that this particular variable might not be consistent this is very very nice example let me just tell you what do i mean by that suppose suppose you you want to modify some variable which is x equal to x plus 1 this variable this particular piece of code in this particular variable is shared among three processes okay suppose
+
+33
+00:18:47,690 --> 00:19:26,200
+X is shared among three threads. Suppose I'm taking a normal scenario where X is a global variable. Okay. So do you remember this global variable? Tell me, are these variables shared or not? The global variables that we have? Yes, right? So suppose this global variable is shared among two or three, whatever doesn't matter. So let's just take it among two, two threads.
+
+34
+00:19:28,710 --> 00:19:53,300
+Now, okay, we can also write the code if you want. I mean, the code of that particular thread management. Maybe I don't remember the syntax maybe, but okay, I can enclose this in the some function. Let's suppose there is some function. Okay, so suppose that I mean, I'm trying to write a realistic code. So
+
+35
+00:19:53,910 --> 00:20:22,470
+I don't have the actual code, but I can write the pseudo code something. So where this function, whatever this function is doing is done by, let's suppose, multiple threads. Maybe I can say, since it is a global variable, so it will be shared. So maybe I can say there will be this x equal to x plus one or x plus plus whatever, there will be a thread t1. Okay. p create, I don't remember the particular function name. There's a library that provides the thread creation. Okay. So p create thread.
+
+36
+00:20:23,110 --> 00:20:56,840
+And in that thread, I'm passing this function foo, which means that this thread will be doing this. Let's suppose T2 is also doing same. Okay, pick it at thread foo. And then maybe I can have. So then I think we can, there is something called P join or something, but let me just write wait. Okay, we can wait for both of the threads, maybe T1, T2. And then let's suppose I'm trying to print the value of X. Suppose this is the real program. I mean, there is no pseudo code. Suppose this is a real program.
+
+37
+00:20:58,360 --> 00:21:28,120
+I mean, even if you write the program, it will look almost same. Okay, there will be a function and the program will look almost same. Is this okay to everyone? That what we are doing, we are, we are asking this particular variable to, we are asking two threads to modify this particular variable. I mean, there are libraries that, that will basically create the threads, something like this, right? Let me know if this particular syntax, I mean, although you don't need to know, but is this little bit okay that what I'm trying to write? Okay.
+
+38
+00:21:28,360 --> 00:21:54,560
+So what I'm trying to write, basically, there's a function. I mean, there's a, okay, if you want, I can tell you the eject code tomorrow, but it won't be required. It is just almost same. Maybe a little bit, the syntax might be different and should have P credit will be maybe create for something, but yeah, it is almost same. Okay. The syntax is almost same. So basically it is saying that you have a function and, and this, this function is shared. This function is done by basically this thread and this thread. So these two threads are trying to modify this. Anyway, let's suppose.
+
+39
+00:21:54,960 --> 00:22:26,260
+okay let's not worry about the syntax basically let's suppose this x is 50 and two threads are executing x equal to x plus one let's suppose t1 and t2 two threads are executing this t1 and t2 it could be two processes it could be two threads if these are the two processes we required something called is can anyone quickly tell me if these are the two processes we required inter-process communication if these are two threads then we don't require IPC it is just like normal in the normal way we can create the threads and share the data okay
+
+40
+00:22:26,730 --> 00:23:13,570
+So could be two processes, could be two threads doesn't matter, but okay, let's suppose these are the two threads. Tell me what could be the value of, if I print it, okay, once T1 and T2 both are done. Both are done. Then what will be the value of X? So suppose T1 is done first and then T2. If T1 is done first, then T1 will be doing X to be 51.
+
+41
+00:23:15,600 --> 00:23:44,040
+and then after that let's suppose t2 is doing then x will be 52 right if t1 then t2 then 52 then final value of x is 52 if t2 first then x will be 51 first and then if t1 then also x is 52 so basically if either you do t1 t2 or you do t2 t1 doesn't matter it will be finally 52 agenda so so it will be 52 only let me know if this is clear or there's any doubt
+
+42
+00:23:44,340 --> 00:24:28,140
+final value doesn't matter if t1 is doing first or t2 is done first okay okay so either either you will be doing t1 first or t2 first right but the problem here is that it's not the it's not as as simple and as easy as it looks as most of you people might have guessed because they might have studied it before so the final answer if i'm running if i'm asking two threads to modify this then final answer maybe 52 maybe 51 only maybe 51 only
+
+43
+00:24:29,060 --> 00:25:06,910
+Okay, let me tell you why. Those who are studying this first time, have you got the question? See, you might be thinking that the final answer is 52, but the final answer could be 51 or could be 52. So it is not necessary that if two threads are modifying this particular variable, then the final answer could be 51 or 52. Let me know if that is fine to everyone. Okay, so that's fine, right?
+
+44
+00:25:07,260 --> 00:25:37,310
+I mean why why that is the case obviously I need to explain this but but I mean at least the question is fine that it could be either 50 or 52 okay so so basically basically there is there is one thing that is that is basically related to the assembly code okay so this this particular line which is x equal to x plus one is not just one line that's the issue here if it is just one line in the assembly also then this there is no issue
+
+45
+00:25:37,630 --> 00:26:18,130
+but it is not the one line here it is multiple lines okay I mean okay anyway like what I'm saying that if if it is just one line in the assembly also then there might be no issue okay if this is multiple lines then most probably it will be the issue so so why it is why it could be 51 52 let me just tell you see so basically what will happen that you want to modify so maybe I can write it here only so you want to modify
+
+46
+00:26:19,500 --> 00:26:47,740
+this x right x equal to x plus 1 in assembly it will be something like this I mean I'm writing in the pseudocode but we can write in assembly also so basically what will what will the first first step that will be done that there will be some register value okay I mean let's suppose register R1 R1 that will be getting this x okay that will be getting this x maybe from some memory lab question that that is not an issue but I'm just writing x
+
+47
+00:26:49,120 --> 00:27:24,440
+Do anyone knows that if I'm reading from some memory location, maybe load r1,000, something like this, right? If x is at storage 1000, so I'm reading from this 1000. So basically, I'm asking, I'm asking this x to be first loaded in the registered r1. So what is this 1000 memory location of x? So this is the first instruction that in the assembly it might be doing, right? Now, what is the next step?
+
+48
+00:27:25,250 --> 00:27:54,310
+Once it will load this x into R1 then it will increment Right, so maybe maybe it will be doing R1 equal to R1 plus one after that in the assembly in the assembly It will be something like this. Maybe I don't know maybe there could be add instruction R1 comma 1 something like this, right? And what is the third thing? It will be basically storing x into R1, which means probably Probably it might be doing move load store, right?
+
+49
+00:27:58,940 --> 00:28:28,280
+store this R1 to again 1000. Okay. I mean, the syntax might be some different, but I hope you got the idea. Okay. So what it is doing, it is just doing this particular instruction or this particular piece of code in three lines. Although it looks like that it is just one line. It is actually the three lines. Now, why these three lines is a problem? It is, it is another question, but is this okay to everyone that in the assembly, it looks like this, right? So at the end of the day, everything is the assembly, right?
+
+50
+00:28:28,540 --> 00:28:55,420
+I mean, whatever we are writing, it will be converted in the assembly and then only operating system is executing it. I mean, the processor is basically CPUs running this code after the assembly. So basically, this is not just one piece of line. This is basically the three line of code. Now, why this three line of code is a problem? So do you remember the initial thought process? What we wanted to do? We wanted to modify this particular thing.
+
+51
+00:28:55,780 --> 00:29:21,060
+I mean x is initially for 50 this particular thing using t1 and t2 we wanted to modify this using p1 p2 two programs or two threads doesn't matter let's suppose p1 p2 if it is p1 p2 again then you don't need to know the IPC concept inter-process communication but there might be some inter-process communication maybe we have done if it is t1 t2 then simple or simple normal code can do right I mean normal code can have two threads like this let's suppose this is t1 t2 doesn't matter
+
+52
+00:29:24,900 --> 00:29:59,900
+So although it looks like that this is just one one line of code that these two threads are doing but it is actually the three three line of code that these two threads are doing right so Basically, this is as good as saying that T1 T1 T2 wants to do these three things Even also one T2 also one is this okay to everyone like these two problem statement are exactly same in High level it looks like this but in low level looks like this right. This is the high level
+
+53
+00:30:10,770 --> 00:30:39,610
+Okay, low level means assembly level. Low doesn't mean that we are degrading the study and low just mean that in the assembly level. Okay. So see, we wanted to do this, which means we wanted both of the threads to modify this X equal X to be one, but eventually we are actually asking to do these three things. Now, as you know, that there could be the context switch of the thirds, right? That is one issue. So there could be the context switch of the thirds.
+
+54
+00:30:39,900 --> 00:31:10,030
+and that might lead to some issue so let me just tell you how it can happen so suppose that you want this particular code to be done by two threads now what can happen that one thread let's suppose t1 t1 can do this okay t1 will be doing what and t2 will be doing what both of the both of the threads basically will be executing the same same piece of code basically right okay
+
+55
+00:31:24,630 --> 00:31:58,040
+Both of the threads will be doing the same piece of code. By the way, tell me, like, I mean, I don't need to go to that much detail, by the way, but tell me, are these two registers must be same for both of the threads? This is R1 and R1. No, right? So, basically, basically, threads doesn't share the register. I mean, there is no point in sharing the register, basically. It could be R2 also. It could be R1 also, doesn't mean, but okay, by the way, will it matter whether it is R1 or R2? Will this matter?
+
+56
+00:31:59,840 --> 00:32:28,460
+here also r1 r2 doesn't matter why because whenever you are doing the context switch then you will be storing this storing its context and loading its context whatever it was right I mean it it is working with r1 or it is not working with r1 it doesn't matter actually in the context switch you will take care of that whether it is working r1 not working with r1 doesn't matter to us okay so whenever your context switching from let's suppose from here to here okay so this is this has been stored and now whatever the states of this this particular thread register it will be loaded
+
+57
+00:32:29,500 --> 00:33:00,200
+Okay, I may be confusing you but I hope you got my answer That doesn't matter whether this is R1, R2 or R1, R1 Okay, let me know if you have understood this Because see, whenever you're context switching from here You will anyway, you will anyway like store this context and reload this context, whatever the thread to registers was Okay, so it will anyway override this R1 Cool, doesn't matter basically So if you want, I can write it R2 also, I mean If that is fine to you guys
+
+58
+00:33:06,030 --> 00:33:32,550
+Okay. So this thread one, we are essentially asking this thread one to perform this task and thread two to perform these tasks. Right. So let me just tell you that what we are trying to do and, and what a horrible things that it can do. This is one idea. Then that will motivate us to do the synchronization. So either we are doing IPC, which means inter process communication, or we are having multiple threads. I mean, whenever we are sharing the data, we want to have the synchronization.
+
+59
+00:33:32,850 --> 00:33:59,670
+The earlier things that we have seen, which is the shared memory and message passing and whatever, right? Do you think those things require synchronization or not? They require the synchronization, okay? Have we had the synchronization in our code? No, right? I mean, we haven't had it because I wrote the simple code. Because we were writing the same process and the other process was just reading.
+
+60
+00:34:00,000 --> 00:34:30,540
+okay maybe at that time we might know it but in general there could be multiple processes might be writing reading anything can happen anyway so we in general we need synchronization okay so what can happen the third one might be executing let's suppose this is okay do you want to suggest me you should have t12 to do you want to suggest me t and some other name here s will s be fine or or some other alphabet p
+
+61
+00:34:31,780 --> 00:34:51,800
+ph4 actually process that's why I don't want to use pz okay z seems fine yes so suppose these are the two threads this is having one two three and these are the three lines okay now now let's suppose this t1 is happening okay on cpu
+
+62
+00:34:52,090 --> 00:35:21,050
+Since there's single CP, you are running less up to just T1. I mean T1 in the sense that T and 1, which means this load, this particular instruction is happening, which means in the third one register, in the R1 basically, okay, so here I can call it R1, R2. So basically in R1, in R1, you have the value which is 50, right? I mean, in this particular location, you have 50. So in R1, in this thousand location, so tell me what is common here? R1, R2 common? I mean, should these be common? No, right?
+
+63
+00:35:21,470 --> 00:35:50,970
+So what is common actually? Interestingly this thousand is common right? thousand is common because because both are dealing with the same same x and x is stored as thousand okay the memory address is common yes anyway let's suppose this t1 has happened which means t1 is actually load r1 comma thousand which means in the r1 okay in the r1 you have thousand oh sorry you have 50 okay you can increment it doesn't matter
+
+64
+00:35:51,210 --> 00:36:26,290
+you can increment this let's suppose then t2 t2 means that this ad let me just use one single color for t this ad r1 comma one has happened which will do what this it will increment this to 51 now now suppose suppose this t3 has happened which means store store r1 comma thousand then what it will do there will be in the memory r1 is basically 51 only
+
+65
+00:36:26,600 --> 00:37:02,290
+in the thousand memory location in this memory okay it was thousand here it was 50 here now in the next step also it is 50 but in the last step it will be 51 i mean you are basically storing this r1 value to to this memory so basically it is 51 which means this t1 is performing its own task let's suppose and it it finally gave you the 51 this this t gave you the 51
+
+66
+00:37:03,080 --> 00:37:38,950
+Now, since this T has been finished, now Z will run, right? So now let's just quickly run this Z and let's just see that what Z can do. So now, suppose Z1 is happening, which means load again R2,000. Now this 1000, from this 1000 memory location, it will be loaded. I mean this R2, R2 will be some register value. Can you tell me what is this register value now? This will be 51, right? 51, because because at this 1000, the 51 is there.
+
+67
+00:37:39,180 --> 00:38:22,650
+at this 1051 is there that's why that's why it is 51 right okay so basically this is 1000 this is memory okay now suppose then the second instruction of z is happening okay which is z2 which is add r2 comma 1 so in this case what it will do it will be incrementing this to 52 52 and then
+
+68
+00:38:22,970 --> 00:38:54,410
+here it was 51 here still it is 51 now the Z3 is let's suppose happening in case of Z3 Z3 means the third instruction of Z okay then it will say store R2 comma 1000 basically you store the R2 value which is 52 you store it to the 1000th location and the memory location 1000 which is 52 now what is finally at this memory location 1000 it is 52
+
+69
+00:38:55,290 --> 00:39:24,460
+So finally, this particular value of X has been modified to 52, which seems true. So why it is happening? Because these executions are not interleaved. That's why there was no problem actually. I mean, you are doing T1 and then, sorry, you are doing T and Z or maybe T and TV, whatever, but you are doing T and Z or maybe Z and T. If you do Z and T, it will be the same thing. But this may so happen that these executions may be interleaved.
+
+70
+00:39:25,070 --> 00:40:05,310
+Okay, so let's just quickly see that what can say what may so happen if the executions are interluped. So here is this okay to everyone that final value watch is 52 final value of axis 52, which is which is expected. Right. But but there could be something undesirable things that can happen. Okay. So maybe I can quickly tell you. Is this okay if I don't write the whole instruction just like T1 Z1 something like this. Okay. So let's suppose T1 is happening.
+
+71
+00:40:06,800 --> 00:40:36,340
+which means in this R1 R1 what you will be loading suppose the first section is T1 then it will be 50 okay so for the sake of example here I'm taking R1 and R2 don't worry I mean I don't want to confuse you so let's just take R1 and R2 okay so after this T1 maybe the T2 T2 is happening T2 will do what it will say that this T2 will say that now the value of R1 is
+
+72
+00:40:40,130 --> 00:41:14,460
+51, yes, this is 51. So this instruction will say now the value of R1 is 51. Now interestingly, let's suppose that before it rashes to the memory, before this T3, it gets preempted and the Z1 is happening. This is quite interesting. Now if Z1 is happening, it will say that okay, so actually for the Z1, this R1 doesn't matter. Maybe I cannot, let me not write even the R1.
+
+73
+00:41:15,710 --> 00:41:44,770
+let me not even write the R2 here it will be unnecessarily confusing so for Z1 actually the R1 doesn't matter so this R2 because it is working let's suppose with R2 now what will the value it will be loaded in the R2? 50 only right because it will be loading from 1000 and this 1000 is still having the 50 so it will be 50 only right so T1, T2, Z1 and let's suppose after Z1 actually now it doesn't matter whatever you do the final value will be 51 only
+
+74
+00:41:45,060 --> 00:42:14,810
+okay so now maybe you can do anything whatever you want to do maybe jet 2 because jet actually the problem do you see the problem here here the problem has been has been occurred what is the problem that both the threads okay both the threads has read the value as 50 initial value is 50 both the threads so this thread will be modifying it to 51 this thread also will be modifying it to 51 means the jet 2 will say okay let me modify it to 51
+
+75
+00:42:15,900 --> 00:42:45,990
+Now either you you write t3 or jet3 doesn't matter. I mean whoever is writing first doesn't matter So whoever is writing later doesn't matter. Ultimately you're writing 51, right? So which means now even if you have t3 here Is this font size, okay? So I can write it here, right? So after this even if you have t3 here t3 will do what it will say that okay in the memory location I will be transferring this 51 this in the memory
+
+76
+00:42:49,650 --> 00:43:10,750
+this z3 will say from this memory from this register I am transferring this to memory so it doesn't matter but the final value is 51 only okay the final value of the memory is 51 only so what was the problem here that both the processes both the process or both the threads has loaded the initial value to be 50
+
+77
+00:43:11,710 --> 00:43:33,770
+let me let me just give you one little more you know variation of the context switch I mean in the sense that even if you have this context switch which is very simple context switch which means this T1 has been happened this R1 is 50 now now once it loaded this 50 now let's suppose the Z1 is happening which means this load this is R2 what it will load
+
+78
+00:43:34,180 --> 00:44:13,100
+It will also load 50. So once both the processor, both the threads are loading the same, I mean the initial value, I mean not the modified value. Both are reading the same value, right? Both are reading the same value. In this case, there's a problem. So now you do whatever you want to do. Final value will be 51 only. It will not be 52. Is this okay? Now, whatever be the situation, final value of x will be 51.
+
+79
+00:44:14,000 --> 00:44:43,210
+Okay, good. I hope that is understood to everyone. Now, now, basically, we can relate this scenario to the earlier these common looking scenarios. So basically, what what was the scene here that both the processes or both the steps, okay, okay, here they were safe. Both the steps has read the initial value. Tell me if this step two is reading the updated value of the bread that bread is no more exist, then will it be the problem? No, right?
+
+80
+00:44:43,690 --> 00:45:10,850
+So if SAF2 is reading the updated value, then it is not a problem. So why the problem has occurred? Because both the processes or both the steps has read the initial value here. Similarly, here in this case, both the roommates has read the initial value, which is no milk, right? No milk. This was the initial value. Tell me, after putting the milk, after I put the milk, after I put the milk in the fridge, if Deepak is seeing after that.
+
+81
+00:45:11,150 --> 00:45:38,350
+then tell me will it be the problem for this particular scenario no right or maybe after Deepak I'm looking at the fridge or after me after me putting the milk Deepak is looking then in those cases that's not a problem the problem is because that I am reading the data and now the like whatever I'm reading now I'm I want to process something and in between someone else is reading the same value right the same value without me process finished
+
+82
+00:45:39,000 --> 00:46:19,650
+if my process is finished then it's not an issue see here what is happening here the example that I gave you here it's not a problem because once I am finished then you you are starting not an issue that's called sequential execution right so it is a sequential execution so the sequential execution is not an issue why because I am finished now you do that that's even expected like or what else do you want like once I am finished you can do or once you finish I will start doing
+
+83
+00:46:20,220 --> 00:46:39,190
+in between if something is happening then it might lead to the inconsistency yes for the sequential things there won't be any inconsistency okay cool so so one thing is for sure maybe i can say yeah this is also called the raised cognition
+
+84
+00:46:39,500 --> 00:47:09,610
+uh race condition means that i will i will come back to this but here i'm just telling you uh that race condition means that if there are two two processes okay let's suppose maybe i'm calling it one process p1 p2 or maybe producer consumer if there are two processes are modifying the same value then both the processes are racing to each other that whose final value is right so here the final value can you tell me the final value of which process is written finally here final value of which thread of which process is written in the memory
+
+85
+00:47:10,010 --> 00:47:38,830
+jet right jet it might so also happen this jet might also be having some different code is it not it is not necessary that both are incrementing one can increment one can decrement right maybe it is let's suppose sub r2,1 something like this one can increment issued of this I have this sub r2,1 one can increment one can decrement so anything can happen so let's suppose one is incrementing one is decrementing in that case if this is the only sequence then tell me the final value will be what if that's the sequence
+
+86
+00:47:39,690 --> 00:48:04,020
+this is incrementing this is decrementing the final value will be 49 yes because the final value of Z will be written right it will be 49 so basically if if I just exchange these two let's suppose this Z 3 is here and T 3 is here then what will the final value it will be 51 yes so either it is 49 or 51 it will depend on what who who is writing the last
+
+87
+00:48:04,620 --> 00:48:33,700
+So that's called race condition. Race condition means, I mean, this is just one fancy term that people say that it is a race between J and T that who is winning, who is winning, right? At the, at the last, who is writing? So it's a race between J and T. So that's called race condition. Okay. So maybe, maybe I can tell you with this example, I think I have the example here. Let's suppose that one of the, one of the code or maybe one of the process, maybe P one, and let's suppose this is P two, one of the process is incrementing and all the process is decrementing.
+
+88
+00:48:33,870 --> 00:48:59,450
+Then in this case, what was so happen that this is let's suppose this is the pseudo code that it will be executing. So this is the assembly code that P1 will be executing. This is the assembly code that P2 will be executing, right? But the variable is shared. Okay, counter shared. So it might so happen. Let's suppose the initial value is five, then the final value will depend on that whether this producer P1 is executing first, right? P1 is executing first or
+
+89
+00:48:59,840 --> 00:49:47,740
+P2 is executing first so basically this producer is writing first or the consumer is writing first on that the final value will depend so this is one scenario right so this is one scenario but the other scenario could be so this is one context switch that can happen okay and the other could be this the consumer is writing first right you can say that okay after the producer or I mean this is a P1 P2 producer consumer it just names
+
+90
+00:49:48,060 --> 00:50:24,900
+you can just consider this as p1, p2 okay. So here this particular process maybe this particular process which is consumer is writing late. I mean first and then producer is writing later. So in this case the final value will be 6. So this is the final value. In this case this 4 is the final value. So it will depend that which process is writing at the last. So that's called race condition okay. That is called race condition. Good. So what is the fundamental problem here?
+
+91
+00:50:30,010 --> 00:51:00,000
+What is the fundamental problem that both are reading the initial value, something like that, right? Yeah, yeah, preemption is the problem, but let's suppose I can't control the preemption. Okay, preemption, let's suppose it's any way there because that's how we can execute multiple processes. Otherwise, it will be just like non preemptive scheduling algorithm. Suppose I have the preemptive scheduling algorithm only. Then what is the, what is the problem? I mean, basically, I can say that, that this, this is technically called as critical section. Okay.
+
+92
+00:51:00,290 --> 00:51:30,340
+this is technically called as critical section which means that critical section is some area which is having the shared variables okay the area which is having the shared variables which means let's suppose both the processes wants to execute this x equal to x plus one or something then I will say that this is the critical section okay
+
+93
+00:51:30,650 --> 00:51:47,470
+for both the processes at let's suppose x equal to x minus 1 one process one should do this one process wants to do this so I will say for that process this is the critical section for other process this is the critical section so wherever I am having the shared uh shared variable I will say that that particular piece of code is critical section so this is the critical section okay
+
+94
+00:51:48,240 --> 00:52:16,190
+For let's suppose P1, this might be the critical section for P2, there might be some other critical section. For P2, let's suppose this is the critical section. I mean, if it is doing something else with x, it doesn't matter. But as long as it is using x, it is a critical section. x equal to 2x. So let's suppose this is the critical section for P2. This is the critical section for P. Which means as long as both the, I mean, this process is executing x, I will say this is a critical section. This is also the critical section. So.
+
+95
+00:52:16,640 --> 00:52:45,380
+there is a technical term which is called critical section now I should be very careful whenever I'm executing the critical section okay I mean if both the processors are executing the critical section at the same time maybe I can take the same example x equal to x minus one if both the processors are doing let's suppose I mean if it is doing x equal to x plus one and interleaving this is doing x equal to x minus one this might lead to inconsistency so what could be the solution maybe I can say that you interleave not an issue I mean if I just do see the
+
+96
+00:52:46,460 --> 00:53:46,220
+Okay, tell me the very naive solution. Very naive solution. Sequential execution could be the very naive solution, right? That P1 after P2 or P2 after P1, right? So maybe sequential execution could be the naive solution. But it's not a good idea basically, right? Not a good idea for primitive algorithms, right? Okay.
+
+97
+00:53:47,580 --> 00:54:14,440
+so what what we are trying to do we are saying that okay you don't want to serialize the whole thing then let's just put the effort in serializing at least the critical section right which means if p1 is having the entire code there might be some little area of critical section which means this here we are writing x equal to x minus 1 okay and this is the whole code of p1 right remember this is the whole code of p1 then I'm I'm trying to say that if you don't want to serialize this p1p2
+
+98
+00:54:14,700 --> 00:54:44,760
+I'm not saying that critical section problem, the solution of the critical section is the serialization is the only solution. What I'm trying to say that, okay, I want to be caring for the other areas, I will be just caring whenever you are executing the critical section, right? So this is what I'm trying to say that we will, we will see the solution. But what I'm trying to say is that that I will not even care about this area, which means if you are, if this area and this area are interleaved or whatever you want to do, you can do, right? But whenever you are doing this, at that time, I want to, I want to make sure one thing,
+
+99
+00:54:45,080 --> 00:55:07,830
+is that, can I even tell you, I don't want to do this, right? Maybe, maybe, I mean, this is one of the solution, maybe we will see other solution. So, what I'm trying to say, like this, that whenever I'm doing this, maybe I don't want P2 to do this. Can I, can I, can I, can I allow, if I'm doing this, can I allow P2 to do this? Yes, right? Can I allow P2 to do this? Yes.
+
+100
+00:55:08,220 --> 00:55:36,440
+Can I allow P2 to do this? No, may not be right. I mean, we will see. I mean, if it is, if it is that the case, then it's actually true. So that's called mutual exclusion. Anyway, I will talk about it. So one thing is very clear that if I'm, if I'm doing this, I don't even want the P2 to do this. Okay. So that's how maybe we can prevent this. Now you can very well understand this using a, using, using, okay, that might not be very good example, but using the example of washroom. So
+
+101
+00:55:36,700 --> 00:56:08,270
+Have you seen in the washroom that's engaged and vacate or something like that? I mean, if you go inside in a mall and if you, if you just, you know, put the, put the log, then it will say engaged, right? So washroom and critical section could be the same thing. So it is just like washroom, which is, you can understand like a critical section. Okay. So whenever you are inside the washroom, you may not want other to, to go inside the same washroom, right? So you will say that, okay, this is engaged.
+
+102
+00:56:08,790 --> 00:56:33,690
+So, I will say that before entering into this, I will ask the P1 to say that, okay, before entering into this, you put a lock, right? You say that, okay, it is engaged. And then, when you leave out, when you are here, then you say, now it is vacant, now you can come. Is this making some sense? That whenever this P1 is entering in this critical section, it will say, okay, it will put a lock.
+
+103
+00:56:34,240 --> 00:57:00,600
+Okay. What kind of possible lock is there? We will see about it, but at least later it might be clear that we might want to put a lock here. We will say that okay, P2 should not execute this critical section. Okay. I mean the critical section area basically, right? So basically P2 should not execute this area. That is the one fundamental thing that we want to do, which is called mutual exclusion. Okay. So, okay. So basically,
+
+104
+00:57:01,430 --> 00:57:23,410
+I mean let's just do one thing, let's just understand critical section problem and then we will see solution. So whatever I have just shown in this particular slide is a solution of the critical section in the sense that we can solve critical section maybe by using lock or something but let's just you know read out this slide which is telling the problem and then then we will see the solution.
+
+105
+00:57:23,750 --> 00:57:52,770
+Okay, so I mean obviously like today I'm not going to teach the solutions and all we are anyway not having the enough slides so maybe I can just walk you through the problem and what could be the solution we can we can discuss in the next class right so informally a critical section is a core segment that access the shared variable and hash to be executed as an atomic action which means that atomic means like if someone is doing that then we want that to be done so it is just informally I mean we don't want the permission there right
+
+106
+00:57:52,950 --> 00:58:23,420
+We don't want anyone else to execute the same critical section. The critical section problem refers to the problem of how to ensure that at most one process executing its critical section at a given time. Okay. So at most one, we want at most one to be to execute it. That's, that's one of the requirement that we want. Critical section is different threads are not necessarily the same code segment critical sections in different threads. Yeah. So in one thread, in one thread, it could be x equal to.
+
+107
+00:58:23,610 --> 00:58:57,220
+X plus one. Okay. Have you understood this line before I explain this? Have you understood this line? What this is trying to say? In one thread, it could be X equal to X plus one. In other thread, it could be X equal to X minus one, right? They're saying that core segment need not to be same, right? The same core segment is not necessary. So they can have the different core segment. Okay. Different threads can have different core segment. That's, that's okay. The only thing is that they're extra shared. Okay. So have you understood what is a critical section? Critical section is some area.
+
+108
+00:58:57,880 --> 00:59:38,310
+which is containing the code that has a shared variables right so maybe I can write it here critical section it is also written as cs this is area of code which has shared variable yes all the problem is because of the shared variables if the shared variable itself is not there then I don't care about the permission and all right good now we will see the solutions in the in the next class
+
+109
+00:59:38,670 --> 01:00:08,450
+I think today we can stop it here, right? So now tell me like the shared variable that we are looking for. The shared variable, do you always need inter-process communication to share the variables, share the memory or without inter-process communication, you might be needing the synchronization with the threads only, right? You can easily create the threads. You can easily create the threads that may share the same global variable and there also the problem can occur.
+
+110
+01:00:09,560 --> 01:00:38,510
+Okay, cool. So we will quickly see this critical section again in the next class and then we will see the solution. Maybe I can go over this one or two slides before I end this lecture. So basically, I told you one idea. What is the idea to solve this critical section? We will say that wherever it is a critical section, I put a lock. Whenever I'm leaving out from the critical section, I will say that, okay, I'm exiting. So here I will have some entry, entry code. Here I will be having some exit code.
+
+111
+01:00:39,290 --> 01:01:07,210
+Entry code will typically might be having, maybe I will say that log equal to 1. I will see that obviously this is more complex than it is seeming like, like critical section solutions. So maybe I can put a log and maybe I can say that log equal to 0, something like that later on. So basically, there is a critical section. Before entering the critical section, I will be putting log. After exiting from the critical section, I will be releasing the log.
+
+112
+01:01:07,520 --> 01:01:34,170
+Okay, something like that I might be doing. So, so the general structure is there. I will modify my program and I will be writing these two codes extra. So whatever is the P1 code, see, do you remember the P1 code? This was the P1 code, right? This is the P1 code. I mean, P1 itself doesn't have this entry exit code, but I need to modify it to solve the critical section problem. See, this is the P1 code. Now I will do what? I will plug in. I will plug in some
+
+113
+01:01:34,410 --> 01:02:10,930
+entry code i will plug in some exit code okay this is the entry code which may be having a simple one or two line code that's not the issue but yeah we will be having some entry code we will be having some exit code so this is the critical section uh general structure okay process a interest in the critical section yeah so basically this is essentially what we want that if process a interest in the critical section and if process b wants to enter in the critical section i will not allow this v okay this is the desired thing
+
+114
+01:02:12,220 --> 01:02:44,780
+Once it leaves the critical section, then only I will allow this week. This is what we want. This is how we want interleaving to happen. If this process is in the critical section, at that time if A got preempted and B is trying to enter in the critical section, I will say you can't enter in the particular section.
+
+115
+01:02:45,080 --> 01:03:13,280
+Okay, maybe I will be blocking it and which means like we will see that how can we block it or maybe something like that. We will putting it in the loop or maybe we will be saying that okay, you just wait in the wait queue. Maybe I will just say that you wait in the wait queue or something like that. We will be seeing that how we can do this. But is this idea clear that what we want to achieve? So what do you want to achieve that there is a critical section? We want it to be done mutually exclusive and that is foremost requirement. There are some other requirements also.
+
+116
+01:03:13,580 --> 01:03:40,930
+but the very very important requirement is that that we want to we want to acquire this critical section in the atomic way if age executing critical section then only age executing critical section nobody else in that particular time execute the critical section yeah once a leaves the critical section then we can we can enter in the critical section that's not an issue so that's called mutual exclusion okay mutual exclusion that's what we want and how we can achieve this that will that will basically
+
+117
+01:03:41,770 --> 01:04:15,560
+having multiple strategies okay so how we can achieve the solutions to the critical section that is basically done by multiple methods we will see all the methods okay that are required for gate cool so maybe we can end this session now okay yeah thank you everyone if there is any doubt you can let me know okay assembly instructions are atomic no atomic in the sense that I mean there's a good question
+
+118
+01:04:15,820 --> 01:04:43,460
+So basically it will depend on the number of cycles that you have. Okay. So like for here, I can say that actually we won't be needing to answer this question whether it is atomic or not. Region is very simple. We don't even care about it. I mean, whenever we are entering in the critical section, we will make sure that nobody else enters in the critical section. So this will be answered in computer organization when you understand that, okay, how to execute this fetch decode cycle.
+
+119
+01:04:44,060 --> 01:05:00,950
+That can even happen in multiple cycles. One instruction can take multiple cycles also. Okay. Cool. So thank you everyone. Take care. Bye bye.
+

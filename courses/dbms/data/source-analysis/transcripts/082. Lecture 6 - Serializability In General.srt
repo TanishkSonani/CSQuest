@@ -1,0 +1,896 @@
+1
+00:07:07,700 --> 00:08:34,940
+hi everyone is the audio video clear please tell me so let's start now in this lecture we will study serializability what is this concept in general and also in next lecture we will study conflict serializability and after that view serializability okay so now let's see that so let's see so first we will see serializability in general what is the most general definition of serializability
+
+2
+00:08:35,290 --> 00:09:03,770
+then we will see some specific definitions of serializability one is conflict serializability another is view serializability and then we will see the relation the relation between all these definitions that we will see okay now let's start with our concept of serializability before that we have already seen what is a concurrency control so the definition of concurrency control we already know that whenever you are concurrently executing some transactions then
+
+3
+00:09:04,280 --> 00:09:30,660
+there can be some problems so concurrency control means that we are executing transactions in I can say in interleaved fashion but we are taking care okay so we should make sure that database consistency should not be lost you know database consistency means some I can say some constraint on the database so if anyone asks you like what is database consistency so what that means that means
+
+4
+00:09:31,000 --> 00:09:57,310
+all the I can say all the constraints on the database so database consistency so this database consistency as you already know so these are basically the constraints on the database there can be many constraints there can be explicit implicit so these are the constraints on the database the restrictions on the database now these these constraints they should not be violated okay so
+
+5
+00:09:57,580 --> 00:10:24,780
+Anyway, now you can notice what is the concurrency control concurrency control means so we want to assure that transaction All the transactions when they are simultaneously executing then they will preserve the consistency they will take the database from one consistent state to another consistent state if your database is starting in a consistent state then all these transactions which are executing simultaneously these these transactions must
+
+6
+00:10:25,230 --> 00:10:50,870
+take your database from one consistent state to another consistent state okay so your database consistency should not be lost so this is called concurrency control as we already know okay now let's see the next let's see this question tell me that it is true or false look at this question true or false we know this we already know this we assume that every transaction
+
+7
+00:10:51,520 --> 00:11:19,800
+every transaction if executed in isolation if you execute it complete isolation if executed in isolation means if you execute it without any transaction running concurrently without any failure then it will transform one consistent state to another consistent state this is the C in acid yes or no this first paragraph this first paragraph if you notice this is the C in acid what we call it this first paragraph
+
+8
+00:11:20,750 --> 00:11:48,520
+Look at this first paragraph. This first paragraph is basically over. I can say this is C in acid C in acid it it talks about the consistency of a particular transaction So if you have a particular transaction that particular transaction must take your must transform it must transform your consistent database state to another consistent database state now is it true or false every series schedule Every serial schedule transforms
+
+9
+00:11:48,980 --> 00:12:15,780
+any consistent database state to another consistent database state and the answer is true. So it is true. This we already know. Now let's see another question that is this question. Tell me the answer for this question. Remember here the question is talking about that every serial schedule if you have a serial schedule it should transform any consistent database state to another consistent database state. This statement is true because every transaction is consistent.
+
+10
+00:12:16,110 --> 00:12:45,910
+every transaction will transform consistent state to consistent state so automatically every serial schedule will also do that now you tell me the answer for this question the question again it is talking about for the same initial database state you are in a consistent database state okay for the same initial database state every serial schedule leads to same final state of database is this true like
+
+11
+00:12:46,150 --> 00:13:15,570
+If you have two serial schedule and they start in same state then remember database state means what? Tell me database state means what? What database state means? That means the value of its elements. Yes or no? Database state means value of all its elements. Value of all database elements. That you already know. So database state means that is a snapshot.
+
+12
+00:13:16,130 --> 00:13:43,130
+this database state. This is like a database snapshot. So this you already know. Now if I add consistent that means all the constraints must be holding. Now you tell me this. So if you start in same initial database state you have two serial schedule. Let's assume you have T1 and then you have T2. And you are starting in database state 1. Then you have another serial schedule that is T2 and then T1.
+
+13
+00:13:43,320 --> 00:14:10,470
+and this is also starting in database state one then tell me can i say that this state and this state they will necessarily be same can i say can i say that they will they will give you same final state can i say that the answer is no yes or no the answer is may or may not so it is very easy to see that this statement is false this statement is false remember being consistent they will definitely like this will be consistent
+
+14
+00:14:10,910 --> 00:14:40,110
+please understand that this will be consistent this will be consistent but will they be same that is not that is not true yes or no so it will be consistent no problem it will be a consistent database state because these are the i can say these are the serial schedules this is serial this is serial so definitely the result will be consistent database state but they will be same or not okay this may or may not so the answer for this question is may or may not okay this
+
+15
+00:14:40,520 --> 00:15:09,350
+may or may not we cannot say anything for example let me give you analogy like let's assume that let's assume that this amazon app is there okay on this amazon app let's assume first you do the transaction first you purchase a mobile okay and then so let's assume there is only one mobile there is only one mobile okay so now you can easily see that if you purchase it first
+
+16
+00:15:09,760 --> 00:15:37,580
+then also the resulting strength will be consistent. First you log in and you purchase and then your friend your friend. So you can easily see that or maybe I can say me. So here you can see that first you will purchase and what I will see I will see no mobile. Here what I will see I will see no mobile. This is what I will see and what you will do you will purchase. So easily now
+
+17
+00:15:38,090 --> 00:16:06,340
+you can easily see that this is a consistent state this is a consistent state so this state is consistent there is no problem okay so finally you can notice you have the mobile and I saw that okay there is no mobile available so definitely this is a consistent state okay because no consistency requirement is violated so this is a consistent state I can say this is database consistent state so no problem here but here the
+
+18
+00:16:08,270 --> 00:16:38,600
+tell me what will happen if I purchase first if I purchase first so for example what happens I purchase first and then you see then you then you will see the mobile okay then you will see that there is no mobile so you can easily see that this is also consistent state the state is consistent but these states are not same so this is also consistent state this state is also consistent but remember this is state and this state are the same tell me
+
+19
+00:16:38,880 --> 00:17:07,760
+these state are the same no they are not same because in this state you can notice you have the mobile and in this state I have the mobile so state means database state means value of all its elements value of all database elements so here you can see that these are consistent state but these are different correct these are different states different database states so these are consistent but these are different so remember this is what I want I want to say that
+
+20
+00:17:08,420 --> 00:17:36,860
+If you start in a consistent database state, let's assume there are your transactions T1, T2, T3. Let's assume there are three transactions. Now I am saying that if you start in a consistent database state, let's assume there is a consistent database state 1. Okay, so this is your consistent database state. Now in this consistent database state, remember in this you start now if you do like this T1, T2, T3.
+
+21
+00:17:37,270 --> 00:18:05,280
+if you do like this then definitely you will get a consistent state but this may not be same as this may not be same as if you do t1 t2 t3 okay if you do like this if you do like this or if you do like this t3 t2 t1 okay whatever so you can easily see that if you do like this now these states may not be same so this can be db3 this can be db4 so these states can be different okay
+
+22
+00:18:05,850 --> 00:18:36,940
+is this clear to everyone please tell me so this will be consistent because this is a serial serial execution this is a serial execution so definitely these will be consistent all of them will be consistent if you start in a consistent state then all of them will be consistent but they may be different okay all of them are going to be consistent but they may be different may or may be may not be same okay they may or may not be may or may not be same so they can be different
+
+23
+00:18:37,180 --> 00:19:06,900
+so this is a very simple point i want to tell you so different serial execution can give you different state here you can get different here you can get different different so these state can be different okay maybe in if you do like this then maybe t3 will purchase t1 will purchase the mobile and in this situation t2 will purchase the mobile and here t3 will purchase the mobile okay so this is the idea i hope this idea is clear now let's see the next question the question number two that is this is a question from the olman book now you tell me
+
+24
+00:19:07,240 --> 00:19:35,800
+If two transactions, there are two transactions and they consist of there are two transactions and they are consisting of four actions and six actions respectively. Then how many interleavings of these transactions are there? How many interleavings we have for these two transactions? So there are two transactions. There is a T1 transaction. In this T1 transaction, you can easily see that there are four actions A, B, let's assume A1, B1.
+
+25
+00:19:36,080 --> 00:20:06,380
+or I can say A1, A2, A3, A4 these are the four actions and in T2 you have six actions B1, B2, B3 and so on, B6 so you tell me now how many interleavings how many concurrent executions are there for these two transactions how many concurrent schedules you can create so basically the question is asking about the number of schedules how many schedules you can create number of schedules that you can create so one thing you can easily see
+
+26
+00:20:06,600 --> 00:20:34,620
+tell me in the schedule how many positions will be there let me know in the schedule how many positions will be there so schedule means concurrent execution of two transactions how they are executing concurrent execution of these two transactions that will be the that will be the schedule so in the schedule there will be total 10 positions okay and so on total 10 positions will be there okay now you can easily see that this cannot happen yes or no for example let's assume a2 comes here
+
+27
+00:20:34,920 --> 00:21:01,800
+And A1 comes here, can it happen? Can it happen? A2 comes here, A1 comes here. So this is invalid schedule. I can say this is definitely invalid schedule. This is not a schedule. This is an invalid schedule. We cannot have it. Okay. So very easy. Now you tell me. So definitely in the schedule what should happen? These are the 10 positions like whatever are the 10 positions 4, 5, 6, 7, 8.
+
+28
+00:21:02,300 --> 00:21:31,460
+okay whatever let's let's assume these are the ten positions okay now you can see that if by the way if even comes here okay then definitely a2 will come here definitely a2 will come here let's assume a2 comes here let's assume a2 comes here definitely a3 will come here okay so for example let's assume a3 comes here definitely a4 will come here okay now let's assume a4 comes here so this is a schedule now similarly you can notice now
+
+29
+00:21:31,770 --> 00:22:00,230
+tell me once I put A1, A2, A3, A4 how many ways are there to put these six how many ways we have tell me once I put A1, A2, A3, A4 how many ways I have only one way because B1 must come here, B2 must come here, B3 must come here, B4 must come here, B5 must come here, B6 must come here okay so like this so your answer is going to be what there are six positions sorry there are ten positions or I can say there are ten chairs
+
+30
+00:22:00,560 --> 00:22:28,260
+you can think like this that there are 10 chairs from these 10 chairs you select four chairs for T1 okay select four chairs for T1 for this family for this family you select four chairs I am selecting four chairs let me assume that I am selecting this chair this chair this chair and this chair these are the chair that I am selecting okay now once I select these chairs these chairs I select for T1 family
+
+31
+00:22:28,600 --> 00:22:56,420
+they can sit in only one position A1 will come first then A2 will come then A3 will come then A4 will come so they will they can sit in only one position after that after that six after that automatically there is only one way for this family or I can say that there are six chair from these six chair you select a 642 for this family for this T2 family you select a six chair and in these six chair they can sit in only one way
+
+32
+00:22:56,720 --> 00:23:27,390
+Okay, so finally your answer will be that will be 10 C4 or you can say your answer is 10 C6. This is your answer Okay, so quite easy. So remember these are the number of schedules number of schedules Number of schedules is going to be 10 C4. This is the number of schedules. You tell me what is the number of a serial schedules? What is the number of serial schedules in the same question? There are two transactions. How many serial schedules? There are only two either
+
+33
+00:23:27,740 --> 00:23:54,940
+first t1 then t2 or first t2 then t1 okay so all the actions of t1 then all the actions of t2 all the actions of t2 then all the actions of t1 so these are the two serial schedules you tell me the answer of number of concurrent schedules number of concurrent schedules what is that number of concurrent schedules so that will be 10c4 only because every serial schedule is also
+
+34
+00:23:56,160 --> 00:24:24,730
+I am asking number of concurrent schedule. Every serial schedule is also concurrent. So the answer will be only 10 C4. If I ask you number of non-serial schedules, how many non-serial schedules are there? Then answer will be 10 C4 minus 2. This is going to be the answer. So like this you can do. I hope this point is clear. So remember number of schedules means number of concurrent schedule and every serial schedule is also concurrent.
+
+35
+00:24:27,300 --> 00:24:55,740
+These are the answers. Now you tell me the answer for this question. Tell me the answer for this question. There are two transactions. One has M actions and another has N actions respectively. How many interleavings? How many schedules you can create for these? So the answer will be there are two methods. See you can do this using two methods. Like for example the previous question also you can do with two methods. What is the method number two?
+
+36
+00:24:56,360 --> 00:25:22,060
+in the previous question what is the method number 2 the method number 2 is you already know see the method number 2 is actually very simple this is your transaction T1 A1 A2 A3 A4 you tell me one thing in how many ways they can they can sit you tell me once you have four chairs in how many permutations they can have within the schedule there is like you create a schedule in that schedule
+
+37
+00:25:22,910 --> 00:25:51,520
+Okay, you create this schedule. Let's assume you are creating the schedule. Then these people can sit in only one way. Okay, like once you select their positions, like how many permutations these people can have? How many permutations they can have? How many permutations? Only one permutation. So you can easily see that. Okay, only one way, one permutation they can have. You can easily see that they can have only one permutation in any schedule. In any schedule, they have
+
+38
+00:25:51,820 --> 00:26:21,070
+i can say one permutation i can say fixed one permutation i can say that is a fixed permutation okay so fixed fixed one permutation in average dude so if they have like if this permutation is fixed if you are fixing that okay they cannot do any changes like after a2 a1 cannot come after a4 a3 cannot come okay after a3 a1 cannot come so if they have fixed one permutation then what you can do then you can treat you can treat
+
+39
+00:26:21,510 --> 00:26:50,270
+Remember you can treat them as A, A, A, A and similarly this T2 you can treat this T2 is actually this. Remember T2 is actually this like this but what you can do because there is a fixed ordering because there is one fixed order so you can treat you can treat this as I can say that you can treat this as B, B, B and so on B. Now you can easily see that in every schedule you will have
+
+40
+00:26:50,570 --> 00:27:19,580
+total four a's will be there and total six b's will be there now your answer is very simple that is 10 factorial divided by four factorial six factorial okay so this is your method number two this is also very easy method now you can you can solve this question so there are two methods you can use any of them using method number one what will happen you can notice that there are these many chairs m plus n these many chairs you have from these many chairs you select m chairs for this family
+
+41
+00:27:20,510 --> 00:27:47,510
+okay now that's your answer so your answer will be either this or answer will be this similarly you can do method number two the method number two is also very simple that the answer will be m plus n factorial then divided by m factorial n factorial this is your answer number two okay both are same remember method number two method number one method number two both are same it is very easy yes or no whatever method you understood that you can apply
+
+42
+00:27:47,740 --> 00:28:21,610
+but i suggest this is my suggestion that you understand both the method method number one also method number two also you understand both of them okay now let's see this question tell me the answer now tell me the answer now there are three transactions you have total three transactions and then m m m n p actions are there respectively how many interleavings how many schedules are there tell me what is the answer again you can solve by method number one method number two you can easily do
+
+43
+00:28:21,870 --> 00:28:51,010
+Method number one means there are these many chairs. How many chairs are there? Tell me how many chairs? These many chairs. From these many chairs, you select am chairs for this family. Okay, you select am chairs for this family. Now this family has, okay, this family we have already given chairs. So this family has sit down chairs. Now what you can do? From the remaining chairs, how many remaining chairs? Tell me, tell me how many remaining chairs?
+
+44
+00:28:51,340 --> 00:29:20,990
+Remaining chairs are M plus P. From the remaining chair you select N chair. From the remaining chair you select N chair and you give to this family. From the remaining chair you select P chair and you give to this family. This is your answer. This is your method number 1. What is method number 2? Method number 2 is very simple. It is very simple. You can consider these as M is your NB's.
+
+45
+00:29:21,040 --> 00:29:49,160
+and you have PC's okay so you have m is nb's PC's these you have now it is very simple that will be your mn plus mn m plus n plus p factorial divided by m factorial divided by n factorial p factorial so this is your method number two so method number one method number two both are basically going to give you same answer this answer this answer these are same you can apply any method okay
+
+46
+00:29:49,880 --> 00:30:20,240
+So this is the idea so remember this method number two gives you I can say direct answer it gives you directly if you solve it After solving you will also get this they are basically same But here you can directly get this so you should understand both the method method number one method number two both the method you should understand Let me know the answer for this question. There are n transactions. How many serial schedules you can create? Total you have n transactions. How many?
+
+47
+00:30:20,620 --> 00:30:48,990
+Serial schedules you can create and transactions you have like you have transaction T1, transaction T2, transaction T3, transaction TN. So how many serial schedules you can create? The answer is very simple. How many permutations you can create? Yes or no? For example, I can create T2. I can create this type of transaction I can create. I can create this type of transaction I can create. Okay, something like that I can create. Now you can see that something like that I can create.
+
+48
+00:30:51,420 --> 00:31:04,400
+How many permutations you can create for the end transactions? The answer will be n factorial. How many serious issues you can create? The answer will be n factorial. For these transactions, how many permutations you can create?
+
+49
+00:31:19,660 --> 00:31:50,390
+and so on and finally all the actions of t and minus one so like this if you notice how many permutations you can create that is n factorial so this is your number of serial schedule okay now let's see this tell me the answer for this question look at this question and tell me the answer think about it and give me the answer this is an interesting question let me tell you we will use this question whatever is your observation whatever is your answer that we will use many times
+
+50
+00:31:50,970 --> 00:32:19,480
+So, let's see. For two transactions, T1 and T2, there are two transactions T1 and T2, assume that we have a schedule S. For these two transactions, these are the two transactions, we have a schedule S. So, we have a concurrent execution. Swapping to consecutive operations of S. Swapping to consecutive operations of S necessarily makes it invalid schedule on T1 and T2. Tell me.
+
+51
+00:32:19,730 --> 00:32:48,350
+Is this statement true or false? Swapping to consecutive operations. Please understand the words. Please understand every word. Swapping to consecutive operations. Your swapping to consecutive operations necessarily makes it invalid schedule. Is this true? The answer is very easy, false. The answer is very easy. This is basically a false statement.
+
+52
+00:32:48,890 --> 00:33:15,730
+because it may or may not become an invalid schedule. So this is basically false. Now you can easily see that for example like if I give you okay you can easily see that for example let's assume these are the schedules A1, A2, A3 these are the transactions and another transaction is let's assume B1, B2 okay these are the transactions. Now I am giving you a serial schedule
+
+53
+00:33:15,980 --> 00:33:46,560
+like let's assume I give you this schedule that A1 B1 okay A2 A3 B2 A3 B2 so this is a schedule you can easily see this is a valid schedule this is a valid schedule now in this schedule what you can see you just focus on this tell me if I swap them if I swap them then tell me will I get a valid schedule if I swap them will I get a valid schedule
+
+54
+00:33:48,440 --> 00:34:16,920
+Will I get a valid schedule yes this is also valid right yes or no this is also valid because here you can notice after B1 B2 is coming after A1 A2 after then A3 is coming so this is a valid schedule now you tell me one thing you tell me this point you tell me I am giving you another schedule or I know so tell me like if I swap them if I have served these two then tell me if I swap these two
+
+55
+00:34:17,720 --> 00:34:47,490
+Now tell me, will I get a valid schedule? If I swap these two, will I get a valid schedule? Will I get a valid schedule? The answer is invalid because you can notice after A1, after A2, A3, after A3, A2 is coming. So this is definitely not a valid schedule. So this is an invalid schedule. Okay, is this clear? Let me know. So did you understand this statement? So may or may not? May or may not? So the answer will be may or may not?
+
+56
+00:34:47,780 --> 00:35:12,660
+you can notice swapping to consecutive operations of S when you are swapping them then it makes an invalid schedule it may or may not like you can notice if you swap these two it will become valid schedule and if you swap these two then it will become invalid schedule is this understood to everyone please tell me is this question understood
+
+57
+00:35:12,980 --> 00:35:43,620
+is this observation understood that if you swap to there are two transactions you have two transactions t1 t2 there are two transactions and in any schedule you have a schedule in that if you swap to consecutive operations then it may or may not give you invalid schedule. Now let's see this question you tell me the answer for this again you have two transactions for two transactions there are two transactions t1 t2 and there is a schedule s
+
+58
+00:35:43,960 --> 00:36:15,180
+Now for this schedule what you are doing to non-conjugative operations you are swapping them. You are swapping to non-conjugative operations. Then can I say it is guarantee that you will get an invalid schedule. Can I say it is a guarantee? Will it make necessarily any valid schedule? Will it necessarily make any valid schedule? Take your copy pen and check. Will it give you
+
+59
+00:36:15,440 --> 00:36:51,150
+invalid schedule you are swapping to non-conjugative operations. Non-conjugative operations you are swapping. Tell me the answer. Swapping to non-conjugative operations will necessarily give you invalid schedule. So for this statement the answer is true. Yes definitely it will give you invalid schedule. You can easily prove it. For example let's assume there is a schedule. Let's assume you have a schedule.
+
+60
+00:36:51,490 --> 00:37:19,440
+and in that schedule you are swapping to non-conjugative operations so like this you have some operations now tell me let me assume that this operation and this operation you are swapping these two you are swapping let's assume let me assume you are swapping these two now you can easily consider the cases for example consider the case when this belongs to T1 okay and let me assume this belongs to T1
+
+61
+00:37:20,650 --> 00:37:44,560
+then definitely it will give you in valid schedule yes or no let's say this is a valid schedule but if you do this if you do this swap then this is T1 this is T1 then this swap will give you what tell me tell me tell me tell me alright this belongs to T1 and this belongs to T1 okay so definitely you can easily see that maybe this is A2 and this may be A3 so definitely what I am saying
+
+62
+00:37:44,780 --> 00:38:12,770
+or maybe this can be something like if this is a2 then this can be for example a2 a3 or a4 whatever okay so if you definitely if you do this then it will give you invalid so this swap will give you invalid this swap is invalid now the same thing you can do when they both belong to t2 t2 yes or no so for example this is also t2 this is also t2 then also you cannot swap them you cannot swap okay very easy
+
+63
+00:38:12,990 --> 00:38:41,620
+Now you tell me one thing. You tell me one thing. Let me assume that this belongs to T1. Let me assume that this belongs to T2. Now what is the problem? Now do we have any problem? If we do this swap, do we have any problem? Is there any problem? Yes, the problem is there because what you can do, you can think who is the middleman? Yes or no? You can ask who is the middleman? Who is this person?
+
+64
+00:38:41,910 --> 00:39:09,660
+who is this middle man so for example if he is T1 he is from T1 okay he is from the family T1 now if you swap these two this and this if you swap okay like sorry this and this what I am saying this and this if you swap then what is happening this is this will be the problem yes or no agree or not tell me agree or not because if you swap this and this
+
+65
+00:39:09,900 --> 00:39:40,340
+these two if you are swapping then definitely there will be invalid because of these two. So definitely this swap will become invalid. And the same will be true if this is T2. If this is T2, if you put it as T2. If you put this as T2. Let's assume if this is T2. Then also if you swap them, if you swap these two then there will be problem here. So definitely this swap also will be invalid. So whatever you do
+
+66
+00:39:40,580 --> 00:40:07,310
+this non-conjugative swap it will give you invalid but remember this is only true for two transactions yes or no yes or no this is only true for two transactions for three transactions this may not be true so this statement is sorry this statement is false for only necessary false for two transactions but remember remember for more than two transactions for example if you have three transactions if the number of transactions is
+
+67
+00:40:09,220 --> 00:40:37,600
+if number of transactions if you have number of transactions greater than greater than or equal to 3 then you can you may or may not do that for example maybe maybe this T1 maybe this T1 is like this A1, A2 and something and maybe this T2 is like this B1, B2 and something and this T3 is C1, C2 and something now you notice this for example consider this schedule I am giving a schedule
+
+68
+00:40:38,520 --> 00:41:06,190
+A1, B1, C1 and so on. Now you can notice you can do that. Yes or no? Now this swap is valid. Agree or not? Now this swap is valid. These are not consecutive. This A1, this C1, they are not consecutive. But this swap is valid. So remember if your number of transactions is more than 3, more than or equal to 3, then this statement may or may not be true. Then you may or may not swap non-conjunctive pairs. Yes or no? You may
+
+69
+00:41:06,460 --> 00:41:35,990
+or may not swap consecutive pairs but remember if you have two transactions if your number of transactions is two so if you have two transactions this is what I am saying if you have two transactions then you cannot swap non-conjugative pairs do you agree you cannot swap non-conjugative pairs you cannot do that in any schedule you cannot swap non-conjugative pairs because if you swap non-conjugative pairs
+
+70
+00:41:36,600 --> 00:42:05,510
+non-conjunctive operations of the schedule as then that will necessarily give you invalid. Okay, so this statement is true. So keep this in mind. This proof is this proof clear to everyone? This is a simple proof you can do it. Okay, like very easy to prove. So now let's move on. So remember you keep this in mind. Please keep this in mind because we will use it. So swapping to non-conjunctive operations if your two transactions
+
+71
+00:42:06,030 --> 00:42:37,750
+when you have true transactions then swapping to non-conjective operation of any schedule if you swap non-conjective operation then that will necessarily make it invalid okay let's move on now now let's see so we already know what is a serial schedule that you already know all these things we already we have already seen now let's move on so different notions of serializability as I told you that we want to make sure isolation
+
+72
+00:42:38,110 --> 00:43:05,720
+yes or no so in this acid property in this acid property there is a property there is a property called isolation there is this property called isolation and what this property says this property says that in the concurrent execution of transactions every transaction should think that they are isolated every transaction should not know the presence of other transaction okay like if t1 t2 t3 if they are executing
+
+73
+00:43:06,280 --> 00:43:33,140
+if they are executing in concurrent manner if they are executing in a concurrent manner then they should not see their the presence of this T1 should not know the presence of T2 T3 this T2 should not know that presence of T1 T3 or I can say this T3 should not be interfered by T1 T2 this T1 should not be interfered by T2 T3 okay so there should be no interference
+
+74
+00:43:33,670 --> 00:44:04,060
+so every transaction should think it should think that it is isolated it should think this T2 should think that it is executing alone now to make sure this isolation property to ensure this isolation property if you want to ensure this to ensure it we can do a lot of things we can do
+
+75
+00:44:04,950 --> 00:44:34,290
+the most to ensure this property the most strongest idea is serializability the most strongest the most powerful idea is serializability ok this is the most powerful idea to ensure this we use the concept of serializability to ensure this isolation property now let's see this serializability now remember we have this serializability concept but there are different definitions
+
+76
+00:44:34,770 --> 00:45:03,910
+there are different ideas for serializability notion means idea so there are different ideas for the concept of serializability now depending on these ideas we have many different ideas we have but these ideas are depending on how hard they are to implement or I can say how easy they are to implement because see finally we have to implement them in some DBMS yes or no in the DBMS software in your DBMS software ultimately we have to implement them
+
+77
+00:45:04,190 --> 00:45:32,980
+Whatever idea you have so this serializability idea you have in your mind But that idea we have to implement in the system in the database system in the DVMS we have to implement it now what I'm saying I'm saying that depending on how easy they are to implement We can divide the serializability concepts in in these three categories These are the three categories first is serializability in general the most general idea of serializability
+
+78
+00:45:33,530 --> 00:46:04,580
+this is the most general idea okay now you can easily see that this is very general idea it will cover it will cover all the serializable schedule okay so this is very this is very hard to implement let me tell you this is almost impossible to implement is this clear this is general idea of serializability this general idea it is just idea remember it is just a theoretical idea this serializability general idea
+
+79
+00:46:04,860 --> 00:46:35,880
+this is just a theoretical idea this is a theoretical I can say it is it is more or like theoretical it is more or like theoretical idea so what I am saying that it is very hard to implement or I can say almost impossible to implement the another idea is conflict serializability this is very easy to implement you will see this is very very very easy to implement and there is a concept of there is another concept of view serializability this this you can implement
+
+80
+00:46:36,360 --> 00:47:06,200
+you can implement but this is I can say exponential time the time complexity will be exponential so this is an NP complete implementation or I can say NP complete problem so tell me out of these three three on your screen you have three ideas of serializability now you tell me in your system which you will implement in your if you create a DBMS software then which you are going to implement this conflict serializability you will implement but remember one thing
+
+81
+00:47:07,740 --> 00:47:31,840
+see this conflict serializability it is easy to implement but it will come at some cost of course yes or no some cost will be there definitely so let me tell you this conflict serializability does not cover all the serializable schedules like this serializability will cover all the serializable schedule so remember so this will cover everything this will cover
+
+82
+00:47:32,120 --> 00:48:01,030
+every serializable schedule every serializable schedule will be covered by this but this you this is a theoretical idea we cannot implement it but remember this view serializability it will cover more than conflate serializability so this idea remember this idea will cover more than this idea but but but this is exponential so I can say that this cannot cover all the serializable schedules
+
+83
+00:48:01,800 --> 00:48:29,920
+It cannot cover every serializable schedule, but this is easy to implement. So remember, this is what I am saying. I am saying that there are different ideas of serializability. Depending on the ease of implementation, how easily you can implement them, you can have different ideas of serializability. And let me tell you, we will see this. Don't worry right now. Do not worry right now. We will see that every serial schedule is conflict serializable.
+
+84
+00:48:30,280 --> 00:48:57,160
+every conflict serializable schedule is view serializable every view serializable schedule is serializable but but but you can notice there are some schedule which are serializable they are not view serializable there are some schedule which are view serializable but they are not conflict serializable there are some schedule which are conflict serializable but they are not serializable ok so is this chart clear to everyone?
+
+85
+00:48:57,570 --> 00:49:25,780
+we will see don't worry don't worry we will see this after sometime right now I am just telling you the idea what is the idea so this is not easy to I can say this is not practical to implement this concept serializability the I can say the general the most general definition of serializability this is just a theoretical idea but it will cover everything okay as I told you remember this conflict serializability this is very easy to implement
+
+86
+00:49:26,090 --> 00:49:47,760
+but this does not cover every serializable schedule like there are many schedules which are not covered by conflict serializability okay so these are some ideas that i hope you understood now let's move on now first we will see what let's start with what let's start with the most general idea okay first we will see first we will see this
+
+87
+00:49:48,190 --> 00:50:15,920
+the general idea of serializability in next lecture we will see conflict serializability after that we will see view serializability so these are the three topics we need to see 1, 2, 3 and most of the gate exam questions are from this because this is this is practically implementable okay in most of the DBM software this will be implemented so in the gate exam also most of the questions I can say 99% questions will come from this 99% questions they will come from this
+
+88
+00:50:16,640 --> 00:50:45,440
+almost 0.9% the remaining 0.9% questions will come from this and from this 0.001% question will come so very very very rare a question comes from this concept very rare okay most of the time the question will come from this concept conflict serializability or the question will come from this concept view serializability but we will see everything we will see this also the general idea of serializability then we will see this also this also
+
+89
+00:50:45,630 --> 00:51:12,410
+so don't worry one by one we will see in this lecture we will study serializability concepts in general okay the most general idea of serializability and the definition is this what is the definition serializability means what it means being equivalent to some serial schedule being equivalent to some serial schedules okay being equivalent to some serial schedule now let's see this so let me tell you the definition
+
+90
+00:51:12,840 --> 00:51:44,140
+read the definition and tell me did you understand this definition we have already seen this definition in the last class but read this in general this is the general idea of serializability you can see you can see this in general we say a schedule is serializable what are the definition that this definition I have taken from so Ulman okay so let's see this definition so tell me in general we say that a schedule is serializable
+
+91
+00:51:44,760 --> 00:52:10,460
+If there is a schedule, there exists a schedule, a serial schedule S such that for every initial database state, the effect of S and hds are same. They must have the same effect. Okay, let me make it clear what I'm, what this definition want to say. The definition is saying that let's assume there is a schedule S. Let's assume you have two transactions T1, T2. These are the transactions.
+
+92
+00:52:13,060 --> 00:52:45,600
+or you can have more transactions but remember let's assume these are the two transactions and you have a schedule s now you can easily see that so this schedule some concrete schedule you have so this is a schedule some something you have now you tell me when can I say this s is serializable s is serializable s is serializable what it means s is serializable what it means it means that you start this s
+
+93
+00:52:46,320 --> 00:53:14,390
+You start this is your as remember as I told you as means This is your schedule as so this is the schedule as and this is yours What to do you start this in some consistent database state? So let's assume this is a DB one what this DB one means this DB one means some consistent database state So this is your consistent database state one
+
+94
+00:53:15,300 --> 00:53:41,820
+Of course you should start in a consistent state because if you start in inconsistent state then there is no point. So you can easily see you should start in a consistent state. So this is a consistent database state 1 and this is your schedule S. It will affect the database. Do you agree? It will give you some other DB2. This schedule will give you some other DB2.
+
+95
+00:53:43,190 --> 00:54:12,090
+we say that this ass is serializable if there is a serial schedule if there exist a serial schedule okay so when can I say that this ass is serializable this ass is serializable if and only if there exist a serial schedule there exist a serial schedule remember there are two serial schedule possible because you have T1, T2 so there exist a serial schedule some serial schedule example
+
+96
+00:54:12,510 --> 00:54:39,840
+okay for example maybe for example maybe t2 to t1 maybe t2 to t1 okay so what I am saying I am saying that this t2 to t1 first you first you do t2 all actions of t2 then you do all actions of t1 now you also start this in db1 you also start this in db1 then what should happen it should also give you db2 so you can see what is happening see what is happening this is happening that
+
+97
+00:54:40,940 --> 00:55:06,170
+you start this in db1 this is giving you db2 you start this in db1 this is also giving you db2 and this should happen for this this should happen for all initial states this should happen for every initial possibility every initial constituent state okay so whatever is your initial state for all db1 okay this should happen for all db1
+
+98
+00:55:06,670 --> 00:55:36,460
+for every DB1 what should happen these two must be same for every DB1 this state and this state they must be same then I can say that this S is serializable so S is serializable if and only if the I can say the the final state for this schedule S that is same as the final state for some serial schedule okay you start from any initial state you can start in any initial state
+
+99
+00:55:36,790 --> 00:56:04,790
+please read this definition carefully all the words you must focus on i will tell you you should focus on these words we say a schedule you have a schedule as we say that is serializable read the name serializable means it is equivalent to serial schedule so this schedule as is serializable it is equivalent to serial schedule if and only if there is there is a serial schedule there exist a serial schedule such that
+
+100
+00:56:05,220 --> 00:56:34,260
+for every initial consistent database state for every initial consistent database state the effects effects means the final database state of s and s days are same they are same this is your definition of serializable schedule in the most general definition this is the most general definition yes or no it is very intuitive please tell me isn't it very intuitive that you are equivalent to some serial schedule
+
+101
+00:56:34,680 --> 00:57:05,440
+It simply means that how you affect the database, the same way that serial schedule also affects the database. Serializable means that how you affect the database, that same way some serial schedule should affect the database. I can say that schedule S is serializable.
+
+102
+00:57:06,740 --> 00:57:37,440
+is serializable serializable the name itself is telling you it is equivalent to serial serializable if and only if for every initial database state this would happen for every this is very important word this would happen for every possible so for every initial consistent database state you should start in a consistent state of course okay so for every initial consistent database state this would happen what should happen
+
+103
+00:57:38,440 --> 00:58:10,070
+for every this would happen that how as affect the database ok so effects of database effects means the final state ok effects means the final database state ok so how you effect the database effects of as on database they must be same they must be same as effects of some serious schedule on database
+
+104
+00:58:11,070 --> 00:58:17,170
+effects of some serial schedule this is very important some serial schedule one of them is fine
+
+105
+00:58:44,720 --> 00:59:13,500
+Can I say isolation will be preserved? Your eye in acid. Your isolation property in the acid. Can I say that will be preserved? Tell me. Why? What is the reason? The reason is very simple because every serial schedule is isolated. Yes or no? In every serial schedule, every transaction is isolated. If you have a serial schedule, then every transaction is isolated. Now your schedule is equivalent to this serial schedule.
+
+106
+00:59:14,040 --> 00:59:43,500
+they are equivalent then I can say that then I can say yes isolation property will be satisfied yes or no because this schedule is equivalent to this schedule they are equivalent they are giving you for every initial state they are giving you same output for every initial input they are giving you same output so definitely I can say that this isolation property is satisfied now let's see this question example number one we will take a lot of examples don't worry
+
+107
+00:59:44,500 --> 01:00:11,870
+Now let's see example number 1. I am giving you database consistency requirement. We shall assume that the only consistency constraint on the database is A equal to B. This is the consistency requirement that is given to you. In the question, the database consistency requirement, the database consistency constraint is given to you on the database status. A should be equal to B. This is the consistency requirement. And these are the two transactions.
+
+108
+01:00:12,390 --> 01:00:41,460
+okay this is transaction T1 this is transaction T2 these are the two transactions what transaction T1 is doing can you tell me? transaction T1 is adding 100 to A and adding 100 to B transaction T2 it is multiplying A with 2 and multiplying B with 2 so these are the two transactions okay and remember remember your consistency requirement is given to you on the database this is the consistency requirement that A should be equal to B now
+
+109
+01:00:41,880 --> 01:01:12,050
+you tell me one thing some some things we will see first what I will see first we will see that if you start what is it first we will see the effects of serial schedule first we will see effects first we will see effects of this serial schedule on the database agree yes or no first we will see how this serial schedule will affect will affect will affect the database yes or no then we will see effects of
+
+110
+01:01:12,870 --> 01:01:43,510
+this serial schedule effects of this serial schedule so first we will see how this serial schedule will affect then we will see how this serial schedule will affect that database so let's check it out so for example you can easily see that this is a serial schedule t1 to t2 now here what is happening you can easily see that remember your consistency requirement is a should be equal to b
+
+111
+01:01:43,830 --> 01:02:11,950
+So tell me, tell me, tell me, can I start in 25, 30? Can I start 25, 30? Can I start like that? No, because consistency requirement is that A equal to B. So I cannot start like this. Yes or no? I cannot start like this. You should always start in the consistent state. If you start in inconsistent state, then there's no, I can say, then there's no sense. So you should definitely start in the consistent state.
+
+112
+01:02:12,200 --> 01:02:41,310
+so let's start in 25-25 the consistency requirement says that they must be same a comma b they must be same so you are starting in a consistent state so I can say this is your this is your consistent database state now you tell me about this one what this will do so first you will read so when you read then you are basically reading okay you are reading so in the temporary variable this t is a temporary variable in temporary variable the value is 25 okay now
+
+113
+01:02:41,670 --> 01:03:11,230
+in the temporary variable the value has become 125 in the database the value has become 125 yes or no in the database the value of a has become 125 now after that you can see that in the similarly similarly in the database again what you will do you will read the value of b you will read the value of b okay this b value you will read then what you will do so this b value you will read and after that you will increase this this t you will increase by 100
+
+114
+01:03:11,610 --> 01:03:39,230
+and then you will write so now in the database the value of b is this this is the value of b in a database this is the value of a in a database now you tell me what you will do now when you read this a what value you will read because remember this read operation it will fetch block i told you this it will fetch block from disk agree or not yes or no it will fetch block from database i can set disk
+
+115
+01:03:39,640 --> 01:04:08,540
+So when you face this block from the database or disk, then what value you will read in the disk, your A value is 125. So in this, this is a temporary variable in this temporary variable, the value will be 125. Okay, yes, correct or not, because you are fetching block from the disk. And in your database in your disk already a value is 125. This is a temporary variable. This as you are making 250. Now then you are writing, then you are writing.
+
+116
+01:04:09,030 --> 01:04:38,510
+so now what you are doing now this is the value of A in the database after that when you read B then again you will fetch from then again what you will do again you will do this so again you can notice that S value will be basically 125 because the value of B is 125 in the database now after that you will double this value you will double this value and after that you will write now the B value in the database is 250 you tell me you tell me this
+
+117
+01:04:38,990 --> 01:05:08,680
+this schedule this serial schedule you are doing is this giving you consistent results like is it is this taking starting in a consistent state this is a consistent state at the end are you in consistent state you are starting in consistent state then are you at the end in a consistent state yes of course because b value is 250 a value is 250 so they are same this is the consistency requirement a should be equal to b this is the consistency requirement
+
+118
+01:05:09,200 --> 01:05:39,840
+correct or not so you can easily see that yes now you tell me one thing you tell me one thing this is just a particular value I have taken agree or not did you see I have taken a particular particular state I have taken this is a particular state it does not cover every state but we have to cover every initial state yes or no tell me we have to cover every initial state how to cover every initial state you tell me that
+
+119
+01:05:40,280 --> 01:06:13,230
+I am covering only this initial state. This is a particular initial state. This is a very specific initial state. This is a very very very specific initial state. So tell me how to cover all the states? I want to cover all the states. I want to see effect of t1, t2 on database for every state. I want to see effect of t2, t1 on database for every state. Then what is the best way? What is the best way? The best way is to start with some
+
+120
+01:06:13,680 --> 01:06:43,270
+I can say some variable like you start like this what you do you start for example maybe initially this value is also e and this value is also e like this you can start or maybe you can start with c this is also c this is also c you start in this now you tell me the answer tell me quickly tell me what will be the value of a at this point of time at this point of time in your database what is the value of a in your database in the database what is the value of a
+
+121
+01:06:43,520 --> 01:07:10,800
+So in the database, you can notice in the database, the value of a will be C plus 100. This will be the value of a. Now you tell me in the database, what is the value of B? In the database, the value of B is C plus 100. This is also C plus 100. In the database, what is the value of a here now? Now what is the value of a in the database? In the database, what is the value of a that is C plus 100 multiplied by two?
+
+122
+01:07:11,440 --> 01:07:40,950
+okay and here what is the database this value of B that will be C plus 100 multiplied by 2 okay so you can easily see this is the effect of database this is the effect of T1 T2 2 so tell me what are okay you tell me this simple thing so effects of T1 to T2 serial schedule this is a serial schedule so what are the effects of this so can you tell me what are what are the effects of this when you do this
+
+123
+01:07:41,230 --> 01:08:10,450
+then what are the effects the effects are this so if you start in a consistent state a equal to c d equal to c this is your starting consistent state and you do this t1 to t2 okay in this state you start remember this is your db1 can i call it db1 yes okay this is a consistent you can easily see this is a you are starting in a consistent database state because they are same a equal to b okay consistent means a equal to b this is the consistency requirement
+
+124
+01:08:10,930 --> 01:08:40,960
+this is your consistency requirement now you can easily see that at the end what are the values of A the value of A is basically 2 times C plus 100 and value of B is basically 2 times C plus 100 this is the effect I can say yes or no this is the effect of T122 this is the effect is this clear to everyone this is the effect okay effect means final database state effect means final
+
+125
+01:08:41,300 --> 01:09:07,040
+database state is this consistent is this consistent yes of course this is consistent right of course it will be consistent of course why why I am saying obviously it is consistent tell me why I am saying that this will be obviously consistent this is you are saying serial but for that every individual schedule must be consistent yes or no Aditya Aditya
+
+126
+01:09:07,100 --> 01:09:32,020
+every individual's transaction, sorry every individual's transaction must be consistent you tell me is every transaction consistent individual transaction tell me individual transaction are they consistent like look at this transaction and tell me is this consistent will it take you from consistent state to consistent state will it preserve consistency tell me
+
+127
+01:09:33,190 --> 01:10:03,570
+Simple thing I am asking. I am asking, will this transaction preserve consistency? Will it take you from consistent state to consistent state? Starting in a consistent state, will you go to consistent state, this transaction T1? Yes, of course, because... No, no. It is already in front of you. A transaction is already given to you. You don't have to assume now. Because transaction is already given to you, there is no need to assume. In the last class, we have done this type of quiescence. Yes or no?
+
+128
+01:10:04,080 --> 01:10:30,250
+in the last class we have seen the questions where some transaction is not preserving consistency this type of question we have already seen in the last class yes or no Aditya did you watch the last class the last lecture did you watch so in that we have already done this type of question a transaction is given to you will it preserve consistency so you tell me
+
+129
+01:10:30,620 --> 01:11:07,040
+You tell me a very simple idea I am asking. If you start in a consistent state, consistent means A equal to B. If you start in A equal to B state, will you go to A equal to B state? A simple question. A simple question I am asking. Will T1 preserve consistency? Will T2 preserve consistency? Will T1 preserve consistency? Will T2 preserve consistency? Tell me. I am asking. I am asking. Does T1 preserve consistency?
+
+130
+01:11:07,760 --> 01:11:36,630
+does t1 preserve consistency database consistency database consistency if you start in a consistent state will it take you to the consistent state yes of course see if you start in a consistent state let me start let me start let me start that you I am starting in a consistent state a equal to b equal to c then what will be my what will be my state what will be my final state
+
+131
+01:11:37,020 --> 01:12:01,200
+My final state will be what? That will be C plus 100. Yes or no? My final state will be C plus 100. So definitely you can easily see that. Yes, it will preserve the consistency. Does T1 preserve consistency? The answer is yes. This T1, this transaction T1, does it preserve consistency? If you start in a consistent state, your consistency requirement is already given to you in the question.
+
+132
+01:12:01,530 --> 01:12:27,390
+that a equal to b this is the consistency requirement so if you start in a consistent state you will go to the consistent state you start a equal to b you will go to a equal to b okay so definitely it will preserve consistency similarly what about t2 what about t2 if you start in a consistent state a equal to b equal to let's assume let's assume e so if you start in a consistent state will it take you to the consistent state
+
+133
+01:12:27,850 --> 01:12:55,090
+yes of course it will take you to the consistent state the state will be 2e so you can easily see that t2 also preserve consistency correct t2 is also preserving consistency this also preserve consistency so if you start in a consistent state will it take you to the consistent state yes definitely from consistent to consistent from consistent to consistent okay so t1 preserves consistency
+
+134
+01:12:55,520 --> 01:13:22,000
+T2 preserves consistency both of them are preserving consistency now you can easily see if they are preserving consistency automatically every serial schedule will preserve consistency yes or no T1 is preserving consistency T2 is preserving consistency then definitely every serial schedule will preserve consistency and this is what we have seen now we have already seen that this serial schedule will preserve consistency
+
+135
+01:13:22,480 --> 01:13:50,570
+Okay, so if you start in a consistent state a equal to b a equal to b Then your final state that is also consistent your database is going from consistent to consistent state Okay, so like this so you can easily see for this T1 T2 for this series it will this is the final effects These are the effects of T1 T2 Okay, now you tell me the effects of T2 T1 You tell me the effects of T2 T1 for example if I start in this state C
+
+136
+01:13:51,400 --> 01:14:17,290
+If I start in this state C, you tell me the effects of T2 to T1. For this T2 to T1, what are the effects? You start in a consistent state, then here what is your value? Tell me, at this point of time, what is the value of A? At this point of time, at this point of time, the value of A, that will be 2C. Okay, that value will be 2C. At this point of time, the value of B will be 2C.
+
+137
+01:14:17,640 --> 01:14:46,030
+you tell me at this point of time what your data in the database what is the value of a in the database what is the value of a the value of a is basically 2c plus 100 correct okay so the value of a will be 2c plus 100 and here what is the value of b in the database in the database the value of b that also will be 2c plus 100 okay of course again you can notice consistency consistency is same sorry consistency is preserved
+
+138
+01:14:46,460 --> 01:15:16,180
+because a equal to b you start a equal to b and you are ending in a equal to b so consistency is preserved tell me one thing tell me one thing are they effect same for t1 t2 and t2 t1 are they effect same are they effecting are the final effects same no they are not same because for t2 t1 what is happening if you notice for t2 t1 for t2 t1 what are the final effects the final effects are 2c plus 100
+
+139
+01:15:17,090 --> 01:15:47,700
+The final effects are not these the final effects are different. So here you have to see plus hundred and here you have to see plus hundred Okay, so these are the effects. I hope this point is clear So we have seen the effects of T1 T2 And we have seen that effects of T2 T1. Okay, so now let's see this This this is not a serious rule, right? Yes or no So now my question now my question is this is this equivalent to can I say
+
+140
+01:15:48,100 --> 01:16:15,850
+is it equivalent to this is my question my question is is it is it equivalent to t1 t2 or t2 t1 this is my question i am giving you a a concurrent schedule this is a concurrent schedule this is not serial this is not a serial schedule this is a concurrent schedule this is the timeline this is how the time goes okay time is going like this
+
+141
+01:16:16,170 --> 01:16:44,410
+so you can see that this is a concurrent schedule you tell me my question is is this equivalent to t12 or is this equivalent to t21 so how will you solve this question or it is very easy to solve right because you will start in a consistent state agree or not so you will start in a consistent state that a equal to b equal to c okay so both are let's assume initially a equal to b equal to c this is your initially state c now you tell me
+
+142
+01:16:44,920 --> 01:17:14,360
+So I missed okay you tell me one thing if I do this a equal to b equal to if I take value C I am Did I cover all the initial possible states? Did I cover all the initial possible states? Did I cover that if I take a equal to b equal to means if I take their value same I'm taking their value same and I'm keeping it C So did I cover all the possible initial states? Yes, of course because you should start in a consistent state
+
+143
+01:17:15,110 --> 01:17:43,870
+and consistency requirement is saying that a should be equal to b this a must be equal to b this is the consistency requirement on the database on your database you have this consistency requirement that in my database a should be equal to b in my database okay so yes I am covering all the possibilities so I am taking a equal to b equal to c you tell me at this point of time what is the value of a in the database in the database what is the value of a at this point of time
+
+144
+01:17:44,110 --> 01:18:14,170
+that will be C plus 100 at this point of time in the database what is the value of a at this point of time at this point of time the value of a you can notice you will read so you will read the value of s will be C plus 100 so that will be multiplied by two so your that this is your final okay database a now you tell me about here what the database be here database be the C plus 100 and here what is your database be
+
+145
+01:18:15,590 --> 01:18:45,450
+here what is the database we that is a C plus hundred multiplied by two okay you tell me a simple question I'm asking this transaction is given to this schedule is given to you let's call it schedule as this schedule is given to you let's me let me call it as one okay let me call it as one so the schedule I am calling it as one schedule okay please understand I am calling the schedule as one so this is your schedule as one you tell me this is a schedule as one
+
+146
+01:18:45,640 --> 01:19:17,530
+is this serializable is this equivalent so you can see that this this s1 what this s1 is doing this is your schedule s1 what this s1 is doing you start in a consistent state where a equal to b equal to c where they are c you are starting in a consistent state it will take you to a consistent but you can easily see that your effects what are the effects of this schedule what are the effects of this schedule these are the effects a equal to this
+
+147
+01:19:17,980 --> 01:19:47,430
+and B equal to this is this equivalent to some serial serial you tell me you tell me is this equivalent to some serial serial yes of course so you can easily see that this S1 is equivalent to T1 to T2 remember this S1 is not equivalent to T2 to T1 so can I say it is not serializable can I say S1 is not serializable can I say
+
+148
+01:19:48,040 --> 01:20:20,390
+Can I say S1 is not serializable? No, because remember it is equivalent to some serial schedule. Okay, this S is equivalent to some serial schedule. S is equivalent to T1 to T2. This serial schedule will give you the same effect as S1. This S1 and this, they are giving you the same effect on every initial state. Okay, so finally I can say that S1 is serializable. We can say S1 is serializable.
+
+149
+01:20:20,670 --> 01:20:49,840
+please tell me is this clear to everyone let me know please tell me did you understand what is serializability what is the general general idea of serializability did you understand i am telling you the general idea of serializability you tell me did you understand this let me know so remember this s1 this s1 is affecting our database this is your schedule s1 this is affecting our database but remember the effects of this schedule s1 are the same
+
+150
+01:20:50,230 --> 01:21:19,920
+as the effects of this serial schedule so we say that this s1 is serializable i can also say s1 is serializable to t1 t2 i can also say that yes or no i can also say that this is serializable this s1 is serializable to t1 t2 this serial schedule because this is affecting our database in the same way this is affecting the database so this and this
+
+151
+01:21:20,520 --> 01:21:49,160
+They are affecting our database in the same way Okay, if you start this and this in the same state, they will give you the same final state Okay, let's see the now you can read this very easy like as you can see Okay, so from the old man, this is a question from the old man book So you cannot this this this question I've already taken this question from the old man book since all the consistent database is state have a equal to be equal to see for some constant seat is
+
+152
+01:21:49,390 --> 01:22:20,910
+not hard to see that's what the schedule is doing. So the schedule is doing this consistency is preserved. Okay, so like this, you can check it out. Anyway, now let's see another example. Is this will this is this equivalent to T1 T2 or T2 T1? Let's call it schedule S. Consider the schedule S. Okay, so this is your time. This is how the time is going. As you already know, this is how time is going. Time is going like this. What it means, it means
+
+153
+01:22:21,210 --> 01:22:51,060
+first it will happen then it will happen then it will happen then it will happen it will happen like this ok so first these will happen then these will happen and then these will happen ok so like this now this is your schedule as to let's call it schedule as to this is your schedule as to you tell me is the schedule as to equivalent to T1 T2 is this equivalent to this is this equivalent to this or is this equivalent to T2 T1
+
+154
+01:22:52,330 --> 01:24:13,790
+Is this equivalent to this or is this equivalent to this? This is my question. A simple question. I'm asking is this schedule. Okay. This schedule has the same effects as T1 T2 or as T2 T1. What is the answer? Okay. Let's see. So, so let me start. I'm starting in a consistent state. So let's assume A equal to B equal to C. This is your initial value.
+
+155
+01:24:14,810 --> 01:24:41,520
+this is the initial value so tell me at this point of time what is the value of a in the database in the database in your hard drive in your hard disk what is the value of a that value is basically c plus 100 because you are adding 100 to the value of a to the value of a you are adding 100 okay at this point of time what is the value of a at this point of time tell me at this point of time you are doubling the value of a
+
+156
+01:24:41,950 --> 01:25:11,660
+okay so your value of A becomes 2 into C plus 100 at this point of time what is your database value of B in your database what is the value of B that will be 2 multiplied by C you are doubling the value of B in the database okay so at this point of time what is your database value B that is basically your you are doing 2 C plus 100 okay you tell me you tell me first of all first of all first of all you tell me is this even consistent
+
+157
+01:25:12,000 --> 01:25:42,960
+Is this preserving consistency? Is this even preserving consistency? Did this preserve consistency? Did this preserve consistency? Look at this. Look at this. Look at this. This you see and this you see. So this did not even preserve consistency. Yes or no? Yes or no? This did not preserve consistency. So you can easily see this as to not preserve consistency.
+
+158
+01:25:44,730 --> 01:26:15,500
+as to did not even preserve consistency correct as to not preserve consistency this as to did not preserve the consistency yes or no your database is starting in a consistent state you started in a consistent state but it did not take you to the another consistent state so this as to did not even preserve consistency and you can easily see you can easily see that these are not the effects of any serial schedule
+
+159
+01:26:15,850 --> 01:26:45,840
+these two these are not the effects of any serial schedule so I can say H2 is not equivalent to T1 to T2 and remember H2 is not equivalent to T2 to T1 so finally what I can say about this S1 what I can say this H2 what I can say this H2 is not equivalent to any serial schedule this H2 is not serializable it is not equivalent to any serial schedule so this is not serializable
+
+160
+01:26:46,980 --> 01:27:16,620
+i hope this point is clear very simple so this this example we have seen is this understood to everyone let me know now let's see this question another question i'm taking so the question number this question is this done we have seen one schedule see we have seen serial schedule t1 t2 we have seen another serial schedule t2 t1 then we have seen two concurrent schedule correct two non serial schedule we have seen one of them is serializable another is not serializable
+
+161
+01:27:16,880 --> 01:27:46,470
+so all the cases we have covered you tell me do you have any doubt right now at this point of time at this point of time if you have any doubt you can ask please tell me this is a important concept from your gate exam point of view these are the two marks so don't keep any doubt now let's see the question number two let's see this example number two again the consistency requirement is same okay the consistency requirement is not changing the transactions are changing remember now the transactions have changed remember the transactions have changed
+
+162
+01:27:46,810 --> 01:28:16,760
+okay like transition T1 is same T1 is same but T2 is changing T2 has changed your T2 is different so now you have two transactions and the consistency requirement is same the consistency constraint on the database state on the database state that is same A equal to B that is your consistency requirement okay now let's see first of all you tell me you tell me quickly see this these two transactions and you tell me the effect of T1 T2
+
+163
+01:28:17,130 --> 01:28:59,330
+Please tell me the effects of T1 T2. Please tell me the effects of T1 T2 serial schedule. What are the effects of this T1 T2 serial schedule? First I do T1, then I do T2. So what are the effects? T1 T2. What are the effects of T1 T2 serial schedule? First I do T1, then I do T2. What are the effects? Tell me. So you can see that if you start in a consistent state, like A equal to B equal to C, if you start in this state,
+
+164
+01:29:00,100 --> 01:29:29,360
+and then you do this t1 t2 first you do t1 then you do t2 this serial schedule you do then what is your final state your final state what is that you can notice easily you can see that a is increasing by 100 then then it is increasing by 200 correct so I can say that final your a value will be basically c plus 300 your final value is basically c plus 300 and your final b value will be c plus 300 correct
+
+165
+01:29:29,790 --> 01:30:07,850
+These are the effects of T12. You tell me the effects of T12. You tell me the effects of T12 serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial serial
+
+166
+01:30:07,920 --> 01:30:37,730
+and b will be c plus 300 okay okay okay so this is the these are the effects of t2 t1 these are the effects of t1 t2 so we have seen them basically they have the same effect yes or no this t1 t2 t2 t1 they have the same effects now you tell me the answer for this is this serializable let's call it schedule let's let me call it schedule s1 i am calling it schedule s1 okay and my question what is my question is s1 serializable
+
+167
+01:30:42,760 --> 01:31:14,860
+Is this schedule as one is this serializable? This is my cursor. Is it serializable? And the answer, the answer is very simple. You can see that you start in a consistent state. Your consistency requirement is equal to be so at this point of time, what is the value of in the database? What is the value of a at this point of time in the database? The value of a is basically C plus 100. Okay. At this point of time in the database, what is the value of a at this point of time? The value is basically
+
+168
+01:31:15,350 --> 01:31:44,330
+C plus 300 and similarly you can see in the database at this point of time the value of B is to C plus 200 and finally your database has B value C plus 300 so you can easily see that this you can see this you can see so can I say yes it is equivalent to both of them but we only want one of them okay we are we are fine with one of them so you can easily see that this as the schedule as one
+
+169
+01:31:44,530 --> 01:32:13,010
+you can easily see actually let's call it S3 let's no problem actually you can call it S1 so anyway so this S1 you can easily see this is equivalent to T1 T2 and this is enough right yes or no of course coincident this is a coincidence that this is also equivalent to T2 T1 but we are only fine with this correct we are fine with this so from this can I say that S1 is serializable yes or no S1 is serializable
+
+170
+01:32:15,080 --> 01:32:43,020
+S1 is serializable, correct or not? Did you understand this? Because S1 is equivalent to some serial serial. This is also fine. From here also you can see that S1 is serializable. One of them is fine. Now what I am saying that definitely this is serializable. Now something interesting I want to tell you. What is that? After sometime we will see that this is not view serializable. So after sometime we will see this.
+
+171
+01:32:44,060 --> 01:33:17,260
+we will see that this schedule is not view serializable okay we will see we will see we will see that s1 is not view serializable it is not view serializable okay are you getting my point after sometime we will see it is not view serializable so this is not view serializable we will also see this is not conflict serializable so this is not remember this is not a conflict serializable
+
+172
+01:33:17,840 --> 01:33:45,320
+ok so this schedule is very interesting that this is serializable this is serializable but not view serializable this is serializable but not conflict serializable so remember this schedule is serializable but neither conflict serializable nor view serializable is this understood please tell me please tell me is this understood so this schedule that you have this schedule is here these are all the conflict serializable schedules
+
+173
+01:33:45,850 --> 01:34:16,820
+these are all view serializable schedules and these are all serializable schedules okay these are the serializable schedules and what I am saying I am saying that this schedule S1 is here this is a serializable schedule but it is not view serializable it is not conflict serializable these concepts we will see CSVS these two concepts we will see but actually why I am like you might be thinking sir why are you stressing so much
+
+174
+01:34:17,080 --> 01:34:46,600
+on this point yes or no why i am stressing so much on this point because this is a misconception many many many students they have this misconception that vs is same as serializable they have this misconception that they are same if it is view serializable then it is serializable if it is serializable then it is view serializable this misconception many students have and let me tell you like let me tell you that many teachers they teach that they are same
+
+175
+01:34:47,810 --> 01:35:16,330
+For the last many years five year for the last five year ten year twenty year. Okay teachers are teaching. They are same Let me tell you in the standard books It is already there are in the standard books. It is already there that they are not same It is already given in the standard books For example, this is from the Ulman in the Ulman. This is serializable and You will see after sometime you will see that this is not view serializable
+
+176
+01:35:16,590 --> 01:35:45,760
+so these things are already present in the extended books also in the as I told you like for example in the NPTEL these screenshots I have taken from the NPTEL see this is from NPTEL as this we have already seen yes or no that NPTEL is seen this is from NPTEL IIT Madras NPTEL lectures so like for the last so many years this is a misconception that is the reason I'm I'm I'm stressing
+
+177
+01:35:46,360 --> 01:36:15,800
+If you have already studied this misconception, then please understand that this is not true. Okay? So this schedule that we have seen, this schedule is serializable but it is not view serializable. Is this understood? Please tell me. So this is your another example. Now let me tell you. Can anyone tell me one idea why it became serializable? What is the reason it became serializable? What is the reason?
+
+178
+01:36:16,030 --> 01:36:46,160
+it became serializable but the last schedule if i do multiplication here that is not serializable here if i do multiplication that is not serializable are you getting my point in the last example it was multiplication yes or no in the last example in the last example it was multiplication with 2 multiply by 2 yes or no do you remember it was multiply by 2 so when you were having multiplication by 2
+
+179
+01:36:46,430 --> 01:37:24,280
+it was not serializable and when you have addition then it is serializable so did you notice if you do some observation this observation you can make this observation you can make observation of why S1 is serializable okay so what is the observation that why S1 is serializable but not view serializable see don't worry we will see this but not view serializable
+
+180
+01:37:28,170 --> 01:38:01,400
+What is making it serializable but not view serializable this concept we will see in future So don't worry about this concept. Do not worry. Okay, so what I'm saying observation of why as one is serializable but not view serializable and the observation is observation is very simple because of because of computations performed by computations because of computations performed by transactions because of computations performed by transactions
+
+181
+01:38:05,650 --> 01:38:36,770
+Because of computations performed by transactions. You can do addition in any order. You can do addition in any order. You can do addition in any order. You can do addition in any order. You can do addition in any order. You can see that because of these computations. Let me tell you what happens. This view serializability does not see these things.
+
+182
+01:38:37,600 --> 01:39:06,830
+something interesting I am telling you what I am saying that when we study view serializability view serializability only sees read write okay are you getting my point view serializability concept that only sees read write that cannot see that is that cannot see these things that cannot see these things are you getting my point view serializability can only see read write that cannot see these things but you tell me one thing if you
+
+183
+01:39:07,150 --> 01:39:36,420
+if you don't see these things then you cannot do some good decisions can i say can i say if you see the complete picture you will take some good decisions yes or no this is the complete picture but this is what view serializability see so the concept of view serializability does not see these computations these computations are not seen to the view serializability concept so that is the reason
+
+184
+01:39:36,810 --> 01:40:06,630
+That is the reason. So what I'm saying I'm saying that because of these computations Okay, what is happening? This schedule is serializable, but it is not view serializable Anyway, don't worry about view serializability. So what I'm saying this schedule is serializable, but only because of these computations Only because of these computations. So because of these detailed behavior Because of detailed behavior, it is a serializable
+
+185
+01:40:07,020 --> 01:40:36,300
+and we will see that if you if you remove these if you remove these computations now it is not view serializable this schedule is not view serializable okay so this is the concept this is an interesting concept that I hope you understood this please tell me so far did you understand all the concepts don't worry about view serializability don't worry about conflict serializability but you tell me in general this serializability concept did you understand so let's do one last question
+
+186
+01:40:36,750 --> 01:41:10,480
+this is our today's last question in the serializability in general so this concept of serializability the general concept we have already seen and you solve this question you tell me is this serializable is the given schedule serializable on your screen this schedule is given to you is this serializable tell me what you will do let me tell you this is also not view serializable let me tell you and this is from court this is from court
+
+187
+01:41:10,860 --> 01:41:41,940
+Let me tell you, this is also not view serializable. But I am asking, is this serializable? This is my question. My question is, is this serializable? You tell me one thing, what you will do? If you want to solve this question, what you are going to do? What you are going to do? Consistency condition is not given. Then what you will do? Aditya? Consistency condition is not given. Then what you will do? How will you solve? See, that is the reason I have given this question. Intentionally,
+
+188
+01:41:42,330 --> 01:42:20,480
+i have given this question if i don't give you consistency condition then how will you solve yes take a take a something b something and check the effects of this schedule check the effects of t1 t2 check the effects of t2 t1 very simple do the procedure apply the procedure apply the procedure so let's do this so first you tell me if i do t1 t2 t1 t5
+
+189
+01:42:21,490 --> 01:43:00,400
+if i do serial t1 t5 if i do serial t1 t5 this serial if i do if i do this serially what are the effects what are the effects so for example if you start initially if you start in this state like a is a and b is b what are the final state so what are the effects the effects are very simple let's assume this is your initial let's assume this is your initial database state
+
+190
+01:43:00,890 --> 01:43:29,760
+this is the initial database state now you tell me what are the effects initial database state is a equal to a b equal to b these are the effects then you can easily see that finally finally your effects or I can say final database state so final database state when you do complete t1 please understand okay I am asking for this serial do this serially do this serially serially do this serially
+
+191
+01:43:30,090 --> 01:43:59,130
+so you do this complete you completely do this so what will happen if a will be subtracted by 50 and then you do this completely then it will be added by 410 so your final state will be I can say the value of a will be a minus 50 and then plus 40 yes or no sorry plus 10 so this will be this a minus 50 plus 10 so I can say a minus 40 what about be what about be
+
+192
+01:43:59,290 --> 01:44:31,220
+So the B is also very simple that first you are doing B plus 50 and then you are doing minus 10. So it will be basically B plus 40. Okay, these are the final effects. You tell me the final effects of T to T1. You tell me the T5 T1. You tell me the final effects of T5 T1. T5 T1. What are the effects? T5 T1. So first you do T5 completely. So what will happen in the T5 if you do completely, it will do
+
+193
+01:44:31,520 --> 01:44:59,720
+first it will do a plus 10 and then it will minus 50 okay and similarly remember similarly it will do first it will do b minus 10 and then it will do plus 50 so yes effects are same yes or no so the final effects are same so we have seen t5 t1 t1 t5 now you tell me the answer for this now what are the effects of this schedule is given to you what are the effects of this schedule now you now you consider this schedule
+
+194
+01:45:01,060 --> 01:45:31,770
+let's call this schedule as one okay let me call this schedule as one so you tell me the schedule of this so here you can easily see that now you do this now the now your initial you are starting an initial state where a is a and b is b this this is your initial state then what is your final state your final state will be what is a a is very simple so that will be like
+
+195
+01:45:32,010 --> 01:46:02,230
+I can say first you will do a-50 and then you are adding 10 okay so here I can say a is basically a-40 and what is happening to be what is happening to be in the be basically you are doing b plus 50 sorry first you are doing b-10 first you are doing b-10 then you are doing b plus 50 so that will be like b plus 40 so can you see that this s1 is equivalent to what you can see this s1 is equivalent to t1 to t1 t5 okay
+
+196
+01:46:02,480 --> 01:46:31,980
+and this is enough for us this is enough for us of course s1 is also equivalent to t5 t1 but one of them is enough for us so i can say that because of this okay one of them is enough you can take above or you can take this so from here i can say s1 is serializable this s1 this is also serializable okay so remember this is not a view serializable we will see this after some time but this is serializable so this is your chapter i hope this is understood
+
+197
+01:46:32,530 --> 01:47:04,080
+Now what are the problems can anyone tell me this is serializability concept in general it relies on everything yes or no did you notice did you notice that it relies on everything this serializability in general this concept of serializability okay in general if you notice if this concept you notice in more general sense the concept of serializability if you notice it relies on what tell me
+
+198
+01:47:04,420 --> 01:47:36,590
+it relies on it relies on all operations yes or no it relies on all operations and computations is this understood it relies on all operations and computations it will rely on all the operations and it will rely on all computations yes or no is this clear so you can notice this concept this serializability concept depends on all these things so what is the problem then then what is the problem it is good
+
+199
+01:47:36,830 --> 01:48:06,230
+it is good yes or no it depends on all operations it depends on all computations that is a good thing it is giving you answer by looking at every information it will see every information and then it will give you the answer but what is the problem then the problem is very simple that remember transaction is a program yes or no every transaction is a program and you tell me we have already seen in the TOC in the theory of computation we have already seen
+
+200
+01:48:06,430 --> 01:48:36,950
+What a program does is that decidable? Are you getting my point? Are you getting my point what I'm saying? I am saying that I am saying that transaction is a program. Yes or no. Transaction if you wrote if transaction is a program. Transaction is basically a program. You can think of this transaction as a low level program. As a low level program. Now you already know that what a program does. Computations means what a program is doing. What computations this program is doing.
+
+201
+01:48:37,230 --> 01:49:07,340
+you tell me one thing in the theory of computation we have already seen given a program will it do addition is it decidable given a program does it do addition is this problem decidable that is not decidable right yes or no what a program will do what work a program does that is not decidable are you getting my point so remember this serializability concept this general concept of serializability this relies on all operations and computations and that is the problem
+
+202
+01:49:07,790 --> 01:49:40,950
+so what a program does what a program computes what a program computes what a program computes remember what what a program computes is undecidable is undecidable so so the serializability in this serializability concept you cannot implement as we have studied please tell me did you understand this so the serializability concept
+
+203
+01:49:42,160 --> 01:50:13,870
+cannot be implemented as we have studied yes or no i can say so this serializability concept in general i can say this serializability concept in general cannot be implemented cannot be implemented please tell me did you understand this let me know did you understand this anyone has any doubt in this what i am saying i am saying that problem there is a problem with the general definition of serializability
+
+204
+01:50:14,120 --> 01:50:44,160
+The most general definition of serializability has a problem. What is the problem? The problem is implementation. The problem is basically implementation. It is not possible to implement. It is I can say very extremely hard to implement or I can say almost impossible to implement. Okay. Because remember so far we have considered so far in the definition we have considered the computations all the computations we have considered. Okay. To determine whether a schedule is serializable or not.
+
+205
+01:50:44,450 --> 01:51:18,090
+So this is, I can say this is not implementable. Okay. Cannot be implemented. This serializability concept. So what do we need? Almost impossible. There is, this is almost impossible to implement. So tell me what we need. So what is the solution? What is the solution then? Problem has a solution we have. So what is the solution then? Don't look at the computation. Don't rely on the computations. Yes or no. Don't rely on computations. Correct?
+
+206
+01:51:18,460 --> 01:51:47,970
+please tell me did you understand this see step by step i'm going you tell me this don't rely on computations of transactions don't rely on the computations just rely on read or write what you are reading what you are writing cc what you read that is fine but like what you will do with that read don't rely on that are you getting my point will you what you will do with that read don't rely on that so this is the solution don't rely on computations so the solution is very simple
+
+207
+01:51:48,800 --> 01:52:21,330
+only see read comma write not the computations only rely on read comma write not the computations only i can say only see read comma write just see what you are reading what you are writing not the computations not the computations not the computations is this clear like only see what you are reading what you are writing like for example i'm reading a i'm writing a but but but but
+
+208
+01:52:21,370 --> 01:52:53,220
+here what you are doing okay that we don't see okay this computation this is called computation yes or no between this reading and writing what you are doing this is called computation don't rely on this computation just see this just see this and don't worry about this don't see this is this clear here you can have anything here you can have anything but don't rely on that so your solution does not rely on computations and these solutions are called
+
+209
+01:52:53,550 --> 01:53:23,190
+conflict serializability view serializability okay so don't rely on the computations so we define new definition of serializability i will give you new notion new idea of serializability i will give you which okay for which only the read write performed matter not the actual values not the computations the computations does not matter the values does not matter only the read write will matter okay so the definitions
+
+210
+01:53:24,540 --> 01:53:55,510
+of serializability based on purely read write based on purely read write operation these are conflict and view serializability please tell me did you understand let me know so this is your chapter of serializability so we have seen serializability in general now in the next lecture we will see conflict serializability okay so this is your now now we will study we will start conflict serializability in the next lecture
+
+211
+01:53:55,820 --> 01:54:25,060
+but before that tell me do you have any any doubt let me give you the conclusion okay please see this what we are what what is our target target what is our target tell me where we started tell me where we started we wanted to ensure isolation yes or no this isolation property i in acid in the acid this isolation property we wanted to ensure to ensure that property what what idea we got tell me we got this idea that
+
+212
+01:54:25,420 --> 01:54:51,480
+Serial schedule in a serial schedule all the transactions are isolated yes or no this idea we got do you agree in the serial schedule all transactions are isolated or you can say like this if all transactions are isolated it means they are executing serially you can think like this if all the transactions are isolated okay if they are thinking they are isolated then you can assume that they are executing in a serial manner
+
+213
+01:54:51,770 --> 01:55:20,370
+so this is the idea we got then we got the idea that what we can do to ensure isolation we can create a concept of serializability a schedule which is equivalent to serial schedule a schedule which is equivalent to some serial schedule the effects of our schedule is same as the effects of some serial schedule so we define a concept of serializability okay now in this concept of serializability what we do a transaction sorry a schedule is given to you
+
+214
+01:55:20,540 --> 01:55:43,880
+a schedule is given to you and we check is this schedule equivalent to some serial schedule. So we find out the effect of every serial schedule. For every serial schedule we find out the effects. What are the effects of every serial schedule and then what we do we find out our schedule has the same effect as one of the serial schedule.
+
+215
+01:55:44,320 --> 01:56:14,060
+If our schedule is equivalent to one of the serial schedule, then we can say that our schedule is serializable. So this is the concept of serializability. Now there is a problem in this concept. What is the problem? Because this concept relies on all the operations. It will rely on read operation, it will rely on write operation, it will rely on the computations. So basically what a transaction does, which element it will read,
+
+216
+01:56:14,390 --> 01:56:41,570
+which element it will write which and what computation it will do addition, multiplication, subtraction, logarithm, sine, cosine what operation it will do this is the simple point it will depend on everything what computation you will do what element you will read what element you will write there is a problem because you can notice what operations what computations a program will do what computations a transaction will do
+
+217
+01:56:41,880 --> 01:57:00,960
+that is not easy or i can say that is undecidable we cannot find out okay see we have only taken the easy easy example you might be thinking sir we can easily see that it is doing addition we can easily see it is doing multiplication it is very easy see we have only taken addition multiplication but tell me are these the only operations
+
+218
+01:57:01,610 --> 01:57:27,350
+are these the only operations no there are many other operations whenever you write a SQL query in that SQL query you can have some complicated operation also can be there so remember very simple that if you rely on the computations what computation we do you read element a that is fine you write element a that is fine but but what operation what computation you will do on that element a that we cannot find out
+
+219
+01:57:27,630 --> 01:57:51,670
+okay so this is a simple thing that you should not rely on the computations so if you don't rely on the computations then a new concept of serializability we find out and that concept is conflict serializability and view serializability see these are the concepts of serializability which do not rely on the computations so they will they are purely based on read write operation
+
+220
+01:57:52,620 --> 01:58:19,840
+which element you read which element you write so they will only see which element you read which element you write they will not see what you do on that element they will not see the computation so these two concepts conflict serializability view serializability these two concepts they are only defined or I can say they are purely based on read write operations okay so this is the idea please tell me do you do you have any doubt let me know
+
+221
+01:58:20,710 --> 01:58:50,200
+Let me know it. Do you have any doubt right now at this point of time? Do you have any doubt in the concept of so in the gate exam if they give you some schedule Can you find out it is serializable or not? Can you find out tell me? Can you find out in a in the gate exam? They give you a schedule. Can you find out it is serializable or not? Okay, so that's it. So now in the next lecture we will study conflict serializability the next lecture we will start after two hours
+
+222
+01:58:50,560 --> 01:59:18,460
+Okay at 1230 we will start the next lecture. Okay, so today we will study conflict serializability then we will then today today both of them we will study okay conflict as well as view both of them we will study the next lecture we will start after two hours and I want to tell you one more thing that if you have studied from somewhere else if you have already studied from some other institute then you can definitely see a lot of misconceptions
+
+223
+01:59:19,250 --> 01:59:49,480
+You can definitely see a lot of differences you will see. Okay. So like in this lecture, I think what we have seen in this lecture. Okay. This is not even taught. Let me tell you. They will not even teach these things. Okay. They will directly start from the conflict serializability. They will always start from there. Okay. So anyway, thank you everyone. So in the next lecture, we will start conflict serializability. Okay. I will upload the notes right now. Okay.
+
+224
+01:59:50,580 --> 01:59:50,880
+Thank you.
+

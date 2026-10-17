@@ -1,0 +1,316 @@
+1
+00:00:00,850 --> 00:00:17,810
+Hi everyone, so this is a completely optional video which means here we are going to see one example of C code that we are going to translate into assembly. So the purpose of this video is to make you understand that how compilers are making use of the addresses, right?
+
+2
+00:00:18,080 --> 00:00:40,940
+Do you remember I told you that if I am writing let's suppose move r1 comma 1000 or something like that then how compiler is actually generating these addresses. So this is one thing that is still unanswered. So in this particular video I want to answer this and this video is completely optional in the sense that you don't have to watch it now. You will get to understand these things later in computer organization.
+
+3
+00:00:41,310 --> 00:01:05,680
+so currently make it completely optional if you want you just watch it if you don't want don't watch it okay so let's just see that how a C program can be converted into some assembly code so this is a C program very simple C program and here I just want to make you understand that how how we are converting that to some assembly code so let's just see this see there is a main function
+
+4
+00:01:06,000 --> 00:01:32,020
+that main function is calling this fancy function right so this is fancy function so this main function is calling fancy function and this fancy function is having some some statements now let's just see that how we are or how compiler is converting that to assembly so if you notice that this is the main I mean this is the code of the assembly of main main function this is code for the fancy function now
+
+5
+00:01:32,480 --> 00:02:04,790
+There are, I mean, some registers, R, V, P, RSP, these are being used. So let me first explain you that what does this R, V, P, RSP or these things, okay? I mean, let me quickly explain you that how does it work. So see, whenever you run any program, there is something called, I mean, whenever you call some function, there is something called activation record, right? Activation record. So this activation record get pushed whenever you call a function in the stack. So this is one stack.
+
+6
+00:02:05,230 --> 00:02:32,190
+and if we are calling main then main activation record will get pushed if main is calling some other function let's suppose func then func activation record will get pushed right so this is main activation record this is func activation record okay so i hope you understood so that's that's how we are pushing the activation records now now interestingly this stack that we are talking about here yeah so this stack is basically
+
+7
+00:02:33,780 --> 00:03:09,070
+basically can grow upwards which means I mean it depends on the architecture whether you are we are going upward or it can also grow downward so what do I mean by that let me show you see suppose you have something like this I mean your stack maybe maybe something like this also okay so your stack maybe something like this which means in this case stack is growing downward so let me just rewrite it this is fancy activation right
+
+8
+00:03:11,090 --> 00:03:39,970
+Okay, so what we are doing we are basically saying that either stack can grow like this or stack can grow like this and and very easily you can also check why by printing some address I mean if you print some address in the main function and then you print some address in this fancy function then you will get to know that a stack is growing upward or downward I mean it will depend on the implementation so a stack either can grow upward or it can grow downward let's not worry about it okay so basically we push the activation record of the function in the stack that's what I want to say
+
+9
+00:03:40,230 --> 00:04:03,740
+whenever you call any function now there are two pointers that get maintained using two registers one is called base pointer okay this is called base pointer another one is called stack pointer this is stack pointer now there is a register
+
+10
+00:04:04,390 --> 00:04:33,710
+I mean, generally, name can differ. So there is a register, let's suppose, register a base pointer, register a stack pointer. So which holds the value of base pointer, which holds the value of stack pointer. So what does happen? Let's suppose that whenever, whenever you have some stack, then generally, so I'm, I'm, I'm talking in general, okay, generally, it happens that the stack pointer tops the top of the stack. And the base pointer will depend on the function. So it will, it will point to the bottom of the function, I mean, start of the function. So
+
+11
+00:04:34,010 --> 00:04:53,730
+So currently let's suppose you are pushing this function then RBP is pointing the start of the function RSP is pointing to the top of the top of the function or maybe you can say the top of the stack so basically it is a stack pointer which points to the top of the stack there is a there is something called base pointer which points to the generally it's points to the start of the function
+
+12
+00:04:54,220 --> 00:05:09,100
+Okay, it's not like that you have two base pointer for for every function I mean for these two function you have two base pointer No, the base point pointer initially was was this and it will get modified to something else when you whenever you are calling this function So we will come to this this detail later, but for now
+
+13
+00:05:09,320 --> 00:05:39,050
+if you don't know what is stack if you don't know what is I mean what is this activation record and all actually these are the things which you will get to see in the other subjects so stack we are going to see in data structures activation record we are going to see in the compiler design so these two are different components that we are going to see later at the later point in time so that's why I'm saying this this particular video is completely optional video okay so now let's just understand this particular piece of code that what they are saying see what we have we have a main function
+
+14
+00:05:39,350 --> 00:06:11,790
+this is the main function and then we are calling uh i mean we are basically having this particular assembly of this main function now let's just see step by step what is happening here maybe what can i do i can just you know make some space here to explain you the things right okay so okay so uh first we are having these instructions in main function so let's just see what we are doing we are we are having one stack
+
+15
+00:06:14,130 --> 00:06:42,630
+and let's suppose this stack is growing downwards which means that you are having some lower headers 0 0 0 here and some 0 1 0 C some upper headers which is the first address of this stack okay whatever it is so let's not worry about it so now what I'm saying is that you are having one stack which is growing downwards now whenever you have a stack that's very default that you also have the stack pointer so the stack pointer in this particular example we are storing in a variable that variable name is
+
+16
+00:06:42,890 --> 00:06:55,730
+rsp so this is our stack and the stack pointer is in rsp now what we are doing is basically something like that we are pushing the value of rvp so see whenever we call any function
+
+17
+00:06:56,010 --> 00:07:22,300
+whether it is main function or any function so there is something called entry there is something called exit so some entry and exit are actually predetermined i mean are the fixed set of instructions so if you notice this is this is something called entry which is fixed in main and in function also and something something called exit which is fixed in main or or in this function also right so this is exit this is entry which are fixed right this is entry
+
+18
+00:07:22,790 --> 00:08:10,330
+this is exit. So anyway we will just see that what are these but generally these are the fixed set of instructions that we have. Right. Okay. So maybe maybe I can just keep it here this same and then maybe I can just go to the next page. Okay. So let me go to the next page. Just give me a second. So let's consider that this is our image. Okay.
+
+19
+00:08:10,670 --> 00:08:40,340
+So cool. So what I'm saying here is that you have one function, which is main function, and then first you are pushing this RBP, right? See, these are the anti-exit which are fixed, but let's just understand this step by step. You're pushing the value of RBP. So what is RBP? As I told you, there is a base pointer or the frame pointer for every function. So initially, whatever is this value, let's not worry about it. So you are pushing it, pushing the value of RBP in the stack, right? So this is RBP. That's what you're pushing.
+
+20
+00:08:40,830 --> 00:09:03,770
+Now what you are doing you are saying that okay you are moving the value okay whenever you push first of all whenever you push at that time I mean it depends on obviously the architecture but in this architecture whenever we are pushing at that time we are also incrementing the value of RSP so now after the push has happened so I will say after the push has happened now the RSP will start pointing here.
+
+21
+00:09:04,970 --> 00:09:34,860
+Okay, and the push is now complete. So till now only only I can say the push is complete and RSP will start pointing here. So you will say that that After this push has been completed. So you will be having this particular architecture, right? So see here the push is complete. Now, maybe I can just billar this RSP is not pointing here anymore. Okay now This push has been completed and you know this this RSP has been incremented to the next value
+
+22
+00:09:35,060 --> 00:10:00,920
+Okay, you have you have pushed the value of RPP. Whatever is this? Okay, RPP is one register. Whatever it is containing, you will push it here. Now you are moving moving this RSP to RPP, which means that you are having one register RPP, which will be containing same value as RSP, which means this after this instruction, the RPP will start pointing here. So now this is also done, right? So basically, like if I just tell you step by step,
+
+23
+00:10:01,240 --> 00:10:18,150
+currently whenever you do this RSP will start pointing here and then Then whenever you you do this also then RSP and RPP both will start pointing here, right? Okay now Now this RSP minus 16. So it is you are subtracting RSP with the 16 C
+
+24
+00:10:18,620 --> 00:10:39,420
+Again, these instructions and these kind of things will anyway come in the computer architecture later. So currently, we are just understanding this as an optional video, which means even if you don't understand anything, this is completely fine. See, currently, you might not be even knowing what is a stack, but that's okay. Okay. Like in the computer architecture, you will, you will see what are these instructions in the data structures, you will see what is the stack and all.
+
+25
+00:10:39,990 --> 00:11:02,410
+okay so this is an optional video that we are currently seeing now you are subtracting 16 from RSP so since this is the higher address and if you are subtracting then it means that you will go up below right you're subtracting 16 so maybe you are going some 16 bytes down I mean 16 address down so maybe let's suppose this is 4 bytes 4 8 12 and then 16
+
+26
+00:11:02,680 --> 00:11:32,160
+So if you subtract four, you will come here eight 12. And then if you subtract 16, you will come here. So basically after subtraction, after subtraction, you will say that RSP is a start RSP will start pointing to this particular location because this this particular instruction, which is a subtraction will basically make this RSP point to this particular location. So RSP will start pointing here. I hope that is fine. Right. So these are let's suppose four bytes. Okay, this is again suppose four bytes.
+
+27
+00:11:32,410 --> 00:12:01,830
+So these are the four bytes. Anyway, let's not worry about it. But yeah, so I like just for the sake of simplicity and just saying it. So everything I have just kept at the four bytes. I mean, just to manage manage the diagram. Okay. Cool. So these are the four bytes of memories. Okay. So now currently RSP is pointing here. Cool. Now what we are saying now let's just go to the next instruction. So this instruction is also done. And now let's just go to the next instruction. Now what we are saying
+
+28
+00:12:02,110 --> 00:12:33,220
+that this move move d word ptr so basically there is some addressing mode involved in this so let's not worry about it basically it means that you go to this rvp-4 where is this rvp pointing so currently i think rvp is pointing here you go minus 4 which means which means here right so which means at this particular location and then you put 0 you put 0 at this particular location so basically yeah so you will be putting 0 here
+
+29
+00:12:33,390 --> 00:13:01,620
+I mean see RBP is here if you if you if you put put this zero at at RBP then you will putting here but you're putting at minus four so basically you're putting zero here that's perfectly fine I mean you can put here or here it it will depend on the implementation so let's not worry about it but I'm just executing the instructions so RBP minus four will you are putting the zero at RBP minus four cool so now this instruction is also done right now let's just go to this instruction which is saying EDI
+
+30
+00:13:01,920 --> 00:13:30,240
+comma five. So basically there is some register EDI that they have taken. Generally this register is by convention used to store the function argument. So if you are passing five here, then this EDI is one register that is actually storing five. So okay, so EDI is one register which is storing five. Now I mean you are moving five in this idea which is here this five is one constant. Cool. Now this instruction is also done. So we have completed these instructions, right? Now let's just call this function.
+
+31
+00:13:30,620 --> 00:13:59,280
+Now, whenever you're calling the function, you will go to this particular location. I mean, this is one, you can say one subroutine or something. Okay, you will call the function. And then here, what you're doing, you're pushing RBP. So what is the current value of RBP? See, this RBP is currently pointing here, right? Now, you will be pushing this, push means this always work with respect to RSP, which means stack pointer. So wherever this stack pointer is pointing, you push RBP value here.
+
+32
+00:13:59,420 --> 00:14:26,780
+right whatever is the rbp value so you will be putting rbp value whatever the status you will be putting rbp value here right now you are saying uh since since you are pushing okay so since you are pushing that means that now rsp will start pointing to the next location because the push make it uh happen okay so so basically basically you will say that this instruction is also done and and
+
+33
+00:14:27,080 --> 00:14:53,500
+And after this instruction, this RSP will start pointing here and RBP you have already pushed. Okay. So maybe it is fine. Or if you want, I can just go over from the starting. See, I mean, initially, initially, you are pushing RBP. So your, your RPP will be here. Whatever the initial value of this, let's not worry about it. And then you are pushing means you are incrementing RSP also, right? So this instruction is done. And then you are saying move.
+
+34
+00:14:53,850 --> 00:15:22,470
+Then whenever you are saying move, so there is one RBP register, you will be moving RSP value to RSP, so both are pointing to the same location, right? And then once you execute this minus 16, so it will come down, then you execute this minus 4 comma 0, so wherever it is pointing, come minus 4, I mean come 4 down and put the 0. And then you are having one register, so after executing this, you are having one register EDI, you are having 5 here, so you put 5 in that register.
+
+35
+00:15:22,800 --> 00:15:51,700
+Then you call this function and once this instruction is done, then it means that you are basically pushing RBP and then push means you are incrementing this particular value also, right? Okay, now what you're doing now if this is fine, then you are You are basically executing this this instruction means you are basically moving RSP to RBP So whatever is the RBP initially now RBP won't be pointing here anymore. Okay, so RBP will be pointing
+
+36
+00:15:52,180 --> 00:16:15,630
+to this particular location wherever rsp is pointing so rbp will start pointing here right now now you are executing this line which is which is d word ptr rpp minus four cool comma edi so what does this mean it means go to this location rbp minus four okay go to this location
+
+37
+00:16:15,890 --> 00:16:45,560
+see there is some addressing mode involved in this let's not worry about it worry about it but it means is essentially means that go to this location rbp-4 so rbp is currently pointing here okay go to minus 4 which means you go to this location minus 4 means you go to this location and then then at this location put edi edi is 5 so you will putting 5 it
+
+38
+00:16:50,630 --> 00:17:20,280
+So you don't need to worry about that why we are leaving out some some location here Maybe maybe because of some reason like compiler has decided to leave out some some space Okay, not a much space. It is it is just a four byte of a space But anyway, so these are the four bytes these are the four bytes now Now I think which instruction we were executing. Yeah, so this instruction is also done Right after this instruction, you will be having something like this. See also this EDI EDI if you remember EDI was holding this five
+
+39
+00:17:20,520 --> 00:17:45,800
+This five is actually something we have passed here. Okay. So I think in this program, I'm having five, five, five everywhere, but okay, it should have been better if I could have taken three, four, five. Okay. So, okay, let's just do one thing. Let's, let's just work with this example. And then we will move three, four, five later. And then we will see that what we can, I mean, how we can, like how we can modify this particular code. So I think only the difference will be here, this will be three.
+
+40
+00:17:46,070 --> 00:18:10,740
+right it will be 3 if i'm writing 3 anyway but you know that this 5 is in edi and if i'm writing the edi it is basically this 5 will got get copied to argument so basically i'm referring here the argument variable right this is the argument variable okay now let's just uh let's just execute the next line which is rpp minus 8 and now you're putting this constant 5 okay this this 5 so maybe it is because of this right
+
+41
+00:18:11,280 --> 00:18:32,980
+because line by line if you see then it is because of this so RBP minus 8 RBP is here minus 4 is at this point minus 8 is this point now you are again putting 5 which is because of this int a equal to 5 so if you are putting 5 you can say that this is a variable name a actually for the compiler and all like for the assembly the variables doesn't exist only the memory locations exist okay
+
+42
+00:18:33,200 --> 00:19:02,230
+So that's why you don't see any variable a and a and this This argument and it is here. The G is a global variable, which is also representing one memory Okay, this is called absolute addressing mode, but let's not worry about the addressing mode and all currently But I hope you understood that what do I mean by saying that I'm I've executed this line It means that you go to RBP minus 8 and you put 5 here, right? Okay, now let's just execute this line, which is saying that a d word ptr g5
+
+43
+00:19:02,510 --> 00:19:31,010
+So G is a global variable, so it is having one separate memory that is not in the stack. So global variables are always in the separate memory that is called static memory, right? So you will be putting five years in the static memory, okay? So I hope you understood this. So there is some different memory, don't worry about this memory, but that memory is not in stack. That's what I'm saying. Now, popRBP. See, push and pop always with respect to stack pointer.
+
+44
+00:19:31,350 --> 00:19:59,920
+So generally, like we don't increment the stack pointer, which means every time there is no need to increment the stack pointer whenever we are pushing something. But if I'm executing any instruction push or pop, it is always with respect to the stack pointer. So if I'm saying popRVP, it means it means that you are popping, you are popping wherever the stack pointer, see stack pointer is currently here, right? See this instruction is done. Now I'm trying to explain you what happens when you whenever you are doing popRVP. So it will it will pop
+
+45
+00:20:00,130 --> 00:20:29,770
+whatever this hashtag pointer is pointing to, it will pop that value, okay, wherever it is pointing to. See the top of the hashtag, if you look at this hashtag, then top of the hashtag is basically like based on the RSP, it is basically this, like you don't care about these things, like you don't care about these things, you are saying that wherever this RSP is pointing to, pop that value, pop that value and put that value in the RBP. So pop RBP means put that value in this register RBP. So whatever this value, okay, I mean, actually it is restoring the value. So
+
+46
+00:20:29,980 --> 00:20:59,220
+which means that see like let me just tell you that what is happening step by step see initially whatever is the value of rbp that is okay but let's suppose this particular address is this particular address at the starting address let's suppose this is 100 okay this is 100 okay just for your sake of reference then this will be 100 minus 496 okay this is 100 and this is 96 right and then you are saying
+
+47
+00:20:59,570 --> 00:21:29,130
+This RBP is basically pointing here. So RBP is currently 96, right? And now RSP will be this is minus 4, 4, 8, 12, 16 and 20, right? So basically RSP will be 80. So currently RSP, this is actually 80. So RSP will be 80. RBP is actually 96. Okay. Okay. At this particular frame, I'm saying RSP is actually 80. RBP
+
+48
+00:21:29,620 --> 00:21:59,200
+RBP is 96 and this is 100. Now what you are doing? You are putting 0 and these things that is okay. So maybe I can just copy this. Actually, I just want to show you that this is the old RSP. Anyway, so basically, now what you are doing? You are pushing, here you are pushing the RBP and what is the value of RBP? RBP is currently, if I just tell you the RBP, it is basically, I can put this here. The RBP is
+
+49
+00:22:00,360 --> 00:22:17,840
+96 ok if you look at this rbb it is 96 so basically you are putting 96 here right you are putting 96 here now now you are putting 96 so this this rbb value is currently 96 so here you are putting the 96 now whenever I am saying that that you need to
+
+50
+00:22:18,220 --> 00:22:32,700
+pop it I mean whenever you are executing this this is actually 96 right this value is 96 that's what I want to tell you now it means that you pop wherever this stack pointer is pointing to you pop that value and put this 96 in the rbp
+
+51
+00:22:33,180 --> 00:23:01,600
+Which means that RBP after this instruction, once you say that this instruction is executed, then this is very important to see. Then RBP will be getting the value, whichever is the top of the stack. So what is there in the top of the stack? See, pop RBP means you pop the value and put that in the RBP. And pop this 96, put in the RBP. RBP won't be pointing here anymore. After this, RBP will be 96. So which means RBP will start pointing too.
+
+52
+00:23:02,750 --> 00:23:19,190
+and we'll start pointing to this 96, wherever this 96, I mean we'll start pointing to this location. Okay. This is 96. So basically what I'm saying that you have basically restored everything. I mean you, you have restored your RPP. Earlier RPP was this. So this is actually the main frame, main stack pointer. And then
+
+53
+00:23:19,420 --> 00:23:47,440
+between the main and between the function activation record you you push this rbp but whenever you're returning see these are the return statement whenever you're returning you basically do one thing you you store that okay I mean I mean re store that right using this pop so now after this RSP is still pointing here sorry this pop operation will also decrement the RSP so after this statement rbp will start pointing here and RSP
+
+54
+00:23:47,610 --> 00:24:18,090
+will also get decremented just like push push increment the RSP pop decrement the RSP sorry decrement increment here is with respect to where the stack is going downward up but but yeah basically the RSP will be here right increment I think it will be increment okay cool so I hope you understood so after this statement RSP is pointing here RBP is pointing here now let's just go to return so it will return now right now now let's just come back here now this call is done this call
+
+55
+00:24:18,330 --> 00:24:46,050
+this call is done and now you are executing this XOR EX EX so EX is one register that that I think holds by convention that I think holds a return value if I'm not returning anything then maybe this architecture is taking zero because they see if you do the EX EX EX XOR which means if you do any value any value XOR which means let's suppose 101 if you do the XOR of this same this will be 0 0 0 right so basically it is it is one way of saying that you are storing
+
+56
+00:24:46,440 --> 00:25:12,780
+you are storing in the ax register okay there is some ax register let me write this ax you are storing zero here okay it is generally reflecting the return value anyway the like you can ignore this line like you may say that y x or y not we are writing move or something like that right why we why we are not writing move move ax zero or something like this move zero to this you can write this this instruction also that is also fine
+
+57
+00:25:13,340 --> 00:25:39,160
+Maybe maybe this XOR is taking little less bytes. Generally XOR takes I think one byte and move takes generally two or three bytes of the instruction. So maybe just because of that they are doing this XOR. This is one hack that some architecture does. Okay. Anyway, so you can ignore this XOR. This is generally storing the return value. And if there is no return, then by default it takes a zero as return value. Maybe. Okay. So now you are doing what? Now you are adding RSP to 16.
+
+58
+00:25:39,580 --> 00:26:21,310
+so which means this is RSP you are adding means you are going upward so 16 means plus 4 plus 8 plus 12 and plus 16 so once you add 16 you will be here right you will be here so maybe maybe I can yeah so basically this instruction is done now if you add then then okay so if you are 16 here then see earlier it is it was pointing here so plus 4
+
+59
+00:26:21,580 --> 00:26:42,520
+plus eight i mean 16 means four four cells up right one two three four yeah it will be pointing here so now you will start pointing to this particular location right so this is the main activation record and now you are saying pop rvp so wherever it is now you will be popping the rvp i mean popping the value and you will storing storing in the rvp so that's the earlier operation that we did right
+
+60
+00:26:43,130 --> 00:26:58,870
+So that is how you can understand this whole whole procedure basically the idea idea to to explain all of this is to make sure that you understand that how the address translation and these things are happening like you don't need to worry about the particular architecture particular instruction what it is doing
+
+61
+00:26:59,500 --> 00:27:24,740
+or like or or any of this particular syntax you don't need to worry about it so basically the core take away here is that you just need to know the stack pointer like what is the start address right and based on that things get start pushing pushing and whenever you are calling some function it will push this argument like that right so you you never need to know you never need to know like I mean the physical addresses you can just assume that wherever did you are loading
+
+62
+00:27:25,030 --> 00:27:50,030
+right wherever you are loading from that reference you work with all of this so this is this is the stack pointer that is that is being set by the loader okay and wherever you are loading based on that you do all of this system I hope you understood so basically let me just quickly explain this again maybe it will be better so yeah so basically this is the same exactly the same example
+
+63
+00:27:50,460 --> 00:28:20,190
+so instead of 555 I can do one thing I can just take maybe different value maybe 345 and quickly explain you what is happening okay just for the sake of I can say revision see what is happening maybe before that I can I can quickly go through the step by step process that we did so see here this tick mark means we have executed this which means we have pushed the value of rpp whatever the initial value I actually don't know but we have pushed it and then
+
+64
+00:28:20,340 --> 00:28:43,600
+Then we are saying that okay move you move the RSP to RPP so both are pointing the same location you subtract 16 now RSP is pointing here now you do this then then it means that after after the four location zero got got pushed or you are writing the zero and then EDI five means you are having this register this is having five and then
+
+65
+00:28:44,860 --> 00:29:11,450
+then you are calling the function then this push rbp means that you are pushing the value of rbp so rbp is initially here i think 96 so 96 will will get pushed and then then all of this is happening step by step so you can go through the slides i made the slide in such a way that if you do the i mean up button then it will show the step by step process okay cool so what you can do in this particular in this particular example maybe you can write three here
+
+66
+00:29:11,690 --> 00:29:38,590
+you can write maybe four here you can write five here and then you can modify this right so see if you are calling with three then this move edi comma three will be there earlier it was actually five and then everything is okay then here here this int a comma four so earlier you were pushing five but now you need to push here four and then at g you need to push five right i mean you need to write five so the only modification will be this much okay
+
+67
+00:29:38,810 --> 00:30:01,670
+so I hope you understood the core idea was to just let you walk through of the assembly code this is completely optional video it is good that you understood but otherwise it is completely fine if you have not understood okay so now if you just ask me that what was the purpose of studying all of this assembly code and on so I will say that this this was useful just to let you understand that
+
+68
+00:30:02,010 --> 00:30:28,390
+this compiler generates the addresses based on just one thing that where you are pushing the activation to go where you are loading them loading this particular program in the main memory so if you if you recall that there was a problem that we discussed right so the problem was that how how does the compiler get to know that the physical address we will where we will load this particular program so answer we said like compiler doesn't even care where wherever you are loading right so basically why did it doesn't care
+
+69
+00:30:28,690 --> 00:30:45,440
+because of this hashtag pointer see like compiler only cares about the hashtag pointer so what happens that compiler assumes that you have one memory which is also called a virtual memory or logical memory so let's suppose i call it logical memory so you have one memory and
+
+70
+00:30:45,820 --> 00:31:08,740
+and i'm saying that let's suppose the stack is going downward then i'm saying that like okay first of all first like you might not be very much familiar what is this logical memory and all so don't worry about it okay i mean you will get to understand in operating systems so like there is some stack there is some heap and all like we will we will see that in the operating system don't don't at all worry about about it here
+
+71
+00:31:08,940 --> 00:31:34,360
+so what I'm saying like I mean you can you can as I said multiple times you can completely skip this particular video so I just explained you that how assembly code are working because that I was just letting you know that this compiler based on just one thing works on just one thing that where you are pushing your main activation record right or where you are pushing your activation record I mean the start start address
+
+72
+00:31:35,380 --> 00:32:05,190
+So, once you know the start address, right? Once you know the start address, this RSP. Once you know the start address, then everything works based on that, right? So, every other address is related to this RSP. So, which means that you can load it anywhere in the main memory, doesn't matter, like you just tell me what is the starting address and all of those, all of these addresses that we have generated, right? All of these addresses are related to RSP. So, that's why this is also called as relocatable code.
+
+73
+00:32:09,480 --> 00:32:32,420
+This is also called a relocatable code. Why? Because you can locate it anywhere and it will work very charmly. So there won't be any problem. So what may so happen like I mean you will get to study this later but I'm just telling you one thing that you may also divide this particular logical memory whatever the virtual memory you have in the further piece of pages or the segments or something like that.
+
+74
+00:32:33,070 --> 00:32:57,060
+and then you can load these pages at different locations so basically there is one more external complexity that get added and this is the job of operating system that how to manage these pages and that's where the paging comes into the picture so basically operating system will translate the virtual addresses that whatever the compiler is generating these are the virtual addresses only
+
+75
+00:32:57,880 --> 00:33:27,450
+so which is fine with respect to compiler but operating system will translate these virtual addresses into the physical addresses based on that where ever it is loading okay based on that wherever it is loading is it loading to one contiguous chunk of memory that is called one architecture which is base mound architecture is it loading based on the paging that is called paging it is loading based on the demand segmentation or the segmentation so that is called segmentation so basically there are different methods
+
+76
+00:33:29,840 --> 00:34:29,390
+right there are different methods to load the program in the memory and based on that compiler sorry the operating system will generate the physical address so I can say that compiler generates generates logical addresses and based on based on the location or based on the place wherever we are loading the particular program operating system translate
+
+77
+00:34:32,900 --> 00:35:07,430
+logical address to physical address right so that's all okay I mean based on based on the strategy that you are using which means like either using paging base and bound and I mean these are the different strategies that we will see we will see later right so these are the different strategies that we will see later in operating system so all of these is actually the operating system part
+
+78
+00:35:09,410 --> 00:35:51,260
+Okay, so what is the purpose of this video again just to let you know that compiler generates a logical address based on just single thing that where are you loading this loading this program wherever you load I don't care. Let me just generate all the addresses related to that Okay, so compiler assumes so I can I can I can just summarize in one point that compiler assumes assumes all memory is available to just one program it generates
+
+79
+00:35:58,700 --> 00:36:58,870
+addresses based on or you can say it generated the addresses relative to just one thing, right? I mean wherever you are loading the particular program. Usually speaking, so these things happen and you will get to understand all of this in the operating system. So this is the you can say purpose of this video. So this was the purpose of the video. Good. Thank you so much.
+

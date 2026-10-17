@@ -1,0 +1,144 @@
+1
+00:00:00,000 --> 00:00:30,380
+Hi everyone. Let's get started with a very new topic which is memory leak and dangling pointer. So let's just see what is this. So suppose that you have a program where there is a main function and this is some another function. Now what is happening here? This main function is calling this function fancy. Now inside this fancy you're calling a mellow. So let me just tell you that what is happening here is that something like this. So basically there is a
+
+2
+00:00:30,760 --> 00:00:58,020
+Let me write it here. So there is a heap in which from which you are asking the memory of 10 bytes, right? So this is heap and now from the heap you are asking the memory of 10 bytes. Let's suppose this is 10 byte of memory and there is one local variable inside this function. So this is fun C inside this there is one local variable CH which is pointing to this heap memory now
+
+3
+00:00:58,350 --> 00:01:27,430
+what will happen the moment this function get exit right the moment this function get exit this activation record will get destroyed and at this particular point in time you cannot access this ch right i mean ch is not valid outside no way to access this malloc memory so basically this memory that we have just asked from the heap there is no way to access because earlier that was stored in ch but now this is not stored in ch right i mean ch is not even valid here so you will say that
+
+4
+00:01:27,680 --> 00:01:56,280
+this is a memory leak problem why it is a memory leak problem because memory leak is a problem basically where there is a memory and you I mean there is a memory in heap and you have no way to access that memory okay so this is the definition is a memory which hasn't been freed and there is no way to access it so let me just give you more examples suppose if I just write something like this let's suppose there is a main function
+
+5
+00:01:57,020 --> 00:02:27,750
+and then if I let's suppose just write something like this which is x equal to x equal to malloc let's suppose 8 I mean here is this is into star x okay and then let's suppose x equal to malloc 4 let's suppose I write something like this tell me is this a memory leak problem answer is yes why because x is initially pointing to 8 byte of memory
+
+6
+00:02:28,200 --> 00:03:04,130
+8 bytes of memory Now you are asking again 4 bytes of memory without freeing this up, right? Without freeing this earlier memory you are again asking 4 bytes of memory Now this pointer is no longer valid, right? This link is no longer valid So there is no way to access this memory now, right? There is no way to access this memory I hope you understood Now let me give you more examples Suppose
+
+7
+00:03:05,870 --> 00:03:51,640
+that this is the case in star x and then you also have let's suppose star y okay and then what you are doing you're doing the same thing but in between I'm writing just one statement tell me is this a memory leak just think about it a memory leak just think about it see what is happening there is 8 bytes of memories that x was pointing to
+
+8
+00:03:51,960 --> 00:04:20,800
+and then this is 8 byte of memory then you ask Y to point to the same thing and then you are saying okay let X point to something else now X is pointing to something else which is fine I mean see this 8 byte of memory is still accessible using Y and this 4 byte of memory is accessible using X so all the memories are accessible so there is no memory leak here right so answer is no reason is obvious why because this 8 byte of memory can be accessed using Y this 4 byte of memory can be accessed using X
+
+9
+00:04:21,030 --> 00:04:54,590
+So that is why there is no memory leak. Okay. Cool. Let me just ask you one more question. Let's suppose I write something like this and I do after that there may be any number of statements. Tell me is this a memory leak? Answer is yes. Why? Because you are not assigning this particular address to something. I mean you have asked for 8 bytes of memory. This is the 8 bytes of memory and then
+
+10
+00:04:54,820 --> 00:05:18,910
+then whatever is the address if you don't store it you are immediately losing the memory right there is no way to access this 8 byte of memory so that is why this is also the memory leak yes memory leak why because because you are not assigning this particular particular address to any any any punter variable right so that's why this is also the memory leak
+
+11
+00:05:19,180 --> 00:05:51,010
+I hope you understood this very really nice and easy concept that that I'm telling you right so maybe let me just ask you more examples actually we will be doing some questions but before that let me just give you more examples suppose there's a function which returns integer pointer and you write something like this here you say that int int star p equal to malloc 8
+
+12
+00:05:51,530 --> 00:06:28,200
+and then you return this P right and main function is calling this so main function is calling this fun tell me is this a memory leak see here you're asking for 8 byte of memory and then you're returning this address which means this 8 byte of memory is being pointed by P and then you are saying that okay whatever this is let's suppose I starting address is 1000 then you are returning the starting address to X now X is pointing to this
+
+13
+00:06:28,410 --> 00:06:53,990
+x is pointing to this so since there is some variable there is some pointer which is pointing to this that's why this is not a memory leak so I will say no no it is not a memory leak I hope you are understanding right so that is really easy concept about the memory leak so don't don't leak the memory it is just like a crime
+
+14
+00:06:54,210 --> 00:07:24,610
+okay memory leakage crime so I have taken this screenshot from MIT so we have we can take a place that I promise to always free each chunk of memory that I allocate okay so don't don't leak the memory whenever you're asking for the memory just free this up okay which means that if you if you want to return before return if you just free this up let's suppose let me just give you the give you one more example let's suppose you have something like this you have
+
+15
+00:07:24,840 --> 00:08:08,040
+Maybe I can copy paste that. Okay. Let's suppose you have something like this. And here, before you return, you just free up this memory. Then there is no memory leak, right? So free CH. So here no memory leak. Either someone is holding it. I mean, if there is a memory, then then someone should be pointing it. Okay. If you don't want to point to any of the pointer, then just free up this that memory. Right.
+
+16
+00:08:08,570 --> 00:08:50,210
+Okay, let me ask you maybe one more question Suppose if I say something like this Let's suppose this is a function and here I'm having let's suppose one Let's suppose I'm having one character Okay, which is let's suppose some C character and then C equal to a Suppose I say CH equal to address of C then tell me is this a memory leak
+
+17
+00:08:51,690 --> 00:09:22,290
+see ch was earlier pointing to the 10 byte of memory right ch was earlier pointing to the 10 byte of memory and then you suddenly ask the ch 2.2 c there is some variable c in the stack itself that is fine you suddenly ask and you are losing this link so you should not do it I mean if you want to do it then before that just free up this right this is this a memory leak then yes this is memory leak this is memory leak and how to fix it just free up the memory right
+
+18
+00:09:22,740 --> 00:09:47,630
+If you free this, then this is not a memory leak. Which means if you introduce a free CH here, then this is not a memory leak. I hope you understood. So basically before you assign this CH variable to anything else, just free up this memory. If you don't want to use this memory anymore. Cool.
+
+19
+00:09:48,010 --> 00:10:17,240
+So that is that is what this slide is saying that I promise that I will always free the chunk of memory that I each chunk of the memory that I allocate. Okay. So that's all about the memory leak. We will solve the questions and that will give you extreme clarity. But before that, let's just introduce the few concepts, which is memory leak and dangling pointer. So there is one more concept, which is dangling pointer. Let's just see this. So what dangling pointer says, a dangling pointer points to a memory that already been freed. That's very interesting. See, what's what's happening here.
+
+20
+00:10:17,660 --> 00:10:50,630
+let me just give you one example let's suppose that there is a main function and then what to do you basically say that int star x equal to malloc 8 or 4 whatever right and then you say that okay I mean you do some work and then you say that free x you just free up this x now x has become a dangling pointer here which means
+
+21
+00:10:50,950 --> 00:11:21,110
+X is now actually X still points to the same memory, right? So this is malloc8 at X still points to the same memory. So now X is a dangling pointer, which means that you cannot use star X because this memory has been freed up. So if you use star X, it's a problem. So the moment you use star X, it's a problem. So star X is a problem. So if you say star X equal to five, then then you will say this is a dangling pointer issue, dangling pointer.
+
+22
+00:11:23,260 --> 00:11:54,610
+issue So what does this mean? It means that x is still pointing to the memory which has been freed and now you are using x Then it is a dangling pointer issue Okay, I mean that is not necessary that using the malloc you can you can also use You can also have using some normal function. Let's see this So suppose there is a function which is basically having one local variable str Which is hello, right? And there are null characters Okay, and now str is pointing here
+
+23
+00:11:54,970 --> 00:12:16,300
+Now what you're doing since it is a local variable here in this function now you're doing you are saying that okay now once the function returns it will get destroyed I mean this particular this particular address this all the variables will get destroyed but you are returning this address so let's suppose this is thousand now you're returning the thousand you're returning basically the thousand right now you're saying that okay
+
+24
+00:12:17,390 --> 00:12:44,580
+Now you are saying that okay the C is still holding 1000 and now let's suppose you are doing star C equal to star C equal to some character maybe let's suppose A. Is this a valid thing? See what is happening here that this is 1000 I mean you are returning 1000 which means that you are returning the address of H right which is actually the some memory which has already been destroyed because the moment you return this memory will get destroyed.
+
+25
+00:12:44,990 --> 00:13:11,750
+So what will happen here is that there is, let me draw the diagram properly, there is a main function and there is a fancy activation record. This is let's suppose the fancy activation record. Inside this there was a memory which is having hello and this is main activation record inside which this is C which is pointing to this memory. This is what is happening.
+
+26
+00:13:12,420 --> 00:13:41,260
+Now tell me, can you point to this memory? I mean, can you still access this memory? Answer is no. The star c will lead to, I mean may lead to the runtime error. Because if you are still trying to access this memory, then you are actually saying that, I mean, you are basically accessing the memory which has been freed up. Maybe because you freed it up or maybe because by default the function returns and automatically get destroyed, right? So basically, if you are accessing the memory which has already been freed up, then it's a dangling point ratio.
+
+27
+00:13:41,620 --> 00:14:04,010
+So that's why I will say it's a dangling pointer issue here. Okay. Let's see more example. Don't worry, it will get get more clear. So let's see this example. So here you're freeing this up and then you are using the start C writing to the freed location. This is dangling pointer, right? This is again the dangling pointer. You cannot write to the freed location. Okay. Now let's see this question.
+
+28
+00:14:04,310 --> 00:14:33,350
+Maybe maybe it will be helpful to see that what it is doing. So in all the questions that we have here, you just need to tell whether it is a dangling point ratio or the memory leak issue. Okay. So let's see this question. Now they are saying you allocate some chunk of memory. I mean one byte of memory or whatever. And then you write a there. You write a there. P is pointing here. And now you allocate another chunk of memory and P is this link is getting destroyed. The moment you write this line, this is a memory leak problem. Isn't it?
+
+29
+00:14:33,640 --> 00:15:04,750
+So you will say this is not a dangling, dangling pointer problem because no memory was freed. But yeah, this is a memory leak problem. The moment you write this line. So this is a memory leak problem, right? Okay, let's see more, more questions. So let's see this question. You need to tell whether it is a memory leak problem or dangling pointer problem. Okay, so in all the questions that we have, you just need to tell whether it is a memory leak problem or dangling pointer problem. So I have couple of questions. Five, six, seven, eight, nine.
+
+30
+00:15:06,150 --> 00:15:35,100
+10 11 12 13 14 15 and these are the gate questions, right? So these are the gate questions. So I have couple of questions. Let's just solve these questions. And you just need to tell whether in all the questions you need to tell whether it is a memory leak or dangling pointer. So there's a do by loop x is basically asking for some chunk of memory. So there's one chunk of memory x is pointing there, right inside the heap print print the print print f enter and integer
+
+31
+00:15:35,470 --> 00:16:03,910
+so let's suppose you enter some integer and it will say that you let's suppose you enter 3 it will say you enter 3 if you have not entered 0 then it will again so this is interesting it will again ask for the new chunk of memory and now x is pointing here see let's suppose at first iteration you you enter 3 so now 3 has been entered this loop will get executed again and x is now pointing here this time let's suppose you enter 5 so since it is not 0 it will it will execute again
+
+32
+00:16:04,140 --> 00:16:28,780
+and now it is asking for another chunk of memory so basically let's suppose that it is now pointing this chunk of memory let's suppose this time you enter 10 then what is happening again and again there is a lot of memory leak why because this memory is no longer accessible right because you are modifying this pointer x before freeing I mean maybe maybe you could have done something like this at this particular moment you can write free you can write free x
+
+33
+00:16:29,020 --> 00:16:54,850
+then it is a good idea right because you are filling up the memory when it is not being used I mean before modifying this x you are filling up the earlier memory but if you are not filling up the memory you are again and again doing the same thing and then you are filling up only the last memory I mean see at the last what will happen at the last let's suppose you entered zero zero x is pointing here and then you are only filling up this memory which is zero I mean which is holding zero what about the earlier memories that you have asked for
+
+34
+00:16:55,050 --> 00:17:27,560
+So if you're only freeing up one Changa memory, then it is not a good idea. I mean, this is a memory leak problem. So you're asking in the loop, you're asking the malloc again and again, but freeing up only once, right? This is not a good idea. So that's why it is a memory leak problem. Okay. Let's see more questions. Now tell me whether it is a memory leak problem or a dangling pointer problem. So what is happening here? Here you're writing three pointers PQR, P, Q.
+
+35
+00:17:28,330 --> 00:18:02,580
+and R, P is pointing to 8 byte of memory, Q is pointing to whatever P is pointing to and then you free up this memory, right? Then R is pointing to some 8 byte of memory, I mean some new 8 byte of memory, then you are saying star Q equal to 5, which means what? You are trying to access the memory which has been freed up. So this is a dangling point ratio, right? This is a dangling point ratio. I hope you understood.
+
+36
+00:18:03,660 --> 00:18:25,460
+So let's go to the next video. I mean in the next video, we will be solving all other questions. So if you want, you can just try out these questions, right? This question number eight is very, very good. Just try it out. Okay. And then this is question number nine, 10, 11, 12, 13. And you just try out all the questions and let me know what are the answers you are getting. Okay. Cool. So we will be meeting in the next video. Thank you so much.
+

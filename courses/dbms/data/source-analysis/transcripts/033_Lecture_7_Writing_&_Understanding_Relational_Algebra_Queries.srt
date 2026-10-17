@@ -1,0 +1,920 @@
+1
+00:03:28,980 --> 00:03:59,030
+Hi everyone. So let's start now. Lecture seven. In this lecture, we will write and understand relation algebra queries. So we have already seen relation algebra operators. All the operators we have seen. Now we have to apply them. Okay. Remember this lecture, this particular, this lecture is only about applications, whatever concepts you have understood. Just apply those concepts. Okay. So now let's start. So writing relation algebra queries. So basically the idea.
+
+2
+00:03:59,350 --> 00:04:27,660
+the idea is this okay you have a relation one relation two some operation you will uh some operation you will apply on the relation one comma two okay this operation you will apply you will get relation three then you will apply some other operation so like this okay this is a general procedure right yes or no correct okay you have some relations and then you will do then you will get the information so here actually what is happening tell me here actually this is happening that to get this information to get this information how many relations you need
+
+3
+00:04:28,100 --> 00:04:57,660
+how many relations you need to combine so you need to combine this relation this relation this relation sorry this relation yes or no so these three relations you need to combine agree or not okay so these are your I can say these are the original relations so I can say this relation this relation this relation these are from the original database they can be same or different remember I am not saying they are different they can be same or different so these are from original database from original database
+
+4
+00:04:58,760 --> 00:05:27,930
+these are from original database they can be same or different they can be same or different we have seen this type of practice we have done this type of practice right yes or no we were having same relation we were combining same relation in that twitter example okay in the twitter example we were doing this same they can be same or they can be different so these are from original database they can be same or different okay so the twitter example we have already seen there we were having the same relations we were combining the same relations
+
+5
+00:05:28,290 --> 00:05:59,260
+two relation three relation all okay same relations we were combined now let's see this is the sample database this is from Raghurama Krishna okay if you want basically this sample database I have taken from the Raghurama Krishna this book I have taken basically for queries this is a very excellent book for queries this Raghurama Krishna this is excellent book for queries this Raghurama Krishna okay this Raghurama Krishna is excellent book for the queries and for operators
+
+6
+00:06:00,020 --> 00:06:28,670
+Okay, for writing queries, this is the best book for writing queries and for understanding operators. For understanding operators, the best book is Ulman. This is the best book for Ulman. Okay, for understanding operators. Okay, anyway. So, already we have done this. Actually, all the screenshots that you have seen, most of those screenshots are from Ulman book. Okay, and for writing queries, the Ramakrishna, this book is very good. Okay, anyway.
+
+7
+00:06:28,930 --> 00:06:57,170
+So this database I have taken from the Ramakrishna book. So just understand this database because we will use it again and again. So just understand this. How many tables you have in your database? You have seller table, your boss table, your reserve table. The seller table is giving you information of sellers. Okay. The information of sellers. This is the primary key. This is the only key, SID. Okay. This is seller ID. This is the ID of seller. This is the name of the seller. This is the rating of the seller and this is the age of the seller.
+
+8
+00:06:57,570 --> 00:07:25,950
+and next you can notice these are the boards what is the idea of the board what is name of the board and what is the color of the board and you can notice reserve table in this reserve table what is the primary key this combination is the primary key this combination is the primary key okay you can notice SID BID day the combination is primary key like which seller is booking which which board on which day okay which seller this seller is booking this board on this day on this day okay
+
+9
+00:07:26,250 --> 00:08:03,920
+so this is now okay now let's see next so the students are sitting here okay so don't do that so let's see this is this clear so we have these three tables now let's do this so these are the these are the instances we will use again and again okay these particular instances this is the instance of seller this is the instance of reserve and this is the instance of color so these these three instances we will use again and again okay
+
+10
+00:08:04,200 --> 00:08:34,170
+now let's see this so let's see this first query what is that the first query find the names of the seller who have reserved bot 103 who are reserving this bot 103 so the step one is this first of all you okay look at the given database then you find out the relations that we need to get this information so for this information what we need to do if you want this information you want names you want names of the sellers
+
+11
+00:08:34,490 --> 00:09:04,580
+who are reserving this board 103 tell me which of them you need can you use this single this single can you use this single can you use this single we cannot use right okay we cannot use this single one so let me tell you if I if I give you this now what is the answer like if I don't ask you names if I ask you as IDs if I ask you as IDs now what will be the answer
+
+12
+00:09:05,190 --> 00:09:35,840
+If I ask you SIDs of the sailors who are reserving boat 103, then how many tables you need? Look at the tables and tell me how many tables you need to give me this information. I want this information. Give me SIDs who are reserving boat 103. Give me SIDs who are reserving boat 103. How many tables I need? How many tables I need to combine? Okay, forget about relational algebra. Forget about relational algebra. Just use your common sense.
+
+13
+00:09:36,210 --> 00:10:06,540
+this table is enough okay this table is enough so what will be the query so what is going to be the query the query very simple the query will be so here okay look at the given database find out the relations you need only one relation we need yes or no only reserve relation we need this reserve relation we need in this relation also how many tuples you need to see in this relation also how many tuples you need to see single tuple at a time
+
+14
+00:10:06,720 --> 00:10:34,650
+okay at any point of time how many tuples you need to see at one time at one time how many tuples you need to see only one tuple you need to see one tuple will give you the information so one tuple you need to see what will be the answer what should be the answer if i ask sids vote 103 what should be the answer so in the answer this should be there in the answer this should be there in the answer this should be there so these three should be in the answer right these three must be in the answer
+
+15
+00:10:35,060 --> 00:11:10,150
+okay now you tell me what will be the query now the query will be very simple from this reserve table this is the reserve table from this reserve table what you do from this reserve table this is what you need to do reserve table from this you select what you do you select those from this you select those where boat ID where boat ID is 103 this is what you select okay and then you project
+
+16
+00:11:10,650 --> 00:11:41,580
+then you project SID then you project SID agree or not then you project SID okay is this clear so you select BID then you project SID can we do this in the reverse order can we do this in the reverse order can we write this in the reverse order like basically can I do this like we are doing this pi we are taking SID and the selection we are doing on BID 103
+
+17
+00:11:42,260 --> 00:12:14,320
+and this reserve table we have this reserve table we have okay can i write like this that first i select sid first i select sid and then i make this condition then i make this condition absolutely no now this is senseless this is invalid yes or no this is a invalid and this is valid okay this is correct this is the correct query
+
+18
+00:12:15,140 --> 00:12:47,660
+okay and this is invalid query okay agree actually do you remember this we have already seen do you remember the previous concept I told you when can you do this when can you do this this condition okay pi a some set of attributes some set of attributes and some relation are when can I say this is same as this pi a condition when can I say they are same in which situation okay this will happen if and only if
+
+19
+00:12:48,040 --> 00:13:17,790
+Okay, if ever this will happen if and only if this will happen if and only if this condition only contains attributes of a okay condition C condition C only applies on attributes of okay only applies on attributes of a attributes of a this we have already seen okay so this I can say no this is this is a condition how it can be subset of a
+
+20
+00:13:18,840 --> 00:13:50,540
+this is condition this is set of attributes can a condition be subset of attributes this is a condition and this is set of attributes so this condition should only apply to set of attributes on the attributes of a okay it should only apply here right this is a condition okay so finally this is the answer now tell me I want names give me names I have ideas you gave me ideas but I want names now how many tables I need
+
+21
+00:13:51,780 --> 00:14:22,020
+okay now how many tables i need i need reserve also this reserve will give me id's yes or no this will give me s id's from this s id's i need seller table also okay i need this seller table also this finally it will give me names okay very simple right yes or no very simple so this reserve table will give me id's and from these id's i can find the names so first you tell me what should be the answer
+
+22
+00:14:23,520 --> 00:14:54,440
+first you tell me what should be the answer you can notice from because of because this ID is booking 103 this ID is booking 103 so this ID has name what so this ID has name Horatio whatever so your final output tell me your final output what that will be in the final output definitely this Horatio must be there okay next you can notice 103 he is also booking 103 and the name of this
+
+23
+00:14:58,380 --> 00:15:27,040
+This person is also booking 103 and the name of this person is Dustin from the stranger things. Okay. So now, so finally this is your answer. Now, so tell me this is your final right now. What is the query, but how to write the query? Okay. Now to write the query, the best method is this to write the query. The best method is this table side by side.
+
+24
+00:15:27,280 --> 00:15:56,020
+and think about the idea. Do you remember this? We have done. Do you remember this? We have done taking writing table side by side and think about the idea idea. Okay. So this we have done the same thing you need to do. Okay. So tell me what you will do here. Very simple. So you need two tables. One is seller table. Okay. One is seller table. This seller table will give you ideas and it will give you name. I don't care about the remaining things and this is the reserve table.
+
+25
+00:15:56,590 --> 00:16:25,300
+and this is the reserve table let's call it R let's call it S this reserve table is giving me ID and what is the board ID tell me tell me tell me what is my desirable row what I want tell me what I want I want those sellers who are booking board 0103 so this board must be 103 agree this board must be 103 okay this board must be 103 this name I want to project this name I want to project
+
+26
+00:16:26,520 --> 00:16:59,050
+this name I want to project but but but but but but but this SID must be same as this SID yes or no I mean of course you want those people who are booking this so this SID must be same as this SID so this value this value must be same as this value they must be equal this value must be equal to this value they must be equal now you can write the query this is called the idea okay from now onwards we are going to call this idea so whenever I mention this idea
+
+27
+00:16:59,370 --> 00:17:28,310
+Then what should come to your mind? Whenever I say idea, then this should come to your mind. Yes or no? This structure should come to your mind. This logic, table side by side, this logic should come to your mind. This logic is going to help you a lot. Did you understand? Tell me this point. Okay, did you understand? Okay, this question. Don't worry about relational algebra. Just worry about the logic. Okay, or I can say this is the idea or I can say this is the logic. So tell me now.
+
+28
+00:17:28,620 --> 00:17:57,970
+now you can write the query what you okay now you can write many different different queries you can write what you can do first you can take cross product okay so you can write many different queries you can write so query one you can write you can write the cross product of seller comma reserve take the cross product on the cross product you put these conditions on the cross product tell the take the cross product every row with every row every row with every row every row with every row okay take the cross product then what you do
+
+29
+00:17:58,030 --> 00:18:29,290
+then you put the conditions so what should happen as in the seller the sid must be same as in the reserve sid and the boat id must be equal to 103 after doing this much after doing this much you project the names you project the name after doing this much you project the name this is query number one okay what is query number two what is query number two array whenever you do this
+
+30
+00:18:29,690 --> 00:19:03,360
+What should come to your mind? Whenever you see this, what should come to your mind? So whenever you see this, like SID equal to SID. SID equal to SID. So whenever you see this, SID equal to SID. SID equal to SID. So whenever you see this, what should come to your mind? Okay, this should come to your mind. But remember, remember, remember, this SID must be only the only, this SID must be only, yes or no?
+
+31
+00:19:03,790 --> 00:19:35,870
+this is when you can do this when sid is the only common attribute yes or no agree or not this year remember remember not not not so we can do this okay make sure that sid is the only common attribute make sure that sid is the only common attribute is the only common in r, s in r, s sid is the only common attribute
+
+32
+00:19:36,910 --> 00:22:06,760
+Oh, where is that? Oh, just give me a second. Actually, in this software, I lost that the give me a second. Hello. Hi, everyone. So, okay, now let's see this. So this we already know what we know. This we already know, right? If you have selection, if you have selection, and here you have cross product, if you have as cross R,
+
+33
+00:22:07,090 --> 00:22:42,820
+and if you have equality of common attributes if you have equality equality of common attributes if you have equality of common attributes okay if you have this then this is equivalent to this I am not saying that yes or no this is equivalent to this right okay this is equivalent to this natural joint these are equivalent these are equivalent actually
+
+34
+00:22:43,260 --> 00:23:12,970
+they are not equal because you have to make sure that you don't have you only repeat you don't write duplicate tuples duplicate you don't write extra attributes but they are equal and right ultimately the result is basically the same if you don't care about the schema agree or not if you don't care about the schema if you don't care about that duplicate attributes if I do not care about the duplicate attributes then the result is basically same
+
+35
+00:23:13,640 --> 00:23:50,370
+okay if we do not care about the duplicate attributes if we ignore duplicate attribute yes or no if we ignore duplicate attribute is this clear so they are actually equivalent they are actually equivalent if you if you ignore the duplicate attribute yes that is the reason I am saying here equality of all common attributes equality of all common attributes if we ignore the duplicate if we ignore the duplicate
+
+36
+00:23:50,690 --> 00:24:18,830
+if we ignore the duplicate attributes then they are basically equivalent from the data point of view they are same agree from data point of view they are same from data point of view from data point of view basically they are same schema will be different schema different yes or no schema will be different here schema will be different but from data point of view they are basically same if you ignore the duplicate attributes okay so finally you can notice
+
+37
+00:24:19,220 --> 00:24:54,500
+that this you can write as natural join okay okay remember this you can write as natural join so finally your answer will be what so your query to your query to will be what that is as natural join R but this condition is still there this condition is still there yes or no this condition is still there BID this condition we still have and then finding the names finding the names okay is this clear okay
+
+38
+00:24:54,720 --> 00:25:22,760
+So, very simple. Now, in this, in this, in this you will have duplicate attributes. This is equal join. In this you have duplicate attributes, duplicate, duplicate. In this you will have duplicate attributes. If you ignore those duplicate attributes, then that is same as your natural join. We have already seen this. In the, in the equal join, if you ignore the duplicate attributes, then you will get the natural join. So, this is what I'm saying.
+
+39
+00:25:23,100 --> 00:25:51,980
+that in this in this if you ignore the natural in this if you ignore the duplicate attributes then you will get the natural join so from the data point of this they are equivalent yes or no from the data point of view from this data point of view they are equivalent now now let's see so is this clear query one query two both of them are clear so query we have one we have seen and then query two we have seen so these two query we have seen okay now let's see a query three can I do this
+
+40
+00:25:52,330 --> 00:26:23,120
+see something on this diagram on this diagram can i do this i am only worried about board 103 agree or not i am only worried about board 103 i only care about board 103 do i care about something else do i care about something else i only care about board 103 so what i can do query 3 query 3 what i do first i remove this okay before this you tell me query 1 query 2 which is better
+
+41
+00:26:23,930 --> 00:26:58,430
+query 1 query 2 which is better query 1 query 2 which one is better so definitely query 2 is better why what is the reason so query 1 I can say query 2 better than query 1 query 2 definitely that is better than query 1 because in the query 2 a lot of tuples will be there first of all you will get a lot of tuples yes or no here you will get a lot of tuples a lot of tuples you will get here this is the cross product let's assume here you have 1000 tuples
+
+42
+00:26:58,730 --> 00:27:27,740
+here you have 2000 tuples then how many tuples you will get here 1000 tuples here 2000 tuples then you will get almost two leg tuples two leg tuples you will get right yes or no but you can notice and let's assume let's assume that if you do if you put this condition if you put this condition then what will happen now how many tuples you will get like okay basically how many tuples this will give you this is the simple question i want to ask tell me let's assume in this s
+
+43
+00:27:28,140 --> 00:27:55,900
+in this S you have SID and there is something and in this R in R you have SID and you have a boat ID and this is the key this is the key okay there is date also but don't worry about the date but there is a date also okay now you tell me here everything is unique and here here SIDs are unique SIDs can I say can I say unique SIDs okay
+
+44
+00:27:56,110 --> 00:28:26,760
+now let's assume here you have 2000 tuples let's assume you have 2000 tuples in S let's assume you have 1000 tuples okay 1000 tuples so let's assume you have 1000 tuples here and 2000 tuples there then you can notice in the cross product how many tuples in the query 1 you have cross product S cross R so in your main memory actually let me tell you one more thing when you execute this query this S comma R where are they
+
+45
+00:28:27,470 --> 00:28:56,210
+S, R, they are restored in the database in the hard drive. Yes or no? These are restored on the hard drive. Okay, in your hard drive, these are restored. Now, when you do this computation, can you do this in the hard drive? Inside the hard drive, can you do this computation? No. What will happen? You will bring it to the main memory. From the secondary memory, from the hard drive, you will bring it to the main memory. You will load into the main memory. Then you will perform this computation. Okay.
+
+46
+00:28:56,440 --> 00:29:24,540
+some computation you will perform after that it is your choice after that it is your choice whether you want to store or whether you don't want to store okay whether you want to store whether you don't want to store that is your choice basically or maybe maybe you can from the hard drive you can bring to main memory in the main memory you can do the do the computation then you can give the result to the user okay then you can give the result to the user so you don't have to store
+
+47
+00:29:24,870 --> 00:29:53,690
+yes or no you don't have to store but if you want to store then after doing the computation the table that you will get you will get a new table if you want if you want to store you can store also that is your choice if you want to store you can store also but normally if you don't store normally you have the database you will do some computation okay and then you will give the result to the user this is called basically external schema something like okay but actually they are different so I will not go into that okay
+
+48
+00:29:54,200 --> 00:30:22,400
+basically view view external schema what is the view what is the concept of view that is different concept and this query this is a different concept we will not combine these two okay because view don't we we don't have in the syllabus so we will not study that view and some but anyway this happens so you can notice if you have s cross r then how many tuples you need to calculate in this definitely what will happen almost I can say two leg tuples these many tuples you will get
+
+49
+00:30:23,020 --> 00:30:54,360
+just think about it just think about it these many tuples you will get just think about it okay now now now now in q2 how many you will get in this q2 how many you are going to get in this q2 how many you are going to get in the q2 what we are doing we are doing s natural join r in this q2 how many you are going to get like how many tuples you are going to get in this q2 a very simple point
+
+50
+00:30:54,950 --> 00:31:25,470
+A very simple point. This is unique, right? This is, okay, how many tuples it can, I can say that. So, sorry, what I'm saying, just look at this. Look at this, look at this, look at this, look at this person. How many peoples it can be connected here? How many peoples? Tell me. Look at this, look at this, look at this person, look at this person. How many persons it can be related, because these are unique people, because these are unique people, because these are unique people.
+
+51
+00:31:25,790 --> 00:31:54,850
+so it can be connected to at most one at most one agree or not it can be connected to at most one at most one okay at most one it can be connected to this next person this next person can be connected to at most one at most one so like this like this if you have two thousand people here if you have two thousand people here so how many people they can be connected at most two thousand so in this you will get in this you will get at most
+
+52
+00:31:55,830 --> 00:32:25,430
+at most 2000 tuples do you agree or not tell me yes or no I just think about it just think about it this person this person this SID this person this can be related to at most one person because here you have unique people here you have unique people okay so I can say at most 2000 tuples so tell me which is better which is better definitely there is a huge difference yes or no there is a huge difference or not
+
+53
+00:32:25,590 --> 00:32:54,630
+There is a huge difference. So definitely this query two is definitely better than query one. Okay. Now, let's see something better than query two also. Now, can we have something better than query two also? I just, huh? So Mavith is saying if we implement using basic operator, then also the same thing. See, I'm going to do. Don't worry. I'm going to do now using the basic operators. Actually, what happens Mavith in your computers? This division operation is not implemented.
+
+54
+00:32:55,060 --> 00:33:23,580
+In most of the DBMS software, like majority of the DBMS software, they don't give you this division facility they don't give. So if you want to do division, then what you do, what you need to do, you need to write the basic operator query. Okay? Yes or no? Because most of the DBMS software in the practical life, in the real life, most of the, most of the, these DBMS software, they don't provide you the division direct, like basically this division facility they don't provide directly. So you have to write the whole query.
+
+55
+00:33:23,890 --> 00:33:53,460
+okay this query you have to write i gave you two implementation i gave you one was heli implementation other another was some maker implementation okay so this heli implementation you will write okay so that you will write now this join is very important and every computer every sorry every dbms software provides you the join directly so like there is a button like just think about it there is a button for multiplication division addition okay on your calculator you have buttons right on your calculator you have button
+
+56
+00:33:53,690 --> 00:34:22,290
+button for sign, button for course. Similarly, you can think like this. This is an analogy. You can think that there is a button for natural joint. There is a button for cross product. There is a button for selection. Okay, like that. So you can think like this is an analogy I'm giving to you. So there is no button for the division on the on the RDB must calculate. If you if you consider this RDB must offer the DBM software, if you consider as a calculator, there is no button for division. Okay, there is no button for the division. Or I can say
+
+57
+00:34:22,670 --> 00:34:52,660
+in the practical life there is no button for the division but of course you can help okay but there is a button for natural join okay definitely there is a button for natural join in every rdbm software you always have a button for natural join and this natural join we will study okay this natural join this algorithm we will study how to do natural join so there are some algorithms i told you nested nested loop join block nested block join okay so these join these algorithms are there that we will study is this clear
+
+58
+00:34:53,840 --> 00:35:24,550
+tell me okay now let's see so anyway now let's see the next query now now now tell me in this query 2 can you notice what we are doing in this query 2 also what we are doing this query 2 is also dumb query this is also very dumb query because what you are doing you are first combining all of them just think about sr okay you are actually combining s,r okay like what you are doing you are combining them for example what you will do this row
+
+59
+00:35:24,920 --> 00:35:54,520
+okay this i can say you are basically combining them but actually what you can do okay actually what you can do the better you can do first you just just select the uh board okay just remove these which don't have board 103 just remove those which don't have board 103 so first if i if i if i select those tuples which okay which have board 103 on if i select those tuples which have board 103 which have board 103
+
+60
+00:35:54,870 --> 00:36:24,890
+if i select those tuples which are boat 103 okay now if i select only these tuples now the work will become much easier okay now the work will become much easier because here what was happening before this what was happening before this what was happening because you are doing the natural join based on what tell me natural join is done based on what natural join is based on SID so can you notice previously what was happening if you do the natural join if you do the natural join
+
+61
+00:36:25,140 --> 00:36:55,200
+then previously what was happening this was happening in the query to this was happening a very simple example I am giving you query in the query to this was happening in the query to in the query to what is happening just think about it in the query to this was happening that you were combining this with this you were also combining this with this you were also combining this with this you were also combining this with this agree okay next next next next next this this
+
+62
+00:36:55,630 --> 00:37:26,430
+this 31 you are combining with 31, this 31 you are combining with 31, this one you are combining with 31, next you can order this 64 also you are combining with this, you are combining with this and finally this 74 also you will combining with this, so how many combinations, so how many combinations in this Q2 for this particular instance, for this particular instance how many combinations or how many comparisons or how many tuples, so total 4, 3, 3, right.
+
+63
+00:37:26,820 --> 00:37:56,900
+okay so one I can say four then three then three so total 10 10 combinations 10 tuples you are getting 10 comparisons you are doing okay yes or no so first you are first you are getting 10 tuples you are you will get 10 tuples basically these comparisons you are doing okay you are these you are getting these comparison this comparison and so on so you can you can basically think in the terms of tuples so in terms of tuple I can say there are 10 tuples you will get on these 10 tuples you will do the
+
+64
+00:37:57,830 --> 00:38:26,120
+on these 10 tuples what you are going to do you are going to do this you are going to check where is the board 10 this comparison you are going to do where is the board 103 in these 10 tuples you are going to check in these 10 tuples you are going to check board 103 correct in these you are going to check board 103 okay now actually better we can do we can just directly remove this we can directly remove all these boards
+
+65
+00:38:26,560 --> 00:38:55,830
+Okay, just keep the boards which have one zero three only these relevant boards you keep now okay in this situation if you do this situation then here what will happen now the work will become very easy now only this will combine with this now this 31 will combine with this and you can order the 74 will combine with this so in this situation only you will get the three tuples okay so basically if you apply the selection first if you select the first okay if you apply selection first
+
+66
+00:38:56,130 --> 00:39:25,830
+then it basically makes your work easy so what i can do from the reserve table if i select the board id equal to 103 if i directly select the board id 103 it will make the work very easy it will make the work very easy okay if i select this board 103 directly now after selecting this okay board 103 tuples i'm selecting so basically selection first selection okay use selection first
+
+67
+00:39:26,470 --> 00:40:00,780
+So we are using selection first, agree. We are using selection first. So here we are using the selection first. Now after doing the selection, you can do the natural join. Now you can do the natural join with the seller. Okay. Now you can do the natural join with the seller. This natural join you can do and then you can find the names. Correct. Okay. So this is much better. This is a much better. Okay. So then you can find the names.
+
+68
+00:40:01,180 --> 00:40:33,130
+so this is actually much better okay so this query 3 this query 3 is better than query 2 this is better than query 2 this is definitely better than query 2 okay so and why tell me why what is the reason what is the reason yes joining is actually costly operation joining actually let me tell you that I told you that this happens but actually something what will happen that this algorithm then when you will apply
+
+69
+00:40:33,570 --> 00:41:00,200
+For this joining, for this joining, you will apply the algorithm also. So there is a algorithm this nested join block join. So these algorithms are also there. So those algorithms will also basically sometime they will take once you study those algorithms, then you will start, then you will understand that is the reason I'm not going into these algorithms. Okay. When we study these algorithms, then you will understand what is happening. Okay. At that time, you will understand what is happening. Actually.
+
+70
+00:41:01,130 --> 00:41:29,920
+actually all these will come in the memory remember all of them will come in the memory this algorithm this join algorithm okay this nested join block join these algorithms they will also compare like okay because of course like you have to compare you have to check whether SID are same or not you have to make sure that an SID are same or not so I am I am I am saying this 10 tuples but actually it is more than that okay it is more than that because you have to compare with everything
+
+71
+00:41:30,610 --> 00:41:59,390
+but actually it is I can say it is not as costly as the cross product the cross product is very costly here what you will do the comparisons will be almost same remember basically this row remember remember this row you will compare with every row but you will not restore it you will compare with every row but you will not restore it actually here you are restoring it in this query number in this query number one you are restoring these rows so these I can say these 2000 tuples
+
+72
+00:41:59,800 --> 00:42:29,480
+these 2000 tuples you will be storing you will store these 2000 tuples okay but here only these tuples you will store here only these tuples you will store okay so in the main memory in the main memory here you will store 2000 tuples in the main memory you will store only 2000 tuples actually the number of comparisons will be same okay number of comparisons here also will be same as this so number of comparisons are not much different
+
+73
+00:42:30,820 --> 00:42:59,740
+okay they are not much different so the number of comparison is not much different because here also you have to compare with every row okay yes or no this first row you have to compare with every row you have to compare with every row this second row you have to compare with every row this third row you have to compare with every row okay so basically here the comparisons will be same in this query 1 comma 2 let me just write it this query 1 comma 2 the comparisons are not much different or I can say comparisons are same
+
+74
+00:43:02,180 --> 00:43:35,080
+Comparisons almost same but storage different so the comparisons are almost same but you can notice that there will be a problem of storage also so the storage is different so ultimately I can say this query Q2 this is better than query Q1 sorry this Q2 is better than Q1 you can notice this Q2 where I've written this yes so this Q2 is actually better than Q1 but not in number of comparisons number of comparisons are almost same
+
+75
+00:43:36,770 --> 00:44:08,170
+number of comparison same okay anyway this will clear in the in the algorithm so this is nested join algorithm is there what this algorithm will do this nested join when you study this algorithm nested join okay then what what this algorithm does this algorithm does this so it will take this it will take this and it will compare with everyone okay then you will take this then you will take this you will compare with everyone okay then you will take this you will compare with everyone are you getting my point okay
+
+76
+00:44:08,430 --> 00:44:37,820
+and there is another algorithm that is block nested join in the block nested join you this block will compare with everything okay then this block will compare with everything but ultimately this will happen that every row is will get compared with everything this will definitely happen whatever algorithm you apply whatever algorithm you will apply whatever algorithm you will apply this will definitely get compared with everything here this will definitely get compared with everything here so whatever algorithm you apply okay
+
+77
+00:44:38,060 --> 00:45:07,640
+is this clear tell me so these are some joint algorithms that we will see in the in the letter classes we will see but right now you can take this point that here let me write it as a note so you can notice this cross product if you do this cross product okay this cross product or if you do this join these are basically I can say both are costly operations both are equally costly operations in terms of time
+
+78
+00:45:08,560 --> 00:45:44,860
+Equally costly oppressions. These are equally costly oppressions. These are costly oppressions. Okay. In terms of time, in terms of comparisons, in terms of comparisons. Okay. How many comparisons you are making? How many comparisons you are making? Or I can say time, but I can say this is better. I can say this is better in terms of storage, in terms of space complexity, or I can say storage. Okay.
+
+79
+00:45:45,290 --> 00:46:18,560
+so this is better than that okay anyway now remember both are actually equally costly operations in terms of comparisons because I told you that what will happen here tell me in this what will happen actually this will compare with the actually how many comparisons the number of comparisons will be same if you do the natural join if you do the natural join then number of comparisons will be what then the number of comparisons will be same you will do the cross product of this and this so the number of comparisons will be same okay so same as cross product
+
+80
+00:46:20,470 --> 00:46:54,170
+Same as cross product. Okay. Here you, I think you have 10, 10 rows here, 10 rows here. So almost 100, I can say. So for this number of comparisons will be almost 100 comparisons, almost 100 comparisons. Okay. And now tell me, if I remove the boards now, if I remove these first, okay, the unnecessary boards, if I remove unnecessary boards, if I remove now, if I remove the unnecessary boards. So first of all,
+
+81
+00:46:54,430 --> 00:47:26,570
+for this much how many comparisons you have done for this much for this for this how many comparisons you have done 10 I can say yes or no I can say 10 comparisons so far 10 comparisons so far okay 10 comparisons you have already done now after that because remember all these rows you will compare where is boat 103 where is boat 103 so these 10 comparisons are done here after that after that how many comparisons here
+
+82
+00:47:28,020 --> 00:47:58,570
+then you have 30 comparisons then you have 30 comparisons so then you have 30 comparisons 10 into 3 comparisons so then you have 30 comparisons okay so here you will have 30 comparisons so then here you will have 30 30 comparisons and then finally you are selecting the names again maybe 30 comparisons okay again maybe 30 comparisons sorry
+
+83
+00:47:58,830 --> 00:48:30,530
+here you have 30 comparisons then actually what will happen after this 30 comparisons actually only three comparisons then yes or no basically you will be selecting the names you will be selecting the names so here ultimately there will be three more three more comparisons or maybe projection when I say comparison basically you are taking some times taking some more time basically three more maybe I can say not comparison but you can say three more time unit three more time unit
+
+84
+00:48:30,830 --> 00:49:00,340
+you can think like this okay is this clear so ultimately basically i can say this query three is much better than query two yes or no query three is much better than query two okay and one more thing so remember what is the note what is better here why what is the reason this query two and query three why they are better in this query three first you are doing the comparison sorry first you are doing the natural join first you are doing the natural join then you are doing the selection
+
+85
+00:49:01,300 --> 00:49:37,870
+then you are doing the selection and here what you are doing here you are doing this first you are doing the selection first you are doing the selection and then you are doing so here I can say selection first so in this query 3 this is better why this is better because because of using selection first using selection first using selection first this is actually better using selection first okay so using selection first this is better
+
+86
+00:49:39,300 --> 00:50:07,400
+so this is the idea thanks to the early use of selection thanks to the thanks to the early use of selection so remember this line remember this dialogue thanks to the early use of selection many times you will see this thanks to the early use of selection so we should early use the selection okay is this clear and the same query you can also write in in three parts yes or no like first of all you can call it temp 1 yes or no you can call it temp 1
+
+87
+00:50:07,810 --> 00:50:40,370
+you can call it to temp 1 you can call it to temp 1 then this temp 1, this temp 1, this you can call it temp 2 so this same query you can write in 3 parts now let's move on so remember take care note take care note 2 what is that apply selection as early as possible ok apply selection as early as possible it will save you time computation time comparison time computation time comparison time
+
+88
+00:50:40,540 --> 00:51:16,210
+Thanks to early use of selection. So this is the dialogue we will remember. Thanks to early use of selection. Thanks to early use of selection. This one dialogue has given Sachin more than 150 upwards. This one dialogue. If you see there is a question in the comments, Sachin has written this line. Only this line. Thanks to early use of selection. Okay. This only this line here. You can check it out on the get over for website. You can check it out.
+
+89
+00:51:16,500 --> 00:51:52,900
+and there are more than 150 upwards because of this line people are liking this dialogue okay now you know from where this dialogue is coming so this dialogue is coming from here okay thanks to early use of selection now let's move on so tell me the answer for this question okay how should we do this thanks to yeah Arnav is saying thanks to selecting early use of go classes yeah that's that's also correct
+
+90
+00:51:53,190 --> 00:52:24,630
+I will also I will write it I will maybe I will talk to the team maybe there will be a meme okay so anyway it was rhyming I will talk to the team maybe there will be a meme okay anyway tell me here so find the names of sellers who have reserved a red bar so how many tables you need first of all you tell me this point find the names of the sellers who have reserved red bar names of the seller before that
+
+91
+00:52:24,930 --> 00:52:54,290
+Forget about the name, forget about the name as Shakespeare is saying. So, okay, so forget about the name. Tell me the SIDs of Sailor who reserve board, who reserve red board. How many tables you need for this, for this information? I want SIDs, I want SIDs who are reserving red board, who are reserving red board. So these two tables I need. I need this table also. I need this board table also. So this board table also I need.
+
+92
+00:52:55,460 --> 00:53:25,590
+this board table also i need okay so tell me so what should be the answer remember i want red board i want red board okay so who are uh opting for red board so red board means one zero two red board means one zero two just check who is taking one zero two this is taking one zero two who is taking one zero two this is taking one zero two okay next this one zero four who is taking one zero four
+
+93
+00:53:26,060 --> 00:53:56,480
+This is taking 104. This is taking 104. Okay, so finally your answer will be what? Your answer will be 22, 31, 64. This will be your answer. This will be your answer, right? Correct? Okay, we only want SIDs. We only want SIDs who are taking this. So this is the answer we want because I want only SIDs. I want SIDs only.
+
+94
+00:53:57,010 --> 00:54:25,250
+I only want SIDs. I got my SIDs. I got the SIDs. Okay. So what is the query? What you will write the query here? The query is very simple. Let's see the idea. Now let's see the idea. After seeing this, now can we see the idea? So the idea is very simple or logic. Let's see the logic. So you have reserve table. You have this reserve table. Let's call it R. You have this board table.
+
+95
+00:54:26,770 --> 00:54:55,180
+you have this board table let's call it B now what is the logic the logic is very simple here you have SID and here your board ID ok and here you have what in this board table what you have in this board table you have BID and you have color so what should what we want we want to join them and what we want actually we want to join them but what we want we want that color must be red this color must be red
+
+96
+00:54:56,370 --> 00:55:26,400
+we want those SID we want this so this I will project I want those SID I want those people who are booking a board this same board should have this color red yes or no this same board should have same this color red so I want those people I want those people who are booking this board this board should have same this board the same board should have color red okay so this will be your answer so tell me what will be the answer now
+
+97
+00:55:27,370 --> 00:55:58,440
+Now what is going to be the answer. So your answer will be from reserve. You can do the cross product. So the query number one that will be reserve comma, but from these two, you select you make the selection condition. What is the selection condition that OK, R dot BID should be same as B dot BID. They must be same. OK, R dot BID must be same as B dot BID and and this color must be red and this color must be red.
+
+98
+00:55:58,790 --> 00:56:30,500
+After doing this much, you just project the SIDs, okay? You just project the SIDs, right or not? Okay, okay, okay. What is the common attribute in R, B? What is the set of all common attributes? What is the set of all common attributes between R, B? That is SID only. That is SID only. So if you see this thing, this thing you can write as what? This thing you can write as natural join. The same thing you can write as natural join.
+
+99
+00:56:30,880 --> 00:57:00,990
+and then this condition will be there the condition will be color equal to red color equal to red and then you will do the pi s id okay but but but here how many comparisons are there let me show you let me show you the number of comparisons so ultimately what you are doing when you write this query number two in this query number two ultimately what is happening first you are okay so first this in the query number two what is happening so how many comparisons will be there
+
+100
+00:57:01,550 --> 00:57:34,480
+I think there are 10 rows here 4 rows here so there will be 40 comparisons here so there will be 40 comparisons here if you notice so here you will have total 40 comparisons total 40 comparisons then followed by okay so first you will do the 40 comparisons then this selection almost okay so this 40 comparison you don't have to worry about the remaining things so this 40 comparison this is what you need to do then basically some selection and some more time
+
+101
+00:57:34,720 --> 00:58:08,220
+Some more time I can some more time. Okay. Now you tell me if I do this, can I do something better? Can I do something better? Yes. What I can do early use of selection. Can I use the early use of selection? So what I will do if I do the early use of selection. So let's see query number three early use of selection. So from the board from this board table, first I will select the red boards. Yes or no.
+
+102
+00:58:08,570 --> 00:58:39,540
+so from the board tables first let me select the red boards let me select the red boards first from this board table so this is gone this is gone so the red boards I am taking so first I will select the red boards so this is Q3 definitely I will select the red boards after selecting the red boards I can do the I can do this okay the reserve with the reserve table with the reserve table I can do this now now finally I can project
+
+103
+00:58:40,020 --> 00:59:10,500
+the SID finally I can project the SID okay so here how many comparisons now how many comparisons here only 20 comparisons now only 20 comparisons okay here only 20 comparisons of course four you need to make here some computation time will be here four and some computation time here but the main point is this yes or no only let's focus only on this the main comparisons so here this is the main I can say
+
+104
+00:59:10,830 --> 00:59:45,430
+this is the critical point so this query 3 is better so can I say this is better thanks to early use of computation so that you already know this is better thanks to early use of computation sorry early selection thanks to early selection early use of selection okay now the next so like this you can do I hope this point is clear so here yeah this is q2 and this is q3 that's fine now let's see names
+
+105
+00:59:45,790 --> 01:00:16,000
+so how can i get names now i want names i already got the sids now i want names now very simple if i call the okay now in this situation what i know three tables very good three tables i need so let's see the logic first the logic is very simple that you have the seller table this seller table has the okay this will give you the names so it will give you the name of the seller and then this reserve table is there in this reserve table is going to give you
+
+106
+01:00:16,620 --> 01:00:46,080
+SID and BID and there is this table there is this board table and this is going to give you BID and color ultimately what you want you want those people who have reserved a red board so you want those people who are reserving so those SID I want those SID I want I want those people I want though this is what I will project this is what I will project I want those people those people now the same people must be here
+
+107
+01:00:46,560 --> 01:01:16,090
+the same person must be here right okay so this person must this person must use a board which is red so remember these must be same I can say these two must be same and these two people must be same this is your answer agree or not this is your answer so finally your answer will be what what is the query number one so you can write query number one you can write just okay let's write the efficient query now so you can write the query number one
+
+108
+01:01:16,220 --> 01:01:46,980
+What you can do, you can do their natural zone. Can you notice, can you notice this BID, this BID, this is the only thing here. This is the only common attribute. This is the only common attribute here and you are taking the common attribute equality. You are doing the common attribute equality, common attribute equality. Here also, here also, this is the common attribute and you are doing common attribute equality. Here also, you are doing the common attribute and you are doing the common attribute equality. So in this situation, what I can do.
+
+109
+01:01:47,290 --> 01:02:16,430
+I can say the sailor reserve okay these two I am doing the common attribute equality reserve next here also I am doing the common attribute equality okay so I can do this so remember remember here also I am doing the common attribute equality here also I am doing the common attribute equality okay now after this after this what you need to do so these conditions are already included
+
+110
+01:02:16,860 --> 01:02:48,590
+did you notice this condition is already included in the in the in the in the join in the natural join this is already included in the natural join the natural join will include this because the common attribute equality agree or not tell me so the natural join this natural join this natural join is already including this equality similarly this natural join is already including this equality so these things we don't have to do so what we have to do the only thing is
+
+111
+01:02:48,910 --> 01:03:21,540
+that selects that boat must be red that color must be red I can say such that the color must be red so this color must be red finally finally finally you can select names okay clear let me know finally you can select the names now can we do something better can we do something better again can we early use the selection again the same same point early use of selection can we do early use of selection
+
+112
+01:03:22,010 --> 01:03:53,040
+yes we can do yes we can do what we can do we can only use the selection so we can only use the selection first in this board table I can only use the selection where color is red where color is red after doing this after doing this now there is no problem okay now you do the same okay now there is no problem now you can do the same after doing this you can do so this is better this is definitely better right okay
+
+113
+01:03:54,170 --> 01:04:32,940
+now so anyway so like this so you we are using the early use of selection we are doing the we are doing the early use of selection so like this now tell me the answer for this find the names of sailors who have reserved a red board okay so this we have done this is done find the reserve where now okay one more efficient solution one more efficient solution can we give for example in this same question
+
+114
+01:04:33,260 --> 01:05:03,200
+can we give one more efficient solution in the same question what we do look at this one more efficient solution we can have here what we can do we can just basically first we select the red box just remove this just remove this so first you select the red box now when you compare them now when you combine them now if I blindly combine them what will happen now if I blindly combine basically this query 2 I am looking at okay then I will tell you the query 3
+
+115
+01:05:03,690 --> 01:05:36,370
+So this query 2, what this query 2 was doing? This query 2 was doing this. Now, when you combine this and this natural join, then this 102 will combine with this one. Okay, so here, okay, so you will do the combination here. After doing the combination, okay, after doing the combination, actually you will get many rows. Did you notice? After doing the combination, you will get many rows. For example, this will combine with this.
+
+116
+01:05:37,340 --> 01:06:07,290
+If you notice this one zero two this will combine with this also and this one zero four will combine with what? Look at this a very simple point. I'm saying this one zero four will also combine with this so can you notice that there will be it will be something like this if you do like this then you will get twenty two twenty two yes or no if you do in the query two you are going to do this in the query two if you do if you do this twenty two twenty two you will get in the query two
+
+117
+01:06:08,190 --> 01:06:44,360
+then what you will get then you will also get this one zero to one zero four then you will get thirty one thirty one okay thirty one thirty one then you will do now when you do this natural join with seller now when you do with natural join with seller how many comparisons how many comparisons forty how many comparisons forty comparisons so I can say forty comparisons okay can we do something better can we do something better no you brass
+
+118
+01:06:46,500 --> 01:07:14,160
+These are not duplicates. There will be something more. See these are not duplicates. There will be something more. Like you will get 20, then you will get 104, you will get the date. So these are not like, are you getting my point? So these are not 102, 102, 104. So these are not duplicates. Is this clear? There is something more also.
+
+119
+01:07:14,490 --> 01:07:43,230
+so now if you do then you will get how many comparisons total 40 comparisons you will get total 40 comparisons you will get now can we do something better yes we can do this what we can do from the board from this board table first we can select the color first we can select the color okay okay okay first we can select the color then we can do this join there is no problem then we can do this join but after this join we can select what
+
+120
+01:07:43,910 --> 01:08:16,780
+But after this joint, we can select pi. We only want pi, right? We only can project pi SID. Now, if I do this, then I will get 2231. Now, this will give me 2231. Okay. After this, what you can do? Okay, this, the whole thing that you got, this whole thing, you can, you can do, you can do with seller. You can do with seller. And then in the whole final thing,
+
+121
+01:08:17,220 --> 01:08:49,380
+then in the whole final thing you can project the name is this clear tell me so this is better than that correct this solution is better than that solution this solution is definitely better than that solution okay so here our point number three comes now my point number three comes so when we can do this when it will benefit you when is this going to benefit you this projection when this projection is going to benefit you
+
+122
+01:08:51,530 --> 01:09:22,440
+when will this projection benefit you this projection when it will benefit you actually why this projection was benefiting you tell me why we are doing the projection first we are doing the projection first because no no no no no actually we are doing the projection first because we are getting not duplicate but our desired data is duplicate inside what we are getting are you okay is this making sense is this making sense
+
+123
+01:09:22,760 --> 01:09:51,210
+Our desired data is duplicated within the overall data. Within the overall data, our desired data is duplicated. In this overall data, our desired data is duplicated. In this situation, we can just pull it out. In this situation, our desired data we can pull out so that it doesn't become duplicated. When this will happen, I can say
+
+124
+01:09:51,680 --> 01:10:22,690
+when this projection will benefit you to reduce the number of tuples this will benefit you to reduce the number of tuples if I can say if you basically after applying this some I can say your I can say your desired number of what I'm saying here actually see so here I can say when it will benefit you it will benefit you just focus on desired okay focus on
+
+125
+01:10:25,290 --> 01:10:55,720
+focus on desired attribute focus on desired attribute okay yes yes or no focus on desired attribute now if you focus on the desired attribute here SID is the desired attribute right okay yes or no here SID was the desired attribute in this one so SID was desired so focus on the desired attribute example example SID focus on the desired attribute and okay and
+
+126
+01:10:57,360 --> 01:11:29,500
+Do we have duplicates? Do we have duplicates of the desired attribute? I can say in the overall result. I hope you understood. You are getting the idea.
+
+127
+01:11:33,340 --> 01:12:05,890
+in this type of situation you can do so focus on the desired okay let's see this question tell me the answer here i want those doubles which are which are reserved by louver the color of boards which are reserved by louver so here what you will do first of all what is the idea what is the idea idea is very simple in the seller you must have the name the name must be louver the name must be louver but you can notice okay this name name must be louver
+
+128
+01:12:06,220 --> 01:12:38,630
+Now this SID, whatever is this SID, this must reserve what? This Luber person, this is the Luber. This is the Luber. They must be same. They must be same. So this Luber person must book a boat. Okay, this boat, this boat, this boat must have color. These colors we want. These colors we want. This is what you will project. So this is what you are going to project. Okay, very simple.
+
+129
+01:12:39,050 --> 01:13:13,860
+so finally here what we can do can you notice this will be taken care by what tell me tell me tell me this this condition will be taken care by what so he will take care okay this will take care inside this included this is included in this and this is included where and this is included in what so this is included in R natural zone B this is included in R natural zone B agree okay very simple
+
+130
+01:13:14,330 --> 01:13:43,560
+So remember this condition is included in natural join and this also included in natural join. So finally your answer will be what your answer will be as natural join or natural join be you can do this and then you can put all the condition like the condition you can put is that the seller name must be okay the seller name the name of the seller must be lower. Okay and then finally finally in this what you are what you are projecting.
+
+131
+01:13:43,980 --> 01:14:12,700
+you are projecting the color you are projecting the color in this right but this is not better a lot of comparisons yes or no this query one let's call it let's call it query one so this query one is definitely not a better query a lot of comparisons will be there so here what we can do something better so we can do something better we can do this first you can select the louver from as from the sailors you can select the louver
+
+132
+01:14:14,050 --> 01:14:45,570
+Okay, like select where name is Luber. So first you select the person who is Luber. First you select that person. Okay. After selecting this person, what you can do now you can do the natural join with R. Then you can do natural join with B and then you can select boards. Then you can select the I can say in this what you do in this what you do in this you do the project the color. This is better. Can we do something more?
+
+133
+01:14:46,190 --> 01:15:17,420
+can we do something even more better can we do something more better see here if now notice here if we do the comparison then actually what is happening here when we do the comparison we only want what we only want BID we only care about BID agree or not actually we only care about BID here because name is already Luber I have already selected the name Luber this Luber name I have already selected
+
+134
+01:15:17,790 --> 01:15:51,080
+okay this luber name this i have already selected now i only care about bid in this so what is my focus attribute what is my attribute or attribute of focus what is the attribute of focus here in this one in this what is the attribute of focus so i can say focused attribute focused attribute is what that is a bid focused attribute is basically bid i only care about bid okay now you tell me
+
+135
+01:15:51,470 --> 01:16:20,940
+but if I now here can you notice after selecting Lover you can have you can get multiple tables after selecting Lover you can get multiple tables like this can happen that there is a person Lover and let's assume his ID is 1222 and for this 22 let's assume there are many boards for this 22 for this 22 let's assume let's assume there is board B1 okay so
+
+136
+01:16:21,260 --> 01:16:52,960
+let's assume the name is the ID is 22 20 and there is debt also and there is debt also actually if you notice this whole thing this whole thing was the primary key this whole thing was the primary key correct this whole thing was the primary key so actually this also can happen that 20 b1 okay date here 10 date here was the date here was the date here 11 date here 12 date correct
+
+137
+01:16:53,410 --> 01:17:26,470
+So something like this because remember if you remember the combination was the primary key the complete combination was the primary key SID BID no actually combined with date I told you okay do you remember this in the beginning we have seen this I will not go back but in the beginning we have seen this in the beginning we have already seen this SID BID date this complete thing was this was the primary key for reserve
+
+138
+01:17:27,590 --> 01:18:00,480
+For reserve this was the primary key so now you can you can see that this actually will go with this also this also this also so but actually we only care about BID okay yes or no we only care about one of them is this clear to everyone tell me okay can there be something else like without considering this without considering this can there be something else we only care about the BID with the name Luber with the name Luber
+
+139
+01:18:00,750 --> 01:18:31,880
+maybe there is another person luber maybe there is another person luber we are only concerned about name maybe there is another person luber maybe there is another person luber he is also having this b1 he is also having this b1 he is also having this b2 or maybe okay he is also having this b1 so again can you notice actually we are only okay yes or no it does not matter which luber it does not matter which luber it does not matter which luber agree
+
+140
+01:18:32,550 --> 01:19:01,410
+even if you don't consider date see if you consider date this is the one logic if you consider date but if you don't consider date then there is another logic what is that what is that there can be another luber there can be another luber so all these lubers okay so here if you notice this is what is happening let's assume 22 this is 22 this is 23 this is also luber 23 now we only care about the name we don't care about their ID yes or no agree
+
+141
+01:19:02,310 --> 01:19:29,770
+Actually, we only care about the name, like Luber is, I can say, which color board Luber is reserving. Okay, which color board Luber is reserving. So here actually we only care about this B1. If one Luber is giving me B1, do I care about the other Lubers? Tell me, if one Luber is giving me B1, if one Luber is giving me B1,
+
+142
+01:19:30,060 --> 01:20:01,440
+now it does not matter the remaining lubr they are reserving V1 or not yes or no tell me if one lubr is reserving V1 then it does not matter the remaining lubr they are reserving it or not because read the question carefully the question is asking color of boards reserved by lubr now which lubr we which lubr we don't care we only want color of boards which lubr is reserving there can be many lubr there can be many lubr okay so finally I can say here
+
+143
+01:20:01,720 --> 01:20:34,590
+that here also you can notice the same thing is happening if you look at this if you look at this 12 b1 let's assume b1 so if you look at this actually you want only one tuple right okay four tuples okay these are your four tuples but okay only one tuple is i can say i can say one worthy one tuple is worthy right only one one tuple is important only one tuple is important
+
+144
+01:20:35,330 --> 01:21:04,680
+these four tables are not important so this is the idea so here what is the better query you can write for this question what is the better query you can write very simple that first of all what you do from the sellers you project where name is lubar where name is lubar all the lubars you take all the lubars then you do their join with R after doing this join what you can do after doing this join what you can do you can project the BID
+
+145
+01:21:04,950 --> 01:21:34,160
+We only care about BID. We only care about BID. You can project the BID. Now you can do the natural join with the board. With the board, with the board, you can take the natural join. Now finally, you can select the color. So this is better. This is your query three. So this query three is better. Correct. Is this clear to everyone? So this is the problem with Q2. In Q2, this is a problem. In Q3, the problem will not happen.
+
+146
+01:21:34,750 --> 01:22:06,920
+okay in q3 the problem will not happen so this is a better query i hope this point is clear all these points are they clear okay so this is your i can say this is one query but you can write another query which is better now let's see this one what is the answer for this i want those sellers i want sid of those sellers who have reserved at least one bot how many tables i need how many tables i need i want sid of those sellers who are reserving at least one bot
+
+147
+01:22:07,700 --> 01:22:59,310
+Tell me how many SIDs, how many tables I need? But yeah, think again, I want SIDs. This is the question. Yes, very good. Only one table you need, right? I mean, you need SID. You want SID. Only one table you need. You want SID. So just take from the reserve table. In reserve table, everyone has at least one board. Agree or not? In reserve table, in reserve table, everyone has at least one board. In the reserve table, all those people, they have at least one board. So finally, your answer will be what?
+
+148
+01:23:00,210 --> 01:23:33,050
+your answer will be reserves from the reserves what you do just select the SID from reserves you select the SID that's your answer okay that's your answer just select the SID just project the SID from the reserve you project the SID that is your answer tell me about this question find the names this is also very easy now once you have SID you can find the name easily once you have SID from the reserve from the reserve you can find SID
+
+149
+01:23:35,090 --> 01:24:08,310
+from the reserve you can you can project you can or maybe or actually what you can do from the reserve you can just do this natural join with seller natural join with seller and then project the name and then project the name can we do better than this can we do better than this actually which is better query actually if you if you only want sid right if you only want sid then just do this
+
+150
+01:24:09,250 --> 01:24:39,360
+reserve just select the SID then you do seller and then you project the name so this is better this is Q1 and this is Q2 and this is better tell me why this is better what is the reason this is better the reason very very simple reason if you look at this diagram okay if you find the SID only how many you will get if you find SID only only three four you will get
+
+151
+01:24:39,800 --> 01:25:13,950
+if you find SID only if you project SID only 4 you will get okay so you can see which is better okay agree so here 100 100 comparisons here 40 comparisons okay here 100 comparisons okay let's move on now so read the question very carefully this is the mistake you have done in this question I know where you will make mistake I okay I know where you are making which mistake
+
+152
+01:25:14,270 --> 01:25:44,400
+so in this previous question which mistake you did in the previous question you did not read the question carefully the question was asking sid so only one table is enough if i ask you sid only one table will be enough if i ask you sid if i ask you s name these two tables i need so read the question carefully what the question is asking what is given to you what is the key what is the foreign key what are okay everything so everything you need to okay read carefully now let's see this question
+
+153
+01:25:45,150 --> 01:26:15,420
+Find the names who have reserved red or green boat. Tell me the ideas. Some ideas. Can you tell me? I want those people. I want names of those people who have reserved either red green, either red boat or green boat. One idea is union. One idea that comes to your mind that is union. This is the one idea. Yes. So the first idea that will come to your mind that is the union. Okay. So what you can do.
+
+154
+01:26:16,130 --> 01:26:54,070
+you can find names of redboard people okay redboard sellers you can find the names of redboard sellers you can do the union with this okay you can do union with this you can do union with this is this clear so you can find names of redboard sellers you can find the names of redboard sellers and you can do union with names of greenboard sellers will this work will this work
+
+155
+01:26:55,230 --> 01:27:27,230
+These are the names of red board sellers. These are the people, these are the names, these are the names who have taken red board. These are the names who have taken green board. Their union is what we want, correct? So this is the one idea. Okay, remember, can you write this query? Can I leave this up to you? Can you write this query? Like names you can find for the red board sellers. We have already done this. This we have already done. This we have already done. This also we have already done.
+
+156
+01:27:27,880 --> 01:27:59,970
+So these are already done. You just take their union. So these are already done. What is the idea number two? What is the idea number two? What is the query number two? The query number two is your side by side table idea. Okay, just take, okay. So, okay, the query number two is like this. In the query number two, what I do? In the query number two, what I do? I find the SID of red board people. I find the SID of red board people.
+
+157
+01:28:00,340 --> 01:28:38,000
+I find SID of green board people then I find their name can I do this okay in this union in this union I find their names can I do this in this union can I find their names in this union can I find their names okay this also I can do right so first I'm finding SID of red board people then I'm finding SID of green board people okay so the union will give me SID of red or green board people
+
+158
+01:28:38,300 --> 01:29:09,800
+then I can find their names so this also this is another idea this is another idea right okay or maybe actually here I can say when I say SID I just want to say sellers okay when I say SID or maybe I can say SID comma S name okay so here you are finding SID then you are doing this with the seller you are doing the with the seller actually you will do this okay after finding SID is what you will do with the seller you will do this
+
+159
+01:29:10,310 --> 01:29:41,930
+with the seller you will do this and then you will find the names correct this is correct yes or no this is a correct okay now tell me the next idea what is the next idea query number three what is the query number three the query number three is like this very simple you want those people who are reserving okay so those people you want you want those people as ID as name okay this is this as name I will project
+
+160
+01:29:42,560 --> 01:30:15,740
+this as name I will project but those people you want for the same people what should happen the reserve table you can take two times okay actually let me tell you here in this question if I ask you okay if I give you the ID okay the board ID if I give for example maybe one zero one one zero two if I give you the board ID one zero one one zero two now this is very easy what you can do you can take the reserve table two times
+
+161
+01:30:17,330 --> 01:30:46,050
+you can take the reserve table 2 times this is your seller table you can take the reserve table 2 times this reserve table you can take 2 times correct because we want that the same person this same person this SID the same person he should reserve a boat 101 also he should reserve a boat 101 also and this same person this same person he should reserve a boat 102 also okay
+
+162
+01:30:46,380 --> 01:31:17,580
+so this same person should reserve 101 also and this same person should reserve 102 also agree correct okay this same person so this person this same person this person this same person should reserve 101 also he should reserve 102 also then you project this is your third number idea okay in this but here you have s id sorry here your boat id instead of boat id now what i have instead of boat id now what i have
+
+163
+01:31:18,310 --> 01:31:48,330
+I have red, green color. So actually what you will do? Actually you need what? You need five things. Now you need, remember, now what you need? You need two reserve table. You need two times reserve table. And you need two times board table. Isn't it? You need two times reserve table. You need two times board table. The same person. This person must be same. This person must be same. Okay.
+
+164
+01:31:48,780 --> 01:32:25,200
+the same person should book a table he should book a board he should book a board for this board the color should be red for this board the color should be red the same person should also book another board and for this board and for this board for this board the color should be green tell me did you get it the same person should should book two boards the same person he should book at least two boards
+
+165
+01:32:25,860 --> 01:32:59,560
+He should at least book two boards. One board should have red color and another board should have green color. Tell me, did you understand this? Tell me. So you need what? You need five tables. You need five tables. This is your query three idea. So you need five tables. Basically, in this situation, you will do the five tables as R or maybe you can do this. You can do this RB.
+
+166
+01:33:00,220 --> 01:34:02,540
+and then RB okay so because here you will do one okay then then this is what you will do so here I can say seller this will have SID that same SID you must have here okay right so here actually what we need to do here we need to do this first you need to okay just just check this be it will be a little complicated right
+
+167
+01:34:02,990 --> 01:34:36,640
+Then you will also have to write that it should be red. It should be green. Okay. So it will actually become very complicated if we write it. See, the idea is same, but actually it will become very complicated. So if you do the cross product, it will become very easy. Okay. Here, actually, if you do the cross product, it will become much easier if you do the cross product. So you can write it, right? You are getting the idea. Yes or no? If you do the cross product, this will actually, but anyway, of course, in the exam, they will not ask you this.
+
+168
+01:34:36,840 --> 01:35:07,810
+because this is very complicated so the union idea is better the idea of union is better but there is another idea okay this is what this was one idea this was one idea of course this is very complicated i can say okay very complicated or i can say very messy this is very messy but you can notice there is another idea and this is very nice the idea number what query the idea number four the idea number four is like this what we do first we take only those those boards
+
+169
+01:35:08,700 --> 01:35:39,470
+First we select those boards from the board table from the board table We only select those boards where your color is green or red Where your color is green or red Where your clean color is green or it is red, right? So we select only those boards where you have color green or bad Then it is very easy Now we got those boards which have okay green green color now you can find it with the reserve with the reserve you can find it and then you can do with the
+
+170
+01:35:39,710 --> 01:36:10,830
+seller and then you can find the names then you can find the names correct so what this will give you this will give you all the boards which have color green or red okay this will give you all the color all the boards whose color is red or green then this will give you all the sellers who have booked one of these boards it will give you those sellers those SID who have booked one of these boards then it will give you the names of those people okay
+
+171
+01:36:11,170 --> 01:36:41,950
+so this is another idea of course what you can do you can also put something here projection yes or no here you can also put projection this projection also you can put here projection because we only want sid so there is alternate scheme the alternate scheme is you select this projection here so at this point you you select sorry project sid this is alternative idea okay so this is i can say query number five clear so all these points are they clear tell me
+
+172
+01:36:42,500 --> 01:37:18,600
+to everyone all these points are clear now let's see let's see the next let's see this one a red and a green board i want those people who have taken a red and a green board i am giving you query number one tell me is this query correct if i give you query number one what i do i do this i do s name i find those names of green uh red board people red board people i want to find i won't find let's assume names i won't
+
+173
+01:37:18,850 --> 01:37:59,770
+redboard people intersection with names of greenboard people will it work tell me will this work I want I find as name of redboard people and I find as name of greenboard people will it work I find those names who have taken red so these are all the names who have taken red these are all the names who have taken green can I take their intersection no this will not work now this will not work
+
+174
+01:38:00,390 --> 01:38:37,480
+okay now this is not going to work is this correct correct or not just think about it is this correct the answer is no now this is not correct just think about it now this is not correct why what is the reason this is not correct the reason is very simple let's assume there is a there is a seller let's assume there is a seller who has taken red and whose name is let's assume whose name is something maybe zone okay
+
+175
+01:38:39,200 --> 01:39:12,050
+or may be we can call it may be Baburao whatever. In Tsuksuke movie there is a Patesh Rao. What is the name? He does this board business. He does this board business, right? Okay, anyway, so Baburao whatever. Now tell me, there is another SID. There is another SID, there is another person, a different person. His name is also Baburao, but there is a different person. He had taken green. Now tell me.
+
+176
+01:39:12,530 --> 01:39:43,560
+this person should come in the answer or not this person should come in the answer or not this person see this person has taken red this person has taken green but their name is same but their name is same so they should come in the answer or not so should not be answered should not be in answer should not be in answer yes or no that should not be in answer but this query will give you these two people in the answer
+
+177
+01:39:43,950 --> 01:40:18,610
+See, this Baburao is different. This Baburao is different. But in the intersection, you will get Baburao. But you should not get Baburao. Yes or no? This will definitely give you Baburao. Is this clear? So this will definitely give you Baburao. But is this clear? Tell me. Is this clear to everyone? So here, this is not correct. In the union, this was correct. Now, okay, please think about it. In the union, why this was correct? In the union, why this was correct? Yes, Nikhil, very good.
+
+178
+01:40:20,790 --> 01:40:57,510
+Nikhil, you will top the exam. Okay. So tell me, in the union, why this was working? Tell me. In the union, this was working, right? Yes or no? In the union, this was working. For the union, this was working. For the union, this was working. For the union, this was working. So can you see? Of course, it will work. For the union, it will work, right? Because it will give you all the names to have red people, red board.
+
+179
+01:40:57,780 --> 01:41:28,320
+this will give you so of course we want union so in the union this will work so in the union there is no problem but in the end there is a problem is this clear this trick did you see did you see this trick tell me okay so this is not correct so tell me what is correct then what is correct then can I do this SIDs who have taken red board SIDs who have taken red board SIDs who have taken green board this intersection
+
+180
+01:41:29,340 --> 01:42:04,100
+In this intersection you find the names. Now this will work. Correct or not? Because SID is the key. Why this is working? This will work. Why this is working? Because SID is the key. Yes or no? Because SID is the key. That is the reason this is working. Is this clear to everyone? So basically because SID is unique. If two people have same SID then they are same people. Yes or no?
+
+181
+01:42:04,460 --> 01:42:39,330
+if two people have the same SID then they are the same people okay so this will work I hope this point is clear what is another way what is another method tell me will this work what I do from the board from the board I take those boards where the color is red and green okay where the color is red and green and then I do something something something then I do something something something
+
+182
+01:42:44,750 --> 01:43:21,240
+Will this work? Tell me. Will this work? Is this correct? Tell me. Is this correct? This is also not correct. Why? There is no such board. There is no such board. This will apply to a single row. This selection applies to a single row. Agree or not? This selection applies to single row. So this applies to single row. This applies to single row. So there is no such board.
+
+183
+01:43:21,610 --> 01:43:57,070
+there is no such board there is no row where you have this there is no such board so this will give you what this will give you basically this query is going to give you what empty relation this query will give you empty relation this query will give you empty output so the output will be empty so this will give you empty output your output will be empty clear tell me okay
+
+184
+01:43:57,400 --> 01:44:29,910
+i hope all these points are clear see small small points but they are very important all these small small points we cannot use division because you only want a red a green you don't want all red all all green you don't want all red all green you want a red a green okay one red one green is enough for us one red one green is enough for us okay now here what is the another idea tell me this idea will work or not
+
+185
+01:44:30,070 --> 01:45:05,930
+if i take this idea the same seller in the seller you have sid as name in the seller you have this will this idea work so anyway okay this will become actually very complicated okay anyway so you understood this i hope this point is clear so finally your answer will be what finally what you need to do your correct answer your final correct answer that is intersection but based on sid okay your final correct answer will be based on sid
+
+186
+01:45:06,780 --> 01:45:37,850
+SID is red, SID is green this will be your correct answer then you take the intersection this intersection then you find the names then you find the names so this is the correct answer is this clear tell me so this is the correct answer so what you need to take care what you need to take care you need to take care okay apply the idea and check if your query is correct or not so this idea basically actually this idea will tell you
+
+187
+01:45:38,900 --> 01:46:12,590
+If you notice, this idea is going to tell you, okay, tell me, this will work or not? Something I am asking. In the union, this was working. In the union, this was working. What was working? That you have seller, you have reserve, you have board. In the union, this was working. In the union, it was working that here you have either red or green. Yes or no? Here you have either red or green. This was working in the union.
+
+188
+01:46:12,870 --> 01:46:42,320
+in the union correct yes or no either this would be red or this would be green and everything else you know everything else you know so this was working right in the union this was working correct because you have red or green okay so because you have red or green so this was working but in the intersection this will not work okay so this is a correct but in the intersection this will not work you cannot write something like this like red and green it means a single tuple must be red and green
+
+189
+01:46:42,520 --> 01:47:16,280
+Yes or no? It means it means a single tuple. A single tuple must be red and green. A single boat must be red and green. So this will not work. So in the intersection, this will not work. In the intersection, this will not work. Okay. So this is the idea. Okay. Anyway, let's move on. So you can notice. So basically apply the idea. This idea will tell you whether you are doing the correct answer or not. So this idea you apply, this logic you apply. Okay. This and is sometimes trickier than or.
+
+190
+01:47:17,950 --> 01:47:49,340
+okay but ultimately you just have to apply the idea it will tell you whether your answer is correct or not okay so and this we have already seen can you take name can you do intersection of names can you do intersection of names can you do intersection of names that is not correct can you do intersection of names you cannot do that so remember this point is very important this is extremely important point union intersection join any type of join when you do a non-prime attribute
+
+191
+01:47:49,710 --> 01:48:18,310
+When you do a non key attribute, it may lead to wrong answer. Is this clear? You do union, you do intersection, you do set a difference, you do join, you do any type of join. When you do a non key attribute, non prime attribute, then it may lead to wrong answers. But not always. Why I am saying not always? Can you give me one situation where it will not give you wrong answer? Anyone? In which situation this will not give you answer?
+
+192
+01:48:18,990 --> 01:48:47,700
+the union case we have seen in the union if you take name union name that is fine yes or no in the union if you take names union names that is fine is this clear so did you understand this statement please tell me so intersection union join natural join any type of join set a difference all these things if you do a non-K attribute then it may lead to wrong answer but if you do
+
+193
+01:48:48,190 --> 01:49:20,550
+but not always so you should take care you should definitely take care okay tell me the answer for this this is very simple this we have done already at least two boards the people who are having at least two boards so for this idea is very simple sailor reserve you will take the reserve table two times this reserve table you will take two times correct okay so here you have name this reserve table you will take two times so here you have two things
+
+194
+01:49:22,600 --> 01:49:55,030
+This so what you want you want this person the same person Remember the same person this is the same person the same person This is the same person must have what the name The name I will project the name. I will project this SID This SID this SID they must be same and then finally what should happen? This board must be different from this board. Can I say this ID must be different from this? They must be different
+
+195
+01:49:56,160 --> 01:50:28,680
+this and this they must be different is this clear so this is how you can do this at least two boards like this you can write so they must be different they must not be same they must be different so you can write the query very simply very simple query you can write very easily so what you can do here they must be different remember so you can do this natural join so for with this as you can do the natural join with R okay
+
+196
+01:50:29,270 --> 01:50:58,460
+and after that you can actually you cannot do the natural join now now you cannot do the natural join let me call it R1 R2 so let me call it R1 let me call it R2 now here you can take the natural join okay then what I'm saying that after taking the natural join what should happen you should take again cross product okay or maybe actually conditional join you can take the conditional join you can take if you join you cannot take
+
+197
+01:50:58,780 --> 01:51:31,880
+you can take the conditional join but the condition will be what? the condition will be that this r1.bid is different from r2.bid so they must be different okay they must be different r1.bid this must be different from r2.bid then you can select the name okay equation you cannot do equation means equality equation does not mean inequality this is inequality this is not equality tell me the answer for this
+
+198
+01:51:32,230 --> 01:52:07,370
+who have reserved exactly one bot who have reserved exactly one bot so at least one minus okay at least one minus at least two at least one minus at least two okay now something interesting so can i say names who have at least one minus names who have at least two will this work will this work names of at least one names of at least two can i do this
+
+199
+01:52:08,500 --> 01:52:42,490
+Names of at least one minus names of at least two. Can I do this? Again, this will not work. Again, this is wrong. Why this is wrong? Again, this is wrong. Why this is wrong? Again, maybe there is a person. See, just think about it. Maybe there is an ID. Maybe there is a person who has exactly one board. Let's assume he has exactly one board. Let's assume he has exactly one board. Let's assume he has exactly one board.
+
+200
+01:52:42,810 --> 01:53:14,980
+But his name is Baburao. Okay. He has exactly one board. Let's assume there is another person. His name is also Baburao. And he has more than one board. He has more than one board. Tell me, Baburao should be in the result or not? Baburao should be in the result or not? Gundebhav. Yes. Yes. In the Chupsukke, he deals with the boards. Okay. He is the seller in the Chupsukke movie. Gundebhav. Okay. So, tell me. So, this...
+
+201
+01:53:14,970 --> 01:53:48,880
+This Baburao should be in the query or not? In the result or not? So yes, because of this, because of this, because of this, this Baburao must be in the result. Will he be in the result? Will he be in the result? So he should be in the result. So Baburao should be in the result. Should be in result. But he is not in the result. But in this query you don't have this Baburao. Okay, in this query you don't have Baburao. Yes or no? In this query no Baburao.
+
+202
+01:53:52,790 --> 01:54:24,290
+so this query is not correct is this clear did you okay why are you forgetting this note this note I told you again remember this note look at this note again look at this note again let's look at this note again union intersection difference join all these things you should not do in the okay non-prime attribute but you can do this SIDs okay SIDs we have at least one bot SIDs we have at least two bot
+
+203
+01:54:24,590 --> 01:54:56,310
+then you find the name then you find the name that is fine it is fine yes or no it is fine is this clear it is fine so again why are you not taking about care about the key and non key again the same note again the same note again the same note again why are you not taking care about this key or non key is this clear union intersection difference join any type of join
+
+204
+01:54:56,620 --> 01:55:28,690
+When you do a non-care attribute, you must take care. You must take care. I know you will not take care. Okay. So you might be thinking, how sir knows? I know you will not take care. And I know now you will take care. I know two times you have to make mistake. I know that. Okay. Two times definitely you have to make mistake. Now you will not make this mistake. Now will you take care?
+
+205
+01:55:29,550 --> 01:55:59,550
+before saying yes or no now will you take care now whatever question I give you will you think about it for one minute maybe for 30 seconds will you think about it will you think about Baburao okay always think about Baburao is this clear now let's move on so tell me about this one SIDs who have reserved all boards who have reserved all boards SIDs who have reserved all boards when you see this word what comes to your mind
+
+206
+01:56:01,370 --> 01:56:40,040
+when you see this word what comes to your mind when you okay so what will come to your mind division right okay so the division operation will come to your mind when you see this word correct so finally division has come okay let's see let's move on so tell me what will be the answer what will be the answer now tell me SID who have reserved all boards we want those SID who have reserved all boards so very simple
+
+207
+01:56:41,370 --> 01:57:14,570
+we want SIDs of sellers who have reserved all boards SID won't we want we want SID only okay so what I can do from the reserve table first I will find what I will find SID and board ID agree or not first I will find these two in the reserve table in the board table what I will do in the board table this okay I will only take the ID this projection I will do correct
+
+208
+01:57:14,920 --> 01:57:50,200
+this projection I am going to do so remember this projection I am going to do this projection I am going to do on the board and this projection I am going to do on the reserve on the reserve this projection I am going to do on reserve okay so this projection I will do on the reserve let me call it T1 this projection I will do on the board let me call it T2 what we want what we want we want T1 divided by T2 we want even divided by T2 yes or no
+
+209
+01:57:50,640 --> 01:58:27,360
+we want those SID we want those SID who have taken all the boards who have taken all the boards all the boards all the boards so when you see this word all what should come to your mind division all boards you must take all the boards so you must take remember those SID we want this will give me SIDs who have taken all boards who have reserved all boards who have reserved all boards okay is this clear
+
+210
+01:58:28,090 --> 01:59:01,040
+Let's move on. Tell me the answer for this. Tell me the answer for this. Find the names of Sailor who have resorted all board. Now this is very easy. After finding this, okay, so after doing this T1, this T2, now you can do this with the Sailor and you can find the name. Correct? Yes or no? This will give you the SIDs. This will give you the SIDs.
+
+211
+01:59:01,320 --> 01:59:35,980
+then you can find the name also you can find the name also tell me the answer for this answer for this find the name of all those who have taken all boards called interlake i want all the boards interlake so first i will select from the board first i will select where name is interlake where name is interlake from the boards i will select the boards which have name interlake so this interlake
+
+212
+01:59:36,490 --> 02:00:09,000
+this interlake so these two I will select after selecting this I will project BID I will project BID correct correct correct let me call it T1 let me call it T1 what it T2 what it T2 T2 is project SID BID project SID BID from the reserve from the reserve project SID BID then what you do
+
+213
+02:00:09,740 --> 02:00:41,050
+Then what you do? Then this T1 divided by T2. Then you do the natural joint with seller. Then you find the name. Then you find the name. This is your answer. Tell me, did you get it? All the questions, did you get it? See, all the variations we have taken, tell me, did you get it? Let me tell you, only these variations were in this book. Only these variations were in the book. If you check out the book, Raghuramakrishna, from the Raghuramakrishna.
+
+214
+02:00:41,410 --> 02:01:09,850
+we have done almost four or five pages in this lecture maybe more than five pages in this lecture we have done more than five pages only 10 questions are there all those 10 questions we have taken more than this is not enough more than this is not required why what is the reason more than this is not required because gate exam is a objective exam so there will be options okay so you don't have to write the query now you have to understand the query yes or no now whatever question they give you in the exam
+
+215
+02:01:10,130 --> 02:01:37,720
+you have to understand the query you don't have to write the query so you don't have to apply your brain to write the query you have to apply your brain for the analysis of query so this analysis is important now this is what we are going to do okay after the break so tell me is this clear all these questions are they clear let me know please tell me any anyone has any doubt all the things you need to take care can you tell me one by one all the things you need to take care
+
+216
+02:01:38,260 --> 02:02:06,760
+I told you some points which you need to take care the first point was just think about the idea okay the first thing is the first point was you think about the idea the logic you think always think about the logic write the table side by side and you check it out always do this okay always do this in the analysis also you need to do this when we solve the gate questions then also you need to do this so this is the first idea what was the first point the first point was
+
+217
+02:02:07,050 --> 02:02:35,790
+right table side by side and you do analysis you find out the logic this is the first idea what is the second point tell me what the second point the second point is early use of selection will give you efficient query early use of selection thanks to early use of selection you will get efficient query less number of comparisons efficient query you will get if you use selection early what is the third point sometimes you need to
+
+218
+02:02:36,020 --> 02:03:03,590
+project also yes or no i told you sometimes you should project also so that you can get efficient query so that you can get efficient query sometimes you need to project also when you will do projection when this projection is going to help you this projection will help you when your desired attribute your focused attribute is duplicating because of other attributes your desired attribute your focused attribute
+
+219
+02:03:04,050 --> 02:03:34,180
+is duplicating is duplicating because of other attributes then you can do the projection so that this duplication is gone okay what's the next point what was the fourth point the fourth point union versus intersection the fourth point was union versus intersection intersection is tricky yes or no intersection is tricky this we have seen intersection is tricky union is straightforward for union you can do whatever you want but intersection is tricky
+
+220
+02:03:34,480 --> 02:04:04,710
+What is the next point? What was the next point? In all the operations, if you join union intersection, join difference, natural join, whatever join you do, if you are doing on the non-key attribute, then there can be problem. May or may not, then there may or may not be a problem. Yes or no? In the union, there will be no problem. But in the difference, in the, I can say in the union, there will be no problem. But in the difference, there will be problem. In the join, there will be problem.
+
+221
+02:04:04,970 --> 02:04:34,080
+in the intersection there will be problem okay so remember if you are joining two tables if you are doing the union intersection join natural zone whatever type okay whatever you are doing if you are doing based on non-prime attribute if you are doing based on non-k attribute then there can be problem so you should take care and what is the last point so these points we have seen what is the last point if you see this all this all word if you see then think about the division this division operation you can think
+
+222
+02:04:34,300 --> 02:05:02,740
+if you see this all point so these are all the points tell me i hope you understood this let me tell you one more thing at this point of time in this lecture if you have any doubt okay if you are not confident sir i am not confident about writing the query then there is nothing to worry because gate exam is a objective exam they will not ask you to write queries you have to analyze the queries and we will solve all the relational algebra questions basically now in the next lecture i am going to solve these questions if you notice
+
+223
+02:05:03,350 --> 02:05:30,140
+in the next lecture I am going to solve the gate questions of relational algebra so these gate questions we are going to solve basically you just have to analyze this okay from the relational algebra every year one question is coming every year one question is coming from the relational algebra this is very important this relational algebra so we will solve the questions of relational algebra the gate questions we will solve and you should improve your analytical skills you don't have to write the query you have to understand the query
+
+224
+02:05:30,450 --> 02:06:02,050
+and understanding the queries easier than writing the query right yes or no understanding the query query is given to you you have to understand that query that is easier than writing the query okay so now in the next lecture we will start this understanding the queries so we in this lecture we have seen writing the queries in the next lecture we will see understanding the queries tell me if anyone has any doubt any doubt anyone so let me see the time when we'll ask you to start so in the next lecture
+
+225
+02:06:02,250 --> 02:06:30,710
+Actually tomorrow we will study TRC, double relation calculus we will study TRC. Tomorrow also we will have multiple sessions. So TRC we will study. TRC is only one lecture. TRC is actually much easier than relational algebra. This relational algebra is complicated, more complicated than TRC. TRC is easier than relational algebra. So this TRC we will study and then from the next lecture we will start SQL. Okay, day after tomorrow SQL will start.
+
+226
+02:06:31,660 --> 02:07:05,860
+anyone has any other doubt any other doubt anyone tell me did you get 80 or 90% idea in this lecture maybe 80% idea maybe 90% idea how to write the queries whatever I taught you did you understand that that is enough whatever I taught you if you understood those things that is enough okay that is more than enough because gate is not a subject subjective exam okay that is more than enough whatever we have seen okay so now what we will do
+
+227
+02:07:08,150 --> 02:07:35,240
+Now, we will have a general meeting at 9 PM. We will have a general meeting and tomorrow we will have multiple sessions for this relational algebra. In the morning, we will have relational algebra session. In the morning, there will be relational algebra gate questions. These gate questions I will give you, you can solve them. In these slides, I have taken almost maybe 10 to 12 questions I have taken.
+
+228
+02:07:35,630 --> 02:08:03,920
+maybe i don't remember like 10 maybe 10 or 15 questions are there the gate questions i've taken so these gate questions you can attempt tonight and then tomorrow morning i will solve these 10 questions these 10 or 15 questions i will solve and so in the morning there will be class for the relational algebra gate questions and in the afternoon there will be class for uh for trc double relational calculus okay in the morning 7 30 from 7 30 there will be class in the morning
+
+229
+02:08:07,390 --> 02:08:36,320
+in the afternoon or in the evening, maybe around 4pm. Okay. In the general meeting, I will discuss whatever I want to discuss. Okay. It's just a general meeting. You can, you can join it. Basically, I will discuss some things. I will, I will give you the roadmap of the next three months. Okay. In the next three months, what we are going to do, that roadmap I will give. Okay. Okay. Thank you everyone.
+
+230
+02:08:36,670 --> 02:08:38,850
+At 9pm we have general meeting. Thank you.
+

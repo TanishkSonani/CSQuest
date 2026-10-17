@@ -98,6 +98,37 @@ class TranscriptionTests(unittest.TestCase):
             transcribe.transcribe(self.course, model, SimpleNamespace(batch=False, gpu=False), self.av)
         self.assertFalse((transcribe.output_directory(self.course) / "transcripts/001.done").exists())
 
+    def test_resume_honors_an_intentional_skip_and_continues(self):
+        self.recording("001.mp4")
+        self.recording("002.mp4")
+        self.inventory()
+        output = transcribe.output_directory(self.course) / "transcripts"
+        output.mkdir(parents=True, exist_ok=True)
+        (output / "001.skip").write_text(json.dumps({"reason": "Damaged source audio"}), encoding="utf-8")
+        segment = SimpleNamespace(start=0, end=1, text="spoken topic", avg_logprob=-0.1, no_speech_prob=0.01)
+        model = Mock()
+        model.transcribe.return_value = (iter([segment]), SimpleNamespace(language="en", language_probability=1))
+        with contextlib.redirect_stdout(io.StringIO()):
+            transcribe.transcribe(self.course, model, SimpleNamespace(batch=False, gpu=False), self.av)
+        self.assertEqual(model.transcribe.call_count, 1)
+        self.assertTrue((output / "002.done").exists())
+        status = json.loads((transcribe.output_directory(self.course) / "status.json").read_text())
+        self.assertEqual(status["skipped"], [{"file": "001.mp4", "reason": "Damaged source audio"}])
+
+    def test_skip_errors_marks_only_the_failed_recording_and_continues(self):
+        self.recording("001.mp4")
+        self.recording("002.mp4")
+        self.inventory()
+        segment = SimpleNamespace(start=0, end=1, text="spoken topic", avg_logprob=-0.1, no_speech_prob=0.01)
+        model = Mock()
+        model.transcribe.side_effect = [RuntimeError("damaged packet"), (iter([segment]), SimpleNamespace(language="en", language_probability=1))]
+        with contextlib.redirect_stdout(io.StringIO()):
+            transcribe.transcribe(self.course, model, SimpleNamespace(batch=False, gpu=False, skip_errors=True), self.av)
+        output = transcribe.output_directory(self.course) / "transcripts"
+        self.assertEqual(json.loads((output / "001.skip").read_text())["reason"], "RuntimeError: damaged packet")
+        self.assertTrue((output / "002.done").exists())
+        self.assertEqual(json.loads((transcribe.output_directory(self.course) / "status.json").read_text())["skipped"], [{"file": "001.mp4", "reason": "RuntimeError: damaged packet"}])
+
     def test_worker_identity_probe_recognizes_current_process(self):
         self.assertTrue(transcribe.process_running(os.getpid()))
 

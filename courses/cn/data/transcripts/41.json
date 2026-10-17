@@ -1,0 +1,534 @@
+{
+  "id": 41,
+  "title": "Shape traffic with leaky and token buckets",
+  "file": "041_Leaky_bucket_and_Token_bucket_with_GATE_PYQs_Clear_E.mp4",
+  "seconds": 2136.096531,
+  "segments": [
+    {
+      "start": 2.48,
+      "end": 29.82,
+      "text": " Hi everyone, in this video we are looking at traffic shaping or traffic policing techniques. So what it does is that, suppose you are in host and you want to send some data over the network. This is the network over which you want to send some data. Now let's suppose that you are having irregularities in the data which means sometimes you have big data to send and sometimes you have little less data to send.",
+      "avg_logprob": -0.1320857580664546,
+      "no_speech_prob": 0.06243896484375
+    },
+    {
+      "start": 30.05,
+      "end": 53.24,
+      "text": " so there are irregularities that you have at your end but in the network you want to send at some fixed rate okay which means you want to regulate this data not based on the data that you have which means like sometimes you have more data sometimes you have less data so basically not based on that you don't want to send every data immediately you want to control the data flow so that you can send the data",
+      "avg_logprob": -0.07228915393352509,
+      "no_speech_prob": 0.0226287841796875
+    },
+    {
+      "start": 53.53,
+      "end": 82.81,
+      "text": " in some fixed rate need not to be fixed for all the time which means like for some time it is let's suppose 5 Mbps and let's suppose for other time it may be 10 Mbps but it is not it is not very so that is called traffic shipping okay now at the host side only at your side only you will be implementing some techniques so one of the technique is called leaky bucket and another technique is called token bucket so what are those techniques",
+      "avg_logprob": -0.12158202899930377,
+      "no_speech_prob": 0.0643310546875
+    },
+    {
+      "start": 83.1,
+      "end": 111.09,
+      "text": " basically at the host side only before sending the data you will send those datas to buckets and based on the implementation whether you are implementing leaky bucket or you are implementing token bucket or you are implementing mix of like leaky and token bucket so based on the implementation you will be sending the data to the network right so now i will be making this kind of diagram this is your host and now you are sending the data to either leaky bucket or token bucket let's suppose leaky bucket",
+      "avg_logprob": -0.08777104515810402,
+      "no_speech_prob": 0.0848388671875
+    },
+    {
+      "start": 113.23,
+      "end": 142.47,
+      "text": " and then from leaky bucket to network so I will be making this kind of diagram see this host and leaky bucket are not separate this is just one thing but just for sake of explanation I will be making this diagram this is just the application layer which is sending the data to a leaky bucket but to show the questions or to show the examples I will be making this diagram where I will be saying the host is sending the data to leaky bucket and leaky bucket is sending the data from network okay so I hope that is clear now let's see what are these techniques",
+      "avg_logprob": -0.08914262489375906,
+      "no_speech_prob": 0.396240234375
+    },
+    {
+      "start": 142.77,
+      "end": 171.3,
+      "text": " So first technique is leaky bucket. Leaky bucket says that this is host and this is sending data to the leaky bucket. Now host may send the data in irregular fashion, which means sometimes it is sending more drops, sometimes it is sending only one to less drops basically. But this leaky bucket is sending the data at the fixed rate to the network. This is the network and leaky bucket is sending the data at the fixed flow. So for example, I am sending",
+      "avg_logprob": -0.09824810530802217,
+      "no_speech_prob": 0.019561767578125
+    },
+    {
+      "start": 171.66,
+      "end": 200.66,
+      "text": " So, I am as a host, I am sending the data with some irregularities, which means for initial 0 to 2 seconds, I am sending the data at 12 MPS speed and then I am ideal for some time. This is the time I am ideal and then I am sending the data at the speed of 2 MPS from 7 to 10. So, these are the irregularities in my data. So, I am sending this data to whom? I am sending this data to leaky bucket. Now, it is the leaky bucket responsibility that will send the data to the network.",
+      "avg_logprob": -0.11219262142406135,
+      "no_speech_prob": 0.093994140625
+    },
+    {
+      "start": 200.99,
+      "end": 227.75,
+      "text": " so this is the host which is sending the data to the leaky bucket and it's the leaky bucket responsibility which will send the data to the network right so you remember the diagram this is host this is leaky bucket and this is your network right now i'm sending the data to the leaky bucket and leaky bucket will send the data to the network so leaky bucket wants to send the data with some fix rate now what leaky bucket will do",
+      "avg_logprob": -0.08327792719640631,
+      "no_speech_prob": 0.01012420654296875
+    },
+    {
+      "start": 228.62,
+      "end": 255.28,
+      "text": " leaky bucket will basically send the data let's suppose the fixed rate which is 3 mbps okay so leaky bucket will send the data at the rate of 3 mbps now in the 10 seconds leaky bucket will send 30 mbps of data and you are sending to the leaky bucket as a host you are sending 12 into 2 which means 20 mbps data you have send in these 2 seconds and then 3 into 2 which means 6 mbps data you have sent in these 2 seconds in these 3 seconds",
+      "avg_logprob": -0.1278669719302326,
+      "no_speech_prob": 0.10595703125
+    },
+    {
+      "start": 255.55,
+      "end": 277.97,
+      "text": " because you are sending in the 2 Mbps speed. So you have also sent 30 MB of data to the leaky bucket. Leaky bucket is also sending the 30 MB of data to the network, but it is sending with the fixed rate. It can maintain the fixed rate, which is 3 Mbps. I hope that is okay. But there is one small problem. The problem is that, suppose you are sending the data with 12 Mbps speed.",
+      "avg_logprob": -0.1608408554313109,
+      "no_speech_prob": 0.0190277099609375
+    },
+    {
+      "start": 279.64,
+      "end": 307.02,
+      "text": " and for some reason I am saying that leaky bucket is not sending the data to the network which means this host this is actually the completely this whole thing is host but for the visual purpose I am just saying this is host but completely this whole thing is host right as you know so this host is not sending for some reason this host is not sending the data to the network for for some time so which means this application layer is sending the data to the leaky bucket that is okay but this leaky bucket is not sending for some reason let's suppose so",
+      "avg_logprob": -0.09769082069396973,
+      "no_speech_prob": 0.038970947265625
+    },
+    {
+      "start": 307.37,
+      "end": 334.43,
+      "text": " there will be some data stored in this bucket right because since it is not there is no outflow there is only inflow that's why there will be some some data stored in the in the bucket and let's suppose after some time i'm allowed to send to the network so what will happen if it if i'm implementing the leaping leaky bucket then it will only send by the speed of three mps right while the bandwidth of three mps but if i'm ideal for the sometime and if if i'm having more data in my bucket",
+      "avg_logprob": -0.10705236244846035,
+      "no_speech_prob": 0.11810302734375
+    },
+    {
+      "start": 334.74,
+      "end": 363.96,
+      "text": " then sometimes i may allow the data with the higher speed right why because if i'm ideal for some time then what i can do i can allow like i can allow my bucket to send the data at the higher speed because if i'm ideal then i may have some data that is already in the bucket you're getting the point but leaky bucket will not do that leaky bucket will always send with a three meter speed so that's the drawback of leaky bucket and that's where we are implementing token bucket so token bucket is what",
+      "avg_logprob": -0.098982223676979,
+      "no_speech_prob": 0.1412353515625
+    },
+    {
+      "start": 364.33,
+      "end": 380.05,
+      "text": " for every packet or for every cell of data so basically this cell or packet i will define it later cell or packet whatever i say this is basically some MB of data so let's suppose i'm saying for every five MB of data i'm reducing one token okay",
+      "avg_logprob": -0.12662145551645532,
+      "no_speech_prob": 0.036224365234375
+    },
+    {
+      "start": 380.38,
+      "end": 409.9,
+      "text": " so this absolute quantity what is this concrete quantity that I will like that will depend on problem to problem but for now for theoretical discussion I will either say sell or I will say packet okay so for every sell of the data let me just say sell for every sell of the packet of the data I am reducing one token which means for let's suppose for example for every five MB of the data I am I will say that my one of the token is reduced so the picture is like this this is the host or the application layer that is sending the data to the",
+      "avg_logprob": -0.09340431415929204,
+      "no_speech_prob": 0.053802490234375
+    },
+    {
+      "start": 410.11,
+      "end": 442.47,
+      "text": " token bucket this is token bucket and now this token bucket is sending the data to the network now whenever i send some data to the network let's suppose for every 5 MB okay or for every one cell i'm reducing one token from this token bucket so this token bucket has some tokens and that tokens get filled by some speed so or by some rate so which means in every second let's suppose in one second in one second i'm filling our tokens",
+      "avg_logprob": -0.09513888830939929,
+      "no_speech_prob": 0.53173828125
+    },
+    {
+      "start": 443.67,
+      "end": 471.74,
+      "text": " in token bucket right which means that after t time there will be RT tokens in the token bucket after t seconds there will be RT tokens in the token bucket and if I am sending the data then I will I will basically do what I will reduce one token at a time so what is the benefit of this is that suppose you are ideal for some time the host is ideal for some time which means this token bucket will be let's suppose it is ideal for t time",
+      "avg_logprob": -0.11751994530254221,
+      "no_speech_prob": 0.09759521484375
+    },
+    {
+      "start": 471.96,
+      "end": 501.36,
+      "text": " which means the token bucket will be having the T tokens T tokens already right sorry RT tokens already which means that now if I want to send the data if the token bucket wants to send the data since it is having RT tokens already then it can send more data once depending on the bandwidth of this channel right depending on this bandwidth suppose this this is saying that I can allow 20 mbps per second and let's suppose",
+      "avg_logprob": -0.08340992857428157,
+      "no_speech_prob": 0.1424560546875
+    },
+    {
+      "start": 501.69,
+      "end": 524.63,
+      "text": " i have this rt tokens is basically as good as let's suppose this rt tokens are equivalent of so i will take the concrete example but for now let's understand like this this rt tokens is let's suppose equivalent of fm token the mb let's suppose it is equivalent of 4 mb okay so which means that 40 mb so which means that i can send this 40 mb immediately in two seconds obviously based on this benefit",
+      "avg_logprob": -0.13727678374929742,
+      "no_speech_prob": 0.04266357421875
+    },
+    {
+      "start": 524.94,
+      "end": 550.04,
+      "text": " because this one versus important if this is let's suppose 60 mbps then i can send 40 upon 60 in these in these many seconds if this is 20 mbps then i can send in two seconds so i can send this 40 mbps in just two seconds and whatever data this host is sending i will i will also send that so basically the scenario is like this see here this is having let's suppose rt tokens right",
+      "avg_logprob": -0.11262288990985142,
+      "no_speech_prob": 0.0181427001953125
+    },
+    {
+      "start": 551.23,
+      "end": 582.83,
+      "text": " and it is sending with some speed okay it is also sending let's suppose with some speed maybe some bandwidth is there let's suppose bandwidth 1 okay and now this is the host this is your network right and now this network is allowing with bandwidth 2 so what i will do i will send this rt tokens immediately with bandwidth 2 speed because i can fully utilize this bandwidth 2 so i want to utilize this bandwidth 2 right which means i can send this rt tokens",
+      "avg_logprob": -0.0816532229223559,
+      "no_speech_prob": 0.64404296875
+    },
+    {
+      "start": 583.31,
+      "end": 607.04,
+      "text": " in using this bandwidth 2 which means in i can send this rt tokens or rt tokens equivalent of data in just this much time and after this this much time so this much data i will be sending in this much time and after this much time based on the inflow let's suppose the inflow is of 5 mbps and the outflow is let's suppose if it is greater than 5 mbps let's suppose 10 mbps",
+      "avg_logprob": -0.11803668235307155,
+      "no_speech_prob": 0.00650787353515625
+    },
+    {
+      "start": 607.26,
+      "end": 635.82,
+      "text": " then this will be just a pipe, which means I'm not storing anything. If it is lesser, which means let's suppose if this is lesser, let's suppose if this is 3 Mbps, so I will be sending with the rate of 3 Mbps, right? So based on this bandwidth, it will work. So I hope you're getting a little bit. What I'm saying is that this RT tokens I can send immediately. That is the benefit of token bucket. Earlier, it was at the fixed rate. So it was not having the tokens. So which means it was at the fixed rate.",
+      "avg_logprob": -0.12817382614593953,
+      "no_speech_prob": 0.09051513671875
+    },
+    {
+      "start": 636.03,
+      "end": 665.31,
+      "text": " so if the if my host is ideal for three seconds then I will be having RT token that I can send immediately okay so suppose that my host was ideal for some some time and then I have filled this token and this token capacity C, C is my token capacity token bucket capacity and I have filled this because the host was ideal for the sufficient time the host was ideal for the sufficient time and",
+      "avg_logprob": -0.14208983816206455,
+      "no_speech_prob": 0.011962890625
+    },
+    {
+      "start": 665.76,
+      "end": 696.11,
+      "text": " Which means the host is not sending the data and I have this much data in my in my bucket So I have this much data I have cc amount of data in my bucket which means this this bucket is completely full and The tokens are arriving or I'm increasing the tokens at the rate of R now my question is after T time or in T time T time How much data I can send at max how much data at max we can send",
+      "avg_logprob": -0.1734374991721577,
+      "no_speech_prob": 0.13818359375
+    },
+    {
+      "start": 698.76,
+      "end": 729.5,
+      "text": " We can send to the network See this after t time I will be having RT tokens, right? So for example, let's suppose this C is 10 packets Okay, this C is let's suppose if I take the concrete example this T is C is 10 packets for 10 cells and This channel is allowing me to send 20 packets per second per second, right?",
+      "avg_logprob": -0.1788428993643941,
+      "no_speech_prob": 0.07769775390625
+    },
+    {
+      "start": 729.86,
+      "end": 759.59,
+      "text": " and i'm increasing the token so there is let's suppose there is no uh no shortage of the data this host is sending my sufficient data okay so this is not the bottleneck okay this is not the bottleneck i'm imagining the host is sending the sufficient data to the leaky bucket which it can supply so this is not the bottleneck so let's not worry about it so this r let's suppose it is two tokens per second or two packets per second so after one second how much data i can send",
+      "avg_logprob": -0.07639723220983377,
+      "no_speech_prob": 0.034088134765625
+    },
+    {
+      "start": 759.92,
+      "end": 788.31,
+      "text": " see 10 packets it is already having so it can obviously send all 10 packets because in one second I am allowed to send 20 packets so it can send 10 packets plus I will be also having 2 packets in 1 second right I will be also having 2 packets which means 10 plus 2 these many packets 12 packets I can send in 1 second right so after 1 second since this 10 seconds will get empty this 10 this 10 packet will get empty so after 1 second I can only send 2 packets per second",
+      "avg_logprob": -0.11609375238418579,
+      "no_speech_prob": 0.189453125
+    },
+    {
+      "start": 788.49,
+      "end": 821.86,
+      "text": " although this bandwidth is allowing me to send 20 packets per second but after one second I can only send 2 packets per second so if if this is c the capacity c if the rate is r and this is host this is your network then if I asked you maximum packets packets in t seconds so you will say maximum at max you can send this whole c plus whatever you are getting",
+      "avg_logprob": -0.12870065279697118,
+      "no_speech_prob": 0.080078125
+    },
+    {
+      "start": 822.17,
+      "end": 858.47,
+      "text": " in t seconds you are getting rt right these many packets you are getting in t seconds so these many packets you can send to the network to the network in t seconds so for example let's suppose network is allowing you to send 20 packets per second right 20 packets per second and you already have let's suppose you already have 40 packets with you and this rate is let's suppose again two packets per second",
+      "avg_logprob": -0.0784584628190936,
+      "no_speech_prob": 0.333251953125
+    },
+    {
+      "start": 860.86,
+      "end": 888.88,
+      "text": " So it means if I ask you that in let's suppose in three seconds How many packets you can send so in three seconds you will be able to send like you Ideally if you have the sufficient like sufficient token rate and everything then ideally you should be sending the 60 packets But you will not be able to send the 60 packets by because after two seconds you will you will empty your token bucket Which means after two seconds you will be sending this 40 packets that is okay. So so",
+      "avg_logprob": -0.11912048969072164,
+      "no_speech_prob": 0.047332763671875
+    },
+    {
+      "start": 889.25,
+      "end": 919.69,
+      "text": " till 2 seconds you will be maintaining this 20 packets per second speed but after 2 seconds you will not be having these 40 packets so your speed will reduce so till 2 seconds till 2 seconds you will send 40 packets now if you are standing at 2 seconds then you will be having already 4 packets in your packet right already 4 packets in your packet so that is why you already have 4 packets that you can send in the 3rd second plus you will be getting 2 packets to send",
+      "avg_logprob": -0.10164388028594355,
+      "no_speech_prob": 0.281005859375
+    },
+    {
+      "start": 919.86,
+      "end": 945.7,
+      "text": " so six packet in the third second so in the third second you will be sending six packets so total 46 packets you can send in three seconds which is just c plus rt c means your 40 packets plus r means your rate which is 2 and t means 3 which means 46 packets so this is how we are calculating that how many packets we can send in t seconds right so which means i can send with this rate c plus rt is my rate of sending the data",
+      "avg_logprob": -0.08569079308133376,
+      "no_speech_prob": 0.052978515625
+    },
+    {
+      "start": 946.55,
+      "end": 974.69,
+      "text": " and this is my bandwidth that is the maximum bandwidth that it can allow so whatever is the maximum so generally this is this is not the this is not the bottleneck always the bottleneck is R that is why C plus RT is generally less than your 20 packets per second so this C plus RT so basically if I calculate the rate then it will be in T seconds in T seconds I am sending C plus RT data RT packets right so which means my rate",
+      "avg_logprob": -0.12406589625322301,
+      "no_speech_prob": 0.25634765625
+    },
+    {
+      "start": 975.26,
+      "end": 1004.62,
+      "text": " At which I am sending the data is C plus RT upon T. This is my rate. Generally this C plus RT upon T is less than whatever is the maximum allow. If maximum allow is 20, then generally it is less than 20 or whatever is the maximum allow. So this is the rate at which we are sending the data. This is C plus RT upon T. Now they will ask questions such that they will say that this like suppose this is the bandwidth you are having 20 packets per second.",
+      "avg_logprob": -0.13250910165240465,
+      "no_speech_prob": 0.12261962890625
+    },
+    {
+      "start": 1004.86,
+      "end": 1034.07,
+      "text": " now they will ask you that till how much time you can maintain this bandwidth which means till how much time you can send the data with the speed of 20 packets per second now by looking at this data you may say only till 2 seconds because till 2 seconds you can supply you can supply that for 40 packets and after 2 seconds in the third second you want to be having much packets you will be having only 4 packets and then then you will be having 2 more packets after like 2 more packets that are coming in the third second",
+      "avg_logprob": -0.10384728569748267,
+      "no_speech_prob": 0.071533203125
+    },
+    {
+      "start": 1034.34,
+      "end": 1063.12,
+      "text": " So basically after two seconds you will be just you will be emptying up this token bucket and then after two seconds you won't be having much data. So that's why in two seconds only you will be you will be existing. So for two seconds only you can maintain this but that's not the case. See for two seconds yes you can maintain but for little little some fraction of second also you are maintaining because of this four because of this four. So that's why what you need to do. See this is the rate at which",
+      "avg_logprob": -0.14296874905174428,
+      "no_speech_prob": 0.11370849609375
+    },
+    {
+      "start": 1063.92,
+      "end": 1090.85,
+      "text": " You are supplying the data and they are saying for how much time you are you are maintaining this rate if Like for how much time you can maintain the rate which is let's suppose 20 packets per second So that's why you need to equal the C plus RT upon T to the 20 now suppose C value is 40 our value is your 2 and T value you want to find out for how much time you are maintaining this speed which is 20 so",
+      "avg_logprob": -0.15607639220025804,
+      "no_speech_prob": 0.0430908203125
+    },
+    {
+      "start": 1091.24,
+      "end": 1121.06,
+      "text": " So, you can do 40 plus 2t equal to 20t and then you are getting 18t equal to 40 and from here you are getting t equal to 40 by 18 which is basically if you just divide 40 by 80 then it should be 20 by 9 which is 2. something. So, more than 2 right. So, basically you are maintaining this speed for some more than 2 time 2 seconds of time right. So, they will say that for how much time you can maintain the speed.",
+      "avg_logprob": -0.08678002677419606,
+      "no_speech_prob": 0.03826904296875
+    },
+    {
+      "start": 1121.29,
+      "end": 1152.37,
+      "text": " so this is the average rate at which we are sending the data and this average rate we can maintain let's suppose they say that for how much time you can maintain 20 packets per second so you need to just equate it okay so let's solve some questions see here this is the same formula that we have that is c plus rt upon t packets per second now let's see this question what they are saying let's assume that token bucket is having 10,000 tokens and the tokens are added at the rate of 1000 tokens per second so",
+      "avg_logprob": -0.0758522741496563,
+      "no_speech_prob": 0.025726318359375
+    },
+    {
+      "start": 1152.85,
+      "end": 1189.2,
+      "text": " at the rate of 1000 tokens so initially it is having 10,000 tokens and now they are adding 1000 tokens in seconds so r is 1000 so this is the host and this is network if the system is ideal for 10 seconds or more so if the system is ideal for the 10 seconds so this is the capacity of the token bucket if the system is ideal for the 10 seconds which means in 10 seconds I will be having 10,000 packets right because",
+      "avg_logprob": -0.11409683869435237,
+      "no_speech_prob": 0.218994140625
+    },
+    {
+      "start": 1189.66,
+      "end": 1218.14,
+      "text": " I am getting tokens at the rate of 1000 tokens per second. So in the 10 second, I will be getting 10,000 tokens. So which is as good as sending 10,000 packets. So I will be having 10,000 packets. Now if system is ideal for more time, then also does not matter to me because it can store at max 10,000 packets. So system has to be ideal for at least 10 seconds to fill this token bucket. Now the bucket collects 10,000 tokens and become full. Any additional token will be discarded.",
+      "avg_logprob": -0.1306880487684618,
+      "no_speech_prob": 0.1361083984375
+    },
+    {
+      "start": 1218.54,
+      "end": 1241.38,
+      "text": " The maximum average rate is basically, if they ask you maximum average rate that you can send the data now, if you want to send the data, so system ideal till this point, now if you want to send the data after it, then you can send the data with 10,000 which is your capacity plus RT which is 1000 into T upon T. So, with this rate you can send the data to the network now.",
+      "avg_logprob": -0.13316760957241058,
+      "no_speech_prob": 0.0125885009765625
+    },
+    {
+      "start": 1242.22,
+      "end": 1272.83,
+      "text": " Okay, so this I'm not assuming that this is the this is basically this is not the bottom line Okay, not not the bottom line, which means that it is it is sufficient enough So this is this rate is basically greater than so this this speed at which you are sending the data This is less than this state. Okay, so let's see some examples So let's see this gate question a computer on 10 Mbps network is regulated on the token bucket so",
+      "avg_logprob": -0.17399087936306992,
+      "no_speech_prob": 0.02154541015625
+    },
+    {
+      "start": 1273.29,
+      "end": 1309.49,
+      "text": " What they are saying that suppose this is host or computer and this is your token bucket and this is your network So on 10 Mbps network, so which means this bandwidth is 10 Mbps network bandwidth is 10 Mbps and this is just a host this complete thing is a host right as you know The token bucket is filled at the rate of 2 Mbps So I am filling this token bucket with the rate of 2 Mbps, r is 2 Mbps It is initially filled to a capacity of 16 Mbps",
+      "avg_logprob": -0.19355292792792791,
+      "no_speech_prob": 0.12841796875
+    },
+    {
+      "start": 1309.61,
+      "end": 1335.91,
+      "text": " so initially it is already filled okay so it is already filled with the capacity of 16 MB what is the maximum duration for which the computer can transmit for this full 10 MBPS so what is the maximum duration for the for which the computer can transmit for this total of 10 MBPS so I hope you got this question now like if we apply our formula so before that just just see here",
+      "avg_logprob": -0.10867387753648636,
+      "no_speech_prob": 0.00481414794921875
+    },
+    {
+      "start": 1336.12,
+      "end": 1365.63,
+      "text": " this is mvps and or like basically everything is given in megabytes or something like that so you can assume that for every byte or for every megabyte like based on you you can assume anything or you do not need to actually assume but for the sake of understanding you can assume that for every byte there is one token so basically you have 16 mb or 16 mega of tokens right and tokens are getting filled with the speed of two mvps which means",
+      "avg_logprob": -0.08090924225906108,
+      "no_speech_prob": 0.1480712890625
+    },
+    {
+      "start": 1366.01,
+      "end": 1389.19,
+      "text": " that there are like for one byte you are having one token so that's why the tokens are getting filled with the speed of 2 mps which means 2 mega tokens are getting filled in one second so basically you do not need to assume it like you can understand directly with the megabytes so don't get confused much basically it is saying that you are getting so just just think the token in terms of data only",
+      "avg_logprob": -0.1324359964893525,
+      "no_speech_prob": 0.070068359375
+    },
+    {
+      "start": 1389.48,
+      "end": 1419.28,
+      "text": " So it is saying that you are getting the tokens with the rate of 2 Mbps. It is as good as saying that you are getting the data at the rate of 2 Mbps. Initially you have 16 Mbps of data. So just think everything in terms of data. Now they are saying till how much time you can maintain this speed. So on an average you can send the data at C plus RT rate. C plus RT upon T. So which means 16 plus R which is 2 T upon T. This rate you can send and you can maintain this rate",
+      "avg_logprob": -0.13064600690072323,
+      "no_speech_prob": 0.20458984375
+    },
+    {
+      "start": 1419.54,
+      "end": 1449.71,
+      "text": " for how much time if you want to maintain for 10 mvps so how much time you can maintain so 16 plus 2t will be 10t which means 8t will be 16 which means t will be 2 so that's fine for two seconds you can maintain this rate you're getting the point or if you want you can solve it basically with a good understanding like that see what they are saying that you are filling with the two mvps sp so this is your host this is your",
+      "avg_logprob": -0.10664062656462192,
+      "no_speech_prob": 0.02655029296875
+    },
+    {
+      "start": 1450.07,
+      "end": 1482.62,
+      "text": " token bucket and this is your network and what they are saying that you are filling with the two mbps speed and this is 10 mbps and already you have 16 mbps of data right these are the three parameters that are given to you now see this section mb you can obviously immediately transfer with the speed of 10 mbps right so you can use this 16 mb to immediately send on the network with the speed of 10 mbps",
+      "avg_logprob": -0.0733876293326946,
+      "no_speech_prob": 0.08123779296875
+    },
+    {
+      "start": 1482.85,
+      "end": 1507.77,
+      "text": " so that you can do for this much time right for this much time definitely which is 1.6 for this much time definitely we can we can maintain 10 mbps speed why because i am sending 69 mb of data like because i have 69 mb of data that i can send with the 10 mbps speed for these many seconds i can maintain i can i can transfer the 10 mbps speed but after these many seconds like",
+      "avg_logprob": -0.11527777976459927,
+      "no_speech_prob": 0.01183319091796875
+    },
+    {
+      "start": 1508.02,
+      "end": 1535.36,
+      "text": " after these many seconds since the data is coming with the rate of 2 mbps after these many seconds I will be having some more data so how much data I will be having this is if data is coming with the speed of this with the rate of this and I have this much second so after this much second I will be having this much data so this is into 2 mbps right so I will be having this much data this is the extra data this is the data I will be having",
+      "avg_logprob": -0.10225866543184413,
+      "no_speech_prob": 0.058502197265625
+    },
+    {
+      "start": 1535.66,
+      "end": 1552.96,
+      "text": " after this much second which is 1.6 second after 1.6 second I will be having this much data and that data also I can transport with the 10 mps speed because that I already have in my bucket right that data also I can transfer with the 10 mps speed so that's why for this much time also I can maintain the 10 mps",
+      "avg_logprob": -0.11857877038929561,
+      "no_speech_prob": 0.0797119140625
+    },
+    {
+      "start": 1554.18,
+      "end": 1580.66,
+      "text": " Right you're getting so initially I had 60 60 of data 16 of data that I can immediately send with the 10 Mbps So that's why for this much time I can maintain the 10 Mbps now I again have additional this much data that I can again send with the 10 Mbps speed immediately So that's why for this much time additional I can maintain the 6 this 10 Mbps of SP But in this much time also I will be getting some data. So how much data you will be getting?",
+      "avg_logprob": -0.15420560608400363,
+      "no_speech_prob": 0.10101318359375
+    },
+    {
+      "start": 1581.18,
+      "end": 1610.82,
+      "text": " See, data is coming at the 2 MB base speed, so that's why you need to multiply by 2 here, which means 16 upon 10 into 2 into 1 upon 10 into 2, right? For this much time, for this much, like you will be having this much extra data in these many seconds. So this much data also you can send at the 10 MB base speed, which means you can basically maintain for this much time, right? You can, you can maintain 10 MB base for this much time. So you will keep on doing it. So if you notice here, this would be a GP, which is",
+      "avg_logprob": -0.15686035808175802,
+      "no_speech_prob": 0.478271484375
+    },
+    {
+      "start": 1611.07,
+      "end": 1641.4,
+      "text": " 16 upon 10 into this will be your r. So, this is this is a and this is a ratio that we have. So, this is the common ratio. So, this is the r and you will be having since this is an infinite series you will be having a upon 1 minus r. So, which is 16 upon 10 upon 1 minus 2 upon 10. So, that is why you will be having 16 upon 10 into 10 upon 8 which is just 2 seconds. That is also you can solve this question. I hope you got it right.",
+      "avg_logprob": -0.09532620483323147,
+      "no_speech_prob": 0.123779296875
+    },
+    {
+      "start": 1641.72,
+      "end": 1666.43,
+      "text": " Now let's solve the next question. So next question is saying for a host machine that uses a token bucket algorithm, token bucket algorithm for congestion control, the token bucket has a capacity of one MB, one megabytes. So the token bucket is having the capacity of one megabytes. And the maximum output rate, so they are they are saying this output rate is 20 megabytes per second.",
+      "avg_logprob": -0.14699073485386224,
+      "no_speech_prob": 0.0111236572265625
+    },
+    {
+      "start": 1667.3,
+      "end": 1695.28,
+      "text": " So see here they can play with the numbers so they can they can also give you this this number So for both of the questions actually for this question and other question They have not played with this number. They have said like this is okay I mean there is there is no shortage also in the data, but they can play with this number also Okay, so that's why you need to careful you need to be careful This is not one and they are saying maximum amount rate is 20 megabytes per second the tokens arrives at the rate of",
+      "avg_logprob": -0.14850916884361057,
+      "no_speech_prob": 0.0509033203125
+    },
+    {
+      "start": 1696.24,
+      "end": 1722.2,
+      "text": " Rate to sustain the output rate of 10 MB per second. So, they are saying 10 MB PS is the token arrival rate, which is R. The token bucket is currently full. So, currently it is full, I suppose. So, which means you have 1 MB of data. The machine needs to send 12 MB of data and you want to send this machine needs to send 12 MB of data. Okay, 12 megabytes of data. The minimum time required",
+      "avg_logprob": -0.21990131077013517,
+      "no_speech_prob": 0.01192474365234375
+    },
+    {
+      "start": 1722.57,
+      "end": 1750.2,
+      "text": " So, what will be the minimum time required which means you want you have to utilize this 20 Mbps fully that is how you can you can set the data in the minimum time. So, you can do with the formula which is C plus RT upon T which is basically you can maintain this 20 Mbps for how much time. So, just check it C plus RT upon T should be 20 which means C is 1 plus R is 10 T upon T should be 20 which means your T if you find out.",
+      "avg_logprob": -0.12076518329504494,
+      "no_speech_prob": 0.01580810546875
+    },
+    {
+      "start": 1750.49,
+      "end": 1780.38,
+      "text": " this will be 1 plus 10t equal to 20t so from here you can find out it will be t equal to 1 upon 10 so which means you can maintain 20 mbps for 1 upon 10 seconds only and after 1 upon 10 seconds what will happen after 1 upon 10 seconds since this is the 10 mbps which means you are getting the data at the rate of 10 mbps and you are transmitting the data at the rate of 20 mbps which is not possible so after 1 upon 10 seconds your data rate will be 10 mbps only",
+      "avg_logprob": -0.07967403222774637,
+      "no_speech_prob": 0.09228515625
+    },
+    {
+      "start": 1780.57,
+      "end": 1808.01,
+      "text": " because this is the bottleneck so you are sending the data at the 10 mbps speed and you can transmit the data at the 20 mbps speed but you do not have the inflow right so that's why after one upon 10 seconds your data rate will be just r which means this host is sending some data to the token bucket and token bucket is getting filled with the speed of or with the rate of r mbps so which is given to be 10 mbps so which is given to be 10 mbps",
+      "avg_logprob": -0.08285550595423498,
+      "no_speech_prob": 0.1026611328125
+    },
+    {
+      "start": 1808.62,
+      "end": 1837.72,
+      "text": " 10 megabytes I think right 10 megabytes per second so that speed which I am talking about which is like 20 megabytes per second that you can maintain till only 1 upon 10 seconds now after after 1 upon 10 seconds your speed is just and 10 mbps your bandwidth or your data rate at which you are sending the data so let me write data rate your data rate it is just 10 mbps",
+      "avg_logprob": -0.15032002293919944,
+      "no_speech_prob": 0.343505859375
+    },
+    {
+      "start": 1839.3,
+      "end": 1866.98,
+      "text": " 10 megabytes per second so for 10 for 1 upon 10 second you can send the data with this speed which means for 1 upon 10 second you will be sending the data which is 1 upon 10 into 20 and that means you will be sending to Mb of data so you you will be sending to Mb of data because you are sending at the rate of 20 Mbps and that you are sending for just 1 upon 10 seconds but after that your data rate is just 10 Mbps and you want to send how much data you want to send 12 megabytes",
+      "avg_logprob": -0.12139945872451947,
+      "no_speech_prob": 0.124755859375
+    },
+    {
+      "start": 1867.44,
+      "end": 1896.91,
+      "text": " So, which means there are 10 megabytes which are remaining. So, after 1 upon 10 seconds there are 10 megabytes which are remaining and that you are sending with the rate of 10 MPS which means you will be needing how much seconds you will be needing 1 second. Why? Because you want to send 10 megabytes and you are sending at the speed of 10 megabytes per second. So, that is why you will be sending the data remaining data in 1 second. So, what is happening? In 2 seconds sorry in 2 seconds or how much seconds?",
+      "avg_logprob": -0.12102640266048498,
+      "no_speech_prob": 0.10504150390625
+    },
+    {
+      "start": 1897.23,
+      "end": 1925.79,
+      "text": " in 1 upon 10 seconds you are sending 2 MB of data in 1 upon 10 seconds you are sending 2 MB of data and then in 1 second in 1 second you are sending 10 MB of data so that's how you are sending total 12 MB of data in how much seconds 1 plus 1 upon 10 which is 0.1 that means 1.1 seconds so you are sending 12 MB of data in 1.1 seconds so just write 1.1 here or if you want you can solve this question just using the GP",
+      "avg_logprob": -0.08519344897497268,
+      "no_speech_prob": 0.01904296875
+    },
+    {
+      "start": 1926.11,
+      "end": 1955.51,
+      "text": " so how to solve this question using the GP is that they are saying that you have this setup which means this is the host and you want to send 12 MB of data and this is the token bucket you already have how much capacities you have already 1 MB right you already have 1 MB of data here and you are filling this with the data rate of 10 MB per second 10 MB per second and this bandwidth is given to be",
+      "avg_logprob": -0.09029796433656714,
+      "no_speech_prob": 0.016815185546875
+    },
+    {
+      "start": 1955.82,
+      "end": 1974.69,
+      "text": " 20 MB per second. Now, they are saying in how much time you can send this 12 MB of data right. So, first see that you have 1 MB of data that you can send immediately with 20 MB speed. So, which means you can maintain this 20 MB PS till this much time.",
+      "avg_logprob": -0.12846522898443283,
+      "no_speech_prob": 0.040130615234375
+    },
+    {
+      "start": 1975.23,
+      "end": 2002.17,
+      "text": " So, 1 upon 20, why? Because 1 MB of data you can send in with the speed of 20 Mbps, which means for this much seconds, you can maintain this 20 Mbps. Now, what you need to do? Now, for this much second, you will be having extra data. So, once you adjust this 1 Mbps in this 1 upon 20 seconds, now for 1 upon 20 seconds also, with this rate, you will be having extra data.",
+      "avg_logprob": -0.16630569306930693,
+      "no_speech_prob": 0.0221710205078125
+    },
+    {
+      "start": 2002.45,
+      "end": 2026.65,
+      "text": " which will be 1 upon 20 into 10 this is the extra data that you will be having and you want to send this data at the rate of 20 Mbps because you can send at the rate of 20 Mbps which means you will be basically sending till this much time so not only this much time you can maintain 20 Mbps for this much time also you can maintain 20 Mbps similarly you will be having extra data for this much time so which will be 1 upon 20",
+      "avg_logprob": -0.058164063580334185,
+      "no_speech_prob": 0.0347900390625
+    },
+    {
+      "start": 2027.37,
+      "end": 2055.31,
+      "text": " into 10 into 1 upon 20 in this much time you will be having this much extra data because you are getting the data at the rate of 10 Mbps now this much extra data you can send at the rate of 20 Mbps so which means you will be having this much extra time for which you will be maintaining 20 Mbps now if you calculate this GP it will be your common ratio so this I think 10 upon 20 will be your common ratio 10 upon 20 will be your common ratio so this is A which is 1 upon 20",
+      "avg_logprob": -0.10226633097674395,
+      "no_speech_prob": 0.0247344970703125
+    },
+    {
+      "start": 2055.6,
+      "end": 2080.67,
+      "text": " upon 10 upon 20 is just 1 by 2 so 1 minus 1 by 2 which is just 1 by 2 so you will be having 1 upon 10 seconds which means till 1 upon 10 seconds you can maintain this speed so which means in 1 upon 10 seconds so it will be just like earlier question in 1 upon 10 seconds you can send how much data you since you are sending with the speed of 20 mbps so that's why you you can send 1 upon 10 into 20 mb so you can send 2 mb of data",
+      "avg_logprob": -0.0797313066007935,
+      "no_speech_prob": 0.0225372314453125
+    },
+    {
+      "start": 2081.34,
+      "end": 2109.36,
+      "text": " Now you you're remaining with the 10 MB, right? You're remaining with the 10 MB of data. Now you need to send this 10 MB of data remaining 10 MB of data with the speed of 10 Mbps only. Why? Because now you cannot maintain this 20 Mbps. Now you have adjusted this 20 Mbps basically. So everything like whatever you have in your data, every data and every bytes have been adjusted. Now you can maintain this 20 Mbps. So whatever is incoming, that will be the outgoing. So this will this token bucket will be just like a pipe.",
+      "avg_logprob": -0.17737499713897706,
+      "no_speech_prob": 0.242431640625
+    },
+    {
+      "start": 2110.14,
+      "end": 2135.2,
+      "text": " There will be just like a pipe, there is no storage here, it will just like an incoming equal to odd point. So, basically now you need to send this 10 Mbps with the speed of 10 Mbps, 10 Mbps which means you will be sending in 1 second, in 1 second you will be sending the entire data. So, you are sending the data in 1 plus 0.1 which is 1.1 second, you are sending the whole data in 1.1 second. I hope you got it.",
+      "avg_logprob": -0.13780967877791808,
+      "no_speech_prob": 0.0546875
+    }
+  ],
+  "sourceCompletedAt": "{\"file\":\"041_Leaky_bucket_and_Token_bucket_with_GATE_PYQs_Clear_E.mp4\",\"language\":\"en\",\"probability\":0.97412109375,\"processing_seconds\":52.37347626686096,\"device\":\"cuda\"}"
+}

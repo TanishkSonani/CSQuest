@@ -1,0 +1,1180 @@
+1
+00:08:53,330 --> 00:09:28,240
+hi everyone is the audio video volume is everything clear is everything fine please tell me okay now we will study new module new chapter that is file organization how do we store the database we have the database but on the hard disk how to store the database how to store the tables how to store the records so all those things we will see in this lecture so file organization this is the content for this lecture
+
+2
+00:09:28,540 --> 00:09:58,760
+and some questions some very nice questions we will solve is standard questions from the olman and navate book those questions we are going to solve okay so let's start now first of all we have seen what we have seen so far we have seen the hard disk right correct the hard drive we have seen right okay so we have seen the hard drive the magnetic disk so in the magnetic disk what we have in the magnetic disk we have sector platter these things we have right so when you purchase a disk from the market
+
+3
+00:09:59,410 --> 00:10:28,430
+so when you purchase this disk or I can say this magnetic disk when you purchase this from the market then some things are fixed what are the fixed things so in this magnetic disk some things are fixed likes there will be sector so there will be platter okay so there will be some platters these are fixed can you change the platters number of platters can you change so platters you cannot change so there are platters every platter has maybe one surface or two surface by default it has two recording surfaces
+
+4
+00:10:29,410 --> 00:10:56,530
+See, remember one thing that one platter, it can have one recording surface or two recording surface. By default, you have to take two recording surface. By default, every platter has two recording surface. Means on the both side of the platter, we can record the data. We can store the data. So we have platter, we have surfaces, we have tracks. Every surface is divided into tracks. Every track is divided into sectors.
+
+5
+00:10:57,170 --> 00:11:26,310
+Okay. And if you take all the tracks of the same diameter, all the tracks of the same diameter, they will create a cylinder. They will create a cylinder. Okay. So sector size, track size, all these, all these things are fixed. All these things are fixed. These are the properties of disk. Tell me block. I told you something about block. Is that property of disk? All these things are properties of disk. All these things, these are properties of disk. So when you purchase the disk,
+
+6
+00:11:26,640 --> 00:11:54,680
+these are properties of disk so when you purchase the disk then all these things will be fixed correct and there is something called block there is something called block who decides what will be the size of block what is a block I told you block is basically some consecutive sectors right okay so what is a block this is basically I can say some consecutive sectors some consecutive sectors
+
+7
+00:11:56,020 --> 00:12:24,900
+Okay, so this is some conjugated sectors within a track. Remember, remember within a track. Within a track. So block size should not be more than the track size. So within a track. So anyway, you can see these things that some conjugate sectors within a track. Now this block, this is a property of a DBMS. Okay, basically the DBMS will decide how many sectors basically DBMS will decide the block size. Yes or no decides the block size.
+
+8
+00:12:26,770 --> 00:12:54,810
+So depending on the DBMS depending on the DBMS you can have for example one block can be one sector one block can be two sector three sector four sector Okay, so some consecutive sectors you are taking okay to create a block some consecutive sectors within a track within a track that is your block Okay, so that is the definition of a block and this is not a property offer So when you purchase the disc then this block size will not be given on the on the disc, right? So when you purchase your disc
+
+9
+00:12:55,110 --> 00:13:23,210
+on the disk specification in the disk specification this block size will not be given because that is basically a property of dbms so dbms will decide what is the block size how much block size i want okay so uh block size should be more block size should be less so that will be decided by dbms okay so so far all these concepts we have seen now what we need to study we need to study how to organize a database we know that database we put on the disk right
+
+10
+00:13:23,610 --> 00:13:49,950
+So, but how to do that? Okay, so storing a database on the disk, that is what we need to study. So this you already know. And before we start this chapter, don't confuse file organization with indexing. Many strengths what they do, because these topics we study, I can say together, these two topics we study together. So many strengths, they basically they forget the difference between these two. Are you getting my point?
+
+11
+00:13:50,180 --> 00:14:15,740
+so don't confuse don't confuse don't mix the file organization with indexing indexing is a separate chapter in this indexing we will study only the indexes in this indexing we only study the indexes okay in the file organization we study how database is stored okay please please understand the difference between these two how database will be stored that we study in the file organization
+
+12
+00:14:16,230 --> 00:14:43,570
+how the database is stored all your tables and all your records all your tuples all your attributes so how all those things are stored that we study in the file organization so file organization means how database is stored and indexing means we study some some data structure index is nothing but a data structure okay it is nothing but a new data structure okay these are data structures so remember one thing I am telling you
+
+13
+00:14:43,790 --> 00:15:12,890
+that file organization don't confuse this file organization with indexing we study these two topics together so in this lecture we will study file organization in the next lecture we will study indexing don't confuse these things okay these are different it's like let me give you analogy let me give you a very simple analogy have you seen any book have you seen any book have you seen whatever book you take for example have you seen a book okay in that book what happens there are some there are some
+
+14
+00:15:13,100 --> 00:15:42,130
+some pages for indexing for index right most of the time like if you see the standard books in the standard books where you find the index in the standard books in the standard books where you will find the index no at the end in the in the standard books at the end you will find the index check it out see okay check it out in the standard books whatever standard book you study for example korth navate kormen whatever standard book you study at the end you will find the index have you seen this
+
+15
+00:15:42,610 --> 00:16:12,030
+Maybe maybe if you have some standard book with yourself right now, you can open it and you can take it out. Okay, so you can take it out table of content at the starting at the starting what we have that is table of content. Okay, at the end we have index if you have seen at the end what we have if you notice in the standard books at the end you will find something like that at the end few pages. Okay, maybe four pages five pages. Okay, so at the end what you will find at the end you will find that some index you will find.
+
+16
+00:16:12,680 --> 00:16:39,800
+Okay, at the end some pages will be there. Some pages will be there like this. Okay, so one page, then another page, then another page. Okay, then another page. So mostly like four pages, five pages will be there. You can check it out. Okay, at the end, you can check it out at the end. So like this, some pages will be there, maybe four pages, five pages. And in these pages, alphabetical order index will be there. Index will be there in the alphabetical order. For example,
+
+17
+00:16:40,190 --> 00:17:08,750
+Okay, maybe if you have arm, this word will be written and they will write that this word you can find on the page number 100. Okay, are you getting my point? This word you can find in the page number 100. Then they will write then they will write something like okay block. They will write something like that this this word this block this word you can find on the page number 103. Then they will write something like this. For example, this word.
+
+18
+00:17:09,080 --> 00:17:37,750
+This word you can find on the page number 90. So like this, are you getting my point? So if you check in the standard books, at the starting what we have? At the start, you have table content. At the start, you have content. At the start, you have basically content. What is the content in this, I can say, in this book? So content you have. But at the end, you find the index. You check it out. At the end, you will find the index.
+
+19
+00:17:38,160 --> 00:18:05,280
+with the page number will be given with every word and can you notice this is in the alpha vertical order like okay arm then block then disk then then something like okay so maybe with the block also you can write maybe buffer maybe this word buffer you will find this word buffer you will find on the page number 20 okay so like this are you getting my point please tell me so this is the analogy I'm giving you if you study any standard book whatever standard book you take
+
+20
+00:18:05,940 --> 00:18:34,240
+For example, fourth, let's assume this is the fourth book. Okay, let's assume this is the fourth book. So in the fourth book at the end, you will find the index. This index you will find and there will be alphabetical order. Okay, correct. So this index and there will be some pages, maybe four pages, five pages. This court has maybe let's assume total hundred pages are there. Total hundred pages can be there. But out of those hundred pages, almost maybe four pages, three pages, four pages, five pages, that will be four index.
+
+21
+00:18:34,600 --> 00:19:02,270
+So this index will have less number of pages. Agree or not? Can you tell me? Can you tell me why index has less number of pages? Like everything that we have in this book, everything that is also present in the, that is also present in the index, then why index has only three or four pages? Can anyone tell me? Use your common sense. If you use your common sense more, then you will understand the concept better. So tell me, for example, this, this we have in the book also.
+
+22
+00:19:02,650 --> 00:19:31,340
+Okay, there is a chapter there is a chapter for this also then why index has less number of pages because in the index we only contain the topic name very good. It doesn't have the details very good. So good very good. Okay, it has terminology. Very good. So you can notice it only has I can say I can say it only has two fields. Yes or no every index entry has only two fields. This is a index entry. I can call it index entry. You can check it out.
+
+23
+00:19:31,960 --> 00:20:02,570
+Okay. You can open some standard book if you have in front of you. Okay. Do you have some book near you? Okay. Just, just open it. Just open that book and you check it out. Go and go to the end. At the end, you will find the index. So there is an index entry. Okay. And alphabetical order. This index will be in the alphabetical order. Correct. This index will be in the alphabetical order. So just check it out.
+
+24
+00:20:02,810 --> 00:20:31,030
+okay hard copy soft copy doesn't matter whatever book you have you can check it out that so every index in this if you notice this index entry has two fields so there will be two fields for example like whatever topic you study like normalization for normalization also there will be for example normal form for normal form i can say it is on the page number 500 so something like this so every index entry has two fields is this clear every index entry has two fields
+
+25
+00:20:31,340 --> 00:20:58,980
+okay one is I can say one is the search can I call it search like we are searching based on this word can I call it can I call it search key can I call it search key because we are searching based on this word see I am calling it search key because we are searching based on this word and what is what can I call this can I call this address can I call this page address or block address see this page
+
+26
+00:20:59,410 --> 00:21:29,890
+this page this this page is same as block you can call it every page is basically block so can i call it page address this 500 this is a page address or i can say block address okay this is basically block address or i can say page address okay very simple so are you understanding what is the index and so okay now let me tell you so you can notice this is a book standard book at the end you will find the index every index entry has two things
+
+27
+00:21:30,200 --> 00:21:58,960
+so what has every index entry has worked there will be two things okay it will have a search key based on this word we are searching so this is the search key and you will find the you will find the i can say the record you will find the paragraph containing this word on the 500 page correct you will find the paragraph that contains this word okay paragraph that contains this word that you will find on the 500 page number okay so this is the complete idea
+
+28
+00:21:59,210 --> 00:22:26,870
+now let me tell you these things we are going to study so if you study if you look at this complete book if you look at this complete book this is your entire book in the entire book only some pages are the index right okay only some pages are the index this is your index so this index we will study in the indexing chapter okay in the indexing chapter we will study this is chapter number two okay we will study this in the indexing chapter
+
+29
+00:22:27,230 --> 00:22:54,780
+So in the indexed chapter, our complete focus will be on these last four pages. Are you getting my point? Okay. On these last four pages, our focus will be. So this is your book. Okay. And last four pages of the index. So our complete focus will be on the last four pages in the chapter number two. And if you study this entire remaining book, this is what we call file organization. This we study in the file organization. Are you getting my point?
+
+30
+00:22:55,180 --> 00:23:23,570
+So can you see the difference between these two topics? This we study in the file organization. Okay. So if you want to study the entire book that we study in the file organization. Okay. And on this book on this, this is the actual data. Right. Okay. Can I say, can I say this is the actual data? So on this data, we create a index on this data, we create a index on this data. This index is created. This index is created.
+
+31
+00:23:23,930 --> 00:23:50,560
+so this index we will study in the chapter number two and this file organization we will study in the chapter number one so whatever we study today that is i can say that is like we are learning the how to store this entire book and in the chapter number two we will study how to create index on this book did you understand the difference what i'm trying to tell you that don't confuse these two things don't confuse file organization with indexing
+
+32
+00:23:51,090 --> 00:24:18,730
+file organization means how you are restoring the database your actual content can I say this database means your actual data that you care about agree or not do you care about index or do you care about the actual data tell me do you care about the index or do you care about the actual data actual data we care about right okay this is just a facility can I say this indexing this is just a facility can I call it a facility so this is a facility
+
+33
+00:24:19,130 --> 00:24:48,910
+But this database is your actual data. So remember very simple thing. Don't confuse this file organization with indexing. File organization means we study how to store the actual data and this index is just a facility. It is just only a facility, nothing else. Okay. So this we will study in the chapter number two. This is what I'm telling you. Okay. So in this chapter, our complete focus will be on the file organization. We will not study index. Okay. So file organization tells you what?
+
+34
+00:24:49,160 --> 00:25:20,520
+it tells you how the database is actually stored database means your actual data that you care about your actual data okay and index basically it only simplifies the data access right agree or not can you notice this only simplifies the data access it will only simplify this we will study in the next chapter file organization is your actual book and index is basically the the the last two three pages okay the last two three pages of the book the last two three pages of the book
+
+35
+00:25:20,730 --> 00:25:48,920
+called index. So this is what I'm telling you. Okay, now let's move on. Now what we are going to study. So we are going to study file organization. Okay, our topic is what our topic is file organization, how to store the database, how to store your actual data, your tables, how to store those data. Okay, so in the file organization, you can notice you have a database, right, agree. So you have a database in the database, what we have some tables are there.
+
+36
+00:25:49,230 --> 00:26:17,890
+correct so in the database you have table one maybe table two okay so maybe uh table one means i can call it relation r table two i can call it relation s so there are some tables now okay there can be some other table for example there can be table three let's call it a t okay so there are some tables in your database now this is a conceptual level agree this is a conceptual level okay so when you say that this is just a conceptual level
+
+37
+00:26:18,140 --> 00:26:47,320
+Now, how to store this? After all, ultimately, we have to store the data, right? Ultimately, this data must be stored. Ultimately. So all these tables, ultimately, we must store them on the hard disk. Okay, so these will be stored on hard disk. So every data that you have, every table that you have that will be stored on hard disk. But how to store this data? How to store this database on the hard disk? So very simple. Extremely simple. What do you do?
+
+38
+00:26:47,630 --> 00:27:17,460
+you store this in one file you store this in single file and you store this as a single file so for every relation you create a single file are you getting my point so for relation R for this table 1 okay you store this entire relation as a single file as a single file okay as a single file you store this entire data entire table this entire table you store as a single file 2 and this entire data this entire relation you store as a single file 3
+
+39
+00:27:17,820 --> 00:27:47,410
+is this clear this is the very intuitive organization right correct so from conceptual level very easily you can go to the very easily you can go to the physical level now what is this file okay this is a sequence of blocks basically okay what I am saying very simple things so now let's look at particular relation R so let's assume this is your relation R okay you have this relation R in this relation R you can have many records correct
+
+40
+00:27:47,840 --> 00:28:17,460
+There can be many records in the relational. For example, maybe record, maybe you can have record R1, you have record R2, you have record R3, you have record R4, you have record R5, you have record R6. So there can be many records. Now, ultimately, what we do? We store this, this on, we store this, stored on disk. Okay, stored on disk as a single file, as a single file. Okay, as a single file, we store this. Now, what this?
+
+41
+00:28:17,690 --> 00:28:43,210
+so but but on the disk do you have the concept of file on the hard disk do you have the concept of file when you purchase the hard disk this is do you have this concept of file there is no concept of file on the hard disk right on the disk on the disk so this is a logical concept can i call it this is not a physical concept sector is a physical concept agree see when you purchase the hard disk sector is a physical concept
+
+42
+00:28:43,630 --> 00:29:12,010
+Okay. For example, I can say your platter is a physical concept. Surface is a physical concept. These concepts are physical concepts. But this file, this is a logical concept. Okay. Anyway, what I'm saying that on the hard disk, you store this. Okay. On the hard disk, you store this as a single file. Now what will happen? But on the hard disk, you have sectors. And of course, what you can do, maybe some sectors you can, you can convert into blocks. So what we do actually, what we do.
+
+43
+00:29:12,350 --> 00:29:41,500
+this file we divide into blocks let's assume block number one has this these two records block number two has these two records and block number three has these two records okay so this data will come in the block number one this will come in the block number two this will come in the block number three and you know what is a block block is some consecutive sectors right okay yes or no block is basically some consecutive sectors of course it will be fixed
+
+44
+00:29:42,200 --> 00:30:09,680
+Of course, if you cannot, like, the DBMS will fix it. Agree or not? This block size will be fixed by the DBMS. Block size, this block size, how many sectors that will be fixed? Block size fixed, fixed by DBMS. So DBMS will fix the block size. It cannot happen that this block size is different from this block size. Okay, is this clear? So the DBMS will fix the block size. Okay, this will be fixed. The block size will be fixed by the DBMS.
+
+45
+00:30:09,970 --> 00:30:40,640
+Okay, maybe for example, maybe three sector, maybe four sector, or maybe one sector, or maybe two sector. So anyway, this block size will be fixed by the DMS. So all the blocks have the same size. This block, this block, this block, they have the same size, all the blocks, they have the same size. So what we do, this is your relation R and this relation we store. This relation we store on the disk as a single file. So I can say this file is nothing but I can say this file is nothing but sequence of blocks. Okay, correct.
+
+46
+00:30:41,070 --> 00:31:11,420
+Okay sequence of consecutive blocks is this clear so this file this is basically nothing but sequence of consecutive blocks like this is the sequence of consecutive blocks so like you like this you store the data is this clear to everyone how we store the data so for every table like whatever table you have this table as this table T every table what we do we divide into blocks okay like these many records will come in block number one these many records you can put in block number two these many records you can put in block number three
+
+47
+00:31:11,660 --> 00:31:38,740
+So we divide the file into I can say blocks and now this block we can store on the database this we can store on the data so in the disk this you can put in the disk this you can put in the disk this you can put in the disk so this is a very simple concept okay let's move on and let's see now so you can notice ultimately ultimately this data this database whatever database you have ultimately you have to store this on the storage device on the disk
+
+48
+00:31:39,190 --> 00:32:10,200
+Okay, so we store on the magnetic disk we store and whenever we want to use the data like for example, tell me let's assume you want to use this data. Then what do you need to do? So this is your hard drive. Let's assume this is your hard drive. This is your hard disk on the hardest. You have the data. Let's assume this is your table number R. Okay, this is your table number R block one block two block three. So in this block, so in this in this block you have
+
+49
+00:32:10,780 --> 00:32:39,720
+you can notice this data you have r1 r2 this r1 r2 you have block number one okay so in this block number one you have i can say r1 r2 in the block number two you have r3 r4 in the block number four you have r5 r6 now if you want to access this data this is the hardest but if you want to do anything on this data either you want to read this data or you want to write this data you want to update this data whatever you want to do if you want to process this data then what you need to do you need to
+
+50
+00:32:39,960 --> 00:33:08,660
+Take for example, let's assume I want I would this is my desired data. Let me assume. Let me assume. I want our for let me assume. This is my desired record. Let's assume. Okay. This is my desired record. Then what you will have to do for basically this block, this block will go to the main memory. Okay. This block will go to the main memory. Here you have the main memory. So in the main memory, so this is your memory. In the memory, there is something called buffer. Okay. In the memory.
+
+51
+00:33:09,090 --> 00:33:38,460
+we we calls in the memory some part we call buffer some part we call buffer okay so basically in the main memory this is your main memory and this part we call buffer and this block will be shifted to this buffer is this clear this block the entire block will be shifted to this this main memory buffer is this clear to everyone so remember whatever is your desired record so what you do this block you transfer not the sector so very interesting thing you can notice that
+
+52
+00:33:38,750 --> 00:34:09,530
+When you purchase the hard drive, when you purchase the hard drive, if you only look at the hard disk, if you only look at the hard disk, then sector is the unit of data. Agree? This sector is the unit of data. This sector is the smallest unit of data when you purchase the hard disk. So this is the smallest unit of data when you purchase the hard disk. This is the smallest unit of data, data access. So this is the smallest unit that you can access when you purchase the hard drive.
+
+53
+00:34:09,780 --> 00:34:38,700
+but from dbms point of view if you are using the dbms software okay in your computer you are using the dbms software then from this dbms point of view what happens this sector is very i can say the dbms is thinking what the dbms is thinking this dbms is thinking okay sector is very small yes or no this dbms is thinking sector is very small okay so what this dbms will do this dbms will okay will define okay let me define that
+
+54
+00:34:38,980 --> 00:35:08,870
+Let me let me define that block size is three sectors. Let me define block size is three sectors. Okay. So let let me define block size is three sectors. Then what this DBMS will do. Now once you define this block size as a fit three sectors. Now now now this becomes the base smallest unit for the DBMS. Now this becomes the smallest unit of data access of data access for DBMS. Is this clear?
+
+55
+00:35:09,470 --> 00:35:37,350
+Let me know. So for the DBMS, this becomes the smallest unit of data access. Okay. So this becomes the smallest unit of data access. So very simple. So this is the idea. Is this point clear to everyone? Very simple point. So remember, if you purchase the hard drive, then the sector is the smallest unit of data access in general. So can I say, like from the general point of view, because in the hard drive, do you have only DBMS in the hard drive? Do you only have database?
+
+56
+00:35:37,820 --> 00:36:05,520
+you have many other things in the in the hard drive you have many other things for example in the hard drive you have operating system also your operating system your program your movie your photo okay everything is stored on the hard drive so in general i can say sector is the smallest unit of data in general but from the dbms point of view from the database point of view okay once you have this block size like if i define block size equal to three sector then this block becomes the smallest unit of data access so if you want to read
+
+57
+00:36:05,880 --> 00:36:34,260
+If this DBMS want to read something, then it will read a block. If you want to write, then you will write a block. So whatever you do, you will access a block. So this becomes the smallest unit of data access for the DBMS. Is this clear? So this block and remember different DBMS, different database software, they can have different block size. So this DBMS will decide, okay, let me take three sectors as the block size. Is this clear to everyone? Please tell me. Is this point clear?
+
+58
+00:36:34,700 --> 00:37:03,140
+So the DBMS will decide basically this block size will be decided by DBMS by the database software. Okay. And whenever you want, whenever a certain portion of data is needed, then what you will do, then what are you going to do? Whenever you want some data from the hardest, then you will locate. Okay. You will, you will search it on the hardest. Then you will copy to the main memory and then you will rewrite. If you have changed the data, then you can rewrite. Okay. Very simple.
+
+59
+00:37:03,410 --> 00:37:35,280
+So from the hard drive, you have to copy the block. So block will come. Agree? So from the hard drive when you, okay, this is your disk. This is your disk. From the disk, when you transfer to the main memory, then what you will transfer? From the disk, when you transfer to the main memory, then you will transfer a block. A block is transferred. Okay, so a block will be transferred because now this is the smallest unit of data. This block is the smallest unit of data. So this block you will transfer to the main memory. Now, now, now.
+
+60
+00:37:35,560 --> 00:38:07,180
+the access cost most of the time they will ask you access cost now in this situation the access cost is basically how many blocks you are transferring okay so basically when you transfer the data from disk to main memory then you will transfer one block of course now for your desired data okay for your desired data how many blocks you have to transfer so this access cost means number of blocks needed to be transferred number of blocks okay so this becomes number of blocks
+
+61
+00:38:08,340 --> 00:38:47,510
+needed to be transferred to be transferred. Okay. From disk to memory. Okay. So this is the idea. So access cost becomes what? So most of the time we will decide the access cost in terms of number of blocks. How many number of blocks you have to read to get your desired data? How many number of blocks you have to transfer from disk to memory? Okay. Now anyway, so let's see this. So how the data, how the, how disk
+
+62
+00:38:47,770 --> 00:39:15,080
+will store the database that is what we study now okay how the disk are used to store the database that we need to study so we have already seen hard disk the hardest we have already seen and these concepts we also know but this concept if you notice this block concept this is decided by the by the dbms so now you can notice very simple like conjugate this is your block what is a block conjugate sectors within a single track okay
+
+63
+00:39:15,310 --> 00:39:44,470
+like this this is a sector see this is a sector this is a sector this is a sector so if you take three sectors okay so basically conjugate sectors if you take within the track within this track then that will be your block size so you can notice what is the definition of block now if anyone asks you what is the definition of block what is that that is continuous sequence of sectors from a single track is this clear from a single track continuous sequence of sectors from a single track this is your block
+
+64
+00:39:44,720 --> 00:40:13,540
+now this block size can be decided of course this block side you can take less more that is that depends on you okay and data is transferred between disk and main memory in blocks so now this block is the smallest unit of data access remember okay so very simple now so say in general if you notice remember in general the sector is the smallest unit of data this is the smallest or unit of data in general but from the dbms point of view
+
+65
+00:40:13,880 --> 00:40:42,940
+For the DBMS who is the smallest unit of data that is block block is the smallest unit of data to access. So remember from now onwards from now onwards this block will become our smallest unit of data to access whether you want to read or you want to write then from the hard drive from the hard disk you will read a block you will write a block. Okay. And of course this block size is set by the DBMS. Okay. This is not a property of hard disk. Okay. Now let's move on. So all these points we have already seen.
+
+66
+00:40:43,120 --> 00:41:11,570
+So you can notice data, whatever data you store that also you store in the disk blocks. And if you want to access the data, you will access the disk block. So this is the unit of data access. Okay. Now one more thing I want to tell you. I will use sometimes I will use this word block or sometimes I will use this word page. So you can call it block or you can call it page. Now don't confuse. This is not the page in the page table. Don't confuse this.
+
+67
+00:41:12,040 --> 00:41:42,030
+Don't confuse this. This is not the page of those page table concept. Is this clear? This is not the page from the paging concept. From operating system paging concept. Is this clear? So don't confuse this page with that page. Okay, that is virtual memory page. That is a different thing. That is a different thing. Okay, this block is a different thing. This block is simply some sectors, right? Some sectors in a single track.
+
+68
+00:41:42,380 --> 00:42:11,320
+Okay, so some sectors some consecutive sectors so you cannot this block and this space these words sometimes it they can be used So don't confuse this page. This is not the page from the operating system page in concept So what we are going to do? What we are going to do? We are going to use this word mostly so that you are you don't get confused Okay, mostly we will use this word block So I will not use this word page, but I'm just telling you that if you find this word page anywhere
+
+69
+00:42:11,790 --> 00:42:43,210
+in the dbms book in any dbms book when you see this word page then it simply means they are talking about the block okay so this block is also called page but this is not the same as the your page in concept as the block from the page in concept okay now let's see so ultimately what we have ultimately we have this so this is the complete file organization let me tell you this is the complete file organization so in the database you have what we do
+
+70
+00:42:43,560 --> 00:43:14,780
+in one relation for one relation what you will create for one relation one file will be created okay so one relation will be stored as one file is this clear stored as one relation will be stored as one file okay and what is this one file and what is this file this is basically some sequence of blocks some sequence of blocks correct some sequence of blocks so very simple
+
+71
+00:43:15,080 --> 00:43:44,580
+so remember this file this is nothing but some sequence of blocks okay and what we do and you can notice in this relation if this is your relation this is your data this is your table r in this table r what we do the records we divide into blocks correct the records are divided into blocks b1 b2 b3 okay this block we put on the hard drive this block we put on the hard disk this block we put on the hard disk
+
+72
+00:43:44,800 --> 00:44:13,810
+Okay. So the records that you have, like R1, R2, R3, R4, okay, R5, R6, these records we divide into blocks and these blocks are the data, are the unit of data access. So this is the complete thing. And one more thing, of course, one thing you can easily see that the block size is basically more than the record size, right? Yes or no? So the block size, that is more than record size. It is more than or equal to record size.
+
+73
+00:44:17,130 --> 00:44:44,870
+Correct. Okay. So block size is more than or equal to record size. So these are the points that we have seen. So we have seen that database you store the database. Physically you are storing the database. Physically you are storing the database as files of records. Okay. And you put them on the disk. You can notice one database relation is stored as one file. Okay. Now what we do, of course, so how many files will be there? Can anyone tell me?
+
+74
+00:44:45,320 --> 00:45:13,930
+in the database how many files will be there that will be number of relations so how many relations you have how many tables you have so you can notice the database is mapped into number of different files so for example for relation r there will be one file for relation s there will be another file for relation t another file so like this these files you put on the disk permanently you put on the disk these files okay and you can notice what is a file file is basically sequence of records and these records are
+
+75
+00:45:14,170 --> 00:45:43,550
+divided into disk blocks you divide them into disk blocks okay so this is the point now let me see some doubts priya is asking disk controller mapping of chs and lba then how to identify address with the block numbers see when you say block number that's that is just a logical concept there will be block address priya just for understanding purpose i am saying block number block number
+
+76
+00:45:44,170 --> 00:46:12,450
+this is just for understanding purpose there will be block address okay and what is the block address that is the the address of the first sector in that block so for any block what is the address for any block the address is the address of the first sector in that block so basically just to tell you like basically blocks they have also address similarly record also have address don't worry this concept will come so block has address record has address
+
+77
+00:46:13,150 --> 00:46:43,490
+sector has address okay so basically you can you can create the address for all these things we will see we will see there is something called record address we will see something called block address we will see record pointer block pointer so remember for every block there is address for every record also there is address okay so is this clear anyone has any other doubt priya was having one doubt that is clear anyone has any other doubt so far in the file organization so far we have only seen
+
+78
+00:46:43,760 --> 00:47:13,140
+nothing we have seen literally we have only seen how to put your database in the disk you have the disk disk you have studied we have seen what is a magnetic disk okay what are the concepts seek time access time all the concepts we have seen disk scheduling how to how to schedule basically the sequence of a cylinder request so how to schedule them so that we have seen so the magnetic disk we have seen okay magnetic disk we have seen and the second concept is what the second concept is this file organization means
+
+79
+00:47:13,340 --> 00:47:40,880
+how to how to you have a database in the database you have many tables there are many tables r1 r2 r3 or maybe rst so these are many tables so how to store this database on the disk so what we do every relation we store as single file so this relation are you store as a single file is the relation as you store as a single file so every relation what you do you divide this into blocks okay divide this into blocks and then you put so basically the records are divided into blocks
+
+80
+00:47:41,510 --> 00:48:09,310
+you have let's assume you have 20 records then first five record in one block another five record in another block so there will be five blocks if you can put five records in one block if you can do that then total 20 records are there so you will create total five total four blocks will be there right so this complete file this complete relation you can put in four blocks in the hard disk so these concepts we have seen so we have only seen how to put the database in the disk so far nothing else we have seen
+
+81
+00:48:09,580 --> 00:48:40,870
+tell me did you get this point all the concepts that we have seen so far anyone has any doubt in this he is asking another doubt who is generating the address and giving to the disk its controller so who is generating the address there is a there is role of operating system okay priya there is role of operating system so to generate the address but anyway we will not go into those concepts okay any any other doubt
+
+82
+00:48:41,610 --> 00:49:11,770
+So there is role of general operating system. So operating system will have basically some role here. So but we will not go into those those things. Any other doubt? Sir, but even in operating system we have block concept. No, that is for the cache memory that is different from the case memory point of view. There is yeah. So basically it happens the same word. It happens that same word is used in many different situations like this key we use for candidate key. Now we will use this key for search key.
+
+83
+00:49:12,110 --> 00:49:41,490
+Similarly this block we use for when you study the case concept case memory concept when you study their block is something else In the case memory block is something else from the case memory point of view block is something else from the physical memory from the disk concept from the disk point of view hard drive concept Okay from the hard drive point of view block is something else Similarly from the hard drive point of view page is something else and from the Paging concept point of view
+
+84
+00:49:41,700 --> 00:50:11,120
+from the operating system main main memory paging concept from that point of view pages something else so basically these same word you are using for different different concepts that happens but from the context it will be clear like when you study case memory this word block you see then hard drive will not come to your mind right is this clear so in the context so the context is very important is this clear so from the case memory point of view block is something else from the hard drive point of view block is something else
+
+85
+00:50:11,420 --> 00:50:45,540
+so basically same word we are using but context is different context is completely different this case memory block has nothing to do with the hard drive block hard drive block is different case memory block is different okay so basically same word in different context contact it many times it happens okay any other doubt now let's see this question let's try this what is the answer tell me what will be the answer for this so the question is quite simple
+
+86
+00:50:45,980 --> 00:51:16,080
+what the question is asking this is from Raghurama Krishna dvms book this concept actually we have seen but let's see so you have a disc with sector size 512 bytes and there is a 2000 tracks per surface 50 sectors per track doubles five double sided platter every seek time is given so what is the capacity of a track capacity of a track so for one track what is the capacity the track size
+
+87
+00:51:16,920 --> 00:51:47,430
+that will be equal to how many sectors you have so there are 50 sectors correct how many sectors you have that there are 50 sectors you have you can notice these are the 50 sectors that we have and every sector has the size of 5 12 bytes so this will become your answer right so this is the capacity of the track for one track what is the capacity okay what is the number of tracks can anyone tell me what is the number of tracks anyone what is the number of tracks
+
+88
+00:51:48,360 --> 00:52:19,360
+number of tracks in the disk so you can notice 2000 per surface 2000 per surface 1 surface as 2000 there are 10 surfaces okay so there are 20,000 tracks is this clear there are 20,000 tracks remember tracks per surface 2000 per surface on one surface 2000 but there are 10 surfaces 5 plater so 10 surfaces double sided plater so there are
+
+89
+00:52:19,450 --> 00:52:48,870
+20,000 tracks and now tell me give example of valid block size which of them can be possible block size which of them can be a possible block size so this cannot be possible block size right because this is not even multiple of sector size this is not even multiple of sector size your sector this block size must be multiple of sector size correct so this is not multiple of sector size this is multiple of sector size
+
+90
+00:52:49,080 --> 00:53:22,420
+this is also multiple of sector size but this is also not correct block at block size why what is the reason because this is more than the track size this is not within a track is this clear let me know so remember very simple this is your block size this is the block size block size is already given to you sorry sorry sorry this track size is already given to you this is the track size you cannot this is not multiple of sector size this is not multiple of sector size right
+
+91
+00:53:24,970 --> 00:53:57,440
+So this is not a block size. This cannot be a block size. This is multiple of sector size. How many sectors are there in this? Can anyone tell me? 2048. How many sectors are there? So there are four sectors. There are four sectors. Sector size is 512 bytes. Sector size is 512 bytes. So there are four sectors. But this is a multiple of sector size. But why? Why this is not a block size? Why this is not a block size? Tell me.
+
+92
+00:53:57,630 --> 00:54:31,140
+what is the reason this is not a valid block size because it is greater than the track size it should be within the track so you can notice this this is not a valid block size because the block size cannot exceed the size of a track okay so finally this question is very simple from the Raghurama Krishna finally what is a block I hope you understood what is a block so blocks block is basically consecutive sectors within a single track consecutive sectors
+
+93
+00:54:45,820 --> 00:55:06,220
+So this is your block. So this is a simple question from the Raghuramakrishna. Okay, let's move on now. So one block can contain may contain several record, it can contain no record is larger than the block. So these basic things we already know. So the records, the file, whatever file you have.
+
+94
+00:55:06,440 --> 00:55:38,360
+that that file you divide into fixed length record every block, sorry, fixed length blocks, every block has the same size. This is the unit of data transfer. Okay. Now let's see type of records. So far anyone has any doubt. Let me know. Priya Mavith Mayuk. So far any doubt. Now we will see type of records. Now we will study the type of records. So far any doubt. Please tell me. This is a simple concept file organization. Most mostly there will be no question from this topic. Let me tell you.
+
+95
+00:55:38,610 --> 00:56:06,610
+from this chapter mostly there will be no question in the gate exam in the gate exam they will ask you question from the next chapter indexing chapter okay the chapter number two that is indexing from that they will ask the question in the gate exam from this entire chapter most probably there will be no question in the gate exam but this chapter is very important to understand the next chapter when we understand the next chapter this chapter becomes very important so without understanding this file organization
+
+96
+00:56:06,990 --> 00:56:34,120
+you basically cannot understand the indexing but indexing is more important from the exam point of view from the gate exam point of view this indexing is very important okay now let's see so file organization type of records so what are the type of record very simple there are two type of record either the record has fixed length all the records have the same length okay fixed length record means all the records have the same link in your table you have many records right correct
+
+97
+00:56:34,510 --> 00:57:03,550
+For example, if you have a student table, in that student table, you can have 100 student means there are 100 record. If all the record have the same size, all the 100 record, they have same size, then we will call it fixed length record. And if different record have different size, for example, my record is maybe let's assume my record has 100 bytes, your your record has let's assume 80 bytes. So if different records have different sizes, then that is variable length record. So basically there are two type of record.
+
+98
+00:57:03,850 --> 00:57:47,390
+one is fixed length record another is variable length record like consider this scenario record means tuple yes record means tuple record means tuple in a relation tuple in a relation okay so that is your record and what is file file is your relation okay so these things okay now let's see this so there are two type of record fixed length record and variable length record now if all the records have the fixed length
+
+99
+00:57:52,740 --> 00:58:17,530
+Now let's see some examples of this. Consider this example. You look at this table and you tell me what do you think? So here what happens? See very simple. This ID is integer. Integer has a fixed size. This is 30 bytes. Like for example, let's assume integer has 4 bytes. Let me assume integer has 4 bytes. Then this field, this attribute will take 4 bytes. This attribute will take
+
+100
+00:58:18,430 --> 00:58:48,100
+30 bytes because this is character this is not variable character there are two things one is care and there is something called variable care so if I write for example if I write this and if I write this what it means here it means exactly 30 bytes exactly 30 characters exactly 30 characters okay exactly 30 characters exactly 30 characters okay character means one character means one byte
+
+101
+00:58:50,130 --> 00:59:26,230
+Okay. One character means one bite and here variable 30 variable character 30. It means at most 30. It means you can have at most 30 characters. Okay. At most 30 bytes, maximum 30 bytes, but you can have less than that. So this is variable, variable character length. Okay. Variable character length and this is fixed. It means here you have 30 bytes. So here you can notice this is also care. So 255 bytes here one bite.
+
+102
+00:59:26,600 --> 00:59:54,290
+and let's assume let me assume that date has 10 bytes let me assume date has 10 bytes so you can easily see that what will happen in this table whatever record you have will they have the same size in this table all the records will they have the same size in this table this is a table a star table in this star table all the records they have the same size right correct so they will have the same size you can notice because integer has four bytes
+
+103
+00:59:54,670 --> 01:00:23,380
+And this will have 30 bytes. This will have 255 bytes and this will have 1 byte. This will have 10 byte. So if you see that every in this table, if you look at this table in this table, every record has a fixed length. Every record will have this length. Every record will have this. Okay. So this is the simple idea. Now look at this table. Look at this table. For example, different people can have different length name, the name of different people can have different length. So you cannot know this is a variable character.
+
+104
+01:00:23,820 --> 01:00:53,020
+and this is also variable character what it means it simply means that variable length at most 255 bytes so in this situation you can notice this is a fixed length this will have four bytes this will have this will have one byte this will have 10 byte but you can notice this and this they can have variable length agree different students can have for example let's assume my my name is Deepak so maybe my name will my name will take six bytes correct
+
+105
+01:00:53,510 --> 01:01:22,670
+My name is going to take six bytes. Okay, but name of Priya will take only five bytes. Okay, maybe name of Mahavit will take maybe seven bytes. So you can notice that now different records have different size. Correct. Yes or no. So in this situation, you cannot this is called variable length record. Different records are having different sizes. Okay, so one record maybe it's like this. It is like this. For example, in this table, what is the table name? The table name is star in this table star.
+
+106
+01:01:23,290 --> 01:01:53,050
+What can happen in this table? This can happen that maybe maybe you have some records maybe R1 R2 R3 R4 R5 it can happen that First of all, what is the maximum length? Can anyone tell me? What is the maximum length in this table? Like what is the maximum size of record you can create that will be 4 plus 30 Okay, so I can say 4 plus 30 plus 255 So the maximum size that you can create
+
+107
+01:01:53,340 --> 01:02:25,830
+what is that that is same as this the maximum you can create is this so what that will be can you can anyone add this what is this value when you add this it is becoming what so yeah i think it is becoming 300 okay so you can notice maybe maybe maybe this has 300 bytes maybe this has 300 bytes okay and maybe maybe this has maybe 250 bytes maybe this has 250 bytes
+
+108
+01:02:26,230 --> 01:02:59,070
+Maybe this has 280 bytes. Maybe this has 200 bytes or maybe this has maybe I can say 295 bytes. Okay. Or maybe I can, I can keep this also 250 bytes. So you can notice now different records have different size. Correct. So now this is called variable length record. Now this is called variable length records. So in the same file, in the same table, different records have different size. Is this clear in the same table? This is your table.
+
+109
+01:03:00,320 --> 01:03:30,340
+in this table you have variable range records okay so very simple if every record in a file in within a single file if every record has the exactly the same size then that file we call it fixed length records okay that file we call that file will be called to be made of fixed length records and if different records have different size then that file will be called I can say a file of variable range records so very simple like in this situation
+
+110
+01:03:30,720 --> 01:04:06,830
+what is going to be or is this fixed in this in this are you getting fixed length record or variable length record in this situation so here you can very easily see that you are getting fixed length record so in this table if you notice in this file or in this table if you notice this file okay this file contains fixed length records fixed length records the records have the fixed length in this in this type of file okay and what are the what are the record size
+
+111
+01:04:10,840 --> 01:04:39,330
+what will be the record size the record size is very simple so that will be 30 plus 9 let's assume integer has let me assume integer has 4 bytes and let me assume okay so that will be 4 plus 4 plus 20 so your answer that will be what is what is going to be the answer that will be 67 so you can order 67 bytes will be your record size so that is going to be the record size in this table
+
+112
+01:04:39,740 --> 01:05:10,070
+Now in the same table, if I make it work here, in the same table, if I make it work here, okay, the name, the name I make work here. Now this will become the variable length fields. Okay. So now different, different record can have different length, different record size. Now how to find a particular field inside a record. Now let's go inside the record. Is this clear inside a record, how to find a particular field.
+
+113
+01:05:10,460 --> 01:05:37,880
+For example, you tell me one thing whenever you are like most of the time you don't want the entire record agree. Most of the time we don't want the entire record. For example, maybe only you want name or maybe you only want salary or maybe you only want department. So basically most of the time we don't want the entire record. We want we want the name only. I only want the name. I only want the salary. Then if I give you a record, then can you find the particular field?
+
+114
+01:05:38,760 --> 01:06:08,750
+if I give you a record can you find a particular field that can you find like let's assume inside a fixed length record inside a fixed length record you tell me use your common sense and tell me okay how to find a particular field inside a common fixed length record like let me give you this question a simple question I am giving you let me assume that this is your record this is a particular record this is a particular record and let's assume the address
+
+115
+01:06:09,160 --> 01:06:42,480
+the record address this is called record address let's assume the record address is hundred okay let's assume this is record address so for this record this is the address hundred now you tell me what is the address of field b can anyone tell me like i i want this i want this b i want b so what will be the address of field b how to find out this b very simple what you will do this this you know you know you know that this b will start where
+
+116
+01:06:42,960 --> 01:07:12,230
+this B will start from 100 plus 4 correct okay if integer is taking let's assume integer is taking 4 bytes let's assume integer is taking 4 bytes then you notice that this will okay your this address will be 104 the address of B so now you know that this B will be here and you know that this A will be here and this C will be here and what will be the address of this C the address of this C that will be 100 plus
+
+117
+01:07:13,520 --> 01:07:43,040
+4 plus 6 that will be 110 is this clear very simple so fixed length records They are very simple to access correct very easy to access very easy to handle so when you have fixed length records Okay, so they are very very very easy to handle but tell me one more thing like who is going to store this data This data who is going to store like okay. See very simple point. I'm asking so who is storing this data like this this data who is storing this data that
+
+118
+01:07:43,290 --> 01:08:12,850
+this field has four bytes or maybe who is storing this data where are you storing this data are you getting my point okay that this field in this record so you have a file okay and this record has let's assume four bytes six bytes and four bytes who is storing this data no this is a pro is this a property of hard drive tell me is this a property of hard drive or this is not a property of hard drive maybe in the table or maybe this type of records you have
+
+119
+01:08:12,920 --> 01:08:43,140
+in the table are you have this type of records ABC in the table are you have this type of record in the table as you can have this type of record XYZW correct in the table as you can have this type of records okay very simple like maybe for example 10 bytes maybe maybe 100 bytes maybe 2 bytes maybe 4 bytes so are you getting my point so who is storing this like who is storing this word
+
+120
+01:08:43,370 --> 01:09:13,760
+this thing who is storing who is storing this thing who is storing this thing so these things are actually stored inside the record okay so when you have when you have fixed length record see if you have fixed length record if your file has fixed length record then does it make sense in the file r look at file r okay just look at file r and tell me if your file you have a file r you have this file r
+
+121
+01:09:14,110 --> 01:09:44,430
+in this file are let's assume all the fixed-length records are there in this file are let's assume there are fixed-length records okay so first of all tell me one thing like how many fields are there in this are who will store that so two questions I am asking very simple simple questions I am asking that first of all how many records are there how many fields are there who will store that okay in this file are how many fields are there who will store how many fields
+
+122
+01:09:51,780 --> 01:10:20,340
+how many fields are there who will store this and what is the size of every field right size of fields who will store that so basically this type of data who is going to store and when did you access this record okay like you do you remember these scheduling algorithms this scheduling algorithms do you remember so when was the last you access this record okay last time you
+
+123
+01:10:20,580 --> 01:10:57,820
+the the time okay when you last access the record the time or did you like did you access this okay basically when when you access this last time when you access this when you access the record recently okay so who is going to store this type of information can anyone tell me this type of information who is going to store this type of information who will store who stores this information
+
+124
+01:10:58,130 --> 01:11:31,040
+and where we store this information so where we store this information can anyone tell me where we store this information where this information is stored okay use your common sense and tell me i don't go to operating system we are not in the field of operating system we are in the field of we are not even in the main memory we are not even in the main memory we are in the data we are in the secondary memory we are in the hard drive are you getting my point
+
+125
+01:11:31,230 --> 01:11:58,560
+We are not in the main memory. We are not in the cache memory. We are not in the CPU. We are in the hard drive. Okay. You, me, okay. We, all of them, all of us, we are standing inside the hard drive. You know, there is a hard drive. Okay. Let's assume two terabyte hard drive in the hard drive. We are standing. All of us. There is no operating system. There is no, there is no cache memory. There is no memory. Forget about all those things. You are in the hard drive. Okay. Use your common sense and tell me first of all,
+
+126
+01:11:58,800 --> 01:12:31,680
+Okay, what do you think where should I store this data? Look at this data and tell me where should I store this data? Okay, where should I store this data? Just look at this this final this last data if you look at this Where should I store this data? Can anyone tell me? Where should I store this data? If I want to store this data, then where should I store this last? What do you think? Does it depend on the record? Does it depend on the record different record? They can have different size. Sorry, different record can have
+
+127
+01:12:31,930 --> 01:13:00,120
+different time when they were accessed recently agree or not like maybe record R1 maybe you record R1 you are accessing today and record R2 you are accessing tomorrow okay so different record in the same file can they have different time stamp this is your can they have different time stamp very simple logical question I am asking common sense question nothing these questions you can answer without any knowledge if you use your common sense
+
+128
+01:13:00,610 --> 01:13:32,060
+Very simple question. I'm asking that okay different record. They can have different time stamp Okay, maybe the record R1 you are accessing today record R2 you are accessing tomorrow So basically very simple time stamp of a particular record should be stored with the record agree agree or not time stamp of a particular record should be stored with the record So basically this data is actually stored inside the record This data is stored inside the record. Okay
+
+129
+01:13:32,360 --> 01:14:07,310
+do you agree please tell me did you understand very see very simple thing because it is a property it is it very much depends on the record it's very much depends on the record this is I can say record property can I call it record property so this is a record property so because this is a record property so this record property must be stored with the record stored inside record so in the record you store it actually what happens so remember
+
+130
+01:14:07,790 --> 01:14:40,980
+If you have a file, if you have a this file are okay, if you have a record property, let me tell you if you have a record property, then that you store with the record is this clear very simple thing. So if you have a record property, any record property which actually depends on the record. Okay, record property. What are the examples? One example is time stamp record time stamp time stamp of record. Correct. So when did you access this?
+
+131
+01:14:41,830 --> 01:15:13,590
+when it will be helpful can anyone tell me when it will be helpful it will be helpful in the when you do some scheduling okay maybe LRU okay optimal some scheduling algorithm when you do something so there it can be helpful okay scheduling algorithm in the scheduling algorithm it can be helpful so anyway this record property where you store this is stored inside the record this you store in the record so in the record what happens in the record actually if this is your record actually
+
+132
+01:15:13,890 --> 01:15:49,940
+some some area is for extra things are you getting my point this some area is I can say this is the record I can say metadata of the record you can call it metadata of the record this is your record so in the record some area is given to the metadata of the record is this clear let me know let me know so this is your record and this is your metadata of the record so in the record some area is reserved
+
+133
+01:15:50,240 --> 01:16:19,490
+for metadata for extra data okay like some area is reserved basically for extra data in the question if this extra data is not given then what you will assume in the gate question if this is not given then what you will assume then don't assume okay then just don't assume that okay there is no such data but we will solve some questions where this data will be given so if nothing is given about this metadata if they do not mention anything about this metadata then assume that metadata is not there correct
+
+134
+01:16:19,780 --> 01:16:48,170
+assume there is zero metadata is zero okay so something like that so very simple thing so all the record property you must store is this common sense or is this some knowledge tell me like time stamp of the record where should I store where should I store the time stamp it is very common sense right different record can have different time stamp okay record R1 can have time stamp 10.10 record R2 can have time stamp 11.11 okay so remember different record can have different time stamp
+
+135
+01:16:48,430 --> 01:17:20,580
+So that is the reason this is a record property and you should restore this inside the record. So if this is your record, this is your record in the record, some metadata, some extra data, you basically some extra data. Okay. I can say some extra information of data, some extra information about of record. Okay. And this is your actual record. And here what you do here, you put the actual field data, actual field values you put here. Is this clear? Let me know.
+
+136
+01:17:21,890 --> 01:17:57,400
+actual field values you can put here okay so like this so very simple now you tell me another question I want to ask another question I want to ask what do you think where should I put this the second what do you think where should I put this data now okay now you forget about this so this we have already seen where should I put the time stamp of the record okay what do you think where should I put this like you tell me how many fields are there
+
+137
+01:17:57,880 --> 01:18:28,250
+Where should I put this? How many fields are there? How many fields are there? Where should I put this? Yes, this should be in there. Okay, this is a property of the, I can say this, this is a property of the file. So can I call it file data? Can I call it file data? Yes or no, I can call it file property. This is a file property, right? So this is a file property. So you can put it in the block. So you can put it in the block header.
+
+138
+01:18:29,410 --> 01:19:00,980
+There is something called block header. You can put it in the block header. For example, you can call it a record header. What you can call it, you can call this, you can call this record header. You can call this record header. Similarly, you can put this in the block header because don't put it with every block. Are you getting my point? It will be written in with every record. If you put this, okay, do you agree with every record? If you put this, that will be written in with every record you are putting this. Instead, what you can do.
+
+139
+01:19:01,280 --> 01:19:31,830
+One time you can put in the record ball block header, correct? One time, one time you can put in the block header. So there is a block header. When you create a block, this is your block. Let's assume this is a particular block. Let's assume this is a block B1. So in the block B1, what happens? This is called block header. Is this clear? This is called block header. In this block header, you put the information related to the blocks. Some block properties you can put here.
+
+140
+01:19:33,350 --> 01:20:06,950
+some block properties you can put here is this clear so basically metadata about the block I can say this is the metadata about the block like for example in this and this is these are your actual records R1 R2 R3 R4 these are your actual records and this is your block given so very simple that you can put this in the block header okay how many fields are there now size of every field size of every field size of every field very where to put that
+
+141
+01:20:10,780 --> 01:21:04,900
+size of every field where to put it what do you think size of every field now where to put that tell me see one by one I'm telling you okay and we are only using the common sense mostly mostly we are only using the common sense if you notice okay so tell me now where to put this so this we have seen where to put this one yes very good Priya very very very good so actually if you notice size of every field if your file has variable length fields
+
+142
+01:21:06,490 --> 01:21:34,160
+size of every field if your file has variable length fields if you have variable length records are you getting my point if you have variable length records then where it makes sense tell me where it makes sense size of every field where it makes sense if your file has variable length records then it makes sense inside the record
+
+143
+01:21:36,270 --> 01:22:07,250
+if you have this then it makes sense to put in the record it makes sense to put in the record header because different records can have different size different records can have different size so inside the record you can put it and if you have okay the same data so basically this data this data you will put if this happens okay so if this happens then you will do this and if this happens then what you will do like if you have fixed length fixed length records
+
+144
+01:22:08,980 --> 01:22:39,430
+if you have fixed length records now now tell me if you have fixed length records okay so then in this situation this and this you can combine them and then you can put them in the block header because you have fixed length records okay so you can just one time you can put in the block header that's it so this complete explanation is this clear so basically two things are there ultimately what I want to tell you I just want to tell you that there are two things one is called record header another is called block header
+
+145
+01:22:39,690 --> 01:23:09,810
+this is the like if you want to buy hard you can buy hard if you want to understand you can understand it is clear so there are two things so this is the conclusion this is the conclusion that there are two things so there is something called record header there are two things something called record header and another is called block header so there are two things only this is the point so the record header means okay some some extra information okay and the block header means
+
+146
+01:23:10,440 --> 01:23:45,400
+and the block header means some extra information is this point clear this is the conclusion if you did not understand something then this is the conclusion that's it basically some extra information okay basically some record metadata now this can be anything in the gate exam they can give you anything this can be anything and similarly this is the block metadata tell me is this clear this is your conclusion you only have to understand this conclusion nothing else if you understood the explanation very good
+
+147
+01:23:45,620 --> 01:24:14,960
+if you did not understand the explanation then this is this is this you can buy hard okay nothing else basically in the gate exam they can tell you that every record has some some bits reserved for something then you can okay amazing yes yes yes this is record header okay are you getting my point in the exam if they give you that every record has some bytes has some bytes for some some purpose some bytes for some purpose then what you will understand okay yeah this is the record header okay inside your record this is the record header
+
+148
+01:24:15,120 --> 01:24:46,280
+Similarly, every block also can have some some some special purpose information. Okay, so you can understand. Yeah, this is the blockhead. So basically, this is the conclusion you have to understand. Is this clear so far is everything crystal clear to everyone? So far is everything crystal clear to everyone? So when you have fixed length records, you can easily find a particular field value agree? Okay, agree or not? So when you have fixed length record, you can very easily find the particular value, correct?
+
+149
+01:24:47,190 --> 01:25:22,030
+this we have already seen so this is how you can do this is your base address so you can just add l1 plus l2 so when you have fixed length record then this is how you can access okay so you can notice and where this information is there the information the address of a particular field can be calculated from the length of particular fields okay which is stored in the either it will be stored in the record header or the block header okay anyway so that is fine now let's move on
+
+150
+01:25:22,310 --> 01:25:55,830
+Now let's see this for the variable real length record how will you find this like let's assume this I give you this is the data I give you you tell me a very interesting question I want to ask you tell me I give you this record and I give you this hundred byte this is the address you can call it record address okay and this is your record now you tell me what is the address of this be address of be
+
+151
+01:25:56,730 --> 01:26:29,420
+you tell me the address of B what is the address of B can anyone tell me what is the address of B and that is very easy because this is fixed this is 4 bytes so this is fixed so here nothing is there you can just calculate you can just calculate 100 plus 4 here you don't have anything any problem but if I ask you the record the address of C now how to do that you tell me that variable length record you have can you find out can you find out tell me
+
+152
+01:26:29,700 --> 01:27:01,040
+can you find out because this is variable care we don't know it will be six or four or five yes or no agree we don't know it will be six or four or five so now what is the solution can anyone tell me what should be the solution how to find this what should be the solution so there are two solutions let me tell you there are two solutions so there is solution one for this problem there is solution one approach one the approach one is like this what you do after every
+
+153
+01:27:01,490 --> 01:27:29,250
+field you just put a dollar a dollar sign you put after every field a dollar sign you put this dollar sign will tell you that this record has ended correct okay so after every field you put a dollar sign this dollar sign will tell you that record has ended that record has ended is this clear this is a very simple approach correct that this record has ended a very simple approach extremely simple approach
+
+154
+01:27:29,980 --> 01:28:01,170
+But this approach is not used practically. What do you think? This approach is not used. What do you think? What could be the reason? This approach is not used. In the real life, this is not used. So what could be the reason? Yes, very good Nikhil. Excellent. The approach, see, you have to read the entire record. If you want to access, if you want to access C, can you directly access C? If you want to access C, can you directly access C? No, you have to go in a sequential manner.
+
+155
+01:28:01,700 --> 01:28:34,880
+you have to find the dollar so basically not used why can't access C directly correct can't access C directly you cannot access C directly you have to find this that where we will end so this this must be found correct this must be found okay fine this must be this must be found is this clear to everyone please tell me so this solution is not not basically in the real life this is not used and the reason is very simple
+
+156
+01:28:35,200 --> 01:29:03,560
+Because if you want to access C, if you want to access this, then you will have to go in a sequential manner. So can't access C directly. Very simple. What is the another approach? What is the solution to? This is actually used in the solution to what you do in the in the record, some header, record header is there and you put basically, for example, let's assume this is your area of A. This is your area of B. This is your area of C. So what do you do?
+
+157
+01:29:03,910 --> 01:29:35,030
+a very simple approach extremely simple approach what you do so some extra data some extra data okay this may be this can be any extra data this can be some extra data this can be any extra data okay maybe time stamp or something this is some extra data then what you do one pointer you create for this okay here you put the address of A so the address where the where age is starting that you put here where B is starting
+
+158
+01:29:35,480 --> 01:30:04,940
+where B is starting that you put here and where C is starting that you put that you put here where C is starting that you put here but I also need one more I also need one more to give the ending of the record so that I can be sure okay yeah record has ended because the next record will start yes or no or a next record will start after this next record will start so I should also make sure that
+
+159
+01:30:05,210 --> 01:30:38,710
+this record has ended okay so this is one last thing that this to tell you that record has ended okay that record ended is this clear let me know is this approach clear to everyone so this solution to this is you very simple this is actually extremely simple what to do you put the pointer basically the address you put here here you put address of a where age is starting that address you put here okay is this clear tell me solution to
+
+160
+01:30:40,070 --> 01:31:11,950
+how to access a particular field in a variable length record and there is another benefit of this what is the benefit can anyone tell me if let's assume I don't have the C value if I have if I don't have C value then what I need to do there is a benefit of this what is that let's assume the C value for me is a null okay let's assume for me let's assume for me C is a null then will I waste this
+
+161
+01:31:13,120 --> 01:31:42,510
+Then I will I waste this space? No, this is the benefit. This is the benefit that you can just put a null pointer here. Now you don't have to waste this space. This space you don't have to waste. Now you don't have to waste this space. Okay. What you can do? You can just put a null pointer here. See what I'm saying. Let's assume for me B value is null. Let's assume. So if B value is null for me, then something very interesting I can do something very interesting I can do.
+
+162
+01:31:42,680 --> 01:32:14,170
+I can do like this. Okay. Maybe I can say for John. So this is what I'm saying. Some extra data is there. That is fine. Okay. Some extra data is there. And then what do you do? There is a and there is directly C. Okay. And what do you do? Of course, you can put the address of a here and here you can put null. Here you can put null, null, you can put, sorry, null pointer. Here you can put null pointer. Is this clear?
+
+163
+01:32:14,450 --> 01:32:43,310
+So the null pointer you can put here and then very simple. Then it is very simple that here you can put the address of C and here you can put the address of end. So very simple like this. So this is the idea. See the exit details are not important. The idea is important. If you are focusing on the exit details, sir, will this pointer will this pointer come here? No, no, no exit details are not important. I'm just telling you the idea that something like this is happening in the
+
+164
+01:32:43,530 --> 01:33:11,950
+in the databases. Are you getting my point? Executive details are not important. Exactly how many pointers will be there? Okay, will there be end pointer? Will there not be end pointer? How many dollars will be there? Okay, so these exact details are not important. The only important thing is something like this has happening. Ideas I'm discussing. Are you getting my point? See, the way I'm teaching you, can you see I'm discussing the ideas, not the concept. Because from this lecture,
+
+165
+01:33:12,530 --> 01:33:40,120
+Okay, whatever we study in this lecture, you just have to understand the idea how things are happening. You don't need exact details. Exact details will be platform dependent. These are DBMS dependent. Yes or no. How the DBMS will implement these things that depend on the DBMS. So exact details are not important. How many pointers are there? What is the size of record header? What we put in the record header? What we don't put in the record header? What we put in the block header? What we don't put in the block header?
+
+166
+01:33:40,310 --> 01:34:10,180
+These details are not important. Is this clear? Details are not important. Only the idea is important that there is some block header. Now you understood why? Okay. That yeah, some information I need to put. So there is a block header. Now what information we need to put? What information we don't need to put that does not matter. Is this clear? That does not matter. What information we are putting in the block header and what we do not put in the block header. That information does not matter. We don't care about that information.
+
+167
+01:34:10,610 --> 01:34:40,020
+we only care that yes there is a block header and okay we understood yeah there is a block header we need block header and we understood there is a record header okay we understood yeah we need record header we need okay some for some work we need similarly how to handle the fixed length record and how to handle the variable length record so these ideas we are discussing the exact details do not worry about the exact details is this clear to everyone please tell me like some of you are thinking some of you are having some doubt I know some of you are thinking
+
+168
+01:34:40,370 --> 01:35:11,150
+how many pointers will be there will there be pointer for a will there be pointer for b okay so these details we do not care are you getting my point we do not care about these details i am just telling you that something like this is happening in the dbms is this clear something like this whatever we have seen something like this not exactly this but something like this is happening in the dbms tell me please tell me did you get it
+
+169
+01:35:12,370 --> 01:35:42,750
+only the idea is important so I am just telling you the common sense idea okay how the things are happening is this clear let me know okay so let's move on so basically you can see all these things so this is approach one for the variable length record if your variable length record this is approach one okay you put the dollar after every field so this is your approach one next this is approach two you put the pointers this is your approach two for variable length record okay and how to
+
+170
+01:35:43,220 --> 01:36:12,110
+represent null that is also we have seen correct just put the null value just put the null pointer right just put the null pointer okay all you have to do is put the null pointer so you don't have to waste the space for null you don't have to store the null value agree or not now did you notice we don't store the null values okay the conceptual level when we study the conceptual level there are null values agree in the conceptual level there are null values null values
+
+171
+01:36:12,920 --> 01:36:42,090
+Now, can you see how they are stored in the physical? Physically, how we store the null values? Did you see? Physically, how we store the null values? Physically. In your disk, in your hard disk, in your hard drive. Okay. How do we store the null values? Now, did you understand that? So we don't really store the null value, right? This null and you double L, we don't store it. We just put a null pointer. This null pointer will tell us, yeah, this field value is null. In this record,
+
+172
+01:36:42,430 --> 01:37:12,780
+this filled value is null who will tell us the null pointer okay so something like this now let's move on let's see spawn and unspawn record organization what is that so this is a simple concept very simple let's see this consider this situation a question i'm giving you and you tell me here assume that disk block size is 100 bytes and record size is 40 bytes how many records can you keep in one block anyone
+
+173
+01:37:13,910 --> 01:37:48,930
+anyone want to tell me the disk block size is 100 bytes your disk block size has 100 bytes this has 100 bytes okay and record size is 40 bytes record size is 40 bytes so how many records we can put so I can see that so one yeah one record you can put full 40 bytes another record you can put full so if you don't allow this okay
+
+174
+01:37:49,270 --> 01:38:20,050
+if okay so I can put two records right agree I can put two records I can put but two records I can put when I don't allow half record here half record here like half record here half record here if I don't allow this this is a block this is a block this type of organization what we are calling it this type of organization you cannot put half record here and half record here you cannot put r3 20 you cannot do that okay
+
+175
+01:38:20,320 --> 01:38:52,140
+so these 20 bits these are wasted these 20 bytes wasted of course these are wasted but the point is very simple that this type of organization what we call this type of organization we call it unspond we call it unspond organization because you cannot put half record here half record there see another see another organization what you do in the another organization this is what you do this is one block this is another block okay what you do
+
+176
+01:38:52,220 --> 01:39:19,510
+one record you put fully 40 bytes another record you put fully and what you do the next record you put 20 bytes here and for this record 20 bytes you put here okay so 20 bytes you put here for the R3 20 bytes here 20 bytes here this type of record where half record you can put here half record you can put here this type of organization is called spawned organization because you are responding the same record
+
+177
+01:39:20,010 --> 01:39:48,440
+The same record you are responding in multiple blocks. So this is called a spawned organization. Is this clear? Let me know. The same record you are responding in multiple blocks. Remember, this is a block B1. Remember, this is a block B2. So this is called a spawned organization. So in the spawned organization, what will be the answer? In the spawned organization, your answer will be that from 100 divided by 40,
+
+178
+01:39:48,800 --> 01:40:20,140
+that will be 2.5 records per block 2.5 records per block you can you can put yes or no 2.5 records per block you can put and in the in the un-spent what you can do in the un-spent you will you will take the seal value you will take the seal value so 20 records sorry two records you can put is this clear so there are two organization one is un-spent another is spawned so what is the un-spent record organization very simple
+
+179
+01:40:20,660 --> 01:40:50,940
+Records are not allowed to cross the block's boundary. Yes or no? Records are not allowed to cross the block's boundary. Very simple. Let's see this question. Tell me the answer. For this question, what will be the answer? The disk block size is given to your b bytes. Okay. For a file of fixed length records, r byte, your fixed length record, every record size is r bytes. How many records can you put in one block using an expand organization?
+
+180
+01:40:52,870 --> 01:41:24,030
+so very simple it will be floor or seal it will be B divided by R floor these many you can put not the seal see okay take one example and see this are very simple okay why this is C because this is your block this is your block okay let's call it this block has B bytes B bytes now in this block you can put a recorder you can put R bytes
+
+181
+01:41:24,510 --> 01:41:56,200
+so this record R1 got R bytes correct so R bytes are gone okay another R bytes are gone another R bytes gone okay another R bytes gone okay another R bytes gone R3 another R bytes gone now let's assume this is not let's assume this is less than R let's assume this is less than R bytes then what you will do let's assume this is less than R bytes now now this is wasted
+
+182
+01:41:58,510 --> 01:42:32,270
+let's assume this is less than R bytes you cannot put the record here cannot put record here correct so can't put more record can't put any record here okay yes or no so this is wasted so this is space is actually I can say this is space is actually wasted but the point is very simple that so how many records you can put number of records per block what that will be that will be you divide this B by R
+
+183
+01:42:32,760 --> 01:42:59,370
+Okay, how many full you are getting that only you have to count? Agree? Yes or no? How many full you are getting that only you have to count? How many fully you can put? So, who gives the full value? This seal will give you the full value. This will give you the quotient, right? Correct? Yes or no? How many records you can fully put here? Like we have seen the example of 100. Like if you have 100 bytes, if your b is equal to 100 bytes,
+
+184
+01:43:01,140 --> 01:43:41,070
+and if your R is equal to let's assume 30 bytes then what will happen then this will happen that here you have 100 bytes and what you can do 30 bytes you can put 30 bytes you can put 30 bytes you can put these 10 bytes wasted correct yes or no these 10 bytes wasted so your answer what are the number of records per block what is that number of records per block that will be 100 divided by 30 and the floor value you will take the floor value so it will give you three
+
+185
+01:43:41,310 --> 01:44:16,010
+not the seal value don't take seal value if you take seal value then basically you are crossing the boundary is this clear to everyone so your answer will be this let me know is this clear so a very simple thing in the same question if i ask you like if i also give you the block header let's assume the block header size is also given in the same question let's assume block header is size is given block header size is let's assume k bytes now what will be the answer now the block header
+
+186
+01:44:16,430 --> 01:44:51,230
+this size is given k bytes now what your answer will be number of records per block that will be in this these these k bytes we cannot use for records correct yes or no these k bytes we cannot use for records so what you will do you will do b minus k divided by r and and floor so very simple so this is your answer is this clear everyone please tell me so now this is called blocking factor
+
+187
+01:44:51,770 --> 01:45:23,260
+these three records you can put per block how many records you can put per block this is called blocking factor okay this this is called blocking factor okay how many records you can put per block so the number of records that can fit on one block that is called blocking factor is this clear let me know is this clear so how many records you can put how many records you can put in a block inside a block how many records you can put
+
+188
+01:45:23,900 --> 01:46:03,790
+This is called blocking factor. Okay. So this is the idea. How many records you can put per block? So let's see now. So this we have already seen. So the blocking factor. Now let's see this question. What is the unused space? Now the question is asking unused space on his parent organization. What are the blocking factories in this question for a fixed length records are given size, orbits. Okay. So.
+
+189
+01:46:04,510 --> 01:46:38,730
+and disk yeah so what is the space that is wasted can anyone tell me unused space what is the unused space so that will be equal to from the entire block size you can remove what you can remove from the entire block size you can remove the used from the entire block size you can remove the used used space or I can say usable space okay or I can say
+
+190
+01:46:39,310 --> 01:47:16,070
+useable space so what is the useable space that is see the useable space that is your what that will be that will be blocking factor blocking factor right so I can call it blocking factor multiplied by size of record okay this is blocking factor means how many this is the blocking factor so if I do this then what I will get then what I will get so that's it this is your answer
+
+191
+01:47:16,680 --> 01:47:47,740
+We don't need any seal or floor. This is your answer. Yes or no. We don't need any seal or floor here. We are doing the multiplication or the division. Okay. So if you want, the answer will be like this. The answer will be B minus. What is the blocking factor? Okay. The blocking factor will be this. Yeah. The blocking factor for the blocking factor, you can put this B divided by R. So this will be your complete answer because this is your blocking factor.
+
+192
+01:47:51,250 --> 01:48:24,020
+this is your blocking factor means number of records per block how many records you can put per block number of records per block okay so that you can multiply with R that will be your this is your usable space correct so you can remove from the B that will be your unused space so very simple question so this will be your unused space now let's see the next that is a spawned organization so in the spawned organization what you can do
+
+193
+01:48:24,400 --> 01:48:54,060
+The records are allowed to cross the block boundaries. So you can put some part of the record, part of a record you can put in one block, the rest of the record you can put in another block. So this is called a spawn because you can spawn the record in more than one block. Okay, so this is called a spawned organization. Let's solve the question for this spawned organization. So let me assume that you have fixed length records are by every record has fixed length.
+
+194
+01:48:54,930 --> 01:49:25,000
+So, tell me how many records can we keep in one block using the spawned organization? Using the spawned organization, how many records you can put in one block? That will be very simple. That will be B by R. No seal, no floor. No seal, no floor. Straight. No seal, no floor. Yes or no? Straight. Just find the value. Okay, whatever value. No seal, no floor. For example, the same question if you take
+
+195
+01:49:25,340 --> 01:49:56,620
+like in the same question if I make it 100 bytes if I make it 100 bytes and if I make it for example 30 bytes or maybe 40 bytes then what you will your answer will be what your answer will be 100 divided by 40 and that will be 2.5 so this will be your answer that you can put 2.5 records you can put in one block this is your blocking factor here yes or no this is your blocking factor here
+
+196
+01:50:01,420 --> 01:50:32,160
+because you can put these many these many records you can put in one block in a single block you can put these many these many records okay 2.5 records you can put in a single block half record in one block half record in another block so this will be your answer b by r okay so this is your blocking factor you can notice now the next what is the answer for this question the same question what is the unused space in each block okay the fixed length record size is given to you
+
+197
+01:50:33,610 --> 01:51:03,890
+So that is zero right unused space. That is zero. That is the benefit. That is the benefit that you can use. Basically the entire space is usable. Okay. The entire space you can use the entire space. That is the benefit. So this is the idea. Now let's see one more thing. I want to tell you that this unexpanded organization. You mostly it is, it is generally preferred for fixed length record. If you have fixed length record.
+
+198
+01:51:04,510 --> 01:51:33,480
+If you have fixed link records and generally we use the unexpanded organization if your records are of fixed link. Okay, because if because expand organization and is unexpanded organization which has more access cost tell me you have unexpanded and you have expand which will give you more access cost for which of these organization you need more disk access. You need more block access. You need more number of block you need to access.
+
+199
+01:51:35,040 --> 01:52:05,470
+For the spawn array very simple for the spawn you need more block access See if you notice if you notice let's assume I have for example this In the unispawned what you will do you will put R1 here you will put R2 here Okay, and you will put R3 here. You will put R4 here So something like this in the unispawned Okay, in the spawn what you will do in the spawn R1 will be put here R2 will be put here
+
+200
+01:52:05,780 --> 01:52:41,060
+some part of r3 partial r3 some part of r3 then what you will do some part of r3 here r3 partial okay then you will put r4 then you will put r5 something like this now you can notice here for one record I need how many this is unspawn this is unspawn and this is spawn so you can very easily see that for one record one block yes or no
+
+201
+01:52:41,760 --> 01:53:17,910
+one block for one record one block access for one record for one record you can okay you basically need only one block you need only one block you need to access actually for one record but here what happens if you want to access R3 then multiple yes or no multiple block access multiple block access for one record for one record you can need you may need multiple block access
+
+202
+01:53:18,230 --> 01:53:46,290
+for example for r3 you may need this block also and you need to access this block also so you can notice so there are some advantages there are some disadvantage correct and what is the advantage so this is the advantage of unspawn and this spawn also have some advantage it will waste less space correct for example five five record you can put here four record you can put here in the two blocks so you can notice space utilization
+
+203
+01:53:47,070 --> 01:54:15,640
+So anyway, let me tell you that on a spawned organization, we prefer for fixed length record. Okay. And for variable length record, for variable range, length record, either you can use a spawn or you can use on a spawn. Any of them you can use. So for fixed length record, we prefer the on a spawn and for variable range record, we, you can use a spawn. Also, you can use on a spawn. Also both are fine by default. What do you think what is used?
+
+204
+01:54:16,360 --> 01:54:44,110
+By default, what is your thought? Like in the question, if they do not mention anything, then which organization is used by default? So that is unspunned. Okay. By default, because this is, this is more easy to handle. This is more easy to handle. Okay. We don't care about the space. The spawned organization will save some space, but we really don't care about the space because it will, it is more easy to handle less access time. Okay.
+
+205
+01:54:44,730 --> 01:55:14,810
+So this is very simple. So on his pond organization, we prefer okay by default and by default we'll take fixed length records by default. So by default, remember you will take fixed length record and by default you will take on his pond organization. So these are the by defaults. Okay. Now let's see one more thing. One last thing. Let's see that is for variable length record. If you have a variable length record then using the spawned organization.
+
+206
+01:55:15,410 --> 01:55:44,400
+For variable length record, using spanned organization, what will happen? What do you think? Use your common sense and tell me. Can you find out the blocking factor exactly? Like your variable length records and your spanned organization. See, very simple idea. Okay. Your variable length record, your records are of variable length and your spanned organization. So these two communists, if you notice, now can I find out?
+
+207
+01:55:44,680 --> 01:56:15,260
+how many records i can put in one block okay can i find out how many records you can put in one block no because the records have different different sizes okay so you can notice that so each block may store different number of records agree do you agree that each block may store different number of records maybe block b1 it can store maybe 20 records block b2 can store maybe 10 records so when you have variable length records
+
+208
+01:56:15,650 --> 01:56:45,200
+using the spawned organization that each block may store different number of records in this situation how to define the blocking factor anyone want to tell me in this situation how to define the blocking factor in this situation that in these type of situations what happens average in okay in these type of situations always average yes or no in these type of situations always take the average so the blocking factor basically represents the average number of records that you can store in one file
+
+209
+01:56:45,450 --> 01:57:14,900
+in one block okay average number of records how many average number of records you can store per block this will be your blocking factor in this situation let's take one question with the question this concept will become very clear let's see this question okay so tell me what is the answer so your variable length records your records have variable lengths different record different size expand organization you have expand organization
+
+210
+01:57:15,800 --> 01:57:46,050
+blocking factor is BFR this is your blocking factor and of course this will represent average number of records per block okay like on average how many records you can put per block so we can use this BFR to calculate the number of blocks needed number of blocks needed how to calculate that number of blocks needed for a file of our records number of blocks needed for a file of our records
+
+211
+01:57:46,900 --> 01:58:26,880
+So how to answer that? What do you think? What should be the answer? So very simple. So here what you will do? This is already given. BFR is the average number of records. This is already given. What is BFR? This is already given that this BFR, this is average number of records per block, average number of records per block, average number of records per block. This is already given to you. So this is average number of records per block. In one block,
+
+212
+01:58:27,180 --> 01:59:03,030
+on average how many you can put okay so this is given to you now the question is asking if you have file of r records how many blocks you need you have a file of r records okay so how many number of blocks you need number of blocks needed how many blocks you need what is that that is very simple that will be r divided by bfr okay seal or floor seal or floor here you need seal
+
+213
+01:59:03,860 --> 01:59:27,530
+here you need seal ok see if you did not understand let's take one example ok let's take one example if you did not understand let's assume that BFR is let's assume that is 2 maybe 3 let's assume BFR is 3 means 3 records on average you can put on average 3 records you can put on average on average
+
+214
+01:59:28,330 --> 01:59:58,710
+some block can put 4 records some block can put 3 records some block can put 10 records some block can put 1 record on average 3 records you are putting is this clear tell me tell me on average these many records you are putting so on average average number of records per block okay so this data let's assume this data is given to you that on average 3 records you can put in one block okay and let's assume you have a file with let's assume you have a file with the 10 records
+
+215
+02:00:00,330 --> 02:00:32,750
+You have a file with the 10 records. What do you think? How many? What do you think? How many blocks we need? Very simple question, right? So on average three, three, so tell me. So you can notice there are file with the 10 records. 10 records we need to put. Okay. And in one block, how many you can put? Can anyone tell me in one block, how many you can put on average three on average three on average three records you can put.
+
+216
+02:00:33,790 --> 02:01:04,960
+one block can hold on average three records so remember one block can hold three records another block can hold three records another block can hold three records okay so for the last record we need another block so how many how many you can notice 10 divided by 3 if you take the if you take the seal that will give you the correct answer okay because these will be full and one more block we need do you agree
+
+217
+02:01:05,630 --> 02:01:44,110
+Yes or no? Let me know. See a very simple thought process. Okay. So you can notice for 10 records, we need these many blocks. We need four blocks for 10 records for, for this file of 10 records. Is this clear? Anyone has any doubt? Let me know. Mavith, any doubt? But the resultant will be average number of blocks. Yeah. Yeah. Everything is like, we can only find out this. See Mavith.
+
+218
+02:01:44,300 --> 02:02:13,060
+actually in this situation we can only go from this data to this data we cannot find bfr bfr will be given to you in this type of situation in this type of situation on average how many record you can put that will be given to you is this clear so we are not going from like we are not going to the direction of bfr we are going from bfr to another direction like if this is already given on average three records this is already given
+
+219
+02:02:14,190 --> 02:02:49,220
+on average you are putting three records this is already given then four blocks we need for this file yes or no let me know of course all these things are happening in the in the terms of average now if you are right everything is happening in the terms of average in the terms of average everything is happening okay so clear I think so this point is clear right so your answer will be what so your answer is going to be this is going to be your answer
+
+220
+02:02:50,770 --> 02:03:22,610
+So number of blocks how many blocks you need so that will be r divided by BFR seal the seal value you will take Okay, so very simple now. Let's see this question. Tell me the answer now For this question. What is going to be the answer a variable length record you have different record different length different records have different sizes Okay, different record are having different size Now average number of record in a file is it are sorry average record size sorry
+
+221
+02:03:22,940 --> 02:03:51,540
+average record size is given why average record size is given anyone anyone anyone why average record size is given why record size is not given anyone want to tell me why average record size is given why record size is not given because variable length record because of variable length record not because of spawned not because of spawned because of variable length record different record have different length
+
+222
+02:03:51,770 --> 02:04:23,750
+Some record has 2 bytes, some record has 10 bytes, some record has 8 bytes. Different record have different length. So, on average, record size is given. On average, what is the record size? That is given. Is this clear? So, this average is given because of variable. So, average record size is given to you. That is r bytes. That is r bytes. Okay. Number of records are given to you. That is small r. Block size is given to you.
+
+223
+02:04:24,010 --> 02:05:01,180
+b bytes k bytes are used for block header spawned organization you are using you are using the spawned organization find the number of blocks needed anyone find the number of blocks needed this is an interesting question so now average record size is already given to you remember average record size on average what is the record size that is given to you can you notice can you notice when i give you average record size
+
+224
+02:05:01,510 --> 02:05:33,880
+I can consider it as a fixed length record okay how many of you agree with me how many of you agree with me tell me see because average record size is given average record size is given average so we are playing in the terms of average the game we are playing in the terms of average okay so when the average record size is given you can consider you can consider it as you can consider it as it has fixed length record correct fixed record size okay
+
+225
+02:05:37,840 --> 02:06:31,910
+So because we are playing in the terms of average, so average record size is given that is our bytes. So you can consider this as the record size, fixed record size. Okay, now you tell me the answer. So here what happens? Block size is given. And so number of blocks that you need, number of blocks that you need, how many blocks we need? First of all, you tell me. So here what will happen? So the file has our records. Okay, or average record size is already given.
+
+226
+02:06:33,950 --> 02:07:05,650
+average record size is already given so from here so first of all per block how many you can record per block first of all you tell me per block how many you can you can put just tell me this point per block okay record number of records per block just tell me this point how many records can you put per block expand organization you have remember you have the expand organization so per per block how many you can put so that will be
+
+227
+02:07:06,210 --> 02:07:37,010
+sorry no seal no floor you can directly say that will be b minus k divided by r correct because this k is the block header this k is the block header so your answer will be b minus k divided by r no seal no floor because this is bond organization no seal no floor because this is bond organization so there is no seal no floor okay so this is your number of records that you can put per block in one block these many records you can put in one block
+
+228
+02:07:38,080 --> 02:08:16,670
+So let's call it okay what we can call it we can call it BFR correct yes or no we can call it BFR okay yes or no we can call it a blocking factor we can call it a blocking factor because on average so these many you are putting so your answer is what finally your answer will be R divided by BFR seal okay this will be your number of blocks needed this will be your number of blocks needed correct
+
+229
+02:08:17,070 --> 02:08:51,330
+yes or no so finally because you have a file of r r records are there number of records is given number of records is given that is r that is number of records okay so number of records is r and you can notice so how many blocks you need so that will be that will be this so your answer will be r divided by b of r seen any other doubt priya is asking r into r divided by b minus k r into r
+
+230
+02:08:54,290 --> 02:09:41,410
+divided by B minus K via block header so you check it out okay can you check it out Priya so basically what you are saying so here if you put the BFR see if you put the BFR expression let's that sounds correct so if you put the BFR expression what is BFR? BFR is B minus K divided by R okay
+
+231
+02:09:41,790 --> 02:10:14,520
+so basically the same thing you are saying but like this yeah this is also correct okay so this is also another way both are basically the same thing this is your answer right priya yes or no so both are basically same but in the spawned organization actually you should prefer this strategy why can you tell me priya your answer is correct but your answer will only happen in the spawned organization this technique that you have applied
+
+232
+02:10:15,520 --> 02:10:45,640
+Okay, the technique that you have applied that will only happen in the spawned organization. Okay, but if your question is about the unspawn, then you should go in this direction that how many records you can put in one block. Is this clear? How many records you can put in one block that you find out and then you find out the answer. But yeah, for the spawned, this, this technique is also correct. Both are the same answer. Okay, now let's see this organization of records in the files.
+
+233
+02:10:47,520 --> 02:11:17,900
+okay so this is a very simple topic let's study this let's finish this so let's finish this basically what we have seen so far so far we have seen everything we have seen file organization we have seen but let me ask you one question let's assume you already have stored some data okay in your let's assume there is a there is a block in that block five records you have put is this clear you have already put five records in your
+
+234
+02:11:18,230 --> 02:11:48,220
+hard hard drive in the hardest five records are there now you insert one more record where you will put it and physically see in the relation order does not matter agree conceptual level on the conceptual level the order does not matter in which order you put the record that does not matter on the conceptual level does it matter on the physical level does it matter on the physical level yes of course in the physical level you have to put it yes or no you have the hard drive in the hard drive
+
+235
+02:11:48,390 --> 02:12:18,510
+where you will put it already five records you have put where you will put the six record tell me very simple question very simple question five records you have put where you will put the six record where you will put the six record at the last okay yes very simple that's what we do at the last just put it at the last if you put it at the last can you notice basically you are not bothering about any order did you notice you do not care about any order
+
+236
+02:12:19,090 --> 02:12:48,000
+In the hard drive, you do not care about any order. You are putting the records. Okay. Give me the record. I will put it at the end. Give me the record. I will put it at the end. You are not caring about the order. Yes or no? You can put Ram, Shyam. Then you can put John. You can put Geeta. You can put Shaktimaan. Basically in any order. Yes or no? You don't care about the order. You are just putting. Okay. Just keep putting. Keep putting. Keep putting. Agree or not? This type of organization is called heap organization.
+
+237
+02:12:48,730 --> 02:13:18,660
+this type of organization can you notice this type of organization okay whatever data is coming you are keep putting keep putting keep putting this is called heap organization this is your strategy do you agree do you agree this is your strategy okay whatever comes just keep putting so you are creating a heap this type of thing is called heap this type of thing is called a heap of heap of clothes or you can call it pile of clothes right pile of clothes
+
+238
+02:13:19,870 --> 02:13:48,440
+You can call it heap of clothes or pile of clothes. This type of organization is called heap organization. So if you if you put the data like this, if you put the data like this, this is called heap organization or pile organization. They took the name from so you can call it heap organization or you can call it pile organization. So if you put like this, what is advantage of this organization? What is the advantage? Tell me just the advantage you tell me.
+
+239
+02:13:48,980 --> 02:14:18,260
+Like whatever coming you are putting whatever coming you are putting whatever you don't care. So mummy will take care Yes, or no, you don't care. You just keep putting you just keep putting mummy will take care But here you can notice what the advantage advantage is very simple. That is insertion very easy. Agree? Insertion is very easy, but searching is very hard. Yes, or no? I insertion is very easy still still your mummy is going to definitely still your mummy is going to you know
+
+240
+02:14:20,130 --> 02:14:48,390
+maybe punish you or whatever okay yeah so she will definitely beat you vice is beating you in such a time you are efficient you are making in such a time efficient insertion is very easy so vice is beating you vice is beating you because searching is very hard yes or no you have to search you have to search in a linear manner the linear search you can apply no other no other searching agree or not no other searching you have to do the linear search
+
+241
+02:14:48,530 --> 02:15:20,170
+So this is what I am telling you very simple point so a relation is set of records okay conceptually we don't care about the records order agree do you agree conceptual level on the conceptual level on the conceptual level the I can say you have basically we don't care about the order of record yes or no order of records does not matter agree order of records order of records
+
+242
+02:15:20,550 --> 02:16:06,720
+does not matter but on the physical level on the physical level everything matters how you are putting the data okay the order matters everything matters okay how you put the records matters how you put records in what order matters okay so there are two organization what are the two organization one organization is very simple this is the first thing that came to your mind because you because I know okay everyone does that
+
+243
+02:16:06,910 --> 02:16:34,750
+okay so mummies they don't do this so the our mummies they don't do this they will never they will never use the heap organization so this heap organization is for a stupid people okay and that came to your mind so when i was asking you that put five records and then put the sixth record you are saying at the end i will put it simply means you will get you will get beating from your mummy okay so this heap organization you are using and that is fine
+
+244
+02:16:35,160 --> 02:17:05,420
+Okay, so you cannot just put unordered whatever comes you just keep putting yes or no So records are placed in the file in order in which they come So the insertion is very easy new records you can insert at the end of the file This type of organization is called heap file Okay, this type of file we call it heap file Is this clear? Let me know So basically determine how the files records are physically placed physically how to place them So if you put them unordered
+
+245
+02:17:05,920 --> 02:17:35,340
+Files of unordered records. These are called heap files. So this type of file will be called heap file. At the end you can put. What is the benefit? The benefit is insertion is efficient. What are the disadvantages? Searching is inefficient. Searching will take a lot of time. How much time the searching will take? Insertion is very easy. At the end you can insert. Okay, that is very easy. But how much time the searching will take? Searching will take.
+
+246
+02:17:35,770 --> 02:18:07,560
+in worst case you have to access all the blocks do you agree if you have B blocks in worst case let's assume your file you have a heap file let's assume you have a heap file okay and this heap file let's assume this has B blocks there are total B blocks B number of blocks B blocks are there so tell me in worst case searching searching time what is the worst case
+
+247
+02:18:11,750 --> 02:18:39,430
+worst case you need to access B blocks. B blocks we need to access. Right. Okay. What is the average? Most of the time we are interested in the average case. We are not in the algorithm field now. Now you might be thinking, sir, in the algorithm, we are mostly interested in the worst case. No, we are not in the algorithm field. In the DBMS, we care about the average. Okay. In the DBMS, we care about the average. That is B by two blocks on average.
+
+248
+02:18:40,170 --> 02:19:10,210
+On average, if you are lucky, the first block will give you the data. If you are unlucky, B blocks you have to access. On average, you have to access B by two blocks. Yes or no? Is this clear? Let me know. Very simple. Now the next organization, what is that? The next organization is mummy organization. What is that? So the organization that is done by mummy, so you can notice what you do in a very, in a very sequential manner you put. Put the ordered based. Okay. Put ordered. Put ordered.
+
+249
+02:19:10,580 --> 02:19:36,720
+based on some field based on some property in a systematic way you put based on some property now that property can be anything for example that property from the mummy point of view that property can be okay first cloth of father then cloth of mother cloth of boy cloth of girl this can be one property this can be one property like this systematic way you can do or maybe you can do like this first t-shirt then pant
+
+250
+02:19:37,030 --> 02:20:02,150
+then okay then jacket then suit and then sardine something that can be another order correct okay there can be more order black cloth white cloth okay of course if nowadays mummies nowadays many of you will become mummies and so you will do this okay like orange light orange dark orange okay this orange that orange so there will be orange category so like that so basically
+
+251
+02:20:02,540 --> 02:20:29,640
+you can put them in a systematic way now that systematic way can be can happen according to any field agree yes or no systematic way in a ordered way you are putting but that ordered but that ordering can be can be happen by any field don't consider primary key of course by the by the help of primary key also you can order or maybe by the help of some other key okay so very very simple I am saying
+
+252
+02:20:30,080 --> 02:20:58,960
+There can be many field. In your relationship, you have many field. There are many field. You can order according to SID, student ID. You can order according to SID or you can order according to S name or you can order according to, I can say, date of birth or you can order according to marks. So that is your choice. How do you want to put the records in the disk? Agree or not? In the disk, how you put your records? But tell me one thing.
+
+253
+02:20:59,840 --> 02:21:29,040
+Tell me one thing once you put your once you put your records in the hard drive Like for example in your cupboard once your mommy put like this father then mother cloth then boy then girl like this if you put the Put the clothes Now once you put like this now can you put like this? Simultaneously like the same cloth you are putting in this order also and can you put in this order also that first black black cloth for then orange clothes like this
+
+254
+02:21:29,580 --> 02:21:59,180
+can they happen simultaneously can these two happen simultaneously simultaneously can these two happen either this will happen or this will happen right yes or no either this will happen or this will happen that is your choice how we will do you don't have two pair of the same cloth right it's not like the same cloth you have two pair for every cloth you have two pair it's not like that okay so very simple the same thing I'm telling you you have a student table in the student table once you put according to Marx
+
+255
+02:22:00,500 --> 02:22:29,940
+Once you put the data, once you put the records in the hard drive physically, this is your hard drive in the hard drive. Once you put them according to marks. Now, simultaneously, you cannot put them according to SID. Yes or no? It cannot happen that according to S name also they are ordered and according to the marks also they are ordered. It cannot happen simultaneously. Either you do the ordering by marks or you do the ordering by name or you do the ordering by
+
+256
+02:22:31,310 --> 02:22:58,520
+one ordering you can do physically on the database physically in the hard disk only one ordering you can do that is your choice how you will do but only one ordering is possible is this clear to everyone so this is systematic way you put based on some field based on some field okay put in a ordered way so files of ordered records these files are called sequential files remember these files will be called sequential files
+
+257
+02:22:58,860 --> 02:23:30,630
+or i you can call it sorted files so when you see this word sequential file what should come to your mind when you see this word sequential file what should come to your mind that based on some field they are ordered is this clear based on some field based on some attribute they are ordered in the disk physically they are physically ordered in the disk based on some field okay this field will be called ordering field
+
+258
+02:23:31,270 --> 02:24:03,360
+we will call this ordering field or sorting field let me know okay so this organization is called this organization we call it sequential organization what we call it this organization this organization is called sequential organization ordered or sequential file you will get and this is called sequential organization so okay so there are two type of organization for example this organization you can notice so according to name we are putting yes or no
+
+259
+02:24:03,760 --> 02:24:33,770
+we are ordering them according to name in block one we are putting these in block two we are putting these in block three we are putting these so according to name physically we are putting agree or not or if physically in your hard disk according to name you are putting so this type of thing is called sequential organization okay so what are the benefits the insertion is a little bit complicated the insertion will take some time insertion is costly yes or no
+
+260
+02:24:34,540 --> 02:25:03,780
+insertion will be costly but the searching is very easy the benefit is this you can do the binary search on the blocks one thing I want to tell you binary search you can do on the blocks you cannot do on the records so binary search you can do on the blocks on the blocks you can do binary search you cannot do the binary search on the records so this is the benefit of this organization so for example in this organization if you have like if you have this sequential organization
+
+261
+02:25:10,470 --> 02:25:42,950
+if you have seen the sequential organization okay and let's assume sequential organization ordered by ordered by field field A let's assume ordered by field A okay so by field A you have ordered there is another field B there is another field C okay you are ordered by field A so by field A you are ordering for example let's assume this is one block this is your block B1 in this you have 1 2 this is your block B2 in this let's assume you have 3 4
+
+262
+02:25:43,360 --> 02:26:20,120
+this is your block B3 in this you have let's assume T11 so like this okay now you tell me if I give you this query search where is A equal to search where A is equal to let's assume 6 okay and let me give you another another block let me give you let's assume that is 20 and 25
+
+263
+02:26:20,670 --> 02:26:51,920
+Okay, this is your block before so you tell me if your sequential organization if you have this sequential organization ordered your field your your file your file is ordered by this in the disk it is happening physically remember remember remember it is happening physically it is happening physically Okay, now you tell me so if you want to search where a is six then how many disk you need to access how many blocks you need to access how many blocks
+
+264
+02:26:52,380 --> 02:27:26,750
+So what you will do? How many blocks you need to access? Tell me. You can use the binary search. You can use the binary search. First you can access this. First you can access this B2. So you can use the binary search on blocks. Remember, you can do binary search on blocks. You can do binary search on blocks. So first you will access B2. What this B2 will tell you? This B2 you will access. What this B2 will tell you? This B2 will tell you that go to B3.
+
+265
+02:27:29,360 --> 02:27:55,070
+Nikhil is very good, Nikhil is very good. So this B2 will tell you to go ahead. So this B2 will tell you to go ahead. The maximum value of B2 you will check. Agree or not? Yes or no? The maximum value of B2 you will check. After this B2 what you will do? Then what you will do? Let's assume there are 6 blocks.
+
+266
+02:27:59,690 --> 02:28:30,300
+or maybe if if you have more blocks so like this you can do the binary search after this b2 you will access b3 okay and b3 will tell you what b3 will tell you before b3 it is there yes or no so now you can say that it is not there b2 is saying go ahead b3 is going to go so basically finally i can say these many access i need agree or not two access i need two block access two block access i need agree
+
+267
+02:28:30,700 --> 02:29:00,260
+now the same question if you have heap organization in the same question if you have heap organization and randomly data is there in the same question if you have random data like okay 20 25 3 okay maybe I can say maybe 4 3 4 2 1 something like this okay so some random data is there let's assume 7 9 some random data is there now you tell me in this situation
+
+268
+02:29:00,620 --> 02:29:31,160
+This will take all the all the blocks you have to access. So four block access you need. Four block access. This is the worst case or not. Agree. This is the worst case or not. This is the worst case. Data is not in the file. This is the worst case. Then data is not in the file. That is the worst case. Agree. So four block access you need to do. Okay. So now now you tell me one more thing in the same sequential organization, you have the sequential organization, but
+
+269
+02:29:33,530 --> 02:30:03,680
+will it be always useful in the same sequential organization search the value b equal to 6 okay now interesting now you tell me now does it matter now does it matter you have sequential organization or heap organization from the B point of view this is heap organization right array from B point of view this is actually heap organization so from B point of view if you look if you look from the B point of view from B point of view what happens
+
+270
+02:30:07,220 --> 02:30:43,540
+From B point of view, what happens? This is a heap organization. If you see from the B point of view, from the B point of view, from the B point of view, this is actually heap organization. So you need four access, correct? You need four block access. So this cannot help you. This ordering can help you only when, so this sequential organization is useful only when, this sequential organization useful when searching.
+
+271
+02:30:46,710 --> 02:31:23,470
+Searching is done based on ordering field. Agree? Based on the ordering field. Based on the ordering field if you are searching. Correct or not? So this is useful only when you are doing the based on the ordering field. There is no index. Our index is not there Priya. In the beginning of the class what I told you. In the beginning of the class what I told you. I told you that index we will study in the next lecture. We are only focusing on file organization.
+
+272
+02:31:23,960 --> 02:31:54,360
+how you store the data how are you storing the data we are only focusing on file organization so that's it so this is your complete chapter so can i say this this will be log if you have sequential organization so in the sequential organization you can do binary search so these many access unit log b and in the if you do sequential scan if you do the sequential scan then this will happen and then this will happen
+
+273
+02:31:56,370 --> 02:32:29,680
+So tell me when you need to do sequential access in what okay when this will happen when this will happen tell me like you have a ordered organization your organization is ordered your organization is sequential then why are you doing sequential scan then why are you doing sequential action yes searching on unordered attribute okay when when you are searching based on an ordering attribute
+
+274
+02:32:31,930 --> 02:33:05,050
+unordered attribute. Okay. So this is the complete idea. This is your chapter. So you have two organizations. One is he file organization. So you are okay. Another is sequential organization to organization we have seen everything we have seen. Okay. So that's it. And this block address, record address I told you. So there are, there is a concept of block address that is very easy that you already know, right? Block address is basically the address of
+
+275
+02:33:05,560 --> 02:33:35,280
+first sector of that block. Okay. You have a block. So for a block, the address of the first sector in that block, that will be the block address, like your CHS address that we have already seen. We have already seen, like either you can use LB address or you can use CHS address. Now what is record address? What is record address that is basically inside the block. First you give block address plus some offset agree block address plus some offset within the block.
+
+276
+02:33:36,330 --> 02:34:08,440
+plus some offset within the block within the block yes or no agree so if this is your block if this is your block let's assume this is a block so this block has some address this block has some address let's assume address is b1 okay let's assume this is address then tell me and if you have this record this record can have many bytes okay this record can have many field so I can call it a record right this is our record
+
+277
+02:34:09,350 --> 02:34:45,450
+this record can have many fields so for this record what will be the address this record address what that will be the record address will be your block address b1 plus this offset okay inside the block inside the block where is your address where is your record this offset this will be your record address so there is something called record address there is something called block address so there are two concepts
+
+278
+02:34:46,770 --> 02:35:12,260
+ok let's take a break now and after the break we can do some practice of the file organization some questions we are going to solve like this question from the olman we are going to solve ok this question is from the olman book and this another question from the olman book this question from the navate book that we will solve ok and this another question is from navate
+
+279
+02:35:14,710 --> 02:35:40,620
+So, these questions are going to increase basically your understanding of the concept that we have seen. So, this is your lecture. Some practice is remaining. Only some practice is remaining, the file organization is over. Everything we have seen in the file organization and the next lecture we will start indexing, but some practice we will do. So, first we will do some practice, then we will start the indexing chapter. Please tell me did you understand file organization?
+
+280
+02:35:41,380 --> 02:36:12,220
+in the file organization what we have seen let me tell you very clearly let me tell you what we need to remember in this lecture what are the things that we need to remember in this lecture in this lecture what are the things that we need to remember only the ideas only the ideas we need to remember remember okay the exact details do not matter for example will anyone ask you in the block header what we put will anyone ask you in the block header what we put no one will ask you
+
+281
+02:36:12,430 --> 02:36:39,970
+Okay. That depends on the DBMS that depends on the software. So that is platform dependent. That will depend on the system. So in the block header, what are you putting that will depend on the DBMS. But what we need to understand, we need to understand why we have block header. There is a block header, but why we have that block header. You got the idea, right? Yes or no. Why we have block header. The idea you understood. The idea is important. Now forget about the exit details.
+
+282
+02:36:40,370 --> 02:37:08,930
+but you understood why we have block header that idea you understood why we have record header that idea you understood right why we have record header in a in a record you have record in that record why we have record header so that idea you understood so we need record header we need block header and there is something called a spawned organization on a spawned organization there is concept of blocking factor there is concept of I can say fixed length record variable length record you can have fixed length records
+
+283
+02:37:09,340 --> 02:37:36,300
+Every record has the same size. You can have variable range record. Different record have different size. Some record 10 bytes, some record 100 bytes. So variable length record, fixed length record. So these concepts we have seen. Okay. The concept of block we have seen. We have seen that in the DBMS, in the data, in from the DBMS software point of view, you have a DBMS software from the DBMS point of view, block is the smallest unit of data access from the disk. You will access block in the disk. You will write the block.
+
+284
+02:37:36,530 --> 02:38:03,710
+So block is the, I can say transfer unit. Okay. And what is a block that is sequence of consecutive sectors. Okay. Sequence of consecutive sectors within a track that is called block that will be filled. Every block has the same size. You will decide. Okay. One block size is equal to four sector three sector. So that you will decide, but every block has the same size. And what else is there? Yeah. Another last thing is.
+
+285
+02:38:03,920 --> 02:38:32,930
+how to store their records how to insert the records you have a file in the disk you are storing it physically inside your hard drive you are storing this you are storing this file physically okay physically you are storing it this then how to store there are two organization what are the two organization one is heap organization just put it okay just put at the end you insert the record at the end so one is heap organization another is sequential organization you put in a systematic manner
+
+286
+02:38:33,260 --> 02:39:01,970
+according to some field there can be many field according to any of your choice that is your choice okay that you will decide so according to your choice you can do the ordering in the hard drive you can do the ordering of the records according to that field so there are two organization heap organization sequential organization okay is this clear in the heap organization there is no field which is ordered agree or not yes or no in the heap organization
+
+287
+02:39:02,370 --> 02:39:31,820
+there is no field which is ordered in the heap organization no field is ordered but in the sequential organization how many fields are ordered in the sequential organization exactly one not more than one you can only do the physical ordering you are doing yes or no so you can do the physical ordering based on only one field so in the sequential organization one field is ordered okay one field is ordered okay like if I order based on name
+
+288
+02:39:32,640 --> 02:39:58,310
+Yes or no, if I order the records based on name in your hard drive, then I can say simultaneously at the same time you cannot order based on marks. So if you do ordering based on marks, then you cannot do ordering based on name. So exactly one field you can use to do the ordering.
+
+289
+02:39:59,730 --> 02:40:29,170
+So there are two organization, heap organization, sequential organization. There are some benefits, some those benefits and those things you understood. What are the benefits of sequential organization and what are the benefits of heap organization? What are the disadvantage of heap organization? What are the disadvantage of sequential organization? When sequential organization is helpful, tell me when the sequential organization will actually help you when you search based on the ordering field.
+
+290
+02:40:29,560 --> 02:40:57,960
+If you are if you are putting the records all your records you have thousand records you have if you put them in the hard drive based on name okay if your name is the ordering field then if you are searching on marks it will not help you right you are storing the data based on name okay ordering field is the name then if you are searching based on marks it will not help you you have to do the linear search okay but if you search based on name then you can do the binary search okay
+
+291
+02:40:58,270 --> 02:41:27,390
+So all the concepts that we have seen, I have given you the summary. This is the complete summary. Okay. Let me know any doubt in today's lecture is everything crystal clear. Can you visualize? Please visualize everything because everything is happening physically. Yes or no. In today's lecture, everything is happening physically. Okay. So there is no logical concept here. Everything is physically is happening. How to store the record, how to store the data, the ordering of the record.
+
+292
+02:41:27,780 --> 02:42:00,800
+okay so everything is happening physically so you visualize the concepts everything is clear let me know now we will study indexing okay so in the next lecture so we can start at 9 30 okay at 9 30 we will start you can take a break for 45 minutes okay class till I think 11 or 11 30 yeah only three questions practice questions we will do then we will start the indexing chapter okay in the indexing chapter
+
+293
+02:42:01,130 --> 02:42:31,030
+we will basically just see the introduction tomorrow we will study the all the indexes so today we will only see the introduction of the indexing the idea overall idea we will study today and tomorrow we will study the all the concepts okay and today I will provide you the remaining database schedule for the dbms only small topics are remaining let me tell you like once this indexing is over only one topic will be remaining that is transaction management okay
+
+294
+02:42:31,300 --> 02:43:00,620
+So your DBMS is almost over. Normalization, ER model, queries, SQL, Relaysal, Algebra, TRC, almost over your DBMS. Now this file organization is over. Okay. The next point is that is indexing. Once indexing is done, tomorrow or day after tomorrow, I will provide you the schedule. Day after tomorrow indexing will be over. After that three or four lectures, we will give to the transaction management and scheduling. Also recovery. Okay. Recovery management. How to do the recovery? Recovery manager.
+
+295
+02:43:00,980 --> 02:43:28,040
+so these three things we will see transaction scheduling and recovery okay so that we will study so these things are remaining in the DMS I will provide you a schedule today okay in a fixed schedule I will provide you for the DMS for the remaining classes of DMS almost seven classes are remaining seven or eight classes are remaining okay thank you everyone those are very easy concepts Nikhil is saying okay anyway take a break we will discuss
+

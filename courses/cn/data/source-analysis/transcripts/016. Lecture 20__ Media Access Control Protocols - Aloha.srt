@@ -1,0 +1,1052 @@
+1
+00:00:06,700 --> 00:00:37,380
+Hi everyone. So let's get started with a new protocol today, which is called Aloha. So if you remember that we were discussing data link layer functions of data link layer. Now there are a few responsibilities of data link layer. One of them is framing and another another is error control and another is flow control. And the last one is link access or the media access control.
+
+2
+00:00:37,690 --> 00:00:54,490
+Okay. So there are a few responsibilities of data link layer that we wanted to discuss. So now we have completed framing, we have completed error control, which means a hamming distance checks, some parity checks, CRC and these things, right? I mean, we have also completed hamming distance and all. Okay.
+
+3
+00:00:57,590 --> 00:01:24,240
+Hamming codes basically right and stop and wait to go back and select to repeat these things we have we have completed in a greater detail and now we are going to Going to a new functionality of data link layer, which is called media access control. Let's just see So just imagine that you are connected to or maybe your host I mean your computer is connected to one another computer Okay, or some other server
+
+4
+00:01:24,550 --> 00:01:47,190
+but just imagine that this is connected i mean there are many ways to connect but just imagine that this is connected just via a bus okay or which means that a point to point connection is there between the host your your host and any other host that you want to communicate let's suppose this is h1 this is h2 if there are two hosts which are connected just like point to point in a point to point way then
+
+5
+00:01:47,760 --> 00:02:17,200
+Then in that, in that case, there is no problem of access control, which means no one is fighting for this particular link. If H1 wants to send, H1 can send. And if H2 wants to send, H2 can send, assuming that this is a full duplex, okay? So, both can send to each other. There is no problem. So, which means that if hosts are having dedicated pair by edge communication, in that case, we have point-to-point communication and there we don't have any media access control, any need of media access control protocol.
+
+6
+00:02:17,510 --> 00:02:45,930
+but on a contrary just imagine that you are having a broadcast shared wire or wireless medium which means that your different devices are connected to router just like this or maybe some other server in a wireless way or maybe you are connected just like this in a wired way and this bus this particular cable is shared between all the host now suppose that if two hosts are sending
+
+7
+00:02:46,230 --> 00:03:10,770
+to each other or maybe to this particular router, then there are very good chances that their packet may collide, right? Let's suppose this is sending and this is also sending, then their packet may collide at this point or maybe at other point also, right? So packet collision may happen in this case, if they are broadcast medium and you are sharing, you are sharing the medium with someone else also.
+
+8
+00:03:11,210 --> 00:03:37,590
+So for example, let's take an example of cocktail party. Let's suppose some people are talking. And then obviously this medium which is air. Air is a medium here which is shared among all the individuals here. So what happened that if someone is speaking then their speech is obviously not clearly audible to this other person. If there are other persons are also speaking. For example,
+
+9
+00:03:38,060 --> 00:04:07,670
+For example, just consider this particular meme or image that here someone is talking on the over the call and saying something like I can't really read it, but I have got I've got your hair that really excel anyway. So he's he's saying something that end with really excel. Maybe I can just try to see what is written. I've got a stock here that could really excel.
+
+10
+00:04:07,920 --> 00:04:34,800
+so he's saying I have got a stock here that could really excel right so that's what he's saying now now whatever he's saying that is I have got a stock and he's he's actually talking over call now as you can see that that there might be some other people which are talking so this is hearing some distorted voice and he he's hearing just half of the half of the thing he's hearing okay really excel he's saying really excel then he's hearing excel then
+
+11
+00:04:35,100 --> 00:04:58,480
+other persons which are little far are hearing okay sell and then everyone is hearing okay there is a sale right and now let's suppose there is some other person who is maybe talking here who is saying goodbye okay and then then these persons are this person is hearing goodbye but other persons are this person is hearing bye but other persons are hearing actually bye right so
+
+12
+00:04:58,810 --> 00:05:27,800
+ultimately I mean this person is talking something and and other persons are hearing cell and this person is talking something and other person are hearing by so what I'm trying to say here is that that this is just one example where you can understand that if if medium is shared then there should be some some protocol by which we can communicate otherwise there will be too much confusion right so which means that if there's a point-to-point link okay if there's a point-to-point link between two hosts
+
+13
+00:05:28,120 --> 00:05:58,960
+then there is a no problem right then no media access control protocol is needed but if there is a shared medium for example if these hosts let's suppose h1, h2, h3 for example these are connected to some router in a wireless way okay then if
+
+14
+00:05:59,890 --> 00:06:28,670
+If this medium is shared by H1, H2, H3, then it must be very, I mean, it must be very much clear that how to communicate between this H1 to H2 or maybe H1 to this router and so on. Why? Because let's suppose if multiple people are, there is no point to point link, okay? You just consider that, okay, this is air. If multiple people are sending in air, okay, if H1 and H2 both are sending in air at the same time, then obviously there is a collision, right? There's a possibility of collision. So,
+
+15
+00:06:29,200 --> 00:07:06,620
+possibility of collision that is why i can say that there is some protocol which is needed by which h1 will say that okay if i am sending maybe you can stop okay you you do not send if you are sending then maybe i can stop or something like that so maybe there there's there can be some agreement between h1 h2 s3 that can be happened using a protocol so in this case in this case media access control protocol is needed right so for example for example
+
+16
+00:07:07,060 --> 00:07:36,050
+let's just read this paragraph from for ocean. So what they're saying, this is from for ocean by the way, right? Okay, so what they're saying in the introduction to this chapter, we noted there are two types of network links, point to point and broadcast link, the point to point link consists of single center and one end of the link at the one, one end of the link and single receiver at the other end of the link, right? So basically, there's a single center, single center.
+
+17
+00:07:36,400 --> 00:08:08,170
+and single receiver there are no multiple people are not sending at the same time many link layer protocol have been designed for the point to point okay so i mean here media access control is not needed maybe there is some other protocol which might be needed but media access control protocol here whenever it is point to point is not needed right that's what we have just said so this is a broadcast medium broadcast medium means multiple people can send and multiple people are there
+
+18
+00:08:09,900 --> 00:08:36,080
+to receive, right? I mean, multiple people can send to maybe a single receiver also, or maybe there are multiple receiver also. Okay, so here if you're having single, single sender, single receiver, then you are having point to point links in that case, in that case, media access control protocols are not needed. But yeah, there could be some other protocols which are there, okay, in the theory and in the implementation, which are there, but there are no media access control protocol as such you need, right?
+
+19
+00:08:36,910 --> 00:08:59,550
+but we we will cover this the second type of link is broadcast link can have multiple sending and receiving nodes all connected to the same single shared broadcast channel okay so here here you have multiple sending and multiple receiving nodes all connected to same single shared broadcast channel and the term broadcast is used because when anyone no transmitter frame
+
+20
+00:08:59,790 --> 00:09:25,540
+the channel broadcasts the frame and each of the other frame receives a copy so which means whenever someone is transmitting everyone everyone receive it okay that's why we call it broadcast. Ethernet and wireless uh lens are example of broadcast link layer technologies in this section we will see uh this broadcast i mean this media access control protocol okay so have you understood that why we need media access control protocol because of the broadcast medium do we need it here
+
+21
+00:09:25,850 --> 00:09:53,320
+No, right? I mean, it can send or it can send directly. But here, here, if, if h-man and h2 both are sending, this is not a dedicated link, okay? This is not a dedicated link which are h-man is connected, h2 is connected. This is shared medium. This is shared medium. If this is a shared medium, in that case, if, if, like h-man and h2 both are sending, then definitely there is a chance of collision, right? Understood? So that's why we need media access control protocols. Now,
+
+22
+00:09:54,510 --> 00:10:23,110
+in our syllabus we will be seeing there is something called random access protocol I mean broadly this can be divided into three categories although there are actually thousands of protocol right actually there are thousands of media access control protocol which are there in theory but we will just see this random access protocol I mean I will go over these two protocols also what does this mean of this protocol but mainly in our syllabus we have random access protocols
+
+23
+00:10:23,430 --> 00:10:52,340
+So so just consider a case that you are connected in a broadcast medium, right? Let's suppose that this is host one h1 h2 s3 Okay, so these hosts are connected to a router and using air Okay, using air. This is a router now Suppose this h1 h2 s3 these are connected to the router using air now suppose that That we want to establish a media access control protocol here
+
+24
+00:10:53,000 --> 00:11:29,790
+Then what are the strategies you can think that we can do? Can I say that, okay, for maybe initial 10 minutes, okay, can I say initial 10 minutes, H1 can transmit, or H1 can send the data to R1, and for next 10 minutes, this, for next 10 minutes, this, can I say this? So this is one way of achieving, this is perfectly fine, and this is one way of achieving media access control protocol, right?
+
+25
+00:11:31,010 --> 00:11:55,130
+Okay, so what are the other ways I mean this this could be one way other way could be I can say that okay Maybe I can do one thing. I mean here in this in this particular in this particular Set up there could be some problem like we can discuss about the problem The obvious problem is that under utilization of resources, right? Maybe maybe I'm giving 10 minutes to each one, but it may be possible that
+
+26
+00:11:55,700 --> 00:12:24,980
+H1 doesn't need 10 minutes, right? Maybe H1 just need one minute or H1 doesn't have any data to send at all, right? So this is also the case. So basically what I can do, I can give time to each of the host, right? This is one strategy. We will discuss all the strategy in detail, but I'm just asking you, okay? I'm just asking you in like, I mean, what are the possible strategies here? So one strategy could be that we can give time slot to everyone. This could be one thing. Another thing,
+
+27
+00:12:25,280 --> 00:12:54,260
+could be that I can say that okay it is I mean we can have turn we can say that okay now it is H1 turn if H1 doesn't have anything to say or anything to anything to send is it really necessary to give him 10 minutes no right I can say if you do not have anything to send then let me pass over the turn so so I can say that this is turn turn by turn I will be keep on going so it's H1 turn H1 doesn't have anything to say then maybe I can pass on this turn right
+
+28
+00:12:54,610 --> 00:13:22,890
+something like that so basically there are multiple ways to access multiple ways to establish this media access control protocol okay broadly we can we can say this is these are the three ways okay so let's just see that what are the these three ways first is channel partitioning another one is turn taking another one is random access so i hope you got the overall idea that what are we trying to study basically so we are saying that we need media access control protocol and now
+
+29
+00:13:23,150 --> 00:13:46,600
+there we are just trying to check that what are the different possibilities to even stabilize this mid access control protocols right so one of the possible strategies could be the channel partitioning and then turn taking and then random access this particular strategy has two i mean in our syllabus it has two particular protocols one is called aloha another one is called csmcd
+
+30
+00:13:46,860 --> 00:14:13,220
+Okay, so we will study these Aloha and CSMCD in graded detail and these are the two two two strategies that we will just see and if you if you pick any textbook see I'm I'm referring all the all the possible textbooks like I mean whichever is a possible textbooks here so this is this is gross and if you if you see any textbook then they will be just having just one paragraph for this this
+
+31
+00:14:15,910 --> 00:14:37,230
+channel partitioning or turn taking or something like that, right? So if you see channel partitioning protocols, just one paragraph will be there. And then they directly started with random access protocol. If you, if you see that they are not even talking about this turn taking. So this channel partitioning and turn taking, you pick any book. Okay. This was channel one that I have just, sorry, this was cross that I've just shown you. If you even put, let's suppose four of them.
+
+32
+00:14:37,490 --> 00:15:05,210
+Okay, so if you pick for you then then also I think they have not talked about much about these things which is I mean which is channel partitioning or channelizing or these things okay so no book has talked about these these other protocols in any detail reason being is that these are basically I mean with respect to the computer science these are not very much implemented in networking and also I mean here the protocols are mostly related
+
+33
+00:15:05,570 --> 00:15:30,100
+to understanding the electronics and the signal processing and all. So anyway, these two kind of things are not in our mass syllabus. We will study this. It's the idea killer to everyone. But still, we will see that what are the possibilities here. I mean, in any of the book, the protocols are not given. Region could be very obvious that these are not very much popular. So see here in Tannenbaum also.
+
+34
+00:15:30,780 --> 00:15:50,300
+Right. And anyone also they have not given this media access. So they have started with Aloha. Okay. So I think they have not even talked about any, any other thing. I mean, they have directly started with Aloha. So, so in the textbooks also these, these two kind of protocols are not much given. And also these are not in the syllabus.
+
+35
+00:15:50,670 --> 00:16:18,610
+okay but still we will just see a quick idea about it let's just let's just start with very first type of protocol which could be channel partitioning okay which means what we what we are trying to do we are just trying to say that what what are the possible media access protocols that we can implement here so first is channel partitioning okay so what we do here this could be this could be achieved using two ways one is frequency division multiplexing another one is time division multiplexing okay so this is frequency
+
+36
+00:16:22,110 --> 00:16:51,060
+This is time okay now just just see this particular diagram and Maybe we can start with this time division. So this time division is actually very much Similar to what we have just said that we will give each host We will give some particular time slot. We will say that this is let's suppose host one This is let's suppose host two. Let's suppose we have four users. Okay, we have four users We will we will give each host or each users
+
+37
+00:16:51,450 --> 00:17:27,430
+a fixed time that okay you can you can transmit the data in this particular time only this is called time division very very simple idea right another one could be the frequency division frequency division means we are giving that okay we are we are sharing the bandwidth let's suppose that we have 12 kbps of bandwidth okay in our channel we are saying let each of the each of the user okay let each of the user use maybe
+
+38
+00:17:28,000 --> 00:17:59,820
+if there are four users then three kvps each right we are saying something like this okay so which means we are giving continuous time we are not saying that okay i will interrupt you we are not saying something like that we are just saying that okay but your bandwidth will be less that's all we are saying here now can you can you just think about any any application where we might be interested in frequency division or the bandwidth division can you just think about any any application here
+
+39
+00:18:01,550 --> 00:18:45,460
+I mean, where you continuously need the data and you don't need the time slots, right? Okay, so someone is asking in point-to-point also the medium is shared. No, in point-to-point we have one center and one receiver only, right? I mean, this is just point-to-point link and this is only one center and one receiver, okay? And if both wants to send, if this is full to flex, then definitely they can send. Okay, that's not an problem. They can send in each other direction.
+
+40
+00:18:46,810 --> 00:19:24,000
+There is no chance of collision here. Assuming this is full duplex channel. And by definition also, this point to point means, whenever I'm saying the point to point, it means single receiver and single sender. Single receiver and single sender. That's what I mean from point to point. So if you are having, let's suppose some channel and you want to share the bandwidth, maybe there are many, many applications. One could be, someone has really pointed out, one could be that
+
+41
+00:19:26,150 --> 00:19:46,130
+video streaming yes this is very nice example so Satyam is saying video streaming yes this is really a good example where I just want to watch the video maybe continuously okay real-time streaming or something yeah that's also very good example real-time communication yeah that's even better example I can say okay so Akash is saying real-time communication
+
+42
+00:19:47,860 --> 00:20:18,010
+maybe in the video streaming we can I mean let's suppose okay if my question is that if you have two choices okay if you have two choices whether you can you can share the bandwidth okay you can have a small bandwidth maybe three kbps all the time all the time you are having slow internet or maybe someone says that okay for one hour for one hour you have 12 kbps or someone says for four hours you have three kbps let's suppose
+
+43
+00:20:18,250 --> 00:20:45,440
+these are the two choices let's suppose okay choice one choice two so maybe if you are having let's suppose a whatsapp call okay maybe if you are having whatsapp call then what one what will you prefer what you will prefer you will prefer frequency division or you will prefer time division if you are having whatsapp call maybe you will prefer frequency division maybe you don't want to you don't want to constraint yourself key
+
+44
+00:20:46,310 --> 00:21:19,140
+After talking for 5 minutes, I will call you back. You want to talk to other person. So in real time communication, definitely this frequency division is much more preferable. If these are two choices, this is frequency division. This is time division multiplexing. So maybe in this case, we will prefer frequency division. If this is okay to everyone. And suppose you have another choice,
+
+45
+00:21:19,410 --> 00:22:17,810
+and another choice is saying the time division so when you will you might prefer the time division over the frequency division can you think about it when you might prefer the time division over the frequency division maybe maybe you want to download okay download download some large file file and that I mean that could be downloaded within the time slot right so in this case in this case
+
+46
+00:22:18,080 --> 00:22:47,580
+if you just want to download let's suppose some file and later on you want to use it so in this case maybe you will be preferring this time division you will say that okay let me immediately download my file and I will watch the movie later on right or maybe I will do I will maybe I will download some operating system I will I will install the operating system later on right or do you want to download it over the time over one hour you want to download or over just you know let's suppose it is given to you that in 15 minutes you can download or maybe you can download in one hour so obviously you will prefer in
+
+47
+00:22:47,790 --> 00:23:16,370
+15 minute you will download right why you will wait for the slow slow internet and after once you have the downloaded or downloaded file with you then you you don't need internet anymore right or you don't need to communicate anymore so basically basically if you want to download some large file maybe maybe this time division multiplexing is helpful there so anyway depending on the application we can we can either use time division time division or we can either use frequency division right i hope that is fine to everyone
+
+48
+00:23:16,640 --> 00:23:45,940
+So this is all about this channel partitioning. I mean, we don't have much here to discuss. That's all we wanted to discuss here. So if you recall that then we can do one thing, we can say each host. I mean, we want to develop the media access control protocols and one of the ways channel partitioning, which means we can say each host to send or receive the data within some particular time, right? Or maybe we can share the bandwidth. This is one way. Another way could be turn taking. So let's just see that what is this way.
+
+49
+00:23:46,160 --> 00:24:14,190
+right? Anyway, don't worry if you do not understand in this channel partisan or turn taking, we will move to the aloha. This is just one small discussion that I want to do. Even though you do not, you do not understand here anything. This is particularly fine. Okay. So turn taking means everybody gets a turn to speak and that's that way we will never have a collision, right? So everybody, everyone will get a turn that okay, now it is your turn to speak something like that, right?
+
+50
+00:24:14,550 --> 00:24:55,350
+so that can be having some problems also the problems could be that during my turn I may have nothing to speak right and when I have when I have to speak I will wait wait for my turn right so so let's just see that how this turn taking can be achieved so there are two ways okay to achieve this turn taking one of the ways called polling which means that it says that the one of the ways called polling it says that there's a master node okay
+
+51
+00:24:55,610 --> 00:25:24,550
+or or caster is also called master you can consider as a master node there's a master node which invites the sender to transmit so basically the master node it will say that okay do you have anything to send do you have anything to send do you have anything so it will it will send the invitation that now you can send right this is called master node it's just fun to everyone so so this is called polling that there's a master node which is asking everyone do you have anything to send it invites basically right
+
+52
+00:25:25,290 --> 00:25:54,470
+Now, the obviously the concerns are there that like we are just wasting wasting the resources in polling, right? So there's a polling overhead. There's a there's a node that is just doing the polling and we are just wasting the resources here. And if this node get failed, then then there's a system the whole protocol will get failed, right? So the single point of failure means that if this master node get failed, then there is a whole system will get failed. Okay. So we are we are under this turn taking.
+
+53
+00:25:54,750 --> 00:26:19,330
+in turn taking we are saying that it can be achieved using two ways one is called polling which means there is some master node which is asking everyone another one is called token passing token passing means that this particular i mean these these particular hosts are logically connected using a ring which is also called as token ring okay and now
+
+54
+00:26:19,660 --> 00:26:51,240
+Now we are saying that each each of the host is saying that there's a token each of the host is saying that if I get the token then I will I will have like I will send my data so there's a token which is which is keep on rotating okay so how to send the data I will wait for the token to come once I have the token I will grab the token and I will send the data so node with the token only can transmit right node with the token can transmit if I have data to transmit then I will keep the token
+
+55
+00:26:51,540 --> 00:27:16,820
+else pass it to the next node in the ring right there is also a single point of failure if the node which is holding the token once it's hold the token and then it get it get to fail then this is also the single point of failure right so have you understood the overview of this that what they're trying to say that there is a token which is which is keep on revolving if I have something to send I will wait for the token once I grab the token
+
+56
+00:27:17,060 --> 00:27:45,090
+I will keep on sending, keep on sending, keep on sending. Once I finish the sending, I will pass the token to the next host. If I don't have anything to send also, then I will simply pass. Understood. That is called token drain. Okay. So this is another way to achieve media access control protocols. Now, just coming to this random access, which is in the syllabus, let's just start with Aloha. Okay. So let me, let me quickly revise you that one is frequency division.
+
+57
+00:27:45,500 --> 00:28:12,700
+okay and another one is time division in this we just divide the bandwidth in this we divide the time here there is a master node asking that do you have anything to send do you have anything to send here we have a token we don't need a master node token itself keep on revolving okay if if someone has wants to send the data it will wait for the token once it has the token it will send the data and once it finishes finish sending the data it will just pass the token to the next host
+
+58
+00:28:13,320 --> 00:28:43,070
+is all of these all of these protocols clear to everyone the overall idea the high level overview okay that's all required I mean it was even not like to be honest that much introduction also was not needed but still it is good idea to at least just look at the nameside okay so I hope these these protocols are clear to everyone now let's just start with the random access protocol which is called aloha I mean one of them is aloha now here
+
+59
+00:28:43,710 --> 00:29:31,530
+if you have noticed one thing then in any of these four protocols if you have noticed one thing okay let me just ask you let me just ask you that is is this possible in any of these four protocols is this possible to have a collision here is this possible to have a collision is this possible that two nodes are sending at the same time then the answer is no right answer is no so here we do not have collision but in random access protocol
+
+60
+00:29:31,890 --> 00:30:00,450
+These are the protocols where we allow the collision, okay? We say that, okay, the collision can happen because there are limitations of these protocols that, okay, I mean, the polling is having the master node token passing is also single point of failure and these things. So here in the random access, we are saying if you want to send, you can definitely send if multiple people want to send, they can also send actually, okay? But there will be a collision, then they need to send again, right? So there is no possibility of collision here, but in this case, we will allow the collision. Let's just see that how it is working.
+
+61
+00:30:01,100 --> 00:30:28,190
+and there is another way of category I mean another way of categorizing it you can broadly categorize in two ways okay contention free means contention means the collision okay so this means collision free so these products I mean in collision free or collision based so if you're alum collision then we call it contention based or collision based if you're not allowing collision then we say collision free or contention free so here
+
+62
+00:30:29,010 --> 00:30:57,650
+In this contention for you also, I mean, this is just a way of thinking that if you do not allow the collision, then here also there's a fixed assignment, which means the fixed bandwidth of fixed time, but here it is dynamic assignment, which means that once I get the token, is this time fixed here that okay, for 5 minutes or for 10 minutes only we are sending the data? No, right? So here, I mean, it is the case that if we want to send the data, then theoretically I can send as long as I want to, okay? If I grab the token.
+
+63
+00:30:58,180 --> 00:31:26,040
+Similarly, in the polling also, it is a dynamic assignment. It is not a fixed assignment key. Okay, after five minutes, I will get my turn or something like that. In polling also, if I get my turn, then dynamically I will get my turn. And if I get my turn, then I can transmit the data as long as it is permitted. I mean, it is not very much bounded, just like a time division and so on. Anyway, if you want, I can just delete this slide. And this is not very much needed. I just wanted to tell you that there are
+
+64
+00:31:27,030 --> 00:32:02,280
+two ways to look at it, collision-free and collision-based. So let's just see this aloha, which is topic of discussion today. So now we are under this random access protocol. What is the node decided to transmit randomly? Then obviously collision can happen. Hair collision can definitely happen. Flora is asking, sir, full duplex means frequency division.
+
+65
+00:32:02,570 --> 00:32:26,470
+No, full duplex doesn't mean that you are dividing the bandwidth. It means that bandwidth is same in both the directions. So in almost all of the questions, we were having the full duplex. It doesn't mean that full duplex doesn't mean that you are dividing the bandwidth. So obviously, this is an electronics thing that I don't know how it is very much implemented.
+
+66
+00:32:26,910 --> 00:32:56,290
+Okay. If you are very much interested, you can take some signal processing course there. It must be there. That's how the full duplex wires are implemented. Right? Okay. So let's just see this random access protocol. Now, now it is saying that we are, we are allowing the nodes to transmit randomly without any fixed assignment or without any coordination. We are not saying that, okay, you will get that much time or you will get that much bandwidth. We are just allowing it randomly.
+
+67
+00:32:56,980 --> 00:33:26,680
+Now, obviously, that collision can happen here. When nodes have packet to send, then they transmit at full channel data at R. No priority coordination. Okay. There is no coordination among the nodes. Collision are possible here. One of the very first protocol that we want to see here is ALOHA. Okay. Let's just see this ALOHA. Now, this is a little history about ALOHA. ALOHA have been developed in 1970 at the University of Hawaii. Okay. There were seven campuses of this university on four islands.
+
+68
+00:33:27,050 --> 00:33:56,630
+and one of the like one of the I think professor or student I don't like remember now but yeah one of the person they are studying or maybe teaching at the University of Hawaii wanted to communicate between all of these seven campuses okay which are which were spread across the four four islands and then in order to in order to communicate these these seven campuses he has developed one of the first protocol which is aloha okay so here
+
+69
+00:33:57,040 --> 00:34:18,120
+here in this aloha there were there was some mainframe station which means there was some central station and and he wanted to connect the central station just like this diagram he wanted to connect the central station to the remaining campus stations okay so this was the first idea of the aloha so in aloha
+
+70
+00:34:18,270 --> 00:34:46,180
+we will see I mean we will consider that there is just one receiver and many transmitters okay and these are not point to point link this is air okay I mean this could be wireless or this could be wire but yeah this is this is not wire basically okay if this is wire this is just one wire okay just consider it is just one wire I mean these are not point to point links okay this is just air so what I'm trying to say here is that there is one central node in aloha okay there is one central node
+
+71
+00:34:46,470 --> 00:35:15,590
+and there are many many transmitters that wants to send to this receiver okay this was the very first motivation that the aloha have been developed okay by norm abrah abrahamsal cool so aloha is the very earliest uh random access method that was developed at the university of hawaii in early 1970 it was designed for a radio wireless LAN but it can also be used in the shared medium okay we will see so here as you can see sites can send packet to a hub
+
+72
+00:35:15,760 --> 00:35:47,750
+So there's a central you can you can consider this is central how Okay, and there are different different hosts or the different different sites, right? They can send the packet to how let's suppose that this is one host or this is one site and this is another host Let's suppose they both want to communicate then how how will they communicate using aloha? This h1 will first send to central how and then the central hub will send to h2 Okay, they cannot send directly. I mean there is no link between h1 and h2. Is this killer to everyone?
+
+73
+00:35:49,240 --> 00:36:18,150
+So so sites can send packet to have and have sent packet to all the sites So basically it will send the packet to have and this hub will send this this will send to all the all the sites Right and if it wants to send to as to then it will it will basically send to all the all the sites and as to will just Take it everyone else can just discard it Okay, cool. So have sent packet to all the all the sites and sites and packet to have
+
+74
+00:36:18,380 --> 00:36:49,150
+So in Aloha, we are assuming that there is a central hub, right? You will get to understand that what I'm trying to say. This particular slide I have taken from MIT. Let's just see this Aloha. Don't worry. You will, you will understand that what I'm trying to say. See here that as you know whose computer the node has a single central node, right? They, they're just single central node, single central node and the N terminal nodes. Is this killer to everyone? See, I'm just trying to emphasis on only one point that there is a single central node here in the Aloha, right?
+
+75
+00:36:49,750 --> 00:37:17,170
+And there are n terminals that want to communicate. This is one point that I want to emphasis. So Aloha protocol in nutshell is like that, that when you have data to send, you just send it. Okay, that's all. Which means you don't coordinate with anyone, you just send it randomly. Now, if the data can definitely get into a collision, right? Which means that if data doesn't get through, I mean, receiver sends a cyclone, then the, then retransmits after a random delay.
+
+76
+00:37:18,720 --> 00:37:53,960
+If the data doesn't get through, which means data doesn't get to the receiver, then you will retransmit after a random delay, which means if data is involved in the collision, then retransmit. That's all. Which means if you have data to send, you just send it. If there's a collision, retransmit after random time. This is Aloha in a nutshell.
+
+77
+00:37:56,110 --> 00:38:27,070
+So maybe I can just show you a few screenshots of a few of the books and then we will understand this Aloha in more detail. So this is from one of the book. So what they're saying is that the second broad class of multiple access control protocols. Okay. When a node experience a collision, it doesn't necessarily retransmit the frame right away. Instead, it waits for the random delay before retransmitting each frame. Each frame is involved. Okay. So they are also saying the same thing.
+
+78
+00:38:28,230 --> 00:38:53,290
+This is from 10 in 1. Let's just see what they're saying. The basic idea with Aloha is very simple. Let user transmit whenever they want to send. There will be collisions, of course, and the colliding frame will be damaged. Sender needs some way to figure out, in this case, in Aloha system, after each station has sent its frame to a central computer. See, again, there's a central computer, right? Understood. So basically, there's a central computer that we are assuming in Aloha.
+
+79
+00:38:53,530 --> 00:39:23,640
+okay so what we do we I mean if anyone wants to send they just send to the central computer and central computer will send back right so so they're saying that if you want to send to the central computer then this computer will rework us the frame to all the stations here so after each station has sent the frame to the central computer then the central computer will read rework us to the tree to the all the stations is this okay to everyone and once we are sending to the central computer and then central computer is sending back right
+
+80
+00:39:24,140 --> 00:39:56,870
+to all the stations. A sending station can thus listen for the broadcast from the hub to see if this frame has gotten through. So here, how does the sending station get to know that my data has been digital or not? So let's suppose this is central computer. Let's suppose this is host 1, this is host 2, this is host 3. Let's suppose this H1 wants to send to H3. Now what H1 will do?
+
+81
+00:39:57,100 --> 00:40:50,660
+H1 will first send to the central computer and central computer will send to S3. I mean central computer basically read broadcast to everyone, right? It will read broadcast to everyone. This is a rebroadcast. Now how will H1 get to know that my data has been reached? Tell me, reach to S3. Because the central computer whenever it read broadcast, it will just listen whether the data that I have just sent have been read broadcasted or not, right? Okay, listen.
+
+82
+00:41:02,670 --> 00:41:12,920
+Okay, I mean this can also send ACK but but in general we just I mean it can just listen because it is also real broadcasting so here
+
+83
+00:41:13,380 --> 00:41:44,120
+You can consider that there are two links. I mean, these are called uplink and downlink. So whenever you're sending, I mean, you can consider that this is one link and this is full-to-plex link, which means whenever H1 is sending, it is possible that central computer is really broadcasting. I mean, this H1 can send and central computer can send at the same time. That's not an issue. Okay. You don't need any mid-axis control protocol or anything here. Okay. If H1 and central computer wants to send, they can send at the same time. But can H1 and H2 send at the same time? No.
+
+84
+00:41:44,380 --> 00:42:11,160
+okay that's not possible okay because this is just one one medium that we are using so h1 and h2 cannot send at the same time but a central computer and h1 can send at the same time because this is full duplex okay now what i'm trying to say here is that let's suppose h1 wants to send to h3 then first it will send to central computer and central computer will do what it will just re-broadcast now whenever it is re-broadcasting h1 can just listen whether the data has been re-broadcasted or not see here
+
+85
+00:42:12,220 --> 00:42:35,530
+That's what they are saying. A sending station can listen for the broadcast from the hub to see if its frame has gotten through. In other systems such as wireless, the sender might be able to listen for the collision while transmitting. So basically if there's a wireless,
+
+86
+00:42:38,240 --> 00:43:16,660
+if there's a wired system then the sender might be able to listen for the collision while transmitting which means that if there's a I mean the two stations which are transmitting then sender can also listen the collision that okay that data has not been reached how it will get to know it will get to know using the collision see it will get to know that data has been reached using the read broadcast right so h1 or any host host will get to know data has been
+
+87
+00:43:22,840 --> 00:44:06,940
+reached using how can you feel can you feel these two blanks how it will get to know so here it will get to know using re-broadcast here it will get to know using collision which means if h1 h1 is sending some data if there is a collision then it will it will be just listening to the channel if there is a collision that it will get to know okay the data has not been reached right that's what they're trying to say
+
+88
+00:44:11,080 --> 00:44:46,070
+If the frame has been destroyed, which means there's a collision. If there's a collision, the sender just wait for the random amount of time and send it again. Now, system in which multiple users share a common channel in a way that can lead to conflicts, that is also called contention, contention systems or the collision systems. Reboardcast means sending again, sending again to everyone, not just to S3, sending again to everyone.
+
+89
+00:44:46,720 --> 00:45:12,420
+I mean, this was very first protocol and that's how it has been developed in very early 90s, 1970. Okay, rebroadcast here means sending again. That's all. Okay, so now let's just start with pure Aloha. I mean, that was just introduction, but we will just analyze it with more carefully. Okay, so station sends a frame whenever it wants to send. That's I mean, very plain, plain.
+
+90
+00:45:14,120 --> 00:45:47,140
+protocol in the sense that there is no as such rule. It says that, okay, if you want to send, you just send it right away. Right. Okay. So Siddharth is asking, who will be broadcast central station always when the central communication, when the central computer gets packet, it will broadcast then no, only central computer will be rebroadcasting. Right. Cool. Let's just understand this. And then probably your doubts will be cleared.
+
+91
+00:45:47,680 --> 00:46:18,080
+now the aloha protocol is this as a protocol is this okay to everyone that what it is doing just have attention here and i think you will you will get to understand okay don't worry about it much let me just start the topic at least and then you will understand it okay so as a protocol is this clear that what it is trying to do it is just saying that you send it right away and if there's a collision then we will send it after some time that's all okay so it is saying that sender sends a station whenever
+
+92
+00:46:18,530 --> 00:47:07,250
+whenever it has frame to send, if there is a collision then, then, resend it. But that's all. Resend it after some random time. Okay. Can anyone tell me why we are not sending after a fixed time? Let's suppose if there is a collision, why we are not saying, okay, after one minute we will be sending? Suppose two host are sending, right? H1H2. Now let's suppose their data get collide. Okay, their data is getting the collision. Their data get collide.
+
+93
+00:47:07,630 --> 00:47:48,530
+Now, why we are not saying that we, this H1 and H2 will be sending after 1 minute? Yeah, so we are saying at random time because if we say okay after 1 minute you are going to send H1, H2 going to send then again there will be a collision, right? There is no point in sending at the fixed time. So that's why always we send it after, the retransmission is always at the random time, right? Because, because if both colliding stations send
+
+94
+00:47:52,080 --> 00:48:44,820
+at fixed time, then there will be a collision again, right? Okay. Yeah, there is one algorithm we will see about this random time later on, okay? That how to decide this random time. We will see this random time algorithm later, okay? That how to decide about this random time. Now let's just try to understand this aloha, okay? That how it is happening and what it is happening. So just consider like this, that you have, okay?
+
+95
+00:48:45,060 --> 00:49:14,700
+just consider like this that you have suppose two stations or multiple stations that wants to send the data to some central node okay now just just think like this that whenever this host let's suppose this h1 and this h2 okay whenever this host are sending the data now once just imagine just imagine that this h1 and h2 both are connected to just for example imagine both are connected to
+
+96
+00:49:15,870 --> 00:49:44,240
+there is only one link that both are connected to only at this point only which means what I am trying to say just hypothetical image in that okay in the wired system they both are connected just like this now suppose h1 transmits some data okay h1 transmits some data and after this transmission this packet is going like this and after this transmission this is h1 data after this transmission h2 transmits the data then h2 packet
+
+97
+00:49:44,710 --> 00:50:19,200
+okay so I mean let's suppose is transmit the data and after the transmission it is it is moving on further after the transmission as to transmit the data this is as to data okay and this is as much transmitted let's suppose at some time okay t equal to maybe t and maybe this is t equal to t plus sometime okay sometime later basically I will I will just tell you in more detail but just try to understand here
+
+98
+00:50:20,240 --> 00:50:55,900
+that what I'm trying to say that H1 is transmitting some data and after sometime let's suppose H2 is transmitting do you think that there can be a collision in H1 and H2 if both are traveling in the same direction both are going to the central station both are traveling in the same direction and after H1 transmission H2 is transmitting okay they they are not not not going in the opposite direction if they are going in the same direction then I don't think that after transmission there can be any chance of collision right okay so
+
+99
+00:50:56,230 --> 00:51:32,650
+Once it got transmitted, then there is no chance of collision here in this system. Okay. If they both are going in the same direction, then once it get transmitted, then there is no chance of collision. Is this okay to everyone? So maybe I can just write it that if both frames of different stations are going in same direction, which means if frames
+
+100
+00:51:35,130 --> 00:52:32,020
+of different stations are going in same direction what is the same direction can anyone tell me to central node right you can say to central node okay then after transmission there is okay cool so when can there be a collision whenever you are transmitting at the same time as to also start transmitting
+
+101
+00:52:35,260 --> 00:53:39,450
+So the collision can happen when two or more stations are transmitting simultaneously. So the collision can happen when two or more stations are transmitting simultaneously. Cool. Now let's just consider this particular diagram. So what they are trying to say, let's suppose that B is transmitting. So before that, I just tell you one thing.
+
+102
+00:53:39,760 --> 00:54:17,530
+let's suppose that b is transmitting right let's suppose there's some station b b wants to transmit and its data packet is that much long right now let's suppose that it will take b b transmission will take let's suppose sometime right let's suppose tt time okay suppose b transmission will take tt time okay this is its packet and it is going to take let's suppose tt time now now at t equal to zero let's suppose at t equal to zero
+
+103
+00:54:17,810 --> 00:55:22,440
+B started transmission Now you tell me till what time another station cannot start transmission Till what time? So the options here are Till TT time it cannot start the transmission Till TT plus maybe TP time it cannot start the transmission C option is till 2TT time
+
+104
+00:55:22,920 --> 00:55:54,230
+D option is till 5 TT time. So what is the answer here? Yeah, so 0 plus TT. So basically it is, so B has started at 0, right? B has started at 0. Then after TT time, I mean, it will take TT time to transmit the frame completely. Then after TT time, it cannot start the transmission. Once this frame, okay, once this frame is on the air or is on the channel, okay, you can say it is on the channel, then it is moving. Then, then you can start your transmission, right? After that, you can start your transmission. So
+
+105
+00:55:54,690 --> 00:56:28,620
+So it is one transmission, after one transmission time you can start the transmission. So TT time, right? Till TT time you can not start the transmission. I hope that is clear. Okay. Now, now you just tell me, let's suppose, let's suppose that we start TT time, we start the transmission at t, okay, sometime t. Maybe it could be anything. It need not to be zero, which means we start in the transmission. Let's suppose this is time, okay.
+
+106
+00:56:28,940 --> 00:56:59,280
+let's suppose b starts in transmission at some time t need not to be zero okay at this time it will start the transmission it will take how much time as per the question tt time right so so it will take how much time it will take tt time so which means which means this time is t plus tt okay in tt time it will finish its transmission okay it will finish its transmission now this tt time is taken by b okay now tell me
+
+107
+00:56:59,900 --> 00:57:48,030
+After this t time, after this t time, can anyone start the transmission? So, till what time? Till, till what time? What time? After t. After t. Any other station should not start. So, I can say, I can say, till t plus t time, right? Till t plus t time, it should not start, right? Otherwise, there will be a collision. Once it is, it is on the channel, you can start the transmission, okay? You can start the transmission, but once it is on the channel.
+
+108
+00:57:49,510 --> 00:58:34,420
+Interestingly if this if this B wants to transmit at time equal to t okay now let me just ask you another question let's suppose if B wants to transmit okay so it will take tt time suppose suppose B wants to transmit at some time t okay some time t then then give the range
+
+109
+00:58:36,230 --> 00:59:19,760
+range of time in which there should be no transmission other than V. There should be no other transmission. Okay. So option is option is that from T to from T to T plus TT, there should not be any trans transmission. This is option A. Option B is option B is from from T to five TT, there should not be transmission. Sorry, from T
+
+110
+00:59:20,030 --> 00:59:50,240
+comma t plus 5 tt there should not be no be any other transmission i mean you should give the confined range okay the best range possible so option c is that option c is that from t minus tt time to t plus tt time there should no be no transmission option d is that option d is that from from t to t plus 2 tt time there should no
+
+111
+00:59:50,450 --> 01:00:22,760
+transmission so what is the answer here see if if let's just understand this question a bit carefully it is actually not that easy that you are thinking it is saying that b wants to successful transmission okay b wants to have the successful transmission and it is also it is also given that it will start the transmission at time t now give the range in which there should no be other transmission see if let's suppose someone has started at t minus tt okay
+
+112
+01:00:23,020 --> 01:00:50,020
+If someone has started somewhere, I mean somewhere after maybe t minus tt, you can say. Okay. So if someone has started just after t minus tt, okay, I will come to this t minus tt, but let's just see this. Okay. So this is very much clear that from t to t plus tt, there should no be any, any transmission and everyone of you saying A is the answer. Interestingly, it's not the answer, but yeah, this is correct that from this to this one, they should know the transmission, but it is not enough. Okay.
+
+113
+01:00:50,350 --> 01:01:57,630
+So maybe I can I can write this question little carefully that he then give the range of the time in which there should no no no other transmission. Okay. I mean here I can if you want I can add one more line other than any any any other time which is not in the range does not create any problem. See, I am saying that that
+
+114
+01:01:58,630 --> 01:02:26,830
+Okay, I'm saying that T wants to trans, T wants to transmit, right? Sorry, B wants to transmit. Now, if we want to transmit, then, then I'm saying that we want to transmit, let's suppose, let's suppose at time 10 a.m. Okay, it is fixed that it will transmit at 10 a.m. And it will take let's suppose half an hour, okay, which means 10 to 10 30 a.m. It will, it will transmit. Okay, 10 30 a.m.
+
+115
+01:02:27,530 --> 01:03:40,200
+Now obviously within this time if anyone start transmission, definitely there will be a conflict, right? Is this okay to everyone? So this is definitely there that if anyone started the transmission within this half an hour time, then there will be definitely a collision. Okay. Transmission. Okay. Now, suppose someone has started the transmission at somewhere after 9.30 a.m., right? Someone has started the transmission. Yes. So after 9.30 a.m., so
+
+116
+01:03:40,720 --> 01:04:00,200
+I need to also make sure that after 9.30 am no transmission starts because after 9.30 am if any transmission starts then that transmission will go on till after 10 am and at 10 am if we are transmitting at 10 am then definitely there will be a conflict or there will be a collision
+
+117
+01:04:00,800 --> 01:04:29,280
+So I just need not to make sure. Only if I am making sure that between 10-30 there is no transmission. If I am making sure only this then it is not sufficient. I also need to make sure that no one has done it half an hour before. I mean no one has done it after 9.30. Someone has started the transmission before 9.30 that is fine to me because that will anyway end before 10. So I need to make sure that after 9.30 no one has started the transmission.
+
+118
+01:04:30,420 --> 01:05:01,430
+So which means that between this slot, no one is doing the transmission other than B. I mean, no one has started the transmission other than B. So we need to make sure that within this whole time, no one has started the transmission other than B. So see, if I want to start the transmission at 10 am, then I need to make sure that no one has started the transmission at 9.45. Because if someone has started the transmission at 9.45, that will definitely get collided with me.
+
+119
+01:05:01,680 --> 01:05:57,410
+and I want to transmit at 10 am so if I want to transmit at some time I need to make sure that no one has started the transmission after 9 30 am and no one is going to start the transmission okay after 10 also so so we need to make sure that no one has already started the transmission after after 9 30 right we need to make sure this and what else we need to make sure you also need to make sure
+
+120
+01:05:59,350 --> 01:07:00,480
+So maybe I can go to the next page and just try to explain you. Okay. So here what I'm trying to say is that that we need to make sure two things, right? One is that we need to make sure that no one has started the transmission after 930. This is the very first point. Okay, you can say this is the first point. And what is another thing that we need to make sure? Another thing is that we need to make sure that no one will start the transmission before 1030.
+
+121
+01:07:03,560 --> 01:07:33,040
+So if I want to start the transmission at 10 am, so what is the current time? Can you tell me the current time? It is 10 am, currently it is 10 am. And if I want to start at the transmission now, I need to make sure before half an hour before me, no one has started the transmission and after half an hour to me, which means at 10.30 am till 10.30 am no one is going to start the transmission. So in this particular window of 9.30 to 10.30, no one will be transmitting other than me.
+
+122
+01:07:33,810 --> 01:08:17,830
+Then only my transmission will be successful. So what is the answer here? What is the answer here? So answer here is actually C, not A. So I need to make sure two windows, not just one window. So I need to make sure that before TT to me and after TT to me, no one is going to start the transmission. So see here, let's suppose this is the current. And before this, this is past.
+
+123
+01:08:24,010 --> 01:08:49,280
+Past. This is future, right? So I mean, okay, I hope you understood. So this is future. So if I'm going to start the transmission at this current time team, I need to make sure that in the past half an hour, no one has started again or the transmission time is TFR or TT or something TFR the transmission time of the frame. So
+
+124
+01:08:49,830 --> 01:09:22,130
+before I mean half an hour or maybe the before one transmission time no one has started which means after after this line there should no no transmission after this line and before this line also before this line also there should no no transmission right I mean it should not start the transmission otherwise otherwise if someone is starting the transmission at some sometime this then it will immediately collide with me right immediately it will collide with me is this okay everyone oh so basically I'm saying here is that that if
+
+125
+01:09:22,510 --> 01:10:23,550
+TFR is the transmission time then within this two TFR time, within this two TFR time, no one should start the transmission. Okay. So no one should transmit other than me other than. Okay. So just one station should transmit or in other words, you can say in this time, just one station should transmit. So now you tell me this is also called as pure aloha. Okay. I will, I will tell you there is one more variant, which is called saluted aloha.
+
+126
+01:10:23,710 --> 01:11:06,400
+okay so this is whatever we are just saying is called pure aloha now now when will when will the transmission be successful in pure aloha if i just ask you this question when will the transmission at time t is successful in pure aloha the answer is whenever no one has started the transmission before i mean after t minus tt so you can say that
+
+127
+01:11:07,950 --> 01:12:09,090
+if no one else other than the given station or maybe you can say if only one station transmits in T minus TT comma T plus TT time, right? Okay. Cool. So that is also called as vulnerable time. Okay. Vulnerable time. So which means let us find the vulnerable time. What is this vulnerable time? The time in which there is a possibility of collision. Okay. So vulnerable time here is that
+
+128
+01:12:09,280 --> 01:12:30,820
+2 TFR. If there is no one else has transmitted in this time, in this particular time, if no one else has transmitted, then there is no possibility of collision. So, the risky time, this is also called risky time. You can consider risky time. So, what does it mean? Till what time we should hold our breath? It is for only 2 T time.
+
+129
+01:12:31,060 --> 01:13:00,310
+If for this 2TT time, no one has done any shade start, no one has done any disturbance, then I am very much fine that now there will not be any collision. But if in this 2TT time, in this 2TT time or this transmission time, if within 2TFR time, if someone has already done it or someone is going to do, then there is a chance, there will be a collision. So that is also called risky time. Have you understood? Or we call it vulnerable time. So this is the time where I can write the definition here.
+
+130
+01:13:00,640 --> 01:13:35,750
+the time where the chance of collision is there right so what is the vulnerable time for pure aloha in 2TT time there is a chance of collision if this 2TT time has been passed away i mean before and after including both then there is no chance of collision okay so what is the vulnerable time is 2TT in the pure aloha okay so let's just see this question what they are trying to say a pure aloha network transmit 200 bits frame on a shared channel
+
+131
+01:13:36,170 --> 01:14:05,090
+of 200kvps so what are the bandwidth which is given to us of a shared channel is 200kvps and if any station wants to transmit then it will be transmitting 200 bit frame okay so what is our requirement to make this frame collision free see the transmission time is coming out to be 1 millisecond which means that till 2 milliseconds this means that no station should send later than 1 millisecond before the station start the transmission and no station should send start sending
+
+132
+01:14:05,470 --> 01:14:36,350
+during the 1 millisecond then it is sending right so basically in this 2 millisecond whenever you are sending at this T then this one in this 1 millisecond no one has started already already or in this 1 millisecond no one is going to start right so if this condition is satisfied then I can say that this particular frame whichever I am sending will be successful okay cool you will understand it more with more example but for now let's just understand the slaughtered alpha so
+
+133
+01:14:36,780 --> 01:15:07,150
+pure aloha is basically saying that you transmit at any time now slaughtered aloha will say that we are dividing the time into discrete uh slots so we are saying that if any station let's suppose this is time and i'm dividing in half an hour slot let's suppose okay so which means this is nine this is 9 30 this is 10 this is 10 30 and so on so if any station wants to send then it can send only at beginning of the time slot which means
+
+134
+01:15:07,470 --> 01:15:39,810
+earlier i was allowing at any random time if you want to send then you can you can send let's suppose from from here to here you can transmit from here to here but in this slaughtered aloha i allow it only at the beginning either here if if no one is i mean let's suppose if someone wants to send at 915 then it can it send at 915 in slaughtered aloha then answer is no right so slaughtered aloha is saying that now i will i will allow only at the
+
+135
+01:15:40,250 --> 01:16:43,700
+beginning of the slot so if someone wants to send at 9.15 a.m. then it cannot send hash to wait till beginning of the slot what is this building okay so till beginning of the next slot okay
+
+136
+01:16:46,030 --> 01:17:38,620
+so what is the difference between uh slaughtered aloha and the pure aloha or sometimes they just call it aloha what is the difference that in pure aloha you can send it 9 9 15 but in slaughtered aloha we cannot send right so maybe i can write it here also that in pure aloha we can send it 9 15 or anytime okay okay so now let's just find out the vulnerable time here so suppose suppose i want to
+
+137
+01:17:38,890 --> 01:18:11,290
+I want to start the transmission at some time maybe let's suppose 10 a.m okay so earlier if you remember that I was saying that if I want to start at 10 a.m I need to make sure no one has started the transmission right after 9 30 and in between also right now tell me do I have to make sure that no one no one is starting the transmission here do I really have to make sure this this is my current time right do I really have to make sure that no one is starting transmission here no right it is by default make sure
+
+138
+01:18:11,550 --> 01:18:40,460
+It is by protocol, it is make sure. So basically, I just need to make sure that no one is starting the transmission at what time? Do I have to make sure that this time no one is starting the transmission? No, right? No. So I do not need to make sure that no one is starting the transmission here because it anyway can't start the transmission. I do not need to make sure that no one is starting transmission here because it anyway can't start the transmission. Do I need to make sure that someone is not starting the transmission here?
+
+139
+01:18:41,650 --> 01:19:09,010
+Can someone start the transmission here? First of all, tell me. At 9.30. Yeah, someone can definitely start the transmission at 9.30. But do I really worry about it if I'm going to start at 10? No, right? Because it will not collide. See, at 10 it will finish and at 10 I will start. So it will not collide. If someone is starting exactly at 9.30, I don't need to make sure about it. I mean, that's perfectly fine. But if someone is starting right after 9.30, then I will be worried.
+
+140
+01:19:10,220 --> 01:19:52,940
+but this protocol is such that no one can start I mean in between so no one can start here no one can start here so where I need to make sure that for the collision for the collision it will be colliding with which which kind of frames if someone has started at what time it will be colliding with if someone has started at station a stars transmission at time 10 then it will collide
+
+141
+01:19:57,000 --> 01:20:57,820
+only if some other station at time let's suppose I give you options one option is that at time 945 second option is that okay at time let's suppose 1015 third option is that at time 1030 fourth option is that at time 10 what is the correct answer is A is the correct answer in the saluted aloha this is saluted aloha
+
+142
+01:20:58,870 --> 01:21:27,390
+So A is not the correct answer. The reason being that it is not even possible to start the transmission at 9.45 a.m. It is not even the possible here. So I just need to make sure that someone is not starting the transmission at 9.45 a.m. Do I need to make sure? No. At 10.15? No. At 10.15 also I don't need to worry because as per the protocol it can't even start the transmission at 10.15. So where I need to worry? I need to worry at only at 10.
+
+143
+01:21:27,820 --> 01:22:31,520
+At 10.30, do I need to worry? No. So only at 10. Okay. Because at any other, at any other slot, it can't even start the transmission. Okay. So I can say, I can say it can't even start the transmission here. Just a second. Thank you. Thank you, Flora. Station cannot even start. What if the station, it does not fit? No, I'm assuming the transmission time for all the station is fixed, which is half an hour. Okay. So here Aloha, the assumption is that
+
+144
+01:22:31,720 --> 01:23:02,560
+okay and it's not my assumption in Aloha the assumption is that the every every station has the fixed transmission time whatever it is for example half an hour okay so this is my assumption cool so what is the vulnerable time here vulnerable time means that I need to make sure that within this window okay no one is starting the transmission so I need to make sure that we I mean we can collide with C right
+
+145
+01:23:02,790 --> 01:23:29,180
+So if we see is also starting the transmission at the same time. So basically here the vulnerable time is TFR, which means earlier I needed to make sure that, okay, in T minus TFR to T plus TFR, no one should start the transmission, right? I mean, in this particular whole window, no one should start the transmission. But here I just need to make sure that, that no one is starting the transmission at T, right? No one is starting the transmission at T.
+
+146
+01:23:29,350 --> 01:24:00,410
+So it will get clear later on that why we are calling it this vulnerable time as TFR. Okay. So vulnerable time means that time is time in which there's a, if someone is starting the transmission, then there's a chance of collision. Okay. So that's the thing. Station A wait to send till 10 a.m. It will be transmitting at 10. So at next slot station, what is your question? Station A have to wait till 10 a.m.
+
+147
+01:24:00,730 --> 01:24:33,170
+Then it will start the transmission at 10. The next slot after 9. No, the next slot after 9 is 9.30. I mean, I'm assuming that transmission time is half an hour. Yes, if someone wants to transmit at 9.45 AM, then obviously it has to wait for the next time slot. Yeah, time slots are equal to transmission time. Yes. So basically, let me just write the Aloha assumptions. Or maybe you can say here, saluted Aloha assumptions.
+
+148
+01:24:45,480 --> 01:25:34,970
+So, first is that transmission time of all stations and all frame is same. Second is that the slot time is equal to transmission time. So, these are the assumptions in aloha.
+
+149
+01:25:39,880 --> 01:26:02,220
+so in time division we just say that I mean the time has been divided there there is no multiple multiple people are not trying to not trying to transmit at the same time okay I mean there the time in time division multiplexing we have seen that time is divided okay here we will say that okay that if you want to transmit you can transmit at this time only at this particular at the beginning of this lot
+
+150
+01:26:02,590 --> 01:26:41,670
+So here the time is, uh, I mean, we are not saying that only one station can transmit it in this slot or something. Many stations can transmit, but then the time division, I'm saying that, okay, within this time, it is, this is the time which is given to you. And in this time, you are only transmitting here. The collision can happen. And they are in the time division. The collision cannot happen. Okay. So, so that's the same. The packet came at nine 45, then it will not allow. So that, uh, so it will try for 10 AM. So this option is also correct. That's what I'm saying. If possible. Okay.
+
+151
+01:26:41,900 --> 01:27:14,200
+This 945 is not even possible. That's what I'm saying. Okay. Now let's just try to understand. I mean, you will, you will get to understand this in very great detail. Let's just, let's just see some questions and let's just try to understand efficiency and now there is something called throughput and the probability of slot not wasted. Okay. Let's just, let's just try to understand these two, three things and these two, three things are actually equal to each other. Let's just see.
+
+152
+01:27:14,410 --> 01:27:41,700
+I mean interestingly here this efficiency and throughput are equal to each other if I measure the throughput in packets per slot okay I mean like you will get to understand that what I mean here okay so we will be we will be understanding this aloha efficiency derivation and in two scenarios the first scenario the first case is that the number of stations in the network is very large if they're I mean actually theoretically it is tending to infinity
+
+153
+01:27:42,030 --> 01:28:18,590
+but practically even if you have maybe like 40-50 stations then also we consider it is very large okay you can say I mean 40-50 but we will anyway be doing the theoretical analysis okay and there is a scenario too when the number of stations in aloha are finite okay let's just see the first case first let's suppose that g is average number of frames generated by the system what does this mean that let's suppose that there is one one particular station which is generating
+
+154
+01:28:19,020 --> 01:28:50,510
+two frames in one transmission time. Okay. So sorry, it cannot generate two frames. So basically, let's suppose that this station, there's one station one station two station three, something like that, right? So let's suppose it is, it wants to transmit in that particular slot and it is generating one frame, it is generating zero, it is generating one frame, something like that. Then the total number of frame in one transmission time, how many, how many frames are there? Two frames.
+
+155
+01:28:50,830 --> 01:29:24,480
+okay so g is the average number of frames generated by the system system means including all the stations okay so if g is the number of number of frames generated by the system which means all stations all together then in one transmission in one transmission time then what do you think if someone if i mean if you are generating if multiple frames are if multiple stations are generating the frames then
+
+156
+01:29:24,930 --> 01:29:56,470
+we are calling it G in one transmission time then what do you think in one transmission time the number of frames that actually get transmitted will be lesser than G or more than G see what I am trying to say let me just let me just tell you the question let's suppose this is one transmission time okay this is one transmission time this is another slot this is another slot I mean every slot and transmission time are same okay so let's suppose these are transmission times now here let's suppose two two stations transmit
+
+157
+01:29:58,850 --> 01:30:38,590
+let's suppose here zero stations transmit let's suppose here one station transmit let's suppose here you can say maybe one station transmit or maybe let's suppose two stations transmit tell me in which slot there will be a successful transmission in which slot let's suppose this is slot number one slot number two slot number three slot number four yeah this is slot at all over so in which slot there will be successful transmission
+
+158
+01:30:40,320 --> 01:31:31,400
+this will be in the slot number 3 right because there is only one station transmitting if 2 stations transmit then there is no possibility right I mean you cannot have the successful transmission if no station is transmitting then obviously there is no point in saying the successful transmission is there so in slot number 3 there is a successful transmission right so I can say let me just go to the next page so I can say here here there is a successful transmission in slot number 3 now
+
+159
+01:31:32,510 --> 01:32:06,350
+Let's just define a term G Okay G is saying G means generated G means generated So can you tell me Per slot How many How many frames have been generated? Two stations means two frames Okay So per slot On an average So basically you can say Two frames here in this slot Zero frames here One frame here Two frames here In out of four slots So per slot on an average There are five by four
+
+160
+01:32:06,820 --> 01:32:42,230
+five by four so basically per slot you can say 1.25 frames per slot on average is this okay to everyone 1.25 frames per slot on average right so this is what the system is generating is this fine that how we are calculating on average that how much system is generating per slot so we are saying that okay in this slot two frames has been generated here zero here
+
+161
+01:32:42,500 --> 01:33:09,560
+one frame has been generated here two frame has been generated so per slot on average 1.25 which means that sometimes there is no one sometimes there are two sometimes there is one sometimes there are two okay is this is this really mean that okay i mean 1.25 frames have been generated in each slot no the number of frames anyway will be the uh integer right it cannot be 1.25 it means that on average per slot we are generating more than one slot okay more than one front that is fine i mean that's perfectly fine
+
+162
+01:33:09,820 --> 01:33:41,480
+so it is also possible that we are generating just one frame okay I mean that that's also possible so here here how many frames you have generated on an average 1.25 but how many frames actually got transmitted only one frame right only one frame so so we are saying we are saying that 1.25 unknown average frames has been generated but only one frame got transmitted right okay so g is average number
+
+163
+01:33:42,810 --> 01:34:19,680
+of frames generated by system in any slot or per slot or something right then then then if G is 1.25 then you are basically transmitting only one right out of out of all of I mean this average that we are getting which is 1.25 but you are only able to transmit out of these four slots only one okay let's consider another case let's consider another case here let's just assume that this is
+
+164
+01:34:20,010 --> 01:35:05,280
+One station is only transmitting. Can you tell me the value of G? That what is the average number of slots, average number of forms? That G will be 2 plus 0 plus 1 plus 1 divided by 4. So you are transmitting 1, right? 1 frame average, right? You are transmitting 1 frame on average in each slot. Is this fine to everyone? That how we are calculating G? Okay. So G is the average number of frames that you are transmitting in any slot.
+
+165
+01:35:05,830 --> 01:35:32,030
+So, for example, if you're transmitting two frames here, if you're transmitting zero frames here, one frame here and one frame here, then on an average you are transmitting one from because in these four slots, you have transmitted four frames, right? So on an average, you are transmitting one frame. And how many out of these, okay, so out of these four slots, you are transmitting one frame here. I mean, you can say one frame you are transmitting here, one frame you are transmitting. I mean,
+
+166
+01:35:32,330 --> 01:36:00,030
+you are not transmitting one frame here you are transmitting two frames zero frames but but I can I mean I can also say that on an average one frame here one frame here one frame here one frame here so total out of four slots total how many we are transmitting I mean you can directly multiply this g with the number of the slots right so if g is the number g is the average number of frames that we are transmitting out of all slots which means I am saying one frame we are transmitting out of
+
+167
+01:36:01,130 --> 01:36:54,850
+One frame, unknown average we are transmitting, which means one frame in each slot we are transmitting, right? Unknown average. So in four frames, how much we are transmitting? Four frames, right? Or you can directly sum this two plus zero plus one plus one. So basically you're transmitting four frames. But out of those four frames, how much actually got transmitted? Only two, right? So out of those four frames, how much actually got transmitted? You can say only two. Earlier, earlier, out of, okay, out of how many frames?
+
+168
+01:36:55,180 --> 01:37:32,740
+five frames how much actually go transmitted only one right okay so now we want to calculate now we want to basically calculate the efficiency and throughput of aloha for that we need to do little bit mathematical formulation okay so we need to go with the little bit mathematical formulation and
+
+169
+01:37:33,770 --> 01:37:55,530
+Let's just define some random variable and something like which is related to probability. So don't worry, we will just touch upon this probabilistic, probabilistic analysis there because that is really needed to solve any of the question in the aloha. And once you understand the derivation, once you understand that how the probability and efficiency throughput are happening here, then it will be more comfortable for you to understand everything in the aloha.
+
+170
+01:37:55,660 --> 01:38:23,580
+so that's why we are going with the probabilistic analysis otherwise I could have directly given you the formula but the formula derivation is also so easy that's why I'm just going with the derivation okay so otherwise I mean once you understand the derivation then then it is fine otherwise like once you go through the lecture if you do not understand the derivation then also you can choose to skip it okay that's the I mean derivation will just take 10 to 15 minutes that's all but it is really needed for that for to solve any of the question with the good understanding
+
+171
+01:38:24,120 --> 01:38:55,690
+Okay, let's define a quantity G which is average number of frames generated by the system in one transmission time or in one slot, right? One transmission time and one slot are same. So average number of frames, how much we are sending in one one transmission time is called G. Is this okay to everyone? I mean, what is this quantity G? Okay, on an average, how many frames we are sending in one slot? Now, let's say there's a random variable X, which is number of frames in one transmission time. Okay, so
+
+172
+01:38:56,040 --> 01:39:36,330
+what is the expected number of x so unknown average of the expected number of frames we are sending in one transmission time so ex is expected number of frames in one transmission time or one slot let me just write one slot directly okay or maybe one transmission anything is fine which i'm assuming is g okay this is my assumption
+
+173
+01:39:36,650 --> 01:40:10,290
+that G is the average or the expected number of slots, expected number of frames in one transmission time. Okay. Now, if I just ask you that if X is number of frames in one transmission time, then what is the probability that exactly one frame get transmitted in one slot? See, what is X? X is number of frames in one transmission time. Then what is the probability that there is exactly one frame that we are transmitting in one slot? How many stations are there? There could be many stations. Okay. So,
+
+174
+01:40:10,780 --> 01:40:37,170
+Out of all stations, only one station is interested in this slot. What is the probability? What is the probability that out of all the infinitely many stations, only exactly two stations are interested in this slot in any given slot? What is the probability that exactly three stations are interested in this slot? That's what we are trying to find out. I will come back to this particular slide. Let's just see this using
+
+175
+01:40:38,450 --> 01:41:05,370
+something called as Poisson distribution that we have already covered in the probability. So if you remember that Poisson distribution is defined like this, okay? I will just quickly recap in one minute. So here, what is this x? x equal to k means that we say that, okay, I mean, number of events happening in particular time. For example, if I just ask you, let's suppose this is just a recap question, on average, let's suppose if I give you that there are two accidents per day.
+
+176
+01:41:05,720 --> 01:41:39,970
+Then what is the probability that there are four accidents in a given day? So they are they are giving the lambda lambda means average in this particular in this particular time slot. What is the average thing that is happening? Which is lambda average. There are two two accidents per day. Right. So there are two accidents on average, right? In how many days per day? Now on average, there are two accidents means maybe given a day, there are five accidents.
+
+177
+01:41:40,500 --> 01:42:07,940
+given a day there may be just one accident given a day there may be three accidents and so on right okay so and given a day maybe there is zero accidents and so on so basically you can say that if I take the average of all of these accidents then per day it is coming out to be two okay which is given in the question now what they're asking is that that how many accidents
+
+178
+01:42:08,270 --> 01:42:46,310
+I mean what is the probability that there are four accidents exactly four accidents in a given day. So this can be modeled by the Poisson distribution. Okay. So it means let's suppose if I say X is X is number of accidents in a given day. I want to calculate what is the probability that X being four. This is what I want to calculate. Right. Now it can be modeled using the Poisson distribution which is having this particular formula. Okay. So which is E
+
+179
+01:42:46,650 --> 01:43:20,660
+power minus lambda lambda power k upon lambda factorial sorry k factorial so let me just copy this formula there directly okay can you tell me what is the probability that there will be four accidents then maybe you can just tell probability of x being four is eg power minus two lambda is given as minus two two power four upon four factorial so basically i mean you can easily calculate if you know the position formula right then what is the probability that x being four okay
+
+180
+01:43:20,850 --> 01:43:54,390
+Now, similarly, if I just ask you, this is the answer here. Now, similarly, if I just ask you another question, the two accidents per day is given, which means lambda equal to two is given. Now, what are the probability that four accidents in two days? They're asking four accidents in two days. Okay. So can you tell me? Now, see, if you remember, then in this case, in this case, this time frame is not same. This is per day. This is two days. So we need to modify the lambda.
+
+181
+01:43:54,810 --> 01:44:26,610
+so can you tell me what is the modified lambda for two days if there are two accidents in one day then in two days how many how many accidents will be will be there in on on average so modified lambda will be 2 into 2 which is 4 why because if there are two accidents in one day on on average then in two days there are four accidents okay four accidents accidents in two days is this okay everyone if you have seen this position restriction
+
+182
+01:44:28,890 --> 01:45:01,920
+Yeah, this is position distribution formula. Yeah, that is correct. Right. So now can you tell me, can you tell me what they're asking? Now this time frame is MC. Now you have modified the lambda. Now the time frame is same. Now the two days they're asking and now you have the lambda for two days. Now can you tell me what, what is the X equal to four? Then you can, you can quickly calculate that e power minus four because lambda is four air into four power four upon four. Right. Okay. This is the answer. Now let me ask you another question.
+
+183
+01:45:02,280 --> 01:45:31,380
+that on average let's suppose two accidents per two days and now they're asking for one day okay can you tell me what is the modified lambda here they're asking what they're asking for one day so modified lambda will be lambda is given to be two but you need just for one day right so modified lambda will be one right is this okay because see they have given that in two days there are two accidents now they are asking for one day
+
+184
+01:45:31,590 --> 01:46:01,430
+so you need to make sure the time frame is same if the if you need to make sure that then you need to modify the lambda so which means if if the lambda is given to be two in two in two days then you can say that in one day there will be just one so what is the probability of two accidents in one day and probability of x being two is basically now lambda is one so e power minus one one power two upon perfect right okay this is the answer
+
+185
+01:46:04,300 --> 01:46:47,240
+That was the recap that I wanted to have. So here this x is just telling you number of events in a particular time slot, right? So here, here number of accidents or number of anything they're telling in a particular time slot. So this x is just telling you number of accidents per day. Or maybe you can say number of events per time slot, right? Okay, this was the recap that I wanted to have for Poisson distribution.
+
+186
+01:46:47,740 --> 01:47:22,750
+is this okay everyone if you have seen the probability lectures then you might quickly recall otherwise that's fine okay otherwise that's perfectly fine now here let's just go back to what we wanted to calculate okay here i wanted to calculate what is this uh sorry here i wanted to calculate uh these probabilities so let me just let you know that what is the connection between what i told you and between this right okay so here here
+
+187
+01:47:23,130 --> 01:48:01,940
+I want to calculate what is the probability that x being one, which means what is x number of frames in one transmission time. Okay, so just a second here, it is also given that expectation of x is g. Okay, it is also given that expectation of x is less than g. Now, can you tell me what is the probability that there will be exactly one x, sorry, not accident, there will be exactly one transmission in one slot.
+
+188
+01:48:02,270 --> 01:48:30,790
+then you will say it is nothing but probability of x equal to k you know and here the lambda is basically g right lambda g is this okay because this is given to you the expectation of x is g or the average number of frames generated by the system in one slot g okay so lambda is g here and now they're asking probability of x being 1 then you can easily calculate it is by the formula you can easily calculate it is a power minus g into g power 1
+
+189
+01:48:31,130 --> 01:49:12,620
+up on one factor right g into e power minus g this is the probability why which you will say that that there will be just one transmission in in one slot okay this is the probability why which you can say there is one transmission in one slot is this fine probability of one transmission okay now can you tell me what is the probability can you tell me what is the probability of two transmissions in one slot
+
+190
+01:49:13,420 --> 01:49:46,090
+I mean there are two transmissions are happening and obviously there will be the collision in that case there will be the collision but anyway but what is the probability that exactly two frames two stations are interested in transmitting so you can say that here the k value is two right so what is the probability the k value you can put as two that exactly two stations are interested in transmitting right what is the probability that in a given slot in one transmission time okay slot in transmission time is actually same
+
+191
+01:49:46,300 --> 01:50:16,660
+that exactly three stations are interested. This is the probability, right? It is fine to everyone. You can apply this formula. Actually, you can't get much intuition here because this position distribution is not, not as per the, you can say bachelor's level. Okay. You, you need to spend a lot of time to understand this position distribution. If you really want to understand it in more, more detail, but for us, like this is the, I can say this is the best possible detail we can go. Okay. We cannot go more than that.
+
+192
+01:50:17,040 --> 01:50:43,120
+that how this formula has been driven for the position distribution and so on. This is the master's level course. If you really are interested, then you can study at your MTech college. Anyway, have you understood using the formula that how we are driving this particular probabilities that how to calculate this x equal to 1, x equal to 2, x equal to 3? You just need to plug in in the formula, right? And then you can get the answer here.
+
+193
+01:50:43,500 --> 01:51:30,450
+Okay. So if you, if you want to calculate what is the probability that exactly three stations are interested in given slot, then this is the probability. Will there be a collision? Will there be a collision? Yes. Right. So yeah, there will be a collision. Okay. Yeah. So now can you tell me probability of transmitting K frames in, in, in the transmission time? See, this was my formula. If you recall, can you tell me what is the probability that exactly K frames are interested in given transmission time?
+
+194
+01:51:30,730 --> 01:52:12,100
+then then maybe you can say that this is the probability right okay so if you want to find out the gender uh if you want to have the gender answer then this is your gender answer that is the probability by which the exactly k frames are interested in the given slot right so probability that exactly k stations are interested in given slot okay here lambda is g
+
+195
+01:52:18,090 --> 01:52:52,130
+Yeah, I have the answer also right you just put lambda g and then you will be getting your answer Okay now Can you tell me? What is the okay? Maybe before coming to that can you tell me consider? What is the probability that no station transferred in the in the particular slot? Which means zero stations are interested probability x being zero zero stations are interested. What is the probability? You can you can just find out like this, right? See
+
+196
+01:52:59,050 --> 01:53:28,520
+If I just ask you that exactly zero frames are zero stations are interested, then you will say just put lambda as G and case zero. This is e power minus G into G power zero upon zero factorial, which is one upon e power zero e power minus G. So by this probability, there is no one interested, right? This is the probability that no one is interested in your slot and the given slot, no one is interested. This is the probability.
+
+197
+01:53:28,940 --> 01:54:04,450
+can you tell me what is the probability that exactly one station is interested in the given slot exactly one station is interested so maybe you can you you can put lambda g and k as one right so exactly one station is interested in a in a given slot it is the probability g into g into e power minus g basically right and no one is interested it was e power minus g okay then no one is interested exactly one is interested this the this is the probability
+
+198
+01:54:05,750 --> 01:54:43,530
+Okay. Now, now, can you answer this question? Just a second. So what is the probability that slot is not wasted? What is the probability that slot is not wasted? It means, it basically means, can you, can you first tell me what does this really mean? When can, when can slot be wasted? Consider the slot is not wasted, whenever. No station transmit, can, can I say the slot is not wasted?
+
+199
+01:54:43,860 --> 01:55:13,170
+obviously it will waste right if no station transmit then it will waste only one station transmit then it will not waste multiple station transmit can it waste yes it will be wasted again right it will be wasted if multiple station transmit it will be it will be collision it will be wasted so if i'm saying it is not wasted then it means i mean i mean this is just one other way of saying that i am i'm saying that only one station is transmitting okay so this is just one other way of saying so probability of slot slot
+
+200
+01:55:13,430 --> 01:55:52,710
+not wasted it's just one way of saying to me like just one way of conveying that exactly one station is interested okay exactly one station is interested so what is the probability that slot doesn't get wasted it means the probability will be if you remember it was g into e power minus g okay it was the probability that slot doesn't get wasted what is the probability that there was no no one was interested let's just call it p0 then no one was interested
+
+201
+01:55:53,110 --> 01:56:43,080
+e power minus g right no one is interested in humans lot now interestingly okay i will i will come to this efficiency uh little uh i mean after a minute can you tell me what is the probability that there will be a collision it means that there is either either two station transmitter three station transmitter something like that right there will be a collision whenever whenever two station transmit three station transmit
+
+202
+01:56:44,010 --> 01:57:14,310
+And since I told you that there could be any number of stations, there could be any number of stations. So this is same as 1 minus no station transmit or exactly one station transmit. So this is same as e power minus g plus g into e power minus g. So I mean these kind of questions can be answered like this.
+
+203
+01:57:19,300 --> 01:57:47,380
+So now you know what is the probability that there is a collision in slot at aloha it is this right now Now interestingly that probability of the slot not getting wasted is same as efficiency and which is same as throughput See, do you remember the throughput we can we can measure in terms of I mean the units like kvps, right? Maybe the kvps Or maybe bytes per minute per seconds. Do you remember the unit of throughput same as bandwidth, right?
+
+204
+01:57:51,270 --> 01:58:13,920
+Can I measure in bytes per 5 minutes? Can I measure in bytes per 5 minutes? Anything. I can measure in any given time. If bytes per minute is given, in 1 minute if I can transmit this much, then in 5 minutes maybe I will be multiplying by 5. In 5 minutes how much bytes I can transmit, maybe I will just multiply by 5. Through it I can measure in
+
+205
+01:58:14,170 --> 01:58:51,020
+time oh sorry in in the quantity yeah in the quantity per time yes that's that's true so I can also measure the throughput here in the packets how much packets we are transmitting in parts raw okay how much packets we are transmitting in parts raw that's how also we can measure the throughput now now let's just see this one thing let's suppose let's suppose that just a second let's suppose that I have the probability
+
+206
+01:58:52,110 --> 01:59:25,200
+of slot not getting wasted is some probability, okay? Maybe you can take this probability as 0.1, okay? Probability of slot not getting wasted. By the way, what does this mean? This means this, right? Do you remember? Yeah, this means this. The slot not getting wasted is x equal to 1. Now, let's assume, I mean, it could be anything, but let's assume that this is 0.1. Then what does this mean? That out of the 10 slots,
+
+207
+01:59:26,290 --> 02:00:03,390
+out of the 10 slots one is not getting wasted right so it means this is slot one slot to write this out of out of 10 slots one is not getting wasted is this okay to everyone okay the meaning of this probability now can you tell me the throughput if if you're not wasting one slot out of the 10 slots then what does this mean then it means that here
+
+208
+02:00:03,690 --> 02:00:44,400
+you are how many how many you are transmitting let's suppose these are the 10 in one of them you are transmitting one successful transmission obviously i'm i'm talking about the successful only successful transmission is one in one of them so basically this slot is not getting wasted right this slot is not getting wasted and what about remaining nine slots remaining nine slots are getting wasted as per the probability given to me right remaining nine slots it is wasted slot what is the region of waste what could be the region of waste can you tell me what could be the region of waste
+
+209
+02:00:44,900 --> 02:01:19,990
+Maybe no one is transmitting. Yeah, no one is transmitting or there is a collision, right? So waste means waste here means that either no one is transmitting or only or sorry, or more than one transmitting, right? Or maybe I can just write collision. Yeah. Okay. Anyway, so basically how many successful transmission you are doing here in this slot? How many successful transmission?
+
+210
+02:01:22,520 --> 02:02:10,480
+zero right zero if if it is wasted then zero successful transmission okay so you can say here you are having zero successful transmission okay similarly here zero successful transmission here zero successful transmission so i'm just having one successful transmission in one of the slot out of 10 now total how many packets you are sending just one right so in 10 slots in 10 slots you are sending just one packet right
+
+211
+02:02:23,560 --> 02:03:18,570
+In one slot, how much you are sending? 1 by 10. You can say packets per slot. And if I measure my throughput, see, you can measure in anything. Don't worry. But if I measure my throughput in packets per slot, then what is the throughput? Yeah. So throughput is 1 by 10, right? Is this okay to everyone? So basically, basically it, I mean, this is just understanding that I'm just telling you that probability
+
+212
+02:03:19,000 --> 02:03:52,670
+of slot not getting wasted which is same as probability of x equal to 1 is same as throughput in packet per slot. So if your probability is 0.1 it means that out of 10 slots you are just basically I mean only one slot is not getting wasted.
+
+213
+02:03:53,010 --> 02:04:30,640
+which means you are just sending one packet one slot and one packet actually same i mean one slot you can send at most one packet so basically if your if your probability 0.1 which means that out of 10 slot only one slot is not getting wasted it means only out of 10 slot only one packet you are sending so the probability of not not getting wasted is same as the probability of x equal to 1 is same as the throughput okay so can you tell me the throughput in solota at aloha it is same as
+
+214
+02:04:32,290 --> 02:05:11,490
+p of x equal to 1. If you remember, it was g into e power minus g. Okay. It is, it is the throughput in, in terms of, can you tell me the unit packets per slot, right? Okay. For the frames per slot. So basically here, the throughput and the probability of not getting wasted is same. And interestingly, this is the same probability, sorry, this is the same efficiency. I mean, let me just talk about the efficiency and efficiency and throughput is same.
+
+215
+02:05:11,760 --> 02:05:40,480
+in terms of if I measure the throughput in packets per slot I mean if you if you ask in kbps we can definitely convert that in kbps later on okay we will definitely be converting that into the kbps or in any other quantity that you require that's fine but first we need to understand the basic fundamental that okay I mean in packets per slot it is like this if let's suppose slot time is let's suppose one millisecond right this packet is something okay packet is let's suppose 20 bytes so 20 bytes you are sending in one millisecond can you not tell me in one second how many bits or bytes you are sending
+
+216
+02:05:41,050 --> 02:06:10,720
+You can definitely tell me in the KVPS. Will it be very difficult for you to convert into KVPS? If I just tell you that slot time is 1 millisecond or packet is this much bytes, will it be too difficult for you to calculate in KVPS or to convert in KVPS? I don't think so, right? So once you once you know that the basic that that okay, the throughput in packets per slot is this much, then whatever they ask, you can definitely convert and we will be converting. Okay. Don't worry. And in questions, we will be converting. But let me just talk about bit of theory here.
+
+217
+02:06:11,940 --> 02:06:48,220
+Okay. Now let's just talk about the efficiency. First tell me what is the unit of efficiency is nothing, right? Yeah, this is unit less. Definitely. Okay. So you can say unit less. So here I want to be talking about the unit that okay, this is packet parts a lot or something like that. I want to be talking about the unit here. Now, what is the efficiency? Efficiency is that what you can maximum do in
+
+218
+02:06:48,600 --> 02:07:22,690
+over the long period of time or maybe if it is like repeated thing then you can say that okay in this particular slot or something right so maybe maybe you can consider that what you can really do in this particular slot how many maximum you could you can send in this slot so maximum that you can send in any slot is just one right maximum successful in any slot is just one so what is the maximum you can do in any slot right
+
+219
+02:07:22,970 --> 02:07:38,990
+I mean efficiency see let's just understand this carefully. Efficiency is not basically for slot or anything it is over for the protocol. It means if you want you can say that efficiency is over a long period of time but if things are repeating then you can just restrict to one cycle.
+
+220
+02:07:39,430 --> 02:08:12,280
+Okay, which means this this slot is identical symmetric, right? I mean you take any slot you take I mean if you want you can take the efficiency for like if you want to calculate the efficiency you can consider multiple slots also. That's when the answer will be same. Okay, maybe I will come to that first. Let me just first take the one slot only. Okay. So in one slot, how much maximum you can do? So efficiency is if you remember that efficiency is what you're actually doing upon maximum you can do.
+
+221
+02:08:15,660 --> 02:09:00,420
+I mean, this quantity tells that how much efficient you are. What you're actually doing is basically throughput, right? I mean, this is always throughput. And what is the maximum capacity that you can do? It's just one. Anyway, you can at max and one successful transmission. So that's why this is also the throughput. This is the maximum you can do. Or maybe in other words, in other words, you can understand like this. How many slots were efficient? Out of 10 slots, how many useful slots?
+
+222
+02:09:03,650 --> 02:09:46,650
+Total slots, useful slots or slots not getting wasted, right? In our example, number of slots not getting wasted is 1 and total slots was 10, right? So what is the efficiency? It is 1 by 10, which is also the probability. Basically, that's how we know the probability, right? Number of a favorable case upon total case is something like that, right? So number of slots which are not getting wasted upon the total slots is our probability, which is also same as efficiency, which is also same as throughput, okay? So throughput in packets per slot.
+
+223
+02:09:47,510 --> 02:10:29,060
+efficiency which has no unit and probability of slot not getting wasted. These three quantities are same here. Okay. So just a second. So basically, let me just also paste it there. These three quantities here in Aloha are same is little bit okay to everyone. I mean, we will, we will understand with the questions also, but little bit is fine.
+
+224
+02:10:29,310 --> 02:11:07,270
+that efficiency that how much efficiency you are is basically out of 10 slots how many slots are useful is your efficiency right only one slot was useful right or maybe what is the maximum you can do what you're actually doing the maximum here is just one the maximum here is just one over one slot right over two slots maybe you can write two here if you want to consider two slots you can write two here but the max or what you are doing in two slots is basically two in two throughput right
+
+225
+02:11:07,640 --> 02:11:38,410
+what you're doing in two slots anyway this two two will get cancelled out okay and here the throughput we are measuring in packets per slot and the probability of slot not getting wasted these three quantities are same here right now let's just see equations by that you will get to understand more okay good so throughput of slotted aloha is basically g into e power minus g is this okay to everyone which is probability of x being one right
+
+226
+02:11:38,960 --> 02:12:28,810
+Now if you want to consider the maximum throughput you can differentiate this particular quantity with respect to G I mean you want to check that okay at what value of G it will be maximum then you can you can see that at G G equal to 1 okay so at G equal to 1 it is maximum if you differentiate it you will find out that at G equal to 1 it is maximum okay now now here what is this G G is
+
+227
+02:12:29,150 --> 02:12:59,190
+average number of frames, the system is generating per slot, right? Isn't it very logical that if G is 1, which means on-on average system is just generating 1 frame per slot, then we are getting the maximum throughput. Isn't it little bit intuitive also? That if system actually generate, if system actually generate 1 frame on-on average, sometimes 2, sometimes 0, sometimes 3, like that, right? But 1 frame on-on average, then we are getting the maximum throughput. Okay? If system is generating,
+
+228
+02:12:59,750 --> 02:13:33,980
+Let's suppose G is greater than 1. I don't think it is a good idea to have G is greater than 1, right? Then it means the system is overloaded, which means system is generating more than one frame per slot. System is overloaded. Obviously the throughput will decrease. If system is underloaded, system is underloaded, then slots will definitely get waste, right? Some slots might get waste, throughput will definitely get decreased at that point or time also. So let me just show you one graph here. So as you can see from this graph, which is saying,
+
+229
+02:13:34,790 --> 02:14:02,240
+which is saying that if you are having, if you are having g equal to 1, what is this g? g is system, how much system is generating? if system is generating only one frame at one time, okay, oh sorry, only one frame in one slot, oh no average, okay, this is average, oh no average system is generating only one frame, then I have the maximum throughput, right? I have the maximum throughput, okay, if system is generating too many, too many, obviously your throughput will decrease, right?
+
+230
+02:14:02,540 --> 02:14:32,100
+obviously throughput will decrease if system itself is not generating anything then the throughput will anyway decrease if if I want to increase the throughput then I need I need to ask the system to generate more frames right if it's generating less so more more more more more and the moment on average it started generating more than one then then again the throughput will decrease okay so anyway this is a this is a plot of I mean mathematically this is a plot of G into G into e power minus j okay
+
+231
+02:14:32,390 --> 02:15:00,790
+I mean this g into e power managing plot will look like this is this okay to everyone little bit maybe you have understood that how how we are doing this okay cool so the maximum throughput is basically a g equal to one and the value if you put plug in this g equal to one here the g equal to one here the maximum throughput you can get is one upon e or 0.36
+
+232
+02:15:01,520 --> 02:15:32,620
+okay or 37 I mean whatever you want to say so 0.368 is the maximum throughput you can get in aloha right as you can see this is a screenshot from forojan so what they are saying that through it can be proven that average number of successful transmission of the slaughtered aloha as is this the maximum throughput so basically this is successful transmission that's why we call it throughput right because of successful
+
+233
+02:15:32,920 --> 02:16:01,440
+We call it throughput just because the successful word is written here. So the maximum throughput is this much when g equal to 1. In other words, if one frame is generated during one transmission time, then 36.8% of the frames reach their destination successfully. We expect g equal to 1 to produce a maximum throughput because the vulnerable time is equal to the frame transmission time. Therefore, if a station generate only one frame in the vulnerable time, okay? So basically in one slot, if there is only one transmission,
+
+234
+02:16:01,930 --> 02:16:27,550
+and no other station is generating any other frame, then the frame will reach to the destination successfully. So in Aloha, 36.8% is 36.8% are the frames which will reach finally to the destination. Can I say this? Or there is some modification which is required. Can I say directly like this? In Aloha, the 36.8% frames will reach to the destination? No. I need to say
+
+235
+02:16:27,920 --> 02:17:26,770
+I need to say maximum 36.8 percentage frames will reach to the destination given that if if if g is 1 if my system is generating only one frame on average per slot or per transmission time then yes then then 36.8 percentage of the frames are reaching to the destination finally so maybe i can write it like this that this is two or false question that in aloha then what is your answer two or false
+
+236
+02:17:29,090 --> 02:18:25,900
+This is no because I'm I'm saying always right in a law always then it is false Yes, it is it is not very good, right? You're right. It is not very good. So by the way, it is also no it is also no 36.8% is not always. Let me just ask you another question then Then this is true or false then this is true, right maximum This can happen at max this can happen Okay, let me ask you another question. Let me ask you another question
+
+237
+02:18:26,220 --> 02:19:37,140
+the 36.8 percentage frames reach to the rest of it successfully given that system generates generates two frames two frames in two treaty time tell me yeah so i was just trying to confuse you here i'm have i given you directly g g i am not given you directly right i'm just saying that two frames in two treaty time i have given you so you can calculate g right
+
+238
+02:19:37,430 --> 02:20:27,370
+after calculation what is the g that you are getting you need to calculate g right so what is the g you are getting you can say the g we are getting is one right yeah so g is one here hence we can achieve maximum throughput in slotted okay okay i hope that is fine now let's just solve this question let g be the rate total rate i mean you know what is this right okay what fraction of slots goes empty
+
+239
+02:20:27,860 --> 02:21:05,520
+I mean, it means the probability that slot is getting empty. What fraction of slots goes empty? Fraction of slots means out of total selects, total slots, it is a wasted slots. Sorry, not wasted. No one is transmitting, right? Wasted means college also. So what is the answer here? Yes. So you can calculate the answer. This is same as probability of x being 0, right? If you remember, if you recall, this is e power minus e.
+
+240
+02:21:06,010 --> 02:21:38,270
+Okay, I mean you can obviously you don't need to buy hearted but you can recall that this this was e power minus g do you recall this can anyone recall x equal to 1 What was that g into e power minus g right? If you recall, okay, I mean we can definitely calculate using the formula but still e power minus g right e power minus g Now, okay, so there are two parts second part is that what fraction of slot goes empty when system is operating at just maximum throughput
+
+241
+02:21:38,800 --> 02:22:13,320
+So they are asking the same thing, but they are saying when system is operating its maximum throughput, then what is the answer? It means indirectly what they are saying, indirectly they are giving you G. So what is the G they are giving you? G is 1. Maximum throughput in alloa means, in slot at alloa means G is 1. So here, if G is 1, then what fraction of slots are actually going empty, then one upon E. Anyway, easy question, I hope you understood. Now, let's just solve this question. So what they are saying?
+
+242
+02:22:13,860 --> 02:22:48,140
+a slaughtered aloha has packets both new and retransmission you can ignore this arriving at the rate of 50 per seconds packet take 40 milliseconds to transmit can you tell me what is the value of G? this is the MIT question just tell me what is the value of G? what is G? how many packets per slot or per transmission time right? so in one second they are saying in one second you are sending 50 packets right?
+
+243
+02:22:48,480 --> 02:23:20,590
+I'm at 50 per second. Yeah, 50 packets. So in one millisecond, or maybe, okay, you can directly calculate 40 millisecond, but in one millisecond, you can divide 50 by 1000, right? In one millisecond, if in one second, these many packets are coming, then one millisecond, you can say these many packets are coming, and in 40, right? In 40 milliseconds, how many packets are coming? 50 divided by 1000 into 40.
+
+244
+02:23:21,350 --> 02:24:00,910
+So, that's how you can calculate G. So, it is coming out to be 2, right? So, G is coming out to be 2. Is this fine to everyone? How you are calculating G? Okay. So, let's just see this. 2 packets per slot. Okay. So, what is the probability of success during a slot? Which means, what is the probability of success means what? What do you think? Can you solve this B and C? Just try to solve this B and C.
+
+245
+02:24:01,290 --> 02:24:52,610
+This C is actually even more interesting. Okay. This question is from MIT. Do you want to solve this or do you want to solve this after a break? Okay. So maybe we can do this question now. So what they're asking, what is the probability of success during a slot? So what does this mean? Probability of success means when we see success, then whenever we are having the successful transmission, then it means that exactly one frame is being sent, which means x equal to one. Do you remember it?
+
+246
+02:24:53,500 --> 02:25:33,170
+I mean, if you don't remember, you can definitely calculate using the formula, right? You just put this lambda hg and kh1. So if you put it, then you will be getting g into e power minus g, right? Is this okay? Now, what is the average number of slots per successful, per successful transmission? This is interesting. So let me just go to the next page and let me just try to explain you that what does this mean? See, the probability
+
+247
+02:25:35,620 --> 02:26:07,040
+of success is maybe anything maybe g into e power minus g right g is given to be 2 so it is 2 into e power minus 2 okay the probability of success I mean there will be successful transmission with this probability right that is what is given to you now what they're asking is what they're asking is that what are the average number of slots okay per successful transmission let's suppose if I say let's suppose
+
+248
+02:26:07,280 --> 02:26:38,530
+that zero point zero point two is the probability of success. Then what does this mean? It means that there is. Useful slot. Okay. Useful slot out of all slots. Okay. I mean, zero point two is the fraction of slots, which are useful, which actually got a success. Right. Okay. So what they're asking, what is the average number of slots per successful transmission? Means they are saying that you will get a success with this probability, which means that that.
+
+249
+02:26:38,980 --> 02:27:08,250
+there are let's suppose many frames many slots then this slot will be successful with what probability with 0.2 probability let's suppose okay with 0.2 probability this slot will be successful now now I'm asking that I'm asking that what is the number of slots to make sure that you get at least one success okay see let's suppose I say that 0.2 is the probability of head okay so what
+
+250
+02:27:08,540 --> 02:27:48,620
+How many times do you need to toss such that you get at least one head or at least one success? 1 upon 0.2. Do you remember this? Do you remember this? We have done it, I think, two, three times in computer networks itself. Do you remember? The probability of success is something. Then number of trials needed for that success is 1 upon p, right? Then number of, expected number of on an average. So you can say average number of trials or expected.
+
+251
+02:27:52,190 --> 02:28:24,980
+number of trials needed to get success is one upon the right. This is expected number of trials to, uh, trials needed to get a success. So here what I'm saying that probability of success, which means that there will be a successful transmission in this particular slot. So how many slots you need such that you are a hundred percent sure. I mean, on average, obviously that on average, you are a hundred percent sure.
+
+252
+02:28:25,300 --> 02:28:55,720
+or let me know to use this 100% word. So on an average, on an average, you will be making, you're saying that, okay, there is, there is successful transmission. So basically what I'm trying to say, if 0.2 is a probability, if 0.2 is a probability of saying that this slot will be successful, which means, which means out of one, two, three, four, five, out of five slots, how many slots are successful? Once a lot is successful. Okay. Out of five is successful. So if you need to make sure that one is successful,
+
+253
+02:28:56,090 --> 02:29:14,150
+then at least how many you need five five slots you need to make sure that one is successful okay that's what they're asking average number of slots or the number of slots per successful transmission to make sure that there will be a success you need one upon one upon this particular probability probability of success
+
+254
+02:29:14,890 --> 02:29:47,090
+Okay, so if the probability of success is given to you that's okay in in sort at a lower they say that okay probability of success is something then if they ask you that how many slots you need to make sure that there will be a success these many slots I mean one upon these many slots right so you see the answer one upon these many sorts so basically 3.69 slots are needed to make sure that there will be a success in at least one of the slots I mean in one of the sort actually okay so on an average you need
+
+255
+02:29:47,380 --> 02:30:13,850
+you need approximately four slots to make sure that there will be a success. If the success probability is 0.27, if this is a little bit understood, what I'm trying to say, if the success probability is given to you and if I ask you how many slots are needed to make sure that there is a success, then on average you need 3.69 slots to make sure that there will be a success. So maybe you can understand this question now.
+
+256
+02:30:16,910 --> 02:31:00,990
+Yeah, if we yes, that is correct. So if we want that, okay, this is basically one success per success, right? I mean, just for one success, for one successful transmission, we need 3.69 slots. Yeah, for 10 successful transmissions, we need 10 into 3.69 slots. Yeah, that is correct. Okay. Now,
+
+257
+02:31:01,900 --> 02:31:30,220
+I mean, I have a question, I think on the next slide or from next to next slide. Okay, this is I think a little later. I have exactly this question. Okay, that question was from Berkeley University. They asked exactly same thing that if some station wants to transmit 10 frames successfully, then how many slots it will be needing on average? Okay, that is a good question. We will solve it. Okay, I mean, now you will be able to solve it. Actually, this is just extension of this question and we have we have just solved it now.
+
+258
+02:31:30,500 --> 02:32:02,610
+okay you just need to multiply by the n if you need to send n and frames so actually we have already done this particular type of analysis that okay how this one upon p is coming should i drive this again this one upon p if you remember the expected number of times i mean the success probability i mean let's suppose had probabilities p with p it can be had with one minus p it can be tail right then expected number of tries to get had or something like that so here
+
+259
+02:32:02,910 --> 02:32:25,620
+just one trial here 1 plus e right so if you recall then we did okay not needed right so we need we did e equal to p in p plus 1 minus p into 1 plus something like that right from here e was coming out to be 1 upon p we did it in probability in the computer networks also we did it right okay so that's all for this lecture
+
+260
+02:32:25,900 --> 02:32:49,080
+Now, we will continue this aloha and we will solve many gate, not actually only two or three has been asked. So we will solve those PVQs. In last 40 years, only two or three PVQs has been asked. So we will solve those PVQs also. Actually, this Poisson distribution, now you think it was needed to understand Poisson distribution? Or I could have directly told you the formula of the throughput, which is G into e power minus G.
+
+261
+02:32:50,360 --> 02:33:18,600
+See, if I directly tell you the formula, then you might not be getting the crux of this particular topic, right? That G, it is not important maybe to know that how G into minus G, the throughput is coming, but it is important to know for many of the question, for maybe this question, for maybe earlier question we have solved, right? So if I just tell you that, okay, this is nothing but the probability of X equal to one, then it helps a lot, right? I mean, people understand that, okay, this is a throughput. They directly, they will directly tell you that this is a throughput, but it is
+
+262
+02:33:18,910 --> 02:33:46,890
+if it is not you know not understood that okay this is nothing but the probability of x equal to 1 and what is the probability of position distribution I mean this little bit connection is not there then you will struggle a lot in the questions okay now we will solve many many questions and you will be convinced that this particular position distribution formula that I have shown you it was actually needed okay yeah yeah no one yeah that is true Akash that that it will not be found that much easily
+
+263
+02:33:47,450 --> 02:34:10,990
+Okay. So anyway, we will be continuing with the gate P by Q and a few other university very, very good question from MIT from Berkeley University. Okay. For this topic, I have referred MIT and Berkeley University's assignments. So we will solve them, right? Okay. So we will continue in the next lecture. So this question that we have solved was from MIT. So thank you everyone. Take care. Bye bye.
+

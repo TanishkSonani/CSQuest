@@ -11,7 +11,7 @@ for(const course of subjects){
  const base=path.join(platformRoot,'courses',course.id);
  const [{units,lecturePlans},{lessons}]=await Promise.all(['curriculum.js','lessons.js'].map(file=>import(pathToFileURL(path.join(base,'content',file)).href)));
  require(Array.isArray(units)&&Array.isArray(lecturePlans)&&Array.isArray(lessons),`${course.id}: invalid content exports`);
- for(const unit of units)if(unit.codingLab){const lab=unit.codingLab;require(lab.optional===true&&lab.unitId===unit.id&&lab.language==='C11'&&Array.isArray(lab.answer)&&Array.isArray(lab.hints)&&lab.hints.length===lab.answer.length&&Array.isArray(lab.tokens)&&lab.answer.every(a=>lab.tokens.includes(a))&&checkCodingLab(lab,lab.answer).correct,`${course.id}: invalid optional coding lab for unit ${unit.id}`);}
+ for(const unit of units)for(const lab of [unit.codingLab,unit.sqlLab].filter(Boolean)){require(lab.optional===true&&lab.unitId===unit.id&&['C11','SQL'].includes(lab.language)&&Array.isArray(lab.answer)&&Array.isArray(lab.hints)&&lab.hints.length===lab.answer.length&&Array.isArray(lab.tokens)&&lab.answer.every(a=>lab.tokens.includes(a))&&checkCodingLab(lab,lab.answer).correct,`${course.id}: invalid optional coding lab for unit ${unit.id}`);}
  if(course.status==='available'){
   require(units.length&&lecturePlans.length&&lessons.length,`${course.id}: published course has empty content`);
   require(lecturePlans.length===(course.publishedLectureCount??course.lectureCount),`${course.id}: curriculum does not cover the declared published topics`);
@@ -30,8 +30,14 @@ for(const course of subjects){
    require(grade(question,answer),`${course.id}: ungradable answer in lesson ${index}`);
   }
   if(course.status==='available'){
-   const transcript=JSON.parse(await fs.readFile(path.join(base,'data/transcripts',lesson.lecture+'.json'),'utf8'));
-   require(transcript.sourceCompletedAt&&transcript.segments?.length,`${course.id}: lesson ${index} lacks a completed source transcript`);
+   if(lesson.contentStatus==='inferred-title-only'){
+    const inventory=JSON.parse(await fs.readFile(path.join(base,'data/source-analysis','inventory.json'),'utf8'));
+    const row=inventory[lesson.lecture],stem=row?.transcriptStem||path.parse(row?.file||'').name;
+    require(stem&&await fs.access(path.join(base,'data/source-analysis','transcripts',stem+'.skip')).then(()=>true,()=>false),`${course.id}: inferred lesson ${index} lacks an explicit skipped-source marker`);
+   }else{
+    const transcript=JSON.parse(await fs.readFile(path.join(base,'data/transcripts',lesson.lecture+'.json'),'utf8'));
+    require(transcript.sourceCompletedAt&&transcript.segments?.length,`${course.id}: lesson ${index} lacks a completed source transcript`);
+   }
   }
  }
  console.log(`${course.id}: ${course.status}, ${lecturePlans.length} covered recordings, ${lessons.length} levels validated`);

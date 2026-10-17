@@ -1,0 +1,360 @@
+1
+00:01:34,190 --> 00:02:04,800
+Hi, everyone. I hope you can hear me, right? Okay. So how are you doing? Yeah. Hi, everyone. Welcome to go classes. Cool. Let's get started. So have you watched the previous lectures? All of the lectures have you watched the pointer summary and everything? Have you watched pointer summary lectures that I have uploaded? Like I, I recommended, I recommend that those lectures to watch, even though you have got everything in the pointers, but still I recommend.
+
+2
+00:02:05,160 --> 00:02:37,220
+Okay, so just watch the ponder assembly lectures also. Hello, Vivek. Okay, let's get it started. So I think this question we have already solved in the lectures. So this question number two is also done. Three is also done. Yeah. Sure. So let's get it started with question number four. So what is the answer here? I think we did it right. Memory leak. So this is memory leak. Okay. Yes, Ayush. Here also we have the memory leak, right?
+
+3
+00:02:40,540 --> 00:03:17,390
+So in all of these questions, we just need to find out whether it is memory leak or dangling pointer. What about this? So do you remember solving this question? I think I have solved this question also. So what about this? This is memory leak or dangling pointer. You are basically saying that P is pointing to some block and then Q is also pointing to that block. And then you are saying that free P, which means whatever this is pointing to, let's just free this up.
+
+4
+00:03:17,630 --> 00:03:56,160
+and then you are doing star cube which is which is not good right so that's why it is a dangling pointer okay what about this tell me so here what is happening yeah that is very good program I think what is happening that a is the local variable inside this foo is a local variable inside this foo and then what we are saying that q is a global variable okay q is a global variable and I am saying q is a address of a which means
+
+5
+00:03:56,460 --> 00:04:27,470
+inside this foo wherever a is q should be pointing to that q should be pointing to a and now now once this function called returns now this will get destroyed and then i'm saying star q equal to five is this a good idea do you think it's a good idea so so in this case it is also it is also a dangling pointer right so this is a dangling pointer based on the stack and that was the dangling pointer based on the heap
+
+6
+00:04:27,670 --> 00:04:58,150
+I mean your heap memory got freed up and then Q is still pointing to that, right? So this was the heap memory of 8 bytes that got freed up and then Q is still pointing to that, right? So star Q equal to 5 will be a problem here. Now, if you see here that there's a stack memory that got freed up or that got vanished and then this Q is still pointing to that stack memory that got vanished. So that's why it is a problem. I mean, if you do a star Q, it is a problem. Okay.
+
+7
+00:04:58,460 --> 00:05:29,040
+Let's see this question number eight, which is a very, very good question. Have you tried solving it? Okay. Anyone here who has tried solving it? I'm not asking for the answer. Don't worry. Just let me know if I've tried solving it. Okay. Mansi Katyaar is saying that she has tried solving it. Cool. So let's, let's see this question. So consider the C program for fragment, which uses the following function. So there is a C program, which is using the following function, right? This foo. Now foo can be implemented in various following ways.
+
+8
+00:05:29,380 --> 00:05:54,730
+All pieces of code are identical except for their use of the free. Each of them may be correct or they may have a memory leak or dangling pointer or both. Use it to specify an answer to the complete program which include the combining the main function with the specific implementation of foo, which means this foo implementation is given to us. I mean this main function is given to us and there are various foo implementations in the next slide. So see here.
+
+9
+00:05:58,870 --> 00:06:28,200
+Okay. So there are various of who implementation. This is this is one P1. This is P2. This is P3. This is P4. Right. Like that there are there are four. We need to check whether this P1 along with this main function. Okay. Which means this particular thing is this creating any, any memory lego dangling pointer. Just let me know. So what is happening? Just listen here very carefully. Let's do it step by step. Right. So maybe we can do it step by step. Okay. So
+
+10
+00:06:28,970 --> 00:07:25,590
+this is P1 now what is happening here let me just remove sorry let me just remove this P2, P3, P4 let's just focus only on P1 okay so what is happening just tell me if there is any dangling pointer or there is some issue with this P1 or memory leak or something okay there is a main function and you are using this P1 alongside of the main function so what is happening this you are calling this foo
+
+11
+00:07:25,790 --> 00:08:01,360
+Inside this foo, there is a local variable that is OK. And then we are calling this copy. Copy is doing one thing. So let me just make the activation records. So this is a main activation record. Here you are having a pointer P. This is a foo activation record. Here you are having a variable A. And there is another variable B. This is copy activation record. Here you are having
+
+12
+00:08:03,180 --> 00:08:34,660
+a local variable SRC a local variable DHT and that's all now this you're calling with this P okay now this is containing three and then you're calling here this is pointing to SRC is pointing to A and now you're saying that this is pointing to some block of memory okay this is pointing to some block of memory let's suppose this is this block of memory is in heap and then I'm saying that
+
+13
+00:08:34,890 --> 00:08:56,610
+star dst star dst equal to star s src so what does this mean see does this line have any impact on memory leak or dangling pointer i think this line is just there to confuse you see star dst means wherever dst is pointing to i mean wherever this destination is pointing to here just write whatever this src is pointing to so here you write 3
+
+14
+00:08:56,920 --> 00:09:26,110
+actually this line is just there to confuse you in the sense that this line is there this is helpful but this line is not not helpful to determine the memory leak or dangling pointer or something right so basically I mean this line you can ignore for this particular question because you are just writing three here that is okay I mean that is not helpful much now you are returning DST so which means this B will be pointing to whatever DST is pointing to right and then this activation record will get vanished so there is a heap memory
+
+15
+00:09:26,510 --> 00:09:58,090
+and I'm still pointing to that so I think that is fine and then then this written this okay star b which means this is returning an integer star b star b means this is returning three okay not an issue so here you are at returning three and then you are pointing to null so I think there is a memory issue here a memory leak here what where is the memory leak because I'm not freeing up this this malloc
+
+16
+00:09:58,240 --> 00:10:25,130
+see there should be one to one correspondence between I mean wherever there is a malloc there should be the free so there is a malloc but I cannot see any free here there should be free because once you return this star b or b so let's suppose I think it is better to write b here okay it is better to write b here because star b is not a good idea so maybe I can just fix it cool
+
+17
+00:10:28,100 --> 00:11:01,400
+because you are actually catching that in the pointer so it is better to write b here and now which means p is pointing to p is pointing to whatever b is pointing to and then you are immediately doing p equal to null the moment you do p equal to null you are losing this right which means it is pointing to null which means nothing you are losing this without filling up if you do this then there is a memory leak have you understood this so p1 is a memory leak right okay so i can say here here this p1
+
+18
+00:11:03,290 --> 00:11:40,340
+is memory leak is there a dangling pointer here there is no dangling pointer dangling pointer means you are pointing to something you are pointing to something and which has been freed up and then you're doing star are actually I'm not even freeing up any any memory so there is no dangling pointer here okay now let's just see how this p2 is working so Ayush is saying at the end of the program won't always reclaim the memory anyway so yes it see like you I agree with you
+
+19
+00:11:40,540 --> 00:12:13,750
+that OS will be reclaiming but we should not be depending on the OS okay I mean it is OS OS implementation dependent most probably but actually the normal I mean the usual OS or the modern OS must be reclaiming the memory that I completely agree but we should not be depending on the OS that is what I'm saying right it is like OS dependent thing so we should not be depending on the OS as a programmer we should be freeing up the memory okay cool so now let's just go to
+
+20
+00:12:15,360 --> 00:13:05,210
+Yeah, hi Akshath. Let's just go to the program number two. Okay. So let's just see how this program number two is working and tell me if there's a memory leak or something here. So see what is happening. Again, I think you are calling this is a and I mean, there is a inside the foo, which is having three. And then there's a pointer SRC, which is pointing to this a
+
+21
+00:13:05,700 --> 00:13:30,860
+DST is pointing to some memory in the heap, right? This is SRC, this is DST and then you are saying free DST. Okay, you are freeing this up. Then you are returning this DST. Okay, which means B, here B is doing what? B is pointing to, whatever DST is pointing to. DST is pointing to some freed memory. That is an issue.
+
+22
+00:13:31,560 --> 00:13:55,170
+Are you getting this point? So after this line, B will be pointing, there is a B which is pointing to whatever DHT is pointing to. But DHT is pointing to some freed memory. Now, let's suppose you are doing, okay, you are returning star B. Should I keep it star B or B? That is my confusion. Let's keep it star B only, okay.
+
+23
+00:13:55,610 --> 00:14:32,950
+Let's keep it a star. Let's say that there is no issue. I mean, in earlier case also, we can keep it a star V. So star V is an integer, which is okay. Like I'm, I, I, I should be basically turning one integer at us, but that is okay. Let's not worry about the typecast and all. So if you do star V, right, then what will the answer. So B is still pointing here. And the moment you do star V, it is a dangling pointer. Yes. So this star V means it is a, I mean, it will create a dangling point issue. Right.
+
+24
+00:14:33,800 --> 00:15:13,590
+So, there was no problem with P1, I can say. Okay, and yeah, there was no problem or it was memory leak. Okay, P1 was memory leak. P2 is dangling pointer because of the star V. Now, let's talk about P3. In P3, what we are saying that you are pointing something and you are not freeing this up, right? Okay, let me just copy this P3 and let's just see what they're saying.
+
+25
+00:15:27,050 --> 00:16:24,960
+Meanwhile, can you tell me the answer? See what is happening? Inside this foo, there is A. Then inside this foo, there's a B. And then you are passing address of a SRC is pointing here. Destination is pointing to some heap memory, right? And then then you are returning. This is SRC. So let's not worry about this line. This is just confusing you. Now you are returning DHT. So this is pointing to the heap memory only.
+
+26
+00:16:28,260 --> 00:16:56,760
+Okay. Now you're freeing whatever B is pointing to, which means this memory will get freed. I think everything is free, right? And then you're returning star B. Yeah, that is an issue. So because after freeing the B, if you're returning the star B, that is an issue. So this is again a dangling pointer. Right. Let me check. Originally, actually I modified this code a little bit. So originally it was star B. Okay.
+
+27
+00:16:57,540 --> 00:17:29,880
+So, it is a dangling pointer, it is a dangling pointer, it is a memory leak, right? Memory leak, dangling pointer, dangling pointer. Similarly, you can check P4. P4 is also a dangling pointer, okay? You can check the P4. Cool. Maybe because after just filling up, I'm just using StarV. So, maybe because of that, it is a dangling pointer. Okay. Cool. Let's just see this question number nine. What they're saying, given this declaration, which of the following does not have a memory leak? Okay. So, let's just see which one of this is not having a memory leak.
+
+28
+00:17:30,110 --> 00:18:00,860
+so you are having two malloc you are having two free maybe it might not be memory leak but still let me check so ptr a ptr a is pointing to some memory of 4 byte ptr b is pointing to a different memory of 4 byte but star ptr this is 345 ptr b yeah this is a problem right this is a memory leak why it is a memory leak because ptr b will be pointing to whatever ptr a is pointing to so this memory this this this particular link get lost
+
+29
+00:18:01,150 --> 00:18:43,520
+Because of this line, it is a memory leak, right? What about this? Yeah, again, okay, let's just see this. PTR-A is this and yeah, because of this line, because of this line, it is a memory leak, right? Because now you're assigning PTR-A to some other value. So the link that PTR-A is pointing to, it will get lost. So because of this line, it is a memory leak. Let's see this. Yeah, PTR-A is pointing to 4 byte of memory.
+
+30
+00:18:44,880 --> 00:19:15,660
+Because if it could have been a star PTR-A, then it is not a memory leak. It is a PTR-A, right? Which means now I'm seeing the PTR-A to point to something else. 2.2, I mean PTR-A to contain the 345. If it is a star, then it is not a memory leak. Okay. So PTR-A is pointing here. PTR-B is pointing to some other memory. Now I'm saying this is 345. This is whatever the earlier thing was. See. Yeah, this is fine.
+
+31
+00:19:16,000 --> 00:19:50,050
+See, can you see the difference between A and C? What is the difference between A and C? Yes. So in this line, there is a difference. See, here I'm just saying that you put the value whatever the PTRH pointing to. But here I'm saying you point to whatever PTRH pointing to. So that's a memory leak, but this is not a memory leak. So this is fine. I mean, you are having 345 in both the places, then you are freeing this up. So this is fine. They are asking which one is not having a memory leak. So C is not having a memory leak. Let's see D. Now PTR A is pointing to some memory.
+
+32
+00:19:51,080 --> 00:20:28,110
+ptrb is also pointing to some memory ptra you write 345 here okay so this is an issue right so this will be having a memory leak because of this there is a memory leak yeah because now ptrb will be pointing to something else right see it is already pointing to some 4 byte of chunk and now you are asking it to point to something else so that's an issue okay cool now let's just see this tell me if it is a memory leak or dangling pointer
+
+33
+00:20:35,190 --> 00:21:12,720
+So, someone is saying that in B, it is also a dangling pointer. In B, generally we say dangling pointer only when we use a star. I mean, if you do not use this, then we don't say dangling pointer. So, if we use this star, then only there is a problem, then only we say it is a dangling pointer. Otherwise, we don't say it is a dangling pointer. So, what is the answer here? So, it is actually a very good question. Can anyone tell me the answer?
+
+34
+00:21:30,860 --> 00:21:57,190
+So see what is happening you are calling V function and then there is a PTR inside this V there is a pointer PTR but inside this block only right I mean this block is having some scope and outside this block this this X is not valid so PTR is pointing to X that is fine and now you are saying outside this block you are saying star PTR which which need not to be I mean this X might be destroyed
+
+35
+00:21:57,500 --> 00:22:36,190
+So there may be something else inside the activation record only that this function might choose to write. So if you access this X outside this block then it is not possible. I mean it need not to be there. So basically this star PTR will give you dangling pointer. Have you understood how? Anyone who is here who have not understood? See tell me after this block can you do printfx which means X is not valid.
+
+36
+00:22:36,670 --> 00:23:16,900
+outside this block x is not valid because x is within this curly braces so it means that star ptr and x are same because ptr is pointing to x so if you try to write anything to the x to that location then this is not valid okay that particular memory location where the x was present if you try to write anything there it is not possible i mean it may lead to the runtime error that's what i'm saying okay cool is this okay to everyone okay now let's just do this question
+
+37
+00:23:17,320 --> 00:24:32,310
+which code fragment produce a dangling pointer here so here you are calling f yeah cool so tell me what is the answer how first is having memory leak here you are returning the malloc memory into q p equal to address of q this is a memory leak right so this is a memory leak this is fine this is again a memory leak
+
+38
+00:24:37,890 --> 00:25:07,240
+So, actually, generally, I mean, and most of the questions, it is true, but here it is not like that, but let me just write like this. So, basically, like we say the dangling pointer only when we use that pointer, okay? I mean, let's suppose I use star p equal to 3. So, what is happening here? You are saying that p is pointing to some d. See, there is a f. Inside this f, you have d and p, which is inside the main function.
+
+39
+00:25:08,400 --> 00:25:41,390
+This is P. This is inside the F. Now P is pointing to this D. But this D has been destroyed. The moment you come here, this D has been destroyed. Now star P equal to 3 will be a dangling pointer. So that's why this is a dangling pointer. Let's see these cases. So here P is pointing to a 4 byte of memory. Now Q is also pointing to the 4 byte of memory. And now I'm freeing this up. So that's not an issue.
+
+40
+00:25:43,690 --> 00:26:17,420
+p is pointing to 4 byte of memory only I mean I have just asked it to return the 4 byte of memory address so p is pointing to 4 byte of memory and now p is again pointing to a different 4 byte of memory so that's why it is a memory leak right so it is a memory leak because p was pointing to 4 byte of memory now p is pointing to a different 4 byte of memory and what about this p is pointing to a 4 byte of memory q is also pointing to the 4 byte of memory
+
+41
+00:26:18,430 --> 00:27:03,170
+sorry Q is a integer and now I suddenly ask P2.2 this integer so this is again a memory leak beside that new line which is added in the previous question correct answer was none but sir the memory inside the F should be freed then the activation record is destroyed yeah we are returning the address of D yeah that has been destroyed that is the problem right that's why it is dangling pointer okay
+
+42
+00:27:03,450 --> 00:27:36,990
+so since it has been destroyed and p is still pointing here the moment due to star p it might lead to runtime error last option is very easy p is pointing to a 4-watt of memory i'm just returning the 4-watt of memory address now p is pointing to a different 4-watt of memory since p is pointing to the different 4-watt of memory that's why it is a memory leak immediately like without freeing this up you are you are you are passing p to point to something else so that's why it is a memory leak this is not the memory inside the f this is the memory inside the heap this is a mellow call
+
+43
+00:27:37,810 --> 00:28:13,610
+Okay, not a local variable. So this function will create a memory inside the heap. So even if this function returns that memory won't get vanished, right? Okay, so what is the difference between this and this? See, if you are having let's suppose f, a function, and let's suppose you have one integer here, you return address of D, which means something is pointing to, so let's suppose there is an integer pointer.
+
+44
+00:28:14,670 --> 00:28:46,100
+here inside the main that is pointing to whatever f is written this is the one program another program is let's suppose there is a f here you are returning directly you are returning the memory from heap 4 byte of memory from heap and there is a integer pointer which is pointing to whatever f is returning so what is the difference between these two here this if you do star p it is a dangling pointer here star p
+
+45
+00:28:46,360 --> 00:29:26,100
+is not an issue why because this malloc won't get destroyed okay i mean p is pointing to some memory from the heap but here p is pointing to some memory inside this function activation record which has been destroyed yes that is true okay so now let's just see this question number 12 is this a memory leak or a dangling point or none so there are two times of malloc calling star p something r equal to q so which means p is pointing to something
+
+46
+00:29:26,710 --> 00:29:55,380
+Q is pointing to something let's not worry about this star P and all I mean here I have 17 here I have 42 whatever let's not worry about it now r equal to Q means r is also pointing here let's ignore this star Q equal to 42 I mean if you want I can write it but okay P equal to Q means P will be pointing to okay that's an issue right that's an issue this is a memory leak so because of this this link break this is a memory leak and then you are freeing this up so because of this link break this is a memory leak so you can say P equal to Q is a memory leak
+
+47
+00:29:57,390 --> 00:30:54,670
+Because P was pointing to earlier something else and now no one is pointing here, right? Suppose I modify this program and I just ask you that what what if Hello, can you hear me or there is no audio? Okay, can you please confirm? I think I'm audible, right? Okay So let's suppose if I just ask you instead of R equal to Q I have R equal to P here suppose. Yeah
+
+48
+00:30:54,860 --> 00:32:03,980
+Now tell me is this a memory leak? So suppose this is a program. Is this a memory leak here? Just tell me. See P equal to Q, which means P will be pointing to whatever Q is pointing to. Okay, yeah, because of this line, this is a memory leak. R equal to Q is okay. No, yeah. Now tell me is this a memory leak? Let me just go step by step. So what is happening? P is pointing to some memory. Q is also pointing to some memory.
+
+49
+00:32:04,580 --> 00:32:35,390
+Now I'm saying R should point here and P equal to Q. Let me lose this link. Can I afford to lose this link? Tell me. See, currently this is the situation. Now I'm saying after this line R equal to P, this will happen and then P equal to Q. P equal to Q means after C, just see if I execute this line, this will get break and people start pointing here. Can I do this? I mean, is there a memory leak? Yes. Yes, Twinkle. That is correct. Since R is still pointing to that memory, so that's not an issue.
+
+50
+00:32:35,800 --> 00:33:23,840
+Now, I will say free R, which means you free this up, free Q, you free this up. So I think that's not an issue. So this is no issue here, right? Okay. Now let's just see this. P is pointing to some chunk of memory. And then I'm writing 42 here. Then P, I'm saying that, okay, just point to something else. So obviously it is a memory leak. Okay. Now let's just see this. Can you tell me why star is missing here?
+
+51
+00:33:24,290 --> 00:33:55,760
+Because P is a pointer, it accepts some address. This is not a star P. Right. Okay. I mean, here this initialization part, we write it just to tell the compiler, but don't consider this is a star. It is not a star P equal to malloc. Okay. Cool. So here again, we have seen this example, I think, as very first example, a set of examples. So if you notice inside the full loop, I'm doing again and again malloc, right? Inside the full loop, I'm doing again and again malloc. Now,
+
+52
+00:33:56,160 --> 00:34:36,750
+And then now I'm saying that free x, free x only one time. So that's an issue, right? See, I'm just again and again saying that, okay, x is pointing here in the next iteration, x is pointing here in the next iteration, x is pointing here. So I'm again and again losing the memory. So that is why this is a memory leak clearly. Now tell me this. There are two things. Oh, sorry, this is the same question, right? Yeah, that was a memory. This is the same question that we just did. So it is a Washington University question. So B is the answer here.
+
+53
+00:34:36,980 --> 00:35:09,970
+we just did that question okay let's see this are you able to see this particular font so here you have a struct node i mean this ptr is pointing to a size of a struct right so ptr is a pointer which is of type struct which is supposed to point to which is supposed to point to some struct so i have asked for the memory of some struct now i'm doing the address now i'm printing whatever is the address
+
+54
+00:35:10,550 --> 00:35:47,460
+Now I'm doing the free PTR. Now I'm doing the free. Now I'm doing the now I'm printing again. So what is the correct answer? Will it crash? This is very good question. This, this will make sure that you have understood the free or not. So I told in the, in the lectures, right? Free doesn't modify this free cannot modify this. Right. So, so what does free does free just freeze a way to tell compiler that okay to tell us that you can use this memory now. So basically PTR
+
+55
+00:35:47,890 --> 00:36:18,450
+If at this particular line, if PTR is printing this, I mean PTR is holding some address, then even after you do free, then also PTR is holding the same address. So it will print this. Why random? Why random memory address? It is just C. See PTI, whatever this is pointing, let's suppose this is 1000. Even after you free this up, so what does a free mean? I told in the lecture, does this modify this particular value? No, it doesn't make it zero, it doesn't make it some random value, it is still 1000.
+
+56
+00:36:18,930 --> 00:36:55,850
+What does free does free just is a way to tell compiler that you can use this that's free Dealing this no free doesn't modify this PTR free cannot modify this PTR. I told one example anyone remember that example See if you are passing let's suppose from the main function main function if you are passing let's suppose and Is there any way for this function to modify this end if you're passing five after this if I print the end is there any way whatever the function is
+
+57
+00:36:56,030 --> 00:37:30,960
+Can it change this end to be something else? Won't it always be 5? You're getting my point. So similarly, similarly, if you are calling this main function, inside this, you're calling let's suppose p is equal to some address, okay? Or whatever, the malloc or something, okay? And then let's suppose you are doing free p. So whatever this free does, can it modify this p? If you again do the printf, won't it be same as whatever it is printing here?
+
+58
+00:37:33,300 --> 00:38:12,280
+see this let's suppose you print here n what it will be it will be 5 then after this one it will be also 5 what is the way to change this n you have to pass this address of n right until and unless you are passing the address of n you cannot modify this n similarly if you want to modify this this free this p then then there should be some function where you are passing the address of p you cannot just modify like this okay so basically basically here
+
+59
+00:38:13,490 --> 00:38:43,330
+Here, it will print same as line 2. This is very good question. Okay, very good question just to make sure that you understood this free or not. So let's just see the answer. See his answer, right? Yes, yes, Karthik, that is nice. So when it will be, it might crash whenever you are using star PTR, right? PTR is not an issue. PTR is not an issue. Star PTR is an issue. Okay. Do you remember the SRK house example?
+
+60
+00:38:44,580 --> 00:39:19,570
+So PTA like it is like you have the address of the SRK and whenever you do star you're trying to enter So it is it is like not legal. So that is why it may crash So star PTR may crash, but this PTR won't be crashing. Okay, so it will print the same as line two. That is very good question. Cool Now, let's see this question which has been asked in gate. So let's see this question. So I think the options are on the next page
+
+61
+00:39:20,650 --> 00:39:50,380
+a compiler error compile successfully memory league dangling pointer just let's just analyze this what it is doing so there's a main function x is pointing to some chunk if it fails then it will be null right so let's assume that it is not failing if it fails and not an issue if it doesn't fail so x is pointing to some chunk of memory which is in the heap the 4 byte of memory right now okay see
+
+62
+00:39:52,430 --> 00:40:17,210
+agent data memory leak the moment you write x equal to anything it doesn't matter whatever the s n value is returning whatever it returns agent data memory leak the moment you see x equal to something else then at this at this the very moment you can see it is a memory leak oh it might not be memory leak reason being is that you are passing the x right so you may be returning the same thing let me just see so you are passing the x you are returning the x
+
+63
+00:40:17,880 --> 00:40:43,740
+Okay, so it is actually the usual as function I think right it is just setting this value 0 to this x so it will be 0 whatever x is pointing to so this is actually Very usual as I usually in the sense whatever what this function is doing. Let's just try to understand x equal to SNL x x comma 0 It is returning the same x first of all it is returning the same x whatever you're passing your returning So you are not modifying the x. Okay, you're returning the same x you're passing the x you're returning like
+
+64
+00:40:44,060 --> 00:41:13,500
+it is just doing this star x equal to value which means whatever x is pointing to wherever you just set this value value which means zero so it will be zero so SNL x comma zero whatever x is pointing to you you just put I mean you just make it to zero now if x again it is not null right so if x means if it is null then then it is it won't be passing see if it is null then it will be returning from here only so again this condition is actually useless because this will always be false
+
+65
+00:41:13,970 --> 00:41:46,100
+if it is true then it will be true here only right I mean see sorry this will be always be true why because x is not null x is not null if x is null it will be returning from here only so x is not null then so since x is not null so this condition is actually useless now what you are doing you are saying x equal to now x is pointing to something else okay currently this is a situation now x is pointing to something else
+
+66
+00:41:48,470 --> 00:42:19,680
+X is not the value of zero. Star X is zero. After this line, star X is zero. Star X is zero, not X is zero. Whatever X is pointing to, that is zero. Okay? Now you're saying X to point to something else. The moment you write this, this is definitely a memory leak. Then you're again checking whether it is null or not. Let's suppose it is not null. Then X is, now you're assigning here 10, right? I mean, you're just writing 10 here. And then you're printing, so it will be 10. So, and then you're filling up this memory.
+
+67
+00:42:20,030 --> 00:42:51,200
+so yes it is a memory leak and which memory got leaked this particular memory got leaked right so what is the answer here compile successfully but execution may result in a memory leak is this a dangling pointer tell me are you doing any star x after after the freeing up or something here no right so basically what is happening I mean it's very easy just go step by step to be honest it is easy once you do good practice so it is easy so x is pointing to some chunk of memory then
+
+68
+00:42:51,870 --> 00:43:35,310
+sn where x comma 0 it is doing what it is just asking star x I mean you can just replace replace x equal to this sn where x comma 0 this whole line with star x comma star x equal to 0 you can replace this whole line with star x equal to 10 right so see here let me just simplify this let me just replace few of the lines see can I replace this line can I replace this line with what
+
+69
+00:43:38,580 --> 00:44:16,770
+star x equal to 0, right? This is just star x equal to 0. Similarly, this line is just star x equal to 10. Okay, SNL is doing that much only. If you call this SNL, it is just setting this star x equal to 0, star x equal to 10. This fx is actually useless here. Okay, so that is why I'm removing that. And
+
+70
+00:44:17,110 --> 00:44:46,800
+In fact, I'm all, I'm removing that all, all these if conditions, this is just checking whether X is null or not. So X is never null. I mean, let's suppose that mallocs is successful, even if it is not successful, it's not an issue. So basically this particular code, it just, it just these, these three lines of code. Okay. Even forget about this as n value, because now I'm not using as n value. So this particular code is just these three lines of code, this star X equal to zero. And then you're asking X equal to X to point to something else.
+
+71
+00:44:47,130 --> 00:45:36,180
+so obviously it is a memory leak right if you write write this line then you write star x equal to 0 then you ask this x to point to something else then obviously it is a memory leak so just look at these three lines three or four lines let me know if you have understood these three four lines okay okay cool okay so this is a memory leak okay was it tough question tell me honestly
+
+72
+00:45:36,540 --> 00:46:07,660
+if you do it honestly with you know a piece mind i don't think it is a tough question it is just a g-question right i mean you just need to execute line by line yes now let's just solve this question this is a very interesting question they're asking which of the following function are likely to cause problem with the pointers which means dangling pointer kind of issue okay i likely to cause a problem with the pointers see
+
+73
+00:46:10,150 --> 00:46:41,850
+Yeah, this P1 is generated likely to cause an issue with the pointers. If you use this address of x anywhere else in the main function, then it will be an issue, right? So P1 is an issue. What about P2? I don't think P3 is an issue. Sorry, P3. Is P3 an issue? I don't think P3 is an issue because you are asking from the heap and then you are saying that, okay, let me write 10 here and then let me just return this address. So that's not an issue. No issue here. What about this?
+
+74
+00:46:43,460 --> 00:47:16,110
+This is an issue, right? Clearly this is an issue. Why? Because Px is uninitialized. You are not initializing. So Px is having some random or garbage value and then you are saying that you go to that garbage location wherever this Px is pointing to and then write 10 here. Is this a good idea? So this star Px equal to 10 is not a good idea, right? So that's why this is an issue. So basically, because of this line, this is an issue. Okay, here you're returning the local variable letters, this issue. So
+
+75
+00:47:16,450 --> 00:48:00,250
+What is the answer here? C is the correct answer, right? Is this understood to everyone? Easy question only. Now, they're asking likely to cause problem with the pointers. They're not asking about the memory leak, okay? And you're still having, it is not even the memory leak, you're still having the address of PX, sorry, address of this memory. Your PX is still pointing here. In the main function, you can free this up, right? Okay, cool. So answer is D.
+
+76
+00:48:11,600 --> 00:48:51,380
+I think this is a misprinting most probably. Answer should be C. Can anyone quickly check it? Just type on Google get 2001 which one of the following are likely to cause with the pointers. I think it is C. Maybe I just copied the previous one. Okay. Cool. So let's see this question. This is quite a tough question. I can say our very interesting question also. So do you want to try this question as an homework because I have the solution on the next page. So here you have a
+
+77
+00:48:52,010 --> 00:49:57,400
+2d array of pointers okay it is d only p3 is having issue with the pointer okay it is c only right okay i think it is c we can debate it later most most probably it should be c okay so just try this question as an homework this is one optional question i can say okay optional question this is quite a tricky this could be a quite a tricky question here because here we are using
+
+78
+00:49:58,140 --> 00:50:32,080
+a 2D array of pointers. This is a 2D array of pointers. Okay. So there's a 2D array of three cross three. Each one is pointing to something. Okay. Each one is pointing to some strings. So this is a 2D array with the pointers. So you can see the solution on the next page. Just try this question. Okay. This is again an optional question. Cool. Let's try solving this. Or maybe let me go to some interesting questions. So these kinds of questions actually we have solved.
+
+79
+00:50:32,330 --> 00:51:05,370
+you can try this question as an homework I think okay yeah let's do some struct type of questions so suppose there's a main function which is which is basically having one struct my pt and this is having one two so there's even a struct one and two this is having one two now I'm I'm sending this struct in change x1 then it is saying pt dot x equal to 11 so what will the value of pt dot x after it
+
+80
+00:51:06,770 --> 00:51:40,960
+Have you seen the extract videos? See, this mypt, if you're calling with the mypt, inside this change x1, there is a local variable which is pt, right? So, inside this local variable, you are changing, inside this local variable, you are changing that to 11. So, basically whenever you are calling mypt, I mean whenever you are calling like this mypt, so you are passing this mypt to this pt, isn't it?
+
+81
+00:51:41,230 --> 00:52:26,530
+maybe i can go to the next page and i can explain you what i'm saying here is that see whenever you are passing the extract it is just like a local variable so this mypt is one extract that you are passing right so inside the change x1 everything will get copied so which means every value will get copied this is inside the change x1 so here what will get copied 1 and 2 and this is pt now pt.x is 11
+
+82
+00:52:26,820 --> 00:52:58,200
+now you are returning right and I mean you are not doing anything then you are asking ypt.x so inside the main function there is a mypt which is having one two yes so what is mypt.x it is still one I mean you are changing this pt.x to be 11 but it is inside this change x1 okay but let's just see let's just see this this thing so here you are passing the address of mypt which means there's a main function inside the main function
+
+83
+00:52:58,850 --> 00:53:29,880
+you are having one to my pt this is main function and then you are asking here it is a pointer okay here it is a pointer you are asking you are you are passing the address of my pt which means there is a pointer pt it is pointing here to this struct now pt whatever pt is pointing to of x is 33 now you are asking that to be 33 so what was the answer this is 33 right and then then you are again doing the same thing and then my pt.x so
+
+84
+00:53:30,280 --> 00:54:14,950
+I think this is same as the arrow. So these two are same, right? So what is the answer here? 44. So if you have not watched the extract lecture, then once you watch it, then you can understand it. Okay. Cool. So maybe you can try solving this particular question also, but before that was the extract lectures. Okay. So here, okay, see what is happening. Let me just tell you P1 is having 00. P2 is having 12, right? So this is P1. This is P2. This is inside the main function.
+
+85
+00:54:15,310 --> 00:54:54,510
+then you're passing the addresses of this now there is a bar so p1 so here there's a pointer p1 which is pointing here there's a pointer p2 which is pointing here right now i'm saying p1x p2y so p1x is 0 p2y is 2 p.x what is p okay i think i forgot to write there is a global variable also
+
+86
+00:54:58,650 --> 00:55:32,510
+Yeah, that is a P. This is a P. P dot x equal to 5. Now I am saying it is 5. It is 6. That is a local variable here. So this P, here these are the three things. There are three variables P1, P2 and P. So P1, P2 are pointing here and P is again a struct which is like this. So this is having x and y component. It is 5 and it is 6. Now I am saying star P2. Star P2 means this is one struct.
+
+87
+00:55:32,760 --> 00:55:59,450
+this one struck so that should be exactly equal to p which means this should be five this should be six okay now i'm saying p1 equal to address of p p1 is pointing to this particular i mean that won't make any any sense but that is okay so you have replaced that to five six cool now you're printing so what is the answer yeah that is a good question so p this will be zero zero this will be five six okay
+
+88
+00:56:00,180 --> 00:56:29,640
+Cool. You once solve, you once watch the extract lectures, then you can solve this particular question. Okay. Yeah. Let's see this question. Maybe the solution is on the next page. But if you want, you can try this, this question also, but once was the extract lectures, okay, then try this question also. So once was the extract lecture, then these are the smallest questions, you try them out. Cool. Okay. That is all I wanted to discuss here.
+
+89
+00:56:29,920 --> 00:57:02,940
+And I will be taking one more session, one or two more sessions for the C programming, just small, small sessions like that, and where we will be solving more questions, okay? I want to make sure that everyone understood everything, okay? So that is all for today's session, I think. Let me know if you have any doubt. Yes, Twinkle, please tell me. Okay, from 2D arrays. Maybe you can, actually, this is a little hard topic. 2D arrays, I mean, little confusing probably. You can watch that lecture again if you are still having some doubt.
+
+90
+00:57:03,270 --> 00:57:33,370
+and then you can ask me or you can directly ask me I mean I don't have an issue okay the bench yeah sure okay so Twinkle can you just message me your doubt on the telegram okay so thank you everyone take care bye bye
+

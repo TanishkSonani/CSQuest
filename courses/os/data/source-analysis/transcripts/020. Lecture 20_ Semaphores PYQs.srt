@@ -1,0 +1,864 @@
+1
+00:11:23,730 --> 00:11:54,520
+Hi everyone. Sorry for the delay. So let's get started. Okay. So in the last class, we were discussing about the semaphore, right? Cool. So what we have understood from the last class is that there are two atomic operations on the semaphore. Atomic means that you cannot, I mean, even if you're interleaving, then then also like, I mean, atomic means that like, let's suppose there are certain, certain instructions. If I say that these set of instructions are atomic, then what does this mean?
+
+2
+00:11:54,900 --> 00:12:28,130
+it means that if you are executing any other instruction right in between that I mean you can execute as long as those instructions are not related to this which means that that interleaving could be possible if there's a software code okay so let's suppose that these these are the two two set of instructions which I say these are the related to each other right I mean yeah so basically if we are writing the software code then maybe the interleaving is possible
+
+3
+00:12:28,450 --> 00:13:04,520
+and if you are saying that okay you are disabling the interrupts then the interleaving might not be possible but atomic here means that it is not the case that you are interleaving with the same critical section okay so maybe it will be clear don't worry so let me just continue that what we were talking in the last lecture just a second yeah so we were saying that in the semaphore we were saying that we have p and v two operations right now like
+
+4
+00:13:05,490 --> 00:13:33,750
+What does this P do? So we talked about this P and V. So what does this P do? P is saying that if something is already zero or negative, then I won't allow, right? S is non-zero, then only it will allow. If it is zero or negative, then I will not allow. So I think I have talked about this particular slide, right? So I hope you remember this. So that's all you need to remember in the semaphore. So that's very easy concept, which is saying that if the semaphore value is already...
+
+5
+00:13:35,340 --> 00:14:06,570
+it is saying that if the semaphore value is already negative or zero then p won't allow or for the v it will always allow right it will always allow so always pass always increment this s okay good now let's just continue that i think we were talking about uh some of the quotients right okay so basically if this is less than equal to zero you will say you will not allow not allow means that you will you will wait
+
+6
+00:14:07,080 --> 00:14:39,090
+So now there are two options to wait. So what you can say that there are two options to wait. One is basically saying that you can directly busy wait. Okay. I mean, one of one of the option is saying that, uh, that you can directly busy wait, which means that you do not need to put in the queue. You can directly busy wait. Okay. If this is less than or equal to zero, then don't allow and just busy wait. Tell me is this a good option? It is not a good option. Right. I mean, you can do it, but it's not a good option. So, uh, that's for sure that it's not a good option.
+
+7
+00:14:39,740 --> 00:15:08,860
+but still like I mean rarely people do it so very rarely I mean extremely rarely people people does what that they're implementing the semaphore is still they're having the busy waiting but it's very rare phenomena I mean if you look at any standard book maybe I can just show you if you look at any standard book then whenever they talk about let's suppose I'm opening up their standard then whenever they talk about the semaphore they don't talk about the busy waiting okay
+
+8
+00:15:09,310 --> 00:16:04,820
+So the process synchronization should be here. Okay, they don't have the definition even. Okay, here it's so small that I don't think they have the definition, proper definition. I don't think they have, right? For the down and up. They're just saying down and up, but they're not defending it. Okay, they're just saying down. Okay, that's not an issue. Let me quickly check William's story.
+
+9
+00:16:17,010 --> 00:16:32,310
+Yeah. So this is the definition of semaphore. That's what they are saying that if it, if like they're first decrementing, I think this is same as the William Stolling, right? And then they're saying if it's less than zero, then put the place, the process in the queue. So basically this is the definition that William Stolling is having.
+
+10
+00:16:33,680 --> 00:16:57,320
+So in most of the books, like even in almost all the books, they do not have the busy way definition of the semaphore. So which means that if you want to implement the semaphore with this busy waiting, then also you can do it, but it's not a good idea. Is this a good everyone? I mean, you can do it, but it's not a good idea. So if you want to implement the semaphore, then it's a good idea to have cues.
+
+11
+00:16:57,830 --> 00:17:32,350
+So we will be having queue, although, although we don't need to, don't need to do all of these queue and all. So all we, all we just need to remember is this, but I'm just telling you that if you are implementing the semaphore, then you should be implementing with a queue. Is this a good everyone? I mean, you can do it. So maybe I can go to the slide again. Okay. So you can do it, but it's not a good idea. So that's what they're saying that in reality, weight and signal are not implemented as above.
+
+12
+00:17:35,240 --> 00:18:27,520
+Okay. Is this okay to everyone? Now, what does this galvin say? I mean, this is, this is the definition that we have. So the galvin is saying that if you want to implement, then, then use a queues. And what does this William Sterling says? So William Sterling is also saying the same thing that if you want to implement, then use a queues. So, actually, why I'm discussing this, because in the galvin, if you look at this galvin, then here, so here, what they did,
+
+13
+00:18:27,900 --> 00:18:53,200
+They are first, you know, defined it using the busy weight. So see, so they are saying inside the semaphore chapter, they are saying that inside the semaphore chapter that the semaphore is an integer variable and then they are having something like this. So they are saying that and then they are saying that this definition that we just talked about. So they are having the busy weight, but then they're immediately saying in the implementation part that recall the implementation. Okay, not this one.
+
+14
+00:18:54,440 --> 00:19:17,320
+So to overcome, yeah, the definitions of the weight and signal semaphore operation just described present the same problem to overcome the VIGI weighting, we need to modify the definition of weight and signal. And then they have modified the weight definition of weight and signal. So basically, I think they are motivating this idea. So they are first having this with the VIGI weight. And then they are saying, in the implementation part, they are saying that you need to modify those definitions.
+
+15
+00:19:18,190 --> 00:19:45,190
+Okay, so anyway, like if that is the conflict, which means that if the, like it won't be the case that answer will be different from the busy weight or the queue, if that is the case, then they should be mentioning it. Okay. So anyway, for our purpose, we will be just considering at all if required, actually it won't be required, but at all if it required, then we will be considering this queue definition only, okay, that we will be putting in the queue. So we will be considering this definition, right?
+
+16
+00:19:46,180 --> 00:20:10,470
+If at all it is required, otherwise it won't be required, which means that you will be just, you just need to remember this. It won't be required for you that, okay, you are using Q or not, but at all if it is required, then we will be using the Q definition. I hope that is fine to everyone. Okay. And now we were talking about few questions. Yeah, before the questions, we were saying that we have seen one huge of the semaphore.
+
+17
+00:20:10,770 --> 00:20:59,840
+So this question wants to convey one use of the semaphore. Can you tell me what is that use that I wanted to convey? Yeah. So I wanted to convey that semaphore can be used. So, so one thing I wanted to convey is that semaphore, semaphores can be used to enforce the ordering. Right. Okay. So I hope that is clear. Now how you are enforcing the ordering here. Let's suppose this is this is the semaphore, which is initially zero.
+
+18
+00:21:00,180 --> 00:21:22,550
+then what can you say that if you want to enforce this ordering that a2 should happen first and then b4 should happen then what you should be telling I think you can say that okay this b4 should be happening after a2 only so maybe you can have v here because the initial this is value 0 right so we can have v here and then we can have p here
+
+19
+00:21:24,820 --> 00:21:46,260
+Yeah. So if we are having P here, then, then it means that if you want to execute this before it cannot be executed because the initial value of semaphore is zero. Right. So it cannot be executed. Is this okay to everyone? Okay. So if, if you want to execute this, then P will block it because the initial value of semaphore is zero. So people block it. And now.
+
+20
+00:21:46,500 --> 00:22:15,700
+Now it will be unblocked only after this week. So if you if you write this be here and the P here, then you can solve this particular question. So basically semaphore can be used to enforce the ordering. This is one of the good, you know, use of the semaphore that people might be using it. Okay. So in many of the cases, people are using using the use of the semaphore to enforce the ordering. I hope this is clear. Now let me let me ask you one more question. Suppose suppose you have one process, right?
+
+21
+00:22:16,080 --> 00:22:51,280
+you have one process p and there is one process q right so let's suppose these are the two processes now now let's suppose this process is doing something this is let's suppose doing while one okay and then it is let's suppose printing print a and similarly similarly this process the process q is also doing the same thing but it is printing b it is printing b
+
+22
+00:22:52,430 --> 00:23:23,270
+Right. Okay. So my question here is that let's suppose I want to ask a question here about the ordering. My question here is that let's suppose I have one semaphore maybe maybe s. Okay. There is one semaphore s. You decide the value of semaphore. I'm not giving the value of semaphore. Maybe maybe take zero or one. Okay. Let's suppose it has binary semaphore and I will give the value to be zero one. My question is that I want to execute this p and q and they can execute in any internally fashion.
+
+23
+00:23:23,620 --> 00:23:49,590
+but I want to enforce I want to enforce one ordering that a should be printed okay and then b should be printed and then a should be printed and then b should be printed like that so I want to strictly I want to have a b a b like this so it's kind of like strict alternation that I am looking for here I'm getting my question so I'm looking for the strict alternation and I'm asking you that what should I write here maybe p maybe v
+
+24
+00:23:49,800 --> 00:24:17,300
+maybe P maybe V what should I write here maybe V or like I mean I'm just asking you that what should be these four places that I should be writing such that I finally get A, B, A, B like that. So here I should write something here you should be filling the fill the blank right so this is fill this is fill this is also fill this is also fill and this is the desired output okay so this is the desired output
+
+25
+00:24:17,690 --> 00:24:48,860
+Now, I'm asking you what to fill. I mean, this is the only output that I'm looking for. I'm not, if you give me a two-way continuously, then I won't, I mean, if any education is giving me two-way continuously, I want a separate solution. Something like this. Is quotient clear at least to everyone? That's what I'm trying to ask. Okay. I'm looking for the strict alternation using the semaphore. Something like this. So, let's just see if we can achieve this using the semaphore. Okay.
+
+26
+00:24:49,930 --> 00:25:28,030
+So maybe I can say here. What do you think I should be writing? Okay, let me just think about it See, I first want a I don't want to be so I don't want we to get executed then maybe maybe one thing is I mean almost sure that I don't want be to get executed That's why I should be writing P of s here. Maybe it is okay to everyone and let's let's say that s value is initially zero So most probably I am looking for P of s here. Okay
+
+27
+00:25:30,540 --> 00:26:08,010
+and once this is happening then only this is the if you want you can use multiple semaphores I mean it's not an issue let's suppose there is another semaphore which is which is z or t okay t equal to you can take any value so basically it is saying that a will be happening actually the problem with the semaphore is that you can have a multiple times right so a happens and then a can again happen I want to prevent it
+
+28
+00:26:08,430 --> 00:27:04,310
+I want to prevent this A. What can I do? Are you getting my point? See, if I have this only the solution, then I think this is a problematic solution. Because they're saying that A can happen any number of times. I don't want it. Okay. So maybe, maybe I can have something like that Pt. Maybe, okay, if I have Pt and t equal to 0, this one, this will not even work, right? If I have Pt, then it won't be even executed first time. Maybe I can try with t equal to 1.
+
+29
+00:27:05,940 --> 00:27:33,680
+If I have t equal to 1 then let's suppose that it is getting executed a will get printed and then this vs right vs will say that okay now s value is 1 so basically s and t initially 0 1 now this pt will make it 0 and then a will get printed if if b ever wants to get printed then I don't think it will get printed because ps will get stuck because s is 0 now vs will say now s is 1 s is 1 but t is 0
+
+30
+00:27:34,530 --> 00:28:05,930
+Okay, interestingly, S is 1 and T is 0. So which means that now you cannot execute this again, you cannot execute this again because T is 0, right? T is 0. So T has to be 1. And for that, only this PS, like now PS will pass. I think now it is VT. I think this will work, right? So what I'm trying to say here is that, let me just, let me just tell you that what I'm trying to say here. Yeah.
+
+31
+00:28:06,160 --> 00:28:35,700
+So whenever whenever you want let's suppose a mystic alternation right then you want first you want a a then b then it means that a like i mean you you don't allow b you don't allow b i mean you block this b for using the semaphore s you block this b using the semaphore s and after a only you are allowing this b okay but then after b only you should allow the same so that's why that's why like after b only once v is completed then only you should be allowing the same
+
+32
+00:28:35,950 --> 00:29:00,710
+which means now I mean like below this v you can add vt and which will say that okay now the t value will be 1 because initially it was 1 but because of this it got 0 right so t value will be 0 now you can't execute this again that's the problem you can't see p and p like this t is basically having two operations p and v so if you're having this in two independent
+
+33
+00:29:01,150 --> 00:29:28,130
+uh processors uh processors this p and v are in the independent processors then what will happen then there is kind of hysterical alternation right after p only q will happen you can't run any of them twice you can't run any of them twice because because if you're writing p anywhere p anywhere and you're writing v somewhere else v somewhere else then what is the what does this mean that after this after this like i mean after this this must has happened
+
+34
+00:29:28,400 --> 00:29:53,780
+because let's suppose these are the binary semaphore or even these are not binary semaphore don't worry about it the value initial value which is let's suppose either 0 or 1 okay so which which is enforcing the alternation or something like that what i'm trying to say is that if this is the pt and the vt is not here vt is somewhere else then you can't execute it twice is this okay everyone so so basically basically
+
+35
+00:29:54,040 --> 00:30:24,140
+this semaphore is useful to even have the extra alternation you can say or maybe some some pattern that you want abab that also you can print using the semaphore right okay okay so this is just one use of semaphore another use if it is a binary semaphore then you can use it as a mutual exclusion right we can use it for the mutual exclusion can we use it can we do it using one semaphore i don't think we can do it using one semaphore right
+
+36
+00:30:25,760 --> 00:31:08,500
+Because if you write anything Pt, maybe we need two semaphores. Okay, so this is the solution here. Now let's look at more questions. I think these questions has been done. So I'm just moving it. Okay, this question was not done, right? No, this question was also done. Okay, this question has not been discussed yet. So let's just try this question. So what they're saying is that you have P0, P1 and P2, three processes, right?
+
+37
+00:31:08,810 --> 00:31:26,520
+and these are the initial values of the semaphores so semaphore initial values are also given to you and then these three processes are given to you tell me tell me is p p1 and p2 are are are having while true or only p0 is having while true only p0 is having while to write
+
+38
+00:31:27,010 --> 00:31:57,600
+So, which means that, I mean, you should be, you should be not taking this while true as a granted. That's what I'm trying to say, that you should be saying that, okay, only this process having while true, which means you need to execute only P0 again and again, okay? Not P1 and P2, okay? So, this is the question which is given to us. Now, they are saying, how many times P0 will print 0, okay? At least twice, exactly twice, exactly once, something like that.
+
+39
+00:31:57,820 --> 00:32:24,880
+so how many times we zero will print zero so the values are given to be one zero zero right since since s1 and s2 are zero can you think that p1 can pass through i don't think right because they are having the weight weight release weight signal these these are the i mean just common names so since it is having weight you can't just execute p1 i mean it will get stuck similarly p2 will also get stuck right okay now
+
+40
+00:32:25,790 --> 00:32:52,220
+Now, let's just see that can you execute this P0? Yes, P0 can get executed and then you can print 0. That's not an issue. Now, release S1. Now, you have executed this. Now, release S1 will do what? It will make this value. So, basically, this is S0. This is S1. This is S2. Initially, they are 1, 0, 0. Now, this is what you have printed. I mean, this is the printed value.
+
+41
+00:32:55,620 --> 00:33:20,670
+Now because of this weight as 0, I mean first you are doing weight as 0, this will be 0. Is this ok to everyone? And then you are going to print something. Then you are going to print something. Ok. And then release S1. What it will do? It will make this S1 to be 1. Right? It will make this S1 to be 1. Now, what you are trying to do?
+
+42
+00:33:20,890 --> 00:33:53,810
+you you can do release s2 or maybe maybe you can just print it from here i mean what do i mean by that that you can just print from here or you can do release s2 i mean let's just see that which is beneficial to us okay let's suppose that i do release s2 let's suppose i do this one okay now the values are 0 1 1 now can i execute this p0 again no right it will get stuck so maybe i need to do release i mean i need to basically increment this value
+
+43
+00:33:55,150 --> 00:34:11,890
+this as your value I can do this using this right weight as one I mean weight as one will do this at zero this has been I mean basically I I finally want this to be one and I wanted to execute this release right are you getting my point so basically now currently these are 11 these 11 will give you
+
+44
+00:34:12,240 --> 00:34:42,910
+I mean, if this is one, then this will give you basically one chance of execution of this P1. And I just want to execute this P1 once. I don't want to execute it twice. I mean, that's how the code is written. So if releaseS1 is there, I can execute this P1. If releaseS2 is there, I can execute this P2. So maybe I can take the help from P1. And I can make this S01. Maybe I can do this. Now, suppose I execute this P1. Can I execute this again? Can I take the help from P1 again?
+
+45
+00:34:46,130 --> 00:35:19,300
+No, right? I don't think we can take because that's not the wild truth. So I cannot take the help from people even again. So that is why like, I mean, we can take only only once health only once. So that's why we need to decide that should we take the help now or later or something like that. Actually, I don't think it will matter. You can you can execute after this printing zero, you can execute both of them as one as to one time you take from help from P1. One time we execute this, right? This will be again, again, you will be printing zero.
+
+46
+00:35:21,640 --> 00:35:35,360
+Now release S1, release S2. So it doesn't matter whether you are again doing it 2 or not. Let me just check whether these are, okay, these are anyway binary semaphore. So release won't matter, right? I mean even if you are, see P1 has already been gone.
+
+47
+00:35:35,640 --> 00:36:03,360
+I mean, you want to be executing this P1 again. So basically, this release S1, if it is from 1 to 0, 0 to 1, actually, it won't matter whatever it is doing. And then 0 to 1, it won't matter. So basically, let's just focus on S2. Now, S2 is again really just two. So even though you do it from one, you again do it one, it won't matter. Right. So basically, what I'm trying to say is that, that you, I mean, as you were initially one, okay, I hope you understood now this question very well as you were initially one. Now what we are doing.
+
+48
+00:36:03,670 --> 00:36:36,330
+it was initially one so i entered into this and i said that okay now it is zero and we have printed zero right this is the print value now you you got this heisman h2 you you can make it one in one which means you are you are getting one chance again so this will this you can execute this p1 one chance from this and one chance from this so you can definitely print three zeros i mean three zeros are definitely i can see can all of you see three zeros three zeros you can see right so
+
+49
+00:36:37,350 --> 00:37:02,570
+exactly twice, exactly thrice maybe this is the option but this is not the option, this is not the option at least twice or exactly thrice this is what we need to see maybe exactly thrice so here currently in this execution we are saying exactly three times it will print zero but can you just print two times okay can you just destroy this P1 and P2 still just print two times let's just see
+
+50
+00:37:03,100 --> 00:37:40,620
+So I hope you are getting my point. So basically we have printed three times. That's why either age option or siege option But still we need to see which one is the option, right? Can you just print two times? Okay to print it two times what we need to do we need to just What we need to do we need to release Got it Yeah, so we need to release it continuously. So which means yeah, we need to waste one of the one of the release. So yes, we can do this, right?
+
+51
+00:37:42,200 --> 00:38:15,610
+Can you can you see that how we how you can print exactly? I mean two times instead of three times Okay, so basically I mean one of the execution we have seen but what what you can do you can say that okay Initially, this is 100 obviously you have to make it zero you have to print one of the zero first. That's the that's the only option Okay, this is what we have printed Now what I'm trying to say is that that you release both of them doesn't matter. Let's suppose you release
+
+52
+00:38:15,870 --> 00:38:45,320
+this this is one and one now what you can do you make it zero you you make you release this as you as zero which means this will be i mean you will take the help from s1 to make it one okay whatever this s1 is i mean doesn't matter although if you want you can write but you are taking the help of this p1 to make it one immediately you take the help of p2 you don't execute this p0 again immediately you take the help of p2 so it will also be destroyed and release as zero we'll just say one one two one you're getting my point
+
+53
+00:38:45,590 --> 00:39:21,780
+So basically if you immediately are taking the help from help from P2, then it is a problem. So basically earlier, the execution was like this, that you are executing P0, then you are executing P1, then you are executing P0, then you are executing P2, and then you are executing P0, right? I mean this P0 execution means printing 0. So here you are printing 0, print 0, here you are printing 0, here you are printing 0, right? Now,
+
+54
+00:39:22,140 --> 00:39:46,390
+in this case what you can do you can basically you can say that okay first of all you have to do p0 but then you can do p1 and immediately p2 so basically one of the p0 is getting wasted one of the release is getting wasted right and then then p0 so only two times you will be able to print so this is print zero this is print zero so not exactly three i mean exactly three is wrong answer
+
+55
+00:39:46,940 --> 00:40:23,800
+sometimes you may print two times I mean there is an execution order which exists which can print two times I think right so maybe the answer is A not maybe like answer is A okay let me just read Arjun sir answer first P0 will enter in the while loop as 0 is 1 okay and now it will release both of them now it will release both S1 and S2 and one of them must execute next yeah because you can't you can't do P0 after P0 right so they are saying that after P0 one of them must execute
+
+56
+00:40:24,180 --> 00:40:56,780
+I think the answer will be same that we have just explained. So if you want you can read this answer. Let's move to the next question. Before I move to the next question, let me see if we can have some variation here. I'm not sure whether it will be a good variation or not, but still. Suppose that just for the sake of variation, suppose that this is also having while true.
+
+57
+00:40:58,280 --> 00:41:55,260
+all the processes are having wild 2 this is also having wild 2 this is also having wild 2 then what will happen so first you will be executing p0 right and then you will say that this is s0 s1 s2 you will say it is 1 0 0 then it will be 0 now both of them you can make it 1 doesn't matter then probably actually in that case I think you can print it any number of times right
+
+58
+00:41:56,820 --> 00:42:26,640
+The reason being is that whenever you need support, you can take the support, right? I mean, whenever you want to execute it, whenever you want to print again, you can say that, okay, let me take the support from this. So I think you can make it any number of times, which means this P0 will get executed. Then after that, it actually even won't matter whether it's executing P1 or P2. Then maybe P0, then actually you can again execute this P1, right? You don't even worry about this P2.
+
+59
+00:42:26,870 --> 00:43:15,600
+because you have enough p1 is giving you enough uh enough release okay i mean uh you even the p2 even doesn't exist then also then also you have infinity i mean as as many times as you want you can print there is no limitation right here here there is no limitation i think let's just see this question so they're saying each process is like this okay i mean from 1 to 9 it is like this the code for p10 is identical except it uses vmutex in place of pmutex
+
+60
+00:43:17,070 --> 00:43:50,650
+Okay. By the way, whenever they write mutex, it means the binary semaphore. I mean, they should mention it. But anyway, this is so commonly used that this variable name mutex itself is so commonly used, you can understand this is used for the mutual exclusion. I mean, the binary semaphore. Okay. So what is the largest name of the number of the process? What is the largest number of processes that can be inside the critical section at any moment in time? So they are saying that you have something like this and p10 is also identical.
+
+61
+00:43:51,410 --> 00:44:20,420
+it uses vmutex in place of pmutex so in place of pmutex you have vmutex in p10 right and everything else is same so maybe I can just go to the next page and tell you that what is happening here so this is while true so if you want I can remove this just remember this is while true okay repeat forever means this was the while true so this is p1 this is the code of p1 let's suppose this is the code of p2 let's suppose this is the code of p3
+
+62
+00:44:20,860 --> 00:44:57,030
+And similarly, similarly, I mean, there are P9 and there will be P10 also, but P10 is a little interesting. So, so in the P10, what do you have? P10 is saying that in place of Pmutex, you have Bmutex, right? That's the P10 code. Okay, this is P10. Now, they are saying that how many number of the processors can be there? Okay, so first of all, this is while true. I mean, every processor is basically while one.
+
+63
+00:44:57,230 --> 00:45:23,030
+Okay, so this is P9. This is inside the wild one. Should I write the wild one or it is okay to everyone? This is P9. This is P10. This is P1. This is P2. Is it okay or should I write the wild one? I think it will be a little messy, but maybe you can understand. What do you want from me? Tell me. Maybe you can understand, right? Okay. Suppose this mutex value can take anything as an initialization. Okay. I mean, for the binary semaphore, you can take 0 or 1.
+
+64
+00:45:23,240 --> 00:45:56,870
+So let me take it one. I mean zero. You can take it zero also. One matter. You can execute this P 10 and you can get it a one. So anything you can take. Okay. Let's take it one. So at one time, how many semaphores could be in the critical section? Can people in the critical section? I think people can go in the critical section. If people is in the critical section at the same time, can P2 go in the critical section? No, right? Because this is P mutex. This is P mutex. So P2 can't go in the critical section. But if you execute this P 10 once,
+
+65
+00:45:57,380 --> 00:46:26,280
+If we execute this B mutate, V is supplied by this P10, right? So if we execute this, then I think you can ask this P2 to also in the critical section. Then you can say that, okay, now P2 is in the critical section. P10 is not waiting for anyone, okay? P10 is always there to support everyone. So if you want V, just take from the P10. It's like that, okay? So P2 can be in the critical section. Tell me if there's a P3, then can the P3 in the critical section? If you want the P3 in the critical section, just execute this P10 one more time, right?
+
+66
+00:46:26,570 --> 00:47:12,250
+So P3 can also be the critical section. I think everyone can be in the critical section. So I think 10 processes itself can be in the critical section at any time. Okay. So what is the answer here? What is the largest number of processes? D because 10 is the answer, right? All 10 processes can go basically. Okay. So this was the wild one, if you remember, right? Now, let's suppose for the sake of variation, I do one thing. Everything is a wild one.
+
+67
+00:47:12,640 --> 00:48:38,100
+okay, everything is violin but p10 is not violin which means for the sake of variation I am saying that this is violin this is inside the violin okay everything is inside the violin but p10 is not inside the violin in that case can you tell me because you are not getting infinite infinite supply here that's what I wanted to check two or three okay so if mutex is initially one
+
+68
+00:48:38,320 --> 00:49:10,640
+okay mutex is also important here okay mutex i am about is the initial value because earlier i don't think we cared about it but now we may need to care right so if it is one then let's suppose you are in you are asking this p1 to enter it can enter now it is zero right now you need to make it one so p10 is there p10 can make it one now okay p10 is here only so p10 can make it one now you ask this p2 p2 can get enter p10 is already here okay
+
+69
+00:49:11,030 --> 00:49:43,880
+Now the mutex is zero. Now P3 or any other process can't get entered. So you have to basically ask one of the process to release the critical section, then only the other process can get entered. So I think three processes at most at any time. Three processes. If mutex is one, if mutex is zero then first of all you have to execute this.
+
+70
+00:49:44,410 --> 00:50:23,610
+Then maybe, then one of the process, then I think two only, right? Because p10, p10 and any, any, any one of them. Okay. p10 and any one of them. So here, three process is p10 and any two, right? If mutex is initially zero, then I think it is two. Anyway, these are the small aptitude question. You can think about it. Okay. So, so you can, you can create your own questions and then you can think about it if you want to. Let's just move to this question.
+
+71
+00:50:23,950 --> 00:50:54,380
+So this is a question which has been asked in gate 2005. So what they're saying that there are two processes, P1 and P2, right? They have two processes which are P1 and P2. Now, these processes does some computation. So for example, this P1 and P2, these two processes are doing these computations. So P1 is saying that compute and then they are basically sharing the four resources. Like, I mean, they are having the four resources to deal with.
+
+72
+00:50:54,600 --> 00:51:23,260
+So, P1 is saying that it is computing something and then using these resources and it is also computing something and using those resources. Both processes are shared at the same time and each resource can be, sorry, both processes are started at the same time and each resource can be accessed only by one processor at a time. The following scheduling constraint exists between the access of resources. P2 must complete use of R1 before P1.
+
+73
+00:51:23,880 --> 00:52:13,840
+P2 must complete R1. So basically they are I think having some, okay, so just a second. So they are having some dependency. Maybe I can make this dependency here, right? So what they're trying to say, this P we I'm just removing just just for the sake of dependency, I'm copying it, right? I think this diagram represents a dependency. This diagram is saying that you are having P2 must complete R1, P4 this R1.
+
+74
+00:52:14,540 --> 00:52:43,820
+P1 must get access to R1 okay P1 must complete R2 P1 must complete R2 before P2 must P2 get access to R2 so basically this is the dependency that you are having right and similarly P2 must complete the use of R3 this should be completed I mean these are the dependency this is given to now what they are saying there are no other scheduling constraint if only binary semaphores are being used then what is the minimum number of binary semaphore you need to enforce this constraint
+
+75
+00:52:44,300 --> 00:53:16,940
+So basically you want to enforce this constraint and then they are saying what is the minimum number of binary semaphore that can be used here. I hope the question is clear to everybody. So if you want this and then this, then I think that you can write v here and for some semaphore let's suppose small a and you can write p here for the same semaphore. This dependency you can do and a can be zero initially.
+
+76
+00:53:18,490 --> 00:54:05,810
+Okay, it can be 0 initially. So this dependency can be done like this. Now I want this dependency. So R1 will be executed. I'm just checking if I can write PA here. See PA0 and I can write VA here. So after I mean PA0, VA will get happen. Will this be okay? Or there is some issue here. Yes, right.
+
+77
+00:54:06,100 --> 00:54:34,480
+So if you're writing this, so basically what means to happen that this execution will happen. I mean, may happen, right? So which means if you are saying that, okay, after we, this PA will happen because age initially zero, that's fine. But, but once this is completed, once still R2 is R2 is completed, right? And then you're saying that, okay, after this, you want this R2 or whatever this is. So if a value is now zero again, that is okay. But if you're writing BAP again, then there's a problem. Why does a problem because this P2 itself can get executed.
+
+78
+00:54:34,840 --> 00:55:05,320
+and one go so one thing is for sure that here i cannot use a in any sense right obviously the pa pa here writing is a dialogue itself i mean pa pa continuously can't come so uh so va and ph also cannot come so basically it seems like i need two semaphores at least two semaphores seems like right so maybe i can have b equal to zero also and then b and pb right will this be okay if we are executing this r1 can you immediately execute this r2 without executing this
+
+79
+00:55:05,570 --> 00:55:37,480
+no you need to execute this v v right before executing this p so i think i think this will be fine i mean this this is the dependency right this is the dependency so you need to execute this v before executing this p similarly before executing this p you need to execute this v so i think i think till now this is fine now tell me can you reuse those semaphores and can you can you do something here maybe it seems like now we can reuse right maybe or like now a is again zero because of this p
+
+80
+00:55:37,740 --> 00:56:05,410
+So can I write BA and PA again? I think we can write, right? There should not be any problem. BAPA and then VVPB. I think we can use the semaphore. So see this, as I told you, the semaphore is there to enforce the orders. So I think two can work. One cannot work that we have seen. The minimum we want, so two can work. Three can work or not? Tell me, three can work or not?
+
+81
+00:56:06,020 --> 00:56:39,050
+if 2 can work then definitely 3 can work if you can have c equal to 0 you can have c here right but it's not like that you want maximum you want minimum obviously so you want minimum so minimum number of semaphore is 2 you can't work with one that is for sure so let's just see the answer yes they are having x and y so they are having this p it won't get executed okay okay yeah I think I think we are we are also right so we are having pa
+
+82
+00:56:39,890 --> 00:57:08,640
+We have just written this P here, right? They have written this P here. It is just a matter of writing. Otherwise, we'll we'll also write. Okay, we have written this P here. That's fine. They're writing P by this is too complicated to understand. Okay. P by here. We are also writing P by taking just a matter of writing. We are writing this P by here. Okay, so
+
+83
+00:57:09,580 --> 00:57:39,540
+I hope you understood. I think this was a little easier to visualize, right? Good. Because the way we have understood, yeah, it's like a transaction. So the way we have understood the enforcing is basically v and then p. This is how we have understood if semaphore value is initially zero. So that's what I'm trying to implement, right? So this is the very first example that we have taken just to make sure that you understand the use of the semaphore. So by the way, this example is from MIT.
+
+84
+00:57:40,460 --> 00:58:14,370
+I mean this was very small example that's why I'm not put the source because otherwise like if I'm using the MIT word then at least this should be something something very nice something very tricky but it was very you know usual example that's why I'm not written the source but yeah this source is MIT here so now I hope this is clear to everyone now let's just move to the next question so what they're saying in this question suppose this question has been asking get 2003
+
+85
+00:58:14,950 --> 00:58:49,060
+Now they are saying suppose that these are the two processes that are having okay that are printing in the while one loop Okay, so maybe I can go to the next page and then they are saying p and q using a binary semaphore Okay, this w x y z these are the four places in which we need to fill something which of the following Which of the following will always lead lead to an output starting with this
+
+86
+00:58:49,740 --> 00:59:22,240
+So you need to output something like this, 00, you want to print this 00 and then 11, then 00 and 11. Oh, I think we did this question before. Do you remember that question? Today only we did, we did the same question. Yes. So it's ABBAB, right? ABAB, ABABAB, right? So this is kind of a strict alternation they are, alternation they are looking for. So maybe we can do this question, right? Okay.
+
+87
+00:59:22,550 --> 01:00:09,990
+So now they're saying that what to write in place of w x y z. Okay. So which of the following option is correct? That's what they're saying. So let's do one thing. Maybe I can, I can go to the next page. I can take all of these options and I can go to the next page. Okay. Before even I, I take the options, can we just, you know, write without seeing the options? I think this is easy question. We should be able to write, but yeah. Okay. Do you want to try it without seeing the options itself?
+
+88
+01:00:11,010 --> 01:00:47,730
+So you are using two semaphore s and t. Okay, let's just use two semaphores s and t So you want zero zero first Okay, s and t these are the two semaphores you want to use and then one one then zero zero then one that's what you are looking for So maybe you can write you want zero zero right? So maybe you can start with one of the semaphore you can take as one Okay, maybe I can take this as one you this is zero now you can tell me in place of W. What should I be writing?
+
+89
+01:00:49,990 --> 01:01:19,920
+Maybe I want PT, right? Is this fine? Okay, I've taken H2B0, T2B1, I mean based on the options we need to check, but okay, without the options, let's just see. And then if this is PT, the 0, 0 will happen. And then I want this dependency, right? So basically this Y should be PS, I think, right? This Y should be PS. X should be VS.
+
+90
+01:01:20,700 --> 01:01:50,040
+and Z should be VT I think so let me check if S0 and T1 is even the option or not okay S and T initialize one S initialize one okay we we have just based at it right S is initially when T is initially zero S is one S is zero and T is one is not even the option but anyway like let's just see okay let's just see with other option which is I mean I was just trying it so let's just see if S is one and T is zero
+
+91
+01:01:52,850 --> 01:02:23,960
+Yes, we can swipe it, but anyway, so s is one and T zero. So in that case, I think you can get the answer, right? So here w should be if you want zero zero first, then PS and then why should we P T and this should be V T, right? This should be V T and there should be BS something like this. So if s is one and T zero, then then we can have this option. Okay, let's just see if any one of them is matching.
+
+92
+01:02:24,220 --> 01:02:53,400
+if s is one and t zero this is these are the these are the possibilities if s is one and t zero so if s is one and t zero so which means in this option in this option we need to check ps w is p x is vt y is pt z is yes this is the answer okay so let's just see if others are answers or not so this is the answer everyone got it right now let's just see if it is msq so this is the one answer that we have come up with maybe others are also answer
+
+93
+01:02:53,650 --> 01:03:23,040
+so we need to check all the possibility if it is MSQ right so let's just check if others are also answer or not have you understood this particular answer as B's answer right but still let's just check whether A can be the answer or not so A is saying that you write okay A is saying you write P, PS I mean both are one first of all if both are one you write PS print 0 I'm not writing okay you can if you want again I can write PF print F00 and then
+
+94
+01:03:24,930 --> 01:03:46,860
+in place of x what they are saying vs okay and here I think they are saying pt and vt this is the option printf1 okay will this enforce this strict alternation if it is independent see if it is independent execution this as and this is t
+
+95
+01:03:47,060 --> 01:04:23,480
+then I don't think there is any ordering enforced right I mean they are enforcing any ordering if this is completely independent then they are not enforcing any ordering so that's why A is not the correct answer that is for sure right because they're completely independent so I can say can not enforcing any ordering so this is option A now let's just see other options also maybe quickly option B is I think is okay to everyone okay so now let's just see
+
+96
+01:04:23,900 --> 01:05:12,140
+other options, which is option C and option D. So what about the option C? Option C is saying that S and T both are initially one and then PS. So they are saying you are having P and then X in place of X, you are having VT. This is PT and VS. This is printing 00. This is printing. Okay, both are initially one. So this will get in.
+
+97
+01:05:14,200 --> 01:06:12,170
+Okay, first of all, they want to start from 00, right? First of all, they want to start from 00. Yeah. I mean, that's what they want. So that's why this is not the good option, right? You can see. Okay. So, I mean, I'm not analyzing it further, but yeah, as a first thing we observe that can start with 11 also. Okay. So I'm not analyzing this D. You can do it, right? You can do it. So analyze D as in homework. Okay. So option B is the correct choice here.
+
+98
+01:06:13,420 --> 01:06:42,880
+Now let's just see This question is that question is I think same but this question is having something different to ask They are saying which of the following will ensure that output string never contains a sub string of the form zero I mean they don't want to interleave between two zero. They don't want to interleave this right? So they're saying output should not never be containing between two zero. They should not be okay or times one Okay, or times one mean like you're interleaving this
+
+99
+01:06:43,420 --> 01:07:11,660
+I mean basically you are interleaving I mean have you understood what they are asking they are saying between two zero there should not be one one there can be two ones that's what they are saying I mean okay but there cannot be one one there can be there cannot be three ones which means if you are interleaving if you are interleaving then you should be interleaving fully okay just execute this fully I mean one one I mean you can execute it again also but execute it fully so what they are saying is that
+
+100
+01:07:11,940 --> 01:07:50,110
+that which of the following will ensure that output string never contains a sub string of form zero I mean between two zero there cannot be odd number of one similarly between two ones there cannot be odd number of zeros so that's what they're asking right maybe I can go to the next page and see what to do here okay if you're interleaving and then I mean you you can print zero then you can print one that's they are saying but you have to you cannot then come back and print zero again
+
+101
+01:07:50,960 --> 01:08:25,950
+How can I even stop it? I'm getting a point. So basically if I'm printing zero, let's suppose I'm printing it here. Suppose I somehow executed this print one. I executed this print one. I'm printing one. So now can I can I again go back and print this zero? I think always, right? I mean, I mean, how can I stop it? Basically, if I'm printing zero and somehow I'm I'm able to print this one. Okay. What I'm trying to say that if I'm printing this zero, okay.
+
+102
+01:08:26,430 --> 01:08:59,580
+If after this print zero, I'm interlaping and somehow I can print this one, let's suppose, somehow I'm printing this one. I don't know how but somehow I'm printing this one. Then can you tell me, can you stop this zero? This zero can anyway come right? See, let's suppose if this is possible. Which means, if this zero comes after this one, then I think this zero will come. I can anytime print. You're getting my point.
+
+103
+01:09:02,470 --> 01:09:31,930
+so basically zero here and then after zero if I am somehow able to print this one then I can definitely print this zero so the thing here is that similarly I mean this is a symmetric situation which means once I am printing this one and somehow if I can print this zero then I can definitely print this one I can definitely come back and print this one so thing here is that that if I am printing the zero I cannot I should not be able to print this one is this okay to everyone
+
+104
+01:09:33,770 --> 01:10:05,720
+because even if I print this one one time then it is a problem I mean there I can definitely print it zero so basically I should not be allowed to print this one right which means I think again I think it is like strict alternation or something it is not exactly strict alternation because they are saying that you can print zero zero zero zero any number of times right they are just saying that that if you are having if you are having this this execution
+
+105
+01:10:06,170 --> 01:10:32,310
+then whenever you are in this critical section I mean this is kind of critical section they are saying that whenever you are in this critical section I mean you can understand this as just one critical section basically whenever you are in critical section you cannot you cannot enter in this so I think yeah so this boils down to one one one thing which is saying which is saying that if you are in this this critical section
+
+106
+01:10:32,710 --> 01:11:02,890
+Okay, I mean these are the both critical section let's suppose which means they both are sharing some data count plus plus is happening here and let's suppose count minus minus is happening here Okay, so what I'm trying to say whenever we are in this let's suppose this is count plus plus then whenever you are executing this can you execute this? No, right? I mean according to the critical section rules we should not be able to do it. So basically that's what I want to achieve Now tell me if I'm executing this then can I execute this again?
+
+107
+01:11:04,620 --> 01:11:36,070
+Maybe I mean that's what they are saying according to the question maybe so so basically I think this is really easy question if you understand this carefully Can you can you tell me how to really nicely implement the critical section? How to really nicely implement the critical section? Let's suppose this s is initially 1 then this is a critical section vs. This is a real simple fair use of the critical section. That's how I can do it, right? I mean whenever you are in critical section if other processes having the same critical section then
+
+108
+01:11:36,380 --> 01:12:14,850
+and if that is protected by the same variable let's suppose s then can this process can can can one of the process in the can two process in the critical section at the same time no right so basically we know that how to implement the critical section and I think this is the problem which is saying that can you implement the critical section okay I mean they are saying that you should not be able to interleave I think one one mutex should work right so maybe I can see the options ps vs ps
+
+109
+01:12:16,970 --> 01:12:57,290
+I don't know if it's that easy. What do you think? Will it be from C? It is a fair use of critical section, right? Which is the following? Which is the following? Ensure that output string... Yeah, C will definitely ensure. I mean, C is saying it is a critical section. You can't let the other process in. Okay? I think it will be from C. So, basically...
+
+110
+01:12:57,220 --> 01:13:28,860
+i think c is saying that it is just fair use of critical section right so i think c is the answer i mean if you are applying c then you can never get this you can never get this in fact you can't get between two zeros you can't get any number of ones it's not odd or even you can't get any number of ones okay okay if you you see then any number of ones are not possible between two zeros or between two ones so so i think c is the correct answer right output shouldn't contain the solution
+
+111
+01:13:29,360 --> 01:13:59,420
+Means no concordance. Yeah. Once I'm okay. I hope you understood this maybe little better than the explanation written here. By the way, do you know Pooja Pooja Palak? You might not know her. So she is currently in Microsoft and she's from IIT Bombay. She got AIR 57, I think. And in 2016, I mean, one year senior to me. And then she's currently in Microsoft. I think there has been
+
+112
+01:13:59,660 --> 01:14:33,990
+many years right from 2018 so there has been five years and Microsoft so okay have you understood this this question well that how to do this question so basically they are saying that between two zero like the thing that we were able to crack is is this thing that we were able to crack that okay if you are okay between two zero let's suppose
+
+113
+01:14:34,330 --> 01:15:03,240
+if you're allowing one one okay they are saying you you can allow two months i mean the the way they want to trick us is they are saying that you can allow even you can allow even but you cannot allow odd i mean that's what they are saying right according to the question language they are saying you shouldn't allow odd but if you're allowing odd then no one can stop me to have even i mean if zero after zero if you're having one so what do i mean to say that after zero if you're having one then
+
+114
+01:15:03,630 --> 01:15:47,470
+then you can definitely have zero I mean if you're allowing this even one one if you're allowing even one time one then no one can stop you to have this zero again right so that's why I should not be even able to allow this one one so basically I should not be allowed to enter in this critical section two process at the same time which means the one semaphore should be good enough okay finally means where is the finally written zero zero and one one executed in any order yeah zero zero and one one can be in an order right
+
+115
+01:15:47,870 --> 01:16:53,410
+Okay, should I write it here? That we should not any interleaving, right? If there is any interleaving, then that's a problem. Because if you say that, okay, you are going to allow two ones, but not one one, it's not possible. You can't say that, okay, between two zero, you can allow two ones, but not one one, it's not possible, right? So any interleaving you can't allow, which means it's a fair implementation of critical section, right? Okay, so what is the, what is the regular expression here?
+
+116
+01:16:53,840 --> 01:17:31,770
+that you can produce, which means you can have any order of 00 and 11, which means 00 plus 11. So now let's just see this question. This question has been asked in Gate 2004. So what they're saying, consider two processors. So are you enjoying those semaphore questions? Actually, the semaphore questions are really just aptitude kind of questions. Okay, there is nothing too much into that.
+
+117
+01:17:32,060 --> 01:18:01,690
+just one thing that okay if you semaphore can do the enforcing I mean you can you you can enforce the order this is one thing I think that we can take away from all of the questions one is how to fairly use the semaphore right okay maybe let's just see more questions so they're saying consider two processes p1 and p2 accessing the shared variable x and y protected by two binary semaphore sx and sx respectively both are in stage two one so they're saying they're two semaphore both are in stage two one p and v denote the usual semaphore approaching
+
+118
+01:18:02,140 --> 01:19:12,260
+operators where p decrements okay the pseudocode is given below in order to avoid deadlock the correct operation should be so first tell me okay before that tell me can this can this lead to deadlock suppose i'm having two semaphores okay some critical section maybe maybe let's suppose pa pa pb okay let's do this simple one first
+
+119
+01:19:12,590 --> 01:20:10,070
+First tell me, can this situation lead to deadlock? Suppose these are the binary semaphores, okay? Any slash two one. Answer is no, right? I mean you will, I mean this process will get entered and I don't think there is any chance to lead to deadlock. So answer is no here. Okay, so I hope that is okay to everyone. Now, so the answer here is no. Now let's just move to this question. Now you tell me, can this lead to deadlock? A is initially one and B is initially, I mean both are one.
+
+120
+01:20:23,600 --> 01:21:02,410
+So basically this A will execute this and I think it will be zero and then it will get stuck, right? It will get stuck. So once this PA get, either this PA will succeed or this PA will succeed. So one of them will succeed and let's suppose this is succeeding, then this P will be, we will definitely get succeed and then you can execute this critical section and this will be still waiting. So I don't think it will, it can lead deadlock. So answer is no, right? Now let me ask you one more last question.
+
+121
+01:21:17,760 --> 01:21:47,940
+Can this lead to deadlock? Yes, why? Because PB, if you execute this PB and then you execute this PA in the sequential way, it's not an issue. I mean, you execute this PB, you execute this PA, you can, you can, you can get this critical section, not an issue. But, but when is the issue? You execute this PB and then this B will be zero, right? And then you execute this PA, then A will be zero. Now, since both are zero,
+
+122
+01:21:48,170 --> 01:22:41,600
+now you can't execute this neither you can execute this so both will be waiting for each other right getting my point so if you execute it in the sequential way it's not an issue it's not an issue but if you're executing like this alternative way like you execute this pb and then this pa then this pa you can't execute right and then if you come to this pb you can't execute this so the answer is yes okay this is the example from galvin maybe i can just copy paste it can you see this is s and
+
+123
+01:22:41,940 --> 01:23:53,000
+QR and like reverse right so maybe you can read this later if you want to so this is example from Kelvin okay so you understood this right now tell me if you if you have this example there is no deadlock now if I reverse these two then there was a deadlock okay no you understood this tell me if I reverse these two then will there be a deadlock just try to think about it only reverse these two
+
+124
+01:23:53,230 --> 01:24:22,690
+Answer is no. Reason being is that, I mean, initially whatever whoever is getting this PA, that will succeed and I don't think like if you reverse these two, it will matter, right? So yes, so interchanging V doesn't lead to deadlock. Interchanging P may lead to deadlock, okay? So actually why I'm telling you this, because that will come in the producer-consumer problem. So we are going to see something called as producer-consumer problem and there you will see this. So maybe I can show you.
+
+125
+01:24:23,450 --> 01:24:52,150
+Yeah, can you see these are the two semaphores mutex empty this PV PV almost same thing, right? These are the two semaphores. So basically in the producer consumer problem, we will be seeing something like this that okay, what if we flip this suppose this is mutex empty. This is mutex empty mutex full Okay, do do you see this in this option in here? This is mutex full here. This is full mutex. I reverse I mean these two semaphores these two P operations, right?
+
+126
+01:24:52,850 --> 01:25:23,580
+So we will see these kind of questions in the producer consumer. So basically I'm just telling you in advance but we will be seeing these things in the producer consumer that if we reverse these two then they will be a deadlock. But reversing this V will not lead to the deadlock. We will come back to this again when we see something called as producer consumer. Is this okay to everyone? Okay. Now let's just see this question. Now what they're saying that consider two processes P1 and P2
+
+127
+01:25:23,830 --> 01:26:15,070
+which are accessing the shared variables x and y protected by two binary semaphores this okay both are one now they are saying in order to about the correct operation that l1 l2 l3 l4 so this l1 l2 so this v doesn't matter actually now you tell me about the l1 l2 l3 l4 what should be the correct order what is the answer here see it should be the same thing like ab and ab right so that's why d is the correct answer right what about a it is saying that okay uh b a
+
+128
+01:26:17,280 --> 01:26:45,880
+BA and then AB. I think this is definitely the dialogue. Similarly, this is saying AB and BA. This is also definitely the dialogue. This is saying A and BB. This is also the dialogue. Why? Because I mean, both will be waiting for own self. Basically, if you are having two PA in the same, then it will be a problem, right? Because that will make it zero and then you can't succeed. So that is why only D is the correct answer.
+
+129
+01:26:46,380 --> 01:27:33,980
+easy question but I mean you can solve this question very easily if you if you know that okay what kind of situations are leading to catalog so from all of the observations what we can say till now in the semaphore and from the all of the observations we can say that what we know about the semaphore that it enforce it can enforce the ordering right it can enforce ordering the correct use
+
+130
+01:27:35,090 --> 01:28:17,680
+to implement the mutual exclusion or the critical section correct use to implement. And what is the third thing? How does that? Which scenario can lead to deadlock? Okay, I mean, as per the questions, these are the few things that we got to know. I mean, these are the actually common things. It's not like that we are driving something from the questions. These are the common things. The semaphores are used to enforce ordering.
+
+131
+01:28:18,030 --> 01:28:48,040
+And we should be knowing that, okay, the kind of wrong ordering can go to the deadlock and we should be knowing that how to implement the correct critical section using the semaphores. Okay. So these are the few things which are actually four with the semaphore is well known. So that's why I'm writing it. Okay. Now let's solve this question. This question is, I think it's quite hard question. So do you want to solve this or take it as an homework for now? This seems like a very hard question.
+
+132
+01:28:50,300 --> 01:29:22,440
+Are you sure? You want to do it tomorrow? So just try your best. I mean, it's not easy question. Maybe, maybe I can just read out half of the question and then can we can discuss a little bit of hint so that you can try out, right? Okay. So what they're saying, a certain computation generate two arrays A and B. So they're saying that you, you want to basically fill or generate two arrays, which is A and B. There is one array A. There is one array B.
+
+133
+01:29:30,410 --> 01:29:56,090
+Now, they are saying that this A is having, I mean A and B both are having basically from 0 to N minus 1, which means like they are having N cells, A and B both are having the N cells, right? Now, they have given, okay, so now they have given that how to basically calculate this A, they are saying that these are function
+
+134
+01:29:56,570 --> 01:30:25,540
+and which calculate this a which means if you want to calculate this this let's suppose ith index which is same as f of i okay and there is a there's another function there's another function which is which is calculating this b and the function is basically a basically applied on the a which means that if you want to calculate this value then what is this value this is g of ai okay
+
+135
+01:30:29,530 --> 01:30:58,920
+Okay, so let me just tell you that what they are trying to say that if you want to calculate this value, you can calculate using the function. But if you want to calculate this value, then this value can't be calculated without the corresponding AI, right? This value can't be calculated without the corresponding AI. That's what they are trying to say. Okay, I mean, the code is such that, okay, so don't don't try to modify the code or something code is such that that B of I is actually G of AI.
+
+136
+01:30:59,910 --> 01:31:29,140
+Okay, so maybe maybe we can I mean I'm not sure but I'm just guessing it maybe they are looking for the enforcing right they're looking for that okay after this only this should happen maybe some something something of that sort they're looking for maybe we can see that what they're looking for but yeah one thing is sure that if you want to calculate this this b then you you have to calculate the a corresponding a then only you can apply this function g to calculate this b Suppose this computation is decomposed into two concurrent processes x and y
+
+137
+01:31:29,420 --> 01:31:53,960
+so there are two processes x and y okay now x is basically saying that i will fill this a x is trying to fill this a and there's a process y which is trying to fill this b okay so there are two processes x and y x is trying to fill the a and b is trying to fill the b uh y is trying to fill the b see if you if we see this process y then what are you doing it is just filling b if you see this process x it is just filling a
+
+138
+01:31:56,560 --> 01:32:22,430
+The processes employed to binary semaphore R and S both initialize to 0. So there are two semaphores that they want to implement and both are initialized to 0. The array A shared by the two processes, the structure of the process is shown below. So which of the following represents the correct implementation of exit X and entry Y? So there are four options that they are saying. Let me just tell you the question once again, okay, quickly. So basically they are saying.
+
+139
+01:32:22,810 --> 01:33:05,570
+that you I mean the objective I hope the objective is clear to everyone that they want to implement see this is the objective they are saying they want to implement these processes x and y such that this process x is doing x is filling a and process y is filling b right okay so okay maybe I can do one thing I can just show you this right so this is this is f of f of i now
+
+140
+01:33:06,910 --> 01:33:37,730
+they are saying that this this is a process x which is which is doing what let me just first see the x which is saying that there is a private i I mean there is a local variable i which is going from 0 to n I mean 0 to n minus 1 basically and a of i equal to there is some function f i you can definitely call and then exit okay there is some exit that you are doing okay suppose suppose this exit is not there okay suppose this exit is not there will you be having any problem
+
+141
+01:33:38,160 --> 01:34:06,710
+to execute this x n times no i mean you can definitely do it n times that's that's not an issue okay now let's just see this process y now what they're saying there's some entry i mean it is trying to fill this bi but before before filling this bi they're saying there's some entry constant that you're putting suppose this entry is not there suppose this entry is not there then can you execute this y n time
+
+142
+01:34:08,050 --> 01:34:38,650
+The answer is no. Yes. Answer is no. Why? Because it is dependent on it. Okay. You need to make sure that age already, age already having that corresponding value. Okay. So now let's just see that what kind of exit or entry can make sense here. So let's just see if the option a can be fit here. Maybe we can try seeing. So basically I think both of the semaphores are has been initialized to zero. Okay. So R and S both are initialized to zero.
+
+143
+01:34:46,440 --> 01:35:20,630
+Okay, I mean before I solve the question before I solve the question Tell me how many times this x is running n times, right? I mean 0 to n minus 1 or n times whatever you want to call So one thing is for sure that this x is running n times, okay How many times this y is running n times cool. Can you can you run them just like a wild one? No, right? You don't have infinite supply, right? You can't run just like a wild one
+
+144
+01:35:21,160 --> 01:35:49,510
+Now tell me, suppose, suppose by some, by, by, by, you know, uh, some chance I'm running this X and this entry exit, I'm, let's suppose I'm, I will, I will come to that. Let's suppose, but it is such that it is such that it is allowing this X to produce this three items and then you can go to the buy and then one item of buy. Okay. So what I'm trying to say, let's suppose there is, there is some entry or exit such that it is saying that, okay, you actually, you can execute it three times.
+
+145
+01:35:49,840 --> 01:36:21,160
+and then then you can go to the y okay and you execute it one time and then you you execute these three times then you execute this one time then you execute this three let's suppose whatever remaining and then you execute this one time so suppose if these kind of things are there i mean if i'm if i'm ahead in x if i'm if i'm you know i mean i'm at index three in x then is this okay if i'm only next at one at y seems like it is okay but but there is one issue okay the issue is very interesting
+
+146
+01:36:22,220 --> 01:36:51,660
+so the thing here is that let's suppose if I'm if I'm making this x full okay let's suppose let's suppose consider the hypothetical situation that I'm filling this x once I mean this entry and exit are such that that are allowing me to do this x I mean we will see that I mean actually these are having the p and v okay everywhere these are having p and v if you just see this is having p p p or v right p or something like this so every every everything is having p and v
+
+147
+01:36:51,850 --> 01:37:23,700
+okay suppose i fill this x now by chance okay by chance let's suppose let's suppose this y uh this this entry this is having p and the corresponding v let's suppose this is s and the corresponding v s is here okay what i'm trying to i think this is the option yeah it it it is even the option b so basically option b sing option b it is just having v okay v's it is having uh
+
+148
+01:37:24,870 --> 01:37:56,260
+R's, P's. Will this kind of solution be okay? In this kind of execution, what can happen wrong? Can you think about it? Suppose this is having V and the corresponding P's are separated and V's are here. Can you execute X many number of times? Can you fill the array A? Yes, you can fill the array. I mean, that's not an issue. You can run it again and again. You can definitely fill the array. So this V is not stopping you. Is it stopping you? No.
+
+149
+01:37:57,170 --> 01:38:27,240
+It is not stopping you. So once this array is filled, let's suppose after that I come to this process Y. The problem here is that you can't run this Y more than once because this is P. P will say that I need a V. I need support from V. But the problem here is that you don't have infinite supply of V. You have limited supply of V. How many times you can run this process X? Only n times. So once you run this n times, once you fill this array,
+
+150
+01:38:27,610 --> 01:38:58,370
+and then you say that okay now I will start filling this this this why it is not possible because this will this will not proceed are you getting what I'm trying to say so basically if you're having V here and P here this this kind of execution I mean this kind of basically implementation may lead to a problem and what is the problem here yes these are the binary semaphores okay so what is the problem here the problem here is that that if you're
+
+151
+01:38:58,620 --> 01:39:25,900
+I mean yes obviously like if you say that no no I will execute it once and then then it once then it once then it once that's fine that's fine okay I mean you are executing once once that is okay I'm not interested in that I'm interested in the problem can can it lead to the potential problem or not so if you are having these here and these here then the problem here is that you can you can fully adjust these this this particular process and now this process no more exists why because this process will be finished
+
+152
+01:39:26,310 --> 01:40:15,050
+This process will be finished by after an iteration. Now, suppose you preference this process, this process why will never be able to complete, right? So that is the problem here. So basically, you can't have just B's here and P's here. Okay. Cool. So I hope this particular thing is okay to everyone that B cannot be the answer. Now, let me ask you something else. Let me ask you something else. Is this okay to everyone that B cannot be the answer? Okay. Should I explain this again? Let me know. Okay. So what I'm trying to say here is that, see,
+
+153
+01:40:15,790 --> 01:40:45,320
+Suppose how many times you can run this? Exactly n times. Do you have wild true here? You don't have wild true. It is exactly n times you will be running this. And exactly n times you will be running this. So both the processes are exactly n n times. Okay. I hope that is okay to everyone. Now suppose in this, in this process X, suppose I'm having something which is something like this, this exit. Suppose this is basically having
+
+154
+01:40:47,650 --> 01:41:23,610
+v only v's v of s v of r and this is having p's v of s v of r this option will straight away be rejected just just think about it why see can you can you adjust all of these n attrition and can you can you fill all of this array without even executing this y ones yes so you can do it right I mean you can definitely you can definitely fill all of this array the moment you fill all of this array
+
+155
+01:41:23,840 --> 01:41:54,270
+that's an issue what is the issue here because then if you want to fill this why if you want to fill this b array you can't fill this b array why because this these ps will stop you right these ps maybe maybe once they will allow you but after that they will stop you so so basically if you're doing it n times and after you do it then you can just fill one of the item see initially this p will be one and one because of this v so you can fill one of the item but after that if you again try to execute
+
+156
+01:41:54,620 --> 01:42:28,170
+Can you execute? No. So you can just fill one of the item only. So in this kind of implementation, there is a chance that you are not able to execute this process Y. The process Y will be just waiting forever. So that is why this particular implementation is not a good implementation. Yes, there should be, there should be a strict alternation. Okay. Anyway, is this understood to everyone? I think this is fairly easy. Like, I mean, I'm not understanding that where is the problem here.
+
+157
+01:42:31,530 --> 01:43:07,460
+So just apply a little bit of your mind it is I think like it is easy to understand even if it is if there is a problem then I can explain but I hope that you got it right or let me know if I need to explain this again See if you're just having bees here then you can execute you can fill this area and then you can't fill this area. That's what I mean This is very easy Okay, still just let me know you can you can just let me know I can if you want I can allow the renaming
+
+158
+01:43:07,850 --> 01:43:40,700
+okay you can just rename your name if you if you don't want to you know have the name then you can rename your name and then you can just let me know just let me know quickly okay is this okay that this this kind of execution or this kind of implementation won't work if you're having v's here and p's here then this this v will get adjusted and p will be waiting for v forever right so that's why it is not a good idea okay let me ask you hypothetically
+
+159
+01:43:41,070 --> 01:44:14,620
+let's suppose there is some implementation that will say that will say that you you can i mean this entry exit is such that you executed two times and then the i mean the enforcing is such that you executed two times and the enforcing is such that you executed once what i'm trying to say hypothetically i don't know what what code will be there but suppose you can execute i mean there is a execution where you can execute it two times continuously
+
+160
+01:44:15,330 --> 01:44:45,310
+there is an execution order where you can execute it 2 times continuously let's suppose bogon is stopping you and then you have to execute this once see one ordering we have seen which is that if you execute all of them continuously it's a huge issue right it's a huge issue have you understood that issue here if you execute all of them continuously because now if you try to execute this then there is no one to support you you can you can at most execute it once then there is no one to support you right
+
+161
+01:44:45,530 --> 01:45:15,110
+there is no no v using which you can increment okay now suppose instead of executing all of them continuously let's suppose i i do one thing i do it once okay and i do it once i do it then once i mean i first i do it then i do it i i then do it and then i do it then i do it then i do it i mean alternating if i'm doing it okay suppose i write the courses that it is enforcing me alternate execution will this work
+
+162
+01:45:19,060 --> 01:45:50,130
+See, if I'm doing it first, then it is forcing me. Let's suppose it is forcing me to do it. Then it is forcing me to do it. Then it is forcing me to do it. If I'm doing so, then I think it will work, right? Okay. So I think a strict alternation will work. That is for sure that I agree. But I just want to still analyze. I just want to ask you one more question. Okay. You just tell me this. Suppose there is a strict alternation, but the strict alternation itself is such that in weird way, let's suppose there is a strict alternation, which is saying.
+
+163
+01:45:50,460 --> 01:46:32,790
+You do it twice, then you do it once. You do it twice, then you do it once. Will this work? These are the binary semaphores. So it will also not work. The reason is simple, right? Suppose, suppose, I mean, I'm just asking you hypothetically, suppose there's an extra alternation, which is saying you do it twice, you do it once, you do it twice, you do it once, you do it twice, you do it once. And let's suppose you do it twice, you do it once. Then this will be completed. This x will be completed. Now, once x is completed,
+
+164
+01:46:33,790 --> 01:47:02,970
+Who will be able to support these these cells? No one right? You can't you can't exhaust this X. That is what I'm saying for every of this for every of this Let's suppose that there's some P P which is you are writing here, right? And then for every of this there should be I mean then you should be executing this even if you're executing it twice See what I'm trying to say even if you're executing it twice and then once then twice then once then twice then once
+
+165
+01:47:03,160 --> 01:47:30,420
+then let's suppose twice and then once then this is over can you can you again execute this x just for the sake of fun or it will just executed exactly n times the iteration this for loop is saying it is it is it is it will get executed exactly n times right okay so once this is full once this is full you can't execute this x x doesn't exist even in the operating system it doesn't exist even in the memory okay
+
+166
+01:47:30,680 --> 01:48:04,520
+Once X is, this error is full, X will say I am going to terminate, why will I be there, right? So it will terminate. Now, suppose there is a P operation and corresponding we was here, then will you ever able to run this? If this is half filled, will you ever able to complete this full? No, right? Okay, so maybe, maybe you are getting little bit, maybe you are not getting, I am not sure. So basically what I want to say that if you exhaust this X,
+
+167
+01:48:04,840 --> 01:48:40,080
+okay and then you try to fill this y then there will be a problem i mean you can't just fill this x and then you can't just say that okay now i will start filling this y or this b because because then you will be only able to fill just one of them so maybe we can just analyze option one by one just tell me b option is correct option or wrong option so this b option is is definitely clear i think to everyone that it is wrong why because if you are having v here we are v s
+
+168
+01:48:42,150 --> 01:49:28,330
+is it is PR PS then there is execution where this X will be exhausted and then this Y will not be able to run. So that is why B is not correct. Right. Why you can you can fill this X completely fill a completely then be okay. Now let's just see the other options. Okay.
+
+169
+01:49:28,670 --> 01:50:33,130
+let's just see the option a so what this option a is saying it is saying pr vs something like this is this the good option just think about it it is saying pr vs ps vr initially both are zero initially these both are zero i think this option is not a good option right so a is not good it is leading to deadlock since
+
+170
+01:50:35,730 --> 01:51:29,850
+initially both are 0 both s comma t are 0 okay sorry r comma s let's just see the option number d so let's just see option d this is going to be interesting option can this be the answer just think about it so what they're trying to say they're saying initially both are 0 they're saying you have this vr you have this ps here you have this vs here you have this pr here
+
+171
+01:51:30,040 --> 01:51:56,050
+which means they are saying you executed VR will will say okay so are you enforcing that I don't think you are enforcing because this is VR and this is not PR this is VS I mean you are not I think enforcing the I strict alter I mean a strict a strict alternation but anyway let me just analyze this so it will say that okay let's suppose that you are going to fill this I equal to 0
+
+172
+01:51:57,840 --> 01:52:27,560
+basically my aim should be what can you I mean if I want to say that okay this option won't work then then what should we I be looking for my aim is that that can I execute this X twice which means can I can I lose one of the update to V okay because if I'm losing one of the update to V then I can never succeed with Y even one update to one update to this V which means if I'm able to execute this X twice okay then then this Y will not be proceeded Y
+
+173
+01:52:27,880 --> 01:52:56,990
+because this needs this needs this this is pr here right so it need exactly exactly n times of this exactly n of this vr if i'm just losing one of the vr it won't succeed are you getting my point see this is pr here now these this is vr here now this pr tell me this pr will be looking for how many how many v's exactly n v's because it wants to run n times see it wants to run n times so it needs n v's also
+
+174
+01:52:57,290 --> 01:53:48,410
+right and and we are also suppose somehow somehow if i lose one of this we are then i don't think then i don't think this option will work i mean if i'm able to do it can can you execute it twice just see just see this i mean execute this twice without executing this pr okay without executing this pr if you can do it then there will be a problem see i think we can execute this we are i can done but this will get stuck i mean because of this ps let's suppose i'm i got interrupted here right
+
+175
+01:53:49,640 --> 01:54:20,610
+Now what will happen I can execute this vs suppose. I'm not executing this we are at any time Okay, I'm not executing this we are anytime then since this vs is done That's why I can execute this ps and then I can again execute this we are So I executed we are two times and I have not executed of this pair even once Right, so so basically let me just tell you what is going to happen Once first tell me is this okay to everyone have you understood this that I can I can execute this we are two times
+
+176
+01:54:20,910 --> 01:54:52,180
+and i'm not executing it even once this is a this is a red flag danger signal because every of this pr needs vr if i'm wasting one of the vr because this exactly run n times this exactly run n times i don't have infinite supply that that's what you need to understand this is not wild one this is not wild true this is saying n times you need to run n times you need to run this okay so now if you if you just execute let's suppose this this vr and then
+
+177
+01:54:52,410 --> 01:55:20,610
+this vs and then this ps and then again this vr basically you are filling two of the items right and then this ps won't get succeeded and then you can execute this pr yeah so this is a problem here uh let me just explain you again but before i explain you from the scratch about this option d have you understood one thing that you can execute this vr price and then you are executing this pr only once so if that is the case then it will lead to a problem let me tell you why why it is a problem okay
+
+178
+01:55:21,670 --> 01:55:50,010
+So this is what the code says right now. Let's just see what it is doing for equal to zero So basically it is just filling one of the item a zero. Let's suppose got filled then we are okay. I mean s and r both are initially zero We are will make it one now. Suppose you got interrupted here. I mean it even if you don't get interrupted doesn't matter You can't pass this ps because s is zero, right? Okay, so suppose you are here now now you come to this
+
+179
+01:55:50,230 --> 01:56:17,330
+You said like, okay, before even start, I mean, even start the producing this B, I'm saying that, okay, VS. So can you execute this VS? Yes, I mean, VS can always get executed, that's done. So VS can get executed. Yes. And see, the thing here is that you have to think continent to do. Am I interested in the alternate execution? Which means I execute this once, I execute this once.
+
+180
+01:56:17,610 --> 01:56:46,070
+I execute this once, I execute this once. I'm interested in that. I don't think, right? If I have to do this, if I have to do this, then what's wrong with this option? What's wrong with this option B? If I'm so nice, then what's wrong with the option B? We're looking for the contract example, right? So I'm looking for some kind of, you know, if some, I mean, if I'm some kind of permission I'm looking for, right? So basically what I'm saying, you execute this AI, you fill this.
+
+181
+01:56:46,400 --> 01:57:15,800
+you fill this you you have this pr anyway you don't have a choice so this ps will get stuck you go here you execute this bs so that's why this will be one now can you execute this pr the thing here is that you can execute this pr definitely i mean you can make it zero and then you can fill this b it's not an issue right so both one one got filled and then then probably like okay then then if you want to
+
+182
+01:57:16,720 --> 01:57:41,650
+If you want to execute this Y again, then will you able to do it? See, this VS will be done, then I think PR will get stuck, right? So you will not be able to do. So anyway, like basically, if you want to execute this Y twice, I mean you can't do it because this is the PR. You can't fill these two items twice. Anyway, like because that is a basic requirement because A is not even the field. Okay. But there is one execution which is saying
+
+183
+01:57:41,900 --> 01:58:12,570
+that what you can do maybe i don't know if if you got confused or till now things are fine so there is one execution which is saying that you execute this this vr you let's suppose you got stuck you came here this vs so basically because of this vs it will be one now yeah so this r will r is still one right okay so both are one so now let's suppose now basically you executed this vr you executed this vs okay that's why both are one now suppose
+
+184
+01:58:13,070 --> 01:58:37,610
+Suppose you got interrupted and you are preempting and then you are executing this PS. So basically you have not executed this PR. Okay. So remember you, you are still here. You are still here. You executed this PS, which now you are making it zero. Now you execute this X again, you are filling this entry. Now it's in VR. VR means, okay, this VR is getting wasted. That's the issue here. So you are executing this VR again, which means from one to one.
+
+185
+01:58:38,660 --> 01:59:08,940
+Now this is PS. So you will anyway come here and then you are you got interpreted at this point. So you are saying PR. So PR will get will get done and then you are filling one of the intake. So you filled twice. You filled once here. Right. So let's suppose you keep on doing it, which means you fill fill twice here. You fill once here. You fill twice here. You fill once here. Then once this is full, you will be able to fill half of this only. And if you're filling half of this.
+
+186
+01:59:09,190 --> 01:59:36,760
+then who will fill other half because this process will not exist anymore and that is why that is why this pr pr will be waiting forever so basically i mean the idea here is that maybe the explanation is little complicated so the idea here is that we don't want to waste any of the v because exactly these are the exactly n p's which requires exactly n v and vice versa these are the exactly n p's which requires exactly n v's we don't want to lose any of the v's
+
+187
+01:59:36,860 --> 02:00:10,330
+So if you're losing one of the V, then it will be a problem to this particular situation. So that's why D is not the answer. Okay. Now we can see if C is the answer or not. Can you do want to do this question again as a number? I mean, see, the thing here is that these questions might be turkey and sometimes, okay, don't mind, but sometimes these questions might not even help you anyhow. I mean,
+
+188
+02:00:11,950 --> 02:00:36,510
+Are you learning any concept here? I mean, that's what I want to ask. Are you learning any concept here? Any any special concept that you are learning here may not be. I mean, this is this you can say it is just one aptitude kind of question. So, so if you are not able to solve those aptitude tricky and messy kind of question, this is fine. I mean, I think this question might not be able to solve by most of the experience in the exam, which is fine.
+
+189
+02:00:36,860 --> 02:00:54,380
+okay so if there is a question which is just kind of aptitude kind of question which is not leading to any technical concept that it is okay I mean you should not be taking this too much on the mind that ki aar yeh toh koi neera itna tough question aagaya semaphoree samaj nahi aaya aas kar matlab it's not the case ki semaphoree nahi hua
+
+190
+02:00:54,720 --> 02:01:15,140
+See, I could have easily skipped this question. You won't be able to recognize that something has skipped here. So it's not the case that I want to avoid some question or something. So basically just try to understand the intention of the question. So question here is not to make you realize that you have not understood the semaphore. It is just one kind of aptitude kind of question.
+
+191
+02:01:19,330 --> 02:01:46,810
+Okay, so just don't take it too much on your heart or mind that okay, yes, I'm a genius, I was a semaphore in your semaphore as we have seen, I think most of the questions we were able to do it, right? So there will be one or two questions, which will be quite tricky. And as you can see, there will be there are 132 upwards here in this answer. And also, I'm almost like sure, even after reading the answer, even after reading the, you know, going through the solution of doing a little bit of the analysis, most of the experience might be skipping this question.
+
+192
+02:01:48,420 --> 02:02:40,240
+Okay. So that's why don't worry about these questions too much. Okay. So this C is one option, which will basically enforce a strict, strict ordering. Okay. Maybe I can just quickly, strict alternate, basically. Maybe I can just quickly see this, that how it is enforcing the strict ordering. Okay. So C is saying that I think you know how to enforce a strict ordering, right? You already know this, but anyway, this is option C. This is saying you have P here.
+
+193
+02:02:40,900 --> 02:03:06,370
+P here, V here, which means that you can't do this, I mean you executed, I mean you filled one of them, then you are saying that you wait to fill for, I think this V, which means they are saying you have V of S, oh that's very tricky, V of R, they are saying that okay, now you are waiting, once you fill one of the entry, now you are waiting here in the P, you execute this V,
+
+194
+02:03:07,420 --> 02:03:53,020
+and then okay this is P of R now I think you have to do do anyway do this this V okay so once you do this V which means let me just tell you what is happening here so first of all they are having the strict alternation in this P and V that this P and V itself are executed alternatively so what is happening here it will get stuck and then you go here then it will get stuck then you go here
+
+195
+02:03:54,320 --> 02:04:25,460
+Now now you are here. I mean you all you already done one of this first entity now you are here and Then you got stuck here, right? You are here at this point Now if you want you can do this and you can execute this But can you can you execute this x twice? Okay, let me do step by step This s and r both are initially zero, right? You do this p of s you got stuck now you do this v of s it will even
+
+196
+02:04:26,020 --> 02:05:16,770
+you do this P of R you got stuck here if you want to do it you will get stuck you have to do this V of R I mean both I mean you you have executed by this point in time you've executed both VJ at one okay now the thing here is that can you execute this again see both are one I think once you are here once this PS gets support okay you can execute this again
+
+197
+02:05:17,100 --> 02:05:44,100
+But yeah, but the thing here is that you are not losing update to be. Okay, so that's the thing. So basically, basically, I mean, the question here is that without executing this P of R, without executing this P of R, can you can you execute this view of our twice? That is the question. Are you losing any update to this P without executing this thing? So basically, if you're waiting here, then then
+
+198
+02:05:44,560 --> 02:06:34,570
+If you want to, if you want to do it, I mean, you have done it once. If you want to do, execute this V of R twice, then can you do it? See this P of S will make it weighted, it will make it one, that is okay. So both are one and then you are still waiting here, right? Okay. Now you go again. This is P of S. I think you can do it, right? Or will there be any problem? Okay. So basically,
+
+199
+02:06:35,580 --> 02:07:08,640
+The thing is that first time you can do it because the first time the value, the semaphore value was zero, but I think after that you might not be able to do it. Okay. So currently I'm leaving this question as an homework. I mean, you can do it. You can just try it and just see if you are able to come up with the answer. So it is taking a longer time than I thought. So basically, like, I mean, I will also see that how I can explain this in the best way, but you just try it as an homework. Okay. That what is the potential problem with the C or D? So maybe I don't know what is the answer.
+
+200
+02:07:12,840 --> 02:07:47,630
+Okay. C is the answer. So you just see that why C is the answer and why D is not the answer. So I think A and B was the easy one, but you can see about the C and D. Okay. So currently I'm not solving it. You can just try it as an homework. I mean, we can solve it tomorrow. It's not an issue, but just try it once because it is taking too long. Okay. Now there are like, we have seen some semaphores and some basic use of the semaphore, but we can solve some classic synchronization problem with the semaphores.
+
+201
+02:07:47,920 --> 02:08:16,580
+So what do I mean by the classic synchronization problem? Basically, there are many, many famous problems. Some people, some people are listing down as I mean, I mean, some people have categorized them as some famous problems basically. So which means that there is a problem which the name of the problem is producer, consumer problem. There is another problem and the name of that problem is reader writer problem. There is another problem. The name of that problem is let's suppose dining for us for a problem or something like that. So basically,
+
+202
+02:08:17,000 --> 02:08:44,110
+Basically, let me just explain you one of the problem. Okay. I mean, just in the verbal fashion and then we can stop the class. So what is the producer-consumer problem? Can you guess it? Maybe it is like that. There is some shared data and multiple processes wants to write and multiple processes wants to consume something like that. Multiple processes wants to produce, multiple processes wants to consume. That is a situation of producer-consumer problem. So for example,
+
+203
+02:08:45,710 --> 02:09:13,650
+I mean let's suppose you are in some company and you say that okay you are working with some project and then you identify that okay there are let's suppose that you are at Amazon okay and then you are getting the data but I mean you want to basically I don't know whether it is a good example or not but still let's suppose that you want to have some management of the warehouse okay I mean you want to do some warehouse data management or something
+
+204
+02:09:18,910 --> 02:09:46,020
+And in that, I mean, maybe very wrong, very naive example, but still in that, in that particular warehouse, what is happening? There are multiple sellers that are keeping their items or let's suppose similar items, let's suppose there are multiple sellers that can keep the items and there are multiple, let's suppose buyers or the customers that can consume those items, right? That can order those items. So it's like that you, you are maintaining a warehouse. So
+
+205
+02:09:46,370 --> 02:10:09,930
+this let's suppose I mean I'm just trying to explain you one thing let's suppose you are solving that problem at the image on and you are you're facing some some this kind of situation and you have already studied let's suppose producer consumer problem then want it be clicking you in your mind that okay I think this problem is same as what I already studied yes right so what I'm trying to say here is that
+
+206
+02:10:10,140 --> 02:10:39,930
+that there are some famous problems. Let's suppose producer, consumer problem, reader, writer problem, dining, philosopher problem. So these, these problems are just, you know, template template in the sense that whenever you see in future, in future, whenever you see something, then you should be able to relate that. Okay. I think this is a reader, writer problem. I think this is a dynamic philosopher problem. I mean dynamic philosopher problem is something like that. There are some philosophers. Okay. They are waiting for the fork. They're waiting for the fork to eat something like that.
+
+207
+02:10:40,080 --> 02:11:09,580
+I mean, let's suppose you face some problem where there are some resources, some processes, they're waiting for some resources or something like that. So basically, I mean, these are some templates only. That's what I'm trying to say. I mean, currently the problem statement might not be clear, and you might not be getting what I'm saying. But the whole idea that I'm trying to convey is that these producer, consumer, writer, dining, philosopher, in fact, there are many, many templates that we have. There's a book. There's a book called little book on of semaphores.
+
+208
+02:11:09,900 --> 02:11:37,930
+okay that book actually has many see they are saying classical synchronization problem less classical synchronization problem and not so classical synchronization problem so basically they are having their own they are defending some problems maybe see producer consumer problem is one of them maybe they are saying this is classical one okay reader writer no star mutex dining floors per cigarette smoker program okay there are many many problems that we have in the literature so
+
+209
+02:11:38,270 --> 02:12:06,310
+So what I'm trying to say here is that I mean, I'm not going to obviously teach all of the problems is not not the point here. So what I'm trying to say that let's suppose you study two, three templates. Okay. We are going to study these three templates only. Let's suppose you study these three templates, then how these three temperatures are going to help you in the future that have you understood or not that what is the purpose of studying these three templates that whenever you see in the future, whenever you see some problem, then you will be able to relate. That's all.
+
+210
+02:12:06,630 --> 02:12:22,280
+So see the slide I have taken from pension university. Okay. And then the slide, you can see that they are saying that why we are even studying those problems. Can you read this answer? Once you know the generic solution, you can recognize other special cases in which to apply them.
+
+211
+02:12:22,540 --> 02:12:49,720
+For example, someday you are working at Google or Amazon or Microsoft or any other company need not need not to be popular company or the big company. But let's suppose you're working at some company and then you say that okay, you want to solve some problem, then you recognize, oh, this is just a version of a reader writer problem. Okay, okay, now I can solve it like that. So basically, it is just developing your skills to solve synchronization problems. You got my you got what I'm trying to say.
+
+212
+02:12:50,180 --> 02:13:19,950
+So basically what we are going to do, we are going to study some of the templates. Okay. These are some of the templates that we are going to study. And those templates may help you in future. That's the idea here. Okay. And obviously the, the, there are the gate questions. So, so we are going to study these templates. Have you understood that? What does this template mean? I mean, may not be the exactly what, what is this template and all it may not be the exact exact thing that is clear to you. But
+
+213
+02:13:20,840 --> 02:13:47,620
+But the overall general idea might be clear that what I'm, what is the purpose of even understanding that? See, currently you do not know what is the producer of consumer problem and what is reader writer, what is dining philosopher. You do not know. That's why you might not be able to relate. But the idea is that there are a few templates that we are going to see. And then when you see in the future that you will say that, oh, this is just a version of reader writer. Okay. Now let me solve it like that. Okay. So similarly, I mean, there are actually many, many problems.
+
+214
+02:13:49,380 --> 02:14:17,430
+There are some less classical synchronization problem. Okay, dining savage problem. Obviously, we don't need to do that. The barbersaw problem, the Fifo virus or something like that. The Santa Claus problem. Building H2O. So they have defined their own problems maybe. In this book, they have defined, I think, some less classical problem. This problem has been a staple of the operating system class. It seems to be based on that.
+
+215
+02:14:18,160 --> 02:14:46,310
+Okay, so they have taken some problem from different different resources, or maybe they have defined their own problem something like that. So there are some not so classical problems also, right, not remote remotely classical problems. So this book that I'm saying it obviously, you don't need to read all the problems that this book is full of full of all the, I mean, most of the templates that we have little book on Simon force, the sushi war problem. Okay, so quite a funny book, but yeah.
+
+216
+02:14:49,590 --> 02:15:20,890
+So we will continue with this producer-consumer problem in the next class. But today, I just wanted to tell you that this is the topic that we are going to study in the next class, the producer-consumer problem. I mean, that's very easy. Just one or two lines. And then after that, we will be solving the gate questions only. Cool. So let's just meet tomorrow at 7 PM. Thank you, everyone. Take care. Bye-bye.
+

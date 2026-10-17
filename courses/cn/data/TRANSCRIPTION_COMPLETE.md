@@ -1,0 +1,3 @@
+# Transcription complete
+
+All 46 transcripts have been imported. 138 authored levels are linked to source text. Machine transcripts may mishear formulas; practice problems state explicit assumptions.

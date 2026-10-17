@@ -1,0 +1,844 @@
+1
+00:00:05,230 --> 00:00:45,640
+Yeah, hi everyone. How are you doing? So today we are going to start with TCP flow control and we will also see few of the questions related to TCP connection establishment. Have you visited few questions that I have pasted in last slide? Most probably right. So today's topic will be TCP connection establishment questions. Right. And next topic will be TCP flow control. Let's get started.
+
+2
+00:00:46,910 --> 00:01:15,380
+So, I hope like you, I mean, you don't remember the TCP header, but I hope you understood the fields of this header, right? So, have you understood what is the source port, source port address, destination port address? These are just some port number, which are 16 bits, right? Have you understood what is the sequence number, acknowledgement number? If let's suppose you are sending some packet, which is having the bytes from 500 one, or maybe 5001 to let's suppose 6000, then what should be the sequence number here?
+
+3
+00:01:17,270 --> 00:01:49,120
+What should be the sequence number of this packet? 5001, right? If someone is acknowledging this packet, then what should be the acolygement number? In that case, it will be 6001, right? 6001, okay, good. So the sequence number acolygement number, I hope that is clear. Header length is just like IP header, which is basically ranging from 0 to 15. So that's why we need to multiply by 4, right? Have you understood these flags also? Do we use this URG flag? Do we use this urgent flag?
+
+4
+00:01:49,900 --> 00:02:15,980
+No, right. I mean this is really used and and also it is very much unclear that what it meant to be to be urgent data But by chance if this is used then what does this mean that this field is valid right this urgent pointer field is valid Then what does this mean it it says that if this field is that supposed saying 200 then from the from the sequence number till sequence number plus 200 this data is urgent Does this mean this data should be sent out of order?
+
+5
+00:02:17,450 --> 00:02:46,570
+Does this urgent data mean that it should be sent out of order? No, right? It doesn't mean that you should be sending it out of order. Then what it means to say urgent? It is basically, I mean, as a foreman says that it is left to the application, right? I mean, the user program that how they want to treat this as urgent data. Okay. Anyway, if this ACK field is one, then what does this mean? It means that this acknowledgement, this particular like field is basically valid, right? If this PSH is one, then what does this mean?
+
+6
+00:02:48,370 --> 00:03:33,110
+Okay, just tell me the PSH flag if this is one then what does this mean what it means at the center side and what it means at the receiver side So maybe I can just write it Okay, so let's suppose if PSH is one right then in that case at the center side What we say at center we say push push immediately directly to Below layer right Which means do not wait for
+
+7
+00:03:38,590 --> 00:04:09,190
+Some maximum segment size we will we will look at this MSS vice like in in Like in a detail in next lecture. So MSS means maximum segment size, okay? So we will we will look at it later So generally like transport layer makes a maximum segment size segment maximum segment size packet and then it send it Okay, so we will look at it later But if PSS is one then we don't wait for any MSS or any other time or anything else, right? Do not wait for some MSS
+
+8
+00:04:09,340 --> 00:05:12,300
+or anything else and what it means for the receiver side push it immediately to application right right immediately to application okay cool so I hope you understood the what is this PSS what is this RST what is this RST can anyone tell me what this RST means reset so when when anyone will send the RST packet so yeah whenever it gets confused right whenever
+
+9
+00:05:28,400 --> 00:06:08,520
+rst equal to 1 means less reset the connection right and what are the other fields I hope you understood what is sin if sin is 1 it means what it is a last packet or first packet or middle packet it is the first packet right from my side so it is a first packet so I hope you understood finish 1 means it is it is the last packet from my side right I mean if you want you can send it but it is a last packet from my side at least okay this receiver sorry this window size means what
+
+10
+00:06:09,450 --> 00:06:43,100
+We will understand this window size today actually this window size is the crux of the flow control But I still have you understood the window size from the last lecture it means the receiver is going to say that this is my window size Okay, this is a receiver window size. We will understand this today This is a this is actually you can say the focus of today. Okay today. We will see this Okay, today's focus. Let me let me write it Useful flow control basically useful flow control. We will see this in more detail today. Okay, because we are going to see flow control today
+
+11
+00:06:44,290 --> 00:07:12,610
+checksum is just once complement wrap around some we have seen it multiple times, right? Argent pointer have you understood? If this is 200, it means if the initial, if the sequence number is 15,000, if this is 200, it means that from 15,000 to 15,000 plus 200, this much is basically urgent data, right? So I hope these fields are okay to everyone. Now, let's just see some questions. Let's just see this very easy question. So this is the MSQ question, by the way.
+
+12
+00:07:12,960 --> 00:07:54,290
+So what they are saying, the primary difference, primary difference between UDP and TCP is TCP is reliable by the stream protocol while UDP is not, right? Is UDP reliable? No. So that's why this is the difference. I agree. This is the difference. TCP is connection oriented while UDP, yeah, that is also true. TCP is a sequence number while UDP does not. Do you remember UDP header? Do you remember UDP header? Let me just show you if you don't remember. See. Yeah.
+
+13
+00:07:54,540 --> 00:08:25,080
+is there any sequence number here it is just a source port number the extension port number that's all and checksum is is there but it is it is optional optional in the sense that if you don't want to use it you just keep zeros here okay if you don't want to use it yeah there is no field for sequence number here so yeah that is also a difference tcp enforce flow control by udp has no flow control right i mean if there is no sequence number how you can even enforce the flow control right so udp has no flow control that is also true so then what are the answers abcd
+
+14
+00:08:25,150 --> 00:08:54,870
+Right. So this is MSQ question, which I've taken from this and ABCD are the answers here. Now, let's see the connection establishment. Although we have seen it in the last class, but let's see, let's see more questions and let's just recap it. Okay. What was the connection establishment here? Now in TCP, what, if you want to send some data, let's suppose there are two parties, right? If they want to send some data to each other, then first they establish the connection TCP, right? So to establish the connection, what happens?
+
+15
+00:08:55,140 --> 00:09:25,860
+that it will send some something called a sin it will say that okay I want to establish a connection it will say I want to I want to I want to send some data so that's why I want to establish a connection this is sin right now it can it can send ack right it can send ack it will say that okay I accept this connection but since it is full-doplex so it can also send the data so that's why that's why I mean this is one option that sin ack then then it can say sin ack right I mean this is one option only
+
+16
+00:09:26,140 --> 00:10:00,650
+which means I am saying that CIN ACK I want to open the connection it will also say I also want to send the data so CIN ACK this is one way which is perfectly valid way but is this optimized can we can be little bit optimized here do you think we can optimize this yes how we will just say that instead of sending okay instead of sending the packets like this we can send CIN and ACK of this together right so maybe I can write it here so
+
+17
+00:10:03,160 --> 00:10:39,880
+So basically instead of just a second Yeah, so I will say instead of these two packets I will just send sin plus ACK right sin plus ACK so here It will be sin plus ACK. I mean if you want you can have Sin and ACK separate but it's not worth right and then I can just send sin plus ACK in just one packet. Is this okay to everyone? Okay, so this is this is you can do
+
+18
+00:10:40,080 --> 00:11:15,870
+But it's not required. I mean, you don't need to have these four packets. You can just manage with the three packets. That's why it is called three-way handshaking. This is also called three-way handshake. This is just a handshaking. Cool. See, whatever application you are using, whether you are using web browsing or whether you are using any service like Telnet, FTP, if that is using TCP service, if you want to use TCP service, you will be first establishing a connection.
+
+19
+00:11:16,190 --> 00:11:47,640
+okay and these are the three packets we send to establish the connection okay although we will talk it talk about it in later later on but let's suppose that you have you have but here here i'm just asking you one question let's suppose you have some address maybe google.com can you guess the sequence of steps that you need to perform to face the data of google.com that index.html or something okay i mean that that google page can you guess the steps what should be the very first step
+
+20
+00:11:48,690 --> 00:12:16,150
+Obviously, like we will see it later on as I said, obviously the very first step is DNS service, right? This will be, this will be some IP, okay? Whatever the IP address, this will be the very first step. Can you guess the very next step after the IP? It will be, it will be TCP connection establishment if you're using TCP service, okay? So the very next, suppose you have, you have some IP address, okay? And you want to communicate.
+
+21
+00:12:16,450 --> 00:12:50,110
+using the TCP the very very very fastest step that you will be doing is connection establishment okay so we will we will talk about DNS and these things later on so that's why I'm not writing it here okay so but what I'm trying to say here is that if you have the IP address and if you want to communicate to any host then the very very fastest step using the TCP will be the connection establishment only okay okay so if this is the initial sequence number x then it will be acknowledging with x plus 1 and this is the initial sequence number 4
+
+22
+00:12:50,320 --> 00:13:23,660
+uh for this this particular uh data transfer and this will be the uh this will be the acknowledgement for this okay cool so that's what it is shown here and I think there's the same uh same particular diagram that I've taken from or do you remember the book what was the book I've taken from Phrygian right okay so this is the diagram from Phrygian this is syn this is syn plus ack this is ack now if you notice that they are also sending
+
+23
+00:13:24,840 --> 00:13:53,300
+uh the receiver window size they are also saying that okay you can send the data okay i mean this is the ack which means you can send the data and my receiver window size is this if you want to send the data you cannot send more than 5000 if if uh i mean it is saying to him that i mean the server is saying to client that if you want to send then do not send more than 5000 client is saying to server if you want to send do not send more than 10 000 right okay so we will see this in more detail don't worry now
+
+24
+00:13:53,570 --> 00:14:22,890
+in the transport layer if you remember if you remember vaguely you might remember it that we have one host let's suppose here we have one host here and here in between there could be many routers and and so on right so do you remember that in the data link layer we were saying that data link layer acknowledgement will go from hope to hope do you remember if it wants to send the data link layer acknowledgement it will go from hope to hope hope to hope right and once it receive the transport layer receive
+
+25
+00:14:23,100 --> 00:14:51,310
+the data then it will send the acknowledgement from the transport layer to transport layer do you remember that vaguely little bit in one of the lecture maybe in two lectures i've talked about it that the data link layer communication is between from hope to hope and if it is transport layer then it is from the host to host right the transport layer communication is from host to host so the ack is going on then it will go from host to host here if the ack the data link layer ack is going on and if the transport layer ack is going on then
+
+26
+00:14:51,550 --> 00:15:20,590
+then the difference is that it will go host to host it will go hope to hope right the next top only right okay now in the data link layer whenever we see any flow control or anything then it is basically very easy because there is just there is just one one link between right there are no multiple hopes but the transport layer picture any communication in the transport layer picture look like this it is not a direct sending it is not a direct sending it is always intermediate in between
+
+27
+00:15:20,940 --> 00:15:50,530
+there could be many routers many thing right is the diagram making sense to everyone that why this diagram is true for the transport layer thing and why this diagram is not true for the data link layer thing if you if you talk about any communication at the transport layer then this will be the this is not the direct thing this is basically some some many many routers and many things in between which we call internet right there's an internet in between does this diagram make sense to everyone that the communication at the transport layer is having
+
+28
+00:15:51,030 --> 00:16:29,420
+the internet in between. It is not the direct links. Okay. So this is communication at transport layer. Any communication at transport layer. Okay. Cool. Now let's solve a few questions and you will get to understand this transport layer things in more detail, right? And then we will switch to the flow control. So let's see this question, which I have taken from Princeton University. This question, actually, number was two a here. Okay. The number is two a anyway, doesn't matter. But let's just see this question. So what they're saying.
+
+29
+00:16:29,750 --> 00:17:00,240
+host A initiate TCP connection with host B by sending SIN packet okay it sends the SIN packet that's fine and B respond with the SIN ACK SIN plus ACK upon receiving SIN plus ACK A respond with an ACK packet for each question please okay it respond the ACK packet please check one box what is the earliest time A can start sending data to B so this is A this is B when can A send the data to B
+
+30
+00:17:00,500 --> 00:17:33,400
+What do you think? Immediately after sending SIN packet? Immediately after sending, after receiving SIN ACK packet from B? Immediately after receiving data from B? What do you think? Just try this question and let me know what is your answer. Yeah, B is the answer. The moment it received this, right? The moment it received this SIN plus ACK, it can start sending the data, which means it obviously it needs to send the ACK, but the data, data and ACK can be sent all together, right? I mean, data plus ACK can be sent all together.
+
+31
+00:17:34,090 --> 00:18:32,640
+You do not need to send ACK separately and this kind of ACK are called piggyback ACK, right? Do you remember this name? I told in one of the lecture, but anyway, this is one term where we call piggyback ACK piggybacked What is the piggyback ACK? If we are sending ACK with the data that is called piggyback ACK ACK along with the data then it is called piggyback ACK, right? Okay
+
+32
+00:18:35,250 --> 00:19:13,180
+Akash is asking, on getting ACK is this sufficient? Which party? Which one is getting ACK? Are you talking about B? Oh, you are talking about this particular packet. You are talking about this particular packet. Yeah, basically there is, there is no, I mean in the implementation, there is no ACK separate. If you are sending the ACK as a second packet, you will be definitely sending the SIN, right? You will be definitely sending the SIN because ultimately you have to send the SIN as a next packet. So actually,
+
+33
+00:19:13,580 --> 00:19:38,320
+like if there is anything else that that is coming to your mind then all the things are basically implementation dependent so basically you are asking that if we if we just send the ack then can a send the data yes theoretically it seems that there is no problem that it should be able to send right and it should send the data there is no problem in that but but it should be mentioned in the question because all these things that all the variations that you are you are saying are nothing wrong in that
+
+34
+00:19:38,550 --> 00:20:05,330
+and these are implementation dependent things in TCP there are many many versions TCP has four to five versions so we don't need to study the implementation dependent thing but whatever logically making sense to you most probably it will be true and it will be given in the question if whatever you are thinking extra thing that will be given in the question that okay that after you get and send the data and so on okay that that is a TCP version so whatever you are saying is basically you can you can call it is your own version okay TCP version
+
+35
+00:20:05,580 --> 00:20:34,780
+So there are many many TCP versions so you can think of any any other thing and this is just a software thing so I mean it could be easily be implemented if you want to it's not like that anything wrong with that right I mean conceptually there is nothing wrong if you just receive the ACK if it doesn't send the send conceptually there is nothing wrong right A is saying that I want to send the data B is saying that okay you can send it is just like that and if it is sending back then this is conceptually nothing wrong okay so basically whatever you are thinking
+
+36
+00:20:35,180 --> 00:21:01,530
+it's just a tcp implementation dependent things and there are many many versions in the tcp obviously we don't need to study those implementation dependent things right right okay so b is the correct answer here that we are just looking at one standard tcp which is given in the books so you don't worry about the implementations whatever is coming to your mind if this is something extra
+
+37
+00:21:01,820 --> 00:21:37,830
+then don't worry it it most probably it will be true if it is logically making sense to you. Okay. Now, let's just see this question. What is the earliest time that we can start sending the data to it? So this is sending sin then sin plus ACK. Right. This is ACK. So what is the earliest time and also see in this question also they have given, right? They have given that, okay, sin ACK exchange is there. Right.
+
+38
+00:21:39,310 --> 00:21:51,290
+that sin, sin plus acq and then acq. So what is the earliest time that we can start sending the data? Immediately after receiving the sin packet. No, I don't think right. It is saying that I want to send the data then
+
+39
+00:21:51,710 --> 00:22:17,290
+to say that b also that i want to also send the data right i also want to send the data then it is saying using sin that i also want to send the data then it will actually is that okay you can send the data with the receiver window size right there will be some receiver window size here also that it will say okay you you can send but maybe not more than let's suppose 500 writes right not more than 500 writes then we will start sending the data so the moment we receive the ack immediately after receiving the ack packet from me right so i think c is the correct answer here
+
+40
+00:22:17,520 --> 00:22:51,470
+the moment it received the ack to also get to know that what is the receiver window size right i mean what is the window size a as a receiver so a can act as a receiver a can act as a sender also okay in just one connection you can act as a receiver and you can act as a sender also cool is this understood to everyone that once the ack arrives then v knows that a is a has b's initial sequence number and is ready to accept the data right and also knows what is the crucial thing it's it also know can anyone tell me
+
+41
+00:22:53,290 --> 00:23:35,220
+What else be also know yeah window size right is Window size as a receiver Okay, now they're saying suppose the ack packet from a get lost so you are sending sin and This is sin plus ack Now this is ack now. They're saying this packet get lost What ultimately triggers a to retransmit the lost ACK packet as you know other packets get lost and no data packets are sent What ultimately triggers?
+
+42
+00:23:35,680 --> 00:24:09,310
+a to retransmit the lost ack packet see if this ack packet is lost okay let's just consider a general scenario let's suppose you are sending a sin and then it is sending sin plus ack suppose this ack is lost okay in general in general basically tell me who can send the data and who can not send the data till this point who can send the data tell me a can send the data right so a can send an a bill send i mean if it has data to send in general this is a client
+
+43
+00:24:09,760 --> 00:24:31,700
+right this is the client this is server right now you tell me now you tell me see just understand this in the practical point of view then we will see that what should be the answer of the question so in practically if you are a client and you are requesting let's suppose google.com or any server right
+
+44
+00:24:32,410 --> 00:25:01,770
+In that case, you will be sending for your first connection establishment request that you want to establish the connection. It will say, okay, you can send the data. I mean, you can send the data and I also want to send the data, right? Using send it will also say that I also want to send the data. I will be sending the data using some some initial sequence number that is given in the sequence number field. Anyway, so it will say A will say that, okay, okay, you can also send the data and this is my receiver window set and so on. But this packet got lost. Now, now, as per A, let's suppose as per A,
+
+45
+00:25:01,950 --> 00:25:29,760
+it has sent the ACQ shouldn't see A can send the data shouldn't A should be allowed to send the data here because B is anyway saying that you can send the data so also A can send the data now you just tell me in general in general first A will be now the connection suppose the connection is established okay now in general first A will be sending that sending the data or A will be requesting that what it wants to get or B will we automatically know that what we want to get I mean
+
+46
+00:25:30,030 --> 00:25:32,210
+See this is A and B, this is client, this is server.
+
+47
+00:25:32,530 --> 00:26:01,770
+So A will first request something that I want to get the Google.com page or maybe some other page, something else. Maybe let's suppose the connection established, you are also having Google.com page, you are also having Wikipedia.com page. So it will send the request that see I want to get Google.com. I don't want anything else. I want to maybe at this server, at this server, you hold the service for the Google.com also, for the Wikipedia.com also. So it will say that I want to get this particular page. So A will send some
+
+48
+00:26:02,800 --> 00:26:30,890
+I mean, I mean some data, some data, it could be, it could be anything else, right? So at that time, can't ACA can send the data, can't A also piggyback this ACK? Yes, right? And it will, it will piggyback the ACK because, because it is saying that I'm expecting this much, right? I mean, like, it will say that, okay, from, from this initial sequence number, I mean, this is my ACK, I'm expecting this, this byte from you.
+
+49
+00:26:31,730 --> 00:26:59,630
+It will it will it will also have this ACK. So even though this ACK is lost and See just listen two lines. This ACK is lost and and A has some data to send in that case in that case Will this ACK lost we will hamper you or will it will not hamper you? See if this ACK is lost and and and and you have data to send Then this ACK lost will not hamper you is the circuit everyone
+
+50
+00:27:00,110 --> 00:27:43,400
+And this is a general case, I mean you generally have the data to send. So if this ACK is lost and you have the data to send, let me just write it here. If this ACK is lost and you means client, right? Client, have or has, whatever. You have data to send. Then ACK lost is not an issue.
+
+51
+00:27:47,630 --> 00:28:18,040
+Now, let's just see this question. Now, let's just see this question. They are saying that this ACK is lost, but ultimately trigger A2 retransmitter lost ACK packet as you know other packet got lost and no data packets are sent. Okay. So no data packets are sent and no, no packets are less. So if this ACK is lost, A retransmission timeout at A, A retransmission, a retransmission timeout A, a retransmission timeout at B, triggering the retransmission of SIN plus ACK. What do you think?
+
+52
+00:28:18,200 --> 00:28:56,710
+What is the answer here? Will there be a timer at A or will there be a timer at B? What do you think? So, yeah, if this ACK is lost, then there will be no timer at A, right? There will be a timer at B that will take care of this retransmission. So, B will say that, okay, if this SIN plus ACK is lost, sorry, this ACK is lost, then there will be a timer at B that will say that, okay, let me just retransmit this SIN plus ACK so that I get ACK. This is a general question, right? I mean, these kind of things we have already seen.
+
+53
+00:28:56,870 --> 00:29:57,570
+So, if this ACK is lost, then it will start the timer, it will say that okay, maybe I have not received the ACK, maybe this packet is lost. So, that's why it will retransmit this SYN plus ACK. So, let me write it here. Now, in that case, what will happen? It will retransmit the SYN plus ACK. B is the answer, that B will retransmit SYN plus ACK. See, here, is this line also important to say that no data packets are sent?
+
+54
+00:29:57,890 --> 00:30:26,280
+is this also also important yes right if there is a data packet that a sending then it will use a piggyback ack and there will be no timer expire at b okay if there is a if there is a uh data packets that a sending then there will be a piggyback ack in that case in that case this b timer won't be expired right i mean i'm assuming that b timer doesn't get expired okay the timer is long enough that it doesn't get expired
+
+55
+00:30:26,860 --> 00:31:00,590
+If there is no data packets, then there is 100% surety that B timer will get expired. If A is also sending the data packet, then probably the timer doesn't get expired and before that B receives the data packet. Now let's see this question. So what they're saying, I have taken this question from 4th edition. This is from the 4th edition. So what is the value of receiver window? RWND, generally we call it RWND receiver window. For host A, if the receiver, host B,
+
+56
+00:31:01,020 --> 00:31:29,230
+has a buffer size of 5000 bytes and 1000 bytes of received and unprocessed data so what they are saying for host A is the receiver so A is sending some data to B and B is acting as a receiver now B has buffer of size 5000 bytes and out of that 1000 bytes has been received so these 1000 bytes they are saying are occupied remaining will be
+
+57
+00:31:29,330 --> 00:32:21,030
+4000 bytes of space so what should be the receiver window size that B should advertise to A in the buffer it has just 4000 bytes then order should be so what do you think it will say the receiver window sizes just 4000 right it cannot it cannot advertise more than 4000 okay good easy question okay they have removed it this question in the fifth edition I think I don't know why
+
+58
+00:32:21,270 --> 00:32:53,620
+but yeah that question was from fourth edition i was not able to find that in fifth edition they have removed this question from in the fifth edition maybe the reason is maybe they why they might have removed maybe the reason is that i mean the question is saying that what should be the receiver window size but the receiver window size may not be exactly 4000 right it can be lesser than 4000 also i mean maybe they they can modify this question a little bit what is the value of
+
+59
+00:32:54,890 --> 00:33:28,920
+What is the maximum value they can say right maximum? Okay, anyway, but I hope you understood so what is the maximum value of receiver underside? It should not advertise more than 4,000 right something like that Okay, now let's see this question this question I have taken from cross and the page number 287 Okay, suppose host a sense to TCP segment back to back to host V over a TCP connection The first segment has a suitcase number 90 Okay, the first is having suitcase number 90 and second has a suitcase number
+
+60
+00:33:29,350 --> 00:34:07,650
+1 1 0 ok how much data is in the first segment can you tell me how much data in the first segment from the 90 it should be from the 92 I mean 1 it is 1 1 0 it means 1 0 9 right I mean you can directly subtract 1 1 0 and 90 so what is the answer 20 right ok so 20 you can say it will be containing the 20 bytes is this ok everyone because it will be containing 92
+
+61
+00:34:08,730 --> 00:34:41,940
+109, which is basically 20 bytes. So 20 is answer here. Let's just see the question number B. So what they're saying, suppose that first segment is lost, but the second segment arrives at B. Okay, this is lost. Second is arriving at B. In the acknowledgement that host B is sending to A. What will the acknowledgement number? What do you think? Okay, maybe this question, I can take it little later or after the flow control. Actually, it uses the selective repeat.
+
+62
+00:34:42,440 --> 00:35:13,650
+So can you just guess based on the select to repeat? Okay, I will, I will take this question letter later. You answered it correctly that if it is sending, if this is lost and even though this is reached, right, even though this is reached, then it will be sending the acknowledgement that I'm still looking for 90, right? It will be saying that I'm still looking for 90, something like that. So we will, we will just keep take this question in a while. Okay. Again, let's see this question. This question has been asking gate 2021. Okay. Let's see this question. What are they are saying?
+
+63
+00:35:15,110 --> 00:35:51,030
+three-way handshake mechanism during the TCP connection establishment, P and Q. Let X and Y are the two random 32-bit starting sequence number, choosing Y, P and Q respectively. So they are saying that P is choosing X and Q choosing Y. This is P and Q. So P is choosing X, this is choosing Y. Initial sequence number, this is X. Now they are saying
+
+64
+00:35:53,620 --> 00:36:28,690
+Suppose P sends a TCP connection request to Q with a TCP segment having SIN and sequence number as X, okay? This is the first segment, SIN equal to 1 and X, okay? And ACK 0, obviously. Suppose Q accepts this connection request, which of the following choices represent the information presented in TCP segment header that is sent by Q to P? So they're just asking SIN plus ACK, right? SIN plus ACK. So what is the correct answer? Can you just solve this question? So SIN will be there, right?
+
+65
+00:36:29,140 --> 00:36:58,790
+same will be there ack 0 no ack should be 1 and sin also should be 1 so either c or d is the correct answer right now c is saying sin is 1 sequence number is y okay everything is same same same okay the accolangement number should be x plus 1 right yeah because this is x and it will consume one sequence number right it will be accolaging that now I'm expecting x plus 1 okay this is a nice question in the sense that you should know that the accolangement number want to be x so basically this is consuming one sequence number
+
+66
+00:36:59,320 --> 00:37:41,870
+It is consuming the sequence number X. It is because it has to be acknowledged, right? That's why it will be consuming one sequence number. So C is the correct answer here. So this fin is basically like we will see this in the connected intermission. It is used for the last packet. So fin will be zero. Okay, fin will be any way zero. Let's just see this question, which they have asked and get it and save it. Let's just see what they're asking. Consider a TCP connection in a state where there is no outstanding ACKs.
+
+67
+00:37:42,320 --> 00:38:12,870
+the sender send two segments back to back the suitcase number of the first and second segment so they are saying the suitcase number this is having the suitcase number 230 this is having suitcase number 290 the first segment was lost but the second segment was received by the receiver okay the x is the amount of data that is carried okay we will see again this question in a while because of why but can you read this question? agent did the same question that they have taken from crows exactly same question right
+
+68
+00:38:13,950 --> 00:38:36,930
+So this is the exactly same question that pays 287 this question and the question get 27 are exactly same They're also saying that okay the second segment is lost then what should the ACK number and what is the data here, right? What is the data here and what is what is the ACK number? So ACK number was 90 and the data was 20 bytes So there are also asking the exactly same question. So this is exactly same as gross
+
+69
+00:38:48,040 --> 00:39:13,420
+So as I told you in computer networks, many times it happens, okay, many times, not just one or two times, many times it happens, then we'll get back with it, they directly copy. I think this must be six or sevens question that I'm telling you they directly copy from standard textbooks, right? So this question also they have directly copied and not just this question, I will show you one more question today only from cross, okay, they're directly copied from cross. So we will see one more question.
+
+70
+00:39:14,050 --> 00:39:48,380
+So here also they are saying that two packets has been sent and this how much data this is carrying and if this is lost then what should be the AC get something we will see this Actually the second case that if this is lost then what should be the AC keep in the flow control? Okay, so I thought that we can solve it here But but it is better better to look at these questions after the flow control But by the way, do you also agree that this this question is exactly so much cross-question? Let me know they are saying that you are sending two packets back to it the first segment
+
+71
+00:39:48,730 --> 00:40:33,660
+was lost but the second segment was received the x is the amount of the first segment and the y is the ack number right exactly same as that cross question so basically uh in computer networks i don't know why but i have observed it like many times they directly copy from the extended textbooks now whenever whenever you are sending some data right now at that time there will be three uh i mean there will be connection, stabilization, phase and then there will be basically three packets that you want to send sin then sin plus ack and ack
+
+72
+00:40:33,860 --> 00:41:01,700
+Now, interestingly, each of this client and server also maintain the states. Okay. So, which means obviously the client is closed initially and very initially the server is closed. Now, tell me, first tell me, can the server remain closed? Can the server remain closed? Which means, can I just say it can remain closed and then it can, it can accept this. I mean, it can just check the syntax packet. Can the server be always be closed? What do you think?
+
+73
+00:41:05,970 --> 00:41:42,660
+or at some point in time, it should turn on or it should start listening to the people. Can I say it is always closed? See, if it is always closed, if this sin is coming, if the computer or the server is switched off, okay, there is no power, let's suppose there is no power, then how can it even check whether the sin is coming or not? So at some point in time, it should turn on and it should actively listen, right? I mean, it should listen. So basically, it can remain closed and the moment it gets turned on, it can send the sin packet, right?
+
+74
+00:41:42,890 --> 00:42:12,330
+And this server should be in the listen state. These are some states that it maintains you don't need to remember. I'm just telling you because that is given in the textbook. So the moment you send it, we say that the client has been moved to from close state to sin sent. Now it has sent the sin packet. The moment it received it, it will also send the sin plus ACK. It will say that, okay, I mean it undergoes in the sin received state. These are the server states. These are the client states. And the moment it received the ACK,
+
+75
+00:42:12,610 --> 00:42:42,960
+sorry simple as ACK it says the connection has been established okay it doesn't even wait for the ACK see interestingly this ACK may have been lost here this ACK may have been lost do you think that client can't can't send the data as per the client it is in the establishment state that okay connection is established now I can send the data right as per the client it doesn't give any any care about this ACK are you understanding right so if it wants it can send the data
+
+76
+00:42:43,870 --> 00:43:13,890
+So that's why they have they are saying that okay this the client assume that we are in the connection establishment phase Okay Understood and the server will be in the connection establishment phase when it received the ACK Anyway, these are few states like you don't need to remember it but but there are some mistakes under which it goes on So now the data will will get transferred. So here it will send and Here it will say that okay sin received. There is nothing called since sent here. There is nothing called since and here
+
+77
+00:43:14,090 --> 00:43:40,850
+okay they just said send received and now send received itself means that okay send received and now it must have sent the send also right I mean this is implicit so these are just some mistakes you don't need to remember it again I'm just telling you that it maintains some mistake okay I mean the TCP client and TCP server maintains some mistake okay for every for every these control packets control packets means like the packets which are not directly related to data
+
+78
+00:43:41,080 --> 00:44:06,050
+okay for every of this control package they maintain some state now whenever you're terminating the connection at that time also they maintain some state okay whenever you want to terminate the connection at that time also they maintain some state this is the connection establishment right connection open on like opening up opening up a connection so at open time also they maintain some states now at once the connection is established they transfer some data and after that
+
+79
+00:44:06,780 --> 00:44:40,110
+after after the connection is represent let's suppose they want to terminate the connection then also they maintain some state let me just show you okay see I think here there must be some diagram yeah see this diagram that initially sin that sin cent is one state this these are some state names okay since end then listen and and so on okay and then once the once the data transfer is complete then if they want to close it then also there are few states we will talk about it later on
+
+80
+00:44:40,300 --> 00:45:07,450
+although you don't need to remember the state names it is this slide is just to tell you that they maintain some mistake okay you should know that that how things are happening so they maintain some mistake they are saying that okay I am in the since Santa state then it is first go to listen state I mean basically since Santa and since receive basically these are the two main state that okay since and and since received do we have since received state here at the client do we have to see the state here at the client no
+
+81
+00:45:07,700 --> 00:45:36,650
+Do we have sent a state at the server? No. I mean, these are some implementation things that people have done it. Okay. Each connection have these states. Okay. Each connection have these states. So now the server may be providing the server port number, let's suppose 80. Okay. Server port number 80 may be providing multiple services to multiple clients. So there may be multiple connections. The server is opening with just one port.
+
+82
+00:45:36,890 --> 00:46:16,960
+okay it is possible that it is it is opening multiple connection with just one port so in that case in that case like multiple connections will get open and there will be multiple states as per each connection okay so now let me take some doubts so the Beyonce is saying sir after receiving sir after receiving ack from a then will be first send the data or a how they decide after receiving ack only from a
+
+83
+00:46:19,770 --> 00:46:50,150
+Only from a which means this is he great Yeah, so anyone can send the data. So after this point anyone either either a can send or we can send anyone whoever wants to send but generally what do you think Generally, who has need to send first? What do you think? After this point once it received the ACK, what do you think generally who has need to send first a right because how will server get to know that what do you want?
+
+84
+00:46:50,630 --> 00:47:33,420
+See you will be only telling that I want this then only server will be telling you will be giving the letter, right? So otherwise how will server get to know that what you want? So that's why that's why generally generally I mean a only has first first request like okay I want this and then we will be reply something like that, right? Okay, so anyone can send send after this point Yes, yes both consent anyone consent
+
+85
+00:47:33,810 --> 00:48:10,160
+but but generally obviously like a will be needing a will be having some request that okay can you give me this page something like that right now let's solve this question so maybe we can do one thing the questions that i want to solve maybe we can do these these questions after the flow control okay so let's just do these these these two questions after the flow control okay so let's let's solve this question first so what they're saying consider a three-way handshaking tcp connection setup suppose that old sin segment from station a
+
+86
+00:48:11,040 --> 00:48:40,350
+This is A. This is B. Okay. It must have sent some SIN, but they are saying old SIN, which means that that must be delayed. Okay. That must be delayed. And now because of that, it is sending the SIN again. Okay. Which means that now let's suppose that must be delayed and they have been in the connection establishment and now they are transferring the data. Okay. They are, this is the data transfer state. At that time some old SIN is coming. Then what will happen?
+
+87
+00:48:40,620 --> 00:49:14,330
+if this old syn is coming, unexpectedly if this is coming to be, then what will we do? What do you think we should do? Yes, very nice. It should reset the connection, right? Reset the connection. Okay. If unexpectedly something is coming like this, it should say that I will reset the connection. HostB will reply with the syn, hostB will reply with syn, acronoling the received syn. When A receives the syn segment with the acronoling, it will conclude it did not initiate the connection and send back the
+
+88
+00:49:14,750 --> 00:49:48,540
+Okay, they are saying the question is basically like that. They are saying that the question is like that that is a sending sin Okay, but this has been delayed too much too much that they have done everything which means they have they have done the data transfer everything that connection also got terminated Okay, connection got terminated got terminated Now now what will he do if the connection got terminated and after that it is it is receiving the old sin, okay
+
+89
+00:49:50,850 --> 00:50:30,610
+What will a do in that case and what will be do so basically let me write the question I'm in the diagram You just tell me in that case what will a do and what will be do if the if everything is finished And then then you are you are getting the request from me. Okay, then sin So will be will be will reply with sin plus ack tell me will be reply with sin plus ack Yes, right. So we will be replying with sin plus ack So we will be replying we will sing sin plus ack
+
+90
+00:50:32,540 --> 00:51:06,480
+Now, will a reply with acq or able to do something else? A will say that, okay, I don't know why this is sending SIN plus acq to me because this is very unexpected. Then A will send RST, right? A will send RST. Okay. So that's what they are saying that, that B will reply, B will acknowledge it, but A will send the RST because A got confused now that why they are sending me SIN plus acq. Okay. Let's see this question. This question I have taken from Stanford.
+
+91
+00:51:06,870 --> 00:51:38,570
+This is a MSQ question. So they are asking which of the following is your R2. So a host that receives SIN packet to an open port N sends back a SIN or SIN SIN plus ACK response to the source IP. If you are receiving SIN to some port, then you are sending SIN plus ACK. I think that is true. That is true. If you are receiving SIN at the close port, then are you sending this reset?
+
+92
+00:51:43,210 --> 00:52:19,870
+If you are receiving at the close port, what do you think? Yes, right? Because you don't know why this has been come. Like you don't know, you will say that can you reset the connection? Right? Maybe something has been wrong. Can you reset it? So this is yes. A host that receives a SIN ACK packet that is not expecting, sends back a RST. If you are not expecting that packet, then will you send back the RST? Yes. Host A that receives a SIN packet to a close port, sends back SIN plus ACK.
+
+93
+00:52:20,200 --> 00:53:00,450
+If you're receiving at the close port, then will you acknowledge it? What do you think? No, right? If you're receiving at the close port, you should not acknowledge it. So that's why this is false. So ABC are the correct answer set. Okay. Cool. So let's now restart with the flow control. So we are going to start a new topic here, which is flow control and TCP. So till now we have just seen what is the connection establishment. I mean, mainly we have seen
+
+94
+00:53:00,670 --> 00:53:33,230
+What is sin, sin plus ACK and these things only, right? So since in plus ACK, these things we have, we have seen. Now we are going to start with the flow control. Let me know if you have any doubt here. Okay. Till this point, let me know. I mean, any doubt in the connection establishment. So what is the sin you understood, right? What is the sin plus ACK and what is this ACK? You understood these three things. Even though, even though this ACK is lost and if, if this particular party has some data to send, then will this matter for me that this ACK is lost or not?
+
+95
+00:53:34,520 --> 00:54:10,280
+No, right? So now let's just see a very, very interesting topic, which is flow control. Okay. So how the flow control is happening in TCP. Like little bit, you know, do you remember that which protocol that is using selective repeat, go back and stop and wait, which protocol TCP use. I've told you that it is using selective repeat, but we will see this in more detail. Okay. Let's just see. So for flow control in TCP, there is a very important field in the header, which is basically this window, right?
+
+96
+00:54:10,910 --> 00:54:43,560
+which is a receiver bit more. So this is flow control and TCP header. Okay. Now let's just see that how the flow control is happening. So this is one screen shot that I have taken from a forward. Let me just tell you step by step instead of this skin shot. So suppose that this is sender, this is receiver. Okay. Suppose sender is sending some data to the receiver. Now let me write it. This is sender and this is
+
+97
+00:54:49,050 --> 00:55:20,810
+Now, suppose sender wants to send some data to the receiver. So, what will be happening? Like, I mean, first, what is the very first packet that sender will be sending? You remember? So, the very first packet will be SIN. So, sender will be saying that, okay, this is SIN, but I want to establish some connection. SIN. Now, this SIN will be containing some sequence number or not. Just tell me, will this SIN containing some sequence number?
+
+98
+00:55:21,210 --> 00:55:57,350
+Yes, right. So this sin is let's suppose containing some sequence number. Maybe maybe I mean it could be some random sequence number. Let me just call it hundred now upon receiving this upon receiving this this packet What will this do this party will do this will be sending some sin plus ACK, right? So now this party will be sending sin plus ACK Will this be containing some sequence number? Will this be containing ACK number? Yes, right? So the sequence number here, I mean you can take it anything
+
+99
+00:55:57,630 --> 00:56:30,580
+But let me call it 1000. Can you tell me the ACK number here? Can you tell me the ACK number here? This is 101, right? This is 101. And this will be reached to this particular point. Now, it will be, it will, okay. Now, now tell me what else it will be containing? Whenever you are saying that, okay, you can send the data, which means using the ACK that, okay, you are expecting, you are expecting, ACK is telling you, you are expecting byte number 101.
+
+100
+00:56:30,920 --> 00:57:01,240
+so will there be a receiver window also yes so let's suppose this window size i mean it could be anything but let's suppose this window size is 800 okay this window size is 800 which means we are saying that this particular party is saying that i'm expecting i mean i'm expecting not more than 800 bytes okay so this will be the moment it receives this this will be saying that okay i'm also willing to send you the some data and i mean you can send me some data and
+
+101
+00:57:01,580 --> 00:57:32,830
+the acknowledgement number here will be how much can anyone tell me it will be 1001 and there will be some receiver window size here also let's suppose this is 2000 okay this is the connection establishment phase now now let's just see that how the data is getting transferred okay how this receiver window is playing some role how the data is getting transferred here let's just see this now what will happen as an x step then
+
+102
+00:57:34,550 --> 00:58:02,660
+this sender or the receiver, okay? I mean the A or B will be sending some data the moment it receives this then generally who sends the data first? This A or B, what do you think? Generally who will be sending the data first? Obviously A, right? Because I mean A will only tell B that which packet I'm expecting. So maybe let's suppose this A sending some data, okay? I mean first tell me that can it send the data along with this packet? Can it send the data along with this packet?
+
+103
+00:58:03,170 --> 00:58:37,250
+definitely it can send type but let's suppose I'm sending it separately maybe I can just make it a little larger okay suppose suppose this is sending the data which is saying that there could be any any number of bytes but let's suppose which is saying that I'm starting from sequence number let's suppose what should be the next sequence number should be starting from okay what should be the sequence number here 1 0 2 or 1 0 1
+
+104
+00:58:41,540 --> 00:59:20,990
+101 right because it is expecting 101 it is expecting 101 so that's why 101 okay now let's suppose the number of bytes also I'm writing let's suppose these are the data bytes which is maybe 100 bytes or maybe 200 bytes okay how much it can send maximum it can send maximum 800 bytes but let's suppose it is sending 200 bytes now you tell me what should be the ack here what should be the ack here 101 plus 200 directly which is 301
+
+105
+00:59:22,320 --> 00:59:51,940
+Now let's suppose these 200 bytes it has reached but but now initially initially it was basically saying that 800 is my buffer right 800 is basically something which I can hold so now you have sent the 200 okay it is saying that 800 bytes I can hold at max now you have just sent 200 now can you tell me I mean it is receiving 200 or can you tell me that how many bytes are remaining here 600 bytes
+
+106
+00:59:53,510 --> 01:00:29,330
+It's 600 bytes are remaining. Is this okay everyone? Now, can you tell me the receiver window size? What should be the receiver window size here? It will be 600, right? It will be 600. Okay. Now this packet will be reached to the A to the sender and now sender will be sending the data again. Okay. So let me go to the next page. See here. This is sender. This is the receiver. Sender has just received a packet saying
+
+107
+01:00:29,700 --> 01:00:56,470
+that the the acknowledgement number is 301 and receiver window size is 600 now you tell me that how much data maximum it can send at the left how much data maximum it can send it can send 600 bytes right and what should be the sequence number can anyone tell me from this diagram alone what should be the sequence number
+
+108
+01:00:58,200 --> 01:01:31,750
+301 because it is expecting 301 so you can send you must be sending from 301 and now it can hold at most 600 bytes but let's suppose you are saying the data bytes here are let's suppose 300 only okay now in that case can you tell me what is the acknowledgement number here 601 this is the next byte it is expecting right now if you remember it was having 800 bytes of the buffer out of those 200 you already got
+
+109
+01:01:32,580 --> 01:02:15,400
+and you just send 300 right so I mean 800 bytes of buffer was there 200 you got 600 was remaining and now you just got 300 more okay so what is remaining what is remaining here 300 right so what should be the receiver window it should be 300 only it should be 300 only but is this the case that some of these bytes have already been consumed I mean these these 200
+
+110
+01:02:15,920 --> 01:02:46,520
+I mean out of these 200 maybe maybe this 100 bytes are already been consumed. Is this the case? Maybe maybe 200 or also maybe consumed, right? You don't know, right? You don't know. So suppose suppose 100 bytes have been consumed. Can I just assume? Can I just assume that all of this 200 bytes have been consumed? Now again, it has 800. Right? I mean it is possible. Are you are you getting a point? So what I'm trying to say here is that see these are the 200 bytes that it has, right? So it has 200 bytes.
+
+111
+01:02:46,800 --> 01:03:12,060
+and 600 was empty so now you just receive 300 more bytes but by the time you are receiving maybe some of the bytes have already been consumed so let's suppose that by the time you are receiving maybe only 100 bytes are there only 100 bytes are there maybe some of the bytes maybe 700 bytes are empty is this possible
+
+112
+01:03:12,380 --> 01:03:51,220
+I'm just asking you whether it is possible or not. It will happen or not. It depends on the processing power at B, but it is definitely possible. 700 bytes are empty here. It is definitely possible. Now, can you tell me if you receive 300 bytes? I'm just assuming that 100 bytes have been processed. Now, if you receive 300 more bytes, in that case, what is remaining? What is remaining here? 400.
+
+113
+01:03:51,700 --> 01:04:25,720
+so okay i'm just asking you one possibility and you are just telling me one possibility so basically this is 400 writes it can definitely advertise i mean this is one one possibility i'm saying right i'm not saying that this this will happen definitely but just one possibility okay let me know if that is fine good now now let's just see that what this will do so this will accept it now can you tell me the sequence number here the sequence number here it will be advertising 601 right
+
+114
+01:04:26,220 --> 01:04:57,610
+I mean 6601 if you if it wants to send then says you guess number will be 60 okay cool now just tell me suppose suppose it doesn't want to send anything it doesn't want to send anything can it also happen can it also happen that it can say it can say that I'm expecting I mean it can again send a packet after maybe a while I can say I'm expecting from starting from 601
+
+115
+01:04:57,900 --> 01:05:37,990
+but let's suppose 200 more bytes have been consumed which means which means from this 200 more bytes have been consumed so instead of 400 it wants to say see I mean anything can happen right anything can happen let's suppose there is no data it is standing but meanwhile meanwhile is this possible that 200 more bytes have been consumed and now now only 200 bytes are remaining here I mean unprocessed bytes are just 200 bytes is this possible
+
+116
+01:05:41,270 --> 01:06:15,320
+So out of 800, if this unprocessed are 200 only, can you tell me the remaining one? 600, right? 600, empty. Now, can you tell me what should be the receiver window size? It should be advertising? 600, right? Okay. I mean, this is just one possible sequence I'm talking about. So basically, once the connection is established, what I'm trying to say here is that, that receiver can do anything. I mean, maybe some based on what is empty, it will be advertising based on what is empty, right?
+
+117
+01:06:15,630 --> 01:06:42,050
+if it is receiving let's suppose let's suppose it is receiving 300 bytes then let's suppose the at that moment empty is 400 it will be advertising 400 after sometime empty is let's suppose 600 it will be advertising 600 at this point in time empty 600 it will be advertising 600 but the moment it receives 300 more at that point in time 400 right because 100 has been already been consumed whatever is the reason whatever is empty at that point in time it will just advertise is this killer
+
+118
+01:06:44,320 --> 01:07:30,730
+Now, can I say, can I say that receiver window size in TCP keep on changing? Receiver window size in TCP keep on changing. Is this true or false? This is very much true, right? So, receiver window size in TCP keep on changing, right? I can definitely say this. Let me know if that is okay to everyone. Okay. So, now, let's just see what 4Ozion has. See, this skin should I have taken from 4Ozion.
+
+119
+01:07:41,700 --> 01:08:05,660
+can you see this skin short actually I just replicated the all the values okay all the values that I have written this 300 400 all the values I have replicated so basically they are saying that initially the connection establishment the three packets are because of connection the connection establishment establishment the fourth packet is basically the actual data transfer so in the fourth packet as you can notice that they are saying that okay you are sending 200 bytes
+
+120
+01:08:06,070 --> 01:08:33,390
+Okay, you are sending 200 bytes received. So now you are advertising 600 because at that time 600 is empty. But let's suppose the moment we're sending 300 more, maybe at that time 400 got empty. I mean, whatever the empty buffer, it will just say that this much is empty. Now, after some time, maybe let's suppose they are saying that, okay, 100 bytes also got consumed or something like that. 200 bytes also got consumed. Then after some time, it can again advertise 600. I mean, whatever we have just shown you, it is the same diagram.
+
+121
+01:08:34,550 --> 01:09:12,790
+Okay. This particular diagram is the same one. I've also pasted in the slides. Is this understood? So basically this is the crux that receiver window size and TCP keep on changing based on how much is available, right? Based on how much is available. Based on how much buffer is available. So TCP inbuilt, okay. Inbuilt it provides a flow control. Why I'm saying inbuilt because because in the TCP header, there is very, very important field which basically provide the flow control and what is that field this window.
+
+122
+01:09:13,520 --> 01:09:47,750
+This is the flow control in TCP header itself. Very nice field. It is basically whenever you are communicating, at that time you are telling other parties that you can send this much only. I can hold this much only. That's all. Now, you can see here the difference here is the size of the sliding window at the TCP, at the receiver is not fixed. It keeps on changing. The receiver advertises the adjustable window size. Field in the TCP header, sender is limited to having no more than advertising window bytes.
+
+123
+01:09:48,350 --> 01:10:20,650
+of unaccelerated data at any time which means whenever sender is sending it cannot send more than window size unaccelerated data cannot be more than the window size right okay so basically whatever is the advertising window at the center side the the window size the center is sending basically should be less than equal to whatever they have advertised right whatever they are advertising your window size i mean the sending window size should be less than equal to that you cannot exclude whatever they are advertising okay
+
+124
+01:10:21,450 --> 01:10:52,520
+Now TCP uses selective repeat and cumulative acknowledgement. This is little counterintuitive. So do you remember the selective repeat? In selective repeat, do we use cumulative acknowledgement or the selective acknowledgement? If you remember selective repeat, in the selective repeat we use the selective acknowledgement only, individual acknowledgement or the selective acknowledgement. But in TCP, it is using selective repeat and also it is using cumulative acknowledgement. This is interesting.
+
+125
+01:10:52,940 --> 01:11:24,790
+You can say you can say this TCP is basically basically you can say see This is selective repeat This is go back and right so in go back and we use a cumulative acknowledgement Here we use a selective acknowledgement. So basically it is taking some feature of go back in and in selective repeat We have sender window send a receiver window right sender window Big sender window big receiver window
+
+126
+01:11:28,940 --> 01:11:56,980
+So here also we have multiple, we can take multiple segments in the receiver window. So it is using the windows, like big window along with that cumulative acknowledgement. So, so you can say it is basically using some, some of this and some of this. Maybe you can say it is using 80% of this and 20% of this just to, just to make you understand, right? Some 80% of this or 20% of this mix of this. Is this okay to everyone?
+
+127
+01:11:57,320 --> 01:12:28,940
+Let's just see the questions from that it will be more clear. So let's just see the questions directly. Maybe I can start with this question. Can you fill the values of acknowledgement in each of the segments? So this field is empty, this field is empty, this field is empty, this field is empty, this field is empty, this field is empty, this field is empty. Now you know that we are using the cumulative acknowledgement here. You tell me if you are sending the sequences from 12.01 to 14.00 then what should the acknowledgement here if you are using the cumulative acknowledgement?
+
+128
+01:12:29,320 --> 01:13:05,210
+what should be the acknowledgement here 14 01 right 14 01 okay yes so it is 14 01 what should be the acknowledgement here at this point in time I think whatever they have initially I mean if this is the very first packet then there won't be any acknowledgement I mean you can keep it 0 or basically actually this question may be little incomplete so this is some data transfer let me write 4 4001 okay
+
+129
+01:13:05,420 --> 01:13:53,160
+So earlier based on the earlier information this must be 4001. I mean they should tell that okay this is the acknowledgement 4001 it is expecting then it will be sending from this or maybe you can just guess from this that if it is sending from this then this should be 4001. Now can you tell me this acknowledgement? What should be this acknowledgement? 5001 right? I don't know which color to use here so I'm a little confused 5001. Can you tell me this acknowledgement? What should be this acknowledgement? They have not sent any data.
+
+130
+01:13:57,500 --> 01:14:37,680
+14001 right 14 this 14001 right what should be this accoladement 1401 only what should be this accoladement? 70001 right 70001 so these are the values okay now let's see more questions and you will get to understand more so here can you just try to fill the values this is accoladement number x any accoladement now they are saying that okay the one of the packet is lost yeah this is interesting
+
+131
+01:14:38,140 --> 01:15:14,300
+So, this is full, this is buffer, it got one segment, another segment. So, what should be this acknowledgement? Save in 01, right? This must be save in 01, sorry. What should be, this is lost, okay. Interestingly, this is lost. So, what should be this acknowledgement? See, this is very interesting question. Here, you have got, you have got this, you stored it, you have got this, you stored it. Now, one of this is lost and you have got something which is out of order.
+
+132
+01:15:15,210 --> 01:15:47,970
+Now, can you send me, if it is sending the acknowledgement then what should the acknowledgement here? Remember, it is a cumulative acknowledgement. Okay? Can it, can it say that, okay, it has received till 900, can it, can it be 901? Can it be 901? 901 will create a huge problem because this client will think that everything till 901 has been accepted, right? That is the meaning of convective acknowledgement. So, it has to send only 701. Now, it will be resending because of the 701, it will be resending this and now can you tell me the acknowledgement here? This is interesting.
+
+133
+01:15:50,470 --> 01:16:25,250
+it will be 901 in this case because till 901 you have you have received right it will be 901 in this case this will be 901 okay so 701, 701 and 901 is the answer here right understood see here whenever whenever you are receiving out of order packet then you must acknowledge till this point only this is important you cannot acknowledge till this point obviously it will be wrong because you are using cumulative acknowledgement here so you must acknowledge till this point only okay
+
+134
+01:16:38,570 --> 01:17:21,450
+Now, can you solve this question? So here, you need to fill this sequence number. You need to fill this ACK number. If this ACK is lost, then there will be a timer, right? So what should be this sequence number? Which packet you are sending again, if 701 is lost? And that was the cumulative acknowledgement. No, how you will get to know that this packet has been received, right? Because this is a cumulative acknowledgement. After two packets, you are sending the assignment, right?
+
+135
+01:17:21,950 --> 01:17:52,730
+So after two packets you are sending the acknowledgement, the timer will start from here. You will not get to know whether this has been received or not. And this has been received or not. So this acknowledgement is basically representing both of the packets. So first you will send one of the packet, right? You will send one of the packet. Maybe this is lost. Maybe this is reached. So that's why you will just send one of the packet because the timer is only for one. So that's why it is 501 to 600. Now once this is received, can you tell me what is the acknowledgement number here? This is extremely interesting. If you can tell me
+
+136
+01:17:52,910 --> 01:18:40,330
+then it is very good what is the acknowledgement number here so by the way it will discard it i mean it doesn't need this duplicate packet it will discard it and then it will say the acknowledgement i'm i'm just expecting 701 right okay understood this is the answer here okay the banshee is asking some question sir in the first question of ack once uh they uh took first ack just uh 4001 which is the sequence number
+
+137
+01:18:45,040 --> 01:19:20,570
+No, no that question itself basically, I mean this question I just made this question This one not the actual question. So this 4001 this should be given in the question Okay, I mean that this is for this is what is this case number? I mean, what is this ACK? Okay, this is just one skin short I have taken out of that I made this question Okay, otherwise for the complete question, they should give this ACK itself Yeah, so these are actually these are the skin short I have taken from for origin just to make you understand that how things are happening. Otherwise, these are not the
+
+138
+01:19:21,020 --> 01:19:51,250
+As such, I mean, these are not the questions from the fortune. Okay. These are just a skin short that I've taken from fortune. So they have just, uh, I mean, they were just explaining something out of this. I have just taken the skin shorts. Okay. This, this, and this, these three skin shorts, I think I have taken maybe two skin shorts. Okay. So have you understood that what is happening here? See here, the most important part or the most important question I want to address is that if you are receiving out of order,
+
+139
+01:19:51,530 --> 01:20:25,150
+in that case you should not since this is this is completely acknowledgement that's that's why you should not acknowledge it acknowledge till this point you should only acknowledge it acknowledge continuously right you should not acknowledge it after it so that is one point that i want to convey understood right let's just solve more question and you will get to understand more cool so let's just solve this question or maybe the questions that we have skipped previously maybe we can solve those also so let's just solve many questions back to back and then you will get to understand
+
+140
+01:20:25,430 --> 01:20:54,300
+things in more detail. Let's just start with this question. Just tell me what should be the answer here. So what they are saying that a client send a TCP segment to a server with a sequence number of 1400, right? So this is sequence number 1400 and the payload include the segment payload included in the segment is 1399 t bytes long. So basically, you can say that that the acknowledgement number will be. Can you tell me the acknowledgement number here? Data.
+
+141
+01:20:55,950 --> 01:21:33,360
+is basically 3099 what should the acknowledgement number here so what is the acknowledgement number no 2800 right the next the next one they are expecting or this one just a second the 1400 is the sequence number here and the data payload in the segment is okay data is data itself is 309999 by long okay so in that case basically yes and the next sequence number they are expecting is
+
+142
+01:21:36,300 --> 01:22:07,880
+2799, right? Because if data is let's suppose only one byte long, in that case, you will be just just expecting 1400 one. So basically, you just need to add these two. Okay, if data is let's suppose two byte long, then then you will be you will be asking for 1402. Yeah, so you can just add these two. So question number b thing, assume this packet is lost, but okay, this particular packet is lost, but the following packet is received.
+
+143
+01:22:08,260 --> 01:22:49,660
+So this packet is lost and following packet is received. What is the ack number in the acknowledgement that is returned from the server to packet? So let's suppose that there is another packet that is starting from 2799 to what is the ack number in the so let's suppose this is this is also containing 1399 so what is the acknowledgement number here if this packet is lost this is important if this packet is lost then
+
+144
+01:22:49,950 --> 01:23:38,460
+they're still expecting 1400 right they're still expecting this 1400 so the acknowledgement number will be 1400 I mean the data even doesn't matter that whatever is the data size the acknowledgement number will be the 1400 only understood okay because this packet is lost right if this packet is lost then they are still expecting the 1400 cool now let's just solve a few questions that we have previously left yeah let's solve this question that is from cross so what they are saying let's just try to solve this question
+
+145
+01:23:41,440 --> 01:24:17,880
+So they are saying that you are sending two packets, right? One is containing 90 bytes. Sorry, the sequence number is basically from 90 and second one is having the sequence number 110. How much data the first is containing? 20 bytes of data, right? So it will be from 90 to 109. So 20 bytes of data it is containing. Suppose that first segment is lost, but the second segment arrived. Okay, then what will the acknowledgement number? If this is lost, then what is the acknowledgement number? 90 only. ACQ must be 90.
+
+146
+01:24:20,290 --> 01:25:05,650
+easy question I mean there is nothing much here right so it is 90 only right and this is basically 20 bucks now you can solve this question which they have asked in gate do you want to solve this question as an homework you can solve this question as an homework right that this is exactly same question that we have just solved okay let's solve this question so now what they're saying let a TCP sender sends a packet with 1500 bytes
+
+147
+01:25:05,950 --> 01:25:39,110
+of data payload per packet. So you are sending 1500 bytes of data and the receiver uses the cumulative acknowledgement to scheme to acknowledge the receipt packet. Consider the following scenario where the sender has sent packets with the following sequence numbers. So first is 4000, then this, then this, then this, okay, 1500 bytes each. Assume that all packets are received in order. If the receiver were to send an ACK packet after receiving the last data packet, then what is the equivalent number sent with this packet?
+
+148
+01:25:40,010 --> 01:26:09,650
+So what is the acquisition number? Should it be this one? No, right? Because each one is containing 1500 bytes. So that's why it will be 10,000. Okay. It is easy question. So it is 10,000. Understood. I mean, I hope you have understood. It is easy question only. So last packet will be containing 8500, then 1500 bytes of data, which means
+
+149
+01:26:09,930 --> 01:26:41,860
+plus 1500. I mean the sequence number last sequence number will be this much. So, so the ACK will be 1800 plus 1500. Let's solve this question. So again, you are sending 1500 bytes of data and let the receiver use that cumulative aclimate. Consider the following scenario. Okay. Now they are saying that you are sending these packets 3000. The sequence numbers are these and this is lost. Okay. In between this is lost. But the other packets are delivered in order.
+
+150
+01:26:42,550 --> 01:27:13,570
+And everything else has been delivered. Can the receiver accept this one? If one of them in between is lost, can the receiver accept out of order? Out of order it can accept, right? It can at least store it, right? It can store, that's not an issue. So what are the packets are delivered in order? What are the other packets are delivered, okay? If the receiver were to send ECK packet after receiving the last data packet, which is this one, and what is the acknowledgement number here? This is 6000, right? Because one of them is lost. So this is 6000 only.
+
+151
+01:27:14,410 --> 01:27:55,730
+I mean they are saying that sequence number 3000, sequence number 4500, sequence number 6000, sequence number 750. I mean these packets we have sent but by chance this is lost. So what is the ACK it will be sending after receiving this one? Even after receiving this one, it will be sending the ACK saying that I want 6001. So it will say write it. So once it received that one,
+
+152
+01:27:55,960 --> 01:28:42,930
+it will say i want i still want 6000 let's suppose let's suppose this 6000 is delivered can you tell me the ack now if 6000 itself is also delivered you just need to add 15,000 here right assuming that each data packet is 15,000 or something right you just need to add 15,000 so it will be 9,000 okay good understood i see the only point i want to i want you to understand here is that that
+
+153
+01:28:43,180 --> 01:29:06,480
+in case of selective repeat, if you are accepting out of order, suppose you are accepting these two and then you are accepting this, this is missing. Then in that case, if you are using cumulative acknowledgement, then you can acknowledge till this point only. You can acknowledge till this point. So, I mean, these questions revolve around just one concept that you can acknowledge till this point only. Let's solve more questions you will get to understand more.
+
+154
+01:29:19,480 --> 01:29:50,020
+So let's solve this question. What they're saying again, this is a similar type, but still let's just solve it. So this question has three parts. We have already solved this question in the last class, but it's still, I mean, the A and B, at least we have solved, right? But still let's just see this again. So what they're saying, and we are communicating over a TCP connection. Host B has already received a data up to byte 126. So host B has already received bytes up through bytes 126. Suppose A then sends two segments back to back.
+
+155
+01:29:50,300 --> 01:30:23,740
+the first byte content 80 bytes of data so basically it is you can say it is it is expecting can you tell me the acknowledgement number here 127 right now they are saying that suppose host 8 cents to two packets back to back first contents 80 byte of data second contents 40 bytes this is 80 bytes this is 40 bytes the first segment the sequence number is basically 127 the source port number is this and the destination port number is this okay
+
+156
+01:30:23,990 --> 01:30:57,120
+So here the sequence number source port number destination port number everything is given for the first packet So what is the sequence number one? sequence number 127 source port is given 302 destination port is given 80 Now whenever be sending acknowledgement in the second segment send from B. Okay. Okay, so be sending acknowledgement whenever they receive Okay, so in the second segment send from B. What is the suitcase number? What is the suitcase number in the second segment?
+
+157
+01:30:59,930 --> 01:31:24,580
+Can you tell me it will be 127 plus 80 right this will be the sequence number This will be the sequence number which is 207 right what is the source port the same one which is 302 What is the destination port the same one which is 80 if the first segment arrived before the second segment? Okay, this is little different which means they are saying
+
+158
+01:31:26,960 --> 01:31:55,210
+I mean, okay, this is basically they are saying they have arrived in the order and this question sees the same they are arrived out of order. Okay. If the first segment arrived before the second segment in the acknowledgement of the first segment, what is the acknowledgement number? So if this has been arrived, then what is the acknowledgement number? Easy, right? 207 only because 127 plus 80. Source port and I mean, I think these everything is same here. Source port, it will it will basically flip, right?
+
+159
+01:31:55,400 --> 01:32:27,270
+So what is the source port? It will be 80. What is the destination port? Because it is from B to A. It is 3 to 0. Now this is a little interesting. They are saying if the second segment arrived, so basically you are sending some data. This is 80 bytes of data and sequence number is going to come to see. You are sending next data. This is 40 bytes of data. This sequence number is 207. These are the two packets you are sending. Now they are saying
+
+160
+01:32:27,990 --> 01:33:01,410
+If the second packets arrive before the first segment and the acknowledgement of the first arriving segment, what are the acknowledgement number here? So they are saying that it has been reached but it will be delayed. Then what should the ACK here? Can you tell me? If this has been reached, it will be 127 only. This will be 127. That's all they are asking. Easy question only. You just need to understand that how cumulative arrangements are working here. For that only, we have taken so many questions.
+
+161
+01:33:03,070 --> 01:33:37,560
+127 only. Now, let's just do this question, which I have taken from close. Okay, this is also easy question only. Let's just see, I mean, there are multiple parts, you just need to tell true or false. Okay, let's see if first one is true. If host is sending a large file to host B over a TCP connection, assume host B has no data to send to host A. Okay, host B doesn't have any data to send. Host B will not send a collagement to host A because we cannot piggyback the collagement. What do you think? If
+
+162
+01:33:37,840 --> 01:34:04,840
+if A is sending some data to B and B doesn't have any data to send, cannot B send the acknowledgement or B can send the acknowledgement alone. We can definitely send only the acknowledgement type. It need not to be piggybacked. Piggybacked is just for the optimization. So this is true or false. This is false. It cannot send. So that's why it is false. The size of the TCP receiver will never change. What do you think? It is also false because it's change, right?
+
+163
+01:34:05,380 --> 01:34:32,970
+Suppose host A is sending a large file to host B in TCP connection, the number of unaccelerated byte at host A sends, cannot exceed the size of the receiving buffer. This is true, right? It cannot exceed the receiver window size. See, what is the receiving buffer and what is the receiver window? I mean, there are two terms that people generally use. The receiver buffer is basically, this is the total could be the receiver buffer, bigger one, right?
+
+164
+01:34:33,900 --> 01:35:03,200
+if something has been arrived then receiver window is only the empty one empty one is receiver window so they are saying it cannot exceed the receiver buffer obviously I mean it cannot even exceed the receiver window right it cannot exceed the receiver empty so how can it exceed the receiver buffer so yes that is true have you understood the difference between receiver buffer and receiver window receiver buffer is complete receiver window is whatever is the empty one at that point in time right so can it exceed the receiver for obviously no
+
+165
+01:35:03,480 --> 01:35:36,620
+so that's why it is true i mean they are saying that cannot exceed so that's why it is true okay now suppose host A is sending a large file okay if the sequence number for the segment of this connection is m if we are sending some packet and this is a large file okay if this is the sequence number is m then the sequence number for the subsequent segment will necessarily be m plus 1 no right it will be m plus whatever the number of data bytes so this is false right yeah m plus data bytes
+
+166
+01:35:37,720 --> 01:36:08,990
+Suppose the last sample RTT, okay, we will see it later, okay? I mean the RTT we will see later on. Let's do this G, okay? Let's do this G directly. Suppose host A sends one segment with the sequence number 38 and four bytes of data. Data, they are sending four bytes over a TCP connection. In the same segment, the acknowledgement number is necessarily 42. It used to be in the same segment. In this same segment, then the same segment, the acknowledgement number, no.
+
+167
+01:36:09,310 --> 01:36:49,840
+What do you think about this G? They're saying the 38 is the sequence number and the data is four bytes So ACK number could be anything it doesn't relate with this sequence number, right? This ACK could be anything. I mean, this is X could be anything So this is also false. So you can say false false true false false false false false false false A, B, C, D, E, F, G E is true
+
+168
+01:36:50,070 --> 01:37:30,650
+is the okay sorry I haven't I think I haven't read this e okay this this is for d can you tell me for e what is e the tcp segment has uh r w and d receiver window in the header in its header does it head this is true right this is true so this is true so yeah false false true false true okay false false true false true and the last one is false
+
+169
+01:37:31,000 --> 01:37:58,150
+we will see this f later on this question I have taken from close have you understood easy true false questions easy true false question if you want you can read the explanation okay later on so see the the last one is false because the acknowledgement number has nothing to do with the suitcase number right that's what our reasoning was also right the acknowledgement number has nothing to do with the suitcase number you can read out this explanations also later on see here here we said that it cannot exceed the receiver window so
+
+170
+01:37:58,430 --> 01:38:31,100
+the number of analogues that A cannot exceed the size of the receiver window but if it cannot exceed receiver window then surely it has no way to exceed the receiver buffer as the window size is always lesser than or equal to the buffer size have you understood this explanation that the buffer is basically a bigger one right and the window is the whatever the empty one from that bigger one so if it cannot exceed the window size then how it can exceed the buffer also hope you understood okay will you wonder
+
+171
+01:38:31,510 --> 01:39:02,020
+The exact same question has been asked in gate. If this is m, this is m plus 1, exact same question has been asked in gate. So too many replications, right? In CN, I have observed this. I told you in the very beginning, in the almost first class, then in CN, I have observed many, many replications from many, many standard textbooks and other resources. The exact same question they have asked in gate is in 15. Just true or false?
+
+172
+01:39:02,300 --> 01:39:28,290
+and exactly same options see the sequence number this one we have solved okay this we will see it later on this this right the size of uh never change or change we know it and unercolized byte are always less than equal to advertisement window so you can definitely solve this in homework although we have solved it but the exact same question they have asked right so so many many questions they have asked
+
+173
+01:39:46,220 --> 01:40:08,530
+I don't know I mean in CN either they are not able to form any new question or they are lazy and I don't know but they have I mean many times and not just it is limited to one topic in many many topics I have shown you right and all like also I will be showing you later on also that they have they have asked same questions right from standard textbooks cool
+
+174
+01:40:11,860 --> 01:40:43,050
+No, you don't need to read books like I mean if you want you can read it, but Although like I'm already referring multiple books. So I'm already referring whatever is needed So we have seen that TCP is using basically that cumulative acknowledgement right now, let's just see let's just see few questions and And then we will conclude this topic. Okay, let's just see one or two more questions So let's just see this question what they're saying consider TCP TCP connection TCP sender sends 10 bytes per packet. So
+
+175
+01:40:43,270 --> 01:41:17,150
+this is sending 10 bytes per packet. Suppose that the sender transmits six packets one right after another, including the one so on. Okay. This is one packet and including this packet, there are five more. I mean, there are six total packets. It means that five more packets they are sending, right? Six packets they want to send, including this one. Okay. The label the data packets with the sequence number and the ACK packets. Okay. So suppose this is the initial sequence number they are, they're using. This is a sequence number only. Okay. Now, can you, can you tell me
+
+176
+01:41:17,490 --> 01:41:49,300
+can you tell me what are the next weekends numbers if everyone is having 10 bytes what are the next weekends numbers for the five packets if everyone is having 10 bytes then I think this will be 20 30 40 50 and 60 right okay now they are saying that you label the data packets with the sequence number and the echoing and pocket packet also with the acknowledgement number now they have given some rules see whenever you have cumulative acknowledgement at that point in time
+
+177
+01:41:50,160 --> 01:42:19,220
+there is always a question right i mean whenever you have competitive acknowledgement then will you be sending see will you be sending after two packets one acknowledgement or after three packets one acknowledgement or after some time one acknowledgement or and so on right do you remember we talked about this do you remember we talked about in case of competitive acknowledgement we can have different set of rules so let me just show you
+
+178
+01:42:21,220 --> 01:42:42,600
+See, in one of the lecture we talked about this, if you are having the community of equipment, obviously there are many implementations possible, right? I mean, you can send the community of equipment after two packets, maybe after three packets, maybe after some time, maybe 10 milliseconds, maybe after, I mean, whichever is lesser, okay, after either 10 milliseconds or two packets, whichever is lesser, or there are many implementation ideas in the community of equipment, right?
+
+179
+01:42:42,820 --> 01:43:11,460
+I mean, you can do based on whatever you want to implement basically, right? There are no fixed rules. So that's why they have given the rules that they are saying in the question itself, they are saying that answer the answer this using the following rules of TCP ACK. So they are saying rule number one, there should not be more than two in order unacquired segments at any time, which means whenever you are receiving, there cannot be more than two unacquired, unacquired, unacquired knowledge, unacquired knowledge packets, which means
+
+180
+01:43:11,890 --> 01:43:45,550
+that whenever you are receiving this 10, whenever you are receiving this 20, then at this point in time, whenever you receive this 20, at this point in time, you should send one acknowledgement, right? Similarly, at this point in time, you should send, at this point in time, you should send. So, can you tell me the acknowledgement number for these three packets? What should be the equivalent number here? ACK will be 30, right? Because they are sending with 30, this must be 50, this must be
+
+181
+01:43:47,010 --> 01:44:16,950
+60 plus 10, 78, 30, 50, 70, something like this. This was the rule number one. What is the rule number two? When a segment arrives within out of order, in this particular question, there is no out of order, but they have given some rule. Maybe in the next part, this is 30, 50 and 70, this is the answer. Maybe in the next part, they have this out of order also. So let's just solve this question and continuing the same example. Suppose that
+
+182
+01:44:17,240 --> 01:44:45,420
+the next two packets arrive out of order so basically this is 30 50 and 70 that's what we just saw and now they are saying the next two packets which is with 70 I mean that is aspect in 70 and 80 it will send but they are arriving out of order which means 80 is arriving first and then 70 then can you tell me the acknowledgement so what is the rule of the acknowledgement I mean will they be sending the acknowledgement here okay suppose they have to send the acknowledgement here then can you tell me the acknowledgement number if they are sending the acknowledgement here then what is the acknowledgement number
+
+183
+01:44:50,130 --> 01:45:23,130
+90 right? it will be 90 because each data packet 10 if they are sending acclimate here then what is the acclimate number? if 80 has been reached 70 has not been reached it is still 70 right? it is still 70 okay if they are sending acclimate here it is 70 if they are sending acclimate here it is 90 is this killer to everyone? okay so this must be 70 this must be 90 but let's just see what their rules are okay I mean they have defined some rules they are saying in case of out of order
+
+184
+01:45:23,320 --> 01:45:52,850
+okay the higher out of order segment number that is higher than the expected the receiver immediately sends the ack segment announcing the sequence number of the next expected segment so if you receive the out of order then then the receiver is basically immediately sending if receiver is immediately sending this is out of order receiver immediately sending this is the rule that they have okay so that's why they will be sending they will be sending what 70 right so they will be sending 70 and then the next will be 90
+
+185
+01:45:53,160 --> 01:46:27,820
+Okay. This is based on the rule. This is based on the rule. Have you understood their rule? What is their rule? That if you get out of order, then the receiver immediately send an acknowledgement. Okay. This is some rule that they have. Okay. Basically, basically, as you can see here in the slide, there are multiple rules that TCP implement and obviously you don't need to read it. All right. Not required to read. So not required. There are many, many rules that TCP uses for the cumulative acknowledgement. Maybe we can, we can just quickly see. See.
+
+186
+01:46:28,200 --> 01:47:26,700
+when one has some data to send okay when let's suppose B also has some data to send then it must include the ACK which means it can always send the piggyback ACK see this is just an optional discussion implementation of okay this is one optional discussion I just want to do it quickly okay so the first question do you do B okay so do B has data to send then you don't wait for anything right you just send
+
+187
+01:47:28,480 --> 01:48:02,700
+Send ACK immediately. Okay. This is called piggyback ACK. That's the rule that they have. Is this okay to everyone? Is this rule fine? That's what they want to say. This is the rule. Send it immediately. They include the ACK and then send the ACK immediately. If this BH data to send, then send this ACK immediately. Am I already one? Okay. Understood.
+
+188
+01:48:13,700 --> 01:48:43,780
+I hope you understood that if you have data to send then then you just immediately send it right now the second tool is saying the receiver needs to delay the delay sending acknowledgement for maybe 500 millisecond or something an acknowledgement if there is an one outstanding in order segment it prevents acq segment for creating the extra traffic so if you don't have data to send then then do one thing they are saying wait for then then basically if
+
+189
+01:48:46,610 --> 01:49:22,550
+If only one packet to be acknowledged, then wait 500 milliseconds. I mean, there's some rule that they have, okay? 500 milliseconds. Okay. If only one package to be acknowledged, this is a rule number two. Rule number three is saying there should not be more than two in order, in order to analyze packets. It prevents unnecessary retransmissions. So basically they are saying that if more than
+
+190
+01:49:36,520 --> 01:50:09,430
+if two or more unact in order packets and then send ACK this is some other rule which I think rule number three when a segment arrive out of order okay if segment is arriving out of order okay so so basically you can have something like this see here you can say that if there is no data to send it is good here here you can say that the segment arrived okay
+
+191
+01:50:11,600 --> 01:51:09,670
+here also you can further divide it maybe I mean as a flow chart out of order segment arrived in order if segment arrived out of order then then they are saying send ack immediately in this case also they are saying that send ack immediately if segment arrived is in order then they will say I mean number of outstanding unacknowledged segments right so number of unact in order
+
+192
+01:51:12,270 --> 01:51:59,790
+segment equal to let's suppose 1 then what they are going to do if this is 1 then what they are going to do then wait for sometime right maybe they are saying 500 millisecond in that case you can wait for sometime now let's suppose here it is 2 okay 2 in order unacknowledged packet then in that case in that case what should we do then send ACK immediately
+
+193
+01:52:04,010 --> 01:52:32,480
+Right, that's what they are saying Okay, out of order we have under when a missing packet arrived receiver segment to announce the next When a missing segment arrived the receiver sends an ack segment to announce the next segment a number is accepted Okay, so duplicate segment arrived. Okay in case of missing or duplicate they send the ack immediately So basically this is a kind of flow chart. You can say okay. This is basically TCP cumulative ecologement implementation details are
+
+194
+01:52:32,710 --> 01:52:52,190
+okay although it is not needed so that's why I've taken it optional so we are saying if we have data to send then obviously we should immediately send the data and we should send the ack along with that and then if you don't have data to send then if you're getting out of order or maybe missing or duplicate
+
+195
+01:52:54,330 --> 01:53:24,180
+Okay, something like this, then you send ACK immediately. Otherwise, otherwise, if you are, if things are fine, okay, if you're not getting out of order, things are in order, okay, segment arrived is in order, then you will just check if it is just one segment to acknowledge, then wait, otherwise two or more segments and ACK immediately, right? Is this flow chart making some sense? Since in the sense, do you think it is logical to implement something like this? It is, it seems logical, right? Although it's optional, I just took it just for the sake of completion, right?
+
+196
+01:53:24,540 --> 01:54:30,140
+See here, this is from foraging only. So, generating acknowledgement is one topic here. Yeah, generating acknowledgement. So, this is one topic. So, from here, I have taken that. Okay, there's few rules you don't need to remember.
+
+197
+01:54:31,300 --> 01:55:02,970
+But all all I want to say that there are some rules that they have implemented in TCP that okay if this then then you send the ICK and so on but if there's a question that That they want to ask regarding that then they obviously they will tell the rules They are not expecting you to remember the rules. So whatever is needed, they will tell those rules, right? Just like this question. Okay, they will tell the rules is the so-called everyone good, right now now interestingly in TCP
+
+198
+01:55:03,630 --> 01:55:54,400
+In TCP, you can use, okay, in TCP, we basically generally use only but, but, here is a but, and can you guess that but? That we can use selective ACQ also. So basically TCP provides both the facilities, okay. Generally we use cumulative ACQ only, but we can use a selective ACQ also, if you want to. And do you remember the TCP header?
+
+199
+01:55:55,250 --> 01:56:24,390
+There was something called as options. We will talk about these options here in another detail. But here there is a field, there is a flag, there is a flag or there is a field. If that is one, then let's suppose for one is cumulative acknowledgement, for zero it is selective acknowledgement, something like that. So basically in these options here itself we can enable that whether we are using cumulative or selective. So in the options this field is provided.
+
+200
+01:56:24,640 --> 01:57:00,460
+which is which is basically there to tell you that whether you are using cumulative or or the selective but generally we use the cumulative only generally we use the cumulative only okay so TCP uses the cumulative but if you want you can use the selective and that is again from for ocean right see here acknowledgement type in the past TCP has only one type past in earlier versions there has only one type cumulative acknowledgement but today TCP implementation also use the selective
+
+201
+01:57:01,840 --> 01:57:35,140
+So you can use the combative or you can use the selector. Now they are saying more and more implements are adding another type of selector acknowledgement. I do not replace the ICK but... See here, a selective acknowledgement is implemented as an option at the end of TCP header. They have implemented this as an option in the TCP header. Should I put whole as a screenshot or it will be too much? I don't want to overword on you. Should I put it or not? I am just confused here.
+
+202
+01:57:36,480 --> 01:58:08,620
+Maybe I can just write it, right? Okay. So don't worry about this too much of information. You just need to understand the concept, which is that if you're using the cumulative acknowledgement, then out of order, order segments are how they are handling, right? Which means that if you're using the cumulative agreement, as we have seen from multiple examples, let's suppose this is actually, this is, I mean, this is received, this is received, this is received. In case of cumulative acknowledgement, then let's suppose this is basically having the sequence number, the data bytes is let's suppose 100.
+
+203
+01:58:08,970 --> 01:58:38,510
+and this sequence number each one is having less of a data byte is 100 this sequence number is 500 this sequence number is 600 then can you tell me the acknowledgement number that it should it should give after receiving this particular packet also should be 700 right if each data packet is 100 only because it will say till this point I have received which is it is still expecting the 700 okay so in case of community acknowledgement
+
+204
+01:58:38,900 --> 01:59:12,030
+how the out of order things are working I hope you understood because that was something new which we have not earlier studied right because in the selective repeat earlier we have not used the cumulative accolades cool so that's all about this tcp flow control right that's all about this tcp flow control now we will move to some other topics in tcp but the tcp flow control is completed okay so thank you everyone maybe maybe we can do one or two more questions that are in the gateway by you
+
+205
+01:59:12,190 --> 01:59:52,180
+Okay, let me just check that. Yeah, maybe you can do this question. So can you tell me the answer? Consider the following statements. TCP connections are full to flex. Yes. TCP has no option for selective acknowledgement. So what do you think? Or there are options for the selective acknowledgement. They're option, right? So there is no option. Then this is false. This is false. TCP connections are a message stream or byte stream. These are the byte stream protocol, right? So that's why this is also false.
+
+206
+01:59:52,760 --> 02:00:11,500
+So, what is the answer here? I can write it on the next page. This is true, this is false, this is false. So, that is why A is the correct answer here. Easy question only. So, basically like in this question, I think the only information that there was crucial that there is no option for the selective acknowledgement.
+
+207
+02:00:11,810 --> 02:00:47,850
+No, there there is but I mean earlier it as the as the book says that earlier it was not implemented much but today some TCP implementation. Okay. I mean TCP has many, many versions, right? TCP has many, many versions. So today some implementations implemented. Some implementation does it. Okay. Cool. Now this is basically these are the three statements regarding this connection establishment, which means you first send SIN packet, then you send SIN plus ACK, then you send ACK.
+
+208
+02:00:47,980 --> 02:01:10,100
+right so this sin packet obviously it cannot contain the data but since it has to be acknowledged right so that's why it consumes one sequence number whatever the initial sequence number what are the initial sequence number let's suppose 100 then it will be the here the acknowledgement will be 101 now it is expecting 101 so that's why it has consumed one sequence number so it consumes one sequence number
+
+209
+02:01:10,640 --> 02:01:33,300
+SIN plus ACK cannot contain the data, this also cannot contain the data, but it also consumes your customer because it has, it also has to be acknowledged, right? Which means let's suppose this, this initial suitcase number is 5000 here, then here this will be acknowledgement will be 5000. Now you are expecting from 5000, you are not expecting from 5000, which means whatever suitcase number you have a huge here that has been consumed.
+
+210
+02:01:34,140 --> 02:02:02,070
+So ACK segment, if it is not consuming, if it is not carrying any data, it does not consume any sequence number, right? So if it is not consuming and not carrying any data, it is just ACK. It does not consume any sequence number. Okay. These are two, three points that have taken from FOROGEN itself. Let's just see it. Okay. Good. So that is all about this TCP. I mean, we have understood the TCP flow control very well.
+
+211
+02:02:02,250 --> 02:02:32,210
+and what kind of protocol they're using. They're using generally, I mean, they're using selective repeat, but with selective repeat, generally, they use the cumulative acknowledgement. Okay. But if you want, they can use selective repeat or selective acknowledgement also. Okay. Cool. Now, let's just, let's just continue with more discussion on TCP in the next lecture. Okay. We will continue the more discussion in the next lecture. Cool. So thank you, everyone. Take care. Bye bye.
+

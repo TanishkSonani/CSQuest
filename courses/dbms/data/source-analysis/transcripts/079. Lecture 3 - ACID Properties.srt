@@ -1,0 +1,672 @@
+1
+00:02:16,080 --> 00:02:48,180
+hi everyone so in this lecture we will study acid properties these are the four properties that should be satisfied by transactions okay so these are some desirable properties that should be satisfied by either single transaction execution or concurrent transaction execution okay so these properties must be satisfied some of these properties are for single transaction execution and some of these properties are for
+
+2
+00:02:48,540 --> 00:03:16,300
+concurrent transaction execution. Okay. But ultimately, these properties must be satisfied. These are the desirable properties, I can say, okay, for the for any transaction management. Now, let's see. So what are these properties? In the last lecture, we have already seen all the concepts of transaction. What is a transaction? What is concurrency? What is concurrent? I can say what is concurrency control? What is transaction management? So these things we have already seen read operation, write operation. Okay. Now,
+
+3
+00:03:16,620 --> 00:03:45,710
+let's see these acid properties as i told you that these are total four properties let me tell you this acid acid acid properties these are four properties one property is atomic property this should be satisfied by the transactions another property is consistency property okay another property is isolation property and another property is a durability property okay durability
+
+4
+00:03:46,480 --> 00:04:15,180
+so these are the four properties and remember these four properties must be satisfied by these are the desirable properties by the transactions as I told you some of these properties are for single transaction execution when a single transaction is executing then for example this property is for single transaction execution okay and we will see that some of these properties are for concurrent execution of transactions when transactions are executing concurrently so for that some properties are there
+
+5
+00:04:15,400 --> 00:04:43,980
+Okay, ultimately, I can say that basically the transaction management or I can say the transaction or set of transactions, they should satisfy these properties. These are the desirable. Now, let's start with the atomicity property, or I can say atomic property atomicity. What this property says, this property says that either all or none. Okay, either the complete transaction should execute or none of none of the actions should execute. Basically, what this property says that it says that if you have a transaction,
+
+6
+00:04:44,440 --> 00:05:13,960
+it should not happen that only this much transaction has has I can say only this much transaction has executed and this transaction did not execute basically sorry this is a transaction in this transaction only this part has executed and this part did not execute this should not happen okay for any particular transaction for any particular transaction for one transaction what should happen it should not it should not happen that half the transaction has executed
+
+7
+00:05:14,370 --> 00:05:43,440
+And I can say the half part of the transaction did not execute. For example, consider this situation like you are transferring the money from your account to your friend's account. Tell me, would you like this is a transaction? You are transferring the money from your account to another account. So this is a transaction T I'm giving you. Okay. In this transaction T you are less than this is like you are reading your account. What is your account? Basically, you are transferring from a you are transferring 50 rupees to B.
+
+8
+00:05:43,720 --> 00:06:07,720
+Okay. This is your, this is a account. This is B account. So what you will do, you will read the value of a, then what you will do, then you will make it a minus 50. Then what you will do, then you will write a, then you, you are going to read B and then you are going to be must be B plus 50 and then you will write B. Correct. And then you will commit. Yes or no. So then you will commit.
+
+9
+00:06:08,240 --> 00:06:38,590
+If I don't give you this commit, then by default we assume that the last action is commit. Yes or no? If there is no last action, if I don't give you the last action, then it means that the last action is commit. So this is your transaction. Now you tell me, would you like this? Just think about it. This is a, can I say this is a single logical unit? Yes or no? Transaction is a single logical unit of work. So this is a single logical unit of work. Would you like it? Would you like it that?
+
+10
+00:06:38,980 --> 00:07:10,900
+at this point of time this much has executed let's assume this much has executed and this much does not execute would you like that what will be the problem what is going to be the problem tell me the problem is very simple that your 50 rupees are gone and we did not receive the 50 rupees okay yes or no your 50 rupees are definitely gone and this person this person we did not receive the 50 rupees so definitely there is a problem there is a huge problem
+
+11
+00:07:11,100 --> 00:07:40,260
+Okay. So you can notice basically amount debited, debited from a, the amount has debited from a, but not credited to be. So this is a very big issue. If this is a five lakh rupees, let's assume if this is a 50 lakh rupees, then. Okay. Just think about it. 50 lakh rupees. So debited from you, but did not credit to be. So there is a big, there is a big problem. There is a huge problem. Okay. Again, you can notice.
+
+12
+00:07:40,880 --> 00:08:09,600
+because of this situation your consistency is affected yes or no the consistency requirement what is that tell me what is the consistency requirement that is your a plus b should be equal to constant yes or no I told you this so whenever you transfer money from account a to account b for any transaction whatever transaction you make a plus b should be constant but here this is not true yes or no so a plus b here it is not a constant so you can simply see that this is not what you want is it acceptable
+
+13
+00:08:10,140 --> 00:08:38,120
+tell me is it acceptable that amount gets detected from C and not deposited to S so this is not acceptable right so definitely what we want because of the situation if this happens if this happens then consistency is violated definitely yes or no your consistency requirement is this for any transaction from account A to account B for any transaction the consistency requirement is this that A plus B should remain constant
+
+14
+00:08:38,510 --> 00:09:07,490
+Okay, either the money should come back. Okay, whatever money I'm transferring, either that should come back or that should go to account B. Whatever happens, whatever situation you take, A plus B will be constant. But in this situation, your consistency is violated. Your database is not consistent. Okay, so this is not desirable, I can say. So finally, what this atomicity property says, this property says that either you execute, if a transaction begins the execution, but fails.
+
+15
+00:09:07,780 --> 00:09:37,920
+For whatever reason, this is important. Whatever reason is there. I don't care. What is the reason? I don't care. Operating system has, uh, I operating system has hanged or maybe your disk has failed or maybe earthquake earthquake has come. Okay. I don't care. What is the reason? Yes or no. Whatever is the reason? My, okay. Just think about it. Like, for example, let's assume you lost your 50 lakhs rupees and the bank says that, uh, their hard drive crashed. So will you, will you take this reason? Okay. Okay. Poor bank. Will you say?
+
+16
+00:09:38,130 --> 00:10:07,570
+will you say poor bank no you will not say yes or no you want your 50 lakh rupees correct or not tell me let's assume that this 50 lakh rupees you are sending and these are gone these are lost and the bank is also gone for example the bank building okay that is also on fire basically let's assume the bank bank building is also gone all the data all the computer basically everything is gone okay then tell me is that acceptable now is now is it acceptable okay okay my 50 legs are gone is it acceptable again it is not acceptable yes or no
+
+17
+00:10:07,710 --> 00:10:34,490
+So remember, whatever is the reason, I don't care. Yes or no? Correct or not? Whatever be the reason, whatever be the reason, what should happen? For whatever be the reason, what should happen? It should happen that whatever changes you have made, they must be undone. Can I say? If you fail in middle, okay, your transaction, you started, you started your transaction, but your, your transaction has failed in some, I can say, has failed in middle somewhere. Then what should happen?
+
+18
+00:10:34,820 --> 00:11:04,410
+any changes in the database by this transaction must be undone. You must undo all the transaction, all the changes you must undo. I don't care what is the, what is the reason of failure? Okay. I do not care. We, we should definitely, I can say all the actions, all the changes to the database, they must be undone. Very simple. This requirement, remember this requirement that either the complete transaction should execute. Tell me, are you happy if this complete transaction executes? Are you happy?
+
+19
+00:11:05,030 --> 00:11:34,090
+Are you happy if 50 lakhs goes here? You are happy, right? And are you happy if the amount comes back? Okay, it is failing, but amount comes back. Are you happy? That is also fine. Both are fine. Yes or no? So remember, very simple that this requirement, this requirement that either the complete transaction should execute or none of it should execute. Yes or no? This requirement should regardless of, okay, whatever is the reason, I don't care. Whatever reason is there, I don't care.
+
+20
+00:11:34,680 --> 00:12:04,540
+The failure the reason of failure. I don't care. Whatever is the reason operating system is pressing. Okay computer itself is stop operating. Whatever is the reason. I don't care. But this this requirement that either everything should happen the complete transition should execute or none of it should execute. Okay. So this requirement is is is called atomicity. Can anyone tell me what is the reason for this atomicity? Why we want as atomicity? What is the reason for atomicity?
+
+21
+00:12:04,730 --> 00:12:31,050
+because transaction is single unit of work yes or no in your mind in the user's mind this is a single unit of work correct agree or not so in the user's mind in the okay in the customer's mind this transaction this is a single logical unit of work okay so because this is a single logical unit of work either this should happen or this should not happen this is a single work from the user point of view user does not care about this
+
+22
+00:12:31,390 --> 00:12:59,980
+user does not care about these six operations user only says that okay this is my task either this task should happen or this task should not happen either this complete transfer should happen or none of it should happen so very simple this is called atomicity so this is that I can say this is the property atomicity is this clear very very intuitive yes or no this is the most intuitive property this atomicity property that either the complete transaction should execute or none of it should execute
+
+23
+00:13:00,360 --> 00:13:29,770
+whatever changes you have made if some failure comes in middle if some failure comes then all the changes that you have made in the database they must be undone okay all the changes must be undo you must undo all the changes so this is your atomicity property is this clear let me know please tell me is this atomicity property clear this is very intuitive property either the complete transaction should execute or none of it should execute so this is the atomicity property you can understand so what is atomicity property this is
+
+24
+00:13:31,930 --> 00:13:59,660
+Okay. So this is your atomicity property. Is this clear? Now let's see the next that is durability property. What is that? Let's see this. The name of durability property. The another name is permanent changes. Permanency. Actually, this is another name of durability that is permanency. So what is this durability says? Do you remember what I told you that this commit operation? Does it mean all the changes you have done?
+
+25
+00:14:00,480 --> 00:14:31,680
+Okay. Do you remember? I told you that whenever you have some transaction, some transaction T and these are some operations and finally this is the commit. Okay. You tell me one thing at this point of time, what do you know? At this point of time, what do you know? At this point of time, what do you know? That transaction completed. Yes or no. That transaction completed. You tell me one thing at this point of time is atomicity satisfied.
+
+26
+00:14:32,280 --> 00:14:58,480
+At this point of time is atomicity. Atomicity satisfied. Can I say? Okay. Can I say atomicity satisfied? Because atomicity is saying that either the complete transaction should execute or none of it. So this commit operation says that this commit operation is saying that transaction completed. So in this situation, I can say atomicity satisfied. Yes or no. Transaction completed. So definitely atomicity is fine.
+
+27
+00:14:59,680 --> 00:15:28,180
+is atomicity is atomicity property satisfied there is no problem with atomicity property atomicity property is very satisfied because atomicity property is saying that okay yes or no yes that's satisfied so very simple so this is your atomicity property now let's see this you tell me one thing one more thing does it mean that all the changes that you made some changes you have made okay some maybe some changes you have made
+
+28
+00:15:28,650 --> 00:15:56,690
+Does it mean all the changes you have put in the hard drive? Okay, all the changes, some changes are here. Let's assume some changes you made. Okay, some changes made by T. These are the changes made by T. Made by transaction T. This is a transaction T. Okay, at this point of time, does it mean that you have made, you have reflected them on the hard drive? You have stored them on the hard drive? Okay, all the changes, all the changes.
+
+29
+00:16:00,760 --> 00:16:34,070
+made by tea may or may not be at this time I can say at this time at this at this time okay at this point of time at this particular point of time at this particular point of time remember so at this particular point of time I'm saying that at this particular point of time all the things is made by tea may or may not have been reflected stored in disk stored in disk yes or no
+
+30
+00:16:34,460 --> 00:17:02,340
+Tell me, is this clear? This we have already seen in the last, in the last lecture. So in the last lecture, I told you that that all the changes that you have made, okay, in your transition, all the changes you have made, they may or may not be reflected in the hard drive, in your database, in your database, disk means database. Now you tell me one more thing. At this point of time, let's assume that these changes are not stored. Okay, let's assume, see if these changes are stored.
+
+31
+00:17:03,190 --> 00:17:34,690
+At this point of time, there are two situations. What are the case one? What are the case one? Tell me case one is this. All the changes are stored. This is the case one. Correct. This is the case one that at this point of time, when you see at this, look at, look at this point of time. Okay. Or I can say at this. So let's assume at this point of time, all the changes are stored. All changes by T is stored in disk stored in disk or I can say database then
+
+32
+00:17:35,050 --> 00:18:02,040
+everything is fine yes or no agree or not correct okay so then there is no problem okay everything is fine so always well so i can say that in this situation everything is fine okay fine there is no issue fine no issue now you tell me at this point of time let's assume some changes are not stored let's assume some changes you did not store this is the case too at this point of time some changes you did not store in the disk and suddenly the failure comes
+
+33
+00:18:02,380 --> 00:18:31,660
+Okay. So this is what I'm saying that let's assume at, at this point of time, at this point of time, you did not store them. Some changes of T not stored, not stored in the disk. And at this point of time, let's assume failure comes any type of failure comes. I don't care. What is the type of failure? See, okay. Remember, I do not care. What is the type of failure? The disk failure operating system failure or computer failure or building failure. I do not care which type of failure.
+
+34
+00:18:32,090 --> 00:19:01,640
+Okay, so whatever failure happens, I don't care. Now you tell me at this point of time, if failure happens, then what will happen? See this transaction has completed. Yes or no. This transaction has completed and this commit means completed. This commit means that your transaction T completed. So should you lose its changes because your transaction has completed? Should you lose the changes? Should you forget about what it has done? This transaction has completed.
+
+35
+00:19:02,510 --> 00:19:31,360
+Okay, the work has been completed. Ideally, because it has completed, the work has been done. So ideally, the changes should be in the hard drive. Do you agree? Do you agree that all the changes should be in the hard drive because the transaction has completed? Okay, the commit operation says that transition is completed. So ideally, what should happen that these changes should be in the hard drive? Now you tell me, by the way, some changes are not stored in the hard drive. Let's assume this is the case. At this point of time, some changes are not stored.
+
+36
+00:19:31,770 --> 00:19:59,890
+and the failure comes now we should not we should not forget what this t has done yes or no i can say that so this is the at this point of time we should make sure that all the changes that are made by t they must persist okay so even if failure comes i don't care failure comes but even if failure comes what should happen even after the failure these changes must be stored in the disk they must be reflected
+
+37
+00:20:00,270 --> 00:20:29,470
+They must become permanent in the hard drive. Very good. Okay. So this is the simple idea. So this is the failure. Now I can say, I can say despite the failure, this is the final point. This commit operation. Okay. This commit operation says one thing. What it says, it says that now after commit, now after commit, remember, once the commit has been done, now after commit, even if, okay, despite any failure, I can say.
+
+38
+00:20:29,740 --> 00:21:00,400
+Despite any failure, I don't care whether some failure comes despite any failure. Despite any failure. All changes by T must be all changes by T must not be forgotten. Can I say? Can I say must not be forgotten? Must not be forgotten. You must not forget them. What it means? What it means that all the changes by T must reflect in
+
+39
+00:21:03,400 --> 00:21:31,530
+database. Okay. Must reflect in database. Even if failure comes, okay. Even if failure comes, it is the responsibility that they must occur. Is this clear? It is the responsibility of the DBM of software. It is the responsibility of recovery manager. There is a recovery manager. It is the responsibility of recovery manager that all the changes by T must reflect in database. All the changes by T must not be forgotten. They must reflect in the database or I can say they must be made permanent in the database.
+
+40
+00:21:32,230 --> 00:22:00,950
+they must be made permanent permanent in a database this property this requirement is called durability property is this point clear let me know so this is called durability property this requirement that you can see this requirement is called the durability property durable it should be durable okay so this is called durability property is this clear to everyone please tell me is this crystal clear this durability property
+
+41
+00:22:01,420 --> 00:22:26,900
+very simple point that at this commit when you do this commit this commit tells you that transaction is done this tells you come transaction is completed but remember it does not mean that your changes have been reflected in the hard drive it does not mean that all the changes that you have made they have they have been I can say stored in the hard drive it does not mean now at this point of time if some failure comes then you should not forget the changes of T
+
+42
+00:22:27,340 --> 00:23:01,530
+Okay. All the changes by tea, they must be reflected. They must be made permanent in the database. They must reflect in the database. You should not forget those changes. This is called a durability property. Tell me, is this clear to everyone? Anyone has any doubt in this? You can ask. This is the durability property. Okay. Now, Mavith is asking if disk failure occurs, then see Mavith, even if your disk fails, then also. So then it is the responsibility of this that
+
+43
+00:23:01,810 --> 00:23:32,310
+you have multiple there is something called R AID okay redundant array of independent disk no no see there is a there is a concept of R AID if disk failure happens if disk failure happens okay disk failure if you want to handle this okay handled by R AID architecture okay R AID architecture so this architecture will handle
+
+44
+00:23:32,610 --> 00:24:02,590
+This is called redundant array of independent disk. Okay, R AID architecture. Okay, it simply, it simply means that this is a redundant array of independent disk. So basically, okay, if we don't like, we don't have to study this for the gate example, but this is a redundant array of independent disk means basically you are doing the copy. The same data you are storing basically backup. You are keeping the backup. Okay, redundant array of independent.
+
+45
+00:24:08,770 --> 00:24:34,380
+independent disk. So you are doing the copy multiple copies. Okay. So this disk failure also you can handle bar up by R AID architecture. This is called redundant area of independent disk. Let me tell you this R AID this will provide you fault tolerance. Yes or no, even if one disk fails, that is also fine. Correct. So it provides you fault tolerance. This R AID it simply means that
+
+46
+00:24:34,600 --> 00:25:03,440
+this is redundant area of independent disk redundant okay so same data you are storing in multiple disk okay so there is a concept of mirroring if you study this raid in detail there is a concept of mirroring so this concept is also there mirroring so there are many concepts okay but anyway final point is this that this raid architecture this provides you fault tolerance and let me tell you even speed also also better even speed also speed also better
+
+47
+00:25:04,110 --> 00:25:31,950
+because there are the same data is stored in multiple disk so the ultimately like you can basically if your same data is stored in multiple disk then you can you can access all the disk like if you want to access some data and let's assume there are four blocks then you can access maybe two block from one drive and two block from another disk okay so basically the speed is also better so this RAID architecture this provides you fault tolerance this speed
+
+48
+00:25:32,670 --> 00:26:01,930
+speed is also better but anyway this is not required for the gate exam so just like you can forget about it but this is very simple thing that this disk failure it can be handled by RAID okay anyway you tell me durability property is this clear let me know durability property is this clear mayuk i will tell you who will ensure this i will tell you but is this clear what is durability property is this clear who will make sure i will tell you after some time but is this clear what is happening here
+
+49
+00:26:02,110 --> 00:26:30,990
+see durability property this means permanent changes okay is this clear why see come okay now can you notice this point is very important that at the commit this point is extremely important that at the commit your changes may or may not be reflected in the disk yes or no that is the reason this durability property is coming into picture correct or not durability property comes into the picture because of the situation because at the time of commit
+
+50
+00:26:31,270 --> 00:26:55,880
+your changes that you are making, they may or may not be stored in the database. They may or may not be reflected in the hard drive. Okay, so that is the reason this durability come property is coming into the picture. So you can notice at this point of time, if some failure occurs after commit operation. Okay, after commit if some failure occurs. So this is very important after commit after commit if some failure occurs, despite any failure.
+
+51
+00:26:56,220 --> 00:27:24,350
+All the changes made by tea, they must not be forgotten. They must be reflected in the database. They must be made permanent in the database. So very simple. This is your durability property. So the another name for durability properties permanency. So what this property says, this property says that the changes applied to the database by the committed transaction must persist in the database by the committed transaction. If your transaction is already committed because of that, all the changes.
+
+52
+00:27:24,720 --> 00:27:55,890
+They must not be forgotten. They must not be lost because of any failure. Okay. Because of any failure, whatever failure. So very simple. So this is called durability property. You can read it. So you can see this is the, I can say explanation of durability property. What durability property says that many a bar commit. Okay. I hope like you're finding this very, I can say point to the point. Yes or no. I think this particular meme is.
+
+53
+00:27:56,110 --> 00:28:26,000
+to the point. Commitment commit. Okay. Anyway, so let's move on. The another word you can see is this, the changes made by a committed transaction. What they will say changes, changes made by a committed transaction. Permanent who sir. Okay. So anyway, so this is your durability property. So remember all the changes that are committed transaction is making all those changes must be permanent in your hard drive, must be permanent in your database.
+
+54
+00:28:26,410 --> 00:28:55,040
+despite any failure now so very simple so you can notice durability property states that write operations of a committed transaction must be eventually written to this must be eventually yes or no or when you write I don't care agree or not when you write I don't care when you store them when you reflect them in the database I don't care but eventually they must be stored in the disk this is your durability property now the next property is consistency property
+
+55
+00:28:55,590 --> 00:29:25,600
+This is very interesting property and this is most understood property, most misunderstood property. This property, most misunderstood property by all the students, by most, I can say most of the students. So what is this property? Consistency property. This says that no coding error within a transaction, no coding error within a transaction, within a transaction, within the transaction, no coding error. So this consistency property, the another name is the correctness principle.
+
+56
+00:29:26,470 --> 00:29:56,770
+One word is either you can call it consistency property or you can call it the correctness principle. What is correctness principle says, let me tell you. So as I told you, this is most misunderstood property. So please, uh, like now, now let's understand this clearly. Let's see this. What this says. Do you remember? I told you that, uh, this database database consistency, what that means database consistency, what that means.
+
+57
+00:29:57,310 --> 00:30:34,720
+database consistency consistency requirement what are these database consistency requirement how many are there database consistency requirement database consistency requirement there are two type of database consistency requirement one is explicit okay and one is implicit so you tell me this explicit like for example your integrity constraints integrity constraints okay constraints
+
+58
+00:30:35,380 --> 00:31:06,120
+So example like I can say primary key constants, foreign key constants. Okay, like this, for example, I can say functional dependencies and so on. So these are your integrity constants. You tell me one thing. These you can very easily enforce, right? Yes or no. These very easily you can enforce. So these can be enforced by these can be ensured. I can say ensured or I can say enforced. These can be enforced by database.
+
+59
+00:31:06,620 --> 00:31:36,120
+i can say dbms software okay so these can be ensured by dbms software these can be enforced by the dbms software there is no problem but what about the implicit what are the implicit ones first of all what are the implicit ones did okay these are application dependent correct yes or no these are the application dependent proper constants these are the application dependent issues or i can say constants who will decide them who will decide them this database
+
+60
+00:31:37,120 --> 00:32:05,220
+These are the application dependent constraints. As I told you as many examples we have seen in the last class. For example, for the IRCTC, what is this? Implicit constraint for the IRCTC. Two people should not book the same same seat. Okay. For example, for another like, okay. So in a, I can say it depends on the application. For example, another example I can give you the number of reserved seats. They shouldn't exceed. They should not exceed the number of total seats. Yes or no?
+
+61
+00:32:05,500 --> 00:32:32,550
+in any flight in any flight the number of reserved seat how many seats are reserved that should not exceed that should not be more than number of total seat so these are the I can say application dependent constraints and tell me whose responsibility is this whose responsibility is this who will make sure that these are satisfied within a transaction within a transaction whose responsibility is this this is what I'm asking see forget about all other things
+
+62
+00:32:33,110 --> 00:33:06,180
+let's assume that only one transaction is there there is no concurrency let's assume there is no concurrent execution assume no concurrent execution are you getting my point? let's assume there is no concurrent execution only one transaction is there assume no concurrent execution only single transaction is executing one transaction is executing one transaction is executing you tell me one thing should this transaction preserve this consistency
+
+63
+00:33:07,280 --> 00:33:36,400
+yes or no this transaction this alone transaction is there the only one transaction there one transaction executing okay so there is only one transaction and this is executing you tell me by this transaction there is no concurrency remember there is no concurrent execution now at this point of time this transaction this single transaction should it should it preserve the consistency yes or no explicit as well as implicit correct yes or no so this is single transaction
+
+64
+00:33:36,720 --> 00:34:06,370
+must preserve explicit also implicit also both type of consistency it must preserve so what I am saying that this transaction if you start in the consistent state if you have consistent state see if you have consistent if you start in consistent state then it should tell me it should end in the consistent state yes or no it should take the database into consistent state from consistent state to consistent state in the middle it can do whatever it want in the middle
+
+65
+00:34:06,720 --> 00:34:39,350
+inconsistency can come I don't care but what I'm saying that from consistent state the database should go to the consistent state or and remember only one transition is executing so this transaction what it should make sure so this transaction tell me what it should make sure it should preserve it should preserve implicit as well as explicit implicit and explicit consistency requirement yes or no correct
+
+66
+00:34:40,520 --> 00:35:10,470
+implicit as well as explicit consistency requirement okay you tell me so this this explicit consistency requirement that is very I can say that is quite easy that easily can be handled by the dbms software so this okay that can be enforced by the dbms software but who will enforce this within a transaction who whose responsibility is this application dependent constraints within a transaction
+
+67
+00:35:12,560 --> 00:35:41,210
+within a single transaction remember within a single transaction this is very important within a single transaction this is the user responsive this is the responsibility of the programmer yes or no this is the responsibility of the programmer because remember these things are in the mind of programmer yes or no these things are application dependent these are in the mind of programmer so programmer should like for example you tell me if something is in my mind can some computer enforce it
+
+68
+00:35:42,690 --> 00:36:11,830
+something I have to I have to write a program yes or no I have to write a correct code for that do you agree yes or no I have to write a correct program I want to do addition I have to write the program for addition in my mind I have addition and I am writing program for subtraction then no one can do anything yes or no no one can do anything I want to do addition I am writing program for subtraction then no one can help me okay no DBMS software no transition manager
+
+69
+00:36:12,060 --> 00:36:40,340
+no recovery manager, no one can help. Okay, very simple. So this is what I'm saying that these explicit constraints, these are very easy to handle. These can be easily enforced by the DPMO software, like integrity constraints, like functional dependency, primary key and these things. But remember, these application dependent constraints, like for example, in the Go classes, like as I told you, in the Go classes, we have this consistency requirement. What is that? That in the Go classes, private telegram group,
+
+70
+00:36:40,720 --> 00:37:09,180
+the number of students should be less than or equal to number of enrolled students yes or no because in the private telegram group only the enrolled students should join because some students will not join some students they do not use the telegram okay so there are many students they don't use telegram or WhatsApp so they will not join but I can say that for the go classes we are deciding who is deciding we are deciding the consistency requirement that that in our private telegram group number of students should be less than equal to number of enrolled students
+
+71
+00:37:09,870 --> 00:37:40,620
+yes or no so this is implicit that is the reason this is called implicit agree or not yes or no so this this database consistency requirement this is implicit where is this who knows this this is in the mind of application developer yes or no so within a transaction this is the responsibility of the programmer this is the responsibility of the programmer this is the responsibility of a programmer okay yes or no is this clear
+
+72
+00:37:40,880 --> 00:38:11,120
+See, within a transaction, this is the responsibility of programmer within a transaction. But among the transition, whose responsibility is this within a single transition? This is the responsibility offer. I can say this programmer, but once programmer has done hits work, then transaction manager. Yes, very good. So remember, this is what I'm saying. Very important. This is very important thing. What this consistency property says in the, in the acid property, in the acid, what this consistency property says.
+
+73
+00:38:11,610 --> 00:38:42,930
+This consistency property says that at least write the transaction correct or forget about forget about concurrent execution. At least your transaction must be correct. Yes or no. So this consistency property says that. Okay. That particular transaction must be correct. If you only look at particular transaction, this particular transaction must be correct. Particular transaction must be correct. Is this clear? And when I say correct, what it means?
+
+74
+00:38:43,480 --> 00:39:15,910
+Tell me particular transaction must be correct. What it means? It means particular transaction must take database from consistent to consistent state. Yes or no particular transaction must take must take database from one consistent state to another consistent state. One consistent state to another consistent state. Okay. Is this clear? See one thing very interesting thing.
+
+75
+00:39:16,170 --> 00:39:48,360
+see what this transaction manager will say this transition manager will say that are you take care about the individual code yes or no the individual code you take care this is the individual coding this is the individual coding remember particular transaction I am talking about means okay individual transaction coding individual transaction coding individual transaction coding you take care about this we will take care of the of the concurrent execution
+
+76
+00:39:48,740 --> 00:40:19,130
+Yes or no? Is this clear? Tell me. So remember, okay, what this transaction manager will say, or I can say what this recovery manager will say. Recovery manager or transaction manager, I can say recovery manager plus transaction manager. What they will say? What they will say? Tell me. They will say that individual transaction must be correct. Okay, individual transaction must be correct. Then we will take care about all the things. If your transaction, you must write the transaction, correct. You must write a correct transaction.
+
+77
+00:40:19,680 --> 00:40:49,990
+Okay. Use right at correct transaction. Then we will take care about concurrent execution of many transactions. We will also take care about if some failure occurs. We will also take care if some failure occurs here. Is this clear to everyone? Please tell me. Let me know. So remember this simple point. I'm telling you that's this first of all this consistency, this acid in the acid, what this C says, what in the acid, what this C says, this is your acid.
+
+78
+00:40:50,490 --> 00:41:22,250
+In this acid what this C says this C says that okay for I can say individual transition must be correct. Yes or no, correct. This only says that individual transaction must be correct. Individual transaction must be correct. Must be correct. Individual transaction must be correct. Very simple. So must be correct. And who's responsibility? Tell me who's responsible for this? For individual coding, who is responsible? Responsible is
+
+79
+00:41:22,460 --> 00:41:52,940
+programmer user or programmer or I can say the database developer yes or no so who is responsible who is responsible now you can notice what these people will say these people will say that if this is correct then we will take care your individual transition must be correct then we will take care about concurrent execution so they will care they will take care remember they will take care about concurrent execution okay concurrent execution they will take care what else they will take care
+
+80
+00:41:53,240 --> 00:42:24,020
+they will take care some failure some failure within a transaction within a transaction if some failure occurs we will take care you write the correct transaction are you getting this point are you write the correct transaction now if some failure happens now if suddenly some operating system fails suddenly if some disk fails that is our responsibility but your transaction you write in a correct manner so failure within transaction we will take care we will take care and failure after transaction
+
+81
+00:42:24,360 --> 00:42:51,010
+that also we will take care failure after transaction commit that also we will take care so you cannot this is called durability property this is called atomicity property and this is called isolation property this is called durability property this is called durability property this is called atomicity property and this is called isolation property
+
+82
+00:42:51,920 --> 00:43:18,960
+I will I we will see don't worry this isolation we will see but did you understand this consistency the C in consistency sorry this acid property the C in acid property what this says is this clear to everyone this property says that your transition must be correct or a forget about concurrent execution forget about error failure forget about all these things if you if you run your transition correctly completely then at least
+
+83
+00:43:19,250 --> 00:43:46,940
+you should take the i can say state your database from consistency state to consistency state yes or no yes or no tell me this would happen or not forget about concurrent execution and let's assume there are no failures let's assume for a moment let's assume no failures everything is perfect your system is perfect okay and there's no concurrency only one transition is executing then what what is the least you are expecting tell me what is your least expectation that is
+
+84
+00:43:47,210 --> 00:44:16,510
+now because of this transaction some problems should not happen yes or no no outer no there is no failure there is no outside failure everything is perfect your operating system perfect disk perfect okay your computer perfect everything is perfect and there is no concurrency okay you only have one transaction so one transaction is running from beginning till end one transaction is running now you tell me what is your expectation please tell me what is your expectation that this transaction should be correct
+
+85
+00:44:16,840 --> 00:44:45,620
+yes or no this transaction should take consistent database state to consistent database state yes or no at the end of this transaction we must be in the consistent state if we start in the consistent state we must go to the consistent state that is the least expectation so this is called consistency property in in the asset property this c this means consistency and this means that a particular transaction must be correct and this is this is can i say this entirely the responsibility of user
+
+86
+00:44:46,030 --> 00:45:16,280
+Can I say? Can I say this entirely the responsibility of user? No, this is not entirely the responsibility. Remember, because some part can be handled by the DBMS software. Yes or no? The explicit constants, all the integrity constants, those can be enforced by the DBMS software. But remember, though implicit constants, okay, all the application dependent issues, all the application dependent consistency requirement, those must be satisfied by the user, by the programmer.
+
+87
+00:45:16,590 --> 00:45:49,290
+so programmer should take care okay but ultimately i can say that this consistency this property is the responsibility of the programmer please tell me is this clear let me know so assume no concurrent execution assume no failure assume no failure assume no failure assume no concurrent execution only one transition is executing then what should happen this is our expectation agree or not or this is the least expectation that we can have that this transition at least
+
+88
+00:45:49,550 --> 00:46:19,320
+there is no failure there is no concurrent execution then this is the least expectation that you should take that this transition should take consistent database to consistent database okay and this transition should preserve implicit and explicit both type of consistency requirement it should preserve which is easy to preserve tell me which of them is easy to preserve explicit easy to preserve the integrity constants all the integrity constant you can easily preserve but the implicit which are in the mind of the
+
+89
+00:46:19,480 --> 00:46:48,410
+application developer. Okay. So these are, I can say these are the responsibility of the programmer to ensure these things. So very simple. What is the consistency property? The responsibility of the programmer who codes a transaction to write a correct code. This is the consistency property. Is this clear to everyone? Let me know. Okay. So this is the responsibility of programmer who writes the transaction to write a correct code. What it means, it means that it simply means that
+
+90
+00:46:49,420 --> 00:47:18,050
+depending on the application as I told you this I told you yes or no in the mind of the database developer some constraints are there some database consistency requirements are in the database developers mind now remember these requirements which are in the mind of database developer they should be implemented by the developer who will implement these are in your mind so you should implement them correct or not so these requirements which are implicit which are in the mind of database developer these must be
+
+91
+00:47:18,520 --> 00:47:47,290
+I can say this must be implemented by the developer in the transaction correctly. Okay, so this is the idea. You can notice the responsibility of the programmer who codes a transaction to make sure that all the database consistency requirement are satisfied by the transaction. Individual transitions will satisfy all these things. Okay, so very simple. So if there is no failure and if only one transition is executing, then definitely what we are expecting, we should definitely expect that. So remember,
+
+92
+00:47:48,100 --> 00:48:18,420
+This is done is responsibility of the programmer who will code the transaction. Is this clear? Who is coding the transaction? It is the responsibility of them. Okay. A particular transaction must preserve database consistency. This is the idea. This is your consistency property that a particular transaction must preserve database consistency. If a transaction is running in isolation from starting to end without any failure. Okay. You are running. Then it is the responsibility.
+
+93
+00:48:19,050 --> 00:48:46,140
+of the transition. I can say this transition should take one consistent state to another consistent state. This is your consistency property. Please tell me. Is this clear? Let me know. Mavith is asking, sir, consistency is with respect to single transition or database. No, C. Mavith, this in the acid property, this C in the acid property, this C, this is for individual transaction consistency. But remember,
+
+94
+00:48:47,010 --> 00:49:15,450
+We will see this in the next lecture. We will see all the four properties. See atomicity is also atomicity, atomicity property that also can affect the consistency. Yes or no, the database consistency that also can be affected by atomicity. Do you agree? We have already seen this. Like for example, in the middle, if your transition amount is debited, but amount is not credited. So because of violation of atomicity, also what will happen? Tell me because of violation of atomicity, what will happen?
+
+95
+00:49:15,790 --> 00:49:43,940
+your database will become inconsistent correct or not yes or no your database will become consistent sorry will become inconsistent similarly remember isolation we will study we will study durability or because of all of them consistency is affected but in the acid property in this acid property all the four property they are responsible for maintaining the consistency ultimately what we want ultimately if anyone ask you one thing
+
+96
+00:49:44,290 --> 00:50:12,960
+Forget about asset property. Ultimately what we want? We want our database in a consistent state at any cost. Is this clear? Forget about asset property. Whatever you do, you do single transition execution, you do serial execution, you do concurrent execution. Failure comes. Failure does not come. Whatever happens, what should what should remain? What is the one thing that should remain intact? Tell me what is the one thing that should not be I can say that should not be compromised. That is
+
+97
+00:50:13,210 --> 00:50:40,980
+database consistency the database should always remain in the consistent state yes or no is this clear so the database consistency should not be affected whatever happens okay failure comes failure does not come i don't care okay transaction single transition execute serial execution concurrent execution whatever happens the consistency of the database should remain unchanged the consistency should be maintained okay now in the acid property
+
+98
+00:50:41,340 --> 00:51:08,320
+Every property is responsible for database consistency. Remember, is this clear? In the acid property, every property is responsible for database consistency. Atomicity will also is also responsible for database consistency. Isolation also and durability also. All the four properties in the acid property, they are responsible for database consistency. But this C in the acid property, this is for
+
+99
+00:51:08,980 --> 00:51:37,680
+single transition consistency this single transition correctness that single transition must be correct if you are running a transition from starting to end without any failure without any concurrent execution only one transition is executing from starting to end then what should happen then it should initially if you are starting in the consistent state you should go to the consistent state okay so this is the so whenever we are writing the I can say transition
+
+100
+00:51:38,000 --> 00:52:06,220
+This is the responsibility of database developer programmer. So they should make sure that this particular transaction should take consistent database to consistent database. Any other doubt, please tell me. So basically this in the acid property, this C, this says that you take care of yourself. Yes or no. You drive in a very nice manner. Forget about anything else. Okay. You should take care of yourself. Now the world, we will take care about the world.
+
+101
+00:52:06,420 --> 00:52:37,970
+so the transition manager this is saying that you take care of yourself we will take care of everything else okay so this is the simple idea I hope you understood this please tell me is this clear to everyone what is consistency what is this what is seen this consistency so you can see this basically what this consistency property saying the consistency property is basically saying that see the problems will happen because of because of concurrency the problem will happen right yes or no agree
+
+102
+00:52:38,430 --> 00:53:04,700
+Because of concurrency problem can happen. Do you agree? Do you agree that because of concurrency problems can happen? Okay, problems may or may not happen, but they can happen. Similarly, if some failure comes, then also problems can happen. But consistency property says in the acid property, this consistency property says that, okay, means whatever problem happens, you should take care of yourself. The transaction should take care of your itself.
+
+103
+00:53:05,120 --> 00:53:41,400
+So this is the consistency property. Please tell me, did you understand this? Let me know. Okay. One question. So ultimately in one line, if, if you ask me what the trans, what are the consistency property? This is the consistency property. This is the C in acid. This is the C in acid. What is the C in acid? This is saying that your consistent database you have your consistent database you have and this is a single transaction. This is a
+
+104
+00:53:41,640 --> 00:54:09,900
+single transaction this is a single transaction no failure okay remember this is single transaction so this consistent database okay and the output also should be consistent database okay is this clear the consistent database and the output also should be consistent database no failure nothing single transaction complete execution single transaction complete execution
+
+105
+00:54:10,430 --> 00:54:40,120
+So if this single transition, if it is doing the complete execution, then you start in the consistent state, you should go to the consistent state. Is this clear to everyone? Please tell me. Let me know. So remember this C, this talks, this C in acid, this talks about the correctness of transaction, correctness of individual transaction. Okay. So this is the reason this is also called correctness property. Yes or no? This is, this is the reason this is also called correctness principle. So this is, this talks about correctness of individual transaction.
+
+106
+00:54:43,780 --> 00:55:11,460
+individual transaction okay as you can see here okay so criminal criminal crime karega hi tum satar kyu nahi rata this is your consistency property who is tum here who is tum here so here that tum is transaction okay a transaction is the okay tum so transaction should be correct and who is the criminal the criminal can be failure either this can be failure or this can be concurrency
+
+107
+00:55:11,970 --> 00:55:41,960
+Okay, so because of concurrency or because of failure problems can happen. That is fine. But at least transactions should be correct. Yes or no. So this transition must be correct. Very simple. So finally, I can say this is your acid. This is your seen acid. Okay. So as you can see this, a transition must preserve database consistency in one line. If you want to say, okay, so this C in acid, what this says, this says that
+
+108
+00:55:42,270 --> 00:56:21,140
+a transaction must preserve consistency yes or no a transaction must preserve consistency a transaction must preserve database consistency a single transaction so this is the simple point now you tell me one thing a simple point i'm asking can anyone any program any algorithm any system do anything if the coder makes makes mistake tell me can anyone do anything if the coder will make mistake
+
+109
+00:56:22,450 --> 00:56:51,230
+So if this violation happens, can we do anything? If this in the acid property, if a transaction does the bad things, then can we do anything about it? Tell me a simple question. I'm asking if your transaction itself is wrong. If your transition itself cannot preserve the consistency, then can we do anything? Tell me we cannot do. Yes or no. So very simple. If the quarter itself is making the mistake during the right during writing the transaction, can can anyone do anything?
+
+110
+00:56:51,670 --> 00:57:20,740
+the answer is simple no yes or no so you tell me if the answer is no you tell me if this violation happens then who will help us if this violation happens then who can help us if this violation happens means if the transition itself is wrong then who can help us no can help us yes or no no one can help us so then what to do so can we enforce consistency like can we enforce consistency property
+
+111
+00:57:21,160 --> 00:57:51,780
+can dbms I can say can dbms enforce consistency property tell me can dbms enforce consistency property let me know consistency of transaction can dbms enforce consistency of I can say uh transaction property consistency of a particular transaction property can can dbms do that the answer is again no yes or no okay consistency of a particular transaction because of a particular transaction
+
+112
+00:57:52,170 --> 00:58:31,950
+so that dvms cannot do anything yes or no very simple then how to do this so tell me then how and the answer is very simple write the correct program yes or no the answer is very simple write the correct program that's it so actually let me tell you that if you read the ulman book what they have written see what they have written in the ulman book this dialogue is written you can check it out this is an assumption in the ulman if you check it out what they have written
+
+113
+00:58:32,180 --> 00:58:59,540
+this is they have written see this very interesting line they have written so this correctness principle that we have seen okay we will we only have one choice that is assumption see explicit constraints can be enforced by the dvms yes or no this we have seen read this in this paragraph you will find everything whatever we have seen you will find everything do you agree that explicit constraints are enforced by the database yes or no correct so that is fine
+
+114
+00:58:59,780 --> 00:59:28,480
+See explicit constraints are fine. What are the explicit constraints? Tell me. What are the explicit constraints? What are those? Those are integrity constraints. Okay. Very simple. Like foreign key, I can say foreign key, primary key, entity integrity constraints, functional dependency. So these things. So explicit constraints, explicit constraints. So these are enforced by the database. So there is no problem. There is no problem. But what about implicit? What about implicit?
+
+115
+00:59:28,940 --> 00:59:57,640
+So this is our assumption. C C C C C. This is our assumption. What is our assumption? We just make this assumption. This make this, we make this assumption read this line. This is very interesting. If someone has the authority to modify the database, then they have the knowledge to judge what is correct. Okay. Isn't it interesting? Because we cannot do yes or no. Yes or no. For the implicit constraints, we cannot do anything. For the implicit constraints, everything falls on the programmer.
+
+116
+00:59:58,380 --> 01:00:27,200
+For the implicit constraints, the responsibility falls on the programmer, on the, I can say database designer. So you can check it out. So that, so what we do, we just assume that programmer has done correct work. Is this clear? So remember, this is the question I was asking you. I was asking you this question that then how to ensure this consistent, this transaction consistency property. Okay. This is transaction consistency property. How to ensure that.
+
+117
+01:00:27,580 --> 01:00:57,030
+then the answer is very simple and what is that if you can basically you can do it we trust you okay this is the simple answer the answer is one line this is where we trust you okay is this clear that's it so basically this is an assumption let me tell you okay this we take this as an assumption basically write correct code for the transaction very simple thing okay so finally I want to tell you that we assume this is an assumption what we do
+
+118
+01:00:57,250 --> 01:01:27,390
+we assume that okay we assume that programmer is very good okay and can write correct code for transaction depending on the consistency requirement in his or her mind read this line and tell me did you understand this please tell me did you understand this we assume we assume that programmer is very good and whatever consistency requirement he or her he his sorry he or she has in his mind in okay then
+
+119
+01:01:27,680 --> 01:01:58,130
+They can do it. They can write a correct code for this. So we assume consistency. We assume transition consistency property. Is this clear? So this transition consistency property, we assume some authors include this as a part of definition of transaction. Some authors, some authors, what they do because we have to assume this. Yes or no. We cannot do anything about it. We cannot do anything about it. So we have to assume this. The transition is correct. We have to assume this.
+
+120
+01:01:58,640 --> 01:02:27,520
+So some authors, what they do, they include this in the definition of transaction itself. Okay, that transaction is correct. Is this point clear? They include this in the definition of transaction itself that the transaction is correct. So see this very simple. See this if a transaction executes in the absence of any other transaction or system errors. This is what we have seen. Yes or no. If a single transaction executes.
+
+121
+01:02:27,890 --> 01:02:58,730
+in the absence of any system errors in the absence of any other transactions it starts the database in a consistent state then the database is also in the consistent state when it transits ends this is the correctness principle okay and as I told you that this is a very I can say interesting statement you can see this read this statement if someone has the authority to modify the database they also has the authority to judge what is right
+
+122
+01:02:59,630 --> 01:03:26,250
+So this is your final conclusion that we assume this. Okay. So we assume the consistency property. We cannot do anything about it. We have to assume this. As I told you some authors, they include this in the definition of transition itself. Others make assumption about it. Ulman is one of those who assume. Yes or no? Ulman assumes. Ulman does not include in the definition, but Ulman assumes. Similarly,
+
+123
+01:03:26,670 --> 01:03:55,120
+Navate court, they also assume they don't include this in the definition. But there are some authors, they include this in the definition. See this. See this. So this is a university in the Norway. This is a university in Norway, Norway University. Okay, you like anyway, so you can check it out. So finally, in this university, you can see this, a transaction is a sequence of operations that maintain consistency of database. So a particular transaction.
+
+124
+01:03:55,480 --> 01:04:24,600
+if you start in consistent state it will take you to the consistent state okay so means transaction is correct so they are including this in the definition of transaction itself yes or no and they are also writing by the definition of transaction see this isn't it interesting see this as in the definition of transaction so this see this consistency preservation of by a transaction they include this in the definition of transaction itself please tell me did you clearly understood
+
+125
+01:04:24,930 --> 01:04:53,290
+what is this consistency property so far we have seen three property atomicity durability and consistency these acid property did you clearly understand if you have any doubt you tell me please have crystal clear understanding in your mind you must have very clear understanding what what are these properties and what who is responsible for them so this consistency property did you understand please tell me anyone has any doubt is this crystal clear or
+
+126
+01:04:53,510 --> 01:05:22,480
+if you have any doubt 90% 80% 100% what is that tell me did you understand this completely so this consistency property remember very simple property that see in acid see in acid so this see this only is talks about single transition correctness that whatever transition you write you write in a correct way okay every individual transition must be correct okay every individual transition you start database is consistent
+
+127
+01:05:22,810 --> 01:05:52,110
+at the end also database must be consistent this is your C in ACID very simple this is the responsibility of programmer we cannot do anything about it see there are two type of consistency requirement one is explicit one is implicit explicit we can do yes or no DBMS can handle explicit requirement DBMS can handle but implicit requirement implicit consistency requirement that is the responsibility of programmer so ultimately we trust the programmer okay
+
+128
+01:05:52,350 --> 01:06:22,900
+yes or no ultimately we we trust the programmer that programmer is very good we just assume it so as I told you some authors there are some authors who include this in the part of in the definition of transition okay within the definition of transition they write that okay every transition is correct is this clear to everyone please tell me now something interest okay anyway so you can see this this meme you can see by chance if you have any doubt okay so what is consistency property violation tell me what is that consistency property violation
+
+129
+01:06:27,860 --> 01:06:53,790
+So let's see this I think this is correct this is correct analogy right because the transition itself is the villain here in this okay now let's see this now you tell me about this now can you tell me the answer for this tell me is a serial execution always correct now can you tell me the correct answer for this now does a serial execution
+
+130
+01:06:54,170 --> 01:07:20,170
+always preserve the database consistency a serial execution a serial execution will it always preserve database consistency please tell me the answer now crystal clear reason can you give me now please tell me can you give me the reason or a consistency we always for a transaction we are already assuming that consistency every transaction is consistent we are already assuming that that is part of the definition you can assume that
+
+131
+01:07:22,290 --> 01:07:54,540
+We will assume that transition is correct. We will always assume that transition is correct. Individual transaction is correct. We will always assume. Okay. So now you tell me. Now you tell me the correct answer for this and correct reason for this is serial execution always correct. Serial execution will take your database from consistent state to consistent state. Can you guarantee that? Can you guarantee that? The answer is yes.
+
+132
+01:07:54,820 --> 01:08:29,610
+But can you give me the correct reason? The answer is yes. Let me tell you the reason. The reason is very simple. We are already assuming the consistency, right? Yes or no? No, no, the reason is not durability. Very simple. This C in acid, this consistency. What this says? Tell me the definition of this. Just tell me the definition of this. What this says? This says that this is your transaction. This is your transaction. If this is completely executes,
+
+133
+01:08:30,410 --> 01:09:04,510
+if this complete execution happens complete execution happens you start in a consistent state you start in consistent state db1 then it will take you where tell me it will take you where it will take you where if you start here it will take you where this consistency is assumed right yes or no we assume it this is assumed means this transaction t is correct okay yes or no
+
+134
+01:09:04,770 --> 01:09:35,090
+this transition t is correct because we are assuming this so now you tell me if you start in consistent state it will take you to the consistent state it will take you another consistent state db2 yes or no if you start in some consistent state it will take you to another consistent state from consistent state to consistent state very simple is this clear let me know this okay for a particular transaction this is your particular transaction t
+
+135
+01:09:35,570 --> 01:10:06,710
+now you tell me if you have a serial execution this is your t1 then this is your t2 okay now you tell me and this is your t3 now you tell me if you start in the consistent state by chance okay let's assume that you start in the consistent state if you start in the consistent state then what can I say about this at this point of time what can I say what is my state tell me consistent or inconsistent
+
+136
+01:10:07,700 --> 01:10:39,960
+Consistent or inconsistent? That is consistent because of whom? Because of whom? Because of whom? Who is the reason? What is the reason? Consistent state to consistent state. What is the reason? The reason is? The reason is consistency. Yes or no? The reason is consistency property. The reason is consistency property of transaction. The reason is consistency property of transaction. Now again, again, again, this is a consistency state.
+
+137
+01:10:40,780 --> 01:11:11,060
+Again, this is a consistent state. So you tell me, okay, what can you say about this? What can you say about this? This is a consistent state. What can you say about this? Tell me, what can you say about this? This is also a consistent state. Why, why, why, why, why? Tell me, what is the reason? The reason is same. Consistency property of transaction. Yes or no. The reason is consistency property of transaction. Okay, what about finally you tell me about this one? What about this?
+
+138
+01:11:11,780 --> 01:11:40,760
+Again, this also will be consistent state. This also will be consistent state. Why? Again, what is the reason? Okay, this also will be consistent state. But what is the reason? Consistent to consistent. And the reason is very simple. The reason is same. Now, did you understand that serial execution will always preserve? But what is the reason? The reason is simple assumption. Everything is based on the assumption. See, this is assumed.
+
+139
+01:11:41,480 --> 01:12:11,920
+see this is assumed this is assumed everything is assumed so ultimately because of these assumptions I can say that the serial execution is also correct so that is an assumption yes or no if anyone ask you that serial execution will preserve the consistency is it true the answer will be yes but the reason will be what the reason will be what the reason will be assumed please tell me this
+
+140
+01:12:13,010 --> 01:12:41,770
+I hope you are finding this interesting like, okay, let me know. See, maybe in the previously did you buy hard this that the answer is yes. Maybe the previously maybe you are buy hearted that the answer is yes. But the answer is yes. But the reason did you understand now? Please tell me the reason. Did you understand now what is happening here? So in the interview, if they ask you why serial execution is always correct, like serial execution.
+
+141
+01:12:42,140 --> 01:13:10,700
+will always preserve database consistency and the question is asking why then what you will say then you will say because of consistency of transaction and consistency of transaction we assume yes or no yes or no the reason is consistency of transaction consistency of every transaction and that we are assuming so it means this is also assumption is this clear tell me so final answer is this is also assumption the answer is yes
+
+142
+01:13:11,020 --> 01:13:50,250
+and the reason what the reason the reason is assumption the reason is assumption of what tell me assumption of what the reason is assumption of consistency of transaction assumption of correctness of every transaction correctness of every transaction is this clear let me know okay the reason is this assumption the reason is assumption of correctness of every transaction this is the reason
+
+143
+01:13:56,200 --> 01:14:23,510
+Those are IIT professors. Mavith, those are IIT, IIC professors. They know everything. Those are not coaching teachers. The coaching teachers, they don't know these things. They don't study standard books. I don't know. They study from each other and they are teaching, I think. Like, I have seen this because they make the same mistake. Like the same mistake all of them are making and they are making the same mistake in the same way. Okay, that is very interesting. Yes or no? Same mistake you are making.
+
+144
+01:14:23,770 --> 01:14:56,810
+five people are making same mistake in the same way. It means what, what it means, it means one of them or he started and all the other, they are learning. Okay. So they are learning from each other. They are not learning from the standard books. So is this clear? Let me know. So, okay. So this is the idea. So finally, this is your, uh, I can say consistency property. So remember our, this is the assumption, one reasonable assumption.
+
+145
+01:14:57,390 --> 01:15:28,030
+one reasonable assumption you can read this please read this one reasonable assumption we can make what is that that is if we consider the transactions to be independent and every serial schedule is considered correct and what is the reason what is the reason every serial schedule is considered to be correct what is the reason we can assume this why are we can assume this why we can assume this because every transaction is assumed to be correct if executed on its own according to consistency property this is what we have seen
+
+146
+01:15:28,350 --> 01:15:57,940
+This paragraph is the summary of whatever we have seen. Did you understand this paragraph? Let me know. This is the summary of whatever we have seen. Please tell me. Okay. So these are your property. The last property is isolation property. This actually we will study in the next class, but let me tell you what this isolation property says. This isolation property says that you should get a pseudo feel that you are executing alone. See, you are not executing alone, but you should get a pseudo feel.
+
+147
+01:15:58,210 --> 01:16:28,440
+that you are executing alone means you are isolated from everyone else this should have been used would get okay and how can you get this feeling like let's assume many people are many many people are executing let's assume many transactional are executing t1 t2 t3 all of them are executing concurrently okay all of them are executing concurrently then what should happen what should happen let's assume like t1 is executing some part of t1 executing then some part of t2 will execute
+
+148
+01:16:28,800 --> 01:16:59,520
+then some part of t3 will execute then again t1 will execute then t2 will execute then let's assume t1 will execute then t3 will execute so they are executing concurrently then what we are saying we are saying that this t1 or i can say any particular if you see this should he must think he must think that okay this t3 must think that it is executing alone it is executing alone executing
+
+149
+01:17:00,010 --> 01:17:28,050
+alone in isolation okay it is executing alone in isolation how to make sure this that is a question yes or no but how to give this feeling that this T2 is executing alone this feeling we have to give him yes or no correct so that it is executing alone this feeling we have to give him that you are executing alone okay there's no one there's no one executing I can say concurrently with you so we should give this feeling to the T2
+
+150
+01:17:28,390 --> 01:17:58,030
+same feeling we should give to t1 same feelings we should give to t3 to every transaction we should give this feeling this should of feeling we should give that you are executing alone in the isolation but how yes or no the answer is very simple see the question is this that how to make sure this and the answer is very simple that by a concept of serializability this isolation if you want to give this feeling of isolation if you go on to give this then
+
+151
+01:17:58,430 --> 01:18:28,320
+to ensure this i can say to ensure isolation to ensure isolation there are many ways let me tell you if you want to ensure isolation there are many ways and what is the strongest way to ensure isolation remember there are many ways like many ways we can do this we can give them should of feel that they are executing alone is this clear they are executing alone this should of feel we are giving them this must think that it is executing alone but in real okay tell me
+
+152
+01:18:28,970 --> 01:18:57,300
+it is thinking that it is executing alone but in the real life it is not executing alone right yes or no but we should give this pseudo-feel that is the reason I am saying we should give this pseudo-feel that it is executing alone so how to do that if you want to ensure isolation then there are many ways and among these many ways the most strongest way what is that the strongest way there are many ways to ensure this
+
+153
+01:18:57,700 --> 01:19:28,430
+But what is the strongest way? What is the strongest way? The strongest way is called serializability. Is this clear? The strongest way is called serializability. Okay, this serializability, what is this serializability? This we will see in the next lecture. So don't worry about it. But the reason is serializability. So remember this to ensure isolation. If you want to ensure, if you want to make sure that this isolation
+
+154
+01:19:29,310 --> 01:19:58,120
+this isolation feeling comes to T1, T2, T3 all of them feel isolation if you want to make sure this then there are many ways remember this serializability is not the only way is this clear see many people they think that serializability is the only way I have seen this many people will say that they are same they are same isolation is another word of serializability serializability is another word of isolation this is wrong because this isolation property you can ensure
+
+155
+01:19:58,460 --> 01:20:29,220
+In many ways, one of those ways is serializability and this is the most strongest way. This serializability is the most strongest way to ensure isolation. Is this clear? Most powerful way. Strongest means powerful. So this is the most powerful way to ensure isolation. Please tell me is this point clear? What is this serializability? This we will study in the next lecture. So don't worry about it right now. Okay. So we can ensure this using the serializability. Very simple.
+
+156
+01:20:29,740 --> 01:20:54,600
+So this is your concept of isolation this this we will continue in the next lecture don't worry about it but Ultimately what happens see what we are going to do actually if you want to ensure this isolation what you have to do this isolation then what you have to do that Any transition should not see the changes by other transaction. Okay
+
+157
+01:20:55,010 --> 01:21:27,690
+that is the meaning of isolation yes or no if you are executing in isolation if you are thinking that no one else is executing in parallel with you then what it means it means that you should not see the result of you should not see the changes of other transactions okay yes or no so isolation means a transaction should not see should not see the changes made by other transactions made by other transactions
+
+158
+01:21:29,050 --> 01:21:56,730
+So, if you do not see the changes by made by other transactions, then you will get the feeling of isolation that you are executing an isolation, right? Yes or no? Correct? So, a transaction should not see the changes made by other transactions. This is your isolation property. The details we will see in the next lecture. We will discuss what is this serializability? That also we will discuss. We will also discuss what is this isolation? Right now, this is not clear. I know. Okay. This will become more clear once we study serializability.
+
+159
+01:21:56,990 --> 01:22:25,790
+This will become more and more clear. But the idea is very simple that that you should give us should of feeling that you are executing alone. Okay. It means that a transaction should not see, should not see the changes made by other transition. So if you don't see the changes which are made by other transition, then definitely what you will think, what you will think? Tell me what our transition will think. It will think it is executing alone. Yes or no? It is executing alone. So you can notice that isolation. What it means? A transaction should appear.
+
+160
+01:22:26,380 --> 01:22:55,860
+it should appear remember it should appear it should think that it is executing alone it is executing in isolation from other transactions even though many transitions are executing yes or no even though many transition they are executing concurrently but it should appear that this transition is executing alone in isolation that is the execution of transactions should not be interfered I can say interfered by the execution of other transactions very simple okay
+
+161
+01:22:56,110 --> 01:23:24,310
+So this is the concept of isolation details we will see in the next lecture right now you will not understand this but okay once we study serializability you will definitely understand this one of the way to ensure this that is serializability okay if you want to ensure this isolation then one of the way is serializability so this you can see when a transaction is making changes if a transaction is making changes what this isolation property says
+
+162
+01:23:25,360 --> 01:23:54,980
+When a transaction is making changes, then this isolation property will say that, okay? So basically, the other transactions, they will not see the changes made by, I can say one transaction will not see the changes made by other transactions, okay? So this is quite simple, this is your isolation property. But remember, one of the way to ensure this, that is, one of the way to ensure this is serializability, okay? So this is your chapter.
+
+163
+01:23:55,440 --> 01:24:27,680
+And in the next lecture, we will see some questions. So the summary, you can see this. This is a self-read. Okay. This is a screenshot I've taken from all the resources. So this is a self-read. Like this is from Ulman. I can say. Okay. So this is from Ulman. You can read this. This is from this Norway University. You can read this. This is from Korth. You can read this also. This is from Raghurama Krishna. Okay. So basically this is self-read because everything we have seen
+
+164
+01:24:27,980 --> 01:25:00,110
+okay this is just a self-read Raghuramakrishna this is from Navate all of them you can read because everything that we have seen these are written here okay these are duplicates okay so this is your acid property now anyway the remaining things we will see in the next lecture please tell me do you have any doubt let me know any doubt right now in the acid properties are they clear the atomicity durability consistency and
+
+165
+01:25:00,430 --> 01:25:29,910
+this isolation this isolation you don't worry about it this isolation is not clear right yes or no i think isolation is not clear so that will become clear in the next class because in the next class we will study serializability okay so this isolation will become very clear actually okay because for two lectures i can say sorry two days we will study this serializability i think six or seven lectures we will continue to study this serializability so don't worry about the isolation property
+
+166
+01:25:30,310 --> 01:25:59,850
+but the remaining three property are the clear atomicity durability and consistency and remember because of this consistency this happens that a serial execution is correct the serial execution is correct because we assume that every transaction is correct and that is the assumption so serial execution is correct this is also assumption so these things are assumptions okay are they clear let me know today's class please tell me did you understand whatever we have seen today's class in today's class like what is the transaction
+
+167
+01:26:00,400 --> 01:26:29,050
+okay and what are read write operations and you can notice what is the database state what are the elements what are the consistent state what is inconsistent state what are the consistency requirement explicit implicit and what are acid properties okay so all these things are the clear please tell me in the in in today's lecture all these concepts we have seen let me know okay so see you tomorrow tomorrow we will start at 4 p.m. okay
+
+168
+01:26:29,380 --> 01:26:47,580
+from 4 pm till 10 pm we will not go beyond 10 pm okay 4 pm to 10 pm okay thank you everyone if you have any doubt you can ask so okay thank you good night see you tomorrow
+

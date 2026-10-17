@@ -1,0 +1,824 @@
+1
+00:03:33,940 --> 00:04:26,990
+hi everyone audio video volume everything clear please tell me so in this lecture we will study concurrency control protocols some protocols to to maintain the concurrency to maintain the isolation property so some protocols we have and one of those protocols is log based protocol that is what we will study
+
+2
+00:04:27,450 --> 00:04:56,120
+so the content of this lecture that is lock based protocol we need to study we need to study a very special locking protocol that is two phase locking protocol this is a special locking protocol and we have to study deadlock handling so this is our target for this lecture now let's start one by one so let's see what is this concurrency control schemes what concurrency control means it means that when concurrently some transactions are executing
+
+3
+00:04:56,600 --> 00:05:26,100
+then we have to maintain the isolation correct we need to preserve the isolation this is what concurrency control means that concurrently executing transactions transactions are executing in concurrent way then we have to preserve the isolation property this is called concurrency control now before we start let's take one question let's start with this question so try this one we have already seen all these concepts the concept of conflict serializability
+
+4
+00:05:27,210 --> 00:05:58,150
+This we have already seen. So let's try this question. Can you tell me what is the answer for this one? So this is a standard question. So let's try this. So anyway, so what is this concurrency control? Let me tell you first. This concurrency control means concurrently executing transactions. Then you have to maintain isolation. Yes or no. So I can say that concurrency control, it simply means that ensuring, ensuring isolation.
+
+5
+00:06:00,430 --> 00:06:29,890
+Okay, ensuring isolation property while concurrent execution of concurrent execution of transactions. So when transactions are concurrently executing, then you have two of transactions. Okay, so many transactions are executing concurrently, then you have to ensure the isolation property. This is what concurrency control means.
+
+6
+00:06:30,200 --> 00:06:58,810
+now let's start with this question so tell me the question is asking whether the given schedule is conflict serializable or not so to check for conflict serializability is it serializable is it conflict equivalent to a serial schedule this is the question asking so you can create a precedence graph and you can or you can do a uh swapping the conflicting operations so uh non-conflicting operations okay so let's see this
+
+7
+00:06:59,070 --> 00:07:28,200
+so first let me take the question number a let's see the answer for question number a so tell me what will be the precedence graph let's solve this question number a using the precedence graph let's apply this method the method of precedence graph let's apply this precedence graph method so let's try this so what your graph will be how many nodes will be there so you cannot this is a transaction one is reading x transaction three reading x transaction one writing x transaction two reading x
+
+8
+00:07:28,480 --> 00:07:56,600
+transaction three writing x transaction two writing x so total three transactions we have so for this a there will be total three transactions so we have three nodes t1 t2 t3 these are the three nodes now you can check that uh what are the conflict pairs with this r1x so you can see that this r1x read read does not conflict so this is not a conflict these are from the same transaction from the transaction number one so they are not conflicting pair
+
+9
+00:07:57,020 --> 00:08:26,080
+Next, you can notice read read. This is not a conflict pair, but this is a conflict pair. I can say so from one to three, there is a arrow. So from one to three, you will put one arrow that there is a conflict pair where basically this this order should be preserved. You can see that this read X. So transaction one is reading the item X and transaction three is writing the item X. So this is a conflict pair. So in any serial schedule, this conflict pair, this must be preserved.
+
+10
+00:08:26,410 --> 00:08:55,390
+okay this this order must be preserved so i am saying that that this transaction one it should happen before transaction three okay so transaction one must happen before transaction three now let's see the next next you can notice this is also conflict pair from one to two so transaction one should happen before transaction two now same you can see that there will be conflict pair here also from three to two so transaction three must happen before transaction two okay
+
+11
+00:08:55,610 --> 00:09:24,570
+Next, you can check that this is also conflict pair. So from three to one, so this is a cycle. We got a cycle. So this is not serializable because we already got a cycle. Now you can check that from one to two, there is an arrow. From one to two, there is an arrow. Next, you can notice from one to three, there is an arrow. From one to three, there is an arrow. Next, you can see from two to three, there is an arrow. From two to three, you will put one arrow.
+
+12
+00:09:24,920 --> 00:09:52,460
+next from so like that okay so from three to two you will put one arrow so this is the point so from two to one there is no arrow you can check it out from transaction two to one there is no arrow the remaining arrows we have so you can clearly see this is cyclic this is a cyclic precedence graph so this precedence graph is cyclic this precedence graph this is also called serialization graph remember this precedence graph this is also called
+
+13
+00:09:54,040 --> 00:10:27,930
+serializability graph is this clear so they can also use this word serializability graph serializability graph okay this is another word for this for this so this is cyclic so because this is a cyclic precedence graph so I can say this the schedule a this schedule a is not a conflict serializable it is not conflict serializable what is the problem can anyone tell me what is the problem if it is cycle then what is the problem what is the problem then
+
+14
+00:10:28,360 --> 00:10:55,920
+the problem is this what is the problem the problem is this that in the equivalent in the conflict equivalent serial schedule will you will have this type of situation in the conflict equivalent conflict equivalent serial schedule what will happen it will happen that T1 should happen before T3 okay there is a conflict pair from T1 to T3 so you can see that this T1 should happen before T3
+
+15
+00:10:56,150 --> 00:11:26,080
+this t1 it should happen before t3 but t3 should happen before t1 so this is a contradiction correct there is a contradiction that t1 should happen before t3 and t3 should happen before t1 so definitely there is a contradiction so we don't have any serial order so basically this schedule s this schedule a is not equivalent to any serial schedule okay so this is not configured serializable means not equivalent it simply means not equivalent not conflict equivalent to any serial schedule
+
+16
+00:11:28,040 --> 00:11:57,070
+not conflict equivalent to any serial schedule okay so like this you can do you can you can solve this question like this now let's solve the question number b but with this method see there are two method right to check for conflict serializability there are two method what is the method number two given a schedule if I give you given a schedule what are the two methods if I give you a schedule as of read write operations
+
+17
+00:11:59,020 --> 00:12:32,640
+of read write operations only because only these operations matter to us in the conflict serializability so how to check check conflict serializability what are these what are the two methods check conflict serializability if you want to check this conflict serializability so what you can do there are two methods either you can use the graph method so method number one okay you can see their method number one what is that make precedence graph
+
+18
+00:12:32,960 --> 00:13:09,620
+this precedence graph method is there so you can make a precedence graph and you can solve the question what is the method number two anyone what is the method number two use the definition use the definition what you do adjacent adjacent non conflicting pairs you swap correct adjacent adjacent non conflicting pairs you swap non conflicting pairs of different transactions okay swap so swap them
+
+19
+00:13:10,080 --> 00:13:39,370
+and get get a serial schedule okay get a serial schedule is this clear right so just get a serial schedule this is your method number two so let's apply this method number two to solve the question number two okay let's see this the question number two you solve using uh swapping non-conflicting pair adjacent non-conflicting pair so let's try this said swapping adjacent non-conflicting pair
+
+20
+00:13:44,240 --> 00:14:12,680
+let's solve this question by this method so tell me this question number two by this method the method we are changing remember let's solve this question so for example in the option B what the question is saying this transaction is given to you so there are three transactions transaction T1 transaction T2 transaction T3 this is the transaction there are three transactions you can check it out now transaction one is reading the item Y it is reading item Y
+
+21
+00:14:13,580 --> 00:14:40,810
+Then what is happening? Then transaction 3 is reading item Y. It is reading item Y. Then you can see that this transaction 3 is writing item X. Is it a blind right? Is this a blind right? Yes, this is a blind right because there is no read item before this. So this is a blind right. Next, you can see that then transaction 1 is writing item X. Then it is writing item X.
+
+22
+00:14:41,180 --> 00:15:12,830
+Next you can see then this is reading item X and clearly this is right to is writing item Y. Okay. So this is given to you. Now let's let's solve this question. First of all, you can clearly see this is a blind right. This is a blind right. Why this is a blind right? This is a blind right because there is no read X in this transaction T three before this before this there is no read X transaction T three is not reading X.
+
+23
+00:15:13,300 --> 00:15:38,400
+this is also blind right you can check it does not matter actually in the in the conference serializability it does not matter but this is also blind right and this is also blind right these are basically blind right because transition t2 does not read why transition t1 does not read x transition t3 does not read x so these are the blind rights okay now let's solve this question so what you will do tell me in this question what you are going to do
+
+24
+00:15:39,260 --> 00:16:07,410
+can you create some serial schedule at least one serial schedule can you create by swapping non conflict pairs can you do that let me tell me can you do that so let's let's forget about this so you tell me so for example can I swap these two tell me simple questions can I swap these two I cannot swap these two because they are conflicting pair
+
+25
+00:16:07,760 --> 00:16:36,950
+So you can see that definitely T3 will come before T1, right? Yes or no? Definitely, definitely in the, I can say in conflict equivalent serial schedule, in any conflict equivalent serial schedule, what will happen? In this conflict equivalent serial schedule, definitely what will happen? There is a conflict pair T3 to T1. So definitely this T3 will come before T1. Okay, whatever you do, this T3 will come before T1, right? Okay. Similarly, you can notice that
+
+26
+00:16:37,300 --> 00:16:59,760
+t1 will come before t1 will come before t2 and you can check that i can say that t3 also will come before t1 okay so these are the conflict pairs you can you can just check it out now let's see from this you are getting the idea can you shift t3 on the top can you so can you swap these two
+
+27
+00:17:00,610 --> 00:17:26,750
+Let me know one by one. Can you swap these two? Yes, I can swap these two because these are consecutive known. See, these are consecutive and these are non conflicting. They do not conflict to read or present. They do not do not conflict. So first you can swap these two. So what I can do, I can I can just simply swap. Okay, I can swap these two. So once I swap these two, what I will get, I will get read this read by your present. It will go here.
+
+28
+00:17:27,530 --> 00:17:58,950
+and this read y operation it will go here. Now what I can do? Anyone has any other point? What I can do now? Now I can swap these two because these are also consecutive known conflicting pair. So if I swap these two, then what will happen if I swap these two? So you can say I can swap these two. So this, so this WX will come here and this R, RY will come here because
+
+29
+00:17:59,240 --> 00:18:32,000
+they do not conflict because this is a reading item why this is writing item x they are accessing different item okay different item they are accessing they are not accessing the same item so you can see that you can do this now you got a serial schedule you can check this is a serial schedule you got this is a serial schedule that t3 then t2 then t1 and this is your so i can say so schedule b is a conflict serializable right yes or no agree or not
+
+30
+00:18:32,270 --> 00:19:01,800
+so this is another method this is also a nice method but of course this will take some more time but this is another method by chance if some question comes then you can solve it like this okay so two method we have seen now this question done this question done can can you can i give this question as a homework the question number three can i give as a homework the question number four i can give as a homework you just tell me the answer for question number e tell me quickly the answer for question number e
+
+31
+00:19:01,990 --> 00:19:31,070
+Can you tell me? So option E. So again, there are three transactions. There is T1, there is T2, there is T3. So you have total three transactions. Now let's make a precedence graph because that is the, I can say very sweet method, time efficient method. So let's say, so you can see that this read operation does not conflict, does not conflict. Yes, it does not conflict because same transaction, they are from the same transaction. Yes, it conflict here. So three to one.
+
+32
+00:19:31,310 --> 00:19:59,450
+and three to two three to one three to two okay so three to one there is a transit there is a arrow three to two there is a arrow next you can see this so this does not conflict yes this conflict here so two to three and you can notice two to one two to three two to one okay so two to three also and two to one also there is a cycle there is a clear cycle so again basically we already got a cycle anyway so let's make the complete
+
+33
+00:19:59,790 --> 00:20:29,630
+so you can notice there is a conflict here also and there is a conflict here also from one to three one to two okay so from one to three one to two this is a conflict you got a conflict here you got a conflict here and you can continue so there is a there will be a conflict here also you can check it out that this is a conflict this is a conflict and similarly this is a conflict okay so these are the conflicts so finally you can see that this is this is not not conflict serializable this is cyclic there is a cycle here
+
+34
+00:20:29,930 --> 00:20:59,340
+So definitely option E is not a conflict serializable. So there is no equivalent conflict serial schedule. No conflict equivalent serial schedule. Remember, there is no conflict equivalent serial schedule. You tell me one thing, a simple question I am asking in all these questions. Did you notice that are you ensuring serializability or are you
+
+35
+00:20:59,610 --> 00:21:33,900
+checking serializability a simple question i am asking okay did you did you check serializability or did you ensure serializability like in this question schedule is given to you consider this question in this question you tell me are you checking serializability or ensuring serializability did you check serializability did you check conflict serializability serializability did you check it or did you
+
+36
+00:21:34,140 --> 00:22:04,650
+or did you ensure it or did you ensure it what did you do did you ensure it the answer is you only checking it no you are not ensuring right yes or no you did not ensure you are only checking it so you can see you are only checking you are not ensuring we did not ensure because schedule has already completed see the schedule has already been this work has this work has already been done do you agree at this point of time
+
+37
+00:22:05,050 --> 00:22:34,080
+this work has already been done now at this point of time you are checking okay at this point of time so at this point of time you are checking serializability then tell me what is the problem at this time if you are checking can anyone tell me at this point of time if you check confit serializability is there any benefit no there is no benefit to see all these actions have already been done now you are checking now okay after it after all the actions are done
+
+38
+00:22:34,350 --> 00:23:05,410
+After all actions are completed. Now you are checking conflict serializability. So it is a waste of resources. Do you agree? It is a waste of resources because if it is not conflict serializable like this is not conflict serializable. So what you will have to do, you will have to undo all these actions. Do you agree? You have to undo all these actions like these actions have already been completed. Now you have to undo all these actions. Now you will just undo everything you will undo whatever work you have done.
+
+39
+00:23:05,670 --> 00:23:33,190
+now you will undo all the work okay is this clear to everyone so definitely this is not a good thing yes or no definitely this is not a good thing because you are checking after all the actions are done all these actions are completed now you are checking so if it is not confed serializable then you have to undo all the actions and definitely it is waste of resources you are wasting all the resources you are wasting everything that you have done okay you are wasting it
+
+40
+00:23:33,570 --> 00:24:01,230
+So definitely we did not ensure, we are just checking it and we are rolling it back. Okay. So you can see a simple thing I'm telling you that given a schedule, if I give you a schedule, okay, if I give you a schedule, checking very easy, correct? Yes or no? Checking confidence serializable, that is very easy. If I already give you a schedule, but it is too late. Definitely it is too late. You've already done a lot of work like in this schedule E.
+
+41
+00:24:01,500 --> 00:24:28,300
+this is not confit serializable this schedule so in this schedule you can see that if you check here then already all these operations are completed now if you find that this is not confit serializable then what you will have to do then you have to undo all the operations all the work that you have done you have to undo this okay so definitely this is not beneficial do you agree so it is too late checking okay we can check for confit serializability but it is too late
+
+42
+00:24:28,990 --> 00:24:55,170
+Okay, so system has already done a lot of work. We have already done a lot of work. You have generated a non-conflict serializable schedule. Okay, your system, your system has generated non-conflict serializable schedule. Now what you have to do? Now you have to undo all the work. You have to abort the transaction. It is painful. Do you agree? Do you agree it is painful? Like you do all the work. Okay, all the work you are doing. And then suddenly, okay, you find out that, okay, not conflict serializable.
+
+43
+00:24:55,640 --> 00:25:25,490
+not serializable means simply consistency is not there consistency is violated database consistency violated so now you have to undo this work okay now this work you will undo so this is definitely painful okay so definitely this this thing we cannot do so this idea is not good idea I can say I can say that this is a very very very poor idea what is the poor idea the poor idea is this that let schedule complete okay schedule complete
+
+44
+00:25:27,350 --> 00:26:02,130
+let's schedule complete and then check yes or no this is a poor idea do you agree this is very poor idea that let's schedule complete then check for serializability ok do you agree with me then this is extremely poor idea this is extremely ok so we don't implement this type of situation like this type of implementation we do not do ok so what is the better idea tell me anyone
+
+45
+00:26:03,020 --> 00:26:33,760
+Anyone want to tell me any better idea? What should we do? What should we do? During the execution for every operation you verify, yes or no? Some set of rules you create such that every operation you verify. Are you getting my point? So better idea is during execution, during execution you verify it, right? So during execution, ensure serializability. Ensure serializability. Is this clear to everyone?
+
+46
+00:26:34,640 --> 00:27:03,260
+is this clear that this is a good idea that during execution you ensure serializability whatever action you take whatever operation you perform you should make sure that serializability will be guaranteed so this is a better idea okay so this is what we are going to do so while the database is in the execution when the execution is already going on while the database is in execution then how to ensure that system will only generate serializable schedule okay how to ensure
+
+47
+00:27:03,570 --> 00:27:33,030
+that the system its system will only generate confit serializable schedule so for that what we need we need something called rules okay yes or no so because hundreds of transactions are executing at the same time concurrently many transactions hundreds of transactions are executing so what we need to do we need to create some set of rules some set of rules we will create yes or no so what can you now anyway some set of rules we will create so that we can guarantee that only serializable schedule will be generated
+
+48
+00:27:33,560 --> 00:28:02,330
+your system will only generate the serializable schedule non serializable schedule will not be generated so this is what we have to do during the execution when the execution is going on okay so this is what we have to do now you tell me the answer for this question what can you do what can you do with minimum efforts with minimum efforts what can you do to make sure that only conflict serializable schedule are generated by the system
+
+49
+00:28:02,710 --> 00:28:31,960
+anyone has any idea a simple idea you tell me like what can you do before the schedule starts in the beginning during the execution like at this point of time what can you do so that you can guarantee that only confit serializable schedule will be generated what you can guarantee that only confit serializable schedule will be generated without with minimum with minimum overhead like with minimum effort
+
+50
+00:28:32,290 --> 00:29:00,090
+you don't want to put any effort without putting any effort what you can do tell me without putting any effort without with minimum efforts how can you make sure that only conflict serializable schedules will be generated very simple allow one by one yes or no array correct allow one by one execute in serial order very good allow one by one so very simple idea this is extremely simple idea that only allow serial execution
+
+51
+00:29:01,210 --> 00:29:29,170
+You are putting less efforts. Of course, you are getting less benefit. Do you agree? If you put less efforts, if your efforts are less, then your benefits are also less because if you do the serial execution, if you allow serial execution, then it is guaranteed there is a guarantee that you will only get conflict serializable schedule. Your system will only generate conflict serializable schedule, this system. But you can notice you have less concurrency. So less efforts, less benefits.
+
+52
+00:29:29,720 --> 00:29:58,720
+and this is true for your get preparation also for any preparation this is true if you don't want to put efforts if you don't if you want everything easy then benefits are also less less efforts less benefit did you understand so far please tell me so we need something more we need some set of rules ultimately what we need we need to design some set of rules these set of rules are called protocols so some set of rules we have to design these rules will be followed by the transactions every transaction
+
+53
+00:29:59,370 --> 00:30:27,710
+individual transaction will follow these rules then automatically what will happen automatically the system will generate only serial schedule or only sorry only serializable schedule system will only generate confit serializable schedule every transaction will follow these set of rules is this clear to everyone please tell me did you understand so far everything did you understand everything so far what I'm telling you the motivation did you understand what is happening here so you can see
+
+54
+00:30:28,090 --> 00:30:54,110
+one schedule has been completed once your schedule is already completed then if you check for serializability it is too late okay so during the execution we have to check for serializability during the execution we have to ensure we have to make sure that only conflict serializable schedules are generated only they are generated by the system your system will only generate conflict serializable schedules and for that what we need
+
+55
+00:30:54,420 --> 00:31:23,600
+Either you can do serial execution, but if you do serial execution, then concurrency is very less. So poor performance, poor throughput. So what we need to do? We need to design some set of rules, some protocols we need to design. Okay. These protocols will be followed by transaction. Every transaction, remember, please understand that every transaction individually, every transaction individually will follow these rules. Automatically, the system will generate only confit serializable SQLs.
+
+56
+00:31:23,980 --> 00:31:53,220
+is this clear to everyone please tell me these rules we will create in such a way okay these set of rules this protocol will be created in such a way that if every person if every transaction itself follows these rules then you don't have to worry about the concurrent execution okay if every man it's like you are you are driving on the road now you tell me if every person drives carefully then can I say automatically the complete system will will be nice yes or no
+
+57
+00:31:53,650 --> 00:32:20,890
+every person if every person does good work okay if every person is good then automatically the entire system is good do you agree yes or no the same thing is happening here that every transaction will follow these rules each individual transaction okay it will be following these rules then you don't have to worry about the system the system will automatically be good okay I hope this point is clear to everyone please tell me is this understood
+
+58
+00:32:21,530 --> 00:32:50,320
+see let me tell you there is a misconception here many students they think that schedule will follow these rules no schedule will not follow these rules all the rules that I will tell you each and every rule the schedule will not follow these rules who will follow every transaction will follow individually is this point clear to everyone let me know what I'm telling you so the schedule will not follow these rules who will follow each transaction will follow these rules and automatically the system will be good it's like
+
+59
+00:32:50,530 --> 00:33:19,810
+analogy you understand this analogy that if every person is good then automatically the whole system will be good okay are you getting the point is this point understood let me know so simple point that each transaction will follow all these rules individually each transaction will follow then automatically the system will generate only only the confidence serializable schedule will be generated by the system so each transaction individually will follow these rules
+
+60
+00:33:20,160 --> 00:33:48,620
+this is important point actually let me tell you you might be thinking this is not important point but this is very important point because i have seen many students they think that schedule will follow these rules okay some schedule is there some schedule is there this schedule will follow these rules no every transaction will follow these rules each and every individual transaction this transaction this transaction this transaction it will follow it will follow it will follow then automatically the complete system will follow
+
+61
+00:33:48,830 --> 00:34:17,080
+then automatically the complete system will be good okay so each transaction individually will follow these rules so anyway now some rules are coming okay now we have to study all the protocols protocol means rules in the real life also protocol means rules right so you can see this protocol protocol means set of rules so these rules we have to discuss now let's see one by one so first of all we have to design concurrency control protocols we have to design
+
+62
+00:34:17,480 --> 00:34:44,260
+there are two type of protocols that we have in our gate syllabus one is lock based protocol okay very obvious rules are there let me tell you in this lock locking protocol in this all the rules are very obvious very obvious rules locking based protocol another protocol is time stamp based protocol so today we will study this this is what we will study today now let's see let's start lock based protocol this is very obvious protocol that
+
+63
+00:34:45,090 --> 00:35:13,770
+Now before this before we start this let me again tell you there are two type of log based protocol one is general protocol Okay, one is general protocol and second is a special protocol it is clear there are two log based protocol one is general protocol general rules general log based rules and another is a special type of log based protocol which is called two phase locking this is important for the gate exam from the gate exam point of view this is important important for gate
+
+64
+00:35:15,980 --> 00:35:45,490
+But anyway, there are two type of log-based protocol. So first we will see the general log-based protocol. Then we will see this special log-based protocol. What is special in this? So let's start with the general, the general rules of log-based protocol. Tell me what are the obvious rules? Like can you tell me what are the obvious rules? Whenever you have log-based protocol, some obvious rules are there. For example, whenever you want to access some item, take permission.
+
+65
+00:35:45,820 --> 00:36:18,290
+Yes or no? Do you agree? Okay. So these things you have already seen in the synchronization, in the operating system synchronization. So what are the rules? Locking protocol rules. What are the rules? Let's see one by one. All these are very obvious rules. Locking protocol rules. Let's see one by one. Let's see. First of all, what are the rules? Like for example, if you want to access any item, first you, first you lock it. Do you agree? Before accessing any item, if you want to access any item before
+
+66
+00:36:18,700 --> 00:36:48,750
+accessing read or write before accessing any item what to do any item or I can say any data element so before you access any data element access means read or write either you read or you write so you can see read or write so before accessing what to do you take permission okay so this is what I'm telling before accessing before reading any item or before writing any item okay request log on it
+
+67
+00:36:50,260 --> 00:37:18,610
+request log on that item. Is this clear? Isn't it obvious? Tell me log base protocol that it's it's it's like a token. You are taking the token before accessing anything. You are taking a token very obvious rule. So before you access any item, whatever item you access before that you request log on on that item to whom you will request to whom you will request who is there whom you will request. So you will request to
+
+68
+00:37:18,810 --> 00:37:51,450
+Concurrency control manager. There is a Concurrency control manager. This Concurrency control manager is there. This is a process. Actually, it's not like a hardware. It is not a hardware. This Concurrency control manager. This is basically another process. This is basically another process. This is a another process. Okay. So this Concurrency control manager. This is also another process. So what you will do before you access any item, just take just request, look on it.
+
+69
+00:37:51,640 --> 00:38:20,600
+you will request look on it. Okay, so to the concurrency control manager, there is a concurrency control manager. This is another process. Remember, this concurrency control manager, this itself is a process. Like your operating system has many processes like sedular itself is a process, right? Correct. In the operating system, you study sedular. Okay, this sedular itself is a process. So similarly here, this concurrency control manager, this itself is a process. So you will request to this concurrency control manager that I want to access this item.
+
+70
+00:38:20,870 --> 00:38:52,270
+So give me log on this item now what this concurrency now when you are when you are requesting there are two purpose right see for example let's assume there is a data item a this is a data item a let's assume this is the data item a and let's assume transaction t wants this is a transaction t it wants to let's assume you want to read it wants to only read a wants to only read a you only want to read a now you tell me if you only
+
+71
+00:38:52,800 --> 00:39:22,540
+to read a then you don't need a strong look do you agree do you agree that you don't need a strong look you only want to read a so if you are reading a can I read a tell me simple point I'm asking if you are reading a can I read a yes I can read a right so at the same time many people can read a so read or present can happen by many people at the same time so I don't need a strong look so if I only want to read a this only read if I want then this transition T what it will do
+
+72
+00:39:22,790 --> 00:39:54,160
+then this will request then this will request read lock which is called shared lock okay then it will request shared lock or I can say it will request lock in shared mode okay so it will request shared lock on A is this clear shared lock it will request so this shared lock it is also called another name of the shared lock is read lock you can also call it read lock so you will request this read lock because you only want to
+
+73
+00:39:55,630 --> 00:40:26,030
+you only want to read this item A this is what you want only read this is very important you only want to read item A you don't want to write item A only reading purpose is there so what you will do you will request this shared lock on item A or the same thing I can say that or I can say that you will request lock in shared mode okay so you can I can also say request lock on A in shared mode so it is a shared mode
+
+74
+00:40:26,350 --> 00:40:53,620
+so in the shared mode you log this item okay is this clear to everyone tell me so you will request a shared log on a this shared log you will request and for this there is an instruction let me tell you there is an instruction so this instruction you will use like you will use this instruction there is an instruction log s that i want shared log it means shared log so this instruction you can execute so when you execute this instruction then
+
+75
+00:40:54,130 --> 00:41:18,970
+concurrency manager concurrency control manager will will find out that okay you want shared mode you want lock in the shared mode so this instruction you can execute i hope this point is clear let me know clear so you will request a shared mode shared lock on the item now if you want to write also let me know so if this transaction t wants to write wants to write
+
+76
+00:41:19,860 --> 00:41:49,440
+or read like you want to write plus read or only write basically you definitely want to write a okay so I can say if you want to write a then what you can do in this situation you can read also it's not only that you you want to write you you can read also so wants to write plus possibly read possibly read you can read also there is no problem okay so in this lock you can write also you can read also in this lock see
+
+77
+00:41:49,730 --> 00:42:19,660
+please understand in this look you can only read in the shared look so whenever you are taking the shared look you can only read okay because you are taking a shared look so if you want to exclusively here if you want to write or possibly read the item A then what you will do then this transaction T request a exclusive look correct agree or not because if you are writing then other other transactions would not write okay so you can see in this situation you will request a exclusive look
+
+78
+00:42:24,400 --> 00:42:54,140
+Exclusive lock you will request Okay, so request an exclusive lock on a or I can say or I can say that request lock in the exclusive mode request lock on a in Exclusive mode because you want to write so other people should not access it because okay you are writing item a so other people should not access it so definitely what you will do you will request lock on a in the exclusive mode
+
+79
+00:42:54,920 --> 00:43:22,780
+Okay, very simple. Is this clear to everyone? Anyone has any doubt? So this exclusive lock, this is also called right lock. Then another name of this exclusive lock or this is a right lock also. You can also call it right lock. So these are the same name, name is same. Okay. Basically, these are the same thing exclusive lock or right lock. So this is the point. Now you tell me another obvious rule you tell me. So these are the two rules.
+
+80
+00:43:23,050 --> 00:43:51,580
+rule number one rule number uh this we have seen what is the another rule another rule is this that let's assume that you want uh you want to read item a this t1 okay this t1 is uh is it is it want to read so it want it is executing this operation shared lock on a okay this this operation means this this this instruction let me let me tell you what this means this instruction means
+
+81
+00:43:53,550 --> 00:44:26,610
+This is the instruction we are sending to whom? This is the instruction for Concurrency Control Manager. CCM. Okay, so this is a Concurrency Control Manager. This is the instruction for Concurrency Control Manager to provide shared mode lock on A. Clear? Is this clear to everyone? Let me know. So very simple, see this transition T1. Let's assume it want to read item A. You want to read item A, then
+
+82
+00:44:26,890 --> 00:44:57,880
+This instruction will be executed. This is the instruction with which you with this transaction will send to the currency control manager. Now the currency control manager. So this is instruction for it and it will to provide shared mode on lock item 8. Now you tell me at the same time if this T2 already has if this T2 already holds if T2 already holds shared lock. Okay. If T2 already holds shared lock.
+
+83
+00:44:58,400 --> 00:45:28,170
+on A then should it be provided let me know one by one I am asking should it be provided yes of course provided yes or no because you are holding shared lock on A so there is no problem you can provide this no problem okay so what I can do in this situation if this T2 is already holding already holding shared lock then because this is shared lock it is holding so there is no problem both are trying to read it although want it also want to read it also want to read so this will be granted
+
+84
+00:45:28,590 --> 00:45:59,950
+Okay in this situation I can say that this T1 will be granted because no other person is writing on A. Okay no other transaction is writing item A. So in this situation this will be granted. Okay so here this will be granted. Now T1 can read. Now you tell me if it already holds exclusive mode lock. Now you tell me exclusive mode lock. Now you tell me if it already holds this exclusive lock then what will happen?
+
+85
+00:46:01,990 --> 00:46:31,840
+if you already hold this exclusive lock means it simply means that it will be denied yes or no correct it will be denied and T1 has to wait correct T1 has to wait so in this situation what will happen this will be denied and T1 has to wait it T1 will be waiting so request denied very simple because this T2 already has exclusive mode okay exclusive exclusive means that only T2 can access it
+
+86
+00:46:32,060 --> 00:47:01,710
+this is the meaning of exclusive in the english you have this word this is the same english word so you can see only t2 can access it exclusive mode lock you have only so definitely this request will be denied and t1 has to wait t1 will be waiting now you tell me let's assume that you want exclusive lock you want this exclusive lock you want okay lock x this x means exclusive lock so again here you can see that request exclusive lock okay so
+
+87
+00:47:02,030 --> 00:47:36,430
+i can say x and here shared lock that means s so what i am telling you that if you already have if you are requesting exclusive lock to provide exclusive mode okay you want exclusive access of this a this is what you want is this clear you want the exclusive access this t1 this t1 transaction want exclusive access of item a now in this situation let me assume that t2 is already holding then this will be denied again
+
+88
+00:47:36,790 --> 00:48:08,000
+because t1 is already holding exclusive mode already so in this situation also it will be denied and t1 waits and t1 will have to wait okay and you tell me if it already has shared mode now you tell me now you tell me t1 wants exclusive t1 wants exclusive but you have shared yes remember t1 wants exclusive access but t2 already has access t2 is already reading
+
+89
+00:48:08,640 --> 00:48:38,820
+okay t2 has access lock on a shared lock on a so definitely t1 wants exclusive access this is not possible so again this also will be denied denied and t1 waits so these are obvious rules I hope these points are clear okay is this clear to everyone all these are very very very obvious rules these are as I told you obvious locking rules nothing else now some rules are interesting these rules you consider the number rule number three
+
+90
+00:48:39,400 --> 00:49:19,110
+let's assume there is a transaction T1 and it want to read also and after sometime it want to write okay now you might be thinking that T1 want to read item A and after sometime it want to write item A then tell me what log should I take a simple question what log it should take what log it should take T1 want to so here what log should you take okay which log which log you should request concurrency control manager
+
+91
+00:49:19,560 --> 00:49:49,650
+to the concurrency control manager which you should access which request you should make now the answer let me tell you if you are thinking that here I can take shared lock the answer will be this you should take you cannot take shared lock you have to take write lock you have to take exclusive lock so here what you have to do remember you have to request for exclusive lock lock x on a so this exclusive lock you have because remember very simple thing that you want to write also
+
+92
+00:49:50,150 --> 00:50:21,490
+after sometime you want to write also write so in this situation you need exclusive lock okay so exclusive I can say exclusive mode lock needed now I know what you are thinking I know some of you are thinking that I know you are thinking that okay so if you are thinking that okay here I will take the shared lock here I can take the shared lock and when I need the
+
+93
+00:50:21,730 --> 00:50:49,510
+exclusive lock at that time i will take the exclusive lock so here i can take the shared lock okay and after sometime when i write at that time i will take the exclusive lock okay so this exclusive lock i will take after sometime so let me tell you that this situation is called lock conversion because what you are doing from shared lock you are converting to exclusive lock is this clear this situation is called lock conversion
+
+94
+00:50:53,100 --> 00:51:26,290
+and this is not by default okay this is what I want to tell you that this is not by default of course like in the question if they tell you that lock conversion this is basically locking locking protocol with lock conversion is this clear this is not by default protocol with lock conversion clear to everyone let me know so what I'm telling locking protocol with lock conversion so this is not by default this situation is not by default
+
+95
+00:51:29,350 --> 00:51:58,480
+not default in locking protocol in the locking protocol. This is not default. Is this clear to everyone? Let me know. And why this is not default. I will tell you after some time. Actually, if you do this lock conversion, then there are some problems. Let me tell you. We will see. Don't worry. I will tell you that there are some problems. If you do this lock conversion, you are thinking many of you are thinking, sir, lock conversion is very good. I know you are thinking like this that sir, lock conversion is very nice. Here I will take the shared lock.
+
+96
+00:51:58,630 --> 00:52:28,840
+After sometime, I will take the exclusive log. Let me tell you because of this log conversion, some problems will happen. These problems I will discuss in the future. That is the reason that is the reason this is not default for the locking protocol. Okay. Is this clear? This is not default for the locking protocol. In the exam, they will give you that locking protocol with the lock conversion. So these are this is your I can say this is what happens. This is what you have to do.
+
+97
+00:52:29,650 --> 00:52:54,840
+this is what you have to do in the locking protocol okay so this is what you have to do in the locking protocol default locking protocol this is what you have to do I hope this point is clear let me know so lock conversion does not come by default this this simple point I want to tell you that lock conversion does not come by default okay and the reason I will tell you
+
+98
+00:52:55,150 --> 00:53:25,760
+this reason what is the reason you might be thinking sir lock conversion is very nice very good we should have this by default we should have this but there are many problems because of this lock conversion and these problems I will discuss after some time but anyway this lock conversion is not default does not come default in in locking protocols in locking protocols it does not come default okay it does not come default is this clear to everyone let me know
+
+99
+00:53:25,930 --> 00:54:01,720
+So it does not come default in locking protocols. It is a separate, uh, it is a separate feature. It is a separate feature, which must be mentioned because many problems will happen because of this at this time. I will not tell you what are the problems, but I will, uh, uh, after sometime I will tell you. So which must be mentioned. Okay. Is this clear? So simple point. I'm, I want to tell you that if you have, if I want to read also, you want to write also, then you have to take the right lock.
+
+100
+00:54:03,730 --> 00:54:35,840
+Okay, is this clear to everyone? Let me know now. So these are some points and if you want to unlock, you can do this. Okay, you can unlock. If you want to unlock an item, if you want to unlock an item, then you can read, you can, you have this, this instruction, unlock a, this instruction you can use. So when you use this instruction, then, then unlocking will happen. So you can just use this instruction. Very simple. So all the points we have seen, if you have any doubt, you can ask, please tell me.
+
+101
+00:54:36,190 --> 00:55:07,570
+Did you notice all these are very obvious rules, isn't it? So general rules, general log base rules, general log base protocol, very simple, simple obvious rules like you can see that when one transaction is accessing a data item, no other transaction can modify it. Yes or no? Correct. When I'm accessing, when I'm accessing a data item, no other transaction can modify. No other transaction shouldn't have exclusive log. No other transaction can write. Okay, very simple.
+
+102
+00:55:08,000 --> 00:55:38,920
+so basically before if so you can see simple simple points if even has only read then yes if even has only read then it is your choice what you want to request okay then you can request any of them of course see this fifth point let's assume even only wants to read item a okay no no right a let's assume even only wants to read a then tell me what lock it will request here
+
+103
+00:55:39,910 --> 00:56:07,380
+in this situation which lock it will request so now you can request any of them because if you want you can request shared lock also you can do this instruction also or you can do this instruction also that is fine of course this is better of course yes or no this instruction is better but you can do this also you can do this also it actually depends on the programmer it depends on the programmer it depends
+
+104
+00:56:07,750 --> 00:56:36,480
+so you can do this also you can do this also both are fine you can take exclusive lock also and you can take shared lock also that is fine no problem it is clear because this exclusive lock will allow you to read using this lock you can read and write and using this lock you can only read i hope all these points are clear so these are simple simple points so let's see this so data item whatever data item you have you can lock it in two modes there are two modes if you want to lock it
+
+105
+00:56:36,990 --> 00:57:06,160
+one lock is shared mode if you want to if data item can only be read you can only read only read operation you can do only read operation okay so simple you can read this this this is this slide you can read so you can notice shared mode if you only want to read then you can take the shared mode and is requested you can you can apply this instruction so using this instruction you can request this is a request instruction now let's see exclusive mode
+
+106
+00:57:06,370 --> 00:57:36,020
+you can read also you can write also then you can use this instruction is this clear to everyone let me know so exclusive mode this symbol means exclusive mode and this this s means shared mode so these are the symbols as i told you shared lock and exclusive lock if your transaction has obtained this lock then you can read only okay if there is a transaction it has already obtained shared mode lock denoted by s then you can only read
+
+107
+00:57:36,460 --> 00:58:04,290
+you cannot write and if you are if you are if you have obtained exclusive mode lock or you can say write lock if you have if you have obtained then you can read also you can write also there is no problem of course you can simply see a transaction will request a shared lock on data item by executing this instruction lock as lock as instruction and if you want to request exclusive log then you can you can execute this instruction.
+
+108
+00:58:05,570 --> 00:58:35,260
+okay and if you want to unlock then you can use this instruction unlock so very simple all these points simple simple points all of them are they clear this is your chapter these obvious rules these are the chapters this is your chapter all these obvious rules that's it this is the chapter now let me tell you that everything is very easy now all the questions you can solve with you using these obvious rules but I just want to tell you something very important that tell me
+
+109
+00:58:35,500 --> 00:59:18,660
+who will follow all these rules schedule or transaction who will follow all these rules schedule will schedule follow these rules or will transaction individual transactions follow these rules which of them will follow these rules all these rules which of them will follow so the answer is individual transactions will follow schedule is not going to follow okay every every transaction will follow all these rules very simple okay now now let's see let's take this example
+
+110
+00:59:18,970 --> 00:59:49,020
+so on your screen you have two transactions there is transaction T1, transaction T2 these are the two transactions now anyone want to suggest me every transaction see no transaction has idea of another transaction do you agree do you agree that no transaction has idea of another transaction individually transaction will follow all these rules every transaction will individually follow all these rules okay so you can see that now you tell me what are the possibilities for locking and locking
+
+111
+00:59:49,410 --> 01:00:18,900
+there are many possibilities do you agree we have many possibilities for locking unlocking for example this is a possibility that you can you can take a lock you can unlock you can take a lock you can unlock is this a possibility or not like on this you want to read a you don't want to write a you only want to read a you can take shared lock here on a you can unlock a then you can take exclusive lock on b then you can unlock b this is what you can do do you agree
+
+112
+01:00:19,370 --> 01:00:47,380
+or what you can do or you can do this you take lock A lock B lock A lock B you take and here you unlock don't unlock here okay so there are many many choices that you can do so let's take scenario number one in the scenario number one what I'm doing I'm doing early unlocking okay what I'm doing early unlocking means I will lock and as soon as my work is done I will unlock you might be expecting sir it is good do I agree
+
+113
+01:00:47,740 --> 01:01:17,670
+Like once my work is done, I will unlock. Is it good? What do you think? What is your common sense telling you? Is it good? Like as soon as our work is done, should I unlock? Let's see the problem with this. So this is the scenario one where I'm doing early unlocking. What it means? It means that this is a transaction. This is a transaction. Now, let me assume that this transaction T1. It will follow the rules. Remember this transaction T1 will follow the rules and separately transaction T2 will follow the rules.
+
+114
+01:01:17,990 --> 01:01:59,800
+now let me assume that both the transactions they are doing early unlocking what it means you are taking a shared lock okay this s l s l means shared lock on a so please see that this let assume that this s l a okay s l a it means means request shared shared lock i can say shared mode lock on a okay now let's see so here uh
+
+115
+01:02:00,110 --> 01:02:26,630
+mavit is saying that how transaction will know that it will write so actually transaction will not know all this is the within a transaction whatever happens like what request you will make whether you will make a read request write request all these requests will be made by the programmer okay so programmer is going to do for example let me assume I don't know there is a write operation okay after some time okay but what I'm telling you see in the practically
+
+116
+01:02:27,200 --> 01:02:55,220
+if you if you put all the responsibility on the on the concurrency controller like programmer puts all the responsibility like which which locking to do where to do the locking where to do the unlocking if you put this responsibility on the concurrency controller then it will use the upgradation are you getting my point okay then it will use the this concurrency controller if you put all the responsibility on it then it will use the
+
+117
+01:02:55,410 --> 01:03:24,130
+lock conversion by default it will use the lock conversion but if you take the responsibility that you are the programmer this is my transaction I will take the responsibility I will decide when to take the lock when to unlock okay so all these things I will decide then you can do according to that okay so now let's see this one so here you can see that you are taking a shared lock on a then you are reading a then you are unlocking a next you can notice
+
+118
+01:03:24,510 --> 01:03:53,850
+you are taking exclusive lock on B then you are writing B then you are unlocking B similarly you can notice similarly you can notice here what you are doing similarly like this transition T2 in this transition T2 you are taking exclusive lock on A then you are unlocking C can you see please understand that you are immediately unlocking do you agree as soon as your work is done you want to read item A this item A you want to read so what you will do you will take the shared lock on A
+
+119
+01:03:54,070 --> 01:04:25,030
+and you will immediately unlock so you can check it out here you are unlocking immediately so this is early unlocking like once your work is done you are unlocking once your work is done you are unlocking work is done unlocking so this is what you are doing correct is this clear everyone let me know okay now is there any problem yes of course there is a problem if t1 does like this if t2 does like this there is a possibility that inconsistency can come
+
+120
+01:04:25,250 --> 01:04:53,910
+there is a possibility that non-confident serializable transaction schedule can happen. Non-confident serializable schedule can happen. See, basically what is happening, T1 is doing something individually, T2 is doing something individually. But if T1 does like this early unlocking, T1 is doing early unlocking and T2 is doing early unlocking, if they do like this, then what will happen? Then because of this early unlocking, there is a problem.
+
+121
+01:04:54,250 --> 01:05:24,590
+what is the problem because of this early unlocking so this is also early unlocking as soon as my work is done i unlock as soon as my work is done i unlock okay so now because of this situation what will happen it will it is possible to generate non-conflict serializable schedule possible to generate if there is a possibility that non-conflict serializable schedule can generate okay is this possibility to generate non
+
+122
+01:05:25,070 --> 01:05:55,480
+confit serializable schedule let me give you example like for example if this transition t1 does like this transition t2 does like this then what will happen this transaction is this schedule is possible anyway you can see that this schedule is not confit this is serializable right this is confit serializable correct you can check it out please take please make the diagram press this diagram this schedule this is confit serializable right you can notice this is confit serializable
+
+123
+01:05:55,770 --> 01:06:25,720
+so this schedule can be generated this schedule can be generated how this schedule will be generated anyone want to tell me how this schedule can be generated with the locking protocol i want to generate this schedule like first this operation should happen r1a then this are then this operation should happen then this operation should happen then this operation should happen this is what i want so how it will be generated you can notice this is t1 this is t2 now let me assume i want to generate this that first this operation should happen read a
+
+124
+01:06:27,030 --> 01:07:00,360
+then this right A should happen let me assume then this right A should happen and then what should happen then this right B should happen and then let's assume that this read B should happen I want to generate this can I generate this can I generate this and remember there is a concurrency control manager right there is a concurrency control manager so we have a concurrency control manager okay I want to generate this schedule I want to generate this schedule can I generate this just tell me
+
+125
+01:07:00,490 --> 01:07:35,390
+Is it a possibility that I can generate this? Can I generate this schedule? Simple question. Can we generate this schedule like first it will happen, then it will happen, then it will happen, then it will happen. Can it be generated? Can it... I'm asking can. Can it be generated? Yes, it can be generated. What you will do? If you want to do it first, then what you will request? What request you will make to the concurrency controller? Tell me. What request are you going to make?
+
+126
+01:07:35,590 --> 01:08:05,110
+so let me assume that you are making this shared access so shared lock you want only this request will go to whom this request it will go to whom it will go to concurrency control manager now the concurrency control manager will provide the access at time number two the concurrency control will provide the access grant okay grant i can say grant shared lock grant shared lock on item a to t1
+
+127
+01:08:05,500 --> 01:08:34,410
+okay like this is this clear like this control manager will write in his notebook this control manager it has a notebook it has a table in this table it will write that to T1 to the transaction T1 I have granted said lock on item A like this it will write in it in his notebook then what will happen then this will happen do you agree tell me tell me tell me before granting can you do this operation can you do this operation before granting no you cannot do that yes or no first it will grant
+
+128
+01:08:34,750 --> 01:09:04,080
+this concurrency control manager first it will grant the grant the lock so the lock is granted okay grant shared lock on item a to transaction t1 to the transaction t1 on item a i have given the shared lock okay now it is granted now this read or present will happen no problem then what will happen tell me now now it can unlock okay yes or no because you tell me simple point a simple point i'm asking can you
+
+129
+01:09:04,540 --> 01:09:34,540
+do this without unlocking a simple question without unlocking you have a lock this transition T1 has a lock on a T1 has a lock on a without unlocking a can T2 do this can T2 write on a no so definitely what you need so you need to 4th operation that you need to unlock a so let me unlock a now is unlocked okay now come now this control manager knows okay remember
+
+130
+01:09:34,910 --> 01:10:03,140
+this control manager it knows in his notebook he writes that okay this is unlocked so this entry will be gone this entry it will be gone now this entry is not there now what will happen now at the time t5 what will happen at the time t5 it will request exclusive lock yes or no it will request exclusive lock on a then at time t6 what will happen at time t6 it will be granted yes or no
+
+131
+01:10:03,550 --> 01:10:33,980
+correct it will be granted that exclusive lock on item A 232 then at time T7 at time C7 it will happen okay at time 7 this will happen no problem okay now now whether you do unlock or that does not matter because now you have this anyway so let's assume that you unlock A now what you can do now very simple it will exclusive lock on B it will take then it can unlock B then it can take
+
+132
+01:10:34,260 --> 01:11:07,220
+share lock on B and then it can unlock. So did you notice that it can be generated? The answer is yes. This schedule can be generated. Did you notice this can be generated? Yes or no? It is possible to generate. Is this clear to everyone? Let me know. Tell me is this point clear? Anyone has any doubt on this? So very simple, simple points. So you can see this schedule can be generated. But this schedule is confit serializable. So there is no problem. This is a confit serializable schedule.
+
+133
+01:11:07,620 --> 01:11:39,940
+which can be generated so there is no problem so far there is no problem because a conflict serializable schedule is generated okay but what will happen this will happen that this also can be generated can you generate this can you take your copy pan and generate this this schedule can you generate simple question a schedule s can you generate this there is a t1 there is a t2 can you generate this schedule that first you do this r okay
+
+134
+01:11:40,320 --> 01:12:20,360
+then you do this WA then you do this RB and then you do this WB. So now transaction is changed. I have changed the transaction. No, I think transaction is same, right? Okay, so you can check it out. Is the transaction same? No, sorry, transaction is same. So what is the schedule? R1A, W2A and then R2B. Yeah, schedule is same. Okay, R2B, then you do this and then WB. Can it be generated this schedule?
+
+135
+01:12:20,830 --> 01:13:03,680
+on your screen can this schedule be generated using locking protocol using general locking protocol okay using shared comma see using shared comma this lock locking protocol can can it be generated can it be generated yes it can be generated because what can happen it is a possibility see this is a possibility that isn't it a possibility remember one thing
+
+136
+01:13:04,010 --> 01:13:30,910
+Transition T1 does not know about Transition T2. And Transition T2 does not know about Transition T1. Okay, so it will individually follow the rules. It will individually follow the rules. But when it individually follow, when it individually follow, okay, then it is possible that this can happen. Let's assume this text shared lock, this request shared lock on A, then this reads and then this unlocks A. Okay, this is possible.
+
+137
+01:13:31,570 --> 01:14:03,350
+now this text exclusive lock on A it writes and then it unlocks A then what it does so let's assume it takes shared lock on A shared lock on B it unlocks and then it takes exclusive lock on B and that in unlocks you can clearly see this is generated isn't it this is a possibility do you agree do you agree that this is a possibility a simple question it's a possibility right yes or no
+
+138
+01:14:03,580 --> 01:14:31,830
+it's definitely a possibility remember t1 will do everything individually t2 will do everything individually these things will happen individually but but but this is a possibility that in this order they can happen yes or no okay t1 will doing this t2 is doing this but it is possible that these things can happen in this order in this order these things can happen so this is a possibility and you can clearly see that this is a this is not confident serializable
+
+139
+01:14:32,750 --> 01:15:06,110
+This schedule is not confer serializable. This is actually not even serializable. Let me tell you this is not even serializable Not even serializable whether you take view serializable or whatever. So this is not even serializable This schedule is not view serializable Okay, so this is not confer serializable. This is not view serializable So did you notice that as non serializable schedule is generated a non serializable schedule schedule
+
+140
+01:15:10,550 --> 01:15:42,060
+generated. Is this clear? So using the locking protocol, it is possible that you can generate this type of schedule. Clear or not? You can notice this is, you can check it out. This is not confit serializable. This schedule is not confit serializable. You can check it out. And this is not view serializable. You can check it out. You can take this as a homework that this is not view serializable. This schedule is not, sorry, this schedule is not view serializable. So what is happening here?
+
+141
+01:15:46,270 --> 01:16:18,060
+No, this is not a conflict serializable, right? See, this is not conflict serializable. Okay. Also, this is not view serializable. This schedule, you can check it out. You can take it as homework. Take it as a homework that this is not view serializable also. So this is not conflict serializable. This is not view serializable. Okay. So finally, what I'm telling you, I'm telling you that using the locking protocol, the protocol that we have seen using that it is possible.
+
+142
+01:16:19,500 --> 01:16:50,940
+okay it is possible that you can generate non serializable schedule so this is the conclusion what is the conclusion using this general locking protocol using this general I can say this general locking protocol that we have seen using this general shared lock comma exclusive lock locking protocol what is possible protocol
+
+143
+01:16:51,530 --> 01:17:32,360
+it is possible that this type of transaction can be generated okay non serializable schedules can be generated non serializable schedules are possible are possible or I can say are possible to be generated can be generated can be any doubt Mahavith do you have any doubt Mahavith is asking sir once previous exam what is the doubt please tell me do you have any doubt
+
+144
+01:17:32,730 --> 01:18:05,360
+See this is the conclusion that we have seen using the general locking protocol. Non-serializable schedules are possible to be generated. These are possible to be generated. So I can say that inconsistency is possible, right? Yes or no? Correct? Inconsistency possible because serializability is not there. So inconsistency possible. So I can say isolation violated. Isolation not guaranteed. Not guaranteed.
+
+145
+01:18:08,560 --> 01:18:46,580
+Any doubt? Mahavith, do you have any doubt? I am not getting your doubt. Mahavith, please tell me, what is your doubt? I am not getting, like what you are saying, I am not getting. Do you have any doubt in the previous, any part? Did everyone understood? So far, whatever we have seen, alab, amruth, ap, ekta, Mahavith, did you understood this? Did you understood all these things? So you can see that.
+
+146
+01:18:46,830 --> 01:19:16,490
+using our general protocol, the general locking protocol that we have seen, using that non serializable schedule also can be generated. Do we want that? Do we allow that? Can we allow inconsistency in the system? In your database, can you allow inconsistency in your banking when you do the net banking, when you do the net banking transactions? Can you allow inconsistency? You cannot allow that. Yes or no? But in the general locking protocol, so can I say
+
+147
+01:19:16,700 --> 01:19:45,040
+The locking protocol can help us to, simple question I am asking, can I say that locking protocol will ensure serializability? Tell me. Can I say locking protocol will ensure serializability? The answer is no. Okay. So this is the simple conclusion that I wanted to give you. So the general locking protocol that we have seen, non serializable seduces also can be generated. So inconsistency possible.
+
+148
+01:19:46,870 --> 01:20:16,860
+inconsistency is possible, isolation is not guaranteed also deadlock is also possible it is not like only possible only problem deadlock is also possible in this general what we have seen in this general locking protocol that we have seen even let me tell you that deadlock is also possible it is possible that deadlock can also happen so let's see what will happen here so for example if you delay the unlocking you might be thinking sir let's delay the unlocking
+
+149
+01:20:17,280 --> 01:20:46,940
+Yes or no? You might be thinking sir the problem is that you are unlocking very fast. Yes or no? As soon as our work is done we are unlocking. As soon as our work is done we are unlocking. Okay, so as soon as we are our work is done we are unlocking. So you are thinking that sir we are doing unlocking very fast. Let's delay it. Let's delay it. Okay, so let me delay. I am delaying the unlocking. Delayed unlocking. Now what I am doing? I am taking this lock
+
+150
+01:20:47,980 --> 01:21:17,220
+i am taking this lock and unlocking i am doing at the end did you notice at the end i am doing the unlocking is this clear? so now you can notice unlocking i am doing at the end like this lock i will unlock at the end this lock at the end so unlocking delayed is this clear? what i have done delayed unlocking this is what i have done now there is another problem what is the another problem with this? now it is possible that this schedule can be generated now what can happen?
+
+151
+01:21:18,580 --> 01:21:52,450
+okay there is a T1 we have there is a T2 we have you tell me is it possible that is it possible that this T1 can do this first is it possible T1 can do this first yes it is possible right so let's assume that T1 does this first so T1 is doing taking exclusive lock on it it will be granted okay it will be granted then it is doing WA okay now at this point it is also possible that this is done this is done it is also possible that it is taking lock on B
+
+152
+01:21:53,340 --> 01:22:22,740
+okay this T2 is taking lock on B it is writing B okay so are you getting my point so T1 is taking lock on A it is writing A T2 is taking lock on B it is writing B this is happening now now you tell me at this point of time can anyone progress because they are doing unlocking at the end they will do unlocking at the end they are not unlocking let me tell you let me tell you this T1 will not unlock
+
+153
+01:22:23,180 --> 01:22:52,150
+this t2 will not unlock now in this situation can t2 do this operation is this operation possible can t2 do this operation simple question and can t1 do this operation t1 wants to do this operation and t2 wants to do this operation are they possible because unlocking will happen after some time unlocking will happen at the end you can see this is important that they are unlocking at the end
+
+154
+01:22:52,390 --> 01:23:21,340
+now if they are unlocking at the end now you can take it out that that see very simple that this you have to wait the steven has to wait why because already this lock has been taken by t2 on item b on item b this lock has been taken by t2 so this t1 is waiting for t2 t1 is waiting for t2 but t2 is waiting for t1 because this is taken by t1
+
+155
+01:23:21,640 --> 01:23:52,740
+So T2 is waiting for T1. T1 waiting for T2. T2 waiting for T1. This situation is called what? This is the deadlock situation. Both are waiting for each other. No one is progress. No one is making any progress. They are waiting for each other. This is deadlock. So deadlock is also possible. Is this clear to everyone? Let me know. Is this clear? So if this happens, let's assume these two operations, then these two operations, now you can notice that
+
+156
+01:23:52,940 --> 01:24:22,410
+There is a problem that they cannot progress. This T1 waiting for T2, T2 waiting for T1. This is deadlock. So all the problems this locking protocol has. So finally I can say using locks, read light, read light locks that you have using locks in transactions does not guarantee serializability. Is this understood? Locking protocol, general locking protocol does not guarantee serializability. Deadlock is also possible.
+
+157
+01:24:23,130 --> 01:24:54,760
+starvation is also possible inconsistency is also possible serializability is not guaranteed so basically complete failure yes or no correct complete failure or not tell me so this is a complete failure like nothing is satisfied not even serializability it will give you inconsistency because serializability is not satisfied it is possible that there is no guarantee of serializability it is possible that you can get non-serializable schedule isolation is not preserved
+
+158
+01:24:55,420 --> 01:25:25,990
+inconsistency possible serializability not guaranteed starvation deadlock everything possible so it is a complete failure why starvation is possible let's see the possibility of starvation now let me give you the starvation possibility how the starvation is possible consider this scenario that let me assume that there are there are three transactions t1 t2 t3 and so on there are many transactions let me assume that it has taken shared lock okay
+
+159
+01:25:26,480 --> 01:25:55,690
+it has taken shared lock on A so shared lock on A it has taken it let's assume T1 wants exclusive lock okay so T1 wants this exclusive lock will it be denied will it be denied it will be denied yes or no because until it will unlock okay so because there is a shared lock on A so T1 wants exclusive lock on A so it will be denied correct so this is denied now what will happen let's assume this unlock
+
+160
+01:25:56,600 --> 01:26:26,270
+okay let's assume this unlock but before that what happens it will unlock let's assume this is unlocking but before that what happens let me assume that this has taken shared lock can it can it take can it take tell me t2 is taking shared lock can t3 take shared lock yes it can take because they both of them can take shared lock no problem so yes they are it is possible they can take shared lock now two transactions can take shared lock on the same item that is possible no problem
+
+161
+01:26:26,520 --> 01:26:55,980
+now what happens now this t3 has taken now you tell me if again this t1 wants exclusive lock will it be given will it be given now t3 has shared lock remember this t3 has shared lock only so again this will be denied again this is denied now let's assume that now suddenly t4 comes okay it will unlock here but before that shared lock has been taken by t4 now again what will happen tell me
+
+162
+01:26:56,650 --> 01:27:26,540
+Now, again, if you want exclusive lock, again, you will be denied. Correct or not? So, did you notice there is a starvation? This is the situation of starvation. So, starvation is possible. So, this T1 can starve because people are taking shared lock. Let's assume many people are coming. They are taking shared lock. Okay. Many people are taking shared lock, shared lock. They are taking shared lock. So, definitely, I can say that there is a possibility that T1 can starve. So, this starvation possibility is there. Starvation is possible.
+
+163
+01:27:27,070 --> 01:28:03,390
+So all the problems are possible. Okay. Clear. Is this clear to everyone? All these problems are possible. Okay. So let's, let's see the summary. This is the summary that you tell me if there is a transaction, it has taken shared lock. Let's assume there is a, this, this is the table I'm creating. Uh, let's assume there is a transaction which has taken shared lock. Uh, so shared lock on a and this transition won't share lock on a or a, so let's assume that
+
+164
+01:28:03,980 --> 01:28:38,380
+this is a transaction hold by so this these are the I can say one by one is this this row it means even holds and this row means a T2 wants T2 request okay so you tell me if even is holding shared lock on a can I grant this request can I grant this request like even is holding shared lock on a
+
+165
+01:28:39,090 --> 01:29:08,660
+Then can I grant this request? T2 is requesting. Can I grant this? Yes, I can grant this. Yes or no? So there is no problem. It can be granted. This request can be granted. But if T1 is holding shared log on A and T2 wants exclusive log, this cannot be granted. T1 is holding exclusive log. T2 wants shared log. This cannot be granted. T1 holding exclusive log. T2 wants exclusive log. This cannot be granted.
+
+166
+01:29:09,110 --> 01:29:44,070
+This table, this type of table is called lock compatibility table. Lock mode compatibility, I can say. Okay, so this table, this table is called lock mode compatibility table. Anyway, you understood this. Lock mode compatibility. Compatibility. So this is called compatibility table. Anyway, so this you already understood very intuitive. You can understand that that if someone is holding these things and someone is wanting these things, then can we allow them?
+
+167
+01:29:44,470 --> 01:30:13,540
+can this request be granted so in this situation it can be granted you are holding shared lock another person wants shared lock this can be granted the remaining things cannot be granted okay so all these things we have seen I hope you understood anyone has any doubt in this another example if you want then you can take this example let's assume I want to transfer 50 rupees from account A to account B okay sorry from account B to account A I want to transfer 50 rupees initially
+
+168
+01:30:13,900 --> 01:30:40,760
+account A has 100 and account B has 200. So what is the consistency requirement? At any point of time, if I see the summation of A, B, that must be 300. So summation of A, B must be 300. Now you can easily see that this transaction T1 can do this, this transaction T2 can do this. Transaction T1 is transferring from B to A 50 rupees.
+
+169
+01:30:42,450 --> 01:31:11,630
+so from account b to account a we are transferring 50 rupees and this transition to it is reading the value of a plus b it is reading a reading b and then it is looking at the summation of a plus b so what it should see it should see 300 because the initial balance is 100 and 200 so definitely it should see the 300 at this point of time this transaction t2 must see 300 now what can happen now there are many possibilities that first of all this possibility is there
+
+170
+01:31:12,110 --> 01:31:41,550
+okay it is it is a possibility that you read the B item okay this account B you read and you subtract 50 from this and you unlock B okay if you unlock B now what can happen this transition T2 can execute so when this transition T2 will execute at this point of time it will see 250 250 rupees it will see so this is inconsistency right correct yes or no so you can see inconsistency possible so here clearly
+
+171
+01:31:42,090 --> 01:32:12,750
+this is an inconsistency possible inconsistency state is possible okay and the problem what is the problem the problem is that you are unlocking too early okay it is clear like you are unlocking too early you are taking the lock and once your work is done you are unlocking once your work is done you are unlocking so you are unlocking very early once your work is done you are unlocking so this is the problem and because of this problem if you are unlocked too early then you can see inconsistency possible
+
+172
+01:32:12,990 --> 01:32:42,680
+So here you can notice that 50 rupees are gone from the account B, but you unlock the account B. Now the transition T2 can execute completely. Okay. All the instruction of transition T2 can execute. So at this point of time, it will see 250, which is inconsistent state. So definitely inconsistency possible. If you do the solution, delayed, delayed unlocking, if you do this solution, then you can see deadlock is possible. Now what you are doing, you are doing the delaying the unlocking.
+
+173
+01:32:43,260 --> 01:33:13,340
+the unlocking is delayed till the end at the end you will do the unlocking the unlocking you are doing at the end you can notice so now in this situation what will happen the deadlock is possible okay so you can check it out the deadlock is possible in this situation in this situation consistency will be preserved you can check you can check yourself the consistency will be preserved but deadlock is possible like here you can notice that let me assume that I do this much this much amount of work I have done
+
+174
+01:33:13,970 --> 01:33:43,480
+and you have done this much amount of work now tell me now can i continue this can i do this tell me are you getting my point first i have done this much amount of work then you have done this much amount of work now you tell me can you do this can you do this no you cannot do this because this is shared this is this is logged by item a is logged by t4 can you do this you cannot do this because
+
+175
+01:33:43,850 --> 01:34:15,650
+this item B is locked by T3 so item A locked by T4 item B locked by T3 so definitely this is a deadlock possibility so here you can check that deadlock is possible this situation is called deadlock so we have seen all these points that starvation possible deadlock possible all these things we have seen you tell me the answer for this question consistency will be preserved even though deadlock is possible but inconsistency state cannot come see
+
+176
+01:34:16,270 --> 01:34:44,210
+Mavith is asking how consistency is preserved see very simple look at these transactions this t3 and t4 this t3 will unlock here it will unlock here and this t4 will unlock here at the end similarly this will unlock here at the end it is unlocking you can notice unlock here and it is unlocking here so you tell me a simple point I'm asking is it possible that you can see this t4 can sing a see can see a wrong result
+
+177
+01:34:44,450 --> 01:35:14,300
+Is it possible, Mavith? Mavith tell me, is it possible that this transaction T4 can see intermediate result? It is not possible because remember, remember, remember, remember because you are taking exclusive lock. So first of all, not even this possible. See, as long as you have taken this exclusive lock, I have taken exclusive lock. Unlocking will be done here. So you can notice that you can't even read this.
+
+178
+01:35:14,550 --> 01:35:45,650
+It is also not possible. So can you display the wrong result? Can you display wrong result? The answer is no. So inconsistency cannot come in this. Do you agree? So inconsistency cannot come. I cannot see wrong result because unlocking is done at the end. You can notice this is delayed unlocking. Unlocking I delay till the end. So you can see that whatever happens, I cannot see the wrong result. Whatever happens, it is not possible.
+
+179
+01:35:46,040 --> 01:36:21,060
+that I can see the wrong result okay so consistency is preserved but deadlock is possible okay tell me the answer for this question which of the following would you prefer two options you have which of them would you prefer would you prefer inconsistency but not deadlock or would you prefer deadlock but maybe inconsistency but like which would you prefer one of them you have to select see one of them let's assume one of them you have to select let me assume
+
+180
+01:36:21,740 --> 01:36:56,350
+Which you would prefer a lap is prefering inconsistency. All right, they had you should not do you should not prefer inconsistency Deadlock, sorry, but consistency. Sorry. Sorry. Sorry. Sorry. Deadlock, but consistency Deadlock, but consistency. Okay. Okay. Okay. So this is what I'm asking. So what would you prefer? Like there is a one person who is giving you one protocol gives you guarantee that no deadlock
+
+181
+01:36:56,560 --> 01:37:27,550
+Okay, there is one protocol which will give you this guarantee, no deadlock, but inconsistency can happen. There is another protocol which you give you guarantee of consistency, but deadlock can happen. Which protocol will you prefer? Definitely, this is never preferred, right? Definitely, this is never, never, never preferred. This is never preferred. We never prefer this inconsistency, we never allow. Think about it, in your bank, if some inconsistency happens,
+
+182
+01:37:28,420 --> 01:37:57,480
+Suddenly you have zero rupee. Will you allow that? Okay. Your bank is very fast. Your bank computer is very fast. No deadlock. Will you be happy that bank is very fast? Every work is very fast. But I got zero rupees. No problem. Okay. Yesterday I had one lakh rupees. Now I have zero rupee. No problem because bank is very fast. In the bank there is no deadlock. Okay. Is it fine? Of course not fine. Right. So you can see inconsistency is never allowed.
+
+183
+01:37:57,830 --> 01:38:27,060
+okay definitely but deadlock is fine actually we can live with deadlock actually we live with deadlock did you notice in the operating system you have studied deadlock do we live with deadlock in your computer is deadlock possible yes it is possible okay remember one thing remember one thing in the operating system in most of the operating system there is no mechanism to prevent deadlock okay we live with the deadlock your computer can go to deadlock
+
+184
+01:38:27,310 --> 01:38:56,830
+once in a year we live with it we allow it so deadlock is not a problem deadlock is not a big problem it is a problem but it is not a big problem we live with the deadlock your windows system your windows operating system it does not prevent deadlock it does not avoid deadlock okay no avoidance nothing if your if your computer will go to deadlock then it will do something okay then you can switch off the computer you can restart again okay so this is what I'm telling you
+
+185
+01:38:57,040 --> 01:39:28,090
+that actually we sometimes will live with deadlock but consistency is mandatory this consistency this is mandatory we can live with deadlock actually we can live with deadlock because by chance if deadlock happens just restart it some process you can roll back and you can restart we can live with deadlock okay like if deadlock happens then what you can do by chance if deadlock happens like you know that deadlock has happened t1 waiting for t2
+
+186
+01:39:28,430 --> 01:39:57,750
+T2 waiting for T3 T3 waiting for T1 let's assume deadlock has happened then what you can do just undo one of them correct or not just undo one of them okay in this situation what you can do just for example I can say kill one of them for example I can say kill T1 that's enough if I kill T1 then that's enough okay so this is what you can do so you can see we can live with deadlock but consistency is mandatory we cannot
+
+187
+01:39:58,510 --> 01:40:29,000
+Compromise with the consistency so most locking protocols. Let me tell you most of the locking protocols Most of the locking protocols they suffer from deadlock and starvation Actually, I should say almost all of them Every locking protocol that we will study except one of them every one is everyone will suffer from deadlock Every locking protocol except one of them suffers from deadlock. So they actually suffer from this Starvation we have already seen
+
+188
+01:40:29,380 --> 01:40:59,650
+okay let me ask you this question tell me the answer all the rules that we mentioned who will follow these okay so who will follow this transaction will follow this so transaction these are the rules for transaction okay let's move on now so did you notice that locking is not enough so we want to ensure isolation but locking is not enough so far what rule we have so far we have seen this rule that if you want to access something take permission
+
+189
+01:41:00,240 --> 01:41:28,420
+Taking permission is not enough Did you notice? Correct or not? So far this is the rule we have seen that you want to access item Then take permission You want to read item Take shared log You want to write item Take exclusive log This rule we have created In our society we have created This rule we have created Can I say our society is now good Our society will preserve the consistency Can I say? No You can see these rules are not enough
+
+190
+01:41:28,960 --> 01:41:58,060
+some rules we created these rules are not enough we cannot we cannot even guarantee consistency forget about deadlock deadlock is fine if deadlock will come once in a year deadlock will come i will handle it i will switch off my computer i will start it again no problem your ATM when you go to the ATM deadlock will happen no problem ATM ATM will switch off it will start again everything will be perfect everything will be fine deadlock is not a big problem but the big problem is
+
+191
+01:41:58,380 --> 01:42:28,000
+this inconsistency all the rules that we have created many rules we have created okay five or six rule we have created but using these rules we cannot even guarantee serializability non-serializable schedule are possible inconsistency is possible isolation is violated complete I can say complete mess complete chaos we have so what do we need some more rules yes or no that very simple answer is very simple that if you want a good solution put some more rules
+
+192
+01:42:28,910 --> 01:42:59,840
+okay so let's put some more rules and if you put some more rule one of them is two phase locking now we will study two phase locking protocol in this two phase locking protocol only one extra rule we put okay whatever rules we have put only one extra rule we will put okay so let's see this and after that we will terminate the class so let's continue tell me can we continue till 11 or should we continue tomorrow you can tell me I can continue in the morning also if you want
+
+193
+01:43:00,370 --> 01:43:29,210
+I can start in the morning. Okay, so tomorrow morning, we will meet because I want to finish this lecture. I want to finish basically this DMS. I want to finish. Let's not so that we can fully focus on the revision. Okay, that is our target. So tomorrow morning, we will start all the slides are ready. I don't have a tension of the slide for me. Actually, the biggest issue is this flow I have to create from many resources. I have to create the slide.
+
+194
+01:43:29,880 --> 01:43:59,040
+and this flow I have to create in which flow I have to teach okay so that flow I have to decide so that you will understand everything okay so this this is a issue but now I have created all the all the slides so at least yeah recovery manager will be remaining that I will I will teach you after after two three days I will teach you recovery manager but the remaining things we will continue we will finish tomorrow so tomorrow locking protocol we will finish time is time protocol we will finish
+
+195
+01:43:59,550 --> 01:44:28,370
+and also we will finish the joint algorithms so these three things we will finish tomorrow and then only one topic will be remaining recovery manager that we will study maybe day after tomorrow or two in two three days okay so tomorrow morning we will start at 8 a.m. okay 8 a.m. we will start tomorrow did you understand today's class did you understand see everything is obvious let me tell you don't take extra headache some of you are taking
+
+196
+01:44:29,780 --> 01:44:57,210
+unnecessary headache all these topics. These topics are very obvious. If you notice, all the rules are obvious. You want to access some item, take permission. Okay, there is a meme permission. So take permission. So you want to read, take shared log, you want to write, take exclusive log. So this locking protocol we have, there's a protocol we have created some set of rules we have created some five or six rules we have. Now these rules we follow, but these rules are not enough. Okay.
+
+197
+01:44:57,760 --> 01:45:26,470
+so this locking protocol that we have seen this locking protocol is not enough to ensure isolation property it is not enough to ensure serializability non-serializable schedule is also possible inconsistency is possible so we need more rules and one more rule if we put then we get a new a new locking protocol we get that is called two phase locking protocol okay one extra rule we have to put all the rules that we have
+
+198
+01:45:26,690 --> 01:45:55,310
+Just add one more and then you will get a very nice protocol to phase locking protocol. It will guarantee conflict serializability using this new protocol that we will create tomorrow using that protocol. You can guarantee that only conflict serializable schedule will be created. Only conflict serializable schedules will generate every transaction will take care of itself. I will take care of my myself. You take care of yourself. Every transaction will take care of itself. Then automatically.
+
+199
+01:45:56,050 --> 01:46:25,140
+conflict serializable schedules will only be generated nothing else will be generated this we will see tomorrow okay so thank you everyone mavit is saying that sir we will have uh will we have summary lecture like fresh order logic yes yes we will have don't worry okay so once i complete this dbms we you will get uh we will be working basically for the next 50 days we are working day and night okay you will and also uh fresh order logic test is uploaded okay you can check it out
+
+200
+01:46:25,390 --> 01:46:51,490
+Propositional logic test, did you attempt? Propositional logic, after the questions, gate questions, you do the gate questions, after the gate questions, you just attempt a 30 minute or 40 minute test is there, just attempt it. It will give you confidence. Okay. Once you do all the gate questions of propositional logic, the propositional logic test you attempt. Similarly, after the first order logic, you attempt the this.
+
+201
+01:46:51,890 --> 01:47:17,330
+a test of fastodology that is uploaded. You can check it out on the gate or for website in the exam sections. Okay. So for the next 50 days from our side, we will keep putting the efforts, but we will, uh, once our DVM a syllabus is over, then after that, we will make sure that you only from our side, you only get two hour of content every day. Okay. Not more than this because you should focus on yourself. You should focus on your self study.
+
+202
+01:47:17,970 --> 01:47:45,280
+we will provide you maybe 2 hour content or maybe 3 hour content maximum we will provide you that content you can watch on 2.0 speed you don't have to waste your time okay so just watch it our 3 hour content you can watch in 1 hour the remaining time you give to yourself to yourself study solving the gate pyq revision all the things from our side whatever we can do we will do we will provide you summary lecture as we did for first order logic
+
+203
+01:47:45,800 --> 01:48:14,100
+Similarly, we will provide you some relaxer for the remaining topics and this test as you can see proposition logic test uploaded first order logic test uploaded like this test will be uploaded. Okay, operating system test also will be uploaded tomorrow. You will find it operating system. This test also will be uploaded. Okay, these are these are the test which we upload for your you can just try. Okay, half an hour test. These are basically like weekly quizzes. Okay, for the last a long time.
+
+204
+01:48:14,440 --> 01:48:43,800
+We did not have weekly quiz. So now we are again starting our weekly quizzes. So these tests are basically similar to our weekly quizzes. Okay. So attempt these tests. Okay. Don't be lazy. For the next 50 days, let's put the best efforts. We will see the result. Okay. Automatically, the result will come. Don't worry. As I told you, yes or no, if every transaction will take care of itself, every transaction is taking care of itself, then automatically the system will take care of itself. Okay. So you just take care of your
+
+205
+01:48:44,220 --> 01:49:11,220
+best efforts for the next 50 days just don't be lazy don't get demotivated all the demotivation all the anxiety okay if it comes to you okay just study just keep learning it will automatically go okay whenever you feel some demotivation depression or anxiety something you feel then suggestion is that you keep learning okay take some easy topic you study that take some great questions you solve those five questions you solve
+
+206
+01:49:11,500 --> 01:49:32,660
+then automatically you will get some confidence. Okay. So keep learning for the next 50 days. Keep putting your best efforts and definitely like, uh, I have full confidence on the go classes students because we are also putting our efforts and definitely we will get a very, I can say excellent result. Okay. So thank you everyone. See you tomorrow. Tomorrow morning, eight a.m. We will start. Thank you. Bye.
+

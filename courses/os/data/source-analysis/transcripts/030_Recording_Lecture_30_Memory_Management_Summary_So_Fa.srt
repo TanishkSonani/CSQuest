@@ -1,0 +1,784 @@
+1
+00:00:08,180 --> 00:00:50,230
+Yeah, hi Vishwanath, hi Satyam, hello me, hi Sangeet, hi Amant, hello Anish. So let's quickly summarize that what we were studying in this memory management, right? So let's see summary so far in memory management. Now do you remember that what are the things that we have studied? We started with base and bound, and then we moved to segmentation, then we moved to paging.
+
+2
+00:00:53,220 --> 00:01:17,000
+Okay. So these are the three things that we have studied till now. Let's just see. So we said like, uh, there are two programs that want to, we want to run in the main memory. And if you want to run two programs, then, uh, then if you want to run them simultaneously, then what do we need? We need to have different, different status. Can we, can we load both of the programs at, uh, at location, some specified location, maybe starting from that's about zero. We can't load, right?
+
+3
+00:01:17,290 --> 00:01:51,140
+Since we can't load these two programs starting from one of the specified location, that's why we said like what we need to do, we need to relocate, right? So to relocate, we said like, do you remember how we, I mean, how we approach this problem? So we said that what we can have, we can have something called as base register. Yes. So we can have base register. So we said that, okay, for this, we can have base register. Now, using the base register, we can have relocatable code, right? So we said that, okay.
+
+4
+00:01:51,330 --> 00:02:11,170
+This is how the address translation was happening in the base register that we were saying that, okay, we will be having some code and then compiler will be generating some address. Then we can convert that address to the physical address using the base register. Another problem with this base register is that it doesn't provide one thing. I mean, one of the major thing.
+
+5
+00:02:11,440 --> 00:02:45,820
+which was protection yes so basically if two processes in the main memory and then let's suppose one of the processes accessing something of other other process so what a process when generate some illegal address illegal means that belongs to some other process so this is basically no protection using the base register you can say something like this then we said like we can move to base and bound
+
+6
+00:02:46,090 --> 00:03:11,290
+here we will be having some limit or some bound right so if the logical address is from zero to this i mean if the size of the process is limit or bound then logical address will be from zero to bound minus one or if you want open parenthesis then you can write something like this right so that's how we were saying it so now we from the hardware we required two registers which is base and bound now it will provide the production so two hardware registers are needed
+
+7
+00:03:11,640 --> 00:03:53,890
+and the process can only access the physical memory this. So that's how we are providing protection. So on a contact switch, save or restore base and bound register, right? So that's what we said on a contact switch. Okay. Is this okay to everyone? And then, then we said that, okay, this base and bound is having some advantages that provides the protection across the addresses spaces, supports dynamic relocation,
+
+8
+00:03:54,080 --> 00:04:23,040
+simple simple and on the context which we need to do this but the problem with the base and bound is that it requires contiguous memory right it requires memory contiguously that is the disadvantage right so that's why we said like we can go to i mean it requires a contiguous memory that's why we said we can go to something called a segmentation so where the contiguous memory will not be needed
+
+9
+00:04:23,400 --> 00:05:05,220
+right. So in the base and bound it we were using just one segment but here we will be using multiple segment. So it is just a split the process logical address space into multiple processes. That's what we are saying here, right. So for example, that we can store one segment here, we can store one segment here of the same process. So no, no longer contiguous memories needed, right. Okay, so no longer contiguous memories needed. I hope that is fine to everyone.
+
+10
+00:05:09,590 --> 00:05:25,990
+Yes, two store one segment, obviously we will be needing the contiguous memory. That is true. Okay. So that is true. I mean, but not, not for the entire process. So this is how the segmentation look like that non contiguous physical data spaces are still okay.
+
+11
+00:05:27,610 --> 00:05:51,150
+Okay, so segmentation is okay, but there were some problems. One is that let's suppose you have an extra fermentation is one problem, but there were a few other problems. Let's suppose you want to extend the size of some segment. I mean, basically, initially, do you have the idea? Do you think that you have the idea for all the segments, the heap and the stack specifically to start with that how much it will grow? So initially, you might not be having the idea, right?
+
+12
+00:05:51,400 --> 00:06:37,610
+that how much it will grow so it may grow dynamically and that's what you are saying so if it is growing beyond some extent then you may need a relocation right so basically you may need to move this particular process right somewhere else so basically initially we do not have the idea now you can say that initially initially we do not have and in fact cannot have right cannot have idea about about
+
+13
+00:06:48,340 --> 00:07:15,500
+segment sizes right I mean specifically for he and stack right specifically for heap and stack initially we do not have idea about the segment sizes specifically for heap and stack so what we do
+
+14
+00:07:16,570 --> 00:07:45,470
+So, I mean, then it can create a problem in the sense that if you are if you are saying that, okay, till this size, it will grow. But if it is growing beyond, then then it is a problem, right? So you need to relocate. So this is one problem in the segmentation. Another problem was which was the one of the major problem, which was the external fragmentation. So basically, we were having external fragmentation and this kind of relocation. And due to external fragmentation, if you want to avoid the external fragmentation, then we basically, okay, I mean, if you if you really want to avoid
+
+15
+00:07:45,810 --> 00:08:16,140
+let's suppose just a second so if you really want to avoid the external fragmentation then you have to basically compact it right compact the spaces so it will take a lot of time so this is very much time consuming so that's why we said like I mean external fragmentation problem and if you solve it within the segmentation it is a problem it is again a problem so these are the problems another problem that we have seen that we need to see the good size of the segment like where can I fit this particular segment because the sizes are different everywhere
+
+16
+00:08:17,070 --> 00:08:46,760
+Okay, so these were the few problems in the segmentation. I mean, they won't ask you such a theoretical question, but still you should be knowing, right? So, now we can move to, okay, so we move to the paging, but before that in the lectures, what we did, we did some problems based on the base and bound register and the segmentation. So basically, these are the problems to the segmentation. Now the next topic is paging, but in between that, we are saying that, okay, we can solve the questions based on the base and bound and the segmentation. I think there was just one lecture.
+
+17
+00:08:47,590 --> 00:09:19,180
+on that right and I mean there are a few questions so if you want I can solve some of them quickly okay so do you want me to solve them again or maybe you can solve solve them right because that's already available so for example let's suppose these are the three processes and now they are saying that that suppose process is running on the CPU after that process B is running when which of the following physical address that process we might legally refer to right
+
+18
+00:09:19,450 --> 00:09:47,270
+So which of the following physical address that process we might legally refer to, if the base address is 1000, then from 1000 to it will go 1019, right? I mean, these are the addresses that can legally refer to. So, so I think 1015 should be the correct answer here, right? 1015 should be the correct answer. I mean, you can solve these questions. So we have already solved these questions. For example, this, if they're saying that, OK, these are the logical addresses, you convert them to the physical address.
+
+19
+00:09:47,820 --> 00:10:18,980
+So the base is given to given for the every every segment. So if your logical addresses 100, then from this logical addresses space, can you tell me it is coming under which segment? It is coming under code, right code code. And if okay, if it is coming under code, then you will say that, okay, it is within the segment zero, then you will say that, okay, base is this, then this logical address will get converted to 32k plus 100. Right. I think that's all.
+
+20
+00:10:19,340 --> 00:10:49,890
+So maybe you can convert because the offset is the 100 is directly the offset here, right? And similarly, if someone asked you, okay, what about this 4 to 00? So I think 4 to 00 in the heap and based on that, you can take a call. And what about the 7000? 7000 is I think it is illegal address, right? Nowhere. So it will be the illegal address. What about this 15,000? It will be the stack, right? So that's how you are saying it. So basically, 7000 is illegal.
+
+21
+00:10:50,290 --> 00:11:20,780
+and 15,000 is in the stack you can you can check that how to convert that to physical address and these are the physical address for other things okay so you need to basically add the offset so if this is the logical address then what will the offset offset will be from here right so from here you can find out the offset because this is within the heap so can you tell me tell me the offset I think it will be 4 to 0 0 minus 4k 4k is 1 0
+
+22
+00:11:21,130 --> 00:11:52,300
+24 right which is 4096 so this much is the offset right is this so good every one and this is kept as it is starting from 34k so you just add 34k here this is kept as it is starting from 34k i hope you can solve these kind of questions easily okay now again these are a few questions and specifically this was a good question which we have observed this question is little unconventional in the sense that they have given the
+
+23
+00:11:52,620 --> 00:12:21,100
+physical address and then they're asking the logical address. So just do it again. Okay. Just do, do this question again. Okay. So you can try these questions again. Now we move to the paging. Okay. So we did some of the questions in the segmentation based on base base pound register and these things. And then we moved to the paging. So let me know if there is any issue till the segmentation. Okay. Okay. Then let's just move to the paging.
+
+24
+00:12:21,340 --> 00:12:47,960
+now in the paging what was the motivation we said that okay we will be having the fixed size pages here right we will be dividing the content into the fixed size pages okay just like our page of the book then how to solving the external fragmentation and a few of the problems that we had so we will see that right so basically if if we are having some logical addresses space we divided into fixed size pages these are the fixed size pages and this is the physical addresses space this is the logical addresses space so
+
+25
+00:12:48,460 --> 00:13:17,910
+solve the external fragmentation problem by using the fixed size units in this okay now we said that okay we can convert convert to the I mean we can given the logical address space we can convert to the frame number or the physical address so basically if we divide divide the logical address space with this then we will be getting the page number right so I can say this is the page number
+
+26
+00:13:18,250 --> 00:13:59,500
+I hope I do not need to do all of this again you already know this right so yeah so this this thing is a page number and then we can say from this page number using the page table we can find out the frame number and once we find out the frame number using the offset we can find out the physical address right so if that is the case then can you tell me what is the physical address now if you have the frame number and and if you have the address frame number and the and the offset sorry so the physical address will be
+
+27
+00:14:00,480 --> 00:14:31,180
+frame number into frame size plus offset okay now this is the address translation that we have in the paging that we have the virtual page number and then this virtual page number can we convert it to the physical page number using the page table and then we can go to the physical address okay so for example let's suppose we want to convert this logical address to physical address
+
+28
+00:14:31,470 --> 00:15:03,040
+Given that the page size is 8 bytes and logical address space is something, then can you do this? This is the page table which is given to us. I think we can do this, right? So what we will be doing here? We will be dividing this 905 by the page size. We will be first getting in which page it exists. And then based on that, okay, suppose we've got another environment, it is there. Then we will find the frame number and then we can calculate the physical address. Is this okay or should I do this again? Okay, right? Okay.
+
+29
+00:15:03,290 --> 00:15:38,660
+so basically we can find out the frame number and we said that okay 904 904 logical address is the page number 113 905 is in the page number 113 906 is in the page number 113 907 is the page number 113 like that and so on right okay so i hope that is fine now now let's just see one question where i'm saying that what will the what will the physical address corresponding to 807
+
+30
+00:15:39,590 --> 00:16:08,290
+So corresponding to this 807 if I want to get the physical address then what I need to do I again need to follow the same procedure divide by 8 first I will get the page number and based on that I will be doing that right so we can definitely do this now we said that okay this I mean we did something in the decimal and then we said that okay whatever we are getting in the binary okay in binary if we are having the logical or the virtual address then that can be seen as this that can be exploited as this
+
+31
+00:16:08,460 --> 00:16:43,290
+And what was the reason for that? I mean, we can say that there was two intuitive reasons. One is that if we are having this as physical, sorry, logical address, then we can say that this logical address can be divided by the page size and then can be written like this, right? This is the remainder and this is the quotient or whatever you call it. Okay. So basically this is how we can write. Is this okay to everyone? And then we said that, okay, if this page size is in power of two, right? This is in power of two.
+
+32
+00:16:46,260 --> 00:17:09,490
+That is why, that is why we can basically say that we can split the virtual letter subspace into two parts. One is the page number, another one is the offset. Is this okay to everyone? So this was the intuitive idea that we can basically directly work in the binary. Okay.
+
+33
+00:17:09,790 --> 00:17:38,340
+So instead of doing in the decimal, if binary is given to us, then we can directly work in the binary. And then you will then then you will realize that, okay, this this binary working is actually very much beneficial to the hardware. And another idea is that I mean, another intuitive way we said that, okay, actually in decimal, if you want to divide, then if I if I'm dividing with 10, then it is good with with division of 10, I mean, power of 10. Okay, is decimal good good in the power of two?
+
+34
+00:17:38,620 --> 00:18:13,830
+Can you directly tell me that if you divide or if you take the mod, then what was the answer? No, you need to actually divide. So the another intuitive idea is that we were saying that, okay, since we have to divide, right? I mean, I can say, see, decimal is decimal division, division is very good for power of 10, right? And not power of two, basically in power of two, you actually have to do this, right? No shortcut here.
+
+35
+00:18:17,320 --> 00:18:46,920
+So since there is no shortcut and we actually had to do this, then why we are doing this in the decimal? That was that was the thing. And in fact, it is good in the binary. So if we are doing, I mean, if we are doing in the decimal, then in the decimal, it will be giving you last two digits. Similarly, in the binary, if you do this kind of division, it will give you the last two digits, right? Okay. So that was the intuition that we said that, okay, if we are dividing some logical letters with the paste size, then last three digit will be the offset and remaining will be the
+
+36
+00:18:47,200 --> 00:19:29,970
+page number so basically you can you can consider this as an intuition or you can consider this as an intuition I mean both are fine right so basically given this logical address we will prefer to do this in binary okay so we will prefer to do this in binary if we are having the binary of this then we can directly say that this is the page number and this is the offset is this okay everyone now I hope that is fine so basically now if I just ask you that what are these entries contain
+
+37
+00:19:30,360 --> 00:20:16,370
+then what you will say that it contains few I mean this page table entry content the frame number and along with the frame number it contains few other things okay so yeah so if I just ask you what are these entry content then you will say what is page table entry content then frame number and few other bits yes now let's just talk about one thing can it contain the byte number directly which means that let's suppose uh let's suppose that
+
+38
+00:20:16,530 --> 00:21:07,740
+that this is a page table. There's a page table. Can it directly contain the byte number? Okay. And this is a physical memory. So the answer is no, because the way we are working, basically, we are saying that if you are having, let's suppose you are storing some frame or some page here, right? So what we do, we basically do one thing. We say that, see, if we are storing it here, then we say that
+
+39
+00:21:10,540 --> 00:21:44,540
+what we say we say that okay if you're storing it here then whatever is the frame number this is right whatever the frame number we will first convert that frame number to the byte number and then then we will we will add the offset right that's how we are converting to the physical address so convert convert frame number to byte number right that's that is done by multiplying whatever the frame number into frame size okay
+
+40
+00:21:45,790 --> 00:22:48,130
+This is the byte number frame number into frame size. Is this okay? Now now now what we do then we basically this is the step one then as an step two we add offset offset To convert to physical address Okay, we add the offset. I hope that is fine to everyone Right if we directly have the byte number then this kind of mathematics won't work. So we can't have the byte number here, right?
+
+41
+00:22:48,400 --> 00:23:20,880
+okay that is fine now tell me one thing that let's suppose that that there is a physical memory okay and i have let's suppose i have eight eight pages to store okay we have eight pages to store in the physical memory i mean page number page could be could be many lesser than the physical memory right so let's suppose the pace the the logical addresses which is very less okay so we have just we have eight pages two
+
+42
+00:23:23,280 --> 00:24:04,050
+store in physical memory of size 2 power 32 bytes 8 pages each size let's suppose each size 4 byte okay 8 pages for example or each size 32 32 byte then can you tell me how many bits we will be requiring for the for that page number then number of bits required
+
+43
+00:24:07,540 --> 00:25:16,820
+to identify page number so what is the answer here okay so some people are saying three bits so let's just see why three is wrong okay let's just see why three three is wrong so why three is wrong answer because see if you're if you're identifying these eight pages with just three bits maybe zero zero one zero one zero okay one one one then what you're saying you're basically saying that your page number
+
+44
+00:25:17,150 --> 00:25:47,040
+could be could be either 0 to 7 right your page number could be 1 could be 0 could be 1 could be till 7 which means if you want to convert that to a byte number so how we convert to how we convert some page to the byte number we say that okay if you want to convert some page to byte number then what we say we say that we will be seeing that how many pages are above okay so so basically if you are saying that your page number could range till 7 only which means I am I
+
+45
+00:25:47,310 --> 00:26:16,170
+I cannot store let's suppose this is page 1, page 2, page 3, page 7 I cannot store lower than this because if I am storing lower than this right if I am saying that my page number is 7 and still I am storing lower than this still I am storing lower than this I mean still I am saying here then how many pages are above it so many pages right so basically do you remember that discussion that there are many pages
+
+46
+00:26:16,420 --> 00:26:44,990
+So basically if now, now I can't convert this page number to the white number. So basically I need to make sure that number of pages, this reflect this seven reflect the number of pages above it. Okay. So the seven should reflect number of pages above it. Now I cannot store this. I mean, actually it is fixed that, okay. I mean, basically, basically any page, any page is fixed to be in this range because I cannot, I cannot have more than seven pages. If it is seven, if the page number seven, then I have to store it here only.
+
+47
+00:26:46,750 --> 00:27:31,550
+I cannot store this page 7 here because the saving should reflect that how many pages are above it so actually the thing here is that that number of pages doesn't matter that how many pages you want to store it doesn't matter okay so here number of pages equal to 8 doesn't matter right doesn't matter to get the answer okay number of pages doesn't matter to get the answer
+
+48
+00:27:31,870 --> 00:28:04,650
+is this fine to everyone so basically basically yes so the size of the page matter right size of the page matter why because basically let's suppose you are storing in this in this physical memory which is having 2 power 32 bytes right if you're storing 2 power 5 byte size of page which is 32 byte size of page right size of page and then then
+
+49
+00:28:05,080 --> 00:28:30,120
+How many slots are here? You just need to find out the number of slots where you can store this page. So number of this is number of slots. Number of slots. How many slots you can have here? 2 power 32 bytes are this 2 power 5. So 2 power 27 slots. This number of slots are important. This is slots. So this is number of slots, which means
+
+50
+00:28:30,380 --> 00:29:05,920
+that there are 2 power 27 slots here where you can store this just one page any of the page I mean you can store this this particular page to any of the slot now if you are saying if you are saying that okay you are storing in this slot then since since these are the these are the 2 power 27 slots then we need 27 bits to identify the page number right why because we need to identify the slot number basically we need to identify in which slot we are we are storing okay so we
+
+51
+00:29:07,050 --> 00:29:52,810
+need to identify in which slot we are storing. Okay. Is this fine to everyone? Okay. So basically we need to identify in which slot we are storing. Now the number of pages doesn't matter. Even though you want to store one page, it can go to any of the slot. Now this slot number, let's suppose I'm saying this is 27 bit. This slot number is zero. This slot number is one. Now whatever this slot number, let's suppose 252.
+
+52
+00:29:53,190 --> 00:30:18,340
+then i am sure that okay here above it there are 252 slots right now i can easily convert this slot this page number to the byte number so basically number of slots are there it doesn't mean that there are there has to be okay if i'm storing this padora page here in the main memory it doesn't mean there has to be 2 power 27 slot or 27 page even though there is just one page
+
+53
+00:30:19,620 --> 00:30:47,870
+Still I need 27 bits So number of pages doesn't matter What is the number of pages here? I hope that is killer to everyone That will be useful in the multi-level paging A byte number is also same as address This is also same as address You call it the slot number, you call it the address Doesn't matter, right? Address of what? Address of the slot So basically address of the slot
+
+54
+00:30:48,110 --> 00:31:16,130
+so address or the page number or the frame number or the slot number these things doesn't matter it is just a terminology this is also the address these these 27 bits are also the address but address of the page basically that we are storing okay so here i hope you understood one thing that the slot number of slots you need to find out and in which slot it is going to identify that that's why you need 27 bits okay you don't need uh i mean you cannot just work with the three bits it will be wrong okay
+
+55
+00:31:20,400 --> 00:31:45,460
+Now, uh, segmentation were having few issues and paging is simple. Basically it is, uh, uh, free free page. If wherever, if I mean, you don't need to scan throughout wherever you have the free page, you can directly use that, right? Okay. So I hope, uh, that is fine here. Here you have to find out the appropriate, appropriate, uh, size. And here you don't have the, what we call internal external fragmentation, right? You don't have the external fragmentation.
+
+56
+00:31:46,500 --> 00:32:26,200
+Then we observe one thing that see that typical system might be having two large of the page table and process size could be too small, right? Since the process size is too small and the page table could be very large, then what we need to do? We basically need to see that what I mean, how we can store this page table. Now, one of the ideas that if we are having just one page table, then probably we need to basically store the complete page table entirely, right?
+
+57
+00:32:26,530 --> 00:32:58,830
+Then we said that okay, we can divide the space table and then basically what we can do? We can say that okay, we can divide the space table and then we can skip saving some of the chunks and that's where the multi-level paging was useful for us. So in the multi-level paging, whenever I talk about the multi-level paging, I was first talking about this diagram only. Is the diagram clear to everyone? This is the most important diagram of the address translation that how the address is getting translated. Okay, so I hope that is clear.
+
+58
+00:33:01,810 --> 00:33:30,890
+Now now there are a few questions that we did like basically basically this particular eight means what there are two power eight entries in one chunk and how many such chunks are there two power six chunks like that you can I hope you can find out right now this is one question where where they are asking virtual at a specific size and the number of entries are given at at every level now can you find out the size I think you can find out right okay so there are a few questions that we did
+
+59
+00:33:31,240 --> 00:33:58,030
+In this particular question, they were saying that you just did two levels of the page table, what should be the page size. So they were asking something called page size and then we did this question. So there were a few questions that we did. Okay, sorry. So basically there is one gate 2023 question that is similar to the question that is here. N plus N minus 3 plus N minus 3, something like that. It will be something like that. So you can
+
+60
+00:33:58,590 --> 00:34:30,940
+Take I mean check out this question. I haven't taken the skin shot yet, but yeah, this is gate 2013 question That is easy question, but you can do it and do that Just like this. Okay, that question and this question is same anyway Now we solve this question. Let me know if there is any doubt on this particular question I hope that was clear that was just asking that how many bits will be needed to To address the next level page table
+
+61
+00:34:32,010 --> 00:35:17,190
+It will depend on the chunk size. Is this okay to everyone? Or should I do this again? Okay. Okay. So I hope that is fine. So basically the number of bits will depend on the size of the chunk. Now, I mean, I can do one thing quickly here. So here you are saying that you are having two bits here, nine minus one, eight and then nine bits here.
+
+62
+00:35:17,950 --> 00:35:52,270
+9 bits here and 12 bits here, right? So you are having something like this. I mean, this is the logical address space. Now, if this is having, this is having the chunk size of 4. And if you ask me that, if you ask me that, what will the number of bits that it will be containing to point the next level page table, which is having 2 power 9 entries. Now, what is the size of this page table? 2 power 9 entries. And what is the size of one entry? 4 bytes. So which means,
+
+63
+00:35:52,570 --> 00:36:31,300
+it will be 2 power 11 bytes if it is if it is having 2 power 11 bytes then how many such chunks are there is this really necessary for you to know how many such chunks are there to get the number of bits here so what is the physical lattice space size the physical lattice space is of 36 bits so you will say that you want to store this particular chunk of 2 power 11 byte right you want to store the chunk of size 2 power 11
+
+64
+00:36:32,710 --> 00:37:01,790
+in the physical memory this is the physical memory of size 2 power 36 bytes and now you want to store let's suppose just one chunk of size 2 power 11 bytes so how many slots are available for this yes so how many slots are available for this 36 minus 11 which is 2 power 25 slots right so you can say 2 power 25 slots so you can store this in any of the slot
+
+65
+00:37:02,030 --> 00:37:44,010
+So that is why you will be needing 25 beds, right? So here you will be needing 25 beds. Okay, to identify that which, I mean, at which place you are storing this. Now tell me, tell me, if you're storing this, then you need 25 beds, right? Now tell me, do this kind of thing has to be 2.25? Should I be having 2.25 chunk? Should I must be having? No, right? I mean, that's not, obviously, that's not really needed.
+
+66
+00:37:44,430 --> 00:38:15,690
+Otherwise, it will eat up the whole, whole physical memory. That's not really needed. It's just a slot. Okay. You have to understand that what is, what is going on here. It's just a slot that we are identifying. Okay. In which slot you are, you are basically putting it. I hope that's fine. Okay. So that's how you can solve this question. Now, why multi-level paging? Because we need, we may not find the continuous space to store the complete page table in the main memory. So by the way, let's suppose this, let's suppose that page size.
+
+67
+00:38:20,880 --> 00:39:07,880
+is 1kb or may be 4kb and page table size is 4mb can we store this page table into the physical memory can we store this page table yes right this is a single level okay that's awesome so we can we can store the page table into main memory but we need need lot of contiguous
+
+68
+00:39:08,410 --> 00:39:38,640
+Space so basically this is one thing. That's where the multi-level paging is required Can you tell me the other thing? Other thing is that I mean there were two things that this 4 MB will be needing lot of contiguous space other thing is that even though let's suppose even though let's suppose We have the contiguous space. Is it really worth to save it? The answer is not always right if if these if these entries are basically let's suppose having Invalid entry I mean lot of invalid entries so basically
+
+69
+00:39:38,970 --> 00:40:58,770
+basically the problem here is that even even if we have we have contiguous 4 MB of space is it worth saving the page table I mean it is always right is it always worth saving the page table so the answer is no right what if page table contains too many invalid entries okay yes so basically I mean why we are doing the multiple page
+
+70
+00:40:59,200 --> 00:41:24,670
+because we do not have the contiguous space, I mean we may not find the contiguous space, even if we have the contiguous space, then why to store the entries corresponding to the pages which are empty? Yes, right. So I hope you understood, right? Even if we have the contiguous space, that is also, I mean, I'm saying that, then also I'm saying that why we are storing that.
+
+71
+00:41:26,020 --> 00:42:01,410
+So now we say that, okay, multi-level paging can save the space. We now, we then understood the multi-level paging. Now the next question is that, where is the space saving? Okay. So, so basically the space saving is in the sense that we are not storing, we are not storing the entries corresponding to that. So that's where we are saving the space. So basically this, this, this page table, I mean, this part of the page table is not even stored anywhere, right? This part of page table.
+
+72
+00:42:03,210 --> 00:42:37,220
+is not stored anywhere now we did few questions that okay how to check that that how much saving we are doing so let's let's maybe go through one of the question here so for example let's suppose we are saying that the process is using just 256 kW of memory what is the pay size here pay size is 2 power 8 which is 256 bytes right
+
+73
+00:42:39,570 --> 00:43:12,730
+Yeah, 256 bytes. So it is 1 kb, sorry not kb, 1k pages, which means pages. In terms of pages, the process is just using 1k pages, which is 1024 pages. If process is using 1024 pages, it means at the innermost level, how many entries will be useful? 1024 entries, which means at the innermost level, how much, I mean, what are the chunk here? Chunk size is 2 power 6 entries, right? So at the innermost level, number of chunks will be
+
+74
+00:43:13,150 --> 00:43:44,430
+2 power 10 upon 2 power 6 which is 2 power 4 2 power 4 chunks will be useful so since 2 power 4 chunks will be useful here then we can find out number of chunks useful here how many chunks useful here sorry number of entries which is 2 power 4 entries 2 power 4 entries means one chunk only right because this chunk size is 8 bit so one chunk is useful here and then you are again having one chunk here right so one chunk is useful here
+
+75
+00:43:45,030 --> 00:44:18,380
+So total, I mean one chunk here, one chunk here and 16 chunk here and the chunk size based on the chunk size, can you find out the total size that we are actually using? Then you can find out, right? So this was one of the question that we did. Now that same question has been asking Gate 2721 also. Okay. So you can try out this question. I hope that's fine. Now we did one more question that was related to, that was, I mean, that has been asking Gate 273 and that was related to the same concept. Okay.
+
+76
+00:44:18,800 --> 00:45:06,710
+So this question is basically saying that you are basically using how many pages you are using two contiguous code pages, two contiguous data pages and one stack page. So you are using finally five pages. So basically this question is also very easy. Okay. So you are saying that you are having two, I mean, there are code pages, which are two, there are data, data pages are two.
+
+77
+00:45:07,210 --> 00:45:38,180
+and stack page is one so if you're using I think just five pages right if you're using five pages here can you tell me this is the address space so in the first level page table how much okay let me just see the address division what was the address division here probably significant and most significant okay 10 10 12 right so it is 10 10 12 now 10 10 12 now you are saying that okay only
+
+78
+00:45:39,150 --> 00:46:12,690
+I think you are saying only five pages are useful. If only five pages are useful, then can you tell me how many entries are useful at this innermost? Five entries, right? Five entries are useful here. If only five pages are useful here. Okay. Is this fine to everyone? Now, basically, two entries, I mean, see, two pages are useful here. So maybe two entries are useful here. Two entries are useful here. One entry is useful here. So five entries are useful. But in terms of chunk, can you tell me how many chunks are useful?
+
+79
+00:46:16,240 --> 00:46:44,620
+Three chunks, because this will be one chunk, this will be one chunk, this will be one chunk, right? So even though five entries are useful, but still three chunks. And now, if there are three chunks useful here, then how many chunks will be, how many entries will be useful here? Three entries, even like it doesn't actually matter, it will be just one chunk. And the chunk size is same, so total four chunk, and that's how we did it. Okay, so total four chunk, and the chunk size is 2 power 10, 2 power 10 entries.
+
+80
+00:46:46,550 --> 00:47:19,380
+So that's, that's what we said like the pasteable entry size might be given here, which is four bytes, right? Pasteable entry size is four bytes. Okay. So the pasteable entry size is given to be four bytes. So you can again multiply by the four. So it will be 16 KB. Right. I hope that is fine. But now there was one, one confusion, not the confusion. I mean, there was one process that we need to do that see the five entries are useful here, but we said that see
+
+81
+00:47:19,700 --> 00:47:50,820
+out of those five entries we will be taking the three chunks right but what if these five five entries that we have what if these five entries are contiguous itself then we will be just needing one chunk isn't it so how we can check whether these five entries are contiguous or these five entries are not contiguous so what we can do we can make use of the addresses that are given to us so they are saying that like these are the addresses which are given to us
+
+82
+00:47:55,760 --> 00:48:47,380
+This is for data. This is for stack. Okay. And this is for code. Okay. So let me just go to the next page and take all of these addresses that we have here. Now they're saying that these are the, these are the addresses and from this address, they are saying that there are two chunks from this address, two chunks from this address and one chunk is from this address. Okay. That's what they're saying.
+
+83
+00:48:47,790 --> 00:49:12,190
+Now we need to check that how many actually chunks here are useful right how many chunks here it is I mean the unique chunks that we have now what we can do we can I mean we can follow what Arjun sir said like I haven't read it completely in the last class but what he meant to said let's see that based on this particular address can you find out that how many bits are I mean how many bits will be there
+
+84
+00:49:12,440 --> 00:49:45,560
+for the outermost page table so this is the outermost page table in this outermost page table can you tell me which entry is useful 0 right may be based on the address division so 10 10 tall so maybe see what was the address division it was 10 10 and tall so what does this 10 mean that this 10 will tell that okay where to go in the outermost page table so what what did they say the outermost page table entry 0
+
+85
+00:49:45,930 --> 00:50:16,720
+What does this say? The Outermost Paystable Entry is, can anyone tell me? 4 means 1, 0, 0, 0, right? And 0, 0. So Outermost Paystable Entry is 1, right? Outermost Paystable Entry. This is saying the Outermost Paystable Entry. From here, can you find out the Outermost Paystable Entry? From here, you can see the Outermost Paystable Entry is maybe FF and all the ones. So basically, this is 10 ones. 10 ones means, I think 2 power 10 minus 1, right?
+
+86
+00:50:21,110 --> 00:51:11,010
+Okay, so this is 2 power 10 minus 1. So this is the entry number. So from this, we can definitely find out the entry number of the outermost page table. Is this okay to everyone? So you can say these are the entry numbers. So in the outermost page table, how many unique entry numbers you have? 1 is 0, 1 is 1, 1 is, this is 1, 0, 2, 3, right? 1 is this one, I mean 1, 0 somewhere here.
+
+87
+00:51:11,230 --> 00:51:42,600
+So how many unique entry numbers you have? One is the last one, I think, right? You have three unique entries number. Then what does this mean? It is it is pointing to how many chunks? One chunk, it is pointing to one chunk, it is also pointing to one chunk. So it actually means if there are three entries, which are useful, I mean, for the status, I will be needing entry number zero, for the status, I will be needing entry number one, for the status, I will be needing entry number one, zero, two, three. Okay. So can you tell me how many entries are useful?
+
+88
+00:51:42,850 --> 00:52:24,030
+three entries, which means how many chunks are useful? How many chunks are useful? Three chunks. So at the innermost three chunks are useful, right? That's how you can find out very easily. So at innermost three chunks, here one chunk, so total four chunks, right? So there is no confusion here that all of that, all of them are coming under one chunk or not. So I hope you're getting my point. See this particular, this particular address is having how many pages from this?
+
+89
+00:52:24,400 --> 00:53:00,230
+how many pages you will be having from this two pages right two pages this code code will be having two pages and how many pages this data will be having two pages how many pages the stack will be having one page so basically from this address you will be having two pages and the page sizes i don't think okay i mean whatever the page size basically now okay the two pages you are you are having basically right so now basically what will happen if you okay if i just decode this more carefully this is 0x
+
+90
+00:53:00,920 --> 00:53:37,950
+these are eight zeroes right one two three four five six seven eight okay what is what is the ten most and significant bits it are they are telling to that where to go in the outermost and then they are telling I mean remaining bits are telling what is the pay size pay sizes I think okay ten ten tall right so pay sizes two power tall bytes so basically these these bits are telling the offset offset and
+
+91
+00:53:38,230 --> 00:54:09,880
+and these are basically telling I mean in the flat level page table these are telling the page number which we have further divided it is fine to everyone I mean this is actually the page number but we we have further divided it that is fine so so what I mean to ask is basically what I mean to ask if you are having if you are having let's suppose two pages if you are having first page then what will the first address this will the address can you tell me the address of the second page can anyone tell me address of
+
+92
+00:54:10,200 --> 00:55:11,810
+page number one or the second page base address so what is the address of second page or the page one you will be saying that okay since this is the actually this is the page number you will be just having one here right that's all right so basically you will be seeing uh this is 0x and i'm writing in the hexadecimal although these are the four zeros and you will be adding one here so it is again one only so this one right so this is the address of the second page now what i mean to say that if you're having just one or two pages okay
+
+93
+00:55:12,740 --> 00:55:47,920
+See, these are the tall bits, which are basically useful for the outermost page table. So if you're having just one or two pages starting from this particular address, do you think that you can change any of these tall bits? What do you think? Can you change any of these tall bits if you're having one or two pages? No, right? I mean, these tall bits can't be changed until and unless you have too many pages. I mean, how much? We can definitely calculate, but I think this is eight bits, right? Maybe two power eight pages or something.
+
+94
+00:55:48,120 --> 00:56:21,220
+maybe you are having to after 2 power 8 pages maybe it will get reflected here right after 2 power 8 pages is this fine to everyone then it will get reflected here is this okay I mean these these 10 bits okay these 10 bits can't change with one or two pages with after how many pages these 10 bits may make I mean okay let's just talk about these tall bits after how many pages see these are the 8 bits
+
+95
+00:56:22,260 --> 00:57:14,800
+So I think after two power eight pages, okay. After two power eight pages, you may, you may start, you may start changing this bit. I mean, this is not a bit. This is a hexa. So basically it is itself containing the four bits. So after two power eight pages, you may start changing this bit. Is this fine to everyone? Oh, okay. Is this too hard to understand? Maybe I can tell you, see. So basically, I mean, this is, this is in the hexadecimal. And one thing is, you know,
+
+96
+00:57:15,080 --> 00:57:54,370
+that this is the page number which we further divided that is fine but yeah this is the page number and this is the offset right is this fine to everyone okay okay right now now if this is the page number then then this is the page can you tell me the this this is representing the page number what this is page number zero right if i have some other address maybe if i have some other address then can you tell me the page number
+
+97
+00:57:54,670 --> 00:58:39,110
+let's suppose if I have for example if I have maybe let me just check change this can you now tell me the page number in the decimal no these are the hexa this is not the this is not the binary so this is 1 2 3 3 into 4 these are the 12 bits 1 followed by 12 bits which means 2 power 12 right see this is 4 4 and 4 how many bits are they these are the 12 bits
+
+98
+00:58:39,270 --> 00:59:08,600
+So this is one, I mean this is 0 0 0 1, right? This 0 is 0 0 0 0, this 0 is 4 0s, this 0 is again 4 0s. So this is the page number, this is the page number. So what is this? This is 2 power 0 1 2 3 4 5 6 7 8. So this is 2 power 8 basically, 2 power 8. So what is the page number? If I let's suppose ask you this, then you will say the page number is 2 power 8.
+
+99
+00:59:12,500 --> 00:59:59,140
+agent it now if I ask you let's suppose this is given to you and if I ask you the page number for suppose for this then what is the page number to power for right this is the page number okay so what I mean to say that if you're having this this is a starting address then after 244 pages you will be you will start having this I mean you will start having this as a this is at us after 244 pages agent it
+
+100
+00:59:59,940 --> 01:00:28,850
+So in between these two addresses, how many pages are there? 2 power 4 pages. This should be understood to everyone. So basically what I mean to say that if you're even having 2 power 4 pages, are you changing these more significant bit? These more significant bit won't be changed like after too many pages, right? They will start changing maybe after 2 power 8 pages or something. But they won't be changing so easily. Let me know if that is fine. Which means...
+
+101
+01:00:28,630 --> 01:01:03,750
+maybe after two power eight pages maybe from this address you can say you can say maybe you tell me tell me after how many pages i will be having this address maybe let me just change this from i mean most from the most significant i can say this is the 12th bit right okay so after how many pages you will start changing this particular bit this is the upside so this is page number what
+
+102
+01:01:04,140 --> 01:01:42,420
+Can you tell me the page number here? This is page number two power eight. So basically this is page number zero. This is page number two power eight. So approximately like I need to say plus one minus one. I don't know. But yeah, there are 256 pages in between these two addresses. There are 256 pages, pages, right? Not bytes pages in between these two addresses. It is fine to everyone. So there are too many pages in between these two addresses. So what I mean to say, let's suppose, let's suppose after this page, after, after this address.
+
+103
+01:01:42,710 --> 01:02:10,810
+if I am just having one more page if I am just having one more page then will this will this change or there will be some changes here only in this particular bit if I am having just one more page then you will say that address will be I mean this will at least not change that's the only thing I want to convey that this will not change okay after one page let's suppose this is the one page here in between after one page that these three bits won't change right
+
+104
+01:02:15,930 --> 01:02:50,430
+Is this point of agreement? So basically what I mean to say that if you are having one two pages, then let's not worry about whether it will change or not. That's what I'm saying. So basically, basically in this question, in this question, they are saying that you are having, you are having, okay? In this question, they are saying you are having basically two pages, okay? Two pages starting from this. Then whatever the two pages, these bits will be just zero. I mean, the entity number will be zero only.
+
+105
+01:02:51,020 --> 01:03:25,110
+Whatever the address you are looking for in these two pages, the entry number will be zero in the outer most. Actually these three entries won't be changing. And you just need actually 10, 10. 10 bits won't be changing. Is this fine? Even after one page? Similarly, similarly, whatever is the entry number here, whatever is the entry number here, right? So which is basically we found out, I think this was, can anyone tell me what is the entry number? I think this was one. Yes.
+
+106
+01:03:25,420 --> 01:03:50,460
+because this was zero zero four means zero one zero zero so 10 bits means entry number one right this is the entry number so entry number one so even after one page okay the entry number i mean they are saying the two contiguous pages so let's not worry about whether the two or three i mean these two three five doesn't matter right that's what i want to say even after just one page this is the entry number one only
+
+107
+01:03:51,200 --> 01:04:19,910
+Okay, so basically I will be using entry number any any any address here right any address I want to know I will be using entry number 0 I will be using entry number 1 I will be using entry number 1 0 2 3 So that's the thing I'm saying right I will be using these three entries in the outermost always No other entry will be useful in the outermost even though there are two pages not just one Even though there are two pages even though this is just one page Okay, so only three entries are useful at the outermost That's what we have found out
+
+108
+01:04:20,240 --> 01:05:04,140
+So which means which means at the inner level if these are the three entries which is 0 1 and 1 0 2 3 this is the outer most whatever the address CPU generate I will be either referring to this entry or I will be going to this entry or I will be going to this entry so whatever be the case given to me I will be just using three entries which means we will be just using three chunks yes each entry is pointing to one page or one chunk okay so this is how you can verify
+
+109
+01:05:04,890 --> 01:05:41,140
+that you just need to find out the number of unique entries in the outermost and then you can trace that okay if this is the three entry we need then how much we will be needing inside I hope that is fine so basically just three unique entries only but for example they say that okay for example they say there's this data segment okay for example they say they just change this question a little bit they say instead of two segments they say let's suppose
+
+110
+01:05:43,520 --> 01:06:18,880
+This is okay. Yeah, this is the page page number. So two power 10 after two power 10, one entry will change here, right? Yes. So basically this complete thing is a page number. So if you are only looking at this, then after two power 10, they there will be some some reflection here. Okay. So maybe if they say maybe let's suppose let's suppose they say that two power 11 pages you have two power 11 pages you have of data.
+
+111
+01:06:20,390 --> 01:07:04,390
+Then since you are having 2 power 11 pages, then you have to be careful Okay, let's just see in that case. So if the data is having 2 power 11 pages Then can we see how many entries unique entries we will be actually pointing to? Okay, see Starting from this 2 power 11 pages. So this is 0 0 4 and then we have all zeros, right? Okay, and then we have this is 12 bits
+
+112
+01:07:05,020 --> 01:07:35,920
+I'm just listing down 20 bits okay 12 and 0 0 0 0 0 0 0 0 okay so this is 0 0 let's not worry about these last 12 bits okay so basically basically this is your page number is this okay to everyone this is the page number currently you can you tell me what is the page number here what is the page number here currently
+
+113
+01:07:40,120 --> 01:08:22,990
+No, this is the entry number in the outer most, but I'm just asking if you're like, suppose this is just a flat level page table. Then what is the page number? 2 power 10, right? See, if we are having zero here, this is, I mean, you just need to convert whole thing. This whole thing is a page number, isn't it? So basically, I mean, just think just in terms of the single level page table. So this is the page number. This is the page offset. Okay. I'm in the final page number.
+
+114
+01:08:23,310 --> 01:08:46,950
+or the uh yeah in the innermost what is the page number basically I can say right in the innermost what is the page number so this is the page number that you have right anyway if there is one more page then you will be having one here if there are let's suppose 2 power 10 pages if there is one more page you will be adding one right if there are 2 power 10 pages so basically if you're adding one then this is the basically there are two total 2 power
+
+115
+01:08:47,200 --> 01:09:21,640
+two pages i mean total two pages if you're adding one there are total two pages if you're adding two then basically one less page right if you're adding let's suppose two power ten then it will be if you add two power ten here then it will be one forward by ten zeros so these are the four four eight nine right i think then there will be just one here so if you add two power ten then i think there will be one here only sorry eight eight one forward by ten zeros okay
+
+116
+01:09:21,760 --> 01:09:56,170
+So one will get it will get added here. So if you add, if you add plus two power 10, can you tell me what is the number you're getting here? 0, 0, 0, 0, 0, 0, 0, 0. One will added here, which is 1, 0, right? And then 0, 0. Is this okay to everyone? If you add two power 10 in this, in this particular number. Okay. So can you tell me this is the page number? I mean, basically after, after the one page, after the one page, the page number will be, I mean, you need to add one.
+
+117
+01:09:56,400 --> 01:10:36,600
+that will the page uh like i mean uh after this there will be the so they are saying that it is using 2 power 10 pages okay let's suppose it is just using one page then this is the address which is useful i need to basically find out here the last entry right yeah that is fine so basically if they are if it is using 2 power 10 then then what is happening here then in the outermost you may end up using this entry number right which is different from this entry number so this is the
+
+118
+01:10:37,070 --> 01:11:01,140
+Outer moves, in the outer moves, the entry number is 1. In the outer moves, this is the entry number 2. So then there will be 2 entries you will be using. Okay, not just 1. That's all I want to convey. Anyway, let's not worry about it. I hope you are getting a little bit what I am saying. So basically, if you are using 2, if you are having 2 power 10 pages, there are too many pages, then only this will change. Otherwise, this won't change. Okay.
+
+119
+01:11:01,540 --> 01:11:38,350
+Anyway, if there is just one or two pages, then you don't need to worry about whether this bit, these more significant bit are changing or not. So there will be just one entry, there will be one entry here, there will be one entry here. So total three entries that we need. And all of these three entries are unique. Okay, I mean, if someone, let's suppose by any chance, if I'm having here also, if I'm having here also, let's suppose, anti number zero, okay, if I'm having here also anti number zero, then basically it will be just two unique entries. Cool. So I hope that is fine to everyone.
+
+120
+01:11:38,750 --> 01:12:11,850
+So that's how you can verify this. Okay. You just need to check that how many unique entities you are using. And then based on that, you can say that, okay, for the inner, how many unique chunk you will be needing. Now let's just move to the next thing. Okay. So that's what we talked about in the multi-level paging. Now this was our virtual memory space. And what we said that we are dividing that into pages in the paging. So what you can do, you can divide this into paging pages, something like this. I mean, maybe I can just copy that earlier thing.
+
+121
+01:12:13,040 --> 01:12:58,890
+See, what I mean to say that you are basically dividing that into pages. Is this fine to everyone? This is one page. This is another page. This is another page. This is another page. This is another page. And let's suppose, I mean, this is another page. This is another page. And whatever this page, this is another page like that. Can you divide that into the pages? I think you can definitely divide, right? Okay. Now, what is happening if you're dividing that into pages? Now you're storing that into the physical memory.
+
+122
+01:12:59,620 --> 01:13:28,680
+But there is a case that let's suppose you divide that into the pages you divided that into the pages But there's a case that you are storing this this is less of a tax zero. This is tax one. So tax zero is saved here Text one is saved here. Let's suppose this is a stack zero saved here a stack one is saved somewhere here in the physical memory You can save anywhere right data zero is saved here heap zero is saved here heap one is saved here and heap two Okay, this is let's suppose the remaining thing. This is a heap two is saved here
+
+123
+01:13:30,000 --> 01:14:05,040
+Now, one thing you might have observed is that, that this heap2 is basically just occupying very little area, right? This heap2, okay, maybe I can make this diagram little more proper. See, this is heap2, which is occupying, I mean, little area, even though that is completely available, I mean, the page is completely available to it. So, this is heap2, okay? Have you understood what I'm trying to say?
+
+124
+01:14:06,160 --> 01:14:40,540
+So see this data has occupied. I mean, this is the one page. This is one page, but there will be heaped to this is heaped to this is heaped to heaped to is not occupying the full page. Okay, not taking full page. Is this fine to everyone? If we divide that into the pages, then there will be definitely a chances that some heap or some some of this area may be a stack or something that may not occupy may not occupy the full thing. Okay, that is called. Can anyone guess it? That is called
+
+125
+01:14:40,860 --> 01:15:29,140
+internal fragmentation. So this thing is called internal fragmentation. Now you can say this is called what is the internal fragmentation? There is some page, some page is empty basically, some page within the page there is nothing. So within the page there is nothing. Can you store some page here? Can you make use of this space? Can you store some page here?
+
+126
+01:15:29,360 --> 01:15:57,370
+obviously you know right this is this is not allowed because at one slot only one page is allowed so basically since this heap this heap 2 is not occupying and maybe this is the case with the stack 2 also sorry stack 1 okay stack 0 is occupying maybe the stack 1 is also empty okay that might be the definitely the case so since these I mean there may be one or two two pages that may not be fully occupied that's why we are calling it what we are calling it internal fragmentation okay so this is the problem with the paging
+
+127
+01:15:58,830 --> 01:16:18,770
+I hope you are understanding. So there might be few pages, not much actually. I mean not much. Okay. So in this particular setup, I think there cannot be more than two, right? Because either heap or stack. So you can say not much, not much pages. But yeah, still there's an internal fragmentation. Okay.
+
+128
+01:16:19,260 --> 01:16:47,340
+So if one process, I mean, actually it is counted per process. If for one process, if I'm having internal fragmentation of something, then let's suppose I'm running 40 process or 100 process, then there will be too much of internal fragmentation. So that's the problem with paging. Okay. So you can say the advantage is that there is no external fragmentation, the fast to allocate. Do you remember the thing that we were searching in the segmentation that, okay, which one is free, which one is free, which one is free, right? And is it good enough? Is it good enough?
+
+129
+01:16:47,600 --> 01:17:16,020
+So no searching for the space, fast to allocate. And there is no callous thing. I think this is the same as compacting. So no compacting. I mean, you don't need the compacting and all. So there is a fast to allocate. You don't need compacting. There is no external fragmentation. If you remember, these were the motivation to remove the, I mean, to start the paging and to not have the segmentation. And we are achieving these particular objectives. Simple to adjust what a subject is mapped.
+
+130
+01:17:16,710 --> 01:17:48,690
+Okay, this is something else Okay, maybe in their context they want to write something else So let's not worry about it So what are the disadvantage Additional memory reference because the page table is there Obviously additional memory reference will be there Internal fragmentation is there Required space for the page table may be Substantial Okay, so these are the disadvantages I hope that is fine That internal fragmentation you have understood And there may be page table size which could be huge You can use Use multi-level paging here
+
+131
+01:17:55,500 --> 01:18:25,080
+No, you are searching for the space. I mean, basically, if you are, let's suppose, having something like this, if you want to allocate one of the page, okay? I mean, if you want to, if you have one page to allocate here, then what you can do, you always have, okay, if you are having, let's suppose, if you are having something called as pointers, free list of pointers, let's suppose there is some pointer we are maintaining that, okay, it is pointing to the first free list, it is pointing to the next free chunk and so on. So you can directly go here and you can ask, okay, what is the first free chunk?
+
+132
+01:18:25,310 --> 01:18:59,580
+you can directly allocate to the first pre-chang basically okay you can directly allocate to the first pre-chang there is no need to check whether it is good enough or not okay there is no need to check whether whether this page will come here or not since sizes are same that is why there is no good enough checking is not there okay fast to allocate basically and no compacting no external fragmentation so these are the advantages in paging now now basically like there is one more idea to reduce the page table size which is called
+
+133
+01:18:59,870 --> 01:19:51,510
+hash page table which is also very simple idea let's just quickly see this idea okay this is called hash page table now what this idea says that this is let's suppose your virtual address see this idea is basically used as an alternative to multi-level paging paging and that's what you can say it is reducing the size of page table
+
+134
+01:19:52,460 --> 01:20:48,330
+I mean the idea is to reduce the size of page table but without using multi-level paging, okay? Idea is to but without using. Can you guess something that we can do? So do you remember that page table was containing too many invalid entries, right? Maybe I can just quickly show you. See, see this that it is containing too many invalid entries, right? That is why the page table size was too big. Now what we can do, what we can do here
+
+135
+01:20:48,670 --> 01:21:18,900
+is something like this see see that is why the page table size was bigger right now this page table is having too many invalid entities and if we are having just single-level page table then we were saying that see these are i mean these are valid valid valid but these are invalid invalid invalid i mean let's suppose there are many invalid entities and these are valid now we are saying that okay since it is single-level page table i have to store whole adjectives but there is one more idea which is saying that what you do you
+
+136
+01:21:19,730 --> 01:21:49,050
+Basically, don't even store this. Okay, in the single-level itself, you don't store it. Which means whatever is the valid, you store them. Okay, if it is valid, you store this. I mean, basically, it is telling you what is the, I mean, this is basically the, for the page number zero, what is the frame number, right? Frame number. So, if it is valid, you store this frame number. So, which means whatever is the valid, you store them. Whatever is the invalid, you don't store them. Whatever is the valid, you store them. So, let's suppose there are five valid entries.
+
+137
+01:21:49,360 --> 01:22:25,430
+then what is the size of this hash page table maybe just five but obviously there is a problem with this can you can you see the problem how to see here we were doing okay for this particular page this is the frame now how i will be doing if this is the frame number written here how i will be doing that okay for which particular page this frame is yes so that is the problem so basically basically what we do now let's suppose i mean the idea here is that
+
+138
+01:22:25,780 --> 01:23:10,830
+store only valid page table entries for example if this is page table right these are the valid valid valid valid valid valid these are many invalid right suppose only five valid in that case you can say you can have a different page table which will be storing only valid entries okay so here you're having one two
+
+139
+01:23:11,170 --> 01:23:58,720
+three one two three four five now it is having five entries only now let's suppose this was the frame number let's suppose uh i mean let me write the frame numbers also let's suppose this is frame number ten this is frame number two this is frame number uh four this is frame number nine this is frame number let's suppose one okay so you just store ten two four nine one okay these are the frame numbers now how to know that
+
+140
+01:23:59,060 --> 01:24:41,930
+this frame number is corresponding to which page number so how we can know so what we can do I mean one of the idea you can have many other ideas what we can do we can basically we can ask the virtual I mean we can say that okay see I mean okay there are there are multiple ideas but what we can do we can have the virtual address and we can say to this virtual address that see let me just pass you through the hash function maybe maybe some hash function I hope you understood understand what is this hash function it will generate some unique code right
+
+141
+01:24:42,350 --> 01:25:19,340
+Then I will say that, okay, whatever this virtual address, I mean, this will be having some page number and the offset, right? So we are saying that, see, this particular virtual address, or maybe, maybe let's just not worry about this offset, this particular page number will be, I mean, if you want to know the page number of this particular, particular virtual address, then it will be stored here only. Okay, I mean, I mean the slots are fixed that if you want to store this, it will be stored here. So basically what you will be doing is the idea is correct that we will be basically having
+
+142
+01:25:19,820 --> 01:26:02,820
+that along with the frame number what we will be having the page number right we can definitely have the page number this is the page number this should be the page number zero this is page number one this is page number two let's suppose this is page number one zero two two this is page number one zero two three okay first let me know is this fine to everyone that we we can have the page numbers right we can definitely have the page numbers but still there's a few issue with that there's one issue with that I mean not not exactly the issue
+
+143
+01:26:03,120 --> 01:26:23,850
+The issue could be the speed. I mean, you may need to find out, like in this entire array, like, I mean, let's suppose you are finding out, you don't know that where, where you have stored, right? You don't know where you have stored, right? Because it need not to be, it need not to be in the, in the sequential fashion even. So the comparison will be taking some time. Okay.
+
+144
+01:26:24,150 --> 01:26:50,990
+So either it will be time or it will be more cost. I mean, if you want, you can have a single, I mean, you can do the parallel comparison that you will be studying in the computer organization, but you can have the comparator for each of this. Okay. You can have the comparator for each of this and then it can parallel compare and then you can finally find out using the decoder. Okay. But yeah, anyway, like either it will be time or it will be cost. So that's the problem here. Now what we can do to avoid all of this.
+
+145
+01:26:51,260 --> 01:27:15,110
+we can say that okay instead of searching in all of this what we can do we can go to the particular location only that we can say that this page number either it is stored here or nowhere else it is fine to everyone if I am searching for page number two then I will say that okay that will stored in this slot only so let's suppose let's just I mean let's just say that okay page number two
+
+146
+01:27:15,320 --> 01:28:29,230
+base number some random pages okay page number six page number ten page number uh 25 let's suppose these page numbers if i want to store these page numbers i mean frame number corresponding to these page numbers i will be storing this page in this particular slot only it is fine so basically basically having this page number and the frame number this is a good scheme but it will take a lot of time to search it will take so whenever there's a time issue then what we can do we can
+
+147
+01:28:29,500 --> 01:29:00,370
+huge hashing solution is so so in this particular scenario what we can do we can say that okay we will be hashing our page numbers which means this particular page this particular slot will be using for specific page numbers only so what we can do we will be having the virtual virtual address and then we will say that okay these are the frame numbers which we are storing and we will be storing the frame numbers in
+
+148
+01:29:00,880 --> 01:29:30,260
+I mean for let's suppose this particular for this particular address the hash is this so which means I will be storing the I will be storing the the frame number in this particular slot and if there is some some other virtual address which is also mapping to this particular thing then I will store that also in this particular slot so there is a collision and we can resolve the collision using the chaining so which means that in this table we can have multiple frame numbers corresponding to multiple page numbers so that's how it will look like
+
+149
+01:29:30,580 --> 01:30:14,080
+I mean, you can have multiple, basically frame numbers. So what you will be doing, there will be a virtual address given to you. You can hash it and then you can see the slot number. And then you can have the chaining here. Is this fine to everyone? Or maybe, maybe you can do the internal chaining, which means you can, I mean, after this, maybe you can, you can say that, okay, I will be going here. I mean, internal, internally, you can reach all or externally, you can reach all. So basically, basically, since you are basically having, since you are having multiple frames here, multiple frame numbers here,
+
+150
+01:30:14,280 --> 01:30:43,860
+frame number frame number multiple frame numbers here that's why you will say that you also need to store the page number isn't it because if they are multiple frame numbers how you will get to know so basically this is how it actually look like that you will be having you will be hashing it to some slot this will be having the page number page number this will be having the frame number and where to go the chain pointer I mean you can have internal or external like whatever you want to do so basically let's suppose then you go here
+
+151
+01:30:44,100 --> 01:31:10,710
+here you will be finding it or you go here you will be finding it you can even have the external I think external will be a good one so basically what we are doing this is how the hashing hashed page table look like that you are saying that okay I will be first hashing then I will be saying okay is it is it here
+
+152
+01:31:10,990 --> 01:31:42,930
+okay I mean I will be checking that this page number is matching to my my particular my particular page number from here I can find out the page number right so I will check is this is this matching matching to my particular page number if not then I will be going to somewhere else right there is a pointer here I will be going to somewhere else and I have resolved this using the chain let me know if that is fine to everyone that is what I mean to say I mean that's very easy there will be one slot in that slot you will be going okay maybe we can see in the galvan also
+
+153
+01:32:09,990 --> 01:32:37,750
+so multi-level paging was one of the way and yeah hash page table is another way so as they are saying a common approach for handling the address space larger than 32 pages to use the hash page table with the hash value being the virtual page number yeah so basically what you can do every page number you can have hash so hash value is virtual page number right so the hash value is virtual page number okay I mean these are some theoretical concept that I just want to cover in case they ask
+
+154
+01:32:38,870 --> 01:33:12,240
+Okay, so basically from this you can have the page number and then you can hash it right and then what what else they are saying each entry in the hash table contains a linked list of element that has to the same location to handle the collision. Okay, each each element consists of three fields page number and the value map to the page mapped page frame number basically page number frame number and the pointer right so these are the three things that we have page number frame number and pointer that's all
+
+155
+01:33:13,260 --> 01:33:40,820
+Algorithms work as follows. Let's just quickly read this algorithm. The virtual page number in the virtual address is hash to the hash table. The virtual page number is compared with the field one. Okay. I'm in the first field. I'm the first element in the linked list. I mean, I'm the normal hashing the way it works. Right. So it will, you will go to the first element. If there is a match, the corresponding frame number is fetched. Otherwise, no match, subsequent entities and linked list are searched for the matching virtual page number. And the scheme is shown in this figure 8.19.
+
+156
+01:33:41,760 --> 01:34:16,520
+So this is the hash page table. Now, I mean, this is the good diagram. So let me just paste it there only. So see, this is the hash page table. So what they're saying is something like this. They're saying that you are having, you are having this as page number, which is getting hashed. Now, here you will be having three fields. One is page number. Another one is frame number. Another one is pointer, right?
+
+157
+01:34:17,780 --> 01:34:48,460
+Now, now, basically, this is the page number. I mean, this is the first element. Let's suppose this is the page number. This is the frame number. Now you are looking for page number P. Is this, is this what you're looking for? Tell me, is this what you're looking for? No, then go to the next point, next element in the link list, right? This is the link list. So go to the next element. Is this what you're looking for? If this is what you're looking for, because this, this is matching, I mean, this is matching. If this is what you're looking for, then what you can do, you can take this frame number. This is a frame number, right?
+
+158
+01:34:54,310 --> 01:35:16,750
+frame number you take this frame number take this offset and then you get your physical address Okay, so that's how you can do it. I mean, this is basically called hash page table where you are not storing all the all the page entries you are only storing the valid entries Okay, and this page number is hashing to one of the slot and then you can resolve the collision using the Channing that's very easy
+
+159
+01:35:16,970 --> 01:35:48,000
+This is one theoretical concept. I mean, it is, it is useful, but they have not asked it anywhere. So that's why, but still like I thought of sharing it. Have you understood that what is happening here? Okay. This is one way to, to save the page table. But obviously this chaining is, chaining might be costly here. So that is why, I mean, this may take a lot of time to search. Okay. Chaining might be costly here. So that's what they are saying maybe.
+
+160
+01:35:48,290 --> 01:36:28,160
+So that's why we have something called inverted page table. I mean, this is actually one other way to save the, save the page table size. So we have seen, we have seen, I mean, page table size is too big. So we have seen multi-level paging to solve it, which is very important because it's, it's popular everywhere. I mean, almost every system use it. We have seen something called as hashed page table.
+
+161
+01:36:31,580 --> 01:37:37,410
+Now we are going to see something called as inverted page table. But before that, is this hash page table concept vertically okay to everyone? Is that what we are doing? Yes, Linux uses multi-level paging only and I think three levels. Okay. Most probably it uses three levels. Okay. Yeah. We do not use chaining. Then we cannot grow. Yes. Right. Right. Page table. Okay. So basically here we need chaining. I hope you understood that how it is working.
+
+162
+01:37:39,160 --> 01:38:26,750
+Let me see if there is anything else in the galvan. The variation of this scheme. Okay. Variation. We don't want to reach too much of variation. Therefore, a single page table. This is the variation. But yeah, that's the only information that is given in the galvan. Maybe if you want, I can just paste this also. Okay. Maybe later, if you want, you can check it out. Now, let's just see inverted page table, which is another way to reduce the page table size. Now you, you might have seen that there are many page tables for many processes, right?
+
+163
+01:38:28,070 --> 01:39:04,840
+So what we can do, we can have one global page table for all the processes. That's one interesting idea. This is one global page table for all processes. Okay. This is one global page table for all processes. Now, what does this say? Let's just, let's just check. What does this say that if you're having, let's suppose this page table, this page table, which is actually storing, which is actually storing.
+
+164
+01:39:05,140 --> 01:39:35,720
+some frame numbers like this is a frame number 4, this is a frame number 0 then what we can have we can say these are the frame numbers it is saying that in this frame frame number 0 which page you are storing 1 which page you are storing in this in this frame number 1 which page you are storing 2 are you getting my point so basically in this frame number 2 you are storing page number 0 in this frame number 2 so these are the frame number you are storing page number 0 of which process also you can store here
+
+165
+01:39:36,880 --> 01:40:26,380
+So in this particular frame, what is being stored, which page number of which process you can store. Now there is only one page table, which is called global page table and also the inverted page table. Right. Is this fine to everyone? I mean, what does this actually mean to say? Yeah. So basically it is saying that for every, you can say for every frame, there is a row. Hence size of size of inverted page table.
+
+166
+01:40:32,600 --> 01:41:10,400
+is equal to number of frames into inverted page table entry. Now, how does this work? Let's just see. So there are actually many virtual pages. What we can do, and these are empty, right? I mean, many of the entries are basically invalid. What we can do, we can have one global page table, right? Global page table. And we can say that, okay, for many virtual pages, we can just have one global page table. So there are so many virtual pages.
+
+167
+01:41:12,110 --> 01:41:41,760
+and comparatively very few physical frames which are allocated actually in reality per per process at least right now what we can do we can have a global page table so how does this work let's just see so suppose you are generating you're generating some logical address now this is the page number so we will take the process ID we will check okay using the process ID and the page number we will check this process ID and page number is present where in which particular entry let's suppose it is present here then what is the frame number
+
+168
+01:41:43,120 --> 01:42:07,160
+Frame number will be I, which slot number basically. This is just a slot number. So I will be just checking for this particular thing that where it is present. That's how the address translation is working. It is okay to everyone. So basically I will be just checking for the process ID and the page number where it is present here in this inverted page table. And I will be getting the frame number. Do I need to store the frame number?
+
+169
+01:42:09,830 --> 01:42:49,990
+No, right? This is by default. I mean, when this slot, you are so you can directly go and you can say that, okay, this is the frame number that you have. That's how it works. Now, obviously, you can guess what is the problem here. This, this extensive search, right? This is the extensive search, which is a problem here. You will be searching like this. So what can we solution? Yeah. So in this inverter page table, there is one global page table and so on advantage bound at amount of the memory for the page table and so on disadvantage is the
+
+170
+01:42:50,190 --> 01:43:23,110
+costly translation so again hashing can help so here also we can use hashing do you remember we have used hashing in the normal page page table so here also we are not going to do this right but here hashing can help and we can call it you want to have some name for that maybe earlier we called hashed page table here we can say it hashed inverted page table i mean somehow we can use the hashing that is all i want to say so that's what they are saying
+
+171
+01:43:24,240 --> 01:43:54,620
+Okay, so what's done in the practice some system use the inverted page table may be the old systems But the hierarchical page table seems to be dominated at this point in time Okay, I'm in the multi-level paging is useful Now again the trade-off is that memory stored to the page table could be could be decreased because it is bounded that okay, but the number of frames but the time could increase So what is the solution for the time? Use the hashing So here here earlier you remember we were just using the page number for the hashing here we will be using page number and
+
+172
+01:43:54,840 --> 01:44:36,640
+process id okay we will mapping using page number process id and we can we can do the hashing here also that is that will be called inverted sorry what do you want to call it hashed inverted anyway so basically what they are saying is that let me just go over from here so what you can do you can you can just store the valid entries and then you can use the hashing for that right you can say that okay i will be doing one thing for every page number
+
+173
+01:44:37,020 --> 01:45:06,940
+I will be I will be just storing that I mean this page number and and what is the frame number okay I mean instead of basically storing so many invalid entries I will be just storing page number and frame number but the time was increasing there so so what we did we hashed it right we use the hashing and then we said that okay page number frame number I will be storing page number frame number but along with that one pointer I hope that that is fine to everyone okay now that is called hash page table
+
+174
+01:45:07,300 --> 01:45:37,940
+And there was one other idea to reduce the page table size, which is inverted page table, which is a global page table. Again, the time is again here, like you need to search using the process idea and the page number. The time was increasing. So again, we can hash it. That's all. Okay. So these are the one or two theoretical concept that I wanted to convey. Now, I hope that is fine. Now, can you try solving this particular question? Specifically, actually, this A and B are not covered here. But yeah, can you solve the C and D? And we will be doing later.
+
+175
+01:45:40,700 --> 01:46:18,980
+This is this has been asking gate to send 22% ocean. So they're saying that which is the statement is false. Can you check whether these two statements are true or false? The memory access using the given inverted page table is always same for all incoming virtual letters. So what is inverted page table? You need to search for for the process ID and the page number process ID in the page number. Now, since you're searching linearly, okay, maybe you're searching something like this.
+
+176
+01:46:19,160 --> 01:46:48,810
+I mean, maybe whatever way you are searching, right? Then in the best case, you can find this page ID, page ID and the process, sorry, the page number, the process ID in the page number, in the best case, you can find it in very first. But if there is some other virtual address, you may find it later, right? So that is definitely possible. So they are saying that it is always same for all the incoming virtual addresses. So it is false. What about this? In a system that is using the hash page table,
+
+177
+01:46:49,240 --> 01:47:20,820
+If you are using the hash page table means what? Can you recall the hash page table? What was the hash page table? The hash page table is basically saying that you are storing, I mean the page number you are hashing, right? Page number you are hashing here. So you are storing basically you will say, okay, I will go here. If the page number is not fun, I will go here, something like that. Okay. In a system that uses the hash page table, if two distinct virtual addresses v1 and v2 map to the same value in the hashing, then the memory access time for these addresses will not be same.
+
+178
+01:47:21,340 --> 01:47:55,740
+What do you think? So suppose this is a linked list Okay, linked list which is having too big That is suppose this is a too big linked list Then do you think the memory access time will be same or it will not be same? Obviously it will not be same, right? If these are too distinct then it will not be same Because for someone it might be here, for someone it might be here or vice versa, right? Whatever it is but it won't be same if this is too distinct Okay, if these are the two distinct virtual addresses then the memory addresses map to the same value while hashing
+
+179
+01:47:56,310 --> 01:48:32,130
+Then the memory access time of these addresses will not be same. Okay. So that is true. This is false. I mean, I think I don't know if they ever ask anything else from this particular concept, but yeah, this, these are the two theoretical concept that I want to share. Okay. Let me go over this. Yeah. So if you want, you can read this paragraph, but I think I have covered it. I have taken this skin shot and I put it in my slide already. Cool. Yeah, that is the one.
+
+180
+01:48:32,590 --> 01:49:04,540
+This diagram and this diagram is same, actually. Now, let's just do one thing. Maybe as a homework, what you can do, you can try these simple questions that what is the size of inverted page table. Okay. Do you want to try these as an homework because answer is on the next page. The size of the inverted page table grow with the size of the virtual letters. What do you think? This is true or false. This is false, right? It will depend on the number of frames. Basically, it is false. Similarly, there are there are a few things that has been asked here.
+
+181
+01:49:04,770 --> 01:49:46,170
+Suppose you want, you wanted to use inverted page table data and the size of inverted page table and so on. So you can do as in homework, okay? Because answer is on the next page. Is this fine? I mean, if you want, you can just do this. These are the simple question, the size, only the size questions they're asking. And I think you can calculate the size. What is the size of the inverted page table? You can calculate a size like this, right? This is a good question. If you want, you can try now or maybe later. So they're asking which of the following is true. But base and bound will, will be the faster than single level page table.
+
+182
+01:49:46,390 --> 01:50:18,220
+just base and mount no segmentation will be on average faster what do you think base and mount in the single level page table it will require two memory access I mean you first need to access the page table so obviously it will be slower base and bound there is no memory access I mean metadata access bound to be there you will directly access in the frame so yes that that will be faster right so that will be faster what about this have you understood why this is faster because in the single level page table one memory one extra memory access required
+
+183
+01:50:19,810 --> 01:51:05,250
+to access the page table. An inverted page table on an average will be faster than a single-level page table. Just think about it, okay? What do you think? Need not to be, right? I mean, you may have to search something which is very low, right? So it may not be faster. It will depend on how much time search is taking, how much time the memory access. So here you are searching and here you are basically doing the memory access, right? Just one memory access, here you are searching within the memory.
+
+184
+01:51:05,530 --> 01:51:43,720
+may be multiple memory access you are doing okay yeah here you are doing just one memory access here you are doing multiple memory accesses single level page table will be on an average faster than multi-level page table i think that is true because that will just require one one memory access it will require multiple memory access i mean a multi-level page table will be faster than the inverted page table actually it will depend i mean here the multi-level page table is basically having
+
+185
+01:51:44,060 --> 01:52:25,480
+multiple, I mean, maybe two, three accesses, right? Multiple accesses, maybe two, three accesses, but the inverted may be having multiple accesses. So what do you think? Multiple, multiple search you might need to do. So I think this should be faster or this should not be faster. Your segment, segment table is also the memory access. Yes. Segment table is also the memory access. So see here, the multi-level page table will be faster or not. It will depend actually on the number of labels first of all, right? If the number of labels is too much, then what?
+
+186
+01:52:26,040 --> 01:52:58,420
+If the number of labels itself is too much, you can multiple memory accesses depending on the number of page tables to traverse, right? If number of labels itself is unnecessarily or keeping too much of the multiple labels, then it won't be useful, right? So that's why that is not the correct answer, okay? That's why I have not marked it here. Yeah, but it is hypothetical, I agree. I mean, we won't be keeping that many multiple labels, but I mean, but for the question, this is false.
+
+187
+01:52:58,920 --> 01:53:31,060
+for the sake of question this is false right as they are saying multiple page uh page table would require multiple memory access depending on number page tables two drivers okay single label required one and inverted page table would required one memory access to access page table uh to translate the virtual address to physical address base and one will required zero memory access single label page table and inverted page table will required both required one memory access to access the page table
+
+188
+01:53:32,570 --> 01:54:18,310
+And what about the searching? So here also you need to do searching, right? Basically in the inverted page table, searching is also required. Okay. Now there are, yeah, that is, these are the two, three questions that we have. You can just do these questions as in homework. Okay. This question is basically saying, uh, size of inverted page table, size of the inverted page table and so on. Okay. These two questions you can do as a number. So that is all I wanted to convey today. Right.
+
+189
+01:54:19,060 --> 01:55:00,610
+Sir, what was the size of inverted page table? Same as total number of frames. Yes, that is true. Number of frames into entry size. So now till now, whatever we have done is basically all the things is in the main memory. I mean, currently we have not said that we can we can use the swapping out. But in the next lecture, we will move to the next chapter here, which is virtual memory. Okay. So here, if you look at this. Yeah. So if you look at this here in the galvin, there are two chapters here.
+
+190
+01:55:00,860 --> 01:55:26,800
+one is our main memory another one is virtual memory inside the main memory they they have everything i mean the paging segmentation that's what we have studied right inside the main memory they have everything now there is another concept of virtual memory okay in the virtual memory if you see the first line they have written in the chapter 8 i mean the earlier chapter we discussed the various memory management studies used in the computer system all these studies have the same goal to keep see here
+
+191
+01:55:27,050 --> 01:55:54,740
+to keep many processes in the memory simultaneously to allow the multi-programming. However, they tend to require an entire process to be in the memory before it can execute. So they tend to require, which means that paging segmentation, whatever we have seen, I mean, they can be supported by the virtual memory. It's not the case that they are not supported by the virtual memory. But till now, we have not assumed it. Is this fine to everyone? That they tend to require the entire process in the memory before it can execute. That's what they are saying.
+
+192
+01:55:57,710 --> 01:56:26,510
+Now what we will be doing, we will be starting virtual memory which is actually just a concept I mean everything we have already seen, just a concept that okay how we can do the page replacement, demand, paging and these things. All the concept of virtual memory is obviously applicable to the paging segmentation or whatever we have seen. It is just that we have not just explicitly said it. So I mean this line I am emphasizing because to make sure that you understand one thing that paging doesn't mean virtual memory.
+
+193
+01:56:27,800 --> 01:56:43,600
+Paging is just one concept, it doesn't mean virtual memory. There is one concept which is virtual memory, which says, see, you can see here, they are themselves saying that however they tend to require the entire process in the memory, which means
+
+194
+01:56:43,880 --> 01:57:13,180
+in the chapter 9 they are saying that in the chapter 8 whatever we have seen which means in the chapter 8 we have seen something called as paging segmentation and everything right as you can see here in the chapter whatever we have seen they all of these techniques required the entire process to be in the memory to execute but we can use the virtual memory also okay so we will see the virtual memory and these techniques this virtual memory is definitely applicable to any of this but but it's not like that whenever I'm saying paging it definitely doesn't mean the virtual memory okay is this fine to everyone
+
+195
+01:57:14,450 --> 01:57:43,050
+Similarly, if I am saying segmentation definitely doesn't mean the virtual memory. Virtual memory is some concept that can be implemented using paging, can be implemented using segmentation or maybe using something else. This is one idea that we generally use with the paging or the segmentation. So we will talk about this virtual memory in the next class. So I hope things are clear now.
+
+196
+01:57:43,870 --> 01:58:03,160
+Okay, so today was just a revision and one or two theoretical concepts I wanted to convey, which was inverted page table and the hash page table. Mostly. Okay, these are the two concepts I want to convey. Just just go through the slide again. If there is any problem, you will you will get to understand. Okay. Thank you so much, everyone. Take care. Bye bye.
+

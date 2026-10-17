@@ -1,0 +1,1493 @@
+{
+  "id": 26,
+  "title": "Diagnose paths with ICMP",
+  "file": "026_Recording_Lecture_31_Internet_Control_Message_Protoc.mp4",
+  "seconds": 7029.12,
+  "segments": [
+    {
+      "start": 5.23,
+      "end": 38.63,
+      "text": " Hi everyone. How are you doing? Okay. I hope you're doing great. So let's get started. Okay. So today we are going to see one topic, which is called Internet control message protocol or in short, it is called ICMP. And then we will again see, I mean, we will also see one more, one more topic, which is called network data translation or NAT. Okay. So there are two topics, which are we, we are going to see. One is",
+      "avg_logprob": -0.17307692837829775,
+      "no_speech_prob": 0.74658203125
+    },
+    {
+      "start": 38.87,
+      "end": 68.11,
+      "text": " ICMP, another one is network attach translation. Let's get started. So we have seen already IP header, right? And IP fragmentation and these things we have already seen. But in network layer, if you're using IP protocol, and if you remember that this is the only protocol that we can use, right? I mean, to send the data. So there is no alternative to IP, which means like there are alternatives to TCP, like UDP, right? UDP is one alternative to TCP.",
+      "avg_logprob": -0.16538915769109186,
+      "no_speech_prob": 0.334716796875
+    },
+    {
+      "start": 69.13,
+      "end": 95.97,
+      "text": " Similarly, there are alternatives in other other layers also, but in network layer, there is no alternative to IP. So IP is some protocol which do not have any alternative at a network layer. Okay. And we are going to use IP only, but this IP has few drawbacks. What are those drawbacks? One is that that it does not have, it does not have error control mechanism, which means that yeah, there is a checksum, there is a checksum, but it does not have error correcting also and",
+      "avg_logprob": -0.14286748416445874,
+      "no_speech_prob": 0.244873046875
+    },
+    {
+      "start": 96.22,
+      "end": 123.48,
+      "text": " also does not have basically uh acknowledgement which means that whenever whenever you are sending some data okay and if this router has to drop this this packet let's suppose this is a packet router or any final destination if someone has to drop the packet then tell me are you going to send any acknowledgement or negative acknowledgement or something like that at ip no right i mean at ip there is no acknowledgement system at data link layer yes",
+      "avg_logprob": -0.11878764772989664,
+      "no_speech_prob": 0.7421875
+    },
+    {
+      "start": 125.37,
+      "end": 149.91,
+      "text": " at tcp utp we will see like at tcp there is a acknowledgement system at transport layer but at ip there is no acknowledgement so basically basically till network layer i mean if you if you recall that we were having network layer network layer data link layer physical layer transport layer and these layers right transport layer and so on so so what happens",
+      "avg_logprob": -0.1287411908868333,
+      "no_speech_prob": 0.327392578125
+    },
+    {
+      "start": 150.17,
+      "end": 177.49,
+      "text": " that whenever you are sending some data let's suppose the data is coming from an application layer and whenever you are sending some data that finally goes through the physical medium and then it goes to the host and that is also having all the layers here which is data link layer, network layer, transport layer, physical layer, application layer all the layers are here at the B also I hope you recall now whenever you are sending some data let's suppose you are talking about transport layer then",
+      "avg_logprob": -0.11873372520009677,
+      "no_speech_prob": 0.48193359375
+    },
+    {
+      "start": 177.84,
+      "end": 205.77,
+      "text": " the moment this data gets delivered to the transport layer, then this transport layer will send some accolangement to this transport layer. Do you remember in one of the lecture I talked about it? Anyone remember that this transport layer is going to send accolangement to this transport layer. If transport layer is having the accolangement, I mean whatever protocol you are following here, if this is having the accolangement system. Okay, suppose data link layer is having the accolangement system. So the moment this packet reaches to this data link layer,",
+      "avg_logprob": -0.1416843191294347,
+      "no_speech_prob": 0.08416748046875
+    },
+    {
+      "start": 206,
+      "end": 235.72,
+      "text": " will this send will this send the acknowledgement to this data link layer what do you think yes right so basically this data link layer will send the acknowledgement to the previous hope whatever it was so i hope you recall a little bit i talked about it right so it will it will send it will send the acknowledgement here and if there is a transport layer which is also following the acknowledgement system then this will also also send the acknowledgement here for example for example let's suppose",
+      "avg_logprob": -0.12058424115504908,
+      "no_speech_prob": 0.77294921875
+    },
+    {
+      "start": 236.08,
+      "end": 270.59,
+      "text": " that here I have host A let's suppose that is connected to a router and which is connected to host B and let's suppose okay for now let's take take one more router and which is connected to host B now this host will be having all the layers which means application layer transport layer network layer or if you want I can write the full forms application layer transport layer",
+      "avg_logprob": -0.07520833353201549,
+      "no_speech_prob": 0.398681640625
+    },
+    {
+      "start": 272.64,
+      "end": 303.68,
+      "text": " network layer data link layer and physically okay let me write only two full forms so this host A will be having all the layers now tell me will this host B be also having all the layers the answer is yes right host B will also be having all the layers okay now in between the routers routers doesn't have all the layers which means router anyway doesn't need this transport layer application layer right I mean router doesn't need to send the data through the browser or something",
+      "avg_logprob": -0.1436360653800269,
+      "no_speech_prob": 0.68310546875
+    },
+    {
+      "start": 304.06,
+      "end": 331.52,
+      "text": " you are you are displaying something something here so that's why you need these layers here i mean you you have the browser application layer so so basically these all the layers are at host A all the layers are at host B but but router doesn't have all the layers okay so if these are the two links then actually router have two physical layers two data link layers and only one network layer okay so we will talk about it later on",
+      "avg_logprob": -0.0853987089518843,
+      "no_speech_prob": 0.452880859375
+    },
+    {
+      "start": 331.84,
+      "end": 362.17,
+      "text": " okay that that what are the layers that router has but yeah but if any packet is going then it will first go to this pass through this this application layer then transport layer network layer physical layer and then this physical layer data link layer and then this one network layer and then then like this is this so good everyone if any packet is flowing then it will flow something like this okay so don't worry that that what does this mean that router is having two layers and so on so if you want for now i can i can just keep it one",
+      "avg_logprob": -0.09410837429379104,
+      "no_speech_prob": 0.79296875
+    },
+    {
+      "start": 362.41,
+      "end": 393.81,
+      "text": " okay which means router let's let me just write like this physical layer data link layer and it only has still network layer okay network layer similarly here physical layer data link layer network layer cool now if some packet is going let's suppose you are following the ecological system a transport layer and a data link layer so whenever you are sending some packet from here to here okay let's suppose you are sending some packet from here to here then then this packet will be delivered to this router",
+      "avg_logprob": -0.10304276331474907,
+      "no_speech_prob": 0.83056640625
+    },
+    {
+      "start": 394.11,
+      "end": 424.15,
+      "text": " Now what this router will do, what this router will do, this router will be basically sending the accoladement from which layer to which layer. Let's suppose data link layer and transport layer both are following the accoladement, right? The protocols here. Then the moment this is delivered, then this router will be sending the accoladement from where to where. Can anyone tell me? From this router data link layer to this data link layer. Till data link layer only, it will be sending the accoladement. Okay, it doesn't even know that whether there's a transport layer or not.",
+      "avg_logprob": -0.16763565891472867,
+      "no_speech_prob": 0.765625
+    },
+    {
+      "start": 424.31,
+      "end": 436.39,
+      "text": " is this ok to everyone but this is the acclimate this router is sending there will be there will be one video there will be one session that the session name will be that how all layers are working together",
+      "avg_logprob": -0.2986918563066527,
+      "no_speech_prob": 0.49072265625
+    },
+    {
+      "start": 436.68,
+      "end": 466.28,
+      "text": " okay at that time it will be very very clear that how it is happening that that all of these layers how these all of these layers are working together at that time it will be very very clear don't worry but for now i'm just trying to make you understand that which whatever layer is following the acknowledgement system or whatever protocol is following the acknowledgement that particular layer will be sending to the corresponding layer okay this data link layer will be sending to this data link but the packet will be passing through now tell me the MAC addresses that we are using at at this particular packet",
+      "avg_logprob": -0.07771381775015279,
+      "no_speech_prob": 0.861328125
+    },
+    {
+      "start": 466.68,
+      "end": 491.59,
+      "text": " here the MAC addresses which will be which one of host A it will be source will be hosted destination will be let's suppose this is R1 this is R2 this is host B right now now if we are sending some packet from here to here then source will be host A and the destination will be for the MAC address the destination will be R1 so it will be R1 MAC right",
+      "avg_logprob": -0.09921875186264514,
+      "no_speech_prob": 0.325439453125
+    },
+    {
+      "start": 491.82,
+      "end": 520.43,
+      "text": " So that is why this R1 Mac, the data link layer will say that, okay, I was the destination for the data link layer. It doesn't matter whether you have network layer or not. I mean, for the data link layer, it means that it is my sole responsibility to play all the roles. It's like that, which means if R1 Mac destination was there, so it will be sending the equivalent. Why? It will say that, see, you have put R1 Mac as a destination address. So that is why that is why I'm equalizing that, okay, I have received this, right? Okay, now the packet will be delivered here.",
+      "avg_logprob": -0.15948661044239998,
+      "no_speech_prob": 0.6142578125
+    },
+    {
+      "start": 520.77,
+      "end": 551.22,
+      "text": " Now tell me, will this data link layer send the acknowledgement? If yes, then to whom? To R1 or to host A? Will this data link layer send the acknowledgement? Yes, to whom? To only R1. Because for the MAC address, the source was R1 and the destination was R2. So it will be just sending the acknowledgement like this. Now, when this packet reaches further to the host B, now at that time, tell me,",
+      "avg_logprob": -0.19716494845360824,
+      "no_speech_prob": 0.46533203125
+    },
+    {
+      "start": 552.2,
+      "end": 580.42,
+      "text": " Will this data link layer send the acknowledgement? If yes, then to whom? To R2, to R1 or to A? This data link layer. This data link layer doesn't even know that where this R1 and A, right? This data link layer only deals with the MAC addresses, so it will only send to R2 if there is an acknowledgement that you want to send. Now the packet will travel the data link layer to network layer and then to the transport layer. Now interestingly this transport layer will again send the acknowledgement to whom?",
+      "avg_logprob": -0.17242809312533489,
+      "no_speech_prob": 0.425048828125
+    },
+    {
+      "start": 582.15,
+      "end": 613.11,
+      "text": " the transport layer will again send the acknowledgement to so here in this case the transport layer because there is no other transport layer so it will be using the ipad or such and so on so the transport layer will be sending the acknowledgement to the transport layer itself right so transport layer only so there will be one more acknowledgement i mean the last acknowledgement which which will be from this transport layer okay so that will be from this transport layer to this transport layer so this is one more acknowledgement that you need to send",
+      "avg_logprob": -0.15315593469260944,
+      "no_speech_prob": 0.72412109375
+    },
+    {
+      "start": 614.11,
+      "end": 635.78,
+      "text": " is this ok to everyone that how acknowledgement travel in the layers ok we will talk about this in more detail when we talk about that how all the layers are working together there is a different video there will be the different session where we will talk about that how all the layers are working together ok cool so here the little bit picture might be ok to everyone that whenever you are sending some data",
+      "avg_logprob": -0.14633413270497933,
+      "no_speech_prob": 0.27783203125
+    },
+    {
+      "start": 636.02,
+      "end": 665.63,
+      "text": " at that time if some layer is following the acknowledgement then that layer to layer the acknowledgement work right the layer to delay the acknowledgement work so detailing layer to this detailing layer only and then at the last this transport layer will be following will be sending the acknowledgement to from here to here okay now now this IP protocol that we use at the network here does not have any any acknowledgement system but as I said that these layers are are should be I mean just like that these these are like that that",
+      "avg_logprob": -0.14477040573042266,
+      "no_speech_prob": 0.595703125
+    },
+    {
+      "start": 666.19,
+      "end": 691.29,
+      "text": " I mean these layer try every of these layer try to provide the error error correction error error deduction or the flow control and these things like I mean error control error control mechanism these things that every layer try to provide obviously like not every layer can provide but here the network layer does not provide anything I mean that this IP protocol is called unreliable protocol unreliable means it does not provide error control flow control anything",
+      "avg_logprob": -0.18136161246470042,
+      "no_speech_prob": 0.08685302734375
+    },
+    {
+      "start": 692.13,
+      "end": 719.85,
+      "text": " we are not sending the acknowledgement from here to here from from network layer to network layer okay so so here this ip is an unreliable protocol okay unreliable unreliable means it does not provide error control it does not provide the flow control and so on okay so it is it is having lack of error control lack of assistance mechanism so that is why we have just one small solution which is called ICMP okay let's just see that what what is this ICMP",
+      "avg_logprob": -0.15234374984477958,
+      "no_speech_prob": 0.71923828125
+    },
+    {
+      "start": 720.19,
+      "end": 757.3,
+      "text": " but is the motivation clear to everyone that why we are studying ICMP because IP is unreliable okay so there is one protocol which is called ICMP which is there to help IP protocol let's just see that how it works okay so suppose that you are sending some data okay you're sending some data at that time let's just assume just a second yeah so at that time let's just assume that whenever you're sending some data that",
+      "avg_logprob": -0.08918539660700252,
+      "no_speech_prob": 0.6357421875
+    },
+    {
+      "start": 758.04,
+      "end": 789.17,
+      "text": " your data packet okay your data packet is getting lost which means let's suppose this router because of some reason because of the some reason this router is basically Dropping your packet. Okay, let's suppose your data packet is getting lost Is this so good everyone? So whenever you are sending the packet, let's suppose this data packet is getting lost and this router I mean this router has to drop the packet maybe because of some reason then then in case of IP you do not send any acknowledgement and so on right",
+      "avg_logprob": -0.18385922156491327,
+      "no_speech_prob": 0.88037109375
+    },
+    {
+      "start": 789.44,
+      "end": 818.89,
+      "text": " in case of IP you do not send any acknowledgement so basically at the network layer at the for the IP okay for the sake of IP you will never get to know that your packet is dropped isn't it because you are not sending the acknowledgement there is no timer and anything I mean the upper layers will take care but what I am saying here is that but the ICM like sorry the IP protocol is not taking care right okay now to support it we have one more protocol which is called ICMP protocol it says that if you are if you are dropping okay",
+      "avg_logprob": -0.11621094022744469,
+      "no_speech_prob": 0.904296875
+    },
+    {
+      "start": 819.2,
+      "end": 860.21,
+      "text": " So, for example, let's suppose that as I said, this protocol is going to, I mean, this, this particular packet is going to be dropped for some reason. Okay. Now, now let's suppose that you are, you need to drop it for some reason. And then at that time, if it is IP protocol at the network layer, you are not going to send any acknowledgement that, okay, I mean, I mean, this source will never, never get to know that why this packet got dropped, right? The source will never get to know the reason that why it got dropped.",
+      "avg_logprob": -0.10643749642372131,
+      "no_speech_prob": 0.5625
+    },
+    {
+      "start": 860.43,
+      "end": 902.49,
+      "text": " Isn't it nice that we also tell the region to the source that why this packet got dropped? Tell me. What do you think? So, so it is obviously nice that, that the source, source should get to know that why this packet get dropped. So that is why we send some ICMP message, which is called ICMP report message. We, we, we tell the region. Okay. We tell the region that why this packet got dropped. So there may be many regions. Can you think about any region that why this packet might, might get dropped? Maybe.",
+      "avg_logprob": -0.13671874739229678,
+      "no_speech_prob": 0.76416015625
+    },
+    {
+      "start": 902.87,
+      "end": 935.57,
+      "text": " Maybe this router, why this router can drop any packet? Maybe the TTL is zero. TTL is zero. Can you think any other region? Maybe the router is getting too many packets, right? Router is getting too many packets and the router queue is full. Router queue is full. I mean, it is getting too many packets and it can't store the new packet, right? That's why it has to drop it. Can you think any other region? Maybe the IP address",
+      "avg_logprob": -0.16155946515138866,
+      "no_speech_prob": 0.89501953125
+    },
+    {
+      "start": 936.15,
+      "end": 965.26,
+      "text": " IP address that you mentioned here. Okay. The IP address that you mentioned here, there is no matching entry and there, let's suppose there is also no default entry. I mean, uh, it's, it's find out that this IP address, you can't forward, right? Maybe, right? That could be the region. Yeah. Maybe the region could be the checksum error checksum error. This could be the region that okay. I mean, the checksum is not matching. Maybe this could be the region. Yeah. Maybe, maybe you have said do not fragment to be one that okay, uh, do not fragment.",
+      "avg_logprob": -0.16611841791554502,
+      "no_speech_prob": 0.830078125
+    },
+    {
+      "start": 965.63,
+      "end": 992.33,
+      "text": " but here the m2 is very less let's suppose this packet is let's suppose 4000 bytes but this m2 is 1500 bytes can you can you forward this packet if the do not fragment is one no right obviously no so in that case you will be you will be saying that okay i need to drop it so there could be many many reasons to drop it but but like i mean all of the for all of this what we are going to do",
+      "avg_logprob": -0.09666895719019922,
+      "no_speech_prob": 0.312255859375
+    },
+    {
+      "start": 992.56,
+      "end": 1022.16,
+      "text": " we are going to say to the router or to the host that okay the dual packet has been dropped and that was the region okay interestingly we will also tell the region whether the ttl was zero whether the route or router queues full or what was the region okay so i hope you understood the idea that whenever we are dropping the package then at the router or any host or anything whenever the whenever whenever any device is dropping the packet then it will send icmp message right it will send the icmp message to the source and",
+      "avg_logprob": -0.13288551346163882,
+      "no_speech_prob": 0.361083984375
+    },
+    {
+      "start": 1022.4,
+      "end": 1058.04,
+      "text": " to tell that okay why this packet got dropped so now as you can see here that now it is saying oh now I see that why it got dropped right so we are going to send that ICMP report message and this host will get to know that why it got dropped so that's why this host is saying that oh now now I see that why it got dropped so for example what happens if a router must drop or must discard a packet because it cannot find a uh it cannot find our router to the destination which means that cannot forward the packet cannot",
+      "avg_logprob": -0.1012105850486068,
+      "no_speech_prob": 0.82763671875
+    },
+    {
+      "start": 1058.53,
+      "end": 1091.28,
+      "text": " let's suppose I mean there could be many many regions we will discuss the regions later on but it's just one sample regions okay cannot forward the packet maybe the TTL is zero okay if it may be the case that router has to how it has to drop the packet it may be the case the final destination may also have to drop the packet can you can you think about the reason that final destination has to drop the packet can it drop the packet due to TTL can the final destination drop the packet due to TTL is zero or something no right",
+      "avg_logprob": -0.13023158934499537,
+      "no_speech_prob": 0.88720703125
+    },
+    {
+      "start": 1091.6,
+      "end": 1120.45,
+      "text": " we discussed about it so so when can the final destination maybe maybe maybe the reason is that see whenever you are sending some packet right let's suppose this is the network in this network this is your final destination whenever you are sending some packet you will be sending the packet using the ip address right i mean this this packet will be reaching using the ip address now there is some something called as port number okay within within the host also there there are port",
+      "avg_logprob": -0.08702256803711256,
+      "no_speech_prob": 0.9306640625
+    },
+    {
+      "start": 1120.75,
+      "end": 1137.23,
+      "text": " okay so what we are going to say that let's suppose the sport number is something okay let's suppose x the sport like we will see this port number in the tcp we will see this later on that what is that port number and all but there are port numbers so basically there are many applications that are that are basically using the internet right",
+      "avg_logprob": -0.09721610852530305,
+      "no_speech_prob": 0.3056640625
+    },
+    {
+      "start": 1137.46,
+      "end": 1166.38,
+      "text": " Maybe it may so happen that your Google Chrome is using the internet. Maybe you may use Gmail application that is using the internet or maybe you are on a mobile and on a mobile you are using different different Android apps and all of the Android apps are using the internet. So basically there could be many, many apps that could be using the internet. So within the host to uniquely determine that which app is using the internet, what we have, we have something called as port number. So basically there are ports.",
+      "avg_logprob": -0.17998798492436224,
+      "no_speech_prob": 0.73193359375
+    },
+    {
+      "start": 1167.44,
+      "end": 1200,
+      "text": " within the host right now what may so happen that wherever this this packet is reached till the host then let's suppose this port number this destination port number is let's suppose 1300 but here if there is no 1300 port then what we will do what this host will do the final host will drop if the port is the destination port is I mean the destination IP was matching but destination port is not there in the final destination right which means the 1300 port is not there here",
+      "avg_logprob": -0.12450132899461909,
+      "no_speech_prob": 0.91455078125
+    },
+    {
+      "start": 1200.28,
+      "end": 1227.62,
+      "text": " Then what will this host do? This host will drop the packet, isn't it? See, why this host will ever, ever drop the packet? If the packet is successfully reached here, then why it might drop? Maybe, maybe the packet is having error. Obviously, I mean, this is one reason that packet is having the error. Maybe this could be the reason. What else? That the packet is not having the error. Okay. I mean, everything is fine. But the destination port was wrong. There is no destination port here. Something like the 1300.",
+      "avg_logprob": -0.1253310385144363,
+      "no_speech_prob": 0.5224609375
+    },
+    {
+      "start": 1228.72,
+      "end": 1260.44,
+      "text": " Okay. So this destination port will come later on in the TCP and UDP, but this could be one of the region. What could be the other regions that this final destination is dropping? Maybe, maybe this packet got fragmented, right? Let's suppose this packet got fragmented into a small, small packets. Maybe, maybe let's suppose the packet got fragmented into a small, small packets. And then, then what is happening? If packet get fragmented into a small, small packet, then what is happening? That",
+      "avg_logprob": -0.12656249552965165,
+      "no_speech_prob": 0.650390625
+    },
+    {
+      "start": 1261.26,
+      "end": 1293.16,
+      "text": " it may so happen that one of the fragment ok one of the fragment is maybe let's suppose this is lost right let's suppose this fragment is lost right this fragment is travelling but it is lost and these two fragment arrive then this host will do what do you remember there is one term called reassembly right this host will be reassembling all the packets will this host be able to reassemble these two packets without this fragment no right so this host will wait for some time",
+      "avg_logprob": -0.1600354332284829,
+      "no_speech_prob": 0.9453125
+    },
+    {
+      "start": 1293.45,
+      "end": 1322.09,
+      "text": " that's called reassembly time this host will wait for some time obviously it cannot wait for infinite time it will wait for some time if this packet has not been achieved has not been arrived in this time then this will say that okay i need to drop the drop this particular fragment i also need to drop this particular fragment okay so there could be many regions that host may need to drop there could be many regions that router may need to drop we will see all the regions okay don't worry about it but for all of these regions what we do we send",
+      "avg_logprob": -0.05095563486351499,
+      "no_speech_prob": 0.56005859375
+    },
+    {
+      "start": 1322.5,
+      "end": 1350.12,
+      "text": " one packet that what we call that packet the packet is called ICMP packet yes right so if final destination need to drop then also we will send the ICMP packet if the router needs to drop then also we will be sending the ICMP packet okay I mean the final destination may drop maybe because the because it has not received all the fragments within the predefined time limit right this could be one region",
+      "avg_logprob": -0.13782792621188694,
+      "no_speech_prob": 0.12274169921875
+    },
+    {
+      "start": 1350.38,
+      "end": 1395.39,
+      "text": " What could be another region? I mean, there are many, many regions. This is just some sample regions. What could be another region? Maybe the port number is wrong. Okay. Something like that. Good. So let's see what it is written here. This screenshot I have taken from for ocean now, but by the way, is the motivation for ICMP killer to everyone? So why we are using ICMP to support IP? So whenever the packet is lost, right? So whenever the packet is lost, we will tell the source that why it is lost.",
+      "avg_logprob": -0.16273834606853582,
+      "no_speech_prob": 0.81201171875
+    },
+    {
+      "start": 1404.04,
+      "end": 1462.2,
+      "text": " packet is lost using what we will tell to source host always to the source host okay source host so that is the motivation for ICMP I mean that's why we use ICMP now let's see what this forojan is saying so this is what I have taken from forojan",
+      "avg_logprob": -0.20325741373886497,
+      "no_speech_prob": 0.139404296875
+    },
+    {
+      "start": 1468.46,
+      "end": 1491.08,
+      "text": " The ICMPv4 or IPv4 is using basically ICMPv4 has been designed to compensate the two above deficiencies. So what are the deficiencies that I mean, what happens when source, I'm sorry, the destination, the final destination, drop the packet, what happens when the router drops the packet, right? So I mean, we should be basically telling the source source that why this packet would drop.",
+      "avg_logprob": -0.17338423803448677,
+      "no_speech_prob": 0.1900634765625
+    },
+    {
+      "start": 1491.93,
+      "end": 1524.77,
+      "text": " it is a companion to the IP protocol okay it is just a help to the IP protocol companion means like it is just a helping IP protocol okay so ICMP itself is also a network layer protocol just like IP ICMP also a network layer protocol however its messages are not passed directly to the data link layer okay which means interestingly do you remember that we have IP and then we have data link layer header here we have TCP header here right and so on right",
+      "avg_logprob": -0.09281589811586816,
+      "no_speech_prob": 0.76513671875
+    },
+    {
+      "start": 1525.35,
+      "end": 1568.93,
+      "text": " So if something is network layer protocol, just like IP, then what we do? Let's suppose that we have ICMP also. Okay. Suppose we have ICMP also. For example, this is ICMP. Now, if this is network layer protocol, then it will be encapsulated in data link layer protocol generally.",
+      "avg_logprob": -0.12383396189604233,
+      "no_speech_prob": 0.05792236328125
+    },
+    {
+      "start": 1569.42,
+      "end": 1596.47,
+      "text": " but this ICMP they are saying that ICMP even though this is a network layer protocol even though this is a network layer protocol we don't encapsulate directly into the or that detail layer protocol so we will still so this is a ICMP header that will still be basically getting encapsulated in IP only that's what they are trying to say okay so we will see this in detail don't worry but here they are saying that if",
+      "avg_logprob": -0.11825283989310265,
+      "no_speech_prob": 0.473388671875
+    },
+    {
+      "start": 1596.67,
+      "end": 1626.7,
+      "text": " Even though this is a network layer protocol, still we will encapsulate it in the IP. Okay, we will see this. So see, so let's suppose this is the ICMP message, right? So this ICMP message will get encapsulated in the IP only IP header. So don't worry, there are many examples using which you will get the, you will get to understand this. Okay. That's what I'm trying to say here. Cool. So this ICMP messages are actually of two types.",
+      "avg_logprob": -0.11090829494957612,
+      "no_speech_prob": 0.361572265625
+    },
+    {
+      "start": 1626.96,
+      "end": 1654.2,
+      "text": " one is called error reporting another one is called query message so the error reporting messages we have talked about right i mean a little bit idea we have just gained so what is the error reporting message that whenever a router drop or router or any device drop a packet then we send the icmp message to the source host right in case of discard or error like if there is any error by which they are discarding then we send the icmp message what are this icmp query message",
+      "avg_logprob": -0.07914225299221773,
+      "no_speech_prob": 0.626953125
+    },
+    {
+      "start": 1655.35,
+      "end": 1683.61,
+      "text": " These are the messages which are not directly for the error. I mean, we are not saying that because of the error, we need to discard or something. So it is just that, let's suppose this is the router. This is another router. So this router wants to know whether this router A wants to know that whether this B is down or this B is up. Then what they can say? Hi. Can this router say hi to this B? Yes. So that is called ICMP message. I mean, this router will be sending ICMP query message.",
+      "avg_logprob": -0.1137820523009341,
+      "no_speech_prob": 0.35107421875
+    },
+    {
+      "start": 1684.03,
+      "end": 1713.62,
+      "text": " okay and this query and like there is something called query and reply so basically this is this comes in the pair which means it will be sending high and then it will be also sending the ICMP message and this will say hi or hello okay so basically ICMP messages are of two types one is error reporting whenever the router or the device has to discard some packet then they will send the ICMP message and whenever any device just want to say hi",
+      "avg_logprob": -0.10138888681928317,
+      "no_speech_prob": 0.671875
+    },
+    {
+      "start": 1713.98,
+      "end": 1739.58,
+      "text": " Then also they can send the ICMP message. That kind of IP messages are called ICMP query message. If they just want to say hi. Now let's just see these messages and everything in very good detail. So maybe a little bit you have understood that what is ICMP and what is the type of the ICMP messages, what is the purpose of it. So let me just quickly revise that what I said.",
+      "avg_logprob": -0.17061781643450946,
+      "no_speech_prob": 0.06195068359375
+    },
+    {
+      "start": 1740.26,
+      "end": 1769.7,
+      "text": " ICMP is there, the primary ID of the ICMP is there, that if someone is discarding, then we are just sending the ICMP message, right? But there is one more type of ICMP message, which is called ICMP query. Do I send ICMP query because someone has discarded the packet? Or when we send, without even discard, right? Without even discard, we can send. If I just want to say hi, should I be just first discarding the packet? No, I will just send the hi, right? So basically this ICMP query messages are not dependent on any",
+      "avg_logprob": -0.14930555508250282,
+      "no_speech_prob": 0.8623046875
+    },
+    {
+      "start": 1770.7,
+      "end": 1799.65,
+      "text": " any message to be dropped or any message to be discarded something like that it is just like high okay just to check whether this is up or not so we will see both of them in good detail so let's just see first what is this ICMP error reporting message okay the first type of message is error reporting again this error reporting can also be different different types for example destination is unreachable okay so destination unreachable is one type source quench time exceeded parameter problem redirection and so on",
+      "avg_logprob": -0.10347733033054016,
+      "no_speech_prob": 0.546875
+    },
+    {
+      "start": 1799.79,
+      "end": 1829.58,
+      "text": " So let's just see this error reporting messages now as I told you here that there could be many many reasons by which by which any of the router need to drop the packet right there would be many reasons So we have listed down few of the reasons that okay. What are the reasons? Using which like the router I mean because of which the router has to drop the packet, right? So one reason is that okay TTL one reason is that router queues fill another reason was checksum and so on now",
+      "avg_logprob": -0.18614783582205957,
+      "no_speech_prob": 0.81494140625
+    },
+    {
+      "start": 1829.95,
+      "end": 1856.89,
+      "text": " Now these regions are basically widely divided into like this. Okay. So if TTL, if TTL is a zero, then I will be sending ICMP measures and I will say it is, it is of this type. Okay. It is of this type. So what I'm saying here is that whenever this router has to drop the packet, then at that time we are going to send the packet, send the ICMP packet. Now you only tell me that",
+      "avg_logprob": -0.12207031133584678,
+      "no_speech_prob": 0.15283203125
+    },
+    {
+      "start": 1857.2,
+      "end": 1873.37,
+      "text": " Is this just enough to send the icmp packet that okay I need to drop it? Or is it better that I should also say that why I am dropping it? See, just it is saying that I am dropping it. Does this actually help this host? Anyhow.",
+      "avg_logprob": -0.22916667084944875,
+      "no_speech_prob": 0.08343505859375
+    },
+    {
+      "start": 1874.49,
+      "end": 1904.2,
+      "text": " This host actually need to know that okay, maybe the do not fragment I said it to one maybe because of that Maybe there's some error. Maybe HXM error. Maybe maybe the queue was full Maybe the TTL TTL become zero right agent it agent it a good good thing to also tell that why why I am discarding it So what what we can do can can anyone guess the guess the Total I mean design that how we can tell why how we can tell this why okay? Let's suppose these are the four options. So what we can do",
+      "avg_logprob": -0.23682064984155737,
+      "no_speech_prob": 0.41259765625
+    },
+    {
+      "start": 1904.5,
+      "end": 1939.79,
+      "text": " how we can tell why what do you think if let's suppose these are the four options then we can say we can say why using the numbers right we will say that okay if i'm saying that okay if i'm saying let's suppose this is zero if i'm saying zero then it means that ttl ttl is ttl was the issue if i'm saying one it means the router q was issue if i'm saying two maybe checksum was the issue if i'm saying three then df equal to one was the issue something like that right",
+      "avg_logprob": -0.08960597618766453,
+      "no_speech_prob": 0.47802734375
+    },
+    {
+      "start": 1940.03,
+      "end": 1970.02,
+      "text": " So maybe, maybe in this ICMP message, in this ICMP message or in this ICMP header, let's suppose this is ICMP header, isn't it okay to just include one type? Okay, what is the type of this ICMP packet or ICMP error message? Isn't it a good idea? So that is why, that is why we have broadly divided into these types. Then maybe, maybe if destination is unreachable, destination is unreachable means that if some router is dropping,",
+      "avg_logprob": -0.14386793071368956,
+      "no_speech_prob": 0.474609375
+    },
+    {
+      "start": 1970.38,
+      "end": 2006.92,
+      "text": " and it is saying destination was unreachable then maybe maybe it is not able to forward maybe the ip address that we have mentioned right the forward decision it is not able to take the ip address we have mentioned is not matching to any of the uh any of the routing entry and let's suppose there is also no default entry or something then router will say there okay destination is unreachable maybe host can also say host can also say destination is unreachable when can host say destination is unreachable can anyone guess it when can host say the destination is unreachable whenever",
+      "avg_logprob": -0.09768963802574027,
+      "no_speech_prob": 0.70361328125
+    },
+    {
+      "start": 2007.66,
+      "end": 2035.48,
+      "text": " The port is not correct, right? Whenever the port mentioned here in the incoming packet, the port mentioned here is not correct. So the final delivery won't happen. So destination will say that, okay, I mean, I cannot deliver it. So destination and reachable. So maybe the router can say destination and reachable. This can also say destination and reachable, right? I mean, anyone can say. Similarly, let's suppose this is TTL. No, no, all the time exceed. I mean, this is one of the type of the message, which is time exceed. Now tell me.",
+      "avg_logprob": -0.15378937477201926,
+      "no_speech_prob": 0.501953125
+    },
+    {
+      "start": 2035.88,
+      "end": 2067.98,
+      "text": " can the router say that time exceeded can the router say time exceeded yes whenever ttl is 0 router can say can the host say time exceeded can the host say host for ttl host can't say ttl equal to 0 host will not be ascending but but time exceeded could be also there in case of host i mean this is just one type of the message whenever like the way they have defined i'm telling you whenever there is a problem of",
+      "avg_logprob": -0.11336436415923402,
+      "no_speech_prob": 0.7333984375
+    },
+    {
+      "start": 2068.7,
+      "end": 2091.94,
+      "text": " fragmentation and all the fragments have not been arrived within the time if all fragments do not arrive within the time then also it will drop them and it will say that I am dropping and the reason is time exceeded okay I am dropping but the reason is time exceeded I am dropping reason is yes I am dropping reason is TTL0 so this router will say I am dropping reason is TTL0 I am dropping reason is",
+      "avg_logprob": -0.126194850136252,
+      "no_speech_prob": 0.419677734375
+    },
+    {
+      "start": 2092.11,
+      "end": 2122.37,
+      "text": " The framerates have not been arrived within the time, right? All the framerates have not been arrived within the time. So basically this time exceeded covers both the things actually. Anyway, so just like this, this destination reachable, unreachable can be sent by router, maybe it is not able to forward to the correct interface, can be sent by this host, right? Similarly, so what I'm saying, what I'm trying to say, you just understand like this, that this error messages, error messages are of how many type? For example, okay, broadly they have said these are of",
+      "avg_logprob": -0.1620324831309281,
+      "no_speech_prob": 0.74365234375
+    },
+    {
+      "start": 2122.51,
+      "end": 2159.98,
+      "text": " five types but within this five types also each of them can have different different types for example this time exceeded could be could be because ttl equal to zero this time exceeded could also be because uh all fragments have not been arrived have not arrived in time so what i'm saying that each of this each of this error reporting message is also different different types is this okay everyone okay",
+      "avg_logprob": -0.10409902597402597,
+      "no_speech_prob": 0.6923828125
+    },
+    {
+      "start": 2160.25,
+      "end": 2183.13,
+      "text": " each of this is also different different type so what they did see what they did instead of doing the flat numbering which means i mean one of the number could be like this they they could have sent this is this is number one this is number two this is number three let's suppose this is a two type four five six seven instead of doing that they said they said let me do one thing this is number one this is number two number three number four number five",
+      "avg_logprob": -0.09084109224854632,
+      "no_speech_prob": 0.255615234375
+    },
+    {
+      "start": 2183.67,
+      "end": 2213.78,
+      "text": " Then they said this is if this is of this type let's suppose some type for example This is of this type then they will say this is 3a. This is 3b. Is this fine to everyone? I mean the design is like that only, okay? So broadly they have divided into some types and within the type if this is then they will see ABCD something like that, okay? Cool. Now, let's just see what are these types actually? So, so they are saying that these are of few types and one of the first type is",
+      "avg_logprob": -0.18831522283346758,
+      "no_speech_prob": 0.7392578125
+    },
+    {
+      "start": 2213.98,
+      "end": 2242.39,
+      "text": " called destination unreachable let's see that what is this destination unreachable okay when we are going to send this destination unreachable message now by this time you must have guessed it who can send it can the router send the destination unreachable yes can the final destination send destination unreachable can the final destination also send the destination unreachable message yes so router can send whenever it is not able to forward to the correct ip final or the final destination can also send whenever",
+      "avg_logprob": -0.07638888934043923,
+      "no_speech_prob": 0.348876953125
+    },
+    {
+      "start": 2242.8,
+      "end": 2277.63,
+      "text": " Whenever it is not able to forward to the correct code, right? So, let's just see what they have written. The most widely used protocol, widely used error message is unreachable. It's of type 3. So, it is widely used by the way. It is of type 3. Type means like, I mean, they must have divided into some type. So, this is type 3. I mean, they are giving some number here. So, this is number 3. The message uses a different code. Now, interestingly as I told you that here also,",
+      "avg_logprob": -0.20039061767359576,
+      "no_speech_prob": 0.92578125
+    },
+    {
+      "start": 2278,
+      "end": 2307.42,
+      "text": " there are many many types so so what they have done this is if this is three then they have done three a three v so they are calling it type i mean this hierarchy they are calling it type and then they are calling it code okay so can you tell me what is the type of three a what is the type of three a three what is the code of three a okay something like that so which means which means they are saying that okay this is a type this is a this is a code",
+      "avg_logprob": -0.11107673001761484,
+      "no_speech_prob": 0.82275390625
+    },
+    {
+      "start": 2307.92,
+      "end": 2340.18,
+      "text": " So actually, actually in the header, in the header itself, they have, this is the ICMP header, okay? They have mentioned type and code, okay? Type and code they have mentioned. So which means they are saying that if you, if this is the ICMP data, ICMP header, then I'm having type, now type, for the destination unreachable, what is the type? I mean, you do not need to remember obviously, but I think this is written, right? 03. So 03 is the type for the destination unreachable. So they will say, okay, 03.",
+      "avg_logprob": -0.16589355689939111,
+      "no_speech_prob": 0.83447265625
+    },
+    {
+      "start": 2340.59,
+      "end": 2366.87,
+      "text": " and within this, within this also, let's suppose they also want to specify that the destination was unreachable because of what? because of maybe the IP, IP address not found, maybe because of Mac address not found, maybe because of the port number not found, or there may be many other reason, right? So they're going to specify using which number? Code. Okay. So I hope you understood that what is happening here. Cool. So now, now let's just move to",
+      "avg_logprob": -0.2397365191695737,
+      "no_speech_prob": 0.33349609375
+    },
+    {
+      "start": 2367.15,
+      "end": 2396.21,
+      "text": " the very first type of this error reporting message one is that destination unreachable so this destination unreachable can we send away so can we send away the final destination or in between the routers so the most widely used error message in the registration unreachable the message uses the different code to define the type of error message and the region by the datagram has not reached to its final destination for example they are saying actually you do not need to remember all of this the code zero is saying what i mean all of this is concerned by the way from for ocean",
+      "avg_logprob": -0.15869565243306366,
+      "no_speech_prob": 0.40625
+    },
+    {
+      "start": 2397.33,
+      "end": 2426.23,
+      "text": " I think that book I have already opened it. Yeah, this is 10 and one that I was seeing for some other topic, which is network and address translation. Yeah, this is for vision. See here, this destination and digital right. So this is skin should I have taken from for the most widely used protocol, for example, zero tell something and so on. Right. So you don't do not need to remember these names, but you just need to remember only one idea, which is that whenever you're discarding, you're going to send some packet.",
+      "avg_logprob": -0.23918269434545794,
+      "no_speech_prob": 0.493408203125
+    },
+    {
+      "start": 2426.69,
+      "end": 2455.57,
+      "text": " okay that's all you need to know let's just quickly discuss that what kind of packets are possible although you don't do not need to remember them okay you you can send destination unreachable for example code 0 is telling source that host is unreachable okay that host was unreachable which means that this may happen when when a host is using HTTP protocol to access the web but the service down which means the which means let's suppose that the port is unreachable okay the host or port host or port both are actually same here that",
+      "avg_logprob": -0.16821508472030228,
+      "no_speech_prob": 0.8115234375
+    },
+    {
+      "start": 2455.84,
+      "end": 2488.08,
+      "text": " if you are using code zero let's suppose you are saying type is three and code is zero what what these two information tell you this type three is telling you that destination is unreachable now here also there are many possibilities so what kind of this is that port was actually unreachable port was unreachable everyone got it that what this type and code is doing anyway these are the two fields which are in the header",
+      "avg_logprob": -0.11546148073881171,
+      "no_speech_prob": 0.1773681640625
+    },
+    {
+      "start": 2489.08,
+      "end": 2524.85,
+      "text": " This may happen. Okay. The message destination host is not reachable is created and send back to the source. Okay. What exactly are the ports in the device? It's just a software. So basically it will be explained like your doubt is very good. Let me just put your doubt. But for now, just take only just for this lecture, take this, just my word that there are ports, but we will explain this ports in the TCP and UDP. In the transport layer, we will explain this. Okay. Okay.",
+      "avg_logprob": -0.18735924014100083,
+      "no_speech_prob": 0.79443359375
+    },
+    {
+      "start": 2525.07,
+      "end": 2553.44,
+      "text": " So, Sujith is saying that what exactly are ports in the device is just a software implementation done by OS to transmit the packet. I'm a bit confused. So yeah, this doubt is very nice, but we will be explaining this in the TCP and UDP. Okay. So basically, within the, within the host, there are ports and that will be running the applications. Okay. So there will be many, many ports that will be running the application. So you will get to understand in the TCP and UDP. For example, if you want to, if this is, let's suppose this host is just like a web server. Okay.",
+      "avg_logprob": -0.17980238422751427,
+      "no_speech_prob": 0.45849609375
+    },
+    {
+      "start": 2553.68,
+      "end": 2584.16,
+      "text": " It could be, I mean, one horse could be like a web server, could be like a mail server and so on. You will get to understand these things later on. But yeah, this could be the web server also, mail server also and so on. So web server runs at the specific port, which is let's suppose 80. Similarly, mail server runs at the specific port. We will talk about these things, right? Okay. So, so if you're, if you're saying type equal to three and code equal to zero, it means the destination is unreachable and that to the port was unreachable. Now there is, there is next type of message.",
+      "avg_logprob": -0.15856073964649522,
+      "no_speech_prob": 0.84765625
+    },
+    {
+      "start": 2584.65,
+      "end": 2624.32,
+      "text": " error message what is the next type of error message can you read it that is called source quench right so now let's just see the next type of error message which is source quench okay can you can you just guess that uh what it might mean so score squinch means that whenever the router queue is full okay this type is four which informs the center to the network that that i encounter the congestion and the data has even dropped so basically congestion means the router queue is full",
+      "avg_logprob": -0.1358730620944623,
+      "no_speech_prob": 0.80908203125
+    },
+    {
+      "start": 2624.81,
+      "end": 2663.9,
+      "text": " source quench we send whenever router in other words ICMP adds a kind of congestion control mechanism to the IP protocol by using this type of message okay so congestion control means that just to tell that okay my queue is full or not so whenever any router queue is full it will drop the packet it will drop the packet it will say source quench it will say ICMP error source quench I mean they will just define some type the type here is 4 okay anyway so",
+      "avg_logprob": -0.1365131582084455,
+      "no_speech_prob": 0.90673828125
+    },
+    {
+      "start": 2665.34,
+      "end": 2696.21,
+      "text": " The source quenches, I mean I hope you understood that what is the source quench? You just need to understand the definition, the literal definitions only, that what the source quench is. And now, what is the third type? Time exceeded, right? Can you guess what this time exceeded might be? Whenever the TTL is 0, right? This time exceeded we use. And also whenever, like as I told you that whenever you are not able to get all the fragments within the same time, within some predefined time. Okay.",
+      "avg_logprob": -0.2169681953495009,
+      "no_speech_prob": 0.87109375
+    },
+    {
+      "start": 2705.02,
+      "end": 2747.5,
+      "text": " This time exceeded. Yeah, this is the time exceeded here. They haven't put the heading for the time exceeded, but that's fine. So let's just see this time exceeded. So what they're saying, they're saying that we discussed the purpose of TTL in that IP datagram explained that it prevents the datagram from being aimlessly circulated in the Internet, right? Why TTL is there? Just to make sure there is no loop. Do you remember the purpose of TTL just to make sure there are no loops, right? Now what they're saying further.",
+      "avg_logprob": -0.1388171438343269,
+      "no_speech_prob": 0.8125
+    },
+    {
+      "start": 2748.06,
+      "end": 2777.14,
+      "text": " that when a TTL becomes zero, the data curve is dropped by budgeting the routers and the time exceeded message, which is of type 11. I mean, there are types of every message, but the code zero is sent. So there will be code. If the code is zero, then TTL is actually zero sent to the source to inform that about the situation. The time exceeded message is code one can also be sent. Okay. If the code is one, then, then we are saying that fragments have not been reached. Okay. All the fragments have not been reached within the predefined period of time. So this is",
+      "avg_logprob": -0.1852163531459295,
+      "no_speech_prob": 0.66748046875
+    },
+    {
+      "start": 2777.34,
+      "end": 2821.75,
+      "text": " time exceeded. These are just type of the messages. Cool. Now let's just see the next type. What is the next type parameters problem? Or maybe we can see first the redirection. Okay. Redirection parameters problem. Anything you can see. Maybe I have just, yeah, I've just followed this weekend. So the redirection, let's just see, right? Okay. Can you guess the redirection? Can you guess it? That what does this might mean? It is also very simple.",
+      "avg_logprob": -0.1803977214477279,
+      "no_speech_prob": 0.5947265625
+    },
+    {
+      "start": 2822.09,
+      "end": 2852.2,
+      "text": " it is basically saying that let's suppose there's a router this is router this is also router right let's suppose this router r1 this is r2 this is r3 forwards a packet to r2 but r2 has figured out that it needs to forward the packet to r3 basically to r3 i mean basically this this packet r1 is sending to r2 and then r2 is sending to r3 so this r2 will will send a redirection message to r1 will say let's see",
+      "avg_logprob": -0.0974308870589504,
+      "no_speech_prob": 0.455810546875
+    },
+    {
+      "start": 2852.49,
+      "end": 2881.81,
+      "text": " that i'm also sending to r3 you could have directly sent it okay you could have directly sent it so r2 won't drop the packet it is not not because of the dropping of the packet it is just a polite way of saying that you could have directly sent it okay instead of you know sending to me and then i'm sending you could have directly sent it so that's called redirection message so as you can read read it here the redirection message so this was the time exceeded and this is redirection so why why they are using the redirection message",
+      "avg_logprob": -0.06230304484106913,
+      "no_speech_prob": 0.80615234375
+    },
+    {
+      "start": 2883.24,
+      "end": 2911.12,
+      "text": " is used when the source uses the wrong router to send or send out its message the router redirect the message to the appropriate router so if it is using the wrong router then it will redirect to the appropriate router but inform the source that it needs to change its default router in the future okay maybe if you are using me as a default router then it will say that okay you you you should have used this as a default router okay because anyway I'm also using this as a default router I'm I'm anyway sending to this you could have directly sent sent to this that's called the",
+      "avg_logprob": -0.11999199049085633,
+      "no_speech_prob": 0.73046875
+    },
+    {
+      "start": 2911.31,
+      "end": 2943.4,
+      "text": " redirection message so it will send icmp redirection now let's just see one more type of type of icmp error message which is a parameter problem can anyone guess what is this parameter problem might be check some right maybe because of some parameter is problem so a parameter problem can be sent when either there's a problem in the header of the datagram or some option is missing or cannot be interpreted so basically they will say that okay",
+      "avg_logprob": -0.07556423743565878,
+      "no_speech_prob": 0.357666015625
+    },
+    {
+      "start": 2943.95,
+      "end": 2983.06,
+      "text": " there's a problem in the header which means that I mean I'm having some problem in the header and I cannot interpret when there's a problem in the header of a datagram or some options are missing so basically if there's a parameter if the problem in some parameter or maybe the checksum is not good not matching then we will say that okay let me send the ICMP error message so let's just see this parameter problem here",
+      "avg_logprob": -0.10360440696504983,
+      "no_speech_prob": 0.24267578125
+    },
+    {
+      "start": 2983.47,
+      "end": 3010.04,
+      "text": " A parameter problem message can be sent. The same thing they have also written. I mean, I have copied from this particular thing only. So I think the broader idea we have understood that why we are sending the ICMP messages, right? Maybe the destination is unreachable, maybe the source quench, which means router queue is full, or there are going to be many, many regions. This is just few. These are also just few. There are actually many, many types. Maybe I have here.",
+      "avg_logprob": -0.17541273092886187,
+      "no_speech_prob": 0.56689453125
+    },
+    {
+      "start": 3011.95,
+      "end": 3042.04,
+      "text": " So there are many, many types. Yeah. This is one, two, three, four, five. And in this also there are actually many, many code. Okay. So basically these are the five types that we have in this. Also there are many, many types actually. Right. In this also there are many, many types. So we are just saying that this is just one idea that there are five types in these five types. There are also many, many types. And these types are determined using code that code zero, two, 15. They're using it is only using code zero only zero to three or zero and one, zero and one. Okay. So basically, as you can see.",
+      "avg_logprob": -0.17368197623564272,
+      "no_speech_prob": 0.7900390625
+    },
+    {
+      "start": 3042.3,
+      "end": 3072.5,
+      "text": " How many types of destination unreachable is there? 16 types, right? Source squint is only one type, redirection, four types, something like that, TTL, two types, parameter problem, two types. Anyway, so from all of this, what do you need to know that whenever there's a problem because of which, because of whatever reason you're dropping the packet, you just send the ICMP error message. But there is also one type of message, query message. What are this query message? These are just to say hi, right? Just say.",
+      "avg_logprob": -0.2192665230144154,
+      "no_speech_prob": 0.76123046875
+    },
+    {
+      "start": 3074.86,
+      "end": 3103.74,
+      "text": " something like this query messages so it is it is just because of the high that okay I'm just sending the high cool now I think these are just type type we have seen now importantly this error messages are always sent back to the original source which means whenever the router drop in the packet",
+      "avg_logprob": -0.21861530249488764,
+      "no_speech_prob": 0.248046875
+    },
+    {
+      "start": 3104.06,
+      "end": 3135.41,
+      "text": " It doesn't send to the only the next previous hope or something. It's sent always to the original source. Okay. Always send to the original source, which has generated the IP fragment. Okay. So what is happening that whenever any router or anything needs to drop the packet, then it will send the ICMP message to whom? Original source. Now, now do the, do this router know what is the original source? Do this router know what is the original source?",
+      "avg_logprob": -0.17091836278535882,
+      "no_speech_prob": 0.443115234375
+    },
+    {
+      "start": 3139.91,
+      "end": 3181.38,
+      "text": " Yes, right. Obviously, obviously, this router know what is the original source. Okay. Hope you understood. Now, for example, for example, let's suppose that this is a host A, which is sending to host B. Okay. This is host A. This is sending to host B. This is R1. This is R2. Now, let's suppose this R2 has to drop the packet, which is coming from A to B. So let's suppose the source IP is",
+      "avg_logprob": -0.13046116649525838,
+      "no_speech_prob": 0.68310546875
+    },
+    {
+      "start": 3181.82,
+      "end": 3236.98,
+      "text": " IP of A, IP of A, destination IP is IP of B. Okay, that packet is coming, but this packet has to be dropped at router R2. Now, you tell me, tell me, the first question, which is, which is, will R2 send, send ICMP messages? If yes, then what are the source and destination IP? So what is your answer?",
+      "avg_logprob": -0.1680640309322171,
+      "no_speech_prob": 0.71240234375
+    },
+    {
+      "start": 3238.21,
+      "end": 3272.2,
+      "text": " Will I will this router send the ICMP message obviously if it is dropping if it is dropping then it has to send right if it is dropping or then obviously it has to send and What is the source IP? Since it is sending that is my source IP is IP of R2 basically right IP of R2 What is the destination IP? It is sending to whom? It is sending to a so destination IP will be IP of a that's all right, okay",
+      "avg_logprob": -0.21776316511003593,
+      "no_speech_prob": 0.78466796875
+    },
+    {
+      "start": 3273.94,
+      "end": 3315.4,
+      "text": " Now, this was just error messages that we have discussed that, okay, we need to send the error message. There is also something called as query message. Okay, but before that, let's just see that whenever this router needs to send the error message, then how it forms a message and how it is sending it. So see, let's suppose there's a router. Okay, router receive, router receive, let's suppose this is a datagram. Okay, suppose router receives this. This is a received datagram.",
+      "avg_logprob": -0.1496559682242367,
+      "no_speech_prob": 0.59912109375
+    },
+    {
+      "start": 3315.85,
+      "end": 3350.76,
+      "text": " at router now suppose due to some reason this router needs to drop it then will it send the ICMP message obviously yes right due to some reason let's suppose if this packet has to be dropped then it will be sending the ICMP message okay see this whole thing was the IP data I have just written 8 byte I will I will I will tell you that why I'm writing 8 byte but by the way do you remember that what is",
+      "avg_logprob": -0.13913272739796156,
+      "no_speech_prob": 0.82666015625
+    },
+    {
+      "start": 3352.22,
+      "end": 3381.36,
+      "text": " After IP, what is the, I mean, as the transport data, what is the protocol that we have? TCP, UDPs generally, right? TCP, UDP. Let's suppose it is TCP, okay? And then we have some data, okay? I'm calling the whole thing as IP data. That's fine. Okay, so it has to send the ICMP message. Now, what do you think this ICMP message should include? What do you think this ICMP message should include?",
+      "avg_logprob": -0.16155660152435303,
+      "no_speech_prob": 0.43994140625
+    },
+    {
+      "start": 3382,
+      "end": 3411.96,
+      "text": " It is it is basically having this header your type and code these things right so there is a ICMP header it will make ICMP header which is basically having This ICMP header which is having the type and code and so on right anyway That is fine like you do no need to remember the numbers that what is the what is the type and I mean which type which code you don't know you don't need to remember that but yeah, it will be sending ICMP ICMP message which will be having some header now the main question here is that",
+      "avg_logprob": -0.21037946441876038,
+      "no_speech_prob": 0.9501953125
+    },
+    {
+      "start": 3413.09,
+      "end": 3447.51,
+      "text": " that what is this data this ICMP data? Interestingly what it does as a data okay as a data what it does whatever message it is getting it takes okay it takes IP header of that and and eight more bytes of that it says that okay this whole thing is my data see it is not just that it is going to send only header right so it is also going to send the data now what is the data it sends it says that okay see",
+      "avg_logprob": -0.13324175398428362,
+      "no_speech_prob": 0.86865234375
+    },
+    {
+      "start": 3448.65,
+      "end": 3484.9,
+      "text": " This is, this is the, I mean, the, the datagram that I have received. So I will take the IP header of that and, and eight more bytes. What do you think this eight more bytes are? Can anyone guess it? Maybe TCP UDP, right? Maybe to see TCP UDP, some, some transport layer protocol, something like that. I mean, it could be anything actually, right? Some protocol, some protocol, some protocol, right? So basically, basically, it will be basically saying that see,",
+      "avg_logprob": -0.16964285940464055,
+      "no_speech_prob": 0.60986328125
+    },
+    {
+      "start": 3485.3,
+      "end": 3512.1,
+      "text": " I'm going to send I'm going to send some packet which is which is having the icmp header but as a data ip header and eight more bytes and eight more bytes are actually useful why these are useful because in case of tcp actually the tcp header is containing something called a source port source port number destination port number and so on so if you're taking eight more eight bytes then initial eight bytes actually contain the source port and destination port",
+      "avg_logprob": -0.10719085861277837,
+      "no_speech_prob": 0.1551513671875
+    },
+    {
+      "start": 3512.97,
+      "end": 3542.05,
+      "text": " And why that is source port and destination port, these kind of things might be useful. Maybe, maybe if the port was unreachable, then okay, host will get to know that, okay, whatever port I used, it was actually unreachable. Maybe little bit you are getting, right? So what I'm saying here is that, that you have, you have as an ICMP data, you have this particular data, which means you are going to send this particular thing as a data, which is IP header and the next eight bytes.",
+      "avg_logprob": -0.12424616842416294,
+      "no_speech_prob": 0.6982421875
+    },
+    {
+      "start": 3542.38,
+      "end": 3575.87,
+      "text": " So why these next eight bytes are useful because because this next eight byte contains the TCP or UDP header, most likely. Okay. So TCP UDP header, which is basically source port, which also has, I mean, this initial advice has source port, destination port and so on. Yeah. Eight, eight bytes of TCP header. Yes. Eight bytes of TCP header along with the IP header we are going to send. Okay. So now, now whenever, whenever this particular.",
+      "avg_logprob": -0.2190625025331974,
+      "no_speech_prob": 0.321044921875
+    },
+    {
+      "start": 3576.38,
+      "end": 3611.14,
+      "text": " this particular message get received to the router it will let's suppose it has to drop it then it will make an ICMP header along with that along with this as a data this is the ICMP data okay this thing is the ICMP data now this ICMP data needs to be basically I mean encapsulated in ICMP header that that's what we have now again again what we have this ICMP if you remember again this has to be encapsulated into something which is basically IP",
+      "avg_logprob": -0.1283482173267676,
+      "no_speech_prob": 0.87646484375
+    },
+    {
+      "start": 3612.09,
+      "end": 3647.24,
+      "text": " Okay, which is again IP. So this is the IP header in which we are going to encapsulate this. See this diagram that first we have received it, then we are going to send this as ICMP data. Okay. This, this particular thing is ICMP data and we are going to append the ICMP header and ICMP also travel within the IP. So we are going to append the IP also. So for example, for example, let's suppose again, this is the host A, which is sending.",
+      "avg_logprob": -0.14322916749450895,
+      "no_speech_prob": 0.8740234375
+    },
+    {
+      "start": 3649.35,
+      "end": 3682.94,
+      "text": " to the host B and this is let's suppose R1 and R2. Now the original IP header contains IP A as a source and IP B as a destination. This reaches to this router which is basically having source and this destination. Now it will make ICMP packet which will say that whatever your earlier header was, I'm going to take it and do you remember 8 more bytes also?",
+      "avg_logprob": -0.16685956790123457,
+      "no_speech_prob": 0.72119140625
+    },
+    {
+      "start": 3684.38,
+      "end": 3714.7,
+      "text": " 8 bytes then it is going to append can anyone tell me it is going to append what ICMP header which will which will tell the tell the code and source and so on right the type and type and code took a code and so on now you are going to again append something called as IP header something some IP header now in this IP header can anyone tell me what is the source and what is the restriction in this IP header",
+      "avg_logprob": -0.15301724069419947,
+      "no_speech_prob": 0.78076171875
+    },
+    {
+      "start": 3715,
+      "end": 3748.91,
+      "text": " See, this for this IP header, this whole thing is just a data. What is the source and what is the destination here? Source IP is R2IP and destination IP is, yeah, destination IP is A. So basically, basically, it will say that, okay, from R2IP to the AIP, I'm going to send. This is my IP header and then there will be some ICMP header.",
+      "avg_logprob": -0.21608664180067452,
+      "no_speech_prob": 0.7080078125
+    },
+    {
+      "start": 3750.06,
+      "end": 3780.74,
+      "text": " which will be containing again the IP header of the previous datagram which was dropped it was actually having I mean this is the previous IP header so IP headers of a IP whatever it has so basically this is just IP data right and these are the source and destination that ICMP packet has so ICMP also travel within the IP that's what I want to say here maybe little bit it is clear right with the examples it will be more clear that what is happening here",
+      "avg_logprob": -0.16597406566143036,
+      "no_speech_prob": 0.9306640625
+    },
+    {
+      "start": 3782.03,
+      "end": 3810.22,
+      "text": " So let's just read it out that ICMP packet data section, the data section in all error messages contain this IP header of the original datagram plus this plus the first 8 bytes provides the information about the port number in case of TCP and UDP and the sequence number I mean the first 8 bytes had the TCP UDP these things right port numbers you can remember these things okay so",
+      "avg_logprob": -0.26246045360082315,
+      "no_speech_prob": 0.63720703125
+    },
+    {
+      "start": 3811.07,
+      "end": 3840.68,
+      "text": " So what I'm going to do whenever we receive some packet then we are going to have IP header of that and plus eight more bytes that will be encapsulated in ICMP. This is the ICMP packet and that is just a just the IP data, which means that this whole thing will again get encapsulated in IP. And now can you tell me this whole thing which again get encapsulated in which one in Ethernet, right? Ethernet also have sometimes Taylor also. So basically this is a header and this is Taylor.",
+      "avg_logprob": -0.14084002457627462,
+      "no_speech_prob": 0.76611328125
+    },
+    {
+      "start": 3845.65,
+      "end": 3879.25,
+      "text": " Cool now there are few few very very important points. Let's just let's just read them about it So what these points are saying see till now what we have discussed we have discussed that if you are going to send some message see if you are going to send some message and if this router Has to drop that message has to drop that message Then this router is going to do what it is going to send back ICMP message. This is the summary and that's the only thing which is important",
+      "avg_logprob": -0.12059096652682465,
+      "no_speech_prob": 0.455810546875
+    },
+    {
+      "start": 3879.63,
+      "end": 3909.08,
+      "text": " ICMP message this router is again going to send back the ICMP message right this is what we have understood okay what is the type of that ICMP message and these things are not much important but the only thing which is important that if router is dropping the packet it will send the ICMP can anyone tell me the specifically ICMP error message okay ICMP error message what are the type of the ICMP messages only two types ICMP error message and ICMP query message",
+      "avg_logprob": -0.0686442048754543,
+      "no_speech_prob": 0.80322265625
+    },
+    {
+      "start": 3909.52,
+      "end": 3936.46,
+      "text": " So this is the ICMP error message we are going to send if we are going to drop it now What if what if if I'm sending this ICMP message error message? What if my this ICMP data or ICMP packet itself get dropped? Let's suppose I'm sending that to can anyone tell me it will be sent to the next hope previous hope or to the original source It will be sent to the original source agent it it will be sent to the original source only so now",
+      "avg_logprob": -0.1804687549173832,
+      "no_speech_prob": 0.19775390625
+    },
+    {
+      "start": 3936.87,
+      "end": 3959.1,
+      "text": " now if you are sending to the original source at that time it may so happen that that in between there are some routers also right right obviously there will be there will be some routers this packet may again need to be dropped i mean the icmp packet that we are sending maybe it is again dropped if this router has to drop this packet then should this router send icmp message",
+      "avg_logprob": -0.11388220905493467,
+      "no_speech_prob": 0.0662841796875
+    },
+    {
+      "start": 3959.42,
+      "end": 3991.58,
+      "text": " to this router that I have dropped your ICMP packet. I mean, this router may not even know there's an ICMP packet. This will just say that I have dropped your packet, right? But this router was already, you know, having too much packet. Maybe because of source quench, let's suppose it is dropping. See, maybe because of source quench, it is dropping, it is saying that too many packets with me. I can't hold it anymore. So I'm dropping it, sending the ICP message. Now it is again saying that, okay, I'm sending one more packet again, right? Agent, you know, our loop kind of situation.",
+      "avg_logprob": -0.1767165491908369,
+      "no_speech_prob": 0.75732421875
+    },
+    {
+      "start": 3992.5,
+      "end": 4021.7,
+      "text": " somewhere we are stuck I mean again aren't we overloading this router should this router not again drop the packet send the ICMP message that see the ICMP message that you have just sent actually I have to drop it and here is the ICMP message and maybe let's suppose this router is also having the sword skin it will say there see I also have to drop your ICMP message that was the ICMP message of my NCMP message so let me just send ICMP message to you so this will say the C",
+      "avg_logprob": -0.19708137186068408,
+      "no_speech_prob": 0.40087890625
+    },
+    {
+      "start": 4021.92,
+      "end": 4044.25,
+      "text": " the ICMP message that you have sent which was the ICMP message of my NCMP message which was the ICMP message of your ICMP message actually I have to drop it let me send one more ICMP message to you do you think it is a good idea to keep on sending the ICMP messages may not be right are you getting my point what I am trying to say here so it may not be a good idea to send the ICMP message of the ICMP message itself",
+      "avg_logprob": -0.09303977077055459,
+      "no_speech_prob": 0.418212890625
+    },
+    {
+      "start": 4045.82,
+      "end": 4073.2,
+      "text": " Right. So in general, see this is ICMP is not a guarantee. You just, you just understand this ICMP is not a guarantee for the reliability. It is just a helpful protocol, just a companion protocol. Okay. So, so we do not send no ICMP error message is sent will be generated in response to the datagram caring and ICMP error message. Okay. If you're going to drop the ICMP error message, you do not regenerate and one more ICMP error message. Okay. No ICMP error message.",
+      "avg_logprob": -0.13585453961802796,
+      "no_speech_prob": 0.62548828125
+    },
+    {
+      "start": 4073.68,
+      "end": 4104.16,
+      "text": " if you are going to drop it drop the icmp message no icmp message will be generated for the fragments datagram that is not the first fragment which means if you are going to drop some fragment okay fragmented let's suppose that there are many fragments that are coming to some router and maybe this router has to drop all of these fragments because because the ip was not correct or the ttl was not correct or maybe maybe because some region do you think that this router should be generating four four icmp messages four icmp error or just one is enough",
+      "avg_logprob": -0.10571073114344504,
+      "no_speech_prob": 0.8291015625
+    },
+    {
+      "start": 4104.61,
+      "end": 4133.66,
+      "text": " Maybe just one is enough, right? That I'm dropping one. So if there are fragments, then they are saying that only for the first fragment, we send the ICMP message, else we don't send the ICMP message. Only for the first fragment. So for the fragments also, we are not going to send the ICMP message. No ICMP error message will be generated for the datagram, having multicart statuses. So multicart statuses means if you are sending some packet to",
+      "avg_logprob": -0.1691706796678213,
+      "no_speech_prob": 0.38623046875
+    },
+    {
+      "start": 4134.26,
+      "end": 4161.76,
+      "text": " multiple, multiple people. Okay. There are, there are some protocol called IGMP protocol and so on. So using which you can generate the, I mean, you can have the multicast, multicast addresses, but you can understand just like a broadcast status. Okay. Procast is just, I mean, just a multicast means just some group of people broadcast means all of the people. So something like that. So basically if we're sending more people, just not to one people, if we're sending to more people, then, then there is no ICMP message that you generate. Okay. No ICMP error message.",
+      "avg_logprob": -0.14670801299218914,
+      "no_speech_prob": 0.70556640625
+    },
+    {
+      "start": 4162.03,
+      "end": 4194.84,
+      "text": " No ICMP error message will be generated for the datagram having special addresses such as this. So do you remember what was this address? This was the loopback address, right? Loopback. So if by chance, by chance the router or maybe the network interface card itself has to drop the packet and where the source address was this one, then they are not going to send the ICMP message. And what is this one? Do you remember? What is this one? When we use this particular address, anyone remember?",
+      "avg_logprob": -0.12174479532297011,
+      "no_speech_prob": 0.8125
+    },
+    {
+      "start": 4203.57,
+      "end": 4233.05,
+      "text": " No, this was, I don't know my IP. Whenever we don't know IP, we say 0000. Can anyone tell me what was the case when we do not know our IP? DSCP, right? DSCP was the case where we do not know our IP. So in that case, the DSCP message as a source, it has 0000. Whenever you do not know your IP, you say 0000. I don't know my IP.",
+      "avg_logprob": -0.16929768532821812,
+      "no_speech_prob": 0.3828125
+    },
+    {
+      "start": 4233.5,
+      "end": 4268.65,
+      "text": " Anyway, so if I'm having 0000 or loopback at us, I mean these are some cases where we do not generate the ICMP message. Okay, so let's suppose this router, this router is getting some packet and it has to drop that packet. Tell me, should this router generate the ICMP message? Depending on whether the packet was ICMP message itself or the packet was a normal message, right?",
+      "avg_logprob": -0.1742097721702751,
+      "no_speech_prob": 0.60986328125
+    },
+    {
+      "start": 4269.21,
+      "end": 4330.86,
+      "text": " depending on that this router will be sending the ICMP message okay so depending on the packet if packet itself was ICMP message packet otherwise I mean in most of the cases yes unless and until it is a fragment and it is not the first fragment otherwise mostly I can see mostly is it so good everyone so now Satyam is asking",
+      "avg_logprob": -0.22300092481514988,
+      "no_speech_prob": 0.72119140625
+    },
+    {
+      "start": 4331.28,
+      "end": 4401.08,
+      "text": " And I think Sujita has also asked that how the router get to know, right? How the router get to know that this is the ICMB message. How the router get to know. So what do you think? No answer is basically like this. See, whenever you get the packet, whatever the type of packet it is, like we must be using the IP header. Now there will be, there will be the data. Okay. IP header will be containing some data. Okay.",
+      "avg_logprob": -0.18082524300778954,
+      "no_speech_prob": 0.6552734375
+    },
+    {
+      "start": 4402.26,
+      "end": 4433.65,
+      "text": " Now this IP header will be containing the data. Do you know that the next header, this IP contains what? The next header, this IP contains what? Maybe TCP, maybe UDP, maybe, maybe, maybe what? Maybe ICMP, right? Maybe ICMP also. Okay. The next header it may contain, maybe ICMP, maybe TCP, maybe UDP, or maybe, maybe anything else, maybe anything else. Now, now, see, as I told you, this ICMP header.",
+      "avg_logprob": -0.1938988038471767,
+      "no_speech_prob": 0.63916015625
+    },
+    {
+      "start": 4433.92,
+      "end": 4470.19,
+      "text": " See this ICMP also get encapsulated into the IP. Okay. Which means that you create the ICMP message. This is your ICMP message. And then what do you do? This ICMP message will get the ICMP header and this will get what? Ultimately the IP header. Okay. So there will be the ICMP message that you are going to, I mean, we're going to have the ICMP header and then that will be ultimately in the IP header. So whenever you get the data that will always be having the IP header at first.",
+      "avg_logprob": -0.11799568663640268,
+      "no_speech_prob": 0.646484375
+    },
+    {
+      "start": 4470.49,
+      "end": 4501.15,
+      "text": " something like this right then the next letter could be anything maybe TCP UDP UDP ICMP just like this so here it is ICMP which is fine now which like which field or how we are going to tell that the next next letter is TCP UDP ICMP how we are going to tell the next letter is what using what there is one field in this IP can anyone remember that the field name is protocol okay protocol there is one one specific field if you remember",
+      "avg_logprob": -0.1008223665388007,
+      "no_speech_prob": 0.89990234375
+    },
+    {
+      "start": 4501.42,
+      "end": 4534.36,
+      "text": " the field image protocol using which we get to know that oh that is that what is the next right maybe tcp maybe udp maybe icmp and so on understood so so in the ip if you remember that ipv4 header see the header header has some uh some field which is called protocol right protocol this ip header itself has a field which is called protocol now if this protocol is supposed",
+      "avg_logprob": -0.15908202696591617,
+      "no_speech_prob": 0.326904296875
+    },
+    {
+      "start": 4534.8,
+      "end": 4572.55,
+      "text": " suppose 01 it means it is ICMP message okay the next letter is ICMP understood if the protocol itself is 01 then the next letter is ICMP anyway I hope you understood that how the router get to know whether whether it is it is ICMP message or it is not ICMP message easy right router can can can get to know it's not a big deal okay",
+      "avg_logprob": -0.15072916825612387,
+      "no_speech_prob": 0.205078125
+    },
+    {
+      "start": 4574.95,
+      "end": 4619.26,
+      "text": " Now briefly describe two cases when ICMP time exceeded I mean it is just a theoretical question just I took it from some university So when time exceeded happens whenever Whenever you have TTL0 Whenever you have reassembly time expired, right? Now let's just see query messages also So just to summarize what are these error messages? ICMP error message summary Just the one line summary only You don't need to remember all of this It is just for your sake of understanding",
+      "avg_logprob": -0.16019736591138337,
+      "no_speech_prob": 0.78466796875
+    },
+    {
+      "start": 4619.64,
+      "end": 4663.53,
+      "text": " but yeah for the summary you can say just one thing yeah it is whenever router has to drop something it sends the icmp message right is this fine to everyone okay that's the only summary basically that's the only thing that you that you need to remember in icmp that whenever you're dropping send the icmp message and one more thing that you may need to remember is that this",
+      "avg_logprob": -0.06139823799140942,
+      "no_speech_prob": 0.1749267578125
+    },
+    {
+      "start": 4664.46,
+      "end": 4691.1,
+      "text": " that when you do not send the ICMP message, okay? I mean, I don't know if they have asked, like I think they have not asked these kind of questions, but what if they ask, right? When you do not send the ICMP message, okay? Generally, they do not ask the theoretical questions, but still it is good to know that when you do not send. So now you tell me that if you're discarding the IP, this ICMP message itself, you're discarding, do you send ICMP message? No. Whenever you are discarding the fragment, then do you send?",
+      "avg_logprob": -0.15382751937984496,
+      "no_speech_prob": 0.6328125
+    },
+    {
+      "start": 4691.33,
+      "end": 4715.89,
+      "text": " depending right whether it is a first fragment or it is not a first fragment if it is a first fragment then yes if it is not a first fragment then no okay when else you are not going to send if this is ICMP message or or maybe this is some loopback address or 0000 whenever this is some multicast address I mean this is basically broadcast or multicast address right and these these three four cases was okay cool",
+      "avg_logprob": -0.19306752873563218,
+      "no_speech_prob": 0.492919921875
+    },
+    {
+      "start": 4717.33,
+      "end": 4745.82,
+      "text": " basically these two cases are only important I can say that whenever it is ICMP message or whenever it is a fragment I mean you can say that the cases are in the decreasing order of the importance okay if you want to remember always remember this first case at least that for the ICMP message you are not going to send again ICMP message okay and then if you want you can remember for the fragment also so this is for the error message summary now similarly we have query message",
+      "avg_logprob": -0.09741211232418816,
+      "no_speech_prob": 0.169189453125
+    },
+    {
+      "start": 4746.19,
+      "end": 4779.81,
+      "text": " Do you anyone remember that what was the motivation for the query message? Just to say hi, right? Okay, just to say hi. So, interestingly, query messages in ICMP can be independently without the relation to IP datagram. See, earlier, earlier it was dependent on the IP datagram, which means if the IP datagram is lost, then only or dropped, then only we are sending ICMP message, error message. But the ICMP query messages, we send it just like that. I mean, just because we want to send it. Okay.",
+      "avg_logprob": -0.17267628765513754,
+      "no_speech_prob": 0.2978515625
+    },
+    {
+      "start": 4780.41,
+      "end": 4810.07,
+      "text": " so of course a query message needs to be encapsulated in a datagram as a career query message that used to probe or test the liveliness see it is it is just used to probe or test the liveliness of the host or the router and the internet just to say hi which are you alive liveliness means are you alive just to tell that okay are you alive are you there just to say that okay or or there is I mean there is one more reason though like people are saying that just for just to say that hi or maybe",
+      "avg_logprob": -0.12220470074119918,
+      "no_speech_prob": 0.2203369140625
+    },
+    {
+      "start": 4810.57,
+      "end": 4839.87,
+      "text": " Sometimes you also need to know that what is the RTT? What is the round trip time? For that also, we initiate some message which is also called query message. We will see that. We will see that. Don't worry. So between two devices and even find out the clock is synchronized. Naturally, the query message comes in a pair. So which means these are the request and reply message. So these are always coming in the pair, which means you will say hi. Someone will also say hi. So you will initiate the message which is called request message and someone else will reply.",
+      "avg_logprob": -0.14352318163841002,
+      "no_speech_prob": 0.76708984375
+    },
+    {
+      "start": 4840.18,
+      "end": 4874.99,
+      "text": " which is the reply message okay so this all always come in the pair this is very natural okay so the eco request so type 8 and eco reply type 0 pair of message used to send the library so so basically this is just a type and these things you do only to remember okay no there is no reply obviously for the icm pair if you're sending the icm pair the message then then you are not expecting the reply because obviously you first of all it is not guaranteed that okay what if it is lost",
+      "avg_logprob": -0.12575849456694518,
+      "no_speech_prob": 0.76318359375
+    },
+    {
+      "start": 4875.28,
+      "end": 4902.07,
+      "text": " I'm not providing any 100% guarantee that it will be lost then you will be get to know right so it is just ICMP error message just just a little support for the ICMP error message this is obviously no reply okay now now as I said like you can send ICMP query message which is high now like the other person will also say hi right that is that is that can be done okay if you want to if you want to do it then that can be done using your own terminal using a command ping",
+      "avg_logprob": -0.11979166609900338,
+      "no_speech_prob": 0.417724609375
+    },
+    {
+      "start": 4902.43,
+      "end": 4935.17,
+      "text": " Okay, so we say that, okay, can you ping this IP? Which means you just type ping and some IP address, it will be just saying hi to that particular host or particular device. Maybe it is router or something. So we can use ping program. Ping program means it is one command basically, okay. Command to find if the host is alive or responding. So which means I will just say ping and then some IP address so that I get to know that, okay, or maybe some directly like Google.com or something like that, right?",
+      "avg_logprob": -0.15502717339474223,
+      "no_speech_prob": 0.8671875
+    },
+    {
+      "start": 4936.28,
+      "end": 4973.86,
+      "text": " that I get to know that okay if I'm getting the reply I get to know that okay there is like this particular server is on okay we use ping here to see how it is using the icnpeg make it okay anyway like all of this is not much important but yeah we use ping I mean this is just one command name I'm telling you here okay that is the only purpose for this slide okay now there is one more one more application of this query message which is called trace root now what we do",
+      "avg_logprob": -0.18794642970675512,
+      "no_speech_prob": 0.8740234375
+    },
+    {
+      "start": 4974.19,
+      "end": 5003.13,
+      "text": " we let's suppose we want to find out that how many routers and what are the IPs and and how many routers are there in between so what we say that let's suppose that if you want to send okay you want to send some packet to someone and you also want to know that how many hopes are in between and what are those IPs okay so let's suppose these are the n hopes you want to send some packet to someone and you also want to know that how many hopes are in between and what are those IPs",
+      "avg_logprob": -0.09154829768971963,
+      "no_speech_prob": 0.8203125
+    },
+    {
+      "start": 5003.34,
+      "end": 5031.83,
+      "text": " so what you can do you can you can do one trick here so what you can do you will be sending you will be sending one one message here you want to know that how many how many horse horse are in between you will be sending one message here you keep the TTL to be one TTL to be one what this will do this will send the ICMP error message will say that okay your TTL has been expired you will get to know okay okay means there is one in the middle right there is one",
+      "avg_logprob": -0.16309524036589124,
+      "no_speech_prob": 0.6396484375
+    },
+    {
+      "start": 5032.68,
+      "end": 5060.39,
+      "text": " then you again send one more one more packet say ttl equal to 2 this time then if this is replying then you will say oh two are there this person also has replied me and and obviously whoever is replying you then also you know that what is the source of that right so this is one trick that you can play that you can you can like pick this ttl equal to one you can you can insert this particular packet into the network and then this will reply the next up will reply",
+      "avg_logprob": -0.22770023606355907,
+      "no_speech_prob": 0.449951171875
+    },
+    {
+      "start": 5060.74,
+      "end": 5088.82,
+      "text": " then you get to know okay what are the ip of this next row then you pick ttl equal to 2 then this hope will reply then you will get to know what is the ip of this then you you send ttl equal to 3 and so on see ttl equal to 1 this will reply ttl equal to this will reply something ttl equal to 2 this will reply time exceeded see this is time exceeded right and this will reply time exceeded ttl equal to 3 this will reply time exceeded ttl equal to 4 okay interestingly you tell me if ttl is 4 if ttl is 4 now now",
+      "avg_logprob": -0.09883996285498142,
+      "no_speech_prob": 0.7861328125
+    },
+    {
+      "start": 5089.42,
+      "end": 5116.97,
+      "text": " Will this reply, will this reply time exceeded? If TTL is 4, will this particular particular host will reply time exceeded? See this will be here, it will be from here to here, like you will be getting 3, 2, 1 and 0. So 0 will be TTL here. But I want the answer from this also, right? I want the answer from this because because unless and until I get the final answer from the final destination, how will I get to know that this is the final destination?",
+      "avg_logprob": -0.1715829433681809,
+      "no_speech_prob": 0.84912109375
+    },
+    {
+      "start": 5118.14,
+      "end": 5147.56,
+      "text": " What I mean to say that see you got the replies from these these routers, which is okay using the TTL, but can you get the reply from this final destination using the TTL? No, right? So see you you are sending some packet. Let's suppose this is B and you are using IPHB. Okay. I mean the destination IPHB. So and then if you're using TTL equal to one and destination IPHB, this this will say oh",
+      "avg_logprob": -0.21379950022933505,
+      "no_speech_prob": 0.157958984375
+    },
+    {
+      "start": 5147.82,
+      "end": 5180.99,
+      "text": " Some problem. This is some problem. This will say some problem, but this will say, no, no, I am I'm the bee. Let me just accept it. Will it reply? If yes, then how can I force this bee to also reply? Yes, nice one. So, Sangeet is saying they use the fake port number. Yeah, that's the heck that we do. So, what we will be doing in all of these packets, see, we don't know whether whether the next pen next to hope is B or not, right? So, in all of these packets, we use the fake port number in all of the packets here.",
+      "avg_logprob": -0.18738758778400558,
+      "no_speech_prob": 0.9052734375
+    },
+    {
+      "start": 5181.27,
+      "end": 5234.61,
+      "text": " that we are sending or the dummy port number so whenever it is reaching this this is replying because of TTL this is replying because of TTL this is replying because of TTL and this will reply because of what because source is unreachable okay so so this message see this particular message that we have here the last one is because the source is unreachable okay the destination is unreachable this particular message I have here because of the destination is unreachable",
+      "avg_logprob": -0.09191645172481634,
+      "no_speech_prob": 0.865234375
+    },
+    {
+      "start": 5236.75,
+      "end": 5270.35,
+      "text": " Got it. So in all the packets, we use the fake port number. And that's how we get to know what are the IP of the, of the routers, which are on the way. Okay. So as you can see, this trace root is nothing but nothing but by this name, what is this? The name itself says trace the root, right? So, I mean, this is, this is this trace the root. Okay.",
+      "avg_logprob": -0.17403590045076736,
+      "no_speech_prob": 0.75537109375
+    },
+    {
+      "start": 5272.57,
+      "end": 5321.84,
+      "text": " Let me know what are the IPs of all routers on the way. So see, you will be getting the replies. You can read it out later on. There is one more application basically that's called path MTU discovery, which means what we do. Let's suppose you want to know what is the lowest MTU. See, we don't want to fragment it in the between. I don't want to fragment it at this router. I want to fragment let's suppose at the source itself. Then I should be knowing that what is the least MTU that you have on the way.",
+      "avg_logprob": -0.1473034347497648,
+      "no_speech_prob": 0.8125
+    },
+    {
+      "start": 5323.33,
+      "end": 5355.48,
+      "text": " Right in that case what we do that we use these ICMP messages. I will be sending some message. Okay. But, uh, but let's suppose larger MTU, then, then this will say, this will say, see I'm dropping it. I'm dropping it. This will say I'm dropping it just to say because, because of the MTU, it will also tell the reason that I'm dropping it because of the MTU. Can you try? Can you try the 1200 as a next MTU? Which means the MTU currently you are saying.",
+      "avg_logprob": -0.22597163314578914,
+      "no_speech_prob": 0.92919921875
+    },
+    {
+      "start": 5355.78,
+      "end": 5385.1,
+      "text": " So basically I will set df equal to 1 I will set in my packet I will set df equal to 1 this packet has df equal to 1 right now this router will drop it or not drop it will drop it because df is 1 this router has to drop it it will also say that okay try 1200 because I'm dropping it because of the of the fragmentation issue you try this 1200 okay this router will say try 1200 now you will you will again send a packet which is I'm calling it test 2 okay again send a packet from here to here obviously and this packet will reach here",
+      "avg_logprob": -0.11648882453034563,
+      "no_speech_prob": 0.904296875
+    },
+    {
+      "start": 5385.31,
+      "end": 5424.78,
+      "text": " will reach to this point. This router will say that I'm also dropping it because of the DF equal to 1. I'm also dropping it. Can you try 900 this time? Then you will try the 900. Okay. Okay. I don't have that. So you will be trying the 900. It was okay. Finally, it will deliver at the destination. So this particular source got to know what is the bottleneck MTU that you have that that is called path MTU discovery. So the bottleneck MTU on the way. Right. Discover the MTU that will fit.",
+      "avg_logprob": -0.14600410153631305,
+      "no_speech_prob": 0.77734375
+    },
+    {
+      "start": 5425.03,
+      "end": 5452.63,
+      "text": " So, so we can avoid the fragmentation. Have you understood? We need to avoid the fragmentation. So that's why we use it. The method is in use today. Host test, the path with the larger packet set DF bit in the IP to get the feedback and routers provide the feedback. If it is too large, they tell host what size to fit in. Okay. What size would, would have fit. So which means this will say that, okay, you try it all hundred. This will say you try 900 and then finally it will be reached.",
+      "avg_logprob": -0.15139181273324148,
+      "no_speech_prob": 0.56298828125
+    },
+    {
+      "start": 5453.2,
+      "end": 5502.64,
+      "text": " Okay. So I can, I can get what it's called. I can get the least MTU of the path or the bottleneck MTU least or bottleneck. Yeah. If M2 is increasing after 900. So, uh, someone is asking if M2 is increasing after 900. I don't care. I just want the least MTU on the path. Right. I got my 900. So that's the only thing I care. Okay. So now let's just quickly summarize. Let's just quickly summarize what we have in ICMP.",
+      "avg_logprob": -0.13607336749201235,
+      "no_speech_prob": 0.81005859375
+    },
+    {
+      "start": 5505.67,
+      "end": 5547.62,
+      "text": " what are the types of iCMP messages maybe this could be the error message maybe this is query message query is just i do not need to drop anything right it is just that okay i am sending a query message okay here i do not need to drop any packet just say hi okay this is if drop some packet this is just say hi okay i do not need to drop any packet here",
+      "avg_logprob": -0.16307357519487792,
+      "no_speech_prob": 0.79052734375
+    },
+    {
+      "start": 5548.6,
+      "end": 5579.52,
+      "text": " Now, will there be any ICMP error message if you are if you're dropping the ICMP error packet? If you're dropping the ICMP error packet, there is no ICMP error message. Okay. I mean, like this is one point that you can remember. Okay. If there is a ICMP error message that you're dropping, then you do not need to generate the ICMP error error message again. Okay. That's all. That's the something. Okay. Now, let's just see some questions. Okay.",
+      "avg_logprob": -0.14365147094468814,
+      "no_speech_prob": 0.53759765625
+    },
+    {
+      "start": 5579.83,
+      "end": 5610.42,
+      "text": " Network layer protocol reports the source, reports on the source, success or failure of data delivery. Which network layer protocol tells the success or the failure? I think this is not a very good question, but ICMP is the answer, right? Okay, this is a Berkeley University question. When routers generate ICMP messages, where do they send them? Where do they send them? If they are generating ICMP, the messages are sent to the source address, especially in the IP header.",
+      "avg_logprob": -0.1871905999608559,
+      "no_speech_prob": 0.380859375
+    },
+    {
+      "start": 5610.97,
+      "end": 5636.33,
+      "text": " send to the destination address, the message send to next hope, the previous hope, which one? to the source address, right? Okay, to the source address, you need to send it. This is just a memorization question to be very, very honest, but still, let's just see this question. So what they're saying, one way to alert the source post about the congestion.",
+      "avg_logprob": -0.29249237114336435,
+      "no_speech_prob": 0.387451171875
+    },
+    {
+      "start": 5636.9,
+      "end": 5669.72,
+      "text": " at the router is by sending the ICMP, which message congestion means that my, uh, like you will, you will see this term again in the TCP. Uh, this is a very popular term in the TCP. So congestion means that Q is full. Something like that, right? So how to tell about the congestion because of the source quench message, right? Because of the source quench message. Okay. Now let's just do one, one last question, which is actually very lengthy question. Let's just see this. So what, what they're saying that consider the network shown. So this is the network.",
+      "avg_logprob": -0.16406249690514343,
+      "no_speech_prob": 0.748046875
+    },
+    {
+      "start": 5670,
+      "end": 5708.05,
+      "text": " and here they have given you few host and few things let me go to the next page probably now they're saying that this host A is having some IP address which is this and this is the mask it is having host B is having some IP address this the mask it is given right this is okay this is a router so can you tell me how many subnets or how many LAN are here locally network or the subnet how many are there this is one this is another one right so how many two right okay now",
+      "avg_logprob": -0.11858785454675837,
+      "no_speech_prob": 0.72265625
+    },
+    {
+      "start": 5708.66,
+      "end": 5739.57,
+      "text": " This is we are calling link number one. This is the IP address of this link. This is the mask. Okay. This is the IP address. This is a mask. Great. This is the IP address. This is a mask that we have. Okay. So I hope this network is okay to everyone. Let's just see the question now. Okay. So they have given some network to you and then they're asking some questions. So are you ready to read the question? Let's just see the question number eight. Okay. Let's just see that what they are asking here.",
+      "avg_logprob": -0.09234118980706715,
+      "no_speech_prob": 0.63916015625
+    },
+    {
+      "start": 5741.27,
+      "end": 5771.85,
+      "text": " Describe in the detail the ARP and ICMP messages, ICMP packets which are transmitted on the Ethernet segment when host A execute the command ping this. Host A is basically pinging 10.1.2.188. Okay. Host A wants to send some packet to host B basically, right? Assume that ARP table or anything like that. So basically, if someone wants to send something here, then what are the sequence of messages that you need to do? What are the very first message?",
+      "avg_logprob": -0.19392523837980824,
+      "no_speech_prob": 0.88916015625
+    },
+    {
+      "start": 5772.22,
+      "end": 5806.74,
+      "text": " if some this host state see just see here this host state is saying that my network at us see this is the network mask right first tell me this host state thinks that it is in my network or in the different network 10.1.2.188 it is in my network or different network based on the network mask this ip oh don't worry about this network mask this ip is in this network or in different network tell me this is very easy right",
+      "avg_logprob": -0.19237230926431637,
+      "no_speech_prob": 0.6962890625
+    },
+    {
+      "start": 5807.68,
+      "end": 5836.92,
+      "text": " Different network, definitely because this is 10. The network will start from 10.1.1, right? Okay. This is a different network. Cool. So if host I want to send something to host V and that is in the different network, can you tell me what are the first things that it does? Can it send directly? Can it send directly? Or it should be sending to the default gateway to this particular link or to this particular interface. So basically it needs to send the packet from here to here, then router will be sending from here to here.",
+      "avg_logprob": -0.1879006451011723,
+      "no_speech_prob": 0.8798828125
+    },
+    {
+      "start": 5837.17,
+      "end": 5868.44,
+      "text": " This is the process, right? That should be followed. Is this so-called agreement? Okay. Now, now this host will be sending the ICMP message from this to router. Now you tell me based on, based on C, based on the network, once it get to know that it needs to send the ICMP message to whom? To the router. Now you tell me that, that does this host, does this host has the MAC address of this router? See, it needs to the MAC address, right? Why? Because",
+      "avg_logprob": -0.20675223812993085,
+      "no_speech_prob": 0.85546875
+    },
+    {
+      "start": 5868.79,
+      "end": 5911.38,
+      "text": " this is the within network so within network and hope to hope you always need the mac atas so this host a does this have the mac atas of this no right so what what is the first step that this host will do let's let's talk about a step by step what is the very first step okay so let's write the steps here send basically I mean if I if I go very minutely then you say host a check if",
+      "avg_logprob": -0.18906250281466377,
+      "no_speech_prob": 0.775390625
+    },
+    {
+      "start": 5913.93,
+      "end": 5969.46,
+      "text": " 10.1.2.188 is in my network or not is in my network or not since it is in different network send to default gateway okay this is I can say very fast system this room send ARP that will be going from host A to basically I mean I mean from host A that will the broadcast address",
+      "avg_logprob": -0.18797348281650833,
+      "no_speech_prob": 0.8037109375
+    },
+    {
+      "start": 5969.77,
+      "end": 6021.01,
+      "text": " right that will the broadcast status here but that is from host here right send arp from host here that who is having what will it will say who is having this particular ip right the default gateway ip it already has and it will just announce that who is having it will say who is having 10 dot 1 dot 1 dot okay cool now what is step 3 step 3 will say that okay uh r1 will reply or router will reply with mac",
+      "avg_logprob": -0.1690660139148155,
+      "no_speech_prob": 0.90380859375
+    },
+    {
+      "start": 6021.86,
+      "end": 6071.16,
+      "text": " Right. I mean Mac address and then then this host a will send the packet to router. Right. Now can anyone tell me the fields here? Right. What are the fields here? Which means the source Mac, destination Mac, source IP, destination IP. Can anyone tell me these things? What is the source Mac? What is the destination Mac host a router, right? Trouter Mac.",
+      "avg_logprob": -0.2540015367473044,
+      "no_speech_prob": 0.8955078125
+    },
+    {
+      "start": 6072.15,
+      "end": 6103.47,
+      "text": " R1. What is the source IP? Host IP, right? Host IP. Hosting. What is the destination IP? It wants to send some packet to. Finally, it wants to send to ICMP packet, right? To host B. So the destination IP will be host B. Okay. Hope you understood. Good. So what is the step five? So it will be sending to the router. Router will be now sending, right? Router will be sending this packet to host B. Now again, this router might not be having.",
+      "avg_logprob": -0.1908967347248741,
+      "no_speech_prob": 0.5244140625
+    },
+    {
+      "start": 6104.53,
+      "end": 6177.65,
+      "text": " Again, this router might not be having the MAC address. So router will again generate the ARP request will get the MAC address will forward it, right? Is this fine to everyone? Anyway, I mean, I'm just telling you the broader step. So basically router now will send to host B. So here, here, MAC address of whom? Is this okay to everyone? Okay. So what do they have asked in the question that,",
+      "avg_logprob": -0.2617187629575315,
+      "no_speech_prob": 0.75927734375
+    },
+    {
+      "start": 6179.21,
+      "end": 6210.83,
+      "text": " in the ping what happens so basically this is just that host we have got now you tell me now you tell me will the host be replied this ping actually uh this is a eco right i mean eco request and reply so basically this is a query message so will the host be replied yes now now host b will reply to whom host a now tell me does this send to the router or directly i mean send to the host a does this send to the default gateway directly to the host a see this this host thing this host thing that",
+      "avg_logprob": -0.15771028733699122,
+      "no_speech_prob": 0.87109375
+    },
+    {
+      "start": 6211.19,
+      "end": 6250.86,
+      "text": " that the hostage in my network because of 10.1 10.1 right because of this particular network mass so this host we thinks that hostage in my network since host we thinks that hostage in my network now as a step six you can say say that host B will directly reply host A may may generate may generate AR request right that is fine may generate AR request to find the",
+      "avg_logprob": -0.21321202456196653,
+      "no_speech_prob": 0.9111328125
+    },
+    {
+      "start": 6251.05,
+      "end": 6291.35,
+      "text": " uh mac address of this hosting okay understood so let me just explain this again that what is happening here if this is a interesting problem that we have okay see what is happening here you are just pinging pinging means you will send the message from here host a to host b and host b will also reply to you so since you found out that the the message that uh i mean the host that you are trying to see that is not in your own network so you will send to whom you will send to the router so",
+      "avg_logprob": -0.07228422335215977,
+      "no_speech_prob": 0.87353515625
+    },
+    {
+      "start": 6291.7,
+      "end": 6320.66,
+      "text": " So when you send to anyone, anyone, okay, doesn't matter. You will need the MAC address because you will be sending the to the only, I mean, the next stop will be the only one who is in the same network. So basically you need the MAC address of this router. You will be generating ARP request and you get the MAC address. Let's not worry about the ARP for now. Let me tell without the ARP. So host table first find out that, okay, host be in the different network, host will A will send to the router, router will send to the host B. Okay. Then host B will find out that, okay.",
+      "avg_logprob": -0.18805803411773273,
+      "no_speech_prob": 0.82421875
+    },
+    {
+      "start": 6320.98,
+      "end": 6352.83,
+      "text": " This hostage in my own network, it can directly send with the MAC address of host A. It can directly send to the host A. It will not be sending to the router. Okay. So if this is the broadcast link, if this is something broadcast link, it will be delivered to the router. That is fine. It will be delivered to the router, but router will anyway discard it. Why? Can you even tell me why router will be discarding this host B reply? Because of the MAC address, the source, the destination MAC address, destination MAC address is of host A. So why router will keep it?",
+      "avg_logprob": -0.15757210919490228,
+      "no_speech_prob": 0.6201171875
+    },
+    {
+      "start": 6353.2,
+      "end": 6388.23,
+      "text": " Getting my point. So basically this will, this will send here. This will send to host B host. We will directly send to host something like this. Understood. Okay. I mean, in between there are ARP requests. Let me know if that is clear to everyone. Okay. That's how PNG is working. Now, let's just see the second question. So second question is saying that ARP and described in detail, ARP and ICMP packets that are transmitted on the net host B execute the ping. Now host B is trying to ping this.",
+      "avg_logprob": -0.26509533241643746,
+      "no_speech_prob": 0.84912109375
+    },
+    {
+      "start": 6388.54,
+      "end": 6418.86,
+      "text": " Okay, if host is trying to ping ping this, then what's going to happen? I mean the same question, but, but the source and destination are different. If host is trying to ping this, okay, tell me what will happen. See, anyway, it has to send to the router. So, but this is 10.1. Okay, this is, okay, this link is also 10.1. Now what will happen? Yeah, that's interesting. Now, see here, this host is having the IP address, which is 10.1.2.1.188.",
+      "avg_logprob": -0.21963205392802915,
+      "no_speech_prob": 0.6484375
+    },
+    {
+      "start": 6419.1,
+      "end": 6463.76,
+      "text": " So now you tell me is this is this particular host business within the same network or the different network the ip is ip is 10 dot uh i mean ip is 10 dot 1 dot 3 dot 100 what will host be think what will host be think i mean the way we have uh we have given it right the ip addresses or the network mask we have given it so host we will think that it is in the same network since it is the same network then what will happen it will be it will be sending directly it will try to send directly so",
+      "avg_logprob": -0.1461647692051801,
+      "no_speech_prob": 0.7685546875
+    },
+    {
+      "start": 6464.19,
+      "end": 6501.87,
+      "text": " it will it needs to know what is the MAC address of this host C it needs to know what is the MAC address of this host C in that case what will happen this particular host B will be sending a packet a ARP request basically to whom? to 10.1.3.100 directly or it will be sending to the router 1 tell me I mean it will be basically having this I mean it is looking for this right it directly looking for this it is not looking for the router 1 address",
+      "avg_logprob": -0.12247242639754333,
+      "no_speech_prob": 0.52783203125
+    },
+    {
+      "start": 6502.16,
+      "end": 6534.28,
+      "text": " it is directly looking for this it will broadcast this right it will broadcast this now now since these are in the same network right these are in the same network so router has to i mean router has to forward this packet right because these are in the same network now router now this this particular thing will reach to this host c so host c will say that okay this is my mac address i mean it will reply with the mac address right okay now now this host c will will check",
+      "avg_logprob": -0.10986328241415322,
+      "no_speech_prob": 0.853515625
+    },
+    {
+      "start": 6534.56,
+      "end": 6560.35,
+      "text": " that whether it is in my own network or the different network. Right. So C this is 10 and this is also 10. Right. So this host C and host B both think that both are at the same network. Right. Basically. So they will be directly communicating, which means this host will be sending the ARP request to host C and then host C will be replying and then it will be sending using the Mac address. It will be sending the packet and then the reply will also be directly to host B.",
+      "avg_logprob": -0.18156829434964392,
+      "no_speech_prob": 0.251953125
+    },
+    {
+      "start": 6560.59,
+      "end": 6592.82,
+      "text": " in between if this router is coming that is fine i mean the packet if the topology is like this the packet might might need to go like this then that is fine okay i mean this is basically just to just to make sure that you understand that how these things are happening basically how this arp and icmp regression is happening so it is mostly the arp question not the icmp question okay in in terms of icmp i just had this ping but yeah mostly it is arp question cool is this understood to everyone okay",
+      "avg_logprob": -0.08396611871006333,
+      "no_speech_prob": 0.3486328125
+    },
+    {
+      "start": 6597.04,
+      "end": 6627,
+      "text": " Now, the next topic that we have is basically network address translation. But before that, if you want, I can summarize this, or maybe I have already summarized this ICMP. This is just a summary for the ICMP. You have two types of messages, error message and query message, and this is just a summary. Okay. Cool. Maybe there are some gate questions. Yeah. This is one gate question. Let's just try to solve this. So they are saying, trace root report a possible root. So what does this taste root does anyone remember? I mean, you may not remember the whole mechanism.",
+      "avg_logprob": -0.1383236434108527,
+      "no_speech_prob": 0.293212890625
+    },
+    {
+      "start": 6627.26,
+      "end": 6656.85,
+      "text": " But do you remember what is the final name of the trace root? It is basically checking that. Okay. What is the IP address of the, all the routers in between now, right? What is the IP address of all the routers in between? So trace root reports a possible route that is taken by the packet moving from host A to some other host B. Okay. So trace root is telling the possible routes. See, this is the one of the possible route. Okay. And these are the IP addresses in between. This is one of the possible.",
+      "avg_logprob": -0.19230769943987203,
+      "no_speech_prob": 0.7783203125
+    },
+    {
+      "start": 6657.5,
+      "end": 6690.23,
+      "text": " Which of the following options represent the technique used by the TraceRoot to identify these hosts? Okay, so they're asking how the TraceRoot is working. They're actually asking how the TraceRoot is working. So they are saying by progressively querying routers about the next router on the path to B. So by progressively querying routers about the next router on the path to B using ICMP packet starting with the first router. I think, I think, right? So it sends a query message.",
+      "avg_logprob": -0.16420455168594014,
+      "no_speech_prob": 0.337158203125
+    },
+    {
+      "start": 6690.6,
+      "end": 6713.53,
+      "text": " and with the TTL one right TTL one and then TTL two so let's just see let's just see the other options it's saying yeah you probably should be query the routers about the next router on the path on the path okay about the next router let me just see other languages why requiring each router to append the address to ICMP packet as is for us to be no no obviously that's wrong",
+      "avg_logprob": -0.14476102941176472,
+      "no_speech_prob": 0.46142578125
+    },
+    {
+      "start": 6713.77,
+      "end": 6743.88,
+      "text": " By requiring each router to append the address of the ICMP, address to the ICMP packet as it's supposed to be. No, no, it doesn't say that you keep on appending. It doesn't say something like that, right? Obviously, no. Obviously, no. It doesn't say something like this. By ensuring that an ICMP reply packet is returned to A, ICMP reply packet is returned to A by each router. Okay, that's very tricky. Do you think we are sending ICMP reply message? In between the routers, are they sending ICMP reply message?",
+      "avg_logprob": -0.14349999618530274,
+      "no_speech_prob": 0.64794921875
+    },
+    {
+      "start": 6744.2,
+      "end": 6770.71,
+      "text": " in between routers see you are sending icmp query message let me just recall you okay you are just saying hi with the ttl initially one the ttl will get expire can you tell me what kind of message it is this is icmp error message right error message this is this is query or we call it uh request or reply okay query also is request i mean the first message is called request message okay",
+      "avg_logprob": -0.1316315351530563,
+      "no_speech_prob": 0.431884765625
+    },
+    {
+      "start": 6771.5,
+      "end": 6799.91,
+      "text": " So since this message will get dropped, so that's why this is the, I mean the in between the routers are doing the ICMP error message, not the ICMP reply. This is not the reply packet. I don't understand this language. See by ensuring this ICMP reply packet is written to it. No, no, no, ICMP reply packet doesn't pretend to do ICMP error message written to it, right? By locally computing the shortest path. No, no, we don't compute the shortest path and so on. So yeah, this seems very much fine.",
+      "avg_logprob": -0.15714652237833523,
+      "no_speech_prob": 0.212158203125
+    },
+    {
+      "start": 6800.17,
+      "end": 6838.2,
+      "text": " the progressively requiring so we we keep on querying the querying means we send the query message routers about the next router on the path be using the icmp packet starting with the first router yes i think that is fine so a is the correct answer here right a is the correct answer here okay cool see you are sending icmp query message interestingly interestingly whenever the query message is dropping at that time i'm sending icmp error message right",
+      "avg_logprob": -0.14878862627436606,
+      "no_speech_prob": 0.4462890625
+    },
+    {
+      "start": 6838.87,
+      "end": 6868.39,
+      "text": " Have I told you that we can't send ICMP error message for the query message also? No. Only for the ICMP error message. If you're dropping the ICMP error, then you can't send the ICMP error. See, if you're dropping the ICMP query, then you can send. That's not a problem. See, when can you send, when can you not send the ICMP message whenever you're dropping the ICMP error message? No ICMP error message will be generated in datagram carrying the NICMP error message.",
+      "avg_logprob": -0.13638200687951055,
+      "no_speech_prob": 0.6904296875
+    },
+    {
+      "start": 6869.23,
+      "end": 6903.87,
+      "text": " If you are carrying ICMP error message, then you can't regenerate the ICMP error message. But if you're dropping the ICMP query message here, you're dropping the ICMP error message. Are you not sending ICMP error message? Tell me. Yes, right? See here. This is eco-request. There is no eco-reply. I mean, no one is going to reply because that packet has to be anywhere discarded, right? So this is eco-request. This particular color is telling you eco-request. This color is telling you what? Time exceeded, which means error message, okay?",
+      "avg_logprob": -0.16376879609617076,
+      "no_speech_prob": 0.92431640625
+    },
+    {
+      "start": 6904.14,
+      "end": 6931.13,
+      "text": " time-accident this is ecorakash time-accident ecorakash time-accident so this is query time-accident this is query and then finally it is destination unreachable okay so very nicely they have designed this trace route so i hope you understood this gate pyq especially especially i hope you understood this scene okay that by ensuring the icmp reply packet no there is no reply packet otherwise otherwise you could have done c let's suppose you do not do not",
+      "avg_logprob": -0.17390624642372132,
+      "no_speech_prob": 0.247802734375
+    },
+    {
+      "start": 6931.39,
+      "end": 6963.62,
+      "text": " care about this reply or what what it is this okay while ensuring this is the reply packet is returned to a by each router and to be in ascending order of their hope distance so you will you will you are almost going to say yeah yeah yeah everything is correct if you just ignore this if you just ignore this aren't you going to say yeah c is correct everything is fine just be just just this reply is incorrect here right if this is instead of reply if this is error error packet then yes this c is correct if this is error packet then c is correct right",
+      "avg_logprob": -0.19415760662244713,
+      "no_speech_prob": 0.92919921875
+    },
+    {
+      "start": 6963.92,
+      "end": 6987.52,
+      "text": " just because of reply the C is wrong okay actually I've commented here in this question I think five six years back that why C is wrong so like everyone was struggling at that time that why C is wrong so I just paid attention maybe on the gate or floor I can say I was the first one who paid attention to this reply that comment I don't have currently but if you go to this link okay if you go to this link you will see the comment",
+      "avg_logprob": -0.1055107533290822,
+      "no_speech_prob": 0.401123046875
+    },
+    {
+      "start": 6988.21,
+      "end": 7020.71,
+      "text": " That comment was having quite a good upwards. So that was the first comment after which that, okay, people have paid attention that, okay, this is because of the IP, ICMP reply and reply back and before that comment, everyone was discussing, discussing that why C is not correct answer. Okay. You can check this link. Cool. So that is all for ICMP and we will start network address translation tomorrow. Okay. There is one small topic or actually this is also very good topic. We will start this tomorrow. So thank you everyone.",
+      "avg_logprob": -0.19887609361556538,
+      "no_speech_prob": 0.89306640625
+    },
+    {
+      "start": 7021,
+      "end": 7021.88,
+      "text": " Take care. Bye bye.",
+      "avg_logprob": -0.33454240219933645,
+      "no_speech_prob": 0.06298828125
+    }
+  ],
+  "sourceCompletedAt": "{\"file\":\"026_Recording_Lecture_31_Internet_Control_Message_Protoc.mp4\",\"language\":\"en\",\"probability\":0.84423828125,\"processing_seconds\":156.54324221611023,\"device\":\"cuda\"}"
+}

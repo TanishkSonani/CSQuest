@@ -1,0 +1,984 @@
+1
+00:06:07,310 --> 00:06:46,590
+hi everyone is the audio video volume is everything fine so in the last class we were discussing primary index and clustering index we have already seen in this lecture we will study secondary index then we will see a lot of questions almost I think maybe 35 questions we will see and then we will see multi-level index okay so this is our content for today secondary indexes multi-level indexes and ISAM what is this ISAM that we will see okay
+
+2
+00:06:46,970 --> 00:07:15,260
+So let's move on. So in the last class, we have already seen the, the clustering index. So the clustering index, when do we create this? The clustering index we create my binary search, we will see in a separate lecture. Okay. In a separate lecture, we will study this. So let's see the clustering index. So what is this clustering index? This is the index on non key ordering field. So you can notice if your data file is ordered.
+
+3
+00:07:15,640 --> 00:07:43,920
+you have a file your data file if that file is sequentially ordered by a known key field okay on that field if you create the index see if you create the index on some other field then it will not work but on that field okay on that known key ordering field if you create the index then that will be called clustering index right so that is the definition of clustering index and I told you that when you have a clustering field okay then your file will be called clustered file
+
+4
+00:07:44,200 --> 00:08:12,940
+on that field if you create the index that will be called clustering index right yes or no so these points we have already seen now this question we have seen that if you have a heap file means no attribute is ordered no field is ordered right okay so heap file simply means that like whatever data is coming you just keep putting it anywhere okay whatever record is coming you can put it anywhere okay so insertion of record you can do anywhere so I can say that heap file means no
+
+5
+00:08:14,200 --> 00:08:37,060
+I can say that no attribute no field is ordered okay so can we create a clustering index on a heap file the answer is no okay because for the clustering index your file must be sequentially ordered yes or no right okay so remember your file must be physically ordered your file must be physically sorted in the hard drive in the hard disk your file must be sorted on a known key attribute
+
+6
+00:08:37,330 --> 00:09:05,890
+Now, to create a clustering index on a file R, what should happen? This R must be physically ordered on a known key field F, then index on F will be called clustering index. This question we have seen, how many clustering index can be created? The answer is at most one. If your file is heap file, then we cannot create any clustering index. Okay, so at most one clustering index you can create. Next. Okay, so can we create primary index and clustering index simultaneously? The answer is no.
+
+7
+00:09:06,140 --> 00:09:30,280
+at most one of them we can create right okay let's move on so the implementation of clustering index we have already seen i told you that in the clustering index what we do in the clustering index the implementation is sparse implementation and what we do so in the in the index you can notice this is your index file this is your index file or i can say this is your clustering index file so this is your clustering index
+
+8
+00:09:31,560 --> 00:09:55,660
+now in the clustering index remember what we do so we make one we make one entry for that block we make one entry for every value but we only include we only include the pointer of that block where the first first time that entries get there for example you can notice you can notice that this is a non key field look at this field so this subject name
+
+9
+00:09:55,980 --> 00:10:22,320
+this field is known key this is not a key this field is known key not a key okay so you can notice this is not a key because values are repeating computer science is repeating finance is repeating okay so you can notice physics is repeating so these things are repeating so this is a known key field but you can notice your file is physically sorted okay your file is sorted based on this field subject name so what we can do we can create a clustering index on this subject name now what we will do
+
+10
+00:10:22,570 --> 00:10:49,630
+for every subject name we will create only one entry yes or no for every subject name for every subject name for every distinct value we create one entry like this is a distinct value this is a distinct value this is a distinct distinct distinct okay so for every distinct value we will create one entry so these are the distinct values and for them we will create one one entry and you can notice for example for the computer science what we will do we will put the address of that block
+
+11
+00:10:50,080 --> 00:11:16,320
+in which the compute science entry first comes okay the first occurrence of compute science entry that block address we are going to put similarly for the history that block address we are going to put where this history entry the first occurrence of history entry is in that block okay so that block address we are going to put so very simple so the final idea is this so in the clustering index how do we implement in the clustering index
+
+12
+00:11:19,340 --> 00:11:51,330
+in the clustering index what we do so the idea is this that okay we put search key value so this is your search key value okay and so here this search key value you can notice basically this is I can say for every distinct for every distinct for every distinct search key value key value okay we make one index entry we make one index entry
+
+13
+00:11:53,120 --> 00:12:21,560
+we make one index entry for every distinct search key value so you can notice for every distinct search key value we make one index entry for every one of them okay for every distinct now what we do now what we do also you can notice here we have the block pointer here we have the block pointer okay so where it will point this block pointer this points to okay so you cannot this is the block address this is the block address of that block
+
+14
+00:12:22,890 --> 00:12:58,890
+of that block okay in which first occurrence of the search key value in which search key value okay I can say in which first occurrence of search key value exist first occurrence of the search key value exist okay so this is the idea it is clear to everyone so this search key value in which block it will occur first okay because it can go to multiple blocks this we have already seen
+
+15
+00:12:59,130 --> 00:13:28,710
+so this is the idea so this is the block pointer this is the block address of that block in which first occurrence of search key value exist and for every distinct value we create one record now very simple so this is the complete idea you can notice distinct value of ordering field that we put here distinct value and the address of the first block where that that record is there with that okay with that value the record is there so this is the entry this is the index entry in the clustering index
+
+16
+00:13:29,200 --> 00:13:58,240
+okay so you can easily see that the index file what will be the size of index file or I can say sorry number of index entries that will be equal to number of distinct values of ordering field right yes or no so very easily you can see number of index entries if I ask you if I ask you number of index entries or I can see the number of read and records index records so number of index entries that will be same as
+
+17
+00:13:58,430 --> 00:14:32,620
+number of distinct values number of distinct values of ordering nonkey field of ordering nonkey field right this is your ordering nonkey field ordering nonkey field okay so this is the idea yes number of clusters okay so you can you can also call it number of clusters because clusters will be created right so you can call it number of clusters in a data file
+
+18
+00:14:33,680 --> 00:14:56,280
+number of clusters in a data file in the data file how many clusters will be created so you can notice number of clusters in the data file that is equal to number of distinct values of ordering non key field so all these three all these three things are same okay so you can just check it out so this clustering index is a sparse index or you can say known this is a sparse index because what we do
+
+19
+00:14:56,600 --> 00:15:24,090
+because in the clustering index, we have entry for every distinct value of the indexing field, which is non key by definition and all these things. Okay, so all these things you already know. And we put the block address, you can notice we put the block address of the first block in which that data is there. Okay, so pointer to that block. Next. So like this, you can see, okay, this we have already seen in the last class, this is just a so this you already know that for example, you can notice this, this value three, this is going to multiple blocks.
+
+20
+00:15:24,430 --> 00:15:53,810
+so this value three even though this is going to multiple blocks but what we do this block address we put okay this block address so this block address we put in this you can you can just see okay so this is the perfect diagram to explain everything yes or no this is the perfect diagram to explain everything very simple okay so like this you can see okay so this address we put here now similarly you can notice that this 20 this 20 is going here but this address we put
+
+21
+00:15:53,990 --> 00:16:23,370
+okay so this address we are going to put this block address this block address we will put similarly you can you can see this also okay these these things you can see okay these examples you can see in the last class we have already seen so clustering index is a sparse index in the clustering index we make one index entry for every distinct value of the search key in the data file okay this was the question i gave you in the last class to solve did you try this this was the question did you try this question tell me
+
+22
+00:16:24,110 --> 00:16:53,480
+Did you attempt this question? So let's see. Let's solve this question is very simple. What the question is saying, the question is on the clustering index. Okay. So, but the name is not given. See in the question, the name is not given that it is a clustering index, but let's see what the question is asking. Suppose that we consider an ordered file. Okay. This is the first point. This is the first clue. Yes or no, let's find out the clue. Let's become the detective. Okay. Become the detective. So find out the clue. So you can notice.
+
+23
+00:16:54,000 --> 00:17:23,060
+The question is saying that you have an ordered file with these many records, okay. Stored on a disk with block size 4096 bytes. Imagine that it is ordered on attribute zip code. Okay, so this file is ordered by attribute zip code. Is this clear? So the file is ordered by this attribute zip code. And the question is saying that there are 1000 zip codes with on average 30 records per zip code.
+
+24
+00:17:23,610 --> 00:17:49,940
+okay so you tell me this zip code is a candidate key or not is this zip code candidate key why this zip code is not candidate key what is the reason who is telling you who is telling you that this is not a candidate key who told you that this is not a candidate key because clearly you can see that multiple records are there there are only 1000 zip codes are there and every zip code is repeating almost 300 times yes or no
+
+25
+00:17:50,300 --> 00:18:20,210
+Yes or no? There are 1000 zip codes and every zip code is repeating 300 times on average. Okay. So very simple. So this is, you can, and so your file is ordered by, you can notice your data file. Look at your data file. Your data file, if you notice that is data file is ordered by, that is ordered by zip code. And we found, okay, we are the detective, we are the CID.
+
+26
+00:18:20,470 --> 00:18:53,120
+and we found that this is a non key field okay in this situation in this situation if I create index on a straight name what you can will you call it clustering index in this situation if I create index on a state name index on a state name if I create then will you call it clustering index no now what do you have to do okay if I create index on zip code what you will call it
+
+27
+00:18:54,310 --> 00:19:24,260
+index on zip code is index code can do tell me so index on zip code index on zip code that will be called clustering index yes or no index on zip code that will be called clustering index correct so very simple remember because this your file is ordered by zip code and zip code is non key field now if you create index on zip code that will be called clustering index very simple right okay so you have a clustering index because the question is saying that
+
+28
+00:19:24,540 --> 00:19:52,950
+You have an index on zip code. Okay. See we are the we are doing the investigation. Yes or no. See everything is given in the question. Every information is given in the question users have to look for the clue. Okay. Now the question is saying that five byte zip code is there. Six byte block pointer is there. Now. Okay. We have to find the number of index entries. Okay. Let's start. Let's start the game. So now we will start the game. So tell me first of all, what is the number of index entries?
+
+29
+00:19:55,560 --> 00:20:21,460
+what is the number of index entries number of index entries will be how many zip codes are there yes or no number of index entries that will be how many distinct zip codes are there so the number of distinct zip code values distinct search key search key zip code zip code value distinct zip code values okay so that is a thousand so there will be thousand records in the clustering index right
+
+30
+00:20:22,610 --> 00:20:52,950
+okay very simple so there will be remember there will be thousand records in the clustering index now after that what the question is asking okay so first you find the record size let's find out the easy things first okay in a sequence we will go so you find the record size index record size sorry you find the index entry size index entry or you can call it index record size what that will be
+
+31
+00:20:53,570 --> 00:21:27,180
+so index entry size that is going to be your zip code size correct so that will be your what is the zip code size because that is your search key so that will be zip code size because this zip code is your search key okay plus the block size block address plus the block block address size so your answer is going to be you can notice that question is saying that zip code size is already given to you five byte and
+
+32
+00:21:27,470 --> 00:21:54,310
+so this is five byte and this is six byte the answer will be 11 byte this is the zip code size okay now what is the third thing we can find I always go step by step okay the questions are very simple what is the third thing we can find now we can find uh how many index entries you can put in one block right so blocking factor now you can find blocking factor of index
+
+33
+00:21:54,900 --> 00:22:25,380
+what do you think what is the definition of blocking factor anyone want to tell me what is the definition of blocking factor that is number of entries in the in one block so I can say that will be equal to number of index entries number of index entries per block okay in one block how many entries do you can create in one block in one block how many entries you can put maximum how many entries you can put so you can easily see this is just a this is just a aptitude question
+
+34
+00:22:25,770 --> 00:22:55,150
+that your record size is this and your block size is already given to you now this is just a aptitude question that your block size is 4096 bytes this is the block size 4096 bytes now so tell me how many this type of things you can put in these many in this so that will be answer will be 4096 divided by 11 now this is just a aptitude question the seal value you will take or floor value you will take tell me
+
+35
+00:22:55,400 --> 00:23:34,520
+what you will take the seal value or the floor value what you will take tell me tell me how many you can put so number of index entries per block how many index entries you can put per block so this is your index entry so tell me what are you going to take so okay so number of index entries so this is 11 byte if your block size is 20 bytes just assume your block size is 20 bytes then what you will take
+
+36
+00:23:44,200 --> 00:24:12,940
+if your block size is 20 bytes let's assume your block size is 20 bytes then in that situation in one block how many entries you can put in one block how many entries you can put one entry right yes yes so one entry you can put so this will be floor okay per block how many you can put so per block how many you can put in one block how many you can put okay so you can easily see that in one block
+
+37
+00:24:13,160 --> 00:24:39,080
+inside a single block how many you can put because by default you have to take an spawned organization see let me tell you whenever you are confused what you can do you can just simply take an example for example you have 11 bytes this is 11 bytes you can think like this if block size is 15 bytes then how many i can put in a per block in one block how many i can put yes or no are you getting my point in any in any subject whatever subject you take
+
+38
+00:24:39,390 --> 00:25:06,950
+okay in the gate exam in any question in any subject whenever you are confused whether to take seal value or floor value then what you can do you can take a small example like here I can think like this what if your block size is this if your block size is this then in one block only one entry I can put agree or not agree or not yes or no if your block size is 15 bytes then in one block only one entry I can put so I should take floor not seal okay so here answer will be what
+
+39
+00:25:07,160 --> 00:25:38,240
+the answer is going to be 372 372 so this will be the this will be the number of index entries per block after that what is the fourth thing you can count so these many index entries you can put in one block single block can put these many index entries so okay so now let's see number of index blocks required let's see how many index blocks are required so okay you can notice for the index you have these many entries
+
+40
+00:25:38,700 --> 00:26:06,560
+your index has 1000 entries, you need 1000 records and per block you can put 372 index records so again this is an aptitude question that you can put 372 index records you can put and these many index records you have
+
+41
+00:26:06,870 --> 00:26:34,300
+so again this is the aptitude question how many blocks you need what is the number of index blocks that we need so the number of index blocks number of index blocks that will be equal to okay so these many and these many index records you have in one block you can put these many so here you will take seal here you will take seal again if you are confused then what you will do again if you are confused by chance okay then what you will do just think like this
+
+42
+00:26:34,680 --> 00:27:03,580
+if there are 400 records or you can think like this very simply if there are 400 records then how many blocks I need? I don't tell me if there are 400 index records then how many blocks I need 2 block I need so it means I have to take seal is this clear in the gate exam if you are confused whether to take seal or floor take a near example take a very near example that this is 372 you think like this if your record if your index records are 400
+
+43
+00:27:04,760 --> 00:27:34,580
+okay so take a very near example so that you don't waste time so if your index if your index records are 400 then how many blocks you need two blocks you need it means you have to take seal okay so here answer is going to be in this situation if you divide this I think answer will be three okay so the seal value so these many index blocks you need okay so all these things we have seen so the number of index blocks needed that will be three index
+
+44
+00:27:35,150 --> 00:28:07,180
+block factor that we have seen okay you tell me a few more things you tell me a few more things the five if I search for some zip code okay so I am searching let's assume I am searching for zip code I am searching for zip code equal to something maybe okay I can say zip code equal to any zip code you give me for example maybe I am searching for 302017 okay
+
+45
+00:28:07,630 --> 00:28:40,790
+so let's assume this is your zip code okay i want to search for this zip code now in this situation what i will do in this situation you tell me without index how many and with index how many number of disk access number of disk block access okay i want maximum okay what is the tell me what is the maximum number of disk block access what is the maximum number of disk block access you will need
+
+46
+00:28:41,630 --> 00:29:16,210
+What is the maximum number of disk block access you will need? What is the maximum number of disk block without index? Without index. First you tell me is this sorted? Is this sorted? Is this sorted? Yes, your file is sorted by zip code, right? You know that your file is already sorted by zip code. This you already know, this information you already have. This information you already have that your file is sorted by zip code and you are searching on zip code. File is sorted by zip code.
+
+47
+00:29:18,960 --> 00:29:49,970
+right so your file is already sorted by zip code and you are searching on zip code and you are searching on zip code so who can help you in this type of situation who can help you your file is ordered your file is sorted by zip code and you are searching on zip code so in this type of situation who can help you the binary search can help you the binary search you can use okay so you can use the binary search now you tell me one more thing
+
+48
+00:29:50,240 --> 00:30:22,300
+so how many blocks are there so your answer will be first of all okay this binary search this will give you the first block in how much time you can find it that will be locate log 2 how many blocks are there so this will be the file blocks yes or no this is the number of data blocks this is the number of data blocks or I can say file blocks how many file blocks are there anyone in this question how many file blocks you have see these many records you have okay
+
+49
+00:30:23,180 --> 00:30:54,670
+in this can you find out I think the some information was already given in the previous question also actually this question is it from that previous question okay do you remember there was a previous question so in that previous question it is already given the record size I think the record size is given can you check it out some some information is already given there the record size or something do you remember what was that I think record was record size was 100 bytes
+
+50
+00:30:56,680 --> 00:31:26,770
+Okay, you can take it in your notes. You can take it. Okay, so let me assume that record size. Okay, let me assume data record size is 100 bytes. Let me assume data record size is 100 bytes. Okay, let me assume this. Let me make this assumption. Is this clear? Okay, don't worry about the whatever like, okay, so let me give you this data. Don't worry. I will give I'm giving you this data. Now let's solve using this data. So data record size is already given to you that is 100 bytes. So tell me how many blocks you need.
+
+51
+00:31:28,680 --> 00:32:04,430
+so what this value will be so your record size you can you can easily see that your record size okay so your data now you are talking about the data file now we are talking about the data file remember in the data file what is the record size record size is 100 bytes and your block size that is 4096 bytes so tell me how many blocks you need number of records per block
+
+52
+00:32:06,590 --> 00:32:43,510
+number of records per block so here we are talking about blocking factor of file this is the blocking factor of file correct this is the block blocking factor of file so this is blocking factor of file that will be okay this divided by 100 floor so this value will be there okay so your answer will be 40 yes I think 100 byte it was 100 byte because I remember your our answer was 40 I remember this
+
+53
+00:32:43,880 --> 00:33:13,610
+Okay, we have done this. So I think answer was, yeah, it was 100 right in the previous question. So anyway, so these many data records, you can put one block. Okay, you tell me here. Now, how many blocks you need? Number of blocks for file. Okay, for file, how many blocks you need in your file? There are, there are these many records. There are these many records. And in one, you can put 40 records. In one, you can put
+
+54
+00:33:13,880 --> 00:33:45,220
+40 records you can put so here your answer will be what anyone okay you can check it out I think this will be 7500 number of blocks so these many file blocks will be there 7500 these many file blocks so here your answer will be this be 7500 so your answer will be what in this situation in this situation your answer will be your answer is going to be 13 is this the final answer see
+
+55
+00:33:45,570 --> 00:34:14,300
+this 13 is only giving you the first zip code address this 13 okay this 13 disk access this will only give you the uh this after this 13 this block access are you getting my point arrays this 13 block access this 13 block access only gives you the first zip address where you have this zip code yes or no this 13 this is not the final answer because this 13
+
+56
+00:34:14,780 --> 00:34:50,460
+plus something else okay your answer will be this plus something else because remember we already know that your in this question you can see that so if you want this zip code this zip code is there okay so this is the zip code now for this zip code record okay this zip code records you want to find okay records we want to find we want to find these records right correct
+
+57
+00:34:50,700 --> 00:35:27,030
+okay so this zip code records is what we want to find now for that what you can do for this 13 block access for this 13 block access this 13 block access will get you the first block okay the I can say this is the this will give you the first block first occurrence of this first occurrence okay because this is a clustering index so this will give you first occurrence of this zip code
+
+58
+00:35:31,570 --> 00:36:00,750
+Okay. So now, of course, we have to do some constant value. Now, okay, now, now, now, now, now, now the remaining thing will be done by the order because your file is ordered, right? Yes or no, the remaining done remaining thing will be done by because your file is ordered. So in worst case, what value you you have to put here? In worst case, see in worst case, what can happen? Okay, remember in worst case, what can happen is that this this block only has one record, right?
+
+59
+00:36:01,060 --> 00:36:29,570
+okay in worst case it can happen that this has only one record okay this has only one record this block has only one record so automatically this block will have how many automatically this block will have 100 records automatically the next block will have 100 records because there are 300 records for this zip code right yes or no for this zip code there will be 300 records okay so 100 100 and finally
+
+60
+00:36:30,850 --> 00:36:58,160
+finally when you go to this now here how many will be there so 100 100 there will be 99 that's it so okay this value will be for maximum in worst case it will be for in best case is it will be three right yes or no in okay sorry 13 in this 13 so this is the index this is only for the sorry okay plus three because this is counted the first occurrence we have already got
+
+61
+00:36:58,570 --> 00:37:28,200
+in this 13 that first occurrence is counted yes or no in this 13 this is counted this is counted okay so this 13 axis will get you here this 13 axis these are these are going to get you here now you are here you are standing here okay now you have to 1 extra 2 extra 3 extra so this is the worst case that you will need is this clear let me know okay so this is the maximum that you will need so you will need
+
+62
+00:37:28,490 --> 00:38:01,380
+16 block access 16 block access max maximum these many is this clear 40 okay we are putting 40 okay okay how many records we are putting per block records per block is 40 okay okay okay so in that situation you need 40 okay so you need more actually you need more because we are putting 40 records per block so we can put only 40 records per block so actually you will need more
+
+63
+00:38:01,740 --> 00:38:37,550
+so how many you will need can anyone tell me so like this if you do basically 40 40 40 okay like this if you do then it will be I think you can divide 40 by 40 if you multiply then if you divide 300 by 40 what is that if you divide 300 by 40 what is that value that value will be 7 point something 7.5 okay so you can notice 7.5 if you put 40 40 everywhere
+
+64
+00:38:37,870 --> 00:39:08,080
+then you need 7.5 so almost 8 okay so this total you will need 8 you can check in 8 blocks you can actually put 320 yes or no yes or no total 320 you can put so here you will do plus 7 so that is your answer that will be 20 block access so basically like this you will need total these actually and you can notice in 8 you can put 320 records are 320 records you can put
+
+65
+00:39:09,320 --> 00:39:42,440
+We only want 30 records. Are you getting my point? Okay. So actually in the eight blocks, you can put C. I just see like this. How many you can put in third in eight blocks? How many you can put in eight blocks? You can put 320 records. Okay. Okay. Wait. Okay. So this extra will be eight because this one is gone. Forget about this one. The remaining you can calculate.
+
+66
+00:39:43,230 --> 00:40:11,630
+Forget about this one. The remaining you can calculate 299 divided by 40. You can take the seal value. So the answer will be 8. So 8 extra access you need. Okay. Okay. Okay. So because in eight blocks, you can put these many. Okay. Anyway, so see this is not actually very hard. You think like this. You can think like this. The first record is already gone. Remember the first record.
+
+67
+00:40:12,060 --> 00:40:46,700
+is already gone forget about the first record the first record is here the first record is here first record is already gone the remaining are 299 records the remaining are 299 records for them for them how many 40 per block you can put 40 per block you can put so for them how many so 299 divided by 40 seal you will take these many extra these many more blocks so eight more blocks you need
+
+68
+00:40:48,600 --> 00:41:31,770
+okay Nikhil we are counting the number of disk block access so these many disk block access you need to you need to do 29 21 maximum these many disk block you have to access I am talking about the disk block how many disk block you have to access so that will be 21 is this clear to everyone with index how many the same question with index okay with index the same question tell me with index with your with your clustering index
+
+69
+00:41:34,420 --> 00:42:02,840
+With this clustering index, what is the answer? With this clustering index, so the answer will be log i2 plus So this is the index, this is the number of disk index block access How many index block access you need? How many index block access you need? So you can easily see that this i, this i is what? How many index blocks are there? Three index blocks are there
+
+70
+00:42:03,050 --> 00:42:33,230
+So in this situation, you can notice number of index block access and that will be two. Okay, that is going to be two now. Okay, now you need plus nine plus nine disc blocks plus nine data blocks in maximum. So we are finding the maximum fine. Okay, so this is the maximum you you need. So this is the maximum remember this is the worst case. Is this clear? So this is the worst case in worst case you need these many
+
+71
+00:42:45,640 --> 00:43:16,730
+so this is very less than that yes or no this is very less than that correct yes or no so you can you can you can notice that here you are needing 21 block access and here you are needing only 11 so maximum block access that is only 11 this is your answer is this clear tell me is this question clear all the points all all of them this is the clustering index let me know anyone has any doubt in this
+
+72
+00:43:17,270 --> 00:43:49,150
+please tell me do you have any doubt in this in this question all the points we have done all the points of clustering index in this question we have done please tell me any doubt in this is there any doubt in this now let me tell you one more thing actually what we do the if the index blocks are less for example here you only three blocks are there right in the real life what we do let me tell you here only three index blocks you have correct number of index blocks is only three so when index blocks are very less then what we do
+
+73
+00:43:49,340 --> 00:44:19,010
+We put them in the main memory. Okay. So this is what we do in the basically what the DBM software will do. So the DBM software, what it will do because there are index blocks are only three. So it will put them in the main memory so that access can be very fast. Okay. So in the question, if they give you that index is already available in the main memory, then your answer will be what if the question is saying that index is already available in the main memory, then your answer will be simply nine. Yes or no?
+
+74
+00:44:19,290 --> 00:44:50,610
+so you can notice the sixth question if index is already available in main memory if index is already in main memory because this is what this is what the software will do remember this is what the software is going to do actually this is what it is going to do so basically typically this index would typically be loaded in main memory is this clear so this index we typically we typically load this index in a main memory
+
+75
+00:44:50,940 --> 00:45:28,950
+so that basically the search can become very efficient so if this information is given that index is already in main memory then nine disk block access then nine disk block access max okay size always the cluster no no to create a question we have to do like that mavit else we can't solve the question are you getting my point so the size of all the clusters is not same
+
+76
+00:45:29,250 --> 00:45:57,080
+very common sense maybe some record can be unique some record can repeat many times some record can repeat okay so that the distribution can be anything yes or no in this question the distribution is given uniform what this question is saying did you notice the question was saying that distribution is uniform you can check it out the question is already saying that distribution is already uniform so almost 300 records per zip code
+
+77
+00:45:57,620 --> 00:46:25,120
+so this information is given in the question but remember it is not necessary the clusters can have different different sizes so it is never necessary okay so like this now let's move on now let's see the secondary index before we start the secondary index please tell me do you have any doubt in primary index and clustering index so the primary index and say clustering index both of them they are sparse index
+
+78
+00:46:25,540 --> 00:46:55,420
+okay both of them are sparse we don't create entry for every record in the primary index we create one index entry for one block okay so in the primary index number of index entries that is equal to what in the primary index if you creating primary index then number of entries number of index entries number of index records that will be equal to number of blocks number of data blocks so that is sparse next
+
+79
+00:46:55,640 --> 00:47:23,720
+You can notice in the clustering index, in the clustering index, number of index records that is equal to number of unique number of distinct values, the number of distinct search key values, or you can say number of, yeah, number of distinct o k f, sorry, o and k f, okay, because clustering index, so you have to call it ordering non key field, that is not ordering key field, that is ordering non key field, o and k f.
+
+80
+00:47:23,830 --> 00:47:50,890
+okay so like that anyway so you can notice number of index entries that will be equal to number of distinct search key values in the data file in the data file how many distinct search key values are there that will be equal to the number of index entries in the clustering index okay so is this clear to everyone so both are sparse index and do you remember in the I gave you the definition of sparse index I in that I did not mention that for every block we create one index index entry right
+
+81
+00:47:51,270 --> 00:48:21,040
+did you see the definition of sparse index that line did you see in the sparse index definition we did not say that for every block we create one entry no okay sparse index simply means that for some of the records we create index entry so if you notice the sparse index definition if you see in that definition this some word you will find okay so many teachers they teach in a wrong way that in the sparse index for one block one entry will be there this is wrong
+
+82
+00:48:21,350 --> 00:48:47,490
+okay in the sparse index depends on the situation okay so you can notice in the sparse index for some of the records yeah you can call them anchor records right okay so you can call them anchor records but for basically for some of the records we create index entry we don't create index entry for all the records we create index entry for some of the records okay so we have seen index primary index we have seen clustering index these two things are they clear
+
+83
+00:48:47,690 --> 00:49:18,000
+and we have done the questions and in the questions we have done everything all the variations like number of without index with index how many block access you need okay so all these things know my with in the clustering index this anchor word is not there but like priya is saying anchor in anchor record so you know feeling you can understand the feeling basically the first record in the clustering index you you in the clustering index this is the cluster then this this block address
+
+84
+00:49:18,460 --> 00:49:48,440
+block address of the first record we put okay block address of the first record of the cluster we put so that is what we put okay so of course in the in the clustering index we don't have this terminology this anchor anchor record terminology is not there in the clustering index in the primary index we have the anchor record terminology okay but you can understand like what what the what the speaker want to say okay now let's see
+
+85
+00:49:48,810 --> 00:50:19,180
+secondary index this is the next type of index that is secondary index what the secondary index is this is actually very simple see very simple let's assume there is an unordered field okay in your file are you have a file are okay in this file are you are physically storing this you have stored this you have stored this on the disk correct you are stored this in the disk
+
+86
+00:50:19,730 --> 00:50:51,980
+Let's assume that when you store this on the disk, let's assume that this field a Okay, or you can say that let's assume this field B is not not ordered or I can say unordered if this field B is unordered in the data file, right? I am talking about the data file. So this field field B is unordered in our in data file are So in this data file are this data file you are storing on the disk. Remember, this is your data file. So this data file you are restoring
+
+87
+00:50:52,360 --> 00:51:20,950
+on the disk and when you store this on the disk let me assume that this b is unordered in the data file now now now if you create index on b that will be called secondary index is this clear is this clear now if you create index on b if you create index on b if you create this index this index will be called secondary index is this clear let me know is the definition clear
+
+88
+00:51:24,010 --> 00:51:55,510
+this index will be called secondary index okay so second index we create on which field on which field we create the second index so I can say secondary index basically on the non-ordering field so the secondary index this is a this is a index on non-ordering field secondary index is an index this is an index on non-ordering field the field which is non-ordering so this is a
+
+89
+00:51:56,270 --> 00:52:27,070
+index on non-ordering field okay this can be key or non key of course this field this field now there are two situations okay this B can be key or this B can be non key if this B is a key if these B is a candidate key okay then we will call it secondary index on key okay and if this B is a non key if this B is a non key
+
+90
+00:52:27,510 --> 00:53:03,460
+If this B is not a candidate key, if this is non key, then we will call it secondary index on non key. Is this clear? So this B can be key or non key. Okay, this B can be key or non key. So if this B is a key, Mavith, I'm not getting your doubt. What are you saying? So secondary index means this is the index. Secondary index is the index. Okay, so the question is, see secondary index is the index on non ordering field or non ordering field of data file.
+
+91
+00:53:04,210 --> 00:53:34,120
+or non-ordering field of data file of data file non-ordering field of data file remember your index will be ordered see your index will be ordered it will be ordered your index is going to be ordered okay please understand the index will be ordered but in the data file thus this this field B is not ordered are you getting my point again I am telling you don't mix index and data file data file is different index is different
+
+92
+00:53:34,790 --> 00:54:03,970
+So in the data file, in the data file, this field B is not ordered. Are you getting my point? This field B of the data file is not ordered. Then the index on this field will be called secondary index. And if this B is key, then you will call it secondary index on key. If this B is non key, then you will call it secondary index on non key. So there are two types of secondary index you can create. Is this definition clear? Let me know. Anyone has any doubt? See secondary index.
+
+93
+00:54:04,200 --> 00:54:34,600
+Every index will be always ordered. The index will be ordered, but the data file is not ordered by this field B. What is the doubt? What is the doubt? File can be ordered or unordered. That is correct. File can be ordered or unordered. I just want this field to be ordered. Sorry, I want this field to be unordered. The file can be heap file also now. Mavith, finally, the file can be heap file also. You know, for the heap organization,
+
+94
+00:54:34,940 --> 00:55:03,060
+we cannot create primary index right yes or no if you are following if you are using the heap organization we cannot create the primary index if you are using the heap organization we cannot create the clustering index but finally but finally you can create second index even if you have heap organization the only criteria what is that the only criteria is that that the secondary index we create on that field which is known ordering
+
+95
+00:55:03,540 --> 00:55:31,910
+So even if you have heap file then also there is no problem right? Yes or no? In the heap file everyone is non-ordered. Everyone is unordered. In the heap file every attribute is unordered. So you can see that you can create secondary index on any unordered field. Did you notice that in the secondary index I did not mention anywhere that file should be stored sequentially? Did you notice?
+
+96
+00:55:32,620 --> 00:56:00,580
+I did not mention that file should be stored sequentially but when we were learning clustering index and primary index at that time do you remember what I told you there was a if that your file should be stored sequentially you should you should have sequential organization but for the second index you can easily see that your file can be heap organization or your file can be sequential organization I don't care the only the only criteria is
+
+97
+00:56:00,800 --> 00:56:30,550
+this attribute must be unordered okay this attribute B must be unordered in the data file on this attribute if you create the index that index will be called secondary index let's see with examples let's see with examples okay consider this example you tell me in this example okay can we create secondary index let's okay assume that this is the as you see this is the conceptual level right i will tell me one thing this is the conceptual level is this physical order
+
+98
+00:56:32,000 --> 00:57:01,260
+conceptual schema tells you the physical order tell me does does if conceptual schema Tell tells you about physical order. So this is not the physical order, right? This is a conceptual schema Okay, this may or may not be physical order. Maybe physically. Maybe you are putting this after this. I don't know agree or not. I don't know physically how you put Physically how you put that I don't know. Okay, so let me this assumption. I have to give agree
+
+99
+00:57:01,660 --> 00:57:33,600
+this assumption I have to give that this is a physical order assume that it is physical order it is a it is also physical order this assumption I have to give do you remember there was a standard question in the last class in which this assumption was there do you remember do you remember there was a standard question in the last class in which this assumption was given in the question that your file is your file is stored in the physical order
+
+100
+00:57:33,800 --> 00:58:03,740
+so this is the physical order you can check it out in the last class we have one question in which this assumption is given in the question that this order is the physical order so let's assume that this order let's assume this order is the physical order now you tell me can you create secondary index on which attribute will you create secondary index if this is your order then on which attribute you will create secondary index the answer is account number right because you can easily see that
+
+101
+00:58:03,990 --> 00:58:37,150
+this account number is unordered if you notice this is the physical order of the file this is the data file physical order so you can notice this is the physical order of data file so this is the physical order of data file and you can notice this this account number is unsorted this is unordered so you can create now i can create index on this so what we can do so on this attribute if i create index on this attribute
+
+102
+00:58:38,160 --> 00:59:09,710
+if I create index on account number okay that index will be called secondary index is this clear that index is going to be called secondary index so if I create index on account number that index is going to be called secondary index is this clear to everyone please tell me okay so like this now of course yeah on the customer name you can create another index
+
+103
+00:59:09,990 --> 00:59:45,650
+on the customer name if you create the index that will be called clustering index okay is this clear so in the same question i can say that if you create in the same question if i say that i can say if you create index on if you create index on customer name customer name if you create index on this customer name then that will be called clustering index okay because this is ordered so simultaneously they are possible of course okay
+
+104
+00:59:46,500 --> 01:00:12,800
+Simultaneously they are possible. For example, do you remember I told you in your book whenever you write a book in future then you can give two index three index depending on the convenience. Yes or no. You can give one index by the topic name. You can give another index by the diagram name. You can give another index by the author name. You can give another index by the some other attribute. Yes or no. So you can have many indexes simultaneously.
+
+105
+01:00:13,600 --> 01:00:40,120
+okay in your hard drive this is your hard drive let's assume in the hard drive data file is stored so you are storing the data file one index is here one index is here one index is here one index is here are you getting my point so you can create at the same time on same data file you can create many indexes no problem is this clear so like in this question you have two attributes and let's assume this is the physical order this is the physical order means in the hard drive you store this table in this order
+
+106
+01:00:40,430 --> 01:01:09,410
+okay so basically your file is sorted by name right yes or no basically it means that your file your data file that is sorted by name customer name so on this customer name if you create the index that will be called clustering index because your customer name is not a key so it means it is sorted by customer name but it is not a key so it means simply if you create an index on the customer name that will be clustering index now you can notice the account number the account number is a key yes or no
+
+107
+01:01:09,830 --> 01:01:37,350
+Did you notice account number is a key? Okay, but that is not ordered. Your file, your data file is not sorted by account number. Okay, so I can say that if you create index on the account number, that will be secondary index. Okay, secondary index. There are two types. So SI on key or SI on non key, that will be SI on key. Right. So it will be, I can say it will be SI on key because you can clearly see account number is a key. Account number does not repeat.
+
+108
+01:01:38,090 --> 01:02:05,490
+okay account number cannot repeat right of course because the name can repeat these Johnson and these Johnson they are different Johnson these Johnson these Johnson they are different but the account number should be different okay so you cannot this is a second index on key now let's see how to make the entry so the second index will also have the same thing no problem the second index let's see the implementation let me let me show you the implementation so the second index is also index
+
+109
+01:02:05,850 --> 01:02:37,400
+so it will be in the order it will also have the same thing it will also have the same thing like it will have index entries there will be index entries and they will be in the sorted order yes or no there will be index entries index entries will be there okay and the index entries will be in the sorted order so you are creating a secondary index on account number secondary index on account number so if you create secondary index on account number then what will happen remember
+
+110
+01:02:38,150 --> 01:03:06,280
+Your secondary index will be sorted, of course. Okay. Your index will be sorted. So it will be like this. Let me assume these are the addresses I'm giving you. Let me assume these are the block address I'm giving you. Let's assume this is in the block one. This is in the block one. This is in the block two. This is in the block two. This is in block three block three. And this is in block four. Is this clear? So I'm giving you block addresses. These are the block addresses.
+
+111
+01:03:11,240 --> 01:03:42,600
+What comes to your mind? How should I implement? Sparse or dense? Anyone? Anyone any idea? Use your common sense and tell me. What your common sense is telling you? What should I do? Just use your common sense and tell me. Remember, you have unordered. Yes or no, account number is completely unordered. Right? This account number, if you notice this account number, this is completely unordered. This is completely unordered. We don't know which which is where this is completely unordered. Right?
+
+112
+01:03:42,840 --> 01:04:11,140
+so we need of course we need a dense index we cannot create a sparse index agree or not all right tell me we cannot create a sparse index because the this is unordered we don't know where's one entry will be for example let's assume you create entry for this entry for this entry for this entry for this entry for this entry for this now tell me how will you find a 217 is where can you tell me let's assume you make entry for these now can you find out a
+
+113
+01:04:12,500 --> 01:04:44,680
+in which block A217 is there can you tell me can you tell me in which block A217 is there the answer is no because you are now I cannot find out A217 using the index by this index I cannot find out this because your account number is unordered okay so like this so in this what you are going to do in this we are going to store dense index we are going to create okay so search key value this is the search key value
+
+114
+01:04:45,560 --> 01:05:15,700
+and the block address B1 next you can notice this is the search key value 102 and the block address will be 102 block address will be B1 next search key value is what are the next search key value that is 201 and the block address is B2 next you can notice what are the next search key value after 201 that is A215 the search key value the block address will be B3 next is 217
+
+115
+01:05:16,180 --> 01:05:44,610
+and the block address will be B2 next is 222 and the block address will be B3 and finally you can notice that you have 305 and the block address will be B4 is this clear to everyone so basically you can notice that it is a dense index right it's a clear dense index okay so this is pointing to this this is pointing to this and so on so this is your index will be ordered remember
+
+116
+01:05:45,150 --> 01:06:24,560
+your index is going to be ordered your index is ordered so like this is this clear? tell me your index will always be ordered whether you take secondary index, primary index, clustering index whatever index you take your index is ordered okay but the secondary index if I want to do the implementation then I need dense index yes or no? secondary index must be dense index because this attribute is unordered there is no order so this attribute is unordered
+
+117
+01:06:24,700 --> 01:06:57,370
+anything can be anywhere yes or no any entry can be anywhere so second index must be must be dense in this situation this is a secondary index on key priya this is a secondary index on key this you can easily see this is account number is a key right because account number is a key so this is a secondary index on key your account number is candidate key okay so now yeah this is interesting mavit very good see did you notice if you are creating dense index
+
+118
+01:06:58,120 --> 01:07:31,150
+What dense index simply means? Okay, what dense index simply means? You tell me one thing. What dense index simply means? Dense index simply means that you are creating one index entry for one record. Yes or no, you are creating one index entry. Or I can say you are creating index entry for every record. For every record, you are creating the index entry for every record of data file. Right. So you tell me one thing whenever you create the dense index.
+
+119
+01:07:31,470 --> 01:08:01,050
+there are two choices because for every record you are creating one entry for every record you are creating one entry index entry for every record so if you are creating entry for every record then what you can do you can always choose between either record pointer or so you can always choose either you can choose block pointer either you can choose the block pointer or you can choose record pointer so either you can go for record pointer because anyway you are pointing to every record
+
+120
+01:08:02,040 --> 01:08:32,680
+do you agree or not because anyway you are pointing to every record we are already pointing to every record to every record we are pointing so either you can go with the record pointer or you can go with the block pointer that is your choice and this should this should be taken by default this should be taken by default for for dense index for dense index this should be taken for by default and for the sparse index what we do for the sparse index can you do this can you
+
+121
+01:08:33,120 --> 01:09:03,330
+tell me for the sparse index can you do this now for this sparse index you have to use the block pointer because in the sparse index you are not creating entry for every record so index entry we create for some records for some records of data file so there you have okay you should use block pointer is this clear to everyone tell me is this clear so you can easily see that you can also go for the record pointer so if the in the question if the record pointers are given
+
+122
+01:09:04,690 --> 01:09:36,380
+in the question if record pointers are given then you can go for the record pointer and that is by default of course for the for the dense index for the dense index the record pointers cannot be same do you agree okay like here the block pointer is like b1 b1 b2 b2 but the but the record pointer cannot be same this is record pointer r1 this is r2 this is r3 this is r4 this is r5 r6 r7 okay so you can easily see yes
+
+123
+01:09:36,620 --> 01:10:05,580
+So in this situation, what will happen here? This will happen. So you can put the record pointer because if record pointer is given, then you can put the record pointer. So that will be R2, R1, where is 201? That is R3 and where is 215? That is R6 217. That is R4 222. That is R5 and then finally R7. Okay. So this is how you can do the index. Is this clear? Tell me.
+
+124
+01:10:09,050 --> 01:10:36,110
+so that is your choice either you can use the record pointer or you can use the block pointer anyway see whether you use the record pointer or block pointer anyway you will access the block okay see whether you use record pointer or you use block pointer the access will only happen by block by block it is clear so it does not change the number of disk access remember your choice whether you do this whether you do this this choice does not change the number of disk block access
+
+125
+01:10:37,210 --> 01:11:08,410
+number of this block access will be same number of this block access doesn't change this is just a choice that you have yes or no number of this block access that doesn't change this is just a choice that you have is this clear to everyone either you can use record pointer or you can use block pointer but remember remember if I give you the record pointer then also you have to access the block that remember the access will always happen block by block because you can clearly see the access
+
+126
+01:11:09,320 --> 01:11:58,000
+access is always going to happen block by block so you can notice data access always happens block by block okay so either you can use the I can say either you can use the record pointer or you can use block pointer when you're dense index tell me in this question can we create secondary index can we create secondary index in this question any doubt or in Nikhil that will come in the future just wait why like it will come right
+
+127
+01:11:58,530 --> 01:12:41,210
+second index or known key it will come in the future now it is going to come okay so you tell me here in this situation so on which attribute can I create the second index now you can clearly see that in this file this assume this is the physical order assume this is also physical order okay so assume this is also physical order now you tell me in this in this situation you tell me so you can clearly see that
+
+128
+01:12:42,020 --> 01:13:15,370
+it is ordered by your data file is ordered by this attribute so in this question you can easily see your data file is ordered by this so data file is ordered by account number so I can say that your data file ordered by account number which is a key account number which is a key also which is a key also so if I create index on the account number what that will be called
+
+129
+01:13:16,060 --> 01:13:47,680
+If I create index on account number, what that will be called? That will be called primary index. So you can easily see that if I create index on this. Okay, let's assume I create index Ivan on this index Ivan on account number that index you will call this index you are going to call primary index. We will call it primary index because your your data file is sorted by key by account number. So that will be called primary index.
+
+130
+01:13:47,970 --> 01:14:18,200
+what about branch name that is unsorted so whether you create on branch name or you create on balance that will be secondary index right so if i create index on this if i create another index i2 okay at the same time you can create no problem at the same time you can create so if i create index i2 on branch name on branch name that will be called secondary index and this is secondary index on what
+
+131
+01:14:18,580 --> 01:14:48,970
+this is secondary index on non key because your branch name is not a key so this will be secondary index on non key similarly if you create index on balance what that will be called index on balance if you create index on balance again this is unordered because if account number is ordered then automatically all the remaining fields will become unordered so you can you can see that if you create index on balance then that will be secondary key on non key again that is not a key
+
+132
+01:14:49,550 --> 01:15:19,660
+that is not a key so again that is non key so this is also this will be called secondary index on non key okay so like that now you tell me okay again let's see the implementation now in this situation because your data is repeating so what should we do do you have any idea now you have SI on non key you have SI on non key let's assume that non key is balanced
+
+133
+01:15:20,550 --> 01:15:50,670
+Okay, so you have SI on balance. Let's assume you create SI on balance. You are creating SI on balance. Then what are your alternatives? Anyone want to suggest me? How should I do the implementation? Whatever comes to your mind, that is an option. Okay, right now, array, something should be coming to your mind, right? Yes or no? Like, how should I do the implementation? You tell me. Okay, whatever you tell me, that I will write. Whatever you tell me. So, secondary index on non key.
+
+134
+01:15:50,940 --> 01:16:57,220
+How should I implement? Just give me a second. Hello. Yes. So tell me what should I do? Whatever you tell me, there are many alternatives. So whenever your secondary index or non key, there are many alternatives available. Alternatives are available. So, okay. I think one implementation that is coming to your mind. Let me write it. Maybe is this implementation coming to your mind? Implementation one. Implementation one.
+
+135
+01:16:57,700 --> 01:17:23,970
+is this implementation coming to your mind I don't know whether it is coming or not but let me see whether it is coming on your mind or not okay so is this coming that what we do of course this will be sorted see there is no there is no doubt that it will be sorted right okay it will be sorted so the first entry will be 350 so the first entry this will be 350 your index should be sorted because we are why index should be ordered anyone
+
+136
+01:17:24,680 --> 01:17:53,820
+anyone why index should be ordered like index should be sorted because these are the order indices are these are the order indices I told you that there are two type of indexes there are two type of indexes one is hasing index has index another is okay the remaining index so that one index is has index very of hasing has function hasing okay that is a different type of index that is a different category of index the has index based on the hasing concept based on the has function
+
+137
+01:17:54,150 --> 01:18:23,390
+that may or may not be ordered okay that may or may not be ordered there we cannot say about the order because everything will happen according to the hashing concept according to the has function everything will happen so in the has index we cannot say what will be the order of the index the index can have any order but the remaining all the indexes that we study primary index, secondary index, clustering index okay all the indexes these are ordered indexes all these indexes they are ordered okay they are
+
+138
+01:18:23,580 --> 01:18:53,160
+ordered as I told you right now we are studying what we are studying we are studying ordered indices yes or no we are learning ordered indexes we are learning this is what I told you so you cannot do the second index this is a ordered index so it okay your data will be ordered so what you will do 350 let me assume that this is a let me assume block pointer okay because most of the time in the question they will give you block pointer remember okay so in the most of the time they will give you block pointer let's assume this is b1 b1
+
+139
+01:18:53,350 --> 01:19:22,050
+this is B2 B2 let's assume this is B3 B3 and let's assume this is B4 now maybe this implementation is coming to your mind that what sir let's do this that this 350 where is 350 so this 350 is in B4 okay no problem so for the 350 I don't have any problem for this balance for this balance there is no problem next what is the next balance the next balance is 400 sir for the 400 also there is no problem I can put like this
+
+140
+01:19:22,410 --> 01:21:38,100
+What is the next balance? The next balance is 500. Sir, for the 500, there is no problem. I can put like this 500 B1. Okay. What is the next balance? After that, the next balance is 700. Sir, the problem is coming here. Okay. Yes or no? Now, maybe some of you are thinking that we... Hi, everyone. So far, was everything fine? So far, was there any lagging in the video or audio? Tell me. So far,
+
+141
+01:21:39,180 --> 01:22:13,280
+So far in the lecture was there any lagging in the audio video? Was it was everything clear so far? Please tell me Okay, so you can let me know like whenever there is some this type of issue like volume audio video Okay lagging audio lagging video lagging whatever like okay when I'm writing the writing is lagging So if there is any issue then you can immediately you can let me know okay Now let's let's continue this so you can notice that 700
+
+142
+01:22:13,900 --> 01:22:44,550
+This is a B2, B3. Okay. Anyone was thinking like this? Mayuk is saying that in the beginning it was lagging. So at that time you should have told me. Okay. So please tell me immediately. Whenever some issue is there, immediately you tell. Okay. Okay. Anyway, so you can notice this is 700. So B2, B3. This is one implementation. Remember, this is correct. There is no problem. This is correct implementation. So this is one implementation. 750.
+
+143
+01:22:45,100 --> 01:23:14,280
+you can put in b3 and what you can do 900 you can put in a b2 okay any problem with this implementation what do you think what is the problem with this implementation anyone anyone what is the problem with this implementation variable record very good very good very good very good or a variable length record yes or no in the index you are having variable length record okay so in the index you are having variable length record that is the problem with this implementation
+
+144
+01:23:14,860 --> 01:23:45,700
+in this implementation the problem is variable length record this implementation is not used actually okay but this implementation is possible remember this implementation is possible but not very not used this implementation is I can say not used or not preferred I should say this implementation is not preferred but yes this is a implementation is this clear yes this is a implementation this is one type of implementation but in this implementation this is not preferred and the reason is very simple that
+
+145
+01:23:46,020 --> 01:24:14,960
+index records are variable length index records okay do you have variable length index records is this clear you have variable length index records your index records are variable length so this this implementation is actually not preferred is this clear to everyone is this clear to everyone that this implementation is possible yes this implementation is possible but this implementation is not preferred we don't prefer this implementation because there are
+
+146
+01:24:15,100 --> 01:24:43,680
+your index records are variable length okay one index record can be very big for example let's assume there is one entry like okay like one one let's assume one data is repeating thousand times then what will happen are you think about it one data one value the 700 value this is repeating thousand about a thousand times then what you will do so this record will become very big yes or no so this implementation
+
+147
+01:24:44,230 --> 01:25:11,380
+is possible definitely it is possible but it is not preferred because you can notice there is a problem in this implementation there is a big problem that your record length is variable okay and if that value search key value if it is repeating 1000 times 2000 times 500 times then your record your one index entry will be very big yes or no single index entry will be very big okay
+
+148
+01:25:12,690 --> 01:25:44,130
+Now so we don't we don't prefer it this implementation is not not preferred. Okay, let's see another Okay, so this implementation is not preferred. What do you think? What is it? What are the another implementation? Is anyone who is thinking about some other implementation suggest? Okay, yes another implementation that is coming to your mind to all of your mind that is repeat entry Okay, sir, what we can do instead of this B2 B3 sir, we can do like this Okay, I know that this is coming to our mind, right? Okay
+
+149
+01:25:44,720 --> 01:26:13,090
+okay what we can do after 500 sir what we can do for the 700 we can write B2 and we can create one entry for 700 B3 okay this this is what we can do one entry of course 7 for 750 that will be B3 and there will be another and there will be last that will be 900 and 900 will be B2 okay so this is coming to our mind correct yes or no agree this is coming to our mind
+
+150
+01:26:13,380 --> 01:26:44,470
+so this is also another possible implementation this is another possible implementation but again there is a problem with this again this is not preferred again the same thing this is not preferred again this is not preferred what is why this is not preferred okay so again this is not preferred this implementation is also not preferred but what is the reason let me tell you the reason the reason actually I will tell you that on this okay the reason I will tell you in the multi-level index is this clear
+
+151
+01:26:44,900 --> 01:27:14,400
+the reason I will tell you in the multi-level index actually see this is not preferred because we okay whenever we think about index like naturally when you think about index what what naturally comes to your mind this type of repetition does it come to your mind tell me naturally naturally when you think about index like in your real life in the daily life when you think about index does this come to your mind this never comes to your mind right okay I will tell you the reason why in the DBMS
+
+152
+01:27:14,930 --> 01:27:46,960
+in the database management system in the in this course why we don't prefer this okay again this is not preferred and why I will tell you in the multi-level paging sorry multi-level index okay we will see we will see in multi-level index is this clear in multi-level index so this is not preferred there is a reason for this and that I will tell you in the multi-level index is this clear to everyone so remember this implementation is also not preferred okay
+
+153
+01:27:47,400 --> 01:28:16,860
+implementation one not preferred because there is a problem. This is a big problem that this is a variable length record. This is a very big problem. So this is not preferred and very this variation to implementation to this is also not preferred. I will tell you in the multi-level index. So what is the possibility then? Okay, let me tell you another implementation implementation three. This is preferred. Actually, this is by default in the implementation three. What we do? We just simply write the unique values only. Okay, we do like this.
+
+154
+01:28:17,470 --> 01:28:47,030
+what we do we do like this we simply write the unique values only like we create one sorry for the for example for the 350 we will create one entry now this pointer will be there but this pointer will not point this are you getting my point this pointer will not point to this block is this clear this pointer is not going to for example let's assume b1 let's assume b let's assume b1 b1 b2 b2 b3 b3 and b4
+
+155
+01:28:47,290 --> 01:29:17,100
+Okay, so in this implementation we don't this does not happen This does not happen. We put one extra level Okay, we don't do this what we do in this implementation number three in the implementation number three We put another extra level one extra level we put so we put another block Okay, we put another block another block we put in that block we put before Are you getting my point so one extra level is there agree or not?
+
+156
+01:29:17,420 --> 01:29:48,340
+see can you notice one extra level we got okay one extra level we got so you can notice 350 then what we do for 400 for 400 there will be another block there will be another block for 400 there you can put b1 in that block you can put b1 so okay so there is one extra level of access one extra level of access you need okay so one extra level of access now in this situation like this you do like this you keep doing
+
+157
+01:29:48,660 --> 01:30:18,430
+finally when 700 comes like this you keep doing okay finally when 700 entry comes in the 700 entry what we do we this will point to one more block in that block what we will do let me know let me know in that block what we will do so in this block we will put that okay you are in B2 also and he is in B3 also so this record is in B2 also B3 also so are you getting my part so this implementation is preferred actually
+
+158
+01:30:19,270 --> 01:30:51,700
+Okay. So in this implementation, what happens that there is one extra level, one extra level we have one extra level we have, but this implementation is preferred. This is the by default implementation. This is the by default implementation. Implementation. Tell me is this clear? Let me know. Please tell me all the three implementations. Are they clear? See, you should not buy hard. I'm just telling you whatever is coming to your mind that is possible implementation. Yes or no.
+
+159
+01:30:52,040 --> 01:31:19,680
+like you don't have to buy hard that if I directly give you implementation 3 then what you will think if I directly give you implementation 3 what you will think you will think sir we could have done this why people did not do this people could have done this why people did not do this yes or no so remember remember all three implementations are possible what is coming to your mind the same thing will come to those people mind yes or no those are also human beings okay those people who are designing this concept
+
+160
+01:31:20,090 --> 01:31:50,160
+yes or no whenever you create a concept then like what is coming to your mind those ideas the same idea they come to mind they come to their mind also okay then they will check okay which idea is better okay then they will okay have you have you heard about this word simulation have you heard about this word simulation see sometimes which implementation is better implementation 1 implementation 2 implementation 3 we cannot directly decide sometimes it happens
+
+161
+01:31:50,450 --> 01:32:18,940
+that which thing is better what should I do we cannot directly decide then what we do we run it okay like uh we run it uh implementation one we we implement it we implement implementation implementation two also and implementation three also so all of the three things all the three implementation we try and then the data we see and then we see okay implementation three is doing better is this clear are you getting my point so all the three ideas
+
+162
+01:32:19,200 --> 01:32:48,400
+Okay, whenever some idea will come to your mind, like if you go to IIT, IIC, okay, you go to some good college, you will do some project, machine learning project or some project you will do, then it will happen that you will think, should I do this, should I do this? Okay, more than one ideas will come to your mind, then how to decide. So for that, you will do simulation. Okay, you will, you will take some data and you will run it and then you will decide from the result, you will decide, okay, that this is doing better. The same thing happens in the marketing also.
+
+163
+01:32:48,940 --> 01:33:18,280
+in the marketing for example someone is thinking let's assume there is a movie or some company let's assume amazon company is there and the amazon company is thinking what type of marketing i should do yes or no i should do which type of marketing should i give some very nice peaceful message like hindu muslim peaceful message i want to give then you can notice sometimes it will work sometimes it will not work right yes or no sometimes
+
+164
+01:33:18,720 --> 01:33:46,960
+when you give some very peace very I can say unity message sometimes if you give a unity message then sometimes it will work people will like it but but sometimes it will be it will not work okay for some companies it did not work for some companies it worked okay so this is called all these things you cannot decide all these things will come by simulation okay are you getting my point this happens in the marketing also like in the marketing the company will ask
+
+165
+01:33:47,160 --> 01:34:15,540
+that which which advertisement I should do there are three advertisement okay add one add two add three which advertisement I should I should do then they will check it okay maybe they will show this advertisement to 5000 people 5000 people they will give this advertisement okay then they will check that which advertisement is better are you getting my point so the same thing happens here also you have three implementations I gave you three implementations
+
+166
+01:34:15,850 --> 01:34:44,390
+One of them came to your mind also, right? I think one of them came to your mind. So the implementation that came to your mind that is not preferred. Okay. So three implementations are there. The third implementation is preferred that three third implementation is better and that is by default. Is this clear? So you don't have to buy hard these things. Like, okay, I directly give you that this is the implementation. Then what is the intuition for that implementation from where that implementation came? What about the other implementation?
+
+167
+01:34:44,830 --> 01:35:20,130
+I am thinking like this would you like this we can do okay why we are not doing like this so all these questions are the answer tell me tell me all these questions yes or no so this is the by default implementation so this implementation number three this is what we do okay let's move on now see this okay let's assume this is the physical order again I'm giving you assume this is also the physical order now you tell me
+
+168
+01:35:20,540 --> 01:35:51,340
+On which attribute I can create primary index? In this table, can I create primary index? Assume this is also the physical order. This is also the physical order of data file. In this table, in this file, on this file, can I create primary index? No, I cannot create primary index, right? Yes or no, I cannot create primary index. You cannot create primary index. And what about clustering index? What about clustering index?
+
+169
+01:35:52,230 --> 01:36:20,650
+You cannot create clustering index also. A candidate key is there. See, this is the candidate key. But when we create the index, we think about single attribute. Okay, Priya, when we create index, we think about the single attribute. Okay, so you can easily see that we cannot create primary index. We cannot create the clustering index also because no field is ordered. Your file, your data file is not ordered by any field. Yes or no? Agree or not?
+
+170
+01:36:21,300 --> 01:36:52,020
+your data file is not ordered by any field so on this file if I create index on D I can create three indexes I can create three indexes index one I can create on D index two I can create on I can create another index index two I can create on B I can create another index that index I can create on A all these index what you will call them all these index what you will call them all these index are secondary indexes
+
+171
+01:36:53,560 --> 01:37:23,990
+All these indexes, they are secondary indexes because because you can notice this D is not sorted in the data file. This B is not sorted in the data file. This A is not sorted in the data file. Okay, so this is a heap organization. You can think like this. You can think that this is a heap organization. So this this file is the example of heap organization. Like whatever is coming, you can put it anywhere. Yes or no, whatever data comes, you can put it anywhere. So like this. So this is an example of heap organization. Now you cannot create
+
+172
+01:37:24,820 --> 01:37:55,430
+primary index, secondary index, clustering index. So all these three indexes, these will be secondary indexes. Is this clear? Let me know. And one more thing, secondary index on what? Like focus on index on D. So second, that will be called what? That will be secondary index on non-key, right? Yes or no? So this will be secondary index on non-key. This will be SI on non-key. And whenever you have SI on non-key, what your implementation is?
+
+173
+01:37:56,000 --> 01:38:23,620
+what your implementation is the implementation is like this the implementation is like this that there will be one extra level yes or no there will be one extra level like you have given now you will point you will point to one other block there will be another block block okay and this block will point to this block okay this block will point to this block let's assume they are in the same block let me assume they are in the same block let me assume they are in the same block
+
+174
+01:38:24,150 --> 01:38:53,430
+Okay, if they are in the same block, then you don't write it again and again. Is this clear? Let's assume they are like, for example, let's assume this is B1. This is B1. This is B2. This is B2. Okay, B3, B3, B4, B4. Okay, then what you do, you write, here I can say that in this situation, you will do like this. Okay, so you will write that, okay, in B1 I have, in B2 also I have. In B1 I have, B2 also I have.
+
+175
+01:38:53,660 --> 01:39:24,660
+And this D1 is not there, right? Okay, so like this you do the entry Next, your D2 So your D2 will point to another level There will be another level Okay, to which this D2 will point And this D2, it will contain B1 It is going to contain B1, it is going to contain B3 Okay, D2, D2 So it is going to contain B1 and B3, right? Yes or no? So are you getting my point? Like this, and so on So like this you do the implementation Whenever you have SI on non-key Okay
+
+176
+01:39:25,250 --> 01:39:53,810
+Let's see this question. Tell me the answer for this. From the database management system point of view, if you see the index at the end of Raghurama Krishna page, is that second index? Is that second index? Yes, that is a second index. Okay. Finally, this question we have done three times. Okay. Then finally, this has come. Yes or no? Finally, this has come that this index is second index. Why? Why? Why? Because this search key is not ordered. See, this is the search key. What is the search key?
+
+177
+01:39:54,110 --> 01:40:27,080
+if you look at this index in this index what is the search key in this index in this index what is the search key the search key is topic name the search key is a topic name so your topic name is the search key and you can notice your data file is not sorted by topic name right yes or no so you can clearly see that your data file your book your data file is not sorted no sorted by topic name so your index is on attribute remember remember
+
+178
+01:40:27,110 --> 01:40:54,700
+your index is on this attribute and this attribute is not sorted in the data file in the data file this attribute is not sorted so that is the reason this index is a secondary index yes or no this index is basically the secondary index so finally we found that the secondary this is a second index so now remember from the database point of see from the book point of view this is primary index yes or no in the daily life
+
+179
+01:40:54,910 --> 01:41:22,890
+the students who do not understand the dbms if you ask some maybe some other student yes or no then they will ask then they will tell you this is the primary index because for them primary does not mean our primary yes or no for them primary means English word primary are you getting my point for them for them okay the primary means English word primary means main index yeah so according to them this is the main index
+
+180
+01:41:23,130 --> 01:41:51,500
+but from the dbms point of view this is second index yes or no from the dbms concept if you see the dbms concept then this is the second index because in this index the search key is the topic name this index is sorted or not this index is sorted or not yes this index is sorted index is always sorted but your data file is not sorted by this topic name is this clear your data file is not sorted index is always sorted
+
+181
+01:41:51,690 --> 01:42:19,970
+index is sorted but your data file is not sorted by the topic name so that is the reason this index is on the attribute topic name which is unordered in the data file so this index is a second index is this crystal clear please tell me i want to make sure primary index second index clustering index whatever is there you should have crystal clear idea about it okay whatever question they create in the gate exam and most of the question comes from this let me tell you in the gate exam
+
+182
+01:42:20,430 --> 01:42:52,590
+Most of the questions, they come from this almost three or four questions have come only from this topic. Okay. Now let's see. Let's see the another question. If you have a heap file, can we create second index? If you have a heap file, can you create second index? Again, the answer is yes. Again, finally, yes or no. Again, finally, yes. Now I can create the second index. So on the heap file, also you can create the second index. There is no problem. Next, what about this? So to create second index, what do you need?
+
+183
+01:42:52,780 --> 01:43:21,090
+Tell me, if you want to create second index, what do you need? Your file can be heap file or your file can be sequential file. I don't care. You create a index on unordered field of data file. Okay, you create a index on unordered field of the data file that index I will call second index. Okay, is this clear? Let me know. Let's see this question. Can we create second index on the following file on this file? Can we create second index? Of course, you can create second index.
+
+184
+01:43:21,710 --> 01:43:52,850
+okay you can create second index on this column you can create second index on this column you can create second index on this column okay so three second index you can create yes or no I can create three second indexes I can create okay is this clear so the answer is yes can we create the answer is yes actually we can create three second indexes we can create three si simultaneously three si we can create three second index possible simultaneously
+
+185
+01:43:59,080 --> 01:44:37,580
+at the same time you can create three second index okay so on these attributes what about this can you create second index in this file in this file can you create second index the answer is again this is unordered this is unordered now this is also unordered so again the answer is yes again you can notice that you can create three SI simultaneously okay three second index these are simultaneously possible is this clear let me know okay
+
+186
+01:44:38,310 --> 01:45:10,210
+now this is a question index on non candidate key can we call it second index can we say index on non candidate key can we call it second index the answer is no the answer is clearly no because you can clearly see that should be unordered for example for example for example this like if you create index on this field then that is see this is non key right this is not a candidate key see this is not a candidate key this field if you look if you notice this field
+
+187
+01:45:10,510 --> 01:45:44,530
+if you create index on this if you create index on subject name if you create index on subject name that index is not second index correct that index is not second index that is a clustering index right yes or no so remember index on known candidate key is called second index the answer is no okay index on unordered field is can uh index on unordered field unordered field any field key or known key doesn't matter
+
+188
+01:45:45,070 --> 01:46:27,160
+index on unordered field of data file unordered field of data file yes finally this is true okay now let's see this one consider this consider a relation with at least two attributes you have a relation with two attributes there is a relation which has two attributes this is a very nice question and tell me the answer for this question you have a relation with at least two attributes stored on a disk
+
+189
+01:46:27,520 --> 01:46:55,290
+either in sequential organization or heap organization can you always create at least one second index can you always create can you always always always always create at least one second index can you always create at least one second index the answer is very simple yes because why tell me what is the reason animal want to tell me what is the reason whether it is heap file or it is sequential file
+
+190
+01:46:55,960 --> 01:47:24,550
+why you can guarantee that you can always create a second index because you can notice very simple point that at most one attribute can be ordered right yes or no at most one attribute at most one attribute can be ordered you can keep only one attribute in the sorted order okay so all the remaining attributes they will be unsorted all the remaining attributes they will be unordered so you can create second index on them so can you always create second index
+
+191
+01:47:24,860 --> 01:47:54,010
+whether you have he file or sequential organization yes we can always create if you have at least two attributes very simple so this this question tells you about second index right yes or no what is the second index what about this how many second index can we create on a file using single attribute and remember we only study the using single attribute this is by default that we study using single attribute
+
+192
+01:47:54,480 --> 01:48:27,700
+see I told you that by default we only study indexes on single attribute okay we only study I told you this we only study indexes on single attribute but remember indexes on multi attribute are also possible remember remember indexes on multiple attributes are also possible indexes on combination of attribute that is also possible but we only study in our syllabus we only have indexes on single attribute
+
+193
+01:48:28,040 --> 01:49:01,440
+so how many you can create and the answer will be number of attributes minus one in okay in worst case see in i can say minimum minimum you can create is okay i can say how many secondary index can be created on a sequential file let's see this in a sequential file what will be the answer in a sequential file what is the answer the answer will be number of attributes minus one this will be the answer and the same question if i ask you for the heap file then what will be the answer
+
+194
+01:49:03,400 --> 01:49:37,060
+then the answer will be number of attributes okay like this now let's see this second index implementation second index on key that is very easy to implement agree or not see second index on key second index on key that is very easy to implement just create a dense implementation okay that is very very very easy what to do just create a dense implementation but make sure that your index is sorted your index is definitely sorted
+
+195
+01:49:37,440 --> 01:50:23,650
+okay so this is very easy just create a dense and number of entries will be what so tell me if you have si on key if you have si on key then what your number of entries will be number of entries in index that will be equal to number of records in data file okay so you can clearly see this is always this is always dense okay this is always dense and number of entries will be equal to number of records in the data file so this is very easy
+
+196
+01:50:23,960 --> 01:50:52,550
+because you are creating on key because it is a key so there is nothing here it is very easy but on non key so on the key you can easily create just create a dense index very and value of non ordering field non ordering field right okay so value of non ordering field and the pointer to the record or to the block either you can put the record pointer or you can put block pointer right yes or no by default is what tell me tell me tell me or a by default is what by default is record pointer
+
+197
+01:50:52,900 --> 01:51:22,400
+but either you can put record pointer or you can put block pointer in the question if record pointer block pointer both are given then what you will take in the question if both are given record pointer block pointer both are given then what you will take then for the dense index you will take record pointer I told you for the dense index record pointer you should take okay so now let's see so you can notice the index entry will be like this the value of known ordering field and the pointer to the record which contains that known ordering field okay so the second index on key like this you can do
+
+198
+01:51:22,540 --> 01:51:50,460
+and these remain so number of entries in the index in the index file number of entries will be same as number of records in the data file okay and these things you can calculate yourself these these things we can easily calculate like number of in index block files okay index blocks how many index blocks will be there and what is the size of the index record and how many record index record you can put in single block that is the blocking factor of index all these things you can calculate like
+
+199
+01:51:50,680 --> 01:52:21,310
+let's take this question and apply our thoughts all your thoughts you can apply on this question tell me one by one so let's start so the data file example is given the data file information is given and for the data file he's saying that number of records is 90,000 record length is 100 bytes non-ordering field length is a length is 15 bytes okay so and what you are doing on this let's assume you are creating the index okay let me assume
+
+200
+01:52:22,280 --> 01:52:55,980
+you are creating the index on this okay you are creating the index on this then what that index will be called if you create index on this what that index will be called that index will be called a secondary index okay so let me assume this is a non key let me assume this is a non key sorry let's me assume this is key because we are taking the example of key let's assume this is key okay so this is second index on key because we are taking the example of a second index on key okay
+
+201
+01:52:56,250 --> 01:53:25,630
+So this is second index on key example we are taking. Okay. Anyway, so you tell me about this now. Now. Okay. So every information is given to you and the length of record pointer is also given to you. That is a seven bytes. Okay. So you tell me about first, first what we should calculate step by step. What do you can calculate? Tell me what you can directly calculate. What are the first thing that you can directly calculate that is index record size. Right. So the index record size you have to calculate.
+
+202
+01:53:26,120 --> 01:54:01,290
+First of all, index entry size you have to calculate. So what are the index entry size? What is going to be the index entry size? That is very simple. That will be 15 bytes. Okay. Plus seven bytes. So the answer will be 22 bytes. This is your index entry size. What are the second? The second thing, what you can calculate, you can find the blocking factor of index. Now you can find blocking factor of index. It simply means that how many index entries you can put in one block.
+
+203
+01:54:02,520 --> 01:54:38,410
+okay it simply means that number of index entries you can put per block per block how many you can put okay so tell me how many you can put per block okay so here you can notice the index entry size is 22 bytes so in this situation and your block size is already given to you so the blocking factor is going to be what because remember number of records you can put per block so very simple that
+
+204
+01:54:38,750 --> 01:55:10,090
+One block size, this is already given to you that block size is this, this information is already given that the block size is a four KB. Okay. This case simply means two to the power 10. Okay. Now, so this is the block size and the index record size is also you have the index record size that also you have and that is your 22 bytes. So how many records, how many index records you can put per
+
+205
+01:55:10,970 --> 01:55:40,730
+how many index records per block you can put that is going to be what that is going to be so you can easily see that 4096 okay yes or no like if you multiply this what that will be that will be 4096 right okay so that will be 4096 divided by 22 and you will take seal floor you will take floor if you are confused again I am telling you if you are confused then what you will take
+
+206
+01:55:41,230 --> 01:56:09,410
+if you are confused whether to take seal or floor if you are confused what you will consider you will consider like this see consider like this that index record size is this if block size is 30 bytes okay just just tell me if block size is 30 bytes then how many index record you can put in one block if block size is 30 bytes then how many index record you can put in one block only one you can put right not two only one you can put so you should take what you should take floor
+
+207
+01:56:10,050 --> 01:56:38,930
+Is this clear? So if you are confused, take a nearest example. Okay, don't make mistake in the gate example, please. Okay, see, if you are confused, take floor or seal this example, you can take nearest example, you can take. But don't make this mistake that instead of floor, you are taking seal, instead of seal, you are taking floor. Don't make that mistake. Okay, and with experience, once you do 5 or 10 questions, then this will automatically happen. Okay, you won't need this nearest value. Automatically it will happen.
+
+208
+01:56:39,210 --> 01:57:08,770
+seal or floor okay your mind will automatically do okay like you don't have to remember anything this will automatically happen so but i'm just telling you don't buy hard this is what i'm telling you because i have seen many teachers what they do they try to make you buy hard that okay in these these situations take floor in these these situations take seal please don't do that okay just understand take us take a nearest value logically you think what is happening here like 22 bytes is the record size index record is taking 22 bytes
+
+209
+01:57:09,130 --> 01:57:38,510
+then what you do you take value like if block size is 25 then how many you can put only one I can put two I cannot put so floor I have to take I don't okay so here I will take the floor so what is the value tell me 4096 divided by 22 floor what is this value can anyone tell me this value is 186 okay so 186 index record you can put in one block okay so this is your this is your blocking factor of index
+
+210
+01:57:44,080 --> 01:58:14,450
+this is your index blocking factor now what is the next thing the question can ask what is the next thing you can calculate what is the third thing you can calculate number of index blocks okay so what is the number of index blocks so you tell me what is the number of index blocks so you can easily say that how many index entries okay first of all you tell me how many index entries number of index entries you tell me number of index entries what is that so number of index entry this is a SI on key
+
+211
+01:58:14,800 --> 01:58:45,670
+So number of index entries will be equal to a number of records that is 90,000. Okay. So that is going to be 90,000. That is going to be 90,000. Okay. So this is your index entry. Now the fourth thing that you will calculate is a number of index blocks. This is the fourth thing you will calculate. So you can notice I want these many index entries. I can put these many index entries in one block. I will take seal or floor. I will take seal. Again, you take a nearest value. If you are confused, then what you will do? Tell me.
+
+212
+01:58:45,930 --> 01:59:13,350
+in the gate exam if you are confused then what you will do you will do like this see these many entries i can put in one block if i have 200 entries then how many block i need tell me see these many entries i can put in one in one block then if i have 200 entries then how many block i need i need two blocks right okay so you have to take seal value so what is this value can anyone tell me this is i think 4824 okay so these many index blocks you need
+
+213
+01:59:15,800 --> 01:59:49,840
+484 index blocks you need. Okay, so this is the calculation that we have done. Now you tell me the next point. Okay, what is the next thing that we can ask? So the record length we have done, number of index blocks, all these things we have done. Okay, you tell me using second index, what are the cost? What are the cost using access cost using secondary index? Tell me the access cost using secondary index. What is going to be that? That is very simple. Okay, that is your log.
+
+214
+01:59:51,070 --> 02:00:18,910
+log 2 i plus 1 okay so this i this is your number of index blocks that is 484 so you can calculate this final value what is that going to be so you can check it out I think this will be 10 okay now without in without second index what is the excess cost without second index without the second index what is the excess cost
+
+215
+02:00:24,360 --> 02:00:56,520
+What is the access cost without second index now you can't even do CCC now you can't even do binary search. Yes or no. Now you can't even do binary search. Okay, because now can't even do binary search can't do binary search. Why? What are the reason? Now you can't do binary search. What are the reason? The reason is very simple because your file is not sorted by index search key. Yes or no can't do binary search. Why?
+
+216
+02:00:56,860 --> 02:01:29,820
+because you can notice that your your file not sorted by search key not sorted by search key by search key your file is not sorted so that is the reason you can't do binary search so in this situation what is the worst case like maximum how much maximum will be b blocks do you remember and what will be average I told you that will be b by 2 so maximum will be b and average will be b by 2 agree or not yes or no
+
+217
+02:01:30,140 --> 02:01:59,230
+so maximum will be B what is B value what is the value of B maybe they have they have not given okay so you can calculate oh this is given actually you can calculate this even if this is not given you can calculate from the because 100 bytes is the record size so how many records you can put that is 40 on total you want to put these many so this is your 2205 22050 you can calculate this right yes or no tell me in the question of course this will not be given
+
+218
+02:01:59,660 --> 02:02:39,520
+in the question remember this will not be given actually i should have removed this i should have removed this because you can calculate it okay yes or no agree or not you can calculate it so i can remove this maybe from the original question i can remove this so you can easily calculate this uh how much the blocking factor and this is the file blocks what is this b value this b is the number of file blocks okay so this is your answer okay clear let me know
+
+219
+02:02:39,930 --> 02:03:10,300
+So finally your answer will be B by 2 and you can calculate your B by 2 that will be I think 1 1 5 2 5 a lot of difference agree or not. Tell me a lot of a lot of difference lots difference a lot of difference. Did you have this this this much difference in the primary index? Okay in the primary index also there was difference. There was difference right in the primary index also there was difference in the clustering index also there was difference but this is huge difference.
+
+220
+02:03:11,500 --> 02:03:34,860
+yes very good you Raj very good see primary index and clustering index even if you don't have then also you can do yes or no are a primary index and second and clustering index even if you don't have let's assume you don't have primary index you don't have clustering index then also you can do things nicely why because your file is ordered yes or no agree or not
+
+221
+02:03:35,020 --> 02:04:01,740
+your file is ordered by the search key so if your file is ordered by the search key then you can do the binary search on the file directly so using primary index some difference will be there but you will not have a very huge difference okay but in the second index there is a huge difference in the second index okay there is a huge difference because okay because in the secondary index if you are creating second index on field B then it means that your field B is not sorted
+
+222
+02:04:02,080 --> 02:04:35,500
+So if you do any search on field B, then you cannot do binary search on the file. Okay. Are you getting my point? Is this clear to everyone? Please tell me. So a lot of difference you are getting. Okay. So you can notice second index that is always dense. And we do this. Let's move on. And you can notice many second indexes you can create. Remember many second index. You can can be created on the same file on the same file. You can create many second indexes. Okay.
+
+223
+02:04:35,830 --> 02:05:10,090
+So this is what we have seen and do you remember I told you this that okay so such a index is dense so all these things we have seen so all these points we have seen and one more thing that you can either put a record pointer or a block point right see this see this we have already seen look at this secondary field is either block pointer or record pointer okay either you can keep block pointer or you can call you can put a record pointer so all these things we have seen you can just check it out all these questions all these things
+
+224
+02:05:10,510 --> 02:05:38,950
+we have done now what about this one secondary index on non key what about this tell me quickly secondary index on non key on non key various implementations are possible or not yes or no agree yes various implementations are possible right okay so I told you that there are various implementations possible implementation one what is that tell me implementation one what is that what was that implementation one that was not a good implementation okay
+
+225
+02:05:39,200 --> 02:06:07,170
+variable length record index record is variable length actually you can notice have you seen this variable length record have you seen this yes in the Raghurama Krishna book or any standard book if you see you will implement this so so this implementation one is not useful for the DBMUS but it is useful in your standard books agree or not okay yes or no this implementation one implementation one so it is like a book index agree or not this is like a book index
+
+226
+02:06:07,500 --> 02:06:38,970
+It is very helpful in the book index. See this, see this, see this, see this, see this variable length index records. I'm giving you practical analogy. Yes or no. Is this understood? Tell me implementation one is this understood? This is your implementation one. In the implementation one, what you can do the variable length index records you are getting. So in this implementation one, so why this is not preferred then? Why this implementation one not preferred?
+
+227
+02:06:42,250 --> 02:07:24,140
+Implementation one not preferred. Okay. And the reason is very simple. If anyone ask you why the reason is very simple, you are getting variable length index records. Okay. Now let's see this. The what is the implementation to that was your common sense implementation. I can say this is the common sense implementation. Correct. Because that will come to your mind. The first thing that will come to your mind is this. So implementation two is the common sense implementation means index entry.
+
+228
+02:07:24,550 --> 02:07:53,760
+for every record you create index entry for every record like this agree or not like this you do yes or no like for every record you create index entry for every record 20 is 3 times so 3 times you create okay 52 times okay so for every record you create index entry so this is your implementation number 2 why this is not preferred why implementation 2 is not preferred I will tell you in the multi-level index actually the reason let me tell you the reason is this
+
+229
+02:07:54,470 --> 02:08:22,350
+No, there is no ambiguity is not the reason the reason is this that actually this is a single level on this actually creating the multi-level will become very I can say will become little bit complicated. Okay, so actually we don't prefer it because there will be some problems when we create the multi-level index. Okay, we will see that if you don't have this see if you if you only have one entry if you only have one entry for one one file
+
+230
+02:08:22,690 --> 02:08:51,680
+then basically multi-level index you can very easily create okay so that is very easily you can create so that is the reason this is not preferred these duplicates are not preferred okay because duplicates will create a lot of problem actually this always happens yes duplicates they always create problems you can check it out like when you study your algorithm subject your data structure subject they're also like if if if a question is given that all the values are distinct then question becomes very easy right the same question
+
+231
+02:08:52,080 --> 02:09:17,720
+if if repetition is allowed then that becomes complicated to handle yes or no maybe you have seen this you take any topic your spanning tree concept you take in graph if you have distinct age weights the okay life becomes very easy okay but if your repetition of the edges then life becomes little bit hard so you can easily see that actually when your repetition of entries then basically the things become complicated and I will tell you that multi-level index
+
+232
+02:09:18,110 --> 02:09:46,210
+okay on this multi-level index will become little bit complicated or I can say there is some problem okay now let's see this so the implementation third that is the good and default implementation okay this is a new level you are creating a new level of pointers agree a new level of pointers you are creating so like this you are creating a new level of pointers you can check it out okay remember this is a block remember this is also a block so this is a block
+
+233
+02:09:49,510 --> 02:10:26,110
+so a new level of pointers we are getting is this clear like here you can order this 80,000 look at this 80,000 this 80,000 had two entries this 80,000 had two entries okay this and this so this is pointing to here this 80,000 and this is pointing to this 80,000 okay and you can easily notice your index is on salary you have created index on a salary salary index okay now
+
+234
+02:10:26,380 --> 02:10:55,010
+So this is the implementation, you can check it out. Okay. This diagram is also telling you the same thing. The diagram block of record pointers. Of course, again, you can put record pointer or block pointer, right? Yes or no. Again, again, again, again, either you can put record pointers or you can put block pointers. That is your choice. Okay. If record pointer is given, then take the record pointer in the question. Sometimes what they will do, they will give you record pointer size also and they will give you block pointer size also. Then what do you need to do?
+
+235
+02:10:55,500 --> 02:11:25,220
+for the dense index for the dense index always take the record pointer by default only take the record pointer for the dense index but for the primary index for the clustering index for the sparse index you take the you take the block pointer okay for the primary index and clustering index there you take the block pointer okay is this clear now so like this you can take it out okay finally that's done so this is your option three this is the alternative three which is commonly used this alternative three is commonly used
+
+236
+02:11:25,450 --> 02:12:02,780
+okay and this we have already seen so here you put one extra level basically okay one extra level of indirection is there okay so very good now so this was the concept and this we have seen actually let me tell you one more thing in the gate exam if the question will come it will come on si on key it will come the question will come on second index on key why because it becomes very complicated
+
+237
+02:12:03,140 --> 02:12:32,480
+to create question on second index on non key a lot of information they will have to give you right yes or no they have to give you a lot of information like which implementation you are doing how the implementation you are doing okay so the secondary index on non key that that is very much implementation dependent agree or not yes or no so remember in the gate exam if you check it out all the gate exam questions okay there is no question on secondary index on non key because it becomes very complicated I wanted to put one question in the test series
+
+238
+02:12:32,830 --> 02:13:01,490
+but it was becoming very complicated whatever I was writing like I was feeling some information is missing some something ambiguous I was getting some ambiguity I was getting so it was becoming very I can say very very complicated the question was getting very big just to create a question just to create a question on second index on non key the question will have a lot of information because the question cannot be ambiguous and the and this second index on non key that is basically I can say
+
+239
+02:13:01,820 --> 02:13:31,720
+that is implementation dependent yes yeah these things are interview questions in the in the interview they can ask you and at that at that time if you say implementation one implementation two implementation three okay immediately what they will think oh my god okay so okay here's a different level because these three implementations are given in the navate okay like this is the screenshot from the navate you can you can check it out this screenshot is taken from the navate option three so option one option two option three so there are three implementations
+
+240
+02:13:32,110 --> 02:13:57,250
+okay yes so in the interview if you say yeah okay so yeah we can implement like this we can implement like that we can implement like that and this implementation has this fault in this implementation we have this this this advantage okay so if you do this type of explanation in the interview immediately they will say yeah go classes wala hai kya you know that none other mode is mode style okay so that is the idea okay is this clear
+
+241
+02:13:58,790 --> 02:14:27,670
+Okay, anyway, so now let's take a break after the break. We will do a lot of questions a lot of practice We are going to do almost 32 questions I will ask you back to back 32 questions and you have to make sure that you don't get anything wrong But after those 32 questions, I can guarantee that After 10 years also, you will you will explain this primary index clustering index very clearly No, okay. No, see, okay, you can check it out. Maybe
+
+242
+02:14:28,160 --> 02:14:57,000
+if anyone of you have already studied from some other coaching institute any coaching institute to take if you have already studied then this clarity is not there like okay some question okay like what is happening okay which option is correct some that clarity is not there if students will okay yeah okay this this this so they will buy heart okay that what happens but that clarity that understanding is not there but today after these 32 questions total 32 questions I have taken from the standard resources including the gate questions
+
+243
+02:14:57,390 --> 02:15:19,130
+and these 32 questions you try whatever you have seen so far you apply those concepts you apply your understanding get 32 marks okay from these 32 marks you get 32 marks and I can tell you okay that after those 32 questions okay even after 10 years you will not forget this indexing chapter
+
+244
+02:15:19,470 --> 02:15:47,490
+this indexing this is a very easy chapter this is a very interesting chapter remember because the questions are very interesting in this okay because you cannot directly find something yes or no you have to to find something you have to go in a very sequential manner did you notice okay if you want to find something then you have to find this then this then this then this then this so if you want to find this then you have to find four other things so this is the beauty of this indexing chapter in this indexing chapter no question is straight forward
+
+245
+02:15:47,840 --> 02:16:22,000
+in every question you have to basically you have to find many things to get to the final answer okay so anyway let's take a break how much time so at 9 we will start okay half an hour break you have at 9 at 9 p.m. we will start okay thank you everyone at 9 10 okay take 40 minutes that's enough on 9 15 okay at 9 15 we will start okay thank you everyone at 9 15 45 minutes I don't know how much you will eat in this 45 minutes
+
+246
+02:16:22,320 --> 02:16:26,400
+Okay, but anyway, let's see. Thank you.
+

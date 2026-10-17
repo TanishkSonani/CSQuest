@@ -1,0 +1,1122 @@
+{
+  "id": 15,
+  "title": "Trace Stop-and-Wait ARQ",
+  "file": "015. Recording - Lecture 13_ Stop-Wait Protocol.mp4",
+  "seconds": 5930.72,
+  "segments": [
+    {
+      "start": 4.43,
+      "end": 33.33,
+      "text": " Hi everyone. So let's get started with today's lecture. Okay. So today we are going to see a stop and wait protocol. Good. So what we were saying in flow control is like this. So we were starting with the flow control method. So we were saying that the very simple idea and the flow control could be that we will be having the timeout and also we will be having something called as acknowledgement. Right. So timeout and acknowledgement are the backbone of this flow control. I mean, this is the very basic thing that that we will be having.",
+      "avg_logprob": -0.14075741702217168,
+      "no_speech_prob": 0.853515625
+    },
+    {
+      "start": 34.04,
+      "end": 64.65,
+      "text": " Now, along with that, I mean, along with the timeout and the flow control, we said that we can have few other things and it will depend on the protocol. So basically, this is the basic idea is called ARQ, which means that we will be having, we will be having timeout and we will be having ACK, right? And both comes, I mean, almost in pair in the sense that if you're having timeout, then can you not have ACK? Like, you just have timeout. Will this make any sense? No, right?",
+      "avg_logprob": -0.11641270365596802,
+      "no_speech_prob": 0.70703125
+    },
+    {
+      "start": 64.98,
+      "end": 108.87,
+      "text": " timeout of what I mean timeout of what obviously like it will be for ack if you are only having the ack and then you are not having a timeout also I mean this will also not be much useful to have the ack what if the ack is lost how much sender has to wait right I mean if you only have ack suppose and no timeout now suppose that ack is lost suppose ack is lost so in that case how long sender has to wait",
+      "avg_logprob": -0.08455882046152563,
+      "no_speech_prob": 0.822265625
+    },
+    {
+      "start": 114.78,
+      "end": 153.32,
+      "text": " So that, that question won't be answered, right? If you alone have ACK. So that is why it makes sense to have time out in case of ACK. So that's why we should have ACK, right? Sorry, time out. Now, there are three common schemes that we are going to see, which is stop and wait, go back and select to repeat. We will see it. And before that, I think we have done a few quick questions.",
+      "avg_logprob": -0.13109375283122063,
+      "no_speech_prob": 0.58837890625
+    },
+    {
+      "start": 153.68,
+      "end": 214.84,
+      "text": " like if I ask you that how many packets that you can transmit in TT time then what is the answer one packet right similarly in 5 TT time 5 packets then 10 TT time 10 packets now if I now now we have defined the round trip delay which is which is what can you tell me it is basically from the moment you start the transmission right from transmission till the moment sender get ACK",
+      "avg_logprob": -0.12548828572034837,
+      "no_speech_prob": 0.58154296875
+    },
+    {
+      "start": 216.64,
+      "end": 256,
+      "text": " right so it is generally it is 2tp plus tt which is for data I mean if you are also having tt for acg then you can have something like this but generally this is zero right generally this is zero so RTT is coming out to be how much 2tp plus tt in general I mean in most of the cases right is there any leg let me know okay okay so it is coming out to be 2tp plus tt",
+      "avg_logprob": -0.13749999466695284,
+      "no_speech_prob": 0.837890625
+    },
+    {
+      "start": 258.5,
+      "end": 292.28,
+      "text": " Okay, is this understood to everyone? Okay, Yamini is asking that what happens if receiver sends the ACK after the timeout? Okay, so it means the timeout itself is very less, right? So yes, this can happen, but this is not desired, which means let's suppose that you are sending some packet and then this packet has been received and then you will be getting ACK, right? This is the data and then you will be getting ACK, okay?",
+      "avg_logprob": -0.14518874116463237,
+      "no_speech_prob": 0.87744140625
+    },
+    {
+      "start": 292.7,
+      "end": 317.22,
+      "text": " Generally the timeout value will start from here. Generally the timeout value is large enough. So what is RTT here? RTT is this. This is RTT. From the moment you start sending the data till the moment you get the ACK. This is RTT. Always always that is definitely true. The timeout must be greater than RTT.",
+      "avg_logprob": -0.14288650923653654,
+      "no_speech_prob": 0.36376953125
+    },
+    {
+      "start": 317.36,
+      "end": 349.89,
+      "text": " Otherwise, it won't make much sense. I mean, you are not even waiting for the, for the AC completely. Here you are saying timeout, let me send the data again, right? Okay. So it doesn't make sense. Otherwise, so timeout must be greater than RTD. Is this okay to have it even? Okay. Now, let's get started with the first stop and wait. So by the way, if I just ask you that how many packets you can transmit in 2TP plus TTTM, then what is the answer here? You will be just dividing by the",
+      "avg_logprob": -0.2456597155994839,
+      "no_speech_prob": 0.71337890625
+    },
+    {
+      "start": 351.06,
+      "end": 383.05,
+      "text": " tt which is 1 plus 2 into tp plus tp upon tt and here I'm just calling this quantity as a okay just calling this quantity as a can you tell me unit of the same unit of the same it is unit less right that won't be having any unit why because both are in the seconds or minutes or something like that right it won't be having any unit any unit so basically here I'm defining a as tp upon tt okay",
+      "avg_logprob": -0.15476973590097928,
+      "no_speech_prob": 0.94775390625
+    },
+    {
+      "start": 383.79,
+      "end": 413.66,
+      "text": " cool now how many packets you can send in tp10 if i just give you the options let's suppose a b c d if i just give you the option this is a this is a plus 1 this is 2 a this is 2 a plus 1 what is the answer here a right a okay now let's just start with stop and wait",
+      "avg_logprob": -0.1415178601230894,
+      "no_speech_prob": 0.406494140625
+    },
+    {
+      "start": 414.02,
+      "end": 447.73,
+      "text": " so we have said that stop and wait is following one thing which is it is saying that so we have started with the stop and wait and we said that it is basically saying we will be sending one frame at a time right which means that we will be okay this is the transmission time and then after that i'm just writing one line okay which means it's a propagation so here the i'm assuming that there is i mean negligible transmission here so i'm directly propagating so this is data",
+      "avg_logprob": -0.06496093578636647,
+      "no_speech_prob": 0.67138671875
+    },
+    {
+      "start": 449.15,
+      "end": 480.06,
+      "text": " this is ack now in this particular time which is RTT time that the from the moment that we start the transmission till the moment we get ack it is RTT time right how many packets we can send many packets probably right and can you tell me the exact number if RTT is given to be let's suppose let's suppose this is RTT which is TT plus 2 TP how many packets we can send in RTT time 1 plus 2 right 1 plus",
+      "avg_logprob": -0.15304276472643802,
+      "no_speech_prob": 0.92822265625
+    },
+    {
+      "start": 480.27,
+      "end": 523.64,
+      "text": " to a weak can send but how many we are sending currently in this diagram currently in this diagram in this particular time in this entire time from here to here we are just sending only one packet right so we are just transmitting and then it will get propagated so we are just sending only one packet so this is the diagram for stop and wait okay so this is the diagram for stop and wait is this fine to everyone okay so hope you understood that this is the diagram for stop and wait",
+      "avg_logprob": -0.10937500316085237,
+      "no_speech_prob": 0.77294921875
+    },
+    {
+      "start": 524.82,
+      "end": 557.37,
+      "text": " Now in stop and wait, what we like what we extra things that we do other than the basic idea which is ARQ is that we also have the sequence numbers of the data and for the ACK also. So what do I mean by that? That we will be first sending. Okay. We will use our first standing. Let's suppose data. Okay. And then we will be getting acknowledgement. Right. I mean, once this data reaches, we will be getting acknowledgement. Okay. So this is let's suppose",
+      "avg_logprob": -0.22429906876287728,
+      "no_speech_prob": 0.59814453125
+    },
+    {
+      "start": 558.3,
+      "end": 590.97,
+      "text": " ACK now this data and this acknowledgement both can be numbered so here I am saying that the packet that I am sending is the data 0 and the ACK that I am sending is for which data can you tell me it is for the data 0 right okay I will come to the ACK in just a minute but for now just see see this next time what you can do you can send the data 1 right you can again send the data 1",
+      "avg_logprob": -0.1274896978021978,
+      "no_speech_prob": 0.9375
+    },
+    {
+      "start": 591.82,
+      "end": 605.56,
+      "text": " and the next time what you can do you can send the data to like that right I mean you can number the data okay you can number the data that won't be an issue is this okay everyone like 0 1 2 like this you can number",
+      "avg_logprob": -0.19453124850988388,
+      "no_speech_prob": 0.3359375
+    },
+    {
+      "start": 606.42,
+      "end": 633.9,
+      "text": " but in stop and wait you will get to understand this why but in stop and wait we don't need to see we can keep on incrementing like that's not an issue we can keep on numbering 0 1 2 3 4 5 as long as we have let's suppose we have 32 bits to represent this number then 2 power 32 minus 1 till this point we can definitely keep on incrementing but in stop and wait we don't need to increment it again and again I mean we can just have only one bit for the for the frame number",
+      "avg_logprob": -0.09772727638483047,
+      "no_speech_prob": 0.1885986328125
+    },
+    {
+      "start": 634.2,
+      "end": 664.46,
+      "text": " which means it if it is zero this is one and then again i can say it is zero okay this is the different data i mean this data and this data is different it is just a numbering that i can i can again i can have just one bit i'm saying this is zero this is one then zero one zero one like this right so for example if i have let's suppose if this is the sender if it has multiple packets to send what are the options to number them one option is you can definitely i mean in stop and wait you can definitely do zero one two three four okay",
+      "avg_logprob": -0.07399277007284243,
+      "no_speech_prob": 0.896484375
+    },
+    {
+      "start": 664.86,
+      "end": 693.66,
+      "text": " but you don't need to do that much in stop and wait what you can do if you want to number them this is zero one again zero one again zero one okay that is all i mean you don't need more than more than two two this is called sequence number you don't need more than two sequence numbers in a stop and wait why that is the case you will get to understand but for now just understand this diagram that you are sending data zero then data one then maybe data zero this is the different data is this data this data data zero is same",
+      "avg_logprob": -0.09029314053797088,
+      "no_speech_prob": 0.34130859375
+    },
+    {
+      "start": 693.88,
+      "end": 728.69,
+      "text": " are these two data zero same no right these are two different different data zero okay okay so that's how we do in the stop and wait now whenever your acknowledgement okay whenever you are sending the acknowledgement which means whenever receiver is sending the acknowledgement it will send the acknowledgement for data whatever is just received so what is just received it received the data zero so it will say that I have received the data zero right so this acknowledgement in English mean means like I have received data zero",
+      "avg_logprob": -0.09832114567782016,
+      "no_speech_prob": 0.8095703125
+    },
+    {
+      "start": 729.3,
+      "end": 772.9,
+      "text": " and what it is expecting next if it is received data 0 it is saying that I am expecting data 1 right okay is this fine to everyone cool so basically in English it is saying in English maybe I can rewrite it a little more I mean good handwriting so in English it is saying that I am expecting I am expecting data 0 sorry I have received data 0 and I am expecting data 1 right in English it is saying it is saying something like this",
+      "avg_logprob": -0.16267360548178356,
+      "no_speech_prob": 0.93017578125
+    },
+    {
+      "start": 774.38,
+      "end": 811.65,
+      "text": " yeah so let me write it again it is saying i have received data zero zero and expecting okay so there will be the acknowledgement here right there will be the acknowledgement can you tell me what should be this acknowledgement number can i say this is the acknowledgement zero acknowledgement zero means i have just received the data zero i've just received the data zero can i say this acknowledgement zero",
+      "avg_logprob": -0.1290118172764778,
+      "no_speech_prob": 0.693359375
+    },
+    {
+      "start": 814.77,
+      "end": 842.17,
+      "text": " Okay, I can definitely say there is no issue in that which means I can say Eclonement 0 here. Eclonement 0 means I have received the data 0 or maybe I can say Eclonement 1. Okay, the next packet that it is expecting, what is that? Data 1. So it can say data 1. Okay, it is up to the convention that we are using. So for our method, for our examples, we will be just using the increment and number which means we will be saying that okay, this number is telling what the receiver is expecting next.",
+      "avg_logprob": -0.1901676797769903,
+      "no_speech_prob": 0.744140625
+    },
+    {
+      "start": 842.48,
+      "end": 887.19,
+      "text": " okay see this number is telling you the receiver is expecting next right sorry yeah receiver receiver is expecting data one now right okay you can see there is no problem if you have something like this you can definitely say ack0 okay no one is stopping you to say ack0 then what would it mean i have received ack0 okay it will it will mean that i have received ack0 i have received sorry data 0 right",
+      "avg_logprob": -0.08961925510017352,
+      "no_speech_prob": 0.87255859375
+    },
+    {
+      "start": 888.08,
+      "end": 929.14,
+      "text": " So whenever sender is getting this particular message, it will get to understand that, okay, the receiver is received data 0. Is this fine to everyone? Or you can say ack1, okay, it is up to you, the convention you are using is up to you. If you are saying ack1, then what you are saying to sender, then see, whatever I received, it doesn't matter, I'm expecting data 1 now. Okay, so we will use this convention for our lectures. For example, if you just see,",
+      "avg_logprob": -0.19850543089534925,
+      "no_speech_prob": 0.60498046875
+    },
+    {
+      "start": 929.92,
+      "end": 964.25,
+      "text": " This is from Forojan, okay? What they are saying about the ecologement number? Since the sequence number must be suitable for both data packets and the ecologements, I mean, you are attaching the sequence number for the data packet, which means data 0, data 1, ACK 0, ACK 1. We use this convention. They are saying that we use this convention. It is not any hard and fast tool. We are using this convention in the sense that the ecologement number always announced the sequence number of the next packet expected by the receiver. Is this okay to everyone?",
+      "avg_logprob": -0.2290000033378601,
+      "no_speech_prob": 0.81201171875
+    },
+    {
+      "start": 964.63,
+      "end": 989.37,
+      "text": " I mean, this is just a convention that FOROSion is using and I am also going to use the same convention. The next packet expected by the receiver. For example, if packet 0 has been arrived safe and sound, the receiver send an ack with equivalent 1 for packet 0. Meaning packet 1 is expected next if packet 1 has arrived. Okay. So here, here, let's suppose now, now.",
+      "avg_logprob": -0.2983285018870997,
+      "no_speech_prob": 0.0288848876953125
+    },
+    {
+      "start": 990.83,
+      "end": 1018.83,
+      "text": " I am sending for example here I am sending data 0 then I am getting ack1 right now you tell me now you tell me if you send data 1 okay if you send data 1 then the moment it receive the data 1 the moment it receive the data 1 after that what it will be sending ack0 ack1 can you tell me it will be ack0 why because this is the number that I am expecting next see only numbers possible are 0 and 1",
+      "avg_logprob": -0.16129556810483336,
+      "no_speech_prob": 0.783203125
+    },
+    {
+      "start": 1019.08,
+      "end": 1055.11,
+      "text": " this is the number that I'm expecting next okay so this is I'm expecting data zero next right so that's what forogen is saying that if if the packet one has arrived safe and sound if the packet one has arrived safe and sound in that case the receiver sends acknowledgement with the equivalent zero meaning that now packet zero is expected so whatever you are expecting you will say with the ack I mean this is just a convention okay so we will be anyway using this convention so let's not worry about it too much",
+      "avg_logprob": -0.1304086482582184,
+      "no_speech_prob": 0.7939453125
+    },
+    {
+      "start": 1055.35,
+      "end": 1084.71,
+      "text": " I hope you understood now you can definitely see here if frame one of the packet for sorry frame zero the packet zero sending then the acq one it is sending if frame one then acq zero okay so have you understood this diagram this is the diagram of stop and wait okay cool so i mean i can i can just tell you now a few things which are like that suppose that data is lost i mean there could be many many cases let's just pick one of the case",
+      "avg_logprob": -0.1554361948122581,
+      "no_speech_prob": 0.64111328125
+    },
+    {
+      "start": 1087.43,
+      "end": 1122.08,
+      "text": " So before even I pick any of the case, let me tell you that why the sequence number might be important. Okay. See, suppose you are sending some data. Okay. Suppose you are sender and you are sending some data. Let's suppose you don't have sequence number. You have, you just have data. Okay. You just say data. Right. This data is, let's suppose received. This data is received. Sorry.",
+      "avg_logprob": -0.1844429330009481,
+      "no_speech_prob": 0.52734375
+    },
+    {
+      "start": 1124.02,
+      "end": 1164.23,
+      "text": " just unmute yourself sorry just mute yourself okay okay so suppose this data is received now in this case let's suppose you are sending ack you are sending ack but but you don't have the acknowledgement number neither you have the data number okay you don't have anything you're sending the ack but somehow this ack is lost somehow is ack lost okay this ack is lost somehow now in this case",
+      "avg_logprob": -0.12942395116909441,
+      "no_speech_prob": 0.8134765625
+    },
+    {
+      "start": 1164.67,
+      "end": 1208.57,
+      "text": " In this case, can you tell me what receiver is expecting as the data? Is it expecting the same data to the next data? Since receiver has got this data, it is expecting the next data, right? Receiver doesn't know that ACK is lost or not. So, receiver is expecting the next data. Now, tell me, will sender get to know whether the data has been reached because the ACK is lost? Will sender get to know? Sender doesn't know that data has been reached. Sender will send the same data, right? Sender sends the same data.",
+      "avg_logprob": -0.10874999976158142,
+      "no_speech_prob": 0.339599609375
+    },
+    {
+      "start": 1210.46,
+      "end": 1237.84,
+      "text": " that we call retransmission retransmission means sending the same data okay so send why sender is sending the same data because of timeout because sender doesn't know whether the data is reached right I mean there will be timeout this is timeout sender okay let me know try it I hope you understood that because of the timeout sender will be sending again",
+      "avg_logprob": -0.18364448593808458,
+      "no_speech_prob": 0.35595703125
+    },
+    {
+      "start": 1238.38,
+      "end": 1279.34,
+      "text": " Tell me will receiver will be taking this is a next date of the same data or will receiver will ever get to know that okay, this particular data is the duplicate data So receiver receiver doesn't know that this this data is a duplicate data, right? Let's suppose you're sending the data here. So here receiver doesn't know whether this is duplicate data Tell me in reality, it is duplicate data or is a different data. This data is a retransmission or it is a different data in reality",
+      "avg_logprob": -0.16110437500824049,
+      "no_speech_prob": 0.4833984375
+    },
+    {
+      "start": 1279.91,
+      "end": 1309.34,
+      "text": " In real data is a duplicate data, so the receiver should discard it, but there is no way for the receiver to know that it is a duplicate data. Hence, the receiver will anyway accept it. Now, consider the same case with the sequence numbers. Suppose this is sequence number 0. It will say AC given, but it is lost. Now, can you tell me the data number here? Sequence number of this data? Will it be 0 or 1?",
+      "avg_logprob": -0.20393880860259136,
+      "no_speech_prob": 0.80419921875
+    },
+    {
+      "start": 1310.11,
+      "end": 1359.66,
+      "text": " it will be just zero right because it is a retransmission I mean it will be sending the same data again tell me at this point in time will the receiver get to know whether it is the same data or different data yes so we will say that I need this we will say I need I am expecting our receiver is expecting next data which is data one okay so it receiver now at this point in time receiver will say it is a duplicate data receiver right see these are the same scenario",
+      "avg_logprob": -0.1537247405509756,
+      "no_speech_prob": 0.74462890625
+    },
+    {
+      "start": 1360.02,
+      "end": 1385.58,
+      "text": " here in this scenario if you are sending the data again maybe just because of timeout and acq was lost so receiver doesn't know whether it is a retransmission or it is a next data just to differentiate whether it is a retransmission or it is a next data it is a good idea to have the sequence numbers right so that is why we are having the sequence numbers here okay cool and also this is very important i mean you can't skip the sequence numbers",
+      "avg_logprob": -0.05875650967936963,
+      "no_speech_prob": 0.30029296875
+    },
+    {
+      "start": 1385.85,
+      "end": 1417.01,
+      "text": " because then then then it won't it won't work that nicely at its seams right because receiver has no way to know whether it is the same data or different data okay cool so i hope you understood this diagram now let's just see this paragraph which i have taken from 10 1 so what they're saying a more general solution okay to have the receiver feedback to the sender to to have the receiver provide the feedback to the sender",
+      "avg_logprob": -0.1595348006283695,
+      "no_speech_prob": 0.3896484375
+    },
+    {
+      "start": 1417.28,
+      "end": 1446.08,
+      "text": " after having passed a packet to the network layer so what does this mean they are saying see they are saying here you have different different layers right this is network layer this is data link layer physical layer and so on right physical layer and so on so you have different different layers at the center also at the receiver also so here currently we are talking about which layer data link layer now we are saying that this will be the physical layer",
+      "avg_logprob": -0.06399891274266464,
+      "no_speech_prob": 0.482177734375
+    },
+    {
+      "start": 1446.38,
+      "end": 1481.25,
+      "text": " So there will be some data that network layer at the center side, this is center side, right? And the all set of layers. I mean, there are many other layers also. I mean, two other layers which are transport layer and application layer, which are above the network layer, but I'm not currently writing that. Okay. So this is the receiver side. This is receiver. Now, just see here what is happening that this sender will be sending the data. I mean, passing the data to the data link layer. Now, here,",
+      "avg_logprob": -0.14782608436501543,
+      "no_speech_prob": 0.59521484375
+    },
+    {
+      "start": 1481.61,
+      "end": 1506.34,
+      "text": " this i mean this data will reach to the data link layer and the same data it will pass to the network layer i mean like this right it will propagate now if you're using this protocol which is stop and wait at the network layer itself sorry the data link layer itself then the moment it sends this data to network layer what does this mean this data has been reached completely safely to me now i'm passing it to the network layer right it means that",
+      "avg_logprob": -0.0595381172312485,
+      "no_speech_prob": 0.08099365234375
+    },
+    {
+      "start": 1506.7,
+      "end": 1537.28,
+      "text": " So, this packet has been reached completely and very safely to me. So, this packet I can pass to the network layer. Now, whenever we are passing to the network layer, at the same time, you will be sending ACK. I mean, this data link layer itself is sending ACK to this data link layer. See, what they have written is that the receiver sends a little dummy frame back to sender, in effect, gives the sender",
+      "avg_logprob": -0.17927632206364683,
+      "no_speech_prob": 0.2120361328125
+    },
+    {
+      "start": 1537.07,
+      "end": 1564.18,
+      "text": " send permission to transmit the next frame. So basically this data link layer is sending the acknowledgement to this data link layer which means the data is not coming from I mean this acknowledgement is not coming from the upper layers it is just the data link layer is generating its own acknowledgement now it is sending the packet like this only obviously it should go via physical medium only but I am just showing you like I mean virtually that how they are talking right virtually how they are talking.",
+      "avg_logprob": -0.143118347259278,
+      "no_speech_prob": 0.388916015625
+    },
+    {
+      "start": 1566,
+      "end": 1593.74,
+      "text": " This data link layer once it sends this packet to the upper layer it will also send the ack to the corresponding the peer data link layer Okay, which means like this I mean the physically it will go like this the physically ack will go like this But virtually I'm saying I mean just for the sake of writing it. I'm showing that okay ack is this I mean in reality it is it is obviously using the physical medium. It is like this Okay, let's just consider like this only have you understood so",
+      "avg_logprob": -0.1520151913723099,
+      "no_speech_prob": 0.70849609375
+    },
+    {
+      "start": 1594.59,
+      "end": 1626.45,
+      "text": " if you are if you are implementing this stop and wait at the data link layer then the data link layer will send this packet to the network layer and also also generate some ack some dummy packet very which will be very small right which they have written little dummy frame which is ack this little dummy frame is ack okay now protocols in which the center send one frame and then waits for the acknowledgement before the uh proceeding it is called stop and wait anyway",
+      "avg_logprob": -0.12185801687123983,
+      "no_speech_prob": 0.6044921875
+    },
+    {
+      "start": 1627.52,
+      "end": 1656.18,
+      "text": " Have you understood what is happening here? Suppose by chance if I apply this stop and wait protocol at transport layer, suppose if I just say transport layer, then what will happen? The moment this transport layer sends the data evoke to the application layer, at that moment you will be sending, you will be also sending ACK from the transport layer to transport layer. Now currently we are sending ACK from data link layer to data link layer.",
+      "avg_logprob": -0.1526442350267054,
+      "no_speech_prob": 0.482177734375
+    },
+    {
+      "start": 1657.1,
+      "end": 1692.27,
+      "text": " Let me quickly know if you have understood this little concept. Okay. Okay. Now let's just move to this particular paragraph. What they're saying. The transport layer you have not understood. So I am saying that whatever the, whatever layer is implementing this particular protocol, let's suppose transport layer is implementing the protocol. Okay. Which is stop and wait. Now this transport layer will also send the data to application layer. I mean, it confirms that, okay, I have, I have received the data safe and sound.",
+      "avg_logprob": -0.14445891148514217,
+      "no_speech_prob": 0.7158203125
+    },
+    {
+      "start": 1693.23,
+      "end": 1726.91,
+      "text": " In that case, this transport layer will also send the ACK. I mean, if you're implementing this protocol, you can implement it any layer. Okay. If you're implementing, let's suppose this protocol a transport layer, then transport layer will send the ACK from the transport layer to transport layer, just like data link layer. What is there to understand here? Right. Let me know if that is okay. Okay. Okay. Great. So it is just like, I mean, whichever layer is implementing the protocol that will send from that layer to that layer, the PR layer. Okay.",
+      "avg_logprob": -0.14440523724882834,
+      "no_speech_prob": 0.724609375
+    },
+    {
+      "start": 1727.97,
+      "end": 1757.11,
+      "text": " Now, let's just see what this paragraph is saying. To see what might go wrong, remember the goal of the data link layer is to provide error free transparent communication between the network layer processes. The network layer on machine A gives a series of packet to its data link layer. We must ensure that identical series of the data is delivered to the network layer on the machine B by its data link layer. So what they're saying is that let's suppose you have network layer here.",
+      "avg_logprob": -0.11939709249771002,
+      "no_speech_prob": 0.242431640625
+    },
+    {
+      "start": 1757.43,
+      "end": 1787.64,
+      "text": " you have data link layer here now you are sending some packets from here to here right some packets from here to here then this will send this will send using the physical medium this will send the same packet from here to here right this is data link layer this is network layer so what they are saying that this network layer whatever this network layer is giving to this data link layer the same thing should be given above see the network layer on machine a gives a series of packet to its data link layer is this okay to everyone",
+      "avg_logprob": -0.07639723220983377,
+      "no_speech_prob": 0.7744140625
+    },
+    {
+      "start": 1787.9,
+      "end": 1820.91,
+      "text": " if this is a the network layer will give series of packets to the data and clear we must ensure that identical series of the packet is delivered to the network layer on machine b okay the same if you are if you are giving one two three i mean whatever the data you are giving the same data should be delivered from this data link layer to network layer okay good now let's just consider different different cases in in the stop and wait okay so let me just copy",
+      "avg_logprob": -0.14028897913553381,
+      "no_speech_prob": 0.63232421875
+    },
+    {
+      "start": 1821.48,
+      "end": 1888.21,
+      "text": " probably this diagram so there are few little little cases what can happen whenever you're sending the data can data be lost suppose if i'm sending some data can this be lost tell me yes so the first case could be data is lost what could be the second case can the ack be lost if you're sending the ack yes ack can also be lost what could be the third case maybe you're sending the data and the data itself you found that there is some error in the data right",
+      "avg_logprob": -0.07843749649822712,
+      "no_speech_prob": 0.61328125
+    },
+    {
+      "start": 1888.49,
+      "end": 1941.89,
+      "text": " the data is corrupted what could be the other case maybe the ack is corrupted right okay so there are four cases possible whenever you are sending the data data then there are four cases possible let me just discuss all of these four cases right okay so let's suppose you're sending sending the data if this data if this data you're sending and while you're sending the data let's suppose if this data is lost okay",
+      "avg_logprob": -0.07900855512846083,
+      "no_speech_prob": 0.93408203125
+    },
+    {
+      "start": 1945.38,
+      "end": 1984.14,
+      "text": " Suppose this data is yours, then what what you will do? Can you tell me what what will be done? That's very easy case. What can we do? Yeah, there will be timeout, right? There will be timeout. Definitely there will be timeout. And then in this case, you will be retransmitting again after the timeout. Yes, extremely easy. So you will say retransmit the same data. Let's suppose this was the data zero, then you are sending the data zero again.",
+      "avg_logprob": -0.1559684673945109,
+      "no_speech_prob": 0.7236328125
+    },
+    {
+      "start": 1984.57,
+      "end": 2040.25,
+      "text": " This is called retransmission, right? Now, let's go to the next case where what may so happen? Let's suppose the ACK you are sending and the ACK itself is lost. Okay. Suppose the ACK you are sending, but the ACK itself is lost. In this case, what will happen? Suppose the data is reached, which is let's suppose data zero, but you are sending the ACK ACK one, right? But let's suppose it is lost in between.",
+      "avg_logprob": -0.17886905102502731,
+      "no_speech_prob": 0.845703125
+    },
+    {
+      "start": 2043.61,
+      "end": 2086.86,
+      "text": " Can, can anyone tell me? Yeah, again timeout, right? Again timeout. So it will be because it is not receiving the ACK. So whatever is the timeout value after that, it will be timeout, right? So again, the retransmission operator. Good. So here also, here also you can say that retransmission after timeout. So anyway, like, I hope you understood these are a few small, small things that we need to know. Okay. So what could be the third case?",
+      "avg_logprob": -0.14746094375316585,
+      "no_speech_prob": 0.7080078125
+    },
+    {
+      "start": 2093.2,
+      "end": 2141.2,
+      "text": " Her case could be the data itself is corrupted. I mean, whenever you are sending the data, okay, you found out that data is corrupted. So the data is received, but it is corrupted. Then what you can do? What the receiver can do? Okay, some noise. Anyway, let me write here itself. Data is, yeah, so there are many possible options that receiver can discard it, can discard it. Okay, first tell me,",
+      "avg_logprob": -0.18118351475989564,
+      "no_speech_prob": 0.85302734375
+    },
+    {
+      "start": 2141.54,
+      "end": 2181.31,
+      "text": " Should the receiver be sending the AC given saying that I have received the data? Obviously, no, right? So obviously, receiver should not send the AC given. So the possible options could be silently discarded. Can anyone tell me if there is any other possible option? Maybe you can say, okay? Maybe you can say to the receiver can say to the sender that can you send again? Okay? Either you silently discard either",
+      "avg_logprob": -0.1958451665599238,
+      "no_speech_prob": 0.923828125
+    },
+    {
+      "start": 2182.33,
+      "end": 2222.98,
+      "text": " the receiver options for receiver right either it's identity discard or what it can do it can tell to the it can tell to the to the sender that see the data is corrupted then can you can you just send send again so basically the second option is send something called as negative acknowledgement NACK okay this is optional this is always optional",
+      "avg_logprob": -0.12613224551297617,
+      "no_speech_prob": 0.76904296875
+    },
+    {
+      "start": 2223.34,
+      "end": 2250.92,
+      "text": " if you want to do it if the receiver want to do it then it can do it otherwise otherwise it's not required okay this is negative accloniment which is which is the way of saying that okay see either you silently discard or you say that negative accloniment of zero what does this mean it means that it means that the data that you have sent it's actually it's actually corrupted okay it's actually got corrupted",
+      "avg_logprob": -0.12136008480394428,
+      "no_speech_prob": 0.487548828125
+    },
+    {
+      "start": 2251.75,
+      "end": 2299.3,
+      "text": " So this is just optional. This negative like acknowledgement is always optional. And what does this mean? It means that the data negative acknowledgement means the data you have sent is actually corrupted. Okay. Cool. So I hope you understood this third case. Is this okay? If the data is corrupted, then you will say that, okay, I mean, are you discarded? Then it is same as same as data is lost. Okay. Then this case will be same as data is lost.",
+      "avg_logprob": -0.16875000134110452,
+      "no_speech_prob": 0.6025390625
+    },
+    {
+      "start": 2303.5,
+      "end": 2330.62,
+      "text": " then receiver will automatically send after timeout if you want then maybe if you think that timeout is too long to wait for the timeout then this is used for the can you guess why it might be used for maybe little faster transmission maybe for the faster transmission generally timeout value is more than RTT generally timeout value is 2 times of RTT I mean you just wait enough",
+      "avg_logprob": -0.2175480774961985,
+      "no_speech_prob": 0.8447265625
+    },
+    {
+      "start": 2331.4,
+      "end": 2373.37,
+      "text": " Okay. If the economy doesn't come within this time, then only you send generally time out is too much. So, so you are saying that here that, okay, let's not wait for the time out. Let me just ask for the fast transmission. So this could be for the fast transmission, right? Use for the fast transmission. Is this okay to everyone? But it is optional because we anyway have the fallback plan. What is that time out, right? For the after the time out, it will anyway send. Okay. So let's just see.",
+      "avg_logprob": -0.2047139874706834,
+      "no_speech_prob": 0.80517578125
+    },
+    {
+      "start": 2373.68,
+      "end": 2404.54,
+      "text": " this case number four which is also i mean these are the common sense cases right i mean there is a not an issue here which in the sense that you can just apply your common sense and see the answer here if the acknowledgement is corrupted let's suppose you're sending the data which has been received the data um zero is has been received now acknowledgement is also received but it is corrupted then in this case in this case what we can do the sender doesn't know sender sender",
+      "avg_logprob": -0.10443239773110467,
+      "no_speech_prob": 0.83544921875
+    },
+    {
+      "start": 2407.48,
+      "end": 2472.26,
+      "text": " doesn't understand you can say understand is seeking Accoladement so what it can do? Maybe I mean send the data itself again, right? Okay, so here for the negative acknowledgement here also you are sending data 0 which is retransmission anyway whatever has happened we will always retransmit right if it is data lost anyway we need to retransmit",
+      "avg_logprob": -0.3640202634237908,
+      "no_speech_prob": 0.6640625
+    },
+    {
+      "start": 2472.54,
+      "end": 2499.8,
+      "text": " if it is acknowledgement loss anyway we had retransmitting if it is data is corrupted then also obviously we have to retransmit if acknowledgement is also corrupted then since the sender doesn't know that what receiver is saying that it will it will again send the data and all the cases anyway we send the data again okay so i hope that is fine to everyone so these are some common sense cases that we have just discussed now if these cases are clear now let's just discuss a few things okay",
+      "avg_logprob": -0.11068997849332224,
+      "no_speech_prob": 0.4443359375
+    },
+    {
+      "start": 2500.1,
+      "end": 2541.14,
+      "text": " I mean let's just discuss these cases at once sorry so suppose yeah this is the diagram so suppose let's just see some these cases at once that you are sending some data right okay so suppose you're sending some data now suppose you're sending the data and this data is received perfectly in that case let's suppose this is data 0 can you tell me that",
+      "avg_logprob": -0.08695419602198144,
+      "no_speech_prob": 0.44140625
+    },
+    {
+      "start": 2541.43,
+      "end": 2579.22,
+      "text": " which acknowledgement number the sender will be sending sorry receiver will be sending now what is the acknowledgement number everyone just tell me so there will be ack1 right i mean very safe and sound you have got this packet so there will be ack1 now let's consider the second case where let's suppose the data that you are sending is lost okay in that case what will happen timeout right since timeout will happen you will again send the same data is this okay everyone",
+      "avg_logprob": -0.1242675818502903,
+      "no_speech_prob": 0.84716796875
+    },
+    {
+      "start": 2579.53,
+      "end": 2613.9,
+      "text": " after that I mean after every packet there is a timer that you are starting right so so you are going to send the same data again so let's suppose this is data 1 then this will be data 1 again now suppose in this case the data is received okay and then acknowledgement will be will be here okay let's suppose this is the data is received and then let's suppose acknowledgement is also received okay what what will the acknowledgement number can you tell me it will be 0 right it will be 0 great",
+      "avg_logprob": -0.10612623968926987,
+      "no_speech_prob": 0.70654296875
+    },
+    {
+      "start": 2614.24,
+      "end": 2644.31,
+      "text": " it will be zero now you tell me suppose here you are sending the data now again you are sending the data but but in this case let's suppose ack is lost okay so by the way like if you follow the same sequence can you tell me the data number what should be the data zero and what should the ack number one right if the ack is lost if the ack is lost then again there will be a timeout and then you will be sending data zero",
+      "avg_logprob": -0.10583118556701031,
+      "no_speech_prob": 0.87646484375
+    },
+    {
+      "start": 2645.07,
+      "end": 2674.6,
+      "text": " So these are the cases where data is lost or maybe ACK is lost. Okay. I mean corrupted is also, you can treat the corrupted case also the last case. If the data is corrupted or the ACK is corrupted, you can, you can treat both of the cases equivalently as data is lost. If data is corrupted, then it can silently discard and then can assume that, okay, data is lost. Okay. Similarly for ACK. Anyway, so these are the majorly two cases where, where I am saying is data lost.",
+      "avg_logprob": -0.1404879316687584,
+      "no_speech_prob": 0.8125
+    },
+    {
+      "start": 2676.17,
+      "end": 2709.98,
+      "text": " and this is acqlost easy cases right now let's just see the next topic in this stop and wait which is efficiency before that let's just discuss one interesting phenomena okay which is what if what what's going to happen let's suppose that you have something something like this and what's going to happen if if packets itself are delayed which means what",
+      "avg_logprob": -0.15635850549572045,
+      "no_speech_prob": 0.62841796875
+    },
+    {
+      "start": 2711.33,
+      "end": 2753.18,
+      "text": " Let me just tell you packets or ack or something like that are getting delayed Sorry, which means that you are sending the packet Maybe it is received. Okay The ack is also received the packet you are sending it is received and then ack is received suppose like this, right? Okay, this is the normal phenomena But what what's going to happen if you're sending the packet and then this packet",
+      "avg_logprob": -0.15672063396637698,
+      "no_speech_prob": 0.5087890625
+    },
+    {
+      "start": 2753.81,
+      "end": 2784.85,
+      "text": " is delayed because of the not dedicated switch or dedicated circuit switching it is just a packet switching it may be delayed because of some path it has taken so in this case if the data is delayed then tell me what's going to happen will it going to receive the ack within the timeout let's suppose it will delay too much tell me so there will be the timeout and let's suppose this is data 0 there is a timeout right there is a timeout",
+      "avg_logprob": -0.16529605043561835,
+      "no_speech_prob": 0.7666015625
+    },
+    {
+      "start": 2785.07,
+      "end": 2826.5,
+      "text": " Now after the timeout, obviously it will be sending data 0. It will be getting ACK1. Is this okay everyone? Now interestingly, interestingly it is sending the data again which is data 1. This is data 1. This is ACK0. Suppose this is also the normal phenomena. I hope that is fine to everyone. Now tell me what's going to happen",
+      "avg_logprob": -0.193709929784139,
+      "no_speech_prob": 0.0865478515625
+    },
+    {
+      "start": 2827.63,
+      "end": 2861.7,
+      "text": " if you are again going to send the data 0 sorry just a second let me just represent the good diagram okay now you are sending AC again AC k1 sorry AC k0 now you are again going to send the data which is data 0 what receiver is expecting what receiver is expecting data 0 now you are sending the data 0 but it will be delivered here",
+      "avg_logprob": -0.1777343795531326,
+      "no_speech_prob": 0.468017578125
+    },
+    {
+      "start": 2865.36,
+      "end": 2907,
+      "text": " in between there was some delayed packet that is going to come there was some delayed packet that is going to come in between okay some delayed packet can this happen so tell me will the receiver accept this packet or not receiver will definitely accept this because receiver is expecting data 0 itself right yes so receiver will be okay receiver will accept this now the receiver is going to accept this and",
+      "avg_logprob": -0.11322916487852733,
+      "no_speech_prob": 0.76806640625
+    },
+    {
+      "start": 2907.35,
+      "end": 2939.59,
+      "text": " if this packet is going to come maybe after just few milliseconds the receiver will reject it because now it is expecting which one ack i mean the data one right it will send the ack one it will send this is ack one okay let me just write one i hope you understood that if i'm writing from the receiver side it is let me write a one okay a one means ack one okay okay so now receiver will reject it is this a good phenomena or this is something wrong here definitely wrong",
+      "avg_logprob": -0.0701976135811385,
+      "no_speech_prob": 0.89111328125
+    },
+    {
+      "start": 2939.89,
+      "end": 2969.04,
+      "text": " because because it was just I mean this zero and one was just for your reference I mean zero and one was just for the data link layer reference right this is not the actual application messages that okay this this zero I mean this particular data zero this particular data zero and this particular data zero are definitely different receiver is thinking that this is the data zero what it was expecting but receiver is actually expecting this right the new data zero and it is the old data zero which receiver already got half an hour back",
+      "avg_logprob": -0.11015624821186065,
+      "no_speech_prob": 0.80419921875
+    },
+    {
+      "start": 2971.03,
+      "end": 3010.04,
+      "text": " So how to resolve this situation? What do you think? Do whatever we have discussed has any way to distinguish between this data 0 and that data 0? There is no way actually. There is no way. Let me just tell you. I mean, we have just discussed that we will send ACK. Timeout will be done. But if the delay is so much, this is too much delay. If let's suppose delay is just like this. Delay is this. Delay is here. Then",
+      "avg_logprob": -0.24083533252661043,
+      "no_speech_prob": 0.1461181640625
+    },
+    {
+      "start": 3010.3,
+      "end": 3039.05,
+      "text": " if data 0 is coming here and receiver is expecting data 1 in that case it's fine if delay is not that much am i not treating with the sequence number this is ack 1 i mean we are expecting ack 1 if delay is just this much see what i am trying to say let's suppose i mean there is a delay i agree but let's suppose it's not even that much time",
+      "avg_logprob": -0.22608024102670174,
+      "no_speech_prob": 0.456298828125
+    },
+    {
+      "start": 3044.14,
+      "end": 3105.84,
+      "text": " still manageable let me just tell you the still manageable delay suppose this is the delay here which is data 0 tell me will receiver think that this is I mean what will receiver do with this this receiver is expecting data 1 because ack1 it has sent receiver will say I will discard it that's all I mean manageable right so it this this situation is manageable but what about this situation what about this situation",
+      "avg_logprob": -0.19020061434051136,
+      "no_speech_prob": 0.76171875
+    },
+    {
+      "start": 3107.54,
+      "end": 3169.32,
+      "text": " If delay is too much, in this case, can anyone suggest me any way to handle this situation? What do you think? Yeah, we need to discard. See, the thing is that we need to discard. See, I hope you are understanding. See, here in the previous example, I am saying that it is delayed, but receiver was expecting something else, right? The data got delayed. So here also, it is just a fortunate, fortunately, right? Receiver was expecting something else.",
+      "avg_logprob": -0.12312199626691066,
+      "no_speech_prob": 0.6328125
+    },
+    {
+      "start": 3170.12,
+      "end": 3212.9,
+      "text": " So discard it. Tell me, are these two cases different just by luck or just because of time? No, it is just by luck. Reason being is that, reason being is that, that here also, here also it is discarding, right? What happens that this is expecting, this is saying ACK 1. Abhi itunno jow the delayed ho jaye ki yaha pe, I'm having, again it will discard, right? Again it will discard. Here also it will discard.",
+      "avg_logprob": -0.3039504812573487,
+      "no_speech_prob": 0.1868896484375
+    },
+    {
+      "start": 3213.33,
+      "end": 3265.19,
+      "text": " here it is discarding, here also it will discard, isn't it? See, see what I'm trying to say, it is just by fortunate or just by luck, we are having, I mean we are receiving this here, right? Suppose, for example, okay, let me just write it for the sake of completion, okay? So let's suppose, for example, that here also, data0, acq0, data0, ac, okay, let's suppose,",
+      "avg_logprob": -0.1953898532555835,
+      "no_speech_prob": 0.62060546875
+    },
+    {
+      "start": 3273.79,
+      "end": 3302.87,
+      "text": " This is data 0. Now you have sent ACK 1. Now since you have sent ACK 1, which means you are expecting packet number 1, now it reaches here. Now it reaches here. It will discard. See, in this case also we were lucky enough that we were waiting for data 1. You got data 0. Delayed is data 0 which is different from what I am waiting. This case is also the same. Both cases are just luck.",
+      "avg_logprob": -0.1751302097303172,
+      "no_speech_prob": 0.91064453125
+    },
+    {
+      "start": 3303.29,
+      "end": 3349.01,
+      "text": " i mean there is no nothing from our side that we have done right luckily we we got saved luckily we got saved right in this case also we were expecting what tell me we were expecting what the receiver tell me receiver is expecting what receiver has sent just ack1 it is expecting one and got zero discard right i was just or the receiver was just lucky or we were just lucky here it is it is nothing related to the protocol",
+      "avg_logprob": -0.09662356510244567,
+      "no_speech_prob": 0.77099609375
+    },
+    {
+      "start": 3349.47,
+      "end": 3381.46,
+      "text": " I mean we got just lucky. Now here, here also the same thing. Here also the same thing. Which means here also receiver is expecting. Receiver is expecting. Here also the receiver is expecting 1 and receiver has got 0. Here also we were just lucky. Fortunately. But can we just rely upon the luck? What do you think? Can we rely upon the luck? No, right? Obviously no. So what if",
+      "avg_logprob": -0.19206460406271259,
+      "no_speech_prob": 0.88134765625
+    },
+    {
+      "start": 3382.3,
+      "end": 3412.2,
+      "text": " you are I mean that data is delayed you are expecting you are expecting ac I mean you have sent ac zero means you are expecting data zero you also got the data zero so this situation cannot be managed as of now okay so we will manage it don't worry we will manage it and that will be managed I mean I will show you the transport layer that how it's going to manage okay so we will manage this situation in transport layer I mean we will discuss this later",
+      "avg_logprob": -0.11981907894736842,
+      "no_speech_prob": 0.78564453125
+    },
+    {
+      "start": 3416.1,
+      "end": 3447.17,
+      "text": " So the delayed packet problem will be discussed later. Okay. So let's see this slide, which I have taken from this university. What they're saying. Okay. If the packet is delayed, then one bit, I mean, what you can do, you can never reuse the sequence number. Yeah. That's also, that's also a good thing that, okay, whenever you are sending the data, you say data zero. Now you say data one, now you say data two, always keep on increasing, keep on increasing, keep on increasing.",
+      "avg_logprob": -0.17351973723424108,
+      "no_speech_prob": 0.332763671875
+    },
+    {
+      "start": 3447.52,
+      "end": 3479.1,
+      "text": " Okay, never, never, ever use a sequence number. A sequence number could be really big. Is this scalable? Is this solution scalable? Tell me. If you keep on increasing, is this practical approach? May not be right. I mean, you should be able to represent any number that you can think of, not just 2 power 32, not just 2 power 64, not just 2 power 128, like that. I mean, you should be able to represent any number that you can think of, right? Between two connections. So this might not be much scalable.",
+      "avg_logprob": -0.13122351189791145,
+      "no_speech_prob": 0.78662109375
+    },
+    {
+      "start": 3480.4,
+      "end": 3508.21,
+      "text": " the second is that that you I mean you make sure that there is in order delivery which means there is no delayed okay so but this cannot be hard to guarantee in many networks okay it cannot be guaranteed the delay delay it cannot be guaranteed prevent late a delivery so limit lifetime of each packet so we will do it okay we will I will show you that how to limit the lifetime of each packet which means if this is see if it is delayed too much then we will say that okay now",
+      "avg_logprob": -0.18016581784705726,
+      "no_speech_prob": 0.7958984375
+    },
+    {
+      "start": 3508.54,
+      "end": 3536.65,
+      "text": " Now I will say that now this packet no longer belongs to any network. I will say that it is expired. Okay. We will have some lifetime of every packet. I will say it is expired. After some time, I will say it is expired. Whenever this is going to get it, it will check whether it is expired or not. Okay. If it is expired, then you won't receive it. Okay. You won't accept it. Okay. So anyway, we will see this in the transport layer that how to manage this.",
+      "avg_logprob": -0.09702845829139863,
+      "no_speech_prob": 0.350341796875
+    },
+    {
+      "start": 3537.47,
+      "end": 3565.09,
+      "text": " Okay, so coming to these cases, I hope you understood if data is lost and packet is lost, then what to do? If data is too much delayed and how to associate at expiry date of the data or the packet or the ACK, we will see that later, okay? It was fun to everyone that how to associate expiry date or something like that. We will see that how to do it, okay? So now let's just move to the most important and most, I can say,",
+      "avg_logprob": -0.1662202449071975,
+      "no_speech_prob": 0.447509765625
+    },
+    {
+      "start": 3566.81,
+      "end": 3592.06,
+      "text": " misunderstood or most scary topic of this particular stop and wait which is efficiency and throughput I mean most of the experience just solve easy question and then they think that okay they have understood it but they will they struggle in many many other PYQs if they do not understand it nicely so let's just understand this efficiency and throughput before I solve this efficiency or before I explain this can you tell me",
+      "avg_logprob": -0.15761718843132258,
+      "no_speech_prob": 0.1885986328125
+    },
+    {
+      "start": 3593.08,
+      "end": 3625.98,
+      "text": " If I ask you that how many packets you want to transmit, how many packets you can transmit in this time, then what is your answer? You can just say 2TP plus TT divided by TT, which is going to be 1 plus 2A, right? These many packets that you can, sorry, yeah, yeah, that is fine. These many packets that you can send. Now, for rest of our lecture, we will just, we will just take the normal notations, that packet length L, okay? L bytes is the packet length, let's suppose, okay, packet length.",
+      "avg_logprob": -0.19385162771232728,
+      "no_speech_prob": 0.85302734375
+    },
+    {
+      "start": 3631.9,
+      "end": 3683.1,
+      "text": " bandwidth of channel is BW only something like that okay we will assume for rest of this lecture anyway so this is 1 plus 2a can you not answer this question see earlier I asked you that how many packets you can send now I'm asking you how many bytes you can send see number of packets you told me that you can send in that time is 1 plus 2a now you can can you tell me number of bytes you can you are sending just let me know so number of bytes that you can send is basically",
+      "avg_logprob": -0.12976189794994536,
+      "no_speech_prob": 0.82958984375
+    },
+    {
+      "start": 3683.6,
+      "end": 3722.31,
+      "text": " how much? you just multiply by L right? you just multiply because one packet is having how many bytes? one packet let's suppose in one packet let's suppose 50 bytes can you tell me how many bytes will be there in two packets? 100 right? I mean 2 into 50 so number of packets whatever you have into number of bytes that you have so basically number of packets is 1 plus 2A so you will say L into 1 plus 2 is this okay to everyone?",
+      "avg_logprob": -0.1802512886597938,
+      "no_speech_prob": 0.865234375
+    },
+    {
+      "start": 3723.47,
+      "end": 3755.05,
+      "text": " L into 1 plus 2A right these many bytes you are sending now now I just change I mean in this particular slide I just change the unit that from the packet I'm just saying the bytes okay from the packet I'm just saying the bytes so to answer this question what is the answer here this is 1 plus 2A this is L into 1 plus 2 okay is this okay everyone okay now just answer this that",
+      "avg_logprob": -0.15829612563053766,
+      "no_speech_prob": 0.87060546875
+    },
+    {
+      "start": 3756.28,
+      "end": 3798.12,
+      "text": " How many bytes you can transmit in TT time? Okay, first answer me for the packet probably if you want to and then answer for the bytes. How many packets in TT time? Just one packet. How many bytes is actually L bytes? Okay, cool. Now you tell me this. How many bytes in TT time or how many packets first tell me in any TT time, in some random TT time? Can you quickly tell me? It will be T upon TT, right? T upon TT.",
+      "avg_logprob": -0.17703276612226246,
+      "no_speech_prob": 0.76025390625
+    },
+    {
+      "start": 3798.43,
+      "end": 3827.84,
+      "text": " yes nice how many now what about this this will be l into l into t a quantity okay i hope this small calculations can be done by anyone now let's just come to the point which is efficiency so what is efficiency it basically says conceptual efficiency is how much efficient you are okay which means that whatever you are doing for example let's suppose okay let me not",
+      "avg_logprob": -0.11055222684389925,
+      "no_speech_prob": 0.5458984375
+    },
+    {
+      "start": 3829.28,
+      "end": 3878.98,
+      "text": " take the example that that can make you a little worried okay but anyway let's suppose you have you have eight months for gate preparation right but you used okay studied studied only two months and wasted right six months right suppose like that you studied two months and wasted six months were you hundred percent efficient tell me",
+      "avg_logprob": -0.10354764637399892,
+      "no_speech_prob": 0.77734375
+    },
+    {
+      "start": 3881.72,
+      "end": 3921.2,
+      "text": " Obviously, you know, right? Obviously, you know. How much percentage do you think you are efficient? Half of the time or one-fourth of the time? Maybe out of eight months, you have just done some useful work two months, right? Some useful work out of total months. I mean time for the useful months out of total. So you think, I mean, do you think you are 100% efficient? Then your answer is no. Then how much you think you are efficient?",
+      "avg_logprob": -0.18930287888416877,
+      "no_speech_prob": 0.8046875
+    },
+    {
+      "start": 3921.54,
+      "end": 3952.48,
+      "text": " maybe two by eight right i mean in terms of fraction in terms of percentage you can multiply by the hundred so in terms of percentage it will be 25 percent right okay so you are 25 percent is efficient in this case now similar goes for any any other thing tell me tell me in one plus okay sorry in RTT which is which is the time in your hand see whenever",
+      "avg_logprob": -0.10447916825612386,
+      "no_speech_prob": 0.45751953125
+    },
+    {
+      "start": 3952.98,
+      "end": 3981.81,
+      "text": " you are sending some packet and then you are receiving ACK. What is the total time from the moment you start the transmission till the moment you get the ACK? It is called RTT. See, this RTT is basically from this. I mean, if you want, you can represent the transmission time from here or maybe here. It doesn't matter basically. So this RTT is from this actually, from this transmission time.",
+      "avg_logprob": -0.14296874354283015,
+      "no_speech_prob": 0.6904296875
+    },
+    {
+      "start": 3982.97,
+      "end": 4014.58,
+      "text": " Okay. If you want, I can just represent the arrows, which means that transmission time I've already included. Or otherwise, if you want, I can also include the transmission time. I mean, I can explicitly write it anyway. So, so this much time that is in your hand, which is how much RTT, which is TP. This is RTT, which is transmission TT plus two TP, right? This is in your hand. Just like that, that let's suppose you started the gate preparation.",
+      "avg_logprob": -0.1496787372036515,
+      "no_speech_prob": 0.3095703125
+    },
+    {
+      "start": 4014.97,
+      "end": 4046.03,
+      "text": " Before eight months. So how many time how much how many months is in your hand? You were given eight months, right? In your hand means you can utilize them as as the way you want it, right? In however way you wanted. So similarly here, the RTT is the time that is in your hand. Now what you did in this time, you transmitted just one packet in this time, right? And rest of the time you wasted, isn't it? Tell me out of",
+      "avg_logprob": -0.1803002439293207,
+      "no_speech_prob": 0.8408203125
+    },
+    {
+      "start": 4046.22,
+      "end": 4086.46,
+      "text": " out of tt plus two tt two p time how much time that you've utilized tt right that's what your efficiency is we represent the efficiency by this eta okay this is what our efficiency is let me know if that is understood to everyone okay so efficiency you can represent in any way which means that with respect to time i mean how much we had and how much we are utilizing okay you can represent like this so you can say that",
+      "avg_logprob": -0.10390624917215771,
+      "no_speech_prob": 0.9033203125
+    },
+    {
+      "start": 4086.96,
+      "end": 4145.74,
+      "text": " how much time we are utilizing is just TT and how much you total had in your hand is 2 TP plus TT or maybe TT plus 2 TP this is one way of saying efficiency you can also say tell me how many packets you are sending total in RTD in stop and wait only obviously we are sending we are sending just one packet how many packets you could have sent so you can say your efficiency is",
+      "avg_logprob": -0.1694931413342313,
+      "no_speech_prob": 0.533203125
+    },
+    {
+      "start": 4146.01,
+      "end": 4177.12,
+      "text": " 1 upon 1 plus 2a the number of packets that you are sending number of packets you could have sent whatever you can do out of whatever you are actually doing in terms of packet if you ask me then in terms of packet I will say it is same as one packet you are sending 1 plus 2a you could have sent in terms of time in terms of time you can say it is same as this it is just a way of thinking that we have got these two numbers",
+      "avg_logprob": -0.1277669263072312,
+      "no_speech_prob": 0.7333984375
+    },
+    {
+      "start": 4177.64,
+      "end": 4222.68,
+      "text": " Okay, which means that these two numbers essentially and mathematically should be same Let's just quickly see whether these two numbers are same or not. Can you divide the TT? TT with a numerator and the denominator What you will be getting? You will be getting here 1 okay divide TT You will be getting this right Which is 1 upon 1 plus 2 it is just a way of thinking that how we have got it. You can use any way of thinking Okay",
+      "avg_logprob": -0.18495245213093964,
+      "no_speech_prob": 0.6435546875
+    },
+    {
+      "start": 4223.02,
+      "end": 4313.54,
+      "text": " now you tell me how many bytes you are sending in stop and wait tell me l right how many you could have sent l into 1 plus 2 so you can do l upon l into 1 plus 2 also which is also fine okay you can do that also okay okay i hope that is fine right see one more interesting thing is that let's suppose you know you have the bandwidth maybe 500 bytes per second tell me in one second",
+      "avg_logprob": -0.10546875337875167,
+      "no_speech_prob": 0.64599609375
+    },
+    {
+      "start": 4316.52,
+      "end": 4380.83,
+      "text": " how many bytes you can send at max in 2 seconds 2 into 500 in t seconds if your bandwidth is bw then can you tell me or maybe 500 then in tt plus 2tp seconds number of bytes that we can send at max is tt plus 2tp into 500",
+      "avg_logprob": -0.1908103818610563,
+      "no_speech_prob": 0.0865478515625
+    },
+    {
+      "start": 4383.21,
+      "end": 4421.05,
+      "text": " if your bandwidth is instead of 500 let me just represent it with the bandwidth bw only then it is bandwidth into tt plus 2tp. So these many bytes that you can send actually in this much time okay these many bytes if you don't represent with with this a if you don't represent i mean we can represent with this a but if you don't represent with this a then can you tell me how many bytes you you can send so here",
+      "avg_logprob": -0.13163641960390152,
+      "no_speech_prob": 0.46142578125
+    },
+    {
+      "start": 4421.46,
+      "end": 4450.62,
+      "text": " see if you want to know that how many bytes we can send then then and the bandwidth is given to you then you will i mean you you will ask for the time right in how much time in the time of in the time of tt plus 2tp how many bytes you can send you just multiply by the bandwidth so if i just ask you in rt to time how many bytes you can send you can send bandwidth into tt plus 2tp okay how many you are sending a gel is this okay everyone i mean you can write this number must be same as 1 plus",
+      "avg_logprob": -0.09900210209253456,
+      "no_speech_prob": 0.6982421875
+    },
+    {
+      "start": 4450.91,
+      "end": 4480.36,
+      "text": " I mean L into 1 plus 2A. Do you want to verify it? Just write the value of TT. What is that? L upon bandwidth, right? So, or maybe you can first take this TT common. It will be 1 plus 2A. So, bandwidth upon TT is just L. You can definitely compare. Are you able to compare? If you take this TT common, then this number, this number is same as L into 1 plus 2A. How many of you are able to compare? That these two numbers are same. Just take TT common. Okay.",
+      "avg_logprob": -0.1199869817122817,
+      "no_speech_prob": 0.818359375
+    },
+    {
+      "start": 4483.02,
+      "end": 4508.99,
+      "text": " Anyone who is not able to compare these two numbers? Okay. So currently I'm not writing L into one plus two A. Okay. I just want to introduce a bandwidth in picture. Just want to write in terms of bandwidth. Okay. So how many bytes you can send in that much time? Bandwidth into whatever time you ask me, because bandwidth is in per unit time. So in one second, 500 in two seconds, 1000. Okay. That you can send.",
+      "avg_logprob": -0.1863839240098486,
+      "no_speech_prob": 0.295654296875
+    },
+    {
+      "start": 4509.21,
+      "end": 4541.01,
+      "text": " whether you are able to send maybe because of the limitation of the protocol I mean protocol just says that okay in in 5000 minutes you just send one packet what you can do okay I mean maybe because of the limitation of protocol maybe there's some some other limitation whether you are sending or not it is a different case but you can send okay that many that many bits or mites right how many bytes you can send which is bandwidth into this much is this so good everyone now can you tell me efficiency in this term it is",
+      "avg_logprob": -0.10260416326068697,
+      "no_speech_prob": 0.83154296875
+    },
+    {
+      "start": 4543.37,
+      "end": 4580.81,
+      "text": " it is L upon bandwidth into I mean L bytes you are sending TT plus 2TP see we have this time is very very important that's what I'm trying to say this much time in in your hand if someone ask you number of number of packets we can send in this time then okay we can send in general right then what is the answer 1 plus 2 if someone ask you number of",
+      "avg_logprob": -0.22428797694701183,
+      "no_speech_prob": 0.8154296875
+    },
+    {
+      "start": 4582.32,
+      "end": 4609.16,
+      "text": " bytes you can send then you can multiply by L right you can multiply by L or maybe you can say in terms of bandwidth I mean you can say L into 1 plus 2 that's fine or maybe you can say in terms of bandwidth that what is the time time into bandwidth that is also called bandwidth into delay product we will talk about it but yeah bandwidth into time is basically",
+      "avg_logprob": -0.11893502975765027,
+      "no_speech_prob": 0.5556640625
+    },
+    {
+      "start": 4609.47,
+      "end": 4639.38,
+      "text": " some will give you the number of number of bits or bytes it depends on the bandwidth unit if bandwidth is bits per second then these are the number of bits that you can send in this time if this is bytes per second then these are the number of bytes that you can send in this time okay so let's let's assume that this is in bytes so these are the number of bytes okay if someone asks you in in any time then you just multiply by the bandwidth whatever the bandwidth maximum that's that's what you can do it is limited by the bandwidth okay so let me know that is fine so that's also correct answer",
+      "avg_logprob": -0.0767609148862816,
+      "no_speech_prob": 0.828125
+    },
+    {
+      "start": 4640.62,
+      "end": 4672.61,
+      "text": " Now, now in stop and wait if I just ask you that how many bytes you are actually sending L in terms of bandwidths can you tell me how many bytes you can send in TT plus 2 TTM? Bandwidths into TT plus 2 TP, okay? How much time you are utilizing TT out of TT plus 2 TP? How many packets you are sending just one out of 1 plus 2 that you could have sent?",
+      "avg_logprob": -0.27929687229069794,
+      "no_speech_prob": 0.41455078125
+    },
+    {
+      "start": 4672.93,
+      "end": 4705.33,
+      "text": " So all of these numbers mathematically should be same, isn't it? You can definitely divide by TT and then you can get it. How to get from here to here or maybe from here to here. Okay, from here to here, I think very easy. You just write this TT as L upon Wendworth, right? And then you will get it. I mean, all of these numbers are actually equal. All of these numbers. So you write efficiency like this, you write efficiency like this, you write efficiency like this, it is same.",
+      "avg_logprob": -0.14199561050586534,
+      "no_speech_prob": 0.3525390625
+    },
+    {
+      "start": 4706.48,
+      "end": 4738.32,
+      "text": " Now why I have shown you so many variations is because that I don't want you to remember any formula Just remember one thing that how much time in terms of time we have or maybe if you want if you really want then you can remember like this How much time you have which is in a stop and wait it is the time that we will be having TT What do you think I mean how much time we are utilizing is basically TT What do you think that they can they can change in the question? See if you remember in RTT what we did we said we said it will be",
+      "avg_logprob": -0.1156775202570843,
+      "no_speech_prob": 0.4521484375
+    },
+    {
+      "start": 4738.72,
+      "end": 4778.24,
+      "text": " like this. We assume that there is no transmission time for the acknowledgement. So basically the efficiency that we have got is actually tt upon tt plus 2tp. We assume that there is no transmission time for the acknowledgement. But now suppose there is a transmission time for the acknowledgement also which is given to be let's suppose this time is let's suppose t",
+      "avg_logprob": -0.1983333400885264,
+      "no_speech_prob": 0.7041015625
+    },
+    {
+      "start": 4778.62,
+      "end": 4811.37,
+      "text": " t ack now can you tell me what are the changes that we will be having in the efficiency how much time we are utilizing is always same what what is the next change t t is actually different because it will depend on the bandwidth so sorry the length also so here this t t is for data okay here this t t is for the ack so t t ack maybe this is t t data this is data this is the only change so in the questions they will just vary these little little things",
+      "avg_logprob": -0.15188418971557244,
+      "no_speech_prob": 0.8955078125
+    },
+    {
+      "start": 4812.78,
+      "end": 4843.88,
+      "text": " Okay. Have you understood the efficiency that how much time you are utilizing is always in stop and wait is cheating. They can at max change this below number. Okay. Whatever you have, they can at max change this number. Can they change this TP? I mean, one way different, another way different. They may also change this TP one way different, another way different. How they may say that whenever you are sending something, then it is using some channel. I mean, it is using some link. Let's suppose a and we are having two links.",
+      "avg_logprob": -0.21646013162259398,
+      "no_speech_prob": 0.9013671875
+    },
+    {
+      "start": 4844.58,
+      "end": 4873.84,
+      "text": " Whenever you want to send it is using this link this is having different distance distance different may be velocity or something and this is having different distance velocity they may also change the TT TP different different TP in both the directions different different TT also in the both the directions if they are having different different links or something but the core idea remains same okay core idea remains same what is the core idea the core idea is there the time that you are utilizing upon the total time okay the total whatever time you are having is the total time I mean whatever time you are spending",
+      "avg_logprob": -0.16755021749330418,
+      "no_speech_prob": 0.77490234375
+    },
+    {
+      "start": 4874.21,
+      "end": 4909.32,
+      "text": " we will see the questions don't worry okay so in the questions they will be changing these things only the core idea is that we always utilize this transmission time okay okay we always utilize this we only utilize this much this time may may vary on the variation of the question we will see the variations of the question sometimes they will say okay the t ac k zero there's a plain formula that we have if t ac k zero or sorry t t ac k zero",
+      "avg_logprob": -0.10996942878093409,
+      "no_speech_prob": 0.2529296875
+    },
+    {
+      "start": 4909.51,
+      "end": 4951.4,
+      "text": " which means transmission time for the ack0 sometimes we'll say okay no no transmission time of ack is something they may keep on changing this this number okay they may keep on changing this number but we should not be afraid of that i mean that's very very that that will be very easy don't worry is this core idea okay to everyone okay may change depending on the okay so this is fix right this may change depending on the question have you understood why it can change now",
+      "avg_logprob": -0.12999355670103094,
+      "no_speech_prob": 0.890625
+    },
+    {
+      "start": 4951.68,
+      "end": 4985.18,
+      "text": " as i just told you that these three numbers either you represent in terms of time you represent in terms of packet you represent in terms of bytes right these three numbers are same so this is time this is packets this is bytes okay these are the plain formula if they have something different in the in the question we will be again driving the formula okay i mean we don't need to drive we can directly solve the question but i hope you understood the derivation why the derivation is important because then",
+      "avg_logprob": -0.0611584580907918,
+      "no_speech_prob": 0.78857421875
+    },
+    {
+      "start": 4985.56,
+      "end": 5025.89,
+      "text": " then only you will get to understand the questions derivation in the sense that why what they are doing I mean this is the time we are utilizing this is the total time this total time may be changing yeah they can change this RTT yes definitely now what is the unit of this efficiency obviously nothing right I mean this is unit less because time upon time is unit less okay now let's just see the throughput or some other number which is called throughput throughput is saying",
+      "avg_logprob": -0.11130712429682414,
+      "no_speech_prob": 0.2447509765625
+    },
+    {
+      "start": 5026.22,
+      "end": 5057.53,
+      "text": " in per unit time how much bytes or the packets we are actually sending is basically I mean is basically determined by the throughput which means in a given time which means see for example for example suppose suppose I say to you from a to b something is there from b to c something is there from a to d something is the c to d something is there but ultimately ultimately I am sending if I if I need to send from a to d",
+      "avg_logprob": -0.12748579325323756,
+      "no_speech_prob": 0.53369140625
+    },
+    {
+      "start": 5057.76,
+      "end": 5087.34,
+      "text": " I am sending let's suppose 500 bytes of data let's suppose this bandwidth could be anything maybe 1000 bytes per minute or something okay and this bandwidth could be anything this bandwidth could be anything but due to some reason maybe because I don't have the data maybe because B is having too much congestion from someone else maybe C is having some congestion maybe C is very slow it can't process or something like that okay maybe because of any reason I am just able to send 500 of the data",
+      "avg_logprob": -0.11146907462287195,
+      "no_speech_prob": 0.84033203125
+    },
+    {
+      "start": 5087.78,
+      "end": 5117.76,
+      "text": " in in let's suppose 5 seconds from a to d now can you tell me the throughput see the bandwidth here could be the 1000 bytes per minute or per seconds okay it could be let's suppose could be 800 bytes per second but maybe because of many other reasons maybe be too slow it is not processing taking too much time to process that's why the time is delayed delayed nothing is happening right maybe because of any reason",
+      "avg_logprob": -0.16480654815123194,
+      "no_speech_prob": 0.53955078125
+    },
+    {
+      "start": 5118.04,
+      "end": 5146.7,
+      "text": " okay i'm ultimately giving you the numbers which is basically 500 bytes i'm able to send in five seconds okay i'm ultimately giving you the numbers you don't ask me why this number is is appearing even though your bandwidth is good okay bandwidth based on dependent neena it's not only dependent on bandwidth it is dependent on many other factors i'm saying to you it may be dependent on c is c is too slow it can't process or maybe any other thing right so ultimately if i'm able to send 500 byte byte of data in five seconds then you will see throughput is throughput is",
+      "avg_logprob": -0.13810910840155716,
+      "no_speech_prob": 0.76513671875
+    },
+    {
+      "start": 5146.88,
+      "end": 5201.28,
+      "text": " how much we send in one second in one second how much you are sending is basically 500 divided by 5 seconds right in one second we are sending 100 bytes per second you can say 100 bytes per second we are sending right okay so there's the throughput that's all how much bytes we are sending so what we think what could be the unit of the throughput you can say it could be could be maybe the backup bytes maybe the packets per second",
+      "avg_logprob": -0.20663623595505617,
+      "no_speech_prob": 0.219482421875
+    },
+    {
+      "start": 5201.8,
+      "end": 5237.89,
+      "text": " how many packets you are sending it depends on you how you are using right let's suppose the length of the packet is let's suppose 20 bytes then can you tell me the throughput in terms of the packets per second 5 packets per second right if length of the packet is 20 bytes something like that right so basically it could be the packets per second can it be packets per minute yes right could be like this could be like this can it be bits per second",
+      "avg_logprob": -0.15956182081414305,
+      "no_speech_prob": 0.8984375
+    },
+    {
+      "start": 5238.53,
+      "end": 5260.14,
+      "text": " Yes, can it be bits per minute? Yes. So basically the data per unit time, okay, bytes per minute, anything, okay, data per unit time. So these are the unit of throughput. Have you understood? In one unit of time, how much we are sending? Now don't ask me whenever we are calculating throughput, don't ask me why we are only able to send 500.",
+      "avg_logprob": -0.14316641530358648,
+      "no_speech_prob": 0.24853515625
+    },
+    {
+      "start": 5261.05,
+      "end": 5289.87,
+      "text": " Maybe they will give you the reasons and then they will just ask you the throughput. They will say that, okay, I mean, they will tell you, see, the C is taking some processing time and this, this, this. Now you tell me the throughput, then you will say that, okay, you just tell me that, okay, how much time you are taking from A to D that considering all the time from C or processing of their transmission or propagating, whatever, right? How much time you're taking from A to D? And in that time, how much data you're sending? If you tell me these two numbers,",
+      "avg_logprob": -0.16811560015929372,
+      "no_speech_prob": 0.646484375
+    },
+    {
+      "start": 5290.19,
+      "end": 5320.04,
+      "text": " I will tell you the throughput okay we will solve the question but is the core idea killer to everyone that you just tell me from end to end how much data you are sending how much time you are taking I will tell you that throughput okay so so throughput of stop and wait in stop and wait can you tell me in RTT or maybe T T plus 2 TP time number of bytes or the packets or whatever you want to say",
+      "avg_logprob": -0.1595725543882655,
+      "no_speech_prob": 0.1904296875
+    },
+    {
+      "start": 5320.33,
+      "end": 5360.3,
+      "text": " let me write bytes number of bytes you are sending can you tell me just tell me l l bytes you are sending right i mean l into okay l into this this much this much you can send or something like that right l into 1 plus 2 is that that much you can send but in stop and wait in stop and wait how much you are sending in total time you are sending one packet only right one packet means l bytes okay so in stop and wait if i just ask you how much bytes you are sending l bytes",
+      "avg_logprob": -0.11733631065913609,
+      "no_speech_prob": 0.80029296875
+    },
+    {
+      "start": 5361.62,
+      "end": 5418.44,
+      "text": " Now, how many packets you are sending? Can you tell me the throughput? The total data upon total time we are taking. Total data in terms of byte if you want, I will say L upon TT plus 2TP. If you ask me, which will be bytes per second? This is the unit, right? If you ask me, I can write the same number and I will just change the unit. Can you tell me in the packets per second? It will be, it will be.",
+      "avg_logprob": -0.12712377975287947,
+      "no_speech_prob": 0.385986328125
+    },
+    {
+      "start": 5419.28,
+      "end": 5477.93,
+      "text": " the packets you are sending is just one right? it will be one is this okay everyone? so that is the throughput that you are having right? in stop and wait okay now just a second yeah so this was the efficiency of stop and wait right? this is efficiency in stop and wait and and throughput is coming out to be is coming out to be you are sending L bytes in",
+      "avg_logprob": -0.20733173688252768,
+      "no_speech_prob": 0.84423828125
+    },
+    {
+      "start": 5479.64,
+      "end": 5526.47,
+      "text": " two t plus tp time right so one byte sorry you write it like this i mean in this much time you're sending albides so let me write this here i mean the i'm just applying the unit no unitary method in this much time you're sending albides so in one unit of time you're sending l upon two tp sorry this is two tp these many um this much you're sending which is bytes",
+      "avg_logprob": -0.13965941413065022,
+      "no_speech_prob": 0.82763671875
+    },
+    {
+      "start": 5527.02,
+      "end": 5562.93,
+      "text": " per millisecond i mean depend on this but i'm assuming seconds okay cool okay if you want i can write it tt plus 2tp let's just stick with one of the notation because again and again i mean either you write it tt plus 2tp means plus is commutative obviously right you can write it tt plus 2tp good so uh this is the throughput that we are getting and this is the bandwidth let's just uh maybe this is the efficiency let's just compare this and this number can you compare this and this number",
+      "avg_logprob": -0.1084070796460177,
+      "no_speech_prob": 0.80419921875
+    },
+    {
+      "start": 5566.7,
+      "end": 5617.05,
+      "text": " I mean what do I mean to say that can you tell me the relationship between efficiency and throughput can I say that that throughput is or maybe efficiency is efficiency is throughput into bandwidth sorry throughput upon bandwidth right or maybe let me write throughput equal to throughput equal to efficiency into bandwidth",
+      "avg_logprob": -0.1319602213122628,
+      "no_speech_prob": 0.7783203125
+    },
+    {
+      "start": 5619.76,
+      "end": 5653.36,
+      "text": " Can I say something like this? If you multiply by the bandwidth here, aren't you getting throughput? Let me know. So this is the relation which is between throughput and efficiency. I mean, we have derived it just based on our common intuition. You don't need to remember it. I mean, if you remember it, it's good. But generally, gate experience, remember it without even knowing that, okay, how they're related. Now, you know that how to find out the throughput, you know how to find out the efficiency. So maybe I can just quickly go to the next page.",
+      "avg_logprob": -0.14637499713897706,
+      "no_speech_prob": 0.69677734375
+    },
+    {
+      "start": 5654.67,
+      "end": 5687.93,
+      "text": " and let's just quickly drive this relation again so here you just tell me what is the throughput which means which means in 2tp if you want to get the throughput you just tell me in 2tp or maybe let me write in in just one let let's just follow this notation which is tt plus 2tt in this much time number of bytes you are sending l bytes so in one time you are sending l upon",
+      "avg_logprob": -0.1558061008426276,
+      "no_speech_prob": 0.8115234375
+    },
+    {
+      "start": 5690.26,
+      "end": 5714.24,
+      "text": " That's how you will be asking for the throughput. Can you tell me what is the, what is the efficiency? It is basically how many bytes you are sending in terms of bytes. Okay. I mean, you, you can tell in terms of packets also, but anyway, in terms of bytes, how many words you're sending L, how many bytes you can send in this much time. If you ask you in any time that you multiply by the bandwidth only, right? So bandwidth into, into TT plus.",
+      "avg_logprob": -0.1801985922817872,
+      "no_speech_prob": 0.5810546875
+    },
+    {
+      "start": 5716.02,
+      "end": 5748.89,
+      "text": " this much you can send this much you are sending that's how you are finding out the efficiency okay and both are related by the bandwidth so bandwidth into efficiency just throughput have you understood this okay now this particular thing especially about this particular throughput this particular thing that okay how much time you are taking to send these many bytes this particular unitary method will keep on coming again and again okay so which means that",
+      "avg_logprob": -0.13184799088372123,
+      "no_speech_prob": 0.90185546875
+    },
+    {
+      "start": 5749.17,
+      "end": 5778.43,
+      "text": " that here in this slide in this slide i use a unitary method right this will come again and again see whenever they will be asking you the throughput don't apply any formula or anything what you need to know from a to d the moment you start the transmission till this d completely get it how much time you are taking and how many bytes you are sending that's all you need to know you can find the throughput very quickly okay otherwise if you want you can first go through this route what is that route find the efficiency",
+      "avg_logprob": -0.06034226332392011,
+      "no_speech_prob": 0.484375
+    },
+    {
+      "start": 5779.29,
+      "end": 5806.73,
+      "text": " multiply by the bandwidth then you can I mean you can find the throughput so there are two ways to find the throughput you find the efficiency multiply by the bandwidth bandwidth will be given to you or maybe if you are confused that what to do then you can find out okay from here to here from A to D how much time you are taking total how many bytes you are sending just divide both okay these many bytes are sending this much time you are total taking to send these many bytes then the throughput will be this anyway with the questions it will be more clear",
+      "avg_logprob": -0.13830236217997097,
+      "no_speech_prob": 0.599609375
+    },
+    {
+      "start": 5807.68,
+      "end": 5837.79,
+      "text": " Let's just solve this question quickly. So what will the efficiency of stop and wait protocol if the transmission time is this and the propagation time is 30 30 milliseconds So see you can remember just one formula, which is very plan formula this much, right? Because this is the general formula if they don't give you any other information. So this much time you're utilizing that much time you totally have, right? So how much you're utilizing? Transmission time is 20. The total time that you have is 20 plus two into TP, which is",
+      "avg_logprob": -0.15722656662442855,
+      "no_speech_prob": 0.7373046875
+    },
+    {
+      "start": 5839,
+      "end": 5875.83,
+      "text": " propagation is 30 I don't have the answer but anyway this will be 20 upon 60 plus 20 which is 80 which is 1 by 4 which is 25 percent right so you can say B is answer okay I mean you can you can do this question easily that's an easy question that has been asked in ISTO 2013 okay now",
+      "avg_logprob": -0.2452651479027488,
+      "no_speech_prob": 0.320068359375
+    },
+    {
+      "start": 5876.15,
+      "end": 5893.85,
+      "text": " We are now we are going to do some more questions which are related to stop and wait efficiency throughput and these things. So if you want, we can just do all of these questions. These questions are mostly PYQs. I have taken all of the tough PYQs, all of the easy PYQs, whatever we have in stop and wait. And generally, I mean, see.",
+      "avg_logprob": -0.1629595630309161,
+      "no_speech_prob": 0.048126220703125
+    },
+    {
+      "start": 5894.12,
+      "end": 5923.63,
+      "text": " Generally, for most of the experience, they can solve these state photo questions. But when it comes to little tricky question, if you don't have the clear-cut understanding of the throughput or the efficiency, then you might not be able to solve. But we will see with the question that these applications are very, very easy. I mean, if you want to apply the throughput definition directly to any question, then it will come very easily. We will see using the questions. So we will be doing these questions tomorrow. So thank you, everyone. Take care. Bye-bye.",
+      "avg_logprob": -0.12128906312088171,
+      "no_speech_prob": 0.4462890625
+    }
+  ],
+  "sourceCompletedAt": "{\"file\":\"015. Recording - Lecture 13_ Stop-Wait Protocol.mp4\",\"language\":\"en\",\"probability\":0.896484375,\"processing_seconds\":114.22671175003052,\"device\":\"cuda\"}"
+}

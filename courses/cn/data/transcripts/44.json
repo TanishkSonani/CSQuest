@@ -1,0 +1,317 @@
+{
+  "id": 44,
+  "title": "Send and retrieve email with SMTP and POP3",
+  "file": "044. SMTP & POP3.mp4",
+  "seconds": 1246.933333,
+  "segments": [
+    {
+      "start": 0,
+      "end": 27.94,
+      "text": " Let's talk about electronic mail or email and the corresponding protocols that we use to send emails. As with ordinary postal mail, email is an asynchronous communication medium, which means that the two sides, the sender and receiver should not be online at the same time, which means sender can send the mail and receiver can get that mail whenever it wants. So that's why we say that this is an asynchronous communication medium, just like the ordinary postal mail.",
+      "avg_logprob": -0.11491935323643428,
+      "no_speech_prob": 0.03973388671875
+    },
+    {
+      "start": 28.35,
+      "end": 55.13,
+      "text": " but the difference is obvious I mean between the postal mail and emails the difference is that emails are cheaper right so which means that you do not need to put some stamp or you do not need to have some physical paper to send the email so you can just send the send as many emails as you want just with one internet connection right so emails are cheaper and obviously they are faster",
+      "avg_logprob": -0.09359580856796942,
+      "no_speech_prob": 0.097412109375
+    },
+    {
+      "start": 58.34,
+      "end": 87.04,
+      "text": " So that is why electronic email, electronic mail or emails are more convenient compared to the postal mail. So before we look into the protocols that we use in emails, let's see the overall architecture. See here, you have the different user agents. Let's suppose these are the different user agents and they want to send emails to each other. Suppose this user agent wants to send email to this user agent. Then what will happen? This user agent will first send the mail",
+      "avg_logprob": -0.10725911241024733,
+      "no_speech_prob": 0.0138702392578125
+    },
+    {
+      "start": 87.32,
+      "end": 114.42,
+      "text": " to its own local server or its own mail server then this mail server will send the mail to this user's user agent mail server and then this mail server will send the mail to user agent so basically this is not happening directly which means this user agent is not sending the mail directly to the to this user agent there are mail servers involved in between the both the parties so this user agent will send the mail to its own user its own mail server",
+      "avg_logprob": -0.07148437177141508,
+      "no_speech_prob": 0.044708251953125
+    },
+    {
+      "start": 114.78,
+      "end": 144.64,
+      "text": " Then this mail server will send the mail to another mail server and then this mail server will send the mail to this user agent. This is the overall process using which we send emails from one party to another party. Now there might be many questions which are like why we are not sending from this user agent to directly to this user agent or why we are not sending from this user agent to this mail server. There might be many questions that you might be having. So we will answer this question as we proceed further.",
+      "avg_logprob": -0.08214286054883685,
+      "no_speech_prob": 0.1993408203125
+    },
+    {
+      "start": 144.86,
+      "end": 173.41,
+      "text": " okay but for now you should understand the architecture in the sense that this happens in this way and what are these mail servers and user agents so user agents are just like your application program which are just like gmail outlook these things and this mail servers are just like servers so like you might have heard about the web servers right which hosts your particular website similarly there are mail servers",
+      "avg_logprob": -0.09062500019868215,
+      "no_speech_prob": 0.340087890625
+    },
+    {
+      "start": 173.66,
+      "end": 203.55,
+      "text": " So mail servers are just like web servers, but the users are different. And there are some servers which provides the functionality of both, which means they provide the functionality of mail server and web server also. But there are some servers in those servers, every user agent has some mailbox. So this is the mailbox of user agent one, which means if this user agent has to send some mail, then this mail will be put into this mailbox. And then from this mailbox, you will be sending the mail to another mail server, right?",
+      "avg_logprob": -0.07927178926424149,
+      "no_speech_prob": 0.259765625
+    },
+    {
+      "start": 203.82,
+      "end": 235.46,
+      "text": " So, this is just like a Gmail account. Suppose I have the Gmail account, which means that I have one mailbox in one of the Gmail server. So, I hope this idea is clear that there are two user agents and how they are sending the mails. This user agent will send the mail to its mail server. This mail server will send the mail to another mail server and then this mail server will send the mail to the user agent. So, that's how it happens. Now, here as you have seen there are two basic components. One is user agent, second one is mail server.",
+      "avg_logprob": -0.0992943562206722,
+      "no_speech_prob": 0.1544189453125
+    },
+    {
+      "start": 235.66,
+      "end": 266.43,
+      "text": " And this is also called mail transfer agent or message transfer agent. So user agents are just like our local programs. This could be GUI-based or could be command-based. So which means you can use the terminal to send the mails or you can use your GUI, which means you can use Gmail, Gmail GUI or Outlook GUI, something like that. You can use these GUIs to send the mail or you can use the command. You can use the terminal to send the mail.",
+      "avg_logprob": -0.11748230893094584,
+      "no_speech_prob": 0.23095703125
+    },
+    {
+      "start": 266.72,
+      "end": 296.38,
+      "text": " Generally, we use the GUI based applications. And then there are message transfer agents. So these are the mail servers or message transfer agents, which are running the background to me to move messages from the host to destination, right? So from this host to destination, these are the these these mail servers are running the background, which means these these mail servers are basically always running and they're never down, which means if you want to send some mail, then after sending the mail, you could be offline.",
+      "avg_logprob": -0.13679386675357819,
+      "no_speech_prob": 0.493408203125
+    },
+    {
+      "start": 296.63,
+      "end": 329.32,
+      "text": " But these mail servers are never offline. Why? Because some other user might want to send the mail. So that's why most of the time these mail servers are on and they always run in the background. Now let's answer the question where I ask you that how about direct connection between sending and receiving host? Which means why this user agent is not directly sending the mail to this user agent? Why this communication is happening using the mail servers? So what do you think could be the answer? The answer is this.",
+      "avg_logprob": -0.09257075288948023,
+      "no_speech_prob": 0.049163818359375
+    },
+    {
+      "start": 329.65,
+      "end": 353.75,
+      "text": " that the receiver machine may or may not be always on which means suppose you realize and you want to say send a mail to Bob and then in this case like the way the communication happen is like this you will send to your mail server and then this mail server will send the mail to the Bob's mail server and then this will send the mail to Bob right",
+      "avg_logprob": -0.08486729778655588,
+      "no_speech_prob": 0.0246429443359375
+    },
+    {
+      "start": 354.08,
+      "end": 384.9,
+      "text": " so my question is this that why we are not sending it directly because the bob may not always be on whenever you want to send the mail it is not the case that bob is also on at that time because the communication is asynchronous right this was the whole idea around the email and second point is that user may want to receive the mail from multiple machines this is also very important point which means you may use as a bob you may use the mobile you may use pc or you may use some other machine",
+      "avg_logprob": -0.06783725601611751,
+      "no_speech_prob": 0.460693359375
+    },
+    {
+      "start": 385.24,
+      "end": 410.82,
+      "text": " to receive the mail. So if Alice has to send the mail then then if it has to send the mail directly then then you need to tell that okay you need to send the mail only on mobile like you will provide the IP address of your one of your machine either of mobile or PC or some other machine right. So Alice has to know the IP address of one of the machine and it cannot send I mean it can send but generally it will be troublesome if it has to send to all the machines",
+      "avg_logprob": -0.10814950892738268,
+      "no_speech_prob": 0.1148681640625
+    },
+    {
+      "start": 411.19,
+      "end": 441.17,
+      "text": " and this will end also like these all the machines has to be on all the time I mean whenever Alice is sending the message so clearly this is not convenient so what has to be done this Alice has to send the message to mail server instead of directly sending to the Bob now there is a second question which is that why Alice is sending this message to this mail server which means why not the Alice is sending the mail directly to this mail server and why Alice is sending the mail first to its own mail server",
+      "avg_logprob": -0.1263020830411537,
+      "no_speech_prob": 0.072265625
+    },
+    {
+      "start": 441.72,
+      "end": 465.3,
+      "text": " The answer is that see there are like two things one is that if allies has to send the mail to this mail server and suppose this mail server is busy this mail server is busy then in that case The allies has to wait for this mail server to respond and and this is this is also not desired What if the allies just send the mail to this mail server and let this mail server handle?",
+      "avg_logprob": -0.1298828160390258,
+      "no_speech_prob": 0.033538818359375
+    },
+    {
+      "start": 465.64,
+      "end": 489.64,
+      "text": " whether this is busy or not. So, this mail server will keep on asking another mail server whether whether the Bob's mail server is busy or not. One is that second point is that see this communication is like I mean this is one way communication but Bob may also reply. So, anyway the allies has to maintain its own mail server right. So, if Bob replies then in that case the allies also has to maintain its own mail server.",
+      "avg_logprob": -0.10989011070885502,
+      "no_speech_prob": 0.0163421630859375
+    },
+    {
+      "start": 489.9,
+      "end": 517.24,
+      "text": " So Alice is anyway having its own mail server so why not to just put all the mails on its own mail server and let this mail server handle all the heading. So let's look at the you know more more technical architecture which in the sense like in this case I will tell you the steps that how how this is happening. So suppose you are Alice and this Mua means mail user agent and",
+      "avg_logprob": -0.1526295797127049,
+      "no_speech_prob": 0.0151214599609375
+    },
+    {
+      "start": 517.8,
+      "end": 547.54,
+      "text": " And this mail user agent, as you have seen earlier, this is the user agent. So this user agent, it's sending basically the message to box user agent, right? So first step is that it will send the mail to its own mail server. Now its own mail server could be anything. Suppose this is smtp.a.org. So suppose that Alice mail ID is Alice at the rate a.org, Bob mail ID is Bob at the rate b.org, okay?",
+      "avg_logprob": -0.20266543518678815,
+      "no_speech_prob": 0.1815185546875
+    },
+    {
+      "start": 548.06,
+      "end": 573.74,
+      "text": " which means that Bob is inside this organization Bob is having an email ID of this b.org organization Alice is having an email ID of a.org which means Alice is in this organization So you may use Gmail you may use your own organization. Maybe like I have worked at Amazon So I was having at that at Amazon.com. I was having at that isc.ac.in So these email IDs you can have based on the organization which you are working",
+      "avg_logprob": -0.22423537963248313,
+      "no_speech_prob": 0.315673828125
+    },
+    {
+      "start": 575.19,
+      "end": 604.53,
+      "text": " Now this allies will send the mail to its own mail server, which means organization's mail server So this mail server is suppose smtp.o.org Now this has to send mail to boss mail server, but the problem is that This mail server may not know boss mail server email ID So for that we have two steps extra, which means we will ask for the IP address from the DNS So this part we have we have not covered yet. So I will not go into the detail",
+      "avg_logprob": -0.15171874791383744,
+      "no_speech_prob": 0.19775390625
+    },
+    {
+      "start": 604.84,
+      "end": 633.84,
+      "text": " So there are some authoritative DNS servers and all so I will not go into detail but yeah just just remember like there are some entries in the DNS and DNS provide multiple functionalities I mean based on whether I am asking IP address of the Gmail I am asking IP address of the mail server I am asking IP address of the web server or there are some multiple functionalities that DNS provides so if it is providing the service for the mail server then it is called MX so anyway that",
+      "avg_logprob": -0.14690721649484537,
+      "no_speech_prob": 0.04815673828125
+    },
+    {
+      "start": 634.68,
+      "end": 663.63,
+      "text": " Ally's mail server will send a DNS request to have an IP address of Bob's mail server and then once it gets the IP address of Bob's mail server using the DNS then in the fourth step it will send the mail to Bob's mail server then this mail will get will get retrieved from the Bob's one of the machine in the step 5 so this is how it is happening now if I go into little more detail then there are some protocols one is SMTP and one is POP3",
+      "avg_logprob": -0.1281403140986667,
+      "no_speech_prob": 0.045074462890625
+    },
+    {
+      "start": 664.01,
+      "end": 694.65,
+      "text": " So from allies host machine to mail server, there is some protocol that we use that is SMTP protocol. And from this mail server to this mail server, we again use the SMTP protocol. And then if you want to pull the message, then there are some different protocols. One is POP3, another one is IIMAP. So basically, if you are sending from allies, then it will send from its mail server using SMTP protocol. And then from this,",
+      "avg_logprob": -0.16461490531160375,
+      "no_speech_prob": 0.10699462890625
+    },
+    {
+      "start": 695.03,
+      "end": 723.29,
+      "text": " it will send the mail to mail server of Bob. So, I am not considering currently DNS ok, do not worry about the DNS entry basically it will first get the DNS using the DNS it will get the IP address and then it will send the mail to mail server of Bob. So, this is also done using the SMTP. Then once this mail is received in this mail server and the mail box of Bob. So, in this mail server also there are mail box right see this is the mail box of let us suppose Bob.",
+      "avg_logprob": -0.10355113270607862,
+      "no_speech_prob": 0.018798828125
+    },
+    {
+      "start": 723.56,
+      "end": 752.74,
+      "text": " So once you receive the mail in the mailbox of Bob, then the Bob will retrieve this message or we also call it pull this message using different protocols. One is called POP3, another one is called IMAP. So basically POP3 is absolute now. It is not being used. IMAP is most popular protocol that we use. And using these protocols, we like Bob pull the mail to one of his machine. So it may pull the mail to SPC, it may pull the mail to mobile, anything like that.",
+      "avg_logprob": -0.15482954545454544,
+      "no_speech_prob": 0.0706787109375
+    },
+    {
+      "start": 753.06,
+      "end": 782.32,
+      "text": " So we will talk about these protocols in detail but for now I just want to convey this overall pipeline how it is happening. Alice is sending the mail to its mail server, its mail server is sending the mail to Bob's mail server and then Bob is pulling the mails from the mail servers. This is how it is happening, right? Now let's talk about these protocols in detail. One is simple mail transfer protocol that we use from Alice to mail server and then mail server to mail server. So at two places we use SMTP.",
+      "avg_logprob": -0.11929898715770997,
+      "no_speech_prob": 0.0711669921875
+    },
+    {
+      "start": 782.78,
+      "end": 812.86,
+      "text": " and at the third place we use either pop3 or imap so generally we use imap smtp stands for simple mail transfer protocol and it uses the TCP for the reliable transfer email connections which means if you want to send this mail using the smtp to this mail server then first you need to establish the TCP connection between these two so first TCP connection will get established and then it sends the message which means the data transfer happens after the TCP connection",
+      "avg_logprob": -0.11785954301075269,
+      "no_speech_prob": 0.051910400390625
+    },
+    {
+      "start": 813.5,
+      "end": 843.37,
+      "text": " and it uses the port 25 that is all we need to understand SMTP I mean as per the gate syllabus so if you look at any other book and any of the book like you will be you will not be finding much detail because these I mean these are the only details that we need and in books also the details are not comprehensive like they also kept it short so now there are these protocols which are pop3 and imap so let's talk about these protocols",
+      "avg_logprob": -0.14278590076781333,
+      "no_speech_prob": 0.033843994140625
+    },
+    {
+      "start": 843.74,
+      "end": 876.5,
+      "text": " these are called mail access protocols which means you got the mails in the mail server now you want to pull those mails now as i said mail message are waiting in the receiver's mail box at the receiver's mail server and you want to pull those mails right for that there are two protocols that we use one is pop3 another one is imab let's talk about both of them so pop3 is very simple protocol and is having very limited functionality the typical use of pop3 is basically",
+      "avg_logprob": -0.11130878978436536,
+      "no_speech_prob": 0.052490234375
+    },
+    {
+      "start": 876.9,
+      "end": 902.69,
+      "text": " the email is retrieved and stored at user pc so this is very important and this is basically pop3 is used for the offline dream which means that from this mail server when you're getting the mail pop3 does what pop3 basically deletes the mail from the server which means it pulls the mail permanently and it deletes the mail from the mail server it downloads the mail in the bobs machine right",
+      "avg_logprob": -0.1613948147107915,
+      "no_speech_prob": 0.137451171875
+    },
+    {
+      "start": 902.99,
+      "end": 929.1,
+      "text": " So POP3 basically downloads the mail in the BOVs machine and it stores it permanently there for the offline users which may not be desirable. Why? Suppose that this is the BOVs mail server or BOVs organization mail server and there are five mails one two three four five mails that are in the mailbox of BOV. Now BOV does what? BOV opens its PC and",
+      "avg_logprob": -0.2284226128388019,
+      "no_speech_prob": 0.0206146240234375
+    },
+    {
+      "start": 930.09,
+      "end": 958.31,
+      "text": " Downloads let's suppose let's suppose till now there are only four meals and or three meals something like that and Bob's download four meals Let's suppose let's suppose this one two three four and at another time just five fifth male has come and then Bob's open his mobile and Bob's download the fifth male So these these are not Synchronous which means like this is having four meals. This is having fifth male So these are not in the sink Right and this is not like much usage in the practice nowadays because",
+      "avg_logprob": -0.21624410841262565,
+      "no_speech_prob": 0.57568359375
+    },
+    {
+      "start": 958.83,
+      "end": 986.98,
+      "text": " In our machine, we basically have all the mills. Either we are using a PC in the PC or we are using the mobile. So basically, pop3 does what? Pop3 deletes the mill permanently from the mill server. And that's why this is not in the much usage. So does not maintain a state across the session. Which means this also does not maintain a state, which means like it does not say whether your mail is read, your mail is deleted or something like that. It does not maintain any state.",
+      "avg_logprob": -0.17727272429249502,
+      "no_speech_prob": 0.27880859375
+    },
+    {
+      "start": 988.5,
+      "end": 1020,
+      "text": " And it also uses the TCP to download the mails and it operates on the 1.1.0 port. Now let's talk about the IMAP, which is being used most popularly nowadays. So it does what it keeps track of the message status, which means whether it is read, whether it is replied to, whether it is marked for deletion, these things. And it does not delete the mails permanently, which means if there's the mail server of BOVs organization, then",
+      "avg_logprob": -0.18554688015809426,
+      "no_speech_prob": 0.269775390625
+    },
+    {
+      "start": 1020.77,
+      "end": 1046.51,
+      "text": " If this is bog, then this handles IMF handles mails on the mailbox only, which means the mails are never downloaded in the bog. I mean you can download it if you wanted, but there are always stored in the mail server. So irrespective whether you are using PC or whether you are using mobile, your mails are always in the sync because you are viewing those mails on the mail server, not locally on your machine, which means",
+      "avg_logprob": -0.18503289756022,
+      "no_speech_prob": 0.08624267578125
+    },
+    {
+      "start": 1046.85,
+      "end": 1074.29,
+      "text": " even even though there are too much mills your your machine space is let's suppose 50 GB or something then this space will be intact this will be 50 GB only so everything is on the cloud okay these these this protocol imap supports it which means it does not download the mill unless and until you want it to do so that's why we use it very often and it also search the server side searches",
+      "avg_logprob": -0.15577362259713615,
+      "no_speech_prob": 0.029388427734375
+    },
+    {
+      "start": 1074.59,
+      "end": 1107.85,
+      "text": " it also supports the server side search search which means if you are viewing you want to view some mail which is having some let's suppose subject line maybe computer networks with this subject line you want to search some mail then you can search in the server which means you do not need to download all the mails and you can directly search on the server this is what we do generally in the gmail also right and I map server solution on the port 143 now like this is one thing",
+      "avg_logprob": -0.1537787039973298,
+      "no_speech_prob": 0.252197265625
+    },
+    {
+      "start": 1108.09,
+      "end": 1127.78,
+      "text": " Another thing is that if there's a mail server then in this mail server there could be different organizations which means suppose I open my own organization, suppose Go classes.",
+      "avg_logprob": -0.19037223826436436,
+      "no_speech_prob": 0.01154327392578125
+    },
+    {
+      "start": 1128.2,
+      "end": 1153.12,
+      "text": " so in this mail server this mail server could provide the functionalities for different different small organizations one is go classes another is something else another is something else so basically if you want to send some mail that is having at the red go classes dot in something like that then this this mail will be sent to this mail server again if you want to send some mail that is let's suppose this is gate or flow dot in right",
+      "avg_logprob": -0.1275735287105336,
+      "no_speech_prob": 0.032257080078125
+    },
+    {
+      "start": 1153.72,
+      "end": 1179.8,
+      "text": " and if you want to send some mail that is having at the red gate or flow.in then this will also send to the same mail server so this is I just wanted to tell you that you do not need to have a dedicated mail server for I mean one mail server for your own organization you can just rent out some of the space from the mail servers like from the big companies mail server like Google Outlook these things now there is a web based access also",
+      "avg_logprob": -0.17237366799344409,
+      "no_speech_prob": 0.0728759765625
+    },
+    {
+      "start": 1180.03,
+      "end": 1203.49,
+      "text": " which means you do not need to use their applications you can do what you can just open www.gmail.com something like that which uses the HTTP protocol which means instead of using SMTP protocol from Alice to Alice mail server what you can do you can use HTTP protocol and this will send the mail to mail server",
+      "avg_logprob": -0.12391826923076923,
+      "no_speech_prob": 0.0297088623046875
+    },
+    {
+      "start": 1205.04,
+      "end": 1234.52,
+      "text": " From this mail server to Bob's organization mail server, you are still using the SMTP protocol. There is no change in that. But from this mail server to Bob's laptop, you can again use the HTTP protocol. So basically HTTP is quite new protocol compared to SMTP and all. So this HTTP provides the functionality of SMTP. Here it is providing the functionalities of SMTP. Here it is providing the functionalities of Pop3 or IMAP.",
+      "avg_logprob": -0.1086348660682377,
+      "no_speech_prob": 0.1055908203125
+    },
+    {
+      "start": 1236.91,
+      "end": 1246.63,
+      "text": " So, HTTP provides both of these functionality. If you want to have web browser access of your mails, then you can use HTTP. But still, the mails servers are using the SMTP protocol.",
+      "avg_logprob": -0.15906613094862118,
+      "no_speech_prob": 0.00775909423828125
+    }
+  ],
+  "sourceCompletedAt": "{\"file\":\"044. SMTP & POP3.mp4\",\"language\":\"en\",\"probability\":0.98583984375,\"processing_seconds\":29.991182565689087,\"device\":\"cuda\"}"
+}

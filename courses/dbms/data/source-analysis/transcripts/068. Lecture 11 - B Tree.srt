@@ -1,0 +1,864 @@
+1
+00:05:25,510 --> 00:06:00,160
+Hi, everyone. So let's start now. In this session, we will study B tree. What is this B tree? All the concepts, all the questions, all the variations, you will see that complete details of the B tree we are going to study. Okay. So including the variations, including the questions, which have not come in the gate exam so far, the type of questions that that may come because those are available in the standard resources, but they have not come in the gate exam so far. So
+
+2
+00:06:00,970 --> 00:06:27,390
+everything related to be tree we are going to study in this lecture. Okay, now let's start now. So in the last lecture, we have already seen the indexes that we have seen so far. Okay, so so far we have seen the indexes like static indexes we have seen your primary index clustering index secondary index is am file index sequential files and multi level indices. So basically these index structures we have seen so far correct.
+
+3
+00:06:27,820 --> 00:06:51,200
+these all these index structures these we have seen so far and we call them what we call them what is the name we give like what they are called static indexes the reason is very simple because the modifications are very costly if you do the modification in these indexes primary index if you do the modification in the file your data file you have this is your data file and this is your index file
+
+4
+00:06:51,460 --> 00:07:14,480
+now in the data file if you do the modification if you insert some record if you delete some record or if you edit modify some record so basically in the data file if you do some modification then we also have to do the modification of index file okay and that is costly because all the records you have to shift all the records each and every record you may have to shift okay
+
+5
+00:07:14,740 --> 00:07:43,260
+so basically this is the idea so you can see that these indexes these primary index and all these indexes multi-level indexes secondary index and index sequential files so all these basically i can say that if you modify the data file then you have to modify this but remember modification of these indexes is very costly of course see whatever index you create whether you create v tree index v plus tree index whatever index you create on your data file
+
+6
+00:07:43,530 --> 00:08:11,390
+if you update the data file if you modify the data file then you have to modify the index right yes or no so there is no problem in that because we have to do that if you modify the data file then definitely we have to modify our index file so there is no problem with that but you can notice these index these indexes okay if you modify them then that is very costly so modification of these indices that is costly okay so so these are useful
+
+7
+00:08:11,800 --> 00:08:41,200
+these are useful when they are useful when rare changes occur in the data file rare changes occur so when the data in the file is static or I can say very rarely the data will change very rarely insertion deletion happens very rarely the modification will happen so when the data changes rarely so then in that case these indexes are good so these indexes we call them so what is the name name for these indexes so these are called static indexes
+
+8
+00:08:42,060 --> 00:09:11,720
+all of them because they are useful they are good for those data files which do not change a lot which rarely change for those data files you can create these indexes and these are useful but for the dynamic file if your file is dynamic if your data file changes a lot okay a lot of insertion deletion happens then in this situation these indexes are not good so we need something so you can clearly see these ism files index sequential files so I can say multi-level indexes multi-level primary indexes
+
+9
+00:09:11,800 --> 00:09:41,480
+So these are most suitable when your file is static. If your file is, if your file does not change, rarely change. Okay. Rarely modification happens. If your file is dynamic, then we have to go for dynamic multi level indexes. Tree based indexes we have to study. Those are B tree and B plus tree. So that is the motivation for B tree and B plus tree. Okay. Indexing B tree and B plus tree. So that we need to study now. First we will study B tree, then we will study B plus tree. Now there is no full form for B.
+
+10
+00:09:41,660 --> 00:10:11,450
+Now you might be thinking, sir, there is a full form for B. This B does not mean binary. This B does not mean anything else. Okay. So this is a name that is given and the, uh, like the reason could be like anything. Okay. We don't know the reason, but, uh, at some places it is given that B means belage at some places it is given that B means belage and at some places this is given that B does not mean belage. Okay. So basically these are just the names. So don't look for the full form. There is no full form for these. So there is basically B tree.
+
+11
+00:10:11,650 --> 00:10:40,230
+and there is a B plus tree okay so you have B tree B plus tree indexes that is what we are going to study these are dynamic indexes what that means that means that if your data changes if you change your data a lot if your data file changes a lot if you have a dynamic file okay if your data file is dynamic a lot of insertion modification happens then this index you have to update but if your index is based on B tree if your index is based on B plus tree then
+
+12
+00:10:40,510 --> 00:11:09,990
+the modification of these indexes is very easy. So that is the reason these are called dynamic indexes because these indexes, these are modification friendly. So this B tree index, this is not B minus, this is B tree. Okay, there is nothing, there is nothing called B minus. Is this clear? So there is nothing called B minus. So don't say that this is B minus. So there is something called B tree and there is something called B plus tree. These two, these two, we call them dynamic indexes. These are dynamic.
+
+13
+00:11:11,610 --> 00:11:43,880
+multi-level tree-based indexes tree-based indexes okay now so why we call them dynamic because the reason is very simple these are modification friendly modification is very easy modification takes less time I can say less costly so these these are modification friendly insert and release and updation so these are modification friendly
+
+14
+00:11:45,000 --> 00:12:13,600
+If your data, if your data file changes a lot, if you do a lot of insertion, if you do a lot of deletions, then you can create this type of index so that when you update the data file, when you modify the data file, then you have to update your index. That is fine. But these indexes, these are very easy to modify. So these are modification friendly. So the modification is very, I can say less costly. So that is the reason we go for these indexes. So these are called dynamic multi-level three-based indexes. So now let's see the idea.
+
+15
+00:12:13,980 --> 00:12:43,510
+for these indexes what is the idea the idea is actually first of all why we want these indexes that your that you might be thinking like what is the motivation for them like we have already many data structures right we have already belated tree like avial tree BST heap 234 tree so these things we have of course this 234 tree we don't have in the syllabus so don't worry about it but these things you have already seen in the data structure you have seen binary such tree
+
+16
+00:12:43,750 --> 00:13:11,040
+you have seen avial tree you have seen heap so these trees you have already seen these tree structure binary tree perfect binary tree complete binary tree okay so many full binary tree so you have seen these data structure these tree these tree structures you have already seen why we don't use them like why we want something else why we want something new so what is the reason why we would don't use them these structures you will study in the data structure in the course of data structure you will study them
+
+17
+00:13:11,660 --> 00:13:40,250
+Why we don't study them for the database management system? Why we don't use them for the DBMS? So you can easily see that these structures, these are good for main memory. For the main memory, these are okay. These are fine. I will tell you the reason. But for the main memory, these are fine. So these are called in-memory data structure. Is this clear? For the main memory, these are fine. So we call them in-memory data structure, but they are not suitable for the hard drive.
+
+18
+00:13:40,460 --> 00:14:09,550
+For the hard disk, they are not suitable for the database. They are not suitable. But what is the reason? The reason is basically you tell me one thing. If you access the main memory at any point of time, like what maximum you can access, maybe tell me from the main memory, if you access, then maximum what you can access from the main memory from the main memory, you can access maybe one byte, one word, a couple of bytes or maybe four byte, eight byte, something like that. Yes or no.
+
+19
+00:14:09,870 --> 00:14:38,850
+a word you can access from the main memory the CPU can access one word word means maybe four byte eight byte something like that okay so okay don't worry about that i'm just saying that from the main memory you can access maybe maybe four byte maybe eight byte or maybe maybe maybe 16 byte so very less amount of data you are accessing from the main memory do you agree yes or no from the main memory at any point of time you can access very less amount of data and you can check it out you can check it out that
+
+20
+00:14:39,130 --> 00:15:07,910
+the nodes of these look at the particular node for all these in-memory data structures okay for all these data structures that you study in the data structure subject for all of them a particular node is how much big anyone a particular node that is how much big that is very small like there will be one key and two pointers yes or no a node will be something like that a node will be something like that left pointer right pointer a node a node is going to be something like that
+
+21
+00:15:08,100 --> 00:15:37,090
+so you can notice that these are good for man memory because you can access one node you can access one node very easily yes or no so one node you can access in one i can say in one access you can get one node okay something like that is this clear so in one access in single access you can get one node because the node a particular node of these trees that is very small you have a value and you have left a left pointer right pointer now think about it
+
+22
+00:15:37,310 --> 00:16:06,220
+if i use them for the disk then if i use them for the disk then what will happen see the disk access will happen based on what tell me the disk access in one disk access how much data you will get maybe 4 kb 8 kb block by block yes or no so a lot of data you are getting in one access right so from the hard drive you are getting in one access in a single access you are getting 4 kb 4 kb that is a lot of data
+
+23
+00:16:06,510 --> 00:16:36,150
+and or maybe 8 kb 16 kb so you are getting a lot of data in a single access now think about it if i use them for the disk for the hard drive if i use them then in one block access you are only getting small amount of data see in one block in one block you will store one node okay if so if you are storing one node for in one block then basically the block is very big and you are only using it okay so this this much amount will be wasted correct or not
+
+24
+00:16:36,350 --> 00:17:06,390
+this much amount will be wasted and what will happen now you can notice that if you access this then only this much amount of data you are getting okay you are accessing this block but only this much amount of data you are getting so what will happen first of all a lot of space will be wasted the second point you have to do a lot of access yes or no number of levels will be more you will have a lot of levels so the number of levels is going to be more so the IO cost will be more okay so what I am saying
+
+25
+00:17:06,640 --> 00:17:35,280
+I'm saying that these are good for main memory because from the main memory whenever you do the access you will get maybe one word you will get maybe four byte eight byte okay and the node size a particular node of these structures that is also very small you have one you have one left pointer right pointer and there is a key so something like that so these are suitable these are very good for the main memory but these are not good for the disk okay and you should ask what is the node in the tree so you can clearly see that
+
+26
+00:17:35,500 --> 00:18:02,890
+in the main memory in the main memory a node is a structure every node is a structure left pointer right pointer and there is a key so a node is a structure having few bytes there will be few bytes so this is suitable for the main memory because we access the main memory in words so this is fine for the main memory these structures are very good because in the you can notice every node is a structure every node has maybe four bytes a few bytes you have so these are fine for the main memory
+
+27
+00:18:03,170 --> 00:18:32,590
+but if you use them for the disk then what will happen disk access will happen block by block from the disk every time you will get one block okay and the block size is very huge almost maybe 4kb 8kb so the block size is very huge then the main memory word size main memory word size is only 4 byte 8 byte so if we use if we use them for the if we use these data structures for the disk then a lot of space will be wasted and a lot of IO cost will be there
+
+28
+00:18:33,070 --> 00:19:00,830
+is this point clear to everyone please tell me let me know okay so this is the motivation this is just I want to tell you that we don't use the in-memory data structure remember in your data structure subject all the data structure that you study all of them are good for main memory they are not good for hard drive for the hard drive we need something else some other data structure we need for the hard drive for the database management system for the DBMS we need some other data structure correct
+
+29
+00:19:01,100 --> 00:19:30,090
+So we need some other type of tree. So, okay, so that is the idea. Now let's take this example from this example, the concept will become more clear. So you tell me the answer for this. Assume you have 10 leg records. You have 10 leg records on the disk. You are creating binary search tree or AVL tree will take how many disk block access. Let me assume that you are you are using AVL tree or binary search tree. Then how much
+
+30
+00:19:31,560 --> 00:20:04,340
+you are creating this AVL tree or you have created this maybe okay consider this AVL tree forget about this or you can consider balanced binary search tree so either you consider balanced binary search tree or you consider AVL tree then how much time how many disk block access you will need so if you are using these structure so yes in these structures what will happen first of all so if you are using these structure like if you are using AVL tree
+
+31
+00:20:05,220 --> 00:20:34,170
+for disk. If you are using AVL tree for the disk, then it simply means that your one node, that is one block, your one node, node means block. So you are putting in one block, you are putting only one node and you can clearly see that this AVL tree block size that is only maybe, maybe four, four bytes or eight bytes, something like that. And the block size, if you notice that is basically that is almost four KB.
+
+32
+00:20:34,580 --> 00:21:15,480
+so a lot of space will be wasted because if you are restoring one node in one block one node if you are restoring in one block then a lot of space wasted and on not only space the time also will be taken a lot a lot of space wasted in every disk block okay so here you can notice what this node you are restoring in one block then okay this next is next you are restoring in another block something like that okay so this is a new block this is a new block
+
+33
+00:21:18,640 --> 00:21:49,550
+So you tell me now if you have if you have 10 leg records in the disk in on your hard drive if you have 10 leg records and you are creating AVL tree index so AVL tree index if you are creating AVL tree index you are creating then how many block access you need you tell me if you are creating AVL tree index on this file on this file you are creating AVL tree index then how much amount of data how many disk block access you need
+
+34
+00:21:49,870 --> 00:22:21,410
+So here you can clearly see first of all in the AVL tree tell me if your number of levels if your how many you can you can store if you have a balance if your balance then how many you can store so here you can clearly see that in the three levels you can store two power so here I can say in the three level you can store two power three minus one total okay three levels three levels can store this much amount of data so tell me how many
+
+35
+00:22:21,680 --> 00:22:51,710
+levels you need how many levels you need so that will be 2 power 20 almost you can check it out almost 2 power 20 this will be more than this 2 power 20 this is just I can say more than 1 lakh sorry 10 lakh this is just more than 10 lakh so these many levels you need how many levels so basically I can say there will be 20 levels you need right so you need total 20 levels you need total 20 levels
+
+36
+00:22:52,390 --> 00:23:18,910
+is this clear yes or no let me know because if you have 20 levels then these many records you can for these many keys for these many keys you can create the index your index will take 20 levels is this clear to everyone you can check it out 2 power 20 that is more than 10 legs just just more than 10 legs and 2 power 19 that is less than 10 legs you can check it out okay so this is the idea idea is very simple that you need
+
+37
+00:23:19,470 --> 00:23:51,750
+So if you create AVL tree index, then what will happen? So your I can say number of records in the data file, number of records in a data file in your data file, you have number of records is 10 legs. So these many records you have in the data file on this data file, if you create AVL tree index, then that index will take how many levels you tell me, tell me, tell me how many levels. So if you create AVL tree index,
+
+38
+00:23:52,020 --> 00:24:23,040
+dense index let's assume you are creating secondary index or dense index so we need to create I can say we need to store these many keys these are the number of records so from every record we have to store one key so if you are creating AVL tree index let's assume you are creating a dense index let me assume you are creating dense index it simply means that for every record there will be one entry okay so in this situation there will be total 20 levels you will need right
+
+39
+00:24:23,400 --> 00:24:57,070
+so if you need 20 levels you tell me how many disk access how many number of disk access number of disk access for one record for one record how many disk you have to how many blocks you have to access so the answer will be a total 20 because from every level you will for example you will take this then you will take this then you will take this then you will take so okay like this you will access so here what will happen so I can say
+
+40
+00:24:57,330 --> 00:25:28,360
+total these many block access you need these many index block access and plus one these many the okay and this is for the data file is this clear let me know tell me okay so how many okay so here you can clearly see that you need total 21 access if you are using AVL tree if by chance you use AVL tree index then a lot of okay see one thing see
+
+41
+00:25:29,410 --> 00:25:58,410
+almost 20 index blocks you have to access so that is a lot of waste I can say that is a lot but you will see after sometime that if you create B tree then only 2 or 3 levels only 2 or 3 levels here you need 20 levels for 10 leg keys if you have 10 leg records then you need 20 levels for AVL tree okay for the AVL tree or for the balanced binary search tree you need 20 levels but if you use B tree after sometime you will see that
+
+42
+00:25:58,720 --> 00:26:28,420
+We only need 2 or 3 levels. 2 or 3 levels are enough to store 10 leg keys. Isn't that interesting? Like, in 2 or 3 levels, Aval tree can store only 7 keys. Only 7 keys. Is this clear? This Aval tree, in the 3 levels, it can store only 7 keys. But B tree, B tree can store this much amount of records, these many keys, only in 3 levels.
+
+43
+00:26:28,830 --> 00:26:58,750
+So, B tree, B plus tree, these are very good because they will have less number of levels. So, if you have less number of levels, if you have only three levels, then only three disk access for the index. Yes or no? Tell me. Is this clear? Let me know. Is this question clear to everyone? So, why we don't use this? What is the reason we don't use this in-memory data structure? Tell me. Is this clear to everyone? This is an interview question. In the interview, if they ask you,
+
+44
+00:26:58,930 --> 00:27:28,570
+like what is the reason we use B tree, what is the reason we use B plus tree, why we don't use AVL tree, why we don't use balanced binary search tree. So these type of in-memory data structure, why we don't use, okay, so you can give this practical example, this example you can give that, assume that we have 10 leg records, then for those 10 leg records, if we create AVL tree index, then total 20 levels we will need. Okay, so in that case, almost 20 disk block access we need. But if we create B tree,
+
+45
+00:27:28,760 --> 00:27:56,190
+then only three levels are fine two or three levels are fine to to store the ten leg records okay ten leg records you can store only in two or three levels so that is interesting because if your number of levels is less if your number of levels is only two or three then in that case you only need two or three disc block access okay so this is the motivation for B3 B plus three so how the B3 B plus three will do this anyone anyone want to tell me
+
+46
+00:27:56,510 --> 00:28:23,250
+so how the B tree B plus tree like what what advantage this AVL tree is not taking anyone what advantage this AVL tree is not taking when you are using it for the disc AVL tree when you use for the disc for the hard drive when you use it then what advantage this AVL tree is not taking yes the advantage of the space it is not taking yes or no in one mode okay in the disc
+
+47
+00:28:23,720 --> 00:28:51,880
+in the disk in the hard drive one node means one block okay in the hard drive one block is very big so this is your one block and in that one block how much you are putting only one key just think about it yes or no this avial tree index this binary search tree index okay these structures these in-memory data structures these are good for main memory but they are not good for the hard drive because what advantage they are not taking because in the hard drive access will happen block by block
+
+48
+00:28:52,150 --> 00:29:17,930
+okay from the main memory between disk and memory the access will happen block by block so what will happen these ability and these in-memory data structure they are not using the space of the block one node means one block so they are putting in one block 4kb block and they are putting only one key they are only putting one key okay so what Btree can do this advantage you take that's it nothing else just to take this advantage
+
+49
+00:29:18,270 --> 00:29:46,910
+what you do this is your block size this is 4kb 8kb this is your block size okay put as many keys as possible as many key plus pointer of course you know left pointer right pointer up there okay so you put key plus pointers as many as possible you keep putting so that what will happen if you do like that in one block a lot of keys a lot of pointers you can put okay so that way a space will be utilized okay your space will not be wasted and also number of levels will decrease
+
+50
+00:29:47,230 --> 00:30:13,930
+because in single block in single node in one node you are putting a lot of keys in one node you are putting thousands of keys yes or no in one node in a single node you are putting maybe hundred keys thousands of keys in a single node you are putting so the levels will decrease okay only number of levels will become only maybe two or three levels that those are enough only three levels are enough to store 10 lakh records that is the interesting thing
+
+51
+00:30:14,420 --> 00:30:43,730
+Tell me is this clear the motivation for Btree B plus tree what advantage they are taking these Btree and B plus tree. These are smart Okay, they know that in the hard drive. We have a block the block size is very huge Okay, so we can take the advantage of that benefit Kershaktan. Okay, so that is the idea. So remember Yes, these structures Btree B plus tree these structures. They are especially created for the DVMS. They are especially created for the hard drive Okay, these are disk structures
+
+52
+00:30:45,020 --> 00:31:16,120
+They were created for that disk for the hard drive. They were created. Is this clear to everyone? So that is the reason you don't study them in the data structure subject So finally you can you can see that what this be three B plus three will do This be three and this B plus three what they are going to do so they are going to put What they we go there what they are going to do they are going to put a lot of keys as many as possible in the they are going to put
+
+53
+00:31:18,420 --> 00:31:51,010
+a lot of I can say index entries a lot of index entries in a single block in a single node node means block remember node means block so in a single block they are going to put a lot of index and a lot of entries they are going to put in a single node or block remember this this node another word for node that is a block sometimes we will use the word node or block so whenever I say node
+
+54
+00:31:51,470 --> 00:32:20,540
+Automatically what should come to your mind? Block should come to your mind. Is this clear? So now from now onwards block node. Okay. These words we can use interchangeably because what we are going to do now, these B3 B plus three, what they are going to do, they are going to put a lot of entries. They can put a lot of index entries in a single node in a single node. This is your single node. In a single node, they can put a lot of entries. A lot of entries they can put in a single node. Something like that. Okay.
+
+55
+00:32:20,890 --> 00:32:52,060
+Of course, like this is just an example where I'm giving you four, but actually this can be 50 in a single node you can put maybe 50 50 entries you can put maybe 100 entries you can put. Okay. So this is the this is the idea of B3 B plus three. I hope this point is clear. Okay. So this advantage they are taking. So this B3 and B plus three. So these are disk data structure. These are good for I can say disk data structure, disk tree data structure. These are three base data structure.
+
+56
+00:32:52,460 --> 00:33:25,340
+Similar to your AVL tree, similar to your BST, these are disk search tree data structures. These are very similar to BST, very similar to AVL tree. The only difference is that they take the advantage of the node size. Because they know that node size is very huge. So these are disk search tree data structures. They are taking the advantage of this. But you can notice this AVL tree and these are not taking the advantage of
+
+57
+00:33:26,820 --> 00:33:55,580
+node I hope this point is clear you can read here okay so like block size is very large block size is very large so a lot of keys you can put in a single node okay and that is that is what we do for the disk data structures for the B3 B plus 3 this is what we do okay now so tree terminology you already know okay you already know all the tree terminology right for example this is a root okay these things you already know right
+
+58
+00:33:55,910 --> 00:34:26,000
+we have already seen many times in the discrete mathematics in the algorithm data structure in all the subjects we already know like this is a root and for example i can say see remember the we will start the counting like this this we will call it level one of course these are different different conventions but we are going to follow this convention our convention that we are going to follow this is the convention you can follow by default also but this is the con actually you don't have to worry about it
+
+59
+00:34:26,180 --> 00:34:57,360
+but this convention we will follow that this root node okay whatever is this root node we will call it so let's assume this is your root node this is your root node we will call it level one okay we will call it level one then you have okay then you have something like that something something like that so this level whatever is this level we will call it level two okay is this clear and this height we count in number of edges so in this situation we will say that height of the tree
+
+60
+00:34:57,660 --> 00:35:32,060
+is it one is this clear so height height we count in terms of edges in terms of edges so how many edges basically are there from the uh in terms of edges from root to leaf so from root root to leaf how many edges are there so depending on that we count the height so okay so now you can check it out actually okay but our trees will be balanced this is just a n balanced tree but uh your b tree b plus tree that are going to be balanced
+
+61
+00:35:32,320 --> 00:36:02,890
+but anyway this terminology we are going to use like the root node level level one level two and so on okay level three and so on and height what is the height here height is basically in terms of what are the number of edges from root to leaf so these some some conventions we will use but you already know all these things now no edges are not weighted no no edges are not weighted okay now let's see so let's see this
+
+62
+00:36:03,120 --> 00:36:35,380
+search tree obvious rules there are some obvious rules for every search tree right what are those like for example if you want if i put here tell me if i put 20 here and you have a search tree remember these are the search trees like in memory search trees search trees for the main memory what are the in memory search trees tell me in memory these are like binary search tree your avl tree these are the
+
+63
+00:36:35,810 --> 00:37:03,600
+heap is a search tree or not heap is not a search tree or a heap is not a search tree heap does not tell you in which direction you have the your material where you will find your key so these are the search tree like these are good for searching this is what I'm saying search tree means what is a search tree search tree is something like that that okay if you have K here then in this area you will find the less than K is in this area you will find maybe I can say you will find less than K
+
+64
+00:37:03,880 --> 00:37:33,940
+in this area you will find greater than k this type of trees are called search tree is this clear this type of trees like you have k and if you go to the left area you will find less than k if you go to the right area you will find more than k so in memory these are the search trees remember this is not a search tree like heap heap is not a search tree okay so and for the disk these are the search trees like your b tree b tree is going to be a search tree
+
+65
+00:37:34,310 --> 00:38:03,350
+your B plus tree is going to be a search tree. So these are for the hard drive. These are for the DBMS. So this is the idea of search tree that you already understand. For example, you can notice if this is your K1, then in this area, you will find less than K1. And in this area, you will find more than K1. For example, in this area, you will find less than Ki and more than Ki minus one. Okay. So something like that. So this is the, these are some obvious rules about the search trees.
+
+66
+00:38:03,800 --> 00:38:28,550
+see this is what I am saying search tree some obvious rules that on the left if you go for example in the BST also this happens right yes or no in the AVL tree BST also this happens for example this is 20 and in this area you will find all the things which are greater than 20 in this area all the things which are greater than 20 in this area you will find all the things which are less than 20 okay so these are the obvious rules about the search tree that you already know
+
+67
+00:38:29,420 --> 00:38:56,700
+search tree in the main memory for the main memory you have AVL tree BST these are the search tree and for the drive for the hard drive for the hard disk B3 B plus 3 these are the search tree so these are some obvious rules about the search tree that you already know for example like see this so you can clearly see that tell me once you are here where it will be six if there is six where will be six if there is six then that will be on the RHS okay go to the R go to the right side
+
+68
+00:38:57,260 --> 00:39:25,420
+Similarly, for example, if you are here, okay, if you are here, then where will be 5? Sorry, where will be 4? 4 will be on this area. Okay, so something like that. So, very simple. So, these are some obvious rules about the search tree. Now, we will start B tree. So far, whatever we have seen, that is just a motivation. Okay. Now, we will start B tree. You tell me, at this point of time, do you have any doubt or confusion? So far, we did not see anything. Just motivation.
+
+69
+00:39:25,870 --> 00:39:54,130
+one interview question what is that this is the interview question that this binary search tree AVL tree okay this heap so these type of things these are suitable for the main memory these are not suitable for the for the hard drive so AVL tree is not suitable for the hard drive what is the reason AVL tree is not suitable for disk then what is the reason the reason is very simple that because you already know that one node is one block okay one node is one block
+
+70
+00:39:54,360 --> 00:40:19,160
+one block has a lot of capacity okay but this able tree what it will do a lot of capacity you have one node has a lot of capacity one node means one block a node has a lot of capacity but what this able tree will do in that a lot of capacity in this you will put only one key okay one key and two pointer so a lot of capacity you have but you are only using very I can say you are not using the capacity
+
+71
+00:40:19,470 --> 00:40:45,150
+okay so that is the disadvantage because of that number of levels will increase a lot of levels will be there like we have seen 20 levels were there if you want to store 10 leg keys then there were 20 levels but b3b plus 3 they take the advantage of this space b3b plus 3 they know that one node means one block in one block you can put a lot of keys so okay that we will do so this is what we are going to do so this is the benefit of b3b plus 3 for the disk
+
+72
+00:40:45,390 --> 00:41:15,120
+so remember these are disk data structure these are created for hard drive these are created for the hard disk b3 b plus 3 and this uh bst able tree these are good for main memory these are called in memory data structure this is the name for those data structures okay so this is the difference and then we have seen uh the next thing we have seen is some obvious things about search tree what is a search tree search tree this means if you are here then if you if your 20 is here then go to go to left
+
+73
+00:41:15,400 --> 00:41:44,340
+go to left if you want to see I can say less than 20 go to left and if you want more than 20 go to right okay so this type of structures this type of tree structures are called search tree okay so for your main memory BST AVL tree these are the search tree because you can notice that at any point of time you can go if you want less then you can go to left if you want more then you can go to right so something like that similarly Btree B plus tree these are also
+
+74
+00:41:44,670 --> 00:42:16,610
+your search tree so there are some obvious rules about the searching if you have a search tree then there are some obvious rules about the searching so these things we have already seen now we are going to start our concept of Btree what is the definition of Btree and all these things we are going to start so first of all we already know Mavith is asking sir for which purpose in memory data structure are used for which purpose in memory data structure are used we don't use them for the disk
+
+75
+00:42:16,950 --> 00:42:44,910
+For the hard drive, we don't use them. We've used them in the main memory. Whenever you are creating some program, whenever you are writing some program, so in that program, then you use these AVL tree, BST, these things you use most of the time. Okay. Is this clear? You have seen this in the data structure subject, like whenever you are creating some program, whenever you are writing some program, whenever you are solving some problem, then what you will do, you will use these things, like you will use B tree, binary, sorry.
+
+76
+00:42:45,210 --> 00:43:14,230
+So you will use binary tree, binary search tree, abl tree, stack, queues, array, linguist. So these things are basically good for many memory. Now, let's see. So you already know your binary search tree, you already know that you already know that this is true. So more than two will be here and less than two will be here that you already know. So this type of things are there. Now, same thing happens in the in the hard drive. In the hard drive, also the same thing will happen in this area.
+
+77
+00:43:14,600 --> 00:43:43,560
+see if you go if you go here then you will find what more than more than 43 you will find so if you go in this area then you will find less than 43 so you can check it out in this area you have less than 43 in this area you have more than 43 and some obvious things some obvious things that they are ordered of course they should be ordered right so inside a node inside a single node the data should be ordered like 47 53 59 61 67
+
+78
+00:43:44,080 --> 00:44:11,980
+So like that. So these are some things about the multi-way search tree, like your B3 B plus tree. So this is the idea. Is this clear to everyone? Let me know. So you can clearly see that if you go to this direction on this direction, you will find you will find X greater than 43. You will find in this direction. And if you go to this direction, if you go to this direction, you will find X less than 43. You will find in this direction. Okay. So these things and you can notice that
+
+79
+00:44:12,300 --> 00:44:42,160
+If you go to this direction, then that will be in the, I can say they will be in the sorted order. Of course they will be in the sorted order because this is a search tree we are talking about. These are good for searching. These trees, these are good for searching. Search tree means these are good for searching. Whenever you want to search a data, you can very easily search a data. So this type of things are good for searching. So these are your multi-way search trees. Like for example, B3, B plus 3. So anyway, this is the idea. Now let's move on. Now what we are going to see.
+
+80
+00:44:43,190 --> 00:45:12,240
+Now we will see the B tree B plus tree. But remember when you study Aval tree, binary search tree, all those concepts when you study there are some rules to follow. Every data structure has some rules to follow like Aval tree. Aval tree has a rule. There is a parameter with Aval tree. What is that? With Aval tree one parameter is associated. That is balancing factor. So you can say that
+
+81
+00:45:12,570 --> 00:45:41,250
+With AVL tree concept when this AVL tree concept was given one parameter was associated one value was associated that is what that is balancing factor Okay, which would be minus one zero one something like that. Okay, so you can see that Every every data structure that you study array linked list is take use Every data structure has some set of rules those rules you follow correct. Yes or no agree Similarly this B tree also has some set of rules
+
+82
+00:45:41,740 --> 00:46:10,120
+The number of rules are almost 6. Those 6 rules we have to follow. Okay? Is this clear? So with B tree, B plus tree also, one parameter is associated that is order. Order of B tree, order of B plus tree. That we will study. But you can notice, with your AVL tree, this balancing factor, this parameter is associated with AVL tree. So whenever you discuss AVL tree, okay, you will ask, you will ask, okay, what is the balancing factor? This parameter will come in the photo, in the picture.
+
+83
+00:46:10,810 --> 00:46:37,610
+Similarly this Btree B plus tree these are also very similar with them with Btree B plus tree also we associate one parameter that is order of Btree order of B plus tree so that parameter is associated we will see the definition of that parameter what is that definition that we will see but there are some set of rules for Btree B plus tree like there are some set of rules for binary search tree that if you go to left you will find less values if you go if you go to right you will find more values
+
+84
+00:46:37,840 --> 00:47:07,420
+and there is no need for balancing yes or no in the binary search tree we don't have any need for balancing correct okay in the AVIL tree we have the need for balancing so every data structure has some set of rules similarly B tree B plus tree they also have some set of rules in B tree we have almost six or seven rules and in B plus tree we have six or seven rules but these are obvious rules let me tell you out of these six or seven rules I can say only one or two are worth mentioning the remaining are very obvious rules now let's see
+
+85
+00:47:07,740 --> 00:47:36,820
+so our target what is our target you can take it out what is our goal for the disk data structure whenever you create a disk data structure what should be your goal anyone anyone want to tell me what you should have what you should make sure what do we need to make sure whenever you are creating disk data structure of course so we want less number of IO cost correct yes minimum number of block access we need okay we want to make sure that we don't need your IO cost should be less
+
+86
+00:47:37,160 --> 00:48:05,420
+So for that what we can do in a tree based structure, if you are creating a tree based data structure, okay, then yes, less number of levels, that is our goal. So remember minimizing the number of levels is our goal. If you minimize the number of levels in the tree, then your access cost will reduce. Okay, because from every level, you will access one block. From every level, you will access one block like you will take this, then you will take this, then you will take this, then you will take this.
+
+87
+00:48:05,700 --> 00:48:34,780
+so from every level you will access one block so minimizing the number of levels is our target and block utilization space utilization is our target correct so block node space utilization is our target and minimize the number of levels that is our target so this is our target remember these are the two targets so your B tree is designed remember your B tree B plus T these are designed to solve these problems this B tree is designed
+
+88
+00:48:35,210 --> 00:49:01,870
+for space utilization and also to minimize the number of levels. So that is the benefit of B tree B plus three. Okay. Let's move on now. Now let's see as I told you that with B tree B plus three, there is a, there is a parameter associated. Okay. Whatever we have seen so far, forget about it now. Okay. Whatever you understood, whatever you did not understand. Okay. Forget about it. Now your chapter is starting.
+
+89
+00:49:02,240 --> 00:49:32,970
+and this b3 b plus three these are very easy concepts let me tell you okay so these are really easy concepts all the gate exam questions you can very very very easily solve let me tell you these are more easy than avial tree like you study avial tree okay these are easier than them so this b b or b plus three these are very easy concepts let me tell you these are very easy concepts so now let's focus on the definition now we will study this b3
+
+90
+00:49:33,560 --> 00:50:04,040
+Okay, so let's start B tree now. Let's see the concepts, the terminology, the rules. Let's start B tree. So in the B tree, what do we have to start a study? We have to study the rules. Some rules are there. I can say definition. We have to study in the B tree. There are some rules, those rules we have to follow. So those rules or definition we have to study. Then of course, we have to see some insertion algorithm. Okay, how to insert that algorithm we have to see and some questions.
+
+91
+00:50:04,560 --> 00:50:34,370
+some questions that all the variations questions and variations those we have to see what type of questions what type of variations can be created. So this is our template for the B tree. Okay, now let's start this B tree chapter. In this B tree, the first concept is that with every B tree node, or I can say with B tree, one parameter is associated that is called be order of B tree, this B tree. So this concept of B tree, or the concept of B plus tree.
+
+92
+00:50:35,070 --> 00:51:03,830
+in both of them what happens in both of them a parameter is associated a parameter a parameter we need to focus like in a real tree you focus on balancing factor correct so in the real tree you will care about the balancing factor the balancing factor should not be 2 the balancing factor should not be minus 2 similarly in the B tree we care about a parameter we care about this parameter okay and this parameter is called order of B tree order of
+
+93
+00:51:04,540 --> 00:51:34,020
+Like whatever is your either B or B plus tree Okay, so order of B or B plus tree. So this parameter we need to study What is the definition of this parameter and the definition is actually very simple. So what is the order? The order is basically maximum number of three pointers. So what is that? That is your maximum number of that is your maximum number of child pointers that you can have maximum number of child pointers that you can have
+
+94
+00:51:34,270 --> 00:52:02,750
+how many child pointers you can have so maximum number of child pointers that you can have that is your order for binary search tree tell me what is this for the binary search tree what value what what will be this value that will be 2 for the binary search tree for the able tree with this value will be 2 but for the b3 b plus 3 this value can be very big okay so this is the first concept so there is a parameter associated with every b3 index whenever you create a b3 index
+
+95
+00:52:03,040 --> 00:52:33,370
+there is a parameter associated this parameter is called this is called order of bt what are the definition the definition is very simple that order of bt means what are the maximum number of three pointers or I can say child pointers per node in one node how many three pointers you can have okay so like for example this is your bt node let's assume this is the bt node this is a particular bt node in bt what we do I told you we store many keys
+
+96
+00:52:33,610 --> 00:53:02,750
+For example, you can store two, five, seven. Okay, maybe I can say 10, 20. So you will store many, many keys you can store. Now, in this area, you will find everything that has less than two. That is less than two. In this area, what you will find? Tell me in this area, what you will find in this area, you will find which is greater than two, which is less than five. Correct. In this area, what you will find in this area, what you will find in this area, you will find which is greater than five.
+
+97
+00:53:03,100 --> 00:53:28,210
+and which is less than 10 and in this area you will find which is greater than 10 which is less than 20 and similarly and similarly in this area you will find which are greater than 20 okay so this is your B3 node I am giving you the photo of B3 node because we already know that in a B3 node you have multiple keys you can store many keys you can store in a B3 node so tell me
+
+98
+00:53:28,860 --> 00:53:59,880
+let me assume this is the maximum you can store only four keys let me assume let me assume you can store maximum four keys this is the maximum capacity then what is the order here so in this situation what is the order what is the order here that is five correct yes or no very simple so the order is five because you have total five pointers this is a pointer this is a pointer pointer pointer pointer so total there are five pointers so your order is basically
+
+99
+00:54:00,160 --> 00:54:31,210
+five so this definition is very simple right yes or no the order of B tree that is maximum how many pointers you can have maximum how many pointers you are going to have in one node maximum how many pointers you are going to have this is the definition one more thing I want to tell you you actually tell me there are two type of pointers so whenever I use the word pointer then this can be there are two type of pointers whenever I use this word then there are there are two type of pointers what are those
+
+100
+00:54:31,670 --> 00:55:04,290
+One is block pointer, one is record pointer, right? One is block pointer, another is a record pointer. So you already know this block pointer, record pointer, like this is your block pointer BP. And this is your record pointer RP, which is nothing but a block pointer plus offset. So that we already know. So one thing, remember, whenever I use the word pointer, it can be any of them. If I use this word pointer, if I use this word, then what it means, it means
+
+101
+00:55:04,550 --> 00:55:31,760
+It can be block pointer or it can be record pointer. Is this clear? So if I use this word, then it can be any of them. And if I use this word, then it will be this only. And if I use this word, then it will be this only. Is this point clear? If I use the word block pointer, it will be block pointer only. Okay. If I use this word block pointer, it will be block pointer only. If I use the word record pointer, it will be record pointer only.
+
+102
+00:55:32,170 --> 00:56:01,260
+But if I use the word pointer, then it can be block pointer or it can be record pointer. And remember one more thing, every block is a node, every node is a block, right? Every node is a block, every block is a node. So these words can be used interchangeably. The next thing you have to so if these words, you can use interchangeably. So what we can say block pointer, you can also call it node pointer, correct? Because these words you can use interchangeably.
+
+103
+00:56:01,500 --> 00:56:37,060
+so this block pointer this is also called node pointer and one more thing you tell me in your tree if you are creating a tree if you are if you are creating this tree you are creating let's assume you are creating this tree let's assume you are creating this tree so you tell me in this situation there can be of course many more there can be many more so in this situation you tell me what to do you think this this should be record pointer or block pointer
+
+104
+00:56:37,700 --> 00:57:10,170
+This is your Btree. This is your Btree index. This is your Btree index. What do you think? This should be block pointer or record pointer? This pointer should be block pointer, right? Correct? This should be block pointer. Yes, or I can say node pointer because it is pointing to the node. It is a node. So I can also call it node pointer. You can also call it node pointer. Another name we give, this is a tree pointer. Okay, so the another name we give is tree pointer.
+
+105
+00:57:10,710 --> 00:57:41,380
+So all these words are same. This is what I'm telling. And another word is child pointer. So these words are going to be same. When you discuss a, this B3 B plus three, these words are going to be same. Whether I say block pointer, node pointer block means node. Okay. So block pointer, node pointer, tree pointer, because every in a tree, every node is going to be a block or I can say every block is going to be node. So, or you can say child pointer. These words are going to mean the same.
+
+106
+00:57:42,640 --> 00:58:15,180
+So record pointer means record pointer. Okay. So basically the only word that you can use for record pointer that is record pointer. Okay. And is this clear to everyone? Please tell me. Let me know. So block means node and this terminology. This is just a terminology that I want to tell you because these things can can we can use them again and again. So this is the reason I'm telling you all these things. Okay. Now let's move on now. Now we will see.
+
+107
+00:58:15,390 --> 00:58:52,370
+the definition of Btree of order P. So if you have Btree of order P, then what are the rules? Let's assume you have a Btree. I'm giving you what are the rules that this Btree of order P will follow. First of all, what this order P means. First, you tell me this point what this means. This means maximum number of pointers in each node, maximum number of pointers in each node.
+
+108
+00:58:52,680 --> 00:59:21,000
+okay how many pointers you can have in each node that is your order so order of beat uh order of beatry that is what that is the maximum number of block pointers here you have to basically you have to use block pointers so remember this must be block pointer maximum number of block pointers that you can have or i can say three pointers so remember this is the order definition what are the definition of order you can check it out here so you can see
+
+109
+00:59:21,270 --> 00:59:49,550
+the order definition is maximum number of three pointers maximum number of block pointers how many block pointers you can keep that is the definition so order means maximum number of child pointers so you can see these words we are using interchangeably yes or no like here i'm using the child pointer child pointer so remember child pointer tree pointer block pointer node pointer all these things are same record pointer is record pointer the only word for record pointer is record pointer there is no other word for that
+
+110
+00:59:49,900 --> 01:00:20,060
+So finally I can say if your order is P it means you have maximum number of block pointers that you have that is your P. Now what are the rules? First of all some rules are very obvious which are because this is a search tree. So some obvious search tree rules are there. Is this clear? Tell me. Some obvious search tree rules are there. So because it is a search tree. So there are some obvious search tree rules. What are the obvious search tree rules that you already know?
+
+111
+01:00:20,440 --> 01:00:50,360
+Like if I have, for example, if I have 20 here, if I have 30 here, then in this area, you will find everything which is less than 20. In this area, you will find everything which is greater than 30. In this area, you will find everything which is greater than 20 and less than 30. And another rule is that this would be sorted. Another rule is this would be sorted. Okay. Inside a block, the value should be sorted. So these are the some obvious rules. Agree or not? Tell me.
+
+112
+01:00:50,960 --> 01:01:22,370
+Do you agree? These are the some obvious search tree rules. So first of all, some obvious search tree rules are there. Okay. Once these obvious rules are gone, the second, the important rules. These are the obvious search tree rules. Okay. Once these are gone, what are the important rules that we need to focus on? The important rules are these. All leaves on the same level. All leaves must be on same level. Okay. All leaves.
+
+113
+01:01:22,760 --> 01:01:53,140
+all leaves all leaves they must be on the same level so this is the this is the rule that we need to follow that all the leaves must be on the same level what is the second thing what are the third thing the third thing is this see I told you that B3 should use the space utilization right space utilization the next rule is a space utilization rule a space utilization rule because we need to we need to utilize the
+
+114
+01:01:54,900 --> 01:02:23,690
+space okay so the next space the next rule is space utilization rule what is that see this is the maximum you can put right this P means the maximum you can put so what is the minimum you can put what do you think okay what do you think like what is coming to your mind that sir minimum this much this should be there if you want to use the space then minimum 50% should be there okay minimum 50% should be there so you can notice a space utilization rule what this says
+
+115
+01:02:24,210 --> 01:02:56,210
+This says that if you take, okay, let me tell you about this rule. First of all, in this rule, if you have, for the root node, there is no problem. For the root node, I can say that you can have two pointers, two pointers. Minimum you can have two pointers, two P pointers, because this is the maximum that you can have. Okay. So two block pointers to, I can say this is the minimum in the root node, what you can have.
+
+116
+01:02:56,480 --> 01:03:29,890
+you can have two block pointers to p block pointers okay so this is for root for root we give special basically some special I can say some less restriction for the root node for all other root for all other nodes if your node is a non-root node if your root if your node is non-root node okay so then in that situation the maximum is this and the minimum should be what at least 50 percent
+
+117
+01:03:29,960 --> 01:04:01,570
+more than 50% it should be more than so that is the reason seal okay so it simply means that more than 50% should be okay I can say greater than or equal to 50% utilization greater than or equal to 50% utilization so the minimum that you can put in any known root node that is this so we are taking seal because we want at least 50% greater than or equal to 50% utilization we want so this is for node known root node
+
+118
+01:04:01,740 --> 01:04:39,140
+Is this clear to everyone? Because we want to utilize the space. So this is for that. Okay. I am just telling you the rules. Once all the rules are over, then we will see the concept. But let's focus on the rules now. First of all, what is the next rule that we need to see? The next rule is the leaf structure. First, let's see the non-leaf structure. Now, first we will see non-leaf, non-leaf node structure. Or I can say
+
+119
+01:04:39,500 --> 01:05:07,840
+any node structure general any node structure so what is the node structure in this btree this is the node structure let me tell you the node structure is something like this that you put multiple keys you are putting multiple keys you are putting like you are putting for example maybe I can put 20 I can put 40 I can put 50 I can put 70 so you are putting multiple keys okay and if you are putting multiple keys then with this 20 you will also put the
+
+120
+01:05:08,110 --> 01:05:39,000
+record pointer is this clear on with this you will also put the record pointer where and this record pointer is for okay in the data file where it is yes or no agree or not ultimately this these are the search key values this 40 what is this this is the search key value because you are creating a index this is your B tree index you are creating B tree index remember so when you are creating the B tree index then these are just the search key values
+
+121
+01:05:39,390 --> 01:06:11,620
+like this 40 this 50 and all these these are the search key values so with them we have pointer this will point to where this will point to data file where this record is there in the data in the data block where is this record in the data block where is this record where is this record 40 where is this record 40 in the data block okay similarly I can say this will point to data block data block
+
+122
+01:06:11,930 --> 01:06:45,130
+where is this record 20 in the data block is this clear so these are the pointers so you have search key values and with every search key value there is a pointer with every search key value we have a pointer some okay yes or no so that we can because so that if you come to 40 so that you can go to the disk block okay very simple if you come to 50 then you can go to the disk block if you come to 70 then you can go to this block if you want so very simple so what what we do
+
+123
+01:06:45,320 --> 01:07:15,310
+we put with every value basically it's like a combination it is like a combination it is like a combination correct it's like a combination like okay they are they will come together it's like a combination yes like a index entry very good so this is like a index entry okay so we put the record pointer here and now what will happen there will be block pointer this will be the block pointer this will be block pointer this will be block pointer
+
+124
+01:07:15,960 --> 01:07:45,950
+This will be block pointer. This will be block pointer and there will be one block pointer here. This is the node structure. Is this clear? Tell me is this point clear? So remember what we do with every value we put a record pointer with every value you put a record pointer with every value. We are restoring the record pointer so that you can go to the data file so that you can access the data file. So this record pointer we put and these are the block pointers.
+
+125
+01:07:46,380 --> 01:08:17,360
+like this is a block pointer this is a block pointer this is a block pointer so like that is this clear to everyone the B tree node structure what we put in every node this is what we put in every node so with values this comes remember this value search key value with record pointer so this is what we do now the next let's see the non leaf node structure then we will see the leaf node structure so for the non leaf
+
+126
+01:08:17,640 --> 01:08:49,040
+if you are known leave then what you will do because you are known leave it simply means that it simply means that you have some pointers right it simply means you have a block pointer like this will be your block pointer okay and this will be your block pointer okay and you can put of course these things will come in pair the value what is the search key value and what is the record pointer these things will come in pair these things will come in pair like
+
+127
+01:08:49,310 --> 01:09:19,690
+What is your search key value? What is your search key value and what is your record pointer? These things will come in pair and you can order this will be the record pointer like this. Okay. So this is the idea. Is this clear? So you can order this is again block pointer block pointer. So very simple because these are known leaf. So everything is fine here in the non leaf. This is the structure block pointer means child pointer or I can say this is your tree pointer or you can call it signed pointer because these are the non leaf nodes.
+
+128
+01:09:20,000 --> 01:09:50,510
+So you can call it tree pointer. You can call it block pointer. You can call it node pointer. All these things are same because this is a non leaf node. Okay. We are talking about the non leaf node. What are the structure of non leaf nodes? So this is the structure of non leaf node. Now let's see the structure of leaf node. What do you think in the leaf node? Like once you are on the last level, leaf node means the last level. Now you are at the last level. Do you need block pointers? Do you need block pointers?
+
+129
+01:09:52,600 --> 01:10:20,940
+Tell me do you need blog pointers? So let me tell you you don't need blog pointers, but the space will be there. Okay. This is very interesting thing. This is very important. Some variations I will create. I will tell you that this is a wastage. This is a waste of space. This type of variation we will create that this is a waste of space. But in the B tree, this happens in the B tree. What happens in the B tree? What happens in the B tree? This happens that if you come to the leaf node, then this will happen. What will happen?
+
+130
+01:10:21,500 --> 01:10:48,960
+in the leaf node again the same things again you have a search key value and there is record pointer again you have search key value and you have a record pointer so these things will happen but something interesting see these will be there are you getting my point are you getting my point these will be there but they are known inactive so what this means if they are inactive what this means a pointer is inactive what it means
+
+131
+01:10:49,580 --> 01:11:20,210
+a pointer is inactive what it means it is a null pointer so remember this is something which is a which you should understand because some nice questions can be created these are null pointers the space of block pointers we have the space we have are you getting my point the space we have we have to give this space so this is space we will give of course this is a waste of your thinking some of you are thinking right so this is wastage
+
+132
+01:11:20,870 --> 01:11:50,010
+Sir, this is wastage on the leaf. Don't put it on the leaf. Don't put it. So this is wastage. Yes, I agree. This is wastage and There is a variation of there is a variant of B tree which does not do this Are you getting my point this B tree? There is a variant of B tree variation of B tree. Is this clear by default B tree will have the space null pointer these these will be null pointer, but the space will be there now
+
+133
+01:11:50,750 --> 01:12:19,300
+some of you are thinking sir this this this uh this is a wastage of space i can use it yes or no i can use it if you think like that then you have created a new variation a new variant like b tree b star tree b plus tree there are many variants let me tell you are you getting my point there is b tree there is a b star tree there is a b plus tree okay and there are some some more split tree so there are many variations
+
+134
+01:12:19,640 --> 01:12:49,180
+So once you utilize this space, once you utilize this in the leaf node, the block pointers are inactive. The tree pointers in the leaf node, the tree pointers are inactive. Means the tree pointers are null pointers. If you use them, that is a variation. That is a variant. That is not a B tree. That is not a B tree. That is a variant of B tree. That is not a B tree. If you use it, because B tree does not use it. Okay. And the reason I will tell you.
+
+135
+01:12:49,750 --> 01:13:18,270
+But anyway, you can notice if you use it, then that will not be called B tree, that will be called variant of B tree. Is this clear to everyone? That question we will take. After some time, we will take that question. But for now, we will just assume that, okay, B tree, the space of tree pointers in the leaf node, the space of tree pointer will be there. This space will be wasted. This will be null pointer, but this space will be there. Are you getting my point? This wasted space will be there.
+
+136
+01:13:18,650 --> 01:13:48,410
+Tell me is this point clear to everyone? So can you notice? Every node has the same structure. The benefit is this. If you do this, then every node has the same structure. Leaf node, non-leaf node, every node has the same structure. If you don't use the wasted space, then every node has the same structure. That is the benefit. Think about the benefit also. The benefit is this. If you let this space waste,
+
+137
+01:13:48,760 --> 01:14:19,120
+if you put these null block pointers null point null null tree pointers then the space will be wasted in the leaf node but all the nodes they will have the same structure is this clear so these are the rules that we have seen now you might be thinking such too many rules how to remember don't you don't have to remember with practice automatically they will come okay so just in i can say in 15 minutes this definition will become more and more clear but anyway
+
+138
+01:14:19,390 --> 01:14:56,570
+all these rules are they clear let me know please tell me so remember these are null pointers this is the structure so so i can say that so all nodes have the same structures so all nodes in bt have same structure so all nodes in bt have the same structure they have the same structure exactly same structure okay so this is an interesting point because i will create one tricky question on this
+
+139
+01:15:25,130 --> 01:15:27,810
+some of you are
+
+140
+01:15:27,770 --> 01:15:59,890
+with order P if you have a B tree of order P then or I can say maybe let's assume order 7 let me assume order is 7 then in this situation what will happen in this situation for the root node something special will happen this root node this is special node like this is the king this is the prime minister okay so we give some special advantage okay and others other nodes you tell me
+
+141
+01:16:00,150 --> 01:16:31,440
+for root node what will happen for the root node at least one key okay at least one key one key to how many maximum keys tell me how many maximum keys this is the order so this is the three pointers this is the number of three pointers so if you have seven pointers how many keys are there if you have seven pointers this is the maximum number of remember this is the maximum number of three pointers
+
+142
+01:16:31,830 --> 01:17:01,040
+so if you have seven pointers how many keys are there six right okay so one to six so if you have a root node then it will have one to six keys one key to six keys it can have minimum one and maximum six keys it can have for the other nodes what will happen for the other nodes what is going to happen for the other nodes the maximum can be six keys there is no problem to the maximum okay but you tell me
+
+143
+01:17:01,380 --> 01:17:34,030
+Minimum how many record pointers should be there? I told you order. I told you 50% utilization must be there. I told you this 50% utilization of order. 50% utilization of order. So remember, you can store 50% utilization of order should happen. For this order, 50% utilization should happen. What it means? It means minimum
+
+144
+01:17:34,440 --> 01:18:05,420
+I can say that seven by two, four block pointers. So if you have four pointers, then minimum three keys, right? Are you getting my point? If you have minimum, minimum seven pointers, then it means three keys. Is this clear? Let me know. See, very simple. See, this is not hard. Okay. Remember keys versus. Okay, some, something, some important things. Let me tell you like the first thing that if you have B tree of order P.
+
+145
+01:18:06,480 --> 01:18:40,480
+then remember this order that means maximum number of this is the maximum number of three pointers or I can say node pointers this is the maximum number of node pointers Okay, this is the maximum node in any B3 node in any B3 node. This is the maximum like this is the maximum you can do maximum number of node pointers you can put is this okay now
+
+146
+01:18:41,230 --> 01:19:13,580
+so what is the maximum number of keys then in this situation what will be the maximum number of keys in this situation if you are giving this so what is the maximum number of keys so maximum number of keys per node so maximum how many keys you can put per node so that will be p-1 because if you have p pointers then it means you have p-1 keys so this is the maximum number of keys you can put in one node in any node this is the maximum number of keys you can put
+
+147
+01:19:14,540 --> 01:19:48,040
+you tell me one more thing you tell me one more thing if you have by chance if some node has let's assume if a node has let's assume x pointers x block pointers then how many keys in that node then how many keys will be there in that in that node number of keys in that node what that will be if you have x block pointers in that node these many block pointers you have
+
+148
+01:19:48,360 --> 01:20:20,320
+Then in that node, how many keys will be there? The answer will be X minus one. Correct. So these many keys will be there. X minus one. Okay. So very simple, simple things. Now you can see that if you have order seven, then I told you that for the order of 50% utilization must happen. Okay. Yes or no. I can say minimum, minimum 50% utilization must happen. Minimum 50% utilization must happen.
+
+149
+01:20:21,170 --> 01:20:53,510
+utilization of order of order must happen for every block for every node except root root has a special root has a special okay except root like root to root we give some special I can say a concession okay so you can notice minimum 50% utilization must happen so you tell me if your order is 7 then for any for root node what will happen
+
+150
+01:20:54,620 --> 01:21:26,620
+Then for root node, what will be the number of block pointers? For root node, what is the minimum number of block pointers? Minimum number of block pointers, that will be 2. Because at least one key should be there. In the root node, agree or not? Are yes or no? In the root node, at least one key should be there. You should have at least one key. If you don't have any key, then there will be no root node. So at least one key should be there. It means 2 block pointers should be there. And maximum P should be there. Because that is your maximum P. This is your maximum P.
+
+151
+01:21:27,370 --> 01:21:59,350
+now you tell me for remaining more nodes for the other nodes what will happen for the other nodes what is going to happen for the other nodes at least these many pointers should be there at least these many and maximum these many pointers should be there this is this will be maximum this will be same for all of them but I can say minimum 50% utilization of order should be happen is this clear to everyone let me know now you can easily see that if I find out the number of keys
+
+152
+01:22:00,300 --> 01:22:34,970
+Now, if the same thing, if I ask you for the number of keys, then automatically what will happen? You can minus one, minus one. If I ask you about the number of keys, if I ask you about the number of keys, everything will become minus one, minus one. So if you do minus one, there's these many keys. If you do minus one, these many keys. So if I ask you about the keys, then you can do minus one, minus one. Okay. Tell me is this clear? Let me know. So this is the conclusion. Okay.
+
+153
+01:22:35,430 --> 01:23:05,050
+Let me know anyone has any doubt in this. Tell me the definition. Let's do some practice. Let's do some practice. See this. This is for I'm, uh, this is for beatry of order five. This is how it will look like. Beatry of order five. So beatry of order five. Tell me, is there any rule which is violated? Is there any rule which is violated? Like, can I say this is beatry of order six?
+
+154
+01:23:06,070 --> 01:23:34,370
+Can I say this is BT of order 6? You think about it and tell me. Can I say this is BT of order 6? Can I call it BT of order 6? Is there any rule which is violated? Is there any rule which is violated? First of all, few things you check. All the leaves are on the same level. Agree? All the leaves on the same level. That is check. Check. Okay, so just think about all the rules. Okay, your obvious search tree rules. Are they followed? Yes, they are followed. Okay, you can notice.
+
+155
+01:23:34,680 --> 01:24:01,690
+all the values greater than m are here like m n o p q s t u v okay so basically that is followed so the obvious search tree rules these are followed everything which is greater than m is here everything which is less than m is here similarly everything which is greater than x is here okay similarly you can notice everything which is between p comma t is here
+
+156
+01:24:02,960 --> 01:24:31,940
+everything between between T comma X is here and you can notice everything between E comma H is here everything less than E is here so obvious search tree rules are followed do you agree yes or no obvious search tree rules are followed okay then you can notice all the leaves are on the same level every leaf is on the same level that is also done that is also done now let's see the other rules
+
+157
+01:24:32,270 --> 01:25:04,190
+if your order is 6 then what should happen for the root node if your order is 6 then for the root node what should happen for the root node what should happen minimum 1 key to how many minimum 1 key to 5 keys so that is also followed yes or no minimum 1 key to 5 keys 1 key to 5 keys that is also followed 1 key you have in the root node okay for the other nodes for the
+
+158
+01:25:04,410 --> 01:25:40,990
+other nodes for the other nodes what should happen tell me for the other nodes maximum five keys should be there maximum five keys should be there and minimum how many minimum minimum the minimum two should be there because this is order so what should be the p by two that is three this is minimum this is the block pointers this is the minimum number of block pointers please understand this is the minimum number of block pointers
+
+159
+01:25:41,400 --> 01:26:12,070
+so the number of keys will be three minus one which is two so in the other words notes you must have three minus one keys to five keys so two keys to five keys so all the rules are satisfied right two keys two keys three keys two keys three keys okay so all the rules are satisfied so can i say that this is a bt of order six can i call it bt of order six yes so i can call it bt of order six okay all the rules are satisfied
+
+160
+01:26:12,330 --> 01:26:41,150
+every rule is satisfied very simple some obvious rules are there some obvious rules tree rules ok search tree rules some obvious rules ok those rules you check first of all obvious search tree rules you check that is the first thing you check the second thing you can check all the leaves must be on the same level every leaf must be on the same level that is what you check next what you will check next you check for the root node at least one key
+
+161
+01:26:41,670 --> 01:27:11,220
+And at most P-1 keys should be there. That is what you check. And for the non-root node, okay, for all the remaining nodes, what should happen? Number of keys should be at most P-1 at least P by 2 seal minus 1. Yes or no? So these things you check, once you check these things, that's done. Only these rules you have to check. So this question, is this clear to everyone that why? Yes, this is a B-tree of order 6.
+
+162
+01:27:11,910 --> 01:27:43,740
+I can call it BT of order 6 that is correct. So this is I can say yes this is correct that this is a BT of order 6 that is correct. Is this clear to everyone? Let me know. This is BT of order 6. Can I call it BT of order 7? Can I call it BT of order 7? Can we call it BT of order 7? What is the problem? BT of order 7. That is wrong. What is the problem? The problem is very simple that
+
+163
+01:27:44,070 --> 01:28:19,230
+If you have BT of order 7, what should happen? What should happen? What should happen? Minimum 7 by 2 seal minus 1 keys in root nodes, in non-root nodes. Is that followed? In non-root nodes, this should happen. Is that happening? Tell me. Is this clear? 7 by 2 minus 1. Okay, these many. Minimum these many keys.
+
+164
+01:28:19,560 --> 01:28:49,610
+minimum minimum minimum these many keys must be there is that rule followed the answer is no for example here you can notice violated here you can notice violation you must have yeah this is why this is not a violation this is correct but this is a violation is this clear so you cannot call it B3 of order 7 can I call it B3 of order 5 can I call it B3 of order 5 can we call it B3 of order 5 yes you can call it
+
+165
+01:28:49,880 --> 01:29:24,020
+This is a Bt of order 5. Why? Everything is fine. Because in a Bt of order 5, what should happen? What should happen through the root node? The root node will have 1 key to... 1 key to 4 keys. Root node will have 1 key to 4 keys. And the others... The others will have what? The others will have maximum 4 keys. Maximum 4 keys to 5 by 2 minus 1 keys. So you can check it out.
+
+166
+01:29:24,500 --> 01:29:52,560
+This is 2 to 4. So for the remaining nodes, this is 2, 2 to 4. So yes, this is a order of, this is a B tree of order 5. So remember, this structure that you have, this can be, if I give you this structure, then remember, then from that you can say that, yes, the order can be 5, the order can be 4. So okay, tell me, what about order 4? Can I call it B tree of order 4? Can I call it B tree of order 4?
+
+167
+01:29:53,390 --> 01:30:25,710
+Is any violation do we have do we have any violation? B3 of order 4. In the B3 of order 4 what should happen? If you have B3 of order 4 what should happen? There should be 1 key to 3 key in the root node. That is fine. That is satisfied. And in other nodes what should happen? 4 by 2 seal minus 1. 4 by 2 that is 2 minus 1. So minimum 1 should be there. 1, 2, 3. So that is also fine.
+
+168
+01:30:26,010 --> 01:30:55,960
+So this is Btree of order 4 also. Is this clear? So this question can be created that given this Btree, what are the possible orders? Is this clear? Given this Btree, if I give you this Btree, then what are the possible orders? That is one question that can be created. And this is a question from the Coreman book. Actually, I will I will show you this type of question is already available in the Coreman algorithm book of Coreman in that this question is also also there. So you can notice.
+
+169
+01:30:56,350 --> 01:31:33,310
+For the following B tree, what are the possible orders? For the following B tree, what are the possible orders? What you can say, what are the possible orders? The possible orders are 4 or 5 or 6. These are the possible orders. 3 is not possible. See, 7 is not possible, you told me. You told me 7 is not possible. What about 3? What about 3? 7 is not possible, but what about 3? See, if you have 3,
+
+170
+01:31:33,640 --> 01:32:09,370
+then you can have maximum two keys that is the problem yes or no you can have maximum two keys you can have maximum two keys you can have minimum minimum can be one so minimum can be one key because three by two that will be two minus one so minimum one key but maximum can be two keys so this is the violation right this is the violation is this clear what is violated anyone is this clear what is violated
+
+171
+01:32:09,900 --> 01:32:41,880
+So if you have order 3, then this will be violated. Correct or not? Let me know. Okay. So you can clearly see that because maximum you can put 3 keys, 2 keys. If you have order 3, then maximum you can put 2 keys. So that is what is violated. So here you can notice this is violated. Let me know. See, this is also violation. So this is also violation. So what is the answer? The answer is possible order is 456. Is this clear? Let me know.
+
+172
+01:32:42,390 --> 01:33:11,230
+What I am making sure? I am making sure you understand the definition. That's the only part. In B tree and B plus tree, you just have to understand the definition. Once you understand the definition, all these rules, 6 or 7 rules are there. Once you fix them, then this is nothing. This B tree, B plus tree, this is an easy topic. Once you fix them. So one question I have taken in which we are finding possible orders. Is this question clear? Let me know. Anyone has any doubt in this question? In this particular question, do you have any doubt?
+
+173
+01:33:11,580 --> 01:34:01,540
+order cannot be three order cannot be seven four is possible five is possible six is possible so the possible orders are four five six okay three is not possible two is not possible seven is not possible eight is not possible but four five six these are the possible orders for this be tree now let's see one more question let's see this question this is from the corpsman book this question is taken as it is from the corpsman book source corpsman corpsman exercise so what the question is saying
+
+174
+01:34:01,880 --> 01:34:33,000
+the order definition is given to you that order of P order is given that is maximum number of three pointers that we already know yes or no this definition we already follow so now you can check it out so order is given that is maximum number of three pointers that you can have for what values of P this is a legal B tree for what values of P is this a legal B tree see you don't have to check every value individually but anyway but let's check it
+
+175
+01:34:33,400 --> 01:35:06,340
+for example, do I have to check 3? should I check p equal to 3? should I check p equal to 3? I don't have to check p equal to 3 because this p equal to 3, this will be violation array you can clearly see that there are 4 pointers here you can clearly see there are 4 block pointers so this is definitely wrong because you can clearly see that there are 4 block pointers here in this node you have 4 block pointers
+
+176
+01:35:06,670 --> 01:35:41,570
+So this P equal to 3, this is definitely wrong. Okay, P cannot be 3. This is definitely wrong. What about P equal to 4? What about P equal to 4? What do you think? What do you think that P equal to 4? P equal to 4. If by chance, first of all, some obvious rules, are they followed? Before that, some obvious rules, are they followed? Yes, they are followed. Everything more than M is here. Everything less than M is here.
+
+177
+01:35:41,830 --> 01:36:11,190
+inside a node everything is sorted inside a node everything is sorted okay everything between d comma h is here everything more than h is here so obvious rules are followed okay all the obvious rules are followed so you can notice inside this this is ordered this is sorted okay every every node is sorted so inside rules and all the leaves are on the same level all the leaves they are on the same level so obvious rules are followed now
+
+178
+01:36:11,540 --> 01:36:42,600
+if this is the order then what will happen to the root node what should happen to the root node the root node should have one key two three keys the root node should have one key two three keys and what should happen to the other nodes what should happen to the other nodes the other nodes should have three keys maximum three keys okay maximum three keys but what is the minimum the minimum will be four by two seal minus one keys okay
+
+179
+01:36:45,090 --> 01:37:20,970
+So I can say one two three keys that is fine right no violation there is no violation so this is yes possible p equal to four is possible similarly you can check p equal to five is also possible this p equal to five this is also possible you can check this is also possible what about p equal to six p equal to six what about that p equal to six that is also possible that is also possible you can check it out
+
+180
+01:37:21,260 --> 01:37:52,880
+P equal to 5 possible, P equal to 6 possible. You can just check it out. These are possible. What about P equal to 7? P equal to 7. That is not possible. That is not possible. What is the reason? The reason is very simple that if you take P equal to 7, then minimum you can put is 3 keys, right? Yes or no? This will give you the violation. This will give you the violation. Very simple.
+
+181
+01:37:53,760 --> 01:38:25,830
+But is okay. Do we have to check like this or do you have a smart method? Anyone want to give me a smart method? Look at the tree and tell me what what can be a possible. See now this is the method to the smart method. You give me the smart method. See what the root node is saying. If you have order P if you have order P what the root node is saying. Whenever you have order P then what the root node will say the root node will say that
+
+182
+01:38:26,650 --> 01:38:57,800
+The root node is going to say that see one keys one key to P minus keys. I should have Okay, I should have maximum this So this is maximum and this is minimum for the root node. So from the root node what equation you can create from the root node what equation you can create root node is saying see maximum maximum. This is the maximum So it means whatever I have that should be less than that and I already have one only
+
+183
+01:38:58,120 --> 01:39:29,150
+so there is no problem here this is like from here you cannot get any information right yes or no correct the root node is saying that minimum should be one key maximum should be p minus one key this would be the maximum key is in root okay so from the root node i can say this is the maximum so what you already have that that should be less than this correct so what you already have what the root node already has that should be less than this
+
+184
+01:39:29,470 --> 01:40:01,260
+so from here we cannot get any information but from where we can get information or actually from here also we can get some information what information we can get from here that P is greater than equal to 2 this information we can get here that P is greater than equal to 2 okay what more but this is always going to happen yes or no or a order can never be one can order be one you tell me can order be one
+
+185
+01:40:06,440 --> 01:40:39,180
+Can order of B tree be one? Is it possible? It is never possible, right? This is never possible. Why this is never possible? This is never possible because if you have maximum one pointer, how you can put one pointer only? This is the virus of search tree. Why? Not possible because you can't even have search tree. Forget about everything else. You can't even have search tree.
+
+186
+01:40:41,770 --> 01:41:14,350
+you can't even have a search tree even binary search tree also have two order yes or no even the binary search tree that also has two order so if you have order one you can't even have a search tree if you order one then where you will point like if this is value you can't even have search tree at least two pointer you need at least two pointer must be there is this clear to everyone is this clear at least two
+
+187
+01:41:15,140 --> 01:41:44,840
+block pointers must be there agree or not whatever search tree you take at least two block pointers must be there correct okay so this is the idea so you can notice one is never possible so you did not get any information here right this information we already know that p should be always greater than equal to 2 so from here we did not get any information you see the other nodes look at the other nodes what the other nodes are saying the other nodes are saying that
+
+188
+01:41:45,510 --> 01:42:16,860
+whatever we have that should be maximum p-1 and whatever we have that should be minimum this is this clear like whatever we have whatever we have that should be that should be whatever number of keys we have that should be less than this that should be less than this and that should be more than this now in this equation you put in this equation you are going to put so you tell me
+
+189
+01:42:17,100 --> 01:42:46,960
+So what would happen? P minus one should be greater than or equal to whatever you have. Okay. So this P minus one, this would be more than three because there is a node with three. This is three keys. So there are three keys. So can I say that this would be greater than three? Yes. Correct. And remember minimum you can have is P by two minus one. So minimum we have a node with two keys.
+
+190
+01:42:47,580 --> 01:43:23,740
+This is a node with two keys like this is a node with the two keys. Okay, so these two equations we can create what this equation will give you this equation will say that P is greater than equal to four and what this information will give you what this information is going to give you this is going to say that so from here what is what should be the value of P anyone what should be the value of P so P should be less than equal to six so this is your answer
+
+191
+01:43:24,520 --> 01:44:02,800
+So this is the smart way of getting the answer. You can do like this. Is this clear? So peace would be, so this is the final conclusion. The final conclusion is peace would be less than equal to six, greater than equal to four. This is your answer. Let me know. Is this clear to everyone? Please tell me. Anyone has any doubt in this? Like this you can do. This is just, I can say, just a smart method. You don't have to check manually. There is no need to check manually.
+
+192
+01:44:03,260 --> 01:44:35,900
+This is just a smart method to find out the order. Okay. Do the practice of this smart method on this. Then we will take a break. You do the practice on this question. First of all, obvious rules are the violated. We want legal B3. Obvious rules are the violated. Everything more than 17 is here. On this, everything more than 17 that is here. Everything less than 17 is here. Okay.
+
+193
+01:44:36,250 --> 01:45:03,810
+and you have sorted you have sorted 52, 53, 55, 56, 68 you have sorted obvious rules are yes obvious rules are followed yes or no all the obvious rules are followed because you have inside every node you have sorted sorted sorted sorted everything is sorted and you can clearly see that all the leaves are on the same level
+
+194
+01:45:04,260 --> 01:45:34,220
+all the leaf nodes they are on the same level and you can notice on this side you will get everything more than 17 on this side everything more than 48 on this side between between 28 and less than 48 and here more than 3 less than 8 here more than 8 here less than 3 okay so everything which is obvious rules are followed now you tell me if by chance P is the order
+
+195
+01:45:36,610 --> 01:46:10,220
+if by chance p is the order then what should happen if by chance p is the order by chance p is the order then what should happen i can say this p-1 this is the maximum number of keys right so this definitely this should be more than 4 yes or no yes or no correct because this is the maximum number of keys this p-1 this is the maximum number of keys so definitely this should be more than equal to 4 because we have a 4 keys here because you have 4 keys here
+
+196
+01:46:10,980 --> 01:46:45,160
+so definitely this P-1 should be more than equal to 4 and what should and you can notice like you have 2 here you have 2 keys here so I can say this P by 2-1 this would be less than equal to 2 so from here what you can say so from here I can say that this P this would be greater than equal to 5 correct it must be greater than equal to 5 and from here what I can say
+
+197
+01:46:46,650 --> 01:47:14,910
+From here I can say this P is less than equal to 6. P is less than equal to 6. So your final answer is what? What is the final answer? The final answer is either, okay, 5 or 6. This is the final answer. That, okay, either 5 or 6. Order can be 5 or 6. Order cannot be 7. Order cannot be 4. Okay, order will be 5 or 6. Is this clear to everyone? Please tell me.
+
+198
+01:47:15,160 --> 01:47:44,730
+See, I am making sure that you understand B tree definition. These examples I have taken only to make sure that you understand the definition. Just to make sure you understand the definition of B tree. All these examples I have taken, please tell me. Did you understand? Anyone has any doubt in this? Let me know. Do you have any doubt in the definition of B tree? In the B tree, there are some obvious rules are there. Some obvious rules and this type of some rules that you have to follow.
+
+199
+01:47:45,070 --> 01:48:16,360
+Okay, that you have to follow for B3. Is this clear? For this question answer will be 5,6. That will be the answer. 5 is possible and 6 is possible. So this is your definition of B3. We have seen all the all the components like C. These are the obvious part. If you notice the B3 definition in any book, then what you will find the first three rules are the obvious. Yes or no. See the first three rules are obvious. Look at them.
+
+200
+01:48:17,080 --> 01:48:47,060
+look at the first three rules like look at this rule this is just giving the structure like within every node you must have sorted like within each node you have sorted this is obvious rule correct within every node within each node you have sorted so you have a sorted node and you can you can see all the all the things like if you go to left then the values will be less if you go to right the values will be more
+
+201
+01:48:47,800 --> 01:49:20,140
+Okay, and this is the structure of Btree. This is the structure of Btree node. We already know with every key what we do, we put a record pointer. Every key comes with the record pointer. Every key comes with the record pointer. Every key comes with the record pointer. And these are the block pointers. This is a tree pointer, tree pointer, tree pointer, tree pointer. So this is the idea. Okay, clear. Let me know. So very simple. So these are the some obvious rules. After that, what do you have? After that, what do you have?
+
+202
+01:49:20,470 --> 01:49:49,810
+after that you can notice that every node has at most p pointers every node except root except root node every node should have at least these many three pointers and at most p pointers okay and if you have q pointers then you have q minus one keys if if some node has q pointers q three pointers then you will have q minus one search key
+
+203
+01:49:50,120 --> 01:50:47,890
+Okay. Just give me a second and you read this. Okay. So you can notice a node with the Q pointers that will have a Q minus one keys. That is fine. And I told you that in the last level, the three pointers are null. In the last level, all the leaf nodes must be on the same level and these are three pointers are null. Now, let me tell you something like you might, you might be thinking, sir, can we put with the key? Can we put block pointer? Tell me.
+
+204
+01:50:48,060 --> 01:51:32,620
+with the key, like if you see the B tree node structure, look at the B tree node structure, B tree node structure. So the in this B tree node structure and what I'm saying, I'm saying this that this is your structure. Again, in this structure, what we have with every key we are putting record pointer. I told you yes or no. Okay. With every key, for example, if you have a key K1, then we put a record pointer for a moment, let's call it data pointer.
+
+205
+01:51:32,890 --> 01:52:06,740
+for a moment because whenever we say data pointer or pointer only whenever I say data pointer or only pointer then what it means if I say data pointer or I say pointer then remember that can be either that can be block pointer either that can be block pointer or that can be record pointer either that can be block pointer or that can be record pointer okay so what we do here with the key we point that we put the data pointer
+
+206
+01:52:07,790 --> 01:52:36,170
+So this can be either record pointer or it can be block pointer in the question if they give you if they don't give you record pointer size this record pointer size if this is not given then you can take the block pointer you just simply take the block pointer but if this record pointer size is given then you take the record pointer is this clear so by default you take the record pointer what you do you take by default you take record pointer
+
+207
+01:52:42,770 --> 01:53:11,110
+So by default you take the record pointer. Is this clear? But remember in the question if the record pointer is not given, then you can take block pointer. So this is this is the idea with every key you are putting a data pointer. Now this data pointer, this can be either record pointer or block pointer. If the question says if the question gives you information about this also this also block pointer is also given record pointer is also given. So by default you take record pointer. Okay. But if the record pointer information is not given.
+
+208
+01:53:11,520 --> 01:53:42,660
+Then you take the block pointer. But remember, this will always be block pointer. Is this clear? This is always going to be block pointer. This is always going to be block pointer. This is always going to be block pointer. So this is the BT node structure. Is this clear? And for the leaf node, what will happen? For the leaf node, what is going to happen? For the leaf node, this will be null. For the leaf node, this will be null. This will be null. This will be null. Everything else is same.
+
+209
+01:53:43,640 --> 01:54:15,020
+everything else is go everything else is same but this is null this is null this is null okay this is the idea this is the leaf node structure so like this this is the structure of bt this is the complete definition of bt you can notice that if you are this is the key this is the key comma data pointer data pointer can be record pointer or block pointer by default we take record pointer okay this data pointer I can say by default by default we take record pointer
+
+210
+01:54:15,850 --> 01:54:45,260
+but sometimes if the record pointer information is not given if that information is not given then we take the block pointer so this data pointer by default we take record pointer but if this information is not given then you can take block pointer also and remember you can notice here everything is less than k1 and you can check it out in this area you will have everything more than ki-1 less than ki okay everything which is more than more than ki-1 and less than ki so like this
+
+211
+01:54:45,860 --> 01:55:15,000
+and similarly like okay you can take it out so like this so now let's take a break and after the break we will do some good questions so the BT definition is over now we have to solve a lot of questions a lot of questions a lot of variations and insertion algorithm in the BT how to do the insertion deletion algorithm is not needed okay there are many books they don't even cover it like for example Nawate and all these books they don't even cover the algorithm okay so the deletion algorithm
+
+212
+01:55:15,310 --> 01:55:38,490
+for the B tree and B plus tree that is really complicated and that is not required for the gate exam but this insertion algorithm this is required okay if you check all the gate questions if you check then this deletion algorithm is not needed and the insertion algorithm is needed but what we will do I will create optional video for deletion B tree deletion from the B tree if you delete
+
+213
+01:55:38,930 --> 01:56:07,590
+then I will create an optional video. I will not teach you in the class because if I teach you in the class then insurance will think that okay this is in the syllabus and basically this is required for the GATE exam so insurance will take you know unnecessary tension unnecessary tension that because deletion algorithm is not easy let me tell you the BT deletion the B plus 3 deletion that deletion algorithm is not easy to understand okay and even if I teach you in the best way even if you do a lot of practice
+
+214
+01:56:07,950 --> 01:56:37,500
+in 10 days you will forget okay this is so complicated if you read any book if you read navate, korth, ulman if you read any book if you read there they will write the book will write that this algorithm is really complicated okay you can check it out like in the navate book korth book ulman book in those books also this is written that deletion algorithm is complicated okay so anyway what i'm saying even if you study this deletion algorithm even if you do a lot of practice
+
+215
+01:56:37,950 --> 01:57:07,550
+within 15 days you will forget this deletion algorithm okay but anyway this insertion algorithm we will see and that is required for the gate exam I will create optional video okay and I will give the name optional in the bracket I will write skip so those students who want to skip they can skip without any tension without any worry of the gate exam okay you can skip the deletion algorithm but I will make an optional video okay for the B3 deletion B plus 3 deletion
+
+216
+01:57:07,790 --> 01:57:38,030
+So that algorithm, that separate video I will create. Okay. But after the break, we will see. Okay. After the break, we are going to see the insertion algorithm and all the variations, all the, all the type of questions that can be created. Okay. So that is what we are going to see after the break. So tell me when should we meet again? Okay. At nine. Let's start at nine, nine PM. Okay. After half an hour, we will start again. Okay. Okay. Thank you, everyone.
+

@@ -1,0 +1,752 @@
+1
+00:00:46,000 --> 00:01:21,630
+Hi, everyone. So let's get started. Now, let's discuss that what does this fork do? Okay. So let's start this. So it basically does one thing which creates a exact replica of the calling process, which means what? Let's suppose that you have some process. Okay. I mean, this is this is something which is already running. So what is this, this particular thing? I mean, you don't need to worry about it.
+
+2
+00:01:22,770 --> 00:01:54,170
+Let me just remove this. So let's suppose. Yeah. So let me just remove this. So suppose there is a process. Okay. Now that process is anything. Let's suppose process one or something. So there is a process, which is let's suppose process one. Okay. Which is basically having some code and I mean, let's suppose it's a C program, which is having, let's suppose some code and somewhere you're writing fork, somewhere you're writing fork.
+
+3
+00:01:55,180 --> 00:02:27,440
+Now what what will happen once you write the four then you are going to get another process which is exactly identical Right, you are going to get another process after the four which is exactly identical Which means which means what you are going to get is something like this This is another process. Okay. This is another process and then you are going to get exactly identical process
+
+4
+00:02:28,030 --> 00:02:57,440
+So suppose that you are executing this line for now the next line you will be executing this maybe it is printf okay and similarly here also printf because these are the identical copies so suppose you are going to execute this as a next line here now you are also going to execute this as a next line here so after executing the fork you get the exactly same copy exact same copy now tell me how many process they are there in the main memory after executing the fork
+
+5
+00:02:59,530 --> 00:03:32,330
+two processes, right? One is this, another one is this. So basically in the main memory, it will look like this. In the main memory, you will be having one, one process, which is process one, process one, another process, which maybe I can call it child process. Okay. I'm calling it child. I mean, you can call it anything process two or something, maybe child process. So these are the two process in the main memory. This is called main memory. Now tell me.
+
+6
+00:03:33,110 --> 00:04:11,700
+which process is currently running this is actually called parent this is also called parent I mean this is just a terminology whoever is calling fork which is it is called parent so which process is currently running so it will depend on scheduling I mean it is not necessary that which process will be running okay so what I'm saying here is that that initially you started with this right there is a process which is containing some code maybe maybe one of the line you are writing fork okay
+
+7
+00:04:12,530 --> 00:04:35,960
+Like I can also execute it. Maybe I can also write it. But okay, let me just explain this first and then I will I will also execute it. Okay. See one of the one of the line that you are writing for is this so could everyone know what I'm saying the moment the moment the CPU execute this fork then then what it will does it will ask operating system to create a new process.
+
+8
+00:04:36,420 --> 00:05:03,520
+so basically this fork is creating a new process which means after this fork there will be two processes in the main memory and the next line to be executed here let's suppose is this printf similarly the next line is the same line I mean these are the identical copies okay so so basically in the main memory currently two processes are there process one which is the parent process we we also call it parent process and there is a second process which is child process
+
+9
+00:05:04,100 --> 00:05:44,390
+Is this okay? In the main memory, currently there are two processes and how does they look like? They actually look like this. So, this is the parent and this is child. Sorry. So, these are the two exactly identical processes that we have in the main memory. This is called parent. Is this understood now? So, this has happened after the fork. Once you execute this fork statement, it will happen after the fork. Now, which one of this is running?
+
+10
+00:05:44,700 --> 00:06:16,410
+see it is printing printf anything it is also printing something then which one of this is running after immediately after the fork maybe anything right maybe anything it will depend whether it got preempted like you will get posted in the scheduling algorithms so so basically now os may choose to run anything now let's suppose that here this is printf a then can it be printf b is this okay to everyone can it be printf b no right because because these are identical processes exactly identical
+
+11
+00:06:17,360 --> 00:06:52,360
+Exactly same. These two are exactly same. There is no difference at all. Yes, it is directly in the main memory. Yes, the process is in the main memory. This child is in the main memory. Okay. I will talk about the ambiguity and all. So is this killer to everyone that there is exactly two processes? If this is printf, this is printf, whatever is you are writing here, a equal to b plus c, and then immediately equal to b plus c, exact same copy. Okay. If printf statement was before the fork,
+
+12
+00:06:52,810 --> 00:07:29,370
+yeah whatever I mean yeah that is also a good doubt so someone is saying that if you are having let's suppose I mean whatever a equal to b plus c then here also equal to b plus c all the statements before after does not matter exact same copy okay exact same copy so this is exactly same copy yes child process and parent process both both will start immediately after the fork okay so so basically fork
+
+13
+00:07:33,460 --> 00:09:05,200
+first point creates creates exact same copy right second point is that that child and parent or parent and child both after the I mean that fork line right both will start executing after fork I mean basically fork will also return okay work will also return so I hope you are getting it
+
+14
+00:09:05,380 --> 00:09:27,300
+So basically, after four, both, both are exactly same copy. Okay. So now, now, uh, like, I mean, the process is does not basically does not directly look like this. This is the main function and, and these things, this is like, uh, uh, get compile and then you get the executable file. Right. So process directly doesn't look like this. Now, basically.
+
+15
+00:09:27,710 --> 00:10:03,460
+you will be having I mean some special structure of the process we will talk about this in the memory management in the virtual memory so this is called the virtual memory we will talk about it like you can understand that the process will look something like this I mean there is a code section there is a static area there is a heap there is a stack right this is called virtual memory also okay so this is how the process looks like in the execution right this is how process looks like basically which means
+
+16
+00:10:03,850 --> 00:10:33,920
+Does this look like this? Does the process look like this? I mean, as a human, you can say that, okay, that's how it is looking like. But ultimately, it is zero gen ones, right? Ultimately, it is zero gen ones. After getting the executable file, it is zero gen ones. Okay. So yes, there are very good questions that people are asking that what is even need of fork. I mean, why we are doing it? Yeah, there are some good questions. I will talk about it. Don't worry. But let me just explain this. Okay. So
+
+17
+00:10:34,270 --> 00:11:03,790
+So with this killer to everyone, this is how the process looks like. And let's suppose you are having fork and after the fork, identical copy will be here. Identical copy will be here. Okay. So what is this? How many of you do not understand this? How many of you do not do not understand this? I mean, little no no idea about this. What is the stack heap? No idea about this. There might be some people, right? Okay. So basically, this is this is called virtual memory. And
+
+18
+00:11:04,200 --> 00:11:38,250
+This is how the structure of any processes, which means, which means, let me just explain this in a while. You are having A dot out, right? Is this okay to everyone? Till A dot out, everyone is good. That you compile it from A dot C, from A dot C, you compile it and you get it. Now there is a specific areas. Let's suppose this is having data, I mean global variables or something like that. Okay. This is having code. This is having code.
+
+19
+00:11:38,570 --> 00:12:15,110
+This is having global variables and something like this. Okay. So there is, there, there are designated area for these things. Now what you will be having, this is the virtual memory. We will talk about what is this virtual memory and what is the main memory later. So this is, this is how the process looks like. This is the, this is how the process in the execution. Okay. Process looks like this. Basically there's a stack in the process. Right.
+
+20
+00:12:15,470 --> 00:12:38,260
+there's a heap in the process there is a code area there is a data area something like this right and this data area directly get copied here this code area directly get copied here this is changed at runtime okay which means that there is a specific designated structure
+
+21
+00:12:38,910 --> 00:13:08,350
+of some you can say some memory and in that memory you directly load the code your like operating system will be loading the code in that particular designated area data in the designated area stack and heap these basically vary at dynamic which means if you are calling any function do you remember if you call any function there's activation record that get pushed activation record if you are having malloc call there's a malloc if you are having malloc call then malloc will be asking from the heap so basically this is how the process looks like
+
+22
+00:13:08,530 --> 00:13:35,170
+Okay, more of this we will definitely talk about in the memory management, but this is the structure of the process you can understand. Now, since stack is growing, so we need a stack pointer, right? I mean, till what part stack has already been grown. And since we are executing code, then there will be a program counter that which particular instruction currently we are executing. So there are different, different registers that we need to maintain a stack pointer program control like this. Okay. So this is how the process looks like.
+
+23
+00:13:36,570 --> 00:14:06,580
+Okay. So all of this is actually logical. I mean, this is not physically, it's not like that, that you are, you are having, I mean, this is not the physical structure. You will get to understand it again later. But this is how the logically it looks like. This is also called as logical memory. Okay. I mean, more, more technically, I should be calling it logical memory. I mean, logically, the process looks like this, which means, let's suppose I'm writing int a.
+
+24
+00:14:07,150 --> 00:14:43,500
+intake. Let's suppose it is a local variable inside some function. Okay. Let's suppose it is a local variable inside some function. Maybe it is inside fun intake, right? Then can you tell me where is the same in which area this A will be? This is in stack, right? Because it is a local variable. So A will be here in the activation record of this fun. A will be here. A will be here in the activation record of fun. Yes, in
+
+25
+00:14:46,940 --> 00:15:27,420
+activation record of fun fun we have a which is a local variable right okay so age here and similarly if I have global variables where is the global variable global variables are here like that now tell me logically logically a will be having some address right so logically logically a will be having some address isn't it is this okay to everyone which means maybe this addresses two three four
+
+26
+00:15:27,650 --> 00:15:52,150
+okay four and four eight so this is 32 potatoes so let's suppose this a is having some address which may be which may be looking like uh logically let's suppose this this i mean logical address is uh 0x which is uh for the hexadecimal f f f f 001c some some address is this okay to everyone a will be having some address logical address now whenever you do printf whenever you do printf percentage
+
+27
+00:15:52,740 --> 00:16:42,200
+p or percentage u okay that's okay address of a whenever you basically print the address of a it always prints the logical address okay so print f always prints the logical address i mean a is having some logical address and whenever you are printing it it always prints the logical address so can you tell me what it will print what this address of a will print this one right this one so when you when you are doing when you are doing this print f a
+
+28
+00:16:43,300 --> 00:17:01,680
+then you are going to print this okay which is this now whatever it is I mean which means that this is I think one C right one and then see let me write clearly so this will get printed
+
+29
+00:17:07,490 --> 00:17:36,400
+Now I don't want to deal with currently I don't want to deal with this logical and physical memory but is this like high level idea clear to everyone that there is this is how the process logically it looks like this and whatever the variable whatever you have logically you deal with everything okay what where this a physically get stored it is none of your business to be honest okay which means OS will always will be managing where you are physically storing it are you are you getting my point what do I mean by physically storing it see
+
+30
+00:17:37,160 --> 00:18:03,460
+Logically, it looks like this. This is all logic. I mean, just like logically, I mean, we will obviously talk about all of this in the memory management. But for now, I'm just saying there is something called as logical memory. So logically, I'm saying that process is this. But physically, is this the same case? Physically means in the main memory, in the main memory, is this the same case? No. In the main memory, maybe, maybe,
+
+31
+00:18:03,970 --> 00:18:45,490
+You are dividing this in the pages. Okay. There's something called paging or something. You will get to understand this later again. I don't want to deal with the memory management currently. That is why I cannot tell you these things. But physically, maybe you are restoring this here. Maybe restoring this here, right? I mean, physically you can store anything anywhere. That's my point. Okay. So this is, this is the physical memory. Man memory is a physical memory. This is the real memory. Okay. This is a physical memory. Okay. So it is a physical memory and you can store this anywhere. Now tell me.
+
+32
+00:18:45,710 --> 00:19:10,020
+tell me interestingly tell me is this address is this is this address logical or physical this address whatever i am writing here is logical or physical it is logical address right it is logical yeah it is a logical address now you are storing this actually you are storing this a here actually you are storing this a here right actual storage of it
+
+33
+00:19:11,410 --> 00:19:38,430
+Now currently you might not be understanding what is this I mean how we are logically dealing with basically it is just a abstraction or it is just a I mean I can say virtualization that OS is providing to us that there is a logical memory why we need it and these things actually I currently cannot talk about it because it's a part of memory management so we will be anyway having five six lectures for this only so basically I mean OS is just saying to me I think in the in this particular lecture
+
+34
+00:19:39,480 --> 00:20:03,850
+in this particular lecture I think I talked about it a little bit like I mean what is this logical memory if I remember correctly has anyone seen this lecture I think we talked about it right that there is I mean logically we are saying that that there's a contiguous memory okay so logically logically we talk about this and we have talked about this in this particular lecture so you can watch this lecture right okay now come into this
+
+35
+00:20:04,080 --> 00:20:33,600
+Coming to this, so we have some logical memory, which means logically OS is saying that your process will look something like this, but physically what it is doing is none of my business actually. Okay, whatever it is doing. Okay, anyway, coming to the fork, why I talked about it, you will get to understand that why I'm talking about this logical and physical. See, this is the view that you currently have. Is this okay? For any program, this is the OS is saying that this is how your program looks like. Now, once you fork it, once you have the fork,
+
+36
+00:20:33,850 --> 00:21:02,550
+then you will be having the identical copy as I just told you this is just exactly identical copy eject identical copy okay what does this mean this is very interesting see suppose a is having some address here is logically a is stored somewhere here okay which means which means logically let's suppose the address of a 0x ff ff f001c okay suppose this is the logical address of this a
+
+37
+00:21:03,720 --> 00:21:32,220
+Since this is exactly identical copy of this program or the process, then in that case, in that case, won't A be here also? Or you don't have A here. Do you have A here only? Tell me, let's suppose this is in A in somewhere inside the main function, or do you have A at both the places or only at parent in A and then you are forking or whatever, right? So you have only at parent or both the places, both the places, right?
+
+38
+00:21:32,440 --> 00:21:57,240
+age at both the places I hope that is killer to everyone age at both the places now tell me will this address which looks like a logical address but will this address be same as this are these two address which means which means interestingly interestingly if you can tell me I will be I will be very happy to know this let's suppose there is a main function main function
+
+39
+00:21:58,280 --> 00:22:33,040
+there is a there is a something okay int x okay whatever okay fork and then let's suppose int a or maybe you can write int a above also doesn't matter basically fork and let's suppose after that you're printing the address of it right now after the fork you will be having you will be having this code which is a child code
+
+40
+00:22:33,400 --> 00:23:24,180
+Now, this will be printing some address. This also will be printing some address. Let's suppose I'm telling you that this is printing the address. What address this will be printing? Different from this or same as this? Okay. Okay. Okay. Different same. Nice question, right? Do you think that whatever discussion we are doing is helpful for the gate? Do you think this discussion is helpful for the gate? Actually, this is so helpful.
+
+41
+00:23:24,500 --> 00:23:54,170
+that in fact in gate they have already asked one of the popular question and whatever i'm just asking you is actually has been already been asked in the gate in the gate the exact same question has already been asked exact same question that this address of a this address of a they are calling this i think you and this they are calling it okay i don't know we they are calling it they are calling it why they're asking will this v and y v same or not exact same question has been asked in gate okay
+
+42
+00:23:54,460 --> 00:24:31,920
+so that's why obviously like whatever we are studying obviously this is helpful for the gate only so we will be solving this question little later but coming to the concept first just tell me so what do you think they're they're exactly same okay so this will also print the same thing this will also print the same thing now now you will be more amazed by the things i will be asking you some more things okay this will be this will exactly printing the same thing which means
+
+43
+00:24:32,210 --> 00:25:02,980
+which means whatever I mean this is exactly same copy exact identical copy that's what I'm trying to emphasis okay it doesn't it doesn't care anything what it will do logically it will create one box it will say okay let me just copy this at the same place and let me just copy this at the same place copy this at the same place copy this at the same place copy this at the same place it doesn't differentiate in anything so these two at these two addresses are same it is okay now let me just extend this question further let me just ask you
+
+44
+00:25:03,270 --> 00:25:39,800
+more interesting things. Okay. So these are the two processes. Let's suppose for the sake of example, a value is five or something. Okay. I mean, these are the identical processes. Now, basically, like, I mean, okay, okay, let me just ask this question later. Okay. Anyway, I want to write the PID equal to zero or these things. I mean, the child and the parent, but anyway, I will, I will, I will talk about it later.
+
+45
+00:25:40,770 --> 00:26:29,540
+So, okay, for now, you understood this, right? Now, let me, let me take your questions. So you asked earlier, you asked some questions, right? So let me take your questions and then I will proceed. Okay. Someone is asking that if we are having same identical copies, then wanted with creating the ambiguity. The answer is no. Basically, there's four written some integer. Okay. And based on that integer, we will differentiate that what it is. I mean, it is child or it is, it is parent. Okay.
+
+46
+00:26:29,760 --> 00:27:03,440
+So let me read your your doubts. So basically let me even clear this. See what will happen that you will be having some integer. Okay. Let's suppose this is process ID. Actually it will written process ID. Now based on this integer, you can identify if it is parent or I mean the parent or child. Other if PID equal equal zero, then it is child or parent. What do you think?
+
+47
+00:27:04,320 --> 00:27:46,230
+So it is child. Okay. If PID equal to equal to zero, then it is child print F. I'm child else. So what do I mean by that? Let me just tell you. See, this is the eject identical identical copyright. So this, this is the same code that I have here. Now what will happen that you will be having, you will be having this code. And then, then if you want to, if you want to work with the parent, which means this is the parent, right? If you want to work with the parent, then you will be working in this else condition.
+
+48
+00:27:47,400 --> 00:28:26,100
+So fork returns some integer, let me just write it here that fork returns some integer will return some integer to both of the process and what integer returns basically let me write it here fourth point fork return return zero zero to child to child fork return non zero to return non zero to parent basically it returns
+
+49
+00:28:26,430 --> 00:28:55,450
+I mean to the parent it returns the nonzero is basically the child process ID. Okay. Nonzero is there is something called process ID for every process. Okay. So child is also process. So this nonzero is child PID. PID means process ID. So a fork written zero to the child and nonzero, which is basically child process ID to the parent. Now let me just do one thing. Let's just do one program. Okay. Maybe.
+
+50
+00:29:11,950 --> 00:29:57,060
+Okay, just a second. What was the program? Let's suppose I say int PID equal to fork. Okay. I mean, I'm just, is this visible to everyone? Is this visible? What I'm writing here? Okay. Okay. So let's suppose I say int PID equal to fork. And then maybe I say that if PID equal equal zero.
+
+51
+00:29:57,420 --> 00:31:09,410
+So 0 is returned to the child, right? So I will say I'm child printf and child else I am parent. And what else you want to do in the parent? Maybe. Okay. Okay. Let me first run this program. I hope this is visual light. Okay. So basically, just a second. Sorry. Let me just give a I am parent and I'm child.
+
+52
+00:31:10,780 --> 00:31:39,260
+Have you ever seen that if else the both get printed, if it is a normal program, if else both get printed, have you ever seen something like that in the normal program? Obviously, no, right? So, obviously, no. So, basically, if I'm basically writing that, okay, fpi equal to zero, zero, it means that was the child which, now can you tell me which quote executed first child or parent? Which quote first execution parent, right? Most probably parent, most probably.
+
+53
+00:31:39,610 --> 00:32:08,670
+I mean, it might happen that first child might have got a chance but before even printing it, it had got preempted. Anyway, let's not worry about it, but most probably a parent. I mean, the parent is printing first and then child. So basically, this is how the fork is working. What does fork do? Fork will create two processes and then both of those processes are running independently. So maybe what can I do here? I can just
+
+54
+00:32:09,900 --> 00:32:43,380
+Copy this in the slides only so that you can refer to this later by just looking at the slides Okay, so in general in normal program obviously doesn't happen when when you are also executing if a statement and then you are also executing as a statement right if it is executing both then there is something different which means you have you have two processes not just one process Is this okay to everyone?
+
+55
+00:32:44,050 --> 00:33:36,170
+that that's how the two processes are working. That's how we can differentiate between two processes. Okay. Cool. Yeah, we can print it. Okay. So I'm parent and it returns the PID of the child. So a process ID of child is percentage D PID. Okay. I hope you can visualize this for this is just a second.
+
+56
+00:33:44,940 --> 00:34:30,500
+I am parent process ID of child is this one. And then they printed that I'm child. Okay. Anyway, as you can see this, I'm parent process ID of child is this and then I'm child. That's how it is printing. Okay. Good. So you can also print the process ID of child and these things. If you want to process ID is not changing process ID is basically for the child and parent both are having different process ID, right?
+
+57
+00:34:30,900 --> 00:35:01,860
+So whatever is the process ID of child that is written to the parent. Okay. Whatever is the process ID of the child. So basically here, the process ID of the child as, as you can see is 17800 that is written to the parent. Okay. So here, this fork is getting called, is getting called here. See, this fork is getting called here. Now this fork will return at the child, it will return, return a 04 child.
+
+58
+00:35:02,480 --> 00:35:28,120
+zero at the child process and non-zero which is the child process ID child process ID because parent should be knowing parent should be knowing where is my child, isn't it? so parent should be knowing child process ID you can also remember like that the parent should be knowing that where is my child so like it will return child process ID to parent okay
+
+59
+00:35:30,680 --> 00:36:05,860
+so fork is like after after this basically after this code what is happening you are having two different identical codes right i mean after the fork line you are having this line you are having this and this you are having two different identical codes okay so after after this line of fork after this line you are having two different two processes this is parent exactly same you are having a child exactly same now here you are saying
+
+60
+00:36:06,120 --> 00:37:12,630
+this is I mean the if you are writing equal equal zero then then this statement will be executed by both but since PID is non-zero in the parent it will execute this and child will execute this okay now tell me tell me tell me this tell me this how many times gate will get printed how many if I run this program how many times gate or flow will get printed how many times go classes will get printed and how many times isc will get printed okay
+
+61
+00:37:12,970 --> 00:38:33,560
+So have you understood my question? So how many times each of this is getting printed? This is my question. Okay. Sorry. I want to ask like this. Okay. Yeah. Now you can tell me how many times gate will get printed, how many times each of this will get printed, right? So I can say that gate will get printed, gate or flow, go classes and IIC. Okay.
+
+62
+00:38:33,860 --> 00:39:23,490
+I think it is easy to understand that gate overflow and go classes are going to print one one time, right? Because only parent is going to, sorry, only child is going to execute this. Only parent is going to execute this. This is only child, only parent. Now, how many times ISC will get printed? What do you think? Okay, so since it is getting executed by both the processes, two times, right? Two times. Now, interestingly, how many times this gate will get printed? This only one time, right? This only one time.
+
+63
+00:39:24,300 --> 00:39:57,350
+one time only why because you don't know fork is going to happen you are printing gate and then you see that oh fork is there right so I can quickly execute this program probably gate one time go classes one time I see two times right I see two times one time by child one time by parent gate overflow one time everything one time only I see two times okay so everything one time only I see two times okay so anyway that was the easy question but I hope you understood
+
+64
+00:39:59,550 --> 00:40:31,100
+Yes, it creates the identical copy. So it will create after this line, right? It will create after this line and the execution will start from the next line only. It won't start executing from the, from the very first line. Printing order could be any arbitrary order. We will talk about these kinds of questions also. Okay. We will talk about these. I mean, how many, how many number of possible patterns are there? These many, some interesting questions I have in the slides. Okay. Even in the child process also same happens. I didn't get it.
+
+65
+00:40:32,910 --> 00:41:02,650
+how copy look like of this code I mean this will look exactly like this exactly like this there is no difference okay exactly identical copy twin yes yes execution will start after the fork yes this is important to understand that execution will start in both of the program execution will be starting after the fork okay so fork will return parental chat both will start the executing after the line which had fork okay after the line which had fork
+
+66
+00:41:02,890 --> 00:41:37,700
+So execution will be starting after the four. Yes. That's what I've written here. Okay. Uh, you can't run in parallel. It will depend on the, on the scheduling. I mean, uh, it, uh, any, anything can be done first. Okay. I mean, uh, you can't run in parallel if, if there is only one code. So basically anything, uh, like since you are having, since you are having two, where is the diagram? Okay. Since you are having basically two processes at the same time. So anything, anything can run. Right. I think the diagram is.
+
+67
+00:41:39,780 --> 00:42:09,670
+This one. Yeah. So since you're having two processes at the same time in the memory, so anything can, can be running first. Okay. So I hope that is clear. Now, few things about the folk, folk must be clear that it creates the identical copy. First of all, execution start immediately after, immediately after the next line, right? Do you want me to print the address of a, just like this? Just like I claimed here that the address of a, this thing, the address of a will be same.
+
+68
+00:42:10,730 --> 00:43:19,280
+I claim somewhere, right? Yeah. So, okay. So let's just see this, right? Now, uh, let's have some variable and a, again, this is, I am child. I'm child and a equal to, sorry, address of a equal to every percentage. See, this is the same address, right? Both are getting the same address, exact same.
+
+69
+00:43:21,910 --> 00:44:06,690
+Okay. Now let's just make it more interesting. If you have got a little bit of this, then let's, let's make it more interesting. So, so I'm saying the addresses will be same. Now let's just do one thing. Let me, okay. You can you hold your doubts for a minute. Okay. So I will, I will solve all of your doubts. Don't worry. So let's just have one thing here, which is something like this. I mean, since it is identical copy, so
+
+70
+00:44:07,330 --> 00:44:46,790
+everything will be identical. So I will be writing the exact same code at both the places. So suppose this is the code that we have fpid equal equal zero. Then, then I'm doing something which is this is extremely interesting. A equal to a plus five. Okay. Age initially five. That's okay. And then I'm printing printf. Okay. Then I'm printing printf a value of a and here in the child, I'm doing a equal to a
+
+71
+00:44:47,150 --> 00:45:25,370
+plus 50 and then I'm doing printf. Okay. So now let's just see what is happening here. See, if it is equal equal zero, then what does this mean? It is child or parent. This is child, right? So child code will be executing this. I mean, the exact same copy is there, but child code will be executing this. Okay. So child code will be executing this, this particular if a statement and parent code will be executing this. So parent will be executing this.
+
+72
+00:45:25,610 --> 00:46:03,510
+and child will be executing this I hope that is clear now tell me what will child print and what will parent print child will say that I am going to execute this then it should print 10 and parent will say okay so this is child it will print 10 and parent will say I am going to execute this then 10 then 5 plus this 50 this is 55 right so child should be printing 10 and parent should be printing 55
+
+73
+00:46:05,070 --> 00:46:42,500
+But here is a catch, the catch is that, yeah, so suppose the child has executed first, then value of age 10, then will it be 10 plus 50, 60 or it is still 55, that is my question. Do you remember that the addresses of A were same? Do you remember? Addresses of A were same, which means if I print the address of A,
+
+74
+00:46:42,680 --> 00:47:11,880
+let's suppose printf address of A here and and here also printf address of A if I print the address of A it will print the same value it is also talking about the same same A it is also talking about the same A isn't it so if both are talking about the same A then then I will execute it don't worry then tell me that once you let's suppose your child is done then then it will say this is P okay printf if your child is done then it will say what let's see I am done
+
+75
+00:47:12,140 --> 00:48:02,500
+And the A has been updated to 10. Now parent is happening. Shouldn't it be 60? Shouldn't it be 60? Have you got my question? What is happening here? Okay. Okay. So, let me just take this code. Okay. Instead of my code, let's just take this code. Let me give you a hint. I mean, so basically the address, let's suppose this is 200. Okay. In the 4k colloquial 0 means 4k will happen and then it will return. So
+
+76
+00:48:03,660 --> 00:48:34,160
+This is, this is basically child. Okay. And this is parent. I mean, parent will be executing this basically parent will be executing this piece of code. Child will be executing this piece of code. I mean, this is how the child and eject same copy looks like this only, but the parent will be executing this piece of code only the else part and child will be executing this only if part. Now, let me just give you a hint that both will be printing 200. I mean, let's suppose it is true. If it is printing 200, then this will also print 200.
+
+77
+00:48:34,480 --> 00:49:01,490
+Okay, there is no problem about it. Let's suppose the initial value of A in both of, I mean, before fork, suppose the initial value of A has been 50. Okay, age 50 initially. Obviously, that is same for both of the code. After the fork, child will say that, okay, this is 55. I don't think there is an issue. Parent will say that, okay, this should be 45. Is this okay to everyone?
+
+78
+00:49:02,100 --> 00:49:33,520
+or this is 55 and then 55-5 maybe maybe child is happening first maybe if child is happening first then 55-5 then again this is 50 only right are you are you getting my question so basically age initially 50 and then and then since child is only going to execute this part so that's that's why I'm actually removing this else part okay I mean that won't harm me I will always do such kind of things I mean if and else I will remove one of the block okay so
+
+79
+00:49:34,620 --> 00:50:07,580
+Basically, it is like that. Parent will say that I'm going to execute this. A value is 50. If I'm the first, then I will be printing 45. If I'm the first. Okay. Okay. See what is happening. This is 50. Is this okay to everyone? Initially, this is 50. Now, now child will say, this is the code that child will execute. This is the code that parent will execute. One thing I am telling you in advance that address of A at both the places are same. At both the places, address of A is same.
+
+80
+00:50:09,500 --> 00:50:37,920
+Okay. Now this, this is saying that I'm like, this is 50, then 50 plus five is 55. This is saying that 50 minus five is 45. So is this the correct answer? Or, or if child is happening first, let's suppose I'm telling you that after child parent is happening, then tell me the values after child parent is happening is suppose someone tell you that after child parent is getting executed, then tell me the values. This is 55. And then this is 50 or 45.
+
+81
+00:50:38,960 --> 00:51:24,940
+after child if parent is happening this should be 50 okay and after parent if child is happening then I think this is 45 and then this is 50 right okay do you want me to execute it or do you think like will this be correct okay so if after child parent is happening then you are saying this is going to parent 55 and this is going to parent 50 right if after child parent is happening okay the answer is no
+
+82
+00:51:25,870 --> 00:51:55,890
+answer is no these two age might look same but these two age are not same okay so here comes memory management which I will tell you now is very very interesting idea so answer is no irrespective of any evolution order it is always 45 it is it does not matter what you are doing in the child it does not matter to the parent okay doesn't matter at all this is always 45 always this is always 55
+
+83
+00:51:56,190 --> 00:52:25,470
+doesn't matter at all whatever you are doing in the parent which got executed first maybe parent maybe child execution order doesn't matter what you are doing in the parent doesn't matter to the child what child is doing doesn't matter to the parent okay so this is the sole code the child will be executing this is the sole code the parent will be executing although the addresses are same still still things are different why why yes this is the very interesting question why how how it can even happen
+
+84
+00:52:26,460 --> 00:53:01,920
+Can you think about any possible reason how it can even happen still the addresses are same addresses are exactly same still still this is 55. This is 45 always Yes, so it's comes related to physical memory. So let me just tell you this Say what is happening? Let me just tell you from the start you are having one process Right there is a this is the logical memory, right?
+
+85
+00:53:02,230 --> 00:53:28,120
+this is the logical memory here you have stored a at some address right a equal to 5 whatever and this is some address okay 200 address let me just take it integer let's let's take it 200 okay or 2000 this is address let's suppose 2000 what fork will do fork will say that okay let me take it as it is right i won't differentiate let me take it as it is let me
+
+86
+00:53:28,380 --> 00:53:51,810
+just create eject same copy. I don't care whatever is happening. Let me create eject same copy. This address is still 45. This is still five. This is still five. Now these are the two processes, right? Now interestingly, let's just talk about it. I don't know. This is the correct time or not. And like
+
+87
+00:53:52,050 --> 00:54:17,860
+To be honest, I'm thinking that I'm teaching OS in very wrong way. I mean, I'm jumping hands here and there, but I don't know, like maybe it is the correct way. I don't know, but things will get connected. That's what I know. I mean, slowly things will get connected. This is the main memory. Now you are going to store this process in the main memory.
+
+88
+00:54:18,220 --> 00:54:45,680
+This process in the main memory may be contiguous, it doesn't matter. Let's suppose you have stored all of this process in the main memory. You have large enough main memory, which is even larger than logical memory. We will talk about these things, but that's not, that's not very false assumption. I mean, that's very much practical that you can have logical memory smaller than main memory. That's not an issue. We will talk about it later. So suppose you are storing this whole thing here, you are storing this whole thing here. Is this possible? Definitely, right?
+
+89
+00:54:45,950 --> 00:55:15,810
+I mean, you will be storing at different different places. Can you store both the both the programs at the same place? Obviously, you know, right? Obviously, you know, you want to be storing both the programs at the same how how it can even happen. These are the two different programs. So if you're storing this here, then then this equal to five will be here. This equal to five will be here. This equal to five is here, isn't it? So both equal to five, physically different. Physically, both these are different, still logically same.
+
+90
+00:55:18,410 --> 00:55:51,190
+Are you getting my point? Logically, logical address of both is are exactly same. But physical address, this is the physical address, physical address of A. In reality, this is getting stored in the main memory. This is not the main memory. I mean, we will talk about this in the memory management, but this is not the main memory. So, physically, this is the physical address of some A. This is the physical address of another A. Physically, both are completely different thing.
+
+91
+00:55:52,110 --> 00:56:22,200
+If you're updating this A from 5 to 10, it is going to update this A from 5 to 10. This A still remains 5. So both child and parent both are executing on different different age, not on the same age. Although it looks like they are same. Okay. If you print the address, it looks like they are same. But if you modify them, they're actually in the different physical locations. They're not same. Isn't it very interesting? And gate has asked the exact same question.
+
+92
+00:56:22,950 --> 00:57:03,700
+I don't think that people could have answered this unless and otherwise they have the good knowledge of this, right? So let's just try printing it. Let's just see. Okay. So if we have opened the terminal, then why not printing it, right? Yes, printf always print the logical address. So basically this is, let me just write like pid, p i equal to equal to zero, a equal to a plus five. Let's suppose a is initially whatever 50, okay? a equal to
+
+93
+00:57:04,000 --> 00:58:57,330
+a plus 5 in this block you are writing a equal to a plus 5 equal to a minus 5 right do we put comma after it i don't remember the syntax sorry okay see uh just a second sorry a equal to let me write in a good way let me just remove this i'm child and address of a equal to this see i'm parent and i'm child this is 50 this is 50 say see first of all observe that addresses are same right
+
+94
+00:58:57,710 --> 00:59:29,800
+have you observed this first observe that addresses are same now respective actually whatever is happening first or second does not matter this is 50 50 plus 5 is 55 in the child it is always 55 in the parent it is always sorry it is always like let me write equal to a minus 5 and then it is always 45 okay let me just run this again no it is not necessary that else part will execute at first any any part can execute at first
+
+95
+00:59:30,190 --> 00:59:59,050
+Okay, any part can be executed first. So what I'm saying that here, I think here else part is generating as you refer to doesn't matter. I mean, these are the two different programs. So it depends on the scheduling. I mean, if OS is not preempting, I mean, you will get to understand permission later. But if OS is continue running the parent program, then parent will generally, I mean, execute first. Okay, it is saying I'm parent and age 45. Okay, because you are subtracting from 50 to 45. So maybe you can see this here.
+
+96
+01:00:02,290 --> 01:00:37,670
+So basically it is saying that I'm parent and the value is 50 minus 50 minus 5 which is 45. And now since it is 45 then is it impacting the child? Should it be 50? No, right? Yes, printf always print logical address. And actually like I'm not sure but I don't even know if there is any way to print the physical address. I don't think there is no way. I think there is no way. Okay. Is it relevant to ask how this logical address is calculated?
+
+97
+01:00:38,460 --> 01:01:04,480
+No, it is like up to the OS like, I mean, wherever it is, basically logical addresses are generated by the compiler. Maybe we can talk about it later. Okay, we will talk about these things later. Logical addresses generated by the compiler. I mean, compiler decided that, okay, you can put it here, you can put it like that. So we will talk about these things later. But here, have you understood this that although the addresses are same, still one execution is not impacting another execution, right?
+
+98
+01:01:04,980 --> 01:01:43,610
+even though this is 45 you are writing it here 45 then you are executing this and 45 plus 5 is not 50 it is 50 plus 555 okay okay so basically logically both I mean okay there might be some confusion in the logical letters that what is this logical letters you can just think like that that there is some memory which says that okay I mean logically both programs I mean see whenever let me just talk about the logical memory in a small detail whenever you
+
+99
+01:01:44,810 --> 01:02:11,590
+I mean, whenever compiler itself, it starts from the compiler phase itself. So whenever compiler write some assembly code, let's suppose that compiler is writing, I mean converting some compiler saying R1, like move or maybe move this R1 value to maybe some memory location, right? Maybe 1000, something like this. Then these, have you seen these kinds of instructions? Have you seen these kind of instructions?
+
+100
+01:02:12,900 --> 01:02:44,830
+These are called assembly instructions, right? So these addresses are logical addresses. These are logical addresses. I mean, it should start from the compiler itself. Compiler will be creating this. These are the logical addresses. So logical memory, we will talk about later. But it is like that, that, okay, have you, how many of you have not seen this lecture? How many of you have not seen this lecture yet? This one, you can tell me honestly. Okay. So just was this lecture, most probably it will get clear.
+
+101
+01:02:45,100 --> 01:03:20,800
+But still let me just explain this here. Okay. So let me just explain what I'm saying that compiler says whenever you're compiling, okay, whenever you're compiling, compiler says that, see, there is a like, I don't care wherever you are going to load this program in the main memory, which means that, see, do you remember that there is a dot out that we get? And can you tell me after how many days you need to put that a dot out in the main memory after how many days? Any day, right? Maybe after five years.
+
+102
+01:03:22,450 --> 01:03:45,950
+Now compiler actually generates let's suppose some assembly code and then assembler convert that to 0s and 1s let's suppose move r1,000. Now should compiler be knowing that okay after 5 years this thousand location should be free then only you should be loading because I have written thousand here. Should you be so much worried about it?
+
+103
+01:03:47,280 --> 01:04:08,920
+see compiler should be very free right compiler should not be taking any tension that okay after five years you must be having this thousand location and that's why I'm writing this thousand right so as per the compiler we assure to the compiler that okay you don't worry about that what's going to happen after five years you think you just think okay you just think logically logically you just think that
+
+104
+01:04:09,180 --> 01:04:33,220
+the memory that in which we are going to load it okay this is i mean this is uh we don't call it main memory at that time so we basically we say through the compiler just think logically just think that your memory is free i mean all all locations are free to use for you only for your program only which means
+
+105
+01:04:33,550 --> 01:05:01,090
+we say to the compiler that you don't worry whenever you are generating this thousand you don't worry about what's going to happen after five years you just think that all of this memory is too available to you which is called logical memory which means we say to the compiler that you just think okay you just think that there is some code section there is some data section there is some dedicated stack there is some heap you just think like that
+
+106
+01:05:01,290 --> 01:05:29,870
+you don't you think that complete memory is to you only which is contiguous and starting from let's suppose 000 and whatever the highest status it is contiguous memory available to you and that's why we call it logical logical memory because logically we are asking compiler to think like that is this okay so that's what the logical memory is and as per user as per compiler as per everyone apart from operating system it is logical memory only we only deal with the logical memory
+
+107
+01:05:32,400 --> 01:05:54,100
+Logical address is generated by compiler. I mean compiler writes the logical address and there are little little things I mean just offset that you need to change okay at most offset that's also called absolute address we will talk about these things little little in the in the memory management but for now just understand that for the compiler we are saying that logically you think that whole memory is available to you so that's what called logical memory.
+
+108
+01:05:54,330 --> 01:06:22,490
+But ultimately, ultimately, you have written your code and compiler have written all the instructions like that. But ultimately, you are going to load this in the main memory. But I mean, this is not how you are going to execute it. Somewhere in the main memory, you are going to write this code. Maybe you are going to write this hashtag somewhere later in the main memory, right? Like that. So basically, this is the logical memory where your variables are stored. But ultimately, that's get stored in the main memory later on.
+
+109
+01:06:23,570 --> 01:06:47,900
+right later on that's get a story in the main memory this logical memory is also called as address space okay address space means this is the total address space that compiler or the particular program can use is the little idea clear to everyone that what is this logical memory obviously there is a five to six lectures that we are going to spend in the logical memory itself but today in just five or ten minutes have you got the idea
+
+110
+01:06:48,520 --> 01:07:20,470
+that we are just saying to the compiler that okay, you don't worry about where I'm going to store after this five year. You don't worry about it. You just think that complete memory is to you. Complete memory. Okay. You whatever address you want, you write it. I will take care. Take care means there is a address translation from logical memory to physical memory that OS will do later. Okay. There is no pointer from logical to physical. It's not a pointer. It is just a mapping. So you can map anywhere and that mapping is maintained by something called as page table.
+
+111
+01:07:20,990 --> 01:07:49,790
+Okay. I mean, where are you are going to main? This is let's suppose page number 10 page number, let's suppose nine page number two or something like that. Where is this page number two is going to which physical address we maintain it using the page table. We will talk about it later. You might have heard about it that there's a page table, right? And page table have have have the entries at where this page number going. So that mapping, we need to keep track using the page table or something segment table, page table, these things we will talk about later, obviously. But for now understand like this, that there is a
+
+112
+01:07:50,800 --> 01:08:18,050
+logical memory that get mapped to the physical memory and the mapping has to be maintained by the operating system using the page tables or the segmented segment tables. Okay. So, so basically coming to the, coming to this part, what I was saying that there are two different logical memories, right? I mean, both of the programs, both of the processes have different logical memories. That's why the logical address of a since it is identical copy, the logical address of a is same. But still, still, if you
+
+113
+01:08:18,980 --> 01:08:52,280
+I mean, if you map it to the physical address, this is definitely different. So if you're changing this thing, then you're changing this only, you're not changing this thing. So that's why, interestingly, see, here, okay, here, that even though, here I'm incrementing this by 5, which is 55, even though like this is 55, and let's suppose after this, this is happening, this is not 55 minus 5, this is always 45 irrespective what you are doing here.
+
+114
+01:08:52,770 --> 01:09:38,430
+Although the logical addresses are same, still the physical addresses are different. That is why these two age, these two age, this age and this age is different. These two age are different. These two age are not same. Okay. Is this explanation making sense? Yeah. No, it will work. I think. Okay. Cool. Now, I think maybe I can just proceed to that gate question quickly and then you can just tell me what should be the answer here, right? In just a second.
+
+115
+01:09:41,750 --> 01:10:46,070
+So I hope you got little bit may not be 100%, but that is okay. I mean, you will, you will connect the dots in two, three lectures, but okay. I mean, initially it might be some problem to you, but you will, you will connect the dots in a while in two, three lectures. Okay. Yeah. That's a good question. If the global variables are getting used in the, in the code, then what do you think? First let's just solve this question. Then, then we will talk about your question. Okay. So what is the answer here? See what is happening?
+
+116
+01:10:46,380 --> 01:11:25,440
+that child will be executing this child will say they are saying if u v are the values printed by the parent process okay so parent will print u and v and child will print x and y that's what they are saying right so u and x are definitely related like this so it is minus five i think let's suppose a value is initially 20 it will print 25 it will print 15 so x equal to u plus 10 i think right
+
+117
+01:11:27,970 --> 01:12:16,200
+or x equal to u plus 10 and v equal to y. Yeah. I think C is the correct answer here. That's one of the most popular question in the gate of flow. But now I hope you understood that how we can solve this question, right? This is a value a minus five. So let's suppose a value in a initially 20, then it will be 15. U value will be 15. This value is 25. So that's why x equal to u plus 10 because this is a minus five.
+
+118
+01:12:20,300 --> 01:12:53,630
+and the logical addresses it will print which is same no that's the whole point of the explanation like I was again and again explaining the same thing that that logically they look same right logically they are looking same but physically this a and this a are different so whatever is this a let's suppose this is 25 yeah order in in whatever order they are printing it doesn't matter they're just asking the relation that whatever you are going to print you and which is let's suppose you this is x then what is relationship between you and x
+
+119
+01:12:53,990 --> 01:13:32,510
+So you can say that x is always u plus 10. Is this okay to even that the x which is 25, which is u plus 10 and we end wire equal. So order of evolution does not matter. I mean, in whatever order you you want to print, that's okay. But there is no impact of this a value and this a value. I mean, what if you are doing a plus five here, that's in the child. If you're doing a plus five here, that's in the parent. Okay. Cool. So
+
+120
+01:13:32,810 --> 01:14:21,930
+this was really a nice question I hope you understood if there is any doubt just let me know I mean this is not about just one question you should be understanding that how this fork is working can we solve this by linear equation concept what is linear equation concept okay so someone has asked that if we are having a global variable right so suppose you are having a global variable okay so what do you think if you are doing plus five will it impact here what do you think
+
+121
+01:14:22,140 --> 01:14:50,690
+will the plus five minus five will impact each other if you are having the global variable just think about it again no right why because these are to eject copy but again physically they are different right see physically they are again different that's what I'm trying to say see again these two will be the same copy that I agree
+
+122
+01:14:52,260 --> 01:15:44,420
+But but wherever they say right even if it is a global variable physically it will map to the some other location even this is a global variable physically it will map to some other location agent it so so physically still say it's still different basically logically still same but physically still different now let's just execute this see this is 4555 right one execution doesn't impact is not impacting another execution in just a second right one execution is not impacting another execution
+
+123
+01:15:45,420 --> 01:16:57,080
+Let me know if that is okay to everyone. Even like global variable and this won't matter. Reason being is that because physically is still different. Is this also an example of security? No, I mean, this is not exactly like security. You can consider it as a security, but it is not exactly security. Security means like someone is trying to access your code and then you are preventing that access. Okay. So,
+
+124
+01:16:58,000 --> 01:17:33,490
+Like we won't be extending class much if you have understood this then then let's just do one or two more problem Okay, if globally state whatever you do static and these things doesn't matter Okay, even if you do static doesn't matter Okay, so I hope this actually I really like this particular question. It's not only about this question It's about the whole concept that what this fork is doing, right? So basically what this fork is doing fork is creating two copies exactly identical copies, but physically they are different Okay
+
+125
+01:17:33,770 --> 01:18:47,740
+so fork create eject same copies copies hence logical addresses are same printed by printf are same but but physically they are different right okay okay so let's just continue now if there is no doubt we can continue let me just know if there is any doubt
+
+126
+01:18:53,450 --> 01:19:19,490
+Okay, if you have any doubt, you can ask me also, okay? So let me just continue. So what is happening? You are having a parent logical address or address space. I mean, this is also called address space. Anyway, this terminology does not matter. So and then exactly same copy you are having for the child. What do I mean by exactly same copy? Where is the stack pointer? I mean, the same stack pointer will get copied. Okay. I mean, the values of same stack pointer, the context, which means child, child, PCB, PCB, you remember?
+
+127
+01:19:21,690 --> 01:19:52,640
+process control block right process so both both will be having different PCBs right control block and and actually both PCBs are almost same okay both PCBs are almost same like I mean this is whatever the program counter value here the same program counter values here both PCBs are almost same okay cool now let's just solve this particular easy question maybe and okay but before that do you do even remember the objective what is our objective
+
+128
+01:19:54,420 --> 01:20:12,860
+What was our objective? So basically we have just understood the fork, right? Yeah, we need to understand fork and eject combination that how we are creating. Do you remember that the objective was something like this? See, okay.
+
+129
+01:20:13,280 --> 01:20:41,620
+So the objective is to understand that how does these two processes are happening, creating the space for hello.out and loading that hello.out in that space. So that was the objective. And I said like this objective is done by fork and eject combination. So we need to first understand fork and then first understand the eject. Then only we can come to this objective. So probably I think we can understand fork today and then eject tomorrow. Actually eject is very small topic. Fork is more interesting. Okay.
+
+130
+01:20:44,070 --> 01:21:13,490
+So let's just quickly, quickly just do one or two questions for the fork and then we can wrap up. Okay. What will the output of the following program? So it will print one. I hope by now you, you understood that it will print one and then then it will fork. Okay. So, so it will print one, then it will fork. What does this fork mean? Let me just tell you what does this fork mean? I mean, you, you, by now you know this already, but still, let me just tell you that see.
+
+131
+01:21:13,820 --> 01:21:45,620
+You are going to have two two programs after this fork and then then both of the programs are going to execute from here. This is maybe child or parent doesn't matter. Maybe let me call it parent. Let me call it child. Right. So both of the programs are going to execute here. So one got printed, one got printed after that, after that, there's a fork and because of the fork, two processes are there and then two will get printed to from here also from here also, right? Two will get printed two times.
+
+132
+01:21:45,990 --> 01:22:16,980
+so this is the output okay now let's just understand this this particular program with one more you know visualization so what is going to happen you have multiple statements let me write all of these statements in one line okay you are printing one you are having fork you are printing two and that's all right
+
+133
+01:22:19,140 --> 01:22:48,590
+All of these statements, I'm just writing just like one line. There's a special name for this particular graph. I will tell you, but that's a very interesting way or very nice way to solve four questions. Okay. Now let's just execute one by one, print F1. What is the output? Now, whenever you see the four in that line, that's called the process graph, actually process graph. Whenever you see a four or something, then what do you do? You basically create one line, something like this. Okay. Something like this. You create one line and then
+
+134
+01:22:48,850 --> 01:23:22,900
+then you exactly copy whatever whatever below this line is okay which means printf2 which means what I'm saying here is that sorry okay let me just write it so exactly copy this which is printf2 basically what is what is happening you are you are saying that okay there is a printf1 after the fork exactly same copy will will happen and and the execution will start from the next line so basically the number of lines here
+
+135
+01:23:23,030 --> 01:23:52,020
+will tell you number of lines like this will vertical lines will tell you how many processes are there so how many processes are there two processes right two processes now now now we are calling this particular process this particular process is a parent process i mean you can call it as a child also but we are calling it a parent and whatever new process you get we are calling it as child so these are the two processes one got printed after that parent will print two and child will also print two
+
+136
+01:23:53,410 --> 01:24:24,160
+That's how we are printing it. Okay. Now why, why this kind of, you know, a whole drama is making any sense. You will get to understand that this will make our life easy. This kind of diagram will make up a life easy. Okay. Yes. Yes. So this is called a process graph also. So let's just do more questions and probably we'll get to understand. Okay. So just a second. Yeah. So let's just solve this question quickly and let me, let me just see that what is the answer that you will be getting.
+
+137
+01:24:24,930 --> 01:24:55,630
+So what you what you are having here is basically multiple multiple lines Which is like this right fork fork and then printf Now what I'm going to do. I'm just going to say that let me just write all of these lines in One graph like this whenever you are having for then what you do You just say that okay. Let me create another process and what this process will be having
+
+138
+01:24:55,910 --> 01:25:42,630
+Just immediately after this fork, whatever it is, right? Okay. Okay. Anyway, it's not getting copied, but yeah. So this is fork. This is print a fellow. Okay. And then, and then once you do this, then what you will do again, you see fork. So because of this fork, you are going to copy what print a fellow print a fellow. So this is just a diagram. Is this diagram understood to everyone? So
+
+139
+01:25:42,940 --> 01:26:19,450
+how you're how you're basically creating the diagram if it is for just create one line and copy the remaining ones right and then whenever you see for create one line and then copy the remaining one okay this is just diagram so we're looking at this diagram can you tell me the total number of processes here in this in this particular I mean in this particular code how many total number of processes will be there after executing this particular code total processes will be three or four so
+
+140
+01:26:19,960 --> 01:26:59,060
+This is one. Okay. Yeah. Actually, the diagram is incomplete currently. Sorry, the diagram itself is incomplete. I mean, this is the correct diagram, but it is incomplete. So let me just complete it. So that is okay. I mean, this particular thing is okay. But because of this fork also, there will be another line, right? There will be another line because of this fork also. And then you are going to copy printflo here. Now it is complete. Yeah.
+
+141
+01:26:59,960 --> 01:27:33,600
+So now tell me how many processes are there? Number of processes. You can just look at the lines and then you can tell me the number of processes, right? Which are four. Generally, let's just call this parent. And since this is a child, so let me call it child. Child 1, child 2 doesn't matter. Okay. This is another child. This is, I mean, this is a
+
+142
+01:27:33,810 --> 01:28:05,890
+child of child with respect to this, it is a child and then this is a child of child. So maybe we can call it grandchild. I mean, the terminology does not matter. You want, if you want, you can call it child, but let's just call it grandchild. Okay. Is this a complete child, children, parent, family, everything is good. Like how this family is getting spawned. Okay. So total number of processes are four and here one is child. I mean, one is parent, one is child, another child, another one is grandchild. I mean, if you want, you can call it grandchild.
+
+143
+01:28:06,600 --> 01:28:37,730
+Okay, so because of this number of lines, you can tell me the number of processes. Cool. Now let's just move further. Let's just see that how it is getting executed. So now you don't need to execute for because you have already made the graph. So now you don't need to execute for just forget about the four. Now tell me what will happen? It will it will be printing. Hello, you will be printing. Hello, this hello, it will also be printing. Hello, it will also be printing. Hello, it will also be printing. Hello, so there are four hellos.
+
+144
+01:28:38,510 --> 01:29:18,160
+Can you tell me which hello is basically first getting printed? Yes, you don't know all of the execution depends on the scheduling So basically you don't know which hello maybe maybe anything right? You don't know anything right cool So this is how the it look looks like now. Let me see if there is any doubt That to to got printed understood, but how you printed a parent first and two of such as a no any any anyone can get printed anytime, okay?
+
+145
+01:29:18,440 --> 01:29:55,410
+So you don't know. Maybe this is from the grandchildren. You don't know. I mean, let's suppose this is child one. This is child two. Okay. Maybe this is from child two. Don't know. Or child one. Actually don't know. Okay. So this is the graph. It is how it looks like. And this is called, can anyone tell me the technical name of this graph? Process graph. Yeah. This is called process graph. Okay. Let's solve more questions and then you will appreciate this method.
+
+146
+01:29:55,650 --> 01:30:24,600
+This method may look unnecessarily, but you will appreciate this method after doing more questions. Okay. Let's just solve more questions. So, let's just solve this question and then you will, you will get to realize that the method that we just talked is actually very nice. So, this is saying int i for i equal to zero to i less than two. So basically, let me just unroll this. I mean, instead of writing like this, let me just write fork printf hello. This is for i equal to zero.
+
+147
+01:30:24,940 --> 01:31:08,750
+and then similarly for i equal to 1 so basically this is something like this right now can you execute this so let's just quickly do it how many times hello got printed that's what they're asking this one this this this this right okay so now this will be having printf hello i'm not writing hello because anyway it is common fork printf hello right
+
+148
+01:31:09,950 --> 01:31:57,240
+Then this will be having printf. Okay. This is okay. This will be having printf. Hello. One, one, two, three, four, five, six. Yeah. I think six times. Right. So, uh, as you can see this printf. Hello printf. Hello. I mean order may be, may be different, but yeah, this, uh, this is how it is going to execute. Right. Okay. So, uh, one printf, two printf, three printf, four, five and six. So I think six times. Yeah. Six times printf.
+
+149
+01:31:57,430 --> 01:32:28,880
+Hello. One time printf for the grandchild. One time printf for the grandchild. Yes, this is this is one time here and two times here. One time here and two times here. Right. So for the parent two times, child one time, this child one time, this child two time and this grand child one time. Okay. So what is your doubt? One time printf for the
+
+150
+01:32:29,330 --> 01:33:23,130
+I mean, this process graph, if this is clear, then I think your doubt should be clear. Okay. This is, let's suppose child one, this is child two. So what is your doubt? Okay. Process graph is not clear. It is very, very easy. Like whenever you are having four, you just create one line and then put all of these things here. Right. So let me just, uh, draw this maybe step by step. Okay. So, uh, tell me, is this, is this okay that you are, you are drawing all, all of the, all of the things, uh, I mean, you're copying all of the things from here to here.
+
+151
+01:33:23,560 --> 01:33:53,770
+Is this okay? I mean, whenever you see for you, you just copy all of the things. I mean, after the after this for you create, you draw one line, you copy all of the things. Now, again, the same thing get repeated. Now, whenever you see for create one line, copy all of the things below, which is printf, right? You see this fork, create one line, copy all of the things below. That's all. Is there any fork or for which I have not created one line like this? I mean, like this. Is there any fork left? I don't think right.
+
+152
+01:33:54,030 --> 01:34:25,300
+this is the four create one line copy all of this all of the things below this is a four draw one line copy all of the things below right so we have covered all the four so this is one print though two print three four five and six so these are the six prints okay you're saying i equal to zero and all okay so actually this this i equal to zero and these things won't matter because this is just a loop which is saying that okay you do four and print f and you have to do it again
+
+153
+01:34:25,610 --> 01:35:01,930
+So instead of, you know, doing it again, I'm just writing it again. Okay. Instead of instead of for equal to zero and equal to one, I'm just writing it for equal to zero. This will happen for equal to one. This will happen. So this will just, you know, simplify the things. Otherwise it will be complicated. Okay. Cool. So let me just move further. Maybe you can understand with the loop examples more. So as you can see that they've also, also written this two times, right? They've also written this two times, then they have, they have drawn the process graph.
+
+154
+01:35:04,580 --> 01:35:43,550
+Okay. Now let's just solve this question. Uh, how many times here hello will get printed? Now the difference is that earlier hello was inside here, the hello is outside. That's the only difference. So I think this is as good as saying fork, fork, fork, fork, hello. Right. So you will be having, I'm drawing it little lengthy because I know that there will be something like this. So this is printf hello.
+
+155
+01:35:47,360 --> 01:36:26,640
+This is printflo, this is fork, this is printflo, right? Okay, so have I missed something? This fork I have not written, right? For this fork also, you have printflo. So how many times we are having this printflo? One, two, three and four, right? Four times. So it is four times.
+
+156
+01:36:29,250 --> 01:36:56,710
+Now like you will you will get to understand this actually if you're having fork continuously and let's suppose there is nothing in between the fork then by the time you are executing the last fork by that time there are two power and processes in total okay including the parent one we will see this which means that by the time this fork got executed like this fork I mean using not by the time I mean what I mean to say that using these two forks okay there will be
+
+157
+01:36:56,940 --> 01:37:29,600
+four processes total, including the parent one. As you can see, I mean, we will see this later, but I'm just telling you in the advance one, two, three, four. Okay. So let's just solve quickly one or two more questions. Okay. So yeah, let's just solve this. This is little interesting. Okay. This is, uh, this is a bit interesting question. Now this is child child. Generally, we also have weight. Uh, you don't need to worry about this weight PID and all. You can just think it is a weight. Okay. I mean,
+
+158
+01:37:29,840 --> 01:38:00,660
+Let me even remove this. So basically, generally, we also have weight, which says that the parent will be waiting for the child. Okay. Child to finish. That's a little interesting question. So let me tell you what this question is saying. This is saying that you have a fork, right? You have this fork, which is printing A. In the child you are printing A, in the parent you are printing B. And then you are printing C. But interestingly, you are also having weight. So what do I mean by that? Let me just tell you.
+
+159
+01:38:01,310 --> 01:38:37,260
+So see, this is fork, right? Then you are printing printf a, then this is printf b, then you are having weight and then you're having printf c. Is this okay to everyone? I mean, all the statements I've written here, but I cannot directly write like this. The reasoning that it is inside the if and if and else, right? So I will say that if it is a, let's suppose if it is a child or parent, whatever it is, right? So
+
+160
+01:38:37,590 --> 01:39:05,050
+then basically first of all there will be two processes right after this four there will be two processes okay so one will be having again this is printf a this is printf b actually let me just tell you that what i want to say is basically
+
+161
+01:39:06,200 --> 01:39:34,980
+This code is getting executed by child and this code is getting executed by parent. I mean both of the both of the code are not executing not getting executed only by only by one process, right? This is by child. This is by parent and this is common. So this printfc is okay, but instead of writing in that way instead of writing that way. So basically this fork will be creating this fork will definitely creating one more process that is fine, but I will be I will be
+
+162
+01:39:35,180 --> 01:40:02,190
+not be, I mean, I will not be copying both of the things at both of the place. So let's suppose I'm copying this printf a here, which means I'm treating this as a child. Then should I be, should I be writing if I'm treating a child, should I be writing printf b also if I'm treating this particular process as child? No, right? So what I'm trying to say that you write printf a only at one place. Similarly, you don't write this printf a here. Okay.
+
+163
+01:40:02,490 --> 01:40:31,260
+I mean this fork was there which was got executed but after the fork this printf a won't get executed in the parent in the parent whatever is getting executed you write only those statements in the child whatever get executed you only you write only those statements so printf a and printf c right these are the only statements that that will get executed in the child is this okay to everyone in the parent whatever get executed in the child whatever get executed don't mix them up okay this is the first thing that I want to convey
+
+164
+01:40:33,370 --> 01:41:02,750
+Now, interestingly, what this weight does is basically says that parent will be waiting for the child. It means that until and unless, like you can just write like a directed arrow or something like that, until and unless this child get finished, you cannot print this C. You cannot, you cannot out from this weight. Okay. So basically, basically you can write it as a directed arrow at the weight.
+
+165
+01:41:03,000 --> 01:41:30,390
+which means until and unless this child get finished you can you cannot proceed okay so this is how we are making the process graph don't worry we will be solving more questions many questions we will be solving but but first understand this that's how we are making the process graph okay now tell me possible patterns see now that's very interesting now now let's just see the possible patterns first have you understood the process graph or not
+
+166
+01:41:42,600 --> 01:42:24,490
+First, let me know if you understood the process graph or not. So basically, whatever code is needed for the parent, write only that code. Whatever code is needed for the child, write only that code, right? Okay. So what I'm trying to say here is that, see this four equal zero. Now child, like this will get executed by the main, I'm in the parent process and then
+
+167
+01:42:24,840 --> 01:42:54,590
+parent will say that okay since it is non-zero for the parent it is non-zero parent will not be executing this printf parent will directly be executing after this this printfb right parent will directly be executing this printfb then wait and then this see so whatever parent is getting executed you write only those things now child will be executing this printf a and then printfc right so whatever child get child execute write only those things don't write multiple things otherwise it will be not easy to manage
+
+168
+01:42:55,050 --> 01:43:26,820
+Okay, so so basically basically you have you have this particular process graph now Now they are asking how many patterns are possible. That's again very interesting question, right? So let's just see how many patterns are possible see Do you do you think that? Okay, tell me can you jumble up this C&A can can see get printed before a Can see get printed before a never write never ever so
+
+169
+01:43:27,230 --> 01:44:01,500
+One thing is for sure a and c right one thing is for sure. I mean a and then see in between Can this be can this be happen before? Sorry Yeah, can this this is be okay. Can this be happen before? Can this be happen at this this point in time? Can this be happen at this point in time? So actually a and c is fixed but this be can happen at any any place, right? So which means which means you can have B and then
+
+170
+01:44:01,750 --> 01:44:38,360
+AC you can have A and then BC you can have AC AC and B is this okay to everyone these three things now now tell me can this see okay this is very interesting can this see be printed can this see be printed before okay let's suppose this is BAC I have okay can this see be printed before B
+
+171
+01:44:39,020 --> 01:45:03,580
+Before we obviously know right I mean there is no way you can you can print this C before we before we obviously know I hope you understood Can it be printed before before we also after we but here? That's also no actually this will be printed once everything else is finished I mean it will wait for the child to finish and once this this this
+
+172
+01:45:03,810 --> 01:45:45,890
+this C, A, C and B, everything has been finished. Then only you can write C, right? Then only this last C can print it. There is no way you can print it before any of the letter because of the weight. Okay. So that's why three patterns are possible. Okay. I hope you, you are understanding. So basically just draw a directed edge like this. Okay. Draw a directed edge like this. And then just say that you are waiting for the child to finish. How, how this ABC, how this ABC.
+
+173
+01:45:47,940 --> 01:46:14,620
+Yeah, you are printing a and then maybe maybe there is a context switch. Maybe, maybe this can get scheduled. Okay. This can get scheduled. And then you don't know, I mean, it is not necessary that once the child is getting scheduled, then all the things of child will happen first. No, no, it's not like that. Something of the child. Then maybe, maybe you can interleave. Okay. OSOS may decide to, uh, to print this program. OS will say that, okay, let me just schedule this. Right. Yeah. That's very interesting question that how this ABC is coming.
+
+174
+01:46:15,790 --> 01:46:44,330
+Because it's not like that, okay, all the things of child will happen first. If child has got scheduled, no, no. I mean, that will be a big problem. I mean, that if child is too long to execute, then child will be running for one hour and parent will be waiting. It's not like that, right? I mean, you can have the context switch. You can switch, right? Okay. So these are the three patterns which are possible. Yeah. So if there is no weight, if there is no weight,
+
+175
+01:46:44,560 --> 01:47:15,530
+then you need to check that okay this is AC that will be in that order and then BC right so BC could be here I mean there are you need to select the position so maybe you can do it like four factorial upon two factorial into two factorial right if this weight is not there then these are the four factorial and this is two factorial this is two factorial which has to be in the same same order so I think this should be the answer if weight is not there anyway
+
+176
+01:47:16,150 --> 01:47:55,930
+I mean, this is a discrete mathematics question then. Okay. Have you understood that why we are writing a 4 factorial upon 2 factorial into 2 factorial if it is not there? In the discrete mathematics, if you have seen this, then it is okay. Otherwise, it's not required here. Okay. Yeah. Cool. So, okay, this is the same question and the answer they have not written, I think, but anyway, so maybe we can do these questions later. Do you want to do this question?
+
+177
+01:47:56,350 --> 01:48:29,160
+This is extremely interesting question. Okay. Just try this question as an homework. This is very, very nice question. Okay. Try this question as an homework. How many processes are created? Yes. You can do it as an homework. Okay. I mean, the answer is there on the next page, but don't see the answer. As you can see, this question is taken from a stagall flow. That too is having 36 upwards on the answer on the stagall flow. 36 upwards on, on, on just a normal four question is not very usual. Right.
+
+178
+01:48:29,390 --> 01:49:05,960
+So it must be a good question. It's a very good question. You just try it out. Okay. So, uh, I will put the annotated notes and then you can try out these questions, right? Cool. So we will be meeting in the next lecture and whatever doubt you, you are having currently like, I mean, there will be things here and there, but eventually all of the things will be making sense. Should I just summarize that what we talked today in just one or two minutes? Maybe, maybe I can quickly do it. Okay. So see. Okay.
+
+179
+01:49:06,260 --> 01:49:53,910
+we talked about PCB we talked about first what is a process right a program in execution which we said it is a program in execution then we talked about here from here we talked about PCB and what is a context and all then then we want to talk about that how to create a process this is done using two steps first is create a space yeah
+
+180
+01:49:54,470 --> 01:50:35,720
+create a space, load in that space, right? And that's where we want to understand fork and eject fork and eject. Now, while we were dealing with the fork, fork, we found out that fork creates identical copyright of addresses spaces, addresses space, or you want to call it logical address, whatever, right? Logical addresses.
+
+181
+01:50:37,740 --> 01:51:25,070
+I mean, I hope you understood. So basically addresses space logical address, you just treat them as same thing. And then then we found out, okay, that this is this is something logical memory. Then we talked a little about logical memory. And, and then, then I mean, we talked that okay, there is a compiler and for the compiler, we say that the whole memory is to you, right? I mean, we, we say to the compiler that
+
+182
+01:51:25,820 --> 01:52:10,050
+whole memory is for you. That's what the logical memory is. And then after that, we found out that four basically creates two identical copies, but physically they are different. Of course, they have to be different. I mean, how can they be same if they are two different processes? Obviously, they have to be physically different.
+
+183
+01:52:10,520 --> 01:52:58,880
+so this is this is very obvious thing but still obviously like as a beginner we need to talk about it and then we understood then after that we understood we understood poor copies by printing addresses and changing values and we found out that addresses are same same change to one thing does not reflect to another thing right okay
+
+184
+01:53:18,600 --> 01:53:54,400
+I mean, these are the things. Yeah. So, yeah, that's also important point. So order of order of execution of the child and parent is, is depending on the scheduling, right? Order of execution of child and parent and depend on scheduling. This is not in our control. And then we understood the process graph. And before the process graph, I think, uh,
+
+185
+01:53:56,050 --> 01:54:47,330
+one good representation of that. So let me write it. We understood this and then we understood the process graph. Yes. Right. Okay. So I think that is all we have understood. I mean, these are the small, small things, but it's still very, very necessary to understand. Okay. So this is the summary. This is the summary. Okay. So I hope you understood all of this.
+
+186
+01:54:47,630 --> 01:54:49,650
+Let me know if there is any doubt or something.
+
+187
+01:54:50,490 --> 01:55:17,930
+Okay. See, just to recap that this PCB, you don't need to worry. This is something, some data structure, which just capture the context and the fork and eject relationship we need to understand. Today, mostly we talked about this logical, physical, these things, right? I mean, what is happening inside the fork, these things we talked about. So mostly the whole discussion was behind this fork, basically just to solve one question, which was this question. So most of the discussion were around this particular concept, right?
+
+188
+01:55:18,600 --> 01:55:43,770
+and this was very necessary also okay so let's meet tomorrow right yeah thank you thank you everyone bye whatever doubt you have like I will enable the comment so you can you can just comment under this video also okay whatever the doubts you have okay thank you take care bye bye
+

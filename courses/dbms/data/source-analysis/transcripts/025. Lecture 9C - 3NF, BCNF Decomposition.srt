@@ -1,0 +1,1304 @@
+1
+00:02:39,360 --> 00:03:07,920
+hi everyone is the audio video is everything clear please tell me so in this session we will study 3NF BCNF decomposition right this is our last topic in the module 1 in the module 1 which is normalization in that module this is our last topic lecture 16 that is 3NF BCNF decomposition so algorithm we will see
+
+2
+00:03:08,170 --> 00:03:32,930
+If your relation is not in 3NF, if your relation is not in BCNF, then how can you decompose that relation into BCNF relation? How can you decompose that relation into 3NF relation? Okay, so these algorithms we will study. So the content of this lecture is BCNF decomposition, 3NF decomposition and understanding dependency preservation. What is this dependency preservation? Again, we have already understood this.
+
+3
+00:03:33,270 --> 00:03:59,200
+Okay, what the dependency preservation means that we have already understood but we will again we will just look at look at it once we will revisit this topic once again. Okay, so anyway, so let's start now. And you can join the go classes telegram group. The username is gate CSC underscore go classes for all your doubt discussions this telegram group you can join. Now, let's see this.
+
+4
+00:03:59,480 --> 00:04:27,930
+BCNF decomposition. How can you decompose a relation into BCNF? What is the definition of BCNF that you already know? What is that? Relation is in BCNF. If for all the non-trivial FD, the LHS must be a super key. If you have a non-trivial FDE, then this X must be a super key. This is the definition of BCNF that we already know. Tell me the answer for this question. A relation with just two attributes, if you have a relation with only two attributes,
+
+5
+00:04:28,370 --> 00:04:56,230
+Can I say it is necessarily in BCNF? And the answer is yes. Okay. If you have two attributes, then it is mandatory that it will be in BCNF. Why? What is the reason? That we have already seen actually. What is the reason? If you have two attributes, for example, if your real estate has two attributes, like for example, A, B, then what are the possible scenarios? There are four cases. Yes or no. There are four cases. The case one is there is no known triviality. This is the case one.
+
+6
+00:04:56,560 --> 00:05:25,140
+that there is no known trivial FD we have no known trivial FD in this situation because you have no known trivial FDE so automatically the relation is in BCNF because there is no BCNF violation correct so if you have no known trivial FD if there is no known trivial FD then in this situation what I will say so basically in this situation means A does not determine B and B does not determine A okay so in this situation I can say that relation will be in BCNF because
+
+7
+00:05:25,980 --> 00:05:55,250
+Because there is no non-trivial FD. You have no non-trivial FD. So in this situation, it will be in BCNF because there is no BCNF violation. When the BCNF violation happens, can anyone tell me when the BCNF violation will happen? In which situation BCNF violation will happen? Your relation R is not in BCNF. When can I say it is not in BCNF? It is not in BCNF if and only if there exists a non-trivial FD.
+
+8
+00:05:56,170 --> 00:06:24,400
+Yes or no? There must exist a non-trivial FD. You must have at least one non-trivial FD. There must exist a non-trivial FD as determining A where this X is not a super key. Where this X is not a super key. Okay, so this type of FD must, this type of non-trivial FD must exist. Correct? This type of non-trivial FD must exist. So if you have no non-trivial FD, then automatically your relation will be in BCNF. What is case 2? What is case 2?
+
+9
+00:06:24,580 --> 00:06:53,970
+the case 2 is that A determines B this is your FD A determines B then here you can notice what is your candidate key your candidate key is A okay and you can notice this is your only non-trivial FD so this is in BCNF so this is in BCNF because this A is a super key because this A is a super key and what is the case number 3 the case number 3 is B determining A the same situation will happen here also and the case number 4 that is A determines B
+
+10
+00:06:54,330 --> 00:07:24,440
+and b determines a so in this situation the candidate key will be a comma b a is also candidate key b is also candidate key then in this situation also you have b cnf and in this situation also you have b cnf in this situation your candidate key is b okay so like this so whatever case is there case one case two case three case four four cases are there in all the cases this must be in b cnf okay must be in b cnf so if your relation has two attributes
+
+11
+00:07:24,860 --> 00:07:55,290
+If you have only 2 attributes then your relation will definitely be in BCNF because 4 cases will be possible and in each case your relation is in BCNF. Now tell me if I give you a set of relations then if I give you a particular relation then you can say for example if I give you a particular relation if I give you one relation a particular relation if I give a particular relation or if I give then you can say it is in BCNF.
+
+12
+00:07:55,870 --> 00:08:25,020
+Okay, so you can say it is in BCNF or not in BCNF. You can say it is in BCNF or not BCNF. So either it will be in BCNF or it will not be in BCNF. If you have a particular relation, if you have one relation, R. But if I give you a set of relations like R1, R2, R3, R4, four tables I have given to you. Okay, in this I have given to you four tables. When can you say that this system R, when can you say this system S is in BCNF?
+
+13
+00:08:25,800 --> 00:08:53,780
+Tell me when can you say this system as this database is in BCNF when can you say can you tell me so you can say if all of them are in BCNF right so this must be in BCNF this must be in BCNF this must be in BCNF and this also must be in BCNF so all of them must be in BCNF so I can say that if you have a database schema okay or I can say if you have a set of schema R1 R2 and so on so if you have a database if you have a database
+
+14
+00:08:54,290 --> 00:09:24,560
+R1 R2 Rn then this is in BCNF if each relation is in BCNF correct very simple each relation must be in BCNF so I can say that a database is in BCNF if each relation is in BCNF now let's move on similarly a database is in 3NF if each relation is in 3NF right a database this is in 3NF if each relation is in 3NF and similarly a database is in 2NF if every relation is in 2NF so very simple now you tell me
+
+15
+00:09:24,820 --> 00:09:53,880
+If a relation is not in BCNF then how can you make it into BCNF? If you have a relation which is not in BCNF then how can you make it into BCNF? Yes, we can do decompose. We can decompose into subrelations which are BCNF. This is the idea, agree or not? So we can decompose R into subrelations which each of which is in BCNF. Each of them is in BCNF. Each subrelation must be in BCNF. That is the idea.
+
+16
+00:09:56,080 --> 00:10:21,370
+If R is not in BCNF then you can decompose R into sub relations such that each sub relation is in BCNF. All you have to do is look at each sub relation individually and check if they are in BCNF. Look at each sub relation individually and check if they are in BCNF. This is what you have to check.
+
+17
+00:10:22,940 --> 00:10:50,470
+is it in BCNF now you tell me this question I am giving you a question and you tell me is this BCNF decomposition on your screen you have ABCD or ABCD and the functional dependency is ABCD these are the functional dependency you consider the decomposition I am giving you a decomposition which is R1 which is ABCD so can I say this is BCNF decomposition can I say this is BCNF decomposition
+
+18
+00:10:51,020 --> 00:11:19,820
+yes the answer is yes this is BCNF decomposition why because R2 is in BCNF because R2 is in BCNF and you can notice R1 is also in BCNF right so R2 is in BCNF R1 is also in BCNF why R2 is in BCNF what is the reason R2 is in BCNF because only two attributes so there is nothing to check R1 has two attributes so there is nothing to check agree or not so R1 comma R2 they have two two attributes so nothing to check
+
+19
+00:11:20,010 --> 00:11:49,200
+they are in BCNF so i can say is this BCNF decomposition answer is yes is this good decomposition this is BCNF decomposition but is this good BCNF decomposition is this good BCNF decomposition is this good BCNF decomposition tell me no this is not even low slay this is low C can you notice this is actually low C this decomposition is actually low C there is R1 intersection R2 is what
+
+20
+00:11:49,990 --> 00:12:20,070
+R1 intersection R2 is 5 there is nothing common there is nothing common so it is actually lossy yes or no can you notice is this clear to everyone so this decomposition is actually lossy okay is this clear this is lossy so a lossy decomposition can it be a good decomposition if you have a decomposition which is lossy it cannot be good so you can clearly see that you can clearly see I can say this is not a good BCN of decomposition can I say this
+
+21
+00:12:20,540 --> 00:12:51,250
+not a good BCNF decomposition okay but this is a BCNF decomposition if someone ask you is this BCNF decomposition answer is yes okay to check if a decomposition is BCNF or not what you will do a given decomposition I give you a decomposition okay is this clear given decomposition is it in BCNF what you will do you will check each individual table
+
+22
+00:12:51,880 --> 00:13:15,380
+Each individual table, each sub-relation you will check, individually you will check. But you can notice this decomposition is low C. So this is definitely not a good BCN of decomposition. Is this clear? This is not a good. This is not a good BCN of decomposition. But this is a BCN of decomposition. Okay. Now, like you can see, this is from the Navate. If you have doubt, some students might be thinking that
+
+23
+00:13:15,860 --> 00:13:41,640
+if it is low C it cannot be BCN of decomposition we cannot call it BCN of decomposition right yes or no you might be thinking that if it is low C if it is low C can we call it BCN of decomposition can we still call it BCN of decomposition the answer is yes we can call it but that is not a good database design okay this is not a good database design you can call it because you can see from the navate this is the source from navate you can notice for example
+
+24
+00:13:42,010 --> 00:14:09,470
+another goal is to have each individual relation is in BCNF okay each individual relation in the decomposition must be in BCNF however however this condition is not sufficient to guarantee a good database design is this clear tell me is this clear to everyone so remember each individual relation must be in BCNF or 3NF for example in this last in this example R1 is in BCNF R2 is in BCNF
+
+25
+00:14:09,610 --> 00:14:38,240
+So I can say that it is a BCNF decomposition, but it is not a good database design. For example, another example is also given. For example, you can notice a decomposition is given in which this table is in BCNF. But you can notice this table is in BCNF. But what is happening? This is a low C decomposition. This is a low C decomposition. So this is source from Navate. And similarly, you can also see from the stake overflow.
+
+26
+00:14:38,630 --> 00:15:07,120
+this is the stakeout flow link in this you can notice do we consider the BCNF as decomposition as BCNF if you have a decomposition can you call it BCNF even if it is a lossy even if it is a lossy so your decomposition is lossy can you still call it BCNF if your every subrelation is in BCNF the answer is yes basically the answer is this if you want to check a certain decomposition is in which normal form then all you have to check is
+
+27
+00:15:07,360 --> 00:15:35,170
+each component must be in that normal form but of course you can notice but of course this is not a good database design okay so this is what i want to tell you understand the difference between these two questions if i ask you to give me bc of decomposition will you give me no c two questions different two questions you understand two questions if i ask you to give me bc of decomposition will you give me no c tell me
+
+28
+00:15:35,750 --> 00:16:04,590
+If I ask you to give me BCNF decomposition, will you give me low C? The answer is no. You will not give low C, yes or no? So if I ask you to give BCNF decomposition, you must give a low C less decomposition. But if I already give you a decomposition, is it BCNF? Then what you will do?
+
+29
+00:16:06,580 --> 00:16:34,940
+every relation in this what you will do in this you will check every sub relation okay but here you will give me lossless so understand the difference between these two questions is this is this point clear so if I ask you to give me BCN of decomposition then you must give you must give a lossless you must give lossless okay if I ask you to create a BCN of decomposition you must create you must create lossless
+
+30
+00:16:36,010 --> 00:17:03,250
+okay and of course if possible you also create dependency preserving if possible if possible then you create a dependency preserving if possible now the another question is this given a bcn of decomposition I already give you a bcn of decomposition is it in bcn of given a b given a decomposition is it bcn of what you will do in this case you will just check the individual sub relation whether they are in bcn of or not
+
+31
+00:17:04,020 --> 00:17:33,640
+Tell me, did you understand the difference between these two? Is this clear? So, if I ask you to create BCN of decomposition, I give you a relation and I tell you to create BCN of decomposition, what you will do? You must give me, must, you must give me lossless BCN of decomposition. And if possible, you give me dependency preserving also. Okay, lossless is must, lossless is mandatory. But if possible, you also give me dependency preserving decomposition.
+
+32
+00:17:34,240 --> 00:18:02,640
+okay yes or no and the second point if i give you a decomposition i give you a decomposition and then i ask you is this bcn of decomposition then what you will check then you will only check the individual sub relations then check the individual sub relation every sub relation you check individually so these two questions is this clear the difference is clear tell me okay now let's move on now let's see so remember now finally
+
+33
+00:18:03,160 --> 00:18:31,310
+So while creating a BCNF decomposition, what do you should do? If you are creating, while creating BCNF decomposition, what do you should do? While creating BCNF decomposition, if you do not care about lossless, then this will become a very trivial problem. Yes or no? I ask you to give me a decomposition. For example, let's assume R. You have a relation R. Let's assume a relation R. This is not in BCNF. Okay, not in BCNF. Let's assume. And I ask you to give me BCNF decomposition.
+
+34
+00:18:32,560 --> 00:19:01,520
+give a BCN of decomposition let's assume you become very smart okay give me a BCN of decomposition then you can notice that if if I don't tell you give me lossless then what will happen if I don't tell you to give me lossless then what will happen you will just give me you will just divide it into two two attributes yes or no okay if you don't care if you don't care about lossless or lossy if you don't care about lossless or lossy if you don't care about
+
+35
+00:19:03,220 --> 00:19:34,190
+lossy or lossless okay so remember if I don't tell you or I can say if you don't care about lossy or lossless then then it is very trivial okay yes or no then it is very trivial then this question is nonsense can you notice yes or no then this question is nonsense because what you will do you will create two attributes two attributes one two two attributes another relation you can create two attributes another relation you can create
+
+36
+00:19:34,460 --> 00:20:10,560
+two attributes okay so two attributes you can create are you getting my point is this clear to everyone so if if you don't care about lossless or lossy then this will become a nonsense problem I agree or not do you agree this will become nonsense if you don't care about lossless or lossy then this question becomes nonsense is this clear please tell me okay is this clear let me know so this will become a nonsense question if you don't care about lossy or lossless so you can notice very simple that
+
+37
+00:20:10,880 --> 00:20:39,830
+If we don't care, if we do not care about low serous honesty, then it will become a very trivial question. Because what you will do, you can just divide the relation into some relations of two-two attributes. And this is given in the Ulman also. The same thing is given in the Ulman book also. In the Ulman you can notice that basically, basically all you have to do, all you have to do is break down the relation into two-two attributes. And the result is surely in BCNF. However,
+
+38
+00:20:40,910 --> 00:21:07,020
+This however word. Okay. However, this decomposition will not be lossless. Yes or no. This decomposition, this type of decomposition will not be lossless. This condition number two, that is lossless. So this type of decomposition may not be lossless. So this is the point I want to tell you that. Okay. This is the final conclusion. What are the final conclusion? This is the final point I want to tell you if. Okay.
+
+39
+00:21:07,310 --> 00:21:35,990
+if i ask you to give me xnf decomposition whatever like 2nf 3nf bcnf whatever this x can be 2 this x can be 3 this x can be bc so you can notice if i ask you to give me 2nf xnf bcnf decomposition what you will give me tell me in this situation what you will give me tell me if i ask you to give me xnf decomposition bcnf decomposition 3nf decomposition 2nf decomposition then you will give me loss less then definitely you must give me loss less okay
+
+40
+00:21:36,330 --> 00:22:03,150
+it you must give a loss less and if possible then you must give me the dependency preserving agree or not agree or not if possible then you must give me dependency preserving also but the another question is this given a decomposition is it loss is it xnf then what you will check given a decomposition is it xnf then what you will check in this situation given a decomposition is it xnf
+
+41
+00:22:03,480 --> 00:22:32,870
+In this situation you will only check the individual table, right? Yes or no? You will just check the individual table whether they are in XNF or not. This is the final conclusion that we have seen. Is this clear to everyone? Is there any confusion or is this clear? This point is clear or there any confusion? Do you have any confusion? Okay, now let's see the algorithm. Now let's see the BCN of decomposition algorithm and this algorithm that we see that will guarantee loss less. Is this clear?
+
+42
+00:22:33,240 --> 00:23:01,820
+the algorithm that we will see now the algorithm that we are going to see now that will guarantee lossless decomposition is this clear okay so now let's see the algorithm but remember this algorithm that i am going to tell you now this algorithm will guarantee this algorithm will guarantee a lossless decomposition into bc of sub relations okay so what this algorithm is saying with example this concept will become clear but what this algorithm is saying very simple algorithm what to do
+
+43
+00:23:02,200 --> 00:23:40,250
+you take the violation this is your BCNF algorithm okay and what it makes sure what this algorithm is making sure the algorithm that we will see tell me what it will make sure it will make sure that it will guarantee lossless it will guarantee lossless okay so it will guarantee lossless BCNF decomposition lossless BCNF decomposition it will guarantee okay what this algorithm is saying this algorithm is very simple that basically what you do check
+
+44
+00:23:40,910 --> 00:24:12,000
+take any violation if if relation R is in if R is already in BCNF then what to do if R is already in BCNF then what to do tell me then what to do if R is already in BCNF then nothing to do okay then stop yes or no then stop then you can stop there is nothing to do and if R is not in BCNF then what to do if R is not in BCNF in this situation what to do very simple you take a violation
+
+45
+00:24:12,670 --> 00:24:44,230
+what you do you take a violation of BCNF any violation you can take you take a violation of BCNF you take this violation for example let's assume this is the violation okay let's assume this is the violation then what it means if it is a violation then what it means it simply means this is not a super key right it simply means this is not a super key agree because this is a violation so you take any violation of BCNF let's assume this is the violation of BCNF then what you do then what you do you find X plus
+
+46
+00:24:45,270 --> 00:25:14,910
+okay what you do you find x plus you find this x closer okay this x closer you make one table is this clear this x closer you make one table and you make another table you make another table where what you do in the another table what you do from R you remove this this RHS alpha okay this alpha you remove R minus alpha is this point clear and make sure that make sure that this is known trivial
+
+47
+00:25:16,440 --> 00:25:26,610
+Make sure this is non-trivial. Make sure this is non-trivial means their intersection must be fine. Make sure their intersection is empty.
+
+48
+00:25:47,720 --> 00:26:17,230
+But don't remove this x. Okay. Do not remove this x. So this is what you do. Okay. So find a violation of BCNF. Then you find x plus and then you do this. The same algorithm we have done for 2NF. Very good. The same algorithm works for 2NF. But in the 2NF what we do? In the 2NF we check for 2NF violation. Yes or no? The same algorithm works for the 2NF. And in the 2NF what we do? We check for 2NF violation. Violation of 2NF we check. And here we are checking for violation of BCNF.
+
+49
+00:26:17,550 --> 00:26:46,260
+okay so the same algorithm so what you do very simple you find this violation find X plus that will be your one relation R1 and another relation R2 will be from R you remove the RHS don't remove the LHS so remove the RHS union X don't remove the LHS so this is the simple point now let's see with example this concept will become clear okay now let's see this question we do BCN of decomposition okay perform BCN of decomposition
+
+50
+00:26:50,730 --> 00:27:23,270
+perform BCNF decomposition. So what you will do? First of all, is this in BCNF or not? What is your candidate key? You tell me what is the candidate key? C A, C are not on RHS. So that is your candidate key. That is AC. So you cannot do this. AC is a candidate key. So definitely this is violation. Do you agree? Definitely this is violation of BCNF. This is violation of BCNF. Why? The reason is very simple. This is non-trivial and this is a not super key. This is not super key.
+
+51
+00:27:23,530 --> 00:27:56,930
+and definitely you can notice that this is non trivial okay this is a non trivial this fd is non trivial fd now in this situation what you will do so you take this violation basically you this is a violation so you can notice this is a violation so you take this violation and what you will do from this violation what you will do you will find a plus correct you will find this a plus you will find what is a plus a plus is what a plus is ab this a plus will become your r1
+
+52
+00:27:57,760 --> 00:28:25,130
+is this clear this will become your R1 and what your R2 will be R2 will be from R from this relation R you just remove the RHS okay don't remove the LHS don't remove the LHS remove the RHS so what you will get you will get A comma C so you will get this R1 will be A comma B and R2 will be A comma C so this decomposition you got is this clear let me know
+
+53
+00:28:25,870 --> 00:28:54,420
+Okay, so you will get a comma b one table a comma b and another table will be a comma c so two tables you got so finally this is your BCNF decomposition this R1 is a comma b and this R2 is a comma c now do you have to check anything once you get two attributes you don't have to check agree or not there is nothing to check this is guaranteed in BCNF it is guaranteed that it is in BCNF or it is also guaranteed that it is in BCNF
+
+54
+00:28:54,700 --> 00:29:20,010
+so this is a guarantee right and you can guarantee that it is in enough also sorry it is it is lossless you can guarantee it is lossless why why can you guarantee it is lossless why can you guarantee it is lossless what are the guarantee tell me what is the reason you can guarantee it is lossless anyone anyone want to tell me what is the guarantee that it will be lossless
+
+55
+00:29:20,480 --> 00:29:50,260
+because the common thing because the common thing this this LHS is the common thing and that is a super key in R1 agree or not yes or no very simple point I am saying okay very simple point I am saying that in this algorithm what you are doing in this algorithm you can notice that so this is your algorithm you have a relation R okay this is your relation R which is not in BCNF okay so this relation R is not in BCNF now in this relation R what you do you find a violation
+
+56
+00:29:51,460 --> 00:30:26,170
+you find a violation which is a let's assume x determining alpha x determining alpha okay or maybe x determining a or whatever okay x determining a now what I'm saying or maybe you can take alpha so in this situation what I'm saying I'm saying that sorry one more thing I want to tell you here so you find x plus and you remove this x plus okay actually you have to remove x plus but you have to keep x
+
+57
+00:30:27,030 --> 00:30:59,650
+okay you have to remove x plus you have to keep x you have to remove x plus you have to keep x is this point clear okay you have to remove x plus like this r1 completely this r1 you have to remove but you have to keep this x okay so see so what I'm saying here for example this is your violation let's assume as determining alpha this is your violation okay because this is a violation so automatically this is non trivial fd automatically this is a non trivial fd and automatically this is a not super key because this is a violation of
+
+58
+00:31:00,420 --> 00:31:28,900
+In this situation what you will do? You will find in this situation you will find X plus correct this X plus you will find and then you can notice in R1 what you will do in R1 you will put X plus so because you are putting X plus so can I guarantee that X is a super key here can I guarantee X is a super key here agree or not can I guarantee X is a super key here right because you are putting X plus so definitely X is a super key okay
+
+59
+00:31:29,140 --> 00:31:59,200
+and what your r2 will be your r2 will be from r you remove this x plus from the relation r you remove this x plus and you don't remove x so you can notice one thing you can notice that this you can this you can guarantee that this will be be this will be the lawless this will be lawless why the reason is very simple what is the intersection of r1 to intersection r2 that is exactly x okay and you can notice this x can determine r1 okay
+
+60
+00:31:59,510 --> 00:32:34,680
+and this x can determine r1 so this is a guarantee that it will be lossless is this clear is this clear that this will guarantee lossless ac and you can notice this is a bcnf and this is a lossless so this is your answer that's it so very simple this algorithm now let's see this so tell me bcnf decomposition don't worry we will take a lot of questions a lot of questions we are going to take so let's see bcnf decomposition first of all what is the candidate key
+
+61
+00:32:35,650 --> 00:33:07,670
+What is the candidate key? A, D is not on RHS. So that will be the candidate key. So can you notice these are violation? Okay, can I say this is a violation? This is violation and this is also violation. Take any violation of your choice. This is also violation. This is also violation. Take any violation. Take a violation. Take a violation. Okay, any violation you can take. Take any violation. For example, let me take this violation. Is this clear? Let me take this violation.
+
+62
+00:33:08,130 --> 00:33:37,430
+now in this violation you can notice this is a violation so let me take any violation I am taking this violation now in this violation what you do you find a plus correct find a plus what is a plus a plus is abc so find a plus that will be abc okay so that is going to be abc so this abc will become your r1 and what your r2 will become r2 will be r minus this abc okay r will be r minus a plus
+
+63
+00:33:37,880 --> 00:34:04,510
+correct R minus A plus but don't don't remove this A so your R2 what your R2 will be your R2 will be AD correct this will be your R2 and R1 will be A comma B comma C agree or not tell me is this clear or not so your R1 will be ABC your R2 will be AD now now now this AD can I say this AD is in BCNF
+
+64
+00:34:05,420 --> 00:34:32,850
+only two attributes so definitely it is in BCNF because only two attributes so there is nothing to check but we have to check R1 but we have to check remember we have to check R1 what are the projected FDs of R1 in R1 what are the projected FDs you find the projected FDs of R1 what are those in R1 what are the projected FDs so I can say that a determining BC that is projected FD agree or not
+
+65
+00:34:33,800 --> 00:35:01,360
+This is a projected FD, A determining BC. So this is the projected FD. So what is the candidate key? In this R1, what is the candidate key? That is A. So this is in BC enough, agree or not? So you can notice this is not a violation. This is a super key. So this is a super key. This A is a super key. So I can say this R1 is in BC enough. So this is also in BC enough. This is also in BC enough. So finally you can stop here.
+
+66
+00:35:01,640 --> 00:35:31,360
+so R2 BCNF R1 BCNF you can stop here this is your answer okay this is your BCNF decomposition now let's see the another question again you do the BCNF decomposition take your copy pan again you do the BCNF decomposition so what you will do here in this question again what is the candidate key you tell me what is the candidate key so you can notice ad is the candidate key right this is the candidate key so you can clearly see this is a violation because a is not a super key
+
+67
+00:35:31,980 --> 00:36:00,690
+okay and you can clearly see this is also violation okay you can clearly see this is also violation this is violation one let's call it violation two so you can call it violation one you can call it violation two so there are two violations both are violations now what are the what is the approach okay your method one what you can do see either you can take this violation first or you can take this violation first do you agree okay so I can say method one in the method one what you do you take violation one
+
+68
+00:36:02,700 --> 00:36:32,530
+Either you can take violation 1 or you can take violation 2. So method 1, you take violation 1. If you take violation 1 then what will happen? This is your violation 1. So here you will find A plus. Again you will find A plus. A plus is what? That is ABC. So this will become your R1. Correct? Okay. This will be your R1. And what your R2 will be? Your R2 will be very simple that from R you remove this R1 but keep this A.
+
+69
+00:36:32,860 --> 00:37:01,090
+but keep this a okay from r you remove this r1 from r you remove this r1 but keep this a but keep this a so what your r2 will be so the r2 you can notice the r2 will be basically a comma d r2 will be a comma d right okay so finally what you will get here in this situation you go to two relations this is a comma d there is two attributes
+
+70
+00:37:01,630 --> 00:37:36,230
+you only have two attributes so there is nothing to check so this is in BCNF because only two attributes are there there is nothing to check but you have to check R1 let's check R1 remember you have to check this R1 ABC what are the projected FDs what are the projected FDs can anyone tell me the projected FDs you can notice A can determine B you can notice A can determine B B can determine C so A can determine B and B can determine C these are the projected FDs correct yes or no
+
+71
+00:37:36,450 --> 00:38:05,700
+And of course, A can determine C also, but that is transitively given. A A determined C also, but that is transitive. That is transitive. Okay, so it will be I can say A determining B, B determining C. Now, what is the candidate key? What is the candidate key? Tell me. The candidate key is A. So because the candidate key is A, so I can say this is a violation. So this is again a violation. So now you repeat the same procedure. The same procedure you repeat. Is this clear?
+
+72
+00:38:06,010 --> 00:38:37,240
+this is a violation so the same processor you will repeat this is done okay now you will you will repeat the same processor so take this violation take this violation be determining c and what you will do what is your next step you will find b plus right okay so you will find b plus that will be bc this bc you can call r3 this bc you can call it r3 okay let me call it let me call it r3 you can call it r3 and what your r4 will be then
+
+73
+00:38:38,130 --> 00:39:11,340
+then what your r4 will be r4 will be from r1 you remove this b plus but don't remove this b but don't remove this b so your r4 will be basically I can say that it will be b comma a it will be b comma a comma b so final your answer is what can anyone tell me what is the final answer so the final answer is this final BCN of decomposition that you got okay so the final BCN of decomposition that you will get is this
+
+74
+00:39:11,670 --> 00:39:48,380
+okay you can you got R1 which has AD or I can say you got R2 which has AD and you got R3 which has BC and you got R4 which has AB this is your answer is this clear this is your answer okay no it is not a mandatory thing if you take different violation first then you may get
+
+75
+00:39:48,760 --> 00:40:19,570
+You may get different BCN of decomposition. For this question it will not happen. For this question if you start with violation 2 then also you will get the same decomposition. Let's see this. Okay. Let's start with violation 2. Okay. Let's start with violation 2. Let me start with violation 2. Your violation 2 is this. Be determining C. This is the violation 2. Okay. So this is your violation 2. Now you take this. Then what you will do? You will find B plus. B plus will be BC.
+
+76
+00:40:20,060 --> 00:40:48,240
+this is what you will do you will find B plus now this will become your R1 okay and what your R2 will become R2 will be basically from R you remove this B plus okay but you keep this B so finally I can say your R2 will be I can say that will be ABD this your R2 will be okay now you have to check ABD now what you have to check you also have to check ABD so remember now R1 is fine okay R1 is BC
+
+77
+00:40:48,600 --> 00:41:16,960
+so there are two attributes so this is definitely in BCNF so there is nothing to check here but let's check the R2 in R2 you have ABD okay now in this ABD what are the projected FDs in this R2 what are the projected FDs what are those projected FDs what are those so those are A determining B this is the projected FD right okay A can determine B so what is the candidate key the candidate key is AD so this is a violation
+
+78
+00:41:17,620 --> 00:41:47,790
+so this is a violation again you cannot this is a violation because a is not a super key in R2 okay so in this situation what you will do you will take this violation in this situation just take this violation and what you do you find a plus okay just find a plus what your a plus will be a plus will be AB this AB you call okay this AB what you can call it you can call it R3 you can call it R3 and what your R4 will be R4 will be from R2 you remove this a plus
+
+79
+00:41:48,140 --> 00:42:19,870
+but you keep this a okay so for example i can say your r2 will be basically that will be ad okay your r2 will be ad so finally you will get the same in this particular question you are getting the same right yes or no in this particular question you are getting the same so finally your final i can say final bcn of decomposition final bcn of decomposition if you notice so that will be i can say that will be bc ad ab
+
+80
+00:42:20,220 --> 00:43:08,670
+okay that will be BCADAB okay but remember but remember it may happen if you take different order of violations first okay then it you may get different different BCN of decomposition is this clear to everyone it may happen okay so you may get different different BCN of decomposition you may get you may get different different BCN of decompositions if you take
+
+81
+00:43:10,920 --> 00:43:49,220
+depending on the order of violations that we take depending on the order of violations that we take depending on the order of violations that we take okay so depending on the order of violations what is the order of violations that you are taking depending on that you may get different different decompositions okay Nikhil is saying can we start from any point and still get BCNF if relation can be can we start from any point and still get BCNF
+
+82
+00:43:50,540 --> 00:44:17,950
+Yes, every relation, whatever relation you take, Nikhil, every relation you can decompose into BCNF with lossless. This is guaranteed. Whatever relation you take, whatever relation you take, you can give a lossless BCNF decomposition that is guaranteed. Like this algorithm that we have seen. This algorithm will give this guarantee. There are many algorithms. Let me tell you, this is not the only algorithm. Okay, first point. Okay, there are many algorithms.
+
+83
+00:44:18,320 --> 00:44:45,020
+this algorithm i have taken from the ulman book is this clear this algorithm is taken from ulman book if you see the korth book or navate book if you notice then they will give you some their their algorithm is little bit different they don't they don't take alexa's closure are you getting my point alexa if you take navate or korth if you see their algorithm if you study their algorithm they will not take the closure of alexa's see
+
+84
+00:44:45,320 --> 00:45:13,960
+for the violation we are taking the closure of alleges yes or no for the violation you have this violation this is your violation what we do we are taking closure of alleges right closure of alleges we are finding we are putting the closure of alleges in a one table yes closure of alleges we are putting in one table right but in kothur navate if you notice in those books if you notice they will not take the closure they will not take the closure they will just put it in one table so are you getting my point
+
+85
+00:45:14,800 --> 00:45:42,170
+They will put it in one table. Directly they will put in one table. They will not take the closure of this. They will not find the closure of LHS. They will just take the LHS RHS and they will put in one table. Everything else is same. Everything else is same. Remember, is this clear? Everything else is same. But what they do? They don't find the closure. They take LHS RHS. This is your violation. In the violation, take the LHS RHS and put in one table. That's it. Everything else is same. And another table will have
+
+86
+00:45:42,470 --> 00:46:08,520
+another table will not have this but it will have this so two tables will be created you put this violation in one table and the another table will have this will not have this so this is the algorithm that they use but can you observe can you observe our algorithm will definitely give you less number of relations yes or no our algorithm will give you this algorithm this ulman algorithm it will give you less number of relations
+
+87
+00:46:09,270 --> 00:46:36,500
+less number of relations because we are finding closer because we are finding the closer of alethes this is your violation we are finding the closer of alethes so that is the reason we will get less number of relations in the gate exam they will not ask you number of relations in the BCN of decomposition in the test series you will find in the gate exam they will not ask you because different different algorithm they will give you different different BCN of decomposition is this point clear
+
+88
+00:46:41,680 --> 00:47:03,350
+If you apply the different algorithms, they will give you different BCN of decomposition. Some algorithm will give you four relations in the decomposition. Our algorithm will give you three relations in the decomposition. So remember different algorithms, they can give you different number of relations in the final decomposition. In the gate exam, they will not give you this type of question.
+
+89
+00:47:03,790 --> 00:47:33,090
+find the number of relations in the BCN of decomposition. This type of quiescent they will not give you. They will give you the decomposition and they will ask you, is this BCN of decomposition or not or not? Okay. A decomposition will be given to you and they will ask you, is this BCN of decomposition or not? Don't worry, all the gate exam question we will solve. So automatically you will find out what quiescent gate exam is asking. Is this clear? What quiescent gate exam is asking that we will see. We will solve all the gate exam questions. But anyway, what I am saying, I am saying that
+
+90
+00:47:33,540 --> 00:48:04,420
+You make it different different BCNF decomposition depending on the order of viruses that you take Okay, let's move on like consider this example from the Ollman book Okay from Ollman DPMS book consider this example these functional dependencies are given to you Let's solve this question first first of all what you do in the exam They will give you this type of question what you will do first first you will make abbreviations. Yes or no First you will make abbreviations. Correct. I agree or not. So don't use. Okay. Just make abbreviations
+
+91
+00:48:04,710 --> 00:48:35,060
+like okay you can call it p and you can call it a president address you can call it a so finally what are your fds what are your functional dependencies these are basically i can say ty bring ty determines s s determines p and p determines a these are your fds is this in look at this relation so your relation is this so your relation is this that okay ty is determining s and
+
+92
+00:48:35,420 --> 00:49:06,440
+s is determining p and p is determining a you tell me what are the candidate keys let me know first you tell me what are the candidate keys you can notice t comma y they are not on the RHS and they can bring everything because t plus t y closer if you find that will be t y s p a so you can notice the candidate key is a t y okay this t y is the candidate key so this relation is this in BCNF is this in BCNF this is a Y lesson this is a Y lesson
+
+93
+00:49:06,790 --> 00:49:39,770
+and this is a violation correct this is a violation this is a violation so two violations you got agree okay we got two violations but this is not a violation right this is not a violation so we have two violations violation one violation two let's call it violation two let's call it violation one now what you do no T title here TY determining as TY determining as okay so now you have two violations now you what you do now you apply algorithm one what are the method one
+
+94
+00:49:41,940 --> 00:50:14,740
+What is the method when you apply so you apply wireless first you take violation one let's start with the violation one Let's start with the violation one Let's start with this so what you will get this is your violation as determining P So what you will find you will find as closer that will be what that will be as PA Okay, so this is your violation So you will find this closer you will get as PA this as PA will become your table R1 This will become the table R1 correct
+
+95
+00:50:15,200 --> 00:50:43,330
+So this is your table R1. What your R2 will be? R2 will be very simple. From the original table, you remove this S plus. You remove this S plus. But you don't remove this S. So from the original table, what you do? You basically remove this PA. From the original table, just remove this PA. So you will get TYS. This TYS you will get. Basically from the original table, you remove this PA. This PA you remove. So you will get this now.
+
+96
+00:50:43,690 --> 00:51:14,160
+Now what you will do? Now you have to check. Now what you have to do? You have to check. So your R1 is what? Your R1 is SPA. And your R2 is what? Your R2 is TYS. What are the projected FDs here? In this R1, what are the projected FDs? Tell me. In this R1, SPA, what are the projected FDs? You can notice S determining P, P determining A. These are the projected FDs. Nothing else.
+
+97
+00:51:15,700 --> 00:51:46,350
+Okay. Nothing else is a projected every these are the projected every you can check it out. Okay. And in this, what are the projected FDs in this R2? What are the projected FDs? That is TY determining as nothing else. TY determining us. So this is in BCNF, right? So this is in BCNF. So I can say this is, this is the super key. This is the super key. So definitely this is in BCNF. You don't have to worry about R2. What about R1? In this R1, what is the candidate key?
+
+98
+00:51:47,410 --> 00:52:21,620
+you find the candidate key what is the candidate key so here the candidate key is s this s is the candidate key so can you notice this is not in BCNF so this R1 is not in BCNF this R1 is not in BCNF so what you will do this is a violation this is a violation so what you are going to do this is what you are going to do okay forget about this R2 is done R2 is done forget about R2 now what you will do in this situation in this situation you will take this violation
+
+99
+00:52:22,210 --> 00:52:54,180
+so take this violation and you find P plus so P plus will be PA this will become your R3 you can call it R3 so what your R4 will be R4 will be basically you remove this A okay you remove this A so this SA will become your R3 that's it so you can notice your final answer is what so what will be the final answer final decomposition is basically I can say one is TYS
+
+100
+00:52:55,470 --> 00:53:27,620
+Final decomposition will be one T one is TYS one is PA one is SA. So this will be your final decomposition. Is this clear to everyone? Let me know. So this is the final decomposition. Okay. The starting from violation two, will you get the same starting from violation two? Are you getting the same? If you start from violation two, tell me if you start from violation two, will you get the same? So let's see method two. Okay. Start with the violation two.
+
+101
+00:53:29,080 --> 00:53:58,410
+Let's start with the violation 2 so your violation 2 is this PA determining a so what you do you find P plus So you find P plus that will be PA. This will become your table R1, right? Okay, so what your table R2 will be R2 will be basically just remove this a Okay, just remove this a this will be your table R2 TYSP Okay, TYSP this will be your table R2 now definitely only two attributes only two attributes. So definitely this is in BCNF
+
+102
+00:53:58,810 --> 00:54:43,940
+so there is nothing to worry about it here so one will be PA one will be PA there is nothing to check okay yes or no is this clear let me know oh sorry so this will be R4 will be just remove this A it will be SP it will be SP SP SP it will be SP okay not SA it will be SP so you will get TYS PA SP okay so in this now you can notice that
+
+103
+00:54:44,290 --> 00:55:14,090
+so here one will be pa and similarly you can check this what are the so again here also basically you will get the team okay you have to divide this okay you can check it out this is not in vc enough so ty s you will get sp you will get okay this is not in vc enough this r2 this is not in vc enough this is not in vc enough so you will decompose this and you will get one you will get ty s and one you will get sp so actually you are in this in this question also you are getting the same
+
+104
+00:55:15,390 --> 00:55:43,130
+in this question also you are getting the same the same decomposition you are getting the same final decomposition you are getting okay I will find some example where you will get different decomposition depending on which fd you are taking fast okay I will find I will take some example but in this question also you are getting the same decomposition finally you are getting the same decomposition but it is not necessary okay you are getting the same decomposition finally but it is not necessary
+
+105
+00:55:43,460 --> 00:56:17,780
+you may get you may get different different decomposition depending on the order of violation that you select okay but anyway this is your question now so let's move on now this question can i give you as a homework can i give this question as a homework okay you can check it out you can do the decent of decomposition so now let's move on now this is another question let's try this let's do this question this is also another question about
+
+106
+00:56:19,040 --> 00:56:47,650
+decomposition okay or maybe you can try this and maybe we can see it maybe in the practice lecture tell me yes or no or should we do this okay this is a big question so let's do this more questions I have as a homework but anyway let me do this let me do this see this question what the question is saying that a b c d e these are the attributes now the question is the question is saying the exhibit give a sequence of binary loss less
+
+107
+00:56:48,120 --> 00:57:18,210
+join decomposition into BCNF. You have to make sure that all of them are in BCNF. Okay, the decomposition such that it should be lossless and BCNF. So if you want this, if you want lossless BCNF, then which algorithm you can apply? Our algorithm you can apply, right? This lossless BCNF if you want, then you can apply our algorithm. You can apply our algorithm you can apply. That's it. Okay, so here the functional dependencies are given to you and
+
+108
+00:57:18,560 --> 00:57:49,790
+prove that each relation in your decomposition. First of all, is this in, tell me, is this in BCNF? The relation is given to you A, B, C, D, E. And in the relation, you have A determining BC. Let me quickly do this. A determining BC, C D determining E. Okay. And you can notice B determining D, B determining D, E determining A. This is the question. Is this in BCNF? What are the candidate keys?
+
+109
+00:57:52,080 --> 00:58:17,740
+Anyone? What are the candidate keys here? So you can check it out. A, B, C, D, E. Okay, so I think A will be a candidate key. A will give you everything. So A is a candidate key. A is going to give you everything. So now you don't consider A. Now do not consider A. E will also give you everything. Okay, so A will give you everything. E will also give you everything. What else? Now you can notice.
+
+110
+00:58:18,300 --> 00:58:47,590
+so cd cd also will give you everything and you can notice this bc this will also give you everything so these are the functional these are the candidate keys a b cd e okay is this in so you can notice no known prime attribute so this is in three enough right you can guarantee because every attribute is prime so you can guarantee it is in three enough but it is in BC enough can I say it is not in BC enough you can notice this is violation this is your
+
+111
+00:58:48,090 --> 00:59:18,160
+violation one let me call it violation one and you can notice what is the another violation so you can check it out so okay this is the only violation so that's it so in this situation what you can do this is the only violation that you have then what you can do very simple so take this violation be determining the find B plus so B plus will be BD okay that's your B plus so now your R1 will be this you make one table here and your R2 will be
+
+112
+00:59:18,440 --> 00:59:50,630
+from r you remove this b plus okay but don't remove this b basically just remove d okay so you you will get ab ce this will be your r2 okay your r2 will be abce okay now in this what you do so this is definitely in bc enough this is definitely in bc enough but can we say that this is in bc enough can we say this is in bc enough what do you think
+
+113
+00:59:51,750 --> 01:00:21,530
+Can we say this is in BCNF? So you have to find the projected FDs. For the A, B, C, E, you have to find the projected FDs. Okay. So what do you do? Actually, you have to find the projected FDs. Remember, you have to find the projected FDs. These you have to find. Okay. So what are the projected FDs? You tell me. For example, what are the projected FDs? Like what A can determine? Of course, A will determine everything. A can determine everything. Like A can determine B, C, E.
+
+114
+01:00:22,100 --> 01:00:50,610
+Okay, vote B can determine. B actually cannot determine anything here. In this, okay, vote C can determine. C cannot determine anything here. E can determine everything, of course. E can determine ABC. What else? So E can determine everything. And vote BC can determine. Vote BC. Find BC plus here. So that will give you BCDE. So you can notice, if you find BC plus, so that can determine AE.
+
+115
+01:00:53,080 --> 01:01:23,720
+Okay that can determine every so here in this question actually again you can order this is everything is a super key everything is a super key so all of them are super key all of them all of them are actually super key so I can say this is this relation this is in BC enough okay this relation is in BC enough because you find the projected FDs the project FD you find and you can notice all of them are for all of them LHS is super key
+
+116
+01:01:23,900 --> 01:01:56,460
+So definitely this R2 is a BCNF. R1 is BCNF. R2 is BCNF. This is your answer. Okay. Now let's move on. Now let's see this. So give some lossless BCNF decomposition. Can I give this question as a homework? Oh, actually this is a nice question. This is a nice question. I want to make one point in this question. So let's see this. So what to do? Give some lossless BCNF decomposition. Can you give that? First of all, what are the candidate keys here in the relation R?
+
+117
+01:01:56,680 --> 01:02:23,780
+What are the candidate keys? You can notice AB is the candidate key and AC is the candidate key. AB comma AC. These are the candidate keys. Okay. Now you tell me this is a violation, right? Definitely. You can know that this is a violation. Okay. Because this is a violation and you want lossless BCNF, only two things you want. You want lossless and BCNF. So this is a violation. So what you will do here. So in this situation, very simple that you will create one table, which is C plus C plus is CB.
+
+118
+01:02:24,170 --> 01:02:52,570
+so this you will create one table you can call it r1 and another table r2 that will have ac okay so definitely this is your relation okay this is your decomposition yes or no this is your decomposition r2 r1 this is the decomposition very simple now okay if i ask you if i ask you another question can you give me some okay i don't like just give me some
+
+119
+01:02:53,350 --> 01:03:31,540
+lawless and dependency preserving BCN of decomposition can you give me some tell me can you give me some can you give me some lawless dependency preserving actually in this question whatever you try you can never get see okay very simple question very simple observation you can make you have AB determining C and you have C determining B you have AB determining C and you have C determining B if you want to preserve this
+
+120
+01:03:32,070 --> 01:03:59,010
+okay and you can notice your relation R that is your relation R this is not in BCNF you know your relation not in BCNF now whatever you do whatever you do of course you can give lossless lossless BCNF you can give right you can give lossless BCNF that is fine okay that you can give lossless BCNF decomposition you can give there is no problem in that okay possible lossless BCNF decomposition is always possible
+
+121
+01:03:59,680 --> 01:04:27,740
+decomposition is always always always that is always possible okay so this is definitely possible this is always possible okay but what I'm asking just tell me just just tell me to preserve this a common sense you use okay common sense you use you tell me to preserve this if you want to preserve this then can you can you see that they must be in the same table agree or not
+
+122
+01:04:28,330 --> 01:04:59,170
+if you want to preserve this they must be in the same table okay agree or not so if you want to preserve this if you want to preserve this to preserve this a comma b comma c must be in the same table must be must be in same must be in single table i can say must be in single table and if you put them in the single table then what is the problem if you put them in the single table then what is the problem
+
+123
+01:04:59,790 --> 01:05:31,640
+if you put them in the single table then what is the problem then it is not in BCNF then it is not in BCNF then it is not in BCNF if you put them in the single table then not in BCNF and if you don't put in the single table then you can notice this is lost so this dependency will be lost whether whatever you do agree or not so you can notice in this question in this particular question R ABC where AB determines C and C determines B in this question okay
+
+124
+01:05:31,950 --> 01:06:00,480
+Whatever you do, you cannot get these three things together. See, these three things together, you can never get. Like, you want BCNF also, you want lawless also, and you want dependency preserving also. These three things you want, right? Okay, these three things you cannot get together. For this relation, these three things can never happen together for this relation R. Okay, I can say, for this R,
+
+125
+01:06:02,760 --> 01:06:32,510
+These three things we can never achieve. These three we can never achieve. Agree or not? Tell me. These three we can never achieve together. We can never achieve them together. We can never achieve them together. Whatever algorithm you use. Whatever you do. We can never achieve them together for this R. Is this clear to everyone? You want this also, you want this also, you want this also. We can never achieve them together for R. If we achieve this then what we will lose?
+
+126
+01:06:33,370 --> 01:07:14,190
+if we achieve this then what we will lose tell me let me know if we achieve this if we achieve this okay if we achieve this then this is lost okay then if we achieve this then you cannot this is lost if we achieve this then this will be lost okay let me know one more thing is it really lost is it really lost like in the like is it really lost is it really lost
+
+127
+01:07:14,700 --> 01:07:44,060
+No, so how to how to check it? So this is lost but how to check it by joining the tables. Yes or no. So remember when we say that remember one very important point when we say that your decomposition is not dependency preserving then we say that some dependencies are lost. Yes or no. We say some FDs are lost. Agree? We say that some FDs are lost. But remember these FDs we can still check by joining the tables.
+
+128
+01:07:45,870 --> 01:08:13,080
+These FDs which are lost, we can still check by joining the tables. But we cannot check without joining the tables. By joining the tables, we can still check. But without joining the tables, we cannot check. So without joining the tables, they are lost. But if you join the tables, then you can check. Then you can enforce. So anyway, what I'm saying, these FDs are lost. And if you achieve these two,
+
+129
+01:08:14,000 --> 01:08:48,710
+if you achieve these two then what will be lost if you achieve these then what will be lost if you achieve these then this will be lost then we will not get this then this BCNF will be lost okay so some some trade-off we have to make so you can notice for this question no loss less dependency preserving decomposition is a possible nothing exists okay for this question so you can notice for some relations is this clear
+
+130
+01:08:49,030 --> 01:09:19,130
+for some relations there are some relations there are some relations for which there is no way there is no way to get all the three following at once are you getting my point for some relations there is no way to get all the three properties together like you want dependency preserves also you want lossless also and you want BCNF also so these three things you cannot get together for some relations can I say for some relation you can get them
+
+131
+01:09:19,820 --> 01:09:50,820
+can I say for some relations you can get them for some relations we can get yes or no for some relations we can get for some relations we can get for for some relation we cannot get for some relations we can get is this point clear so for some relations we can get for some relations we cannot get but if I say for all relations okay if I say for all relations we can get if I say
+
+132
+01:09:51,160 --> 01:10:24,430
+that for all relations we can get then that will be false right yes or no if I say that for all relations you will get then this statement will become false so you can clearly see for all relations you can get all of them together this statement will become false okay so very simple so for all relations lawless BCNF you can always possible okay very simple so for all relations lawless BCNF it is always possible
+
+133
+01:10:24,760 --> 01:10:54,820
+but for some relations this lawless dependency preserving BCNF this does not exist so this is your topic BCNF decomposition now the next topic is 3NF decomposition let's check it okay this is also small topic but before that let me see Nikhil doubt what Nikhil is asking for example in this case what should be BCNF cannot be BCNF yes of course it is BCNF decomposition for example if I give you a relation and I ask you to give me BCNF decomposition
+
+134
+01:10:55,190 --> 01:11:23,480
+just give me lawless BCNF is this clear in the if i give you a relation i ask you give me BCNF decomposition what you should give me you should give me lawless BCNF our algorithm will guarantee that yes or no our algorithm will guarantee that and if possible give me dependency preserving also if dependency preserving possible then give me dependency preserving also but if dependency preserving is never possible
+
+135
+01:11:23,950 --> 01:11:54,760
+then just give me lawless BCNF is this point clear Nikhil okay if dependency preserving is possible then give me that also but if that is never possible then give me lawless BCNF okay don't worry all the great questions we will solve so this question this doubt will become more clear now Mavith is asking if we have unique FD violation then will we have a unique lawless decomposition okay see Mavith what happens is
+
+136
+01:11:55,440 --> 01:12:23,780
+you are checking only the given set of fd see the given set of fd you are checking you are not checking the f closer are you getting my point okay you are checking the given set of fd in the given set of fd if there is one violation then in the in the f plus there can be more than one are you getting my point in the given set of fd if you have one violation then there can be more than one violation in the f plus okay are you getting my point
+
+137
+01:12:24,020 --> 01:12:54,360
+So even if you decompose if there is a single violation let's assume in the given set of FD there is single violation then also you should check that the after decomposition you should definitely check that they must be BCNF. Now is this point clear? All the way check are they in BCNF? All the way check is this in BCNF? All the way check is this in BCNF? Okay is this point clear? Now Ehtha is saying BCNF decomposition may or may not dependency preserving but VCO
+
+138
+01:12:54,890 --> 01:13:24,390
+See, VCN of decomposition may or may not be lawless. Okay, VCN of decomposition may or may not be lawless. But some lawless VCN of decomposition is always possible. These two statements understand these two statements. VCN of decomposition, it simply means just give me some relations must be VCN. I don't care about lawless or lawless. Are you getting my point? If I tell you VCN of decomposition, give me VCN of decomposition.
+
+139
+01:13:24,750 --> 01:13:50,430
+Basically, I just want that some relations must be in BCNF. I really don't care. Uh, lossless or lossy. But if you give me lossy, that is that is a bad design. Okay. If you give me lossy, that is a bad design. But that is still BCNF decomposition. Is this point clear? So if you give me, if you give me lossy, that is still a BCNF decomposition, but that is a bad design. Now this is statement you read.
+
+140
+01:13:52,500 --> 01:14:22,630
+BCNF lossless decomposition is always possible. Are you getting my point? It is always possible for all the relations. For every relation, it is always possible that you can have some lossless BCNF decomposition. Is this point clear to everyone? For every relation, it is always possible to get some lossless BCNF decomposition. Please tell me, did you get it? Now let's see the next algorithm that is
+
+141
+01:14:22,930 --> 01:14:50,730
+three enough decomposition and the algorithm that we will see the name of this algorithm is synthesis algorithm. This is a popular algorithm. This was given by Philip Bernstein. So I have read this paper. This is an excellent paper. After the gate exam, you can read this paper. Okay. This synthesis algorithm paper, the original research paper in the paper in which he gave this algorithm, you can read this paper after the gate exam. This is a very nice paper. But anyway, this algorithm, this synthesis algorithm is given in all the textbook.
+
+142
+01:14:51,390 --> 01:15:19,830
+Navate, Korth, Ulman, whatever book you study, okay, whether you study Navate, whether you study Korth, Ulman, okay, like whatever book you study, this algorithm you will find, the synthesis algorithm you find, the name of the algorithm is synthesis algorithm. So for the 3N of decomposition, we will see this synthesis algorithm and what the synthesis algorithm will guarantee, what this will guarantee, this will guarantee, remember this will guarantee lossless as well as dependency preserving.
+
+143
+01:15:20,600 --> 01:15:49,720
+This will guarantee lossless as well as dependency preserving. This synthesis algorithm that we will see. There are many more algorithms. Remember, you can have many more algorithms. Like what is a very obvious algorithm for 300 decomposition? What do you think? Give me one obvious algorithm for 300 decomposition. One obvious algorithm. That is just find BCN of just do the BCN of decomposition. Yes or no? I just do the BCN of decomposition. That is one algorithm.
+
+144
+01:15:50,140 --> 01:16:21,220
+but that algorithm has but that algorithm will it guarantee the dependency preservation will that algorithm guarantee dependency preservation no so that algorithm will not guarantee dependency preservation but that algorithm is possible okay that algorithm is possible right so you can notice that for the 3n of decomposition what is very obvious algorithm if i ask you like if i ask you for 3n of decomposition for 3n of decomposition
+
+145
+01:16:21,870 --> 01:16:55,500
+a very obvious algorithm what that will come to your mind a very obvious algorithm a very obvious algorithm is BCN of decomposition algorithm yes or no just to do BCN of decomposition BCN of decomposition algorithm just do this because if a relation is BCN of then it is also in 3N of right yes or no if a relation is already in BCN of that it is also in 3N of correct so you can notice what to do just apply the BCN of decomposition algorithm
+
+146
+01:16:55,800 --> 01:17:24,650
+but this algorithm okay it will it will give you guarantee lossless yes or no this algorithm will guarantee lossless 3n of decomposition is guaranteed okay is it guaranteed yes or no using this algorithm this is guaranteed okay what i'm saying i'm saying lossless 3n of decomposition is guaranteed but may not be dependency preserving right may not be dependency preserving
+
+147
+01:17:26,730 --> 01:17:54,830
+but you can guarantee that yes I can guarantee lossless train of decomposition is guaranteed if you apply this algorithm is this point clear to everyone this is a very obvious algorithm that will come to your mind if you want to get three enough decomposition then what you do just to get to be seen of decomposition okay because every BCN of relation is also in three enough relation so this algorithm if you apply then what you will get you will definitely get lossless train of decomposition you will get okay guaranteed this is guaranteed
+
+148
+01:17:55,240 --> 01:18:23,500
+but this but dependency preserving may not be guaranteed okay but this algorithm this synthesis algorithm what this will do what the synthesis algorithm will do it will guarantee loss less also and dependency preservation also so these two will be guaranteed okay so this synthesis three enough synthesis algorithm this will give you a decomposition which which will preserve the dependencies which will give you loss less okay and it will give you three enough
+
+149
+01:18:24,200 --> 01:18:56,370
+So, this is a very and what is this algorithm? This synthesis algorithm, what it actually does? See, this is a very different algorithm from 2NF BCNF. Okay, can you notice 2NF BCNF decomposition algorithm, they are very similar, right? This 2NF decomposition, 2NF decomposition algorithm, this is very similar to, I can say similar. This is very similar to BCNF decomposition algorithm, right? Correct? BCNF decomposition algorithm.
+
+150
+01:18:56,870 --> 01:19:32,020
+But this 3NF decomposition algorithm is very different. Is this point clear? This 3NF synthesis algorithm, this is very different. This 3NF synthesis algorithm is very different. In these two, can you notice you only focus on the violation? Ok. So, yes, it will make sure. You always have dependency preserving toward decomposition.
+
+151
+01:19:35,250 --> 01:20:03,410
+you always have like some some dependency preserving to enough decomposition you can always find okay some dependency preserving lossless to enough decomposition you can always find but what I'm saying I'm saying that in when I say similar I want to say that I want to say that this algorithm and this algorithm they focus on the violation right agree or not this algorithm and this algorithm they focus on violation right they actually they focus on violation
+
+152
+01:20:04,600 --> 01:20:35,950
+They focus on violation. Agree or not? They focus on violation. Correct? They will focus on violation. But this, but this algorithm, this three enough synthesis algorithm, this is very different. Okay. This is very different. What this algorithm does. Okay. Remember, this is very different. So this is not same as those algorithms. So this is very different. This three enough synthesis algorithm, what it does, you will see, you will see this is a very different algorithm. And I have seen on the internet, many teacher, what they do.
+
+153
+01:20:36,320 --> 01:21:02,920
+you will also see this on the internet ok you just check it out ok what they will do the same algorithm they will apply for 2nfd composition for 3nfd composition for bcnfd composition ok like this they will focus on the they will focus on the violation you can check it out on the internet and they will make ok what announcement they will make before the video they will make this announcement so now we will see a very easy algorithm we will solve 5 square
+
+154
+01:21:03,520 --> 01:21:31,500
+okay in 5 questions and then he will apply for those 5 questions he will apply that wrong algorithm that wrong algorithm he will apply for those 5 questions okay and that's it he doesn't care let me tell you you ask that teacher you ask that teacher okay give me one standard resource where your algorithm is given okay for three enough
+
+155
+01:21:31,790 --> 01:22:00,740
+If anyone apply this algorithm, are you getting my point? For 3N of decomposition, for this 3N of decomposition, if anyone is applying this algorithm, like just focus on the violation, this is your violation, find the closure of this. Are you getting my point? You will see this. All the coaching students, they study from each other. Okay, you can check it out. On the internet, you can check it out. All these teachers, all these God teachers, you know God, all these God teachers, they study from each other. Okay, they don't have anything to do with the standard resources.
+
+156
+01:22:01,020 --> 01:22:29,110
+what they will do for 2NF, for 3NF, for BCNF what they will do they will apply the same algorithm what they will do this is the violation they will find the closure of this they will find the closure of this the same algorithm they will apply let me tell you what you do for 3NF when they do this okay only for 3NF because for 2NF and BCNF it will work right yes or no for 3NF for 2NF BCNF it will work I have given you the screenshot of ulmar but now what I am saying
+
+157
+01:22:29,480 --> 01:22:57,420
+For 3 enough, if they do this, then you put a comment. What comment you put? Put this comment. Give me one standard resource where your algorithm is given. If you study Korth, Nawate, Ulman, Stanford, Berkeley, any standard resource if you study, you will find synthesis algorithm you will find. You will never find that dumb algorithm. Okay. But still, you can notice, still there will be 1 million views on those videos.
+
+158
+01:22:57,920 --> 01:23:25,420
+in the world 1 million students are learning those wrong concepts almost every concept they make mistake almost in every concept almost in every video they have mistake okay like if I of course I cannot do that because I have instituted if I did not have go classes okay if I was some I can say a freelancer or something then I definitely I could have done this for every video I could have told that this is wrong this is wrong this wrong and almost I can say that
+
+159
+01:23:25,660 --> 01:23:54,280
+if there are 100 videos almost 60 videos will turn out to be wrong almost 60 videos should be deleted but still million of the students they are learning those wrong concepts okay those wrong concepts all the wrong concepts million of students are learning okay so that is the reason I request you I request to all of you this is my request to all of you share the go classes resources basically share the word of go classes with all the students so that at least
+
+160
+01:23:54,560 --> 01:24:20,720
+you study the correct concept at least you should see if okay just to let me tell you why many students go to those videos can you tell me what are the reason so many students why they watch those videos because those videos are very easy those videos are very easy very easy are dumb students can a dumb student who does not have any knowledge he can also understand okay so those videos are very easy and when you
+
+161
+01:24:21,090 --> 01:24:35,720
+Understand that then you will think okay yeah okay he's a god. He's a god.
+
+162
+01:24:47,240 --> 01:25:16,720
+is not teaching you correct concepts most of the concepts most of the concepts those are wrong concepts but anyway still students they prefer those videos because those are easy videos okay so anyway I suggest you to prefer only quality videos just always prefer only the quality videos okay of course the rest of the world will keep watching those videos it will always happen okay one million views will definitely come on the go classes
+
+163
+01:25:17,050 --> 01:25:44,690
+1 million views will never come because very few students they won't for example on NPTEL you check NPTEL okay or you check there are many good playlist on the internet okay all the all the university playlist are there like NPTEL is there you will never find million views like 1 million 2 million views you will never find okay because quality is not for everyone let me tell you quality that is not for everyone but everyone should go for quality
+
+164
+01:25:45,450 --> 01:26:14,430
+If you are learning wrong concept, what is the benefit if you are understanding that? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no? Yes or no
+
+165
+01:26:13,500 --> 01:26:42,640
+I can guarantee all the go classes lectures because I give you a screenshot I give you like whatever algorithm I tell you I give you a screenshot from the standard resources okay so basically anyway let's not talk about it more so let's come to our topic our topic is three of decomposition algorithm okay but anyway final this is my request to everyone so on the kora like on kora whenever people whenever students are searching for go classes then on kora they are not finding anything
+
+166
+01:26:42,980 --> 01:27:11,950
+the review of go classes they are not finding on kora okay because yeah okay so very few students they have written i think two or three students have written go classes review on kora okay so i request you everyone that on every platform if it is possible like maybe once in a month once in a month on every platform you can you can write the review of go classes you can suggest go classes to the gait cse students okay at least study the correct concepts okay
+
+167
+01:27:12,270 --> 01:27:40,830
+so now anyway let's come to our point so this is your three enough synthesis algorithm this is very different algorithm this synthesis algorithm this is very different from these two algorithm two enough and this enough they focus on violation okay but you can notice this uh this three synthesis algorithm what it does first of all it will find the minimal cover what you do see this is tape first of all you find the minimal cover is this point clear first you find the minimal cover
+
+168
+01:27:41,130 --> 01:28:09,230
+this is your first step what is the second step okay remember this is very mandatory step this first step this is mandatory step first you find the minimal cover of fds okay this minimal cover let's assume fds are f okay and let's assume this minimal cover let me call it g are you getting my point let me call this minimal cover fc let me call it fc okay now what you do in this fc in fc
+
+169
+01:28:09,450 --> 01:28:42,140
+what you do in this minimal cover what you do you basically make sure basically if LHS is common then you put them then you merge them what you do if LHS is common if LHS is same are you getting my point if LHS is same then you merge them then then merge those FDs merge those FDs if LHS is same then you merge those FDs now what you will get
+
+170
+01:28:42,370 --> 01:29:10,670
+Now example you will get this. Now for example you will get this type of FD. For example let's assume you have X determining A1. Let's assume you have X determining A2. Okay then what you will do with these two? What you will do? You will merge them. You will merge them into X determining A1 A2. Okay you will merge into like this. Then what you will do? Don't check for violation. For every FD you do this. Okay this is important step. For every FD what you do? You do this.
+
+171
+01:29:10,910 --> 01:29:49,290
+for every fd not only for violation not only for violation for every fd okay is this clear for every fd whatever fd you have for example if you have this fd if you have this fd okay for every fd what you do okay so for every fd what you do you do this x a1 a2 you make a table is this clear you make a table are you getting my point this is what you do you make a table
+
+172
+01:29:49,610 --> 01:30:20,450
+okay for every fd this is what you have to do not only for violation not only for violation for every fd you have to do this okay so the fourth step what is the fourth step so remember this is very important step for every fd you are going to do this not only for violation for every fd if you have this fd then you do this x a1 a2 you put in r1 okay and the fourth step is this this is the fourth step that if none of the relation
+
+173
+01:30:21,260 --> 01:30:58,530
+If none of the relations from step three, from step three, if none of the relations from step three contains a candidate key. Okay. Yes or no? Is this clear? Like if none of the relations, this is the simple point. If none of the relations from step three contains some candidate key, contains a candidate key, then what you do then take any one candidate key, take any one candidate key and
+
+174
+01:30:58,810 --> 01:31:33,260
+make one relation for it and make one separate relation for it separate relation for it is this clear and there is one more step what you can do there is one more step if one relation is superset of another if you can basically you can now you can delete in the last step you can delete some some relations you can delete some relations with relations you can delete you can delete some relations
+
+175
+01:31:33,780 --> 01:32:03,700
+So, for example, if R1 is superset of R2, are you getting my point? If R1 is superset of R2, then delete R2. Then delete R2. These are your steps. So, these are the five steps. Is this clear? See, the first step, what is that? Find the minimal cover. This is the first step, FC. Now, in the minimal cover, what you do? If LHS is same, then you merge those FDs. Like, for example, here LHS is same. So, you merge them into single. Now, what you do?
+
+176
+01:32:04,000 --> 01:32:32,900
+for every functional dependency you create another relation is this point clear for every functional dependency you create another relation separate relation you create then what is the step for if none of the relations container candidate key none of the relations if they contain a candidate key then take any one candidate key okay is this clear like it is your choice whatever take any one candidate key and make one separate relation for it and delete some relations like if r1 is superset of r2
+
+177
+01:32:33,150 --> 01:33:07,790
+then delete R2 okay is this point clear let's see this example okay let's see this example so this is your relation r a b c d e and these are your functional dependency give me 3n of decomposition this algorithm what it will guarantee this synthesis algorithm what it will guarantee it will guarantee loss less and dependency preserving okay this is going to guarantee loss less and dependency preserving so give me 3n of decomposition what you will do first of all
+
+178
+01:33:07,970 --> 01:33:37,690
+Will you check violations? Will you check violations for 3NF? Will you check violations? So you will not check violations. You will not check violations, you can directly apply this algorithm. But one thing I want to ask you, if your relation is already in 3NF, can you apply this algorithm? You can still apply this algorithm. Because in this algorithm, can you notice?
+
+179
+01:33:38,040 --> 01:34:04,700
+in this algorithm know where we are checking for 3NF given relation is in 3NF or not we are not even checking are you getting my point can you see in this algorithm in this algorithm we are not checking violations we are not checking violations we are not even checking your relation is in 3NF or not okay is this point clear so if your relation is already in 3NF then also you can apply this algorithm and it is possible you will get some other
+
+180
+01:34:05,270 --> 01:34:34,250
+some some decomposition some 300 decomposition you will get but if your if your relation is already in three enough then there is no need for this algorithm you can just directly say that it is in three enough so you can stop there is no need to apply this but you can apply this that is your choice okay if your relation is already in three enough then if you want to apply this algorithm you can do that you will get a 3n of decomposition are you getting my point you will get a 3n of decomposition
+
+181
+01:34:35,140 --> 01:35:02,640
+but if your relation is already in 3NF then there is no need to apply this algorithm you can directly keep it as it is okay but then you have to check for 3NF right yes or no but then you have to check for 3NF or not okay one thing just focus on this thing checking given relation you have a given relation checking if it is in 3NF it will take some time do you agree it will take some time from the computer point of view
+
+182
+01:35:02,860 --> 01:35:32,540
+it will take more time than applying this algorithm okay see this a very interesting scenario is happening here if i give you i'll if i give you a relation and let's assume there are 20 attributes so there are many functional dependencies 20 attributes and let's assume 100 functional dependencies are there then to check whether this relation is in 3nf or not it will take some time agree it will take some time okay so if you check whether it is in 3nf or not
+
+183
+01:35:33,330 --> 01:36:03,140
+Some time will be wasted, some time will be gone. Actually, you can apply this algorithm directly and you can get 3N of decomposition in less time. Are you getting my point? Even if your lesson is in 3NF, still if you apply this algorithm in less time, this can give you 3N of decomposition. But if you check whether it is in 3NF or not, if you check that, if you do that checking, that checking will take more time. This algorithm will take less time.
+
+184
+01:36:03,500 --> 01:36:31,830
+So that is the reason this algorithm is called synthesis algorithm. Are you getting my point? Why this algorithm is called synthesis? Why this algorithm is called synthesis? This is not called decomposition algorithm. Did you understand? This algorithm is not called decomposition algorithm. You are synthesizing 3 and up. Okay. This interesting point. Are you understanding? This algorithm is not called decomposition algorithm. This algorithm is called synthesizing algorithm.
+
+185
+01:36:32,740 --> 01:37:00,670
+it does not care given relation is in 3nf or not it does not care about the violations users give me the relation I will give you the 3nf decomposition I will synthesize 3nf whether it is in 3nf or not I don't care I will synthesize 3nf okay so it is real in the practically what happens practically when there are big attributes 20 attributes 30 attribute 50 attribute in those situations
+
+186
+01:37:01,050 --> 01:37:30,280
+checking for 3nf will take a lot of time but this algorithm will take less time so you can directly apply this algorithm people don't even check 3nf or not is this clear people don't even check 3nf or not they will directly apply this algorithm and this algorithm will give you 3nf decomposition with lawless dependency preserving so this algorithm is very interesting do you agree so that is the reason this algorithm is called synthesis algorithm okay in all the books in every standard book you will find this algorithm
+
+187
+01:37:31,030 --> 01:38:07,180
+but this name from where this name is coming that is an interesting point that I told you okay now let's see anyway let's apply this algorithm for this question but let's check whether this is in 3NF or not is this in 3NF check this algorithm this relation is in 3NF or not first of all this is your ABCDE and these are your FDs what are the candidate keys what are the candidate keys so in this I can see AC AC is the candidate key so if you find AC closer
+
+188
+01:38:07,500 --> 01:38:38,920
+that will give you a c b d o e is also okay so of course you must have e also you must have e also because e is also not on RHS okay so okay so this is the candidate key your candidate key is a c e right so your candidate key that is a c e this is the candidate key so what are the non prime attributes what are the non prime attributes so the non prime attributes are b comma d these are the non prime attributes so
+
+189
+01:38:39,300 --> 01:39:08,500
+which is violation of three enough can you not actually you don't have to check violation right you just have to check is this in three enough or not so you can notice this is not in three enough right because a is not a super key and d is known prime so here you can notice not a super key and d is known prime d is known prime so here i can say that definitely this relation r is not in b is enough i can say r not in three enough r not in three enough
+
+190
+01:39:09,100 --> 01:39:43,850
+okay so now you don't have to care about the violations now don't find more violations is this clear is this point clear no need to find violations no need to find all violations no need to find all violations because this algorithm that does not care about violations agree this algorithm will not care about algorithms violations so now you can apply this three enough synthesis algorithm three enough synthesis algorithm you can apply this algorithm so what you will get
+
+191
+01:39:44,350 --> 01:40:15,750
+first of all you find the minimal cover okay the step one what is the step one find the minimal cover this is your step one so don't don't okay like don't forget about this step you find the minimal cover of the FDs is this minimal cover is this B extraneous can I say this B is extraneous like for example can I say A can determine C in this in this A can determine C no A cannot determine C right okay can B determine C
+
+192
+01:40:15,970 --> 01:40:50,860
+in this in this can be determined c it cannot determine c so i can say there is no extraneous attribute okay is this redundant can a determine d no is this redundant can c determine b no is this redundant can ab determine c no so you can order this is already in minimal cover yes or no already minimal cover okay what are the next step if you already minimal cover then what are the next step so you have minimal cover you already have minimal cover what are the step number two
+
+193
+01:40:52,280 --> 01:41:23,840
+anyone step number two step number two is what okay just if you have common if you have common LHS then merge them there is no common LHS right if common LHS merge if common LHS if common LHS then merge but there is no common LHS so you don't have to worry about it what is the step number three what are the step number three now you do this so one lesson will be created for ABC
+
+194
+01:41:25,110 --> 01:41:52,530
+one relation will be created for cb one relation will be created for ad this is a very easy algorithm can you notice can you notice this is a very easy algorithm this is extremely easy algorithm even if you implement this if you want to implement you can implement this is a very easy algorithm what is step number four the step number three is this any of them do they contain candidate key
+
+195
+01:41:52,940 --> 01:42:24,960
+your candidate key is you already know your candidate key is a b e this is your candidate key sorry a c e sorry sorry what is your candidate key what was the candidate key that was wait a second in this question what was the candidate key like a b c b c d e a e okay so in this question what was the candidate key
+
+196
+01:42:25,490 --> 01:42:54,140
+In this question, the candidate key was actually, it was ACE also and it was ABE also. Okay, so these were the candidate keys. ACE comma ABE. Okay, ACE comma ABE. These are the candidate keys. So anyway, these are the two candidate keys you can notice. So your ACE comma ABE, these are the candidate keys. Okay. Are there, is there any relation which is containing them?
+
+197
+01:42:54,490 --> 01:43:21,900
+Is there any relation which contains candid key? Is there any relation which contains? Does any relation contain candid key? Tell me. Does any relation of step 3 contains some candid key? The answer is no.
+
+198
+01:43:26,080 --> 01:43:57,280
+this also does not contain candidate key this also does not contain candidate key this also does not contain candidate key so they do not contain candidate key so the answer will be no so in this situation what you will do so add any of any one of them right add one of them like a b e a c e add one of them so make one table for one candidate key make one table okay add one table okay i can say so add one table one table
+
+199
+01:43:57,990 --> 01:44:26,100
+For any one candidate key for any one candidate key is this point clear so in the step for your do your answer will be what so after the step for You will get what so your your lesson will be this in the step for you will get ABC CB AD Okay, so you will get ABC CB AD And also you you can add one of them one of them you can add like for example, maybe let me add a C
+
+200
+01:44:27,230 --> 01:44:56,690
+Let me add AC. Okay. Now you tell me. Okay. What is the step four? What is the step five? Remove some relations. Remove some relations. Remove some relations. What are the relations that you can remove? I can remove the CB, right? This CB I can remove. Correct. Okay. Because you can notice ABC is already subset of a super set of CB. So the CB I can remove.
+
+201
+01:44:57,130 --> 01:45:26,790
+okay so this cb can be removed so your final answer will be abc ad ac this is your final answer this is your 3nf decomposition okay and remember this is you don't have to check this is guaranteed to be lossless this is guaranteed to be dependency preserving you don't even have to check it there is a guarantee that it will be lossless and it will be dependency preserving so did you understand 3nf synthesis algorithm
+
+202
+01:45:27,720 --> 01:45:58,180
+extremely simple algorithm can you notice if you implement this it is very simple if you implement this in the computer in your computer if you write a program for this it is extremely simple now that interesting point that I want to tell you why we call it synthesis algorithm okay that was an interesting point right why why this algorithm is called is called three enough synthesis algorithm like why we call it synthesis algorithm
+
+203
+01:46:07,310 --> 01:46:44,670
+okay so from where this word is coming like synthesis three enough synthesis algorithm so the reason I told you what are the reason see the reason is very simple because checking a relation is in three enough checking a given relation checking a given relation is in three enough or not is in three enough or not is more expensive okay is more time taking than is more time taking than than this algorithm
+
+204
+01:46:47,290 --> 01:47:18,000
+is more taking is more time taking than this algorithm are you getting this point so if you want to check whether it is enough or not that is actually more time taking okay remember that is actually more time taking than this algorithm okay so what people do this is what people do okay this is what people do so if okay so if you have so let's assume let's assume you have a relation so assume you have a relation
+
+205
+01:47:18,320 --> 01:47:50,130
+So this is what people do actually. So assume you have a relation with the, say 20, 50 attributes. Okay. With 50 attributes. Is this clear? So let's assume you have a relation with 50 attributes and what do you want? And what do you want? Tell me. You want three enough. You want three enough database and let's say you want three enough database. Okay. Is this clear? This is what you want. This is what you desire. So you want three enough database.
+
+206
+01:47:50,540 --> 01:48:25,480
+now you have two ways what are the two ways tell me you have two ways what are those what are those two ways tell me can anyone tell me what are the two ways either you check if you are already in three enough or not correct okay so there are two ways one way is check if we are already in three enough check if we are already in three enough already in three enough or not okay and what is another method where you don't even have to check it
+
+207
+01:48:26,060 --> 01:49:11,960
+where you don't even have to check it or directly yes or no directly apply this algorithm correct directly apply 3NF synthesis algorithm 3NF synthesis algorithm regardless your initial relation is in 3NF or not correct regardless okay regardless of given relation is 3NF or not okay so regardless of that you just apply this okay so you check this 3NF or not
+
+208
+01:49:12,300 --> 01:49:45,460
+if okay if not then you apply this algorithm if not okay if not then apply this algorithm then apply synthesis algorithm correct okay so these are the two ways and have you seen this type of situation in your real life in your real life have you seen this type of situation that something is more expensive like something is more expensive you can directly do like you don't even have to check have you seen this type of situation
+
+209
+01:49:45,820 --> 01:50:15,660
+in your real life let me let me let me give you example let me give example for example let's assume you have a small pen let's assume you have a five rupees pen okay let me let me assume actually this is not five rupees pen so let me assume you have a five rupees pen okay and or maybe two rupees pen you know now in the older days there were two rupees pen right okay two two rupees pen very nice pen so you can notice let's assume this is a two rupees pen will you waste your time okay how much ink is there
+
+210
+01:50:16,080 --> 01:50:42,880
+okay you will open this and you will check how much ink is there will you waste that time okay will you waste that time no because it is just a two rupees pen you will purchase another are you getting my point without checking whether it it contains ink or not without checking whether it is working or not open it and will do all these things what you can do you can just directly purchase another or you can borrow from your friend and never give okay if you are giving
+
+211
+01:50:43,340 --> 01:51:06,840
+the pen back to your friend definitely you are not true friends right okay to the true friends we never give the pen back okay this is a universal law okay so you can notice that very simple so you don't have to waste your time to check whether this pen has ink or not because it is just a two rupees pen okay so you will you will open it you will check it okay some things you will do instead what you can do you can just take another pen
+
+212
+01:51:07,560 --> 01:51:33,910
+that is less expensive just directly take another pen you're from your friend you can take you okay give me you give me your pen that's it okay so very simple so this type of situation maybe you have seen in your real life okay in the real life this type of situation maybe you have seen where one operation is expensive okay one operation is expensive you can just directly do the second operation so similarly here you can notice that checking whether a relation is in 3 and off or not okay your relation
+
+213
+01:51:34,270 --> 01:52:03,670
+Check if it is in 3NF or not. It is already in 3NF or not. This is already expensive operation. Yes or no? It is more time taking operation. So what you can do? You can, regardless of it is in 3NF or not, you can directly apply this algorithm. This synthesis algorithm you can directly apply and this algorithm will give you your 3NF decomposition. So this is the reason. This is called synthesis algorithm. Is this clear to everyone? Why this is called synthesis algorithm? Is this point clear? So this algorithm does not care.
+
+214
+01:52:04,030 --> 01:52:58,130
+whether the initial relation is in 3NF or not. So, you can notice. Yes or no? So, this 3NF synthesis algorithm does not care if initial relation is in 3NF or not. It does not care if the initial relation is in 3NF or not. It will just directly synthesize. Yes or no? It can directly synthesize. It can directly apply.
+
+215
+01:53:03,490 --> 01:53:38,100
+So, like this you can do. I hope this point is clear. Okay, so let's see this question. Okay, now, if a relation is in BCNF, can it bring a relation to 3NF, not in BCNF? If your relation is already in BCNF, and then you apply this algorithm, then you apply this algorithm. Your relation is already in BCNF. You tell me, Nikhil, what do you think? You tell me, Nikhil, if your relation is in BCNF, how may or may not? Just see what this algorithm is doing.
+
+216
+01:53:38,410 --> 01:54:13,250
+if your relation is already in BCNF and then you apply this algorithm let's assume okay this is Nikhil this is the doubt of Nikhil Nikhil is asking this doubt so that if your relation is if R is already in BCNF if R is already in BCNF okay and then let's assume you apply this synthesis algorithm okay then you apply synthesis algorithm then you apply 3NF synthesis algorithm can it take you out of BCNF can it take you out of BCNF okay
+
+217
+01:54:13,780 --> 01:54:48,390
+Can it make you, can you make it, can you make you known BCNF? Can you make database known BCNF? Can you make, can it make some relation known BCNF? Some relation known BCNF. Anyone, anyone want to tell me why, why the answer is no? Anyone want to tell me why the answer is no? Why the answer is no? Tell me, what is the reason the answer is no? Because your already relation is BCNF, right?
+
+218
+01:54:48,670 --> 01:55:18,120
+okay so the answer will be no the answer will be no because you are already saying that your relation is in bc enough so you are already saying that your relation is in bc enough it means in the minimal cover in the minimal cover what will happen whether you take minimal cover or whatever right okay you take minimal cover or whatever you do okay in the minimal cover there will be minimal cover you will find the minimal cover so you are already in bc enough so if you find the minimal cover if you find the minimal cover
+
+219
+01:55:18,460 --> 01:55:49,690
+in the minimal cover whatever is there this x will be super key right yes or no agree or not nickel this x will be a super key so finally what you will do you will create a relation so when you apply the synthesis algorithm then what you what will happen if you apply the synthesis algorithm then what will happen this x alpha will be one relation this x alpha will be one relation okay so it will be in bcn of right yes or no is this clear so
+
+220
+01:55:49,980 --> 01:56:20,750
+you it okay if you are already in BCNF and then you apply this algorithm you will still remain in BCNF is this clear let me know okay so in the minimal cover you will do this in the minimal cover okay is this point clear Nikhil so if you are already in BCNF then you apply this synthesis algorithm you will stay in BCNF there is no problem it can can it make you known BCNF can it make you known BCNF the answer is no it cannot make you known BCNF you will still remain in the BCNF
+
+221
+01:56:21,900 --> 01:56:54,810
+Okay, let's see this question quickly. Let's see this. Yes. This is what I'm saying. Every relation you can, you can, you can break into lawless BCNF. Every relation you can break into lawless BCNF decomposition. You can do lawless BCNF decomposition. That is always possible. Now read this question. This is a very nice question. What is the reason this is a very nice question? Because you can notice what we have seen so far. You have seen so far that for every relation.
+
+222
+01:56:55,270 --> 01:57:27,350
+see this is what we have seen so far for all relations see these things I have to write in capitals because people don't focus on these words yes or no can you notice people okay have you seen this in your last six or eight months people don't focus on these words like you are writing all here but still people will ask doubts okay so anyway you can check it out okay so anyway what I'm saying for all relations for all relations
+
+223
+01:57:27,870 --> 01:58:09,760
+It is always possible. It is always possible. What is always possible? What is always possible? For all relations, it is always possible. What is always possible? This is always possible that you have 3 enough and you have loss less. This type of decomposition is always possible. It is always possible that there is a decomposition where it is lossless and dependency preserving.
+
+224
+01:58:12,750 --> 01:58:49,150
+okay and dependency preserving so for all relations it is always possible that there is some there is a this type of decomposition is always possible agree this type of decomposition is always possible it is always possible for all the relation it is always possible okay such a decomposition always possible and what about BCNF if I if I remove this thing of here and if I put BCNF here then
+
+225
+01:58:49,430 --> 01:59:25,740
+this statement you have to remove because it is not always possible of course sometimes it is possible sometimes it is possible but this such decomposition is always possible okay such a decomposition now you can notice this question is very nice this is from a standard university from a standard resource this question has been taken why this question is nice can you tell me actually the reason this question is nice is because the question is only asking for BCNF lawless decomposition agree yes or no
+
+226
+01:59:25,950 --> 01:59:56,790
+the question is only asking for PECn of low slash decomposition and the question is only asking for 3n of decomposition which is both of them yes or no it is also asking for 3n of decomposition which is both of them okay so this is the reason this this is actually very good very good question okay because the question maker knows the professor the the person who has created this question he knows that for BECn of
+
+227
+01:59:57,000 --> 02:00:25,120
+we can definitely we can definitely create this but dependency preservation may or may not be possible dependency preservation may happen or may not happen similarly for the three enough this lawless and dependency preservation this is always possible okay so this is the reason this question is very nice okay i don't remember the resource of this question mavit actually this question i have taken from my old my old i can say uh database from the last five years
+
+228
+02:00:25,660 --> 02:00:53,320
+From my old database, this question I've taken. Okay. So I did not. I think, uh, I think this question I took from the check. Okay. So I don't remember what are the, what are the source of this question? Originally I took this question from the check website. Okay. Anyway, let's see this. So anyway, let's solve this question. This we have already done. This we have already done. Okay. Now let's see the second question. So what the question is asking first, you find the minimal cover and then you.
+
+229
+02:00:54,240 --> 02:01:36,750
+Give a decomposition into three enough. So can you do that? Let's see this. Okay. Let's do this. Take your copy pan. Take your copy pan. Every set is given in the set you have a determining BCD a determining BCD then BC determining DE then be determining D and then be determining a. Okay. Now let's see this. Nikhil is very fast. Extremely fast.
+
+230
+02:01:39,160 --> 02:02:08,080
+So let's see this so you can notice this is the your lesson ABCDEF ABCDEF your lesson is ABCDEF remember so what was your lesson first of all in the relation what you do you find the Candid key okay before anything else you find the Candid key because we need Candid key for 300 decomposition right okay for 300 decomposition we need Candid key so first you find the Candid key in this
+
+231
+02:02:08,380 --> 02:02:38,250
+a b c d e f so you can notice a b c d e f must be there f must be part of every candidate key okay so i can say for example what about af what it can create it can create a b c d f it can create a b c d f and then you can notice b c can create d e so it can create everything so i can say one candidate key is af okay and you can notice automatically d f will also be a candidate key because d can determine a
+
+232
+02:02:39,020 --> 02:03:08,030
+because D can determine AC, DF also will be a candidate key and because B can determine F so B can determine D so BF also will be a candidate key so AF, DF, BF all of them are candidate key is there any other candidate key do we have any other candidate key tell me like ABD ABD okay so what about CF no and what about EF no
+
+233
+02:03:08,470 --> 02:03:37,730
+What about CEF? What about CEF? That also no. So I think only these are the candidate keys. You can check it out. Okay. These are enough. These are all the candidate keys. So now you have all the candidate keys. That is AFBFDF. Okay. The given relation. Is this in BCNF? Sorry, 3NF. Given relation. What do you think? The given R is in 3NF or not? Given R. You can notice, for example, you can check it out.
+
+234
+02:03:40,870 --> 02:04:12,390
+So for example, look at this BC determining E look at this BC determining E. Okay, just look at given R BC determining E. This is not a super key, right? Correct. This is not super key. This is not super key and this is known prime and this is known prime. So given R is definitely I can say not three enough, not in three enough. So this given relation is actually not in three enough. Okay.
+
+235
+02:04:12,630 --> 02:04:42,670
+now let's see this so first we will do the decompose minimal cover so first you find the minimal cover that is your step one so your step one is find minimal cover find minimal cover so what you will get find the minimal cover what you will get what answer you will get here first you tell me is there any extra attribute here extraneous analysis extraneous analysis only one attribute is there so there is no extra attribute analysis is there any extra attribute here no
+
+236
+02:04:42,920 --> 02:05:11,400
+is there an extra attribute here okay let's check this can be determined D actually okay one more thing I told you do you remember one more thing I told you before finding minimal cover what was that before finding minimal cover RHS must have a single attribute okay so for a moment let's assume they have single attribute for a moment for a moment let me assume they have single attribute so you tell me can actually what you should do you should divide them so BC determining D BC determining E
+
+237
+02:05:13,070 --> 02:05:42,950
+okay you should do that actually you should do that is this clear similarly a determining b a determining c and a determining d okay so that is fine now you tell me so you can notice here what is extra can i say b determine d can b determine d yes b can determine d right okay b can determine d actually you this complete so you can remove c actually you can remove this complete thing right because b can determine d so this complete thing you can remove
+
+238
+02:05:43,240 --> 02:06:13,300
+You can notice B can determine D. B can determine D. So C is unnecessary. C is extraneous. C is extraneous. Now these are duplicate. B determine D, B determine D. So these are duplicate. So I can say that definitely this is gone. Okay. I can say this is definitely gone. Now forget about this. Now don't consider this. This is gone. What about this one here? Can B determine E? No. Can C determine E? No. Okay. Now. Okay. What about this? If I remove this, can D determine A?
+
+239
+02:06:13,630 --> 02:06:45,930
+No, D cannot determine A. If I remove this, can B determine D? If I remove this, can B determine D? No, B cannot determine D. Okay, next you can notice. If I remove this, can BC determine E? No, it cannot determine. Okay, if I remove this, can A determine B? Can A determine B? No, A cannot determine B. And if I remove this, can A determine B? Can A determine D? Can A determine D?
+
+240
+02:06:46,240 --> 02:07:21,940
+if i remove this can a determine d yes yes yes yes if i remove this a can still determine d because a will determine b b will determine d so this this is gone correct this is gone if i remove a determining c then i cannot remove that okay i cannot remove this so i cannot remove them okay so i think this is yes or no all the remaining are mandatory
+
+241
+02:07:22,310 --> 02:07:54,560
+So your final, finally, your minimal cover will be this and what will do you merge the step to what they step to says a determine C a determine B BC determine E B determine D D determine a what your step to is what your step to is. So this you can remove what they step to step to is you can merge the same LHS if you have you can merge them like BC determining a
+
+242
+02:07:54,960 --> 02:08:27,210
+like B determining D and like D determining A. What is your step 3? What is your step 3? Step 3 is for every FD you create another table. Step 3 is 1 table for ABC, 1 table for BCE, 1 table for BD, 1 table for AD. Okay, so you can create this. Yes or no? This is your step 3. What is step 4? So now you got ABC, BCE, BD.
+
+243
+02:08:27,710 --> 02:09:01,020
+you okay from the step 3 what you got from the step 3 so the step 3 is giving you ABC it is giving you ABC it is giving you BCE it is giving you BD and it is giving you AD okay now you tell me what are the AFBF DF okay any of them do they contain do they contain a step 3 relation any step 3 relation
+
+244
+02:09:01,630 --> 02:09:36,620
+Tell me any step three relation a relation Contains contains any candidate key the answer is no the answer is no Okay, so what do you have to do you have to add the step number? Okay, so what you have to do so you have to add add a relation and Add any any one candidate key add any one candidate key as a new relation as a new relation Okay, so what you will get
+
+245
+02:09:36,880 --> 02:10:06,540
+you will get this so abc will be one bce will be one bd will be one ad will be one and af will be one okay af will be one now of course you can have different different train of decomposition you ask similar similar to bc enough in the bc enough also you can have many bc enough decomposition similarly you can have many train of decomposition you can have many different different train of decomposition
+
+246
+02:10:06,940 --> 02:10:48,630
+can you merge something can you remove some relations can you remove some relations the answer is not possible here it is not possible right okay here removing some relations is not possible so your final answer will be what so your final answer will be this of course you can get many different relations you can get yes minimal cover is also not unique see first of all minimal cover is not unique
+
+247
+02:10:48,910 --> 02:11:18,130
+the second point you can choose any candidate key to add yes or no there are many steps the first point even minimal cover is not unique you can have many many different minimal cover so minimal cover can be different okay which minimal cover you are taking second point you can add any candidate key as a separate relation choose any candidate key as a separate relation so so basically ultimately you can you can very easily see that you can get many different different three enough decompositions
+
+248
+02:11:18,720 --> 02:11:52,420
+is this clear you can get many different different three enough decompositions okay this is your chapter please tell me did you get everything see in a very crystal clear manner I've tried to tell you all the points and can I give this question as a homework give okay so take this question as a homework okay so now read this is this statement true for all relations it is always possible to get the following three properties right yes or no
+
+249
+02:11:53,070 --> 02:12:22,710
+to get the following three properties. Recoverability of information means lossless. Okay, this is true. What about this statement? So you can notice, for all relations, lossless 3NF is always possible. Lossless 3NF is always possible, of course. Okay, who can give you this lossless 3NF? If you only want lossless 3NF, then who can give you this? You don't even need synthesis algorithm. If you want lossless 3NF,
+
+250
+02:12:22,940 --> 02:12:52,100
+then the BCNF algorithm can give you agree or not then the BCNF algorithm also can give you and you can notice for all relations uh lossless dependency preserving 3NF is always possible okay so this is the idea so this is the concept and we have seen everything this question also i'm giving you as a homework but the solution is also on the next page see these questions how many questions are there five questions so these questions also i'm giving you as a homework
+
+251
+02:12:52,380 --> 02:13:22,580
+but the solutions are also here these are the solutions these are the solutions okay and these are the solutions so you can take it out and finally this is the summary x nf decomposition summary what is the summary this is the summary c decomposition to bc enough we have an algorithm there is an algorithm for lawless bc enough right there is algorithm for lawless bc enough decomposition and decomposition to 3 enough there is algorithm
+
+252
+02:13:23,020 --> 02:13:52,980
+for lossless and dependency preserving 3nf decomposition okay so all these points you can read it so you can notice and one thing about redundancy I told you that in 4nf we don't have any redundancy we don't have redundancy due to fd we don't have redundancy due to mvd that we have already seen right in the 4nf in the 4nf redundancy due to mvd is not there and redundancy due to fd is not even in bcf bcf does not have it
+
+253
+02:13:53,480 --> 02:14:24,830
+Can you lose FD? Can you lose FD in 3NF? No, because you can create some dependency preserving decomposition. But in BCNF, you may lose FDs. So these are points. Even BCNF schema may have redundancy. But BCNF is 100% free from redundancies called by FDs. So these are some points.
+
+254
+02:14:25,150 --> 02:14:53,720
+and one last point i want to tell you actually i already told you so the question i want to ask you do you understand dependency preservation okay this question i want to ask you do you really understand dependency preservation because most of the students they buy hard it okay they just okay uh yeah projected fd i will find f1 f2 f3 for every relation i will find the projected fd then i will take their union and then i will check is it equivalent to the original fd yes or no that is the method agree
+
+255
+02:14:54,090 --> 02:15:21,930
+that is the method correct or not basically for every relation you find the projected fd you take their union and the union should be equivalent to the original relation fd okay then we can say then we can say that yeah our our decomposition is a dependency preserving but that is the method you keep the method separate what is the logic tell me what it means when we say that dependencies are preserved can anyone tell me
+
+256
+02:15:22,310 --> 02:15:52,580
+What it means when we say that in the decomposition, dependencies are preserved. Yes, it means that you don't need to join any tables to enforce the FD. To enforce any FD, to check any FD, you don't need to join any two tables. You never have to join any two tables. It's like this. It's like this. If every table, basically every table, it takes care of itself. You don't need two tables to merge.
+
+257
+02:15:53,750 --> 02:16:21,920
+every take every table will take care of itself you take care of yourself you take care of yourself you take care of yourself if every table takes care of themselves this table takes care of its own FD this table takes care of this own FD this table takes care of its own FD every house takes care of their own issues then then all the FDs will be checked then all the FDs will be enforced
+
+258
+02:16:22,560 --> 02:16:49,580
+so there is no need to join are you getting my point yes or no so this is the meaning when we say that some fd is sorry when we say that decomposition is dependency preserving it simply means that there is no need to join two tables to enforce any fd there is no need to join any two tables to make sure that fd exists okay there's no need to join any two tables and when we say that dependency preservation is not there
+
+259
+02:16:49,900 --> 02:17:20,350
+When we say that FDs are lost, what it means? FDs are lost. What it means? It means that now if you want to enforce the FD, then what do you have to do? Can you do that? FDs are lost. Some FDs are lost. Now can you enforce the FD? Now can you make sure that FD exists? Can you enforce the FD? Yes, you can enforce the FD, but more expensive operation you need to perform that is joint operation. You have to join the tables.
+
+260
+02:17:20,700 --> 02:17:48,440
+you have to join some tables yes or no whatever fd you want to enforce for that fd what you have to do okay you have to join some tables to enforce that fd to make sure that that fd exists you have to join some tables individual table cannot ensure all fd's okay so sometimes for some fd's you have to perform a expensive operation that is the join operation
+
+261
+02:17:48,780 --> 02:18:18,210
+okay let's see this more understanding okay some doubts are there yes or no definitely some doubts are there agree it looks like uh not clear like yeah i got it i got it 60 70 percent but not clear right something like that is anyone feeling that is anyone feeling that okay i got the idea but i'm not actually visualizing it i cannot actually visualize it right okay so let me let me of course that is my responsibility that you visualize everything that you completely understand everything
+
+262
+02:18:18,460 --> 02:18:47,780
+so let's see this dependency preservation decomposition revisited because actually we have already seen this so that is the reason i'm calling it revisited now let's see this first of all read this question and tell me what the answer read this question and tell me the answer a decomposition d of relation r with fd set f is a dependency preserving okay then what we can say then what we can say each dependency of f can be enforced
+
+263
+02:18:48,100 --> 02:19:17,620
+by dealing with individual relations by dealing with individual relations yes that's the correct right okay each dependency of f can be enforced by combining one or more relations but may not enforce by the individual relation you can enforce by individual relation right okay so option b is not correct we need to join all relations to enforce this is also not correct so dependency preservation what it simply means this dependency preservation this dependency preservation it simply means that
+
+264
+02:19:17,940 --> 02:19:46,070
+You can enforce all the FDs. Each FD you can enforce. Each FD you can enforce. Okay. By only handling the individual relations. The individual relations are enough to enforce all the FDs. You don't need to join any two tables. Any two tables you don't need to join. There is no need to join any two tables. Individual relations can enforce. Can make sure that your FD exists. Okay.
+
+265
+02:19:46,300 --> 02:20:15,810
+but anyway let's let's understand this clearly in a crystal clear manner let's understand this do you truly understand what does dependency preserving decomposition means okay we have already studied this we have already seen this but let's revisit let's see this question okay you look at this question is this a dependency preserving okay so what you are doing this is your relation r and you are decomposing into these two into these two in the decomposed database okay
+
+266
+02:20:17,030 --> 02:20:51,790
+in the decomposed database can deletion can deletion create problem ok when you delete any table do you need to check any dependency this is my question while deletion while deletion do we ever need to check need to verify any fd violation tell me tell me this question while deletion while deletion
+
+267
+02:20:52,180 --> 02:21:19,300
+This is a simple question I am asking. While deletion, do we ever need to verify any FD violation? If you delete some data, can you violate some FD? Just tell me a simple point I am asking. If you delete some data, can you violate some FD? You can never violate FD, right? Okay, so you can never violate FD. At a very simple point, if you are deleting a data, you can never violate FD.
+
+268
+02:21:19,750 --> 02:21:59,650
+So, very simple. So, okay, deletion can never violate FD. Deletion can never violate FD. So, deletion never triggers the FD checking. Is this clear? Deletion never triggers FD checking. Okay. So, this never triggers FD checking. So, who will make sure? So, then who? Then I can say, while insertion or modification, either insertion
+
+269
+02:21:59,870 --> 02:22:29,930
+or modification right so i can say while either you insert the data or you edit the data or you modify the data or you modify the data so while inserting or modify the data do okay yes do we ever need to yes we need to verify that fd is violated or not correct in this suggestion we have to make sure that fd is not violated okay now this question i'm asking a very simple question read this question carefully now the question is saying that this decomposition is given to you
+
+270
+02:22:30,020 --> 02:23:01,150
+And I am asking, in the decomposed database, while insertion or deletion will never create FD violation, while insertion or modification of data, how to enforce A determining C? Do we have to join? Do we have to join? You tell me. Do we have to join the tables? A simple question. Do we have to join the tables? A simple question.
+
+271
+02:23:02,290 --> 02:23:32,560
+Can we only care about individual relations without joining them? Can we only care about individual relations without joining them? Can we enforce it without joining them? Okay, question is very simple. You have a relation R which is ABC and in this what you have, you have that A determines B, B determines C and A determines C. Okay, now what you are doing? You are doing this decomposition. You are doing this decomposition.
+
+272
+02:23:33,360 --> 02:24:05,900
+okay one you have AB and another you have BC C okay now now now now C C C if you want to enforce this okay can you enforce this these are the FDs of the original database right these are the FDs of the original database now you tell me to enforce this what you will do to enforce this on the decomposed okay this is the decomposed this is the decomposition this is the decomposition tell me tell me tell me
+
+273
+02:24:06,160 --> 02:24:42,510
+if you want to enforce this then this relation can enforce yes or no so this this relation i can say can enforce this relation can enforce this right and what about this i can say that this relation can enforce this okay because here you have a determining b here you have and what about this do we have to join are you getting my point do we have to do the natural join do we have to do the natural join
+
+274
+02:24:43,620 --> 02:25:14,270
+here you have a determining b here you have a determining b here you have b determining c here you have b determining c where do we have a determining c where do we have a determining c tell me anyone anyone anyone where do we have a determining c yes transitively we don't have to join we don't have to join transitively it is already enforced remember remember remember remember this is already enforced this is already enforced
+
+275
+02:25:15,810 --> 02:25:47,450
+Okay. In individual relations. In individual relations. In individual relations. By transitivity. There is no need to join. To enforce this there is no need to join. See what I am saying. Please understand this what I am saying. Okay. See this is your table. Now you have this table AB. Now you have this table AB. And this is your table BC. Okay. In this table what this table is taking care?
+
+276
+02:25:47,910 --> 02:26:16,430
+Tell me what this table is taking care of? This table is taking care of A determining B, right? This is taking care of A determining B. This is taking care of what? This is taking care of what? This is taking care of B determining C. So this is taking care of B determining C and this is taking care of now, now, now. So now let's see. I want to make sure that this type of data must not come. Agree? Do you agree that this type of data must not come?
+
+277
+02:26:16,980 --> 02:26:56,340
+Do you agree this type of data must not come because a should determine see a should determine see so Okay, can you make can you guarantee without joining? Can you make sure this will not happen? Can you guarantee this will not happen without joining? Can you guarantee tell me tell me tell me tell me can you guarantee it will never happen? It will never happen without joining. Okay, it will never happen
+
+278
+02:26:57,390 --> 02:27:34,190
+Can you guarantee it will never happen in R1 or I can say in the database? Okay, it will never happen in database. Without joining. Can you guarantee? Yes, you can guarantee because you can notice. Okay, just tell me if this happens, then what should happen? Very simple point. A very simple point. If this happens, then what should happen? Like by chance if this happens, then what should happen? By chance if this happens, let's assume.
+
+279
+02:27:34,490 --> 02:28:02,730
+by chance if this couple matches with this this couple matches with this then what should happen then this be must be same correct then this be must be same agree or not do you agree tell me do you agree do you agree that if this happen if this should happen then what should happen if this should happen then this would match with this this would match with this do you agree correct very simple very simple point this would match with this this would match with this but but but
+
+280
+02:28:03,210 --> 02:28:33,660
+if this is matching with this then you can notice if this is 1 1 then because a determining b because a determining b so it should be 4 4 you cannot keep them different and similarly and similarly now can they be same can they be same you tell me can they be same no they cannot be same because be determined see so they cannot be same can not be same can not be same so here they must be different
+
+281
+02:28:34,250 --> 02:29:10,520
+okay they must be different now so this situation can never happen so now you can notice that this situation can never happen right so this situation can never happen I can say this situation can never happen this situation can never happen and why this situation is never happening because it is doing its work and it is doing its work do you agree this R1 is doing its work and R2 doing its work so that is the reason transitively this will never happen there is no need to join R1 R2
+
+282
+02:29:10,860 --> 02:29:42,660
+we don't have to join R1 R2 R1 should do its work R2 R2 should do its work okay then transitively this work automatically will happen is this clear so this is what I am saying a very simple point so here A determining B here B determining C okay so they they automatically they I can say they automatically they automatically or I can say transitively or I can say
+
+283
+02:29:43,380 --> 02:30:21,340
+transitively enforce they transitively enforce a determining c do you agree no need to join okay to enforce this no need to join if you want to enforce this to enforce it no need to join any tables correct one more example i want to take this last example consider this a b determining c c determining b okay and decomposition i'm giving you b c ac
+
+284
+02:30:22,470 --> 02:30:53,840
+How can you enforce this? Tell me a very simple point. This is not dependency preservation. Actually in this question you can note this was dependency preserving, right? If you notice this was actually dependency preserving. This was actually dependency preserving decomposition. So that is the reason you don't have to join. There is no need to join. Now in this question, you can clearly see that this question is not dependency preserving. This is not dependency preserving.
+
+285
+02:30:56,110 --> 02:31:24,840
+but still this fd we can enforce right this fd we can enforce here okay so this is your table so you have a relation r where you have a b c and your fd is a b determining c c determining b now what you are doing you are did you are doing the decomposition and you are saying okay a c here b c here c this can make sure this can enforce this right okay can enforce agree
+
+286
+02:31:25,280 --> 02:31:53,960
+so there is no problem here there is no problem here this can enforce this but how to enforce this okay this was this was lost agree or not this was lost now you tell me this type of data should come or not a simple question i'm asking ab for example this type of data should come or not like abc 121234 this type of data should come or not this type of data should come or not you tell me this point
+
+287
+02:32:01,260 --> 02:32:30,780
+this type of data should not come this type of data should not come but can we stop this data on without joining the tables like okay only by this relation by R1 R2 individually individually without joining them can they stop this data tell me can they stop this data if you don't join them if you don't join don't join them then can they stop this data so you can notice there is no one who can stop this data agree
+
+288
+02:32:31,180 --> 02:33:04,050
+here 1314 can come do you agree or not here 1314 can come right okay of course this data is will legal this is a valid data here 1314 can come okay what else here in the bc in the bc can this data come for example i'm asking can this data come 3 2 and 4 2 can this data come tell me yes c determine b right
+
+289
+02:33:04,330 --> 02:33:34,870
+yes so c is determining b so you can notice this data can come here this data can come here if this data is coming here if this data is coming here can you notice this data has come can you notice this data has come yes or no can you notice this data has come possible to exist yes or no possible to occur possible to occur did you notice this
+
+290
+02:33:35,130 --> 02:34:03,540
+Please tell me very nice point very simple point very nice point what I'm saying now you cannot do this data has occurred because on on best of see you will join them so this will join with this so one two three and you cannot this will join with this so one two four so this was this data is possible to occur if you only check individual table agree or not if we only if we only care about individual table yes or no
+
+291
+02:34:03,930 --> 02:34:44,940
+if you only care about individual table or I can say if you only check individual tables if you only check individual tables this data is possible to come now is this crystal clear please tell me are you lossless or lossy has nothing to do with this dependency preservation Nikhil lossless or lossy has nothing to do with dependency preservation I am talking about dependency preservation I am talking about dependency preservation I am not talking about lossless or lossy
+
+292
+02:34:45,320 --> 02:35:15,320
+it is lawless this decomposition is lawless but I am talking about dependency preservation you tell me in the original database should this data come in your original database are is this data possible tell me in the original database are is the data possible this is not possible what I am saying I am saying that can you stop this data after decomposition are you getting my point Nikhil after decomposition can you stop this data after decomposition see
+
+293
+02:35:15,800 --> 02:35:52,570
+After decomposition, it is possible to occur. If you only check individual tables, you can still stop this data. How? You can still stop this data. What do you need to do? If you want to, if you want to make sure this does not happen, to make sure this does not happen, what do you need to do? To make sure it doesn't happen, what do you need to do? To make sure it doesn't happen, okay, I can say you have to merge the tables, correct? Okay, to make sure it doesn't happen,
+
+294
+02:35:52,960 --> 02:36:26,990
+For every insertion you have to join R1, R2. For every insertion you have to join R1, R2. You have to first join R1, R2. Is this clear? Let me know. For every insertion you have to join R1, R2. You have to join R1, R2 first. Now is this crystal clear? Is this point clear? Our decomposition is lossless. I am not saying that this was already there.
+
+295
+02:36:27,680 --> 02:36:58,910
+Nick see you are you are you are thinking this in the wrong direction. I am not going from R to R1 R2. I am going from R1 R2 to R. See, are you getting my point? I am not going from R to R1 R2. This is lossless. It is lossless. But what I am saying, just think about this. Okay, just think about this. A simple point. You have a database. Okay, in that database, like for example, I am the school principal. I am the school principal and I won't
+
+296
+02:36:59,190 --> 02:37:28,370
+You are the designer. You are the database designer. I am the school principal and I want you to enforce that a B suit determinacy. Are you getting my point? Did you get it? I want you to enforce a B suit determinacy. I'm telling you, I will give you money only if a B suit determinacy. Okay. That is what I'm saying. Did you get it? I will give you money. If a B suit determinacy, then I will give you money. I will. I am also telling you that I want to be seen up.
+
+297
+02:37:28,870 --> 02:37:56,750
+So two things I'm telling you I'm telling you okay that I'm telling you to enforce AB determining C you enforce this now if you make two tables now forget about there is no original table just for a moment let's assume there is no original table or ABC in your database you create two tables you are creating the database you create two tables one is one is AB one is BC is this is this clear okay you are creating two tables see this
+
+298
+02:37:57,000 --> 02:38:28,630
+okay you are creating ac you are creating bc you are creating two tables now in these two tables can i insert data such that this will eventually happen this is my question mavit nikhil did you get it in these two tables can i insert data in such a way that eventually this will happen did you really get it did you really get it tell me please tell me did you really get it nikhil
+
+299
+02:38:28,930 --> 02:39:00,860
+Got it? Is there any doubt or not? Nikhil, Mavit, Ekta, anyone, Akash, any doubt? You have a doubt? So what I am saying? Okay, so very simple point I am saying. I forget about this. Now this is not there. In the same database, can you have this and this? In the same database, can you ever have this? Will you ever have this? In the same database, will you have this and this? No. Once you do the decomposition, this is gone. This is gone. Okay, don't think about this.
+
+300
+02:39:02,280 --> 02:39:36,110
+ok don't think about this this is gone don't think about this so let me let this is gone so this is gone don't think about this now in your database you have this now your database has this this original was gone now your database has this and now you can notice that now now I cannot enforce this right agree or not ok if I have only this and this I don't have the original table now I cannot enforce this
+
+301
+02:39:37,470 --> 02:40:08,270
+Of course I can enforce this, but if I want to enforce this then what I need to do to make sure it doesn't happen for every insertion I have to join before every insertion I have to join agree before every insertion I have to join the yes or no for every insertion for every modification first you have to join the tables okay to make sure it doesn't happen to make sure this type of situation doesn't happen for every insertion for every modification
+
+302
+02:40:08,730 --> 02:40:48,980
+you have to join the tables first without joining the tables you cannot enforce it okay so i can say if you join them joining them can enforce it joining them before every insertion every modification before every insertion comma modification okay so this is what i'm saying forget about this this is your database so this is what i'm saying that joining them
+
+303
+02:40:49,380 --> 02:41:20,960
+before every insertion of or modification can enforce can enforce AB determining C okay so join and infer so if you have so this is the disadvantage C so this is the final point that I want to tell you that if your decomposition is not dependency preserving if your decomposition is not a dependency preserving
+
+304
+02:41:22,380 --> 02:42:07,570
+is not dependency preserving then then something heavy will happen some expensive operation will happen then before before every insertion or modification what you have to do or I can say before depends basically before before insertion or deletion sorry before insertion or modification we may have to join two or more tables
+
+305
+02:42:10,760 --> 02:42:26,290
+to enforce some FDs but it will not happen for every insertion because some FDs are already enforced.
+
+306
+02:42:45,100 --> 02:43:14,310
+so now this is your question now can you read this question and now you can tell me now did you understand this the same question i am revisiting again the same question i am revisiting again the same question revisiting again a decomposition is dependency preserving what it means now did you understand this clearly please tell me how much did you understand 100 percent 90 percent 80 percent tell me crystal clear or not please tell me
+
+307
+02:43:16,110 --> 02:43:48,030
+Dependency preservation not dependency preservation what it actually means what it actually means that is clear or not okay so now you can notice if you have dependency preserving decomposition if your decomposition is already dependency preserving then I can say what I can say I can say each dependency can be enforced by dealing with individual table okay so your answer will be option A very simple so option A will be answer these are not the answer answer will be option A
+
+308
+02:43:48,400 --> 02:44:20,070
+And what about this question? Which statement is true? Two statements are given to you. Which statement is true? Note dependency preserving. Note dependency preserving. Then. Then. Each dependency can be enforced by dealing with individual table. No. Okay. Yes. Each dependency can be enforced by dealing with individual table. No. Some dependencies may be enforced by dealing with individual table. This is possible, right?
+
+309
+02:44:20,580 --> 02:44:51,890
+some may be some may be enforced by individual table okay some may be enforced by individual table what about this question tell me the answer now not a dependency preserving some dependency is need join of one or more relations to enforce them this is also correct option C is also correct all dependencies need join of one or more table no okay dance so crystal clear
+
+310
+02:44:52,650 --> 02:45:28,130
+tell me whatever we have seen so finally which normal form is preferred tell me Nikhil transitively they are enforced you don't have to enforce them separately transitively they are already enforced the transitive dependencies they are already enforced are you getting my point for example okay like if you have transitive relation okay like for example let's assume I teach you you teach someone else okay then
+
+311
+02:45:28,520 --> 02:45:56,320
+I can say let's assume my content let's assume I am teaching you my content let's assume the same content is to some other student then I can say that that student is learning from my content right yes or no I can say that that student is learning from my content so you tell me this is automatically done right because I am teaching you teaching him so this is automatically done this transitive this transitive thing is automatically done
+
+312
+02:45:56,730 --> 02:46:25,890
+We don't need to do anything else for this. Do I have to teach that student? Tell me. Do I have to teach that student? No. Transitively I am teaching that student. I am teaching you. You are teaching him. Transitively I am teaching that student. Okay. Something like that. Okay. Are you getting the idea? So, transitive dependency. You don't have to do anything. That is automatically enforced. Okay. It is clear. So, transitive dependencies are automatically enforced.
+
+313
+02:46:26,380 --> 02:46:57,140
+you just enforce this you enforce this okay like it's like you enforce this you enforce this then automatically this transitive thing is already enforced you just take care of this you take care of this don't worry about this transitive that is transitively enforced okay so tell me which normal form is overall nice and preferred which normal form we prefer do we prefer BCNF tell me do we really prefer BCNF do we really prefer BCNF
+
+314
+02:46:57,270 --> 02:47:26,460
+We don't prefer BCNF. Why? What is the reason? Because in the BCNF, dependency preservation may not happen. Some FDs are lost. And to check, then what do you have to do? Just think about it. If you create a BCNF decomposition, some FDs are lost. Now, before insertion or modification, you have to join them. So there is no benefit. The BCNF is giving you some benefit. The BCNF is giving you some benefit.
+
+315
+02:47:27,470 --> 02:47:56,070
+now what you have to do before insertion or modification whenever you want to do some insertion whenever you want to do some modification before that you have to join some tables that join will take some time so overall it will become very expensive right so that is the overall 3nf is preferred okay 3nf has some redundancy but okay it has less redundancy than 2nf 2nf has more redundancy 3nf has less redundancy
+
+316
+02:47:56,430 --> 02:48:25,670
+and BCNF has zero redundancy due to FDs due to functional dependency BCNF has zero and 3NF has some but that is fine some redundancy is fine agree or not as long as it is saving you time 3NF will save a lot of time so 3NF will save a lot of time BCNF will waste a lot of time okay BCNF will save you some redundancy 3NF will give you some redundancy but overall some some redundancy plus less time so that is good so ultimately
+
+317
+02:48:26,150 --> 02:49:03,440
+three nf is preferred okay so ultimately remember overall which is preferred so the answer is three nf this is ultimately preferred this is ultimately the best normal form you can call it a best normal form okay and we have already seen why this is your chapter and this question i give you as a homework so that's it all the slides are over everything is over so this is your chapter okay any other doubt
+
+318
+02:49:03,760 --> 02:49:32,060
+Mavith is asking sir if our algorithm of decomposition doesn't produce then relation not able to Mavith actually I will have to check it but actually there's no information available on the internet I tried to find it will the BCN of decomposition algorithm will it give dependency preserving decomposition if possible so I could not find it actually I've already tried this okay I wanted to check whether
+
+319
+02:49:32,320 --> 02:50:00,590
+some information is given about it or not, but I could not find this information. So the BCNF decomposition algorithm that we have seen, okay, that will definitely give you loss less BCNF, but will it give you dependency preservation whenever possible? Of course, whenever possible, will it give you dependency preservation? That is what you are asking, right? So whenever possible, whenever dependency preservation is possible, will it give you dependency preservation? Okay.
+
+320
+02:50:01,270 --> 02:50:30,580
+This information is not available on the internet. I tried this. Okay. So in any, I studied all the standard books, every standard book I studied and but still I could not find this information. Okay. Is this clear? But anyway, I think you don't have to worry about it. Okay. So basically, in the gate exam, only simple question will be given to you. And for that simple question, this is my suggestion. This is my suggestion. You just apply this algorithm.
+
+321
+02:50:31,080 --> 02:51:02,370
+Okay, this lawless BCNF algorithm you apply. That's it. Just apply this algorithm. Okay, and You don't have to worry about anything else. Just apply this algorithm Okay, my with is this clear. So actually on in the standard resources in all the standard resources I found I think 30 or 40 standard resources I studied but this information I could not find Okay, so that is the reason I'm just this is my suggestion from This is my suggestion to you
+
+322
+02:51:02,460 --> 02:51:31,750
+that just apply this BCNF decomposition algorithm and don't worry about anything else okay there is a great question on this topic that question we will solve okay any other doubt is this concept clear this is your normalization over in the normalization every topic everything is over not even a small topic is remaining okay not even I can say you're not even this is remaining not even not even this topic is remaining okay everything is over
+
+323
+02:51:32,000 --> 02:52:01,730
+so your normalization completely over okay so now actually i wanted to complete this i wanted to finish this because anyway this was pending for for few days so this was pending so that is the reason i just wanted to finish this now you can say that okay normalization is over er model is over queries is over okay sql trc relational algebra er model and normalization relational model
+
+324
+02:52:01,970 --> 02:52:31,520
+so all these topics are over completely over okay and you can try the gate questions now for all these topics try the gate questions and tomorrow we will start file organization and indexing and then transaction management okay tomorrow and day after tomorrow i think three days it will take file organization and indexing it will take almost three days okay so i think after three days we will start transaction management okay any any doubt anyone please tell me okay everything is clear
+
+325
+02:52:32,300 --> 02:53:03,920
+Okay, so tomorrow morning you have compiler design class as GT as GT class is there So tomorrow morning, okay, and debuts class will be in the evening Tomorrow is Sunday. Do we have Sunday tomorrow? Okay, so attempt the test queries test. We will discuss tomorrow. Okay queries Tomorrow Sunday or Saturday. Okay Saturday. So on Sunday, we will discuss the queries test the go classes test series queries test live discussion. We will do in the
+
+326
+02:53:04,500 --> 02:53:15,880
+on Sunday. Tomorrow we will have live class indexing. We will study indexing and file organization. We will study from 8pm. Okay. Okay. Thank you everyone.
+

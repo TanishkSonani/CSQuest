@@ -1,0 +1,348 @@
+1
+00:00:07,820 --> 00:00:31,140
+Hi everyone. So let's get started. So today we are going to start with scheduling algorithms. Okay. So let's first see that why we even need the scheduling algorithms and all. Okay. So this is the lecture number nine. And then in this lecture, we are going to see some scheduling criteria and some scheduling algorithms. Okay.
+
+2
+00:00:32,690 --> 00:01:09,130
+So, which means that, like, whenever, these scheduling algorithms, first of all, are basically for the short term scheduler, I mean, all the algorithms we are going to discuss are for the short term scheduler, okay? So, whenever a scheduler wants to schedule any job to CPU, then there are something that we should be looking for. So, let's suppose this is, I mean, there are many jobs in the ready queue, let's suppose this is the ready queue, and there are many jobs here, right? Okay.
+
+3
+00:01:09,540 --> 00:01:32,520
+Now, what's going to happen that you are going to let's suppose have some CPU and what you are going to say that you are going to schedule one of the job on the CPU. So before, before scheduling any of the job, I should be having something in mind, right? I mean that the scheduler that is there, that should be having something in the mind. So do you think that I can just randomly pick a job and schedule on the CPU?
+
+4
+00:01:33,820 --> 00:02:03,240
+No, right? I mean, there should be some objective. If that is some random thing, then I don't think that it will work, right? It is serving any purpose. So there are different different criteria that I can look for, which means what do you think what could be the criteria like any anything that is coming to your mind? Maybe you can say that you want the maximum CPU utilization, right? Maximum CPU utilization. Okay.
+
+5
+00:02:03,630 --> 00:02:24,960
+Which means, I mean, this is very obvious criteria. I mean, you don't want CPU to be free, right? You want the CPU to be utilized all the time. Yeah. I mean, if there is a no job or there is something, let's suppose, let's suppose there is some job, there is some job which wants the CPU, but it wants the IO for too much of time. Okay. It also wants the IO.
+
+6
+00:02:25,190 --> 00:02:48,530
+and then it wants the CPU for less time and let's suppose in between in between this there is no no job that I have then obviously like you want to be able to I mean schedule any job on the CPU in that case the CPU is ideal but that's not an issue but most of the time maybe you want the maximum CPU utilization right so this could be one of the criteria that you want CPU to be busy as much as possible okay what else you you may think of
+
+7
+00:02:50,110 --> 00:03:19,780
+Maybe, okay, I'm just guessing. You can tell me, but I am just guessing. Maybe you want that, okay. In per minute or per second, I mean throughput, we will understand throughput in greater detail in computer networks, but throughput is basically per some time, okay. Per minute is okay. I mean, number of processes that are getting executed per minute is also throughput. Number of processes, processes completed, okay. Completed per minute. Completed.
+
+8
+00:03:20,420 --> 00:03:21,820
+per minute is called throughput.
+
+9
+00:03:23,110 --> 00:03:52,150
+So we will understand this throughput this term in more detail in computer networks. There we use throughput more often, but here it doesn't use much time. I mean, it is not very popular criteria here. Like, I mean, we will be discussing this this term later. So that's why I'm not not going in more detail. But anyway, so number of processes per minute, or maybe you can say number of processes instead of minute, you can say seconds, basically per unit time. This is called throughput that how many, how many processes you are completing in per minute or per second.
+
+10
+00:03:52,420 --> 00:04:18,930
+something like that. So maybe, maybe you want to complete as many processes as possible. Maybe you want to have, I mean, maximum throughput, right? Or you want minimum throughput. What do you think? I mean, it is an optimization problem where you either you are maximizing something or you will be minimizing something. So what do you think you are, I mean, you are intended to maximize or minimize? I think, I think it is maximum, right? So maximum throughput, maybe you will be looking for. I mean, what are these things?
+
+11
+00:04:19,210 --> 00:04:43,010
+These things are just some criteria that I have. I mean, whenever I'm scheduling some job on the CPU, then there is an algorithm which is scheduling, right? That algorithm is called short term scheduler or something. So let me just call it scheduler, okay? Or some people call it CPU scheduler or something like that. So basically we're scheduling that algorithm should be having some objective. It should be maximizing your CPU utilization, maximizing throughput or something like that.
+
+12
+00:04:43,880 --> 00:05:11,720
+I mean, I'm not saying that these are the good criteria or these are the bad criteria. I'm just listing down the all possible criteria that you can think of. Maybe some people will say that, okay, I will prefer the maximum throughput. I will not prefer the maximum CPU utilization. Or maybe some people will say, I will prefer this. I will not prefer this. I mean, it will depend on the context or something. But anyway, we are just listing down all the possible things that can happen. I mean, possible criteria, possible optimization criteria.
+
+13
+00:05:12,400 --> 00:05:42,410
+So what do you think? What could be the other thing that might be coming to your mind? Maybe you can imagine that there are a couple of jobs that you want to schedule. This is let's suppose job one or the process. I mean, you call it process or job doesn't matter. So let's suppose the job one, this is job two, these are the job three in the ready queue. You want to schedule one of them, right? So maybe, yeah, Rishesh is saying we may want the less response time.
+
+14
+00:05:43,150 --> 00:06:06,010
+Right. So yes, we may want the less, I mean, we want minimize, we want to minimize something called as he's saying response time, right? Minimize response time. So I will tell you what is this response time. But yeah, this could be a good criteria. Maybe for some people, it is a good criteria. So for some people, it might not be a good criteria, but overall, this is a criteria. So we're just listing down the all the criteria that are possible.
+
+15
+00:06:06,570 --> 00:06:31,220
+So what is the response time? It is, it is like that, that I'm, I want to execute and how much time I'm getting even the response, right? I mean, I want to get executed and what is the total response time? So I will talk about the response time and these things in obviously in a good detail. If you have not understood what is the response time, don't worry in just five minutes, I am going to explain. Okay. But yeah, this is one of the criteria that I may want to minimize the response time. And what else is coming to your mind?
+
+16
+00:06:33,720 --> 00:07:02,180
+Yeah, so Sanjana is saying that maybe overall, I mean, there are many processes, maybe overall, we may want average. Okay. So here also, here also, this is average. I mean, it is not just for one process. We want the, we want to minimize response time. We will be minimizing the average response time. Similarly, maybe we want to minimize. We want to minimize, let's suppose this is average. Okay. We want to minimize average waiting time. There is something called waiting time. I mean, we want, we don't want the processes to wait for so long.
+
+17
+00:07:03,080 --> 00:07:31,660
+So that's why you want to minimize average waiting time. Okay. Similarly, there could be, there could be many other criteria that you can also think of. And maybe I might, I might not be having this list and I, and also I might not be having it in the adjustable list or in the list that I'm having the slide. So you can think of any criteria and even you can design your own scheduler. It's not an issue. Okay. So what, what I'm trying to convey is that you come up with a criteria, you come up with the.
+
+18
+00:07:32,400 --> 00:08:01,350
+you come up with a like a scheduler or the scheduling mechanism, okay. So I hope the one thing is clear that I want to convey that if there is a scheduler that should be having some criteria to do. Do you think that all of the criteria can be fulfilled by just one of the, maybe just one of the scheduling mechanism of the scheduler? I mean, obviously you don't know what is a scheduling mechanism, what are these things? What do you think?
+
+19
+00:08:03,400 --> 00:08:23,560
+Actually, it's not possible. I mean, some scheduler are good for something, some scheduler are good for something, but it's not practically possible to minimize or maximize. I mean, to have all the criteria in just one scheduler, okay? So it might not be possible. So that's why some people say that perfect scheduler doesn't exist. If perfect scheduler
+
+20
+00:08:24,090 --> 00:08:48,930
+might have existed, then do you think that we might be talking about so many scheduling algorithms since so many years? There are many scheduling algorithms like FCFS round or round robin shortage or first and these kind of things, right? So basically there are many scheduling algorithms. If there is just one scheduling algorithm, which is perfect, then maybe we might not be having others in the syllabus. But anyway, like, I hope you're getting my point that we want to come up or we want to basically
+
+21
+00:08:49,620 --> 00:09:16,600
+achieve at as many as possible may not we may not may not achieve all of them that's what I'm saying okay so whenever you are having a scheduling mechanism or whenever you are having a scheduler then you have some scheduling criteria okay and that uh that scheduling criteria could be uh cpu utilization I mean you want to maximize this right you want to maximize this so you want to maximize the scheduling cpu utilization you want to maximize the throughput
+
+22
+00:09:17,660 --> 00:09:23,360
+There is something called turnaround time, waiting time, response time, but you want to minimize them.
+
+23
+00:09:25,730 --> 00:09:51,330
+So these are just few criteria. I'm not saying these are the only criteria. You can come up with your own criteria and then you can come up with your own schedule. And that's where the research is happening. So basically this I mean operating system is although although it is a very like comparative if I just compare with the machine learning or any other latest technology, then it is it is very old like operating system is one of the very first thing that we started with right in the IT world.
+
+24
+00:09:51,660 --> 00:10:14,320
+So although it is a very old, I mean, I can say the tech, although it is very old tech, still operating system is in, you know, I mean, it's an ongoing research field. It's not like that research has been adjusted, right? Obviously it's an ongoing research field. So you can come up with your own criteria, come up with your own scheduler. So it's not like that. I mean, the field is completed.
+
+25
+00:10:14,590 --> 00:10:35,930
+so definitely like people are people are every year every year people are having their own scheduler i mean they're they're publishing the research paper which is having their own scheduler okay every year these things are happening anyway but coming to the gate let's just understand that what are these criteria and what are the schedulers that we have okay and and each scheduler we will see that what it is trying to achieve
+
+26
+00:10:36,100 --> 00:11:05,150
+Okay. Maybe, maybe some scheduler may not be trying may not be able to fulfill any of the criteria, but it is worth discussing. Okay. Maybe just because of the sake of simplicity. Okay. So anyway, so let's get started. Okay. If you want, you can just read it. This is optional lead. Okay. This is optional lead that you can that I've taken from Kelvin. Okay. I don't remember what was there. Otherwise I could have summarized it.
+
+27
+00:11:05,460 --> 00:11:20,820
+But I think they have just extended the definition of CPU utilization. We want to keep CPU as busy as possible. Conceptually, CPU utilization can range from 0 to 100. In real system, it should range from 40% to 90% for heavily loaded system.
+
+28
+00:11:21,820 --> 00:11:48,720
+Okay, anyway, this is an optional read if you want, you can read it like sometimes I put put these standard book slides in the standard book is considered in the slides just because that if you are interested, then only you read it. Otherwise, you can definitely skip them. Okay. So this is the same thing. So now let's just try to understand these times. Okay, let's just first try to understand what is the turnaround time, what is the waiting time, what is the response time. So maybe I can I can say
+
+29
+00:11:49,080 --> 00:12:37,220
+the topic here now what we are going to see is basically understanding different times right turn around time waiting time response time so let's just understand these three times so any guesses like what could be the turnaround time maybe by with the english do you want to guess it maybe i can give you the example and then you may want to guess it right suppose suppose this is this is the basically the execution of the flow where i'm i'm executing some job
+
+30
+00:12:37,540 --> 00:13:07,470
+And let's suppose that I like I executed this job for some time. Okay. So, okay. So here this job. Okay. So let me write job J1. Okay. I mean, this is just one job I'm talking about currently maybe. Okay. Suppose this is just one job. And maybe because of like I submitted this job here, J1 got submitted here, but maybe because of some something I said like, okay, this J1 is in the ready queue. It has to wait. Okay. Maybe because of something. And then then J1 got scheduled here.
+
+31
+00:13:07,680 --> 00:13:31,980
+and then again I preempted because of some reason okay I'm saying okay now can you wait in the ready queue okay I'm saying that okay let me just preempt it and then then I'm saying that okay now J1 is not executing here now I'm saying that that it is waiting again it is waiting now J1 is executing here and J1 is executing here so basically J1 is getting the chance three times right and then J1 is let's suppose got completed
+
+32
+00:13:32,400 --> 00:14:02,070
+So all of these waiting periods, if I sum all of these waiting, waiting times, okay, summation of all of these waiting periods, I'm on the, I'm on run queue, but not on running. Okay. So basically this is a ready queue. I mean, this, this, the terminology that this, this university might be having, but for, for our terminology, this is a ready queue, right? This is a ready queue. Okay. So what is the waiting time?
+
+33
+00:14:02,650 --> 00:14:31,740
+I mean I will give you more examples but here are you able to guess what is the waiting time? It is a summation of all of these areas right? Summation of all of these areas. The summation of all of these periods is called waiting time. The turnaround time is basically the moment you submit it till it get completed. Okay? The moment you submit it till it get completed. It is called turnaround time. The whole time the moment you submit it until you get till this job get executed. It is called turnaround time. Do you think that this turnaround time might be a useful metric?
+
+34
+00:14:34,070 --> 00:15:03,810
+I mean, do we even require this turn around time? Maybe, right? Maybe, maybe. I mean, what I'm saying, it depends on the context. It depends on the user. So basically, maybe, maybe I want to minimize this turn around time, right? I don't want, from the time of submission, I don't want this job to be completed. I suppose it's too much. Then maybe I will look for some other scheduling algorithm. So these are just times. Okay. I mean, based on the scheduling algorithm, we will see that what it is doing, but it is just, just time. Okay.
+
+35
+00:15:04,080 --> 00:15:43,350
+sometimes so time of submission let's suppose it is there and then if job is getting completed here then we call it turn around time okay time of submission means the moment it is in the ready queue okay it is in the ready queue the very first moment i mean the process got created basically right the post when the process get created it is in the ready queue so here the process get
+
+36
+00:15:45,060 --> 00:16:25,000
+in the moment you create a process you will say that okay it has got submitted something like it right cool so so this is the turnaround time the waiting time maybe we clear with this image and what okay there is a lag just a second hello hello is this better now
+
+37
+00:16:27,670 --> 00:16:54,080
+okay if there is a lag in between you can just let me know I will turn off my video for now okay maybe just because of the video it is a lag but I will turn off the video in that case okay so what is the response time? response time is very simple I mean all the times are simple response time you might guess it that the moment you submit it and the very first moment it gets scheduled this time this time is only response time okay maybe I can take more examples so suppose suppose there are multiple jobs that I have
+
+38
+00:16:54,220 --> 00:17:26,210
+Okay. I mean, I'm having ABC, I'm having three jobs and these are getting CPU like this. Okay. So suppose these are the multiple jobs and suppose that all of the jobs I'm, I'm, I'm basically submitting all of the jobs I'm submitting at arrival time. This is called arrival time, basically arrival time. Suppose this arrival time is zero. Zero means that all of the, all of the job got submitted at the same time. Now, how many jobs you have ABC?
+
+39
+00:17:28,300 --> 00:18:14,380
+Okay. Let's suppose each of this, each of this slot is one. Okay. One second. Let's suppose each of this slot is one second. I mean, just an hypothetical example. Now, can you tell me what is waiting? Okay. Let's just call it response time of a waiting time of a and what is the third one? Turn around time, right? Can you tell me what is the response time of a zero?
+
+40
+00:18:14,970 --> 00:18:44,440
+because immediately it got scheduled okay let's suppose it is cpu and i mean this is cpu right and what is the waiting time waiting time here it is waiting two two uh this thing right so two and two four and let's suppose a got completed here c got completed here and v got completed here only so two two four and five right or six five or six or four okay so it is five so uh for a this is the waiting time this much it is waiting
+
+41
+00:18:44,860 --> 00:19:08,490
+then this is it is waiting and only for this it is waiting let's suppose a got completed here only okay so the waiting time is five what is a turn around time so the moment it submit and the moment you finish it so basically it is one I mean one two three four five six seven eight nine right so it is nine so the turn around time is this complete time it is nine
+
+42
+00:19:09,260 --> 00:19:35,910
+So from this diagram, maybe you can just understand this response time waiting time and turn around time of A. But let's just quickly compute for the sake of practice. Let's just quickly compute for B and C also. So can you do this as an homework? Response time of B and turn around time of C. Just do this as an homework.
+
+43
+00:19:36,610 --> 00:20:07,190
+I mean, just for the sake of practice, if someone can comment it out, then others can also verify. So just comment it out on the under the video so that others can verify. Okay. So, so from this diagram, also, you can see that if that is a, if that is a, then turn around time is this much waiting time is this much and response time is zero. Right. If that is B, then turn around time is this much waiting time is this much and response time is just one unit. If there is that is C.
+
+44
+00:20:07,420 --> 00:20:39,940
+then also you can you can understand turn around time waiting time response time so basically these are the three times that we generally use and and from this diagram maybe it is a little bit clear right okay now now we we know at least like we know what are the metrics to look for right i mean may not be 100 clear but little bit we know that that if we want to design any scheduling algorithm then we know that what are the what are the metrics to look for right
+
+45
+00:20:45,210 --> 00:21:22,750
+What are the metrics to look for when designing scheduling algorithm? Now, let's just understand the very first schedule algorithm, which is also very popular. It is called first come first serve. Okay. Or some people can call it first in first out FIFO, or maybe you can call it first come first serve. So by far it is the simplest scheduling algorithm, CPU scheduling algorithm. You might have guessed it that what does this mean? So suppose
+
+46
+00:21:23,380 --> 00:21:52,060
+it means that suppose if there's a P1 that is coming first then you can schedule this P1 and you schedule till the moment it get completed and let's suppose that it is taking 10 seconds okay 10 seconds but after after let's suppose 1 or 2 seconds P2 is coming do you think that you can schedule this P2 directly I mean in fcfs fcfs says that first come first serve which means that P1 is coming first then you schedule it directly
+
+47
+00:21:52,490 --> 00:22:17,730
+If P2 is coming in between, then you will ask P2 to wait. And then you schedule this P2, even though it is coming in between. So maybe I can take you one example and then you can understand. See this example. These are the three processes that I have, which is P1, P2 and P3. Now let's suppose all of the processes, for this example, let's suppose all of the processes are coming
+
+48
+00:22:19,230 --> 00:22:49,250
+maybe okay you can understand that all of the processes are coming maybe at the same time or may you okay let's just assume that all of the process are coming at the same time in that case basically I will go for the process ID whichever is the lower process ID okay so so there is something called arrival time also let's suppose all of the processes are coming at time zero by the way do you really think that the arrival time I mean theoretically you can have it zero but that's not an issue
+
+49
+00:22:49,840 --> 00:23:11,660
+Do you really think that arrival time could be same for two processes? Just think about it. I don't think so. I might be wrong, but practical doesn't seem to be true. There might be some difference. Maybe the difference is too negligible.
+
+50
+00:23:13,070 --> 00:23:41,970
+but I mean the processes will be submitted to the ready queue one after another I mean in practical sense but theoretically I am saying that our level time is zero okay I mean our arrival time of all the processes are same so here this is the bus time what is the bus time so currently we are just just understanding with respect to CPU okay so this is CPU bus time what do I mean by the CPU bus time that this P1 wants to execute CPU for 24 unit of time maybe 24 seconds 24 millisecond like that
+
+51
+00:23:42,460 --> 00:23:57,610
+P2 wants to execute for three units of time, P3 wants to execute for three units of time. So these are the worst times. Cool. So basically, if the arrival time is same, then I will go for the lower process ID. So which means
+
+52
+00:23:57,900 --> 00:24:30,250
+which is coming first let's okay for example let's suppose if arable damage even not same let's suppose it is coming first and at the first number and arable damage one let's suppose after maybe 10 seconds it is coming let's suppose for 15 seconds it is coming or milliseconds okay suppose hypothetically suppose this is arable time so who is coming first since p1 is coming first I will be scheduling p1 for how many seconds or millisecond or whatever this unit p1 will be executing for for how much time
+
+53
+00:24:31,950 --> 00:24:53,030
+24 seconds this is p1 only seconds I mean what about this unit but as you know that after 10 seconds okay I mean after 10 seconds somewhere here p2 will come does this mean that we will be we will be just saying this p1 to go away and I mean just print it and then show this p2 no right
+
+54
+00:24:53,420 --> 00:25:20,140
+So, we will be not kicking this P1 out from the CPU because of the scheduling algorithm. I mean, they're mad with the scheduling algorithm that you can come up that you will say that, okay, the moment it is coming, you kick the previous process out. This is also a scheduling algorithm. But in FCFS, it doesn't behave in that way, which means if you're scheduling this P1, then P1 will get executed till it's completion. And then only you're scheduling this P2, even though it is coming.
+
+55
+00:25:20,660 --> 00:25:49,370
+in between and after maybe 15 p3 is coming it doesn't matter p3 will get scheduled later right it is first come first serve so whoever is coming first it will get scheduled till the completion which means p1 will get completed and then only p2 and then only p3 so this is called first come first serve algorithm okay okay so I hope you are getting yeah arrival time is the point of time when the process arrive in the ready queue
+
+56
+00:25:49,570 --> 00:26:14,730
+yes yes so the moment you you create the process it is called arrival i mean process is arrived okay so although like i don't think that vertically like this is i mean they will define if they want to do something if they want to play with this definition of the arrival time or something they will define their own arrival time like they are calling the arrival time maybe i mean they can define arrival time in any other way probably right
+
+57
+00:26:15,240 --> 00:26:38,940
+Okay. But in general, the moment the processes get created, we say it is the process has arrived. So it is the arrival time of the process. Okay. Cool. So now these are the CPU bush and this is what it is happening. Now, do you think that we can find out all of those times that we earlier discussed, which means these times? Okay.
+
+58
+00:26:39,230 --> 00:27:44,090
+so see I mean here we had just you know some hypothetical or some like some not so content quantified example but now we have the quantified example right so so here I have one example which is very much having a real I mean a real example not a dummy example so let's just let's just find out all of these times for this real example okay I hope it will be a good exercise so let's just do it okay so what are the what are the response time of p1 p1 p2 p3
+
+59
+00:27:44,280 --> 00:28:15,060
+sorry, P1, let's suppose for only P1, I'm calculating, right? So what is the response time of P1? I think zero, right? It immediately got, let's suppose it is coming at zero. So it immediately got scheduled, that's why it is zero. What is the waiting time? Total waiting time. So here in case of basically FCFS, the response time and waiting time will be same, right? So waiting time is a total waiting time in between if you're printing or something. So in FCFS, I think these two will be same.
+
+60
+00:28:15,590 --> 00:28:50,100
+So if it is zero, then it's zero. What does it turn around on time? I think this is 24, right? Okay, so that's how you can find out these three times. Now, let's just find out the, let's just suppose, okay, let's just suppose all the processes are coming simultaneously, which means arrival time, I mean, these calculations are when the arrival time equal to zero for all process. Now, let's just do this.
+
+61
+00:28:50,350 --> 00:29:25,750
+For the P2, let's just find out this is for P2 and for P3. So let's just quickly do it. So for P2, what are these numbers? Response time, I think it got response after 24 seconds. Waiting time, it also waited for 24 seconds. Turn around time, I think 27, right? Quite easy. Let's quickly do it for P3. I mean, just for the sake of completion, we can find out these times for P3 also. Response time, I think it is
+
+62
+00:29:27,300 --> 00:29:59,960
+27, right? Waiting time for P3, 27 again. Turn around time is 30. Okay. So that's how you can find out the times. Cool. So now, now you have, now you have the, I mean, for all of the processes, you have all of these times, right? So maybe what I can do, I can, I can just put in just one diagram. So these are the response time of P1, P2, these are the numbers.
+
+63
+00:30:00,320 --> 00:30:36,960
+and for p3 I mean we have all of the all of the processes it was really a simple job but still okay so these are for p2 I mean these numbers are for p2 these numbers are four okay since there's a lag that's why I'm turning off my video okay okay if if lag persists then then you can tell me okay
+
+64
+00:30:40,330 --> 00:31:14,140
+Now now is this fine like I mean or do you really think there's a there's still a leg Okay, if it is fine, then it is good. Cool. Now, now these are the numbers for P1, P2 and P3. Now what we can do since I have I have the numbers for all of the processes, then what do you think what could be the next step that I can do? Turn around time for P2 is how 30? No, it is 27 right? Turn around time for P2 is 27.
+
+65
+00:31:17,010 --> 00:31:43,780
+Turn around time is the time that it came at zero. I'm saying that all the processes came at zero until the time it got finished till this point. Okay. This is the turn around time from the very start. I mean, the arrival time, uh, there's come at what time it got completed. So basically turn around time. You can think like this. It is completion time at water, whatever time it got completed minus the arrival time, right? Okay.
+
+66
+00:31:44,870 --> 00:32:25,210
+So anyway, let's just continue this. So what do you think we can do now? What do you think we can do? We have all the numbers for all of these processes. What could be the next step do you think? Maybe, maybe I can find out the average average waiting time. Yes, Yemeni is correct. So maybe I mean, this is what we can do average waiting time average response time. Okay, this waiting time response time is same for the fcfs because because waiting, it doesn't wait in
+
+67
+00:32:25,460 --> 00:33:01,700
+between right i mean waiting time and response time might be different for the prem-tip scheduler but it is a non-prem-tip scheduler we will talk about the prem-tip non-prem-tip these things like later but for now i'm just i'm just giving you one of the example of one of the scheduler okay or one of the scheduling mechanism and what is the what is the next thing average turnaround time so i'm just i'm just not writing this response time maybe because these are same right it's just same so if you want i can do one thing okay
+
+68
+00:33:12,680 --> 00:33:40,680
+So what is the average waiting time here? I think you can calculate it. You will you will say that this is 0 plus 27 maybe 0 plus 24 plus 27 by 3. Okay. And here the turnaround time is 24 plus 30 plus I mean 24 plus 27 plus 30 by 3. That's how you can calculate these average times. Okay.
+
+69
+00:33:42,210 --> 00:34:04,090
+So, I mean, this is, this is about the FCFS, right? We will see some more examples of FCFS, but I hope this, this idea is clear that what it is doing. Okay. And how we are calculating the times. Cool. Now, what may so happen in FCFS that the order, like, I mean, this, this is basically the sensitive towards that order, right? If P1 is coming first and P1 is taking too much of the time.
+
+70
+00:34:04,540 --> 00:34:34,500
+don't you think it is I mean it is let's suppose p1 is coming and then immediately after one second or sometime p2 is coming don't you think that p2 unnecessarily got I mean got scheduled or got scheduled too late just because p1 was too long do you think it is it is fair for p2 I mean do you want that kind of scheduling algorithm so basically what I'm what I'm trying to say let me just quantify this let me just quantify this what we are saying
+
+71
+00:34:34,840 --> 00:34:58,240
+that here if you if if let's suppose the arrival time of p1 okay here the arrival time of p1 came first and let's suppose then p2 then p3 if this is the arrival times then it has got scheduled like this and in this case the average average waiting time is coming out to be 17 okay so 51 divided by 3 it is 17 but let's suppose by chance by chance if p2 is coming first
+
+72
+00:34:59,240 --> 00:35:32,270
+if p2 is coming first and then p1 is coming and then p3 is coming and then p1 is coming so these are the arrival times right these are the arrival times okay so Sukhi is saying that how can a process know it's turn around time no nobody is asking you to know do you really need to know I mean you can just execute it and then you can know right without executing I don't think it is really possible to know okay
+
+73
+00:35:33,170 --> 00:35:58,610
+So you need to execute and then you can know that okay for how long it is running without executing it is generally not not I mean, it is generally not easy to not even easy. It's not how to the easy. I think it could be the undecidable problem. Okay. Now in Turing machines, you might have heard about the halting halting Turing machine and halting problem, right? So you never know that whether the program is even going to hold or not, right?
+
+74
+00:35:58,890 --> 00:36:28,320
+you never know the worst time in in in in the upfront am i already one so what i'm trying to say that you never you never know the turnaround time or the worst time in the upfront do you really think that that we can know the turnaround time or the or the worst time that how much it is going to run but how do you been running it until unless user tell us right until unless user tell us that okay in your machine it is going to take these much seconds i mean i can i can even put the infinite loop right
+
+75
+00:36:28,760 --> 00:36:58,040
+I can say it is a while loop while one while one it is an infinite loop and you don't know as the CPU it is you are just a piece of hardware always will be just executing the code. Okay. So you might not be knowing that it is it is taking the infinite. You don't know whether it is going to hold or not even right. You don't know the time you don't know the worst time these things upfront. Okay. You can execute and then only you can know. I hope that is okay.
+
+76
+00:36:58,950 --> 00:37:53,150
+Okay. Okay. So there's a lag. Just a second. So, suppose that P1 is basically coming very fast. I mean, this error all the time means that P1 is coming and then P2 is coming, then P3 is coming. Okay. So, suppose if this is the case, then in this case, the average, average weight in time is coming out to be 20s, sorry, 17, 17 seconds or something, right?
+
+77
+00:37:53,600 --> 00:38:15,580
+In this case, if that is how you are shooting, then the average wedding time coming out to be 3 milliseconds. So here it is coming out to be 3 milliseconds and in other case, it is coming out to be 17 milliseconds. So since there is a difference, just because this P1 is coming first or P2 is coming first, do you think it is really a good idea?
+
+78
+00:38:16,240 --> 00:38:51,990
+I mean, basically, what do I mean to say about this particular algorithm? The thing is that this algorithm is very sensitive in terms of who is coming first and who is coming later. So in this case, the average weight in time is 17 milliseconds. In this case, average weight in time is 3 milliseconds. So yes, this difference can even be larger.
+
+79
+00:38:52,410 --> 00:39:20,990
+the moment P1 P1 is very very large let's suppose P1 is having 500 milliseconds don't you think that average average waiting time will will be increasing for P2 and P3 for many process let's suppose P4 also for P5 also the waiting time will keep on increasing just because P1 is too large right but if the large process is at the last then it is good isn't it so it is called convo effect convo effect means you just you just consider that there is a traffic and on that traffic
+
+80
+00:39:21,360 --> 00:39:46,220
+just consider that this this truck okay is at the you know at the front of the queue and other vehicles let's suppose maybe Lamborghini or maybe Ferrari or whatever the other other other cars which which are very high high power cars or high power machines which are behind the tractor so don't you think that it will be very slow just because of this right just because of one process other process are waiting overtaking
+
+81
+00:39:47,320 --> 00:40:06,580
+Okay, there is no overtake rule, let's suppose, okay, there's a single name. So, so based on that, I mean, just because one one processes is is executing very slow, or it is too long, it is taking too long to complete, then other processes are anyway waiting. So I mean, this is just one analogy, don't try to map one on one, but this is one analogy. So that's called convo effect.
+
+82
+00:40:06,730 --> 00:40:48,950
+Okay, I mean, quantitatively, we cannot just any, I mean, I don't think there is any time to define this common effect. But yeah, but I hope you understood, theoretically, that what does this common effect mean, right? Conflict effect basically saying that because of large process scheduled first, other processes has to suffer. Okay, this is some theoretical idea that the FCFS is basically suffering from the common effect.
+
+83
+00:40:49,490 --> 00:41:16,050
+You, have you heard or have you, I mean, you, you, you might have seen that discussion. There is a one question in Gate 2023, Gate 23, sorry, Gate 23 only, Gate 23, regarding the FCFS starvation, right? So, no, this is, this is not the starvation exactly, but yeah, there is something, some term called starvation and in Gate 23, there was one very popular question. And for that question,
+
+84
+00:41:16,460 --> 00:41:45,740
+only only go classes has given the correct answer in the sense that we already released the video and we already talked about that that fcfs is is basically because of the decision fcfs will be suffering from the starvation and all and i don't think there is any anyone else who has you know declared this before us and after the key yes after the key everyone was saying saying that after the key everyone was saying that but before the key we were the only one who was claiming that anyway we will talk about that question also but but not today definitely
+
+85
+00:41:45,900 --> 00:42:15,310
+because we like today's internet it is lagging so that is why we will talk about that particular later okay particular question later so let's just do one thing we will you know discuss from this convo effect okay we will discuss from this convo effect little little later maybe maybe day after tomorrow because tomorrow I will be traveling so that's why I might not be able to might not might not be able to take the class okay so okay so maybe we can we can just
+
+86
+00:42:15,740 --> 00:42:42,260
+Continue. Okay, later. Good. So this was the one question in grade 2023. There was one FCFS question and that was very, very much quantitative, quantitative question. Okay. Sunday I can, I will be just announcing on the
+
+87
+00:42:44,050 --> 00:43:00,410
+on the announcement group that what will the time of the classes and from the Sunday, I want to speed up. So don't worry, like I will try to cover this operating system with good speed now. Okay. So from the Sunday, I will be speeding up. So thank you everyone. Take care. But anyway, we will be continuing on the Sunday.
+

@@ -1,0 +1,984 @@
+1
+00:05:01,680 --> 00:06:14,620
+Hi everyone good morning let's start now so now in this lecture and in the next lecture we will study join operation division operation and some queries we will write we will see how to write relation algebra queries and we will also see how to understand relational algebra queries okay so let's start now so in the last class we have already seen all the basic operators how many basic operators are there total six
+
+2
+00:06:14,910 --> 00:06:43,210
+yes or no total six basic operators are there that we have already seen and these six basic operators these are basically I can say selection okay selection it will select the rows it will apply to individual rows yes or no it will apply to every individual row it will check every individual row it will check every individual row okay and the selection condition that only applies to single row remember the selection and the selection condition that must contain only
+
+3
+00:06:43,560 --> 00:07:09,760
+that must apply to only a single row to only a individual row okay independent row next that is projection so you project that attributes okay whichever attribute you want you can project them next is cross product cross product means basically you are joining two tables okay you are combining two tables every row we will combine every row of one table will combine with every row of another table
+
+4
+00:07:10,080 --> 00:07:37,930
+another is union set union and this difference and renaming okay remember intersection is not a basic operator okay we have already seen that intersection you can create in terms of difference okay now let's see the next so the next is sometimes we need to combine two or more tables right if you want the data correct so sometimes we need to combine tables sometimes we need to combine
+
+5
+00:07:38,250 --> 00:08:07,730
+two or more tables those tables can be same or different okay in the last class we have seen this twitter example yes true friends on twitter so there we were combining two tables those were same tables yes or no those were same tables basically same table you were combining correct okay so remember sometimes we need to combine two or more tables they can be same or different to retrieve some information okay they can be same or they can be different to retrieve some information for example in our in this example
+
+6
+00:08:08,080 --> 00:08:35,700
+true friends on the twitter okay like i can say who are friends of each other okay so a is friend of b b is friend of a so this type of friends so you can notice true friends of on twitter this type of this type of questions this this example in this example we have seen that we were combining okay two table we were combining those two tables were the same table okay the same table we will we were combining okay so you can notice this was our example
+
+7
+00:08:36,060 --> 00:09:02,260
+and you can notice this this is the example and okay and so these are nothing these these arrows are nothing forget about the arrows okay these arrows are not there basically it's like your two okay two columns one is uid one and another is uid two okay so these are the two columns now you can notice that here if you want to find all the true friends if you want to find then definitely what you need you need to combine this table with itself yes or no
+
+8
+00:09:02,510 --> 00:09:31,680
+you need to combine this table with itself so i can say you are combining two tables which are basically the same tables okay now how to determine how many tables to combine tell me how to determine okay how to determine how many tables to combine how many tables to combine one table two table three table how many tables to combine how to determine that okay so that is very easy to determine if you uh okay depending on the problem it will depend yes of course okay depends on the retrieval yes
+
+9
+00:09:32,030 --> 00:10:00,260
+it will depend on the problem but most of the time you can very easily determine just check how many rows you need how many rows you need to see okay basically how many rows you need to see to get your desired answer how many rows you need to see to get your desired answer okay is this clear how many rows you need to see to get your desired answer for example let's see this example tell me the answer here
+
+10
+00:10:00,620 --> 00:10:30,370
+So you have a Twitter database. Let me give you the Twitter database. So let's consider this. Let's consider this Twitter database. Okay, or okay, whatever, like this is your Twitter or Instagram database, whatever. So here you have. So you have two attributes. Okay, in this database, there are two attributes. One is user ID one. Okay, and another is user ID two. Okay, you have two.
+
+11
+00:10:30,840 --> 00:10:59,560
+attributes user id1 user id2 is this clear so in this database there are two attributes one is user id1 another is user id2 and for example this user can okay and basically here if you want to see the meaning then a is following b a is following b a is following c a is following b something like this okay next b is following a next b is following i can say b is following e
+
+12
+00:10:59,890 --> 00:11:28,810
+Maybe C is following, maybe C is following D. Okay. Yeah. So maybe B is also following D. B is also following D and C is also following D, something like this. Okay. So anyway, now you can notice this is your Twitter database and this is the data. Okay. So how will you interpret this in this particular database? In this particular database, you can interpret this as a, like A is following B. Okay. So here you can interpret as a.
+
+13
+00:11:29,010 --> 00:11:56,550
+A is following B. A is following B. Like this you can interpret in this particular database. Like this you can interpret the particular row. Now here what is the key? Can anyone tell me what is the key? What is the key? Can I say one of them is key? What is the key here? So definitely the combination is the key. Yes or no?
+
+14
+00:11:56,830 --> 00:12:28,310
+So here definitely this combination is the key UID 1, UID 2. This combination is the key. This combination is the key. Or I can say this combination. Remember this combination is the key. This combination is the candidate key. Or I can say primary key. Now tell me the answer for this question. In the Twitter database find all the people whom A is following. Then tell me, can single row tell you this?
+
+15
+00:12:28,620 --> 00:12:58,300
+Can single row tell you this? Tell me. Is a single row enough? Is a single row enough? Tell me. Yes, a single row is enough. Yes or no? So you can notice single table is enough and single row is enough. So here what is enough? You can clearly see this single table. This single table is enough and also single row is enough. Like single row is enough. For example, whom A is following? A is following B. A is following C. A is following B.
+
+16
+00:12:58,530 --> 00:13:28,370
+so definitely here I can say that single row is enough and single I can say here this information this information you can get you can get from here this information to get this information I can say single table okay you need a single table and you need single row okay so what it means it means you don't have to combine anything okay you don't have to combine anything you can just directly write okay what you can write you can write that in this table
+
+17
+00:13:28,780 --> 00:13:58,930
+In this Twitter table, let me give this name. What is this table? Let me call this tweet. Okay, let's call it Twitter. Okay, so you can notice. Let's call it Twitter. So in this Twitter table, what you will do? Tell me in this Twitter table, what you will do? You will select those tuples. You will select those tuples here. Find all the people whom A follows. A is following. So here I can say UID1 should be equal to A.
+
+18
+00:13:59,210 --> 00:14:28,500
+agree ok such that uid1 should be a ok so you will select those rows where uid is a where uid is a then you will project uid2 then you will project uid2 agree or not you will project uid2 yes or no because very simple very simple you can notice your answer will be what in this table your answer will be what your answer will be bcd ok these are the people to whom a is following
+
+19
+00:14:29,000 --> 00:14:58,310
+A is following, A is following BCD. Yes or no? So I can say A is following BCD. These are the people whom A is following. So your answer, for this particular question, your answer will be BCD. Yes or no? Correct? Your answer must be BCD. So what you will do? Very simple. From the Twitter table, you will find all, you will find all the rows. You will find, this will give you all the rows. Remember, this will give you all the rows. This will give you all the rows.
+
+20
+00:14:58,640 --> 00:15:30,210
+where UID is one UID one is a UID one is a then you will get all the UID two okay you will project all the UID two correct so this UID two you will project this is what you want okay so this is your answer tell me the answer for this question who follow who follow a who follow a tell me this one okay those people who follow a those people who follow a
+
+21
+00:15:30,460 --> 00:15:57,750
+so again from the twitter table what you will do single table is enough this single table is enough and also single row is enough so those people all people who follow a so you will select where uid2 is a yes or no where uid2 is a you will select where uid2 is a this uid2 is a and then you will project uid1 then you will project uid1 correct
+
+22
+00:15:58,160 --> 00:16:28,460
+So you will get all those people who follow A like okay like you can notice B is following A yes B is following A so like for example B is following A so here I can say your answer that that should contain B is this clear tell me tell me is this clear so you okay remember those tuples you will select you will select those tuples those rows you will select where UID2 is A then you will project UID1 okay this is your
+
+23
+00:16:29,440 --> 00:16:58,580
+so this will be your answer this will be your relational algebra query what is the answer for this question find all the pairs of people find all the pairs of people who follow each other find all the pairs of people all pairs of people we want who follow each other can a single row can a single row tell you no single row does not tell you this table is enough okay only one table is enough this table okay remember this table is enough which table
+
+24
+00:16:59,000 --> 00:17:27,500
+this twitter table is enough one table is enough but you need okay two rows yes or no two rows needed to see agree agree or not you need to see two rows two rows needed to check you need to check two rows agree so two rows needed to check so this table in this table is enough two rows you need to check it simply means you need to combine okay it simply means it simply means that it simply means that
+
+25
+00:17:27,790 --> 00:17:58,020
+you need to combine Twitter with Twitter you need to combine Twitter with Twitter okay is this clear so this single this table is enough this single table is enough but you need two rows to see okay so that is the reason what you will do very simple here you will combine Twitter with Twitter so finally what you can do to combine this you can create one like this okay Twitter with Twitter okay you can do this then ultimately what you are wanting
+
+26
+00:17:58,310 --> 00:18:27,050
+remember always think about the idea always think about the idea don't think about the queries always think about the idea okay so here what you will do so you will combine basically this type of tuples you want okay this uid1 uid2 uid1 uid2 okay so basically this type of tuples you want where if a is following where if x is following y then y should follow x so in this cross product
+
+27
+00:18:27,310 --> 00:18:55,640
+remember this twitter table this is your twitter table and this is another twitter table okay in this table in this cross product you want this type of rows okay remember you want this type of rows you want this type of rows you want then what you will project tell me what you will project what you will project you will project this okay finally you will finally you will in this situation in this situation you will project this
+
+28
+00:18:56,030 --> 00:19:24,450
+In this situation, you will project this. So you can project UID 1, UID 2. So I can say this UID 1, UID 2, you can project. So like this. Very simple. So finally, your answer will be what? Your answer will be, in this what you do? You select those tuples where UID 1 should be equal to remember. For one table, let's assume you have two tables T1, T2.
+
+29
+00:19:25,010 --> 00:19:52,760
+Okay, your Twitter table T1, you can do the renaming. The renaming you can do. Okay, that is not very complicated. That is the renaming you can do. Very simple. You can do the renaming. This is your Twitter table. For this Twitter table, what you can do? You can do the renaming. You can do the renaming. Okay, T1. And you can do the renaming T2. Okay, so for this Twitter table, you can do the renaming T1 and T2. So these are the two tables.
+
+30
+00:19:53,090 --> 00:20:23,290
+now in these two tables what you can do very simple t1.uid1 this would be equal to t2.uid2 okay and so this should be equal to this and what should happen and what should happen very simple that t1.uid2 this should be equal to t2.uid1 okay this should happen that's it okay so finally what you will do and in this final answer
+
+31
+00:20:23,510 --> 00:21:02,250
+you will project uid1 uid2 this is what you will project okay very simple so like this you can do like this you can do all these questions very easily tell me the answer for this question tell me tell me the answer for this one find those people who follow at least two different people find those people who follow at least two different people so tell me yes that will be t1.uid1
+
+32
+00:21:02,540 --> 00:21:33,960
+t2.uid1 t1.uid1 t1.uid2 okay this will be your answer okay so here tell me one thing here find those people who follow at least two different people at least two different people so here again only two rows you need yes or no only two rows you need so remember you only need two rows for this question you only need two rows so again here clearly you need only two rows
+
+33
+00:21:34,290 --> 00:22:03,540
+so okay so only this table you need remember only this table tutor you need in this table also you need two rows to see yes or no correct you need to you need to see two rows at least two different people who follow at least two different people okay like this type of situation you want where x is following y also where x is following z also so two rows you need to see okay you need to see total two rows so now finally
+
+34
+00:22:03,980 --> 00:22:33,480
+in this situation what you will do the same first of all think about the idea or if first of all think about the idea what is the idea tell me what is the idea the idea is very simple again your twitter table okay so two times you need to see this table this table you need to see two times so basically you can combine this table with itself this is your uid one this is your uid two this is your uid one this is your uid two okay so now in this situation what you will do
+
+35
+00:22:33,800 --> 00:23:04,610
+what you want tell me in this cross product you want what you want in this cross product which type of row you want okay tell me the answer for this question in this cross product which type of row you want what is your desired row in this cross product you want this type of row that x is okay x is following y also x is following z also x is following y also x is following z also agree or not yes or no very simple
+
+36
+00:23:05,020 --> 00:23:41,110
+okay so here what should happen here what should happen these two must be same here i can say here i can say these two must be same correct these two look at these two these two must be same these two must be same these two must be same and these two must be different and these two must be different and these two must be different okay so this should happen yes or no these two must be different and these two must be same and finally what you will project
+
+37
+00:23:41,770 --> 00:24:13,200
+What are you going to project? What are you going to project? This X you are going to project. Yes or no? Those people who follow at least two people. Those people who follow at least two people. So you will project this. This X you will project. This X you will project. That means you will project this. UIT1.UID1. This you will project. So your answer will be what? So finally your answer will be again you can create two tables from the Twitter.
+
+38
+00:24:13,730 --> 00:24:42,740
+from the twitter table again you can create you can do the renaming you can do the renaming from the twitter you can do the renaming t1 and you can do the renaming twitter t1 t2 okay like this you can do the renaming and then finally you can create their cross product t1 cross t2 and in this cross product you will select those rows which row are you selecting i am selecting those rows where what is happening
+
+39
+00:24:43,120 --> 00:25:12,020
+t1.uid1 is equal to t2.uid1 okay remember t1.uid1 or user1 t1.user1 is equal to t2.user1 correct okay in short I can write like this and and and what should happen t1.user2 should be not be same as t2.user2 yes correct these two must not be same
+
+40
+00:25:12,370 --> 00:25:41,800
+so t1.user2 must not be same as t2.user2 and then finally in this in this what you will do you will project t1.user1 you will project okay like this you can do so very simple all these things yes or no just think about the idea tell me the answer for this question who follow at least three people okay who follow at least three people again the idea is same
+
+41
+00:25:42,290 --> 00:26:10,290
+you need to see 3 rows correct how many rows you need this single table is enough but 3 rows you need to see yes or no so here I can say that okay who follow 3 different people at least 3 different people you want these things x is following y also x is following z also x is following some something else w also okay so this type of things you want so you need to see at least 3 rows
+
+42
+00:26:10,670 --> 00:26:39,830
+three rows you need to see so what you will do very simple here in this situation what is the idea think about the idea okay always think about the idea what is your idea idea is very simple you have t1 u1 u2 similarly in t2 you have u1 u2 and in this t3 you have u1 u2 okay you can you can do the cross product of these three what is your desired row tell me what is your desired row
+
+43
+00:26:40,730 --> 00:27:09,150
+just tell me at this point what is going to be your desired row you want that axis following y also you want axis following z also you want axis following w also okay so remember what you want you want this should be same as this this should be same as this okay you want this should be same as this this should be same as this and what you want they must be different yes or no this must be different from this this must be different from this this must be different from this
+
+44
+00:27:10,090 --> 00:27:42,170
+and okay is this enough is this enough is this enough this is not enough this is not enough they also must be different they also these two must also be different this must be different from this okay yes or no all three of them they must be different from each other they must be different from each other and finally what you will project you will project this okay you will project this this is this x you are going to project this as x you will project very simple
+
+45
+00:27:42,430 --> 00:28:11,630
+this is your idea finally your answer will be what that will be t1 t2 t3 you will do the cross product in this cross product you what you will do in this cross product you will find those rows where t1.user1 is equal to t2.user1 is equal to t3.user1 okay so these three must be same they must be equal to each other okay these three must be same and what should happen and what should happen
+
+46
+00:28:11,900 --> 00:28:40,630
+these three must be same and and and I can say that t1.user2 must not be same as t2.user2 okay you can notice and this must not be same as t3.user2 and remember t1.user2 not same as t3.user2 t3.user2 okay in this finally you will project finally
+
+47
+00:28:41,040 --> 00:29:12,600
+okay at the end you can project a t1 dot user one is this clear tell me is it clear to everyone so this relational algebra tell me is this easy like this is easy right yes or no relational algebra this is very easy if you understand the idea always think about the idea forget about relational algebra forget about relational algebra just think about the idea okay tell me the answer for this one who follow exactly one person
+
+48
+00:29:13,050 --> 00:29:43,510
+find those people in this table in this table you find those people who follow exactly one person so in this table you tell me in this table just tell me in this table okay very simple point I'm asking in this table if I do this then what I will get if I just project UID 1 then what I will get in this Twitter table if I project if I project this in this Twitter table
+
+49
+00:29:43,890 --> 00:30:12,700
+we have this twitter table in this twitter table we have user1, user2 if I only project user1 okay if I project user1 okay if I project user1 from this twitter table then can I say because only two attributes are there yes or no yes because only two attributes are there in this table in this table only two attributes are there and this is the primary key this is the primary key
+
+50
+00:30:12,870 --> 00:30:44,800
+so if i do this only two attributes are there remember this is important point that this table contains only two attributes so can i say this means people who follow at least one person yes or no this is people this gives you people who follow at least one person who follow at least one person okay yes or no correct
+
+51
+00:30:45,980 --> 00:31:18,700
+because only two attributes are there because only two attributes are there because there are only two attributes so that is the reason I can say that definitely what will happen I can say this will give you people who follow at least one person so now you want now you want exactly one person so exactly one is what exactly one is what exactly one is okay at least one okay at least one minus exactly one means what
+
+52
+00:31:19,040 --> 00:31:55,600
+at least one minus at least two at least one minus at least two okay at least one minus at least two this you already know this will be your pie okay user one from the Twitter table from the Twitter table this we have already written okay already done this was your okay already done this we have already done okay so finally you can do this this will be your answer
+
+53
+00:31:56,300 --> 00:32:39,290
+so you can do the difference this is your difference is this clear tell me is it clear to everyone so very simple okay so here basically the previous question you can the previous query you can put here okay this will be your answer tell me the answer for this who are followed by at least two people who are followed by at least two people celebrity who are followed by at least two people on Twitter
+
+54
+00:32:39,850 --> 00:33:08,010
+It is very hard to get followers on Twitter. So if you are political, then definitely you will get many followers on the Twitter. It is very easy on the LinkedIn. On the LinkedIn, you can get followers based on your skills. So anyway, so let's see people who are followed by at least two people on the Twitter. So here, what is the idea? Just think about the idea.
+
+55
+00:33:08,600 --> 00:33:36,930
+Everything is idea remember. Remember everything is idea. So what will be the idea? The idea. The people who are followed by at least two people. Okay. The people who are followed by at least two people. So you won't remember. You want this type of people. You want this type of people. Remember you want. You want this type of people. Remember this is what you want. You want this. Okay. This is what you want. Correct.
+
+56
+00:33:37,710 --> 00:34:06,650
+this is what you want so here what you will do very simple again two rows you need okay user one user two okay T2 again user one user two and then what you will do you will do the cross product what is your desired row in this cross product what you want in this cross product you want X is following Y also Z is following Y also okay so now they must be same now they must be same X is following Y also Z okay
+
+57
+00:34:07,030 --> 00:34:37,570
+and they must be different and finally what you will project what you will project this you will project in this situation this in this situation this you will project is this clear to everyone tell me very simple right okay very simple so finally I can say your answer will be I can say the answer for this question for this question the answer will be what that will be that from T1
+
+58
+00:34:37,980 --> 00:35:08,410
+from t2 okay from this cross you select those tuples those tuples you select where t1.u1 is different from t2.u1 and t1.u2 is same as t2.u2 and then finally in the final answer in the final answer you select t1.u2
+
+59
+00:35:10,790 --> 00:35:39,980
+okay so very simple so like this you can do tell me is this clear all these questions are they clear all these questions are they clear it's all about idea it's everything about idea okay just just think about the idea okay like how will you do forget about relational algebra just think about the idea now let's see derived operators so in the last class we have already seen the basic operations
+
+60
+00:35:40,440 --> 00:36:07,140
+now we will see the derived operators so you can very simply see that to combine tables this cross product is useful to combine tables we have already seen many examples we have seen many questions we have seen now tell me one thing if you only apply cross product is that meaningful if you only apply cross product if you
+
+61
+00:36:07,430 --> 00:36:37,140
+if you pair every row with every row is that meaningful will it give you any any meaningful information okay yes or no too much I can too much meaningless information you will get yes or no if you combine every row with every row then too much meaningless information you will get correct okay meaningless information you are going to get so very simple that only this cross product it is going to give you meaningless information most of the time
+
+62
+00:36:37,740 --> 00:37:09,460
+most of the time it will give you meaningless information. For example, what will happen like a very simple example you can take, it will give you meaningless information. For example, if you have one table where you have mails, let's assume here you have all the mails and or maybe for example, I can say here you have all the parents, like for example, here you have all the parents,
+
+63
+00:37:10,120 --> 00:37:39,870
+and here you have like mother father and here you have the list of all the kids the list of all the kids okay so hmm so in this list let's assume your boys boy girl and and also maybe you can take this okay and maybe I can say here you can say the house number okay the house number the house number okay something like this
+
+64
+00:37:40,330 --> 00:38:11,650
+Okay, here also you have the house number here. You also you have the house number now now see very simple if you want to find if you want to find Who is the father of this boy? Who is the father of this boy? Then what do you need? Find if you want to find if you want to find father of be one if you want to find father of be one then what you will do Then what you will do if you want to find father of be one then let us assume let us assume
+
+65
+00:38:11,940 --> 00:38:41,540
+in this table there are 100 records let's assume there are 100 rows here and in this table let's assume there are 200 rows okay let's assume there are 100 rows here and 200 rows here now in this situation can you notice this cross product is a very okay can you notice this parents cross kids this cross product it is going to give you what it is going to give you
+
+66
+00:38:43,660 --> 00:39:20,780
+it is going to give you 20,000 rows it is going to give you 20,000 rows and how many of them are meaningful most of them are meaningless yes or no most of them are meaningless most of them are meaningless okay most of them are meaningless agree or not because it will combine everything with everything okay everything with everything it will combine the house number one the mother number one father number one okay
+
+67
+00:39:21,100 --> 00:39:48,620
+and here house number two okay so here you can notice something so okay can you notice you will get like this also will combine with this but this is meaningless you okay you will combine this with this also but it is meaningless right so you can notice if you do this then you will get a lot of meaningless tuples agree or not so if you do this then definitely you will get a lot of meaningless tuples if you only do this
+
+68
+00:39:49,960 --> 00:40:20,500
+This will never give you any meaningful information correct. This is never going to give you any meaningful information Okay, if you only do this if you only do this like if you do parents cross kids Look at this table only forget about anything else forget about everything else look at this table this table is will give you meaningless information agree or not look at this table look at this table this table will give you
+
+69
+00:40:20,810 --> 00:40:53,750
+meaning less information a lot of meaning less information this table will give you now look now if I put some selection condition now if I put the condition that okay parents house number should be equal to the kids house number okay now you will get the meaning meaningful information agree or not now finally you will get the meaningful information now finally some meaningful information you get forget about this now
+
+70
+00:40:54,060 --> 00:41:30,080
+Finally some meaningful information you will get at least I can say this is meaningful information. Okay. Yes or no. Okay. Yes or no. Very simple. So you can order that if you only apply the cross product without anything else without anything else without anything else. If you only apply the cross product then it will mostly it will give you meaningless information. So cross product. Okay. Comes with what? So normally if you want meaningful information if you want this meaningful information
+
+71
+00:41:30,480 --> 00:42:01,380
+then cross product comes with selection and projection it will come with selection and projection so this is what i'm saying i'm saying that if you only apply cross product then that is mostly usually meaningless if you only apply cross product okay but remember so usually usually cross product is followed by some selection and projection condition okay so very simple now so this is what happens like in this table
+
+72
+00:42:02,420 --> 00:42:31,140
+Look at this table. Tell me in this table. I want this information. Dr. Monk, okay, he wonders whether he has to teach a multicultural group of students or not. Basically, this Dr. Monk is thinking, okay, how many countries students I am teaching? How many countries students I am teaching? Okay, this is what Dr. Monk is thinking. So Dr. Monk is thinking, find the countries of students whom I am teaching. Okay, like okay.
+
+73
+00:42:31,400 --> 00:43:00,240
+this is a very simple thing okay he wants to know he wants to know his students are from which which countries he is teaching which countries students okay so this is what he wants to know so he is wondering about what he has to teach in a sorry whether he is teaching a multicultural group or not so tell me one thing this information can you get in a single table this information can you get in a single table
+
+74
+00:43:00,580 --> 00:43:30,480
+this information can you get in a single table how many tables you need to get this information okay to get this information how many tables you need just tell me single table will not give you for example very simple this table will tell you the name see this table will tell you the name of doctor okay here is the doctor monk there is no doctor monk here there is no doctor monk here so here is the doctor monk okay so this table will give you the subject of doctor monk
+
+75
+00:43:31,080 --> 00:44:02,360
+What you will do? This table will give you the subject of Dr. Maung. You will take this subject and you will go to this table. Agree? Agree or not? You will take this subject. You will take this subject. Okay. You will take this subject and you will go to this table. You will take this subject. You will go to this table. This table will tell you the name of the students. This table will tell you the name of the students. Okay. Then you will take these names.
+
+76
+00:44:03,740 --> 00:44:35,800
+then you will take these names and you will go to this table you will go to this table this table will finally tell you the countries this table will finally contain you the countries so tell me tell me for the doctor monk what will be the answer in this particular instance in this particular instance what is the answer so your final answer will be what find the countries of the students you are finding the countries of the students whom doctor monk is teaching
+
+77
+00:44:36,270 --> 00:45:20,580
+So for this particular instance, what will be the answer for this particular instance? For this instance. So answer for this instance. Answer for this instance, that will be Canada and Britain. So your final answer will be what? Your final answer will be countries whom Dr. Mohak is teaching. So your final answer will be Canada and Britain. Okay. Yes or no? So the final answer will be Canada and Britain. Very simple.
+
+78
+00:45:20,890 --> 00:45:51,050
+okay now so now finally what will be the query how will you write the query so how many tables you need so you need three tables okay agree you need total three tables so definitely you need total I can say total three tables you need remember these three all these three tables you need all these three tables you need all of them all of them you need you need a teacher a student and registration okay you need this teacher table also
+
+79
+00:45:52,040 --> 00:46:24,160
+you need this student table also and you need this registration table also so you need you need to combine all of them okay so tell me finally your answer will be what how will you write the query so teacher table you can do the okay just think about the idea forget about the query always forget about the query just think about the idea what is the idea this teacher table will tell you what tell me tell me tell you this teacher table it is going to give you what information name and topic in the steeper
+
+80
+00:46:24,310 --> 00:46:53,530
+in this teacher table you have name and topic so from this teacher table you will find the doctor monk where is the doctor monk yes or no in the teacher table you want doctor monk agree in the teacher table you want doctor monk grow okay and you will find what are the subjects he teaching he is teaching okay what are the subject he is teaching okay some subject he is teaching let's assume as let's assume some subject he is teaching as one okay then what do you want then you will go to registration table
+
+81
+00:46:54,180 --> 00:47:24,460
+Then you will go to registration table. This registration table will tell you for the subject name, for the subject name, what are the student name? For the topic name, what are the students name? For the topic name, what are the names of the students? For this topic, the names of the students you will find. Then finally you will go to the student table.
+
+82
+00:47:24,780 --> 00:47:59,620
+then finally you will go to the student table in this student table you will find okay the name and the country the name and the country you will find of course gp is also there but okay we don't care about the gpa okay basically for this subject okay this user's country you will find yes or no so this is your desired row agree or not agree or not this is your desired row this is your desired row is this clear
+
+83
+00:48:00,060 --> 00:48:29,980
+This is your desired row correct or not. Tell me. Did you get it? Please tell me that you did you get it? So in the cross product, this is your desired row and What you will project and what you will project in this situation? Okay, Dr. Monk is teaching this subject this subject is taken by this student Okay, and this is today this student is from country C1 Finally, you will project this
+
+84
+00:48:32,200 --> 00:49:00,980
+finally you will project this okay this is what you are going to project so your answer will be now you can write the query very simple from the teacher table you have a teacher table there is a registration table there is a student table from these two from these three you want those rows okay what rows you want you want those rows where where what should happen this t dot name must be dr. monk correct
+
+85
+00:49:01,400 --> 00:49:32,480
+this t dot name okay teacher name must be doctor monk teacher name must be doctor monk and and what and so teacher name must be doctor monk this teacher name and what should happen and you cannot they must be same they must be same and they must be same correct these two must be same so I can say t dot topic is equal to r dot topic I can say t dot topic
+
+86
+00:49:32,970 --> 00:50:11,300
+remember very simple t.topic is equal to r.topic and r.name is equal to as.name okay if finally in this finally in this you will project you will project as.country you will project as.country okay you will find this country list of country you will find that's it so relational algebra this is very easy
+
+87
+00:50:11,710 --> 00:50:42,910
+All is everything is in the idea. Did you notice everything is in the idea? Just think about the idea. Nothing else. You only have to think about the idea. Everything else is very easy. Okay. Just you find what are your desired roles. Just find the desired roles. Nothing else. So very simple question, right? Okay. Now you can notice. So this is very frequent. Can you notice this is very frequent cross product.
+
+88
+00:50:43,240 --> 00:51:19,750
+followed by selection and projection. This is very frequent. The question is asking about the countries. See, the question is asking about the find the countries. Find the countries. The question only wants countries. The question only wants countries. Dr. Monk only wants to know the countries. Yes or no? Dr. Monk only wants to know countries. Yes, we can only write country. That's also fine.
+
+89
+00:51:20,190 --> 00:51:50,890
+oh okay okay yeah that's also fine because there is no ambiguity in the country there is no ambiguity in the country you can also write like this there is no ambiguity in the country okay this country this country only belongs to this table the country only belongs to this table there is no ambiguity so you can directly write country no problem okay there is no problem okay anyway so let's see let's move on so can you notice this is very frequent okay this cross product
+
+90
+00:51:51,290 --> 00:52:21,240
+followed by selection this is very frequent this is very frequent okay like you will do the cross product and then you will put the selection condition agree or not okay this is very frequent because we never basically we never do this okay what is more frequent cross product or cross product followed by selection what is more frequent so tell me like you have like you have t1 cross t2 this one or this one t1 cross t2
+
+91
+00:52:21,670 --> 00:53:00,290
+followed by some selection followed by some selection so definitely this is more this is more frequent this is more frequent this is mostly usually meaningless this is usually meaningless yes or no it usually gives meaningless information so finally I can say this is very frequent this is very very very very very frequent so that is the reason that is the reason we have created another operator for this
+
+92
+00:53:00,730 --> 00:53:29,770
+because this is very frequent because this is very frequent okay that is the reason we have created another operator for this this whole thing this whole thing we have created another operator for this and that operator is called join operator like here you have some condition here you have some condition so we have created another operator for this because this is very frequent is it clear so why we have this
+
+93
+00:53:30,050 --> 00:53:59,460
+tell me why we have this join operator is this understood is this understood why we have this join operator why we are creating the new operator why we are creating the new operator because this is very very very frequent okay so this is mostly meaningless but very frequent this is mostly free this is more frequent so we have created new operator so remember this whole thing this whole thing is written as this this whole thing is written as this
+
+94
+00:53:59,720 --> 00:54:33,160
+so we have created a new operator conditional operator this is called conditional join okay we call it conditional join this operator so this is called conditional join operator conditional join okay very simple so this is what i'm saying so remember this this is very frequent that first you do the cross product and then you find your desired answer yes or no first you do first you combine first you combine
+
+95
+00:54:33,690 --> 00:55:05,690
+Do the cross product and then you find your desired tuples So this is very frequent Okay, so we have created a new operation for this This new operation we have created Okay, so we we have created a new set of operators actually Okay, these are called join operators Set of operators. We have a new set new set of operators. We have These are called join operators. Now, let's study them. So remember these things are not remember
+
+96
+00:55:06,010 --> 00:55:36,440
+these things are basic operators finally these things are basic operators of relational algebra the basic operators are selection projection and you can notice selection projection also you can notice union okay union cross product set a difference and renaming here also one more thing I want to tell you this is mostly for convenience okay this is only for convenience only
+
+97
+00:55:37,670 --> 00:56:06,770
+this is also only for convenience or I can say so that you don't have any ambiguity this is only for convenience but anyway these are the six basic operators and there are many derived operators there are many derived operators like these are the derived operators for example you can notice the natural sorry the join operators these are called join operators and then you have something called division operator
+
+98
+00:56:08,000 --> 00:56:35,750
+and there are so these are called these are called inner join operators this type of operators this type of operators these are called this type of operators these are called inner join operators and this is your division this is called division operator and there is there are some some things remember these are these were given by whom tell me these six and these these were given by code these were given by code
+
+99
+00:56:36,220 --> 00:57:05,400
+And these were some other outer join operators are also there. Some other operators are also there. These type of operators are also there. These are called outer join. These are not part of basic algebra. These outer joins, these are not part of basic algebra. Is this clear? So these are not part of basic, I can say, relational algebra. These are the part of basic algebra. Okay, all of them. These were given by the code.
+
+100
+00:57:05,790 --> 00:57:41,540
+this was not given by code this was not given by code these were given by code these were given by code so these are not part of these outer joints i can say these are not part of classical or i can say basic relational algebra not part of basic relational algebra but anyway these are important anyway we will study okay so all of them we will study now now let's move on and also intersection intersectionally derived this intersection operator
+
+101
+00:57:41,900 --> 00:58:21,770
+that is also derived intersection is not a basic operation intersection is not a basic operation now let's see join operations so we have some join operations and these are very simple i told you what is the idea tell me what is the idea tell me the idea is very simple that this alone alone cross product is mostly meaningless alone cross product that is mostly meaningless so if you have two relations r s and you do their cross product most of the time most of the time
+
+102
+00:58:22,050 --> 00:58:55,610
+we do this this will be forward by some condition some selection okay this whole thing this whole thing this whole thing this whole thing you can write in a single in a single words this whole thing you can write in a single words okay as like this remember but the but the idea is this both are same both are same okay both are same so here basically
+
+103
+00:58:55,950 --> 00:59:26,730
+Remember both are same. Actually this is just I can say for writing I am writing this but actually we are going to follow this okay for understanding for understanding we will follow this basically basically what we are doing basically you will not combine all the tuples basically you will not combine all the tuples you will combine only those tuples where and let me tell you there are some basic operators what are the basic operators sorry these are the join operations
+
+104
+00:59:27,600 --> 01:00:00,700
+first we will see inner join operations so join operations join operators so how many join operators we have how many join operators we have so there are two type of join operators the first is inner join operators which is by default join which is by default join by default join means inner join okay by default join means inner join and there is outer join
+
+105
+01:00:01,680 --> 01:00:31,760
+and there is something called outer join okay outer join now in this inner join also by default remember this inner is not used we don't use this word inner I will only say join so when I say join what I mean whenever someone tells you that join it automatically means inner join they are talking about how many inner join operations are there so inner join operations there are okay there are three there are three basically one is I can say okay
+
+106
+01:00:32,030 --> 01:01:02,270
+there are three types one is called conditional join one is called conditional join here you have some condition here you have some condition okay in this conditional join you have some condition there is some condition there okay there is some condition this condition this conditional join is also called theta join this conditional join people call it theta join also in the older days nowadays people don't call it
+
+107
+01:01:03,050 --> 01:01:41,270
+in the in the older days people used to call it theta zone okay so this theta zone why because there were this is how this condition basically this condition people write as theta that this condition was theta but this was older convention nowadays people don't call it this is a old old convention this is a I can say this was old convention this was all terminology okay so both are same this this theta zone this is just
+
+108
+01:01:41,580 --> 01:02:10,870
+nowadays people just use condition c okay so we will also use c remember okay there there was a time where people used to call condition means theta okay condition if you want to write some condition then they use to write theta for it like okay theta is some condition theta is some condition theta is some condition so remember theta is same as condition so this was a old terminology nowadays it is not used okay next the second is
+
+109
+01:02:11,240 --> 01:02:45,950
+the second is uq join the second is uq join this is the least important this is the least important you can skip also this you can skip also this is least important and this is most important another is natural join actually this uq join is also same where theta contains only equality this condition contains only equality then basically both are same okay basically both are same is this clear i can say
+
+110
+01:02:46,280 --> 01:03:17,030
+i special case is this for this i special case is this i special case is this this is a special case and another is natural join and this symbol if you have this symbol then it is natural join without anything else okay so anyway we will see don't worry now let's see start first we will see the theta join or i can say conditional join okay remember this is just a old old terminology nowadays people don't call it
+
+111
+01:03:18,340 --> 01:03:45,970
+So this is the terminology given by the code okay code was using this terminology but nowadays people are only using this conditional zone terminology like conditional okay so let's see this conditional zone so very simple this is the conditional zone you have some condition okay r cross s this thing is same as this is your conditional zone this is the conditional zone actually what is the difference between these two let's understand
+
+112
+01:03:46,430 --> 01:04:17,390
+so here in our process you will pair everything with everything correct okay in this R process basically you will pair everything with everything you will pair every row with every row here you will get every row with every row so there I can say I can say I can say your result will be too much yes or no your intermediate result will be too much it will be very big it will be very huge okay so your intermediate result
+
+113
+01:04:17,890 --> 01:04:56,960
+your intermediate result will be huge i can say so here you will get a huge intermediate result you will get a huge intermediate result okay now here actually what you will do here you will pair okay pair rows of r rows of r with rows of s which condition which satisfy the condition yes or no pair rows of r with rows of s only if condition satisfied
+
+114
+01:04:57,460 --> 01:05:28,910
+only if condition is C satisfied yes or no condition C is satisfied ok now you might be thinking now you might be thinking but sir ok that practically how it does how it happens tell me so practically how it happens practically how your dbms will do practically will your dbms do like this if you give this command if you give this command
+
+115
+01:05:29,290 --> 01:05:59,570
+will your dbm's do this will your dbm's do this will your dbm's do this no this is meaningless if you have to do this then why are you having this agree or not if you have to do this if you have to do this then why are you having this okay why are you wasting my time yes or no this is what you will ask you will ask this that if you have to do this so remember dbm's will not do this
+
+116
+01:05:59,920 --> 01:06:31,130
+because db must will directly do this there are algorithms we will study we will study there are algorithms okay these algorithms we will study these are called uh you you can show some join algorithms are there there are some join algorithms nested join okay these algorithms are there so there are join algorithms okay like nested join and all everything okay so these we will study so these join algorithms we will study in the okay we will study when
+
+117
+01:06:33,490 --> 01:07:11,620
+these join algorithms we will study in indexing chapter okay in the indexing module in the indexing module we will study this these join algorithms so there are some join algorithms is this clear so remember this will not happen okay your your dbms your dbms will not do this your dbms will not do this you will not you will not do this conversion this transformation you will not do okay
+
+118
+01:07:14,200 --> 01:07:51,320
+This transformation, this transformation does not happen. Okay. You will not do this transformation. Okay. So practically you will not do this transformation. Basically there are some join algorithms. They will directly give you the join and these algorithms we will study. There are like blog nested join and you can notice nested join algorithms. Okay. These we will study. Don't worry. Like nested join. Okay. Anyway, now let's move on. So this is what I'm saying.
+
+119
+01:07:51,570 --> 01:08:22,550
+so remember here you will pair everything with everything if you do this then you will pair everything with everything so you will get a huge intermediate result but here you will pair only if condition is satisfied only if this condition is satisfied then you will pair the remaining things you will not pair okay the remaining things you will not pair now let's move on now let's see this so very simple so tell me what will be the answer here this is very easy so here what will be the answer you can notice
+
+120
+01:08:23,030 --> 01:08:52,920
+your query is this what is your query your queries are join conditional join there is a condition what is the condition the condition is be less than be the condition is be should be less than be this is the condition be should be less than be if you have cross product then what you will do if you have cross product if I ask you cross product then you will do this then you will combine everything with everything
+
+121
+01:08:53,610 --> 01:09:21,530
+in this situation you will combine everything with everything okay in this situation you will combine everything with everything if i ask you cross product okay if i ask you this cross product but but what i'm asking but i'm asking this i'm asking this join i'm asking this join so remember like this you will do please understand and algorithm will also do like this please understand algorithm will also do like this
+
+122
+01:09:21,800 --> 01:09:53,990
+algorithm will check one by one algorithm will check like this for this it will take all of them okay this is this is one of the algorithms i told you there are some algorithms yes or no some join algorithms are there there are two join algorithms there are total two join algorithms okay i can say there are two join algorithms so one of those algorithms what it will do one of those algorithms what it will do it will do this for this row
+
+123
+01:09:54,360 --> 01:10:24,860
+it will check this and this it will check this and this it will check this and this tell me is the condition satisfied is the condition satisfied here tell me b should be less than d so yes the condition is satisfied so you will do this because the condition is satisfied because b should be less than d remember so this condition is satisfied here also the condition is satisfied so this also will be there
+
+124
+01:10:25,480 --> 01:10:54,610
+because here also condition is satisfied what about the next what about the next you can also here also condition is satisfied so it will be taken it will be taken so finally your answer will be there will be total three doubles this will be your final answer did you understand tell me this row will not be there because because you will I can say that this is not matching with any of them
+
+125
+01:10:54,970 --> 01:11:28,470
+this is not matching with any of them because the condition is not satisfied remember the condition is this this is the condition this should be less than this we should be less than D is it clear now in this situation these rows these are called joined rows okay these rows we call them joined rows we call them joined rows and those rows which are not these are called joined rows did you notice this rows
+
+126
+01:11:28,830 --> 01:12:02,290
+this row is not joined with anyone did you notice this row only this row is not joined with anyone else this row i can say not joined with anyone else not joined with anyone else so this row is lost can you notice did you notice this row this row this row this row is lost this row is lost did you notice this row is lost this is lost in the join this is lost so this is not joined with anyone
+
+127
+01:12:02,810 --> 01:12:36,610
+This type of rows is called dangling rows dangling this type of rows It is called dangling row Okay, because it is lost Because this row is a lost in this this row is a lost Okay, this row is lost here. Is this clear anyway? So this type of row is called dangling row Because this row is not joined with anyone else This is not joined with anyone. So this is a dangling row
+
+128
+01:12:37,610 --> 01:13:14,070
+anyway this is just a word nothing else just a word so is this clear to everyone tell me very simple now let's see this question so in this question what we want okay what was the query here I think I forgot to write the yeah okay this was the query so tell me yes now you tell me so this is the query what we want we want as one
+
+129
+01:13:15,120 --> 01:13:45,380
+conditional join with r1 this is your s1 conditional join with r1 and this is the condition is this clear and this is the condition remember this is the condition remember this is the condition correct this is the condition so we want s1 join with r1 and this is the condition what should be the condition the condition is this s1.sid should be less than r1.sid so this sid should be less than this sid
+
+130
+01:13:46,160 --> 01:14:15,300
+this SID should be less than this SID so finally what you will do very simple you can notice this you cannot pair okay what you are going to pair this you will pair right okay this you will pair so definitely this you will pair this will be in the final result okay this will be in the final result next you can notice that this 31 must be less than this this will be in the final result so these two will be in the final result
+
+131
+01:14:16,530 --> 01:14:58,540
+These two will be in the final result. How many dangling rows are there? How many dangling rows? There is only one dangling row that this is this row is gone. This row is lost. Yes or no? You can notice this row is lost. So total the okay, and this row is lost. This row is lost. So this row is called a dangling row. Dangling row. Okay, this row. Because this no, this is not lost. The first row is not lost.
+
+132
+01:14:59,100 --> 01:15:29,400
+the first row is already combining with this the first row is already combining with this row the first row is combining with this row is this clear the first row is combining with this row oh yes this is also dangling row yes yes yes this is also dangling row so this row is also dangling because this is not combining with anyone else so this is also dangling row this is also dangling row so I can say two dangling rows okay
+
+133
+01:15:33,330 --> 01:16:06,650
+There are two dangling rows. Basically, dangling row means what? This is given in the Ulman. Okay. Because this is given in the Ulman book. In the Ulman, this is given. Ulman defines it. Ulman says that what is the dangling row? And this is useful in the outer joint. In the outer joints, there is no dangling rows. In the outer joints, in the outer joints, in the outer joints, for example, we will study there is something called left outer joint. There is a left outer joint. In the left outer joint,
+
+134
+01:16:06,880 --> 01:16:33,860
+there is no dangling row from this left table from this left table there will be no dangling rows in the right outer join there will be okay don't worry we will study don't worry we will study in the right outer join there will be no dangling row from right table and in the full outer join there will be no dangling rows so this is interesting right yes or no so that is the reason I am focusing on this dangling row
+
+135
+01:16:34,780 --> 01:17:08,000
+this is the reason I am focusing on this word dangling row what is this a row okay remember whenever you do this R whenever you do this then a row of R or S of R or S okay a row of R or S which does not which does not pair with any manner okay which does not pair with any other row I can say which does not pair with any row
+
+136
+01:17:08,350 --> 01:17:49,120
+is this clear which does not pair with any row this type of rows are called dangling rows okay this we will again see we will revisit this this dangling row we will revisit then in the outer joint in the outer joint we will again study this we will revisit this in outer joints okay but tell me did you get it tell me did you get it like this is easy right because
+
+137
+01:17:49,520 --> 01:18:20,180
+this row and this row these are not combined with anyone else they are not combined with anyone else these two rows they are not combined they are not paired with anyone else so these are dangling rows okay this is your idea now so this is the theta zone tell me the answer for this question so did you understand what is the theta zone so you have some condition okay remember you have this relation you have this relation between them you have some condition
+
+138
+01:18:20,900 --> 01:18:54,900
+okay between them you have some joint condition this is the joint condition this is the joint condition okay this joint condition must be satisfied this joint condition must be satisfied and these two things are same you can also write like this this is same as this basically the C you can replace with theta okay so if you if you use this word C then you will call it conditional join then you will call conditional join
+
+139
+01:18:55,260 --> 01:19:31,180
+and if you use this theta then you will call it theta zone okay is this clear then it will you will call it theta zone it is a old terminology remember it is a old term it is a new term but both are there okay both are there both of them can be half so tell me the answer for this question quickly what will be the answer suppose the relation is given to you okay this is your a b this is the relation r
+
+140
+01:19:31,690 --> 01:20:04,110
+The question is saying that this is the relation r and this is the relation s bcd has the following now compute the theta zone of r and s Okay, we need to compute the theta zone the theta zone of r and s and what are the condition the condition is this that r dot a must be less than s dot c and and and r dot b r dot b must be less than s dot d. So these are the conditions
+
+141
+01:20:04,570 --> 01:20:39,870
+so these two conditions must be satisfied remember these two conditions must be satisfied okay so this is your i can say this is your theta okay this is your theta this this this because the person is using this author is using theta so this is your theta or condition this is your theta or you can call it condition so tell me which of the following tables is in the result so your result will be like this
+
+142
+01:20:40,270 --> 01:21:11,920
+your result will have these these things okay your result will be remember one more thing I want to tell you this important thing I forgot to tell you but remember what happens they have the same schema the schema of this the schema of this like if I ask are this conditional join as this schema will be same as remember this schema this schema will be exactly same as
+
+143
+01:21:12,230 --> 01:21:41,560
+the schema of R process. Okay, they have the same schema. The schema will not change. The schema will be same. They have the same schema. For example, if you have, for example, if you have A comma B, and let's assume S is also A, S is A comma C, then what will be the schema for this? In this situation, what will be the schema for this? Just tell me the schema. The schema will be like this. Okay, the schema will be R dot A, B.
+
+144
+01:21:42,180 --> 01:22:18,010
+s dot a d c remember this will be the schema okay this will be the schema for this okay is this clear now similarly if you have for example if you have this R and if you have CD if you have CD now what will be the schema now what will be the schema that now that is very simple now that is that will be ABCD now this will be the schema okay so in this situation this will be
+
+145
+01:22:18,350 --> 01:22:50,330
+and in this situation and what about in this situation if you have r a comma b s a comma b in this situation what will be your schema for r conditional join s for the conditional join the schema will be r dot a r dot b s dot a s dot b okay so your schema will be like this is this clear tell me tell me
+
+146
+01:22:50,590 --> 01:23:19,130
+is it clear to everyone so schema of both of them will be same both of them will have the same schema schema will not change schema will be same for both of them like in this question you can notice in this question you can notice like here basically this sid is here also this sid is here also okay so you can just call it s1.sid if you want or you can use them by position see there are two choices there are two choices that you have
+
+147
+01:23:19,630 --> 01:23:55,390
+either you can call them by position you can call it first position okay you can call them like this that this is the first position and this is the fifth position or you can call like this or you can say that this is S1 dot SID and this is R1 dot SID that is your choice either you can do this or you can do this both are correct both of them are correct okay in this question this was the joint condition
+
+148
+01:23:56,590 --> 01:24:42,230
+For this question, this was the joint condition. The joint condition was this. Nikhil is asking, do we need to check r dot b equal to h dot b? Why? Okay. Now, Mavith is asking this question. So, what about this one? If you have r a comma b, then what will be the schema for r cross r? First of all, you will rename this. Okay. In this situation, you will do some renaming. In this situation, we have already seen this.
+
+149
+01:24:42,590 --> 01:25:13,100
+in this type of situation you will do some renaming okay need to do some renaming in this type of situation you need to do some renaming some renaming you need to do that we have already seen in the twitter example in the twitter example we have already seen for example you will do some renaming like r1 close r2 this renaming you will do okay is this clear so this we have already seen in the twitter example that you will do some renaming now you can do
+
+150
+01:25:13,340 --> 01:25:49,650
+now you can do r1.a then r1.b then r2.a and then r2.b okay so in this type of situation we do some renaming and then we do like this okay is this clear or you can use the positions or you can use the positions either you do the renaming or you can use the positions
+
+151
+01:25:50,600 --> 01:26:25,870
+Or you can use the positions. So if you want to use the positions, then you can use the positions. In this situation, you can use the positions also. Like 1, 2, 3, 4. So use the positional. Or use positions. Anyway, but this is, I can say, this is very rarely used. In the gate exam also, they don't use it. Ulman also does not use this. These positions are used by mostly Raghurama Krishna.
+
+152
+01:26:26,790 --> 01:26:56,320
+But all the other people like Ulman, Nawate, they don't use possessors, they just directly use this one. Okay, they directly use it. They directly use like this, r1.a, r1.b. Okay, this is the convention followed in, I can say this is the convention followed in most of the books. In majority of the books, this is the convention that is followed. Okay, let's see this question. So tell me here. So you want to satisfy these conditions. So finally, tell me what will be the answer. So your final answer.
+
+153
+01:26:56,630 --> 01:27:27,490
+okay uh in this tell me this one two will it join with the this row will it join with this first row this one two will it join with this this one two will it join with this whatever the condition is this r dot a must be less than s dot c so this r dot a must be less than s dot c and r dot b must be less than s dot b so this will happen this combination this combination will definitely happen
+
+154
+01:27:29,310 --> 01:27:58,580
+okay so this will definitely happen so 1 2 2 4 6 this will definitely happen what about the next 1 2 4 6 8 again r dot a must be less than h dot c and r dot b must be less than this so yes this also will happen this combination will also happen okay next the next combination will also happen the next combination will also happen okay this also will combine with this
+
+155
+01:28:01,160 --> 01:28:29,970
+this also will combine with this so finally I can say 1 2 4 6 8 definitely this will be there okay the question is asking which of the final tables is in the in the following okay so this will definitely be there what about this 5 6 2 4 5 6 2 4 6 remember r dot a you can check like this r dot a must be less than s dot c r dot a must be less than s dot c this is wrong array you can check like this
+
+156
+01:28:30,370 --> 01:28:59,760
+in the options you can directly check in the options you can directly check because the schema is already you have you have the schema okay you have the schema that is r.b and then you have s.b and then you have c then you have b so you can directly check from the options what should happen tell me from the options you can directly check what should happen this should be less than this and and r.b should be less than s.b and this should be less than this
+
+157
+01:29:00,690 --> 01:29:28,910
+so finally from the options you can directly check what will be the answer so here again you can notice here so r dot a is that is correct but what about r dot b is less than d so yes this this will be there and what about the next one two two six eight one two two six eight this also will be there one two two six eight sorry this is not even here oh this is not even here
+
+158
+01:29:32,700 --> 01:30:01,840
+5, 7, 9 is not even here. This is not even in the, in the there. Okay. So the answer will be only option B. Answer will be only option B. Answer will be only option B. Because remember, these are not even in the, in the S, in the instance S, we don't even have these. So take care. If this is a MSQ question, take care. Okay. Is this clear? Take care. So final, tell me.
+
+159
+01:30:02,140 --> 01:30:31,730
+what will be the final answer like how many rows will be there in the final answer so remember here your r which is a comma b and here you have s which is b c d and you are doing some combination you are doing this this theta okay this theta joint so it will give you what it will give you these tuples r dot b s dot b okay r dot b s dot b c d okay so you will get these tuples
+
+160
+01:30:32,310 --> 01:31:02,660
+Now in these tuples you can clearly see what what should happen? Okay, so finally how many you will get there will be three of them like because of this one two there will be three Because of this one two this one two will pair with the two four six Okay, it will pair with the two four six also It will pair with the four six eight also It will pair with the four seven nine also So can you notice there is no dangling tuple there is no dangling tuple can you notice?
+
+161
+01:31:03,140 --> 01:31:32,590
+there is no dangling rope okay next three four it will combine with what r.a must be less than s.c r.a must be less than s.c okay so this condition is satisfied r.d must be less than s.d so this three four also will combine with everything again this three four will also combine with everything this three four will also combine with okay I can say two four six
+
+162
+01:31:33,900 --> 01:32:08,830
+This will also combine with the 2, 4, 6, 4, 6, 8 and 4, 7, 9. This also will combine. And you can notice 5, 6. So this must be less than S dot C. So this will combine with the last 2. And this should be less than S dot D. S dot D. So yeah. So this 5, 6 will combine with the last 2. So this 5, 6 will combine with only last 2. So this is what you will get. 5, 6, 5, 6.
+
+163
+01:32:09,640 --> 01:32:39,410
+5 6 5 6 it will combine with the last 2 4 6 8 4 6 9 This will be your final answer almost chorus product all most cross product But one row is not there. Okay? Almost the cross product, but one row is not there So I can say in the cross product what will be the cardinality of the cross product What will be the cardinality of the cross product that will be 3 into 3 9 that will be 3 into 3 9
+
+164
+01:32:39,930 --> 01:33:19,580
+But here the cardinality is 8. Okay, here the cardinality will be 8. One combination will not happen. And there is no dangling row. And here there is no dangling row. In this particular question, in this particular question, there is no dangling row. Next, what is the answer for this one? Again, the similar question r.b, this is the condition, a very similar question, you can solve it. I think quickly tell me the answer. The complete analysis you can do.
+
+165
+01:33:20,090 --> 01:33:52,260
+okay like how many rows will be there what will be the final output what will be the complete output but you tell me the answer for this question quickly the question is saying that s dot b should be remember this is the condition r dot b should be s dot b r dot b should be s dot b okay r dot b should be s dot b so these should be mostly same these two must be same and r dot a must be less than s dot c
+
+166
+01:33:52,850 --> 01:34:21,840
+and this must be less than this now tell me the answer so very simple so remember when you combine then what should happen first of all you must have first of all you check is this in the in the option like in in the tables do you have this 90 T83 yes we have in the table so you can notice yes they are same yes they are same but 9 is not less than 8 so this we will not have in the answer we will not have this in the answer okay what about this 2g
+
+167
+01:34:24,790 --> 01:34:50,560
+this is not in the answer because this g is not equal to t, g is not equal to t. Next, what about this? 4 t, t at 3, t at 3, 4 t. Yes, this will be in the answer. Next, 2 g, g 7 8, 2 g, 2 g and g 7 8 is not even there. This is not even in the table.
+
+168
+01:34:51,250 --> 01:35:28,330
+this is not even in the table so the answer will be only option C let's see that this question okay quickly tell me a very similar question but here what you have yeah okay so very similar question so quickly tell me the answer very quickly okay this is ABC this is BCD so finally what will be the question is saying the question is saying this did you notice what is this did you notice what is this this is actually same as what
+
+169
+01:35:28,870 --> 01:36:04,560
+this is actually same as what this is actually same as the joint conditional join this is actually same as the conditional join yes or no this is same as the conditional join r dot b so you don't have to create the cross product you don't have to don't create the cross product okay do not create the cross product so this is same as this both are same we already know this so whenever you have this type of situation some condition
+
+170
+01:36:05,280 --> 01:36:41,710
+whenever you have this condition and r cross s you can write it as r conditional join s so both are same so here also you can do this now finally the answer will be okay so the kiosk is saying that what will be the relation schema for this for this this is your condition this is the condition theta now you can notice why people were using theta why they were using theta the old in the older days
+
+171
+01:36:42,300 --> 01:37:13,290
+why they were using theta because it will confuse if you use c yes or no it will confuse if you use the c again so maybe that is the reason maybe that is the reason they are using theta because it will confuse when you use the c for condition okay so anyway let's see this one so finally what is the schema for this the schema will be a r dot b r dot c h dot b
+
+172
+01:37:15,120 --> 01:37:44,530
+s dot c and d this will be the final schema this will be your final schema and in this schema what you want you want a should be less than d this a should be less than d and you can notice r dot b should be less r dot b should be same as this they should be equal this is the condition so your answer will be what and this schema is already given to you the same schema is already given to you
+
+173
+01:37:44,760 --> 01:38:13,700
+so finally the answer will be you can notice this must be same as this first of all you check do you have this do you have this 863 do you have this yes do you have 589 yes you have this so finally you check are they same or this is equal to this correct this is equal to this and this is a this is equal to this no this is not equal to this so this is wrong I can say option is not in the answer option a not in the answer what about the next 411
+
+174
+01:38:14,110 --> 01:38:44,000
+five at nine so this is also not in the answer because these these are not correct because this would be equal to this and these are not equal what about the next the next six three eight six three eight and three seven eight so yeah this is in the answer and finally this is not in the answer okay your answer will be options so this is enough for practice offer
+
+175
+01:38:44,620 --> 01:39:12,260
+tell me did you understand this all these questions we have done okay did you understand this everything okay next let's see the equation this is very this is not important but what is this equation actually very simple if your join has only equality if your join has only equality you can call it equation this is a very simple topic let's quickly do basically this join are this join in this join
+
+176
+01:39:12,760 --> 01:39:48,390
+in this join basically this join is called this is called equi-join this is called equi-join the name itself is telling you this itself is called equi-join if theta only contains equality if theta only contains equality condition equality conditions equality conditions okay if theta only contains equality conditions not containing not containing less than
+
+177
+01:39:48,750 --> 01:40:19,640
+less than equal to greater than greater than equal to or not equal to okay these things should not be there so only equality should be there only equality should be there okay your theta must only contain must only contain the equality conditions so tell me is this theta join is this a theta join is this theta join this is not a theta join right this is not a theta join sorry this is not a equal join is this a equal join
+
+178
+01:40:19,820 --> 01:40:47,540
+no this is not a equi joint this is a theta joint but this is not a equi joint what about this is this equi joint is this equi joint this is also not a equi joint because of this because of this this is not a equi joint okay what about this one is this equi joint this is also not equi joint because of less okay so this is also not equi joint so okay remember now for example here
+
+179
+01:40:48,010 --> 01:41:20,180
+is this equation is this equation this is not equation because you have less you have less here so anyway remember very simple your theta has only equality then we call it equation very simple definition extremely simple definition okay so you must only contain this is actually nothing yes or no now everything else is same now everything else is same now everything else is same
+
+180
+01:41:20,840 --> 01:41:53,930
+okay so very simple your condition this condition see involves only the comparison with the equality then you call it equation okay this type of thing is called equation now let's see this example is this equation tell me this example you have is this equation so you can notice this is equation right correct so this is definitely you can notice this join I can say because of this because of this I can say this join is equation
+
+181
+01:41:54,520 --> 01:42:32,390
+I can say this join is equi-join. I can say this is a equi-join. I can say this is equi-join because why this is equi-join? Because your condition has only, you have this condition, equality condition. Because of equality condition. Because of equality condition, you have this equi-join. Very simple. And remember, everything else is same. Everything else is same. So finally, you will have ABC and your LCD. So everything else is same.
+
+182
+01:42:33,290 --> 01:43:01,970
+so you what you will do then they are equal so you cannot this will pair with this okay this will pair with this in the equation what happens in the equation this happens did you notice did you notice if you are doing the equality comparison then did you notice always this will happen that two columns will be identical at least two columns will be exactly identical at least two columns will be exactly identical this is the property here yes or no
+
+183
+01:43:03,320 --> 01:43:33,530
+okay at least two columns will always be identical because you are doing the equality condition you are putting the equality condition okay you are putting the equality condition so let's see this example let's see this question t1 t2 t3 these are given to you okay and the question is saying t1 equi joint t3 and the condition equality condition is given to you that is t1 dot c equal to t3 dot c okay so tell me now
+
+184
+01:43:34,730 --> 01:44:03,310
+get all the combination so what will be your answer here in this in this particular question you want T1 remember this is what you want you want T1 condition join and there is a T3 and remember T1.c should be equal to T3.c this T1.c this should be equal to T3.c so because of this equality because of this equality this is called equi-join
+
+185
+01:44:06,150 --> 01:44:35,050
+we call it equation you can also call it theta zone every equation is also theta zone so you can call it theta zone also every equation this is theta zone also the only difference is there is a equality condition now because of this equality condition what will happen so t1 dot c should be equal to t3 dot c so t1 dot c this would be equal to t3 dot c yes there there will be some yeah so this will join with this so what will happen here
+
+186
+01:44:35,370 --> 01:45:05,500
+so first of all what will be your schema here your prc here your abc so finally your schema will be what your schema will be prc abc okay this will be your schema correct your schema will be prc abc now what will happen this will not join with anyone this will not join with anyone this will not join with anyone next this will join next what will happen next you can notice this will join
+
+187
+01:45:05,790 --> 01:45:36,130
+this will join with with this also and this will join with this also and finally you can notice this this will not join with anyone this will not join with anyone and finally i can say that this will again this will join again this will join with this also again this will join with this also so finally total how many rows you will get tell me total how many rows total four rows you will get so finally your answer will be 25a6 it will be 25a6
+
+188
+01:45:37,370 --> 01:46:10,980
+25a6 okay and so this 25a6 will pair with 10b6 10b6 okay next 25c6 similarly you can notice this will be 10b6 okay 10b6 so this 10b6 this will pair with 10b6 and 25c6 did you notice again again again again again did you notice because of equality condition
+
+189
+01:46:11,410 --> 01:46:42,340
+because you only have equality condition the reason because you only have equality condition did you notice what is happening did you notice this column this is prc and this is abc so you can call it t1.c you can call it t1.c you can call it t3.c you can call it t1.c you can call it t3.c again did you notice the same thing again did you notice this and this look at this column look at this column
+
+190
+01:46:42,780 --> 01:47:11,970
+and look at this column look at this column and look at this column okay so ultimately total six columns you have but you can notice they are same why they are same can anyone tell me why they are exactly same this will always happen in the equation in the equation this will always happen because you only have equality conditions you only have equality conditions and because you have because of this equation this will always happen agree or not because of this equation this will always happen this will always happen
+
+191
+01:47:14,660 --> 01:47:46,080
+okay so total remember total there will be total six columns will be there okay one of them is redundant yes or no I can say one of them is redundant can I say one of them is redundant one of them is unnecessary is unnecessary but but it is there but it will be there okay one of them is unnecessary but it will be there so this is the question okay similarly you can do
+
+192
+01:47:46,920 --> 01:48:18,400
+this one also in this what will be your answer just tell me quickly even you are doing the equation even actually tell me do you have to write this equation word do you have to write this equation word do you have to write this equation word no you don't have to write it is everything about the condition it is everything about the condition this is called theta zone also and this is called this is called theta zone
+
+193
+01:48:18,780 --> 01:48:52,260
+you know and this theta zone will become this theta zone becomes equation this theta zone becomes equation when it becomes equation when it becomes equation when theta only contents when theta only contents equality when theta only contents equality conditions okay so remember you don't have to write that this is equation so there is no need to write it explicitly okay you don't have to write like
+
+194
+01:48:52,430 --> 01:49:21,990
+you don't have to write okay this is the equation no you don't have to write this automatically it will happen okay so here you can notice t1 t3 and this is the condition t1 dot p should be equal to because of this condition i can say equation because of this condition i can say it is equation now t1 dot p should be equal to t3 dot a t1 dot p this this t1 dot p should be same as t3 dot a this should be same as this
+
+195
+01:49:22,200 --> 01:49:50,980
+so how many rows will be there in this just tell me this this point in this how many rows will be there so you can order this will pair with this this will definitely pair with this okay next you can notice that this will pair this second this will pair with this this will pair with this okay this will pair with this again you can order this will pair with this this will pair with this so finally total three rows you will get
+
+196
+01:49:53,470 --> 01:50:22,580
+okay again you can notice what will happen two columns will be same again what will happen two columns will be same correct so this equals this theta and this t3 again what will happen that two columns will be same like your prc this is your t1.c you can call it t1.c and this is your ab t2.c again what will happen you can notice this column and this column they will be basically same
+
+197
+01:50:23,010 --> 01:50:58,690
+because what will happen here also you will have like 10, 15, 10, 10, 25, 10 okay in this column you will have 10, 25, 10 correct 10, 25, 10 here also you will have 10, 25, 10 okay so two columns are basically same I hope this point is clear okay again you can notice two columns same okay so these questions you can do union intersection and set difference just tell me how many couples in the set difference this question you can do
+
+198
+01:50:58,910 --> 01:51:25,790
+you tell me the cardinality just tell me the cardinality of t2 union t3 are they union compatible are they can you do the union t2 union t3 can you do the union yes you can do the union because they are union compatible domain is also same domain is also same so you can do the union okay so their number of number of attributes is 3 3 and their domain is same this has the same domain as this this has the same domain as this this has the same domain as this
+
+199
+01:51:26,520 --> 01:51:56,590
+What are the cardinality of T2 union T3? What will be the cardinality that will be? Okay, 4, 7. From 7, you can remove 2. Okay, so your cardinality will be 5. Total 5 will be there. Okay, next, what are the cardinality of this T2 intersection? That will be 2. Okay, what will be the cardinality for this T2 minus T3? For T2 minus T3, from T2, you are removing T3.
+
+200
+01:51:58,650 --> 01:52:29,310
+So what will happen? So this will be removed. So this will be gone and you can notice this will be gone. So your answer will be basically two and what is the cardinality of t3 minus t2? That will be one. Okay. That will be one. So you can do now the next the last is natural zone. This we have already seen right the natural zone. Actually one more thing. Let me tell you this last point in the equation. You can also have multiple equalities. This is the last example for the equation.
+
+201
+01:52:29,840 --> 01:52:59,420
+you can also have this type of things. For example, you have let's assume A, B, you have A, B, C here and let's assume you have A, A, D, E. Let's assume you have something here. So you can have this type of things also. This is also equal to N. If you have this, this, and let's assume you have this condition. This condition you have, for example, let's assume that R dot A should be less than E.
+
+202
+01:53:00,230 --> 01:53:30,950
+sorry equal equal equal okay r dot a should be equal e and and and let's assume let's assume b should be equal to h dot a and okay remember and I can say that c should be equal to d so remember this is also equation is this clear this is also equation this is also fine
+
+203
+01:53:31,230 --> 01:54:08,330
+this is also equi-zone this zone is also equi-zone in this situation what should happen all of them because you can notice equality equality equality every condition has equality only correct yes or no every condition has equality only every condition that has equality only so this is also equi-zone because every condition has equality conditions if you notice these are equality conditions okay in this situation how many tuples will be redundant
+
+204
+01:54:09,390 --> 01:54:39,950
+In this situation, how many tuples are going to be redundant? How many tuples are going to be redundant? Three tuples will be redundant. Okay, three attributes will be redundant. Three of them will be redundant. Okay, three of them. So anyway, you can check it out. So this is your natural zone. This we have already seen and this is very important, extremely important. What is this natural zone? The natural zone means equality of all common attributes.
+
+205
+01:54:40,980 --> 01:55:09,680
+equality of all common attributes when I say common attribute only the name matters the name matters okay remember when I say common attribute it means the same name attributes the name matters nothing else matters the name will matter okay so when you say natural join it means the name should be same equality of all common attributes all of them equality of all common attributes okay so is this clear
+
+206
+01:55:10,210 --> 01:55:40,660
+No domain actually the name is enough that okay this natural zone it will only check the name it will only check the name basically the name must be same if the name is different you have to renaming you have to do the renaming if you want to apply it okay you have to do the renaming if you want to apply it is this clear if the domain is same sorry let's assume if the domain is different and the name is same assume domain is different but the name is same
+
+207
+01:55:40,970 --> 01:56:11,010
+okay then nothing will match then no matching will happen is this clear no matching will happen no matching will happen so you will get the empty result but is this clear so this is very clearly this is mentioned in every standard book that same name it should happen okay in every standard book you can check it out okay basically the on the same name it is defined your attributes must have the same name they must have the same name
+
+208
+01:56:11,490 --> 01:56:49,100
+so you can notice they must have the same name okay so if we are okay we are only going to see basically the same name attributes we are going to make them equal okay is this clear tell me so anyway so when I say common attribute it means we are talking about the same name attributes now let's see this so what is natural zone the natural zone this is very simple equality of all common attributes equality of okay means it means this
+
+209
+01:56:49,340 --> 01:57:20,680
+basically what you will do very simple if you have a table in this table let's assume you have a b c and you have another table in this table let's assume you have a let's assume you have a a b d in this table now in this situation when you write this without any condition this means natural joint without any condition without without without any condition when you write like this it means natural joint it means natural joint it means natural joint
+
+210
+01:57:20,900 --> 01:57:50,970
+in this situation what you will do in this situation you will match that what should happen what should happen that this this value should match with this value okay equality of all common attributes equality of all common attributes means what should happen this pair which should match with this pair remember this a this here this ab this ab should be equal to this ab this ab should be equal to
+
+211
+01:57:51,280 --> 01:58:27,090
+this ab is this clear tell me okay so this is called natural join don't worry we will take many questions but we have already seen this natural join this is a natural way of joining this is a natural way of joining if you want to join two tables then this is the most natural way of joining two tables you will just check okay what is the value of ab here and what is the value of ab here so like this you will do now now let's see this example if you do the
+
+212
+01:58:27,340 --> 01:58:56,680
+natural join and one more thing one more thing this is very important in this natural join no redundant attribute okay no no unnecessary redundant attribute no redundant attribute you have no redundant attribute so every attribute you will only write once for example for this question what will be the schema for this particular question what will be the schema the schema will be like this the schema will be a b c d
+
+213
+01:58:57,340 --> 01:59:28,190
+This will be your schema. This is going to be your schema. This is going to be the schema. A, B, C, D. So don't write it like in the EQ zone, how many times you write? In the EQ zone, total 6 attributes will be there. A, B, C, A, B, C. But in the natural zone, there is no redundant attribute. You will only write once. For example, here, if I do the natural zone, then what I will get? This is the result of cross product.
+
+214
+01:59:28,910 --> 02:00:00,870
+this is the result of cross product you can notice this is the cross product result okay so if you do the cross product your schema will be this your schema will be a b b c d your schema will be this if you do the cross product now for the same person if you do the natural join then what you will get for the same person for the same person if I do the natural join natural join this without any condition it means natural join
+
+215
+02:00:01,500 --> 02:00:30,950
+without any condition without any condition it automatically means this is natural join without any condition if there is no condition then it means it is automatically natural join so in this natural join what will happen very simple the same name attribute the same name attribute this is the same name attribute so what will happen very simple a b c d only four columns will be there okay only four columns will be there a b c d there will be only four columns
+
+216
+02:00:31,190 --> 02:01:00,400
+now you can notice the equality of the common attribute the equality of the same name attribute so this row will match with this row remember this row will match with this row so i can say this one two five six this one two five six is this clear this one two and from here five six next next you can notice this three four this three four is here four is here so what will happen this this will pair with this so it will happen that three four
+
+217
+02:01:02,010 --> 02:01:31,580
+this will be your answer this is the natural join answer is this clear tell me so in the natural join you see the equality of same name attributes you see the equality of same name attributes okay so this is the answer now let's see the next here you can notice if this is the table u if this is the table v then what you will do in this situation if this is the table u this is the table v then what you will do very simple
+
+218
+02:01:31,900 --> 02:02:02,940
+same name attributes okay the equality of same name attributes you will see you will check the equality of same and same name this is BC this is BC so remember remember remember you will do this these two three should match with this two three and this two three so finally I can say because of this two three you will get one two three four one two three five okay you will get one two three four one two three five next next this seven eight should match with the seven eight so you will get six seven eight ten
+
+219
+02:02:03,230 --> 02:02:35,090
+you will get six seven eight ten this seven eight should match with this this seven eight so you will get nine seven ten uh nine seven eight ten this is your natural zone is it clear is there any difference between these two is there any difference between these two for example if you have let's assume you have r r a b c okay and i say a b d okay now if i write like this directly is there any difference between these two
+
+220
+02:02:35,590 --> 02:03:07,180
+if i directly write like this natural join and if i write like this if i write like this if i don't write directly write if i write like this that r dot a should be equal sorry that r dot a should be equal to s dot a and r dot b should be equal to s dot b if i do this is there any difference yes there is difference what is that here this is natural join
+
+221
+02:03:07,390 --> 02:03:36,900
+only the difference will be schema the difference will be in the schema okay because here your schema will be what in this situation your schema will be abcd in this situation your schema will be abcd in this situation your schema will be what in this situation your schema will be in this situation it will be r.a r.b c s.a s.b d okay
+
+222
+02:03:37,160 --> 02:04:14,300
+in this situation your schema will be this okay i hope this is clear one more thing one more thing these are not same one more thing remember uh these are not same if i write like this one sorry uh if i write like this one right okay so no nothing okay so this is fine so this is fine okay let's see this one so this is your if you do the if you do like this if you do like this then
+
+223
+02:04:14,880 --> 02:04:43,220
+remember this is your theta join yes or no which join is this tell me which join is this this is the theta join this is the your theta join or i can say this is your conditional join so in this situation you can notice your answer will be this this is the schema your schema will be what your schema will be you a u dot b u dot c and you can see so this will be the you can check it out this is your theta join what is the answer for this question tell me
+
+224
+02:04:44,550 --> 02:05:15,160
+For this question, what will be the answer? How many tables will be there? This is also theta joint. This is also theta joint. How many tables will be there in the answer? You can clearly see what will happen. This is the condition. Remember, the condition is given to you. Remember, this is your theta. You can call it theta or you can call it condition. You can call it conditional joint. This is the conditional joint and the condition is this, that A should be less than D. A should be less than D.
+
+225
+02:05:16,390 --> 02:05:47,450
+and so you can notice this is this will be the dangling tuple can you notice this will become the dangling tuple yes or no this will become the dangling tuple because a should be less than d and you can notice this nine is not sorry sorry this is not dangling tuple oh wait wait will this be dangling tuple so a is less than this that is fine and this a is less than this and u dot b should
+
+226
+02:05:48,130 --> 02:06:18,470
+not be same as v dot b yeah okay yeah this will become dangly row ultimately this will become dangly row okay ultimately this will be dangly row okay so you cannot this will match with what this 1 2 3 this will match with what a should be less than d and u dot b u dot b should not be equal to v dot b this would not be equal to v dot b so this will match with this this will match with this what are the next 6 7 8
+
+227
+02:06:18,850 --> 02:06:50,750
+this 6, 7, 8 this will match with what this is 6, 7, 8 so you can notice this will so again this will not match so this also will become dangling tuple this will also become dangling tuple because this will not match that's it so this will also become the dangling tuple and this will also become the dangling tuple so total how many dangling tuple are there total 4 dangling tuple okay total 4 dangling rows you are there
+
+228
+02:06:51,240 --> 02:07:22,920
+so your answer will be only one row will be there in the answer in the final answer you will only have one row okay only one row in the final answer so this is your natural zone is this clear to everyone okay in the natural zone what we do in the natural zone we do the equality of same name attributes we do the equality of same name attributes and we project only one copy of each pair of attributes we project only one copy of the
+
+229
+02:07:23,180 --> 02:08:12,850
+name of the equated attributes so this is the natural zone okay in the next lecture we will study division operation is this clear tell me all the concepts are they clear anyone has any doubt any doubt anyone please tell me anyone has any doubt in the next lecture okay let me tell you one thing varies very clearly the next lecture is going to be the most interesting lecture okay
+
+230
+02:08:13,100 --> 02:08:42,990
+this next lecture division operation if you have already studied this division operation by the way okay by chance if you have already studied this division operation then then you will enjoy more okay you will enjoy more if you have already studied division operation and you will enjoy much more if you think you already know division operation basically in the next lecture i will tell you the difference between knowing and understanding if you think that you know division operation
+
+231
+02:08:43,470 --> 02:09:16,230
+okay then if you think that you know division operation then what is the difference between knowing and understanding knowing and understanding okay like correctly knowing yes you know the correct like the correct knowing okay correctly knowing versus understanding knowing versus understanding what is the difference this difference I will tell you in the next lecture in the next lecture okay in the division operation this division operation we will study okay just like after a few minutes
+
+232
+02:09:16,640 --> 02:09:52,950
+maybe 20 minutes break we will take so this difference this difference I you will see if you have already studied this division operation already okay but anyway so tell me anyone has any doubt hello Priyansu yes hello hello Priyansu are you speaking yes yes sir I mean audible just okay hello yes yes sir yes tell me
+
+233
+02:09:53,570 --> 02:10:23,250
+Sir, I have a doubt from the last class. In that question where you have asked about find all true friends such that the question that asking all true friends where X determines Y and Y determines X both will be there. X determines Y, Y determines both will be there. I mean not determined in the relation. In instances X, Y and Y, X both will be there. All true friends. Oh, okay, yes, yes.
+
+234
+02:10:25,280 --> 02:10:55,380
+I have understand the relational algebra. In the last you have projected project UID1 and UID2, right? Okay, yes, yes. Sir, in that both ABBA and BCCB, all four instances will be there. But my doubt is ABBA, is that right? Or we have to only print AB? Basically, yeah, the point is very simple that
+
+235
+02:10:55,620 --> 02:11:24,320
+the final answer we are giving those people those pairs we are giving who who are friends of each other so if I if I say ABBA or if I say BA does not matter basically I am telling you I am telling you that this final result is those those those pairs who are true friends of each other are you getting my point yeah so the final result you can give it name
+
+236
+02:11:24,580 --> 02:11:53,320
+you can give a name what name you can give true true friends you can give this name are you getting my point yes okay so this name you can give to the final result the final result you can call true friends now in that true friends if you have a b it does not mean that a a is friend of b and b is not friend of a it simply means a is friend of b and b is friend of a yes okay is this clear yes sir one more doubt from the partial fd and transitive fd
+
+237
+02:11:54,320 --> 02:12:22,410
+Yes, tell me. Sir, you have given one statement that every partial is a transitive. No, no, that is statement is wrong. Wait, so that statement was wrong. Oh, I actually that statement was wrong and I will remove that. Okay, from that video, I will remove that that statement was wrong. Basically, I'm finding a quadratic example like not in the live class, right?
+
+238
+02:12:25,290 --> 02:12:51,370
+I told this in the life class I already told this that at that time so when I basically immediately told this in the life class okay but what I'm what I'm going to do that part I will remove and I will upload that video again today okay today I will do this so the complete normalization I will upload on the YouTube on the YouTube channel so I will cut that part actually when I told that
+
+239
+02:12:51,570 --> 02:13:21,130
+every partial dependency is a transitive dependency that is wrong okay that is wrong because you can create a counter example where you have a partial dependency but that is not a transitive dependency okay this type of counter example you can create you can very easily create so that is wrong that statement is wrong okay and but what happens what happens that violation of 2nf is violation of 3nf that is correct are you getting my point yes violation of 2nf is a violation of 3nf
+
+240
+02:13:22,430 --> 02:13:50,810
+But remember, partial dependency is a transitive dependency. That statement is wrong. In general, that statement is wrong. But when you only focus on 2nf3nf, from 2nf3nf point of view, I can say that violation of 2nf is also violation of 3nf. So actually, normally you will see it is taught that
+
+241
+02:13:51,230 --> 02:14:19,270
+partial dependency is also transitive dependency that statement is true only from restricted point of view okay that is only true from the restriction you know in the 2nf there is a special type of partial dependency in the 3nf there is a special type of transitive dependency okay so from that is from that point of view that statement makes sense okay from that point of view from 2nf and 3nf point of view that statement is true but in general
+
+242
+02:14:20,220 --> 02:14:49,440
+you see the definition of partial dependency and you see the general definition of transition dependency, then this statement is not correct. Okay. And neither doubt. So I will remove that part. Okay. Basically in my mind, I was having this from the two enough points of I wanted to teach, but I told that in the general, but I will remove that. So that part will be removed. Don't worry. Okay. You can just, you can just like in your notes, you can correct it. You can write that.
+
+243
+02:14:49,760 --> 02:15:40,400
+in general this is not true but from 2NF train of point of view this will be true okay because we have already seen this we have already proven in the 2NF lecture sorry in the 3NF lecture we have already proven that the violation of 2NF will also be violation of 3NF okay any other doubt okay anyone has any other doubt hello hello hello you are not audible
+
+244
+02:15:41,220 --> 02:16:19,580
+your voice is not coming to anyone. Okay, so I know you can ask in the group. Okay, so let's take a small break and then we will start this outer join we will study at the end. I told you that outer join is not part of basic algebra. So if I teach you right now, you will think that this is part of basic algebra. Okay, so remember this outer join. This is not part of the basic relation algebra code did not give this outer join. Okay, the, you know,
+
+245
+02:16:19,780 --> 02:16:56,460
+in the research paper of code this outer join is not there this is not part of basic relational algebra but these are some additional operations okay we will study at the end so after the division operation i will tell you the outer join okay so okay so let's take a small break 11 okay so let's start at 11 and remember the next lecture is going to be very interesting this division operation lecture okay so let's
+
+246
+02:16:56,660 --> 02:16:56,980
+Meet.
+

@@ -1,0 +1,1060 @@
+1
+00:00:23,860 --> 00:00:51,080
+Hi everyone. So let's get started. Now in the last lecture, we were seeing, do you remember what we were seeing? We were seeing the framing, right? Packet switching and framing. Okay. So in framing, we said like what we want to do, we want to divide the data into something called as frames. And why that is needed? Can anyone tell me why framing as a service we need from data link layer? Because of this region, let's see.
+
+2
+00:00:51,360 --> 00:01:19,620
+if you if you send the data continuously something like that without any start and end boundary then you will you will say that okay where is the beginning and where is the end right so it will get mess up so because of that like where is the beginning and where is the end because of that like i mean if you send something like this and you don't tell okay this is the beginning this is the end i mean we will be anyway sending something like this but we are not telling if we are not telling that this is one frame this is another frame or something like that then it will be problem to the receiver
+
+3
+00:01:19,930 --> 00:01:53,730
+that's what we have already seen right okay uh maybe you remember if you want uh you can just quickly pull up that slide okay so after switching yeah so i mean if you send send like this conjugation this receiver will get confused okay so this is a receiver and that receiver will get confused so that is why we need to do framing okay now in today's class we will see error handling
+
+4
+00:01:54,160 --> 00:02:23,000
+Okay, so in data link layer like as I told you previously also data link layer basically provide multiple services one of them is what one of them is framing another one is error handling and there are some other protocols like I mean there are some other methods we will see so so let's just study them and if you okay there is any noise or like everything is clear from my end in terms of voice can you tell me okay so
+
+5
+00:02:23,450 --> 00:02:43,450
+if you look at the syllabus then in the syllabus they have not specifically mentioned the data link layer protocol I mean they have mentioned that framing error detection media access control like this okay they have mentioned Ethernet bridging and these things routing protocol I mean if you if you notice one thing one interesting thing here is that
+
+6
+00:02:43,710 --> 00:03:13,700
+there is something called protocol okay we will we will talk about the protocols later but one very interesting thing that you might have noticed that in data link layer we don't have specific protocols like I mean there is something called HDLC which is a data link layer protocol okay data link layer protocol but they don't they don't have that specific name in the syllabus what what they have instead they are seeing the framing as a method error reduction as a method which means which means we will see we will see for example we will see framing
+
+7
+00:03:14,380 --> 00:03:45,000
+Okay, and framing can be done. Let's suppose in multiple ways. We have already seen that, right? Uh, suppose, uh, in four or five ways that can be done, right? So maybe let's suppose five base. Okay. So I'm saying that framing can be done. Let's suppose one, two, three, four, five. And let's suppose I tell you some error detection method. Okay. Error detection. Let's suppose that error detection can also be done in multiple ways. Let's suppose, uh, I'm just writing three ways, one, two, and three. Now.
+
+8
+00:03:45,370 --> 00:04:10,760
+Now, these are the general techniques, general techniques in the sense that, I mean, these are the ideas. And if any protocol want that protocol can use that idea. For example, for example, one of the method here was byte stuffing. You remember that from the last class, right? And now let's suppose here, I mean, we will talk about it, but let's suppose here I'm talking about parity, parity bits. Now, now.
+
+9
+00:04:11,070 --> 00:04:39,250
+Basically, what if you want to design a protocol, let's suppose HDLC or there are many, many, many protocol PPP point to point protocol, HDLC protocol, there are many other protocol at the data link layer. So if you want to design any protocol, then what you can do, you can pick one of the method from here, you can pick one of the method from here, and then you can say that, okay, my protocol, whatever you are defining your protocol, let's suppose my protocol, that will be using this, this for the, for the framing that will be using this for the error detection and so on.
+
+10
+00:04:39,580 --> 00:05:04,860
+Have you understood my, I mean, what I'm trying to convey. So I'm saying that there are some gendered method for the framing. There are some gendered methods for the error reduction. Okay. So if you want to design any protocol, what you can do, you can pick one of the framing method, you can pick one of the error reduction method or whatever other service it is providing, you can pick, I mean, you can pick something from that one method from framing, one method from error reduction, one method from mid access control and so on. Okay. So.
+
+11
+00:05:05,230 --> 00:05:34,100
+so and then you can design your own protocol so basically what i'm trying to say here is that they do not have a specific protocol in the syllabus for the data link layer although if you want i can i can summarize that okay this protocol is using byte stuffing this protocol is using let's suppose parity bit or something like that right but if you notice in case of ip okay in case of ip they have actually defined so if you see here they have defined okay my voice is clear or there is disturbance
+
+12
+00:05:38,080 --> 00:05:56,720
+Okay, sorry. So they have defined something called as like, if you see IPv4, right? And like ARP protocol, DSC, DSCP, ICMP, we will see whether this ARP is network layer or data link layer, these kinds of confusion are there. But anyway, like what I'm trying to say here is that that there are some protocols, right?
+
+13
+00:05:57,050 --> 00:06:15,600
+which are very specific like they have defined like they are saying DNS, HTML, TCP, UDP. So for other layers, they have actually wrote down the protocols. But for data link layer, they have wrote down the, have they wrote down the protocol or the generic methods only? Tell me. Only methods. Is this clear to everyone?
+
+14
+00:06:16,040 --> 00:06:43,720
+Okay. So even though we can see the protocol, I mean, I can tell you that this once these methods are covered, then I will tell you, okay, this protocol is using byte stuffing. This protocol is using, I mean, I will pick one, one, one from error control, one from the flow control, like that, right? I will pick and then I will tell you, okay, this, this is using that kind of method. That is okay. But as far as the syllabus is concerned, I'm telling you this thing. Okay. Now, now let's just move to the, I mean, our topic of today, which is framing.
+
+15
+00:06:44,520 --> 00:07:09,980
+Sorry, which is not framing, which is error detection. This is just a recap that why we need framing because we need to know where is the beginning, where is the end. Okay. Now let's just go to the error handling. This error handling can be done into two ways. So, uh, first let's just understand that what does this error handling mean? Okay. And then we will see that what are the available methods here. So error handling means that you are having some data and the data get corrupted.
+
+16
+00:07:10,510 --> 00:07:41,130
+okay why that can can can get corrupted because whenever you are sending the data the channel might be no easy okay because of that whatever you are sending okay whatever you are sending let's suppose you are sending D then do you think that it will be received as D or it can be D prime it can be D prime also right so the data can get corrupted let's suppose you are sending 1 0 1 0 1 it can be 1 0 maybe 0 okay 1 0 0 0 1
+
+17
+00:07:41,340 --> 00:08:13,100
+So which bit got corrupted? Which bit got corrupted? This one, right? This one. This one got corrupted. Just like this. It is a bad bit. Okay. Cool. I hope that is okay to everyone. So that is what error handling mean. Like we want to know that I mean, I mean, there are multiple objectives. Like sometimes we just want to know whether the data has been corrupted or not. And sometimes we also want to know that, okay, if it is and we has been corrupted, then then in that case, what are the
+
+18
+00:08:13,600 --> 00:08:38,690
+bits that got corrupted anyway so we will come to that is this overall idea clear to all of you that what we want to do we want to handle the errors right there could be the errors in the channel and we want to handle the errors so error handling right so basically there is a noise because of that because of that that can get corrupted okay now there are
+
+19
+00:08:38,930 --> 00:09:15,180
+two type of error two type mean that either only one of the bit get corrupted or maybe multiple bits get corrupted if multiple bits get corrupted we call it worst error if one of the bit get corrupted we call it single bit error okay is this okay to everyone okay now this is just a meme which is saying that are you ill then this guy is saying no just feeling a bit off okay can you can you quickly identify what is funny here okay
+
+20
+00:09:15,420 --> 00:09:46,080
+not sure if you have identified so just see this bit right this bit and this bit got corrupted okay so what we want to do basically we want to code the data okay and we want to we want to handle the errors using the I mean after after coding the data so either you can do block coding or you can do convolution coding this convolution coding is not in our syllabus
+
+21
+00:09:47,880 --> 00:10:23,280
+So we will be just looking at block coding only. So what does this block coding mean? That whatever the message we have, we will be appending something called as parity which to the message. Okay. Maybe at the end, maybe at the start, maybe in between doesn't matter. So we will block coding says that we will append, append some bits to the message. Okay. Where should we append? Can anyone tell me?
+
+22
+00:10:26,350 --> 00:11:08,800
+at the end of the message or at the beginning or in between also at a start middle or in between also anywhere right anywhere so the answer is this this this so basically anywhere we cannot attempt okay so for example let's suppose that you have one something called as data okay and if we have just one word of data
+
+23
+00:11:09,310 --> 00:11:33,060
+we call it data but basically okay now what we are trying to do we are trying to append some bits to the data so that we can convert this data to the data but to the something called as code word okay so we will append some of the bits here and then we will be converting this which is called data word to the code word right
+
+24
+00:11:34,480 --> 00:12:11,020
+Where should we append? Again, anywhere. You can append at the beginning in the middle at the end anywhere. Okay. So these are called parity bits, parity bits. And this complete thing is called code word. Okay. This is called data word. Now, suppose, suppose that you have, you have k bits, k bits for data word, then how many, how many?
+
+25
+00:12:12,380 --> 00:12:49,980
+bits how many data bits are possible answer is 2 power k okay 2 power k cool now let's just see the error control method so basically there are two type of error control methods either we will be detecting the error which means what does this mean of detecting the error it means that the receiver will get to know that okay there is an error okay at least receiver should be knowing that there is an error or there is a error correction
+
+26
+00:12:50,340 --> 00:13:20,160
+okay error correction means receiver not only had to know there is error it also know that where is the error so that it can correct it okay we will see those methods don't worry so typically in our syllabus these are the error detection methods and these are the error correction methods okay which is called hamming code cool now let's get started now let's just see the very first attempt of error detection so what we can do whenever we are sending a data okay whenever we are sending a data
+
+27
+00:13:21,660 --> 00:13:50,930
+Now what we can do we can send multiple copies of the same data So this is what error deduction attempt one is saying the repetition if there's a if there's a worry about receiving the message properly Why not just send multiple times? Which means which means just see this if you if you want to send zero zero just send it three times or maybe four times Whatever you like, right? If you want to send zero one just send it maybe maybe maybe three times four times So this is called repetition of the data which means which means
+
+28
+00:13:51,230 --> 00:14:20,010
+This is the code word and the data word or maybe the packet, I mean, our terminology, according to our terminology, we are coding a data word. So this is a data word and after appending something, we are getting this a code word. Now, suppose receiver receives something, okay? You are sending, let's suppose 000000. Now, receiver receives this, which means receiver says, I have received 010000. So tell me, will the receiver
+
+29
+00:14:20,310 --> 00:14:51,800
+be able to say that okay there is some error what do you think definitely there is error right definitely there is an error why why see the error is because the error is because that you are sending I mean three copies and these three copies are not matching right these three copies are not matching that is why receiver can say that there is an error okay so receiver is saying there is an error because
+
+30
+00:14:52,360 --> 00:15:42,760
+because see this is also important to know that why receiver can detect the error receiver can detect the error here because the three copies are not matching okay so receiver can detect errors error because it is fine to everyone okay now suppose suppose you are sending zero zero zero okay i mean the same thing but but at the receiving side it receive
+
+31
+00:15:43,120 --> 00:16:36,950
+it receives something like that, maybe you say that it receives 0 1 0 1 0 1. Now tell me, is there any error in the transmission? First question is that, is there any error in the transmission? And the second question is that, will receiver ever get to know about it? See, is there any error? Obviously yes, obviously yes, because you are sending something and you are receiving something else. So obviously yes.
+
+32
+00:16:37,260 --> 00:17:13,150
+Will receiver ever get to know about it? Answer is no. Why? Because receiver will think that whenever three copies are same, I will accept it. So receiver will not get to know. So here, can receiver detect the error? Can receiver detect the error? Then answer is no. So sometimes receiver can detect the error. In this case, sometimes not. Can receiver detect error? Then answer is no. Okay. I hope you understood. Cool.
+
+33
+00:17:13,500 --> 00:17:41,540
+So basically this method is saying that whatever you are sending I mean receiver has one rule which says that okay I will be basically checking whether three copies are same or not if three copies are same and unfortunately receiver will be accepting it okay so now you understand one thing which is that whenever you are sending something what we called I mean I have used one technical word here do you remember that what we call that whenever you are sending that is called code word right code word
+
+34
+00:17:42,700 --> 00:18:15,780
+Okay, so let's let's call it I mean center will all obviously always send valid code word Okay, then here here you receive something invalid code word Okay, something invalid code word What does this invalid code word means that in our scheme that we have just seen tell me tell me is this the valid code word or invalid code word in our scheme that we have just seen This is a valid code word. Why because three copies are matching
+
+35
+00:18:16,350 --> 00:18:52,290
+I mean, whenever you have three same copies, that is called valid code one. Is this valid or invalid? It is again valid. What about this? Again, this is valid. What about this? What about this? So this is valid. This is valid. This is valid. This is invalid, right? So what I'm trying to say here is that whenever you are sending, I mean, it is not specific to this particular scheme, but in general also, whenever you are sending valid code one.
+
+36
+00:18:52,810 --> 00:19:30,440
+and you get the invalid code word at the receiver end then receiver will be able to detect the error so the idea here is that receiver receiver and sender and sender always always knows list of all valid code words or they can they have some method to check it whether it is valid or invalid
+
+37
+00:19:30,780 --> 00:19:55,900
+right. I mean they they have all the valid code words receiver you can think like that receiver has four I mean with the receiver it has all the valid code words with the sender obviously it will be sending the valid code word anyway right so receiver also has all the valid code word okay so maybe I can anyway sender will always be sending the valid code word so doesn't make much sense here to write the sender so receiver always know the list of valid code word which means if if
+
+38
+00:19:56,110 --> 00:20:26,350
+I ask the receiver whether it is valid or invalid receiver can immediately tell this is invalid okay this is invalid now suppose suppose I am sending I am sending some valid code word okay and it get converted to invalid for example I am sending I am sending this 0 0 0 0 0 0 it get converted to 0 1 0 0 0 0 tell me will receiver be able to detect the error or not
+
+39
+00:20:29,970 --> 00:21:07,510
+Okay. So in this case, in this case, receiver will be able to detect the error. Why? Because receiver has or maybe can compute all the set of valid code word. What receiver will do? Receiver will say that, okay, is it a valid code word? So receiver will, let's suppose for example, receiver has all the set of valid code words or it can compute also. Okay. So let's suppose the receiver is having all the set of valid code words, which are possible in my scheme is basically something like this, right?
+
+40
+00:21:12,420 --> 00:21:32,360
+These are all set of valid code words. Tell me, is there any other valid code word in this scheme? No, why? Because these are the data data and these are the extra redundancy bits that you are adding, right? Okay, anyway, so, so, so receiver has all of this list. Now receiver will say, okay, let me check this against it.
+
+41
+00:21:32,660 --> 00:22:05,320
+Is this same? No. Is this same as this? Is this same as this? Is this same as this? Receiver will say that since this is not same as any of the valid code words, okay, receiver has all this, right? Receiver has this. So, receiver will say since this is not same as any of the valid, that is why it is invalid, that is why I will not accept it. Have you understood this idea? So, if you are sending the valid and you receive invalid, whatever this is, right, doesn't matter, then receiver will say I'm going to detect the error.
+
+42
+00:22:05,540 --> 00:22:47,260
+But consider the case when you are going to send the valid and here again you are getting the valid. Okay. Tell me will receiver say there is an error or what's going to happen. So receiver will say there is no error. Right. Receiver will say how receiver is telling how receiver is just matching this. Okay. You just understand like this receiver is matching this with all the set that it has.
+
+43
+00:22:47,620 --> 00:23:37,310
+And then telling whether it is valid or invalid. Receiver will say since this is valid. Okay. That is why no error. Since it is a valid code word. Let's have one interesting case. Suppose you send some valid code word and receiver also get the valid code word. Okay. Suppose you send 0 0 0 0 0. Receiver get 0 1 0 1 0 1. Tell me what will receiver say.
+
+44
+00:23:42,130 --> 00:24:42,240
+receiver will accept this particular code word or not receiver will say since since this is valid code word that is why I will accept it accept and and and will will be happy thinking that there was no error that I got error free data but this was having the error right so basically basically
+
+45
+00:24:42,700 --> 00:25:31,330
+if you are sending the interesting case here is that if you're selling sending valid if receiver receives invalid then then receiver can detect it if you're sending valid and receiver also receive valid then receiver cannot detect it right cannot detect whether the error is there or not so here in this case in this case receiver doesn't know whether there is error or not okay
+
+46
+00:25:31,850 --> 00:26:11,590
+Have you understood this what I'm trying to say. So basically this anyway, this particular method is not anyway related to only one specific thing. This is general. Okay. This is this is true for any method. Any error handling method. I hope you understood this, right? Now, in this idea that we have seen, do you think it is a good idea to repeat repeated multiple times coming back to this idea? It seems that
+
+47
+00:26:11,900 --> 00:26:40,610
+it seems that it is not so good even though even though you are repeating it multiple times you are I mean too much overhead is there still there are many cases where the receiver want to be able to detect the error right I mean there are many cases just like this receiver think that there is no error right so even though we are having too much of overhead still receiver is saying there is no no error just just like this so maybe it is not a good idea right okay now let's just see
+
+48
+00:26:40,970 --> 00:27:10,420
+Let's just see, okay, what is written here. In this case, if the receive code word is above table, then the error will be detected. Receipt code word is above table, then error will be detected. Note, I mean there, and note all one, can be detected with the code as, okay. So yeah, you will understand that these things. Let me just tell you the pros and cons of this method. So the pros here is that,
+
+49
+00:27:10,620 --> 00:27:37,500
+it provides at least some improved chance of working I mean at least in some cases it is working which is definitely a good thing right and detects few errors often okay few errors it can detect but what is the coins how many times we need to send the data okay lots of extra overhead each time we send it don't know when we actually receive the correct message I mean we don't know whether it is a correct message or it is it is a error it is containing the error if if receiver received valid code right
+
+50
+00:27:46,250 --> 00:28:12,370
+Anyway, this was just one thing that we can do, but it turned out to be not so good idea. Let's just see another method, which is our first method, which is parity. Okay, so just to tell you again that in error control method, there are two things, error detection, error correction. Currently, we are seeing first method, which is parity. With this slide clear to everyone that where are we currently? Okay, we are just starting the topic, which is called parity codes. Okay.
+
+51
+00:28:15,290 --> 00:28:44,130
+So maybe you can see this particular image, parity means maybe they are having just one bit parity, they are changing something like this, this particular about change. Anyway, so let's just see what is this parity. So the idea here is that what we will do, we will have some data and we will append some parity bits or they are also, I mean, we also call them check bits. We will attempt, we will append the parity or check bits to the end or beginning, it doesn't matter and then we will send it.
+
+52
+00:28:44,480 --> 00:29:12,930
+and that will be a function of data okay the function of data so the sender will do what sender will take this data since the sender also know the function it will again compute it will again compute that particular R if they are equal it will say that okay there is no error if they are not equal it will say error this is a general idea here okay so let's just see that I mean how we can implement it
+
+53
+00:29:14,450 --> 00:29:43,830
+So there are basically two kind of parity. One is called even parity. Another one is called odd parity. So it is very simplest scheme. It says that you have some, let's suppose you have some data word. Okay. You want to convert this to a code word. Suppose this is the data word that you have. It says that you append some bit at the end of beginning doesn't matter actually. So, so let's suppose this is some data word.
+
+54
+00:29:46,700 --> 00:30:16,000
+and you want to convert that to code word then it says that you append just one bit okay just one bit now based on number of ones can you tell me number of ones here if it is four then there is something called as even parity okay so there are these are of two type even parity and odd parity if it is even basically if number of ones here is even right number of ones are even then you append zero or in other words you can think
+
+55
+00:30:16,280 --> 00:31:08,200
+that this is called parity bit or check bit. In other words, you can think like this, that including the parity bit, total number of ones should be even. Now tell me, is this true or wrong? Including the parity bit, so this is code word, including the parity bit, total number of ones should be even. Okay, cool. So that's called even parity. Now the same idea can be implemented for the odd parity also.
+
+56
+00:31:08,550 --> 00:31:39,590
+Okay, generally the odd parities are not so popular. Okay, I can tell you the simple reason for that. So I mean, but anyway, so theoretically, you can have odd parity also. This is the data word odd parity says that including that particular parity bit, the odd, the number one should be odd. So can you tell me what should I write here such that including this particular bit, number one should be odd. This should be one, right? It should be one. It says it is odd parity odd parity. Okay.
+
+57
+00:31:41,200 --> 00:32:11,310
+Cool. So it says that including Actually, I have already written on the slide. So let's just move to the slide. So make number of ones I mean in the string as odd or even so for example, the function here will be jar of everything. It is for the even parity. Okay. It is for the total number of ones that even it is for even parity. Now, now see here. I said in the even parity what you need to do
+
+58
+00:32:11,490 --> 00:32:44,780
+including including this particular bit okay so if you remember in the event parity I said that including this particular bit including this particular bit it should be number one should be even right now tell me now tell me if I ask you that can I take individual bits jor of individual bits and can I write it here will this survive even parity or not see let's suppose this is p can I say it
+
+59
+00:32:45,310 --> 00:33:18,570
+Jor of everything. What is Jor? Jor if if one and I mean if we are having two ones, then tell me the parity. Parity should be zero. So it is just a Jor. If you are having three ones, then parity should be one, right? It is just a Jor of these three things. So basically for even parity, it is very easy to compute the even parity by taking the Jor. Okay. So even parity formula could be could be Jor of everything. Let's suppose these are the database. This can work for the even parity.
+
+60
+00:33:18,830 --> 00:34:05,970
+Can this work for the odd parity? For odd parity, can you tell me the formula? Can anyone tell me the formula? If you want to write, instead of this, you can write XOR, okay? Or maybe just X, just write X if you want to write. I mean, why you want to complicate this? Yeah, so for the odd parity, what you can do? You can probably just do JOR along with the whole of the thing, right?
+
+61
+00:34:06,280 --> 00:34:30,410
+maybe it will also work what do you think let's suppose it is 100 I want including this I want the I want number of ones to be odd so basically if you do JOR it will be 1 so I want to write 0 here I mean you can you can definitely write something like this for the odd parity right anyway that's not much important but yeah that's okay
+
+62
+00:34:31,650 --> 00:35:00,970
+Okay, let's not worry about the odd parity because it's not so popular. So we will, we will be mostly if I do not mention it actually in my lecture, but in general it should be mentioned in my lecture. If I don't mention it, it's even parity only. Okay, cool. Now, let's just see the definition of even parity and odd parity, although we have already seen this, but as a slide, so total number of ones in the data and the parity which together should be even total number of ones in the data and the parity which together should be odd.
+
+63
+00:35:01,180 --> 00:35:32,550
+So that's that's how the even parity and odd parity is undefined. Okay. For example, I mean, you can append at a beginning at the end doesn't matter. For example, if we have something like this, then if you're using even parity, then one, two, three, four, so jar of everything is even parity. Basically, it will be zero or including this should be number of one should be even or jar of everything you can understand like that. It is even parity. Okay. For example, if you want even parity, this will be one.
+
+64
+00:35:32,770 --> 00:36:05,850
+This is one, two, three, four, five, six. So it is zero, one, two, three. It is one. It is okay to even like we are appending something like this. Okay. If it is odd parity, then if it is one, including this should be odd. So it is zero. Okay. Like that you can append. Okay. Now, let's just see that what kind of errors it can detect. So suppose, suppose this is for example, let's suppose this is my
+
+65
+00:36:06,070 --> 00:36:37,150
+data and let's just work with one of the parity which one you like even or odd which one you like that we can work let's work with even parity okay so I mean for the new medicals we can have just one of the one of that even or odd okay for our lecture now let's just do one thing let's just apply the even parity here so it will be okay after applying the parity it will be let's apply at the end
+
+66
+00:36:39,250 --> 00:37:20,240
+it will be one right you will append one okay so this is what you're sending okay send code word suppose during transmission one of the bit get corrupted okay one of the bit get corrupted let's suppose any one of the bit maybe from this zero from this one let's suppose or maybe from this anything doesn't matter let's suppose this has been corrupted to one okay this is what receiver get
+
+67
+00:37:21,550 --> 00:37:52,350
+This is what receiver get. Tell me, will receiver be able to detect the error, that there is an error or not? What receiver will do? Receiver will basically take genre of everything and put it, try to see that whether it is matching. So, if receiver says that genre of everything, then it will be 1, 2, 3, 4. It will be 0. Receiver will say that genre of everything is 0 and it is 1 here. It is not matching. Do you remember the idea that we started?
+
+68
+00:37:52,770 --> 00:38:27,780
+So, we said that what receiver will do, receiver will again try to compute the function, receiver will again try to compute the function. If it is matching, if these two are matching, if these are equal, receiver will say that okay, it is valid code word, otherwise receiver will say it is invalid code word, right? So here, in this case, if my question is that, will receiver be able to detect this error? Then your answer is, what is your answer?
+
+69
+00:38:28,030 --> 00:38:54,920
+yes right okay cool now let's just see another example suppose suppose instead of this okay instead of this suppose some other bit get corrupted maybe let's suppose this particular bit itself get corrupted okay let's suppose this becomes zero now tell me again we'll receive a detect error
+
+70
+00:39:04,430 --> 00:39:38,530
+receiver knows that I mean receiver knows about the protocol obviously that even parity has been used right obviously receiver has to know this will be able to detect error so again the answer here is yes right why because receiver will compute the function and it is it is basically coming out to be one right but it is zero here and it will say that okay there is a mismatch that that's why I will be able to detect it okay suppose that you are sending this and then then
+
+71
+00:39:38,780 --> 00:40:09,930
+So basically, why you have put one here? Because you have taken JOR of everything, right? Suppose that two bits get corrupted. If two bits get flipped in the JOR, okay? So let's suppose this and this get flipped. Instead of one, it becomes zero. Instead of zero, it becomes one. So tell me, tell me, as per JOR concern, do you think, do you think that that JOR of this and the JOR of the corrupted, corrupted data will be different? No, right?
+
+72
+00:40:10,280 --> 00:40:47,110
+so it will be same so which means that this is one this is zero zero and again let's suppose this is zero this has been corrupted this has been corrupted and then this is zero one and one right this is received in this case these two bits got corrupted then if these two bits okay got corrupted in that case receiver will say that okay this is okay receiver will say what this is a receiver will
+
+73
+00:40:49,770 --> 00:41:22,260
+be able to detect the error? No, right? Because receiver will say this is a valid code word. The answer interesting is no. So if only one bit got corrupted, then I can tell if two bits get corrupted, then I can't tell. I mean receiver can't tell. I mean receiver. Okay. Hope you understood this. Okay. What about three bits? If three bits get corrupted, let's suppose this also get changed to one. Will JOR change? See, two bits will balance, but the third bit actually, because of the third bit JOR will change.
+
+74
+00:41:22,590 --> 00:41:52,490
+So that is why receiver will be able to detect it. Okay. So if three bits get changed, then receiver will be able to detect it again. So it is basically let's suppose this got zero. This is already let's suppose zero and then this got one. Okay. This got one. These two bits and maybe this is already one. This is already zero. This is already zero. Let's suppose this got zero.
+
+75
+00:41:52,730 --> 00:42:31,520
+these three bits let's suppose got corrupted okay this is corrupt this is corrupt this is corrupt three bits got corrupted now the jor will change again okay sorry jor like jor of this will be same or different yeah tell me see here the one one jor will be zero right and it is one so jor will get changed again so so receiver receiver
+
+76
+00:42:31,930 --> 00:43:11,460
+will not be able to okay, sorry about it. This will be able to detect it. So it seems that if it is odd bits, then it can detect there, right? Because the JOR will change in case of odd bits are changing. If even bits are changing, then JOR will not change. So if odd number of bits, odd number of bits,
+
+77
+00:43:11,980 --> 00:44:28,380
+if number of bits are odd what should I write in the English language if number of bits are odd get corrupted then Jor will change and then receiver will be able to detect okay otherwise I mean I'm talking about always even parity otherwise receiver will not be able to detect so receiver can detect so for even parity again receiver can detect corrupted bits
+
+78
+00:44:31,250 --> 00:45:08,930
+If number of corrupted bits, this hash means number, okay, corrupted bits, order even. This is true or false, tell me. What do you think? This is true, right? I mean, because JOR will change, in case of even parity, if you are having, basically, if you are either one bit change, three bit change, five bit change, then receiver can detect it, otherwise the receiver won't be able to detect it. So this is true. Okay. Let's do this question. So,
+
+79
+00:45:09,270 --> 00:45:39,330
+which of the following is your true about single bit even parity okay I mean all of this whatever we are seeing it is it is called single bit only okay single bit course receiver can detect all single bit errors what do you think all single bit errors if it is just one bit error it can detect yes right it can detect it receiver can detect all worst errors no right all worst errors no because it can only detect one three five seven like this
+
+80
+00:45:39,690 --> 00:46:20,490
+Receiver can detect worst errors if corrected bits are at odd positions. What do you think? If corrected bits are at odd positions. See, do position matter or number of bits matter? If corrected bits are odd in number matters, right? I mean, if corrected bits are, let's suppose, at position 1, at position 3 also. Then the corrected bits are 2 in total. Receiver can't detect it. Odd position doesn't matter.
+
+81
+00:46:20,900 --> 00:46:52,060
+So that's why Sage falls, okay? So don't fall in this trap, understood? Okay, see this is all positions I have written intentionally and this is a MSQ question that I made intentionally, okay? Receiver can correct, okay? I will talk about the correct, I mean when can we correct the error codes or the code word but for now just apply your intuition that receiver can correct all single bit errors.
+
+82
+00:46:52,680 --> 00:47:21,030
+as receiver also knows the position of corrupted with tell me do receiver knows the position that where it got corrupted no right I mean receiver just knows that okay this is a function and this is not matching this right receiver doesn't know which one since receiver doesn't know which one since receiver doesn't know which one that's why it can't correct can correct is wrong okay we will see in the correction codes if receiver knows that which one then only it can correct otherwise it cannot correct so that is why this is also false
+
+83
+00:47:22,350 --> 00:47:51,200
+only age two. So this is very small topic. I'm in the parody check and we are done with this. Okay. So more interesting topics here are Heming codes, CRC. These are two more interesting topics and checks them is also very small topic. So let's just move to Heming course, which will take I think one or two classes.
+
+84
+00:47:52,300 --> 00:48:21,510
+Have you understood this parity? Very easy. Just just take the job, write it here in case of even parity or parity, you know that you can take a job of one. If you, if you are applying the job, you can take job of one, right? It can detect or not. It will depend whether the job is same or not. If job is same, it will not be able to detect. Otherwise it will be able to detect. Okay. So we are done with this particular topic. Cool. We will do more examples. Don't worry about it for now. Let's just, uh, let's just see the error correction, which is Heming codes. Okay. So.
+
+85
+00:48:22,590 --> 00:48:51,400
+We will see this next, but before that we need to understand there is something called as Heming Distance. So let's just understand what is a Heming Distance. So this is the next topic for us, which is Heming Distance. Okay. Now let's just see. So as you can see from this meme, which I have taken from MIT. So they are saying, I wish he would have increased his Heming Distance. Okay. So you will understand that why more Heming Distance is good. You will understand that.
+
+86
+00:48:51,590 --> 00:49:23,820
+Okay, why more hamming distances is good. So he's saying that I wish he would have increased his hamming distance. Let's just understand this hamming distance, the hamming distance. And by the way, there has been the recent question from this hamming distance. I think hamming code basically, I think 2021, right? In 2021 itself, they have asked this question from the hamming course. Okay, cool. Now, by the way, let me just tell you that what we are studying.
+
+87
+00:49:24,110 --> 00:49:52,710
+So we see we want to study hamming codes. Is this clear to everyone? But before that we are studying hamming distance. Okay. So hamming distance and hamming code both are the different things. First we will understand what is hamming distance. Then we will go to the hamming code. Hope that is clear to everyone. See we have just seen the parity. Now we want to see hamming distance. Sorry hamming code. But before that we are seeing hamming distance. Okay. Don't worry. Everything will will eventually make sense. So let's just see what is the hamming distance.
+
+88
+00:49:53,190 --> 00:50:16,900
+The hamming distance between two words or two quarters of the same size is the number of differences between the corresponding bits. For example, if I just ask you how many bits are different from here to here, then you will say two bits are different. How many bits are different from here to here? This one is same. This zero is different. This one is same. This zero is different. Two and then this one is different. I think three, right? Three.
+
+89
+00:50:18,310 --> 00:50:50,310
+So these are the hamming distance between these two code words. Two is the hamming distance between these two code words. Three is the hamming distance, right? Find the hamming distance. Okay. So I'm not written hamming, but anyway, that is fine. Find the hamming distance between these two vectors. Can you find it? So this is changing. This is not changing. This is changing. This is changing. This is not changing. This is not changing. I think four, right? So answer is four. Okay. Anyway, so I hope you understood what is the hamming distance.
+
+90
+00:50:50,760 --> 00:51:19,130
+Now let's just see what is the minimum hamming distance. The minimum hamming distance is the smallest hamming distance between all possible pair of set of words, which means let's just see directly with the question that let's suppose you have total these code words. If I ask you what is the hamming distance between these two, this one and this one, let's suppose, then you will say I think four, you will say four. If I ask you what is the hamming distance between this and this, you will say probably two, right? So what is the minimum hamming distance?
+
+91
+00:51:19,570 --> 00:51:59,320
+it will be the minimum of all the hamming distances so tell me the we have just found two tell me is this one possible i mean actually you just need to do brute force right is one possible zero one i think okay so everything that i start with zero one if i just check it they are changing in two bits right okay everything that i start with zero zero they're also changing in two bits so at least two is there i think right everything that i start with one zero they're also changing in two bits
+
+92
+00:51:59,570 --> 00:52:23,440
+everything that they start with one one they are also changing in two bits so i think two is minimum here okay so two is minimum so the hamming distance a minimum hamming distance is two hope you got that how to find out the minimum hamming distance okay now find out the minimum hamming distance of the following set of valid code words uh sorry for this bright image but let's suppose this is a valid code word this is an invalid code word
+
+93
+00:52:23,910 --> 00:52:53,720
+Then what is the minimum hamming distance? This is one distance, right? If you notice, this is the way I have written it. This is one distance. This is two. This is three. So between these two valid is three. Between these two, this is one, two and three. Between these two valid is three. So what is minimum among this three and three? Is three, right? So just, just among the valid code words you need to find out. Okay. Obviously, like it doesn't matter for the invalid. You will understand why. Okay. So answer I have not written, but yeah, three is the answer here, right?
+
+94
+00:53:00,190 --> 00:53:27,010
+Let's do this interesting question. Okay. So let me write interesting here. What they are saying is that what is the minimum hamming distance in case of single parity codes, whatever we have seen that is called single parity codes we studied before, which means let's suppose you have any code 0 1 1 1 0 1 0 and you append based on the, let's suppose I'm only following even parity. This is 1 2 3 4, you open 0, right? Okay. So this is the code word.
+
+95
+00:53:27,620 --> 00:53:56,430
+Now, whatever is the another code word that you can think of, okay, whatever is the another code word that you can think of, you need to think, I mean, obviously, I mean, you can change C, this will, you can change every bit. This is 1, 0, 0, 1, 0, 1, you can change every bit. And then this is one, right? You can change every bit. This is also a code word. This is also a valid code word. But do you think that this will be the minimum hamming distance? I mean, you take the distance between these two, then I think this is too much, right?
+
+96
+00:53:57,020 --> 00:54:30,540
+because I have flipped actually every bit intentionally so it will not help you to find out the minimum having distance to get the minimum having distance what you need to do you need to check whether the minimum having distance of one is possible or not which means if you just change one of the bit can you have this as a code word tell me can you have this as a code word everything else you keep the same you change just one of the bit can you have this as a code word code word means obviously the valid code word I do not need to say that valid code word invalid code word okay code word always I mean that valid code word
+
+97
+00:54:30,690 --> 00:55:07,400
+Can you have this as a code word? No, right? Because if you are changing this, then automatically, automatically this will get changed, the parity will change. Why? Because if you compute, if you compute the parity, it will number of ones will be obviously either even from odd to even or even to odd. This is for five. So this must be one, right? Must be one. This should be one. So this will get changed. So what I'm trying to say here is that if we are changing, see, I'm looking for the minimum. That is the point, right? I'm looking for the minimum.
+
+98
+00:55:07,670 --> 00:55:45,190
+So I started with any random code word, maybe this and since I'm looking for the minimum, I will say that, okay, let me just change. Okay. I started with some random code word and since I'm looking for the minimum, I'm saying, okay, let me just change only one bit. See, only one bit. See, can I change more than one bit? Too many bits got changed, right? Too many. I think maximum it can, it can go to too many bits. I flipped it actually, but
+
+99
+00:55:45,530 --> 00:56:14,360
+but is this kind of analysis helpful for the minimum minimum distance minimum human distance no right i mean we can do it but it is not helpful for us to get the minimum hamming distance between any two valid code words in our previous scheme what i'm saying let me start with any code word let me say that okay what could be the minimum closest code word to this do you start with anything you cannot get one you can get two yes you can get two for sure you can get two right but you cannot get one
+
+100
+00:56:14,780 --> 00:56:54,830
+That is the answer. Now tell me what is the answer here. Can you have lesser than two? If you are saying that answer D minimum, I'm calling minimum, I mean distance as D minimum, if you are saying two, now you need to also tell me that that lesser than two is not possible. Can you, can you, can you be confident about it that lesser than two is not possible? Just one bit change is not possible. Yes, we are confident about it, right? Okay, we don't need to prove it obviously, but I mean, we have the intuition about it. So this is the answer.
+
+101
+00:56:57,540 --> 00:57:26,240
+Okay, so in the in the previous scheme that we have seen that is basically saying that minimum hamming distance in the previous scheme is 2. Okay, OM is saying that I haven't understood. See, in the previous scheme, what we are saying, I mean, you can have even or parity doesn't matter. So if you take any data word, then if you try to change, if you see, I mean, if you take any data word, I want to basically check minimum hamming distance. So if you change all the bits,
+
+102
+00:57:26,670 --> 00:57:55,490
+then you can change I mean it's not an issue you can change all the bits it is also a valid code word but it's not helpful for our analysis to get the minimum hamming distance we want to get minimum so let's just let's just change minimum bits which is possible I am changing just one bit if I am changing one bit then automatically automatically this bit got changed this is automatically got changed why because of the parity if you are changing this then the this is how the parity is working right this will automatically get changed so you can't have one you must be having at least two
+
+103
+00:57:55,690 --> 00:58:28,580
+because the moment you change one you automatically get change of one okay anyway so tell me do you think it is a good idea to have two minimum do you think it's a good coding scheme I mean intuitively tell me otherwise later on we will see if the minimum having distance is two do you think it is a good coding scheme let's just let's just see this diagram maybe you can get a hint here I wish he would have increased his having distance
+
+104
+00:58:29,580 --> 00:59:14,880
+Okay, too might not be good enough. We want some good hamming distance. So the code that we have seen, okay, which is called, which is called, can I even tell me the name of that scheme? Single bit parity codes. Okay, single bit parity codes. Single bit parity codes basically has minimum hamming distance of what is the answer, which might not be good enough. We will see why.
+
+105
+00:59:15,960 --> 00:59:44,260
+Anyway, so hope you understood that how the hamming distance is working. Let's just solve more examples. You will get more used to the hamming distance. Calculate the minimum hamming distance within the set of valid code words. Okay. I mean, actually this is always the valid code words only. And within the invalid code words, no one is interested. You will get to know why I am saying that. Okay. Suppose this is valid. This is also valid. Then they're saying given that each adjacent code word in the diagram is separated by the distance of one, which means they are saying this is the distance of one.
+
+106
+00:59:44,620 --> 01:00:15,210
+Can you tell me the minimum hamming distance here? This is a distance of 1 away, 2, 3. So these two values are 3 away. This is 1 away, 2 away, 3 away, right? Okay, you are finding the minimum, right? So it is 3, it is 3, 1, 2, 3, right? I mean from here to here, you need to change 1 bit, 2 bits, 3 bits, okay, 3. So what is the answer? 1, 2, 3. I think 3 is the answer. Everyone is having 3, right?
+
+107
+01:00:16,050 --> 01:00:49,770
+maybe diagonally you might be having more but no one is interested in more we are looking for the less right? so what is the answer? 3 so I can say the minimum hamming distance is 3 so here I mean adjacent I mean actually it doesn't matter you can have the diagonal also 1 okay sorry so here adjacent means everything okay including diagonal also so what is the answer here? 3 now let's just solve this question
+
+108
+01:00:50,420 --> 01:01:18,730
+They are saying, if A is this, then what are the possibilities of adjacent code words? If A is 101100, then adjacent code word, I mean, you take the similar line, which is, this is just one distance away, okay, everything is just one distance away from here. So maybe, maybe you can have 101101, this is one possibility, because you are just changing one bit. Tell me, is agentator possibility of this, one of the adjacent code word?
+
+109
+01:01:19,430 --> 01:01:49,500
+Maybe, maybe you're changing, maybe you're changing this one. Okay. So you're changing this here. You're changing this here. Maybe this is also a possibility. Similarly, you can find out many, many possibilities, right? Right? Okay. So similarly, you can find out many, many possibilities. Good. Now, let's just see this. If a is this, then what are the possibilities of code word to code words to distance away? So.
+
+110
+01:01:50,080 --> 01:02:19,320
+they are saying 1 0 1 1 0 0 what are the possibilities maybe you can have many possibilities maybe 1 0 0 0 0 0 right this is one possibility this is one possibility because this is two distance because two bits are changing so what is the hamming distance hamming distance is number of bits which which get changed or maybe the number of bits you need to change in this to get this right so 2 okay so this is one possibility maybe you can write down many other possibilities maybe this is 0 1 1 1 0 0
+
+111
+01:02:20,020 --> 01:02:48,470
+This is, these two got changed. So this is another possibility, right? This code, I'm changing this. Anyway, there are many possibilities. Okay. So if this is a code word, then two distance away, there are many possibilities. Cool. Not an issue. Now, let's see this question. They're saying consider the group of valid code words as shown as orange shaded. Is this orange color? Like, actually, I'm not very much confident always about the colors. I just made this question. Can you confirm? Okay. Okay.
+
+112
+01:02:49,420 --> 01:03:14,220
+Thanks for that. So shown as orange shaded circles below. Actually today I'm very proud about it that I identified that it is orange. Okay. Okay. Orange shaded circle below. Let's suppose that these are the valid code words are the orange shaded. Okay. Imagine the sender sends a code word, which is something like this, but the receiver gets a slightly different one. Maybe something like this. Maybe the last bit, it got corrupted, right?
+
+113
+01:03:14,690 --> 01:03:43,490
+Will the receiver be able to detect that? That's very nice question. Let's just understand this, what they are trying to say. So this is a valid code word. This is a valid code word. This is a valid code word. I mean, let's suppose here in this example, these are only four valid code words. Now they are saying, they are saying that if you are sending, I mean, this could be one of the valid, maybe this one, maybe this one, maybe this one, maybe this one doesn't matter. Okay, it doesn't matter. Maybe let's suppose this is this one.
+
+114
+01:03:43,710 --> 01:04:16,240
+okay you can take anything let's just first understand the concept then you will get to understand that what i'm trying to say okay so let's suppose that receiver get this i mean you are sending this but receiver get just okay just one bit changed tell me will receiver be able to detect what do you think see receiver has receiver has all the set of valid code words okay receiver has all the list of valid code words so if one bit got changed then if this is valid then
+
+115
+01:04:16,480 --> 01:04:46,520
+this will this will fall upon this only this will fall upon if one bit is changing then this is what you are talking about right tell me after one bit changed after one bit change will you will you be going here or you will be going just here after one bit change just to invalid right just to invalid so if one bit get changed then then this valid is getting converted to can it get converted to invalid if one sorry valid again
+
+116
+01:04:47,100 --> 01:05:11,210
+See, if one word is changing, then whatever is this valid, it will get converted to invalid. This is for sure, right? This is for sure. Then, and since receiver also has the valid and valid set of code word with him, so receiver will say, yes, I can detect there. Okay. Don't worry, you will understand. Don't worry. Little bit you might have understood, more you will understand with the similar examples. Okay. Little bit, see.
+
+117
+01:05:11,590 --> 01:05:40,170
+if you remember earlier we said if valid to invalid receiver will always be able to detect if valid to valid if you're again getting valid the receiver will get I mean receiver will not be able to detect right if this is invalid for sure it is invalid because they are saying that this is what you got just one bit got corrupted then if this then it will it will fall upon this or maybe if the valid was this I mean I mean the code word was this this code this is the code word then it will fall upon again invalid right
+
+118
+01:05:40,420 --> 01:06:21,400
+again invalid so basically basically you are sending valid and you will be getting invalid then receiver will always be able to detect it don't worry you will get to understand tell me here in this question what do you think consider group of sending okay so they are saying how many bits got changed here i think uh sorry this is the same example right okay yeah this is different example so let's just see this so tell me will the receiver be able to detect here these are the two bits got corrupted this is interesting
+
+119
+01:06:24,870 --> 01:06:57,580
+So you are starting with this, okay, whatever is a valid, okay, maybe this is valid. If two bit get corrupted, then you will fall always upon invalid in this case, whatever is a valid here, right? You will, or if this is valid, you will fall here. Okay. If this is valid, you will fall here, right? So basically, basically, if you are saying that, okay, you are sending some valid and after two bits, you will always fall upon invalid. Then receiver can always say this is invalid. Deceiver will say this is invalid.
+
+120
+01:06:58,200 --> 01:07:33,540
+So will receiver be able to detect the error? Yes. Because receiver is, as long as receiver is saying it is invalid, receiver can detect the error. Don't worry. Again, I'm saying don't worry. You will understand with more examples. I have created many examples of similar type. Okay. Now let's just take this. How many bits are changing? I think this bit is changing. This bit is changing. This bit is changing. So three bits got changed. Tell me, will receiver be able to detect the error? If the minimum hamming distance here is four, actually.
+
+121
+01:07:36,140 --> 01:08:09,210
+Minimum memory distance is 4, which means between any two ballads is 4, 1, 2, 3 and 4. So again the answer is yes. Because receiver will say it is invalid. That's why receiver can detect it. Let's just solve this. How many bits got changed? 1, 2, this one, this one. Should I magnify this? Or is this okay for now? This one and this one.
+
+122
+01:08:10,000 --> 01:08:45,710
+four bits got changed now if four bits got changed now this is interesting see you are sending something valid maybe it could be anywhere right maybe it is here you are sending something valid let's suppose it is here okay now after four bits got changed it is again it is again valid isn't it most probably most probably basically it is again valid here
+
+123
+01:08:46,110 --> 01:09:19,000
+Okay. You will understand more. Don't worry. So here it is again valid. Maybe it is after forward. It is here or maybe it is here. Right. I mean, it is basically possible that receiver will say that, okay, this is again the valid code word. So basically receiver will say since it is again a valid code word, it is again a valid. Okay. Then the receiver will say that I don't know since you have sent, I mean, obviously you must have sent valid since I have received valid.
+
+124
+01:09:19,330 --> 01:09:51,640
+So I don't know whether it is error or not. Maybe no error, right? Maybe this is what the receiver sender wanted to send. Maybe no error. Because see, whatever we are sending is this and receiver got again the valid code word. And since receiver also has list of all valid code words, it will say that see, this is also the valid code word, right? That is why receiver will not be able to detect it. Okay. So receiver will not be
+
+125
+01:09:56,010 --> 01:10:48,760
+see when can receiver detect if you are sending valid and if you are getting invalid then receiver can detect right if valid to valid then receiver doesn't know whether the error has been occurred or or maybe this is basically the intentionally I mean this is the original code word basically right okay let's just see more examples
+
+126
+01:10:49,960 --> 01:11:22,630
+So if the minimum hamming distance between any two valid code word is represented by D Then how many bits of error can be can the receiver detect? Okay for now for now. Let's just have one example Let's suppose this is this is let's suppose 7. I mean, let's suppose that we have 7 distance. Okay, 7 distance if we have 7 distance then which means one Okay for now, let's just go to the next page
+
+127
+01:11:37,330 --> 01:12:04,660
+See, what I am trying to say, okay, maybe not 7, let's suppose this is 4, right? 1, 2, 3, 4, okay. So, let's just understand with 4, then you can understand with this D. Let's suppose this is 4. Now, what I am saying here is that, if you are having 4 distance, okay, minimum distance is 4, then if you do 1 bit error, then it is okay, because you have enough distance, we should be having enough distance, right?
+
+128
+01:12:05,060 --> 01:12:34,560
+if we are having enough distance which means if you have one bit error no problem receiver will say it is invalid if you have two bit error no problem if you have three bit error right if you have three bit error then no problem the moment you have four bit error you will again get a valid so that is why receiver will not be able to identify that okay that without I mean this is the error error is valid or this is the original valid I'm getting my point so if you if you basically have four distance if you have four distance here then receiver will say
+
+129
+01:12:34,800 --> 01:13:03,940
+see if i mean if you have if you if you get one bit error then receiver will say see it is invalid as long as receiver get invalid it can detect receiver can detect here here or here which means if receiver is getting either this this or this which means if if you are getting one bit error two bit error or three bit error then then receiver can detect but the moment you get four bit error then you convert this to this receiver will be confused because receiver is getting a valid again so if you are having four distance then receiver can detect
+
+130
+01:13:11,820 --> 01:14:05,820
+How many bits of error? Three, right? Okay. So basically you should be having enough distance. If you are having four distance, then what does distance mean? See, if you understand the distance meaning intuitively, then you can answer this question. What does distance mean? It is saying number of bits required to change from one word to another word. You can consider like this, right?
+
+131
+01:14:08,550 --> 01:14:55,580
+Minimum having distance is 4, it means after 4, after 4 it will be again a valid code word. I will get a more point. So if minimum having distance is 4, then it means that after 4 it will be again a valid code word. So minimum having distance 4 means after 4 flips, it will be again a valid code word.
+
+132
+01:15:07,250 --> 01:15:36,320
+actually I mean not will be basically it might be possible that between two I mean I'm writing it loosely but I hope you understood between two valid code words I mean minimum is four that is fine but still I might be having somewhere as let's suppose five right that is definitely possible so if you are changing this valid code word okay after four it won't get it won't get too valid right it will still be invalid after four but if minimum distance is four then it means that
+
+133
+01:15:36,600 --> 01:16:01,530
+After four, there's a chance. I mean, you don't know because because which one is the valid, right? You don't know. So there's a chance that it will be invalid. I mean, there's a high chance. Are you getting my point? See, here also the minimum distance is four. Still, after four, it is not getting the the valid, right? After five, it will get the valid because I mean, okay, here, here it will, it might get valid if you see this direction. Anyway, I hope you're getting my point.
+
+134
+01:16:01,790 --> 01:16:47,490
+So basically, if you're saying, let me just explain this intuitively, then we can have formal sentences. Okay. So this is the intuitively I'm saying that if minimum distance is four, then it means that after four, you will get again valid. So, so if, if receiver wants to detect it, then it should be invalid. So after one, see if minimum distance is four, okay, then tell me after one flip, after one flip, a code word is valid or invalid. After one flip,
+
+135
+01:16:47,850 --> 01:17:38,760
+it is invalid after two flips it is invalid after three flips it is again invalid and that is why we can detect it what about four flips it may be valid right so so i will i will write down the formal statement don't worry so we cannot always this is the correct statement detected
+
+136
+01:17:41,810 --> 01:18:08,610
+Sometimes can we detect even after four flips? Yes. Maybe, maybe in this case, let's suppose, let's suppose after four flips, I'm getting this as invalid. Then I can detect. Sometimes I can detect. Sometimes I cannot detect, right? Even after four flips. So let's not worry about the sometimes I want to be make sure that, okay, I mean, after how many flips you can detect. So, which means after three flips, I mean, even if you have one flip, two flip, three flips, then I'm guaranteeing that you can detect, right?
+
+137
+01:18:08,940 --> 01:18:34,540
+after four flips maybe it is valid maybe it is invalid actually so that's why sometimes you can detect if it is invalid sometimes you cannot detect right if it is valid so anyway let's not worry about this so i know that 100% after even even you have one flip two flip three flip i mean in these three cases 100% we will be able to detect so let's let's just uh concerned about only the cases where we are very much sure that when we can 100% detect okay
+
+138
+01:18:34,940 --> 01:19:10,180
+So if you're having minimum distance for then after one flip again invalid invalid invalid right you cannot get valid because to get to get valid how many minimum flips you need okay that's what it is saying to get valid how many minimum flips you need you need number of minimum flips to get valid is nothing but four right so
+
+139
+01:19:10,580 --> 01:19:46,290
+So if you need four, four, at least four flips to get valid, then after one flip invalid, after two flip invalid, after three flip invalid, right? So we can definitely detect it. We can, this is cannot, this is definitely, have you understood this? Maybe a little bit. So if I ask you about D, if D is the minimum hamming distance, then it means after D flips, you will get valid, minimum after D flips, which means, which means after one flip invalid, two flip invalid, after after
+
+140
+01:19:46,550 --> 01:19:59,780
+till D minus Phillips, you will get invalid. So, so how many maximum number of bits you can detect, you can always detect, you can detect D minus one, right? Okay.
+
+141
+01:19:59,990 --> 01:20:25,930
+See, I'm trying to make it intuitive rather than giving you a direct formula. So maybe it might seem hard, but when you understand it, you will get it. I mean, when you watch the lecture again, or maybe when you see the annotated notes and you will get it very clearly. Otherwise, like I think in many of the places in almost all the, at least in the gate industry, they will directly tell you the formula. Okay. This is very rare that people will tell you the intuition. But anyway, like I hope you understood the intuition here.
+
+142
+01:20:26,230 --> 01:21:04,530
+Right. So basically, if you are having D distance, then you need minimum deflush to get valid again. So that's why till D minus one flips, you are getting invalid, invalid, invalid. So till D minus one flips, you can always detect. Okay. Can detect means always detect. Okay. So D minus one is the answer. Now let's just do this question. This is a different kind of question. Okay. Which is saying to guarantee detection up to S errors, you want to detect S errors. What should be the minimum hamming distance in the set of code words? See,
+
+143
+01:21:04,810 --> 01:21:35,970
+let's suppose this is four you want to detect four okay I mean you want to detect up to four errors so this is valid and if this is one this should be invalid this should be invalid because till four you want to basically say invalid right till four you want to say invalid and and then then only you can say valid so this is a minimum right so till four you want to say invalid basically so minimum will be one two three four five five right are you getting my question so basically here they have
+
+144
+01:21:36,450 --> 01:22:06,950
+not giving you the minimum distance I mean they are asking the minimum earlier they have given you the minimum distance okay and then they are saying error okay you can directly D-1 now they are giving you D-1 actually they are giving you S then they are asking what should be the minimum having distance okay to detect this error so what should it be it should be S plus 1 so what is the answer here this is different than the earlier question see what I'm trying to say if they give you that okay
+
+145
+01:22:07,380 --> 01:23:01,270
+that minimum D minimum is let's suppose T then how many bits of error you can detect D minimum say a come right I mean this is a minimum I mean distance I mean this is this is basically a distance then you can detect right so it should be T-1 the answer is T-1 this is invalid I mean till this point you can detect right I mean starting from here till this point you can detect so that's why D-1 if I ask you another question
+
+146
+01:23:01,520 --> 01:23:36,780
+let's suppose they say you want to detect s bits of error then you want to detect s bits of error okay then how many uh then what should be the minimum having distance and what should be d minimum if they're asking d minimum minimum distance then it should be plus one i mean
+
+147
+01:23:37,120 --> 01:24:07,940
+if you if you want to go till this point if you want to direct if you want to say that okay till this point it is invalid then then this should be one away I mean the valid should be one away right if you want to say that okay till this point it is invalid this is s this is invalid then your valid should be one away basically so what is the answer d minimum should be s plus okay so just be careful what they're asking have you understood this this kind of questions
+
+148
+01:24:09,470 --> 01:24:50,910
+Okay, don't worry, we will do more questions, but for now we are just introducing this concept. So to guarantee the detection up to the S errors in all cases, we need S plus one at least. This I have taken from for agent. Okay, see here to guarantee the direction up to S errors in all the cases, the minimum helmet distance in the block code must be S plus one. Hope you understood, right? Let's just see this paragraph. This is University of Michigan. You know University of Michigan.
+
+149
+01:24:51,390 --> 01:25:25,280
+This is also one of the top university to design a code that can detect a deep that can detect the single bit error the minimum human distance you need D plus one or more. Yeah, this is I mean minimum. Can you have more? Yeah, why not? Right? This is the minimum human distance. So the way that way, no set of D errors in a single bit could turn could turn one valid code word into another valid code word. Have you understood this line? If you have understood this line, then you have understood the concept. Okay. That way, no set of D errors.
+
+150
+01:25:25,560 --> 01:25:56,960
+in a single bit code, turn one valid code word into another valid code word. Okay, you don't want to convert one value to another code word. That's why you should be having the value should be enough away. There should be enough distance. If you want to detect, if you want to detect D, then the enough distance is D plus one. If you want to detect 2D, then enough distance is 2D plus one. If you want to detect 5D, then enough distance is 5D plus one, like that, right? Okay.
+
+151
+01:25:57,700 --> 01:26:34,400
+This should be the n of distance between two valid. Let's just see this. The single parity codes that we studied before will be able to detect any one bit of error. See, what is the minimum hamming distance in the single parity? Do you remember? 2, right? If this is the minimum hamming distance, which means this is valid, this is valid, this is invalid. Then if there is, if there is one bit error, then will we, will we getting the valid or invalid again? You will be getting invalid. Then can you detect it?
+
+152
+01:26:34,530 --> 01:27:11,210
+yes and do you remember we have seen this that we can detect the one bit definitely we can detect the one bit right we can predict in case of being parity we can also detect three words we can also detect five bits but yeah we can detect one bit right okay so the answer is okay so this was little introduction to the error reduction don't worry we will come to that again so let's just first see what is error correction now tell me can we also correct the error we can correct errors if we are really sure about the original code but uh caused it right
+
+153
+01:27:11,550 --> 01:28:04,180
+which means which means let's just see this just one second I wanted to show you something else yeah let's just see this so just a second so can you read this can you read this quickly for example it does not matter in what order the letters in our world appear the only important thing is that the first and last letter are in the right place
+
+154
+01:28:04,690 --> 01:28:25,520
+the rest can be a total mess and you can still read it without problem so you can read it right hopefully okay so can you correct the error I mean tell me is this the correct correct sentence that we might want to convey no right so maybe maybe there is error but you are able to correct it why
+
+155
+01:28:25,950 --> 01:28:44,270
+because you were sure I mean at least as long as your intuition is working that you are sure that it must be example it must be does not it must be matter so that's what I'm saying that can we correct error we can correct errors also if you're really sure about the original code word that caused it right
+
+156
+01:28:45,410 --> 01:29:12,850
+So if you're really sure that I mean, this is not a mathematical example. First of all, this is just a way to convey this particular concept. So don't apply the mathematics here. Okay. Just apply your intuition. I'm not applying any mathematics here. So you, you, you will say that, okay, I'm not sure this is right or wrong. Okay. So it is, it is not like that. You cannot argue me in terms of mathematics or in terms of logic. It is just that I'm telling you one intuition here. So here, okay. At least intuitively you're sure that it is right, right?
+
+157
+01:29:13,180 --> 01:29:41,450
+So it is later, it is mass, it is total, it is, it is rashed. So basically what I'm trying to say here is that that as long as you are sure that where it came from, what was the origin of that, then you can correct it. I mean, who is stopping you to correct, right? Okay. Hope you understood the intuition behind it. Now, let's just see a question here. So consider a noisy channel where at most one-bit error can occur. What does this mean? They are giving you that at most one-bit can occur, which means
+
+158
+01:29:41,720 --> 01:30:11,900
+It could be completely right. I mean the message could be completely right or just one word could have been mistaken. Okay. So there is no error or single bit error in the channel. This is, this is given to me. Now consider group of valid code word shown as orange shaded circles below. Imagine the center sends a code word, which is zero one, zero one, zero, zero one, but the receiver gets a slightly different one. Suppose receiver is getting this. Will the receiver be able to correct the error? See.
+
+159
+01:30:12,930 --> 01:30:42,710
+How many, how many bits are different? I think one bit is different, right? One bit. Okay. One bit is different here. Now, this is the, this is really nice question. So let's just try to understand this. See, earlier what we said, earlier we said, let's suppose this is valid. Okay. If, I mean, where was this valid? If you are getting after one bit, you will definitely get invalid. I mean, you will, this is a one bit change. So this is definitely invalid.
+
+160
+01:30:43,020 --> 01:31:19,320
+that is for sure right this is definitely invalid not not an issue this is definitely invalid now now can you detect it can you detect that there is an error this is my first question can you detect so can we detect error so the answer is yes right can you detect the answer is here now tell me can we correct it also that's extremely nice question let me just tell you how we can think about it
+
+161
+01:31:19,510 --> 01:31:51,340
+Suppose this is I mean whatever I have highlighted this is basically let's suppose the code word I'm talking about I mean this one Okay, this is the code word Now it is given it is given that there is only zero one bit error. Okay, you you have got I mean you have got just Just one bit. Okay, you have got error after one bit Okay, tell me Tell me what are the possible invalid? This and this agent it if I just tell you what are the possible invalid?
+
+162
+01:31:51,820 --> 01:32:35,380
+A, B, C, D, tell me the possible invalids. If this is the valid, then the possible invalids after one bit error is B and C only. Right. Okay. So B and C. Okay. So the given, given code word is either B or C, isn't it? So this, this is given to me and this is either B or C. That is fine. Okay. This is either B or C. Now, now, interestingly,
+
+163
+01:32:35,830 --> 01:33:06,950
+this channel is such that it can only have at most one bit error which means if this is invalid sorry this is valid then what are the invalid here this invalid right if this is if this is valid then what are the invalid corresponding to that only this if only one bit error can occur if this is invalid what are the sorry this is valid i'm sorry about it what are the invalid right this one if this is valid then what are the invalid this one okay does this circle tell you anything
+
+164
+01:33:11,060 --> 01:33:40,250
+C. Interestingly, if B is what you got or C is what you got, can't you be 100% sure that this is what you got? Can't you just turn back? Can't you just say that this must be the valid corresponding to B and C? Because this is the cluster, okay, you need to understand that. This is the cluster that we are getting, which means invalid are not overlapping. Okay? SK invalid, whatever invalid or invalid codes of this valid code are.
+
+165
+01:33:40,740 --> 01:34:12,590
+are different from this group basically this code word whatever this code word is it is having a different set of invalid this is having different set of invalid this is having different set of invalid every invalid is different so invalid are not overlapping this is very important to understand not overlapping if invalid are not overlapping then you can also correct the error always
+
+166
+01:34:13,440 --> 01:35:08,410
+Okay, so if you are getting B or C, whatever doesn't matter to me, this might be B, might be C, then you will say this must be the valid, right? Immediately you can tell. Are you getting a little bit? Let me know. See, if invalid are not overlapping, then you can always correct the error. Okay. Correct. Not just deduct, we can correct the errors. Don't worry, you will understand more. Let's just see with more example. Okay. Tell me, will you be able to correct here?
+
+167
+01:35:08,890 --> 01:35:45,560
+here how many bits? one bit right? okay tell me in the channel they are saying that okay at most one bit which means that the invalid corresponding to this so the invalids let's just see the invalids corresponding to each okay so invalid of this is basically these invalid of this is very close you are seeing at least in in between I have some invalid
+
+168
+01:35:46,010 --> 01:36:25,310
+okay this is again another cluster so so if there is a one bit error okay let's suppose the valid uh whatever the valid is given to me okay so this is the valid whichever it is right whichever it is maybe this one or whichever it is then can't you definitely say that that if you're getting one bit error and then it reach either this or this
+
+169
+01:36:26,930 --> 01:36:56,340
+So can this be obtained by this tell me can this be obtained by this Can this can can can this can cause this or maybe can this can cause this can this can cause this why not why not Why not you can have one two one two three and four four bit of error in this I mean it might be the case see try to understand it might be the case that this is the valid I'm talking about and you got four or and I mean this is what you sent
+
+170
+01:36:58,960 --> 01:37:27,370
+Let's suppose this is what you received. Can it happen? Can it happen? This cannot happen. Why? Can you tell me why? Yes, because of channel property, because of the channel property, because it is given that in the channel itself, it is a noisy channel, but it can have at most one bit of the error. So since it is given to me that the channel can have at most one of the one bit of the error, that is why I'm making the cluster, not based on the example.
+
+171
+01:37:27,790 --> 01:38:02,940
+Okay, whatever I'm sending, whatever I'm receiving, I'm not making based on that. Because it's a channel property, it can make at most one way. So this valid can go to either this or this, because it is given as a channel property. I'm making a cluster because of the channel property. Understood? So this circle is because of the channel property, not because of the quotient. I mean, not because of these numbers. Okay. So this circle is because of channel property. So
+
+172
+01:38:03,280 --> 01:38:40,430
+Based on the channel properties are making the circle because it is given that in the channel you can have at most one bit of error. So if you're sending this then either you will be I mean the corresponding invalid will be this this only okay for this corresponding invalid is this can can you make a circle like this tell me if sorry just a second okay if it is given that you can have at most one bit of error then can you make a circle like this okay this is a valid circle
+
+173
+01:38:40,750 --> 01:39:16,700
+if at most one bit error is there no right this is not valid because of the channel property because question is saying that in the channel you can have at most one bit of error if in the channel you can have at most one of the one bit of the error then this in this valid cannot get this as invalid right so this is not possible so first make the circles because of the channel property we are making the circle now you can you can give in the send code word you can put it anywhere okay so so
+
+174
+01:39:17,060 --> 01:39:52,240
+so the received is basically one distance away only right now you see that okay received is just one distance away so that is why that is why i mean if you are getting i mean basically if received is received is one distance away just a second basically it cannot be the send so okay so first you make the circles because of the channel property and then you are saying that okay whatever you are sending and whatever you're receiving is just one bit away okay then basically you can
+
+175
+01:39:52,560 --> 01:40:25,480
+you can basically deduct one bit of the error why because I mean this is the sender and so you can correct it and if this is the sender then receiver is either this or this so basically since these invalids are again not overlapping that is why I can again say that you can correct it okay so don't worry you will understand maybe more with the more examples that's why I have taken more examples just understand this now again at most one bit of error
+
+176
+01:40:25,700 --> 01:41:04,410
+Now how many bits are changing here? Just one bit. So can you make the circles? So you will say, you will say that, okay, see for this, this is invalid. These are the set of invalids, right? So since invalids are not overlapping, that is why I can say that if the, if the valid, whatever I'm sending and the invalid that you got is basically just one bit away, then I can correct it. So can you correct here? Yes, right?
+
+177
+01:41:04,790 --> 01:41:53,170
+so we can correct it don't worry you will understand let me just be with the slides suppose I give you the same example suppose I say that there could be two bits of error at most okay two bits of error can you detect two bits of error so if you see then you will say that okay this is different this is different so you can detect right yes you can detect okay
+
+178
+01:41:59,270 --> 01:42:53,270
+suppose suppose you don't know okay which means it can produce any bits of error maybe 3 bits 4 bits or something like that then then can you make the circles can you make the circles answer is no right then if my question is that can you detect that error can you not detect that error then every every time you will say that I don't know actually
+
+179
+01:42:56,370 --> 01:43:28,150
+okay so tell me tell me this invalid this invalid has the unique valid corresponding unique value or it could be the multiple values see can it be from here yes because maybe maybe maybe the channel has produced a two bit of error can it be from here yes maybe the channel has produced one two three four bits of error can it be from here yes maybe the channel has produced five six seven eight nine ten bit of error right so you don't know you don't know if this is invalid
+
+180
+01:43:28,480 --> 01:44:07,310
+then you don't know the corresponding valid, right? If you don't know the channel property, then you don't know the corresponding valid, right? So, so the corresponding valid is not known. Is this okay to everyone? Why? Why that is the case? Because in the channel, you don't know that how many bits of error it can produce. Maybe it is producing two bits of error. I mean, from here it might have come, from here it might have come, from here it might have come, right? Maybe because of multiple errors it might have come. Okay.
+
+181
+01:44:08,310 --> 01:44:53,130
+Okay. Let me know if that is okay to everyone. So let's just consider this example. I'm in the same example. Now, what is the D minimum here? The minimum hamming distance. Can you tell me? I think it is six, right? You can, you can see one, two, three, four, five. If five bubbles are there, it means six. Okay. Minimum hamming distance is six. Now, if I want non-overlapping, if I want non-overlapping, basically the invalid codes, then
+
+182
+01:44:53,470 --> 01:45:23,260
+What is the maximum circle that you can make? Okay, let's just see. Can you make this 3-3? Can you make 3? I think if you take 3-3, then 1 is overlapping, right? So it will overlap. I mean, that is a problem here because if you get this, you will get confused whether it has come from this or it has come from this, right? So you will get confused. So 3-3 I think you can't make. So if you have this kind of case, then maximum normal overlapping, I think you can make something like this, right? 2-2
+
+183
+01:45:29,970 --> 01:46:07,370
+Okay, great. Now, if we have minimum distance six, right? So it seems like what you can do now, basically, you can detect, you can detect two bits of error, isn't it? Sorry, you can correct, not just detect, you can correct two bits of error because this is the non-overlapping circle. You can correct. What does this mean? It means if you have any channel,
+
+184
+01:46:07,740 --> 01:46:59,480
+which can produce at most two bits of error then this code work there okay so it means if you have a channel that can produce at most two bits of error then above code can correct all errors right okay I hope that is okay so basically basically they will give you the minimum hamming distance and then they will ask you
+
+185
+01:46:59,690 --> 01:47:29,290
+till how much till how many bits of error you can you can basically correct so which means if they say that let's suppose in this case they will ask you that till how many bits of error you can correct then you will say that okay what are the decision boundary here decision boundary in the sense you give equal uh equal here and this is in between right so two yeah so i think two so you give equal equal to both side and then you will say okay too so basically if d minimum
+
+186
+01:47:29,630 --> 01:48:10,960
+is six even if it is five okay so let me change the example just a second then also you can correct two bits of error basically actually the six i'm not even using right if d minimum is five then then till how many bits of error you can correct so you can say if if minimum hamming distance is five then then you can correct two or two bits of error why because
+
+187
+01:48:11,390 --> 01:48:42,250
+if the error I mean if the invalid is this or this then you can say that okay up to two bits I know up to two bits if if you are having up to two bits of error then I know what is the corresponding valid so then basically basically it is like that that you must see what is the decision boundary here decision boundary in the sense you just divide it into equal parts right so just try to divide these two valid just try to divide into equal parts so two two two right two and two are are in basically I can say
+
+188
+01:48:42,830 --> 01:49:11,190
+in their their territory okay so you can say that okay for this particular valid two are invalid which are corresponding to to this particular valid for this particular valid these two are invalid so which means which means that if you get two bits of error then you are 100% sure it is coming from this if you get three bits of error then you don't know I mean let's suppose you are you're allowing three bits of error then do you know okay I mean let's suppose you're allowing three bits of error
+
+189
+01:49:14,770 --> 01:49:56,020
+up to 3 bits of error okay let's suppose you are allowing up to 3 bits of error then if this is valid tell me and this is what invalid that you got do you know this invalid is coming from coming from this because of the 3 bits or because of this do you know about it no right so so let me have one question suppose we allow up to 3 bits of error then can we
+
+190
+01:49:58,280 --> 01:50:34,900
+correct correct it what do you think see if we allow three bits of error up to three bits of error then if this is valid then you don't know and then you get this right you get this then you don't know whether it is coming from this particular after three bits or this particular after one two on three bits right so you don't know sorry I think I copied that six bits let me have the same example here
+
+191
+01:50:35,340 --> 01:51:38,800
+which is the five so let's just have this as an example for now now suppose this is valid interestingly interestingly if you get this invalid then you don't know whether it has been caused because of this or because of this okay so answer is no now let me know interestingly let me know what is the answer here okay if you can answer this then it is very nice suppose we have exactly
+
+192
+01:51:43,900 --> 01:52:33,970
+error and following codes. Now tell me, can we correct error? Yes. Answer is yes. The question is not same. I'm asking exactly three bits. So if this is valid, if this is valid, see if this is valid. Okay. Then the corresponding invalid is this one only one, two and three. This one is corresponding invalid. If this is valid, then for this corresponding invalid is this one only.
+
+193
+01:52:34,300 --> 01:53:08,560
+They are not overlapping. Invalids are not overlapping here. Invalids are not overlapping here. Because I am saying exactly 3-bits can occur. So in this case, invalids are not overlapping. If I say up to 3-bits, then invalids can overlap. So that's what you need to take care of. So here you can say that here also invalids are not overlapping.
+
+194
+01:53:13,130 --> 01:53:59,390
+because if this is valid then the corresponding invalid is this only if you get this then you are 100% sure that you are I mean you can trace back right so if we get this you are 100% sure it has been come from this earlier you were confused that whether it is coming from this or this why why you were confused yeah because maybe two bits of error right so the answer is yes
+
+195
+01:54:02,640 --> 01:54:33,300
+I'm sure in the gate exam, if they ask you this question, then almost everyone will do it wrongly. Nobody noticed this exactly enough too. Okay. So, yeah, so I hope you understood. So basically, basically, as long as you are having, as long as you are having, I mean, non-overlapping envelopes, you can always correct it. Okay. So here, here.
+
+196
+01:54:33,540 --> 01:55:28,680
+you can correct up to if the errors are up to let's suppose two bits you can correct them because the uh non-overlapping right so if errors are up to two bits we can correct them and if errors are up to one two three and four bits we can detect it are you getting my point so if errors are up to four bits we can detect it okay so now let's suppose
+
+197
+01:55:29,040 --> 01:56:08,560
+that you have something like this and your minimum hamming distance okay maybe i have in the next page let's suppose you have something like this and your minimum hamming distance here is uh let's suppose it is seven okay which means between these two you have seven tell me can you correct errors and up to what point you can correct the errors if you have seven then how many bubbles you have in between
+
+198
+01:56:09,560 --> 01:56:44,200
+How many bubbles you have in between? I think 6 bubbles, right? 6 envelopes. Okay? 6 envelopes in between because D minimum is 7. That's why 6 envelopes in between. Can you divide it into 2 parts? Can you divide it into 2 parts? How many? 3, right? So 3 bits of error. 3 bits of error. Error. Can be corrected. Can you divide it? Can you divide it till this point?
+
+199
+01:56:44,630 --> 01:57:28,100
+How many, how many envelopes are there? Six, right? So six invalid, right? I mean, you don't need to divide basically what I'm saying that till this point six invalid. So six bits of error can be detected. Okay. Now let's just solve this question. So they are saying if this is 15, then how many bits of the error can be corrected? See, first tell me number of envelopes in between, number of envelopes in between is basically D minimum.
+
+200
+01:57:28,350 --> 01:57:59,890
+whatever is this minus one, right? This is the number of invalids in between. Can you divide it into two, two half, which is D minimum minus one by two. So you will say these many bits of the error, you can detect it. Sorry, corrected. So this can be corrected. Can be. Okay. If this is 15, I mean, in terms of 15, basically, sorry, I just generalized it, but let's just have in terms of 15 first and then we will generalize it later. Okay.
+
+201
+01:58:03,250 --> 01:58:40,330
+So, how many envelopes in between? 14, right? If 14 envelopes in between, then you can divide it into 7, 7. So, 7, till 7 flips, I mean, 7 envelopes, you are having your own range. So, we can correct, correct up to 7 bits and deduct up to whatever the number of envelopes, deduct up to 14. Have you understood this? Cool. Now, let's solve more example.
+
+202
+01:58:40,890 --> 01:59:18,360
+Let's suppose this is 8. How many you can correct? This is even. So that's why it is a little interesting. This is even number. I mean this 8 is even number. So how many envelopes in between? Number of envelopes in between is actually 7. If you divide it 3.5, 3.5, but obviously 0.5 bond matter. So 3, right? So basically number of bits can be corrected. It's actually 3 up to 3. Yeah, up to 3 bits and
+
+203
+01:59:18,640 --> 01:59:55,260
+number of bits can be detected is 7 okay cool now now let's just see this suppose suppose instead of giving you the minimum hamming distance interestingly they they have given you or given their own problem they are saying my requirement is that I want to design a code basically and I want to detect or maybe correct correct let's suppose s bits of error
+
+204
+01:59:59,930 --> 02:01:11,410
+Then what should be the minimum hamming distance in my code? hamming distance So answer is see if you want to correct as bits. So for this give us for this also give us So you you basically give us give us which means number of envelopes in between must be how many? must be 2s right number of envelopes in between must be 2s which means the distance between two valid Must be 2s plus one this should be minimum
+
+205
+02:01:11,690 --> 02:01:47,500
+Can it be more? Can I have more distance than this? Yes, right? See, let's suppose I require 2s plus 1 and I am having more, which means this is valid. I just required s in valid after it. Okay, let's suppose this is s in valid. I just required this is again valid. Let's suppose I just required s in valid for that also. Okay. And this is again a valid. Now suppose, suppose this is s, this is s. Okay.
+
+206
+02:01:47,870 --> 02:02:56,520
+Suppose I have, I have more envelopes in between, will it harm me? Can I, can I still not correct as bits of error if I'm having here? Here let's suppose I'm not having anything. If I have one more here, okay? Here if I have more envelopes here in between, okay? Envelopes. No, I can still detect, sorry, I can still correct as bits of error, right? Okay, let me know you understood this or not. So,
+
+207
+02:02:56,970 --> 02:03:28,390
+I hope now things are making sense that you just need to check the number of invalids in between and then based on that you can you can solve these kind of questions okay not a very tough question so to guarantee correction up to s errors you want to get you want to correct up to s errors then what should be the minimum having distance so if you want to correct s errors so this is valid this is s up to s maybe invalid you want to have up to s error invalids you want to have right this is valid
+
+208
+02:03:28,860 --> 02:03:48,040
+This is valid. So, hence this is 2S invalid you want to have. That's why the distance is 2S plus 1. Okay. I hope this is okay to everyone. So, this is for the error correction. Let's just see.
+
+209
+02:03:48,880 --> 02:04:16,280
+to design a code that can correct d bits of a single bit error the minimum human distance is 2d plus 1 is required and then they have just written in one line which is that puts the valid code word so far apart that even after bits error in d of the bits okay even after d bits of error it is still less than half the distance to another valid code word so the receiver will be able to determine what is the correct starting code word was okay
+
+210
+02:04:19,050 --> 02:05:03,630
+Now let's just summarize I think so this is our requirement basically if we want to want to first detect d bits of error or maybe instead of D let's say t or s or something t bits of error if we want to detect t bits of error I mean this is our requirement this is what we want then can you tell me d minima is
+
+211
+02:05:03,970 --> 02:05:50,540
+t plus one it should be t plus one because if we want to detect t bits of error it means t i mean whatever we want basically these many these these many invalid we want right invalid we want it means distance will be plus one right now the second point is to correct t bits of error then d minimum must be if you want to correct t bits of error then it should be
+
+212
+02:05:51,560 --> 02:06:40,370
+t by 2 or 2t plus 1 or something like that. It should be 2t plus 1, right? Why? Because t here, t here and then I mean these are the 2t invalids we want, right? 2t invalids we want. So have you understood this? Now do you have to remember this formula? No, right? Okay. Now let's just see this to guarantee correction up to five errors in all cases, minimum having distance. So you want to correct five errors then
+
+213
+02:06:40,750 --> 02:07:15,100
+10 in a valid C1, then it is 11, right? Okay. Consider a code with only four valid code words, which are, I think this is five distance away. Actually, these are 10 zeros. This is five distance away. This is 10 distance away, but from here it is five distance away. Okay. They have also given the minimum distance is five. Okay. The code has distance five means minimum distance is five. If the code word arrived is this, then the original code word must be.
+
+214
+02:07:16,060 --> 02:07:49,800
+Okay, first tell me if the minimum hamlet distance is 5, then how many bits of error you can correct? We can correct up to, see if it is 5, minimum hamlet distance is 5, it means the number of invalid in between is 4, right? So, so 2 bits, I mean, you give 2 here, 2 here, right? So 2 bits of error. Why? Because number of invalid in between is 4.
+
+215
+02:07:50,550 --> 02:08:18,420
+I mean distance minus one is invalid and number of invalid plus one is distance. Okay. Anyway, so whatever the distance minus one is number of any bullets in between. Right. So these are the four envelopes in between. Right. So you can say four envelopes in between a four envelopes in between, then you can definitely understand that two, two, you can divide. Right. So two bits of error, you can correct. You can correct a four envelopes in between. Then, uh, can you tell me how many bits of error you can detect a four envelopes in between four.
+
+216
+02:08:20,040 --> 02:09:10,660
+Okay, four. If four envelopes in between, I mean number of envelopes in between can tell you how many bits of error you can detect and how many bits of error you can correct. Maybe it is a nice thing to write if you want. If X envelopes in between, then, then we can detect X bits of error, then we can correct X, Y to write, X, Y to, I think it will be floor.
+
+217
+02:09:11,070 --> 02:09:58,510
+Why? Because if it is 3.5, you can't take that 0.5, right? You can't take advantage of that 0.5. So bits of error and the D minimum is D minimum is x plus 1, right? Okay. Is this okay to everyone? Okay. So they are saying that you can basically actually correct two bits of error. They are saying that if that has been arrived, then this is, then what must be the valid code word?
+
+218
+02:10:12,640 --> 02:10:45,070
+just a two distance away right either either one distance to I mean you can you can have zero distance one distance or two distance if you received this then the nearest nearest value which is just two cannot be more than two distance away it is actually this question is not a good question in the sense that they should give they should write one line which is that okay they're saying the then the original code word must be I mean they should they should at least tell me the channel property right the channel is not producing more than two bits of error okay
+
+219
+02:10:45,340 --> 02:11:23,350
+because you don't know that I mean in general you don't know this may get this if you don't know the channel property can you say that this may not get this you can get from here also right you can get from here you can get from anywhere so anyway this is substandard question that has been asking you at UGC but I hope you understood the idea so if they give the channel property then if they say channel property which is that in my channel in the channel you cannot
+
+220
+02:11:25,100 --> 02:11:58,350
+get more than 2 bits of error. If this is something like this, then I think that is fine. If they get channel property, then I think this is fine. But here because of 2 bits of error, we correct. That's why you said option A. I said option A because I mean, we can correct up to 2 bits. I'm assuming that the channel is also not producing more than 2 bits.
+
+221
+02:11:58,600 --> 02:12:27,800
+If channel is producing any arbitrary number of bits of error, then maybe from here, I mean, it may have come from here, it may have come from here, it may have come from here. If channel is producing arbitrary bits of error, I'm assuming that channel is not producing more than what I can do. I can correct up to 2 bits and channel is also not producing more than what I have basically. So channel is also not producing more than 2 bits of error. My ability is to correct 2 bits of error and channel is also within my ability only.
+
+222
+02:12:28,070 --> 02:13:00,300
+okay that's that's what assumption is okay the following is an error correcting code in a in which two patterns differ by hamming distance of at least three okay so they are saying that uh two pat no i mean if you if you take any two pattern here then they are differing by at least three hamming distance at least three hamming distance now consider the below received code word so suppose you received this then what could be the possible send code word okay again
+
+223
+02:13:01,200 --> 02:13:38,400
+just assume that you cannot have more than three okay if the hamming distance is three then you can basically correct up to tell me how many bits of error one bit of error right so just assume that you cannot have more than one bit of error okay so i mean this is if you just check this that this is basically after one bit you will be getting all zeros one one i think c right this will be c like that you can do this question
+
+224
+02:13:39,160 --> 02:14:10,540
+Okay, actually, I think this is a default assumption because in the standard universities also, they have not mentioned it. Okay, in NTU, they have not mentioned it. So maybe whatever I can do, I mean, whatever I can correct up to, basically, channel is not producing more than that. Okay, we will, we will assume that. Okay, we cannot assume that, okay, channel is also producing arbitrary, but in my opinion, it should be mentioned, but I think they have taken this as a very default assumption. They just see any gate question if I have. Okay, currently, I don't have the gate question, but anyway, let's find.
+
+225
+02:14:12,170 --> 02:14:49,220
+So there are few questions. If you want, you can just try them out. Okay. This is a good question. Just try this out. So there's a question based on what I said. See, yeah, this question is based on the exactly. Remember that one question that we did exactly. So this question is based on that particular exactly term. Okay. Just try out this question. Okay. And just see what is the answer you are getting. So these are the questions that you can definitely try.
+
+226
+02:14:50,490 --> 02:15:15,470
+Okay, so maybe we can try one of them. They are saying that two out of five code consists of all possible binary words of length five containing exactly two ones. So they have defined something called as two out of five code consists of all possible binary words of length five containing exactly two ones. So basically they are saying you are having five bits one, two, three, four, five. If you contain exactly two ones here.
+
+227
+02:15:15,780 --> 02:15:54,160
+Then this is the code that comes under the scheme, right? Then how many such codes are possible? I think five C2, right? List all the code words. Can you list them out? You, you can just maybe try the brute force and can just list them out. What are the minimum hamming distance? So they're asking the minimum hamming distance in such a code word. C one, two, three, four, five for the minimum. Okay. Let's suppose this is one, one. Now one, two, three, four, five.
+
+228
+02:15:54,360 --> 02:16:25,410
+Now I have taken just one of the code word for the minimum. You think that I want to change more bits or less bits. I want to change less bits, right? So I want to overlap this once. I mean, as long as I can overlap this once, I will be doing it. So maybe I can overlap this. Can I overlap this one also? If I try to overlap this one, then it will be the eject same code, right? See, this is three zeroes. It will be the eject same code. So I cannot overlap this one. Maybe I can write it here. So it seems that minimum is two, right? Minimum is two.
+
+229
+02:16:27,750 --> 02:17:08,050
+Right? Can it be one? If you differ at one, basically, I mean, you can understand like that, you want to overlap as many ones as possible to get the minimum distance. Right? So if you do that, then you are getting two. So answer is two. So how many bits of error it can detect? One, right? If the minimum human distance is two, which means it is valid, it is valid. Only one invalid is in between. So one deduct. How many it can correct? Zero, actually.
+
+230
+02:17:08,380 --> 02:17:43,990
+it cannot correct anything why because this is just one invalid it will definitely overlap there is no no way it cannot overlap right you cannot divide into half half so basically this will correct you so that's what they're asking that how many it can direct how many it can correct so i think we have done almost all the questions which were listed here this is the same question this is just a version two this is the same question you just try it as in homework okay let's do this question for and then we can wrap up and i think this is the last question that we have
+
+231
+02:17:44,840 --> 02:18:14,030
+Yeah, this is one of the last portion. Let's just do this question here itself. This is again from University of Michigan. So you have designed a system that transmission out of five bit cores ABCD are shown below. Okay. So I mean, this is a system that you have. What is the hamming distance of this code? You can just quickly see the hamming distance. This is 114 in between these two four in between these two one, two, three.
+
+232
+02:18:14,230 --> 02:18:48,490
+Okay till now I got minimum S3 101 this change in I think 3 right okay yeah so 3 is the minimum I mean distance now they are saying your manager explain this your manager explains to the customer that the microwave link is very robust and only a single bit in any 5-bit code can be flipped so see have they given the channel property
+
+233
+02:18:49,470 --> 02:19:23,300
+Is this the channel property? Tell me. See, they have given the channel property. The channel can channel is like this only, right? Okay. So that's why I said like in my opinion, it should be given. Otherwise, if channel can do anything, then, then I don't think that we have any prediction there, right? Okay. So they're saying that at most one bit of error you can get. Okay. They're saying this at most one bit of error that you can get. What is your capacity? Can you correct one bit of error?
+
+234
+02:19:26,940 --> 02:19:55,730
+if three then number of invalid in between is two it means that you can correct one bit right and deduct two it your capacity is also like this great so channel can also produce just one bit of at max and your capacity is also to correct at most one bit fine now what is the question if the data transmitted by the microwave link is corrupted and you receive code x so below okay so you received this can the received code be corrected
+
+235
+02:19:56,840 --> 02:20:27,470
+This is a nice question. See, isn't this question the same as UGC net? But they have also given the channel property, right? So that's why I can say this is a good question to have. Okay. So they're saying this is the corrupted that you got. Okay. And then, uh, Link corrupted you received shown below. Can this receive be corrected? If yes, then what is the transmitted code? So see channel is saying that you can get at most one, right? So if you check it.
+
+236
+02:20:27,930 --> 02:21:05,610
+with which one it is having the one so I think the seed is having the one distance right this way right this way otherwise everything is same okay so the answer is C okay I hope you understood now let's just see the next question here I mean the continuation of that after buying your system your customer finds that the macro web link is not as reliable as your manager has claimed and your manager blames you
+
+237
+02:21:05,880 --> 02:21:52,740
+for the problem and tells you to develop the solution which means it is not as reliable means maybe it is giving more than one bit of error channel is giving more than one bit of error okay so they are saying channel is giving what is your capacity your capacity is also one bit right more than one bit offer i mean it can give more than one bit but your capacity is just one bit our capacity to correct to correct right not to deduct basically now they are saying
+
+238
+02:21:55,250 --> 02:22:25,480
+upon investigation you find out that the link is such that either there is no bit is flipped or there is exactly 2 bits are flipped. So you have minimum having distance 3. This is valid. It means how many invalid in between? If minimum having distance is 3, 2 invalid. This is valid. Now they are saying that the channel is having exactly either no 0, the channel can have
+
+239
+02:22:27,210 --> 02:23:27,660
+either 0 bits flipped or exactly 2 not up to okay exactly 2 flipped give the new information given the new information can the received code word which corrected that earlier one can it be corrected see the earlier one was this now can you correct it okay tell me can the can this be corrupted this be corrected now if channel is producing either 0 2
+
+240
+02:23:28,000 --> 02:24:09,510
+tell me so 0 I think you don't have anything right for 0 you don't have anything put 2 bits exactly 2 bits do you have exactly 2 bits anything matching with exactly 2 bits I think this is 1 1 0 which is common with A so exactly 2 bits is just A so you can say it is A right if it is up to 2 bits then you will get confused then you will say either A or C okay so if exactly 2 bits are
+
+241
+02:24:11,120 --> 02:24:53,500
+exactly two bits of error has occurred then you can say yes you can still correct it if A and C if either one bit or two bits of error is or two bits if there is one bit then C is the answer if two bits if two bits then A is the answer okay have you understood this question
+
+242
+02:24:53,830 --> 02:25:24,710
+so you know that you have got it and exactly two bits have been flipped so anyway you can just with the common sense you can say that A is the answer right and if you say that okay up to two bits then maybe A or maybe C is the answer then you cannot correct it you are not sure actually okay so maybe this is X okay I mean maybe this is A maybe this is something else maybe this is X maybe this is C okay so basically this is valid
+
+243
+02:25:26,100 --> 02:26:02,490
+and this is valid now if you are having exactly 2 bits I mean this is basically this is a bubble right in between this is a bubble in between and these are invalid now exactly 2 bits you are sure that that from I mean it must have come from A if exactly 2 bits if up to 2 bits then you don't know this X has might have come from A or maybe come from C it can see it can correct yeah that is a nice question so Sangit is saying
+
+244
+02:26:02,750 --> 02:26:38,250
+that we know our capacity is that we can we can correct up to one bit only which means up to one bit we are 100% sure we can not correct we can not correct up to two bits is this statement true right this is also true we cannot correct up to two bits but do you remember the single parity single parity can correct
+
+245
+02:26:39,730 --> 02:27:10,740
+or can detect maybe it's not correct single parity can detect up to one bit what does this mean it means that every zero and one I will definitely do it up to two I won't be able to do it but exactly three I will do it right exactly actually is not I mean there is no formula for exactly right this is just the I mean this is just a question for that I'm doing it so for exactly three
+
+246
+02:27:11,020 --> 02:27:43,620
+exactly five exactly seven also we can do it and up to one bits also we can do it if this is exactly then I don't have any such formulas as 2d plus one or something so here here if it is exactly I mean see as long as the invalid you just need to apply your intuition that for the up to we have the formula for the exactly you you don't have the formula right okay so for example if I just say something like this see this is valid this is invalid invalid invalid okay
+
+247
+02:27:53,080 --> 02:28:34,350
+So actually I am saying that, I mean, I want to basically have some 2D example in this case, I think. This is valid. This is, let's suppose, invalid, invalid. This is also valid. Now, maybe that is the case that, okay, exactly two bits. Maybe one valid is here. One valid is here. Now, if exactly two bits have been flipped, can you correct in this case?
+
+248
+02:28:34,730 --> 02:29:15,660
+exactly to it see if that is what you received won't you get confused it is coming from here or it is coming from here tell me no right so for example for example if you get 1 1 0 1 this is 1 1 0 1 this is this is maybe 1 0 1 0 which means these sorry 1 0 1 1 these two bits got corrupted and this is
+
+249
+02:29:15,920 --> 02:30:19,090
+this is let's suppose these are two valid code words zero uh one zero anything okay one this is also valid suppose this is also valid just a second this is uh zero i want to have exactly two bits got flipped so this is suppose from here i can have any other valid right maybe which is having exactly two bits flipped zero zero one
+
+250
+02:30:19,840 --> 02:30:52,020
+Then exactly two bits are flipped Okay, I need to construct the example, but I mean that That once and you're I need to construct I need to check about it, but but suppose With this diagram if I have something like this that this valid Is basically too too away from this and this valid is also too away from this if you are saying exactly two bits about flip Then in that case if you get this you will get confused whether it is coming from this or this right?
+
+251
+02:30:52,350 --> 02:31:14,920
+so in exactly two words also I mean you just need to apply the intuition based on the question so if that is the question which is given to you then they are saying that exactly two words you just need to check that okay how many I mean from which particular code exactly two words are differing that's all you need to do right for that you don't have any formula as such okay for that you don't have any formula as such getting my point
+
+252
+02:31:16,590 --> 02:31:45,900
+Okay, so up to, for up to, yeah, my capacity is to up to correct, up to correct one bit, but I'm not saying that I cannot correct exactly two bits or actually five bits. Up to two bits is not my capacity. Okay. If I'm, if I'm confused between, see, if someone says maybe in this particular example, just for this particular example, I'm telling you, okay, in this particular example, it's so happened that the kind of course that we were having, okay, these course, the kind of course that we were having, okay, you can.
+
+253
+02:31:46,340 --> 02:32:24,060
+Take these chords. These chords are in such a way that if this is my chords, then I can correct, correct, up to, up to one bit, I can correct. Can I correct up to two bits? Can I correct exactly, exactly two bits? No, you don't know, right? I mean, you need to check it. You need to check it. You can't just directly say.
+
+254
+02:32:24,360 --> 02:32:52,640
+I mean given the example this x you can say that okay if if if you know exactly two bits have been flipped that example was different if you know exactly two bits have been flipped then which one is this that is just a common sense right but exactly two bits can you correct you don't know maybe you need to check it right I mean you need to check that okay this a is where this b is where so this can you tell me the distance between a and b just tell me quickly let me just uh check it the distance between a and b is three okay so
+
+255
+02:32:52,970 --> 02:33:30,230
+two envelopes in between great what is the distance between a and c need to make this diagram properly this is basically one three so distance between a and c is again three which means two envelopes in between so c this is a this might be c what is the distance between a and d is four okay a and d is four
+
+256
+02:33:31,540 --> 02:34:02,340
+I mean you need to arrange them very carefully and then you need to check whether exactly 2 bits is overlapping or not. It's not that easy. I mean that reverse question is not that easy. But if they give you X and they tell you exactly 2 bits have been flipped. Isn't it LKG question? Which one is having exactly 2 bits? Just like LKG question. If they give you exactly 2 bits which have been flipped then what should be your original code word? What must have been the original code word? Then you can find out.
+
+257
+02:34:04,160 --> 02:34:46,630
+Okay, anyway, I hope let's not get confused. I hope you got what I mean to say. So let's just summarize everything. Okay, let's just summarize everything. And then we can just end up. Okay, maybe we can solve these questions quickly. An error control code with the minimum hamming distance 11. If the minimum hamming distance is 11, then number of envelopes in between is 10. So capable of capable of detecting, detecting up to 10 bits, correcting up to up to five bits.
+
+258
+02:34:46,890 --> 02:35:18,470
+right okay so detecting 11 no detecting five okay can it detect five is this be correct answer let's suppose this is msq yes can detect five right why not i can detect up to 10 so yes i can detect five can correct five bits yes can correct 11 no okay so b and c are the answers here okay this is msq question understood this so you just find out number of envelopes in between and you can quickly do this question
+
+259
+02:35:20,950 --> 02:35:49,600
+So you can summarize everything here that, okay, if all errors of D or if you want to, if you want to detect, if you want to detect D bits of error, then must be D plus one hamming distance. If you want to correct C bits of error, then 2C plus one should be the hamming distance, right? Because C bits of error you want to correct. So 2C, 2C must be invalid in between, between 2C plus one should be the error. If D bits you want to correct, then D must be invalid in the between.
+
+260
+02:35:50,460 --> 02:36:24,420
+now the common case could be a code uh see if you want to correct c bits and detect d bits okay so if you want to correct c bits of error and detect d bits of error suppose assuming that d is greater than equal to c okay see in this case detect is saying if you want to do both okay if you want to do both so detect is saying detect is saying that you should be having
+
+261
+02:36:24,970 --> 02:36:58,390
+I mean the minimum hamming distance should be greater than equal to D plus one. I mean, the hamming distance or the minimum, it is exactly D plus one, but I mean, it can be greater than equal to D plus one also, right? And correct is saying that minimum hamming distance should be greater than equal to two C plus one, right? Okay. So tell me, can you combine both of this? I mean, it should be greater than equal to this and greater than equal to this. Can you combine both of this? I think you can say that
+
+262
+02:36:58,760 --> 02:37:29,800
+D minimum can be D plus C plus 1. I mean intuitively I can explain you because if you have this, R into satisfy, agent equal to greater than equal to D plus 1, it is right. Agent greater than equal to C plus 1, since this D itself is greater than C, so it is greater than equal to C plus 1 also. So if you have D plus C plus 1, it is a common case, which satisfies all of the conditions, right? Okay, I hope you understood. So that's the summary of this.
+
+263
+02:37:30,130 --> 02:37:59,710
+Now, basically the next topic is Heming course itself. So you might remember it that we started with this parity bit and then in between we have seen the Heming distance. So that was an in-between topic. Okay. So now we are going to see the Heming course, which is the error correction code. Till now we have just seen that, okay, if you want to detect a divorce of error, then what should be the number of bits in between like that, right? Till now we have seen only these kinds of things. Now we will see the correcting course itself that how to design those kind of course.
+
+264
+02:37:59,970 --> 02:38:30,780
+that we are talking about, which are Heming codes. Okay. So we are here now, and then we will start in the next class. Have you understood that? What are the flow of this class or flow of this topic? So we are under the error control method and parity bits are covered. Now we are basically at the Heming code in between. If you remember, we have seen the Heming distances and that's what I have said, right? See, when I started the Heming distance, I said the same thing that this is the in between topic.
+
+265
+02:38:36,280 --> 02:38:56,360
+See, this is, that's what we said, that we will see this next, but before that we need to understand the hamming distance. Okay. So now hamming distance is covered. Now we are going to see this hamming course. Thank you everyone. Hope you understood everything, right? Okay. Thank you. Take care. Bye-bye.
+

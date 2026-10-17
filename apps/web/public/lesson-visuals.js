@@ -5,6 +5,8 @@ import {diagramKind,diagramModel,diagramControls} from '/shared/visual-models.js
 import {cModel} from './c-labs.js';
 import {aptitudeIllustration} from './aptitude-labs.js';
 import {osIllustration,osWalkthrough} from './os-labs.js';
+import {dbmsIllustration} from './dbms-labs.js';
+import {cnIllustration} from './cn-labs.js';
 
 export function modelMarkup(m){
  const nodes=(labels,selected=-1)=>`<ol class="visual-flow">${labels.map((label,i)=>`<li class="${i===selected?'visual-active':''}"><small>${i+1}</small><strong>${h(label)}</strong></li>`).join('')}</ol>`;
@@ -26,6 +28,8 @@ export function topicDiagram(lesson,subject,compact=false){
  else if(kind.startsWith('algo:')){const view=algoIllustration(lesson);content=`<div class="algo-art">${view.art}</div><figcaption>${h(view.text)}</figcaption>`;}
  else if(kind.startsWith('aptitude:')){const view=aptitudeIllustration(lesson);content=`<div class="lab-art">${view.art}</div><figcaption>${h(view.text)}</figcaption>`;}
  else if(kind.startsWith('os:'))content=osIllustration(lesson);
+ else if(kind.startsWith('dbms:'))content=dbmsIllustration(lesson);
+ else if(kind.startsWith('cn:'))content=cnIllustration(lesson);
  else content=modelMarkup(diagramModel(kind));
  const controls=compact?[]:diagramControls(kind);
  return `<figure class="topic-visual ${compact?'compact-visual':''}" data-topic-visual="${h(kind)}"><span class="visual-eyebrow">CONCEPT IN PICTURES · SEPARATE EXAMPLE</span><div class="visual-art visual-replay">${content}</div>${controls.length?`<div class="lab-controls">${controls.map(([label,min,max,step,value],i)=>`<label><span>${h(label)} <output>${value}</output></span><input type="range" data-visual-control="${i}" aria-label="${h(label)}" min="${min}" max="${max}" step="${step}" value="${value}"></label>`).join('')}</div>`:''}${!compact?'<button type="button" class="text-button" data-visual-replay>REPLAY VISUAL</button>':''}</figure>`;
@@ -34,6 +38,8 @@ export function teachingDiagram(lesson){return `<div class="teaching-process"><o
 export function walkthroughDiagram(lesson,subject,step){
  const kind=diagramKind(subject,lesson);
  if(kind.startsWith('os:'))return osWalkthrough(lesson,step);
+ if(kind.startsWith('dbms:'))return dbmsIllustration(lesson,step);
+ if(kind.startsWith('cn:'))return cnIllustration(lesson,step);
  if(kind.includes(':'))return topicDiagram(lesson,subject,true);
  const controls=diagramControls(kind),values=controls.map(([,min,max,increment,start])=>Math.min(max,Math.max(min,start+step*increment)));
  const model=diagramModel(kind,...values);

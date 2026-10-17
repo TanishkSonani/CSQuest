@@ -1,0 +1,992 @@
+1
+00:00:10,610 --> 00:00:56,140
+Hi everyone Okay, Sai Teja is asking Sir, please explain one's physical to logic using the example Explain physical to logic Okay, so let's get started Right Now In this lecture we are going to continue with the paging So do you want me to quickly recap That what we did in paging Okay So We said that let's do one thing Let's divide the process into fixed number of
+
+2
+00:00:56,450 --> 00:01:31,130
+I mean fixed size of pages and not only the process we will also divide the we will also divide the physical memory okay we will also divide the physical memory now let's suppose this is physical memory and this is process okay let's suppose these are the two things now what I am going to say that let's do one thing let's store this page sorry this process into this physical memory and here we can store in the fixed size frames so these are the frames
+
+3
+00:01:34,380 --> 00:02:04,650
+Now I can store this anywhere may be here. I can store this again anywhere may be here, right? So I can store different different different different pages into different different frames. Okay, since this is a mapping from pages to frames. So I need some table. What we call that table. We call page table, right? We call page table that keeps this mapping for example, here, this is 01234. Let's suppose this is 012
+
+4
+00:02:05,110 --> 00:02:32,070
+three, four, five. For example, here in this page table, generally, it only has, I mean, you can consider that it doesn't have the page number. I mean, by default, the page number starts from zero, just like the segment, segmentation. So if you remember, in the segmentation, we were having the segment table. What we were maintaining generally here, base, and what was other thing? Other thing was bound or limit, right? Bound or limit, whatever you want to call.
+
+5
+00:02:32,530 --> 00:03:02,170
+So if you want, you can maintain the segment number, but it is it is redundant. So by default, it is zero, one, two, three like this only. Okay. So generally we don't keep the segment number. Have you noticed this? You might have noticed, right? So, so basically just like this, just like this, we don't keep the page numbers here also. Okay. So here, I mean by default, you can consider this is zero, one, two, zero, one, two, three, four, right? Three. And then there is one more page, which is four. So there are total
+
+6
+00:03:02,480 --> 00:03:22,670
+five pages right okay now you tell me you tell me zero one two zero okay this is zero uh upper most is zero and then one and then two like this right okay now you tell me where does this zero map to can you fill this page table this zero map to three
+
+7
+00:03:22,940 --> 00:03:46,450
+right this maps to three similarly one I mean let's not worry about it I mean I'm not drawing the completely otherwise it will be too messy to look at it but you can consider that three is mapping to one right three is mapping to one something like this okay and others are also mapping that is fine okay that is fine I'm not drawing the complete diagram otherwise it will be too too messy to look up okay so this is done by whom
+
+8
+00:03:46,700 --> 00:04:15,260
+This is done by the operating system. I mean operating system is definitely going to store each page in the frames and page table operating system is going to maintain. Okay, now we want to understand one thing that how operating system is calculating the physical address. I mean CPU will say or the compiler will say that CPU is generating basically the logical address, the logical address. Now we want to understand
+
+9
+00:04:15,540 --> 00:04:44,700
+that how we can make use of this page table to convert that logical address to the physical address, right? Finally, you want to convert that to a physical address. So one thing is for sure, for any logical address, let's suppose this is a logical address, that is, I mean, let's suppose logically it is starting from zero to some address, maybe 1024. Okay. Suppose these are the addresses, suppose it generates some byte, okay, 800 address, let's suppose it is generating 800. Now, what do you want to know?
+
+10
+00:04:44,940 --> 00:05:15,970
+that in which page it is once we know the page we will get the frame number we will go to that particular frame and then we will we would like to know how much down right which means offset so watch what finally you want to know that if if somehow if somehow let's suppose I can get the page number okay if somehow I can get the page number right and then offset and then offset then probably what will I do with this logical letters
+
+11
+00:05:16,290 --> 00:05:46,010
+from this page number with the help of page table I will do what I will get the frame number and and offset is already there using these two using the frame number and offset I will get the physical address that was the idea okay so so how we did it let me just recap you that for example just a second let me bring that diagram that we have yeah so this was one of the diagram that we used right okay
+
+12
+00:05:56,090 --> 00:06:21,750
+So for example, let's suppose that this is this is what currently it is. I mean, this is the logical address. Let's suppose this should be one zero two three. Right. So suppose this is the logical address. These are the logical addresses. And now let's suppose that I say, I mean, you can have any, any numbering, but let's suppose I say 400. I'm having some
+
+13
+00:06:21,980 --> 00:06:52,570
+frame number you can you can you can store the hundredth page into some frame maybe let's suppose i'm saying anything you can talk about anything let's suppose five okay now if i want to know that let's suppose the page contains eight bytes it means page size is eight bytes if i want to know what is physical address of 803 then what you will say you will say that okay using this 803 i will get the i will get two things
+
+14
+00:06:52,940 --> 00:07:24,390
+what what I will do with this to 803 basically so with this 803 I will do two things I will get I will divide this 803 basically I mean I was given 803 I will divide this 803 by page size page size is 2 power 3 right page size is 2 power 3 this is page size and if you divide it it will be 100 dot something right 100 dot something and similarly I will take the mod right I mean I will take the reminder
+
+15
+00:07:25,030 --> 00:07:56,150
+of this this 803 mod page size where I'm getting I think three right okay so I will I will take the reminder and I will do I will I will take the basically I will divide it now using this we get that okay this is the page number this is the page number and since this is a page number I will get the frame number which is three sorry five in this case frame number is
+
+16
+00:07:56,410 --> 00:08:37,310
+five in this case now i got the frame number i have the offset now the next step is to convert it into physical address right so physical address will be uh eight into five i mean the frame size right so the frame size eight into five plus uh offset which is three i think 43 right so that's how you can get the physical address okay so that was the whole calculation
+
+17
+00:08:37,810 --> 00:09:00,340
+But out of this calculation, we observed one thing which was that this page size that we will be using in our system is always in 2 power 3. If something is in 2 power 3, then this decimal division or decimal taking mod is not very convenient. This might be the lot of hard work.
+
+18
+00:09:01,210 --> 00:09:30,270
+So what we said that see if you want to have the division with two power something see if you want to have the division Let's suppose eight zero seven with ten power something then decimal is good idea, right? I mean the remainder will be seven. Okay here the eight zero seven more hundred, right? The remainder will be again zero seven or seven and and like this I mean if you're doing with the decimal then if you're doing with the ten ten is power then decimal could be the good idea But if you're doing something in two power then binary will be the good idea. That's what we observe
+
+19
+00:09:30,710 --> 00:10:06,270
+Right. So here what we will say that C if you want to divide this 803 by seven, then ultimately you have to you have to write in some form. Maybe you can say N P plus R or, or whatever, right? I mean reminder, you will be writing here and then a hundred into pay size, which is two power three, right? So this is pay size, pay size. This is a reminder. So basically we said that, okay, this is a pay size. I mean, in decimal, I have to do this.
+
+20
+00:10:06,520 --> 00:10:47,690
+I mean there is nothing wrong with that decimal but we observe that instead of doing with that decimal what we can do we can do it in the binary. So we will do division in binary and what was the reason for that? Can anyone tell me that reason? Because paste size is in power of 2. So if something is in power of 2 then I will prefer a binary. Then we said that okay if you want to prefer binary then what does this mean actually? This means
+
+21
+00:10:48,110 --> 00:11:19,050
+that we will do one thing we will be representing this 803 in the binary can anyone tell me quickly the representation of 803 in binary you just google it out and then you can tell me okay so we will be representing this 803 in the binary and instead of doing the calculation in decimal we will be doing the calculation in binary okay so 803 in binary is looking like this now
+
+22
+00:11:19,500 --> 00:11:53,130
+We will calculate all of all of this calculation was good. There is nothing wrong with the calculation. But we said that okay, let's do one thing. We will be calculating this frame number or whatever you want to do in the binary. Okay. So in the binary, I will say that last if this is two power three, then last three bits are actually offset. Right. So I will say that see this is this is how you can break it. This is the offset and this is page number. Okay.
+
+23
+00:11:53,990 --> 00:12:18,570
+So why this was making sense because here if I am representing this 803 like this, then it essentially mean that like basically this 100, which is a page site, sorry, which is a page number, right, which is a page number. I mean, if I want to get the page number, then it must be this one only because we can we can basically understand one to buy the one to one mapping of these two calculations, right? So this three must be this one only.
+
+24
+00:12:18,750 --> 00:12:48,130
+This page number must be this one only. This 2 power 3 actually got ignored. Ignored in the sense it played its role by appending the zeroes. Okay. Yes, in the gate exam, I mean, I don't know if they can give in the binary or the decimal, but I think till now they have given in the binary only. But nobody knows like if they give in the decimal, will you, will you be afraid to attempt that question? Can't you divide in the decimal? You can divide also in the decimal, right? Okay. So don't worry, we will be solving the questions using the decimal. And surprisingly,
+
+25
+00:12:48,690 --> 00:13:13,180
+surprisingly you know what have you heard about AIMT you I don't know AIMT of Go classes so in AIMT one that is all indium octash one of Go classes what I did I asked a extremely extremely simple question okay of this paging and only thing I did is basically I given the numbers in the decimal
+
+26
+00:13:13,550 --> 00:13:41,490
+That's the only thing that I did, okay, instead of giving the binary. But people are very much used to a binary. In fact, in other coaching, I don't know what was the case. But basically, the thing is that they only know the binary. They have even forgotten that, okay, why the binary is making sense and all. So that was a very easy question. And to my surprise, that question was, I mean, very less people has attended that question. Okay. So very less people.
+
+27
+00:13:42,490 --> 00:14:02,790
+Yeah. So Akash is saying it was a great question. Yeah, it was, it was, it might be the great question, but I just put the things in decimal. That's the only thing I did. Okay. So that was the only change I did. So, but now you understand that why, why this is, uh, why this is a conversion. I mean, why this binary is making sense.
+
+28
+00:14:03,080 --> 00:14:34,110
+So again, there is one more reminder that forget everything like whatever you know, whatever down low forget everything, you should be knowing that that okay, if this is I mean, if the pay sizes, let's suppose this is the logical address, as I told you, even if you have not understand anything, you should be knowing this that if there's a logical address, okay, you must be able to split and the pay sizes to power P, let's suppose or whatever, okay, and let's suppose logical addresses of n bits.
+
+29
+00:14:34,790 --> 00:15:11,700
+You must be able to split it into two parts. Here this is P because this is two power P. So this will be, I mean P bits will be, will be telling you the offset and this is, this will be telling you the page number. Okay. Which is N minus P. So even if you have not understood anything, don't worry. I mean, you actually have to, you can say that, okay, I'm asking you to buy hearted. Okay. It should be fixed in your memory. This is N minus P. Right. This is page offset. Is this okay to everyone?
+
+30
+00:15:14,470 --> 00:16:06,460
+Okay. Now if you have physical memory, then in this case, I mean, if you have instead of logical letters, if you may also have the physical letters, let's suppose this physical address is of maybe some bytes, some bits, let's suppose this is of m bits, then this will be P. This will be m minus P. This is the frame number. This is the frame offset. Let me know if that is fine to everyone. Okay. This is fine, right? Cool. Now, now let's just do one thing.
+
+31
+00:16:06,710 --> 00:16:36,270
+Let's just try to understand these things with the help of examples. Okay, let's just do many, many questions. So by the way, this is a view of the physical memory. I mean, you may be having multiple processes. This is the process one, this is a process two, this is a process three. Okay, you may be having multiple users or multiple processes. They may be having their own, I mean, they must be having not just me. They must be having their own page table. And then you may be having multiple processes at the same time in the physical memory, right? Is the diagram making sense to you guys?
+
+32
+00:16:36,620 --> 00:17:02,940
+that there are multiple processes that are presented it is not just one process okay so each user has its own page table page table contents entry for each user page so this slide is from MIT okay so now let's just do questions let's do this question what they're saying there's a 8 bit virtual address 8 and 10 bit physical address and each page is 64 bytes okay so
+
+33
+00:17:03,430 --> 00:17:43,630
+virtual address or the logical address. Don't worry about the virtual and logical terminology. You will get clear when we talk about the virtual memory. Okay. So the virtual address is given to be eight bits and physical address is given to you is of 10 bits. Page size is given to you of 64 bytes. Right. Now they're asking a few questions. How many virtual pages are there? Okay. You need to find out the number of pages. You need to find out many other things. Right.
+
+34
+00:17:46,550 --> 00:18:13,910
+So basically pay sizes, this is 8 bits, this is by the way 10 bits. Pay size can you represent in 2 power 6, 2 power 6 bytes. Don't convert into the bits. You will be dealing with the memory in the bytes. These are the bits. This is not byte. I hope this is making sense. I mean these are the number of bits in the virtual address. But when you actually come to the size of something,
+
+35
+00:18:14,240 --> 00:18:50,240
+size of size of any memory okay then it will be in the bytes okay so six right so it means six will be the page offset and two will be your virtual address now here six will be the page offset of the frame offset four will be your uh number of i mean uh four will be telling you the frame number okay so if two is telling you the page number then how many number of pages can be can be there two power two right two power two
+
+36
+00:18:50,460 --> 00:19:16,270
+because if two number I mean these are the two bits that are represented okay in two bits how many pages you can represent see zero zero will be page number zero page number one page number two page number three sorry yeah that is correct sorry zero zero zero one zero and one one so zero one two three okay so these are the four pages I mean page number zero page number one page number two page number three okay so you have four pages here how many virtual pages are there
+
+37
+00:19:16,460 --> 00:19:56,450
+2 power 2 which is 4 pages you have how many how many physical pages or the frames are there 2 power 4 which is 16 okay because these are the 4 bits that are that are used to represent the frame number okay that's why 16 okay so I hope that is fine now let's just see the next thing how many entries in the page table okay so how many entries in the page table see they are saying that the
+
+38
+00:19:56,670 --> 00:20:30,530
+page table will be basically maintaining page table will be maintaining one entry for each page right page table will maintain one entry for each page so if number of pages are if number of pages are four then this will be how many entries will be there this will be four only yes no number of pages and number of frames could be different i mean it depends on the size of the physical memory and logical memory right here for example here
+
+39
+00:20:33,200 --> 00:21:04,900
+Here number of frames are 6 but number of pages are 5 only it depends on the size Okay, but the sizes of every page and every frame is same But number could be different Right Okay, given page table now they are saying Given page table 2518 which means that this is 2518 Right, which means page number 0 is in frame number 2 page page number 1 is frame number 5 page number 2 is in frame number 1
+
+40
+00:21:05,240 --> 00:21:25,570
+page number three in frame number eight now what is the physical address for 241 okay that's a good question now they're saying uh for 241 i mean logical address or the virtual address 241 you want to convert that to the physical address right so what is the page size
+
+41
+00:21:26,110 --> 00:22:02,260
+I mean, you can do this in the decimal. Let's not worry about it. I mean, if you want, you can convert that to a binary. Okay, let's just do it in both the things. Okay, let's first do the decimal and then we will be doing in the binary. Okay. So what is the, what is the pay size? 64, right? So can you tell me if you divide it, then what you will be getting? Three, right? And then it means basically 241 is 64 into, sorry, basically three into
+
+42
+00:22:02,780 --> 00:22:34,960
+64 which is a page size plus what is the remaining 49. Okay. So, so basically this is represented like this. Now you can see this is the offset. This is offset. Okay. This is page number. Now can you get the frame number? I think, I think we can get the frame number. So how to get the frame number using the page table. Okay. So they are saying that this is
+
+43
+00:22:35,640 --> 00:23:05,260
+This is the frame number eight. I mean, this is the page table. That's that's that's what they're having. Right. So you will say the frame number is frame number is eight. So now you have the frame number. Right. So you will basically do one thing. Eight. I mean, if this is a frame number eight into frame size, which is 64 plus 49, basically just to replace this three with eight. And then this is the physical address. What is that five?
+
+44
+00:23:06,960 --> 00:23:48,220
+61. Yeah, I think almost everyone got the same answer. It's the physical address. Do you want to do this in the, in the binary? We can quickly do in the binary. Okay. Can you tell me the binary of 241? I mean, actually it is given the decimal. That's why we didn't decimal. But if you want, you can do in the binary also. Binary of 241, right? 241 equal to you people are saying four times one. So it is four times one and 0000.
+
+45
+00:23:48,540 --> 00:24:26,660
+zero zero zero one one two three four five six yeah these are the six bits which will be used for the uh for the page offset right and this will be used for the page number now can you tell me what is the page number from here page number will be three right you can easily see page number is three and now once you have the page number can you get the frame number frame number is eight so now you can represent basically what you can do from here
+
+46
+00:24:26,990 --> 00:25:06,570
+if you have this much then you can represent this eight I mean you just need to replace here with the eight which is eight is one triple zero and then this is the same thing one one zero zero zero okay this is the frame number this is the frame offset can you convert that to decimal and this complete thing is a physical address if you convert that to decimal it will come out to be 561 okay this is physical address
+
+47
+00:25:11,630 --> 00:26:21,520
+I mean, it is okay if you want to do in the binary, but I mean, given question was in decimal. So I think it is, it is also okay to do in the decimal, but, but mostly the questions will be in the binary. Okay. So let me know if, if this particular question is, is good to everyone or there is any confusion. So Ankata, I think you were asking some doubt. Is this clear now? So now let's just move further. Give me a second. Okay. You will get used to the binary also.
+
+48
+00:26:23,800 --> 00:27:20,610
+So, let's just see how, how does the address translation is actually happening, right? So now let's just see how does address, I mean, we have seen it, we have already seen it, this is how the address translation is happening. But let's just see according to the circuit, okay, in the hardware. So address translation hardware, hardware means what we call MMU, memory management unit, okay. That's also called single level page table or the flat page table.
+
+49
+00:27:23,550 --> 00:27:55,500
+Flat paging okay or page table whatever you want to see cool So one thing you notice that what we are actually doing here in this I mean you have binary or you have decimal doesn't matter So basically page offset is digitized right? I mean page offset and frame offset is digitized. Do you notice this? So these two are same Now what you need to do you need to basically convert this page number to the frame number using a Using the page table. Okay, and then you can you can basically just replace it here directly
+
+50
+00:27:55,890 --> 00:28:22,470
+So which means which means see here what we did here for example if if I just talk about the decimal then what we did I mean you can do in the decimal or binary doesn't matter but let me just talk about decimal what we did that offset is same right this page size obviously frame size same the only difference is that in the in this in these two numbers otherwise this is the logical address and this is the physical address everything is same
+
+51
+00:28:22,670 --> 00:28:51,240
+So with I mean if if you can just replace this three with eight then you are done with the question, isn't it? So you just need to replace this three with the eight and the and the whole formulation is same. Similarly here also you just need to replace this one one with eight. I mean this three with eight and everything else is same. This page offset is same, isn't it? So this I mean that is one intuition that I can draw for the address translation. So VPN is logical page number or virtual page number.
+
+52
+00:28:51,560 --> 00:29:27,320
+so using I mean you will you will get the logical address from CPU logical address and then what you will do you will basically convert convert that logical address into page number and page offset so these are the two things this is the page number okay I think you can do it now this is page offset page offset yes so now if you want to really get the frame number physical I mean ppn they mean a physical frame number I think right
+
+53
+00:29:27,740 --> 00:29:58,950
+okay so uh ppn must mean physical frame number so if you if you want to get the ppn you can just replace this ppn with ppn or whatever the name you want to use maybe let's suppose frame number fn if you want to use fn or let's keep it ppn okay so uh you you can basically convert uh that logical page number to the frame number okay okay so uh now now basically what you can do now this is what this is your
+
+54
+00:30:00,130 --> 00:30:33,440
+physical address right this is the physical address that much easily you can convert not an issue this is the physical address okay and then once you have the frame number you will go to the frame and this is where you will be using the offset right okay is this okay to everyone now that's how you will be doing that is what called memory management unit the all of this is called memory management unit for the paging
+
+55
+00:30:34,560 --> 00:31:03,230
+This slide is from Columbia University. Okay. I think that is easy to understand. Let me know if there is any confusion. Okay. Now we can move to some of the question and if time permits, then we will be seeing the multi-level paging, which is extremely interesting. This is so interesting that that I will say that till now we have not seen that much interesting thing in the operating system. Okay. So multi-level paging is going to be very, very interesting. So let's just see.
+
+56
+00:31:03,430 --> 00:31:41,360
+I mean, we will be first solving the flat-label page table questions and then we will go to the multi-level paging. Okay. So by the way, does this diagram also make sense to you guys that this is the logical address or the virtual address? This is the physical address. The offset remains same. The offset remains same, right? This is offset. It remains same. And this is page number that will be different. Okay. Which will be replaced by the frame number. Okay. Using the
+
+57
+00:31:41,730 --> 00:32:36,090
+address mapper or page table whatever you want to call so using the page table yeah add this is just a name this is a page table right fill in the page tables so basically you you may be having multiple processes okay and the multiple processes might might be finally mapping to the physical memory right now with respect to with respect to the page table there are not just I mean one entry so you might have observed that there is one entry in the page table right what is that entry let's suppose this is page number zero
+
+58
+00:32:36,340 --> 00:33:10,290
+Page number one, page number two, what is the entry that we have? Generally, we have the frame number, right? Generally, we have the frame number. But it is a good idea to also store multiple, I mean, some other things which are required for this particular page. Okay, so what do you think could be required for the particular page? So suppose, okay, for every page, what do you think, apart from the frame number, where it is mapping, what do you think could be required? With respect to page, just think about it.
+
+59
+00:33:10,560 --> 00:33:53,310
+I mean this page is mapping to some frame that is I agree this is a good information that we need to track what else okay limit means I mean the page size is fixed then I don't think we need anything called limit or something like that yes we can also store whether this page from this page can I read it can I write write into this page or something like this so rewrite information I mean read that permission
+
+60
+00:33:53,700 --> 00:34:21,720
+whether this page is read only write only so there could be one bit or two bits that I can use to read write right I mean if I'm if I'm using two bits I can use two bits I think where 00 might say that okay not only neither read nor write maybe 01 can say I can write or something like this right I mean we can have some information which will be which will be read write permission yes definitely maybe just one bit maybe if 0 means read and write means one means write okay or something like that
+
+61
+00:34:23,040 --> 00:34:54,320
+Okay, so there could be some read that permission that I need to store. What are the other things? Maybe there is something called dirty bit that you will get to understand in with respect to the TLB and all. So that it is something whether this page has been replaced or not. So we will talk about it later. Okay, so we will talk about when we talk about the TLB page fault and these things. Okay. So basically, there are some other things that you also need to store. So that is why you you may observe that that the
+
+62
+00:34:54,560 --> 00:35:24,500
+This is the page table, right? Ultimately, this is a page table. What are the things you don't need to worry about it? But ultimately, this is a page table, but you can observe that page table not only can not only have this frame number, but also have some other things. Right? Okay, I hope that is understood to everyone. Cool. Now, let's just let's just solve one small question. Suppose that there is a physical address and there's a logical address. Okay.
+
+63
+00:35:25,200 --> 00:35:55,750
+Now you need to tell me what's going to happen here. Suppose this is this is 10 bits and here The pay size this is 6 and 4. Okay, and this is again 8 bits. This is there suppose 2 and 6 Is this diagram clear to everyone? Should I need to write this is offset and all I hope till now it is it is okay, right? Now my question is that can you tell me Okay, my question is that can you tell me number of entries
+
+64
+00:35:57,470 --> 00:36:45,660
+entries in page table. Tell me quickly. I think you can tell me, right? So number of pages are how much? Number of pages are 2. So that's why it should be 2 power 2, which is 4. Okay. Okay. That's great. Now tell me, now tell me size of this page table. Okay. Size of the page table. Just think about it. So what does this page table contain? Minimum, at least it has to contain the frame number, isn't it?
+
+65
+00:36:45,900 --> 00:37:18,800
+the frame number how many slots are here four slots are here and and what is the what is the size of i mean i mean what is the size of one entry so it has to contain the frame number then how many bits are there on the frame number four bits right so each entry is of four bits isn't it so that is why four is a num i mean each entry size size of each entry size of one entry right size of one entry
+
+66
+00:37:20,020 --> 00:37:52,360
+multiplied by, multiplied by number of entries. Okay. So size of one entry itself, if you have noticed, then size of one entry itself is seeming to be four. So that is why the answer is four is size of one entry, number of entries also four. So this, this is in the bits, right? This size is in the bits. I mean, these are the four bits, right? So ultimately, this is 16 bits, which means two wide. Now the page table size is two wide.
+
+67
+00:37:54,120 --> 00:38:18,960
+So now you need to consider that how much each page table I mean how much how much each entry is actually containing now currently I am saying that I mean I have not given you much information so you assume that it is only containing the frame number or do you think it is only containing the frame number may not be right so they may also say I mean instead of saying like this they may say that that
+
+68
+00:38:19,150 --> 00:38:53,190
+It is containing something else. Okay. So they may say that, okay, they can directly give you the page table entry size according to you what it is. Currently each entry size is according to you four bits, right? According to it is four bits, but they can say they can say two bytes. Are they wrong? No, right? Because it may also contain some other things. Many other things it may contain. So that is fine. I mean, they can say two bytes. So in that case, in that case, page table size will be
+
+69
+00:38:57,900 --> 00:39:12,610
+2 byte is each entry size number of entries is 4 so 16 bytes sorry 8 bytes okay this page they will entry with they generally call it PTE
+
+70
+00:39:14,180 --> 00:39:36,960
+So I hope you are understanding that what page table is containing you don't need to worry about it that water is actually containing you only need to consider that okay if the page table entry size is this then how to calculate the page table complete page table size you don't only consider the frame number here okay because it can contain some other things also that that's what I want to convey okay so now
+
+71
+00:39:37,260 --> 00:40:02,380
+If I ask you that what it can contain, so there are a couple of options, so it depends on many implementation. So let's suppose it is containing some bits. What are these bits? I will come back to all of these bits later, because all of these bits, which is basically written here, you actually need to understand some other things. But for now, it is enough to understand that apart from the frame number,
+
+72
+00:40:07,240 --> 00:40:49,160
+It also contain some other things, right? What are those things? Maybe something called as valid with why it is needed. You will get to understand. Okay. Maybe something called as a read write bit or the protection bit. Maybe something called as a present to it. Okay. Maybe something called as reference with and so on. Right. So it may also contain many other things. This is what this is page table. This is a page table. Okay. So is there any confusion here?
+
+73
+00:40:49,410 --> 00:41:36,040
+I mean, these two bytes are given to you. Okay. Yeah. These are two different examples. Okay. So this is one example. I can say this is example one, but that might be the case that they can give you some other example also. I mean, they can give you the, the size of the page, a page table entry itself, right? If they give you the size of the page table entry, then you need to consider like this. Now, every process is having their own different page table, every process.
+
+74
+00:41:41,240 --> 00:42:09,700
+Now let's let's do these questions. Okay. So these are the few questions that I just had just to make sure that you understand the mathematics. Okay. What is going on? So now let's just solve this question. What they're saying that there's a logical address size. There's a physical address size. There's a page space size. You need to calculate all of this. So let's just do this. Now what they're saying the logical address is given to be 256 kW. What does this mean? How many bits it will be having?
+
+75
+00:42:12,080 --> 00:42:42,640
+256 means 2 power 8 into 2 power 10 for the kilo bytes, which means 2 power 18 bytes. So logical address is 18 bytes. Sorry, 18 bits. I mean, in terms of the bits, it will be 18 bits. Okay. And then 2 power 18 bytes is the whole size of the logical address. And then you can consider here also, it will be 2 power 16 bytes, which means
+
+76
+00:42:43,000 --> 00:43:34,020
+that size of the number of bits in terms of number of bits it will be 16 now paste size is 4kb which means 2 power 2 into 2 power 10 which is 2 power 12 bytes so 12 right so 12 means you you have 6 here 12 means okay I don't know what is happening how it is getting deleted okay so 12 means you have 4 here right 4 left here 6 left now number of pages number of pages
+
+77
+00:43:37,300 --> 00:44:11,750
+2 power 6 right not 6 2 power 6 which is 64 okay number of bits in the page offset number of bits in the page offset I think you can you can calculate it 12 number of frames 2 power 4 if each page table entry size is 2 power bytes then size of the page table number of entries in the page table will be how much 2 power 6 right each page table entry size is 2 power p so that's why
+
+78
+00:44:12,020 --> 00:44:47,420
+2 power 6 plus P is the answer here. Right. Yes. So I hope you can solve this question. Now, let's just move to the next question. Now here they are saying physical letters is given, pay size is given, pay number of pages is given, and then they're asking something else. So they don't have the logical letters, I think, right? Okay, let's just do it quickly. So if the physical letters is giving 128, which means 2 power 27 bytes, right? This is 2 power
+
+79
+00:44:48,500 --> 00:45:18,310
+12 bytes Okay So they are asking number of frames So this is 27 12 is remaining I mean here it will be 15 right So number of frames will be 2 power 15 I think Right Page bit offsets 12 bits Logical address space size What it will be How much logical address you will be having See logical address will be 12 is your page size And then you need to know number of pages
+
+80
+00:45:21,400 --> 00:46:08,970
+Okay, number of pages are given 2 power 6, right? So, which means this is 6. So, that's why it is, it is given right. This way, this is 2 power 18. If the each page table entry, size is 2 power 2 power p bytes, then size of the page table, number of pages, how much? 2 power 6 into 2 power p, right? Yeah, these are just hypothetical example, don't worry if it is possible or not, okay? These are just example to make sure that you understand the calculation, okay? So,
+
+81
+00:46:09,570 --> 00:46:40,460
+Now let's just move to this question. Can you do this question as an Humber? Or should I do this now? Maybe you can do this, right? Just comment it out whatever answer you are getting. Okay, so probably you can do all of these questions as an Humber. So these are the two questions that I can put as an Humber. Okay, now let's just solve this question. This question is from University of Waterloo. Let's just see what this question is saying. Now they are having a virtual page number and the frame number, which means they are giving you the page table. This is the page table that you have.
+
+82
+00:46:40,770 --> 00:47:14,010
+they are saying that can you convert the pay sizes 1024 bytes which means 2 power 10 bytes right can you convert 697 to the physical address okay so 2 power 10 is your size of the page can you convert 697 I think that is easy so if the pay sizes can you do it in the decimal only because everything is the decimal so let's just do the decimal okay pay sizes 1024
+
+83
+00:47:15,020 --> 00:48:01,370
+Can you represent this 697 as 1024 something into 1024 plus something I think this will be 0 into 1024 plus 697 I mean this the whole thing will be the remainder So now can you tell me the page number? Page number will be 0 the page offset will be this Okay, so from here what you can say about the frame number Frame number is 3. So that is why physical address will be 3 into 1024
+
+84
+00:48:01,650 --> 00:48:31,650
+plus 697 which is coming out to be 3769 okay I mean I'm believing Satyam Satyam is saying 3769 so I'm just writing it okay so I mean the values were different but the exactly same question okay the values were different I don't remember those values are exactly same question I asked in AIMT one okay exactly same question just the values here were different okay that's the only thing and rarely people were able to attempt it
+
+85
+00:48:31,820 --> 00:49:03,960
+People were not having the idea that, okay, how to do it, do this question. No, AMT won't get repeated. So don't worry about it that you can directly solve. Okay. But I'm just asking, I'm just telling you. So those AMTs obviously won't get repeated, but I'm just telling you that, okay, exactly same question we have asked in AMT one. Okay. Now let's just do for the one zero five four. Can you do these two as an homework? Answers are on the next page. Okay. Now let's just do this D.
+
+86
+00:49:04,220 --> 00:49:42,590
+Let's just directly do this D. This is a little different. Yes, I agree. Actually, that is the case that most people doesn't know that the normal connection that how this decimal and binary is making sense. They just buy hearted, right? I mean, they might be knowing it. I understand that mostly might be knowing it, but mostly doesn't know it. I mean, there could be the equal ratio also. Okay. So what they're saying.
+
+87
+00:49:43,570 --> 00:50:32,720
+is it possible if possible convert the physical address now this time they are having the physical address to the virtual address if not possible you can say it can't be done so this is 2075 which is a physical address remember and page size or the frame size whatever you want to call it that is given to you is 1024 can you represent this something into 1024 plus something okay yeah what will the reminder if you divide with 1024 3 into 1024
+
+88
+00:50:34,380 --> 00:51:23,700
+No, I don't think it will be 3. Can you help me quickly? 2 into 1024. Okay, plus 27. So if you represent like this, then can you can you tell me what is the, what is the offset here? Okay. So this is offset. Now, can you tell me the frame number? This is frame number. Okay. So now you tell me the logical address. What should be the logical address? See, the frame number is 2.
+
+89
+00:51:24,210 --> 00:51:54,720
+Then the page number must be three, right? It is just a reverse mapping we are trying to do. So you can say it must be three into 1024 plus 27, which is coming out to be 3099. Okay. So I think that was easy question, but yeah, you should be able to do it. Yeah. Okay. Yeah. This was the question. Yes.
+
+90
+00:51:55,950 --> 00:52:43,390
+So in AMT1, we have asked this question, the virtual page number and physical frame number are given and you just need to translate this virtual letters. Here numbers were big, I agree, but you have the calculator, right? So you can do using the calculator. So that was also the IG question, but mostly people were not able to attempt it. Okay. Okay. Let me just also keep this in the slide. Don't worry about the TLB and all. Okay. I mean, if you want, you can solve it later. Actually, TLB doesn't play any role here.
+
+91
+00:52:43,610 --> 00:53:25,120
+It is just a cache. You can directly solve without worrying about the TLB and all. Okay. So I hope this question is okay to everyone. Now, basically what they're saying that frame number is, frame number is given to you. And now, now in this question, you are asked to find out the page number. Okay. Okay. That is fine. Now you tell me, suppose there are multiple processes. Okay. Suppose there are multiple processes.
+
+92
+00:53:26,030 --> 00:54:33,440
+using paging I mean system is using paging basically it is not a choice of process basically there are multiple processes processes in paging system okay suppose no process is sharing any data with other process is it possible for same virtual address or the logical address of two processes we get same frame number is this possible
+
+93
+00:54:35,840 --> 00:55:06,400
+What do you think? So see my question is that you have, you have multiple, I mean, you can have multiple processes, right? So let's suppose you have multiple processes and now what, what I'm saying that multiple processes might be having the same virtual address. So this is a process one. This is a process two. Now, let's suppose there is some virtual address. This is the virtual address and the same virtual address is here, right? Maybe this virtual address could be in the hexadecimal. I'm writing it a zero X, zero F, a zero, something like this, right? Zero X. So similarly here.
+
+94
+00:55:09,710 --> 00:55:45,890
+So suppose these are the two virtual addresses. Now if I convert this virtual address to physical address, whatever it is, can this be same as this physical address? Can these two be same? No, right? What is the thing that will make sure that these two are not same? Maybe let's suppose the offset is same. Then basically, the page table will tell you that okay, this page will be mapped to
+
+95
+00:55:46,150 --> 00:56:24,240
+this page will be mapped to some frame right some frame whatever it is let's suppose one this page can this page be mapped to the same frame obviously no right other frame other frame right since the frame number is different that is why even though the virtual address is same the physical address will also will be different basically other frame maybe three okay so I can say here I can say here that even though even though logical address
+
+96
+00:56:24,680 --> 00:57:11,670
+is same still physical address is different because pages will be mapped to different different frame okay I hope that is fine to everyone now let's just solve this question now let's just solve this question this question yeah sorry this is the same question okay this is the same question we just solved right the solution is here okay now let's just solve this question this question is saying consider a single-level paging
+
+97
+00:57:11,860 --> 00:57:44,660
+with 12 bit of virtual address okay and 24 bit of physical address and what is the maximum number of entries in the page table page size is given okay you can do this I think this is easy so 16 is the answer here now let's just do this question what they're saying indicate the physical address to which it maps so virtual address is given and if virtual address is given and page table this is the page table which is also given
+
+98
+00:57:44,920 --> 00:58:22,860
+virtual letters and page table are these are the two things which is given and the page size must also be given right yeah page size is 12 so they are saying that you have the virtual letters of 32 bits so 32 bits here 12 bits all page size 20 is your number of pages right these are the number of pages or the page number i mean this will okay basically like what i mean what what what does 20 mean can anyone tell me precisely
+
+99
+00:58:25,050 --> 00:58:59,770
+This 20 can tell you basically one thing which is 2 power 20 is number of pages, right? Number of pages. Okay. And this can tell you, this can tell you what is the page size, 2 power 12 is page size. Now, let's not worry about this much. With the practice, you will get to understand more. Okay. Now, what they're saying, they're saying that there is some frame number, sorry, there is some virtual address which is given to be something like this.
+
+100
+00:59:01,440 --> 00:59:45,970
+There is some virtual address and now they're saying, can you convert these virtual addresses into the physical address? See, the page size is 12. 12 means every, this is the hexadecimal. So this is 444. So this, this, this is the page offset. Now what is the page number here? Page number is just one, right? I mean, I hope that is easy to visualize. Okay. So page number is just one, right? So now can you tell me the frame number? So because it is one, the frame number will be two, four, nine, right? Two, four, nine.
+
+101
+00:59:46,180 --> 01:00:20,140
+I'm in hexadecimal 249. So this will be this will get replaced by 0x00249. Okay, a 60. So basically, this is your physical address. Right. I hope you can do remaining questions. Okay, this is easy. This is five and this is zero. Okay, let's just do this for five. This is the I mean, if you can see this, I'm I can zoom it if you if you can't see this. But yeah, for five, can you tell me if this is five is your page number? Can you tell me the frame number?
+
+102
+01:00:25,480 --> 01:01:00,510
+This is the page number, right? What is the frame number now? Yeah, frame number is not there. So you can write no translation. Okay. No translation. So that's what they're saying that if you can't translate, right? No translation. Okay. So answers are on the next page. Maybe you can see them later. Okay. So this is having a no translation. Okay. Now let's just do this question. This question is, I think, a little different from the earlier question in the sense that they are now having the physical letters.
+
+103
+01:01:00,810 --> 01:01:40,200
+earlier we were having the logical address and we wanted to convert into the physical address. Okay. So now, now they are having the physical address and then they want to convert into the logical address. Okay. In that sense, this question is different. So the everything is same, the data is same, the tall which everything is same. This is the, you can say the part two, but now these are the physical addresses. So should we do it? Now, can you tell me what is the page offset or the, sorry, the frame offset here?
+
+104
+01:01:40,450 --> 01:02:34,880
+since it is a physical address you want to convert that to the logical address right what is the frame offset so you can you can just check the last last bits right to get the frame offset okay okay so I just need to know okay this is a frame offset I just need to know what is the page number can you tell me the page number okay can you mute yourself yeah okay so I think from this what you can get frame number is three sorry page number is three
+
+105
+01:02:35,070 --> 01:03:00,190
+So 0x, if I want to represent 3, then how will I be representing? This is basically how many bits? I mean, 0, 0, 0, 0, 3, right? 0, 0, 0, 0, 0, 3. So that's how I will be representing. Why? Because this is, I mean, 4, 4, 4, 4, 4 bits. I mean, this is 4 into 1, 2, 3, 4, 5. So 4 into 5. These are the 20 bits. I need to represent 3 into the 20 bits. Okay. So there will be, I mean, these are the
+
+106
+01:03:01,830 --> 01:03:28,380
+1, 2, 3, 4, 16 bits, and these are the 4 bits. In last 4 bits, I'm representing 3, okay? So number of bits also are important. So that's how you can convert that to the logical letters. Is this okay to everyone? Now, can you do the remaining question as in homework? Okay. Okay, cool.
+
+107
+01:03:28,700 --> 01:03:54,480
+so now let's just move to the next question so basically don't if you're getting confused whether should i should i be representing it as i mean there is nothing wrong with representing 0x03 only or maybe 0x03 only there is nothing wrong in representing 0x03 ff6 okay there is nothing wrong why there is nothing wrong because because they already have given that logical address space okay or the physical or this virtual address space is of 32 bits
+
+108
+01:03:54,740 --> 01:04:16,420
+they have already given if they've already given then then if you're even if you're just saying that this then by default that means that uh that if it is not 32 bits then by default what what does this mean you need to open zeros okay you should be how many how many bits are these one two three four 16 bits so there will be six uh 16 i mean there will be four zeros in the hexadecimal and then three
+
+109
+01:04:16,660 --> 01:04:53,970
+ff6 so by default it means it right if you're even just representing like this that is okay because they have given that this is 32 bits so there is no ambiguity here okay are you understanding what I'm trying to say even if you if you write like this then also it is okay because they have given given that virtual address is 32 bits so remaining question you can do as an homework okay now let's just do this question this question is same or you want to do these questions as an homework for now maybe these are one two questions
+
+110
+01:04:54,810 --> 01:05:24,440
+easy questions only. Okay. Just a solution is on the next page. Just try it and homework. Okay. Yeah. Maybe we can do this question because this will motivate the idea of the multiple, multi-paging, multi-level paging. So, so that's why let's just do this question. So they are saying a system using paging to implement the virtual memory. Specifically, it uses a simple linear page table, the virtual address space is of size one GB. Okay. 30 bits they are having in the virtual address space. It is given to you.
+
+111
+01:05:24,650 --> 01:06:10,150
+the 30 bits you are having. Actually, recently only I got to know that we can basically duplicate the page. Oh, that was not duplicated. Okay, I need to first duplicate it. So basically, we can duplicate the page and then then we can, you know, I mean, in the software, we can do something like this so that if I want to write multiple, I mean, more things in the same page because of some region, then then you can do it. There is some software called Sketchbook.
+
+112
+01:06:13,170 --> 01:06:51,610
+catch something like this. Okay. Just some random software. I don't know whether I mean, it is a good or bad, but yeah, it is serving the purpose. So that's why it is paid. I mean, I have taken the paid version, but should be the correct version should also be available. Anyway, so now let's just do this question. They are saying that virtual address is given to be off 30 bits, right? The pay size is one KV. Pay size one KV means how many bits?
+
+113
+01:06:56,960 --> 01:07:35,160
+so this is 20 each page table entry has only valid width and the resulting page number frame okay so page table entry is basically having two things the frame number and valid width the system has maximum of the number of frames are 15 I mean maximum of so basically they are having 15 in the physical address and this should be 10 right
+
+114
+01:07:36,990 --> 01:08:30,490
+How much memory is used for the page table? When there are 100 processes running in the system. Can you calculate it? What is 32 MB here? 32 MB of physical memory can be addressed. Yeah, this must be 32 MB. Anyway, first solve this question, then we will see. So how many number of entries in the page table? I think 2 power 10, 2 power 20. What is the size of each entry? As they are saying, this is containing just two things.
+
+115
+01:08:31,110 --> 01:09:05,230
+So frame number frame number is of how many bits 15 right and then 15 plus one and that is in the bits remember. Okay. So this is 15 plus one bits. So this is basically the size of page table. So you can say two power 20 into 16 bits means two bytes. This is the size of page table. Okay. That is coming out to be something and then you can multiply by the hundred because like because there are hundred processes running right. So you can multiply by the hundred I think.
+
+116
+01:09:06,960 --> 01:09:53,670
+So 2 power, what was the answer? 2 power 20. 2 power 20 into 2 bytes means 2 MB, right? This is 2 MB and then multiply by 100, right? This is 2 power 20 into 2 bytes, yeah. Size of page table is 2 power 20. They are just saying 2 power 20. Why? Each page table is entry of 1, 1 byte. Plus 1 is because of the valid bit. They're containing two things.
+
+117
+01:09:54,620 --> 01:10:32,320
+The frame number 15 bits they will be having for the frame number because they are saying 2 power 15 pages are available. I think there should be some typo. Don't worry about the solution. There are a little bit of typos that happen. That is okay. So don't worry about the solution. So this should be 200 MB. So if there are 100 processes running, then the size is coming out to be 200 MB for all the 100 processes. I hope that is fine.
+
+118
+01:10:32,950 --> 01:11:20,710
+Now let's just do one more question and then we will we will develop the idea of multi-level pitching. Okay. Before that, maybe we can also solve some gate P by Q's. Okay. So do you want to solve this gate P by Q's also as an homework or should we, should we do this? Okay. Maybe once you can try, right? Once you can try all of these questions as a number, how can 100 processes run in one CPU? No, they, they won't be running parallel. I mean, there will be in the main memory, at least there will be a hundred processes. There will be, I mean, after context switch, you, you contact switch and like this, right? I mean, in the context switch, they will be running.
+
+119
+01:11:24,360 --> 01:11:45,810
+Yeah, so okay. So our typical system, I mean, this is just a typical example. A typical system may be having as we have just seen it may be having the 4kb page size and 32 bit logical address, right? We have just seen this. I mean, this is actually the example of typical system. Now, so there are two over 20 pages, right? And let's suppose that there will be
+
+120
+01:11:46,090 --> 01:12:15,920
+so which means there will be 2 power 20 entries and let's suppose each page table entry in general like earlier it was just having two bytes but in general it could be the more bytes let's suppose it is having four bytes so okay so it means it means then what will the page table size I think you can you can calculate the page table size if 2 power 20 means 1 MB right and if you multiply
+
+121
+01:12:16,270 --> 01:12:51,720
+I mean 1 mega is a number of number of entries basically if you multiply that with a 4 by then it is coming out to be 4 MB. So what is the 4 MB here? Size of the process table or size of the page table. Page table 4, how many processes? One process only. Okay. Till now we have not considered multiple processes. There is just one process. So this is one such table for each process. Now let's just consider one simple example. Let's just say that you are having you are having
+
+122
+01:12:52,200 --> 01:14:06,270
+some example okay some program let's just say you are having this program tell me how much size it might be using approximately I mean obviously you you never know I mean number of instruction these things will will be very it will be dependent on that that assembly and all but approximately how much size in in its entire life any any idea let's suppose 10 bytes for code right and for static data
+
+123
+01:14:07,100 --> 01:14:26,420
+I don't think we have static data here. So I don't know maybe if they need to maintain some metadata. Okay, I don't know. So maybe let's suppose one byte because we don't really have here and and some stack for a stack. Let's suppose how much they might be using for the stack for it or whatever, right?
+
+124
+01:14:27,180 --> 01:15:01,760
+this is let's suppose eight this is four and maybe the activation record you need to press and then some other return at us and and and so on so maybe 12 and maybe let's suppose I don't know maybe 20 okay 20 bytes for the stack yeah and in the heap heap let's suppose four bytes okay I mean there will be something like this suppose four bytes so in the entire life it will be using how much
+
+125
+01:15:02,010 --> 01:15:25,760
+I mean approximately obviously like I don't know the exact numbers but approximately it will be using something like this right so it will be using 25 35 right 35 bytes 35 bytes just a small process I mean this could be this could be as as small as as it is seem seeming to be right so basically this is just a small process but the logical address space could be quite big
+
+126
+01:15:26,050 --> 01:16:03,190
+let's suppose a system is having this much 32 bit of logical addresses space and this is the same setting okay the same setting with the with the process so let's just apply these same settings because these settings are independent of the process right so let's just apply these settings so basically here here irrespective that what the process size actually will be in the future it is saying that page table size is 4 MB right okay so now let's consider a process which is actually having
+
+127
+01:16:05,280 --> 01:16:35,430
+In its entire life, it may be just having 35 bytes or something like this, right? So just see that this is this is so small process just to manage this process. I'm having a page table of four MB. Do you think it is a good idea? So basically, basically the thing here is that thing here is that that page tables are too big, right? I mean, page tables are coming out to be too big. Now, since page table is too big,
+
+128
+01:16:35,690 --> 01:17:13,580
+then and the process could be actually very small so it is it is seeming to be very unfair okay process is very small and just to maintain the process you are having too much of size of page table so it is just wasting the memory and I obviously don't want to do it so the idea here is that can we reduce the process size sorry can we reduce the page table size yeah index page is bigger than the entire book this is very nice example yes index page is bigger than the entire book okay
+
+129
+01:17:16,120 --> 01:17:54,170
+So, what can you do? Any suggestion? Okay, so how multi-level paging will help? Any suggestion here? What can we do? So, the observation here is that usually there are a lot of unallocated pages for the process between the stack and heap, right? So, for example, you are having a good, good gap. I mean, you are having a gap of a huge gap. I mean, this gap will be, in most of the cases, this gap will be there. I mean, this will be unfilled, right? In most of the cases, okay?
+
+130
+01:18:02,360 --> 01:18:41,650
+So what can we do? See, if I maintain the page table of this entire process, then it's seeming to be too big, right? This is 4 MB. Now in this page table, let's suppose this is page number, zero page number 2047, okay, zero till 2047. So let's suppose this is 2047 is the page number. Whatever the frame numbers are. Okay, let's suppose these are the frame numbers. This is frame number. Let's suppose this is valid or invalid. Let's suppose all of these pages are valid. I mean,
+
+131
+01:18:42,120 --> 01:19:11,780
+these are actually pages but whatever is our next page number since there is nothing here 2048 so that's why you will say it is invalid right so you will be having many invalid pages are you getting my point so basically there will be many invalid pages here although the pages are invalid still you are keeping it invalid invalid invalid right so you are getting the problem here I mean as long as you are maintaining the valid pages entries it is good
+
+132
+01:19:12,220 --> 01:19:38,280
+But you are maintaining the invalid pages entry. This is actually not a good idea. And a lot of space is wasting here. So in the earlier example where I was just having 35 bytes of process, what do you think the invalid page entry? There will be a hell lot of invalid pages only. So do you think it is a good idea to maintain the invalid pages entries for the invalid pages? So the answer is no, right?
+
+133
+01:19:38,640 --> 01:20:08,590
+I mean it is not a good idea to to maintain the entry for invalid pages okay so as you can see from here that why are the page tables so large so we we ask ask this question to ourselves that I mean what is wrong why why are these page tables are becoming so large right so the answer of this question is that there are too many invalid pages right have you understood the answer of this question there I mean so large even though the process is small
+
+134
+01:20:13,450 --> 01:20:51,690
+Even though the process is small For example, the process is of 35 bytes Small, it was of 35 bytes And page table size was 4MB Even though the process is so small And still the page table size is too big So why that is happening? Can anyone answer it now? Because we have too many invalid pages
+
+135
+01:21:01,160 --> 01:21:30,570
+So multi-level paging is one idea that says that why you are maintaining the invalid pages. Just maintain the only valid pages. Okay. So let's just see this. See here, if you, if you check, maybe, maybe there are many more, if you check from here, many more invalid page table entries. Okay. Because of this unused, unused thing. Right. So how to avoid storing the invalid page table entity, that is our question. This is a million dollar question.
+
+136
+01:21:31,350 --> 01:22:02,190
+How to how to all together we can avoid storing this this zeroes student the zeroes is is not a good idea, right? So how to avoid it just just we are storing zeros These are two too many zeros that it is eating up the whole space and I can say Approximately 4 MB, right? So I mean the total size is 4 MB. I agree But most of the most of the attention is just to just to show the envelope pages in our previous example, right? Have you understood the problem here? Then we can talk about the solution. Okay
+
+137
+01:22:03,700 --> 01:23:00,510
+so the problem here is that we are storing too many zeros now how to reduce the size of the page tables now this is the challenge that we have and that's where we have the smart solution which is multi-level pages okay just a second is it possible to have some entry check okay so all of your answers all of your questions will get answered okay after this multi-level page
+
+138
+01:23:00,840 --> 01:23:31,520
+so it is first of all it is not very straightforward to answer this question so that's why once I explain this everything then you can I mean you can take a screenshot of your own question you can just keep your own question in your mind and then you can you can definitely ask me once this multi-level paging is finished okay otherwise like it will be difficult for me to answer in between okay like I will answer you that how how this multi-level paging is solving this huge issue okay this is a huge problem and how this multi-level paging is solving so let's just see the multi-level paging
+
+139
+01:23:32,520 --> 01:24:00,940
+Okay, so basically the idea here is that we will be doing the multi-level paging and why we are doing it? Let's just keep this question still on hold that how the multi-level paging can help us. Because to explain this, how the multi-level paging can help us to avoid storing all of this, we need to first understand what is this multi-level paging, right? And then we can go back to that earlier question, that how it is even helping us. So basically, don't worry, I have all the slides here. If you see one of the
+
+140
+01:24:01,290 --> 01:24:30,140
+one of the slide, which is saying that once we study the multi-level paging, then it will say that okay, but where is the saving? I mean, how does even saving the page table size? The page table size was earlier, let's suppose 4MB, how does even helping us? So we have that particular discussion, okay? And that is going to be very important discussion. So you will get to understand that how it is doing it. But before that, I need to explain that what is multi-level paging. Okay. Now, let me just explain what is this multi-level paging. Okay.
+
+141
+01:24:30,430 --> 01:25:02,980
+For now, forget about that, how it is helping us, but just focus on that, that what is this multi loop page and then we will come back to the question that how it is even helping us. Let's just consider a small case where you are having, maybe we can consider the same example that we were having earlier, where you are having, let's suppose this 1024. This 1024 is the size of your logical address space, right? This is your logical address space. Now, how many entries you have in the page table?
+
+142
+01:25:04,040 --> 01:25:34,270
+If the page contains 8 bytes, I mean page size is 8 bytes. So if the page size is 8 bytes, then I think you are having 2 power 7 entries. Can you calculate it? By now, you must be able to calculate it. Now, what do I want actually? I want to further say, can I divide this page table also into the pages? That's what I want to say.
+
+143
+01:25:35,260 --> 01:25:59,780
+See, this is the logical address space. So what we did here, this is 0th byte, this is 1st byte, this is 2nd byte, this is 3rd byte and so on. So I said that okay, let's take the 8 bytes, I mean 0 to 7. I will call it page 0. Then I said that okay, I will call it page 1. I will call it similarly, page 127 I think.
+
+144
+01:26:00,160 --> 01:26:30,590
+okay whatever so I will I will be saying that okay I can divide this into multiple pages right I mean that's what we said now due to some reason okay let's suppose I want to further divide this can I divide this also can you tell me that where I'm storing all these pages ultimately in the physical memory right in the physical memory okay so this process is getting stored in the physical memory ultimately isn't it can you tell me the corresponding page table where I stored it
+
+145
+01:26:33,020 --> 01:26:58,550
+The corresponding page table of the process, I again stored in the memory, right? I again stored in the memory. So both I'm storing the memory. Now, whatever I did to this, okay, whatever this is, baby with the process, maybe some other thing, whatever I did to this, can I do the same thing to this? I can do, right? I mean, logically both are the same thing.
+
+146
+01:26:58,800 --> 01:27:12,700
+It is just a process, it is just a semantic, you don't worry about the semantic. But for the mathematics or for the, I mean for any dumb guy, for any dumb guy like CPU, CPU is very dumb. I mean whatever you tell, it will do. It doesn't have its own memory.
+
+147
+01:27:13,020 --> 01:27:39,220
+I mean, it doesn't have its own logic. Whatever you ask it to do, you want to load it, you want to store it, it can do it. So basically for any hardware or operating system is obviously some logic, but if you want to store in some hardware, so memory, just like memory, so whatever the way I store this, in the same way can I store this also. So the answer is definitely yes, I can do it. Now here, how many bytes are this?
+
+148
+01:27:43,240 --> 01:28:06,180
+1024 bytes are this. Now, how many, okay, instead of calling bytes, okay, for this discussion, instead of calling bytes, I will say that, see, this is one entry. This is one entry. This is one entry. Each entries of one bytes, that is fine, but I will call it entry. So how many entries are this? 1024 entries. Okay, so 1024 entries.
+
+149
+01:28:07,060 --> 01:28:24,470
+I mean, each entry is just one byte. That is fine, but I will call it entries. I will tell you the reason why I'm calling it entries. Okay. Now, can you tell me how many entries are this? This is the first entry, second entry like this. Maybe 128 entries. Entries. Okay.
+
+150
+01:28:25,500 --> 01:28:53,960
+So for now, it might be a little odd, but I'm just going to tell you in one minute and then then we will come back to these things later. I mean, I just want to do the mathematics for now. So don't worry about what is this byte and entry, but for now, I'm just going to tell you one thing that I'm calling this also entry. This is one entry, second entry, third entry, fourth entry. I'm also calling this entry. This is one entry, second entry, third entry, fourth entry. Can you tell me the size of this entry? One byte, right? Can you tell me size of these entries? Maybe multiple bytes, maybe two bytes.
+
+151
+01:28:54,350 --> 01:29:22,750
+or maybe four bytes could be anything is this fine to everyone the size of the entries could be anything but i'm still calling them entries okay so these are the 128 entries but at this level or or i mean for this particular particular whatever the piece of block it is the entry size could be different for this particular the particular the whatever the piece of block it is the entry size could be different okay so there are i mean multiple entries here there are multiple entries here also so these are 128 entries this was the
+
+152
+01:29:25,100 --> 01:29:51,760
+Now here what I did I decided to keep I decided to keep eight entries into one page Okay, I will say okay, let me keep eight entries into one page eight entries into one page So finally what I did I basically said that okay, these are the eight entries that I have I mean eight bytes or eight entries I mean whatever you want to call for this particular level or for this particular process basically these are the 888 okay, let's suppose these are the 8888 so
+
+153
+01:29:52,400 --> 01:30:26,290
+total these are 1024 entries I said let me just divide these 1024 entries total total 1024 entries I said okay let me just divide first of all whatever we are studying currently forget about operating system forget about I mean any other thing we are just studying aptitude here okay so this is just a pure aptitude once you understand the mathematics you can relate it to the operating system later just understand the mathematics let's suppose this is just from table
+
+154
+01:30:26,730 --> 01:30:57,260
+okay one table which is having 1024 entries can you can you think for for now can you can you think like this for this particular lecture okay let's just understand the aptitude here so this is having 1024 entries what I did I chopped off these entries into 88 entries this is 8 entry 8 entry 8 entry 8 entry okay then I said that okay let me just chop off this into 88 entries then I said that okay let me do one thing let me make one index table for this since each is of 8 entry
+
+155
+01:30:58,420 --> 01:31:31,340
+then basically 1024 was total number of entries each is of 8 entries so that is why this is 2 power 10 there will be 2 power 7 there will be 2 power 7 chunks right what a chunk this is one chunk I mean you can call it page I mean you can call it page but but I am using chunk as a general terminology here okay okay so this is one chunk okay this is another chunk so how many chunks are there 2 power 7 chunks are there okay
+
+156
+01:31:32,250 --> 01:32:08,420
+Now, how many entries you have here? 2 power 7 entries? Okay, 2 power 7 entries. I mean, okay, that is fine. Do you want me to divide this also into some chunk? Can we divide this into some chunk? Let's just do this. Okay, let's just do this. So, let's just keep, I mean, you can have any number of entries. So, here I kept 8 entries in one chunk. Here, how many you want? You can have anything. Whatever is your wish.
+
+157
+01:32:09,220 --> 01:32:53,410
+How many entries the hair hair I said that eight entries in one chunk here Maybe four entries. Okay. Just for the sake of example, maybe four entries in one chunk. Okay. So since I'm having four entries in one chunk, so can you tell me the number of chunks here? So two power seven is the entries. Remember, right? Two power seven is the entries. You need to tell me number of chunks. See, let me just tell you what I'm going to say here. Here you tell me entries. Entries is 102 food.
+
+158
+01:32:53,610 --> 01:33:22,130
+right total number of entries basically here number of chunks it will be 1024 divided by chunk size right whatever the chunk size chunk size is 8 entries okay let's forget about the bytes and all i will come back to this later so 2 power 7 chunks here here you tell me number of entries it is basically 2 power 7 let's suppose the chunk size as you are saying can be anything 2 power 2
+
+159
+01:33:22,790 --> 01:33:51,110
+entries okay everything is an entry here the major I mean the unit that we are using is entries okay that's the only unit we are using okay let's not use any other unit buy it mega buy it let's not use it we will come back to these things later let's just first understand the aptitude okay and this is the most the most I can say the topic in operating system every year you can find one question almost every year every year you can find one question from the multiple multi-level paging
+
+160
+01:33:51,340 --> 01:34:27,390
+So just try to understand this very carefully. So the chunk size, I mean, you can have any number of entries in chunk. Let's suppose these are the 2 power 2 entries, which means four entries you want to keep. So that is why number of chunks here at this level, 2 power 7 upon 2 power 2, which is 2 power 5. Okay, good. So it means these are the number of chunks. So what does this actually mean? It actually means this, that whatever you were having, right, these were the 2 power 7 entries.
+
+161
+01:34:27,820 --> 01:35:04,000
+you did one two three four entries four entries like this you just divided that into chunks okay this is of two power two entries how you decided it two power two entries can anyone tell me how you decided no page size could be anything page size i think it is two power i don't know eight by eight okay page size could be anything how you decided i think my choice right how i decided uh this chunk size
+
+162
+01:35:04,310 --> 01:35:32,630
+just my choice let's not worry about the operating system or something anything anything my choice this was my choice okay i decided chunk size here of my choice i decided chunk size here of my choice this is also called page and all we will come back to this later but the idea here is that here i have two one zero two four entries i can divide into chunks what should the chunk size here could be anything what should the chunk size here could be anything anyway so coming to this point now since i have uh since i have two power five chunks can you tell me number of entries here
+
+163
+01:35:33,570 --> 01:36:13,160
+see each entry will be maintaining one chunk each entry will say they are okay I will be pointing to this chunk each entry will say I will be pointing to this chunk each entry here will say I will be pointing to this chunk so can you tell me number of entries here should be 2 power 5 see if these are the 2 power 5 chunks then the number of entries here 2 power 5 okay is this fine to everyone okay okay so the number of entries here are 2 power 5 and the chunk size that I have chosen okay currently I am not dividing it
+
+164
+01:36:13,590 --> 01:36:40,110
+I think that is fine. Okay. So let's not divide this. I mean, we can keep on dividing, but let's just stop it for this. I mean, for this example, let's just stop at this level. So what we are saying that number of chunks here, since I'm not dividing, then can you tell me number of chunks? Since I'm not dividing, it is just one. Okay. I mean, at this outer most or whatever you want to call it, number of chunks is one because I'm not dividing it. Right. Now here, how many chunks are there?
+
+165
+01:36:40,990 --> 01:37:07,510
+Maybe maybe two four five small small chunks are there and each chunk size is something and and and so on. Okay. So that's what we did. Let's just do it again. Okay. Let's just do it one more time with some different numbers so that you get to use of this and then we will see that how it is related to operating system. Okay. Before I do with another example, just see this. What is happening here? Let me just quickly revise it. What is happening here? Okay. So
+
+166
+01:37:07,950 --> 01:37:36,580
+I was having one process or something. I was basically having a 1024 bytes or let me just call it entries. Okay. I was having 1024 entries. Let me, let me just divide this into pages or some chunks. Okay. I can divide into some chunks. Now I'm saying that, okay, whatever the number of chunks here, I mean, based on the chunk size, I can decide the number of chunks. Okay. Number of entries are this and chunk size, I'm choosing it to be chunk size. How much size I'm choosing.
+
+167
+01:37:36,940 --> 01:38:10,840
+two power three at this level right i'm saying that okay let me let me say eight entries in one chunk what does two power three means eight entries okay okay okay and then then i said that okay now you have some table here some page table here and then you can say that okay these are two power seven entries i can again choose some chunk of any size let's suppose two power four entries i want to choose right in one chunk which means two power two
+
+168
+01:38:11,070 --> 01:38:39,530
+2 power 2 size of chunk I have chosen. And then because of that, I can also divide this. No, it is not decreasing or increasing. You can have any size of chunk. It doesn't matter. So now you're dividing it because of the chunk size is 2 power 2 entries. You can divide it into different chunks. So how many chunks will be there? 2 power 5 chunks. That's why there are 2 power 5 entries. That's why there are 2 power 5 entries. And how many chunks are there at this leftmost? It's just one chunk because we are not dividing it.
+
+169
+01:38:42,130 --> 01:39:13,770
+Good. Okay. Now you tell me how many entries are here? One zero two four. How many entries are here? Maybe two power seven. How many entries are here? Two four five. Right. I mean, these are the, these are the entries that I have. So basically, basically I'm having these many entries. Somehow I'm saying that, okay, let's group those entries. Okay. I have some table. Now again, I'm saying let's group those entries. I have some other table. That's all I'm doing. Right.
+
+170
+01:39:16,140 --> 01:39:48,890
+I hope that is fine. Now let's just do one thing. Let me take one example that we have already taken earlier, something like this. Let me take this example of maybe 1024 and paste size to be 8 bytes and let's just see in multi-level paging how to do the address translation and all. Suppose this is your logical address, which is having 1024 bytes. Now what I'm doing, I'm saying that okay, let me divide this into
+
+171
+01:39:50,720 --> 01:40:19,130
+chunks chunks chunks something like this this will be having since each chunk size is 2 power 3 entries okay or the bytes or maybe let me just use entries here actually at the last level we can use the bytes or entries actually each entries will just contain one byte but at at other levels it could be it could be different but anyway so we can always talk about entries instead of bytes or something okay so this is 2 power 3 bytes
+
+172
+01:40:19,370 --> 01:40:54,190
+or entries basically now now here you got to know that number of entries will be 2 power 7 entries right okay is this fine to everyone now I'm saying let me let me choose a chunk size here can you give me some chunk size in 2 power anything of your your base maybe let's suppose 2 power 5 okay 2 power 5 let's take 2 power 5 now if 2 power 5 is the chunk size then how many chunks will be there
+
+173
+01:40:58,660 --> 01:41:38,960
+2 power 7 upon 2 power 5 I mean 2 power 5 entries basically okay 4 chunks right 4 chunks that's great so so there are 4 chunks here 2 3 4 whatever right so these will be the 4 chunks okay now you tell me how many entries will be there here 4 entries just just 4 entries now this is just a mathematics just aptitude so 2 power 2 entries
+
+174
+01:41:42,190 --> 01:42:19,330
+Now let's not divide this into chunks so that's why I mean let's just stop it here if you want you can divide it okay for the sake of example let's just do it okay so let's just divide it for now and then we will come back later so let's suppose that can you tell me the chunk size here anything whatever is coming to your mind 2 power 1 maybe okay so 2 power 1 is a chunk size so what you will say that okay how many chunks will be there 2 right okay 2 so since there are two chunks so can you tell me number of entries here
+
+175
+01:42:20,120 --> 01:42:43,740
+just two entries just two entries okay so this is number of entries two entries so is this setup okay to everyone that how we are dividing and how we are keeping actually we will do many many examples so that it will be very clear but for now is this I mean little bit clear okay so so basically basically what will happen let's suppose CPU is generating some address
+
+176
+01:42:44,490 --> 01:43:05,690
+Tell me, do your compiler really have to care that you are doing all of this drama or just have to care about the logical addresses in space? If you are having the compiler, just know the logical addresses in space. It doesn't even know that you are using the paging or not. So it will generate some address, let's suppose 800, just like earlier example.
+
+177
+01:43:06,380 --> 01:43:36,200
+Now what we want to do, we finally want to map this 800 to physical address if we are having these many page table and all. So how to do it? This is this is the address translation of question, question of address translation, right? So basically, basically now what we are going to do, we are going to see that okay, if we are going to generate anything, let's suppose 800, let's suppose 800, then how we are going to convert this 800 into the physical address. Now what we might be doing, we will just say that okay, this 800 will be where here, right? It will be okay here.
+
+178
+01:43:36,620 --> 01:44:04,000
+something like this and because of that this will be here maybe something like this and because of this this will be here so maybe we will say that okay from here I will go to go to this from here I will go to this and from here I will go to this and so on maybe we will be doing something right so basically let me first tell you that what this diagram is representing this is saying these are the two entries here what this first entry is saying that I am pointing to okay first tell me in the single-level page table itself okay
+
+179
+01:44:04,290 --> 01:44:40,700
+in the single-level page table itself you need to tell me let's let's remove all of this just tell me with respect to the single-level page table now tell me here i have how many entries 2 power 7 entries right then you will get to understand for the multi-level page table let's not even divide 2 power 7 entries this is the page table right what does this mean each each page table will be containing what the frame number do you remember this okay
+
+180
+01:44:41,270 --> 01:45:10,450
+each entry is containing at least the frame number anything other than the frame number is okay but at least the frame number now what does this entry mean? it means that I am containing the frame number of the page 0 which means I am actually pointing to the page 0 pointing means I know that okay where to go for the page 0 this is telling me where to go for the page 1 pointing to the page 1 it is containing the page number frame number of the page 1 this is telling me where to go for the page 3 so each entry is pointing to the frames
+
+181
+01:45:11,110 --> 01:45:44,830
+Is this fine to everyone? Right? So this is the single level page table where I'm saying that okay now I know the frame number if you give me if you give me some address and I will first of all I will I will go to some page number okay based on that I will go to the frame number that's all I have to do if you just give me the the logical address so basically if you give me the logical address I will divide the logical address into two parts right I will say this is the page number
+
+182
+01:45:45,880 --> 01:46:19,020
+Based on the page number, I will go to some entry. And based on that, I will go to the frame. And then how much down I need to go in the frame? Who will tell me? This offset, right? This offset. Okay. In this frame, how much down you need to go? Is the setup okay to everyone? Now, now we have multi-level page tables, which means we have further divided this. Now, what we might be doing, I mean, I'm just, okay, first, first let's just understand what these entries are. See, earlier, okay, just tell me.
+
+183
+01:46:19,510 --> 01:46:54,410
+If I do not have multi-level page table Okay, let's suppose I do not have multi-level page table Again, this is a single-level page table In this case, tell me Where it is pointing to? I mean, let's suppose I don't have multi-level page table This is the first entity, these are the 2 power 7 entities And I don't have any chunk or something Okay, let's suppose these are nothing So, this is pointing to here, right? Now suppose I maintain one more metadata Okay, I maintain one more metadata
+
+184
+01:46:55,750 --> 01:47:29,270
+2.2 something, then tell me wherever it was pointing to earlier, will this change or it will remain same? See, am I doing anything here? Am I changing any values here? No, right? I'm just, I'm not even disturbing this. I'm just saying that, okay, I'm just maintaining one more index table for you. That's all I'm saying. Right? Earlier, whatever was set up, I'm just keeping the same setup. Okay. Now I'm saying that, okay, now I can point to some of you. I can point to some of you. This can point to some of you. Right? So this first
+
+185
+01:47:29,480 --> 01:47:59,960
+first entry can point to point to some of you second entry can point to some of you third entry can point to some of you and so on okay so that's all i will be saying now what i mean what i might be doing i will be going that okay i mean given the logical errors i might be saying that okay maybe i mean somehow i might be getting that okay maybe go here from here go to this right from here go to this and then then in this particular okay which entry to go from here maybe go to this and then from here
+
+186
+01:48:00,260 --> 01:48:31,160
+how much down we need to go so that's how I will be doing basically I will be first going to the this outer most if you want to call it outermost then I will be first going to the outermost then I will say that okay from this outermost where to go and then from this where to go okay finally I go here then how much down I need to go right that's all maybe I will be doing cool so so I mean little bit it might be clear to everyone right that what we are doing I mean this setup I'm not even disturbing this setup I'm not even disturbing this was earlier single label
+
+187
+01:48:38,230 --> 01:49:15,100
+I'm just adding one more layer. I'm not disturbing this. Okay. No disturbance here. Now I'm adding one more living. Cool. Now, now let's just try to understand this more carefully that how we are actually doing the translation. Okay. So suppose, suppose let's just take the earlier case where you are having 1024 bytes. Now, suppose I'm dividing this into a 88 chunk and then you are having two power seven bytes. And again, I'm dividing into I think a chunk size of two power five entries. And then I have this.
+
+188
+01:49:15,410 --> 01:49:54,390
+Now let's suppose CPU generate 803 okay 803 as an address maybe somewhere I don't know maybe somewhere here okay now you tell me earlier earlier wherever I'm storing this page this particular page I'm in the final frame number okay using the single level page table and using this this particular page table will this to change or the final frame number here wherever I'm storing is same what I mean to say just adding this one more level it changing anything from the earlier
+
+189
+01:49:55,430 --> 01:50:23,790
+See wherever I was storing this earlier, same same I'm storing here also, right? Nothing is going to change. So which means which means we can solve this question in two ways. If we don't have this label, then what is the answer? If we have this label, then what is the answer? Do you think the answer will change? This should not change, right? This should not change. We are not changing anything. Even even this setup doesn't even know that we have this. Okay. This setup doesn't even know that we have this.
+
+190
+01:50:25,400 --> 01:51:00,500
+So we are not changing anything. Now let's just see how we are doing it. So this 803 will be in which entry here. I think it will be the 100 page. So basically you can say this is the 100th page. Page number is 100. Not the 100 page. So page number is 100. Is this okay to everyone? I mean you can definitely divide this 803 by 8. Then you can get okay. This will be the 100 page. Cool.
+
+191
+01:51:03,360 --> 01:51:41,360
+I mean page number is 100. If page number is 100 here, then what is the entry number here? What is the entry number? That will point into this particular page. See 0th hand is pointing to page 0. First hand is pointing to page 1. Second hand is pointing to page 2 like this, right? So what is the entry number which will point into this particular page? 100. Starting from 0, right? Okay, okay.
+
+192
+01:51:41,500 --> 01:52:16,250
+So I hope that is clear that 100 is the entry number or the page number. So basically that's how if you remember from a single level page table, 100 using 100, we got to know that, okay, what is the frame number and all, right? See, I hope that is fine. Now, since this is 100 entry number, I have kept 32 entries in one chunk. So which entry will be pointing to this? I mean, this 100 entry, first of all, you need to tell me this 100 entry will be in which chunk? See, this is
+
+193
+01:52:16,540 --> 01:52:44,990
+this is basically you will say 800 is your logical address right 800 803 or whatever this is your logical address i'm just asking you where is this logical address this 803 is where in 100th page right okay i mean if i just ask you this is 0 1 2 till 7 if i just ask you till 7 bytes which page number you will say page number 0 8th byte is in page number 1 like this right 100th byte sorry 803th byte
+
+194
+01:52:45,290 --> 01:53:14,700
+or 803th entry or byte here is in which page 100th page very easy let me know if there is any confusion here it is you can forget all of this you can forget all of this okay it is just a CPU which is generating CPU is generating 100 800 and then CPU will say that okay you like I need to get the 800 where it is it is in 100 page right okay just forget everything now now if that is in the 100th page
+
+195
+01:53:15,040 --> 01:53:45,200
+then in which entry it is i mean which entry must be pointing i mean which entry will be keeping the track of this so see here here you have two power seven entries each each chunk is basically having sorry it is okay i will i will come to the chunk so hundreds entry here currently the hundreds entry zero's entry is pointing to zero's page and like this right i mean the entry number hundred okay maybe maybe the this is a 101th entry or whatever but the entry number is actually hundred right so uh
+
+196
+01:53:45,380 --> 01:54:23,270
+100 NT number will be pointing here. Now you need to tell me in which chunk it is in which chunk it is I think this is 32 64 96 I think 96 give out something Approximately I'm doing right approximately. I'm doing I think this fourth will be pointing to okay. This 100 So basically what I'm saying this 100 might be somewhere here This 100 entry might be somewhere here and this fourth fourth will be pointing to somewhere here, right?
+
+197
+01:54:23,440 --> 01:54:52,290
+I mean the start of this this 100 okay the start of this 100 is this fine to everyone this is pointing to the start of I mean the frame number it will it will it will give you the friend one then then you need to go with the offset okay so this fourth entry here is pointing to 100 okay now can you tell me using this I mean what you need to do basically let me do the mathematics here this was 803
+
+198
+01:54:52,710 --> 01:55:28,210
+You said that, okay, let me first divide this into the single-level page, basically, chunk size was 8, right? And then you said that, okay, now you're further dividing this 100 because this is just an entry, right? Do you think this 100th entry and 803 entry will be, I mean, mathematics will differentiate in that? No, right? See, here, you're dividing by the chunk size which was, here the chunk size is 8, here the chunk size is 32. That's the only difference.
+
+199
+01:55:28,540 --> 01:57:17,860
+okay so this is just an entry number so again you're dividing this 100 into okay just give me one second okay so again i'm dividing this 100 into 32 i mean uh basically here here i'm saying 30 in the in the size of 32 so can you write it uh something into 32 i think it will be uh plus 4 right okay this is something like this right i think that is fine is this okay to everyone that what we're doing
+
+200
+01:57:18,200 --> 01:57:47,340
+I mean, we are saying that let's just divide this 100 again. Okay. So that's what we are saying. I mean, completely this, this is 803. Now, what, what was this three mean earlier? Offset, right? Offset, which means that you, you were saying, you were saying, see, you were saying that you go to, I mean, uh, you, you go to a final frame. I mean, whichever it is pointing to, once you know that where it is pointing to, after that is this three will be useful, isn't it?
+
+201
+01:57:48,200 --> 01:58:16,930
+Once you know where you are pointing to after that the three were useful Okay, and then this hundred was telling you the entry number entry number where to go Okay, which entry will point to the frame this hundred was telling the entry number Now you you don't have just one setup. I mean basically what you actually did you said this your logical addresses space This is your one page table which further divided into some chunks. Okay. Now. This is another page table which is having the four entries
+
+202
+01:58:18,070 --> 01:58:49,710
+this is having how many entries 2 power 7 entries this is having how many entries 2 power 2 entries this is having how many entries last one basically 1024 bytes actually actually this is 1024 entries or 2 power 10 entries okay in terms of entries also you can say the entry size also could be the different okay here the entry size here the entry size here the entry size these could be different but let's just work with the mathematics first okay cool now now let's just forget this for a minute
+
+203
+01:58:50,060 --> 01:59:23,470
+can i can i forget about it for a minute so let's just forget about it for a minute okay so which means which means i only care this whenever okay see actually i'm forgetting that thing it means i also want to forget this which means here was 100 just assuming that there was a 100th entry let me just do corresponding to something corresponding to that
+
+204
+01:59:23,850 --> 01:59:55,810
+Okay, you're getting my point. What I what I'm trying to do. So basically, instead of directly dealing with that 803, okay, this 803, let me see that. Okay. If that is 100, then let's just deal with this first. Is this fine to everyone? Okay. Okay. So what will I say that? Okay. This is 100. This has been divided into, I mean, this particular has been divided into some parts. So earlier what I did, I mean, now, now, you know, this is just like a single level page table. Now, you know, what does this three tell me? Page number, remember?
+
+205
+01:59:56,220 --> 02:00:40,860
+this was the offset remember okay so this is the page number means this is 0 1 2 the entry number I mean where to go this will tell you basically this 3 will tell you where to go here and once you go somewhere let's suppose this is the page number whatever this is so you will be going to that particular page let's suppose this is that particular page okay then what does this 4 tell me where to go inside this right where to go inside this
+
+206
+02:00:41,020 --> 02:01:09,790
+Now you will say that, okay, this is, this is the, I mean, this is the hundredth entry, actually. This is the hundredth entry. Okay. Now this is your answer. This is the hundredth entry. Fortunately, if it could have been the buy directly, the buy time looking for, is this the buy time looking for? No, right? So I don't need to stop it here. Okay. So I will say, I mean, I'm not looking for this. Actually, this will just tell me where to go. I mean, see, here, here, I first got to know where to go.
+
+207
+02:01:09,960 --> 02:01:43,110
+then then then after offset I will get to know okay where to go which means it will tell me that what is the final frame number once I get the frame number I know it might be a little bit confusing but don't worry it will be more clear with many many examples so actually I just want to draw some intuition using the decimal if even if it is not fine then also it is okay okay see once I go to know okay this is 100 is this 100
+
+208
+02:01:43,430 --> 02:02:12,780
+Yes, the whole calculation was 400, right? The whole calculation was 400, so this is definitely 100. I got my 100. I wanted to get my 100, I got my 100. Is this okay, everyone? Okay. So, I mean, I wanted to got my 100, that okay, where to, how to find that 100th entry? 100th entry I wanted to get, and I got my 100th entry. But I cannot stop it here. I will say that okay, see, this is done. Now, wherever it is pointing to, this 100th entry, wherever it is pointing to,
+
+209
+02:02:13,350 --> 02:02:42,940
+I will make use of that and then basically this is the page number okay and then then I will go three down of that wherever it is pointing to and then I will say that okay this is the final answer I am looking for so basically what will I do using this logical address I will divide it further okay earlier I was just doing this much now I will even divide it further I will divide it like this and I will say that okay let me do one thing let me let me basically first go to
+
+210
+02:02:43,470 --> 02:03:09,490
+First, go to the Outermost page table. In the Outermost page table, where to go? Okay, the entry number or the page number. Okay, where to go? This will tell in the Outermost where to go. Now, this will, this will tell you, okay, this is where you need to go. This is the offset. Okay, this, this much down. Then, then this will tell you where to go. Then this is the offset. How much down? Okay. So, I mean, it is little counterintuitive, but you will get to understand with more example. But little bit, are you understanding? So basically, what I'm trying to say is that
+
+211
+02:03:10,010 --> 02:03:43,040
+If you know, if you know the chunk size, this is the chunk size, right? Chunk size. If you know the chunk size at every level and number of level, number of level and chunk size, if you know, then can you rewrite any logical address like this? See, if you know that, okay, first you need to divide into 8, okay, just like write like this, then okay, this 100 also you need to divide into 30 to 32 write like this. So can you write any logical address like this? If you know the chunk size at every level, maybe we can do this, right? And
+
+212
+02:03:43,320 --> 02:04:13,650
+only thing that we are yet to understand clearly is this how this writing is helping us. Right. So how this writing is helping us. See, this writing is helping us. You might have understood in the single level page table. Now we only thing need to understand that, okay, you can write it. Now how this writing is helping us. Okay. This is the only thing we need to understand. So let's just do one thing. I mean, let's just understand with the binary and that we can do either, either today or tomorrow. So let's just understand with the binary. And if you want later, we can delete it.
+
+213
+02:04:13,970 --> 02:04:45,110
+Okay. So I just wanted to give the decimal representation here, but that is not really needed. Once you understand the binary, then in this particular case, you can come back here again and you can understand that how this binary and decimal related. Okay. So let's just understand with the binary first. Let's just take some example. Let's just say that I have 18 plus 16. This is 32, right? Let's just say I have 32 bit of logical letters.
+
+214
+02:04:54,590 --> 02:05:21,850
+I want to divide into multi-level paging. Let's just understand how this is happening. This is actually very easy. Okay. I mean, again, I will be doing, I will be basically doing decimal only. I mean, basically we are not using this, these numbers 803 and all, but division we will be doing. So let's just understand this. So suppose we have 32 bit logical letters and what I want to do, I want to do the multi-level paging here. Okay. Let's just understand how it is working.
+
+215
+02:05:22,860 --> 02:05:59,570
+Let me just quickly explain today and then we can connect tomorrow. So this is the 32 bit logical address. Now, can you have the single level page table such that the page offset is 10? Can you have it? Yes. So basically, basically, let me just do it. What does this mean? It means that you are, you are having one logical address space here of 2 power 32 size, right? This is logical address space.
+
+216
+02:05:59,940 --> 02:06:39,600
+and then you are saying let me divide into 2 power 10 bytes each into 2 power 10 bytes now now what you are saying that here here can you tell me the number of entries 2 power 32 upon 2 power 10 which will be 2 power 22 entries right so these many entries you have here that's all right that's all now I want to divide this further okay I want to divide this further tell me if I divide this further
+
+217
+02:06:39,920 --> 02:07:11,590
+In whatever you suggest me, whatever size you suggest me, we can divide it. We will come back to that. But if you divide this further, you need to tell me, will the number of entries decrease here? Anything here will get changed? Any entry will get changed? No, right? I'm not changing this. I'm just dividing. I mean, I'm having one more layer. Do you want to suggest some chunk size at this point in time? Maybe I can have 2 power 8 entries. Is this fine? Okay. So 2 power 8 entries.
+
+218
+02:07:11,840 --> 02:07:52,600
+So let's suppose the chunk size here is 2 power 8 now you need to tell me if I'm dividing everything with the 2 power 8 now you need to tell me what is the number of entries here 2 power 12 was the earlier entries 2 power 8 entries so this is entries 2 power 8 entries you have divided maybe 2 power sorry 2 power 22 okay so 2 power 14 entries right so what I did basically I said that okay let me divide this into
+
+219
+02:07:53,290 --> 02:08:24,160
+multiple parts. I mean this is one, this is another, this is another. Now just understand this carefully. Here 2 power 14 entries. Now each of this entry, each of this entry is pointing to what? It's telling me the frame number. This is the frame number. Now it is giving me, I mean it is basically each of this entry is pointing to one chunk here which is actually the frame that is okay but one chunk of what size? Whatever is the frame number?
+
+220
+02:08:25,450 --> 02:08:53,180
+2 power 10, right? 2 power 10. Yeah, each of these entities is pointing to one chunk of what size 2 power 10. Now, this is also pointing to one chunk, but here the chunk size is 2 power 8. Okay, you understand that? So basically, basically, this is each of this is pointing to one chunk, which is of 2 power 8 size of chunk. Each of this is also pointing to one chunk, which is of 2 power 10 size of chunk. Okay, cool. Now, what I want to do, let's suppose
+
+221
+02:08:53,470 --> 02:09:28,760
+still i want to i'm not satisfied i still want to divide it can you divide it further let's suppose the chunk size again could be again 2 power 8 okay entries now you need to tell me number of entries here if every chunk is of 2 power 8 right 2 power 14 2 power 6 entries right so now you have 32 entries here sorry 64 64 entries right now each of this entry is basically pointing to what one chunk
+
+222
+02:09:29,400 --> 02:09:59,310
+Every entry is pointing to one chunk, every entry is pointing to one chunk but the only matter is size. Each of it is pointing to one chunk of what size? How much size it is? 2 power 8. And since, since just try to understand here, okay, let me, let me remove everything else just so that you don't have destruction. See, the chunk size here is 2 power 8, okay. Now just understand here.
+
+223
+02:09:59,850 --> 02:10:41,350
+Each of this is pointing to 2 power 8, 2 power 8, 2 power 8. How many entries are here? How many entries are here? 2 power 6 entries are here. Every entry is pointing to how many chunks? Every entry is pointing to 1 chunk, right? Points to 1 chunk of size 2 power 8. Okay. Now you need to tell me, now you need to tell me, interestingly, just tell me, if every entry, every entry pointing to 2 power 8, a size of chunk,
+
+224
+02:10:42,210 --> 02:11:18,460
+Then then how many Let's suppose this is level one. This is level two. Okay, I mean just to differentiate how many number of chunks in level two if each entry is pointing to there are two power six entries each entry is pointing to One one chunk right one chunk. So that's why two power six chunks two power six chunk now if I just ask you how many how many number of entries entries, okay inch
+
+225
+02:11:18,760 --> 02:11:48,290
+in level 2 okay if you only know this so you will say okay here according to level 1 2 power 6 entries are here each entry is pointing to how many entries each entry is pointing to how many entries 2 power 8 entries so 2 power 14 entries are here here 2 power 14 entries right are you understanding so basically basically let me cross check have i started with 2 power 14 or not so we have started with 2 power 14 only
+
+226
+02:11:48,590 --> 02:12:22,440
+So there is no laws. I mean, I'm just having the reverse engineering kind of mathematics. Okay. So I hope the division is okay to everyone. Now, if you can divide, you can quickly divide the, uh, this logical analysis space in binary. So, so see here now this division will be like this. Okay. Now, uh, actually this, this will go 10 minutes more. I don't want to stop it, uh, currently. So just bear with me for 10 minutes. Okay. So it will go like this. See this is, this is one zero two four.
+
+227
+02:12:22,810 --> 02:13:06,160
+entries or bytes now I have divided into 2 power 10 bytes sorry this was in this particular example 2 power 32 bytes okay now now you have you have divided so that is why this was earlier 32 bit logical address you have divided into 10 now this is your single level page table where you are having 2 power 22 entries each one is pointing to
+
+228
+02:13:06,330 --> 02:13:36,840
+how many chunks just one chunk of what size 2 power 10 size okay so that's what we did let me know if till now if things are fine now if till now things are fine let's just do let's just add one more label okay let's just add one more label so now we are saying that okay now what we are what we want to do instead of this 22 basically we want to further divide this 2 power 22 entries into chunks each chunk size I think we have chosen to be 2 power 8 if I remember correctly right
+
+229
+02:13:37,400 --> 02:14:06,010
+So which means, how many entries are here? 2 power 22 divided by 2 power 8 which is 2 power 14. Entries. Okay. So this 22, I mean, see, this is a chunk size, 2 power 8 is chunk size. Earlier 2 power 10 was chunk size. Whatever the chunk size, you write it here, right? 10. So this 22, you will divide into two parts again. What is the chunk size? 8 and this is 14, right? Like this.
+
+230
+02:14:07,070 --> 02:14:36,010
+Okay, don't worry. It will make sense. Don't worry. Okay, just understand if even if you're not getting Okay, just just be with me now Now what you said, okay, these are the 2 power 14 entries. Let me do one thing Let me again divide these 2 power 4 entries into some chunks each is having 2 power 8 size 2 power 8 entries basically Now you said that okay, let me let me do this 2 power 14 divided by 2 power 8 this will be 2 power 6 So here you will be having 2 power 6 entries, right?
+
+231
+02:14:36,270 --> 02:15:05,470
+which is 64 entries so you have divided this 14 again into two parts which is eight for the chunk size so that will be written on the left side or right side whatever the chunk size you will be writing on the right side which will be the opposite actually and then this is six okay so that's how you do your address split okay now what are these numbers and how these are making sense let's just understand this so
+
+232
+02:15:05,790 --> 02:15:34,530
+Before I go and tell you that how all of this is making sense, let me first tell you that you need to ask me whether anything is unclear here. So basically, we are just repeatedly doing the same thing. We are again dividing like this. No, two chunks cannot point to the same frame. Everything is pointing to different frame. Every entry is pointing to the different chunk.
+
+233
+02:15:40,000 --> 02:16:10,190
+So till now if you have understood then let's just see that how all of this is making sense see Here you have this address division now before before I explain this You need to be very very clear. What does this diagram mean? Okay, let me let me just again repeat it How many entries are here 2 power 6 entries each entry is pointing to what one chunk Okay, one chunk of what size 2 power 8 size. Okay, so so so I can say
+
+234
+02:16:10,640 --> 02:17:10,790
+Can you make this as a table? Okay. So here tell me number of entries maybe and tell me number of chunks. Okay. First tell me number of chunks, number of chunks you tell me, chunk size you tell me. Okay. Let's just, let's just do these two things first. Tell me number of chunks in this particular label. It will be just one. Okay. And what is the chunk size here? Two power six. Okay.
+
+235
+02:17:11,330 --> 02:17:40,210
+What are the number of chunks here? Okay, you can tell me for the first chunk size to power 8 and what are the number of chunks here to each entry? Do you remember each entry was pointing to one chunk? So number of chunks must be 2 power 6 into 2 power 8 something like this, right? Must be something like this Okay, which is 2 power 14 because each entry is pointing to one chunk and they are 2 power 6 entries So there must be 2 power 6 into 2 power 8 chunks. Okay. I mean, I'm just doing the reverse engineering
+
+236
+02:17:40,620 --> 02:18:24,090
+you just need to tell me chunk size maybe 2 power 8 we have decided to be 2 power 8 here can you tell me number of chunks here sorry sorry about it see this is the chunk size this is the chunk size now you need to tell me number of chunks so maybe maybe I can just ask you number of entries and then probably you can relate it more so maybe I can ask you one more thing which is number of entries can you tell me number of entries
+
+237
+02:18:24,720 --> 02:19:00,520
+here at this level just 2 power 6, number of chunks in each chunk what is the number of entries 2 power 6 right? can you tell me chunk size 2 power 8? can you tell me number of entries in one chunk basically okay in one chunk let's suppose it is in one chunk can you tell me number of entries in one chunk here sorry this will be the chunk size only let's just ask number of entries total if you want to ask okay okay let's just let's just calculate the total number of entries
+
+238
+02:19:00,890 --> 02:19:43,930
+If the chunks as here is 2 power 8, then how many chunks are here? Number of chunks, can you tell me? This will be 2 power 6. Right? This is the number of chunks. Number of chunks if I just ask you. Okay? So see, if these are the number of entries here, every entry pointing to one chunk, so that's why number of chunks is 2 power 6. Okay? Is this okay to everyone? Right? I mean, these are the number of entries here, and each entry is pointing to one chunk, so that will be the number of chunks. Now, can you tell me number of entries here?
+
+239
+02:19:44,680 --> 02:20:17,980
+Each entry is basically having 2 power 8 Like each chunk is having 2 power 8 size There are 2 power 6 chunks So that's why 2 power 6 into 2 power 8 Which is 2 power 14 chunks 2 power 14 entries will be there Now if these many entries are here Can you tell me the number of chunks here? Every entry is pointing to 1 chunk 2 power 14 chunks 2 power 14 chunks Every entry points to 1 chunk always Every entry here is basically pointing to 1 chunk And if there are 2 power 14 entries 2 power 14 entries then
+
+240
+02:20:18,250 --> 02:20:46,660
+then there will be 2 power 14 chunks what is the size of each chunk? 2 power 8 what is the number of entries then? total entries 2 power 14 into 2 power 8 which is 2 power 22 if these are the 2 power 22 entries can you tell me number of chunks here each entry point to one chunk so that is why 2 power 22 chunks what is the size of each chunk we have chosen to be 2 power 10 so that's why can you tell me the number of entries here? 2 power 22
+
+241
+02:20:47,540 --> 02:21:13,890
+into 2 power 10 which is coming out to be 2 power 32 entries now can you tell me the size can you tell me the size 2 power 32 bytes only basically here each entry is just one byte at the last each entry is just one byte but tell me is this also true here each entry size in this page table is this is this necessarily to be one byte may not be right may not be okay may not be but here at the last this is 2 power 32 entries I can say 2 power 32 bytes
+
+242
+02:21:16,380 --> 02:21:50,260
+Okay, that's where we started with 2 power 32 bytes. I just wanted to do some reverse engineering. Okay, wanted to come from here to here. Okay, so you need to just understand little bit of aptitude what is going on here and then it will be very, very easy. Right. So don't worry. We will, we will, okay, let's just continue tomorrow. We will be understanding in very, very, very good depth. Okay. How, how it is happening and how does even saving the size see currently do you think that it is saving the size? What was the main motivation? What was the main motivation here?
+
+243
+02:21:50,580 --> 02:22:18,060
+Main motivation that it was of huge size 4MB, right? 4MB. Do you think we are reducing the size? I think we have increased the extra level. Where are we reducing the size? Right? But it's not true. We will see the magic. Okay. So, I mean that's not magic. We like the concept we will see. So basically, basically, we will come back to that question later that how it is reducing the size but for now you need to understand the aptitude first.
+
+244
+02:22:21,440 --> 02:22:51,690
+there is no frame concept we are using everything I am calling chunk chunk here the chunk is frame here the chunk sizes could be different the chunk sizes at every level do it have to be same see the chunk size here is 2.10 entries here the chunk size could be anything here the chunk size could be anything here the chunk size could be anything now you might not even wonder do like okay let me tell you one fun fact
+
+245
+02:22:51,950 --> 02:23:09,150
+The fun fact is that that in almost every coaching I don't even know any coaching in almost every coaching they say that okay the chunk size is also same they have to be same and they I will tell you the major misconceptions in this multi-level paging we will we will have the list of misconceptions
+
+246
+02:23:09,950 --> 02:23:30,330
+I will list out the list of misconceptions that that students are having in multi-level paging. And you just need to do one thing. You just need to open up any, any random. I mean, okay, I should not say this. So, so let me ever saying is, I mean, okay, I hope you understood. So basically, even if you open up any random video of any random coaching, they will
+
+247
+02:23:30,600 --> 02:24:00,700
+you just verify you just verify okay if i'm just listing out let's suppose five misconceptions you just verify okay yes yes they are telling this misconception yes they are telling this misconception they are telling this misconception so we will just list down many many misconceptions and you can easily verify that whole multi-level paging is mashed up everywhere okay the motivation itself is mashed up okay motivation itself is mashed up that why we are doing multi-level paging they have their own motivation okay they have their own motivations that why we are doing multi-level paging
+
+248
+02:24:01,950 --> 02:24:29,500
+Cool. So, but let's just do one thing. We will understand this more carefully. We will just first understand the aptitude that how it is working. For now, your job is to, your job is to, I will upload this slide immediately. Your job is to just verify the aptitude only. Okay. Are you able to understand this aptitude or not? Okay. Just verify this aptitude. Then we can easily solve multi-level page in questions. Okay. Cool. So, thank you everyone. Yeah. Take care. Bye-bye.
+

@@ -9,13 +9,13 @@ test('calculator respects precedence, decimals, signs, percentages and grouping'
 test('calculator rejects invalid, unbounded and nonfinite expressions',()=>{
  for(const expression of ['1/0','1e309','2+','2(3)','Math.random()','alert(1)','('.repeat(25)+'1'+')'.repeat(25),'1'.repeat(161)])assert.throws(()=>calculate(expression));
 });
-test('all 1578 lessons have a semantic diagram; every interactive range yields valid data',async()=>{
+test('all 1716 lessons have a semantic diagram; every interactive range yields valid data',async()=>{
  let count=0;const kinds=new Set();
- for(const subject of ['coa','dl','c','ds','aptitude','algo','os']){
+ for(const subject of ['coa','dl','c','ds','aptitude','algo','os','cn']){
   const {lessons}=await import(`../courses/${subject}/content/lessons.js`);
   for(const lesson of lessons){const kind=diagramKind(subject,lesson);assert.ok(kind,`${subject}/${lesson.id}`);assert.ok(!kind.endsWith('undefined'));kinds.add(kind);count++;}
  }
- assert.equal(count,1578);
+ assert.equal(count,1716);
  for(const kind of kinds){if(kind.includes(':'))continue;const controls=diagramControls(kind),variants=[[],...controls.flatMap((c,i)=>[c[1],c[2]].map(value=>controls.map((d,j)=>j===i?value:d[4])))];for(const values of variants){const model=diagramModel(kind,...values);assert.ok(model.title&&model.caption);assert.doesNotMatch(JSON.stringify(model),/NaN|undefined|null/);}}
 });
 test('cache, arithmetic, timing and pointer diagrams preserve their stated rules',()=>{

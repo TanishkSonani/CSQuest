@@ -1,0 +1,1236 @@
+1
+00:06:12,850 --> 00:08:09,870
+hi everyone give me a second hi everyone how are you all so let's start magnetic disk this is our next module next chapter that is magnetic disk okay hard disk basically hard drive in your computer you have hard drive right okay so we want to study that what is the structure what is the performance what are the issues so okay so this is our chapter magnetic disk in this in this lecture we will study
+
+2
+00:08:10,270 --> 00:08:43,040
+disk physical structure like what is the structure of disk how it is created and also some performance issues some performance measures okay so this is our lecture for today now let's start okay so before we start let me tell you you can call it disk you can call it magnetic disk you can call it hard disk you can call it hard drive you can call it secondary storage okay all the words are same is this clear okay so all these words are same now
+
+3
+00:08:43,430 --> 00:09:13,290
+now let's start first of all one more thing i want to tell you that this this disk magnetic disk this is a chapter that you will find in all the three courses in operating system book whatever operating system book you study you will find this chapter magnetic disk computer organization architecture in that also chapter and in the dbms also you will find the disk chapter so whatever book you study os coa dbms okay in all the books hi everyone
+
+4
+00:09:13,540 --> 00:09:45,200
+Am I audible? Am I audible? Please tell me. Okay. Yeah. So what I'm saying that in all these, in all these books, in all the courses, in all these three courses, this chapter you will find. Okay. So we will study this chapter. Okay. From all the resources, are you getting my point? So basically I will cover what we study in operating system, what we study in computer organization, what we study in DBMS. Okay. So this, this chapter we will study from the, from all the three subject point of view.
+
+5
+00:09:45,480 --> 00:10:15,340
+is this clear okay so you don't have to worry that okay like in the dbms right now in the dbms we are learning disk so you don't have to worry that in the computer organization we did not study in the operating system we did not study okay so i will cover this complete chapter disk i will cover is this clear okay so the complete magnetic disk chapter this complete chapter i will cover okay in these lectures now let's start so let's start with first of all you know that we have dbms right
+
+6
+00:10:15,720 --> 00:10:45,240
+Okay, we have DBMS correct you have a DBMS or or I can say basically your database right so you have database now that database you have to store somewhere right so logically we think about database if you see the database so far we are thinking about the database in a logical manner that there is a table there are attributes okay there are there are rows there are records okay so like that so you have a database so far we are looking at the conceptual level right correct
+
+7
+00:10:45,510 --> 00:11:12,710
+okay so far we have seen the conceptual or logical level or I can say we have seen so far conceptual schema correct but ultimately you have to store this database somewhere this data you have a huge database you have this huge database you have to store somewhere right physically physically you have to store this somewhere so physically where to store this right correct so physically you must store this physically stored
+
+8
+00:11:13,140 --> 00:11:40,620
+so it is physically stored in the hard drive or I can say your hard disk or you can say magnetic disk so it is physically stored in the hard disk okay so remember you have a database you have a huge database so far we have seen the logical structure the conceptual schema we have seen so far we did not worry how it is stored how the records are stored how the attributes are stored okay how the table is stored how the database is stored so far we did not worry about it
+
+9
+00:11:40,780 --> 00:12:10,520
+okay but you can notice that ultimately whatever data you have whatever database you have ultimately you have to store it in the physically you have to store it right in your computer somewhere somewhere you have to store it okay so for that we use hard drive now this chapter is about this hard drive this chapter is not about database this chapter is not about dbms this chapter is all about hard disk this chapter is all about like okay what is the structure of hard disk if you open your hard disk
+
+10
+00:12:10,740 --> 00:12:38,840
+then what you will find, so what is the structure of hard disk, what is the performance of hard disk, okay, what is the performance of hard disk and what are the scheduling algorithms and what are the disk scheduling algorithms that are there, disk scheduling algorithms to improve the performance, disk scheduling algorithms to improve the performance of the hard disk. So this chapter is all about this hard disk, is this clear?
+
+11
+00:12:39,160 --> 00:13:08,050
+so this is the first point because you can notice whatever data you have whatever database you have you have to store it somewhere you have to store it physically okay so for that we use the magnetic disk and now you can notice in the magnetic disk you can store it and whenever you want to use it then what you will do so this is like for example let's assume this is your magnetic disk let's assume this is your disk on the disk you have the database you have stored the database all your tables everything is there all the records all the tables everything is there
+
+12
+00:13:08,280 --> 00:13:36,820
+now if you want to do something on this database if you want to retrieve the database okay if you want to find something if you want to insert something if you want to delete something if you want to modify something okay basically whatever you want to do on the database then what you need to do then you need to fetch it to the main memory right correct okay then you need to fetch it to the main memory if you want to do something on the database okay if you want to take some action on the database
+
+13
+00:13:37,250 --> 00:14:05,610
+some okay so then in that situation what you will do you will fetch it you will fetch it in the main memory okay for example let's assume there are many tables there can be many tables here for example maybe 10 tables are there 10 relations are there okay if you want to if you want to insert something in a particular relation R1 then what you can do that R1 you can fetch in the main memory okay so this is the idea this is the complete idea now anyway now let's see what is this disk
+
+14
+00:14:05,810 --> 00:14:35,350
+this is what we need to see. Okay, so let's start with the disk now. And also let me tell you a few things that just terminology, these are just terminology like main memory. Okay, you have your many type of memory. Basically, there is a CPU, right? Okay, so you have a CPU. Ultimately, everything is done by the CPU, everything. Okay, ultimately, every every action is taken by the CPU. Basically, I can say execution is done by the CPU.
+
+15
+00:14:35,640 --> 00:15:03,760
+So this is the CPU. This is the, I can say, brain of your computer, right? Okay. So now there are many levels of the memory. This, the closest memory to the CPU, the closest memory is case memory. Okay. Actually, CPU also contains registers. CPU has its own memory. This CPU, this CPU has its own memory that is registers. So this CPU has its own memory. Okay. So a small memory, some registers are there.
+
+16
+00:15:04,170 --> 00:15:33,210
+So this CPU has its own memory that are some registers. And apart from the registers, the closest memory is cache memory. Apart from the registers, the closest memory is cache memory. This is very fast. Of course, these are the fastest. Yes or no? Of course, these are the fastest. These are the fastest. These are the part of CPU. These are inside the CPU. Next, you can notice there is the closest memory.
+
+17
+00:15:33,660 --> 00:16:05,410
+apart from okay other than registers the closest memory is cache memory cache memory okay apart from this the another memory okay I can say that is main memory that is main memory this is I can say this is slower than cache okay so you can notice this is first test then this is little bit slow slower than registers this is slower than cache memory and then finally you have your hard disk and then finally
+
+18
+00:16:05,660 --> 00:16:34,090
+you have this disk okay so finally you have this disk or i can say okay so now one more thing that so now Khushi is asking cache is also cpu's own memory see there can be many levels of cache so more details about the cache we will study in the computer organization subject okay there can be l1 cache l2 cache okay the l1 case is basically i can say part of cpu and there is another cache okay l2 cache
+
+19
+00:16:34,390 --> 00:17:02,110
+so anyway the details about the cache the details about the cache memory we will study in the computer organization subject the details about the register we have already seen in the digital logic okay registers are created from what registers they are created from what they are created from flip flop right okay so the details about the registers we have seen in the digital logic the details about the case memory we will see in the computer organization the details about main memory we study in the operating system
+
+20
+00:17:02,980 --> 00:17:29,540
+and the details about disk we study in dbms also in operating system also in computer organization okay so this is what I am saying that and remember as you go as you go from here to here the okay the memory becomes slower and slower okay slowness increases as you go from okay left to right okay as you go from left to right here the slowness will increase
+
+21
+00:17:30,000 --> 00:17:54,420
+The capacity will increase and the capacity will also increase. For example, in your computer if you notice, how much main memory you have in your computer, in your laptop, how much main memory? Maybe 4GB, 8GB. I am talking about main memory. Maybe 4GB, 8GB. How much disk memory you have? How much hard disk memory you have?
+
+22
+00:17:57,030 --> 00:18:25,730
+500 GB or maybe one terabyte or maybe two terabyte right okay so you can notice the capacity increases as you go from left to right okay and the slowness is also increasing the disk is actually very slow and nowadays there is alternative of the disk what is that nowadays nowadays there is alternative over the disk that is SSD that is SSD okay so you can check it out for example in my laptop there is 512 GB of SSD
+
+23
+00:18:26,110 --> 00:18:53,320
+okay in my laptop this much ssd i have so you can notice there is basically ssd solid state drive right okay so now anyway so basically this is the complete i can say this is the complete overview of the man of all the memory that you have in your computer in your computer all the memory that you have this is the overview okay but don't worry the details about the case memory we will study in the computer organization
+
+24
+00:18:53,710 --> 00:19:22,290
+the details about the main memory you have already seen in the operating system okay now we will see the details about the disk this is our today's chapter okay this is a i can say this is our today's chapter that is disk so we will study the magnetic disk okay so this is what we are going to study now so let me tell you that these two these two memory these are called primary memory okay these two memory these two memory these are called primary memory so these two
+
+25
+00:19:22,660 --> 00:19:57,420
+They are called primary memory and this is basically secondary memory. This is also called secondary memory. So case memory and memory, these are called primary memory and this disk, this is called secondary storage. You can call it secondary storage or you can call it permanent storage or you can call it online storage. Basically, this is your permanent storage because ultimately
+
+26
+00:19:58,220 --> 00:20:22,760
+almost permanent right because in your computer whatever data you store in the in the hard drive in your hard disk whatever data you store okay it stays in the hard drive for a very long time right okay as long as your disk is fine as long as your disk is I can say working fine okay it will it will stay it okay the data will stay in the magnetic disk the data will stay in the hard drive okay so this these are the
+
+27
+00:20:23,010 --> 00:20:51,650
+this is the overview of all the memory that you have in your system in your computer in your system all the memory all the type of memory that you have this is the overview but anyway our today chapter is all about magnetic disk so now we will study only magnetic disk so remember computers they have secondary storage or I can say that is disk okay so here your everything is stored basically in the disk everything is stored in the disk your program your operating system your apps your
+
+28
+00:20:52,000 --> 00:21:20,480
+okay like whatever you take basically everything is stored in the disk okay and if you want some if you if you need it if you need any record if you need something for processing then you will fetch it to the main memory okay from the disk you will face the data to the main memory and then you will do the processing okay now anyway so what we are going to do now we are going to see how your disk is created how magnetic is that what is the structure
+
+29
+00:21:21,320 --> 00:21:50,820
+Have you seen this magnetic disk? Let's small box you have. If you open that box, then what you will find is our chapter. Let me tell you, most of the times, most of the days, we stay in the logical world. Most of the time, we don't care how the things are implemented. Yes or no? Most of the time, we study the logical concepts. But today,
+
+30
+00:21:51,160 --> 00:22:18,540
+but remember today okay today we are in the physical world everything that we study actually happens okay everything that we study today that happens physically that happens physically so basically for example let me tell you that have you seen your computer okay sometimes if you check your computer if you touch your computer then you will find that something is rotating okay you will find that something is rotating like some rotation is happening inside your inside your disk
+
+31
+00:22:21,470 --> 00:22:44,710
+You will find that some rotation is happening. Sound comes from the fan. Sound comes from the CPU fan. If you touch your computer you will find that some rotation is happening.
+
+32
+00:22:45,130 --> 00:23:14,460
+some vibration or maybe some rotation is happening if you sometimes you will feel it okay so now let me tell you that everything that we study today everything that we study today actually happens actually happens for example disc rotates okay with the help of motor okay with the help of motor there is a disc motor basically there is a disc motor with the help of disc motor the disc will rotate okay so basically everything happens physically okay now let's start so now we will study
+
+33
+00:23:14,760 --> 00:23:48,590
+disk structure so far we have not seen anything so far I give you basically the I can say motivation for the disk okay what are the motivations for the disk like for example what are the motivations for the disk like let's see what are the motivations for the disk motivations for learning disk motivations for learning disk yes more capacity right okay motivations for learning disk why you want to learn about this okay so you can notice first of all
+
+34
+00:23:48,670 --> 00:24:18,430
+more capacity right first of all more capacity it provides you a lot of capacity actually not only okay it actually provides you a lot of capacity in in terabytes like 1 terabyte 2 terabyte nowadays 5 terabyte okay a lot of capacity you are getting a lot of capacity okay and also yes permanent storage if you switch if you turn off your computer the data does not delete yes or no if you turn off your computer if you switch off your computer if the power goes
+
+35
+00:24:18,660 --> 00:24:45,020
+then your data does not get deleted your data does not vanish so basically this is a permanent storage the third point what is the third point let me tell you the third point is actually it is slow so we want to make it fast it is slow so we want to make it fast so we want to make it fast
+
+36
+00:24:53,370 --> 00:25:21,810
+so this is permanent storage or we can call it non volatile what this non volatile what this word means okay what this word means this word simply means that if you delete sorry if you if you turn off the power if you turn off the power then your data does not get deleted okay so non volatile means if you okay if power goes if power goes still data remains okay still data remains
+
+37
+00:25:25,180 --> 00:25:55,450
+Okay intact still data remains intact. So these are some motivations, but okay fine. These are the motivations that is fine, but Why study structure? Like have you ever thought why study physical structure? We did not study the physical structure of man memory, right? The man memory the physical structure. We did not study like of course, we will study remember there is a concept DRAM DRAM S-RAM. So we will study that concept. Okay DRAM S-RAM
+
+38
+00:25:55,740 --> 00:26:24,640
+that concept we will study okay no dma is not a man memory dma is something else okay that is not a memory so remember man memory most actually there is a concept of drem s rem okay so these concepts we will study these concepts after some time but but you can notice most of the time we ignore these concepts okay in in many books you will not find these concepts but the point the point i want to ask why we want to study the structure of disk like
+
+39
+00:26:24,970 --> 00:26:53,990
+Structure of man-memory, we visualize the man-memory. Whenever I tell you man-memory, automatically what comes to your mind? Something comes to your mind that cell after cell, byte after byte, yes or no? Array comes to your mind. A big array comes to your mind that something is there, this man-memory. A big array comes to your mind. I want to ask, we never care about the structure of man-memory. You have studied operating system, operating system is done.
+
+40
+00:26:54,230 --> 00:27:21,750
+many subjects are done we never care about the main memory structure correct yes or no main memory structure we never care how it is actually created what happens inside this how the data is stored how the data is retrieved okay all these things we really don't care yes or no we just we just study main memory in a logical way yes or no we study main memory in a logical way that okay some something is there okay and byte after byte every byte has address
+
+41
+00:27:22,200 --> 00:27:51,350
+for every one byte or every one word okay if it is byte addressable word addressable so basically every byte or every word has some address so we study the main memory most of the time most of the time we study main memory in a logical way in a logical way but we study this in a physical way main memory is also physical device right yes or no main memory is also physical device it is a physical device you have in your computer you can check it out there is a main memory there is a chip there is a chip main memory so that is also physical device
+
+42
+00:27:51,630 --> 00:28:20,290
+and your hard drive okay so hard drive that is also physical device but we don't study main memory we don't really care about the main memory structure we really don't care we study main memory in a logical way that there is sequence of I can say sequence of sales okay in every cell you have one byte or one word okay and so basically it is like a big array big array you have okay it is very huge array so but what I'm asking my question is simple that I want to know that
+
+43
+00:28:20,630 --> 00:28:48,830
+Why we care about the physical structure of magnetic disk why we are like in every book you will find magnetic disk physical structure how it is really created Okay, how it is really manufactured. Okay, but we really don't care about a man memory physical structure Let me tell you the answer. The answer is very simple that in the main memory if you take any cell in the main memory if you take any cell if you take any bite if you take any word if you take
+
+44
+00:28:49,920 --> 00:29:18,770
+every byte takes the same time yes or no yes or no it's not like the top byte will take different amount of time the lower byte will take different amount of time the middle byte will take different amount of time yes or no if you want to face one byte if you want to face one byte every sale will take the same time yes or no every sale will have the same access time correct yes or no but in the secondary memory it is not true in the secondary memory in the secondary memory
+
+45
+00:29:19,220 --> 00:29:48,040
+if you access different different areas of the secondary memory in your secondary memory if you access different different areas it will take different different amount of time that is the reason we study the physical structure of the magnetic disk so that we can find out okay why some data is taking less time some data is taking more time are you getting my point is this point clear
+
+46
+00:29:48,340 --> 00:30:14,890
+so remember in the main memory whatever data you access in the main memory whatever cell you access whatever byte you access whatever word you access every word will every area of the main memory will take the same amount of time okay but in the disk in the disk different areas will take different amount of time so we care about the structure yeah yes or no we should study the structure so that we can find out
+
+47
+00:30:15,210 --> 00:30:43,770
+which area will take less time which area will take more time and basically how to basically learn about it yes or no so that is the complete point that is the motivation is this clear so let me tell you and one more thing I want to ask you can you randomly in the main memory you can do random access in the main memory you can do random access in the secondary drive in the hard disk can you do random access in the hard disk
+
+48
+00:30:43,980 --> 00:31:12,490
+Can you do random access in the hard disk? Can you do random access? In the hard disk, can you do random access? Of course, you can do. If you cannot do random access, just think about it. In your computer, you have 100 movies. All the movies are in the hard drive. And if you want to access, let's assume one movie, then do you have to access all the movies one by one? You can randomly access any movie, right? Yes or no? You can randomly access any movie.
+
+49
+00:31:12,970 --> 00:31:36,350
+So random access is there. It's not like random access is not there. In the hard drive, you have random access. Whatever data, okay, you have 100 movies, 500 movies, whatever data you have, that is in the hard drive. Okay, so if you want to, if you want to watch, let's assume any movie, for example, nowadays, Kantara movies there, a very nice movie, Kantara. Okay, so it is, I think it is a Kannada movie, I think, okay, Kannataka.
+
+50
+00:31:36,590 --> 00:32:06,180
+okay so anyway if you want to watch that movie you don't have to watch all the movies from the beginning yes or no you don't have to do that so you can randomly access remember random access is there okay so in the main memory also random access is there and in the in the in your secondary in the hard disk also this random access is there so remember random access is there random access random access is there okay is this clear
+
+51
+00:32:06,600 --> 00:32:40,220
+Random access possible. Okay. You don't have to go sequentially. You don't have to go sequentially. You can do random access. Okay. But the point, what is the fifth point that different areas have different access time. Yes or no. Different areas have different access time. Have different access time. Have different access time. Have different access time. Is this clear? So different areas have different access time. So these are all the points that I want to tell you. So remember.
+
+52
+00:32:40,620 --> 00:33:09,750
+actually if you notice this main memory if you notice your RAM if you notice your main memory and if you notice your disk both are physical devices okay both are physical devices right okay so both are physical devices but here you can notice most of the time this this main memory mostly we study in logical way mostly we study this we study it in logical way yes or no we study it in logical way
+
+53
+00:33:11,210 --> 00:33:40,090
+Why? Because what is the reason? Because every sale has the same access time. Yes or no? Because every sale has the same access time. So every sale has the same access time. So we really don't care about the physical structure of this because every sale has the same access time. Is this clear? Every sale has the same access time. But remember in the disk we care about
+
+54
+00:33:40,590 --> 00:34:11,260
+we really care about I can say structure I can say we really care about the physical structure of this physical structure of disk because different areas they different areas okay because this we will see different sector different sectors have different amount of different sectors have different access time is this clear different access time for example, let me tell you like if someone asked you
+
+55
+00:34:11,910 --> 00:34:40,410
+in your computer you have let's assume 3D movie and also you have this Kantara movie also some other movie you have Lord of the Rings some movies you have so can I say all the movies they will have the same access time all the movies will they have the same access time they will not have the same access time different sectors in your hard drive they will have different access time of course you will not feel it yes or no you may or may not feel it right I am not saying that you will feel it
+
+56
+00:34:40,700 --> 00:35:07,720
+Okay, but it happens. Is this clear? Of course, very, I can say millisecond, microsecond. Okay, so basically the difference is very small. Okay, but the difference is there. The difference is very small, but the difference is there. Okay, so anyway, this is what I want to say that we really care about the structure. We really care about the physical structure. Okay, we really care about the physical structure because
+
+57
+00:35:08,140 --> 00:35:38,140
+the different sectors, they have the different amount of time. Is this clear to everyone? Let me know. Okay. So remember, main memory disk and so that is the reason we want to study how the disk are created and both of them have what? The main memory, this your main memory or I can say RAM, this main memory or you can call it RAM and this disk, this disk, they both have what? They both have what? If you do the comparison, then of course, first of all, let me tell you that
+
+58
+00:35:38,890 --> 00:36:07,650
+we will study sram dram concept we will study so actually it is this main memory it is actually created from dram there is a concept of dram okay so this is basically it is basically a dram and there is something called sram okay so dram sram those things we will study but anyway at that time you will understand what is dram what is sram so that is there first of all so actually this main memory it needs periodic refreshing
+
+59
+00:36:08,060 --> 00:36:37,000
+it needs periodic refreshing you have to refresh the data it's not like in the main memory if you have some data in the main memory if you have some data you have to refresh that data you have to keep refreshing that data okay it's not like for example in the disk once you store the data you have some data once you store the data in the disk that is fine that is fine okay that will be permanently stored you don't have to refresh it whatever but in the main memory if i have some data that data i have to periodically refresh
+
+60
+00:36:37,500 --> 00:37:05,720
+okay periodically else what will happen the data will be vanished okay yes there is a capacitors so anyway that we will study in the DRAM we will study DRAM versus SRAM okay in the DRAM we will study that we have to continuously refresh the data so that data can stay I can say correct okay if you don't refresh the data then what will happen basically every data that you have 0 1 0 1 0 1 0 1 that is stored in the form of charge are you getting my point
+
+61
+00:37:06,090 --> 00:37:35,480
+Okay in your in your main memory if you if you look at your main memory you have zero one zero one zero one Those are stored every bit is stored in the form of charge Okay charge so that charge actually if you don't refresh if you don't refresh it Okay, then the charge will basically Fluctuate okay, is this clear if you don't refresh then the charge will fluctuate But in the in the disc there is no problem in the disc in the magnetic disc how the data is stored in the magnetic disc
+
+62
+00:37:35,750 --> 00:38:03,750
+how the 01 01 data is stored can anyone tell me the name itself is telling you the name itself is telling you in the magnetic disk you have a magnetic disk in that magnetic disk how the 01 is stored how the 01 is stored yes magnetism magnet north pole south pole so actually 0 and 1 these are north pole south pole in your magnetic disk that is very like interesting right yes or no in the in the magnetic disk
+
+63
+00:38:04,220 --> 00:38:34,000
+in the magnetic disk 01 these are north pole south pole literally north pole south pole okay literally there is magnetism okay there is magnetism there north pole south pole so the 0 comma 1 these are basically north pole south pole north pole south pole okay we will not go into the detail now some people are asking the details about north pole south pole we will not go into the details of that that is not our area okay but it happens okay so the 0 comma 1 in the magnetic disk
+
+64
+00:38:34,200 --> 00:39:03,880
+we store in the form of poles if anyone asks you 0 comma 1 how we store in the magnetic this that is in the terms of magnetic poles north pole south pole north pole south pole okay so like that okay anyway we will not see the more details more details you can find on the internet that is not for I can say that is not the area of computer science okay that is not the area of computer science really we really don't care about that is the area of manufacturer okay the manufacturer people they care about it okay
+
+65
+00:39:04,070 --> 00:39:31,840
+and one more interesting thing I want to tell you okay after some time I will tell you okay just okay just let's start anyway let's see main memory so in the main memory you have basically there is a concept of SRAM DRAM concepts so these concepts we will study SRAM DRAM these concepts we will study okay these these concepts we will study but here basically here what you need here you need basically I can say data bits are stored
+
+66
+00:39:34,480 --> 00:40:08,930
+bits are stored in form of charge. In the disk data is stored, bits are stored 0 comma 1, bits are stored in form of magnetic poles, magnetic poles, north pole, south pole, north pole, south pole. So that is the reason it is called magnetic disk.
+
+67
+00:40:09,460 --> 00:40:42,880
+have you ever wondered why it is called magnetic disk that is the reason it is called magnetic disk this is the reason it is called magnetic disk remember random access is possible here also remember random access is possible here also and random access is possible here also okay one more thing I want to tell you have you seen magnetic tape have you seen in your life have you seen magnetic tape magnetic tape and magnetic disk
+
+68
+00:40:43,100 --> 00:41:13,520
+these are different magnetic tape and magnetic disc you have already seen magnetic tape okay you have already seen the magnetic tape do you remember there is a cassette like this type of cassette we have seen maybe you have seen this type of cassette and there is a reel here okay there is a black so black some black black coated reel is there right some black coated reel is there some black coated reel is there right yes or no old song tapes
+
+69
+00:41:13,850 --> 00:41:45,350
+so this was your song reel correct some some black coating was there some black color coating some black color coating was there in this can you do the random access in this do you remember could you do the random access could you do the random access could you do the random access no you could not do the random access so in this magnetic day you have to for example let's assume this is your song and if you want to
+
+70
+00:41:45,670 --> 00:42:14,570
+If you want to skip, for example, there is a song and if you want to skip, for example, there is a song in the Brahmastar movie, Love Story. If you want to skip that part, if you don't want to hear this, you have to hear this. You have to listen to that. Is this clear? You have to listen to that. Even though your ear will bleed, but still you have to listen to that. So, of course, it is a very stupid movie, let me tell you. If you did not watch it so far,
+
+71
+00:42:15,980 --> 00:42:43,360
+Do yourself a favor and don't watch it. Okay. Do yourself a favor Okay, do your family a favor and don't watch it. It is that I can say it is I Don't want to say that okay, but basically it is like it is a complete waste of time It is waste of time like capital waste of time a capital bold italic and underline Okay, it is complete waste of time. Okay, anyway
+
+72
+00:42:43,750 --> 00:43:13,730
+so let's see this so in the magnetic disk you don't you don't have any choice in this magnetic disk you have to do sequential access you have to do sequential access is this clear you cannot do random access in the magnetic disk in the magnetic disk you cannot do the random access is this clear everyone tell me okay so this magnetic tape you have already seen this magnetic tape this you have already seen in your real life okay nowadays nowadays we don't use it
+
+73
+00:43:13,990 --> 00:43:43,500
+But in the childhood, maybe you have seen this. Okay, in the childhood. And do you remember what people used to tell you? That don't touch this reel. Yes or no? Don't touch this reel. Else it will corrupt. Else it will corrupt. Yes or no? Don't touch that reel. You have a reel. I can say plastic reel you have. Okay. I can say thin. Very thin. And there is some black coating is there. Yes or no? Some black coating is there.
+
+74
+00:43:44,380 --> 00:44:12,000
+people will tell you to not touch it yes or no don't touch it because if you touch it it will corrupt the data will corrupt okay and this was a very huge problem at that time the data corrupts for example have you seen cd dvd have you seen cd dvd if you have seen cd dvd if you touch it okay what people will say don't touch it yes or no don't touch it if you touch if you touch it actually there is also magnetism there is also magnetism okay
+
+75
+00:44:12,310 --> 00:44:38,160
+so in the if you see the cd dvd in the if you see cd cd dvd this type of cd dvd on one side you have on one side you have what some some magnetic layer you have on one side there is some magnetic layer on one side there is some magnetic layer okay so people will tell you to not touch it okay people will tell you to not touch it okay anyway
+
+76
+00:44:38,540 --> 00:45:12,910
+so you can notice so these are the few points anyway let's see magnetic tape let's see this let's see this so magnetic disc this is different in this random access is possible in this random access possible okay but in the magnetic tape random access is not possible you have to do sequential access you have to do sequential access in the magnetic tape but in the magnetic disc okay you can do random access this random access is possible anyway so let's move on now
+
+77
+00:45:13,070 --> 00:45:42,610
+so here also random access possible here also random access possible now we will see the disk structure so now what we are going to study that is only magnetic disk remember we don't care about cd dvd we don't care about magnetic tape we don't care about these things we don't care about your pen drive okay we don't care about these things we don't care about ssd so these are also storage devices yes or no ssd that is a storage device your pen drive okay your cd dvd
+
+78
+00:45:42,720 --> 00:46:11,670
+or i can say your magnetic tape these are also storage devices but in our syllabus what we have that is magnetic disk in our syllabus we only have magnetic disk so this magnetic disk we will study now we will see the structure of magnetic disk okay so in the magnetic disk what happens this is maybe you have seen this in your computer you have this this type of box maybe you have seen this correct so this is your box of the magnetic disk okay if you open these
+
+79
+00:46:11,980 --> 00:46:40,340
+if you open these if you open these then what you will find if you open these if you open these then what you will see you can try if you open this this is something you will find see step by step i'm telling you okay if you open these then some okay inside something something like this you will find inside okay so basically if you see the inside then you will see that these these are platters these are called platters okay these round these round things that you can see these are called platters
+
+80
+00:46:40,920 --> 00:47:09,500
+okay if you open it so this is your if you open it then you will find platters these round things these round things these are the platters these are created by aluminium or they are created by glass and there is a silver there is a magnetic coating this remember this what is this this is a magnetic coating is this clear so these platters these are created by aluminium or maybe these are these may be created by the glass so you have a glass plate okay you have a glass plate it's like
+
+81
+00:47:09,740 --> 00:47:37,000
+you have a glass plate around a round platter okay and on the upper surface and also on the lower surface there are two surfaces yes or no if you see this circular if you see this circular platter on the upper surface and on the lower surface on both the surface there is magnetic using the magnetism we store the data using the north pole south pole okay basically there is a magnetic layer basically
+
+82
+00:47:37,350 --> 00:48:06,860
+on the upper surface on the lower surface there is magnetic layer is this clear there's a magnetic layer and using the north pole south pole we store the data we store the data using north pole south pole 0 1 0 1 0 1 okay so anyway let's see this so you can very easily see so if you open it then you will find this this round thing you will find this is called platter okay and you can and one more thing this is your rewrite head this is this is your rewrite head now what happens
+
+83
+00:48:07,180 --> 00:48:35,300
+this happens that first of all there are many platters you can notice how many platters you can see in this image there are four platters you can see correct okay now one more thing let me tell you that so basically okay there are there are some platters four or six or ten okay so some platters are there and these platters they are connected by a spindle they are connected by a spindle so that they can rotate and who will rotate it who will who will make it rotate
+
+84
+00:48:35,750 --> 00:49:04,470
+there is a disc motor there is a disc motor so there is a disc motor that will make it rotate so it will rotate so basically basically this is called I can say this is a spindle this is called spindle this is your spindle this is your spindle okay and these these will rotate these will rotate like this okay so these will rotate with the help of with the help of motor okay yes common spindle for all of them there is a fixed there is a common spindle
+
+85
+00:49:04,890 --> 00:49:33,380
+there is a like common spindle and on the common spindle all of them will rotate all of them all of them all the four of them they will rotate all four of them simultaneously with the same speed with the same speed okay around the same spindle okay now let's see now what happens after that what happens this is your read write head you can notice this was your read write head okay so this read write head what it does it it reads
+
+86
+00:49:33,980 --> 00:50:02,680
+okay so there is a read write head and what it will do now you can one thing can you notice how many read write head are there how many read write head are there total 8 total 8 how many read write head you can check it out you can check it out this is physical structure so there are total 8 why there are total 8 because for every surface one read head is there I told you that you have a basically every platter platter is a round thing yes or no
+
+87
+00:50:02,940 --> 00:50:31,560
+this round this round type of thing this is called platter okay this this dvd cd kind of thing this is different from cd dvd cd dvd is different these are not cd dvd don't don't think that these are cd dvd no okay these are platters these are platters these round things these are platter they are created from aluminium or they are created from glass and on the platter on the upper surface also on the lower surface we do the
+
+88
+00:50:31,780 --> 00:51:00,280
+magnetic layer there is a magnetic layer and we we store the data with the help of North Pole South Pole okay are you getting the crystal clear visualization tell me are you getting the crystal clear visualization how the things are happening and one more thing let me tell you that so every platter you can store the data on the upper surface you can store the data on the lower surface okay on the upper surface on the lower surface you can store the data now
+
+89
+00:51:00,830 --> 00:51:29,870
+For the upper surface, there is a read write head. If you want to read the data, if you want to write the data, there is a read write head for the upper surface. There is a read write head for the lower surface. And it happens for every platter. There are four platters. Okay. There are four platters, four CD type of things. There is a one handle with one spindle and they will rotate and they will rotate around this. They will rotate around this. Okay. So now you can notice one for every surface, there is a read write head for every surface.
+
+90
+00:51:30,700 --> 00:52:00,300
+for every surface you have read write head one more thing what happens now if you want to read or write if you want to read or write they will go can you notice one thing can you notice can you notice okay can you notice they will all of them they will go simultaneously yes or no can you notice all of them they will go they will move simultaneously all of them all of them they will move simultaneously okay so all of them they will move simultaneously like okay like this
+
+91
+00:52:00,590 --> 00:52:30,170
+so all of them they will move simultaneously they will simultaneously all of them they will move simultaneously so you can read this so like this okay let me tell you see this picture okay I am going one by one okay now see this first they are here then they are here then they are here then they are here then they are here is this clear so like this tell me is this clear to everyone okay so like this they are going now let me tell you that
+
+92
+00:52:30,860 --> 00:52:59,680
+all these all these platters they are logically divided into they are logically divided into tracks okay tell me in the platter do you have for example this this track this track division is this logical or physical this track division is this logical or physical are you getting my point is this logical or physical this is logical division this track division it's not like it's not like you have a platter and on the platter
+
+93
+00:53:00,180 --> 00:53:30,900
+with the help of some knife or with the help of some tool you are making you are making circles it's not like that okay is this clear for example what would be physical if I want to say if I want to say physical division then it's something like this okay you have this platter and on the platter with the help of some I can say maybe you know what is that called that tool that tool what is that tool called round which makes a circle come compass or something yeah right
+
+94
+00:53:31,110 --> 00:53:59,670
+okay so there is a tool like this type of tool what is that called a compass okay so it's not like using compass you are not creating that are you getting my point so remember there is a magnetic on the platter on the platter there is a magnetic there is a magnetic layer there is a magnetic layer on the platter on the upper surface on the lower surface there is a magnetic layer so this is a logical logically we create those tracks okay using that magnetic layer using that magnetic layer
+
+95
+00:54:00,140 --> 00:54:28,460
+using that magnetic layer we create the logical division are you getting my point using that magnetic layer this is a logically we divide it into tracks using that magnetic layer okay so anyway don't worry about it anyway no one will ask you but let's see so basically what we do every platter we divide into tracks every platter there are many tracks and these are I can say concentric they have the same like for example this track
+
+96
+00:54:29,020 --> 00:54:58,600
+Okay, this trick you cannot do this as the same you cannot this is concentric. Similarly, there is another trick. Similarly, there is another trick. So there can be many tracks. Let me tell you more than 1000 tracks can be there very close close very close close more than 1000 tracks can be there. Are you getting my point very close close very very very close close very close close there can be 1000 tracks like that. Okay, so this is the idea. So every player we divide into
+
+97
+00:54:59,220 --> 00:55:29,630
+is this clear every platter every platter we divide every surface basically every surface we divide into these and every trick we divide into sectors every trick we divide into sectors is this clear every trick we divide into sectors okay one more thing let me tell you that there is a sector gap between two sectors there is a gap yes or no okay so yes this is a this is a trick this is a trick
+
+98
+00:55:32,010 --> 00:56:00,600
+Mavith this is a trick now there is another trick and there is a trick gap between them there is a trick gap see this is another trick and this is called trick gap are you getting this is called trick gap between two tricks there is a very very very minor gap between two tricks there is a trick there is another trick around okay so between two between two tricks there is a very very very minor gap it is so minor like I can say you can neglect it
+
+99
+00:56:00,780 --> 00:56:30,040
+okay it is so minor there is a between two tracks there is a gap and can anyone think why we create that gap between two tracks on every track we store the data on every track we store the data on this track we will store the data on this track we will store the data on this track we will store the data but between the tracks why there is some gap there is a very small gap very very very I can say micro there is a micro gap micro you know there is a very small gap micro nano gap
+
+100
+00:56:30,350 --> 00:56:58,090
+but why that gap is there because of magnetism remember magnetism okay two things together like north and south okay basically if you don't keep any gap then the data will corrupt okay because north pole south pole you know north pole south pole attraction and all these things so basically your data will corrupt are you getting my point again remember everything happens magnetism there is magnetism okay so in the basically between two tracks
+
+101
+00:56:58,490 --> 00:57:27,300
+there is gap that there are two reasons for that one reason is because everything is happening physically this is a read write head this moves yes or no like this read write head this moves so if you don't put any gap then there is a possibility that there can be some misalignment yes or no it is moving it is moving but it is a physical thing yes or no it is a physical thing which is moving so if you don't put any gap between two tracks between two tracks if you don't put any gap
+
+102
+00:57:27,760 --> 00:57:57,620
+then what will happen when this is moving when this is moving okay this read right head these are when these are moving then it is possible that there will be some misalignment you want to read the data from track one but you will read the data from track two is this clear is this clear to everyone so you want to read the data from track one but because of some misalignment there you will read the data from track two this is the reason so that is the reason some some gap must be there yes or no
+
+103
+00:57:57,950 --> 00:58:27,180
+some so between two tracks there is a gap also if you see any particular track a particular track if you see that is divided into sectors and between two sectors also there is a gap for the same reason for the same reason the same exactly the same reason between two sectors there is a gap is this clear tell me okay so you can notice you can notice this is your track okay and between two tracks if you see the second track this is your second track
+
+104
+00:58:27,420 --> 00:58:56,750
+this green this is a track and this blue this is a track and in between in between in between in between this is called if in between if you notice this gap this gap if you notice this is called inter track gap is this clear this gap if you notice this is inter track gap this gap is called inter track gap okay one more thing this track is also divided into sectors and between two sectors there is a gap so if you look if you look at this area
+
+105
+00:58:57,020 --> 00:59:26,990
+This is sector gap between two sectors. This is a sector. This is a sector. This is a sector. And between two sectors, there is a gap. Okay. And now what happens? Let me tell you this sector. What is a sector? This is the least unit, smallest unit of data in the hard drive. In the hard drive, if you want to access anything, you have to access the sector. Are you getting my point? Minimum what you can access. Minimum, minimum, minimum, smallest what you can access from the hard drive.
+
+106
+00:59:27,200 --> 00:59:55,580
+smallest what you can access smallest data I can say smallest amount of data that you can access smallest amount of data that you can access is sector and smallest amount of data that you can write is a sector so read and write okay the smallest unit of data that is sector okay so now if you want to read a sector for example let me assume that you want to read this sector let me assume you want to read this sector then what you should do let me assume you want to read this sector
+
+107
+00:59:55,920 --> 01:00:28,740
+let me assume you want to read this sector what you should do you want to read this sector then what you should do can this can this head come here can this head come here is it possible is it possible can this head come here can this head come here remember you want to read this let's assume let's assume let's assume you want to read this let's assume you want to read this can this head come here no it cannot come here so what will happen
+
+108
+01:00:29,280 --> 01:00:59,560
+but it can come here right yes or no but it can come here okay it can come here and then what will happen this is rotating this disk is rotating this disk is rotating there is a motor so what happens this this head can come here and now this is what you want to access correct this is what you want to access right you want to access this so what okay the disk is rotating the disk is this disk is rotating so finally
+
+109
+01:00:59,950 --> 01:01:29,090
+This will come under the head. Finally, the starting of the sector will come under the head. Under the head, the starting of the sector will come. Is this clear? The starting of the sector will come under the head. Then you will read it. Then you will read it. So this is the complete structure. Did you understand so far? So far, did you get some idea? Forget about did you understand or not? Forget about because now we will study. Yes or no? These are these photos I have taken.
+
+110
+01:01:29,560 --> 01:02:00,700
+to give you crystal clear understanding see all these photos i have taken okay step by step all these all these photos in a step by step manner i have taken to give you crystal clear understanding of the disk if you open the hard drive what you will find okay if you did not understand something don't worry about it i will explain now now our lecture will start so far our lecture did not start now our lecture will start okay is this clear so tell me anyone has any doubts so far okay
+
+111
+01:02:03,170 --> 01:02:32,450
+Are these tracks divided into tracks? No, tracks are divided into sectors. This is a track. This is divided into sectors. This is a sector. This is a sector. And this is the sector gap. This is the gap between two sectors. Okay. Anyway, just, just wait. It will clear. Just wait. Okay. So now let me just show you. So ultimately something like this happens. Okay. But let me show you the photo. Let me show you the moving or the moving photo. Let's see this.
+
+112
+01:02:33,190 --> 01:03:04,370
+this happens can you see is this visible is this picture visible can you see this okay so like it happens okay just okay just put it in your mind just keep it in your mind okay like this it happens the disk is rotating continuously the magnetic disk this is rotating continuously continuously it is rotating there are some wires there are some wires can you notice there are some wires and something
+
+113
+01:03:04,730 --> 01:03:44,280
+and you can notice this is the read write head all of them are going simultaneously just look at the photo all of them they are moving simultaneously all of them there are four platters there are eight eight read write heads and you can notice the disc is moving and the read write head is going like this is this clear so keep this photo in your mind keep this photo in your mind now we will start okay no rotating in only one direction rotation will only happen in one direction
+
+114
+01:03:44,590 --> 01:04:15,720
+it's not like the disk will not rotate in both the directions in one direction in one direction the disk all the all the platers are rotating all the platers they are rotating in one direction okay now let's study now let's start so now let me explain everything okay so so far whatever you have seen now let's see now let me tell you everything one by one let's see so first of all if you see the disk if you open the disk what you will find
+
+115
+01:04:16,080 --> 01:04:46,510
+If you open the disk, you will find that there is a spindle. There is a spindle. This is a spindle. And this is a spindle. And there are some circular platters. These platters are there. These platters are there. So like this. So these platters are there. Now you can notice there are three platters. So there are how many surfaces? There are how many surfaces? I can say this is called surface. The numbering will start from zero.
+
+116
+01:04:46,840 --> 01:05:15,030
+this is your surface zero and you can notice that this is this is surface one okay the lower this is surface one similarly you can notice this is your surface what is the surface number tell me what is the surface number that will be five okay so total six surface are there and the numbering starts from the zero the numbering will start from the zero so this is surface number five and this is surface number four is this clear
+
+117
+01:05:15,350 --> 01:05:44,510
+total there are six surface this is a surface number four and this is a platter this is called platter so you can call it platter zero and you can call it platter two okay so like this it happens so there are three platters in the disk now what happens that one more thing so anyway so far it is clear now what happens that every surface if you notice that is divided into set into into tracks every surface
+
+118
+01:05:45,320 --> 01:06:14,200
+every surface so it's like okay it's like this and remember the same it's okay for every player it will happen remember the same the same track is on the lower surface this is the track of upper surface is are you getting point are you getting this point so this okay you can basically it is like this okay so remember it is a surface it is a track and the same track you have on the lower surface on the same track you have on the lower surface the same track you have on the
+
+119
+01:06:14,480 --> 01:06:44,330
+basically with the same radius with the same radius with the same radius so something like this you have the tracks something like this okay so if you notice this structure what it looks like this structure what it looks like it looks like a cylinder yes or no it looks like a cylinder it is looking like a cylinder it is looking like a cylinder so basically the track of the same radius remember there is another track remember
+
+120
+01:06:44,710 --> 01:07:16,970
+there is another track there is another track remember there is another track for example there is another track like this okay the same you can notice there is another track like this there is another track like this okay so again you can notice this this is another cylinder this is another cylinder this is another cylinder okay so like this so you can notice so yeah concentric cylinders so like this okay now one more thing and you can notice for every surface there is a read write head
+
+121
+01:07:17,220 --> 01:07:48,080
+so there is i can say this is your this is called arm assembly okay this is called arm assembly and you can notice here the read write head so okay for every surface there is a read write head for every surface there is a read write head for every surface is this clear for every surface there is a read write head for every surface there is a read write head for every surface so like this okay i hope this point is clear
+
+122
+01:07:48,360 --> 01:08:18,570
+so for every surface there is a read write head now all the read write head they move simultaneously remember the movement will happen simultaneously so it cannot happen it cannot happen that this read head is here and the this read it cannot happen is this clear this cannot happen so they will move simultaneously okay the movement will happen simultaneously the movement will happen simultaneously now now now okay the movement is going to happen simultaneously but
+
+123
+01:08:19,180 --> 01:08:45,400
+only one head will work at a time see there are you might be thinking sir there are six read write head okay you might be thinking that all of them will work simultaneously see they will move simultaneously but only one of them will read or write at any point of time at any point of time at any point of time only one of them can read or write they will move simultaneously they will stay
+
+124
+01:08:45,880 --> 01:09:15,080
+I can say they will stay basically in the same position in the same position they will stay okay they are moving they are going here they are going here so they are moving simultaneously but only one of them will read or write at any point of time it is not like for every there are six surface for from every surface can you read simultaneously from every surface can you read or write simultaneously no okay you cannot do that only one read or write head will work
+
+125
+01:09:15,290 --> 01:09:44,740
+at any point of time only one of them can will be working only one of them will be active the remaining will be deactive okay so now let's see so this is the point one more thing i want to ask you so basically whatever data you have here see now what happens this this platter is rotating right yes or no this platter is rotating this platter is rotation this platter is rotation
+
+126
+01:09:45,160 --> 01:10:14,290
+so now what will happen this will fix this is fix okay so this i can say these heads these heads are fixed these heads are fixed now what will happen that this this particular surf can you notice if your head is fixed here then can i say this particular track will be read you can read this particular track correct you can read this particular track why because the rotation is happening you can read this particular track the rotation
+
+127
+01:10:14,620 --> 01:10:42,760
+so basically this will fix now this is fixed here this is fixed here okay for this track if you want to read this track if you want to read this particular track for this track okay remember for this track this is fixed here now this disk is rotating so whatever data will come under this head whatever data will come under this head that will be read or write yes or no we can read the data or we can write the data yes or no
+
+128
+01:10:43,280 --> 01:11:11,740
+so you are rotating and whatever data will come under this read write head that will be read or write that we will read or write okay I want to ask you one simple question see it's like this so this is your platter this platter is rotating okay this this platter is rotating surface is rotating this this read write head this is fixed okay this platter is rotating and this is fixed so whatever data will come whatever bit whatever bit 0 or 1 whatever bit will come under this read write head
+
+129
+01:11:12,050 --> 01:11:41,550
+that you will read or you will write are you getting my point okay whatever position will come under this head you will read or write that i want to ask you one thing will it touch it will this touch it will this touch it this surface the platter the platter you have the platter is rotating this read right head will it touch it no it will not touch it will be a very micro gap will be there a micro gap will be there okay micro very small micro gap will be there it will not touch it
+
+130
+01:11:41,850 --> 01:12:10,030
+if you touch it fire okay some some friction will be there yes or no definitely if you touch it some friction will be there and your disc is gone so it will not touch it there will be a micro gap and the read or write happens magnetically is this clear the read or write happens using magnetism so can you notice magnetism is okay you can notice the magnetism is happening here so the read or write will happen
+
+131
+01:12:10,480 --> 01:12:41,390
+with the help of magnetism because the data just 0.1 that is stored in the form of magnetism yes or no north pole south pole so this read or write that will also happen with the help of magnetism is this clear so it will not touch it okay it will not touch there is a micro gap there is a micro gap and the read or write will happen with the help of magnetism is this crystal clear mavit is your doubt clear mavit you were asking how the read or write will happen okay so like this it will happen okay let's move on
+
+132
+01:12:41,560 --> 01:13:12,870
+so few important things i want to tell you that okay let's see let's see a particular surface let's see a particular surface okay let's see a particular surface the same thing will happen for all the surface so let's see a particular surface let's assume this is your particular surface okay this is your particular surface let's see the top view in the engineering drawing have you seen this top view bottom view front view okay so
+
+133
+01:13:13,560 --> 01:13:55,870
+that was the most boring subject right most complicated subject maybe in the engineering okay so anyway so let's see the top view okay so anyway in the so this is your platter this is your surface this is a particular surface okay i'm giving you the top view okay so this is your particular surface now what will happen this surface is actually divided into tracks okay the tracks are like this so it's for example you can notice this is a track okay remember this is your track are you getting my point
+
+134
+01:13:56,330 --> 01:14:29,870
+this is your track see here the data will be stored here the data will be stored north pole south pole north pole south pole north pole south pole zero okay so this is your track is this clear okay so this this is your track remember this this this this this area look at this area this area is your track is this point clear let's call it let's call it maybe track one okay
+
+135
+01:14:30,190 --> 01:15:00,110
+so let's let's assume this is the outer track let's assume this is the outer most track let's assume this is the outer most track okay so outer most track is actually called track zero so the numbering starts from the outer most track is this clear the outer most track is called track zero okay and there is a spindle you can notice this is the spindle right this is the center this is the spindle there is a spindle and now you can notice there is a some gap and after that gap another track is there the gap is actually very small
+
+136
+01:15:00,570 --> 01:15:38,420
+the gap is not a big gap so there is of course my drawing is not circular you can notice my drawing is not circular but you can feel okay so you can notice this is another track are you getting my point this is another track this is another track okay so this is your another track you can call it track one okay and what is this then what is this then this is inter track gap this is inter track gap is this clear
+
+137
+01:15:38,760 --> 01:16:05,260
+this is enter track gap the gap between two tracks okay one more thing every track is divided into sectors so every track that you have that is actually divided into sectors like for example what you do and it's like this for example you can you can think like this you can think like this that that every track is divided into sectors it's not like it it is not a physical division remember it is not a physical division it's not like these
+
+138
+01:16:06,690 --> 01:16:36,410
+When I showed you the photo, did you see this type of lines? When I showed you the photo, did you see this type of lines? So these are not physical division, these are logical division. Okay, so you can notice. So basically it's like this. So every track is divided into sectors. So this is a sector. Is this clear? This is a sector. This is a sector. This is sector. This is another sector. Okay, this is another sector. This is another sector. So every track has how many sectors in this photo?
+
+139
+01:16:37,060 --> 01:17:11,930
+every track has how many sectors there are four sectors yes or no there are total four sectors so like this and between two sectors also there is a gap between two sectors also there is a gap there is a small gap and that is intersector gap there is a intersector gap and why we have these gaps why we have these gaps why we have these gaps because so that misalignment does not happen yes or no misalignment does not happen now you brought the saying but sir
+
+140
+01:17:12,300 --> 01:17:16,350
+The physical gap is in the sectors
+
+141
+01:17:43,450 --> 01:18:12,210
+this data and this data that has no interference so this gap is also created with the help of magnetism is this clear tell me is this clear let me know okay so this gap this is also created with the help of magnetism so that there is no interference so that because everything the data you are storing with the help of magnetism so the gap is also created with the help of magnetism so that there is no interference also
+
+142
+01:18:13,390 --> 01:18:42,050
+because of misalignment. So that there is no misalignment of the head because everything is physical. So this is the idea. Is this clear to everyone? So this photo you can notice. Look at this photo. This is a photo from the court. From the court I have taken this photo. So you can notice this is your arm assembly and there are how many surface? Total three platters. You have total three platter and there are six surface. There are six surface and you can notice this is the spindle.
+
+143
+01:18:42,380 --> 01:19:11,560
+and there are concentric tracks there are concentric tracks and every track is divided into sectors okay every track you have divided into sector you can notice this is a sector for example this is a sector okay this is a sector so for example this is a sector so every track is divided into sector and you can notice all the tracks of all the surfaces of the same radius they create a cylinder yes or no the tracks of the same radius the tracks
+
+144
+01:19:11,890 --> 01:19:44,260
+of the same radius in all the surfaces okay they create the cylinder this is called cylinder is this clear now a guy is asking read write pin is for each track no no no that is for each platter this read write this is okay for every surface this is for one surface now what will happen this will move like this this will move it will move it will move like this okay you can understand like this it will move like this it will move like this
+
+145
+01:19:47,220 --> 01:20:16,740
+Is this clear? So how will you cover the entire area? How will you cover the entire area? For example, let's assume this is a surface and this is your read-write head. Now, tell me if you want to cover the entire area of this track, this is a track, if you want to read this entire track, then what you will have to do? If you want to read this entire track, then what you will have to do?
+
+146
+01:20:17,060 --> 01:20:47,820
+The first thing you will do. Okay. Let's assume you want to read this. Okay. So there is a read write head. You can notice there is a read write head. So there is a read head. Okay. There is a read write head. This is called read write head. And let's assume you want to read this. What do we want to do? We want to read this read this track. Read this entire track. Let's assume I want to read this entire track. Whatever data you have, I want to read that. Okay.
+
+147
+01:20:48,060 --> 01:21:18,500
+then what i will do or maybe okay let's assume i don't want to read this track but let's assume i want to read the particular sector let's assume i want to read the particular sector this particular sector i want to read okay let me assume this particular sector i want to read this particular sector this particular sector i want to read and let's remember every sector has a start and ending let me tell you one thing let me tell you one thing every sector has a start and ending
+
+148
+01:21:19,180 --> 01:21:49,320
+every sector has a start and every sector has end okay every sector has a start and end is this clear so every sector has a start and end so you can notice if you want to read this sector let's assume okay you want to read this sector then what we need to do if you want to read this sector what you need to do then the first thing that you will do is this the first thing you will do is this that this is the first thing that you will take this read read head
+
+149
+01:21:49,700 --> 01:22:21,240
+and you will put here you cannot put it here right yes or no you cannot put it here agree you cannot put it here so you can put it here only okay this is what you can do because okay that's it this is what you can do this is the first step okay this is the first step putting read write head on desired track on desired track putting read write head on the desired track this is
+
+150
+01:22:21,430 --> 01:22:49,370
+whatever time it will take that is called seek time sometime it will take yes or no because it will move the head the okay all the read write head they will move all the read write head they will move so this time is called seek time this time is called seek time means putting the read write head on the desired track okay this is called seek time what is the second thing that will happen what is the second thing that will happen
+
+151
+01:22:50,350 --> 01:23:20,300
+after the first thing what is the second thing that will happen so you cannot this is the first step your read write head you are putting here so this read write head you are putting here this is the first step step one this you are putting here now what is the second step the step number two that is this step number two this disk is rotating okay this disk is rotating let's assume this is the rotation let's assume this is the direction of rotation
+
+152
+01:23:21,010 --> 01:24:08,750
+Okay. So now what will happen? This sector will also rotate. So this sector will also rotate. So you can notice this, sorry, let's assume this is the start point. This is the end. Okay. This is the start and this is the end. So now you can notice. So let me assume because I'm assuming that disk is rotating like this. I'm assuming disk is rotating like this. So now what will happen now because this is rotating like this. So what will happen now? Now that this ultimately the second thing is
+
+153
+01:24:08,940 --> 01:24:42,790
+rotate desired sector starting point of the desired sector starting point of desired sector of desired sector under read write head yes or no under read write head so what you do this desired sector this is your desired sector so now finally this desired sector will come here so this is finally your desired sector
+
+154
+01:24:44,840 --> 01:25:25,600
+This is your desired sector. So now the desired sector has come here. Whatever was your desired sector that has come here. Is this clear? So you can notice now your desired sector has come here. This is your desired sector. And this is the starting point. And finally, what will happen? Now it will the now the reading will happen. Okay. Now, now, now, now, let me tell you the reading how the reading happens as the rotation happens. Okay, whatever area goes under this red head, whatever area.
+
+155
+01:25:26,380 --> 01:25:54,450
+Passes under this read or write head that will be read. It's okay. Basically to read or write, you only have to pass under the head. Are you getting my point? No other work. No other work. Okay. To read or write, just pass under the head. Just pass under the read write head. Is this clear? Just pass under the read write head. To read or write, no other work. There is no other work. Just pass under the read write head. That's it. Very simple.
+
+156
+01:25:55,110 --> 01:26:26,030
+So this is the second point. Okay. This is the second point that the starting point will come. This is called rotational latency. See the starting point is coming here, right? Okay. The starting point is coming here. The starting point is coming. The starting point is coming under the rear head. This is called rotational latency. Sometime it will take, yes or no? Agree? Sometime it will also take. So it is called rotational latency. And finally what will happen? Then what is the third point?
+
+157
+01:26:26,550 --> 01:27:00,060
+finally what will happen this complete sector will pass okay finally what will happen this complete sector should pass the third point the third point what happens the third point what happens the complete sector it should pass the complete sector remember the complete sector what should happen the complete sector post should pass so something like this let me tell you that the complete sector it should pass under the retry head so this complete sector finally what should happen
+
+158
+01:27:00,330 --> 01:27:33,060
+this end should come and this start should come here is this clear now this start is here start of desired sector start of desired sector now you can notice the complete basically this is the third point rotate complete sector complete desired sector okay rotate complete desired sector under the head this is called transfer time this is called transfer time sometime it will take
+
+159
+01:27:33,390 --> 01:28:07,100
+so this is called transfer time so tell me is this crystal clear all the explanation let me know did you get it everything that we have seen anyone has any doubt so okay anyway you can look at this again so you can rotate and these are the rewrite head okay and let me tell you there is something called block let me tell you there's something called block what is a block what is a block block is basically some okay block is basically
+
+160
+01:28:07,450 --> 01:28:43,190
+some consecutive sectors block is basically some consecutive sectors okay some consecutive sectors so basically some consecutive sector and this will be decided this is is this a property of a disk is this a property of disk this is not a property of disk this is a property of dbms this is not a property of disk this is not a property of disk remember this is not a property of disk this is a property of the dbms software
+
+161
+01:28:50,600 --> 01:29:20,590
+So the DBMS software will decide how many sectors should be considered as one block. Are you getting my point? The DBMS software, the DBMS that will decide how many sectors should be considered as one block. Is this clear? DBMS will decide, the DBMS software will decide how many sectors should be considered as one block. Now tell me, if you study magnetic disk chapter in the operating system, will you find this word block in the operating system book?
+
+162
+01:29:20,860 --> 01:29:48,720
+if you study magnetic disk will you find this word block you will not find this right because it is not a property of disk it is a property of dbms dbms will decide the dbms software will decide how many sectors how many consecutive sectors should be treated should be considered as one block okay so remember this block we will not discuss much because this is not a property of magnetic disk if a question will come on the disk
+
+163
+01:29:48,970 --> 01:30:17,290
+then most probably the question will not use the word block if they use the word block then they will tell you that then they will mention it okay they will mention it some questions we will see don't worry about it is this clear some questions we will see on this on this topic some questions we will see but anyway what is our block block is basically some consecutive sectors okay and basically property of dbms software so dbms will decide how many sectors should be considered as so remember dbms
+
+164
+01:30:19,780 --> 01:30:58,360
+Decides how many sectors how many consecutive sectors to be considered as To be considered as one block to be considered as one block so DVM a software will decide is this clear that how many how many sectors we should consider how many consecutive sectors We should consider as one block. So anyway, you can notice for example, this is a block right consecutive sectors You can notice in this photo you can notice
+
+165
+01:30:58,830 --> 01:31:27,060
+OK, these consecutive sectors, these are the blocks. OK, so sector, cylinder, tracks, platter, everything is clear. Let me know. And you can also, these are the sector numbering. OK, so there are some sectors. And you can also, this is the sector gap. OK, see, this is the track. This is a track, right? See, this photo is very clear. Look at this photo. This is very clear. This is the sector, inter-track gap. Can you notice this gap? This is the gap. This is the inter-track gap.
+
+166
+01:31:27,400 --> 01:31:56,850
+okay and you can notice this is a track this is a track here you put the data 0 1 0 0 1 1 here you put the data this photo is very clear this is very clear this photo is very clear that this is a track this is a track this is the gap between two tracks this is the gap between two tracks similarly this is a sector this is a sector this is the gap between two sectors okay so inter sector gap inter track gap and okay so like this is this clear so you can notice
+
+167
+01:31:57,120 --> 01:32:27,810
+these are the tracks so you can notice this is a track this is a track so different tracks they have the different radius yes or no different tracks they have the different radius right okay so different tracks they have different radius anyway so you can so you can notice this is the magnetic surface of the disc magnetic surface of the disc so all the points we have seen okay so every point we have seen right okay so this is a sector this is a track and every point we have seen
+
+168
+01:32:28,400 --> 01:32:58,070
+So I hope all the points are clear. Now few things I want to ask you. So can you notice that different tracks they have different radius. So can I say that can I say that different tracks will hold the different amount of data because if you are close to the spindle, then you have small radius. Yes or no, you are a very small track. If you are close to the spindle, then you are a very small track. And if you are far from the spindle, if you are far from the spindle,
+
+169
+01:32:58,240 --> 01:33:27,650
+then you are a very huge large track you are a very big track very big radius so big track will hold more data can i say big track will hold more data no it will not happen remember every track will hold the same amount of data what happens the small track what it will do the small track it will have small gaps the intersector gap will be small the intersector gap will be small in the
+
+170
+01:33:27,890 --> 01:33:53,130
+in the large track in the large track the intersector gap will be large is this clear the intersector gap that will be large is this point clear so remember if you are close to the spindle if you are close to the spindle then intersector gap will be small every sector in whatever track you take whatever track you take every sector will have the same amount of data every sector
+
+171
+01:33:53,440 --> 01:34:21,420
+on every track on every surface on every platter every sector will have the same amount of data okay but the point is this that if you are close to the spindle then you will have you will have very small sector gap if you are far from the spindle then you will have more sector gap now you might be thinking this is waste of time yes or no of course it is waste sorry it is waste of space of course it is waste of space but it is very easy to manage
+
+172
+01:34:22,080 --> 01:34:51,830
+It is waste of space, but it is very easy to manage. Okay. And in, basically there are people have tried that large, large trick should have large data. Yes or no, large tricks should have large data. So people have tried that also, but that basically nowadays it does not work. Okay. It is not used. Is this clear? Nowadays it is not used. So basically it is, I can say people tried it, but it did not become successful.
+
+173
+01:34:52,140 --> 01:35:21,420
+it was very complicated it was very complicated okay so anyway finally i want to tell you that basically from the gate exam point of view or i can say from any book point of view from magnetic disk point of view okay we only have to basically think okay that that every sector on every track on every platter on every surface if you take a sector that will have the same amount of data okay so every track will have the same amount of data every track that is going to have same amount of data
+
+174
+01:35:21,740 --> 01:35:50,040
+okay is this clear so of course there is a waste of time sorry there is a waste of space I agree there is a waste of space but it is very easy it is very easy okay and it is very easy very fast very easy very fast and it is I can say more reliable or something so basically there are many reasons that is the reason people have people have stuck to that yes or no there must be something there must be something significant reason there must be some significant reason so that
+
+175
+01:35:52,710 --> 01:36:18,310
+Basically the market is sticking to this. Is this clear to everyone? So anyway, from our gate exam point of view, we will just follow that. Nothing else. Priya is asking sector size depends on the sector size is a property of disk. This is a property of disk. Remember, first of all, let me tell you this sector. This sector size, it is a property of the disk. If you purchase the disk, it will come with the disk. Are you getting my point?
+
+176
+01:36:18,700 --> 01:36:47,460
+you cannot change it you cannot change it you can change the block size yes or no you can decide how many sectors you will consider as a block that you can decide so you can decide how many sectors you will consider how many consecutive sectors you will consider as a block that is your decision that is the decision of DBMS but sector size this is a property of disk once you purchase the disk it will come it is fixed property of disk
+
+177
+01:36:47,860 --> 01:37:26,230
+You cannot change. You cannot change this. Okay. So this sector size, any other doubt, any other doubt, let me know. No, when you purchase the disk, okay, the sector size will once, once you purchase the disk, once you have created the disk, the sector size is fixed. You cannot change this. The DBMS cannot change it. It is a property of disk. Ankit is saying so in a way, density of data in the take affects access time. Yeah, basically, Ankit, we will not go into those details. Okay. Because those are not required for us.
+
+178
+01:37:26,500 --> 01:38:01,270
+okay we will just consider that all the sectors have the same amount of data and if you are near the spindle then the intersector gap will be less if you are far from the spindle okay once you go far from the spindle the intersector gap will be large okay any other doubt any other doubt anyone please tell me okay so let's see this so few things I want to tell you that first of all
+
+179
+01:38:02,900 --> 01:38:29,790
+Let's see the conclusion. In the conclusion, I will tell you everything. So what is the cylinder that is clear? What is the cylinder? So basically, all the, I can say, all the tracks, all the tracks of the same diameter, all the tracks of the same radius, they create a cylinder. So can I say number of cylinder, it is equal to what? Number of cylinder, it is equal to number of tracks in a particular surface, in any surface. Yes or no?
+
+180
+01:38:30,120 --> 01:39:02,200
+number of cylinder is equal to number of tracks correct is that correct can i say number of cylinder is equal to number of tracks can i say that can i say number of cylinder is equal to number of tracks can i say that no number of cylinders is equal to number of tracks in a particular in a particular surface because remember if you have this how many cylinders are there for example if i give you this okay let's see this for example let me give you this
+
+181
+01:39:02,500 --> 01:39:38,190
+like if you have this surface let me give you a surface here and let me give you a surface here so there are two surface there are four surface so I told you that this is your surface zero this is your surface zero I told you this is your surface three total four surface are total four surface are there let me assume that there are let me assume that you have this how many tracks are there so far how many tracks so far in your disk in your disk how many tracks are there so number of tracks are you can notice these are four tracks
+
+182
+01:39:38,540 --> 01:40:17,980
+okay number of tracks are basically four on a particular surface on a particular surface on a particular surface you have two tracks so number of cylinder is equal to number of tracks in a particular surface is this clear so like this okay so like this so this cylinder you will get and this cylinder you will get so number of cylinders that is equal to number of tracks okay in a particular surface in any surface on any surface on any surface how many
+
+183
+01:40:18,370 --> 01:40:47,130
+tracks you have that is the number of cylinders that will be equal to number of cylinders okay let's see the final conclusion let me tell you the conclusion so you can notice the set of all tracks with the same diameter the set of all tracks remember this point the set of all tracks with the same diameter okay with the same diameter they they are called a cylinder because it looks like a cylinder okay so a cylinder contains one track per platter surface is this clear
+
+184
+01:40:47,580 --> 01:41:16,160
+The cylinder contains one track per platter surface. Okay. One track per platter surface. Okay. So this is the point. So few things I want to tell you. I want to tell you the conclusion. All the important points I want to tell you one by one. So first of all, what are the disc block? What is that? This we have already seen. Yes or no disc block that is multiple of sector size. That is multiple of sector size. The second point you can notice.
+
+185
+01:41:16,490 --> 01:41:48,290
+all read write head they move simultaneously all read write head move together all read write head they move together right they move together and vertically in the same position and vertically in same position correct can I say vertically in same position vertically they are in the same position but remember only one of them is active at any point of time only one read write head
+
+186
+01:41:50,450 --> 01:42:20,280
+is active at any time at any time you can only read one surface remember at any time you can only read one surface this is important only one read write head is active at any point of time okay what is the third point the third point is this so they will move simultaneously they will move simultaneously they will move together but in the vertically they will be in the same position but only one read write head is active at any point of time okay and the third point is this
+
+187
+01:42:20,550 --> 01:42:52,750
+that what I can say yeah so you can notice basically as the data as the data goes under as the data goes under read write head you can read it okay yes or no you can read or you that is your choice you can read or write it you can read write it so basically for example if I want to read a particular track if I want to read a whole track
+
+188
+01:42:53,020 --> 01:43:26,880
+Then one rotation is enough. Yes or no. Okay. So basically what I'm saying that that to read one whole track, if you want to read one whole track, one, okay. If you want to read one whole track, one rotation is enough. One rotation is enough. Is this clear? So one rotation is enough. If you want to read the whole track, then one rotation is enough under the read right head. Just do the one rotation. Okay. As the, as the data is going under the read right head, this is your read right head.
+
+189
+01:43:27,320 --> 01:44:02,680
+as the data is going as the data is going under this okay as the data is going under this you can read that okay is this clear so these are some points now let's move on let's discuss sector in a disk okay this sector let's discuss a little bit so what is the sector tell me what is the definition of sector sector is the smallest unit of information that we can read or write from a disk is this clear sector that is the smallest piece of information
+
+190
+01:44:03,130 --> 01:44:32,800
+that is the smallest unit of information that you can read or write from the disk so remember data is transferred to or from the disk in sectors so sectors is very important sector is very important okay and let me tell you a particular sector now let's look at a particular sector how it looks like how it looks like let's look at a particular sector if you look at a particular sector how it will look like so let's assume this is your particular sector is this clear
+
+191
+01:44:33,660 --> 01:45:04,290
+let's assume this is your particular sector let me assume this is a particular sector okay after some gap there will be another sector right yes or no there will be another sector after some gap there will be another sector after some gap okay so you can notice these are the sectors so this is your sector this is your sector this is your sector this is your sector so after some gap there will be another sector if you look at a particular sector then what will happen first of all let me tell you there will be some so there is a starting point
+
+192
+01:45:07,090 --> 01:45:38,280
+There is a starting point. Okay, and there is a ending point. So who will tell you how will you know that this is a starting point? How will you know this is a starting point? How will you know this is a starting point? And how will you know this is the ending point? How will you know that? So basically some some information is there here. Some fixed information is there. This is called sector formatting disk formatting. So some pattern some pattern is there. Is this clear? This pattern will tell you
+
+193
+01:45:38,500 --> 01:46:08,230
+there is some some pattern this pattern will tell you that this is the starting point is this clear so there is a pattern there is some pattern here is this clear there is some pattern here maybe consecutive 20 zeros yes or no maybe consecutively 20 zeros okay something maybe some pattern basically some pattern will tell you that this is the starting point and some another pattern will tell you that this is the ending point is this clear some another pattern
+
+194
+01:46:08,510 --> 01:46:38,680
+This will tell you that this is the ending point. Let me tell you one more thing. In your computer, can you check whether your disk is corrupt or not? In your computer, can you check your disk is corrupt or not? Okay, so you can do that, right? So how to do that? For example, let's assume in the sector you have the data, in the sector you have put the data, you are reading that data, is that data corrupt or not? Is that data corrupt or not? So how to know that?
+
+195
+01:46:39,060 --> 01:47:07,660
+in the sector you have the data this is your sector in the sector you have the data now once you put the data that is fine now if you read this data again how will you know this data is correct or not how will you know so for that what happens let me tell you what happens when you put this sector when you are putting the information in this sector okay this information when you are putting in the sector at that time from this sector from the data of this sector we
+
+196
+01:47:08,450 --> 01:47:36,980
+Determine checksum. We determine from this data. We determine something called checksum. Basically checksum is a number. We determine a number from this data. From this data, we determine a number. That number also we put. Are you getting my point? From this data, you have the data. You have this much amount of data and you want to put in this sector. This sector is fixed. This sector is fixed. You want to put this amount of data in this sector. Then from this data, you will calculate a number. This is called checksum.
+
+197
+01:47:37,310 --> 01:48:07,960
+so number you will calculate this data you will put also this number you will put okay now when you read the data now when you read the data then if this data is corrupt if this data is corrupt then again you will calculate the number again you will calculate the number if this data is corrupt then that that number will not match yes or no yes or no if that data is corrupt then this number will not match agree or not if this data is corrupt that that number will not match okay
+
+198
+01:48:08,300 --> 01:48:41,890
+so basically in your sector you have this data in this sector there is some data okay some extra data this is called checksum this is called checksum okay this is called checksum to check whether basically this is to check to check whether sector is corrupt or not whether sector is corrupt or not sector data is corrupt or not correct or not is this clear tell me is this clear to everyone let me know so when you store the data
+
+199
+01:48:42,280 --> 01:49:16,030
+from the data and this is your actual data and this is your actual data and this is your actual data I hope this point is clear okay so apart from the actual data everything is called disk formatting apart from the actual data everything is called disk formatting is this clear so apart from the sector okay in any sector in any sector apart from the actual data apart from
+
+200
+01:49:16,910 --> 01:49:59,590
+the actual data every extra information is called what every extra information is called is called disk formatting or formatted data or you can call it formatted data is this clear let me know so all this data for example this this pattern this pattern this this checks on this pattern all this this is called that disk formatting or you can call it you can call it formatted data inside a sector
+
+201
+01:50:00,290 --> 01:50:30,670
+Okay, I hope this point is clear. But who will calculate this checksum? Like, are you going to calculate this checksum? Like, will you go and check, calculate this? So who will calculate this? Who will calculate this? So there is a, there is a, basically, who will calculate this checksum? Who will calculate this checksum? So there is a, inside your box, inside the, if you see the box, if you see the hard disk box, inside the hard disk box,
+
+202
+01:50:31,740 --> 01:51:01,490
+This is your hard disk box. Okay. So inside this box, there is something called controller. There is a disk controller. Okay. There is a disk controller. Is this clear? There is a disk controller. So this is your actual disk. These are your platters. These are your platters. Okay. This is your actual disk and there is a disk controller. So basically this disk controller, we, this is the interface between computer. This is your computer. Is this clear?
+
+203
+01:51:01,910 --> 01:51:33,230
+This is your computer. Okay. So you connect. So you connect. So this disk control is an interface between computer and disk. Is this clear? Is this clear to everyone? So between disk and computer, this is an interface. This is an interface. It has many things. This disk controller, it has many things. There is a queue. There is a queue also here. For example, if you want, let's assume different, different process, they want to access different data.
+
+204
+01:51:33,570 --> 01:52:01,120
+yes or no there are 10 process and they want to access data from the disk then there is a queue also here yes or no so there is a queue also so like this anyway this is the simple point that i want to tell you that is this clear so there is a disk controller remember there is a disk controller this is the interface between the computer system and the actual disk so this is the interface and this controller will calculate the checksum this checksum is a number
+
+205
+01:52:01,460 --> 01:52:32,080
+so when you store the data from the data you will calculate this number and this number also you will put with the data alongside the data you will put this number also so when you retrieve when you read this sector again then you will calculate this section again okay then if if they mismatch then it is meant it means data is corrupt okay so we have seen the structure of the disk now we will see the performance of the disk so tell me at this point of time did you understand everything at this point of time
+
+206
+01:52:32,350 --> 01:53:02,290
+Do you have any doubt? Do you have crystal clear understanding of the disk? Can you visualize? Like the disk, can you visualize in your mind? Everything that is happening, the rotation, the tracks, the sector, the sector gap, the track gap, okay, the cylinder, okay, the platter, the surface, the rewrite head, all are moving together. Only one of them is active at any point of time. If you want to read a sector, then what do you need to do? If you want to read a sector, what do you need to do? You need to move
+
+207
+01:53:02,720 --> 01:53:31,780
+and put on the track you need to move this and put on the desired track and then the desired sector should come the starting point of the desired sector should come under the head and then the rotation will happen and then you will read the sector this is your complete explanation Ekta is saying this head can go on every track by
+
+208
+01:53:33,460 --> 01:54:18,570
+yes it can go on every track we have seen this right this photo again if you want you can notice this see this okay this can you see this disk read write head is this visible okay so you can see tell me is this visible so you can see it's like that okay it is rotating again you can notice that picture okay can you see this photo okay so like that anyway
+
+209
+01:54:20,380 --> 01:54:56,360
+Now case is asking, Ekthai is saying, I meant many tracks on the surface. Yeah, no problem. So on the desired track, you will go. That is called seek time. You will go on the desired track. That is called seek time. And case is asking, how to activate one read-write head? Who will do that? Who will do that? How to activate one read-write head? Who will do that? The disk controller. Okay, this disk controller will do everything.
+
+210
+01:54:57,250 --> 01:55:27,760
+this disk controller is going to do everything is this clear okay so it will do everything this disk controller so it will it will activate the read write head which read head should be activated okay so this this controller will give all the commands okay is this clear now let's see this so let me see the time when is your operating system class can you tell me your operating system class 830
+
+211
+01:55:29,410 --> 01:56:01,070
+Can you check the message in the telegram group? In the telegram group, can you check the message? So anyway, let's see the performance measures of the disk. Let's see this. So first of all, the main measures of any quality of a disk, then what are those? Those are capacity. Yes or no? For any disk, what are the things you are interested for any disk? How to decide quality of a disk? One thing is capacity. Another thing is access time.
+
+212
+01:56:01,970 --> 01:56:31,010
+Another thing is data transfer rate and another thing is reliability. Is this clear? Yes or no? If you want to check quality of a disc, if you want to find out the best disc, then you will check the capacity, you will check the excess time, you will check the data transfer rate and you will check the reliability. These four things you will check. The first thing is capacity of the disc. Tell me what is that? Capacity of the disc. What is that? So can you find out capacity of the disc? Can you find out this?
+
+213
+01:56:32,310 --> 01:57:02,600
+so how much data you can store capacity how much data we can store on the disk so that will be equal to what can I say that will be equal to can I call it can I call it that first what you will you will find you will find number of platters yes or no how many number of platters are there every platter has two recording surface correct every platter has two recording surface two recording surface recording surface means here you can record the data here you can store the data
+
+214
+01:57:02,990 --> 01:57:35,540
+So every player has two recording surface. Correct. So you can notice. Okay. Number of player multiplied by. So these are the number of surfaces. What do you got here? What do you got here? Here you got number of surfaces, right? Here you got a number of surfaces. Is this clear? So here you got number of surfaces. Now, finally, what you will do? So number of surfaces you have, then what you will do? Then you will multiply with number of tracks per surface.
+
+215
+01:57:36,420 --> 01:58:07,470
+number of tracks in a surface correct how many tracks in a surface number of tracks per surface correct yes or no so you will find out number of tracks per surface then you will multiply with the number of sectors per track number of sectors per track and then you will multiply num okay sector size then finally you will multiply with sector size isn't it yes or no is this clear to everyone okay is this clear to everyone
+
+216
+01:58:07,760 --> 01:58:37,570
+So remember what you are going to do you are going to do this so number of surfaces you will multiply remember number of surfaces how many surfaces are there how many recording how many recording surfaces are there recording surface means surface means how much okay how many surfaces we can use for data data recording how many surfaces we can use for data recording so number of surfaces number of recording surfaces multiplied by number of tracks per surface
+
+217
+01:58:38,600 --> 01:59:13,760
+per surface how many tracks you have multiplied by number of sectors per track on every track how many sectors you have multiplied by sector size if you do this you will get what you will get the how much data we can store on the disk okay how can I write this in the terms of cylinders how can I write this in the terms of cylinders number of cylinders what is the number of cylinders so can I say that this number of tracks per surface
+
+218
+01:59:14,110 --> 01:59:54,870
+can i call it number of cylinders number of tracks per surface that is equal to number of cylinders right yes or no that is equal to number of cylinders is this clear so remember number of cylinders that you already know that what is number of cylinders number of cylinders is equal to number of tracks per surface on every surface how many tracks you have okay on every surface how many tracks you have that is your number of cylinders so like this you can calculate okay
+
+219
+01:59:55,140 --> 02:00:23,580
+the next is disk performance parameters we have seen seek time we have seen rotational latency we have seen this access time what is access time i will tell you and transfer time we have seen okay because you already know that when a disk is rotating when a disk when a disk drive is operating it is rotating at some constant speed correct yes or no when a disk drive is operating it is rotating at a constant speed now we want to read a sector let's assume
+
+220
+02:00:23,880 --> 02:00:53,420
+we want to read a sector then what we should do step by step you tell me I want to read a sector I want to read a sector then what I should do your disk drive is your disk drive is rotating your disk drive is rotating okay so your disk drive is continuously rotating let me tell you if your disk is not rotating right now let's assume if your disk is not rotating right now then it will start rotating yes or no it will start rotating
+
+221
+02:00:53,800 --> 02:01:22,330
+and that will take a lot of time that will take a lot of time because motor will start the motor will start okay the it will start rotating it will take seven or eight seconds it is a lot of time seconds not millisecond it is seconds literally seconds okay so if your disk is not rotating then if you start it rotating rotation then it will take a lot of time so don't worry that time we will not consider because
+
+222
+02:01:22,970 --> 02:01:52,450
+in your computer the disk is continuously rotating is this clear in your computer the disk is basically continuously rotating okay so you can notice the disk is continuously rotating when the disk drive is operating the disk is continuously rotating at the constant speed it will consistently rotate now we want to read or write a sector then what we should do what is the step one the step one is go to the desired track yes or no go to the desired track the read write head
+
+223
+02:01:52,760 --> 02:02:21,620
+you go to the desired track this is the step one take the read write head to the desired track correct or not yes or no this is called seek time some time will be wasted some time will be wasted this will become seek time this will be called seek time to go to the desired track now you are on the desired track now what you will do now you are on the desired track and let's assume you want to read this sector you want to read this sector
+
+224
+02:02:21,900 --> 02:02:54,210
+you are on the desired track you are here you are here then what to do then let it come let it come under the let the starting point come under the head yes or no let the starting point come under the head let the starting point come under the head okay so this is called rotational latency let the starting point of the desired track desired sector come under the head this is called rotational latency or you can directly call it latency
+
+225
+02:02:54,800 --> 02:03:26,530
+some people they will directly call it latency okay so either you can call it rotational latency or you can call it latency or you can call it disk latency okay so this is your disk latency what is the third step the third step is read or write the sector for this you don't need to do anything yes or no for this you don't need to do anything for this okay you don't need to do anything basically let the entire sector pass
+
+226
+02:03:27,620 --> 02:04:01,560
+basically let the entire sector pass sector pass under the head sometime will some time will waste because you are letting the entire sector pass you are waiting so that entire sector can pass this is called transfer time so these are the three times this is called seek time this is called rotational latency rotational latency okay and this is transfer time then what is access time then
+
+227
+02:04:02,120 --> 02:04:31,810
+what is access time that is the summation of these two remember access time is summation of these two no no the access time is summation of these two access time of a sector is these three if I ask you access time of a particular sector if I ask you access time for a particular sector for any sector if I ask you the access time then you will add these these three but if I ask you disk access time that is this okay so
+
+228
+02:04:32,070 --> 02:05:01,390
+this total time this is called access time seek time plus rotational latency that is called disc access time so all these points we have seen so you can notice all the points so what is the access time from the court this is the definition from the court the same definition is given in the court the same definition is given in the navate the sum of seek time plus rotational delay that is access time so basically access time is only going to tell you
+
+229
+02:05:02,080 --> 02:05:33,670
+before the axis actually starts yes or no you are going in the position of read or read read or write okay the time it takes to get into the position of read or write it is clear the time it takes to get into the position of read or write to get into the position of read or write after that you will do the transfer time okay so this is your seek time seek time means the time required to move the disarm to the required track
+
+230
+02:05:34,930 --> 02:06:06,210
+the second point you can notice access time we have already seen access time means from when read or write request to when data transfer begins okay to when data transfer begins so this is summation of seek time and seek time and rotational latency so all these points we have seen all the points we have seen and what is data transfer rate or throughput either data transfer rate or throughput
+
+231
+02:06:06,710 --> 02:06:33,810
+For example, have you taken internet connection? Have you some internet connection, maybe Airtel, Geo, whatever. So there is a data transfer rate. Like for example, how many MB per second? Yes or no? How many MB per second? So this data transfer rate, it is calculated per second. How much data you can transfer per second? How much data you can 30 MB per second? Okay, like in ISC or in IITs, many times you will see people will show off that, okay, in my colleagues, I have
+
+232
+02:06:34,670 --> 02:07:03,370
+900 gbps per second like something they will tell you 900 mbps or something it is actually true okay it actually happens like in ISC also there is a lot of speed like literally a lot of speed okay like every day you will every day you will wander okay yeah free wifi and all these things in ISC in IIT Kanpur IIT Roorkee in all the IITs okay so anyway so you can check it out a lot of speed is there
+
+233
+02:07:03,630 --> 02:07:35,680
+So you can notice what I'm saying if you say 100 MB per second so in per second you calculate that okay so the data transfer rate data transfer rate on what rate the data is transferring or throughput that is basically per second how okay how much data you are transferring how many bytes you are transferring per second okay unlimited no limit the internet is unlimited like it's you can use it unlimited okay on in the lab
+
+234
+02:07:35,940 --> 02:08:05,040
+you will get, of course. Let me tell you at my time there was no internet in the hostels. IISC was the only institute. Among all the top institutes, IISC was the only institute in which in the hostel you don't have internet. Because the simple thing was in the department you have internet, so go to the department. They want you to go to the department. In the department you will have everything you will have.
+
+235
+02:08:05,260 --> 02:08:31,700
+in the department you can sleep you have couch you can sit you can do whatever you want in the department everything is there the couch are so big that two people can sleep at one point of time okay couch are so big so basically you can you can go there you can sleep there and no one will disturb you okay because for example if you are sleeping in the corridor in the corridor there is a couch and you are sleeping even if professor is going no one cares okay you can sleep literally you can sleep
+
+236
+02:08:32,290 --> 02:09:02,120
+Many people actually, many people who stay in the lab most of the time, they sleep there. At night in the day, 24 hours, IASC is open. IASC, every lab of the IASC, every department of the IASC, every hostel of the IASC is open 24 hours. So you can go at any point of time to the lab. At any point of time, you can go 3pm, 2pm, at any point of time, you can go. Every department is open. Every department, every lab, everything is open.
+
+237
+02:09:02,570 --> 02:09:31,450
+Okay, and so secure. Let me tell you source. It is so secure. You will find that on some on some couch Mac is some Mac is there and no one is there in the whole department. No one's there and Mac is there. Laptop is there. Pendrive is there. Okay. Hard is there. Everything is basically like people just put it and go away. No one literally no one steals. Okay. So basically you can put all your data. You can put everything your laptop your
+
+238
+02:09:31,830 --> 02:09:59,710
+whatever you have your headphone everything you can put in the department no one will steal it okay so and when i was in my btech college it was a tier three college in that college students they what they steal they steal like one of my friend he stole the you know below the mouse we have a cover right below the mouse there is a cover that cover he stole okay so i was thinking like how much creative you are that
+
+239
+02:10:00,080 --> 02:10:29,600
+you could have stolen the mouse but you stole the cover below the mouse so he told me that the cover was very nice I have the mouse but I don't have the cover so he stole the cover okay so anyway in ISC even this cover also does not get stolen even this cover like that also does not get stolen literally if you go to some lab if you go to let's assume some lab you will find that maybe five or six laptop are there okay so something like that okay
+
+240
+02:10:31,050 --> 02:10:59,070
+okay anyway so let's see this so what is data transfer rate this is how much data you can transfer okay in one read or write okay let's see now let's see this question this question is very very very nice question this will give you a lot of idea this question is going to give you a lot of idea about all the terms that we have seen so let's see this question I have taken from the Udacity HPCA course very nice question so the question is saying that there are 100 cylinders is this clear
+
+241
+02:10:59,360 --> 02:11:32,390
+there are 100 cylinders there are 10 sectors per track head assembly at the cylinder zero initially where you are at the and what is the cylinder zero what is the cylinder zero that is the outermost cylinder right yes or no i told you the outermost cylinder like if you have the cylinders like you have this cylinder okay this cylinder you have there is another cylinder there is another cylinder okay there is another cylinder there is another cylinder
+
+242
+02:11:32,690 --> 02:12:10,450
+so you can notice that this is this is cylinder zero this outer most cylinder is this clear this outer most cylinder by default if nothing is given then outer most cylinder this is your cylinder zero this is your cylinder zero is this clear then this will become cylinder one so like this so anyway what the question is saying the question is saying that head is at the cylinder zero initially head moves 10 microsecond per cylinder
+
+243
+02:12:11,220 --> 02:12:40,730
+head moves 10 microsecond per cylinder it takes ok your head your read write head per cylinder per cylinder it takes 10 microsecond so from one track if you are here and you want to go to here then 10 microsecond it will take yes or no from one track from one track if you go to the next track in the in the next cylinder if you go to the next cylinder from this cylinder if you go to the next cylinder it will take 10 microsecond the disc is rotating 100 times per second
+
+244
+02:12:41,350 --> 02:13:12,620
+100 rotations per second in one second you are having 100 rotations 100 times it can rotate next controller bus no previous request no queue anything average time to read a randomly chosen byte average time to read a randomly chosen byte can you read a byte can you tell me first of all can you read a byte so even if you want to read a random byte even if you want to read a byte
+
+245
+02:13:12,980 --> 02:13:42,060
+random might you have to read basically a random sector yes or no correct you have to read a random sector you have to access a sector even if you want let's for example you want to read the randomly chosen byte then also you have to read the entire sector the entire sector you have to read okay this byte can be anywhere so anyway so this is the question now let's solve this question before we solve this question first thing I want to ask what do you think what is the seek time
+
+246
+02:13:45,360 --> 02:14:14,950
+what do you think is the seek time? starting you are here on the cylinder 0 you are is the seek time given? is the seek time given? no it is not given right it is given that for one cylinder you will take 10 microsecond yes or no so now this randomly chosen byte in which cylinder it will be? the randomly chosen byte in which cylinder it will be? in which cylinder it will be? it can be anywhere or it can be anywhere right?
+
+247
+02:14:15,310 --> 02:14:49,500
+the randomly chosen byte it can be anywhere it can be anywhere so you have to take the average yes or no basically you have to find the average seek time you have to find the average seek time correct you have to find the average seek time yes or no you have to find the average seek time now remember what you will do initially you are here initially you are in the cylinder zero on the cylinder zero correct so initially you are here initially you are here
+
+248
+02:14:49,740 --> 02:15:18,460
+now remember your randomly chosen byte that can be here or here or here or here that can be anywhere okay cylinder 1 cylinder 2 and so on cylinder 999 so that can be anywhere so on average where it will be on average i can say maybe 500 on average i can say that 500 on average see on average i can say 500 cylinders you have to move on average in worst case you have to move
+
+249
+02:15:23,920 --> 02:15:45,360
+in the average case 500 cylinders you have to move because initially you are here initially you are on the cylinder zero so on average this is what you need to move and how much time
+
+250
+02:15:46,020 --> 02:16:16,250
+for one cylinder if you want to move then 10 microsecond okay 10 microsecond so finally it will become what micro means 10 to the power minus 6 so it will actually become 5 millisecond right milli means 10 to the power minus 3 okay so you can notice it will become 5 milliseconds so seek time you got what is the second you got your seek time the second is rotational latency right yes or no
+
+251
+02:16:16,700 --> 02:16:51,950
+The C next is rotational latency in the rotational latency Once you are on the desired rate Once you are on the desired rate. Let's assume once I am here now how much time Once you are here. Let's assume once your read write head is here Once your read write head is here. What is the best situation can happen? Tell me what the best situation can happen that okay that your sector is initial point is here the best situation can happen is
+
+252
+02:16:52,400 --> 02:17:31,110
+the best situation can happen is this is the sector initial sector is starting point this is the best like this is the best situation that can happen this is the best case that can happen that your starting point is here yes or no your starting point the starting point of the desired sector is here what is the worst can happen what is the worst can happen can anyone tell me what is the worst that can happen worst can happen is
+
+253
+02:17:31,480 --> 02:18:04,680
+your initial point is here your sector in starting point has just passed yes or no your starting point your sector is starting point has just passed yes or no sector is starting point sector is starting point just just just passed just passed yes or no the sector is starting point just passed this is the worst case that can happen because starting point remember you must start from the starting point
+
+254
+02:18:04,850 --> 02:18:36,390
+so the starting point just passed so this is the worst can happen so finally what is the average what do you think okay so in this situation in the worst case one whole rotation one whole rotation you need in the worst case one whole rotation in the best case immediately no rotation at all you don't okay no rotational latency in the best case no rotational latency in the worst case one whole rotation and on the average what will happen on the average half rotation yes or no
+
+255
+02:18:36,850 --> 02:19:08,010
+on the average I can say half rotation so you can notice the rotational latency what okay the rotational latency we always take in the average scenario this rotational latency and seek time both of them we actually always take in the average scenario so what is the average rotational latency average rotational latency that is equal to half of the entire rotation is this clear half of the entire rotation time taken for entire rotation
+
+256
+02:19:09,440 --> 02:19:43,930
+Time taken for entire rotation. Half of that. So that will be your average rotational latency. Is this clear? So how much time you are taking? See the question is same. 100 times per second it is rotating. Remember? So in 1 second, in 1 second 100 rotations are happening. In 1 second 100 rotations are happening in 1 second. So for 1 rotation how much time you are taking? For 1 rotation, for 1 rotation 1 by 100 seconds you are taking.
+
+257
+02:19:44,190 --> 02:20:15,250
+right yes or no 1 by 100 seconds you are taking in the millisecond what I can write it okay in the millisecond 10 to the power minus 3 divided by 10 to the power minus 3 okay into 100 this now this will become millisecond this will become millisecond so in the millisecond I can say this will become 10 millisecond yes or no it will become 10 millisecond so average what it average will become what average will become so average
+
+258
+02:20:15,590 --> 02:20:50,810
+it will become 5 millisecond 10 divided by 2 this is for one rotation this is for one rotation for one rotation 10 millisecond so average will become 5 millisecond okay so seek time average seek time 5 millisecond average rotation latency 5 millisecond now finally what you need to do finally what you need to do transfer time yes or no finally you need to do transfer time one sector okay so for that what you need to do nothing
+
+259
+02:20:51,280 --> 02:21:27,090
+you just need to let it pass so basically this month's amount of data should pass yes or no every sector has how much size okay so in this question 10 sector per track yeah okay so this look at this 10 sector per track 10 sector per track look at this 10 sector are there per track so it means what okay so for 10s okay 10 sectors per track this is already given 10 sectors
+
+260
+02:21:27,530 --> 02:21:55,910
+power track this is given right yes or no this is given so tell me tell me tell me for one track how much time if you want to read one track if you want to read one track how much time you will need if you want to read one track then for one track one rotation for one track one rotation one rotation means 10 millisecond one rotation means 10 millisecond right
+
+261
+02:21:56,320 --> 02:22:31,350
+so if you want to read one track that simply means that you are reading 10 sectors if you want to pass 10 sectors then 10 milliseconds if you want to pass one sector if you want to pass one sector that will be 1 millisecond right yes or no so 1 millisecond for one sector so finally your answer will be what your final answer is what so if you random okay read read random byte read random byte
+
+262
+02:22:31,630 --> 02:23:14,170
+so that total time will be what? that total time will be seek time average seek time average seek time which is 5 milliseconds plus average rotational latency which is again 5 milliseconds plus transfer time which is 1 millisecond and finally your answer will be 11 millisecond so tell me did you get this question did you understand this question tell me see this question tells you a lot about many things
+
+263
+02:23:14,780 --> 02:23:45,810
+This question will tell you a lot about many things. So did you understand the question that you will get your answer will be 11 mainly second What this question is telling you many things this question is telling you what this question tells you This previous question tells you many things. What are the things first of all? Can you notice seek time? You can seek time. You cannot calculate exactly. Yes or no one thing This question tells you many things. You cannot calculate seek time exactly
+
+264
+02:23:46,300 --> 02:24:15,900
+yes or no seek time okay because from one cylinder you are going to the next cylinder sometime it will take agree or not from one cylinder you are going to the next cylinder it will take some time from this cylinder again you are going to the next cylinder sometime it will take so basically what we will take then if I give you seek time is 5 millisecond then this seek time is average or is it or is it between two cylinders
+
+265
+02:24:16,330 --> 02:24:45,290
+if i give you seek time is 5 milliseconds if i directly tell you seek time is 5 milliseconds i directly give you this information seek time is 5 milliseconds then that is average so remember the one thing this question tells you is okay when i give you seek time then basically that is average seek time so we consider average seek time is this clear we consider average seek time so if i give you seek time is 5 millisecond it simply means it is average and remember
+
+266
+02:24:45,680 --> 02:25:15,280
+if i give you from one cylinder to another cylinder how much time it takes then then you have to calculate how many because some nice questions can be created like for example you are on the cylinder zero and your data is on the cylinder five let's assume you are on the cylinder zero your data is on the cylinder five then what will be the seek time in this previous question in this previous question what will be the seek time in the previous question in this previous question what will be the seek time
+
+267
+02:25:18,440 --> 02:25:49,900
+see in the same question if I change the question little bit like for example not randomly chosen byte but let's assume that I want to assume time to read a byte time to read a byte on cylinder number four time to read a byte on cylinder number four read a byte on cylinder on cylinder number five okay you are starting from cylinder number zero from on cylinder number five you want to read this
+
+268
+02:25:50,110 --> 02:26:24,430
+now what will be the seek time now what is going to be the seek time so now the seek time will be if it is 1 then okay 10 microsecond you need to take but this is 5 see if i ask you 1 if i ask you 1 then 10 microsecond you need okay if i ask you 2 then 20 so it will become 5 into 10 microsecond right so here it will become 50 microsecond this will become your seek time okay and remember average rotational latency will be same
+
+269
+02:26:24,650 --> 02:26:57,790
+average rotational latency that will be same average rotational latency that will be half of 10 millisecond half of that so that will be 5 millisecond and then finally your transfer time that is your 1 millisecond per sector okay so your answer will be what in this situation your answer will be 6 millisecond plus 50 microsecond or maybe 50 microsecond also we can convert into
+
+270
+02:26:58,750 --> 02:27:28,690
+into millisecond so what it will become in the millisecond vote it will become you can convert so it will become in the millisecond so you need to multiply with 10 power minus 3 divided by 10 power minus 3 okay so it will become 50 divided by 1000 so it will become 0.05 millisecond it will become 0.05 millisecond right okay 0.05 millisecond so you can write it here
+
+271
+02:27:29,050 --> 02:28:03,950
+that it is 0.05 millisecond so this will become your answer okay so anyway what i want to say this question tells you a lot that first of all we consider what we usually consider average seek time we usually consider remember we usually consider average seek time okay a cylinder number will start from zero it always okay it will always start from zero the cylinder number okay so remember we usually start
+
+272
+02:28:04,850 --> 02:28:45,570
+we usually consider the average c time. So, same we usually consider average rotational latency average rotational latency ok. So, the same and remember average rotational latency what is that average rotational latency average rotational latency that is half of time per rotation time for one rotation right time for one rotation ok. So, this is the complete
+
+273
+02:28:45,950 --> 02:29:17,580
+scenario this is the complete explanation please tell me okay so let me know any any doubts so far did you understand all these things seek time so we consider average seek time okay we usually we consider average seek time we usually consider average rotational latency okay and the transfer time is fixed that is basically the sectors would come under the the sector should pass the sector should travel under the read write head
+
+274
+02:29:18,360 --> 02:29:46,850
+So, this is the complete explanation. This is your complete chapter. Please tell me if you got it. Now, let's see this question. This is a Raghurama Krishna. Exercise 7.5 in the Raghurama Krishna. D.V. Must book. Let's see this question. What the question is asking? Read the question carefully and can you take your copy? This is the last question. After this question, we will take a break. So, let's see this. Consider this with sector size is given. 512 bytes.
+
+275
+02:29:47,560 --> 02:30:20,300
+and 2000 tracks per surface okay per surface 2000 tracks are there 50 sectors per track 5 double sided platters average seek time 10 milliseconds so the information is given first of all what is the capacity of track in bytes so tell me track capacity let's find out what is the track capacity if I ask you for any particular track what is the capacity
+
+276
+02:30:20,820 --> 02:31:03,580
+that will be number of sectors per track multiplied by sector size multiplied by sector size correct so how many sectors you have per track okay how many sectors 2000 sectors per track and the sector size is given 5 12 bytes so your answer will be this okay so this will become your answer what are the next oh 50 sectors per track okay okay 50 sectors are there per track so per track there are 50 sectors
+
+277
+02:31:05,740 --> 02:31:39,290
+So, this will be 50 multiplied by this. Next, what is that? The capacity of each surface. What is the capacity of each surface? Surface capacity. That will be number of tracks per surface. Number of tracks per surface. Okay. Multiplied by track size. Multiplied by track size. Right. Okay. So, how many tracks are there per surface? So, that is 2000.
+
+278
+02:31:40,190 --> 02:32:13,390
+So that will become 2000 multiplied by what is track size? That is 50 multiplied by 512 bytes. So this is your answer for this question. What are the next? What is the capacity of the disk? Okay, let's call this number. Let's call it. Let's call it a Y. Let's call it Y. Okay, let me call it Y. Then what will be disk capacity? What will become disk capacity? So basically.
+
+279
+02:32:14,060 --> 02:32:49,930
+How many surface size? Surface size multiplied by? Surface size multiplied by what? Number of surfaces. Yes or no? Surface size multiplied by number of surfaces. So very simple. So number of surfaces is already given to you that there are five double sided plateers. So number of surface is basically 10. So this is basically 10. And this is basically surface capacity. Okay, next.
+
+280
+02:32:50,380 --> 02:33:27,730
+So this question is done. Okay. The first question is done. We have done the first question. Now what are the second question? The second question, how many cylinders does it have? So the number of cylinders that is equal to number of tracks per surface. Number of tracks per surface. So remember number of cylinders that you already know. So it is like 1.1, 1.2, 1.3. Question number two. So number of cylinders is equal to
+
+281
+02:33:28,130 --> 02:34:02,620
+number of tracks per surface correct how many tracks are there per surface that will be number of cylinders so that is your 2000 it is given next what is the next question give example of valid block size valid block size is this valid block size 256 is this valid block size 256 remember block is multiple of sectors yes or no what is a block see what is a block
+
+282
+02:34:04,660 --> 02:34:37,800
+block is some multiple of yes or no some I can say it is a basically multiple of sectors correct multiple of sectors some multiple sectors you can select as a block so definitely it should be like I can say block size should be what so block size should be equal to what that should be some number multiplied by sector size yes or no some natural number some some natural number okay I can say some natural number multiplied by
+
+283
+02:34:38,140 --> 02:35:08,420
+sector size so can you notice some natural number multiplied by some sector size so you can notice n multiplied by sector size this can be something any number so this is your block multiple of sectors who will decide what is this n this n who will decide what is this n decided by dbms decided by dbms dbms will decide this okay so you can notice here
+
+284
+02:35:08,790 --> 02:35:39,440
+can i say 256 cannot be possible because 512 bytes sector you have so this is definitely not possible this is possible so 256 byte block is not possible so you can notice block size your sector size is already given to you your sector size is already given that this is 512 bytes so definitely block size cannot be this so block size cannot be 556 bytes it cannot be this but it can be
+
+285
+02:35:39,710 --> 02:36:12,920
+2048 but it can be 2048 this is possible this is possible is this clear so the question is asking valid block size so this is a valid block size next what is the answer for the next the disk platter rotates as rpm means revolutions rotations per minute okay 5400 rotations per minute these many rotations per minute what is the maximum rotational delay what is the
+
+286
+02:36:13,210 --> 02:36:49,370
+maximum rotational delay the question is asking average or maximum the question is asking average or maximum the question is asking maximum not the average okay so for one rotation how much it will take so the question number fourth so you can notice what is the rotation what are the rotation speed the rotation speed is 5 4 0 0 these many rotations per minute per minute okay rotations per minute
+
+287
+02:36:49,870 --> 02:37:20,760
+so you cannot this is rotations per minute in one minute these many rotations you can do so in 60 seconds in 60 seconds these many rotations you can do you can do these many rotations so for one rotation how much time you will take if I ask you for one rotation how much time you will take that will be 60 divided by these many seconds so this much amount of time you will take for one rotation so remember
+
+288
+02:37:21,080 --> 02:37:55,060
+so maximum rotational latency or delay that will be equal to what that will be equal to 60 divided by this value you can calculate what is this value do you have calculator okay so one rotation will take this much amount of time these many seconds one rotation will take in the millisecond maybe you can find out in the millisecond you can find out okay so if you find out in the millisecond then it will become
+
+289
+02:37:55,730 --> 02:38:31,860
+So you will multiply 10 to the power minus 3 10 to the power minus 3 so here you can notice this will become millisecond so it will become 6 It will become 60 and then 1000 divided by This this will cancel so 600 divided by 54 600 divided by 54. What is this value? 600 divided by 54. What is this value? Tell me what is this value? Anyone is this 9?
+
+290
+02:38:33,670 --> 02:39:10,840
+is this 9 okay so this value so you can check it out so this will become something 11.11 millisecond yes or no so it will become almost 11.11 millisecond so the maximum it will become 11.11 and if I ask you the average then what the answer will be for the average some students are saying 90 seconds why some students were giving answer 90 second what mistake you did what mistake you did okay so anyway
+
+291
+02:39:11,130 --> 02:39:43,770
+this is the rotational squid now this is the maximum what is the average what is the average rotational latency that will divide by this like whatever is this value this value 600 so it will divide by 300 so basically it will become I can say whatever is this value 600 divided by 54 whatever is this value divide by 2 that okay this will become your answer next
+
+292
+02:39:45,710 --> 02:40:15,170
+one thing I want to tell you that please don't do that see one thing I want to tell you can you notice your 11.11 is approximation see can you notice can you notice your 11.11 is approximation 11.11 is approximation so don't do that approximation divided by two don't do that are you getting my point okay it will it will make small difference it will make approximation if you are dividing by two
+
+293
+02:40:15,500 --> 02:40:42,570
+you are dividing approximate value dividing by 2 it will change your answer so did you notice what i did i did not divide approximate value by 2 i divided 600 okay so notice this is a very important point from the gate exam this is a silly mistake so don't divide see this is what you should do remember this is what you should do don't do this 11.11 divided by 2 don't do this
+
+294
+02:40:44,230 --> 02:41:15,710
+Don't divide approximate value by approximate value. Are you getting my point? Is this clear? Don't divide approximate value by this. So do this. Now, what is the next point? The next question. That is, assume that one track of data can be transferred per revolution. And this is by default, right? One track of data can be transferred per revolution. What is the transfer rate? What is the transfer rate?
+
+295
+02:41:16,970 --> 02:41:50,420
+so the question is asking transfer rate the question is asking transfer rate so that is per second yes or no transfer rate is per second you calculate that per second so finally the data transfer rate the data transfer rate so this transfer rate you will calculate basically how many bytes per second you can transfer how many bytes per second per second how many bytes you can transfer so tell me I can say that in one rotation
+
+296
+02:41:55,130 --> 02:42:30,040
+you can notice one rotation will take this much amount of time so you can notice one rotation one rotation takes this much amount of time 600 divided by 54 milliseconds so this much amount of time per rotation so in this in this amount of time I can say that you can transfer how much data one track data yes or no one track data you can transfer correct
+
+297
+02:42:30,920 --> 02:43:02,850
+Yes or no? One track data. And what is one track data? What is one track data? One track data is 50 into 512. So you can transfer 50 into 512 bytes in this much amount of time. So per second how much you can transfer? So per second how much you can transfer? Per second. In one second how much you can transfer? So that will be this much amount of bytes divided by
+
+298
+02:43:05,800 --> 02:43:42,160
+600 multiplied by 54 you can calculate this value this will be your answer this will be your data transfer rate these many bytes per second so can anyone calculate what is this value 50 into 54 into 512 divided by 600 take your calculator take your calculator and tell me what is this value anyone what is this value okay it was in millisecond
+
+299
+02:43:43,210 --> 02:44:15,470
+yeah right so for per second how much you can okay because it was in millisecond it was in millisecond so that really also you have to transfer here per millisecond you can do this okay so that also basically you have to multiply with 10 to the power minus three sorry you have to divide by 10 to the power minus three so you have to multiply with thousand now what is your answer so per second how much so you can calculate this so this is your per second
+
+300
+02:44:16,230 --> 02:44:53,140
+this is what you can do per second okay this is what you can do per second so you can calculate this if you calculate this is this value you are getting 2250 kilobytes per second okay so just check it out maybe you will get this this value approximately okay few things I want to tell you see whenever you have any time whenever your time like millisecond microsecond so if I ask you for example millisecond
+
+301
+02:44:54,530 --> 02:45:22,290
+microsecond okay so whenever you have time then this time actually here these are actually 10 to the power minus 3 this is actually 10 to the power minus 6 so whenever you have time like okay microsecond millisecond nanosecond okay nanosecond nanosecond so that will be 10 to the power minus 9 and whenever you have data whenever you have data like bytes kilobytes something like that so like if you have kilobytes
+
+302
+02:45:22,640 --> 02:45:52,000
+then this kilobyte will be 2 to the power 10 remember okay so like kilobytes or I can say megabytes so this megabytes will be 2 to the power 20 like this gigabyte this will be 2 to the power 30 so whenever you have a time okay like millisecond microsecond then basically we consider that as a 10 to the power millisecond microsecond and nanosecond and whenever you have data then we consider this as 2 to the power like kilobytes megabytes
+
+303
+02:45:52,260 --> 02:46:21,320
+So whenever you are talking about bytes, okay, whenever you are talking about the data bytes, bytes, bytes. So then, okay, these units, we consider them as 10 to the power. Is this clear? So the same thing, the same convention happens in the, in the compute network. The same convention happens in the compute network. Whenever you are talking about time, second minute, when you are talking about time, then you basically consider these things, these units as 10 to the power. And whenever you are talking about the data,
+
+304
+02:46:21,740 --> 02:47:01,700
+then these things you consider as 2 to the power okay so this question is done is this clear the previous question we have seen okay let's take a break after the break we will see some more questions okay so let's take a break now how much time okay so let's start at 9 30 okay let's start at 9 30 okay thank you 35 minutes okay did you understand magnetic disc please tell me
+
+305
+02:47:02,380 --> 02:47:31,150
+most of the chapter is over did you understand magnetic disk crystal clear understanding like everything magnetism north pole south pole okay like will the read write head touch read write head will not touch okay the read write head it will not touch there will be small gap okay and this this platter is rotating number of surface number of platters tracks okay core centric tracks cylinders number of cylinder is equal to number of tracks per surface
+
+306
+02:47:31,690 --> 02:47:58,110
+number of tracks can be many yes or no number of tracks will be equal to number of tracks will be equal to number of cylinder multiplied by number of surfaces yes or no number of cylinders number of cylinders multiplied by number of surfaces that will be number of tracks so number of tracks will be many okay number of tracks is not equal to number of cylinder number of tracks will be many okay track here track here track here track here
+
+307
+02:47:58,160 --> 02:48:27,630
+so number of tracks will be many number of tracks is equal to number of cylinders multiplied by number of surfaces okay so all the concept that we have seen seek time we consider average seek time rotational latency we consider average rotational latency transfer time i told you okay and what is the sector this is the smallest unit of data that you can transfer smallest amount of data that you can read that you can write smallest amount of data okay at least one sector you have to read at least one sector you have to write okay so basically
+
+308
+02:48:27,980 --> 02:48:54,900
+After the after the break in the next session, we will see disk addressing. Okay, how to give the address to the disk so there is a to the disk also we can give address this disk addressing we will study and tomorrow we will study disk scheduling algorithms. Okay, so disk addressing we will study how to give address to the disk and tomorrow we will study disk scheduling algorithms that is your magnetic disk remember this is a computer organization topic.
+
+309
+02:48:55,260 --> 02:49:12,040
+So your COA, computer organization, one topic is done. Okay, basically this COA in the computer organization, one topic is done. Okay, so tomorrow it will be over. Okay, thank you everyone. See you at 9.30. Class till 11. Okay, thank you.
+

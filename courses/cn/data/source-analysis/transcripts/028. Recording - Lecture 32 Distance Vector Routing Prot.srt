@@ -1,0 +1,804 @@
+1
+00:00:05,360 --> 00:00:34,900
+Hi everyone. So today we are going to study distance vector routing protocol. Okay. Let's just see what is this and what we have covered till now and what we are going to cover now. Okay. So we are at the network layer and we till now have covered IP protocol. Majorly we have covered the fragmentation and all. And also we have covered ICMP and network address translation, these small topics, right? Now in the network layer, the last topic that we need to cover is routing protocols. Okay. This is the last topic.
+
+2
+00:00:35,360 --> 00:01:01,900
+So what is this routing protocol? Let's just see. Right. So you might guess from the name, but let's just see in a, in a great detail. So suppose this is the internet. Now this is one big network. This is some network. This is some network. This is some network. This user here. And there is some, let's suppose a server here. Okay. This particular horse wants to get something from this server. Let's suppose then this packet has to travel through different, different routers.
+
+3
+00:01:03,030 --> 00:01:34,200
+Now there will be different routers everywhere, right? So which means in each of the circle. Okay. So in each of the circle, there will be different, different outers. So let me just make them. So see here. Now this is one circle, right? I mean, this is one cloud. So in this cloud, there will be different, different outers. Okay. There will be different, different outers in this cloud also. Similarly, there will be different, different outers everywhere. Now the question is that
+
+4
+00:01:34,400 --> 00:02:06,690
+how to basically like I mean how to traverse from one router to another router I mean like this router has to forward the packet to this router or to this router like how to get it to know right so this is what we are trying to solve with the distance of the routing protocol okay so just give me a second okay so let's get this done now it's objective clear to everyone that what we are trying to do so
+
+5
+00:02:07,290 --> 00:02:45,480
+let's suppose this is one network this is another network and this is another network I mean there could be many many networks so internet is just a network of networks right so the whole internet internet is just a network of networks right so what we want to do we want to I mean this host wants to guests get some data from this server so for that it let's suppose it's sending some request okay and then server this server will reply
+
+6
+00:02:46,110 --> 00:03:12,150
+So in that whole process, there will be different routers through which our data should go. So let's just see how to traverse between these different routers. So if you just zoom in in just one of the cloud, let's suppose this one, then there will be different routers in just one of the cloud. So one cloud is called autonomous system or domain. So what is this autonomous system? So basically, there is one network.
+
+7
+00:03:12,360 --> 00:03:37,420
+which we are calling autonomous system okay you can call any network just like an autonomous system or domain which means what we are saying that let's suppose that these are the different networks i'm just picking one of them okay and i'm seeing that if there are different routers in just one network then how to traverse from this router to this router i mean how to traverse between these routers right so i'm just picking one of the network here which means
+
+8
+00:03:37,660 --> 00:04:05,020
+that internet is just a network of networks. And then we are picking just one autonomous system. What is this autonomous system? It is just a big network, which is typically owned by one of the organization. For example, let's suppose that this is one university, Root Girls. So this is the network or autonomous system of this university. This is one service provider. In the US, there is one service provider just like Airtel or GU.
+
+9
+00:04:05,420 --> 00:04:27,160
+Okay. So this is just one service provider who is having different, different, uh, routers and this is just one network of them. Okay. This is another service provider. And in, in that, in that network, there could be many, many routers. So, okay. So for example, that if we have something like this, if we have something like this, then here.
+
+10
+00:04:27,480 --> 00:04:57,060
+in the internet there are many autonomous systems which means just just networks which are owned by different different organizations okay now what we are trying to do we are trying to see that how to navigate between one of the network so for example see if you can see this image which i have taken from id kanpur that let's suppose that this circle one is one autonomous system if you can read it all right so maybe i can just go to the next page and maybe i can just a little bit zoom in to this image
+
+11
+00:04:57,440 --> 00:05:27,130
+so what they are saying that this particular image is basically of one autonomous system which is this this is one autonomous system so basically this is one network you can say a big network inside which obviously there could be many many other networks let's suppose this network is a dot b dot c dot d slash something okay maybe let's suppose slash 16 so this network is let's suppose select slash 16 this is the network now inside this network obviously there could be many many networks so basically this is one autonomous system okay so
+
+12
+00:05:27,650 --> 00:05:55,630
+Obviously this every autonomous system is just a network only right which is just a big network which is owned by typically it is owned by one of the organization right so which means so see here so here they have they have given you that okay this is owned by this is owned by let's suppose it's print AT&T something like this okay and there is one one client or one user which wants to access the data from this particular this particular server and in between there are different different routers
+
+13
+00:05:55,960 --> 00:06:23,520
+and we are just looking at one of the cloud or one of the autonomous system and then we are just trying to see that okay to which router we should forward right so this is just one problem statement so what we are saying let's suppose that this is one autonomous system or just one network here here if you just read this line they are saying in this architecture G1, G2, G3 are the core gateways and G4 and G5 are the non core gateways so they are saying this G1, G2, G3 okay this is I think G3
+
+14
+00:06:24,150 --> 00:06:51,440
+one of them is G3 so this G1, G2, G3 and this is G4 and G5 let's suppose these are the routers now they are saying that we must have a mechanism for someone to tell G2 okay so I think this is G1, G2 or G3 so they are saying that there must be some mechanism for someone to tell G2 that it is connected to internet 2 I mean someone should tell this G2 that it is connected to this network 2 right see who is connected to network 2 directly G2 or G4
+
+15
+00:06:52,220 --> 00:07:17,820
+G4 is connected to network 2 directly. G2 is not connected to network 2 directly. So within this system, within this system, this G4 is connected. But if some packet is coming to G2, then it should be forwarded to network 1, I mean to this particular interface. And then eventually it will get forwarded to this network 2. But there should be someone who should tell this G2 that I am connected to network 2 or something like this.
+
+16
+00:07:19,470 --> 00:07:49,140
+so they are saying that there should be some mechanism for someone to tell g2 that it is connected to network 2 network 3 and network 4 so g2 is connected to 2 3 and 4 not just one not just one g2 is also connected to 2 3 and 4 besides net 1 okay only g5 can tell this this information to g2 only g5 can tell this information that okay this is connected to network 2 and 3 that g5 can tell this information obviously g4 and so we must provide a mechanism for g2 to talk to g5 so basically basically
+
+17
+00:07:50,130 --> 00:08:15,630
+This g2 at max let's suppose it can at max is talking to only g4 will this work? No, right? It transitively should also talk to g5 Which means there should be some mechanism that g5 should pass some information to this g2 saying that okay I'm connected to network 2 and network 3 network 3 and network 4 so if you have any packet for network 3 4 you can just forward to this particular link right or this particular interface so this is this is called
+
+18
+00:08:16,000 --> 00:08:35,580
+intra-domain routing intra-domain routing means we are just looking at one big network here within that within that what we will do we will we will transfer some distance vectors so so currently we are saying that we want to look at all the routers here in just one network okay or one big network
+
+19
+00:08:35,790 --> 00:09:04,810
+these all the routers here and let's suppose this router knows everything about that okay the to which router this is connected to maybe to the which router this is connected to then this can pass the information to the subsequent router right finally at the end it can pass the information that is okay but first we want to want to know that how these all routers communicate and then we can see that how this router is connected to let's suppose this this router how it is passing the information but first these all routers should be knowing about each other isn't it
+
+20
+00:09:05,020 --> 00:09:34,180
+without this router knows let's suppose in the last example in the last example without g4 knows that there is a network 4 can g4 tell to g2 that there is a network 4 no right so basically first let's just see that how the how the routers within one circle or within one autonomous system it is just a theoretical name which is saying that all the router all of my routers which means I do not need to talk to anyone to get some ownership which means it is it is basically owned by me
+
+21
+00:09:34,460 --> 00:10:01,320
+Generally, these are always some organization. Okay. So I do not need to take permission from anyone to just synchronize them. So let's first synchronize my own routers. Okay. So which is what, which is what distance vector routing protocol is. So basically, basically there are two routing protocols that we have in the syllabus. One is distance vector routing. Another one is link state routing. Let's just see what is this distance vector routing is. Right. So I hope the little bit idea is clear here that what we are trying to do.
+
+22
+00:10:01,510 --> 00:10:30,170
+We are trying to see that how all of these routers can synchronize or can communicate with each other. Then ultimately, ultimately, these routers, these routers which are connected to different autonomous system, they can pass the information. But first, let's just see that how they are synchronizing with each other. So in our syllabus, these are the two protocols for this kind of communication. One is called distance vector routing protocol. Another one is called linkage state routing protocol.
+
+23
+00:10:30,800 --> 00:10:58,700
+Let's just see distance vector protocol first. Okay. So suppose there are a couple of routers that we have, right in one system. And now these couple of routers bound to communicate to each other. So maybe this router is connected to they could be connected to different, different interfaces to different, different network, right? This router is connected to some, some network, maybe let's suppose a net, which is let's suppose anything, right? Maybe 200.100.
+
+24
+00:10:59,220 --> 00:11:26,720
+10.20 slash 16 something, right? So it will tell that, okay, I can, I can reach to this network. I mean, basically it is connected to me. So I can reach to directly directly to the, to this network without, without any hope in the between, right? So these are the two networks, which I'm directly connected to. So maybe, maybe it's like that they can advertise to each other, right? So basically, I suppose this is the set of routers that we have currently. And now these set of routers wants to communicate to each other.
+
+25
+00:11:27,530 --> 00:11:45,670
+Now, let's just keep it simple in the sense that I do not have the networks here. Okay. I do not have the networks here. Let's just keep it simple to understand this protocol. Then later on we can do some example where we also have the networks. I mean, it won't matter. So let's just, let's just see that how, how this particular graph structure, which is saying that, okay, these are the routers.
+
+26
+00:11:45,850 --> 00:12:14,050
+and these are the cost which means if you want to forward from a to b they will be maybe like say in millisecond this cost could be in the time could be could be in anything okay so this is just a cost it is a measure of your parameter like how you are measuring the cost if you are measuring in terms of time you may measure in terms of bandwidth you may measure in terms of distance whatever okay however you want to measure the cost that is okay so suppose these are the routers and a to b cost is 7 and by servers b to a also cost is 7 now
+
+27
+00:12:14,490 --> 00:12:44,530
+this a wants to know that okay if i want to forward some packet to c, router c then should it be taking this path what do you think or should it be taking this path which path is better i think via via e is better right via e and d it will be just i think 5 so i think if a wants to forward any packet then i think via e and d and then c so if a wants to forward any packet to c then which path is better can you tell me the shortest path between a to c
+
+28
+00:12:46,850 --> 00:13:52,140
+What is what is the shortest path between A to C? Right. So AEDC. So this is the shortest path, right? So if I just write this question itself, that what is so, which means it like it will, it should follow AEDC. But, but my next question is that how A will get to know that this is the path, right? So this is a major question that how, how you get to know. So what do you think?
+
+29
+00:13:53,860 --> 00:14:22,300
+So A will be saying that that C I do not know that what is the shortest path then can you help me I mean it will it will ask its neighbors can you help me because it can only ask to neighbors right directly so it will it will I mean we are under the distance vector out in protocol so this protocol say that A will be asking to the neighbors or neighbor will be helping us helping this A so for example this D is saying D is saying to his neighbor to E that C I am I am 2 from C and 0 from D and 2 from E
+
+30
+00:14:22,500 --> 00:14:50,030
+so basically d will say that okay i mean zero from d is actually trivial you can just ignore this so i am two from c and two from and two from e so it is just telling it is just telling to this e that i am two from c and two from yourself okay two from e so basically what it is telling it is just telling that okay about its own neighbors that see my as per as per i am concerned i am i am two two away from c i am two away from e
+
+31
+00:14:50,280 --> 00:15:19,610
+Initially, I don't know how much away I am from B. Initially, I don't know how much away I am from B. How much away I am from A. Initially, it doesn't know. So what initially this D knows, initially it only knows that how much away it is from E or how much away it is from C. So let's just see that how does this protocol work and how all the routers eventually get to know that how much away are there from each other. So the topic is called routing and this is basically how do I get from there.
+
+32
+00:15:20,260 --> 00:15:52,610
+I mean just a map. So some people call it Google map for internet. Okay. Some people call it Google map for internet, like designing the Google map for the internet, just like that. So see here that if this is the, this is the node, then this node should know that if you want to go to V, then the very first path or very first hope should be X1 or maybe X4 or something else. Right. So you must compute for every other router V.
+
+33
+00:15:53,070 --> 00:16:19,400
+the next hope never x that is the least cost so for example here let's suppose the next hope least cost is through x1 which means let's suppose this is 1 and this is totally taking let's suppose 5 but if you go by x4 then this is let's suppose 2 and this is taking 20 then which one is shorter which one is shorter obviously through x1 right through x1 is shorter so that's what we want to know that which one is shorter
+
+34
+00:16:19,820 --> 00:16:47,300
+Now, obviously the question is that how do we get to know or how do these right routers get to know that which one is shorter, right? So the idea here is that each of the router will announce announce the distance to each destination, which means which is in the neighborhood. So it will say initially it will say I am I'm some hope away from a I'm six so probably from be like that, right? So let's just see some example and let's just try to try to see if we can run this algorithm.
+
+35
+00:16:47,520 --> 00:17:20,110
+okay this is very easy algorithm and interestingly there has been many questions that has been asked from this particular topic okay till now there has been many questions so let's start with this particular example only that if you want to compute and how we can compute right maybe we can start with this particular example now initially initially this a says that i only know paths to i only know or the distance to b and e right
+
+36
+00:17:20,820 --> 00:17:51,360
+and D says that I only know the distance to E and C. C says that I only know the distance to B and D. B says that I only know the distance to A, E and C. So initially everyone knows the distance to its neighbors. Now, if I make a vector, okay, I mean just one column. So suppose that this is the column or the vector for A. Here A, B, C, D, E. Okay.
+
+37
+00:17:51,710 --> 00:18:22,290
+this is the vector initial vector for a initial vector for a which means that initially a knows that okay from me to me zero okay from this is from a from a to from a to b from a to c if this is the vector with a okay a is actually having this vector initial vector for a so from a to b what is the distance initially initially it will be 7 it will initialize with the 7 from a to c what is the initial distance
+
+38
+00:18:24,220 --> 00:18:58,480
+Yeah, so from a to see there is sense is not aware of the sea doesn't even know that I can even reach to the sea so it will infinity right from a to D. What is the distance initially? Again infinity because it is the initial vector from a to E. What is the distance? This is one. This is the initial vector. Okay. And similarly, there will be the initial vectors at every router. So let's just have initial vectors for every router. Right. So maybe I can do one thing.
+
+39
+00:19:00,040 --> 00:19:51,640
+I can just draw this particular diagram in the middle and let's just try to have initial vectors for every router. So initial vector for A will look like this. This is A. This is B. This is C. This is D. And this is E. So let me write the values also. So can you write at A what is the vector? This is initial vector. So this is anyway A, B, C.
+
+40
+00:19:52,070 --> 00:20:29,440
+D and E. So from A to A is definitely 0, right? I mean, there is no question in that. So from A to A, it is definitely 0. Now, let's just write other values also. From A to B, initially it is 7. From A to E, initially it is 1. Everything else is infinity. Okay, this is the initial vector at A. Now, what about the initial vector at B? So the initial vector at B may look something like this.
+
+41
+00:20:38,630 --> 00:21:07,090
+Okay, how a knows it's a distance from a to b seven initially even initially Initially it knows because of I mean whenever there is a router that that is connected to another router at that moment itself it directly send the hello message or maybe you can say Which which message we can use here can can anyone guess it maybe we can use ICMP, right? ICMP query message. Yes, so it can just say hello, right? Hello, I'm I'm saving distance away something like that
+
+42
+00:21:07,260 --> 00:21:30,930
+So whenever there whenever there is any router which get turned on at that time it directly send the message to every other neighbor that okay I'm here okay I'm here and that is saving distance away from you okay and how to calculate even the distance maybe maybe they can calculate the round trip time using again ICMP which means maybe they can send the send the ICMP message and then can
+
+43
+00:21:31,160 --> 00:22:01,430
+observe that okay how long after how long it is replying right so if it is replying let's suppose uh after uh five milliseconds then it will say that okay i'm i'm away i'm five milliseconds away from you right so it will send a packet with ttl equal to one maybe initially and then whenever it is replying then it will get to know that okay i'm five milliseconds away from you and then it will again send icmp query message anyway that can be configured so basically every router can know about the neighbors at the very initial is this okay everyone okay
+
+44
+00:22:01,790 --> 00:22:34,180
+So now, let's just fill out these entries. Now, what is what is A to B? Sorry, at B. So this is seven. This is zero at C. This is one at E. This is eight. Everything else is infinity. Right. So this is infinity. Okay. Let me not write the infinity. If you want, you can write infinity also. I mean, whatever you want. Let me just write a high fun. Okay. Okay. I mean, this is up to you. I'm just writing high fun.
+
+45
+00:22:37,020 --> 00:23:10,800
+okay just to quickly recognize that okay this is infinity okay at C at C can you can you tell me what will be the what will the table here or the vector at C it will say I only know from C to C obviously 0 I only know to B and D which is 1 and 2 everything else is infinity right okay now what about at D so at D the vector will look like this this will be
+
+46
+00:23:11,360 --> 00:23:44,420
+It says that I only know from obviously D2D0. I only know C and E. C is 2 and E is 2. What about these two? These two are infinity. Yes. Right. Now, let's talk about, let's talk about E. So at E, we will say that E2 is obviously 0 and what is the other thing? I think it knows A is 1, B is 8 and C is infinity and D is 2.
+
+47
+00:23:44,820 --> 00:24:13,740
+Okay, 18 infinity to zero. So these are the initial vectors, right? These are the initial vectors. So this is at E, this is at D, this is at C, this is at B, this is at A. These are the initial vectors. Now, initially they only know about the neighbors. Now, what will happen in one iteration? So after one iteration, there will be exchange of rounds. So this A will be sending its information to whom? To B and to E.
+
+48
+00:24:14,120 --> 00:24:48,690
+And this B will be sending the information to whom? To A and to D. So they will be passing the information to the neighbors. Is this okay to everyone? Okay. Now, let's just see that how they are passing the information to the neighbors and how the neighbors are actually utilizing that information to calculate the final vectors. So this is initial step. I hope everyone understood this. This is initial setup, right? Now, after one round,
+
+49
+00:24:49,580 --> 00:25:26,580
+of exchange what's going to happen let's just see so you tell me at a at a who will be sending at a who will be sending B and E right so B will say that C I am sending something like this we will say that C I am sending I mean this information it has got from B right and there will be some other vector that it will be getting from E also so A will be getting from B and E
+
+50
+00:25:29,840 --> 00:26:10,440
+So this is the vector that I've got from E. Okay. Now you tell me that let's suppose this is the vector from B. This is the vector from E. Now you tell me what will be the new vector for A. So let me write the new vector for A. What will the new vector? New vector in the sense that after you get these two vectors, how A will be updating its values, right? So see.
+
+51
+00:26:10,920 --> 00:27:07,760
+A will say that from A to A is 0. I mean A will immediately set from A to A to 0, right? That's very obvious. So A will say that, okay, from A to A it is 0. What about A to B? B will say, see, we have got, we have just got two vectors, right? B is saying that I can go to B using 0. But obviously the A to B distance, whatever the A to B distance that has to be added here, similarly the A to E distance, okay, from E. So A distance has to be added here.
+
+52
+00:27:08,000 --> 00:27:40,630
+So what is ab distance 7 so you add 7 everywhere okay you add 7 everywhere and a distance is 1 you add 1 everywhere here so you add 7 here it will be 7 you add 1 here it is 9 so which one is the lower I think 7 is the lower right so that is why you will say that the in the updated vector in the updated vector you will be having 7 here okay you will be having 7 here it is fine to everyone if you want you can also write the next hop next hop so 7 is using whom
+
+53
+00:27:41,020 --> 00:28:07,330
+B or E using B right using B which means this this particular entry saying that that this is at A if you want to go to A you go to you go using 0 if you want to get go to B you you go using saving cost so at A we are saying that if you want to go to A you go I mean this is just you you go using 0 if you want to go to B then you go using saving cost
+
+54
+00:28:08,240 --> 00:28:38,830
+Which means you can go like this and what is the next stop for the saving cost B Now you tell me what is the minimum of these two? You will be taking directly minimum or first you will be adding you first will be adding There is no point in adding this one to infinity. So what is the minimum here? Can you tell me? 8, right? 8 is the minimum using which next to B or E What is the next to B or E? B, right? Next stop is B if you want you can also maintain the next stops
+
+55
+00:28:39,460 --> 00:29:11,730
+Okay, so what is the minimum at this particular entry? I think this is infinity, this is 2, but you will be adding 1 also, right? 2 plus 1, why? Because see, this entry I have got from E, E is saying that I can go to D using 2, right? Using 2, I can go to E, D, but 1 is obviously the cost from A to E, so that's why this will be 3. And what is the next top here? Can anyone tell me? The next top will be E, right? E.
+
+56
+00:29:12,010 --> 00:29:40,990
+see it is either for a it is either next stop is either b or e okay next stop is by either b or e now tell me what is the last entry here if you want to go a to e this is saying i can i can go using 8 plus 7 right 8 plus 7 whatever it is it is saying i can go using just one so just one what is the next hop e if you want you can also maintain the next hop so this is the information that we have got after one round of iteration is this fine to everyone okay
+
+57
+00:29:44,290 --> 00:30:13,730
+You can break the tie in any way. So Sujith is asking that sir, if both paths are having the same value, then which one to choose? You can break the tie in any way. Okay. So they will give in the question. Even I think I have one or two questions where they have clearly written that you can break the tie in any way. Okay. So this is the vector at A that we have got after one round. Anyway, before I go further, let's just analyze that what is happening here. See, what is happening here? Initially, I have this setup. Now A is saying that, okay,
+
+58
+00:30:14,050 --> 00:30:44,030
+I only know my neighbors now if you if this b is advertising something then then I will get to know using b what can be done right using b what can be done okay and if e is advertising something then I will get to know that using e what can be done so basically using just one hope now now how many hopes are here I mean how many routers are here in total five routers right so basically basically if you see that
+
+59
+00:30:44,350 --> 00:31:13,600
+from from any shortest path from a to any shortest path how many like let's suppose this is a this is d how many hopes or or you can say yeah you you just talk about the hopes so how many hopes can be in the between at max at max can we team right three maybe i mean here it is the topology is not not like this but at max could be from a to b then b to c then c to e and then e to d okay i mean number of routers could be three at max
+
+60
+00:31:14,680 --> 00:31:45,440
+I'm based on this topology. It seems like though to only but yeah, if there is any other topology, then at max at max, obviously all of these routers can be in between B and D, right? Okay. So basically after one round of information, it just get to know what is possible using my neighbors, right? What is possible using my neighbors? Now, what is the shortest path from a to we talked about from a to initially a to see what is the shortest path from a to see that is AEDC, right?
+
+61
+00:31:46,960 --> 00:32:16,840
+EDC now now just you know just using one round of information this a get to know that okay what is possible directly through e right directly through e okay see e has some information so it is it just get to know what is possible directly through e right okay so maybe you will get to understand what i'm trying to say have you studied this bellman photo algorithm has anyone studied bellman photo algorithm okay so
+
+62
+00:32:17,230 --> 00:32:49,100
+So this is basically just applying Bellman-Ford algorithm which means that it will be it will be definitely converging after how many iterations if there are n vertices then after n minus one iterations it will be definitely converging which means after n minus one iterations every node will get to know about every other node actually every node will get to know the whole topology because currently currently just know the neighbors and then after one round it will get to know that okay what is possible through the neighbors right
+
+63
+00:32:49,330 --> 00:33:20,810
+I mean, if you can go go to see through this B or something like this, what is possible through the neighbors. Okay. And then then in one more round, they will get to know that, okay, what is possible through neighbors of neighbors and so on. Okay. Let's just see the working example. And then let's just continue that working example, then you will get to understand more. So here, what is happening at a, we have just updated this vector, right? So earlier, what was the vector of a zero, seven, infinity, infinity and one. Now it is
+
+64
+00:33:21,080 --> 00:33:53,650
+it is saying zero which means obviously a2 is zero now i mean you don't need to worry about this earlier vector but just for the sake of comparison i'm saying here that earlier you were saying that a2b7 now also you are saying a2b7 that is fine now earlier you were saying that a2c is infinity but now you are saying that a2c is actually eight i mean using this b you can go a2c okay a2c but is this a short test from a2c is this a short test no right so you just got to know using the neighbor that what is possible but
+
+65
+00:33:53,930 --> 00:34:21,530
+but using using these neighbors you you should not i mean directly you cannot directly go to ec i mean this is not not the shortest but using the neighbors never maybe maybe using using after see after one iteration you just got to know what are the shortest path using just one hope in between right what are the shortest path using just one hope in between so what are the shortest path you tell me using at most one hope in between till see what are the shortest path using at most one hope i mean either obviously it could be zero hope also
+
+66
+00:34:22,560 --> 00:34:45,620
+What is the shortest path at most one hope ABC there is no other even path right there is no other even path like Atmos one hope so after one iteration you will get to know that okay What are the shortest path using one hope? What are the shortest path using at most two hope see what are the shortest path from A to C? Actually is basically using at most two hope side. I mean you will be good going like this so
+
+67
+00:34:46,000 --> 00:35:11,830
+after one more iteration it will actually learn that okay the shortest path is from from a to c is basically using e d and c currently it is saying that using b only it is a shortest path but later it will get to know that no this is not the shortest path this is the shortest path right so here what i'm trying to emphasize is that after one round what is happening have you understood after one round what is happening if you have seen the bellman-ford algorithm then you must you know relate it
+
+68
+00:35:12,110 --> 00:35:33,870
+so after one round have everyone understood little bit if they have if they have if you have seen the well-known algorithm then you might quickly relate it so basically after one round everyone get to know everyone get to know what are the shortest path using just one hope right so from a to c you tell me what are the shortest path using just one hope you cannot use more than one hope
+
+69
+00:35:35,160 --> 00:35:58,340
+Obviously using B right, I mean there is only just one path, you forget about the shortest path. Using just one hope there is only one path. Yeah using two hopes I think there is another path but using just one hope there is just one path. So after one round what is happening, have you understood this? This is my agenda of this particular discussion that I was discussing from last 2-3 minutes. So after one round what is happening?
+
+70
+00:35:58,770 --> 00:36:29,500
+everyone will get to know, I will show you for every other node but for at least for A, are you convinced that A get to know that okay what is the shortest path to everyone else using just one hope? Okay similarly, similarly after two rounds what will happen that A will get to know what is the shortest path from me to everyone else, I mean if I want to go to anyone then what is the shortest path using two nodes? What is the shortest path using three nodes? Okay, like that you will get to know after every round. So this is we got to know. Okay.
+
+71
+00:36:29,810 --> 00:37:17,460
+so i can say here we got to know what is the shortest path so this is the vector that i got at a this is basically telling you the shortest path from a to everyone else okay or one round or something like that but do you think that this particular story will just end at a i mean will it will it be happening at everywhere else or not yes this will be happening right so not just a not just at a this will be happening at every other node also so let's just see that how the updates are happening
+
+72
+00:37:18,530 --> 00:37:52,160
+at every other node. So at A you have got the vectors from B and D. Can you tell me at B you will be getting the vectors from whom? At B you will be getting vectors from I think A, A, E and C. So this is just one round. This is just one round is happening. So what I did, I have taken the previous vectors for A. Similarly, I will be taking the previous vectors for B also, which means you can say at B
+
+73
+00:37:52,490 --> 00:38:34,100
+at b i will be getting the vectors from a e and c right a e and c so let me write it let's suppose this is the vector i'm getting from a from e and from c and this will be the final vector here okay so from a from this is let's suppose from b from e and from c so what is the vector you are getting from a
+
+74
+00:38:35,840 --> 00:39:09,400
+Will it be the old one or the I have just updated? Will it be the old one or updated one? It will be old one only. Okay. I mean it is it is better to use the formula also not the formula and go to them in the systematic way. If you use the updated one, it won't be the problem. But generally generally these exchanges are happening simultaneously. Okay. For example, I mean they need not to be very simultaneously. But but we are just saying that it is happening the simultaneously, which means whenever a is sending its old vector.
+
+75
+00:39:09,820 --> 00:39:38,740
+at the same time V is also sending this old vector so A will be getting the vectors from B and E which means B will be sending and E will be sending to A at the same time the moment B and E started sending the same time A and A started sending to its neighbors so basically whenever neighbors start sending to A at the same time A starts sending to neighbors which means whenever A was sending to B at the same time V is also sending to A so basically it is the old one that we have got not the new one
+
+76
+00:39:39,840 --> 00:40:08,820
+Okay, it will also depend on time. Maybe maybe it is possible. Okay, it is possible that we can get the new one and it won't be wrong. It is even even okay. Even it is good, but we will follow the systematic way always the old vector. So this is the this is the initial setup and we are in the round one in the round one. B will be getting the vectors from A, E and C, which will be the old vectors. So what vector it will be getting? This is zero seven hyphen hyphen one. This is from E it will be getting one.
+
+77
+00:40:09,200 --> 00:40:37,860
+8 hyphen 2 0 and from C it will be getting hyphen 1 0 2 and infinity right okay now what are the distance let's just write it this is plus 7 this is for BA is basically plus 7 BE and BC so what is BE this is plus 8 what is BC this is plus 1 okay now you quickly tell me obviously you write 0 here now you quickly tell me what are the
+
+78
+00:40:38,010 --> 00:41:10,220
+new dis new vectors here so it is saying uh seven it is saying nine it is infinity so seven zero and it is saying infinity infinity this is saying one this is saying infinity this is saying ten this is saying three so three i think okay this is saying uh eight this is saying eight interesting so which one you want to take so be uh be saying that okay you can you can go to uh e directly
+
+79
+00:41:10,730 --> 00:41:39,180
+or maybe maybe using a okay so you can take anything okay i mean the final final will be eight only okay if you want you can also maintain the uh next stop so what is the by the way next stop here if you want to go to a i think we should have maintained it i think the next stop is directly a right if you want to go to b it is the next stop not an issue if you want to go to c then i think uh this is c itself is the next stop if you want to go to d then
+
+80
+00:41:39,710 --> 00:42:07,070
+this is 10 we have taken I think minimum right c if you want to go to e then either you can go directly maybe let me write directly only okay okay so either you can go directly if you want to go to e you can go using a or maybe you can go using a okay or directly or using a doesn't matter so this is the new vector at b we have got okay so if you want a or e you can write a or e doesn't matter so this is the new vector that we have got at b have you understood
+
+81
+00:42:07,370 --> 00:42:51,010
+that how we are how we have got this new vector very easy now similarly similarly you can quickly calculate the vector at c you can quickly calculate the vector at at every other node at d and e okay so let's just calculate at c so at c from where you will be getting you will be getting from b and d right okay so you will be getting from b and d this is from b this is from d
+
+82
+00:42:51,490 --> 00:43:21,900
+So here, what you need to add from B if you need to add plus one, you need to add plus two. Okay. From C to C, it is zero. So it is at C. Cool. So let's just quickly see that what you will be getting from B. You will be getting seven zero one, seven zero one, infinity eight at D. You will be getting infinity, infinity, two zero two. Okay. So you tell me, do you really need to consider your old vector? What was the old vector? And then you compare these three.
+
+83
+00:43:22,750 --> 00:43:55,930
+Or the old is not needed. What do you think? Obviously old is not needed, right? I mean, what is the current vector of seed is not needed? Because C will anyway be using either B or D. So whatever B or D is telling me, okay, I should trust them. I should not bring my, I mean, even if you bring your own vector in between, it won't matter. But why to make the things complicated? Because ultimately you should rely on B and D only, right? So it doesn't make sense to also compare with C. I mean, you can compare and the answer will be same, but it doesn't make sense.
+
+84
+00:43:56,900 --> 00:44:25,260
+Okay. So what is the answers here? So here you need to add plus one plus two. So I think plus one, that's why it is eight and the next stop is A. And if you want, you can maintain the next stop. If you don't want, you don't maintain the next stop. Okay. So, uh, I can skip maintaining from the next question. Okay. So this is one and the next stop is B. This is one. This is four. This is, I think, okay, this is anyway, zero. This is D. This is infinity. This is two next stop is D.
+
+85
+00:44:25,820 --> 00:45:12,850
+This is 9, this is 4. So next up is D. This is at C that you have got. Very easily you can compute the new vectors. Similarly at D and similarly at E also you can compute. Similarly at D and E you can compute. So should I go on doing it at D? So let me directly write that what you will be getting at D. So D to D is anyway 0. If you want to go to D to A, using just one hope.
+
+86
+00:45:13,120 --> 00:45:42,770
+which means one open the between so I don't think you can go right so what it should be see this will be getting the vectors from okay sorry you can go using e okay this will be getting the vectors from e and c so c is saying that I cannot go I mean using the c you cannot go anyway you can go using a so this will be 2 plus 1 3 right you can go using e using e you can go
+
+87
+00:45:43,390 --> 00:46:10,720
+and if you want to go to b so basically it will be getting this and this so which one is lower this is 8 plus 2 10 this is 2 plus 1 3 so i think 3 you can go using c if you want to go to b you can go using c if you want to go to c so basically this is saying infinity this is saying 0 okay so you can go directly basically 2 right so you need to add 2 here okay if you want to go to e this is saying 0 this is saying infinity which means 0 means
+
+88
+00:46:11,240 --> 00:46:56,630
+this is saying that you can go 0 plus 2 right directly via E okay at D you will be getting this it is fun to have even okay now let's just see what you will be getting at other at other nodes also so which means the last one is remaining is D only sorry E only so at E what you will be getting you will be getting from three three people right you will be getting from three people let's just see let's just see that okay
+
+89
+00:46:57,110 --> 00:47:26,080
+So, you will be getting from A, B and D. So, from E to E is definitely 0. You will be getting from A. So, A, B and D. So, it is infinity. It is 7. 7 plus, this is what you need to do. Plus, how much? You are at E, right? So, plus 8 you need to do here. And if you are getting from A, plus 1 you need to do. If you are getting from D, then plus 2 you need to do. Okay. So, if you want to go to at A, then I think directly you can go.
+
+90
+00:47:27,740 --> 00:47:59,640
+using directly if you want to go to be seven zero and this is infinity. Okay, this is eight. This is also eight. So you can take anything, right? So if you want to go to be maybe, maybe let's just prefer the direct path. I mean, you can prefer anything doesn't matter. So you can go using eight. Maybe you can prefer the direct path. Okay. The next topic be if you want to go to see then this will saying that, okay, I can teach you in eight plus one nine. This is infinity. This is two plus two four. So I think four, right?
+
+91
+00:48:00,000 --> 00:48:20,200
+So this is for what is the next shop D if you want to go to D then what is the next shop D will say that okay this is zero this is infinity this is infinity so if you want to go to D then I think using two only you should go right directly via D okay understood
+
+92
+00:48:20,690 --> 00:48:42,220
+so that's very easy actually here on the drawing it is taking a little time but when you do it on pen and paper yeah it will be taking time but it won't be taking that much time that that i'm taking because on the software if i'm writing it on and on the pen and paper you're writing there will be a lot of difference right okay so it is fine to everyone that how the vectors are getting updated now
+
+93
+00:48:42,570 --> 00:49:11,560
+do you want to compare this earlier vector and this vector just for the sake of seeing that whether we are getting the intuition of this algorithm or not. So see earlier, we were saying that if you directly want to go, if you directly want to go to let's suppose C, then you can't go. But here what we are saying is this the shortest path from, from E to C? Is this the shortest path from E to C? No, we are just saying that this is the shortest path using at most one hope. Okay. So this is the shortest path using one hope you can say.
+
+94
+00:49:11,720 --> 00:49:39,260
+So, which means if you want to go from e to c, e to c, if using one hope you want to go, then this is the shortest, right? This is the shortest. Maybe, maybe in future, maybe in future, I don't know, maybe in future, let's suppose if this could have been one and okay. Anyway, like for this, for this particular question, this is the shortest. But I mean, this is even the shortest, but as per the algorithm, we are saying that if you want to go using at most one hope, right, then this is the shortest, right?
+
+95
+00:49:39,610 --> 00:50:10,420
+If you want to go from E to D using at most one hope, then this is the solution, right? This is using at most one hope. So after one iteration, you will be getting at most one hope. Okay. At most one hope. Is this fine to everyone? Now you can keep on running it and then you can get the second iteration, third iteration and so on. So how many at most iteration you need to take? Okay. Let's suppose, let's suppose that if I, if I give you this, okay.
+
+96
+00:50:10,720 --> 00:50:42,330
+i do not give you i mean i i just ask you directly this question i do not ask you anything else i just ask you directly this question that suppose the question is that how many iteration we will be needing this distance vector routing algorithm will be needing to converge for this particular given uh routers so suppose if i say the number of iterations
+
+97
+00:50:46,120 --> 00:51:26,980
+distance vector routing we also call it DVR algorithm see at most yeah at most you know that okay after after one iteration after after one iteration there will be one hope or something like that right so at most three hopes could be there in the between right at most I think from from any any place to any place there could be three hopes in the between so after one iteration you will get to know that okay if the what if there is just one hope what if there are two hopes what if there are three hopes right so I think I think in this particular setup you can say three but
+
+98
+00:51:27,270 --> 00:51:56,240
+but the question here is that we don't want to get that most I mean at most number what if can we can we say that it can even converge before three see don't don't worry about this n minus one and n minus two minus one minus two don't worry the reason is that I have already initially I think in the bellman fold I think in the bellman fold we have initialized with the zero and everything to be infinity right in the bellman fold
+
+99
+00:51:56,550 --> 00:52:24,250
+In the Bellmanford, we were saying that initially we don't know that in each iteration, after one iteration, we will get to even know the neighbors. So in Bellmanford, we were saying that one iteration itself, it will take to even get to know the neighbors, right? So don't worry about the terminology here, which means if they want you to exactly apply the Bellmanford and if they want to say that, okay, see, initially what we are saying, initially we are saying at D, are we saying that, are we saying at D, this is ABCD.
+
+100
+00:52:25,050 --> 00:52:54,130
+E, this is 0, everyone else is infinity, initially are we saying this? No, right? What we are saying initially is this, right? That, okay, neighbors we know, which means from D to D is obviously 0, from D to C we know, from D to E also know, everything else is infinity, right? So we are initializing with this vector. We are initializing with this vector, that is why I think it is not directly n minus 1. We are initializing with this vector, it is coming out to be n minus 2, but don't worry about these initialization and these things.
+
+101
+00:52:54,330 --> 00:53:22,860
+they will tell you as explicitly if they ask you this kind of question they will tell you explicitly that what should the initialization okay so the initialization is this one then maybe n minus one is just exactly i mean in the bellman for whatever we have followed but i think if the initialization is this one then it will just i mean we have just reduced one one iteration here right is this okay everyone what i'm trying to say and why you should not directly say n minus one i mean if i'm initializing like this then i'm already basically reducing one iteration
+
+102
+00:53:23,560 --> 00:53:51,240
+So this is author dependent also, they will tell you in the question that what is the iteration, how you are initializing and so on. But for our notation, what we are doing, we are always initializing with the neighbors, unless and until it is given in the question. Is this fine to everyone? Because this is one standard rule that everyone follows. There are some universities, they initialize with this also. It's not like we can't initialize this and after one iteration, they say that, okay, now we have got this. But we are initializing with this because
+
+103
+00:53:51,580 --> 00:54:23,320
+in most of the textbooks they have initialized with the neighbors is this fine to everyone okay now now if i just ask you that okay after how many rounds it will converge maybe you can say okay at most three hopes could be in the between so maybe after three rounds it will definitely converge i mean we are sure that after three rounds it will definitely converge but can it can it converge before the three rounds can it converge before the three rounds also what do you think have you seen the Bellman-Ford algorithm
+
+104
+00:54:24,930 --> 00:54:56,940
+So yes, it can right it can it can converge before three rounds also Now can we guarantee that it cannot or it can So see now using this I mean just just try to see the intuition here using this particular graph. What is what is the Distance from okay from any I mean, what is the highest number of hopes you are having in between? I think from a to see you have AE DC I think you have at most two hopes right here
+
+105
+00:54:57,180 --> 00:55:34,660
+do you have from anywhere to anywhere you have three hopes in between from B to D I think this is just one from A to D okay from A to D how three hopes I think only one hope no shortest path I'm saying the shortest path you tell me the shortest path from any note to any note is there in this example in this example I think I just got two is it three is there three in this particular example it seems like it is not I mean you need to obviously verify but it seems like it is not right
+
+106
+00:55:34,860 --> 00:56:01,040
+If it is not then can I say that after 2 iteration it will definitely converge because after 2 iteration I will got it right there is no 3 that we need right so can we say that after 2 iteration only it will converge so yes right see
+
+107
+00:56:01,350 --> 00:56:32,220
+do you have to do all of this update and you have to check whether okay after one iteration this after second iteration this after three iteration this and you will check okay after second iteration and after third iteration nothing is changing that's why it has it has convert to into iterations only do you have to do all of this or you can just check that okay from what is the shortest from A to every other thing what is the shortest from B to every other thing okay the highest is coming out to be two two options between then after two iteration it will converge can you say something like this let me know okay
+
+108
+00:56:32,610 --> 00:57:01,440
+So, so, I mean, if that kind of question is asked, then you can definitely do the whole long procedure, but you don't have to do the long procedure. Okay. So let's just do one thing. Let's directly jump into the question and then we will get to understand this algorithm more. Okay. So let's just see this. They're saying a network user distance vector routing, a particular router are, okay, has a current cost of five for destination D. So they're saying at our, at our, I have a table.
+
+109
+00:57:02,480 --> 00:57:32,460
+so for the destination D they are saying that okay for destination D the current cost is 5 and R receives a distance vector never from from N and N cost for the destination D is 3 so they are saying that R is connected to N also and N is saying that okay that the D is 3 away from me and it has received the vector from N they are saying it has received the vector from N and N is saying D is 3 away from me
+
+110
+00:57:33,360 --> 00:58:07,810
+and R2NH1 okay R2NH1 so what will the new cost for for reaching D at R? see it has got that okay R2NH1 and this is 3 so new cost will be just 4 right it will be 4 so D is the correct answer here let's just see this question so what they're saying in this network it's a running if the if this network is running distance what is the forwarding table of R6 when the router comes up
+
+111
+00:58:08,100 --> 00:58:38,100
+Okay, so whenever this router is getting on getting boot boot up at that time What is the forwarding table of this R6? And they've also given the example example of forwarding table of R1 when it comes up So basically when it boot up then the information is only about the neighbors so for R1 R1 the neighbors are R3 R4 and R2 So 234 these are the neighbors R6 infinity, right? So whenever this is getting boot boot up then this is the information that R1 has now similarly there are some information that R6 has
+
+112
+00:58:38,400 --> 00:59:07,240
+so can you can you tell me what is the information here that r6 has so r6 will say for r1 i don't know for r2 i don't know for r3 yes i know for for r4 i know 20 right this is r3 and r4 so this is the initial information that that this router r6 has okay this is the initial information now let's just see the part we fill the 401 table r6 after two iterations
+
+113
+00:59:07,740 --> 00:59:42,980
+so after two iteration whatever the r6 is having let's just see this okay so have you understood what what they're saying that this is the very initial now after one iteration you will be getting i mean you will be getting vectors from these these these after two iterations they want to get the answer okay do you want to solve this so here here first of all tell me are there saw trash i mean is this saw trash path will be containing three hopes in between
+
+114
+00:59:43,370 --> 01:00:12,100
+any from r6 to any node i think it is just four actually there is no point in going through this r4 to anyone i mean if you want to go to r4 then also i think you will be choosing some other path right you will be choosing some other path so i think this link will never be used even right this link will anyway this link will never be used so from r6 to r3 i think direct path right this link you you you just consider this as a disconnect because this is too much cost okay for anyway so from this is direct path from
+
+115
+01:00:12,800 --> 01:00:37,230
+to r1 i think this is the path right to r2 to r2 yeah this will be the better path instead of this so to r2 this is the path and to r4 i think this is the path right this is the path so i think like there is i think at most two at most two is there so after two iteration you will be getting even the shortest path side
+
+116
+01:00:37,690 --> 01:01:12,400
+Do we have to do all of this? After 1st iteration what is happening? After 2 iterations what is happening? Do we have to do all of this? Or you can just say that after 2 iteration it will definitely converge. Because no one is having 3 options between. After 2 iteration it will definitely converge. So can you tell me here? So what is the R from R6 to R6 to what is the cost to R1? I think this will be saving. And what is the next hop?
+
+117
+01:01:12,670 --> 01:01:46,380
+I think R3. I think next up will be R3 anyway for everything. Even you want to go to R4, I think this will be R3. So from R6 to R2, if you want to go to R2, I think this will be 4 plus 3, 7 plus 3, 10. So this is 10. And then to R3, this is just 4. To R4, this is 7 plus 5 12. So you can directly write like this. I mean, if you know the intuition of the algorithm, then this is the benefit.
+
+118
+01:01:46,700 --> 01:02:18,880
+otherwise you have to follow the whole procedure if you know the intuition then you can do directly like this right that is why it is good to know the intuition so what they're saying after two iterations what will happen as you know that after two iteration this will definitely converge because because this r6 to anyone else to anyone else there is no three options between at most two hopes in between right at most two hopes in between okay so that is why after two iteration it will definitely converge hence this is the answer is this okay everyone let me know
+
+119
+01:02:20,700 --> 01:02:55,930
+or there is any doubt so if you guys have not seen bellman fold algorithm then just watch it okay before it I mean if you do it then it is just helpful it is not like it is pretty good but if you if you know the bellman fold algorithm how it works the intuition behind that then it is it is very helpful okay let's just see the answers so these are the answers this is the answer to the part a this is the answer to the part b so I think there were two parts part a hyphen hyphen 420 okay
+
+120
+01:02:56,400 --> 01:03:27,800
+hyphen hyphen 420 this is 710 412 okay and the next hop as I said like next hop is r3 okay next hop is r3 like we will not be even using this r4 as a next hop even to r4 okay so satyam is asking when any routers comes up how does it know that there are four other routers in the network so that's what I'm saying like it doesn't know magically they have to communicate okay it is just that we are saying that the communication is not considered as a round
+
+121
+01:03:28,320 --> 01:03:53,560
+okay so they have to communicate they like this whenever this router is coming up it has to communicate to to every other router okay it will be sending TTL 1 TTL 1 to to the neighbors okay it will sending multiple packets to the neighbors if you are if you are connecting them it will sending the packets and then it will get to know it has to learn okay and it will say that okay it will measure the measure the time that it is taking that okay which means that what it can do it can send hello it can send hello right
+
+122
+01:03:54,250 --> 01:04:17,020
+and in this hello maybe it can it can record the time that okay at what time it is sending the hello and whenever it get the reply it will say that okay at this time I am getting getting the reply so what are the difference between these two times which means that this is the time difference between me and the neighbor okay so it is just that it is just that we are not calling it as a round or iteration okay
+
+123
+01:04:17,260 --> 01:04:42,320
+It is happening so fast that we are not calling it as a iteration. If you want to call it as a iteration, as I told you that there are some authors which are saying that initially everything is infinity apart from R6. Then in one round they will get to know each other. Anyway, I hope you understood. Is this question clear to everyone?
+
+124
+01:04:42,630 --> 01:05:20,260
+that you do not need to know see for this question you need to understand that you do not need to know you do not need to do two iterations like this just follow the intuition that okay two iteration after two iteration means if there are two hopes in between okay it will consider all the shortest path where two hope at max in the between and even even in any shortest path from r6 okay i'm talking about from r6 that there are two hopes in between so why you are worrying about all the two iterations you just try to the shortest path right yeah yeah
+
+125
+01:05:20,510 --> 01:05:48,430
+so yes so basically in the question itself they mentioned that example of forward and table r1 when it boot up is like this okay which means that they already know the information about the neighbors they could have mentioned they could have mentioned that okay uh if it is r1 that they could have mentioned everything to infinity and from r1 to r1 is zero okay they could have mentioned something like this then even i will be taking just one down to get this right but here they are saying that at the boot up we already know the information about the neighbors
+
+126
+01:05:53,030 --> 01:06:24,520
+Now, let's just see this. Now what they're saying. Each router has just come up. The router only know the distance to their immediate neighbors. So the initial routing table for D. Okay. If they already know the distance to the neighbors, can you show the initial routing table for the D and routing table after one round? So can you do this question as in homework? Answers are on the next page. Okay. What is the initial routing table and what is the routing table after one round? It is easy question only. Answers are this. You can definitely check them out. Okay.
+
+127
+01:06:24,810 --> 01:06:54,530
+So let's just see this question which I have taken from Princeton University. So what they're saying that there's a CS department which is having some some routers which are connected like this and then they're saying that okay the CS staff asks for your help write down each step of building distance vector routing table for Eve. For Eve they want to calculate the distance vector routing okay not for all the nodes so they can compare it output of their implementation you can use the abbreviation A for Adam E for Eve.
+
+128
+01:06:54,810 --> 01:07:45,830
+So this is A, B, C, D, E. So what is the question? I think I've written on the next page. Okay. So the question is that the initial outing table for A. Okay. So here also they have given that, okay, initial outing table for A is looking like this. Can you tell me the initial outing table for E? This is the question. Okay. The initial outing table for A is given. Can you tell me the initial outing table for E? So let's just do one thing. Maybe I can just also write the graph here. Okay. So at E, at E, right?
+
+129
+01:07:46,310 --> 01:08:18,710
+So initially, initially it will be only at C and D. It only knows C and D, which are 17 and 11, right? C is 17. This is 11. This is infinity, infinity. C is 11, sorry. C is 11. This is 17. This is infinity, infinity. So this is anyway, next up is C and D. Okay. Understood. Now let's just see the next question. There are two parts of this next question. So they are saying, show the routing table of E after one iteration.
+
+130
+01:08:19,100 --> 01:08:54,160
+and then they say show the routing table of the after two iterations of the algorithm let's just see so after one iteration and after two iterations you want to get the routing tables cool so now after one iteration what will the routing table so initially i mean initially it has only the information about c and d but after one iteration it will get to know about a i think at b also for like it will get to know also about the b because these are just one hope of it okay
+
+131
+01:08:54,360 --> 01:09:24,840
+So what is the cost from e to a? Can you tell me if there is just one hope in the between? You are allowed to take one hope. I think there's only one path. You don't need to worry too much. There is only one path, right? So from e to a, if you want, you can do it manually also. So it will be getting this e will be getting distances from D and C, right? So D will say, see, D will say that I can make you reach in 15. C will say initially that I will take infinity time. So 15 plus 17, which is 32.
+
+132
+01:09:26,780 --> 01:09:53,890
+and next stop is D to B C will say if you want to go to B I can take you in 18 plus 11 if you want D will say I can take you in 17 plus 12 so which one is lesser this is 19 I think both are 29 right both are 29 you can take anything you can take anything so either from B or D B or D you can take anything now if you want to go to C it is saying
+
+133
+01:09:54,110 --> 01:10:25,200
+I can I can make you reach in 11 only it is saying 17 plus 5 or something right so I think 11 is better yeah and last option is that D so if you want to go to D I can make you reach in 11 it is saying that I can make you reach in 11 plus 5 16 right 16 using C only so this is the answer that you will be getting now after two iterations this is just after one iteration now after two iteration would you like to write the numbers so at E see
+
+134
+01:10:26,130 --> 01:10:59,830
+Tell me, is there any three hope path from E to N1? This is two hope in between right? Three hopes in between, is there anything? Three hopes in between. Do you really have to go through three hopes? If you want to go to Adam, see if you want to from E, if you want to go to Adam. Okay, let's just go to from E to Adam. What is the shortest one? 11 plus 5 plus 15 right?
+
+135
+01:11:00,760 --> 01:11:30,240
+Yeah, this is this is a shortage one right so which means 16 plus 15 or there is any other shortage one 31 Okay, so so there are only two hopes in between so you can this and even this is shortage one so you can say that this will be 31 and you can go by a C from e to be from e to be what is the path first tell me the shortest path for shortest path is from e to what is the shortest path I think
+
+136
+01:11:30,670 --> 01:12:03,100
+I will do like this I mean first obviously I will never be taking this right there is no point in taking this if you want you can even remove this I will never ever be taking this so from e to e to b if you want to go then maybe you will go like this right yeah so 11 plus 11 plus 17 so this is 28 and and this path is this containing more than two hopes in between if it is not containing more than two hopes in between you are very work right this is 29 sorry 28
+
+137
+01:12:03,420 --> 01:12:36,870
+and this is why I see now first tell me shortest path from e to c what are the shortest path from e to c you will never be taking this i think there's only one option left 11 have you understood why you never have to never have to take this there's no point in taking this right this is this was 17 if you remember if you want to go from e to d then you should be always taking this you will be never taking this so you can immediately remove it if you if you never want to take this then why do confuse yourself right okay so this is using c
+
+138
+01:12:37,130 --> 01:13:06,120
+from e to d what is the path i think we will be taking this 16 only so this is 16 via c so these are the answers right so once you understand the algorithm that how it is working if they are asking after two iterations then you don't need to do okay after first iteration actually if you have to do all of this then you have to update all the vectors here okay all the vectors after first iteration what is all the vectors after first iteration and then the second iteration for the second iteration you can just update one of them okay
+
+139
+01:13:06,920 --> 01:13:34,000
+but in between if there is only if there are iteration let's suppose they're asking after one iteration then first you have to update all the vectors after one iteration then for the second iteration yeah definitely you can choose to update only one of them but again it will be lengthy one okay I hope you understood so they will be asking just for one of the node and then you can definitely answer this question like this that okay if they're asking after one iteration then you just see that okay maybe after using just one hope okay using just one hope
+
+140
+01:13:34,160 --> 01:14:05,220
+I think this is even easy. You can just follow the standard procedure here. After one iteration, what we are getting? After one iteration, the C will be transferring some information, D will be transferring, and then you can calculate this. After two iterations, I just check the shortest path. The shortest path itself is not having more than two hopes. You are very good to go. So let's just match it. This is initial. So 32, 29, 11, and 16.
+
+141
+01:14:05,920 --> 01:14:47,340
+D, C or D, C, C. 32, 21, 11 and 16, D, B or D, C, C. They're saying C or D. Have we missed it or they're mistaken? So if you want to go to B, from E, if you want to go to B, sorry, it should be C or D, right? Okay. Yeah. So I think that is fine. And then you can compare the next top is C here, right?
+
+142
+01:14:47,720 --> 01:15:19,820
+And then this is 31, 28, 11 and 16. Next up is C anyway. So the answers are matching. Now let's go to this particular question. This is a good question, which I have taken from this university. So let's go to this question. What they're saying is that consider this distance from the routing algorithm. Okay. Assume that after one iteration, a node has learned the cost to its neighbors. Okay.
+
+143
+01:15:20,110 --> 01:15:45,090
+so they have spent one iteration to learn the cost to neighbors is this okay everyone they have spent one iteration to two cost to its neighbors okay so they are saying assume that after one iteration after iteration one a node has learned the cost to its neighbors okay after two iterations the cost to its neighbors neighbors and so on how many iteration does the distance vector algorithm take to convert this topology
+
+144
+01:15:45,480 --> 01:16:13,200
+So let's just not worry about what is given here. Let's just first say in our terms that what should be the answer. So we calculate the answer based on how many hopes are in between. So they are asking how many iteration it will take to converge. Let's just find out how many iteration in our language. So let's just see how many iterations it will take to converge. So if you want to go from A to let's suppose B.
+
+145
+01:16:13,540 --> 01:16:43,510
+then one hope only okay this is short dash from b to c i think this is one hope i think you will be never be using this can i just remove it okay let me just remove it i think they just confuse you right because you will be never using this if you want to go to c then you will be going like this from a to d from a to d i think this is the path right okay from a to e this is the path from a to f i think we will be taking this
+
+146
+01:16:44,840 --> 01:17:11,120
+Okay, a2f seems to be longest, right? a2f is taking 3, 3 in between. a2f seems to be longest. Yeah, a2f is longest. I don't think a2g is basically having 2 hopes in between. I don't think there is any other, do you think there is any other longer path than this? This is the topology which is given. So, 3 hopes in between. Can you have 4 hopes in between? 1, 2, 3. 4 hopes toh nahi hopaya guys main, right?
+
+147
+01:17:11,470 --> 01:17:45,370
+you can take any two pair I don't think there should be four options between so if there are three options between what is the answer three iterations it will be taking right but is this the answer according to the question or there is something we are missing yeah four rule is answer right because one iteration we have already spent right so actually in our terminology I was saying three but according to the question they are saying one iteration you have already spent in something else right and just remember and just knowing the neighbors right so that is why that is why
+
+148
+01:17:45,630 --> 01:18:22,480
+four iterations is the answer, okay, converge after four iterations, right, this is the answer, converge after four iterations. So once you know, see, once you know the understanding of this algorithm, that how this algorithm is working and how it is related to Bellman-Ford, then you don't have to do that much iterations and so on, okay, they're not asking you to do iterations, they're just saying, what is this, they're just saying you
+
+149
+01:18:22,840 --> 01:18:52,630
+pick any two pairs what are the longest shortest path I mean okay longest shortest path means a number of should should be maximized okay in the shortest path so what is the maximum maximum number of nodes that that you can get from any two pair I think these three writes in between you can get at most three at most three routers which means three iterations according to our our definition but they have to just spend one more iteration in learning the neighbors so that is why four iterations right understood so from a to f from a to f
+
+150
+01:18:53,940 --> 01:19:25,770
+is it's having maximum shorter maximum nodes in shortest path right yeah from c to f also okay from c to f also me yes from c to f no from c to f you can also have this right you can also have this it will converge if it will not be dependent on these three right yeah in the shortest path
+
+151
+01:19:26,970 --> 01:20:16,240
+so since we have the maximum nodes here in the shortest path is 3 okay the maximum nodes in the shortest path is 3 that is why it will converge after 3 iterations it is okay to everyone so you can say here maximum nodes nodes in shortest path maximum nodes in between 2 nodes of the shortest path right in between in between any 2 nodes if you want you want to write any 2 nodes
+
+152
+01:20:18,820 --> 01:20:52,560
+Equal to 3. Hence 3 is the answer but one iteration they have already consumed in what? In just learning the neighbors. So that's why 4 is the answer. Okay. If the cost is not given, it means the cost is identical. Then you can just take cost as 1111. Okay. If cost is not given, I mean they will give the cost obviously. So Akash is asking what if they don't give the cost? They should give the cost. If cost is not given, then they will mention that it is same. But by the way, like what I'm trying to emphasize here is that that
+
+153
+01:20:53,120 --> 01:21:22,810
+if you do the long procedure then it will take half an hour to just solve this question okay but if you just do the short procedure is that you just check that okay what is the maximum number of hopes that you will be taking between any two nodes you will be taking three nodes right maximum you will be taking three from A to F there is no other thing like that right so maximum see ATMAX by the way can how many nodes could be in between if there are less than 1 2 3 4 5 6 7 then how many nodes ATMAX could be in between 5 right
+
+154
+01:21:23,210 --> 01:21:57,320
+five. I mean, I mean, if there's seven nodes, then apart from these two, there could be all of this five, then all of this five is coming or not. I don't think all of this five will come anytime, right? So just like this got eliminated. I think there may be some other can get also eliminated. This C, I mean, it is not very necessary, but this, let's just check. This is one, two, three. This will be also eliminated because you never need to take this four, right?
+
+155
+01:21:57,590 --> 01:22:40,350
+because you already have this three path okay so yeah just for the sake of you know simplicity you can also remove it because you never need to take this yeah okay so now let's just see the next question have you understood this question by the way this question was important to make you realize that if you know the how this algorithm is working then you don't have to do all of the long procedure so
+
+156
+01:22:40,770 --> 01:23:09,450
+in most of the you know places like in i'm sure that most of the experience basically will be doing the long procedure but we don't have to do it if you understand the method carefully that how it is happening right okay now let's just see this question so in this question they are saying use a distance vector routing algorithm to complete this table below now can you tell me if you can complete this table so they are saying a row in a table corresponds to the distance vector to r5
+
+157
+01:23:09,820 --> 01:23:41,200
+so basically these are the distance vectors to r5 which means they are saying if at r1 initially if at r1 you want to go to r5 then what is the cost you will be taking initially initially infinity right from r1 to r5 so from r1 to r5 initially infinity from r2 to r5 this is the distance to r5 okay to r5 i mean that's what they are saying that these are the distances from r1 to r5 r2 to r5 r3 to r5 how much you will be taking
+
+158
+01:23:42,070 --> 01:24:07,430
+R3 to R5, initially you will be taking one and through R5 only, R4 to R5, R4 to R5, this is to R5, initially you will be taking 9 through R5 only. So they are saying a row in a table corresponds to the distance of the R5, E cell in a table, so they have also given that what is this E cell mean, E cell in the table is the element of distance vector, consists of router's lowest known cost to R5, cost to R5 only as well as
+
+159
+01:24:07,600 --> 01:24:35,710
+next hop okay what is the lowest lowest cost to r5 uh non to him and what is the next hop if applicable if this is not infinity then obviously next hop is applicable otherwise next hop is not applicable the first row is completed for you okay the first row we they have written for you now they are saying stop filling uh in the table when further iteration do not change the uh the distance vector so basically you need to fill this table okay can you fill this table
+
+160
+01:24:36,170 --> 01:25:06,630
+What will happen after one iteration? So they are talking only to R5. So which means if you want to go from R1 to R5 using just one hope. Initially it is infinity. Using just one hope if you want to go. Then I think there is only one way. So you will say 8, R3. What is this? From R2 to R5 using just one hope. You don't take more than one hope. From R2 to R5 using just one hope. I think you will be taking 3.
+
+161
+01:25:10,070 --> 01:25:38,160
+From R3 to R5, I think this is the minimum already. From R4 to R5, using just one hope. I think there is no path using at most one hope. I mean the direct path only. So the same will get copied. Now R1 to R5, now this time you can take two hopes in between. So using just one hope, this is the answer.
+
+162
+01:25:41,860 --> 01:26:17,840
+one and then two I think you got the better answer which is three plus two five okay and now this won't be used anymore right I mean now you know the shortest path which is three plus two five and then six I think this is six and this is R2 from R2 to R5 what is the shortest I think you will be going like three only right yeah three comma R3 R4 to R5 eight
+
+163
+01:26:19,760 --> 01:27:02,820
+r4 to r5 right 8 comma r2 right okay and then sorry this is r3 to r5 this is 8 comma r2 and then from r3 to r5 yeah this is one okay cool so this is after true iteration I mean you need to write or you need to stop filling whenever they just same so after iteration 3 do you think that there will be three options between okay from r4
+
+164
+01:27:05,110 --> 01:27:36,610
+In last entry, next is R3. Why? From R4 to R5 if you want to go, you will go to R2 only, right? I think that is correct. This is R2 only. From R3 to R5 if you want to go, you can go directly. So after iteration 3, which means if there are 3 hopes in between. So these are the 2 hopes in between. Now, will you be ever taking the 3 hopes? Let's just check. From R1 to R5 if you want to go.
+
+165
+01:27:36,810 --> 01:28:06,460
+from r1 to r5 we want to go then i think you will be taking this path only right this is the best so again two hopes only so there is no improvement here because there is only two hopes you are again using then from r2 to r5 we want to go what is the best path i think this is the best right only i mean lesser than so no no no improvement from r3 to r5 no improvement from r4 to r5 i mean there will be any improvement because at most two hopes
+
+166
+01:28:06,700 --> 01:28:43,840
+okay so after two iterations you can stop right is this fine okay let us check it eight r3 eight r3 three r3 one r5 nine eight r3 three r3 one r5 nine r5 six r2 three r3 one r5 eight r2 yeah these are matching right so this is answer okay little bit maybe you have understood and with the more practice we will understand this algorithm more right this is just bellman for algorithm
+
+167
+01:28:44,280 --> 01:29:17,240
+Okay, you can say that this is just a version of Bellman's algorithm in the computer networks Okay, so something this thing. I'm not getting Next up R5 in the iteration one Okay, if you want to go see to R5 if you want to go to R5 then you will be from R3 you will go directly right so the next page are five only if you want to go from R4 then then after penetration you will be going directly only right so
+
+168
+01:29:20,340 --> 01:29:46,860
+So you will go directly, that is why 1, r5. So you are talking about this entry. So from r3 to r5, this is 2, r5. The table here is not like this. This is a table 4, r5 or something like that. This is not the vector of r5. This is like for vector of everyone, vector of r3 and only the entry to r5. Only the entry to r5. This is not the vector of r5. This is not the vector of r5.
+
+169
+01:29:47,170 --> 01:30:14,890
+this is 2r5 only 2r5 okay they are saying that 2r5 the mentioned entries are known this is this is not a vector vector of r5 okay vector r5 will say that from me to where okay from me to from me to r3 how much i will take from me to where this is this is we are saying that vector of everyone from this vector i will be just taking entry of r5 from this vector i am taking just entry of r5 from this vector i am taking entry of r5 from this vector also i am just taking one entry
+
+170
+01:30:15,070 --> 01:30:50,050
+So from everywhere, we are just taking one entry. Okay. This is not the conventional vector that they have. Yeah. So how to know that when you are going to stop, you need to, you need to check, uh, like that, are you going to use in any shortest path? Are you going to use three iterations? Okay. If you are not, uh, in any shortest path, are there are three hopes in between? So what you can do, you can just quickly verify that, okay, from R1, that what are the shortest, shortest, shortest like this, right?
+
+171
+01:30:50,290 --> 01:31:27,690
+So are you going to use three options in between? If you are going to use three options in between, then it will be after three iterations, you are going to converge. Otherwise, you will not converge before, I mean, before three iterations, right? Okay. And also, also let's suppose, let's suppose this graph is given to you. Okay. Let's suppose this graph is given to you. Now, any graph, okay, any graph, okay, doesn't matter about this graph or not. Any graph is given to you. You check the shortest path.
+
+172
+01:31:27,980 --> 01:32:02,830
+from r1 to r2 what is the shortage okay i mean intuitively you can check that okay what is the shortage like just just check from r1 to r3 from r1 to r5 r4 sorry r5 there are five notes only right you you check this and then you check from r2 to r2 to r3 i mean you don't need to check from r2 to r1 because this is symmetric okay i mean just one more okay from r2 to r3 from r2 to
+
+173
+01:32:03,080 --> 01:32:32,910
+r4 from r2 to r5 and then you check okay you can quickly check it is it is even shorter than the longer method that we have right and then you can check for r3 to which one you need to check next r1 r2 do you really need to check r1 r2 we must have already done it right from r1 r2 r3 to r2 we have already done so what we need to check just incremented one which is r4 and r3 to r5 and then from
+
+174
+01:32:33,730 --> 01:33:04,930
+R42, which one? R42? R1, R2, do you really need to check R42, R1? You must have done it before, right? So R42, R5. You check these paths. If, I mean, I know this looks lengthy, but it is actually shorter, okay? If any of this path, let's suppose this path, this path is basically having R1, R3, R2, okay? This path is having R3 in between. Tell me, after how many iterations, R1 get to know the shortest path to R2?
+
+175
+01:33:06,430 --> 01:33:35,970
+after how many iterations if I just ask you after how many iterations R1 get to know the shortest path to R2 you can tell me in just one iteration after one iteration only because if there is only one open between right if let's suppose let's suppose this path is having okay I'm just I mean I'm not considering this particular weights it is just a random example I want to give you okay suppose suppose I'm saying that from R2 to R4 is basically 3
+
+176
+01:33:36,760 --> 01:34:03,260
+5 and 4 then after you forget about the convergence of the algorithm okay don't worry about the convergence of the algorithm i'm not even asking it i'm only asking when this particular path will converge which means when this particular node r2 will get to know the shortest path to r4 only okay so after how many iterations two iterations now you tell me will it will it also terminate after two iterations may not be right may not be it may or may not converge
+
+177
+01:34:03,610 --> 01:34:26,200
+I am just saying that R2 will get to know the shortest path to R4 after 2 iterations. So basically you can also comment node wise that after how many iterations this particular node will get to know the shortest path to this particular node which is R4 or something. It is just like a Bellman form and every iteration we are exchanging that.
+
+178
+01:34:29,270 --> 01:35:04,440
+Okay, suppose I say that this is the longest okay, suppose I say this is the longest number of nodes Okay, highest number of nodes between R3 and R4 in the shortest path is like this Okay, or maybe R1, R2 Let's suppose I say this is the highest number of nodes R1, R2 and R4 This is the highest number of nodes which means there is no more than two nodes in any two pair Then can you tell me after how many iterations this algorithm will converge? This will converge after two iterations, right?
+
+179
+01:35:04,800 --> 01:35:44,040
+this will converge after 2 iterations so if I say see that let there are let the let the shortest path let the shortest path between between r3 to r4 is r3 to r1 to r2 to r4 okay I don't even know whether it is consistent with that
+
+180
+01:35:44,440 --> 01:36:33,970
+R3 say R1 R2 okay let's suppose this is shortest path okay and then and and there is no other shortest path between any pair of vertices having more number of hopes in between than the path given okay having more number of nodes in between then
+
+181
+01:36:36,260 --> 01:37:21,310
+given path then my question is that after how many iterations okay my like our notation is that that we don't take any iteration to get the neighbor information okay so I'm assuming that we don't spend any iteration to get the neighbor information so after how many iterations DVR will converge so the answer is two right so after two iterations okay
+
+182
+01:37:22,040 --> 01:38:15,020
+now suppose if i say that okay if there is only one hoop in between between r1 and r2 then after how many iterations r1 will get to the shortest path to r2 one right so if there is only one node in between r1 to r2 in shortest path then after how many iterations r1 will get to know will
+
+183
+01:38:19,600 --> 01:39:03,480
+get to know hope you understood now let's just move to the next question okay so in this question let's just see one thing here right in this question let's suppose they are asking something but let's just take the same graph and let me introduce you one little concept here now suppose there is one link which is which which cost got changed for example for example let's suppose I'm saying here that the cost link okay
+
+184
+01:39:03,790 --> 01:39:33,850
+the cost of this link let's suppose it may got increase or may get decreased let's suppose this get decreased to let's suppose 4 okay I mean it can decrease or increase but it is changing maybe it is changing let's suppose it is changing to 6 okay if this cost has reduced to 6 reduced to 6 so this information that it has reduced to 6 this information basically generally we say that this information will immediately travel to R1 and R3
+
+185
+01:39:34,140 --> 01:40:04,930
+see what is the initial vector of r1 r1 will say that this is r1 r2 r3 r4 and r5 right so r1 will say that that initially to me it is 0 to r2 to r2 it is 3 to r3 it is 7 to r4 and r5 i don't know right i don't know but let's suppose let's suppose these are the initial vectors but let's suppose this link link has been reduced to 6 okay this link immediately got reduced to 6
+
+186
+01:40:05,910 --> 01:40:29,740
+At that time, what will happen? At that time, this saving will be changed to 6. And will it take any iteration? Will it happen after any iteration or something? No. So basically, this saving changing to 6 is basically we consider generally that there is no iteration here. See, they will define the iteration, what is the first iteration and so on. But here in general,
+
+187
+01:40:30,060 --> 01:40:58,940
+that whatever the neighbor information okay we say that for the neighbor information we don't take any information or any iteration which means if this has been changed to six then it will immediately got changed to six okay it will be changed to six i mean just one thing i'm telling you uh that we might use it later on okay so now maybe we can do something we can we can do some gate p by q and then we can see that whether we have understood this particular algorithm well or not so let's just do this p by q and then i will give you some p by q agent homework
+
+188
+01:40:59,630 --> 01:41:30,170
+I will give you some PYQs as an homework. Let's just do this PYQ here first and the other PYQs like we will do all the PYQs but for now for this particular lecture I will give as an homework and we will be solving in the next lecture. So what they are saying consider consider this this particular question okay consider network with six routers R1 to R6 connected via link having weights as shown in the following diagram okay.
+
+189
+01:41:30,900 --> 01:41:59,970
+All the routers use a distance vector based routing algorithm to update their routing tables. Each router start with its routing table initialize to contain an entry for each neighbor with the weight of the respective connecting in. So they're saying that they start with the routing initialize to contain an entry to each neighbor. Okay. So they've initialized with the entry to each neighbor. Right. This is the initialization they're talking about. Is this question fine to everyone that what is the initialization that they are particularly talking.
+
+190
+01:42:02,300 --> 01:42:43,070
+okay okay now now let's just read it more now what they are saying that okay after all the routing status is stabilized how many links in the network will never be used to carry the data how many okay they are saying that how many links will never be used can you tell me just try this question so you you don't even need to apply the DVR algorithm and all you just tell me the shortest path okay if you want to go from R1
+
+191
+01:42:43,360 --> 01:43:13,060
+to let's suppose uh you want to go to r2 then what is the shortest path let me just copy that on the next page okay let's suppose you want to go from r1 to r2 then i think you will be taking you will be never be taking this by the way right you will never be taking this you will be taking this r3 you will be taking this to r4 you will be going through this okay to r5 you will be going uh this is 3 to 5 3
+
+192
+01:43:13,720 --> 01:43:53,480
+yeah you will be going like this right to r5 we will be going like this otherwise it will be lengthy to r6 you will be going this is 9 plus 4 plus 3 this will be 9 plus i think you will be going like this right yeah so this link you will never be using this particular link okay so what about from r2 to r3 you will be going like this from r2 to r4
+
+193
+01:43:53,920 --> 01:44:35,200
+I think like this from R2 to R5 so 8 like this right R2 to R6 I think like this right yeah you will by the way never using this right because anyway this is 8 you will be never using this because this is anyway you have found 5 5 okay these two links you will be never using so you can check it I think 2 is the answer right C is the answer here you need to check it little more carefully so 2 is the answer is this fine to everyone let me know
+
+194
+01:44:36,670 --> 01:45:13,060
+Okay, okay. So basically, you just need to check the shortest path and using the shortest path, you need to eliminate that, okay, which you will not be using. So the shorter distance from R1 to R2, they have calculated the distances, shorter distance from R2. And then finally, they have concluded that, okay, you will not be using these paths. See, you can check for every link. Like, will you be using this link? I think you will be definitely using for this communication. Will you using this link? Let's just check. Yeah, from R5 to R6, you will be using this link.
+
+195
+01:45:13,230 --> 01:45:40,450
+you will be using this, this you can just tick mark. Will you using this? No. Will you using this 7? I think from R2 you will be using the 7, right? Otherwise it won't be possible to go to R4 in lesser than 7. So just tick mark it. Will you using this 2? Yeah, definitely tick mark it. Will you using this 3? Definitely tick mark it. This 9. I think this 9 also you will be using. Otherwise this path is longer. Definitely tick mark it. This you want to be using, this you want to be using, right? You just check link wise.
+
+196
+01:45:40,860 --> 01:46:11,090
+okay that which which link you will be using which link you will not be using now the same question but i think i mean there were two parts of this question in the year 2010 so the same question but this i mean the graph is same the question is little different so they are saying suppose the weights of all unused link are changed to two okay which means this link and this link these are changed to two now how many links will remain still unused okay now how many links will be unused
+
+197
+01:46:11,500 --> 01:46:47,750
+right now i think you like the same question you just need to do it with the different weights okay maybe we can do it quickly see will you be using this link this link yes will you using this link four i don't think so right you will can you can always go using three will will you be using this two from r4 to r6 yes will you be using this two what do you think uh to go to r2 right you can use this two
+
+198
+01:46:48,490 --> 01:47:18,840
+Will you be using this 3? I think yes. Will you be using this 2? Yes. Will you be using this 7? I think from R2 to R4. What else you can do otherwise? If you go via R3, it is 9. It will cost 9. And anything you go, you have to go via R3. I don't think you need to go it. So that you will be using. And then R3 to R5. You again need to go via R2.
+
+199
+01:47:19,270 --> 01:47:51,720
+you again need to go whatever you do but you again need to go via r2 so that will be 7 plus 2 okay so you will be using this also so how many you will not be using this one only right only one so answer is b now b is 1 so this is not exactly distance vector routing you need to apply you just need to know that how it works and this is just a shortest path right and using which you can do it now there is a good question
+
+200
+01:47:52,200 --> 01:48:25,280
+We will be solving this question tomorrow. Okay. This is a good question. You just try at your, your own end. This is the, I can say the, the most difficult question they have ever asked in DVR. Okay. This is little difficult. We will solve it tomorrow. If you want to, you can solve other questions. Okay. You, you just try to solve this question. And what else? Yeah. You just try to solve this question. Yeah. I will upload this, just after the class. So just try to solve this, this question. It is, it is quite tricky one.
+
+201
+01:48:25,500 --> 01:48:53,450
+Okay, otherwise you definitely solve this question, which is get to the end seven question. This question is quite tricky and I want to solve it in the class. Okay, then only you will get to understand that what is happening here. But you also try at your own best. Okay. So thank you everyone. Take care. Bye bye. We will be also studying this distance of the routing in another lecture and there will be seeing some more things. Okay, about it. Yeah. Thank you. Take care.
+

@@ -7,13 +7,15 @@ import {cLab} from './c-labs.js';
 import {dsLab} from './ds-labs.js';
 import {algoLab} from './algo-labs.js';
 import {osLab} from './os-labs.js';
+import {dbmsLab,mountDbmsLab} from './dbms-labs.js';
+import {cnLab,mountCnLab} from './cn-labs.js';
 import {diagramKind,diagramControls} from '/shared/visual-models.js';
 
 export function beginnerBridge(lesson,subject){const guide=lessonJourney(lesson,subject);return `<aside class="beginner-bridge"><h4>Before the notation</h4><dl>${guide.terms.map(({term,meaning})=>`<div><dt>${h(term)}</dt><dd>${h(meaning)}</dd></div>`).join('')}</dl></aside>`;}
 export function journeyView(lesson,subject,state){
  const guide=lessonJourney(lesson,subject),phase=state.phase,term=guide.terms[Math.min(state.card,guide.terms.length-1)],step=Math.min(state.step,guide.steps.length-1);
  const ready=phase===0?state.visited.length>0:phase===1?state.explored:step===guide.steps.length-1;
- const explorer=phase===1?(aptitudeLab(lesson)||cLab(lesson)||dsLab(lesson)||algoLab(lesson)||osLab(lesson)):'';
+ const explorer=phase===1?(aptitudeLab(lesson)||cLab(lesson)||dsLab(lesson)||algoLab(lesson)||osLab(lesson)||cnLab(lesson)||dbmsLab(lesson)):'';
  const traceOnly=phase===1&&!explorer&&diagramControls(diagramKind(subject,lesson)).length===0;
  const art=phase===0?topicDiagram(lesson,subject,true):phase===1?(explorer||(traceOnly?`<div class="journey-trace-art">${walkthroughDiagram(lesson,subject,state.trace||0)}</div><button type="button" class="btn secondary" data-journey-trace>FOCUS NEXT PART ${icon('arrow')}</button>`:topicDiagram(lesson,subject))):walkthroughDiagram(lesson,subject,step);
  return `<section class="learning-journey" data-journey-phase="${phase}"><nav class="journey-stages" aria-label="Learning stages">${['Meet the idea','Explore it','Connect the steps'].map((label,i)=>`<span class="${i===phase?'current':i<phase?'done':''}" ${i===phase?'aria-current="step"':''}>${i<phase?icon('check'):`<b>${i+1}</b>`}${label}</span>`).join('')}</nav><div class="journey-frame"><span class="page-eyebrow">LEARN BY DOING · ${h(lesson.title)}</span><h1 tabindex="-1">${['Start with one clear idea.','Try it. Watch what changes.','Build the explanation.'][phase]}</h1><p class="journey-lead">${h(phase===0?guide.idea.split(/(?<=[.!?])\s+/)[0]:phase===1?'This is a safe example to explore. Nothing here costs hearts or changes your quiz answers.':guide.steps[step])}</p>
@@ -22,6 +24,8 @@ export function journeyView(lesson,subject,state){
 }
 export function mountJourney(dialog,lesson,subject,state,{render,persist,complete}){
  const root=dialog.querySelector('.learning-journey');if(!root)return;
+ if(subject==='dbms')mountDbmsLab(root,lesson);
+ if(subject==='cn')mountCnLab(root,lesson);
  if(state.phase===1){
   const variant=root.querySelector('[data-algo-variant],.journey-explorer select,.journey-explorer input[type=range]');
   if(variant){if(variant.tagName==='SELECT')variant.selectedIndex=Math.min(lesson.id%3,variant.options.length-1);else variant.value=Math.min(Number(variant.max),Number(variant.defaultValue||variant.value)+(lesson.id%3)*Number(variant.step||1));variant.dispatchEvent(new Event(variant.tagName==='SELECT'?'change':'input',{bubbles:true}));}

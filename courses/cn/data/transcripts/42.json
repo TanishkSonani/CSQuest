@@ -1,0 +1,121 @@
+{
+  "id": 42,
+  "title": "Exchange requests with HTTP",
+  "file": "042. HTTP.mp4",
+  "seconds": 432.938333,
+  "segments": [
+    {
+      "start": 0,
+      "end": 27.03,
+      "text": " One most important protocol that we use at application layer is HTTP Why I am saying this is most important because this protocol we use to get web pages to fetch web pages Server of this protocol listen at the port number 80 and this protocol uses the services of TCP Now there are two versions of this protocol one is HTTP 1.0 which uses the non-persistence connection So I will tell you in the detail what is non-persistence connection",
+      "avg_logprob": -0.13993818353820633,
+      "no_speech_prob": 0.0172271728515625
+    },
+    {
+      "start": 27.45,
+      "end": 47.11,
+      "text": " Another one version is HTTP 1.1 which uses a persistence connection and this protocol is stretched less which means that it does not store any information about the user. So let's see these two connections persistence connection and non persistence connection. Non persistence connection means that for every",
+      "avg_logprob": -0.18865740382009083,
+      "no_speech_prob": 0.0138092041015625
+    },
+    {
+      "start": 47.6,
+      "end": 76.9,
+      "text": " like for every web page or for every object, you will be establishing a TCP connection separately. So as it is written here, in a non persistence connection at one TCP connection, one TCP connection is made for each request and response. The following list is in the steps is getting applied in this strategy. So first step is that the client opens a TCP connection. Second step is that the server sends the response and closes the connection. So this is important. Like after one request is served, the server closes the connection.",
+      "avg_logprob": -0.13428655505742668,
+      "no_speech_prob": 0.130615234375
+    },
+    {
+      "start": 77.24,
+      "end": 106.87,
+      "text": " And third step is that the client reads the data until it encounters end of fight, it then closes the connection. So what is happening here? Suppose you are client and you want to fetch some data or some web page from this server. So you will be establishing one TCP connection on port number 80. You will send the SIN, you will send like server will send SIN plus ACK and then you will send ACK. And along with this ACK, you will also request for the data.",
+      "avg_logprob": -0.16075721182502234,
+      "no_speech_prob": 0.1051025390625
+    },
+    {
+      "start": 107.24,
+      "end": 130.2,
+      "text": " This is called the piggybacked ACK right? You will also request for the data. Now once the server gets the request, it will send you the data and closes the connection. That's important. So now server closes the connection. Now there is no more connection that you have. Server is closing the connection but once it sends the data. Now suppose that there is some web page that you get and this is the file that you're getting.",
+      "avg_logprob": -0.14440523744911277,
+      "no_speech_prob": 0.044921875
+    },
+    {
+      "start": 131.13,
+      "end": 160.15,
+      "text": " Now after reading this file, you got to know that okay, there is one image also within this file that you also need to fetch. So what you will be doing? You will be again sending SIN, which means you will be again establishing a connection and then SIN plus ACK, then ACK plus request. So I have the diagram here. You see that first you are getting the file and after getting this file, you got to know that okay, you again need to establish the connection. So what you will be doing? You will be first closing the current connection.",
+      "avg_logprob": -0.15898436829447746,
+      "no_speech_prob": 0.10308837890625
+    },
+    {
+      "start": 160.48,
+      "end": 187.44,
+      "text": " and then you will again open a new connection and in this new connection you will request for the image so because after reading this file you got to know okay there is one image that you also need to load so you will again request for the image and once you get this image you will be again closing this connection so this is how you are opening the collection, closing the connection, opening the connection and closing the connection so for every object so this is basically called base",
+      "avg_logprob": -0.06341422721743584,
+      "no_speech_prob": 0.036407470703125
+    },
+    {
+      "start": 187.68,
+      "end": 216.36,
+      "text": " base web page which means this is the first web page and after reading this web page only you got to know that okay there is one image also that you need to load right so for every object you need to open the connection close the connection now suppose there are n objects in this strategy for file contents links to links to n n pictures so if a file contents links to n pictures which means how many connection you need to open and close n plus one one for the file itself and n connections for the images so",
+      "avg_logprob": -0.09799757527494893,
+      "no_speech_prob": 0.260986328125
+    },
+    {
+      "start": 216.84,
+      "end": 245.82,
+      "text": " the connection must be open and closed for n plus one times right this is a non-persistent strategy i hope you got it now there is a persistent strategy which is like this which says that you do not need to open and close connection every time which means once you open the connection then you read the file you don't close the connection which means you can request within the same connection so there is only one connection that you have opened and within the same connection you are requesting again without the closing connection",
+      "avg_logprob": -0.08114170615035708,
+      "no_speech_prob": 0.321044921875
+    },
+    {
+      "start": 246.07,
+      "end": 275.39,
+      "text": " so this is called persistence connection right and then there will be a response then you can close the connection if you want to I mean once once you see that okay there is no need to get another object from the same server so you can close the connection right so let's suppose there are five objects that you want to retrieve then what you can do you can basically get the base base so this is basically the connection stability phase and then you can get the base page and once you once you get the base page this is the base page",
+      "avg_logprob": -0.08841997524288213,
+      "no_speech_prob": 0.1326904296875
+    },
+    {
+      "start": 275.72,
+      "end": 303.63,
+      "text": " then you say that okay there are let's suppose five different images or different objects that you want to get then you can do what? you can request for the first object you can get the first object you can again request for the second object you can get the second object without closing the connection this is what you can do in the persistent way now again this persistent connection is coming with the two flavors one is the pipeline another one is non-pipelined",
+      "avg_logprob": -0.18514785138509607,
+      "no_speech_prob": 0.0970458984375
+    },
+    {
+      "start": 307.6,
+      "end": 336.2,
+      "text": " so both are very simple pipeline and non pipeline means like when you are having let's suppose multiple objects that you want to fetch so this is just a connection establishment phase once you get the base back page this is the base back page and then what you are getting you want to let's suppose retrieve the five images then non pipeline says that you request for one image get one image right and then request for another image this is the second request then get one image like that right pipeline says that",
+      "avg_logprob": -0.12268813631060171,
+      "no_speech_prob": 0.399169921875
+    },
+    {
+      "start": 336.46,
+      "end": 365.29,
+      "text": " once you establish the connection you get the base web page this is the base web page then you can request all the you can request for all the images simultaneously this is the request one this is the request two this is the request three like that right request one request two request three so this is the pipeline pipeline flavor of persistent connection persistent connection means you are not closing the connection after getting the base web page or any object okay this is non pipeline of the persistent",
+      "avg_logprob": -0.11506453901529312,
+      "no_speech_prob": 0.353759765625
+    },
+    {
+      "start": 365.69,
+      "end": 391.86,
+      "text": " So this is persistent. Persistence come with two flavors pipeline and non-pipeline. This is non-pipeline which means you are requesting and then you are again requesting once you get the object you are requesting again then you get the object then you are questioning. In pipeline fashion you are requesting for all of the objects at once. And non-persistence says that once you get the object once you get one object close the connection then you open the connection again",
+      "avg_logprob": -0.16603534811674947,
+      "no_speech_prob": 0.023162841796875
+    },
+    {
+      "start": 392.19,
+      "end": 420.67,
+      "text": " and get the object close the connection like that so clearly this is the overhead and this is what we were using earlier so currently this non-persistent is not being used in the latest version that is HTTP 1.0 in this HTTP 1.1 in this HTTP 1.1 like non-persistent you can use but by default it is persistent connection okay if you want then HTTP 1.1 also you can use the non-persistent connection but by default it is a persistence connection",
+      "avg_logprob": -0.1041666686233848,
+      "no_speech_prob": 0.2491455078125
+    },
+    {
+      "start": 420.96,
+      "end": 430.19,
+      "text": " and obviously it makes sense. So, this is all about HTTP. You just need to know what is persistence connection here and what is non-persistence connection here. Thank you.",
+      "avg_logprob": -0.20713140414311335,
+      "no_speech_prob": 0.0207366943359375
+    }
+  ],
+  "sourceCompletedAt": "{\"file\":\"042. HTTP.mp4\",\"language\":\"en\",\"probability\":0.97900390625,\"processing_seconds\":11.180388450622559,\"device\":\"cuda\"}"
+}

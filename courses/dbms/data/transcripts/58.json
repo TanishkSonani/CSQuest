@@ -1,0 +1,2074 @@
+{
+  "id": 58,
+  "title": "File Organization",
+  "file": "058. Lecture 1 - File Organization.mp4",
+  "seconds": 9810.048,
+  "segments": [
+    {
+      "start": 533.33,
+      "end": 568.24,
+      "text": " hi everyone is the audio video volume is everything clear is everything fine please tell me okay now we will study new module new chapter that is file organization how do we store the database we have the database but on the hard disk how to store the database how to store the tables how to store the records so all those things we will see in this lecture so file organization this is the content for this lecture",
+      "avg_logprob": -0.08339843535795807,
+      "no_speech_prob": 0.042144775390625
+    },
+    {
+      "start": 568.54,
+      "end": 598.76,
+      "text": " and some questions some very nice questions we will solve is standard questions from the olman and navate book those questions we are going to solve okay so let's start now first of all we have seen what we have seen so far we have seen the hard disk right correct the hard drive we have seen right okay so we have seen the hard drive the magnetic disk so in the magnetic disk what we have in the magnetic disk we have sector platter these things we have right so when you purchase a disk from the market",
+      "avg_logprob": -0.13439002933983618,
+      "no_speech_prob": 0.40478515625
+    },
+    {
+      "start": 599.41,
+      "end": 628.43,
+      "text": " so when you purchase this disk or I can say this magnetic disk when you purchase this from the market then some things are fixed what are the fixed things so in this magnetic disk some things are fixed likes there will be sector so there will be platter okay so there will be some platters these are fixed can you change the platters number of platters can you change so platters you cannot change so there are platters every platter has maybe one surface or two surface by default it has two recording surfaces",
+      "avg_logprob": -0.10558252166775824,
+      "no_speech_prob": 0.3193359375
+    },
+    {
+      "start": 629.41,
+      "end": 656.53,
+      "text": " See, remember one thing that one platter, it can have one recording surface or two recording surface. By default, you have to take two recording surface. By default, every platter has two recording surface. Means on the both side of the platter, we can record the data. We can store the data. So we have platter, we have surfaces, we have tracks. Every surface is divided into tracks. Every track is divided into sectors.",
+      "avg_logprob": -0.13996010559036376,
+      "no_speech_prob": 0.053497314453125
+    },
+    {
+      "start": 657.17,
+      "end": 686.31,
+      "text": " Okay. And if you take all the tracks of the same diameter, all the tracks of the same diameter, they will create a cylinder. They will create a cylinder. Okay. So sector size, track size, all these, all these things are fixed. All these things are fixed. These are the properties of disk. Tell me block. I told you something about block. Is that property of disk? All these things are properties of disk. All these things, these are properties of disk. So when you purchase the disk,",
+      "avg_logprob": -0.11595775131826047,
+      "no_speech_prob": 0.214111328125
+    },
+    {
+      "start": 686.64,
+      "end": 714.68,
+      "text": " these are properties of disk so when you purchase the disk then all these things will be fixed correct and there is something called block there is something called block who decides what will be the size of block what is a block I told you block is basically some consecutive sectors right okay so what is a block this is basically I can say some consecutive sectors some consecutive sectors",
+      "avg_logprob": -0.13639323061539066,
+      "no_speech_prob": 0.381591796875
+    },
+    {
+      "start": 716.02,
+      "end": 744.9,
+      "text": " Okay, so this is some conjugated sectors within a track. Remember, remember within a track. Within a track. So block size should not be more than the track size. So within a track. So anyway, you can see these things that some conjugate sectors within a track. Now this block, this is a property of a DBMS. Okay, basically the DBMS will decide how many sectors basically DBMS will decide the block size. Yes or no decides the block size.",
+      "avg_logprob": -0.2176451978057322,
+      "no_speech_prob": 0.53662109375
+    },
+    {
+      "start": 746.77,
+      "end": 774.81,
+      "text": " So depending on the DBMS depending on the DBMS you can have for example one block can be one sector one block can be two sector three sector four sector Okay, so some consecutive sectors you are taking okay to create a block some consecutive sectors within a track within a track that is your block Okay, so that is the definition of a block and this is not a property offer So when you purchase the disc then this block size will not be given on the on the disc, right? So when you purchase your disc",
+      "avg_logprob": -0.16919643197740827,
+      "no_speech_prob": 0.38037109375
+    },
+    {
+      "start": 775.11,
+      "end": 803.21,
+      "text": " on the disk specification in the disk specification this block size will not be given because that is basically a property of dbms so dbms will decide what is the block size how much block size i want okay so uh block size should be more block size should be less so that will be decided by dbms okay so so far all these concepts we have seen now what we need to study we need to study how to organize a database we know that database we put on the disk right",
+      "avg_logprob": -0.08820312447845936,
+      "no_speech_prob": 0.08319091796875
+    },
+    {
+      "start": 803.61,
+      "end": 829.95,
+      "text": " So, but how to do that? Okay, so storing a database on the disk, that is what we need to study. So this you already know. And before we start this chapter, don't confuse file organization with indexing. Many strengths what they do, because these topics we study, I can say together, these two topics we study together. So many strengths, they basically they forget the difference between these two. Are you getting my point?",
+      "avg_logprob": -0.14784945659739998,
+      "no_speech_prob": 0.09381103515625
+    },
+    {
+      "start": 830.18,
+      "end": 855.74,
+      "text": " so don't confuse don't confuse don't mix the file organization with indexing indexing is a separate chapter in this indexing we will study only the indexes in this indexing we only study the indexes okay in the file organization we study how database is stored okay please please understand the difference between these two how database will be stored that we study in the file organization",
+      "avg_logprob": -0.06907894766252291,
+      "no_speech_prob": 0.08953857421875
+    },
+    {
+      "start": 856.23,
+      "end": 883.57,
+      "text": " how the database is stored all your tables and all your records all your tuples all your attributes so how all those things are stored that we study in the file organization so file organization means how database is stored and indexing means we study some some data structure index is nothing but a data structure okay it is nothing but a new data structure okay these are data structures so remember one thing I am telling you",
+      "avg_logprob": -0.12683256172839505,
+      "no_speech_prob": 0.0479736328125
+    },
+    {
+      "start": 883.79,
+      "end": 912.89,
+      "text": " that file organization don't confuse this file organization with indexing we study these two topics together so in this lecture we will study file organization in the next lecture we will study indexing don't confuse these things okay these are different it's like let me give you analogy let me give you a very simple analogy have you seen any book have you seen any book have you seen whatever book you take for example have you seen a book okay in that book what happens there are some there are some",
+      "avg_logprob": -0.044802297666972996,
+      "no_speech_prob": 0.364501953125
+    },
+    {
+      "start": 913.1,
+      "end": 942.13,
+      "text": " some pages for indexing for index right most of the time like if you see the standard books in the standard books where you find the index in the standard books in the standard books where you will find the index no at the end in the in the standard books at the end you will find the index check it out see okay check it out in the standard books whatever standard book you study for example korth navate kormen whatever standard book you study at the end you will find the index have you seen this",
+      "avg_logprob": -0.09006911007544169,
+      "no_speech_prob": 0.59326171875
+    },
+    {
+      "start": 942.61,
+      "end": 972.03,
+      "text": " Maybe maybe if you have some standard book with yourself right now, you can open it and you can take it out. Okay, so you can take it out table of content at the starting at the starting what we have that is table of content. Okay, at the end we have index if you have seen at the end what we have if you notice in the standard books at the end you will find something like that at the end few pages. Okay, maybe four pages five pages. Okay, so at the end what you will find at the end you will find that some index you will find.",
+      "avg_logprob": -0.1390881110898784,
+      "no_speech_prob": 0.47216796875
+    },
+    {
+      "start": 972.68,
+      "end": 999.8,
+      "text": " Okay, at the end some pages will be there. Some pages will be there like this. Okay, so one page, then another page, then another page. Okay, then another page. So mostly like four pages, five pages will be there. You can check it out. Okay, at the end, you can check it out at the end. So like this, some pages will be there, maybe four pages, five pages. And in these pages, alphabetical order index will be there. Index will be there in the alphabetical order. For example,",
+      "avg_logprob": -0.15625000706520573,
+      "no_speech_prob": 0.58203125
+    },
+    {
+      "start": 1000.19,
+      "end": 1028.75,
+      "text": " Okay, maybe if you have arm, this word will be written and they will write that this word you can find on the page number 100. Okay, are you getting my point? This word you can find in the page number 100. Then they will write then they will write something like okay block. They will write something like that this this word this block this word you can find on the page number 103. Then they will write something like this. For example, this word.",
+      "avg_logprob": -0.15035076044043716,
+      "no_speech_prob": 0.46630859375
+    },
+    {
+      "start": 1029.08,
+      "end": 1057.75,
+      "text": " This word you can find on the page number 90. So like this, are you getting my point? So if you check in the standard books, at the starting what we have? At the start, you have table content. At the start, you have content. At the start, you have basically content. What is the content in this, I can say, in this book? So content you have. But at the end, you find the index. You check it out. At the end, you will find the index.",
+      "avg_logprob": -0.1457138739594626,
+      "no_speech_prob": 0.309326171875
+    },
+    {
+      "start": 1058.16,
+      "end": 1085.28,
+      "text": " with the page number will be given with every word and can you notice this is in the alpha vertical order like okay arm then block then disk then then something like okay so maybe with the block also you can write maybe buffer maybe this word buffer you will find this word buffer you will find on the page number 20 okay so like this are you getting my point please tell me so this is the analogy I'm giving you if you study any standard book whatever standard book you take",
+      "avg_logprob": -0.10978618264198303,
+      "no_speech_prob": 0.4052734375
+    },
+    {
+      "start": 1085.94,
+      "end": 1114.24,
+      "text": " For example, fourth, let's assume this is the fourth book. Okay, let's assume this is the fourth book. So in the fourth book at the end, you will find the index. This index you will find and there will be alphabetical order. Okay, correct. So this index and there will be some pages, maybe four pages, five pages. This court has maybe let's assume total hundred pages are there. Total hundred pages can be there. But out of those hundred pages, almost maybe four pages, three pages, four pages, five pages, that will be four index.",
+      "avg_logprob": -0.1723872986240465,
+      "no_speech_prob": 0.473388671875
+    },
+    {
+      "start": 1114.6,
+      "end": 1142.27,
+      "text": " So this index will have less number of pages. Agree or not? Can you tell me? Can you tell me why index has less number of pages? Like everything that we have in this book, everything that is also present in the, that is also present in the index, then why index has only three or four pages? Can anyone tell me? Use your common sense. If you use your common sense more, then you will understand the concept better. So tell me, for example, this, this we have in the book also.",
+      "avg_logprob": -0.09938063183883289,
+      "no_speech_prob": 0.10028076171875
+    },
+    {
+      "start": 1142.65,
+      "end": 1171.34,
+      "text": " Okay, there is a chapter there is a chapter for this also then why index has less number of pages because in the index we only contain the topic name very good. It doesn't have the details very good. So good very good. Okay, it has terminology. Very good. So you can notice it only has I can say I can say it only has two fields. Yes or no every index entry has only two fields. This is a index entry. I can call it index entry. You can check it out.",
+      "avg_logprob": -0.17143691867311425,
+      "no_speech_prob": 0.47998046875
+    },
+    {
+      "start": 1171.96,
+      "end": 1202.57,
+      "text": " Okay. You can open some standard book if you have in front of you. Okay. Do you have some book near you? Okay. Just, just open it. Just open that book and you check it out. Go and go to the end. At the end, you will find the index. So there is an index entry. Okay. And alphabetical order. This index will be in the alphabetical order. Correct. This index will be in the alphabetical order. So just check it out.",
+      "avg_logprob": -0.11951622538841687,
+      "no_speech_prob": 0.411865234375
+    },
+    {
+      "start": 1202.81,
+      "end": 1231.03,
+      "text": " okay hard copy soft copy doesn't matter whatever book you have you can check it out that so every index in this if you notice this index entry has two fields so there will be two fields for example like whatever topic you study like normalization for normalization also there will be for example normal form for normal form i can say it is on the page number 500 so something like this so every index entry has two fields is this clear every index entry has two fields",
+      "avg_logprob": -0.06426411001913009,
+      "no_speech_prob": 0.302001953125
+    },
+    {
+      "start": 1231.34,
+      "end": 1258.98,
+      "text": " okay one is I can say one is the search can I call it search like we are searching based on this word can I call it can I call it search key can I call it search key because we are searching based on this word see I am calling it search key because we are searching based on this word and what is what can I call this can I call this address can I call this page address or block address see this page",
+      "avg_logprob": -0.06818181792782112,
+      "no_speech_prob": 0.3974609375
+    },
+    {
+      "start": 1259.41,
+      "end": 1289.89,
+      "text": " this page this this page is same as block you can call it every page is basically block so can i call it page address this 500 this is a page address or i can say block address okay this is basically block address or i can say page address okay very simple so are you understanding what is the index and so okay now let me tell you so you can notice this is a book standard book at the end you will find the index every index entry has two things",
+      "avg_logprob": -0.04990857744470556,
+      "no_speech_prob": 0.323974609375
+    },
+    {
+      "start": 1290.2,
+      "end": 1318.96,
+      "text": " so what has every index entry has worked there will be two things okay it will have a search key based on this word we are searching so this is the search key and you will find the you will find the i can say the record you will find the paragraph containing this word on the 500 page correct you will find the paragraph that contains this word okay paragraph that contains this word that you will find on the 500 page number okay so this is the complete idea",
+      "avg_logprob": -0.06470788302628891,
+      "no_speech_prob": 0.62939453125
+    },
+    {
+      "start": 1319.21,
+      "end": 1346.87,
+      "text": " now let me tell you these things we are going to study so if you study if you look at this complete book if you look at this complete book this is your entire book in the entire book only some pages are the index right okay only some pages are the index this is your index so this index we will study in the indexing chapter okay in the indexing chapter we will study this is chapter number two okay we will study this in the indexing chapter",
+      "avg_logprob": -0.05586357623018244,
+      "no_speech_prob": 0.317626953125
+    },
+    {
+      "start": 1347.23,
+      "end": 1374.78,
+      "text": " So in the indexed chapter, our complete focus will be on these last four pages. Are you getting my point? Okay. On these last four pages, our focus will be. So this is your book. Okay. And last four pages of the index. So our complete focus will be on the last four pages in the chapter number two. And if you study this entire remaining book, this is what we call file organization. This we study in the file organization. Are you getting my point?",
+      "avg_logprob": -0.1131280618263226,
+      "no_speech_prob": 0.1322021484375
+    },
+    {
+      "start": 1375.18,
+      "end": 1403.57,
+      "text": " So can you see the difference between these two topics? This we study in the file organization. Okay. So if you want to study the entire book that we study in the file organization. Okay. And on this book on this, this is the actual data. Right. Okay. Can I say, can I say this is the actual data? So on this data, we create a index on this data, we create a index on this data. This index is created. This index is created.",
+      "avg_logprob": -0.13212316527086146,
+      "no_speech_prob": 0.1790771484375
+    },
+    {
+      "start": 1403.93,
+      "end": 1430.56,
+      "text": " so this index we will study in the chapter number two and this file organization we will study in the chapter number one so whatever we study today that is i can say that is like we are learning the how to store this entire book and in the chapter number two we will study how to create index on this book did you understand the difference what i'm trying to tell you that don't confuse these two things don't confuse file organization with indexing",
+      "avg_logprob": -0.06714409871233834,
+      "no_speech_prob": 0.1412353515625
+    },
+    {
+      "start": 1431.09,
+      "end": 1458.73,
+      "text": " file organization means how you are restoring the database your actual content can I say this database means your actual data that you care about agree or not do you care about index or do you care about the actual data tell me do you care about the index or do you care about the actual data actual data we care about right okay this is just a facility can I say this indexing this is just a facility can I call it a facility so this is a facility",
+      "avg_logprob": -0.11514945887029171,
+      "no_speech_prob": 0.18408203125
+    },
+    {
+      "start": 1459.13,
+      "end": 1488.91,
+      "text": " But this database is your actual data. So remember very simple thing. Don't confuse this file organization with indexing. File organization means we study how to store the actual data and this index is just a facility. It is just only a facility, nothing else. Okay. So this we will study in the chapter number two. This is what I'm telling you. Okay. So in this chapter, our complete focus will be on the file organization. We will not study index. Okay. So file organization tells you what?",
+      "avg_logprob": -0.1093749987466313,
+      "no_speech_prob": 0.35791015625
+    },
+    {
+      "start": 1489.16,
+      "end": 1520.52,
+      "text": " it tells you how the database is actually stored database means your actual data that you care about your actual data okay and index basically it only simplifies the data access right agree or not can you notice this only simplifies the data access it will only simplify this we will study in the next chapter file organization is your actual book and index is basically the the the last two three pages okay the last two three pages of the book the last two three pages of the book",
+      "avg_logprob": -0.051033267090397495,
+      "no_speech_prob": 0.497314453125
+    },
+    {
+      "start": 1520.73,
+      "end": 1548.92,
+      "text": " called index. So this is what I'm telling you. Okay, now let's move on. Now what we are going to study. So we are going to study file organization. Okay, our topic is what our topic is file organization, how to store the database, how to store your actual data, your tables, how to store those data. Okay, so in the file organization, you can notice you have a database, right, agree. So you have a database in the database, what we have some tables are there.",
+      "avg_logprob": -0.08930619156688725,
+      "no_speech_prob": 0.225830078125
+    },
+    {
+      "start": 1549.23,
+      "end": 1577.89,
+      "text": " correct so in the database you have table one maybe table two okay so maybe uh table one means i can call it relation r table two i can call it relation s so there are some tables now okay there can be some other table for example there can be table three let's call it a t okay so there are some tables in your database now this is a conceptual level agree this is a conceptual level okay so when you say that this is just a conceptual level",
+      "avg_logprob": -0.08534946044286092,
+      "no_speech_prob": 0.2076416015625
+    },
+    {
+      "start": 1578.14,
+      "end": 1607.32,
+      "text": " Now, how to store this? After all, ultimately, we have to store the data, right? Ultimately, this data must be stored. Ultimately. So all these tables, ultimately, we must store them on the hard disk. Okay, so these will be stored on hard disk. So every data that you have, every table that you have that will be stored on hard disk. But how to store this data? How to store this database on the hard disk? So very simple. Extremely simple. What do you do?",
+      "avg_logprob": -0.12270641901077481,
+      "no_speech_prob": 0.319091796875
+    },
+    {
+      "start": 1607.63,
+      "end": 1637.46,
+      "text": " you store this in one file you store this in single file and you store this as a single file so for every relation you create a single file are you getting my point so for relation R for this table 1 okay you store this entire relation as a single file as a single file okay as a single file you store this entire data entire table this entire table you store as a single file 2 and this entire data this entire relation you store as a single file 3",
+      "avg_logprob": -0.1124832002065515,
+      "no_speech_prob": 0.52685546875
+    },
+    {
+      "start": 1637.82,
+      "end": 1667.41,
+      "text": " is this clear this is the very intuitive organization right correct so from conceptual level very easily you can go to the very easily you can go to the physical level now what is this file okay this is a sequence of blocks basically okay what I am saying very simple things so now let's look at particular relation R so let's assume this is your relation R okay you have this relation R in this relation R you can have many records correct",
+      "avg_logprob": -0.08032507423696847,
+      "no_speech_prob": 0.340087890625
+    },
+    {
+      "start": 1667.84,
+      "end": 1697.46,
+      "text": " There can be many records in the relational. For example, maybe record, maybe you can have record R1, you have record R2, you have record R3, you have record R4, you have record R5, you have record R6. So there can be many records. Now, ultimately, what we do? We store this, this on, we store this, stored on disk. Okay, stored on disk as a single file, as a single file. Okay, as a single file, we store this. Now, what this?",
+      "avg_logprob": -0.18532608902972678,
+      "no_speech_prob": 0.5361328125
+    },
+    {
+      "start": 1697.69,
+      "end": 1723.21,
+      "text": " so but but on the disk do you have the concept of file on the hard disk do you have the concept of file when you purchase the hard disk this is do you have this concept of file there is no concept of file on the hard disk right on the disk on the disk so this is a logical concept can i call it this is not a physical concept sector is a physical concept agree see when you purchase the hard disk sector is a physical concept",
+      "avg_logprob": -0.06700721088346544,
+      "no_speech_prob": 0.1019287109375
+    },
+    {
+      "start": 1723.63,
+      "end": 1752.01,
+      "text": " Okay. For example, I can say your platter is a physical concept. Surface is a physical concept. These concepts are physical concepts. But this file, this is a logical concept. Okay. Anyway, what I'm saying that on the hard disk, you store this. Okay. On the hard disk, you store this as a single file. Now what will happen? But on the hard disk, you have sectors. And of course, what you can do, maybe some sectors you can, you can convert into blocks. So what we do actually, what we do.",
+      "avg_logprob": -0.15307202846822093,
+      "no_speech_prob": 0.176513671875
+    },
+    {
+      "start": 1752.35,
+      "end": 1781.5,
+      "text": " this file we divide into blocks let's assume block number one has this these two records block number two has these two records and block number three has these two records okay so this data will come in the block number one this will come in the block number two this will come in the block number three and you know what is a block block is some consecutive sectors right okay yes or no block is basically some consecutive sectors of course it will be fixed",
+      "avg_logprob": -0.08971207597282495,
+      "no_speech_prob": 0.379150390625
+    },
+    {
+      "start": 1782.2,
+      "end": 1809.68,
+      "text": " Of course, if you cannot, like, the DBMS will fix it. Agree or not? This block size will be fixed by the DBMS. Block size, this block size, how many sectors that will be fixed? Block size fixed, fixed by DBMS. So DBMS will fix the block size. It cannot happen that this block size is different from this block size. Okay, is this clear? So the DBMS will fix the block size. Okay, this will be fixed. The block size will be fixed by the DBMS.",
+      "avg_logprob": -0.151589918293451,
+      "no_speech_prob": 0.379150390625
+    },
+    {
+      "start": 1809.97,
+      "end": 1840.64,
+      "text": " Okay, maybe for example, maybe three sector, maybe four sector, or maybe one sector, or maybe two sector. So anyway, this block size will be fixed by the DMS. So all the blocks have the same size. This block, this block, this block, they have the same size, all the blocks, they have the same size. So what we do, this is your relation R and this relation we store. This relation we store on the disk as a single file. So I can say this file is nothing but I can say this file is nothing but sequence of blocks. Okay, correct.",
+      "avg_logprob": -0.13306051019638304,
+      "no_speech_prob": 0.330078125
+    },
+    {
+      "start": 1841.07,
+      "end": 1871.42,
+      "text": " Okay sequence of consecutive blocks is this clear so this file this is basically nothing but sequence of consecutive blocks like this is the sequence of consecutive blocks so like you like this you store the data is this clear to everyone how we store the data so for every table like whatever table you have this table as this table T every table what we do we divide into blocks okay like these many records will come in block number one these many records you can put in block number two these many records you can put in block number three",
+      "avg_logprob": -0.12902001819564302,
+      "no_speech_prob": 0.53466796875
+    },
+    {
+      "start": 1871.66,
+      "end": 1898.74,
+      "text": " So we divide the file into I can say blocks and now this block we can store on the database this we can store on the data so in the disk this you can put in the disk this you can put in the disk this you can put in the disk so this is a very simple concept okay let's move on and let's see now so you can notice ultimately ultimately this data this database whatever database you have ultimately you have to store this on the storage device on the disk",
+      "avg_logprob": -0.08650128865979381,
+      "no_speech_prob": 0.04742431640625
+    },
+    {
+      "start": 1899.19,
+      "end": 1930.2,
+      "text": " Okay, so we store on the magnetic disk we store and whenever we want to use the data like for example, tell me let's assume you want to use this data. Then what do you need to do? So this is your hard drive. Let's assume this is your hard drive. This is your hard disk on the hardest. You have the data. Let's assume this is your table number R. Okay, this is your table number R block one block two block three. So in this block, so in this in this block you have",
+      "avg_logprob": -0.17117745855024882,
+      "no_speech_prob": 0.179443359375
+    },
+    {
+      "start": 1930.78,
+      "end": 1959.72,
+      "text": " you can notice this data you have r1 r2 this r1 r2 you have block number one okay so in this block number one you have i can say r1 r2 in the block number two you have r3 r4 in the block number four you have r5 r6 now if you want to access this data this is the hardest but if you want to do anything on this data either you want to read this data or you want to write this data you want to update this data whatever you want to do if you want to process this data then what you need to do you need to",
+      "avg_logprob": -0.05357596393280882,
+      "no_speech_prob": 0.6181640625
+    },
+    {
+      "start": 1959.96,
+      "end": 1988.66,
+      "text": " Take for example, let's assume I want I would this is my desired data. Let me assume. Let me assume. I want our for let me assume. This is my desired record. Let's assume. Okay. This is my desired record. Then what you will have to do for basically this block, this block will go to the main memory. Okay. This block will go to the main memory. Here you have the main memory. So in the main memory, so this is your memory. In the memory, there is something called buffer. Okay. In the memory.",
+      "avg_logprob": -0.15323004326900513,
+      "no_speech_prob": 0.2236328125
+    },
+    {
+      "start": 1989.09,
+      "end": 2018.46,
+      "text": " we we calls in the memory some part we call buffer some part we call buffer okay so basically in the main memory this is your main memory and this part we call buffer and this block will be shifted to this buffer is this clear this block the entire block will be shifted to this this main memory buffer is this clear to everyone so remember whatever is your desired record so what you do this block you transfer not the sector so very interesting thing you can notice that",
+      "avg_logprob": -0.09001358711849088,
+      "no_speech_prob": 0.37255859375
+    },
+    {
+      "start": 2018.75,
+      "end": 2049.53,
+      "text": " When you purchase the hard drive, when you purchase the hard drive, if you only look at the hard disk, if you only look at the hard disk, then sector is the unit of data. Agree? This sector is the unit of data. This sector is the smallest unit of data when you purchase the hard disk. So this is the smallest unit of data when you purchase the hard disk. This is the smallest unit of data, data access. So this is the smallest unit that you can access when you purchase the hard drive.",
+      "avg_logprob": -0.09289772727272727,
+      "no_speech_prob": 0.33056640625
+    },
+    {
+      "start": 2049.78,
+      "end": 2078.7,
+      "text": " but from dbms point of view if you are using the dbms software okay in your computer you are using the dbms software then from this dbms point of view what happens this sector is very i can say the dbms is thinking what the dbms is thinking this dbms is thinking okay sector is very small yes or no this dbms is thinking sector is very small okay so what this dbms will do this dbms will okay will define okay let me define that",
+      "avg_logprob": -0.09528329091094365,
+      "no_speech_prob": 0.427490234375
+    },
+    {
+      "start": 2078.98,
+      "end": 2108.87,
+      "text": " Let me let me define that block size is three sectors. Let me define block size is three sectors. Okay. So let let me define block size is three sectors. Then what this DBMS will do. Now once you define this block size as a fit three sectors. Now now now this becomes the base smallest unit for the DBMS. Now this becomes the smallest unit of data access of data access for DBMS. Is this clear?",
+      "avg_logprob": -0.17638889104127883,
+      "no_speech_prob": 0.2481689453125
+    },
+    {
+      "start": 2109.47,
+      "end": 2137.35,
+      "text": " Let me know. So for the DBMS, this becomes the smallest unit of data access. Okay. So this becomes the smallest unit of data access. So very simple. So this is the idea. Is this point clear to everyone? Very simple point. So remember, if you purchase the hard drive, then the sector is the smallest unit of data access in general. So can I say, like from the general point of view, because in the hard drive, do you have only DBMS in the hard drive? Do you only have database?",
+      "avg_logprob": -0.11565290484577417,
+      "no_speech_prob": 0.1683349609375
+    },
+    {
+      "start": 2137.82,
+      "end": 2165.52,
+      "text": " you have many other things in the in the hard drive you have many other things for example in the hard drive you have operating system also your operating system your program your movie your photo okay everything is stored on the hard drive so in general i can say sector is the smallest unit of data in general but from the dbms point of view from the database point of view okay once you have this block size like if i define block size equal to three sector then this block becomes the smallest unit of data access so if you want to read",
+      "avg_logprob": -0.07194010464957466,
+      "no_speech_prob": 0.27490234375
+    },
+    {
+      "start": 2165.88,
+      "end": 2194.26,
+      "text": " If this DBMS want to read something, then it will read a block. If you want to write, then you will write a block. So whatever you do, you will access a block. So this becomes the smallest unit of data access for the DBMS. Is this clear? So this block and remember different DBMS, different database software, they can have different block size. So this DBMS will decide, okay, let me take three sectors as the block size. Is this clear to everyone? Please tell me. Is this point clear?",
+      "avg_logprob": -0.11815541824408338,
+      "no_speech_prob": 0.389404296875
+    },
+    {
+      "start": 2194.7,
+      "end": 2223.14,
+      "text": " So the DBMS will decide basically this block size will be decided by DBMS by the database software. Okay. And whenever you want, whenever a certain portion of data is needed, then what you will do, then what are you going to do? Whenever you want some data from the hardest, then you will locate. Okay. You will, you will search it on the hardest. Then you will copy to the main memory and then you will rewrite. If you have changed the data, then you can rewrite. Okay. Very simple.",
+      "avg_logprob": -0.11363636153665456,
+      "no_speech_prob": 0.04693603515625
+    },
+    {
+      "start": 2223.41,
+      "end": 2255.28,
+      "text": " So from the hard drive, you have to copy the block. So block will come. Agree? So from the hard drive when you, okay, this is your disk. This is your disk. From the disk, when you transfer to the main memory, then what you will transfer? From the disk, when you transfer to the main memory, then you will transfer a block. A block is transferred. Okay, so a block will be transferred because now this is the smallest unit of data. This block is the smallest unit of data. So this block you will transfer to the main memory. Now, now, now.",
+      "avg_logprob": -0.1140747080789879,
+      "no_speech_prob": 0.654296875
+    },
+    {
+      "start": 2255.56,
+      "end": 2287.18,
+      "text": " the access cost most of the time they will ask you access cost now in this situation the access cost is basically how many blocks you are transferring okay so basically when you transfer the data from disk to main memory then you will transfer one block of course now for your desired data okay for your desired data how many blocks you have to transfer so this access cost means number of blocks needed to be transferred number of blocks okay so this becomes number of blocks",
+      "avg_logprob": -0.06052493144956867,
+      "no_speech_prob": 0.72607421875
+    },
+    {
+      "start": 2288.34,
+      "end": 2327.51,
+      "text": " needed to be transferred to be transferred. Okay. From disk to memory. Okay. So this is the idea. So access cost becomes what? So most of the time we will decide the access cost in terms of number of blocks. How many number of blocks you have to read to get your desired data? How many number of blocks you have to transfer from disk to memory? Okay. Now anyway, so let's see this. So how the data, how the, how disk",
+      "avg_logprob": -0.14764030201702702,
+      "no_speech_prob": 0.53369140625
+    },
+    {
+      "start": 2327.77,
+      "end": 2355.08,
+      "text": " will store the database that is what we study now okay how the disk are used to store the database that we need to study so we have already seen hard disk the hardest we have already seen and these concepts we also know but this concept if you notice this block concept this is decided by the by the dbms so now you can notice very simple like conjugate this is your block what is a block conjugate sectors within a single track okay",
+      "avg_logprob": -0.10830965765159238,
+      "no_speech_prob": 0.251953125
+    },
+    {
+      "start": 2355.31,
+      "end": 2384.47,
+      "text": " like this this is a sector see this is a sector this is a sector this is a sector so if you take three sectors okay so basically conjugate sectors if you take within the track within this track then that will be your block size so you can notice what is the definition of block now if anyone asks you what is the definition of block what is that that is continuous sequence of sectors from a single track is this clear from a single track continuous sequence of sectors from a single track this is your block",
+      "avg_logprob": -0.07773437216877938,
+      "no_speech_prob": 0.478759765625
+    },
+    {
+      "start": 2384.72,
+      "end": 2413.54,
+      "text": " now this block size can be decided of course this block side you can take less more that is that depends on you okay and data is transferred between disk and main memory in blocks so now this block is the smallest unit of data access remember okay so very simple now so say in general if you notice remember in general the sector is the smallest unit of data this is the smallest or unit of data in general but from the dbms point of view",
+      "avg_logprob": -0.07647569278875986,
+      "no_speech_prob": 0.064697265625
+    },
+    {
+      "start": 2413.88,
+      "end": 2442.94,
+      "text": " For the DBMS who is the smallest unit of data that is block block is the smallest unit of data to access. So remember from now onwards from now onwards this block will become our smallest unit of data to access whether you want to read or you want to write then from the hard drive from the hard disk you will read a block you will write a block. Okay. And of course this block size is set by the DBMS. Okay. This is not a property of hard disk. Okay. Now let's move on. So all these points we have already seen.",
+      "avg_logprob": -0.11271367750616156,
+      "no_speech_prob": 0.1636962890625
+    },
+    {
+      "start": 2443.12,
+      "end": 2471.57,
+      "text": " So you can notice data, whatever data you store that also you store in the disk blocks. And if you want to access the data, you will access the disk block. So this is the unit of data access. Okay. Now one more thing I want to tell you. I will use sometimes I will use this word block or sometimes I will use this word page. So you can call it block or you can call it page. Now don't confuse. This is not the page in the page table. Don't confuse this.",
+      "avg_logprob": -0.08880447329731163,
+      "no_speech_prob": 0.081298828125
+    },
+    {
+      "start": 2472.04,
+      "end": 2502.03,
+      "text": " Don't confuse this. This is not the page of those page table concept. Is this clear? This is not the page from the paging concept. From operating system paging concept. Is this clear? So don't confuse this page with that page. Okay, that is virtual memory page. That is a different thing. That is a different thing. Okay, this block is a different thing. This block is simply some sectors, right? Some sectors in a single track.",
+      "avg_logprob": -0.12890624984794732,
+      "no_speech_prob": 0.316162109375
+    },
+    {
+      "start": 2502.38,
+      "end": 2531.32,
+      "text": " Okay, so some sectors some consecutive sectors so you cannot this block and this space these words sometimes it they can be used So don't confuse this page. This is not the page from the operating system page in concept So what we are going to do? What we are going to do? We are going to use this word mostly so that you are you don't get confused Okay, mostly we will use this word block So I will not use this word page, but I'm just telling you that if you find this word page anywhere",
+      "avg_logprob": -0.16739003912166314,
+      "no_speech_prob": 0.387939453125
+    },
+    {
+      "start": 2531.79,
+      "end": 2563.21,
+      "text": " in the dbms book in any dbms book when you see this word page then it simply means they are talking about the block okay so this block is also called page but this is not the same as the your page in concept as the block from the page in concept okay now let's see so ultimately what we have ultimately we have this so this is the complete file organization let me tell you this is the complete file organization so in the database you have what we do",
+      "avg_logprob": -0.09536082228434455,
+      "no_speech_prob": 0.2215576171875
+    },
+    {
+      "start": 2563.56,
+      "end": 2594.78,
+      "text": " in one relation for one relation what you will create for one relation one file will be created okay so one relation will be stored as one file is this clear stored as one relation will be stored as one file okay and what is this one file and what is this file this is basically some sequence of blocks some sequence of blocks correct some sequence of blocks so very simple",
+      "avg_logprob": -0.10273972357789131,
+      "no_speech_prob": 0.328125
+    },
+    {
+      "start": 2595.08,
+      "end": 2624.58,
+      "text": " so remember this file this is nothing but some sequence of blocks okay and what we do and you can notice in this relation if this is your relation this is your data this is your table r in this table r what we do the records we divide into blocks correct the records are divided into blocks b1 b2 b3 okay this block we put on the hard drive this block we put on the hard disk this block we put on the hard disk",
+      "avg_logprob": -0.07196180497606595,
+      "no_speech_prob": 0.18505859375
+    },
+    {
+      "start": 2624.8,
+      "end": 2653.81,
+      "text": " Okay. So the records that you have, like R1, R2, R3, R4, okay, R5, R6, these records we divide into blocks and these blocks are the data, are the unit of data access. So this is the complete thing. And one more thing, of course, one thing you can easily see that the block size is basically more than the record size, right? Yes or no? So the block size, that is more than record size. It is more than or equal to record size.",
+      "avg_logprob": -0.1166294612256544,
+      "no_speech_prob": 0.176025390625
+    },
+    {
+      "start": 2657.13,
+      "end": 2684.87,
+      "text": " Correct. Okay. So block size is more than or equal to record size. So these are the points that we have seen. So we have seen that database you store the database. Physically you are storing the database. Physically you are storing the database as files of records. Okay. And you put them on the disk. You can notice one database relation is stored as one file. Okay. Now what we do, of course, so how many files will be there? Can anyone tell me?",
+      "avg_logprob": -0.13015777306649293,
+      "no_speech_prob": 0.08807373046875
+    },
+    {
+      "start": 2685.32,
+      "end": 2713.93,
+      "text": " in the database how many files will be there that will be number of relations so how many relations you have how many tables you have so you can notice the database is mapped into number of different files so for example for relation r there will be one file for relation s there will be another file for relation t another file so like this these files you put on the disk permanently you put on the disk these files okay and you can notice what is a file file is basically sequence of records and these records are",
+      "avg_logprob": -0.08663366189097414,
+      "no_speech_prob": 0.47216796875
+    },
+    {
+      "start": 2714.17,
+      "end": 2743.55,
+      "text": " divided into disk blocks you divide them into disk blocks okay so this is the point now let me see some doubts priya is asking disk controller mapping of chs and lba then how to identify address with the block numbers see when you say block number that's that is just a logical concept there will be block address priya just for understanding purpose i am saying block number block number",
+      "avg_logprob": -0.12581169373029238,
+      "no_speech_prob": 0.4990234375
+    },
+    {
+      "start": 2744.17,
+      "end": 2772.45,
+      "text": " this is just for understanding purpose there will be block address okay and what is the block address that is the the address of the first sector in that block so for any block what is the address for any block the address is the address of the first sector in that block so basically just to tell you like basically blocks they have also address similarly record also have address don't worry this concept will come so block has address record has address",
+      "avg_logprob": -0.09574854356604953,
+      "no_speech_prob": 0.53857421875
+    },
+    {
+      "start": 2773.15,
+      "end": 2803.49,
+      "text": " sector has address okay so basically you can you can create the address for all these things we will see we will see there is something called record address we will see something called block address we will see record pointer block pointer so remember for every block there is address for every record also there is address okay so is this clear anyone has any other doubt priya was having one doubt that is clear anyone has any other doubt so far in the file organization so far we have only seen",
+      "avg_logprob": -0.10115131939712324,
+      "no_speech_prob": 0.73046875
+    },
+    {
+      "start": 2803.76,
+      "end": 2833.14,
+      "text": " nothing we have seen literally we have only seen how to put your database in the disk you have the disk disk you have studied we have seen what is a magnetic disk okay what are the concepts seek time access time all the concepts we have seen disk scheduling how to how to schedule basically the sequence of a cylinder request so how to schedule them so that we have seen so the magnetic disk we have seen okay magnetic disk we have seen and the second concept is what the second concept is this file organization means",
+      "avg_logprob": -0.10914062172174453,
+      "no_speech_prob": 0.4091796875
+    },
+    {
+      "start": 2833.34,
+      "end": 2860.88,
+      "text": " how to how to you have a database in the database you have many tables there are many tables r1 r2 r3 or maybe rst so these are many tables so how to store this database on the disk so what we do every relation we store as single file so this relation are you store as a single file is the relation as you store as a single file so every relation what you do you divide this into blocks okay divide this into blocks and then you put so basically the records are divided into blocks",
+      "avg_logprob": -0.10679611751755465,
+      "no_speech_prob": 0.53369140625
+    },
+    {
+      "start": 2861.51,
+      "end": 2889.31,
+      "text": " you have let's assume you have 20 records then first five record in one block another five record in another block so there will be five blocks if you can put five records in one block if you can do that then total 20 records are there so you will create total five total four blocks will be there right so this complete file this complete relation you can put in four blocks in the hard disk so these concepts we have seen so we have only seen how to put the database in the disk so far nothing else we have seen",
+      "avg_logprob": -0.11383928457895914,
+      "no_speech_prob": 0.471923828125
+    },
+    {
+      "start": 2889.58,
+      "end": 2920.87,
+      "text": " tell me did you get this point all the concepts that we have seen so far anyone has any doubt in this he is asking another doubt who is generating the address and giving to the disk its controller so who is generating the address there is a there is role of operating system okay priya there is role of operating system so to generate the address but anyway we will not go into those concepts okay any any other doubt",
+      "avg_logprob": -0.09299698759274311,
+      "no_speech_prob": 0.164306640625
+    },
+    {
+      "start": 2921.61,
+      "end": 2951.77,
+      "text": " So there is role of general operating system. So operating system will have basically some role here. So but we will not go into those those things. Any other doubt? Sir, but even in operating system we have block concept. No, that is for the cache memory that is different from the case memory point of view. There is yeah. So basically it happens the same word. It happens that same word is used in many different situations like this key we use for candidate key. Now we will use this key for search key.",
+      "avg_logprob": -0.18041087521447075,
+      "no_speech_prob": 0.44287109375
+    },
+    {
+      "start": 2952.11,
+      "end": 2981.49,
+      "text": " Similarly this block we use for when you study the case concept case memory concept when you study their block is something else In the case memory block is something else from the case memory point of view block is something else from the physical memory from the disk concept from the disk point of view hard drive concept Okay from the hard drive point of view block is something else Similarly from the hard drive point of view page is something else and from the Paging concept point of view",
+      "avg_logprob": -0.12239583685833921,
+      "no_speech_prob": 0.46875
+    },
+    {
+      "start": 2981.7,
+      "end": 3011.12,
+      "text": " from the operating system main main memory paging concept from that point of view pages something else so basically these same word you are using for different different concepts that happens but from the context it will be clear like when you study case memory this word block you see then hard drive will not come to your mind right is this clear so in the context so the context is very important is this clear so from the case memory point of view block is something else from the hard drive point of view block is something else",
+      "avg_logprob": -0.09212561763159119,
+      "no_speech_prob": 0.323974609375
+    },
+    {
+      "start": 3011.42,
+      "end": 3045.54,
+      "text": " so basically same word we are using but context is different context is completely different this case memory block has nothing to do with the hard drive block hard drive block is different case memory block is different okay so basically same word in different context contact it many times it happens okay any other doubt now let's see this question let's try this what is the answer tell me what will be the answer for this so the question is quite simple",
+      "avg_logprob": -0.08103197743726331,
+      "no_speech_prob": 0.1822509765625
+    },
+    {
+      "start": 3045.98,
+      "end": 3076.08,
+      "text": " what the question is asking this is from Raghurama Krishna dvms book this concept actually we have seen but let's see so you have a disc with sector size 512 bytes and there is a 2000 tracks per surface 50 sectors per track doubles five double sided platter every seek time is given so what is the capacity of a track capacity of a track so for one track what is the capacity the track size",
+      "avg_logprob": -0.21893382773679845,
+      "no_speech_prob": 0.2939453125
+    },
+    {
+      "start": 3076.92,
+      "end": 3107.43,
+      "text": " that will be equal to how many sectors you have so there are 50 sectors correct how many sectors you have that there are 50 sectors you have you can notice these are the 50 sectors that we have and every sector has the size of 5 12 bytes so this will become your answer right so this is the capacity of the track for one track what is the capacity okay what is the number of tracks can anyone tell me what is the number of tracks anyone what is the number of tracks",
+      "avg_logprob": -0.10937500007761021,
+      "no_speech_prob": 0.57958984375
+    },
+    {
+      "start": 3108.36,
+      "end": 3139.36,
+      "text": " number of tracks in the disk so you can notice 2000 per surface 2000 per surface 1 surface as 2000 there are 10 surfaces okay so there are 20,000 tracks is this clear there are 20,000 tracks remember tracks per surface 2000 per surface on one surface 2000 but there are 10 surfaces 5 plater so 10 surfaces double sided plater so there are",
+      "avg_logprob": -0.1849691926593512,
+      "no_speech_prob": 0.78857421875
+    },
+    {
+      "start": 3139.45,
+      "end": 3168.87,
+      "text": " 20,000 tracks and now tell me give example of valid block size which of them can be possible block size which of them can be a possible block size so this cannot be possible block size right because this is not even multiple of sector size this is not even multiple of sector size your sector this block size must be multiple of sector size correct so this is not multiple of sector size this is multiple of sector size",
+      "avg_logprob": -0.07238328403019044,
+      "no_speech_prob": 0.46728515625
+    },
+    {
+      "start": 3169.08,
+      "end": 3202.42,
+      "text": " this is also multiple of sector size but this is also not correct block at block size why what is the reason because this is more than the track size this is not within a track is this clear let me know so remember very simple this is your block size this is the block size block size is already given to you sorry sorry sorry this track size is already given to you this is the track size you cannot this is not multiple of sector size this is not multiple of sector size right",
+      "avg_logprob": -0.10518685812802658,
+      "no_speech_prob": 0.59912109375
+    },
+    {
+      "start": 3204.97,
+      "end": 3237.44,
+      "text": " So this is not a block size. This cannot be a block size. This is multiple of sector size. How many sectors are there in this? Can anyone tell me? 2048. How many sectors are there? So there are four sectors. There are four sectors. Sector size is 512 bytes. Sector size is 512 bytes. So there are four sectors. But this is a multiple of sector size. But why? Why this is not a block size? Why this is not a block size? Tell me.",
+      "avg_logprob": -0.09167144221997042,
+      "no_speech_prob": 0.388671875
+    },
+    {
+      "start": 3237.63,
+      "end": 3271.14,
+      "text": " what is the reason this is not a valid block size because it is greater than the track size it should be within the track so you can notice this this is not a valid block size because the block size cannot exceed the size of a track okay so finally this question is very simple from the Raghurama Krishna finally what is a block I hope you understood what is a block so blocks block is basically consecutive sectors within a single track consecutive sectors",
+      "avg_logprob": -0.11536457977361149,
+      "no_speech_prob": 0.1802978515625
+    },
+    {
+      "start": 3285.82,
+      "end": 3306.22,
+      "text": " So this is your block. So this is a simple question from the Raghuramakrishna. Okay, let's move on now. So one block can contain may contain several record, it can contain no record is larger than the block. So these basic things we already know. So the records, the file, whatever file you have.",
+      "avg_logprob": -0.21886003479151658,
+      "no_speech_prob": 0.05877685546875
+    },
+    {
+      "start": 3306.44,
+      "end": 3338.36,
+      "text": " that that file you divide into fixed length record every block, sorry, fixed length blocks, every block has the same size. This is the unit of data transfer. Okay. Now let's see type of records. So far anyone has any doubt. Let me know. Priya Mavith Mayuk. So far any doubt. Now we will see type of records. Now we will study the type of records. So far any doubt. Please tell me. This is a simple concept file organization. Most mostly there will be no question from this topic. Let me tell you.",
+      "avg_logprob": -0.1777012661351996,
+      "no_speech_prob": 0.29248046875
+    },
+    {
+      "start": 3338.61,
+      "end": 3366.61,
+      "text": " from this chapter mostly there will be no question in the gate exam in the gate exam they will ask you question from the next chapter indexing chapter okay the chapter number two that is indexing from that they will ask the question in the gate exam from this entire chapter most probably there will be no question in the gate exam but this chapter is very important to understand the next chapter when we understand the next chapter this chapter becomes very important so without understanding this file organization",
+      "avg_logprob": -0.053931452574268464,
+      "no_speech_prob": 0.28271484375
+    },
+    {
+      "start": 3366.99,
+      "end": 3394.12,
+      "text": " you basically cannot understand the indexing but indexing is more important from the exam point of view from the gate exam point of view this indexing is very important okay now let's see so file organization type of records so what are the type of record very simple there are two type of record either the record has fixed length all the records have the same length okay fixed length record means all the records have the same link in your table you have many records right correct",
+      "avg_logprob": -0.071992604642786,
+      "no_speech_prob": 0.176025390625
+    },
+    {
+      "start": 3394.51,
+      "end": 3423.55,
+      "text": " For example, if you have a student table, in that student table, you can have 100 student means there are 100 record. If all the record have the same size, all the 100 record, they have same size, then we will call it fixed length record. And if different record have different size, for example, my record is maybe let's assume my record has 100 bytes, your your record has let's assume 80 bytes. So if different records have different sizes, then that is variable length record. So basically there are two type of record.",
+      "avg_logprob": -0.1402101812109483,
+      "no_speech_prob": 0.2498779296875
+    },
+    {
+      "start": 3423.85,
+      "end": 3467.39,
+      "text": " one is fixed length record another is variable length record like consider this scenario record means tuple yes record means tuple record means tuple in a relation tuple in a relation okay so that is your record and what is file file is your relation okay so these things okay now let's see this so there are two type of record fixed length record and variable length record now if all the records have the fixed length",
+      "avg_logprob": -0.09553840451211815,
+      "no_speech_prob": 0.2171630859375
+    },
+    {
+      "start": 3472.74,
+      "end": 3497.53,
+      "text": " Now let's see some examples of this. Consider this example. You look at this table and you tell me what do you think? So here what happens? See very simple. This ID is integer. Integer has a fixed size. This is 30 bytes. Like for example, let's assume integer has 4 bytes. Let me assume integer has 4 bytes. Then this field, this attribute will take 4 bytes. This attribute will take",
+      "avg_logprob": -0.18609551231512864,
+      "no_speech_prob": 0.30029296875
+    },
+    {
+      "start": 3498.43,
+      "end": 3528.1,
+      "text": " 30 bytes because this is character this is not variable character there are two things one is care and there is something called variable care so if I write for example if I write this and if I write this what it means here it means exactly 30 bytes exactly 30 characters exactly 30 characters okay exactly 30 characters exactly 30 characters okay character means one character means one byte",
+      "avg_logprob": -0.13435299757500768,
+      "no_speech_prob": 0.64794921875
+    },
+    {
+      "start": 3530.13,
+      "end": 3566.23,
+      "text": " Okay. One character means one bite and here variable 30 variable character 30. It means at most 30. It means you can have at most 30 characters. Okay. At most 30 bytes, maximum 30 bytes, but you can have less than that. So this is variable, variable character length. Okay. Variable character length and this is fixed. It means here you have 30 bytes. So here you can notice this is also care. So 255 bytes here one bite.",
+      "avg_logprob": -0.17251932989690721,
+      "no_speech_prob": 0.58642578125
+    },
+    {
+      "start": 3566.6,
+      "end": 3594.29,
+      "text": " and let's assume let me assume that date has 10 bytes let me assume date has 10 bytes so you can easily see that what will happen in this table whatever record you have will they have the same size in this table all the records will they have the same size in this table this is a table a star table in this star table all the records they have the same size right correct so they will have the same size you can notice because integer has four bytes",
+      "avg_logprob": -0.07379872279782448,
+      "no_speech_prob": 0.21435546875
+    },
+    {
+      "start": 3594.67,
+      "end": 3623.38,
+      "text": " And this will have 30 bytes. This will have 255 bytes and this will have 1 byte. This will have 10 byte. So if you see that every in this table, if you look at this table in this table, every record has a fixed length. Every record will have this length. Every record will have this. Okay. So this is the simple idea. Now look at this table. Look at this table. For example, different people can have different length name, the name of different people can have different length. So you cannot know this is a variable character.",
+      "avg_logprob": -0.13076006823172004,
+      "no_speech_prob": 0.394287109375
+    },
+    {
+      "start": 3623.82,
+      "end": 3653.02,
+      "text": " and this is also variable character what it means it simply means that variable length at most 255 bytes so in this situation you can notice this is a fixed length this will have four bytes this will have this will have one byte this will have 10 byte but you can notice this and this they can have variable length agree different students can have for example let's assume my my name is Deepak so maybe my name will my name will take six bytes correct",
+      "avg_logprob": -0.13813529695783341,
+      "no_speech_prob": 0.52685546875
+    },
+    {
+      "start": 3653.51,
+      "end": 3682.67,
+      "text": " My name is going to take six bytes. Okay, but name of Priya will take only five bytes. Okay, maybe name of Mahavit will take maybe seven bytes. So you can notice that now different records have different size. Correct. Yes or no. So in this situation, you cannot this is called variable length record. Different records are having different sizes. Okay, so one record maybe it's like this. It is like this. For example, in this table, what is the table name? The table name is star in this table star.",
+      "avg_logprob": -0.16929348240727965,
+      "no_speech_prob": 0.62158203125
+    },
+    {
+      "start": 3683.29,
+      "end": 3713.05,
+      "text": " What can happen in this table? This can happen that maybe maybe you have some records maybe R1 R2 R3 R4 R5 it can happen that First of all, what is the maximum length? Can anyone tell me? What is the maximum length in this table? Like what is the maximum size of record you can create that will be 4 plus 30 Okay, so I can say 4 plus 30 plus 255 So the maximum size that you can create",
+      "avg_logprob": -0.12599733820621004,
+      "no_speech_prob": 0.4609375
+    },
+    {
+      "start": 3713.34,
+      "end": 3745.83,
+      "text": " what is that that is same as this the maximum you can create is this so what that will be can you can anyone add this what is this value when you add this it is becoming what so yeah i think it is becoming 300 okay so you can notice maybe maybe maybe this has 300 bytes maybe this has 300 bytes okay and maybe maybe this has maybe 250 bytes maybe this has 250 bytes",
+      "avg_logprob": -0.07131410600283207,
+      "no_speech_prob": 0.376953125
+    },
+    {
+      "start": 3746.23,
+      "end": 3779.07,
+      "text": " Maybe this has 280 bytes. Maybe this has 200 bytes or maybe this has maybe I can say 295 bytes. Okay. Or maybe I can, I can keep this also 250 bytes. So you can notice now different records have different size. Correct. So now this is called variable length record. Now this is called variable length records. So in the same file, in the same table, different records have different size. Is this clear in the same table? This is your table.",
+      "avg_logprob": -0.18402777115503946,
+      "no_speech_prob": 0.67529296875
+    },
+    {
+      "start": 3780.32,
+      "end": 3810.34,
+      "text": " in this table you have variable range records okay so very simple if every record in a file in within a single file if every record has the exactly the same size then that file we call it fixed length records okay that file we call that file will be called to be made of fixed length records and if different records have different size then that file will be called I can say a file of variable range records so very simple like in this situation",
+      "avg_logprob": -0.0979225832799619,
+      "no_speech_prob": 0.1865234375
+    },
+    {
+      "start": 3810.72,
+      "end": 3846.83,
+      "text": " what is going to be or is this fixed in this in this are you getting fixed length record or variable length record in this situation so here you can very easily see that you are getting fixed length record so in this table if you notice in this file or in this table if you notice this file okay this file contains fixed length records fixed length records the records have the fixed length in this in this type of file okay and what are the what are the record size",
+      "avg_logprob": -0.08081317396574123,
+      "no_speech_prob": 0.3095703125
+    },
+    {
+      "start": 3850.84,
+      "end": 3879.33,
+      "text": " what will be the record size the record size is very simple so that will be 30 plus 9 let's assume integer has let me assume integer has 4 bytes and let me assume okay so that will be 4 plus 4 plus 20 so your answer that will be what is what is going to be the answer that will be 67 so you can order 67 bytes will be your record size so that is going to be the record size in this table",
+      "avg_logprob": -0.11985085303471847,
+      "no_speech_prob": 0.54931640625
+    },
+    {
+      "start": 3879.74,
+      "end": 3910.07,
+      "text": " Now in the same table, if I make it work here, in the same table, if I make it work here, okay, the name, the name I make work here. Now this will become the variable length fields. Okay. So now different, different record can have different length, different record size. Now how to find a particular field inside a record. Now let's go inside the record. Is this clear inside a record, how to find a particular field.",
+      "avg_logprob": -0.13804767549652414,
+      "no_speech_prob": 0.382080078125
+    },
+    {
+      "start": 3910.46,
+      "end": 3937.88,
+      "text": " For example, you tell me one thing whenever you are like most of the time you don't want the entire record agree. Most of the time we don't want the entire record. For example, maybe only you want name or maybe you only want salary or maybe you only want department. So basically most of the time we don't want the entire record. We want we want the name only. I only want the name. I only want the salary. Then if I give you a record, then can you find the particular field?",
+      "avg_logprob": -0.10815653751749511,
+      "no_speech_prob": 0.1444091796875
+    },
+    {
+      "start": 3938.76,
+      "end": 3968.75,
+      "text": " if I give you a record can you find a particular field that can you find like let's assume inside a fixed length record inside a fixed length record you tell me use your common sense and tell me okay how to find a particular field inside a common fixed length record like let me give you this question a simple question I am giving you let me assume that this is your record this is a particular record this is a particular record and let's assume the address",
+      "avg_logprob": -0.10427989430077698,
+      "no_speech_prob": 0.2257080078125
+    },
+    {
+      "start": 3969.16,
+      "end": 4002.48,
+      "text": " the record address this is called record address let's assume the record address is hundred okay let's assume this is record address so for this record this is the address hundred now you tell me what is the address of field b can anyone tell me like i i want this i want this b i want b so what will be the address of field b how to find out this b very simple what you will do this this you know you know you know that this b will start where",
+      "avg_logprob": -0.0935058610048145,
+      "no_speech_prob": 0.333740234375
+    },
+    {
+      "start": 4002.96,
+      "end": 4032.23,
+      "text": " this B will start from 100 plus 4 correct okay if integer is taking let's assume integer is taking 4 bytes let's assume integer is taking 4 bytes then you notice that this will okay your this address will be 104 the address of B so now you know that this B will be here and you know that this A will be here and this C will be here and what will be the address of this C the address of this C that will be 100 plus",
+      "avg_logprob": -0.12695312710559886,
+      "no_speech_prob": 0.27197265625
+    },
+    {
+      "start": 4033.52,
+      "end": 4063.04,
+      "text": " 4 plus 6 that will be 110 is this clear very simple so fixed length records They are very simple to access correct very easy to access very easy to handle so when you have fixed length records Okay, so they are very very very easy to handle but tell me one more thing like who is going to store this data This data who is going to store like okay. See very simple point. I'm asking so who is storing this data like this this data who is storing this data that",
+      "avg_logprob": -0.16597575952812116,
+      "no_speech_prob": 0.638671875
+    },
+    {
+      "start": 4063.29,
+      "end": 4092.85,
+      "text": " this field has four bytes or maybe who is storing this data where are you storing this data are you getting my point okay that this field in this record so you have a file okay and this record has let's assume four bytes six bytes and four bytes who is storing this data no this is a pro is this a property of hard drive tell me is this a property of hard drive or this is not a property of hard drive maybe in the table or maybe this type of records you have",
+      "avg_logprob": -0.10881696109260831,
+      "no_speech_prob": 0.2130126953125
+    },
+    {
+      "start": 4092.92,
+      "end": 4123.14,
+      "text": " in the table are you have this type of records ABC in the table are you have this type of record in the table as you can have this type of record XYZW correct in the table as you can have this type of records okay very simple like maybe for example 10 bytes maybe maybe 100 bytes maybe 2 bytes maybe 4 bytes so are you getting my point so who is storing this like who is storing this word",
+      "avg_logprob": -0.15011161086814745,
+      "no_speech_prob": 0.279052734375
+    },
+    {
+      "start": 4123.37,
+      "end": 4153.76,
+      "text": " this thing who is storing who is storing this thing who is storing this thing so these things are actually stored inside the record okay so when you have when you have fixed length record see if you have fixed length record if your file has fixed length record then does it make sense in the file r look at file r okay just look at file r and tell me if your file you have a file r you have this file r",
+      "avg_logprob": -0.07417279096210704,
+      "no_speech_prob": 0.12353515625
+    },
+    {
+      "start": 4154.11,
+      "end": 4184.43,
+      "text": " in this file are let's assume all the fixed-length records are there in this file are let's assume there are fixed-length records okay so first of all tell me one thing like how many fields are there in this are who will store that so two questions I am asking very simple simple questions I am asking that first of all how many records are there how many fields are there who will store that okay in this file are how many fields are there who will store how many fields",
+      "avg_logprob": -0.1108896680632416,
+      "no_speech_prob": 0.4931640625
+    },
+    {
+      "start": 4191.78,
+      "end": 4220.34,
+      "text": " how many fields are there who will store this and what is the size of every field right size of fields who will store that so basically this type of data who is going to store and when did you access this record okay like you do you remember these scheduling algorithms this scheduling algorithms do you remember so when was the last you access this record okay last time you",
+      "avg_logprob": -0.15429687976009315,
+      "no_speech_prob": 0.328857421875
+    },
+    {
+      "start": 4220.58,
+      "end": 4257.82,
+      "text": " the the time okay when you last access the record the time or did you like did you access this okay basically when when you access this last time when you access this when you access the record recently okay so who is going to store this type of information can anyone tell me this type of information who is going to store this type of information who will store who stores this information",
+      "avg_logprob": -0.06458332975705465,
+      "no_speech_prob": 0.148193359375
+    },
+    {
+      "start": 4258.13,
+      "end": 4291.04,
+      "text": " and where we store this information so where we store this information can anyone tell me where we store this information where this information is stored okay use your common sense and tell me i don't go to operating system we are not in the field of operating system we are in the field of we are not even in the main memory we are not even in the main memory we are in the data we are in the secondary memory we are in the hard drive are you getting my point",
+      "avg_logprob": -0.08153783051591171,
+      "no_speech_prob": 0.1558837890625
+    },
+    {
+      "start": 4291.23,
+      "end": 4318.56,
+      "text": " We are not in the main memory. We are not in the cache memory. We are not in the CPU. We are in the hard drive. Okay. You, me, okay. We, all of them, all of us, we are standing inside the hard drive. You know, there is a hard drive. Okay. Let's assume two terabyte hard drive in the hard drive. We are standing. All of us. There is no operating system. There is no, there is no cache memory. There is no memory. Forget about all those things. You are in the hard drive. Okay. Use your common sense and tell me first of all,",
+      "avg_logprob": -0.13005514793536244,
+      "no_speech_prob": 0.26220703125
+    },
+    {
+      "start": 4318.8,
+      "end": 4351.68,
+      "text": " Okay, what do you think where should I store this data? Look at this data and tell me where should I store this data? Okay, where should I store this data? Just look at this this final this last data if you look at this Where should I store this data? Can anyone tell me? Where should I store this data? If I want to store this data, then where should I store this last? What do you think? Does it depend on the record? Does it depend on the record different record? They can have different size. Sorry, different record can have",
+      "avg_logprob": -0.11994485644733205,
+      "no_speech_prob": 0.703125
+    },
+    {
+      "start": 4351.93,
+      "end": 4380.12,
+      "text": " different time when they were accessed recently agree or not like maybe record R1 maybe you record R1 you are accessing today and record R2 you are accessing tomorrow okay so different record in the same file can they have different time stamp this is your can they have different time stamp very simple logical question I am asking common sense question nothing these questions you can answer without any knowledge if you use your common sense",
+      "avg_logprob": -0.11381172839506173,
+      "no_speech_prob": 0.66650390625
+    },
+    {
+      "start": 4380.61,
+      "end": 4412.06,
+      "text": " Very simple question. I'm asking that okay different record. They can have different time stamp Okay, maybe the record R1 you are accessing today record R2 you are accessing tomorrow So basically very simple time stamp of a particular record should be stored with the record agree agree or not time stamp of a particular record should be stored with the record So basically this data is actually stored inside the record This data is stored inside the record. Okay",
+      "avg_logprob": -0.18661221319978888,
+      "no_speech_prob": 0.58203125
+    },
+    {
+      "start": 4412.36,
+      "end": 4447.31,
+      "text": " do you agree please tell me did you understand very see very simple thing because it is a property it is it very much depends on the record it's very much depends on the record this is I can say record property can I call it record property so this is a record property so because this is a record property so this record property must be stored with the record stored inside record so in the record you store it actually what happens so remember",
+      "avg_logprob": -0.11532315036112611,
+      "no_speech_prob": 0.291259765625
+    },
+    {
+      "start": 4447.79,
+      "end": 4480.98,
+      "text": " If you have a file, if you have a this file are okay, if you have a record property, let me tell you if you have a record property, then that you store with the record is this clear very simple thing. So if you have a record property, any record property which actually depends on the record. Okay, record property. What are the examples? One example is time stamp record time stamp time stamp of record. Correct. So when did you access this?",
+      "avg_logprob": -0.20567602344921657,
+      "no_speech_prob": 0.429443359375
+    },
+    {
+      "start": 4481.83,
+      "end": 4513.59,
+      "text": " when it will be helpful can anyone tell me when it will be helpful it will be helpful in the when you do some scheduling okay maybe LRU okay optimal some scheduling algorithm when you do something so there it can be helpful okay scheduling algorithm in the scheduling algorithm it can be helpful so anyway this record property where you store this is stored inside the record this you store in the record so in the record what happens in the record actually if this is your record actually",
+      "avg_logprob": -0.09954637257001733,
+      "no_speech_prob": 0.4033203125
+    },
+    {
+      "start": 4513.89,
+      "end": 4549.94,
+      "text": " some some area is for extra things are you getting my point this some area is I can say this is the record I can say metadata of the record you can call it metadata of the record this is your record so in the record some area is given to the metadata of the record is this clear let me know let me know so this is your record and this is your metadata of the record so in the record some area is reserved",
+      "avg_logprob": -0.07197377531007788,
+      "no_speech_prob": 0.287353515625
+    },
+    {
+      "start": 4550.24,
+      "end": 4579.49,
+      "text": " for metadata for extra data okay like some area is reserved basically for extra data in the question if this extra data is not given then what you will assume in the gate question if this is not given then what you will assume then don't assume okay then just don't assume that okay there is no such data but we will solve some questions where this data will be given so if nothing is given about this metadata if they do not mention anything about this metadata then assume that metadata is not there correct",
+      "avg_logprob": -0.0814393919826758,
+      "no_speech_prob": 0.437255859375
+    },
+    {
+      "start": 4579.78,
+      "end": 4608.17,
+      "text": " assume there is zero metadata is zero okay so something like that so very simple thing so all the record property you must store is this common sense or is this some knowledge tell me like time stamp of the record where should I store where should I store the time stamp it is very common sense right different record can have different time stamp okay record R1 can have time stamp 10.10 record R2 can have time stamp 11.11 okay so remember different record can have different time stamp",
+      "avg_logprob": -0.09181701030927836,
+      "no_speech_prob": 0.32470703125
+    },
+    {
+      "start": 4608.43,
+      "end": 4640.58,
+      "text": " So that is the reason this is a record property and you should restore this inside the record. So if this is your record, this is your record in the record, some metadata, some extra data, you basically some extra data. Okay. I can say some extra information of data, some extra information about of record. Okay. And this is your actual record. And here what you do here, you put the actual field data, actual field values you put here. Is this clear? Let me know.",
+      "avg_logprob": -0.11328124949851862,
+      "no_speech_prob": 0.130126953125
+    },
+    {
+      "start": 4641.89,
+      "end": 4677.4,
+      "text": " actual field values you can put here okay so like this so very simple now you tell me another question I want to ask another question I want to ask what do you think where should I put this the second what do you think where should I put this data now okay now you forget about this so this we have already seen where should I put the time stamp of the record okay what do you think where should I put this like you tell me how many fields are there",
+      "avg_logprob": -0.08174035848772272,
+      "no_speech_prob": 0.306884765625
+    },
+    {
+      "start": 4677.88,
+      "end": 4708.25,
+      "text": " Where should I put this? How many fields are there? How many fields are there? Where should I put this? Yes, this should be in there. Okay, this is a property of the, I can say this, this is a property of the file. So can I call it file data? Can I call it file data? Yes or no, I can call it file property. This is a file property, right? So this is a file property. So you can put it in the block. So you can put it in the block header.",
+      "avg_logprob": -0.12608696300050487,
+      "no_speech_prob": 0.498046875
+    },
+    {
+      "start": 4709.41,
+      "end": 4740.98,
+      "text": " There is something called block header. You can put it in the block header. For example, you can call it a record header. What you can call it, you can call this, you can call this record header. You can call this record header. Similarly, you can put this in the block header because don't put it with every block. Are you getting my point? It will be written in with every record. If you put this, okay, do you agree with every record? If you put this, that will be written in with every record you are putting this. Instead, what you can do.",
+      "avg_logprob": -0.14074900675387608,
+      "no_speech_prob": 0.59228515625
+    },
+    {
+      "start": 4741.28,
+      "end": 4771.83,
+      "text": " One time you can put in the record ball block header, correct? One time, one time you can put in the block header. So there is a block header. When you create a block, this is your block. Let's assume this is a particular block. Let's assume this is a block B1. So in the block B1, what happens? This is called block header. Is this clear? This is called block header. In this block header, you put the information related to the blocks. Some block properties you can put here.",
+      "avg_logprob": -0.12057521912903912,
+      "no_speech_prob": 0.38037109375
+    },
+    {
+      "start": 4773.35,
+      "end": 4806.95,
+      "text": " some block properties you can put here is this clear so basically metadata about the block I can say this is the metadata about the block like for example in this and this is these are your actual records R1 R2 R3 R4 these are your actual records and this is your block given so very simple that you can put this in the block header okay how many fields are there now size of every field size of every field size of every field very where to put that",
+      "avg_logprob": -0.11817434414436942,
+      "no_speech_prob": 0.387939453125
+    },
+    {
+      "start": 4810.78,
+      "end": 4864.9,
+      "text": " size of every field where to put it what do you think size of every field now where to put that tell me see one by one I'm telling you okay and we are only using the common sense mostly mostly we are only using the common sense if you notice okay so tell me now where to put this so this we have seen where to put this one yes very good Priya very very very good so actually if you notice size of every field if your file has variable length fields",
+      "avg_logprob": -0.10156250245792349,
+      "no_speech_prob": 0.54736328125
+    },
+    {
+      "start": 4866.49,
+      "end": 4894.16,
+      "text": " size of every field if your file has variable length fields if you have variable length records are you getting my point if you have variable length records then where it makes sense tell me where it makes sense size of every field where it makes sense if your file has variable length records then it makes sense inside the record",
+      "avg_logprob": -0.2860383136618522,
+      "no_speech_prob": 0.344482421875
+    },
+    {
+      "start": 4896.27,
+      "end": 4927.25,
+      "text": " if you have this then it makes sense to put in the record it makes sense to put in the record header because different records can have different size different records can have different size so inside the record you can put it and if you have okay the same data so basically this data this data you will put if this happens okay so if this happens then you will do this and if this happens then what you will do like if you have fixed length fixed length records",
+      "avg_logprob": -0.059952444842328194,
+      "no_speech_prob": 0.384033203125
+    },
+    {
+      "start": 4928.98,
+      "end": 4959.43,
+      "text": " if you have fixed length records now now tell me if you have fixed length records okay so then in this situation this and this you can combine them and then you can put them in the block header because you have fixed length records okay so you can just one time you can put in the block header that's it so this complete explanation is this clear so basically two things are there ultimately what I want to tell you I just want to tell you that there are two things one is called record header another is called block header",
+      "avg_logprob": -0.08871694876310918,
+      "no_speech_prob": 0.59619140625
+    },
+    {
+      "start": 4959.69,
+      "end": 4989.81,
+      "text": " this is the like if you want to buy hard you can buy hard if you want to understand you can understand it is clear so there are two things so this is the conclusion this is the conclusion that there are two things so there is something called record header there are two things something called record header and another is called block header so there are two things only this is the point so the record header means okay some some extra information okay and the block header means",
+      "avg_logprob": -0.09748641644483028,
+      "no_speech_prob": 0.333984375
+    },
+    {
+      "start": 4990.44,
+      "end": 5025.4,
+      "text": " and the block header means some extra information is this point clear this is the conclusion if you did not understand something then this is the conclusion that's it basically some extra information okay basically some record metadata now this can be anything in the gate exam they can give you anything this can be anything and similarly this is the block metadata tell me is this clear this is your conclusion you only have to understand this conclusion nothing else if you understood the explanation very good",
+      "avg_logprob": -0.07309027877118852,
+      "no_speech_prob": 0.4560546875
+    },
+    {
+      "start": 5025.62,
+      "end": 5054.96,
+      "text": " if you did not understand the explanation then this is this is this you can buy hard okay nothing else basically in the gate exam they can tell you that every record has some some bits reserved for something then you can okay amazing yes yes yes this is record header okay are you getting my point in the exam if they give you that every record has some bytes has some bytes for some some purpose some bytes for some purpose then what you will understand okay yeah this is the record header okay inside your record this is the record header",
+      "avg_logprob": -0.07185246164982136,
+      "no_speech_prob": 0.6279296875
+    },
+    {
+      "start": 5055.12,
+      "end": 5086.28,
+      "text": " Similarly, every block also can have some some some special purpose information. Okay, so you can understand. Yeah, this is the blockhead. So basically, this is the conclusion you have to understand. Is this clear so far is everything crystal clear to everyone? So far is everything crystal clear to everyone? So when you have fixed length records, you can easily find a particular field value agree? Okay, agree or not? So when you have fixed length record, you can very easily find the particular value, correct?",
+      "avg_logprob": -0.1578714593120341,
+      "no_speech_prob": 0.284912109375
+    },
+    {
+      "start": 5087.19,
+      "end": 5122.03,
+      "text": " this we have already seen so this is how you can do this is your base address so you can just add l1 plus l2 so when you have fixed length record then this is how you can access okay so you can notice and where this information is there the information the address of a particular field can be calculated from the length of particular fields okay which is stored in the either it will be stored in the record header or the block header okay anyway so that is fine now let's move on",
+      "avg_logprob": -0.10078124977648258,
+      "no_speech_prob": 0.45751953125
+    },
+    {
+      "start": 5122.31,
+      "end": 5155.83,
+      "text": " Now let's see this for the variable real length record how will you find this like let's assume this I give you this is the data I give you you tell me a very interesting question I want to ask you tell me I give you this record and I give you this hundred byte this is the address you can call it record address okay and this is your record now you tell me what is the address of this be address of be",
+      "avg_logprob": -0.122780542566695,
+      "no_speech_prob": 0.0968017578125
+    },
+    {
+      "start": 5156.73,
+      "end": 5189.42,
+      "text": " you tell me the address of B what is the address of B can anyone tell me what is the address of B and that is very easy because this is fixed this is 4 bytes so this is fixed so here nothing is there you can just calculate you can just calculate 100 plus 4 here you don't have anything any problem but if I ask you the record the address of C now how to do that you tell me that variable length record you have can you find out can you find out tell me",
+      "avg_logprob": -0.10218749843537807,
+      "no_speech_prob": 0.48388671875
+    },
+    {
+      "start": 5189.7,
+      "end": 5221.04,
+      "text": " can you find out because this is variable care we don't know it will be six or four or five yes or no agree we don't know it will be six or four or five so now what is the solution can anyone tell me what should be the solution how to find this what should be the solution so there are two solutions let me tell you there are two solutions so there is solution one for this problem there is solution one approach one the approach one is like this what you do after every",
+      "avg_logprob": -0.04375000007450581,
+      "no_speech_prob": 0.67431640625
+    },
+    {
+      "start": 5221.49,
+      "end": 5249.25,
+      "text": " field you just put a dollar a dollar sign you put after every field a dollar sign you put this dollar sign will tell you that this record has ended correct okay so after every field you put a dollar sign this dollar sign will tell you that record has ended that record has ended is this clear this is a very simple approach correct that this record has ended a very simple approach extremely simple approach",
+      "avg_logprob": -0.10717147407241356,
+      "no_speech_prob": 0.61767578125
+    },
+    {
+      "start": 5249.98,
+      "end": 5281.17,
+      "text": " But this approach is not used practically. What do you think? This approach is not used. What do you think? What could be the reason? This approach is not used. In the real life, this is not used. So what could be the reason? Yes, very good Nikhil. Excellent. The approach, see, you have to read the entire record. If you want to access, if you want to access C, can you directly access C? If you want to access C, can you directly access C? No, you have to go in a sequential manner.",
+      "avg_logprob": -0.11528361582455515,
+      "no_speech_prob": 0.452880859375
+    },
+    {
+      "start": 5281.7,
+      "end": 5314.88,
+      "text": " you have to find the dollar so basically not used why can't access C directly correct can't access C directly you cannot access C directly you have to find this that where we will end so this this must be found correct this must be found okay fine this must be this must be found is this clear to everyone please tell me so this solution is not not basically in the real life this is not used and the reason is very simple",
+      "avg_logprob": -0.12230603756575749,
+      "no_speech_prob": 0.7333984375
+    },
+    {
+      "start": 5315.2,
+      "end": 5343.56,
+      "text": " Because if you want to access C, if you want to access this, then you will have to go in a sequential manner. So can't access C directly. Very simple. What is the another approach? What is the solution to? This is actually used in the solution to what you do in the in the record, some header, record header is there and you put basically, for example, let's assume this is your area of A. This is your area of B. This is your area of C. So what do you do?",
+      "avg_logprob": -0.15737612370972162,
+      "no_speech_prob": 0.1983642578125
+    },
+    {
+      "start": 5343.91,
+      "end": 5375.03,
+      "text": " a very simple approach extremely simple approach what you do so some extra data some extra data okay this may be this can be any extra data this can be some extra data this can be any extra data okay maybe time stamp or something this is some extra data then what you do one pointer you create for this okay here you put the address of A so the address where the where age is starting that you put here where B is starting",
+      "avg_logprob": -0.13299418916535932,
+      "no_speech_prob": 0.3369140625
+    },
+    {
+      "start": 5375.48,
+      "end": 5404.94,
+      "text": " where B is starting that you put here and where C is starting that you put that you put here where C is starting that you put here but I also need one more I also need one more to give the ending of the record so that I can be sure okay yeah record has ended because the next record will start yes or no or a next record will start after this next record will start so I should also make sure that",
+      "avg_logprob": -0.10101743952132934,
+      "no_speech_prob": 0.407470703125
+    },
+    {
+      "start": 5405.21,
+      "end": 5438.71,
+      "text": " this record has ended okay so this is one last thing that this to tell you that record has ended okay that record ended is this clear let me know is this approach clear to everyone so this solution to this is you very simple this is actually extremely simple what to do you put the pointer basically the address you put here here you put address of a where age is starting that address you put here okay is this clear tell me solution to",
+      "avg_logprob": -0.13092673133159505,
+      "no_speech_prob": 0.462158203125
+    },
+    {
+      "start": 5440.07,
+      "end": 5471.95,
+      "text": " how to access a particular field in a variable length record and there is another benefit of this what is the benefit can anyone tell me if let's assume I don't have the C value if I have if I don't have C value then what I need to do there is a benefit of this what is that let's assume the C value for me is a null okay let's assume for me let's assume for me C is a null then will I waste this",
+      "avg_logprob": -0.11793550341687303,
+      "no_speech_prob": 0.39501953125
+    },
+    {
+      "start": 5473.12,
+      "end": 5502.51,
+      "text": " Then I will I waste this space? No, this is the benefit. This is the benefit that you can just put a null pointer here. Now you don't have to waste this space. This space you don't have to waste. Now you don't have to waste this space. Okay. What you can do? You can just put a null pointer here. See what I'm saying. Let's assume for me B value is null. Let's assume. So if B value is null for me, then something very interesting I can do something very interesting I can do.",
+      "avg_logprob": -0.11361229059807325,
+      "no_speech_prob": 0.58740234375
+    },
+    {
+      "start": 5502.68,
+      "end": 5534.17,
+      "text": " I can do like this. Okay. Maybe I can say for John. So this is what I'm saying. Some extra data is there. That is fine. Okay. Some extra data is there. And then what do you do? There is a and there is directly C. Okay. And what do you do? Of course, you can put the address of a here and here you can put null. Here you can put null, null, you can put, sorry, null pointer. Here you can put null pointer. Is this clear?",
+      "avg_logprob": -0.14425223107848847,
+      "no_speech_prob": 0.155029296875
+    },
+    {
+      "start": 5534.45,
+      "end": 5563.31,
+      "text": " So the null pointer you can put here and then very simple. Then it is very simple that here you can put the address of C and here you can put the address of end. So very simple like this. So this is the idea. See the exit details are not important. The idea is important. If you are focusing on the exit details, sir, will this pointer will this pointer come here? No, no, no exit details are not important. I'm just telling you the idea that something like this is happening in the",
+      "avg_logprob": -0.14635894768828644,
+      "no_speech_prob": 0.279541015625
+    },
+    {
+      "start": 5563.53,
+      "end": 5591.95,
+      "text": " in the databases. Are you getting my point? Executive details are not important. Exactly how many pointers will be there? Okay, will there be end pointer? Will there not be end pointer? How many dollars will be there? Okay, so these exact details are not important. The only important thing is something like this has happening. Ideas I'm discussing. Are you getting my point? See, the way I'm teaching you, can you see I'm discussing the ideas, not the concept. Because from this lecture,",
+      "avg_logprob": -0.16661798564073083,
+      "no_speech_prob": 0.67333984375
+    },
+    {
+      "start": 5592.53,
+      "end": 5620.12,
+      "text": " Okay, whatever we study in this lecture, you just have to understand the idea how things are happening. You don't need exact details. Exact details will be platform dependent. These are DBMS dependent. Yes or no. How the DBMS will implement these things that depend on the DBMS. So exact details are not important. How many pointers are there? What is the size of record header? What we put in the record header? What we don't put in the record header? What we put in the block header? What we don't put in the block header?",
+      "avg_logprob": -0.13268007868427342,
+      "no_speech_prob": 0.10784912109375
+    },
+    {
+      "start": 5620.31,
+      "end": 5650.18,
+      "text": " These details are not important. Is this clear? Details are not important. Only the idea is important that there is some block header. Now you understood why? Okay. That yeah, some information I need to put. So there is a block header. Now what information we need to put? What information we don't need to put that does not matter. Is this clear? That does not matter. What information we are putting in the block header and what we do not put in the block header. That information does not matter. We don't care about that information.",
+      "avg_logprob": -0.10769126840449612,
+      "no_speech_prob": 0.353271484375
+    },
+    {
+      "start": 5650.61,
+      "end": 5680.02,
+      "text": " we only care that yes there is a block header and okay we understood yeah there is a block header we need block header and we understood there is a record header okay we understood yeah we need record header we need okay some for some work we need similarly how to handle the fixed length record and how to handle the variable length record so these ideas we are discussing the exact details do not worry about the exact details is this clear to everyone please tell me like some of you are thinking some of you are having some doubt I know some of you are thinking",
+      "avg_logprob": -0.09034090672026981,
+      "no_speech_prob": 0.5244140625
+    },
+    {
+      "start": 5680.37,
+      "end": 5711.15,
+      "text": " how many pointers will be there will there be pointer for a will there be pointer for b okay so these details we do not care are you getting my point we do not care about these details i am just telling you that something like this is happening in the dbms is this clear something like this whatever we have seen something like this not exactly this but something like this is happening in the dbms tell me please tell me did you get it",
+      "avg_logprob": -0.06962568795942999,
+      "no_speech_prob": 0.6318359375
+    },
+    {
+      "start": 5712.37,
+      "end": 5742.75,
+      "text": " only the idea is important so I am just telling you the common sense idea okay how the things are happening is this clear let me know okay so let's move on so basically you can see all these things so this is approach one for the variable length record if your variable length record this is approach one okay you put the dollar after every field so this is your approach one next this is approach two you put the pointers this is your approach two for variable length record okay and how to",
+      "avg_logprob": -0.08843427835051547,
+      "no_speech_prob": 0.63818359375
+    },
+    {
+      "start": 5743.22,
+      "end": 5772.11,
+      "text": " represent null that is also we have seen correct just put the null value just put the null pointer right just put the null pointer okay all you have to do is put the null pointer so you don't have to waste the space for null you don't have to store the null value agree or not now did you notice we don't store the null values okay the conceptual level when we study the conceptual level there are null values agree in the conceptual level there are null values null values",
+      "avg_logprob": -0.06856282202837367,
+      "no_speech_prob": 0.455078125
+    },
+    {
+      "start": 5772.92,
+      "end": 5802.09,
+      "text": " Now, can you see how they are stored in the physical? Physically, how we store the null values? Did you see? Physically, how we store the null values? Physically. In your disk, in your hard disk, in your hard drive. Okay. How do we store the null values? Now, did you understand that? So we don't really store the null value, right? This null and you double L, we don't store it. We just put a null pointer. This null pointer will tell us, yeah, this field value is null. In this record,",
+      "avg_logprob": -0.14329268946880247,
+      "no_speech_prob": 0.54248046875
+    },
+    {
+      "start": 5802.43,
+      "end": 5832.78,
+      "text": " this filled value is null who will tell us the null pointer okay so something like this now let's move on let's see spawn and unspawn record organization what is that so this is a simple concept very simple let's see this consider this situation a question i'm giving you and you tell me here assume that disk block size is 100 bytes and record size is 40 bytes how many records can you keep in one block anyone",
+      "avg_logprob": -0.09656613302785297,
+      "no_speech_prob": 0.314697265625
+    },
+    {
+      "start": 5833.91,
+      "end": 5868.93,
+      "text": " anyone want to tell me the disk block size is 100 bytes your disk block size has 100 bytes this has 100 bytes okay and record size is 40 bytes record size is 40 bytes so how many records we can put so I can see that so one yeah one record you can put full 40 bytes another record you can put full so if you don't allow this okay",
+      "avg_logprob": -0.1262842498413504,
+      "no_speech_prob": 0.172607421875
+    },
+    {
+      "start": 5869.27,
+      "end": 5900.05,
+      "text": " if okay so I can put two records right agree I can put two records I can put but two records I can put when I don't allow half record here half record here like half record here half record here if I don't allow this this is a block this is a block this type of organization what we are calling it this type of organization you cannot put half record here and half record here you cannot put r3 20 you cannot do that okay",
+      "avg_logprob": -0.09074519541892377,
+      "no_speech_prob": 0.5263671875
+    },
+    {
+      "start": 5900.32,
+      "end": 5932.14,
+      "text": " so these 20 bits these are wasted these 20 bytes wasted of course these are wasted but the point is very simple that this type of organization what we call this type of organization we call it unspond we call it unspond organization because you cannot put half record here half record there see another see another organization what you do in the another organization this is what you do this is one block this is another block okay what you do",
+      "avg_logprob": -0.10928520354731329,
+      "no_speech_prob": 0.33642578125
+    },
+    {
+      "start": 5932.22,
+      "end": 5959.51,
+      "text": " one record you put fully 40 bytes another record you put fully and what you do the next record you put 20 bytes here and for this record 20 bytes you put here okay so 20 bytes you put here for the R3 20 bytes here 20 bytes here this type of record where half record you can put here half record you can put here this type of organization is called spawned organization because you are responding the same record",
+      "avg_logprob": -0.10807291666666667,
+      "no_speech_prob": 0.271240234375
+    },
+    {
+      "start": 5960.01,
+      "end": 5988.44,
+      "text": " The same record you are responding in multiple blocks. So this is called a spawned organization. Is this clear? Let me know. The same record you are responding in multiple blocks. Remember, this is a block B1. Remember, this is a block B2. So this is called a spawned organization. So in the spawned organization, what will be the answer? In the spawned organization, your answer will be that from 100 divided by 40,",
+      "avg_logprob": -0.1481085529452876,
+      "no_speech_prob": 0.468017578125
+    },
+    {
+      "start": 5988.8,
+      "end": 6020.14,
+      "text": " that will be 2.5 records per block 2.5 records per block you can you can put yes or no 2.5 records per block you can put and in the in the un-spent what you can do in the un-spent you will you will take the seal value you will take the seal value so 20 records sorry two records you can put is this clear so there are two organization one is un-spent another is spawned so what is the un-spent record organization very simple",
+      "avg_logprob": -0.12083333673931304,
+      "no_speech_prob": 0.5654296875
+    },
+    {
+      "start": 6020.66,
+      "end": 6050.94,
+      "text": " Records are not allowed to cross the block's boundary. Yes or no? Records are not allowed to cross the block's boundary. Very simple. Let's see this question. Tell me the answer. For this question, what will be the answer? The disk block size is given to your b bytes. Okay. For a file of fixed length records, r byte, your fixed length record, every record size is r bytes. How many records can you put in one block using an expand organization?",
+      "avg_logprob": -0.16738860914022616,
+      "no_speech_prob": 0.361328125
+    },
+    {
+      "start": 6052.87,
+      "end": 6084.03,
+      "text": " so very simple it will be floor or seal it will be B divided by R floor these many you can put not the seal see okay take one example and see this are very simple okay why this is C because this is your block this is your block okay let's call it this block has B bytes B bytes now in this block you can put a recorder you can put R bytes",
+      "avg_logprob": -0.13118913034340005,
+      "no_speech_prob": 0.057769775390625
+    },
+    {
+      "start": 6084.51,
+      "end": 6116.2,
+      "text": " so this record R1 got R bytes correct so R bytes are gone okay another R bytes are gone another R bytes gone okay another R bytes gone okay another R bytes gone R3 another R bytes gone now let's assume this is not let's assume this is less than R let's assume this is less than R bytes then what you will do let's assume this is less than R bytes now now this is wasted",
+      "avg_logprob": -0.11151413326816899,
+      "no_speech_prob": 0.38818359375
+    },
+    {
+      "start": 6118.51,
+      "end": 6152.27,
+      "text": " let's assume this is less than R bytes you cannot put the record here cannot put record here correct so can't put more record can't put any record here okay yes or no so this is wasted so this is space is actually I can say this is space is actually wasted but the point is very simple that so how many records you can put number of records per block what that will be that will be you divide this B by R",
+      "avg_logprob": -0.13449929332868618,
+      "no_speech_prob": 0.3486328125
+    },
+    {
+      "start": 6152.76,
+      "end": 6179.37,
+      "text": " Okay, how many full you are getting that only you have to count? Agree? Yes or no? How many full you are getting that only you have to count? How many fully you can put? So, who gives the full value? This seal will give you the full value. This will give you the quotient, right? Correct? Yes or no? How many records you can fully put here? Like we have seen the example of 100. Like if you have 100 bytes, if your b is equal to 100 bytes,",
+      "avg_logprob": -0.15482954545454544,
+      "no_speech_prob": 0.10626220703125
+    },
+    {
+      "start": 6181.14,
+      "end": 6221.07,
+      "text": " and if your R is equal to let's assume 30 bytes then what will happen then this will happen that here you have 100 bytes and what you can do 30 bytes you can put 30 bytes you can put 30 bytes you can put these 10 bytes wasted correct yes or no these 10 bytes wasted so your answer what are the number of records per block what is that number of records per block that will be 100 divided by 30 and the floor value you will take the floor value so it will give you three",
+      "avg_logprob": -0.1026454243329492,
+      "no_speech_prob": 0.6494140625
+    },
+    {
+      "start": 6221.31,
+      "end": 6256.01,
+      "text": " not the seal value don't take seal value if you take seal value then basically you are crossing the boundary is this clear to everyone so your answer will be this let me know is this clear so a very simple thing in the same question if i ask you like if i also give you the block header let's assume the block header size is also given in the same question let's assume block header is size is given block header size is let's assume k bytes now what will be the answer now the block header",
+      "avg_logprob": -0.09223301158946695,
+      "no_speech_prob": 0.443359375
+    },
+    {
+      "start": 6256.43,
+      "end": 6291.23,
+      "text": " this size is given k bytes now what your answer will be number of records per block that will be in this these these k bytes we cannot use for records correct yes or no these k bytes we cannot use for records so what you will do you will do b minus k divided by r and and floor so very simple so this is your answer is this clear everyone please tell me so now this is called blocking factor",
+      "avg_logprob": -0.09520896389541855,
+      "no_speech_prob": 0.44091796875
+    },
+    {
+      "start": 6291.77,
+      "end": 6323.26,
+      "text": " these three records you can put per block how many records you can put per block this is called blocking factor okay this this is called blocking factor okay how many records you can put per block so the number of records that can fit on one block that is called blocking factor is this clear let me know is this clear so how many records you can put how many records you can put in a block inside a block how many records you can put",
+      "avg_logprob": -0.089621801183305,
+      "no_speech_prob": 0.345947265625
+    },
+    {
+      "start": 6323.9,
+      "end": 6363.79,
+      "text": " This is called blocking factor. Okay. So this is the idea. How many records you can put per block? So let's see now. So this we have already seen. So the blocking factor. Now let's see this question. What is the unused space? Now the question is asking unused space on his parent organization. What are the blocking factories in this question for a fixed length records are given size, orbits. Okay. So.",
+      "avg_logprob": -0.2048611064751943,
+      "no_speech_prob": 0.5673828125
+    },
+    {
+      "start": 6364.51,
+      "end": 6398.73,
+      "text": " and disk yeah so what is the space that is wasted can anyone tell me unused space what is the unused space so that will be equal to from the entire block size you can remove what you can remove from the entire block size you can remove the used from the entire block size you can remove the used used space or I can say usable space okay or I can say",
+      "avg_logprob": -0.09253589506890322,
+      "no_speech_prob": 0.6357421875
+    },
+    {
+      "start": 6399.31,
+      "end": 6436.07,
+      "text": " useable space so what is the useable space that is see the useable space that is your what that will be that will be blocking factor blocking factor right so I can call it blocking factor multiplied by size of record okay this is blocking factor means how many this is the blocking factor so if I do this then what I will get then what I will get so that's it this is your answer",
+      "avg_logprob": -0.09317129482457667,
+      "no_speech_prob": 0.66552734375
+    },
+    {
+      "start": 6436.68,
+      "end": 6467.74,
+      "text": " We don't need any seal or floor. This is your answer. Yes or no. We don't need any seal or floor here. We are doing the multiplication or the division. Okay. So if you want, the answer will be like this. The answer will be B minus. What is the blocking factor? Okay. The blocking factor will be this. Yeah. The blocking factor for the blocking factor, you can put this B divided by R. So this will be your complete answer because this is your blocking factor.",
+      "avg_logprob": -0.11477803794023032,
+      "no_speech_prob": 0.5087890625
+    },
+    {
+      "start": 6471.25,
+      "end": 6504.02,
+      "text": " this is your blocking factor means number of records per block how many records you can put per block number of records per block okay so that you can multiply with R that will be your this is your usable space correct so you can remove from the B that will be your unused space so very simple question so this will be your unused space now let's see the next that is a spawned organization so in the spawned organization what you can do",
+      "avg_logprob": -0.10674157437313808,
+      "no_speech_prob": 0.45849609375
+    },
+    {
+      "start": 6504.4,
+      "end": 6534.06,
+      "text": " The records are allowed to cross the block boundaries. So you can put some part of the record, part of a record you can put in one block, the rest of the record you can put in another block. So this is called a spawn because you can spawn the record in more than one block. Okay, so this is called a spawned organization. Let's solve the question for this spawned organization. So let me assume that you have fixed length records are by every record has fixed length.",
+      "avg_logprob": -0.15609680685926886,
+      "no_speech_prob": 0.1490478515625
+    },
+    {
+      "start": 6534.93,
+      "end": 6565,
+      "text": " So, tell me how many records can we keep in one block using the spawned organization? Using the spawned organization, how many records you can put in one block? That will be very simple. That will be B by R. No seal, no floor. No seal, no floor. Straight. No seal, no floor. Yes or no? Straight. Just find the value. Okay, whatever value. No seal, no floor. For example, the same question if you take",
+      "avg_logprob": -0.15242187961935996,
+      "no_speech_prob": 0.1329345703125
+    },
+    {
+      "start": 6565.34,
+      "end": 6596.62,
+      "text": " like in the same question if I make it 100 bytes if I make it 100 bytes and if I make it for example 30 bytes or maybe 40 bytes then what you will your answer will be what your answer will be 100 divided by 40 and that will be 2.5 so this will be your answer that you can put 2.5 records you can put in one block this is your blocking factor here yes or no this is your blocking factor here",
+      "avg_logprob": -0.07682291492819786,
+      "no_speech_prob": 0.31396484375
+    },
+    {
+      "start": 6601.42,
+      "end": 6632.16,
+      "text": " because you can put these many these many records you can put in one block in a single block you can put these many these many records okay 2.5 records you can put in a single block half record in one block half record in another block so this will be your answer b by r okay so this is your blocking factor you can notice now the next what is the answer for this question the same question what is the unused space in each block okay the fixed length record size is given to you",
+      "avg_logprob": -0.07839844018220901,
+      "no_speech_prob": 0.232177734375
+    },
+    {
+      "start": 6633.61,
+      "end": 6663.89,
+      "text": " So that is zero right unused space. That is zero. That is the benefit. That is the benefit that you can use. Basically the entire space is usable. Okay. The entire space you can use the entire space. That is the benefit. So this is the idea. Now let's see one more thing. I want to tell you that this unexpanded organization. You mostly it is, it is generally preferred for fixed length record. If you have fixed length record.",
+      "avg_logprob": -0.16445707341637275,
+      "no_speech_prob": 0.385986328125
+    },
+    {
+      "start": 6664.51,
+      "end": 6693.48,
+      "text": " If you have fixed link records and generally we use the unexpanded organization if your records are of fixed link. Okay, because if because expand organization and is unexpanded organization which has more access cost tell me you have unexpanded and you have expand which will give you more access cost for which of these organization you need more disk access. You need more block access. You need more number of block you need to access.",
+      "avg_logprob": -0.2752403898553534,
+      "no_speech_prob": 0.3916015625
+    },
+    {
+      "start": 6695.04,
+      "end": 6725.47,
+      "text": " For the spawn array very simple for the spawn you need more block access See if you notice if you notice let's assume I have for example this In the unispawned what you will do you will put R1 here you will put R2 here Okay, and you will put R3 here. You will put R4 here So something like this in the unispawned Okay, in the spawn what you will do in the spawn R1 will be put here R2 will be put here",
+      "avg_logprob": -0.19606370020371217,
+      "no_speech_prob": 0.49755859375
+    },
+    {
+      "start": 6725.78,
+      "end": 6761.06,
+      "text": " some part of r3 partial r3 some part of r3 then what you will do some part of r3 here r3 partial okay then you will put r4 then you will put r5 something like this now you can notice here for one record I need how many this is unspawn this is unspawn and this is spawn so you can very easily see that for one record one block yes or no",
+      "avg_logprob": -0.12527573599534877,
+      "no_speech_prob": 0.3896484375
+    },
+    {
+      "start": 6761.76,
+      "end": 6797.91,
+      "text": " one block for one record one block access for one record for one record you can okay you basically need only one block you need only one block you need to access actually for one record but here what happens if you want to access R3 then multiple yes or no multiple block access multiple block access for one record for one record you can need you may need multiple block access",
+      "avg_logprob": -0.13080658864330602,
+      "no_speech_prob": 0.60107421875
+    },
+    {
+      "start": 6798.23,
+      "end": 6826.29,
+      "text": " for example for r3 you may need this block also and you need to access this block also so you can notice so there are some advantages there are some disadvantage correct and what is the advantage so this is the advantage of unspawn and this spawn also have some advantage it will waste less space correct for example five five record you can put here four record you can put here in the two blocks so you can notice space utilization",
+      "avg_logprob": -0.1463481160097344,
+      "no_speech_prob": 0.27783203125
+    },
+    {
+      "start": 6827.07,
+      "end": 6855.64,
+      "text": " So anyway, let me tell you that on a spawned organization, we prefer for fixed length record. Okay. And for variable length record, for variable range, length record, either you can use a spawn or you can use on a spawn. Any of them you can use. So for fixed length record, we prefer the on a spawn and for variable range record, we, you can use a spawn. Also, you can use on a spawn. Also both are fine by default. What do you think what is used?",
+      "avg_logprob": -0.24696180376189728,
+      "no_speech_prob": 0.25390625
+    },
+    {
+      "start": 6856.36,
+      "end": 6884.11,
+      "text": " By default, what is your thought? Like in the question, if they do not mention anything, then which organization is used by default? So that is unspunned. Okay. By default, because this is, this is more easy to handle. This is more easy to handle. Okay. We don't care about the space. The spawned organization will save some space, but we really don't care about the space because it will, it is more easy to handle less access time. Okay.",
+      "avg_logprob": -0.15775240398943424,
+      "no_speech_prob": 0.47021484375
+    },
+    {
+      "start": 6884.73,
+      "end": 6914.81,
+      "text": " So this is very simple. So on his pond organization, we prefer okay by default and by default we'll take fixed length records by default. So by default, remember you will take fixed length record and by default you will take on his pond organization. So these are the by defaults. Okay. Now let's see one more thing. One last thing. Let's see that is for variable length record. If you have a variable length record then using the spawned organization.",
+      "avg_logprob": -0.20105229591836735,
+      "no_speech_prob": 0.10931396484375
+    },
+    {
+      "start": 6915.41,
+      "end": 6944.4,
+      "text": " For variable length record, using spanned organization, what will happen? What do you think? Use your common sense and tell me. Can you find out the blocking factor exactly? Like your variable length records and your spanned organization. See, very simple idea. Okay. Your variable length record, your records are of variable length and your spanned organization. So these two communists, if you notice, now can I find out?",
+      "avg_logprob": -0.22419242108805795,
+      "no_speech_prob": 0.349609375
+    },
+    {
+      "start": 6944.68,
+      "end": 6975.26,
+      "text": " how many records i can put in one block okay can i find out how many records you can put in one block no because the records have different different sizes okay so you can notice that so each block may store different number of records agree do you agree that each block may store different number of records maybe block b1 it can store maybe 20 records block b2 can store maybe 10 records so when you have variable length records",
+      "avg_logprob": -0.05942095746012295,
+      "no_speech_prob": 0.42529296875
+    },
+    {
+      "start": 6975.65,
+      "end": 7005.2,
+      "text": " using the spawned organization that each block may store different number of records in this situation how to define the blocking factor anyone want to tell me in this situation how to define the blocking factor in this situation that in these type of situations what happens average in okay in these type of situations always average yes or no in these type of situations always take the average so the blocking factor basically represents the average number of records that you can store in one file",
+      "avg_logprob": -0.10366924492160925,
+      "no_speech_prob": 0.394287109375
+    },
+    {
+      "start": 7005.45,
+      "end": 7034.9,
+      "text": " in one block okay average number of records how many average number of records you can store per block this will be your blocking factor in this situation let's take one question with the question this concept will become very clear let's see this question okay so tell me what is the answer so your variable length records your records have variable lengths different record different size expand organization you have expand organization",
+      "avg_logprob": -0.06794819216194906,
+      "no_speech_prob": 0.564453125
+    },
+    {
+      "start": 7035.8,
+      "end": 7066.05,
+      "text": " blocking factor is BFR this is your blocking factor and of course this will represent average number of records per block okay like on average how many records you can put per block so we can use this BFR to calculate the number of blocks needed number of blocks needed how to calculate that number of blocks needed for a file of our records number of blocks needed for a file of our records",
+      "avg_logprob": -0.10937500193521574,
+      "no_speech_prob": 0.35107421875
+    },
+    {
+      "start": 7066.9,
+      "end": 7106.88,
+      "text": " So how to answer that? What do you think? What should be the answer? So very simple. So here what you will do? This is already given. BFR is the average number of records. This is already given. What is BFR? This is already given that this BFR, this is average number of records per block, average number of records per block, average number of records per block. This is already given to you. So this is average number of records per block. In one block,",
+      "avg_logprob": -0.11151238327037613,
+      "no_speech_prob": 0.442626953125
+    },
+    {
+      "start": 7107.18,
+      "end": 7143.03,
+      "text": " on average how many you can put okay so this is given to you now the question is asking if you have file of r records how many blocks you need you have a file of r records okay so how many number of blocks you need number of blocks needed how many blocks you need what is that that is very simple that will be r divided by bfr okay seal or floor seal or floor here you need seal",
+      "avg_logprob": -0.061794053000139904,
+      "no_speech_prob": 0.426025390625
+    },
+    {
+      "start": 7143.86,
+      "end": 7167.53,
+      "text": " here you need seal ok see if you did not understand let's take one example ok let's take one example if you did not understand let's assume that BFR is let's assume that is 2 maybe 3 let's assume BFR is 3 means 3 records on average you can put on average 3 records you can put on average on average",
+      "avg_logprob": -0.11067708333333333,
+      "no_speech_prob": 0.135009765625
+    },
+    {
+      "start": 7168.33,
+      "end": 7198.71,
+      "text": " some block can put 4 records some block can put 3 records some block can put 10 records some block can put 1 record on average 3 records you are putting is this clear tell me tell me on average these many records you are putting so on average average number of records per block okay so this data let's assume this data is given to you that on average 3 records you can put in one block okay and let's assume you have a file with let's assume you have a file with the 10 records",
+      "avg_logprob": -0.11115408327319834,
+      "no_speech_prob": 0.4482421875
+    },
+    {
+      "start": 7200.33,
+      "end": 7232.75,
+      "text": " You have a file with the 10 records. What do you think? How many? What do you think? How many blocks we need? Very simple question, right? So on average three, three, so tell me. So you can notice there are file with the 10 records. 10 records we need to put. Okay. And in one block, how many you can put? Can anyone tell me in one block, how many you can put on average three on average three on average three records you can put.",
+      "avg_logprob": -0.2104166723432995,
+      "no_speech_prob": 0.74462890625
+    },
+    {
+      "start": 7233.79,
+      "end": 7264.96,
+      "text": " one block can hold on average three records so remember one block can hold three records another block can hold three records another block can hold three records okay so for the last record we need another block so how many how many you can notice 10 divided by 3 if you take the if you take the seal that will give you the correct answer okay because these will be full and one more block we need do you agree",
+      "avg_logprob": -0.10556402402680094,
+      "no_speech_prob": 0.58056640625
+    },
+    {
+      "start": 7265.63,
+      "end": 7304.11,
+      "text": " Yes or no? Let me know. See a very simple thought process. Okay. So you can notice for 10 records, we need these many blocks. We need four blocks for 10 records for, for this file of 10 records. Is this clear? Anyone has any doubt? Let me know. Mavith, any doubt? But the resultant will be average number of blocks. Yeah. Yeah. Everything is like, we can only find out this. See Mavith.",
+      "avg_logprob": -0.15072600829480876,
+      "no_speech_prob": 0.470947265625
+    },
+    {
+      "start": 7304.3,
+      "end": 7333.06,
+      "text": " actually in this situation we can only go from this data to this data we cannot find bfr bfr will be given to you in this type of situation in this type of situation on average how many record you can put that will be given to you is this clear so we are not going from like we are not going to the direction of bfr we are going from bfr to another direction like if this is already given on average three records this is already given",
+      "avg_logprob": -0.06781915060066163,
+      "no_speech_prob": 0.1568603515625
+    },
+    {
+      "start": 7334.19,
+      "end": 7369.22,
+      "text": " on average you are putting three records this is already given then four blocks we need for this file yes or no let me know of course all these things are happening in the in the terms of average now if you are right everything is happening in the terms of average in the terms of average everything is happening okay so clear I think so this point is clear right so your answer will be what so your answer is going to be this is going to be your answer",
+      "avg_logprob": -0.09765624878523142,
+      "no_speech_prob": 0.642578125
+    },
+    {
+      "start": 7370.77,
+      "end": 7402.61,
+      "text": " So number of blocks how many blocks you need so that will be r divided by BFR seal the seal value you will take Okay, so very simple now. Let's see this question. Tell me the answer now For this question. What is going to be the answer a variable length record you have different record different length different records have different sizes Okay, different record are having different size Now average number of record in a file is it are sorry average record size sorry",
+      "avg_logprob": -0.18683510511479479,
+      "no_speech_prob": 0.265625
+    },
+    {
+      "start": 7402.94,
+      "end": 7431.54,
+      "text": " average record size is given why average record size is given anyone anyone anyone why average record size is given why record size is not given anyone want to tell me why average record size is given why record size is not given because variable length record because of variable length record not because of spawned not because of spawned because of variable length record different record have different length",
+      "avg_logprob": -0.1238227756056067,
+      "no_speech_prob": 0.152587890625
+    },
+    {
+      "start": 7431.77,
+      "end": 7463.75,
+      "text": " Some record has 2 bytes, some record has 10 bytes, some record has 8 bytes. Different record have different length. So, on average, record size is given. On average, what is the record size? That is given. Is this clear? So, this average is given because of variable. So, average record size is given to you. That is r bytes. That is r bytes. Okay. Number of records are given to you. That is small r. Block size is given to you.",
+      "avg_logprob": -0.11636117494736727,
+      "no_speech_prob": 0.318603515625
+    },
+    {
+      "start": 7464.01,
+      "end": 7501.18,
+      "text": " b bytes k bytes are used for block header spawned organization you are using you are using the spawned organization find the number of blocks needed anyone find the number of blocks needed this is an interesting question so now average record size is already given to you remember average record size on average what is the record size that is given to you can you notice can you notice when i give you average record size",
+      "avg_logprob": -0.10068359039723873,
+      "no_speech_prob": 0.31591796875
+    },
+    {
+      "start": 7501.51,
+      "end": 7533.88,
+      "text": " I can consider it as a fixed length record okay how many of you agree with me how many of you agree with me tell me see because average record size is given average record size is given average so we are playing in the terms of average the game we are playing in the terms of average okay so when the average record size is given you can consider you can consider it as you can consider it as it has fixed length record correct fixed record size okay",
+      "avg_logprob": -0.06001030391716695,
+      "no_speech_prob": 0.6845703125
+    },
+    {
+      "start": 7537.84,
+      "end": 7591.91,
+      "text": " So because we are playing in the terms of average, so average record size is given that is our bytes. So you can consider this as the record size, fixed record size. Okay, now you tell me the answer. So here what happens? Block size is given. And so number of blocks that you need, number of blocks that you need, how many blocks we need? First of all, you tell me. So here what will happen? So the file has our records. Okay, or average record size is already given.",
+      "avg_logprob": -0.14865251692063217,
+      "no_speech_prob": 0.1934814453125
+    },
+    {
+      "start": 7593.95,
+      "end": 7625.65,
+      "text": " average record size is already given so from here so first of all per block how many you can record per block first of all you tell me per block how many you can you can put just tell me this point per block okay record number of records per block just tell me this point how many records can you put per block expand organization you have remember you have the expand organization so per per block how many you can put so that will be",
+      "avg_logprob": -0.10120738356966864,
+      "no_speech_prob": 0.66162109375
+    },
+    {
+      "start": 7626.21,
+      "end": 7657.01,
+      "text": " sorry no seal no floor you can directly say that will be b minus k divided by r correct because this k is the block header this k is the block header so your answer will be b minus k divided by r no seal no floor because this is bond organization no seal no floor because this is bond organization so there is no seal no floor okay so this is your number of records that you can put per block in one block these many records you can put in one block",
+      "avg_logprob": -0.11809210777282715,
+      "no_speech_prob": 0.5537109375
+    },
+    {
+      "start": 7658.08,
+      "end": 7696.67,
+      "text": " So let's call it okay what we can call it we can call it BFR correct yes or no we can call it BFR okay yes or no we can call it a blocking factor we can call it a blocking factor because on average so these many you are putting so your answer is what finally your answer will be R divided by BFR seal okay this will be your number of blocks needed this will be your number of blocks needed correct",
+      "avg_logprob": -0.15818117441756002,
+      "no_speech_prob": 0.59814453125
+    },
+    {
+      "start": 7697.07,
+      "end": 7731.33,
+      "text": " yes or no so finally because you have a file of r r records are there number of records is given number of records is given that is r that is number of records okay so number of records is r and you can notice so how many blocks you need so that will be that will be this so your answer will be r divided by b of r seen any other doubt priya is asking r into r divided by b minus k r into r",
+      "avg_logprob": -0.10182291633552976,
+      "no_speech_prob": 0.375732421875
+    },
+    {
+      "start": 7734.29,
+      "end": 7781.41,
+      "text": " divided by B minus K via block header so you check it out okay can you check it out Priya so basically what you are saying so here if you put the BFR see if you put the BFR expression let's that sounds correct so if you put the BFR expression what is BFR? BFR is B minus K divided by R okay",
+      "avg_logprob": -0.1509331568247742,
+      "no_speech_prob": 0.2509765625
+    },
+    {
+      "start": 7781.79,
+      "end": 7814.52,
+      "text": " so basically the same thing you are saying but like this yeah this is also correct okay so this is also another way both are basically the same thing this is your answer right priya yes or no so both are basically same but in the spawned organization actually you should prefer this strategy why can you tell me priya your answer is correct but your answer will only happen in the spawned organization this technique that you have applied",
+      "avg_logprob": -0.06709558998837191,
+      "no_speech_prob": 0.24169921875
+    },
+    {
+      "start": 7815.52,
+      "end": 7845.64,
+      "text": " Okay, the technique that you have applied that will only happen in the spawned organization. Okay, but if your question is about the unspawn, then you should go in this direction that how many records you can put in one block. Is this clear? How many records you can put in one block that you find out and then you find out the answer. But yeah, for the spawned, this, this technique is also correct. Both are the same answer. Okay, now let's see this organization of records in the files.",
+      "avg_logprob": -0.1455517958950352,
+      "no_speech_prob": 0.12939453125
+    },
+    {
+      "start": 7847.52,
+      "end": 7877.9,
+      "text": " okay so this is a very simple topic let's study this let's finish this so let's finish this basically what we have seen so far so far we have seen everything we have seen file organization we have seen but let me ask you one question let's assume you already have stored some data okay in your let's assume there is a there is a block in that block five records you have put is this clear you have already put five records in your",
+      "avg_logprob": -0.09323488961864304,
+      "no_speech_prob": 0.31005859375
+    },
+    {
+      "start": 7878.23,
+      "end": 7908.22,
+      "text": " hard hard drive in the hardest five records are there now you insert one more record where you will put it and physically see in the relation order does not matter agree conceptual level on the conceptual level the order does not matter in which order you put the record that does not matter on the conceptual level does it matter on the physical level does it matter on the physical level yes of course in the physical level you have to put it yes or no you have the hard drive in the hard drive",
+      "avg_logprob": -0.06785599472596474,
+      "no_speech_prob": 0.6142578125
+    },
+    {
+      "start": 7908.39,
+      "end": 7938.51,
+      "text": " where you will put it already five records you have put where you will put the six record tell me very simple question very simple question five records you have put where you will put the six record where you will put the six record at the last okay yes very simple that's what we do at the last just put it at the last if you put it at the last can you notice basically you are not bothering about any order did you notice you do not care about any order",
+      "avg_logprob": -0.08626644768212971,
+      "no_speech_prob": 0.6357421875
+    },
+    {
+      "start": 7939.09,
+      "end": 7968,
+      "text": " In the hard drive, you do not care about any order. You are putting the records. Okay. Give me the record. I will put it at the end. Give me the record. I will put it at the end. You are not caring about the order. Yes or no? You can put Ram, Shyam. Then you can put John. You can put Geeta. You can put Shaktimaan. Basically in any order. Yes or no? You don't care about the order. You are just putting. Okay. Just keep putting. Keep putting. Keep putting. Agree or not? This type of organization is called heap organization.",
+      "avg_logprob": -0.133278912350313,
+      "no_speech_prob": 0.84228515625
+    },
+    {
+      "start": 7968.73,
+      "end": 7998.66,
+      "text": " this type of organization can you notice this type of organization okay whatever data is coming you are keep putting keep putting keep putting this is called heap organization this is your strategy do you agree do you agree this is your strategy okay whatever comes just keep putting so you are creating a heap this type of thing is called heap this type of thing is called a heap of heap of clothes or you can call it pile of clothes right pile of clothes",
+      "avg_logprob": -0.09285200789742086,
+      "no_speech_prob": 0.5478515625
+    },
+    {
+      "start": 7999.87,
+      "end": 8028.44,
+      "text": " You can call it heap of clothes or pile of clothes. This type of organization is called heap organization. So if you if you put the data like this, if you put the data like this, this is called heap organization or pile organization. They took the name from so you can call it heap organization or you can call it pile organization. So if you put like this, what is advantage of this organization? What is the advantage? Tell me just the advantage you tell me.",
+      "avg_logprob": -0.11017219030431338,
+      "no_speech_prob": 0.2578125
+    },
+    {
+      "start": 8028.98,
+      "end": 8058.26,
+      "text": " Like whatever coming you are putting whatever coming you are putting whatever you don't care. So mummy will take care Yes, or no, you don't care. You just keep putting you just keep putting mummy will take care But here you can notice what the advantage advantage is very simple. That is insertion very easy. Agree? Insertion is very easy, but searching is very hard. Yes, or no? I insertion is very easy still still your mummy is going to definitely still your mummy is going to you know",
+      "avg_logprob": -0.20473130200510828,
+      "no_speech_prob": 0.673828125
+    },
+    {
+      "start": 8060.13,
+      "end": 8088.39,
+      "text": " maybe punish you or whatever okay yeah so she will definitely beat you vice is beating you in such a time you are efficient you are making in such a time efficient insertion is very easy so vice is beating you vice is beating you because searching is very hard yes or no you have to search you have to search in a linear manner the linear search you can apply no other no other searching agree or not no other searching you have to do the linear search",
+      "avg_logprob": -0.15856799679798084,
+      "no_speech_prob": 0.67529296875
+    },
+    {
+      "start": 8088.53,
+      "end": 8120.17,
+      "text": " So this is what I am telling you very simple point so a relation is set of records okay conceptually we don't care about the records order agree do you agree conceptual level on the conceptual level on the conceptual level the I can say you have basically we don't care about the order of record yes or no order of records does not matter agree order of records order of records",
+      "avg_logprob": -0.14237253681609505,
+      "no_speech_prob": 0.3359375
+    },
+    {
+      "start": 8120.55,
+      "end": 8166.72,
+      "text": " does not matter but on the physical level on the physical level everything matters how you are putting the data okay the order matters everything matters okay how you put the records matters how you put records in what order matters okay so there are two organization what are the two organization one organization is very simple this is the first thing that came to your mind because you because I know okay everyone does that",
+      "avg_logprob": -0.07675527365176708,
+      "no_speech_prob": 0.80078125
+    },
+    {
+      "start": 8166.91,
+      "end": 8194.75,
+      "text": " okay so mummies they don't do this so the our mummies they don't do this they will never they will never use the heap organization so this heap organization is for a stupid people okay and that came to your mind so when i was asking you that put five records and then put the sixth record you are saying at the end i will put it simply means you will get you will get beating from your mummy okay so this heap organization you are using and that is fine",
+      "avg_logprob": -0.10001627495512366,
+      "no_speech_prob": 0.368408203125
+    },
+    {
+      "start": 8195.16,
+      "end": 8225.42,
+      "text": " Okay, so you cannot just put unordered whatever comes you just keep putting yes or no So records are placed in the file in order in which they come So the insertion is very easy new records you can insert at the end of the file This type of organization is called heap file Okay, this type of file we call it heap file Is this clear? Let me know So basically determine how the files records are physically placed physically how to place them So if you put them unordered",
+      "avg_logprob": -0.15148438051342963,
+      "no_speech_prob": 0.53173828125
+    },
+    {
+      "start": 8225.92,
+      "end": 8255.34,
+      "text": " Files of unordered records. These are called heap files. So this type of file will be called heap file. At the end you can put. What is the benefit? The benefit is insertion is efficient. What are the disadvantages? Searching is inefficient. Searching will take a lot of time. How much time the searching will take? Insertion is very easy. At the end you can insert. Okay, that is very easy. But how much time the searching will take? Searching will take.",
+      "avg_logprob": -0.13295852580917217,
+      "no_speech_prob": 0.464599609375
+    },
+    {
+      "start": 8255.77,
+      "end": 8287.56,
+      "text": " in worst case you have to access all the blocks do you agree if you have B blocks in worst case let's assume your file you have a heap file let's assume you have a heap file okay and this heap file let's assume this has B blocks there are total B blocks B number of blocks B blocks are there so tell me in worst case searching searching time what is the worst case",
+      "avg_logprob": -0.11511075723020336,
+      "no_speech_prob": 0.1505126953125
+    },
+    {
+      "start": 8291.75,
+      "end": 8319.43,
+      "text": " worst case you need to access B blocks. B blocks we need to access. Right. Okay. What is the average? Most of the time we are interested in the average case. We are not in the algorithm field now. Now you might be thinking, sir, in the algorithm, we are mostly interested in the worst case. No, we are not in the algorithm field. In the DBMS, we care about the average. Okay. In the DBMS, we care about the average. That is B by two blocks on average.",
+      "avg_logprob": -0.14808559202933097,
+      "no_speech_prob": 0.16015625
+    },
+    {
+      "start": 8320.17,
+      "end": 8350.21,
+      "text": " On average, if you are lucky, the first block will give you the data. If you are unlucky, B blocks you have to access. On average, you have to access B by two blocks. Yes or no? Is this clear? Let me know. Very simple. Now the next organization, what is that? The next organization is mummy organization. What is that? So the organization that is done by mummy, so you can notice what you do in a very, in a very sequential manner you put. Put the ordered based. Okay. Put ordered. Put ordered.",
+      "avg_logprob": -0.14075741702217168,
+      "no_speech_prob": 0.63134765625
+    },
+    {
+      "start": 8350.58,
+      "end": 8376.72,
+      "text": " based on some field based on some property in a systematic way you put based on some property now that property can be anything for example that property from the mummy point of view that property can be okay first cloth of father then cloth of mother cloth of boy cloth of girl this can be one property this can be one property like this systematic way you can do or maybe you can do like this first t-shirt then pant",
+      "avg_logprob": -0.08947172734354224,
+      "no_speech_prob": 0.2181396484375
+    },
+    {
+      "start": 8377.03,
+      "end": 8402.15,
+      "text": " then okay then jacket then suit and then sardine something that can be another order correct okay there can be more order black cloth white cloth okay of course if nowadays mummies nowadays many of you will become mummies and so you will do this okay like orange light orange dark orange okay this orange that orange so there will be orange category so like that so basically",
+      "avg_logprob": -0.11697345727110563,
+      "no_speech_prob": 0.31005859375
+    },
+    {
+      "start": 8402.54,
+      "end": 8429.64,
+      "text": " you can put them in a systematic way now that systematic way can be can happen according to any field agree yes or no systematic way in a ordered way you are putting but that ordered but that ordering can be can be happen by any field don't consider primary key of course by the by the help of primary key also you can order or maybe by the help of some other key okay so very very simple I am saying",
+      "avg_logprob": -0.12007068816040244,
+      "no_speech_prob": 0.4609375
+    },
+    {
+      "start": 8430.08,
+      "end": 8458.96,
+      "text": " There can be many field. In your relationship, you have many field. There are many field. You can order according to SID, student ID. You can order according to SID or you can order according to S name or you can order according to, I can say, date of birth or you can order according to marks. So that is your choice. How do you want to put the records in the disk? Agree or not? In the disk, how you put your records? But tell me one thing.",
+      "avg_logprob": -0.17361111345666427,
+      "no_speech_prob": 0.6533203125
+    },
+    {
+      "start": 8459.84,
+      "end": 8489.04,
+      "text": " Tell me one thing once you put your once you put your records in the hard drive Like for example in your cupboard once your mommy put like this father then mother cloth then boy then girl like this if you put the Put the clothes Now once you put like this now can you put like this? Simultaneously like the same cloth you are putting in this order also and can you put in this order also that first black black cloth for then orange clothes like this",
+      "avg_logprob": -0.16372647400825255,
+      "no_speech_prob": 0.72412109375
+    },
+    {
+      "start": 8489.58,
+      "end": 8519.18,
+      "text": " can they happen simultaneously can these two happen simultaneously simultaneously can these two happen either this will happen or this will happen right yes or no either this will happen or this will happen that is your choice how we will do you don't have two pair of the same cloth right it's not like the same cloth you have two pair for every cloth you have two pair it's not like that okay so very simple the same thing I'm telling you you have a student table in the student table once you put according to Marx",
+      "avg_logprob": -0.11824939653132725,
+      "no_speech_prob": 0.80859375
+    },
+    {
+      "start": 8520.5,
+      "end": 8549.94,
+      "text": " Once you put the data, once you put the records in the hard drive physically, this is your hard drive in the hard drive. Once you put them according to marks. Now, simultaneously, you cannot put them according to SID. Yes or no? It cannot happen that according to S name also they are ordered and according to the marks also they are ordered. It cannot happen simultaneously. Either you do the ordering by marks or you do the ordering by name or you do the ordering by",
+      "avg_logprob": -0.1557031264901161,
+      "no_speech_prob": 0.72412109375
+    },
+    {
+      "start": 8551.31,
+      "end": 8578.52,
+      "text": " one ordering you can do physically on the database physically in the hard disk only one ordering you can do that is your choice how you will do but only one ordering is possible is this clear to everyone so this is systematic way you put based on some field based on some field okay put in a ordered way so files of ordered records these files are called sequential files remember these files will be called sequential files",
+      "avg_logprob": -0.13085937015712262,
+      "no_speech_prob": 0.69677734375
+    },
+    {
+      "start": 8578.86,
+      "end": 8610.63,
+      "text": " or i you can call it sorted files so when you see this word sequential file what should come to your mind when you see this word sequential file what should come to your mind that based on some field they are ordered is this clear based on some field based on some attribute they are ordered in the disk physically they are physically ordered in the disk based on some field okay this field will be called ordering field",
+      "avg_logprob": -0.0645736853281657,
+      "no_speech_prob": 0.485107421875
+    },
+    {
+      "start": 8611.27,
+      "end": 8643.36,
+      "text": " we will call this ordering field or sorting field let me know okay so this organization is called this organization we call it sequential organization what we call it this organization this organization is called sequential organization ordered or sequential file you will get and this is called sequential organization so okay so there are two type of organization for example this organization you can notice so according to name we are putting yes or no",
+      "avg_logprob": -0.08735795222319566,
+      "no_speech_prob": 0.67041015625
+    },
+    {
+      "start": 8643.76,
+      "end": 8673.77,
+      "text": " we are ordering them according to name in block one we are putting these in block two we are putting these in block three we are putting these so according to name physically we are putting agree or not or if physically in your hard disk according to name you are putting so this type of thing is called sequential organization okay so what are the benefits the insertion is a little bit complicated the insertion will take some time insertion is costly yes or no",
+      "avg_logprob": -0.10685764104127884,
+      "no_speech_prob": 0.35009765625
+    },
+    {
+      "start": 8674.54,
+      "end": 8703.78,
+      "text": " insertion will be costly but the searching is very easy the benefit is this you can do the binary search on the blocks one thing I want to tell you binary search you can do on the blocks you cannot do on the records so binary search you can do on the blocks on the blocks you can do binary search you cannot do the binary search on the records so this is the benefit of this organization so for example in this organization if you have like if you have this sequential organization",
+      "avg_logprob": -0.07682291558012366,
+      "no_speech_prob": 0.255859375
+    },
+    {
+      "start": 8710.47,
+      "end": 8742.95,
+      "text": " if you have seen the sequential organization okay and let's assume sequential organization ordered by ordered by field field A let's assume ordered by field A okay so by field A you have ordered there is another field B there is another field C okay you are ordered by field A so by field A you are ordering for example let's assume this is one block this is your block B1 in this you have 1 2 this is your block B2 in this let's assume you have 3 4",
+      "avg_logprob": -0.1526256492457439,
+      "no_speech_prob": 0.6416015625
+    },
+    {
+      "start": 8743.36,
+      "end": 8780.12,
+      "text": " this is your block B3 in this you have let's assume T11 so like this okay now you tell me if I give you this query search where is A equal to search where A is equal to let's assume 6 okay and let me give you another another block let me give you let's assume that is 20 and 25",
+      "avg_logprob": -0.16021455357323833,
+      "no_speech_prob": 0.3544921875
+    },
+    {
+      "start": 8780.67,
+      "end": 8811.92,
+      "text": " Okay, this is your block before so you tell me if your sequential organization if you have this sequential organization ordered your field your your file your file is ordered by this in the disk it is happening physically remember remember remember it is happening physically it is happening physically Okay, now you tell me so if you want to search where a is six then how many disk you need to access how many blocks you need to access how many blocks",
+      "avg_logprob": -0.19422238042881323,
+      "no_speech_prob": 0.6884765625
+    },
+    {
+      "start": 8812.38,
+      "end": 8846.75,
+      "text": " So what you will do? How many blocks you need to access? Tell me. You can use the binary search. You can use the binary search. First you can access this. First you can access this B2. So you can use the binary search on blocks. Remember, you can do binary search on blocks. You can do binary search on blocks. So first you will access B2. What this B2 will tell you? This B2 you will access. What this B2 will tell you? This B2 will tell you that go to B3.",
+      "avg_logprob": -0.09174679538123628,
+      "no_speech_prob": 0.425048828125
+    },
+    {
+      "start": 8849.36,
+      "end": 8875.07,
+      "text": " Nikhil is very good, Nikhil is very good. So this B2 will tell you to go ahead. So this B2 will tell you to go ahead. The maximum value of B2 you will check. Agree or not? Yes or no? The maximum value of B2 you will check. After this B2 what you will do? Then what you will do? Let's assume there are 6 blocks.",
+      "avg_logprob": -0.31339797959930593,
+      "no_speech_prob": 0.81787109375
+    },
+    {
+      "start": 8879.69,
+      "end": 8910.3,
+      "text": " or maybe if if you have more blocks so like this you can do the binary search after this b2 you will access b3 okay and b3 will tell you what b3 will tell you before b3 it is there yes or no so now you can say that it is not there b2 is saying go ahead b3 is going to go so basically finally i can say these many access i need agree or not two access i need two block access two block access i need agree",
+      "avg_logprob": -0.12499999270147207,
+      "no_speech_prob": 0.455078125
+    },
+    {
+      "start": 8910.7,
+      "end": 8940.26,
+      "text": " now the same question if you have heap organization in the same question if you have heap organization and randomly data is there in the same question if you have random data like okay 20 25 3 okay maybe I can say maybe 4 3 4 2 1 something like this okay so some random data is there let's assume 7 9 some random data is there now you tell me in this situation",
+      "avg_logprob": -0.12222450765732087,
+      "no_speech_prob": 0.186767578125
+    },
+    {
+      "start": 8940.62,
+      "end": 8971.16,
+      "text": " This will take all the all the blocks you have to access. So four block access you need. Four block access. This is the worst case or not. Agree. This is the worst case or not. This is the worst case. Data is not in the file. This is the worst case. Then data is not in the file. That is the worst case. Agree. So four block access you need to do. Okay. So now now you tell me one more thing in the same sequential organization, you have the sequential organization, but",
+      "avg_logprob": -0.1590154930553605,
+      "no_speech_prob": 0.25537109375
+    },
+    {
+      "start": 8973.53,
+      "end": 9003.68,
+      "text": " will it be always useful in the same sequential organization search the value b equal to 6 okay now interesting now you tell me now does it matter now does it matter you have sequential organization or heap organization from the B point of view this is heap organization right array from B point of view this is actually heap organization so from B point of view if you look if you look from the B point of view from B point of view what happens",
+      "avg_logprob": -0.162984908654772,
+      "no_speech_prob": 0.50732421875
+    },
+    {
+      "start": 9007.22,
+      "end": 9043.54,
+      "text": " From B point of view, what happens? This is a heap organization. If you see from the B point of view, from the B point of view, from the B point of view, this is actually heap organization. So you need four access, correct? You need four block access. So this cannot help you. This ordering can help you only when, so this sequential organization is useful only when, this sequential organization useful when searching.",
+      "avg_logprob": -0.14696180919806162,
+      "no_speech_prob": 0.26220703125
+    },
+    {
+      "start": 9046.71,
+      "end": 9083.47,
+      "text": " Searching is done based on ordering field. Agree? Based on the ordering field. Based on the ordering field if you are searching. Correct or not? So this is useful only when you are doing the based on the ordering field. There is no index. Our index is not there Priya. In the beginning of the class what I told you. In the beginning of the class what I told you. I told you that index we will study in the next lecture. We are only focusing on file organization.",
+      "avg_logprob": -0.11770833219800676,
+      "no_speech_prob": 0.5498046875
+    },
+    {
+      "start": 9083.96,
+      "end": 9114.36,
+      "text": " how you store the data how are you storing the data we are only focusing on file organization so that's it so this is your complete chapter so can i say this this will be log if you have sequential organization so in the sequential organization you can do binary search so these many access unit log b and in the if you do sequential scan if you do the sequential scan then this will happen and then this will happen",
+      "avg_logprob": -0.08692583190389426,
+      "no_speech_prob": 0.16748046875
+    },
+    {
+      "start": 9116.37,
+      "end": 9149.68,
+      "text": " So tell me when you need to do sequential access in what okay when this will happen when this will happen tell me like you have a ordered organization your organization is ordered your organization is sequential then why are you doing sequential scan then why are you doing sequential action yes searching on unordered attribute okay when when you are searching based on an ordering attribute",
+      "avg_logprob": -0.21361606823546544,
+      "no_speech_prob": 0.451904296875
+    },
+    {
+      "start": 9151.93,
+      "end": 9185.05,
+      "text": " unordered attribute. Okay. So this is the complete idea. This is your chapter. So you have two organizations. One is he file organization. So you are okay. Another is sequential organization to organization we have seen everything we have seen. Okay. So that's it. And this block address, record address I told you. So there are, there is a concept of block address that is very easy that you already know, right? Block address is basically the address of",
+      "avg_logprob": -0.17267219402960368,
+      "no_speech_prob": 0.51953125
+    },
+    {
+      "start": 9185.56,
+      "end": 9215.28,
+      "text": " first sector of that block. Okay. You have a block. So for a block, the address of the first sector in that block, that will be the block address, like your CHS address that we have already seen. We have already seen, like either you can use LB address or you can use CHS address. Now what is record address? What is record address that is basically inside the block. First you give block address plus some offset agree block address plus some offset within the block.",
+      "avg_logprob": -0.17399878756513873,
+      "no_speech_prob": 0.59033203125
+    },
+    {
+      "start": 9216.33,
+      "end": 9248.44,
+      "text": " plus some offset within the block within the block yes or no agree so if this is your block if this is your block let's assume this is a block so this block has some address this block has some address let's assume address is b1 okay let's assume this is address then tell me and if you have this record this record can have many bytes okay this record can have many field so I can call it a record right this is our record",
+      "avg_logprob": -0.08786915995917477,
+      "no_speech_prob": 0.46875
+    },
+    {
+      "start": 9249.35,
+      "end": 9285.45,
+      "text": " this record can have many fields so for this record what will be the address this record address what that will be the record address will be your block address b1 plus this offset okay inside the block inside the block where is your address where is your record this offset this will be your record address so there is something called record address there is something called block address so there are two concepts",
+      "avg_logprob": -0.11018668715055886,
+      "no_speech_prob": 0.323486328125
+    },
+    {
+      "start": 9286.77,
+      "end": 9312.26,
+      "text": " ok let's take a break now and after the break we can do some practice of the file organization some questions we are going to solve like this question from the olman we are going to solve ok this question is from the olman book and this another question from the olman book this question from the navate book that we will solve ok and this another question is from navate",
+      "avg_logprob": -0.13972355157901079,
+      "no_speech_prob": 0.157470703125
+    },
+    {
+      "start": 9314.71,
+      "end": 9340.62,
+      "text": " So, these questions are going to increase basically your understanding of the concept that we have seen. So, this is your lecture. Some practice is remaining. Only some practice is remaining, the file organization is over. Everything we have seen in the file organization and the next lecture we will start indexing, but some practice we will do. So, first we will do some practice, then we will start the indexing chapter. Please tell me did you understand file organization?",
+      "avg_logprob": -0.11800130169528227,
+      "no_speech_prob": 0.10992431640625
+    },
+    {
+      "start": 9341.38,
+      "end": 9372.22,
+      "text": " in the file organization what we have seen let me tell you very clearly let me tell you what we need to remember in this lecture what are the things that we need to remember in this lecture in this lecture what are the things that we need to remember only the ideas only the ideas we need to remember remember okay the exact details do not matter for example will anyone ask you in the block header what we put will anyone ask you in the block header what we put no one will ask you",
+      "avg_logprob": -0.08155293162075841,
+      "no_speech_prob": 0.57275390625
+    },
+    {
+      "start": 9372.43,
+      "end": 9399.97,
+      "text": " Okay. That depends on the DBMS that depends on the software. So that is platform dependent. That will depend on the system. So in the block header, what are you putting that will depend on the DBMS. But what we need to understand, we need to understand why we have block header. There is a block header, but why we have that block header. You got the idea, right? Yes or no. Why we have block header. The idea you understood. The idea is important. Now forget about the exit details.",
+      "avg_logprob": -0.14118806870134026,
+      "no_speech_prob": 0.11279296875
+    },
+    {
+      "start": 9400.37,
+      "end": 9428.93,
+      "text": " but you understood why we have block header that idea you understood why we have record header that idea you understood right why we have record header in a in a record you have record in that record why we have record header so that idea you understood so we need record header we need block header and there is something called a spawned organization on a spawned organization there is concept of blocking factor there is concept of I can say fixed length record variable length record you can have fixed length records",
+      "avg_logprob": -0.14368557192615627,
+      "no_speech_prob": 0.548828125
+    },
+    {
+      "start": 9429.34,
+      "end": 9456.3,
+      "text": " Every record has the same size. You can have variable range record. Different record have different size. Some record 10 bytes, some record 100 bytes. So variable length record, fixed length record. So these concepts we have seen. Okay. The concept of block we have seen. We have seen that in the DBMS, in the data, in from the DBMS software point of view, you have a DBMS software from the DBMS point of view, block is the smallest unit of data access from the disk. You will access block in the disk. You will write the block.",
+      "avg_logprob": -0.15690103508532047,
+      "no_speech_prob": 0.1314697265625
+    },
+    {
+      "start": 9456.53,
+      "end": 9483.71,
+      "text": " So block is the, I can say transfer unit. Okay. And what is a block that is sequence of consecutive sectors. Okay. Sequence of consecutive sectors within a track that is called block that will be filled. Every block has the same size. You will decide. Okay. One block size is equal to four sector three sector. So that you will decide, but every block has the same size. And what else is there? Yeah. Another last thing is.",
+      "avg_logprob": -0.13289388346796235,
+      "no_speech_prob": 0.05828857421875
+    },
+    {
+      "start": 9483.92,
+      "end": 9512.93,
+      "text": " how to store their records how to insert the records you have a file in the disk you are storing it physically inside your hard drive you are storing this you are storing this file physically okay physically you are storing it this then how to store there are two organization what are the two organization one is heap organization just put it okay just put at the end you insert the record at the end so one is heap organization another is sequential organization you put in a systematic manner",
+      "avg_logprob": -0.110394020686331,
+      "no_speech_prob": 0.62451171875
+    },
+    {
+      "start": 9513.26,
+      "end": 9541.97,
+      "text": " according to some field there can be many field according to any of your choice that is your choice okay that you will decide so according to your choice you can do the ordering in the hard drive you can do the ordering of the records according to that field so there are two organization heap organization sequential organization okay is this clear in the heap organization there is no field which is ordered agree or not yes or no in the heap organization",
+      "avg_logprob": -0.06985293977400836,
+      "no_speech_prob": 0.4140625
+    },
+    {
+      "start": 9542.37,
+      "end": 9571.82,
+      "text": " there is no field which is ordered in the heap organization no field is ordered but in the sequential organization how many fields are ordered in the sequential organization exactly one not more than one you can only do the physical ordering you are doing yes or no so you can do the physical ordering based on only one field so in the sequential organization one field is ordered okay one field is ordered okay like if I order based on name",
+      "avg_logprob": -0.0919615933334971,
+      "no_speech_prob": 0.6474609375
+    },
+    {
+      "start": 9572.64,
+      "end": 9598.31,
+      "text": " Yes or no, if I order the records based on name in your hard drive, then I can say simultaneously at the same time you cannot order based on marks. So if you do ordering based on marks, then you cannot do ordering based on name. So exactly one field you can use to do the ordering.",
+      "avg_logprob": -0.13586425292305648,
+      "no_speech_prob": 0.12091064453125
+    },
+    {
+      "start": 9599.73,
+      "end": 9629.17,
+      "text": " So there are two organization, heap organization, sequential organization. There are some benefits, some those benefits and those things you understood. What are the benefits of sequential organization and what are the benefits of heap organization? What are the disadvantage of heap organization? What are the disadvantage of sequential organization? When sequential organization is helpful, tell me when the sequential organization will actually help you when you search based on the ordering field.",
+      "avg_logprob": -0.15215774323968662,
+      "no_speech_prob": 0.25439453125
+    },
+    {
+      "start": 9629.56,
+      "end": 9657.96,
+      "text": " If you are if you are putting the records all your records you have thousand records you have if you put them in the hard drive based on name okay if your name is the ordering field then if you are searching on marks it will not help you right you are storing the data based on name okay ordering field is the name then if you are searching based on marks it will not help you you have to do the linear search okay but if you search based on name then you can do the binary search okay",
+      "avg_logprob": -0.11718749704927502,
+      "no_speech_prob": 0.39599609375
+    },
+    {
+      "start": 9658.27,
+      "end": 9687.39,
+      "text": " So all the concepts that we have seen, I have given you the summary. This is the complete summary. Okay. Let me know any doubt in today's lecture is everything crystal clear. Can you visualize? Please visualize everything because everything is happening physically. Yes or no. In today's lecture, everything is happening physically. Okay. So there is no logical concept here. Everything is physically is happening. How to store the record, how to store the data, the ordering of the record.",
+      "avg_logprob": -0.1274999964237213,
+      "no_speech_prob": 0.1929931640625
+    },
+    {
+      "start": 9687.78,
+      "end": 9720.8,
+      "text": " okay so everything is happening physically so you visualize the concepts everything is clear let me know now we will study indexing okay so in the next lecture so we can start at 9 30 okay at 9 30 we will start you can take a break for 45 minutes okay class till I think 11 or 11 30 yeah only three questions practice questions we will do then we will start the indexing chapter okay in the indexing chapter",
+      "avg_logprob": -0.07877604477107525,
+      "no_speech_prob": 0.409423828125
+    },
+    {
+      "start": 9721.13,
+      "end": 9751.03,
+      "text": " we will basically just see the introduction tomorrow we will study the all the indexes so today we will only see the introduction of the indexing the idea overall idea we will study today and tomorrow we will study the all the concepts okay and today I will provide you the remaining database schedule for the dbms only small topics are remaining let me tell you like once this indexing is over only one topic will be remaining that is transaction management okay",
+      "avg_logprob": -0.0863764031549518,
+      "no_speech_prob": 0.53173828125
+    },
+    {
+      "start": 9751.3,
+      "end": 9780.62,
+      "text": " So your DBMS is almost over. Normalization, ER model, queries, SQL, Relaysal, Algebra, TRC, almost over your DBMS. Now this file organization is over. Okay. The next point is that is indexing. Once indexing is done, tomorrow or day after tomorrow, I will provide you the schedule. Day after tomorrow indexing will be over. After that three or four lectures, we will give to the transaction management and scheduling. Also recovery. Okay. Recovery management. How to do the recovery? Recovery manager.",
+      "avg_logprob": -0.17826086904691613,
+      "no_speech_prob": 0.2186279296875
+    },
+    {
+      "start": 9780.98,
+      "end": 9808.04,
+      "text": " so these three things we will see transaction scheduling and recovery okay so that we will study so these things are remaining in the DMS I will provide you a schedule today okay in a fixed schedule I will provide you for the DMS for the remaining classes of DMS almost seven classes are remaining seven or eight classes are remaining okay thank you everyone those are very easy concepts Nikhil is saying okay anyway take a break we will discuss",
+      "avg_logprob": -0.10256177680783493,
+      "no_speech_prob": 0.2174072265625
+    }
+  ],
+  "sourceCompletedAt": "{\"file\":\"058. Lecture 1 - File Organization.mp4\",\"language\":\"en\",\"probability\":0.88330078125,\"processing_seconds\":215.8577687740326,\"device\":\"cuda\"}"
+}

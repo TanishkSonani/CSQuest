@@ -1,0 +1,264 @@
+1
+00:00:00,560 --> 00:00:27,650
+Hi everyone. So now that we have studied depth for search, which is basically DFS and we have studied everything about effort search, which means back edge, cross edge and whatnot, right? So there has been many applications that we have studied articulation point and so on. Now it is a correct time to start another graph traversal technique, which is breath for search. In short, it is also called as BFS. Let's just directly take an example.
+
+2
+00:00:28,010 --> 00:00:53,930
+and let me do a bfs traversal on this graph starting at some node let's let's pick a source node which is let's suppose this first vertex one now what i'm going to do i'm going to you know i i agree that till now i have not told you that what is bfs and all i i just want to start this topic with one example and then i will tell you the formal definition the code and everything so let's just start with couple of examples and this is one of the example that i want to take
+
+3
+00:00:54,510 --> 00:01:23,460
+Okay so just like a DFS we will be choosing one node here to start with. So here let's suppose I'm choosing this node to start with which means I'm choosing the vertex number one. Now in DFS what we used to do we used to go in the depth but here what I will do I will just explore all of its neighbors which means I will say that two five and six these are three neighbors of this one so I will just explore two five and six.
+
+4
+00:01:24,060 --> 00:01:49,920
+Now I will start with one of the neighbors, maybe two in this case. Now I will say that okay, like if I am starting at two, then this three and five and one, these are the three neighbors, like among one, three and five, this one and five are already vegetated, so only new vertex which I have is three here, which means that two is having the neighbors which are three, five and one, but one and five are already vegetated, right?
+
+5
+00:01:50,300 --> 00:02:14,100
+Why? Because one is here, five is here. So one and five are already visited. Only new unvisited vertex is just three. So I am writing three. Now I will be picking this five. See I will not be going to three. I will be picking this five. So what I am going to do? Just observe the process. I just picked one node which is one and I explode its neighbors. Now I picked one of the neighbors.
+
+6
+00:02:14,490 --> 00:02:40,090
+Okay, and I'm I I just exploded now I'm picking this five. I'm going to explore this So this five is having couple of neighbors. Maybe one two and four These are the three neighbors, but one and two are already visited So I will say that only unvisited vertex from this five is just four. So it will be having four Now this five is complete now move to six. I will not move to three or four So this is just a just like a label vice traversal
+
+7
+00:02:40,320 --> 00:03:06,880
+So I will move to 6. At 6 I will say there is no new node that I need to visit so I will stop at 6. Now I will go to 3 and 3 is having like the adjacent which are 2 and 4 so I will say that okay 2 and 4 both are vegetated I will say 3 is also done and 4 is having adjacent which are 5 and 3 and 5 and 3 are already vegetated this is 5 this is 3 so this is also done. Now this is the the first such tree that I am getting so I will be calling it BFH tree.
+
+8
+00:03:08,420 --> 00:03:14,880
+Now just for the sake of comparison, can you also make a DFH3 starting at 1? Yes, I think it is not tough.
+
+9
+00:03:15,180 --> 00:03:42,800
+So if I start at 1, you will go to 5, you will go to 2, then 3, then 4 and then you will backtrack backtrack and then 6, right? So let me just for the sake of comparison, let me just make a DFS3 which is 1, let's say that from 1 you are going to 2 and then let's say you are going to 3, then probably to 4, then probably to 5 and then from 5 you will backtrack to 4, then you will backtrack to 3, you will backtrack to 2 and then you will backtrack to 1 and then from this one you will go to 6. So this is DFS3.
+
+10
+00:03:44,720 --> 00:04:12,400
+Now as you see like there's obviously a couple of differences I will talk about the differences later But for now you can visually at least you can see there's like like this tree in in BFS tree This is kind of broad tree and DFS tree is kind of tall tree or a skinny tree Why because DFS goes in the depth it keep on going but BFS searches neighbors first and then pick one of the neighbors then go to the neighbors of two like that it goes
+
+11
+00:04:13,190 --> 00:04:39,470
+So I hope this is clear. If not, let's not worry about it because we have multiple examples. So finally this BFS tree looks like this and there are there are a couple of edges which is 2 to 5 which is which was not in tree. So I'm just drawing with the dots. Okay. These edges are not in tree and these edges are this 3 to 4 is also not in tree. Currently I'm not classifying these edges to cross either or something like that. I will do it later. For now, let's just understand very basics of BFS. Okay.
+
+12
+00:04:39,800 --> 00:05:08,860
+so these edges like these solid edges are tree edges that you might be knowing if you do not know then also not worry about it because we will classify them later let's first understand BFS why it's entirely so let's take this graph this is looking like a huge graph but let's just apply BFS on this graph let's say I'm starting at some vertex maybe at 1 or maybe at 10 you can start at any vertex let's say there I'm starting at 1 if you start at 1 you will explore its neighbors which are 10 and 9
+
+13
+00:05:09,100 --> 00:05:22,580
+only two neighbors are there okay this is this should not be 9 this should be 13 because there are two 9s otherwise let's say this is 30 so here here there are 10 and 9 so you will go to 10 and you will go to 9 like that
+
+14
+00:05:23,100 --> 00:05:49,060
+Then you will pick one of them. Let's say I am picking this 10. I am going from the left. Let's say I am saying that I pick this 10. Then from this 10 you will say that okay the adjacent are 1 and 13. 1 is already vegetated so I will just go to 13. And from this 9 you will say the adjacent are 12 and 13 and 13 is already vegetated so you will go to 12. Now you will pick this 13. From this 13 you will find 0 as new node. And then you will pick this 12. From this 12 you will find 2 as new node.
+
+15
+00:05:49,930 --> 00:06:13,510
+Now you will pick this zero from this zero you will find 7 and 11 as new nodes 7 and 11 and Now you will pick this 2 and at this 2 I think you will be finding 3 as new node 3 is new node Now you will pick the 7 at the 7 you will be finding 6 and ok this 3 is visited so 6 is only new node at 7 and then
+
+16
+00:06:13,840 --> 00:06:43,980
+You will be picking 11. At 11, where is 11? At 11 there is no new node because 7 is already vegetated. So that's why there is no new node. You will go to 3. At 3 only new node is 4. You will write 4 here. And then you will pick this 6. At 6 only new node is 5. And then you will go to 4. And I think at 4 there is no new node. So that's why you will go to this 5. And this 5 also there is no new node. So you will say this is your BFH tree. Very easy, right? So what we are doing? Just observe it.
+
+17
+00:06:44,210 --> 00:07:02,930
+what we are doing we are picking one vertex we are going to adjacent that's all then we are picking another vertex so we are level wise doing it we are picking this time then then we are going to its adjacent we are picking nine we are going to this adjacent now we are picking 13 you are going to its adjacent you are picking 12 you are going to its adjacent so that's how you are doing and that's how you are making this vfs tree
+
+18
+00:07:03,870 --> 00:07:25,930
+Now let's let's you know for the sake of example of the for the sake of practice Let's take this directed graph. You can apply bfs and direct or undirected so I have took two examples of undirected graph now Let's take a example of directed graph and let's try to make a bfs of this graph on some starting matrix. Let's say that a a So if you start at a you will be going to be
+
+19
+00:07:26,460 --> 00:07:54,630
+and you cannot go to G, okay? So this B is vegetated and that's okay. So you will go to this B and then from this B you will say the C and G are the two vertices that you can visit C and G. So from this B you will go to C and G. And now you will go to the C. From the C you will say that only E is new vertex and then you will go to the G. From the G there is no new vertex. Now you will go to this E and from this E there is no new vertex.
+
+20
+00:07:55,630 --> 00:08:21,430
+So there is no new vertex you will stop here. So this is your BFS tree but there are since there are other vertex which are unvisited So you will do what you will start BFS on on the vertices like one of the vertex which is unvisited So this A is A is vegetated B is vegetated C is vegetated G is vegetated and E is vegetated The vertices which are F and D which are not vegetated you will start your BFS at one of them Let's suppose you start at D
+
+21
+00:08:22,210 --> 00:08:50,100
+Now starting at D you will say that okay everything is vegetated so you will stop here starting at F also you will say everything is vegetated so you will stop here Now you observe this that it is a BFS forest because you can get multiple trees also So this is a BFS forest and how I got this BFS forest just by running BFS on multiple vertices I hope you got it now let's let's take one more example and before that let's let's have a node the node is that
+
+22
+00:08:50,370 --> 00:09:17,750
+if you observe between DFS tree and BFS tree the difference will be DFS trees are long and skinny while the BFS trees are short and fat which means though your BFS tree like I mean in general it might look like this in general your BFS trees might look like this where where you will be having you know multiple nodes at every every level and it will be short and fat but so this is BFS but your DFS tree will be somewhere like skinny
+
+23
+00:09:18,140 --> 00:09:44,630
+Like less number nodes at every level. So this is your DFS tree. Generally. I mean in general it happens. Okay. So let's take directly gate 2008 question. It is very easy question. I will ask you to solve this question. They are saying one possible order of visiting the node on the following graph using the BFS. What could be the answer? Let's just try solving this question as an homework. Okay. Now let me go to code directly.
+
+24
+00:09:45,070 --> 00:10:13,390
+so till now you know overall that how it is happening but let's just understand this using our code so how it is happening you go to a graph i mean let's suppose this is a graph you go to a vertex and then you go to neighbors you go to neighbors like that all right if you remember i said dfs and bfs are twins so i said dfs and bfs are twins do you remember why i said this because like in dfs we were using stack
+
+25
+00:10:13,810 --> 00:10:31,490
+and just instead of a stack if we use Q then you will be getting BFS and in fact if you use priority Q then you will be getting somewhere close to digestor algorithm. So I will tell you digestor later but BFS, DFS and digestor are almost similar it is just that the data section that we are using.
+
+26
+00:10:31,790 --> 00:11:00,210
+So in DFS you use stack, in BFS you use queues. There is one algorithm that I will tell you later that is called digestor or digestor algorithm. In that we use priority queue. That is also similar to DFS and BFS. Just we use priority queue there. Okay. Coming back to BFS. So let me let me say like let me admit it that this code and DFS code using stack is exactly same. Here I'm just using queue and there I was just using stack. That's the only difference. Okay.
+
+27
+00:11:00,550 --> 00:11:17,770
+so what does this code say it says that you just pick one vertex you put that vertex into the queue and then you pop that out or you dequeue that out and then once you dequeue this you just put all of its adjacent if that is not visited you just put all of this adjacent in the queue
+
+28
+00:11:17,960 --> 00:11:44,620
+that is all you keep doing it then you pick another vertex so earlier what you were doing you were doing the same thing you were inserting the vertex you were popping it out then you were inserting its adjacent then you were popping from the top here you are popping from the bottom that's the only difference that you had okay so instead of this code let me just dry run this code on this graph and let me show you that how BFS is actually working so let's start with a queue which is initially empty
+
+29
+00:11:45,040 --> 00:12:13,890
+Now what you will do, you will pick one of the vertex, let's suppose this is A. You will push this A here. Or you will, like in Q terminology, you will say you will NQ this. Otherwise, like I might be using push, pop in case of Q also, but I hope you understand that in Q terminology, whenever I say push, it means NQ only. And whenever I say pop, it means DQ only, because we are using Q. Anyway, let's start with this vertex, which is A. Now what you will do? You will just
+
+30
+00:12:14,470 --> 00:12:42,740
+I mean this is like initially you are having empty and then you push this A then you will just pop this out or you will just dequeue it and then you will just push its neighbors that's all you need to do which means from this you will be getting this you will be popping this A out or you will be dequeuing it and then you will be pushing its neighbors that's all and now earlier when you were using step then you were popping this G but here you are popping this B that's the only difference so
+
+31
+00:12:43,480 --> 00:13:04,060
+maybe let me make only one queue not multiple queues so what you are doing let me just show you using one queue only so initially your queue will look like this let me make this queue a little down so that I have NFS space and yes here we go so initially your queue looks like this
+
+32
+00:13:04,380 --> 00:13:33,860
+and then what you will do you will say that okay let me pop out this A now once you pop out this A let me write this A here so that I know that in what order I am budgeting the vertices now once you pop out this A you will push all of its neighbors which are B and G okay see I will I will give you very very nice questions just based on this observation that how you are pushing and popping in the Q in case of BFS I mean at one time what is there in the Q just observe this okay so
+
+33
+00:13:34,350 --> 00:14:00,660
+So, these are the neighbors of A. Agree? See, this is not blocked from the top. This is obviously, I mean, this is a Q. So, anyway, this is neither blocked from the top or not blocked from the bottom. So, you will just say that you will be just, you know, popping out from the bottom only. So, these are the neighbors of A. Now, what you will do? You will just pick one of these neighbors which is, let's suppose, B you are picking.
+
+34
+00:14:01,950 --> 00:14:30,980
+So you started with A and then you said like B and G and then you are picking one of its neighbors which is B in this case let's suppose. So this is the order in which I am visiting. Now you will do what? You will push all of its neighbors, B's neighbors which is C in this case only. So you will push this C. Now you will say that this is neighbors of B. Let me write N of B. N of B means, I mean this is the short form I am using which means neighbors of B. So you will say that okay, I mean that is fine.
+
+35
+00:14:31,280 --> 00:14:57,240
+Now you will go to this G and then you will just pop out this G. You will say let me just pop out this G. Now once you pop out this G let me write it here and then you are saying let me post neighbors of G which are E and J in this case which are E and J in this case. Right? Cool. Now these are the neighbors of G. Now if you want you can you can just take a pause and you just notice one thing.
+
+36
+00:14:57,580 --> 00:15:20,400
+Or maybe you, if you want, let me just go back a little while where I have not popped out this G. So just take a pause at this moment and look at this Q. What this Q is having? This Q is having neighbors of A which is B and G, I mean probably like this G only, and the neighbors of B.
+
+37
+00:15:21,200 --> 00:15:50,240
+So I will come to these kind of questions later. Maybe I should not make it complicated currently but I will come to this later. I will ask you to you know observe one thing that at any moment what kind of nodes you can have in a queue. I mean you cannot have all the graph nodes in the queue at any time. You will be having certain kind of pattern that I will ask you to observe later. But for now I think it is better if we just follow the algorithm. So let's just follow the algorithm where what we are doing we are just you know
+
+38
+00:15:50,620 --> 00:16:15,530
+popping out one thing okay so we are popping out from the from the bottom so let me let me just write here so this is the d cube if you want to d cube you will be d cube like this so i'm i'm i first popped out this a then b then g in this fashion only i will be popping out or i will be d cube it okay now you push the neighbors of g which are this okay great
+
+39
+00:16:15,870 --> 00:16:42,980
+Now what you need to do? You just pick this C which is neighbor of B. You just pick this C and you just pop this out and you will be writing C here. Now you just push all of its neighbors which is E and B. And E and B are already visited. E and B are already visited. So I am not making a visited array otherwise I mean you should be having a visited array. C just code. See here I am having the visited array and initialize visited of all nodes to false. This should be false.
+
+40
+00:16:44,280 --> 00:17:13,290
+and then you will you will be you know maintaining a vegetative that's okay but but for my purpose I'm not making it complicated so I'm not maintaining a maintaining an area but we know that this C neighbors are C neighbors are E and B which are already vegetative so just pop this out now I'm taking this E okay now if you just pop the pop out this E then you will be writing this E here and just push the neighbors of E so what are the neighbors of E? neighbors of E are G
+
+41
+00:17:13,640 --> 00:17:44,530
+j and k obviously j is vegetated so j is also vegetated so just k this is neighbors of e okay now what you need to do now you need to this pop out this j also so you just pop out this j and just push the neighbors of j so what are the neighbors of j neighbors of j are f and d and and that's all which are unvisited so here f and d which are neighbors of j okay
+
+42
+00:17:45,070 --> 00:18:06,770
+Now you pick this K and then you will be just writing the neighbors of K. So what are the neighbors of K here? Neighbors of K are F and D which are already vegetated. So F and D are already there. So that's all. Now you will be writing this F. So what are the neighbors of F? Everything is vegetated. What are the neighbors of D? We will say everything is vegetated.
+
+43
+00:18:06,970 --> 00:18:32,850
+So these are 1, 2, 3, 4, 5, 6, 7, 8, 9. 1, 2, 3, 4, 5, 6, 7, 8, 9. 9 nodes are already vegetated. So this is the order in which you will be maintaining, you will be vegetating the vertices in case of BFS. So what we are doing is very simple. We are just pushing in the queue and whenever we are popping out, this is the rule. That was the rule in BFS also. Whenever you pop out, just push its neighbors. Let me write it here.
+
+44
+00:18:33,480 --> 00:19:04,020
+Whenever you pop out just push it never that's all you need to do. Okay, so whenever you pop out pop out means DQ Just push its neighbors. Okay, just push its neighbors. That's all we need to do Nothing else. So you pop out the same push its neighbors you pop out this B push its neighbors you pop out this G
+
+45
+00:19:04,300 --> 00:19:31,360
+push it neighbors, you pop out this C and C neighbors are already vegetated, so I have not pushed it. Now you pop out this E, push it neighbors, pop out this J, push it neighbors, pop out this K, push it neighbors, that's all you need to do. So this is the only rule that you need to take care. I hope you got it. Now, this is your algorithm. This is saying the same thing, which is saying that if Q while Q is not empty, just pop out this one thing and push it neighbors. See, this is, I mean pop out or DQ.
+
+46
+00:19:31,580 --> 00:19:56,240
+So pop and push it neighbors, if that is unvisited then push it neighbors. That's all you need to do. You start with the queue and you pop out one thing, you push it neighbors, pop out one thing, push it neighbors. That's all right. So can you just tell me that how many times I'm running this value? How many times? Whatever is happening inside the value, let's not worry about it. But how many times I'm running this value? See.
+
+47
+00:19:56,620 --> 00:20:17,460
+I mean, whatever is happening inside this while loop, let's not worry about it. So what we are doing in this while loop is just popping out one element, right? So see here, we do not push our element more than once in the queue because if that is visited, I will not push it again. So we only push exactly one one time and
+
+48
+00:20:17,690 --> 00:20:36,030
+Pop out it exactly one time, obviously. If you are pushing one time exactly, then obviously you would pop out it one time only, right? You cannot just push one time and pop out it multiple times. So, that's for sure. So, you are pushing it one time only, popping it one time. So, in this while loop, what you are doing, you are popping one by one.
+
+49
+00:20:36,620 --> 00:21:03,720
+Right, so you will be pushing at the you know you might be pushing in this for loop Let's suppose you are you are pushing at a time you are pushing let's suppose Let's suppose there are 15 or 20 elements and out of them Let's suppose you're pushing five elements now five elements again five elements again. Let's let's suppose that is okay I mean in just in just four runs of this while loop you are pushing all of these 20 elements. That's okay But this while rule will run 20 times only why because we're you're popping just one element at a time
+
+50
+00:21:04,550 --> 00:21:38,660
+So this in this queue you are popping just one element at a time. So this will run 20 times only This cannot run lesser than 20. 20 here is the number of nodes. Similarly, this cannot run lesser than n. So this while loop if I just asked you that this while loop is running how many times you will say this is running for every node Which means this is running for let me let me just write here So this while loop is running exactly once this while loop is running
+
+51
+00:21:41,610 --> 00:22:11,210
+n times you will say it is running n times why because you are popping each element like in this value you are popping only one element only one element you are popping out at a time and since there are n elements that's why it will run n times so this is running n times now which means it will run for vertex number 1 it will run for vertex number 2 it will run for vertex number 3 it will run for vertex number 4 like that it will run for vertex number n also so it will be running for every vertex 1 2 3 and let me just say n
+
+52
+00:22:11,400 --> 00:22:34,980
+it is running for all the vertices starting from one to maybe I mean you might be you know whatever you are popping out in each iteration let me just call it one and then next iteration whatever you're popping out your let me just call it two like that okay I hope that is fine that it is running for every vertex and let's say that when it is running for the when you are popping out the first vertex let's suppose whenever we are popping out the first vertex then how much time you are spending in this for loop
+
+53
+00:22:35,290 --> 00:22:58,650
+So this while loop is running for every button just once. So this is this one to end is for while loop and then inside this while loop you are running this for loop. Now how much time you are spending in this for loop? That's the story. So what I am going to do? I am saying that you are running this while loop for one and then you are spending some time in for loop, some time in for loop.
+
+54
+00:23:00,330 --> 00:23:21,720
+Similarly, whenever you are popping out the two, then you are spending some time in for loop. Whenever you are popping out three, then you are spending some time in for loop. Similarly, whenever you pop out the last element, then you are spending some time in for loop. So basically, you are spending some time for every vertex. And each time you are popping out one vertex. That's all you are doing. I hope this pseudo code is clear to everyone. See.
+
+55
+00:23:22,080 --> 00:23:45,020
+what you are doing you are picking out one vertex you are popping out one vertex and then you are doing some something in this for loop for one vertex then then once you are done you pop out the second vertex then you do something in this for loop then you pop out the third vertex then you do something in this for loop that's all you are doing right so that's what i'm saying you pop out one vertex then you do something in the for loop you pop out another vertex you do something in the for loop then
+
+56
+00:23:45,880 --> 00:24:06,410
+only thing that I need to compute is that how much time I am spending in this for loop for first vertex how much time I am spending in the for loop for the second vertex and so on so I just need to I just need to calculate that how much time I am spending in the for loop for first vertex for the second vertex and so on so what do you think like how much time we are spending in this for loop
+
+57
+00:24:06,570 --> 00:24:26,010
+for the first vertex what we are doing i mean for any vertex vertex i what we are doing we are just checking the adjacent see these are these are just order of one operation vegetate is false or not vegetate less adding is true or not or adding or nq operation these are just order of one operation order of one operation right so it is just there how many times i am running this for loop that's all
+
+58
+00:24:26,590 --> 00:24:55,170
+I just need to check that how many times I am running this for loop because this inside this is nothing inside this is just you can treat it like a printf statement because this is just a you know printf hello because this is just a order of one of constant time operations so inside this is nothing let me let me probably just blur this out if you are getting confused then let me just say that inside this is nothing and let me just maybe blur this and let me just say that this is just a printf inside this for loop it is just a printf because this is just an order of one operation
+
+59
+00:24:55,830 --> 00:25:21,650
+You can just treat this as a printf. So ultimately you have this value and inside this for loop you are doing just order of one operation. So I just need to ask that this for loop is running how many times for every vertex. I am just checking adhesions. Now if it is adhesions as a list then you will be taking degree time. That's what we did in DFS also. You will be taking degree of one and whenever you write degree of anything you write one plus.
+
+60
+00:25:21,950 --> 00:25:51,570
+Because if degree 0 doesn't mean we are spending 0 time. We are always spending constant time just to check degree 0 node. So that's why we always write 1 plus degree. Similarly, for the second node, you will be just checking the adjacent. And then you are doing, okay, vegetate, don't push or don't push. It is up to the vegetate array. But that's okay. I mean, these are the order of one operation. So at least we will be spending degree 10, which means 1 plus degree 2. So inside this, you just treat it like a printf. Because this is just order of one operation.
+
+61
+00:25:51,900 --> 00:26:20,590
+So just treat the whole story just like a printf And then for third vertex you will be having degree 3 1 plus degree 3 similarly degree 4 This is for adjacency list Now finally if you just sum this up then what you will be getting? Can you just do it quickly? You will be getting what? Just think about it Like we have done the same thing in the DFS also
+
+62
+00:26:20,860 --> 00:26:49,070
+so you will be getting the same time complexity which is v plus order of e because this whole thing is just either e or 2e does not I mean it depends on whether the graph is directed or undirected right so this is what we are getting here I hope you understood very very easy so this is the final time complexity you have let me write it here so finally final I mean the time complexity time complexity of bfs using
+
+63
+00:26:50,040 --> 00:27:14,560
+Adjacency list is equal to how much order of B plus E same as DFS and what about if this is adjacency matrix can you tell me what if it is adjacency matrix instead of list let me write it here if it is adjacency matrix then for every vertex you are going to check you are going to check adjacent
+
+64
+00:27:14,920 --> 00:27:34,440
+Now if you remember in the adjacency matrix to check just adjacent you need to traverse this entire row which means you need to traverse all the vertices so you will be having order of v you will be having v time you will be spending v time just to check the neighbors that's the problem of adjacency matrix so that is why like people does not use adjacency matrix too much
+
+65
+00:27:34,660 --> 00:28:03,500
+I mean rarely in any application we use adjacency methods otherwise whenever we need to have this neighbors operation that we need to check the neighbors as I told you then we just use adjacency list only okay now here this for every vertex you are taking the time of order of v v v v so finally your answer will be v square which means in case of time complexity if I ask you of bfs using adjacency
+
+66
+00:28:05,050 --> 00:28:28,360
+matrix then you will be having order of v square that's all I hope that is understandable now this example is done okay time complexity just for the sake of completion let me write it there okay so now we will move to some other concepts regarding this VFS in the next video yeah thank you so much
+

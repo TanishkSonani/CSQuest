@@ -1,0 +1,468 @@
+1
+00:00:08,020 --> 00:00:45,240
+Hi everyone. Okay. So let's get started. Now today we are going to see a little new topic. I mean not new. I mean it is related to the old topics only, which is a segmentation with paging. Okay. Yeah. So we are going to see segmentation and paging combined. So let's just see how, how does it, how does this work? So the topic name is segmentation and paging. I mean segmentation with paging. Okay. So basically what we are going to do
+
+2
+00:00:45,490 --> 00:01:52,410
+we if you have okay do you want me to revise anything in the segmentation of paging can anyone tell me what what is the problem with the segmentation what was the problem with the segmentation the main problem yeah external fragmentation right with yeah so the main problem was external fragmentation which was quite huge now what about paging do paging also have some problem and also you can say basically here mainly
+
+3
+00:01:54,340 --> 00:02:51,410
+Yeah, paging was having internal fragmentation, right? I mean, you can say we we required contiguous space a space for one segment, right? If segment wants to grow, then we need to, I mean, a shift rate or something like that, right? If the segment wants to grow, then we may need to re-suffer. We may, right?
+
+4
+00:02:52,020 --> 00:03:33,050
+Okay, so these were the problem with the segmentation and the problem with the paging is basically internal fragmentation was one of the problem but we can't get rid of that fragmentation anyway. So but still I can write it here that internal fragmentation but it was very less. It is very less and manageable. Do you remember how internal fragmentation could be the problem here? Do you remember the diagram from the last lecture?
+
+5
+00:03:33,770 --> 00:03:52,310
+the heap you remember the heap if if you are basically dividing the virtual memory into the pages so if you recall if you're dividing this virtual memory into the pages right so let's suppose there's a heap and I mean this is the heap and this is let's suppose code
+
+6
+00:03:53,080 --> 00:04:18,160
+which is let's suppose in one page okay for example this is another page and this is the heap and so basically this is the third page so in this page there will be a I mean empty space remember this there will be empty space in this page so I hope you remember that's how the internal fragmentation was coming up okay but still it was manageable it was not much compared to the external fragmentation okay so this is manageable but anyway
+
+7
+00:04:18,510 --> 00:04:51,440
+People have suggested one more idea, which is called segmentation with paging. Let's just see this idea. So we can see this idea. This is, I mean, there is nothing as such new here. You will be able to relate this idea with the existing things that we have already seen, which is segmentation and paging. Okay. So as you can see in this slide, this I have taken from William Stolling. This, I mean, there is just one statement, but anyway, so William Stolling, which says
+
+8
+00:04:51,820 --> 00:05:20,710
+if the segments are very large it may be inconvenient or even impossible to keep them in main memory entirely this leads to the idea of paging them so which means we want to paste the segments itself see the problem with segmentation is that we require contiguous spare for one segment right this was one of the problem now this idea is saying that that what we can do we can page the segments itself okay so this is saying that we can
+
+9
+00:05:27,660 --> 00:06:11,050
+We can page the segments itself Okay, so let's just see this paragraph which I have taken from Ten Boom. So Maybe the book is also open. I can Okay, sorry. I have taken this from William Storing this also earlier was I think from Ten Boom Anyway, it doesn't matter. So this paragraph which I'm referring here
+
+10
+00:06:11,370 --> 00:06:36,660
+is from William Stirling only. Earlier was fit then from Tenmo. Anyway, so I'm removing it because I don't remember it exact source. It is either Tenmo or William Stirling. So this this book is also saying that in a combined paging or segmentation system, what we do, a user at a space is broken up into number of segments. Okay, first we are broken up into number of segments at at the discretion of the programmer.
+
+11
+00:06:37,410 --> 00:07:02,890
+which means that whatever the logical segment seems to us and each segment is in turn broken in number of fixed pages. Okay. So basically we, we first broke, we will first break in the number of segments, then we will break the segments itself. Okay. In the pages. That's what they're saying, which are equal to, okay. The sizes of this, these pages are equal to the length to the main memory frame as a segment has
+
+12
+00:07:03,280 --> 00:07:36,590
+Length less than the page. Let's suppose there's a segment which is very small then the segment occupant just one page Is this paragraph killer to everyone that what they're trying to say that you are having? Segments, right? Maybe a smaller larger some segments and then you are going to break this segment itself into the pages Okay, this is one segment segment zero segment one and so on this is page Okay, so
+
+13
+00:07:37,150 --> 00:08:02,450
+Let's just see the how I mean how the address translation will be happening here So let's just see this particular address translation So basically what we have here now currently we have this as a virtual address space where we say that our virtual address space is Basically divided into three parts one is a segment number one is page number and and the last thing is
+
+14
+00:08:02,650 --> 00:08:34,700
+offset which means first we will say it is just like a multi-level paging okay you can consider just like a multi-level paging there is nothing new here but still just for the sake of completion we can have this as a I mean topic itself okay so what we are saying we will be first converting I mean we will first dividing the virtual addresses space into three parts one is the segment number another one is the page number and another one is the offset okay okay so can everyone
+
+15
+00:08:36,580 --> 00:09:08,500
+Keep their video off. Okay. So I hope that is fine. Now let's just see how, how we are going to basically do the address translation and how we are going to implement this. So we will see using the questions at how we can implement this, right? So what we will be doing, given the, given the virtual address space, let's suppose we are saying the four bits are four segment number, then what does this mean? Say we have four bits, four segment number, then how many segments
+
+16
+00:09:08,800 --> 00:09:54,140
+could be possible. Then there are two power four, which means 16 segments possible. Okay. Yeah, this virtual address space and logical address space, uh, you can, you can consider them as same. I mean, there is just one more idea in the virtual address space, which is the, uh, which is the sapping that we will see later. Okay. So currently we are, we are saying that virtual address space and, uh, logical address is both are same. There's a boundary between the segment number and the page number always fixed.
+
+17
+00:09:54,410 --> 00:10:24,310
+Yeah, it will be given in the question. So you will get to understand. Okay. So let's just see how it is happening. I mean, just like the multi-level paging. Do you remember the address translation multi-level paging? First, you will go to the outer most. You will say that, okay, using this, you will go that how much down to go. I mean, this number will tell you how much down to go and wherever you are going, then then you it will tell you that, okay, how much down to go, right? Where whatever this page number is. So which means it will tell you how much down to go. I mean, this is the base address.
+
+18
+00:10:24,670 --> 00:10:53,050
+of this page table you remember this this is the base address and then from this base address you will go that that much down right I hope you remember the multi-level paging so that's how we work in the multi-level paging now once you once you get the frame number you will put the frame number here and that is the offset so exactly same as multi-level paging there is nothing new okay if you want to can see in the book so in the William Stirling I have taken this diagram from William Stirling I hope you understand this is exactly same as multi-level paging
+
+19
+00:10:53,240 --> 00:11:24,230
+Okay, there's absolutely nothing new here. Okay, since this this concept is nothing new, so what we can do we can directly understand this concept using the questions. Okay, that how we are going to solve I mean how we are going to do that translation, how we are going to understand this particular thing we can directly understand using the questions. Okay, so let's just see. Now let's just try to solve this question. This question I have taken from Stanford. So what they're saying is that
+
+20
+00:11:25,070 --> 00:12:02,490
+You have a processor that is having 32 bit address space and combine both the segmentation and paging. Okay, so a four four bits for the segment number. So they are saying that out of 32 This is a theoretical question. Okay, so out of 32 you are having four bits for the segment number 16 for the page page number and 12 for the offset. Okay, this is the 32 a page table entries also given described in the detail
+
+21
+00:12:03,470 --> 00:12:33,290
+is four bytes basically, right? So they are saying, describe in detail what happens in MMU and OS. You generic terms do notice. Okay. Anyway. So when, so they are saying when user process does a read of this address, then it is in the memory. So they are saying that let's suppose you are doing some, some, I mean, you want to read from this address, then how, how, I mean, what's going to happen in that case. So what you're going to do, you're going to convert this, I mean, you're going to divide this into
+
+22
+00:12:33,530 --> 00:13:09,330
+three parts. So can you tell me the from this? Can you tell me the segment number in the hexadecimal only segment number is C, right? And what is the page number? I mean, how much down to go from that from that page? You don't worry, you will get to understand with the questions only. So I thought that we can approach this topic using the questions. Okay, we have good questions also. I mean, many, many good questions. So for now, just try to understand with the small questions only. So this is zero D.
+
+23
+00:13:11,120 --> 00:13:47,540
+Right 0 DE 16. Okay, sorry 16 bits 0 DED 16 bits. I thought this is dollars Okay, 0 DED. This is the page number and the finally the offset will be BED right bad. Okay, so the offset will be this BED We are having bad offset, but that is fine So how how the address translation will be happening? We will be first going to can anyone tell me how it will it will be happening where we will first going to the
+
+24
+00:13:47,770 --> 00:14:15,840
+segment table right segment table in the segment table we will go to the segment number right so basically we will say we will say that C I mean this is just a theoretical question that's that's what they're asking so we will say that go to the go to the outermost table which is we also called a segment table okay so this is a segment table which has which has the base address of the page table for every segment so
+
+25
+00:14:16,090 --> 00:14:41,340
+which means if the if the segment number is zero then this must have been divided into multiple pages right so so whatever the paging scheme that it will tell I mean the page table for the segment number zero page table for the segment number one page tables for the segment number two like that right so since this is just one level of page table you can understand that okay segment number zero will be having how many page table just one page table right
+
+26
+00:14:41,590 --> 00:15:12,910
+just one page table segment number zero will be having segment number one will be having common page table just one page table segment number two will be having one page table right so basically you can consider each of the segment as a different process something like that I mean basically for every process we had we used to have the page table right it is just like that now now we will go to the go to the entry C so let's suppose this is the entry C okay suppose suppose this is the entry C okay entry C points to this particular
+
+27
+00:15:13,510 --> 00:15:43,990
+this particular page table. So we will go to this particular entry C and here where we will go in which entry, here we will go down zero DED, right? So here we will go zero DED down. Now, interestingly, interestingly, I mean, this is just a fun exercise. If anyone can tell me, okay, what this zero DED is basically, what this zero DED is, this is the
+
+28
+00:15:44,200 --> 00:16:14,320
+page number or the you can see the offset right this is the offset is it the physical address or something is this the physical address no where is the physical address of this page where is the physical address of this page can anyone tell me where is the physical address of this page yes so I mean this physical address I must have gone got from entry number C right entry number C I must have got from entry number C this physical address that okay here to go now how much down to go this will tell
+
+29
+00:16:15,230 --> 00:16:44,990
+This will tell which entry I'm looking for. Now, just a fun exercise. Can anyone tell me how much? I mean, okay, let's suppose this is the physical address that at NT number C, I might be having some physical address. Can I say this is XYZ? Is this okay to everyone? Now, I'm saying this particular entry, I mean this particular physical address is XYZ. Is this okay? Okay, fine. Now, now you tell me.
+
+30
+00:16:48,730 --> 00:17:28,790
+How much down I should be going to get to get the entry I'm looking for how much down I should be going in terms of bytes you tell me in terms of bytes See how much down I should be going 0 to ED right everyone knows this But that's not I mean that's not in terms of bytes. Can you tell me how much down I should be going in terms of bytes? Are you getting my question? Okay, let me know if you're getting my question. So basically you need to go this entry the number
+
+31
+00:17:29,170 --> 00:18:00,420
+right this entry number but do you think that these many bytes down you need to go? Yes Mayok correct so basically basically each page table entry each page table entry is containing how many bytes it is given that each page table entry is containing four bytes okay a page table entry contains four bytes it is given to us since it is given to us that each page table entry contains four bytes so this is four byte four byte so I need to go to the entry number this right
+
+32
+00:18:00,720 --> 00:18:32,430
+If I need to go to the entry number this, then 0DED, I mean in terms of bytes I can say, I need to go 0DED into 4, okay, into 4. This much down I should be going and here I will be finding the real, real frame number, okay. Let's suppose that this frame number in the hexadecimal, let's suppose this frame number in the hexadecimal is something. Then, okay, so let's suppose this is PQR in the hexadecimal.
+
+33
+00:18:32,750 --> 00:18:58,970
+then can you tell me the eject the physical address I don't know if I'm confusing or not actually I thought that we have covered too much in paging so that is just one exercise I wanted to see if you can solve it so basically see this is the physical address which is XYZ here right and that's where I go here now
+
+34
+00:19:00,120 --> 00:19:31,730
+basically now I have went down 0 to ed at the entry number 0 to ed but in terms of byte I have went this much down right now I'm saying that okay there is one entry here I mean this particular responding to the exact frame number the final frame number which is let's suppose pqr then if this is the frame number pqr then what is the final answer what is the physical address do you remember frame number into what I need to do frame number into frame
+
+35
+00:19:32,690 --> 00:20:02,210
+Size plus offset. Do you remember this? Right? So basically, basically I need to multiply this frame number with the frame size and then I need to add offset. Interestingly, all of this calculation I do not need to do in the hexadecimal or in the binary. So basically in the binary, this multiplication is just a shifting. So can you just tell me the final frame number? Sorry, final physical address. It will be 0xpqr.
+
+36
+00:20:02,730 --> 00:20:35,730
+and if you multiply by the 2 power whatever this is 2 power 12 and something actually it will be BED just like this PQR BED, isn't it? Yes, yes Mansi that is correct, yes Satyam, okay so have you understood how we are solving it? Frame size is given here but you don't need to know this I mean you can multiply this PQR by 2 power 12 it will be PQR followed by
+
+37
+00:20:35,930 --> 00:21:01,400
+tall zeros and then you add these tall bits BAD. So you can directly write PQR BAD. Right. So basically you just need to, you just need to replace, you just need to replace instead of this, you just need to replace the frame number. That's all the offset will be same. The frame number in the binary I'm telling you and the binary you can replace this, which means PQR or then the hexadecimal, you can replace this and this offset will be same. Okay. So that's how you can do this.
+
+38
+00:21:01,630 --> 00:21:31,270
+Okay, this was just a revision of what we have done. But yeah, I mean, that's how the address translation will be happening. This question is from Sternford, right? This question is from Sternford University. Let's just see their answer. So they are also saying the segment number is this, the page number is this, the offset is this, right? And then look at this, this page table entry. So they are saying in terms of byte, you need to go this much down. Okay, you need to multiply the four in terms of byte and see what the physical page is. Add this to that.
+
+39
+00:21:31,680 --> 00:22:01,810
+physical page number sifted first you sift that and add this so basically the physical page number is pqr in the hexadecimal then you can say you sifted which means 12 zeros and then you add it then this will be the final answer right so that's that's how the address translation is happening okay cool so this is just a multi-level paging okay just like multi-level paging but still let's just solve many examples so that you get to understand it very clearly so let's just see this question this question I've taken from University of Waterloo
+
+40
+00:22:02,100 --> 00:22:39,090
+let's just see this question okay consider processor that uses the segmentation and paging for the first part of this question assume the processor is using 32 bit for the virtual and the physical address the page size is given to you okay so basically they are saying page size is 2 power 16 bytes right this is the page size and value shown in the segment table okay so basically sorry it was actually having multiple parts so
+
+41
+00:22:39,370 --> 00:23:14,680
+I'm currently I don't have that much. I mean that particular part. I have that later. Okay. So just consider this question and just like this. So they're saying that you have the pay size of two powers and the you are using, you're using four bits for the segment, four bit here and this is 16 here. So how many are you using for the page number? This is 32. So I think 12, right?
+
+42
+00:23:16,390 --> 00:23:52,050
+Okay, so now what they are saying is that, explain how many bits for the virtual address will be used to represent the offset. How many bits for the offset? For the offset, just let me know quickly. 16, right? It is easy question. So 16. Now this one, B part is little interesting. Can you solve this B part? What is the maximum possible size of the segment? So basically in the system, see in the segmentation, the segments can grow arbitrarily long. So basically in the segmentation, the maximum possible size should be fixed.
+
+43
+00:23:52,490 --> 00:24:37,320
+Right? So now can you tell me I mean the size of the segment that maximum it can grow? See this is the segment number This is basically the page number This is the offset How many segments we have here? 2 power 4 16 segments So what is the size at which each of the segment can grow? Each page see each segment will be having I mean you can say each segment will be having How many page can you tell me?
+
+44
+00:24:39,530 --> 00:25:12,410
+at max obviously there will be some invalid pages if it is not having that matching page each segment can have I mean you can say 2 power 12 pages right 12 pages each page can have how much bytes right so each segment can have 2 power 2 power 28 bytes so what is the maximum size of this segment there are there are 2 power 4 segments and each can grow to 2 power 28 bytes that's all
+
+45
+00:25:13,880 --> 00:25:49,010
+Even you don't have to do that much. You can just say that. Okay. This is the segment number. This is the segment size remaining the segment size. This is the page number remaining is the page size. Okay. Just look at the right one. So each segment will be having the maximum size of the segment is 2 power 28, right? Which is 256 MB. Yes. So I hope you understood. Is there any doubt here? So you are having four or two power four segments and each segment is having these many bytes.
+
+46
+00:25:49,470 --> 00:26:21,500
+Okay. If you want, you can break it down that each segment is having these many pages and each page is having that many bytes, but that is fine. See here, 16 bits are for offset. And now they have also solved this, this particular question in the similar way. See, they are saying that you are having, you are having two power 12 pages and each page can have two power 16 bytes. So that's why this much total for the segment. Or in other words, you can say directly or more simply, right? So they're saying or more simply what you can have.
+
+47
+00:26:21,870 --> 00:26:51,730
+is this okay so more simple you can have that you can say that okay 32 minus 4 28 this is the answer is this fine so this is the maximum segment size segmented paging uses single-level paging only no no it it will depend I mean you can have multiple multi-level paging but it is not necessary generally it is not required
+
+48
+00:26:52,120 --> 00:27:22,020
+I mean multi-level paging basically we had for the to reduce the page size but to reduce the page table size but here I mean the segment itself is not too big to have that page table I mean to basically I mean it doesn't really have many invalid entries do you remember in the process in the process basically we used to have the invalid entries right many invalid entries in between I mean because of the heap and stack space so that's why we were having the invalid entries in the page table itself
+
+49
+00:27:22,320 --> 00:27:50,410
+but here in the segmentation with the paging what we are having we are basically dividing in the segments if that is invalid segment then at the first level itself I'm saying it is invalid segment I'm not having the page table itself I mean I'm not even having the page table for it so it's very rare that segmentation with paging is having multi-level paging although you can have it right I mean this is just an independent process you can consider and you can definitely have it but it's very rare it's not even required you understood the reason why it is not required
+
+50
+00:27:50,710 --> 00:28:27,580
+because if it is empty space in between of the process, then then the segment itself is invalid. So at the first level, I will say segment zero, segment zero, this is valid or invalid. So basically the segment itself is invalid here, right? So I will not be even creating the page table. This is just like a multi-level paging. Yes. So anyway, actually they have not asked much, I mean, much interesting questions from this, but still like it is our duty to cover everything, right? As per the syllabus.
+
+51
+00:28:29,400 --> 00:28:57,610
+Okay, so let's just see this question Now this question is saying that you are having what I mean you are you are having a system which is Dividing the address space like this right multi-level memory management Okay, I mean not multi-level paging. It is multi-level memory management Which means segment number and the page number and then offset. Okay in three parts. They have divided now They are saying that virtual address is translated like this into the physical address the page table entry has been something like this how big
+
+52
+00:28:57,980 --> 00:29:42,560
+up pages can you tell me how big a page is 2 power 12 bytes yes that is correct what is the maximum amount of virtual memory supported by this scheme I think you can just add all of this right what is the maximum amount of physical okay that's I think very easy question so this is 2 power 8 and 2 power 20 I think physical memory is 2 power 20 right that's very easy question anyway if they ask let's suppose the maximum segment size
+
+53
+00:29:42,970 --> 00:30:47,980
+then what is the answer 2 power 16 sorry 2 power 18 right directly you can do the each segment is basically having 2 power 18 bytes that further you are dividing into pages okay and what is the page size okay that's already asked okay take it cool so that is also easy question now let's just see some interesting questions also right okay we can do a gateway queue now what they're saying
+
+54
+00:30:48,220 --> 00:31:23,760
+a certain computer has a segmented paging architecture for virtual memory the memory is byte addressable both virtual and physical address space using 2 power 16 bytes right so you are having 2 power 16 bytes for virtual address space and for physical address space which means 16 bit is virtual address space and physical address is also 16 bits so both are 16 bits the virtual address space is divided into 8 non-overlapping equal size segments
+
+55
+00:31:24,270 --> 00:31:57,830
+So can you tell me the segment number 3? It will be using 3 bits The MMU has the hardware segment table Each entry of which contains a physical order of page table page table are stored in the main memory and consist of 2 bytes page table entry Page table entry is given to us which is of 2 bytes Page size is I think not given Page size is not given Now they are asking what is the minimum page size? They are asking the page size Minimum page size So there is a page table
+
+56
+00:31:58,410 --> 00:32:34,850
+for a segment requires at most one page to store it. Okay, you understood the question? Or should I explain the question? Just try to understand what they are saying. Assume that page size can only be in the power of two. So they are saying that there will be the, I mean, the page number and something, the offset. So they are saying that that the page table that you are going to have for each of the segment, which is having the, I mean, there could be eight possible segment. So there will be the page table here, that page table size and the page size is equal.
+
+57
+00:32:35,930 --> 00:33:25,430
+So what are the number of entries here? Let's suppose the page size you can take 2 power p, okay? Always taken 2 power. It is very easy. Let's suppose 2 power p, right? Now, this is the p bits. Now, can you tell me how many bits I should be writing here? So how many entries I can have? How many entries I can have? See, this will be one page table. There will be one page table. In that page table, you can consider like this.
+
+58
+00:33:26,040 --> 00:33:58,750
+that if this is P, let me just explain the quotient itself and then maybe you can try solving it. So basically what I am saying here that there will be a page table, right? This is the segment table. This is the page table for each of the segment. I want this page table to fit into one page. So what should be the size of this in terms of byte? Should be 2 power P. Is this okay to everyone? In terms of bytes, 2 power P bytes, because this should be exactly equal to the page size. That's what they are saying.
+
+59
+00:33:59,100 --> 00:34:51,450
+Now in terms of entries, can you tell me how many entries I can have here? If 2 by it is taken by the paystable entry, then I think I can have 2 power P by 2 which is 2 power, yes 2 power P minus 1 entries. In terms of entries, now I know the size of the paystable in terms of entries. Now can you tell me the bits here that I will be needing? See if the paystable is having 2 power P minus 1 entries.
+
+60
+00:34:52,540 --> 00:35:41,040
+And this will tell, okay, I mean, the page number, that where to go. So how many, I mean, it is basically telling the offset to this. So what is the number of bits required here? There will be P minus P, P minus one. So this is P minus one. This is P. This is three. Totally 16. Now you can calculate for the P, right? Don't remember these kind of questions. We have already done these kind of questions, right? So I think in the last lecture itself, I have shown you this. See.
+
+61
+00:35:50,450 --> 00:36:20,520
+These questions that I mean we we assume in two power something right We assume into power and then finally we quit to that. Okay. This is 48. I mean we have solved these kind of things right and There was one gate P by Q although I have not taken that in the class But I just asked you to solve so basically in that cake in that gate P by Q also I mean the question is almost same that we we can assume in two power and then finally we can solve for this P I mean we can sum all of this and we can solve for the P Just like that, right? So here also it is the same pattern
+
+62
+00:36:20,780 --> 00:37:09,270
+that they're asking so P plus P minus 1 plus 3 should be 16 so what is the answer for P? Sabin okay so Sabin is the answer here let me just check yes this is the pay size that is correct okay so Sabin is coming out to be the pay size okay was the difficult question i mean i'm surprised that you people were not able to i mean enjoy that particular ag question so that's why do you think it was a difficult question okay so what do you think
+
+63
+00:37:09,870 --> 00:37:52,300
+easy or difficult? Okay, Satyam is saying no comments. Okay, so now let's just solve for this B. Now suppose there's a page size. Okay, they're having some TLV. Okay, so I will do this after TLV maybe. Okay, so let's just solve for the C directly. Can you solve for the C? Assume that each page table entry contains besides other information one valid bit. So basically each page table entry they are saying
+
+64
+00:37:52,600 --> 00:38:27,350
+here this is the page table which is having how many entries this page table is having how many entries each page table no number of entries number of entries will be two power p management right two power six yes which is two power six so these many entries will be there in each page table now what they are saying is that that assume that each page table assume that each page table entry contains one valid word so basically okay for the frame number how many bits it should be containing can I even tell me how many bits it should be containing
+
+65
+00:38:30,670 --> 00:39:02,040
+how many slots you have it is actually basically pointing to 2 power p size so the frame number should be 16-p right because this is the physical address 16-p so 16-p so 16-p is basically coming out to be p7 I think it is 9 right so it will be containing 9 bits anyway now they are saying that apart from 9 bits it contains one valid bit
+
+66
+00:39:02,740 --> 00:39:31,930
+3 bits for production, 1 derivative and so on. So, how many bits are available in the pasteable entry for storing aging information? Assume the paste sizes, okay, paste sizes I think, 512. Okay, so basically I mean, they have given the paste size, in case you are not able to solve this A, at least you can solve this C. Okay, so based on that they have given the paste size. Anyway, so basically they are saying that these many bits are anyway used, so how many bits are they?
+
+67
+00:39:32,970 --> 00:40:05,150
+14 bits have been already been used. Now they are saying that, that page table entries of 16 bits. So how many bits are remaining for other information, aging information or whatever other information you want to store? Two bits, right? So two bits. So two should be the answer here. 16 minus 12. Oh, sorry. So basically they have solved this question, assuming that this is 2 power 9. Okay.
+
+68
+00:40:05,950 --> 00:40:39,350
+So they assume the page table, I mean, page size is 2.9. So in that case, it will be 16 minus 9. Is this okay to everyone? I mean, the C is independent. So they are saying this 9, this is 7. Okay. So they are saying that this is 512 bits. So that is why 7 bits we will be needing here. So that's why 16 total, sorry, 12 total bits we will be needing here. And 16 total bits we have, the 4 bits are remaining. Fine? Okay.
+
+69
+00:40:40,630 --> 00:41:12,330
+So, four words are remaining. That's an easy question. And here, this is the answer. This part we can do later, okay? I don't think that will actually require some TLV information. I mean, TLV is nothing, just a memory. So, if you want, we can solve this. Or do you want to try this? You just try this question, okay? You can ignore the TLV, TLV is just memory. You can understand this TLV as a main memory. That's all. Okay. You can try solving this question. Now, let's just see this question, which I have taken from Workly University.
+
+70
+00:41:12,640 --> 00:41:43,160
+So now what they are saying consider the architecture that is combining segmentation and paging so 4 bit you are using for the segmentation and 12 bit you are using for the page number which means what does this mean how many segments you have here 2 power 4 each will be pointing to one page table which will be having how many entries 2 power 12 entries right 2 power 12 entries so this is the page table and then each of this will be will be pointing to the actual frame
+
+71
+00:41:43,440 --> 00:42:16,880
+of size to power 16 bytes now they are saying that the segment table which is this right this is the outer most segment table is given to us which is like this which is having the 16 entries some segments are not valid and some some segments are valid if the segment is valid then it is having basically the page table the base base headers so what is this headers this is this is the logical letters or some physical letters or something can anyone tell me this inside this this is logical or physical
+
+72
+00:42:19,870 --> 00:42:51,300
+What do you think? Yeah, this is a physical address, right? So basically it is it is containing the base set of the base status of the page table So it is a physical address These are the physical address base addresses of the page table Anyway, so this is this segment table is given to us and then they are probably asking something else So which is on the next page? Let's just see Okay, so so now they are saying that given the content of the physical memory itself So that's very interesting question
+
+73
+00:42:51,640 --> 00:43:22,370
+Now, this is the main memory, okay? This is the main memory. Now, they have given each byte, I mean, at every address, what is the byte, okay? So, if you notice, how many bits are these? This is 8 bits, right? So, they are saying that, I mean, byte number, byte number, this is this. Byte number, just to add one here, okay, byte number, just plus one is this. So, they are giving the byte number. At every address, they are saying that, okay, this byte is stored.
+
+74
+00:43:23,150 --> 00:43:52,660
+Okay, this little interesting. So now what they're saying is that let's just see this question given the content of the physical memory shown on the left and the segment table above or I mean in this case it is below. Otherwise on the previous page. So what is the physical address? Do the following virtual letters map to can you map this particular thing to the physical address? That's a very nice question, right? Okay, so this is the logical address which is given to us. Let's just do one of them first and then we will do later remaining later.
+
+75
+00:43:53,030 --> 00:44:22,990
+so this is the logical address which is given to us now they are saying this logical address can you tell me the physical address okay see uh this zero will be the segment id there's a four bit then three more zeros and one two three four right now you have your segment table you have the memory access also okay let's just solve this question where you will go first at the entry zero right at entry zero
+
+76
+00:44:23,320 --> 00:44:49,540
+Now who will tell the address of this particular page table or sorry segment table? Who will tell the address of this particular segment table? Any guess here? Yeah, segment table base register, right? Segment table base register. So basically it will be in the some register basically, doesn't matter. So we go here, we found out okay, there is a page table which is stored at this location at this physical location, there is a page table which is stored, right?
+
+77
+00:44:50,020 --> 00:45:19,610
+So, you can ignore the last column, I mean, page table size, that is, I mean, that is not useful currently. So, basically they are saying that you go at this particular page table. Now, if you go at this particular address, you will be finding the page table. Should I go to this particular address? No, I go to this particular address. Now, they are saying that you go to this particular address, you will be finding the page table. Can you tell me the, can you tell me the page table? So, basically, what I should be doing here is that
+
+78
+00:45:20,990 --> 00:46:00,670
+I should be, I should be saying that okay, I go here and this is the page table, right? This is the page table. Actually this is the page table in the physical memory. Is this fine to everyone? Okay. Now this is the page table and then they are saying, okay, you go in this page table, you go how much down? Zero, which means this one only. This one only. So this is what? This is the final frame number. This is what? This is the?
+
+79
+00:46:04,390 --> 00:46:50,700
+frame number, right? This is the frame number. Now, can you tell me, can you tell me how to get, how to get the, the physical address? If this is the final frame number. See, 0x is your frame number. It's already 0x3. What do you need to do? I mean, you can just append, if this is a binary, you can just append the offset. So 0x3, 1, 2, 3, 4, I think, right? Just check it. Yes. Okay. So that is the answer.
+
+80
+00:46:51,100 --> 00:47:52,360
+that is given on the next page. Is this fine to have even? Okay. Now let's just see more questions. So let's just let's just try to convert this. It might be little interesting. I think. Yeah. Okay. Oh, maybe. Yeah. Maybe we can try converting this. Maybe this one. Yeah. Let's just try converting this one. Can you tell me the answer here? Actually, little, little interesting.
+
+81
+00:47:52,650 --> 00:48:34,440
+This is not exactly same as the previous one. You will get to know why I'm saying this. See, now let me first write something here. So you can say, you can say this is three. Yeah, this is one, two, three, four. So this is three, and then this is zero, zero, three, right? This is one, two, three, four. Okay. So segment number is three. You go to this physical address, right, where you will find your page table, which is one followed by four zeros.
+
+82
+00:48:34,950 --> 00:49:36,520
+So you go here, this is the page table, right? Now here, how much down you should be going? Are you sure you want to go 3 down? This is 3 that I agree. But how much down you want to go? Just think about it. 3 in the page table, right? Now, 3 entry down you want to go. But these are the byte level. This is the byte level information. Can you tell me how many bytes you want to go down? So from this, how many bytes? It will depend on the page table entry size, right?
+
+83
+00:49:36,810 --> 00:50:31,750
+So what is the page table entity size? Okay, I think here the page table entity size they have not mentioned, but I think they have assumed to this to be one byte only. Okay, then it is not very interesting. Anyway, so page table entity size, suppose this is just one byte. Okay, so, so in this case, if page table entry is just one byte, then how many entries down you want to three entries? And in this case, three bytes only.
+
+84
+00:50:31,960 --> 00:51:05,990
+So basically 0, 1, 2, 3, that is fine. I mean, you will be going to this particular location. This is what? This is your frame number. So if you go to your frame number, now you can tell me. Now, can you tell me? 0x5. Now, can you tell me the physical address? Yeah. 1, 2, 3, 4. 0x5. In the hexadecimal, 0x5, 1, 2, 3, 4. Right? OK.
+
+85
+00:51:06,820 --> 00:51:32,660
+But yeah, that could be a little more interesting if they give you more information I mean instead of this dot dot dot if they let's suppose give you more information and then Then say that okay paystable byte is a paystable entries two bytes then actually you have to go six bytes down Okay, not just three bytes. So so this this is little I mean, this is where you need to be a little careful Anyway, we will take care that in the case. Okay, so I will take care that in the case. So don't worry
+
+86
+00:51:36,490 --> 00:51:54,870
+in main memory we should consider main memory is just a byte the page table entity so these are the bytes this is the byte number I mean some byte number this is the byte number this is the byte number it is every byte you are writing right so ever since you are writing every byte and this is the entry number so basically one entry may be containing multiple bytes
+
+87
+00:51:55,690 --> 00:52:24,370
+So this is the one entry may be containing multiple bytes but I mean they have not given this like that but one entry may be containing multiple bytes So basically in that case that frame number won't be just this I mean if one entry is basically containing multiple bytes and then the frame number will be 0x3 and then 7 This is the frame number instead of 03 If one entry is contained let's suppose 2 bytes something like that then the frame number itself won't be like this
+
+88
+00:52:24,590 --> 00:52:57,450
+yeah that is also the case okay anyway like this particular question i just wanted to make sure that you understand that how to navigate right you it is just like a multi-level paging i hope you are getting a little bit okay just like multi-level paging sir the size of the physical memory physical memory size is given or not so i don't know i think here it is not required if it is required it they will give you right here it might not be required
+
+89
+00:53:01,700 --> 00:53:35,080
+But yeah, from here you can definitely guess it the way they are solving it. They are saying this is the frame number, right? If they are saying this is the frame number, they are assuming the frame number is 8 bytes. So, I mean, the physical address is basically the frame number which is of 8 bytes and the frame offset which is 16. So, I think 24 bits will be the physical address. Okay, now let's just solve this one more question which I have taken from University of Waterloo.
+
+90
+00:53:35,360 --> 00:54:21,450
+An earlier question was from Oracle University. Page table entry size should be at least 24 bits. Now page table entry anyway contain the frame number, right? It doesn't contain the byte numbers. So now let's just solve this question. This is the same question that we just solved. But here we have the decimal. So maybe it will be a little more easier. So they're saying that you are having some system which is having segmentation and paging.
+
+91
+00:54:22,020 --> 00:55:02,080
+Okay. Now, note that. So these are the, let's suppose these are the five segments that you are using and each of the segment, if you notice, each of the segment they are giving, I mean, they are giving you that each of the segment is having some page table and which is having some address. Is this fun to everyone? So which means they are saying that, okay, segment four is having the page table at this starting from this address. So maybe we have few page tables also. Okay.
+
+92
+00:55:03,340 --> 00:55:51,110
+Now you tell me if we have some address, let's suppose this one, can you convert that address to the physical address? Can you convert this to the physical address? Let's just see. Okay. So what are the, what are the parameters here? This is 0, 1, 2, 3, 4. So how many bits you will be needing for the segment number? If these are the five segments, three bits at least, right? Okay. So this is a segment number and then the base size is given or not.
+
+93
+00:56:02,090 --> 00:56:51,190
+Some of the process may not use all available segments that is fine Because there are total eight available segments, but there is one process which is just using five of them I mean other others are invalid. You can consider consider other invalid 32-bit physical address. I think that should be given and or I might have missed it. Maybe I have copied the Paste everything is this tall bits are used for the tall bits. Okay tall bits. So tall bits is for this
+
+94
+00:56:51,650 --> 00:57:27,850
+particular virtual page number I mean they will give it anyway don't worry about it and then remaining is out of 32 right so remaining it 15 and then this will be 17 okay yeah now let's just solve this so this is 3 which means the 3 bits initial 3 bits will be for the segment number so can you tell me the segment number here let me just cross verify whether the first 4 bits are okay they are
+
+95
+00:57:28,060 --> 00:57:59,220
+okay the address division actually should be given so maybe there are 16 segments right I mean I might have copied the partial question only so like it should be given actually the segment numbers there are total 16 segments but this process is just using five of them right and then this is 16 then 16 is remaining yeah okay sorry about it now let's just quickly solve this question so what is the segment number here initial four bits which is three so what is this is 002
+
+96
+00:57:59,480 --> 00:58:27,480
+this will be 2267 right so this is the segment number which is three so you will go here which means this page table so you will go to this particular page table this particular page table now here where you will go the page number two okay they have written i mean like this but that is fine the page number is specified so you will go to the page number two right okay so you will go to the page number two and then
+
+97
+00:58:28,000 --> 00:58:59,680
+you will you will say that okay the frame number is this now can you convert this to the to the physical address if you go to the frame number and you have the offset how to convert 753 into the frame size I think this is in decimal okay most probably it seems like it is in decimal so if this is in hexadecimal you can directly append it but if this is in decimal then you need to multiply with the frame size and then add it
+
+98
+00:58:59,950 --> 00:59:44,240
+add two to six seven okay maybe I can quickly check whether what is the convention here okay this is in hexadecimal only everything is in hexadecimal okay then you can directly go about it right so what is the answer everything is in hexadecimal so seven five three two two six seven is this fine to everyone this is the physical address okay so let's assume that this particular this particular address split is given to you okay so then solve these two questions
+
+99
+00:59:44,540 --> 01:00:20,750
+this particular address split is given to you and then you can solve these two questions anyway this is unnecessarily I mean we are doing it which means it is same as the multi-level paging just to show you that okay how the address translation is happening that's why I have these questions otherwise this is same as multi-level paging okay have you understood this can you convert this particular address now I think you can do it right now you can try this question as in homework
+
+100
+01:00:21,100 --> 01:01:00,360
+this is this question is I mean a little bit incomplete you will see this okay you will see the answer also so just try to solve this question as an homework and then we can discuss it later this is one of the PYQ we have just asked one or two PYQs from this particular topic so but for the sake of completion we are doing it okay it's virtual address to physical right okay convert the yeah this is physical address to virtual yeah you can try it at home yeah this is physical address to virtual and answer is on the next page okay good I think that is the good question that
+
+101
+01:01:00,600 --> 01:01:32,040
+that might be the good question actually it's just a reverse mapping that you need to do you have the frame number here directly right you can get the frame number how this is the frame number you can just check that which particular page number and then you can just do the reverse mapping if that is possible so can you get the frame number directly from here yes right so this is the frame number and then you can see where is this frame number written here
+
+102
+01:01:32,400 --> 01:02:12,700
+and then from there you can see that okay what is the page table which being used and so on so you can try it at your own 5177 yeah this is the frame number right now since this is the frame number which means this particular page table being used which means this particular segment okay now can you tell me what is the answer maybe we can try doing it this is 5177 5177 so this is the physical address they have given so if this is the physical address
+
+103
+01:02:12,980 --> 01:02:54,320
+then you can say okay this is the offset for these 16 bits are offset because this is the page size of the frame size and then remaining is your frame number okay now they are saying this is the frame number so which means that this particular if this is the frame number then the frame number is here right then which means that you must have used you must have used the segment number which one here you must have used this particular page table
+
+104
+01:02:54,630 --> 01:03:30,380
+which corresponds to the segment number 2 so can you tell me the segment number now i think 0x2 what about the offset 3721 which is as it is what about the this particular table number i mean the entry number here 3 right so i think this is 3 so this is 0x3 or maybe i can directly write i mean 0x i have written here so this is 4 bit yeah so 3 i want to write in 12 bits
+
+105
+01:03:30,700 --> 01:04:00,080
+So, which means 0, 0, 3. Yes, I want to write this 3 in Tolbert's. So, I think this should be the answer. Let's just check it. Now, find the entry. This is a virtual address. Note that other page table contains 517. Actually, I have not copied all the page tables anyway. So, this is the answer.
+
+106
+01:04:04,780 --> 01:04:37,540
+In the question actually there were multiple multiple more more these page tables, right? But I just copied the relevant ones, whichever the being used anyway. So, yeah, that was the good question, I think, right? What do you think like if this question is given to some other get a sprint, then I think they will be able to solve it, but they will be just struggling little bit, right? Maybe. Okay, we will put this kind of question in the test series.
+
+107
+01:04:37,900 --> 01:05:10,690
+I think that will be useful. Okay. Yeah. So there are a few more, two, three more easy questions. Let's just quickly solve it. Actually, these questions, all of these questions are just like multi-level paging. So that's why I mean, there is no point in solving the same thing again. But still, if you want, we can solve it. I mean, the all the questions that we're solving is just the address translation, right? So that I put these questions so that you can make, I mean, get a good feeling about this particular topic.
+
+108
+01:05:12,680 --> 01:05:43,460
+So, do you think you can do this question as in homework? Maximum size of the segment, maximum logical addresses space, these things. Answer is on the next page. Right? Okay. Answers are on the next page. Similarly, just take this question. And this question is, I think for the address translation and the segment table, page table are given to you. So, that is given in just one line. But yeah, I mean, there's a space between these other different tables. So, this is one table.
+
+109
+01:05:48,750 --> 01:06:20,920
+So this is page table A, this is page table B, this is the segment table. Okay, so let's suppose this particular address is given to you, then based on this particular breakup that how you're going to break this particular logical address, then can you convert that to physical address given this particular entries to you, right? You can go to the segment table, you can go to the whatever the page table and based on that you can do this, I think, right? I mean, these will be, can you tell me what it will be?
+
+110
+01:06:21,100 --> 01:06:54,050
+These will be the final frame number. Once you get the final frame number, then can you get me the physical letters? I think yes, right? So you can append the offset. You can directly append the offset. So that's how you can solve this question also. Okay, solution is here. Cool. Similarly, you can try this particular question. This is also asking how many bits, physical letters, logical letters, okay, segment number, page number, offset. These things this is asking. Do you want me to solve this now? Okay.
+
+111
+01:06:54,490 --> 01:07:32,800
+So here instead of words, you can understand these. This is just bite. Okay. You can take it as a bites, doesn't matter where it is the birds. You can take it as a bites. So can you solve this question also? How many bits for segment number, page number, they've given, I think, right? That eight segments and so on. Okay. So I think these questions are solvable. If you, if you think that I should be solving, then I can solve. Okay. So you can do right. You can speak something so that I can, I can get to know. I mean, you can write.
+
+112
+01:07:38,140 --> 01:08:06,180
+So these are the only questions that are possible in the segmentation, I mean segmented with paging. You just try all the homework questions and that is all for this particular topic. Okay. I mean, this was a very small topic. So I thought that today we will be just doing this small topic. And then from tomorrow, we will be starting one. I mean, one other basically topic, which is demand paging or the virtual memory. There we will be having some questions related to page fault and all. So those kind of questions we will do in doing.
+
+113
+01:08:06,440 --> 01:08:34,580
+Okay, so this is this will be the completely new topic. And till now we have just finished our paging segmentation combining paging and segmentation. Okay. So this topic, I hope that it's okay now. I mean, this multi-level paging may seem a little scary at initial, but once you understand that, okay, how that translation is happening, what each page table is containing and so on, then I think it will be very handy. So we have spent I think enough time here. Maybe I think
+
+114
+01:08:35,730 --> 01:08:58,350
+do you remember the lecture number from which we have started this I thought it will take three to four lectures at max but yeah that is fine I think we have spent six lectures till now right okay but that is good enough because this is very important topic okay so yeah question length is generally big yeah that is that is true okay
+
+115
+01:08:58,590 --> 01:09:30,160
+But yeah, like, questions are also very easy. I mean, if you solve any of the, any of the questions, then it will be easy. Actually, I am, you will be wondering then that I am facing the problem in making the quiz of that. I don't know how to, how to make the creative questions. Okay, let me just show you one thing. Okay, so I cannot show you the exact question, but yeah.
+
+116
+01:09:31,100 --> 01:09:59,460
+Like if you can see, this is weekly quiz 29. So there are just 10 questions I was able to make and I'm just out of creativity that how to make more questions. Okay, how to make more questions out of that. So because in multi-level paging, I think there are just fixed type of questions that that that we can ask that I mean, what is the number of labels? What is the what each page table contain and so on, right? So I'm also out of creativity that how to create more questions. But yeah, definitely we will be having one quiz for that.
+
+117
+01:10:01,330 --> 01:10:10,390
+Okay. So thank you everyone. Take care. Bye-bye. That is all for today. Right. Thank you.
+

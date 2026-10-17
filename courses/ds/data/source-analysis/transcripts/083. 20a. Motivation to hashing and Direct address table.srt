@@ -1,0 +1,144 @@
+1
+00:00:00,000 --> 00:00:25,690
+Let us now start one of the most widely used mechanism called hashing or one of the most widely used data structure called hash table, right? So before I go into details, let me first tell you about that what is hashing hashing is basically a super fast mechanism to search insert or delete super fast method for searching
+
+2
+00:00:27,340 --> 00:00:58,340
+If you can search, then you can also actually delete or you can also insert or delete, right? Insert or delete. It is so fast that it can do searching on an average in just order of one, right? So when to prefer this hashing, whenever like let me just write here when to prefer hashing, whenever the order of data does not matter, which means that in whatever order you are inserting,
+
+3
+00:00:58,620 --> 00:01:33,960
+that does not matter to you when order of data does not matter one thing is that or maybe maybe like the relationship between the data does not matter which means maybe one one key value maybe greater one key value maybe lesser like that right so you can say the relationship between the data does not matter see
+
+4
+00:01:34,370 --> 00:01:54,990
+if you if you want to carry some relationship that okay some key are greater some key keys are lesser then you may go for bxt right bxt bxt preserve that property that okay like all the lesser keys are here here and all the greater keys are here right so bxt preserve that property if you if you have some relationship between the data then go for the bxt
+
+5
+00:01:55,280 --> 00:02:27,830
+if you want to have some order or something then maybe going for you know stack and queues might be better idea because in stack like whatever in queue like in queue whatever order you are you are pushing or you are inserting in that order only you are decim right so this is a queue where the order matters order matters or maybe in the stack also order matters right so here also order matters and BST in BST relationship relationship between
+
+6
+00:02:28,520 --> 00:02:55,400
+Key is matters. So suppose that you do not have these kind of constraints which means that you do not have any relationship between keys you do not want to maintain any order or something like that then you can go for the hashing and hashing is very very fast method is it can actually search in just order of one and There are many many usage of the hashing like if you go for the Google search the page rank algorithm itself uses the hashing
+
+7
+00:02:55,550 --> 00:03:20,410
+which means like for the google search there is an algorithm that is called page rank algorithm and that algorithm itself features the hashing and in the in the searching also they use the hashing file system so in the file system means like let's suppose you have the laptop and in the laptop there is some fight which may be maybe under c users or maybe your desktop or something like that right so that is that is the human readable path that is human readable path and
+
+8
+00:03:22,290 --> 00:03:51,300
+and there will be hashing from this path to hashing means mapping right from this path to to the some sector number or some like wherever wherever this actual file file is actually located so there will be a mapping from the human readable path to real sector numbers and like that right and that is that is where we use the hashing in the file system and the compilers also we are using the hashing so for the compilers let's suppose let's suppose compiler has to identify identify
+
+9
+00:03:52,600 --> 00:04:19,300
+whether this int is keyword or not. So compiler do hashing there keyword or not. So compiler just check whether this int is keyword or not using the hashing. Once you know about the hashing you may be able to relate these ideas. In the digital signatures also we use the hashing. In machine learning there are there are algorithms called locality sensitivity hashing or in short they are also called LSH. So in LSH we also use hashing.
+
+10
+00:04:19,530 --> 00:04:42,800
+In fact, there is a recently there is a paper by the Google and that paper is paper has has achieved many many popularities because because that paper was very effective in in many machine learning models and that paper itself is using LSH and some variation of LSH basically and and that essentially they are using their hashing. So hashing is being used in many many places.
+
+11
+00:04:43,700 --> 00:04:54,980
+So, these are just some few of the places. In fact, like you write any algorithm, then you may end up writing some hashing code. So, if you are using the Python, in Python they call it dict.
+
+12
+00:04:55,920 --> 00:05:23,230
+and this is most often so in the python they call it dick and if you are if you are writing some program in python then most probably like out of ten programs most probably out of you know ten programs you might be using a hashing or dick in just four to six programs right so forty to sixty percent of the python ports are using the hashing hashing is very very popular now having shared that let me tell you what is our goal so basically if you if I want to insert delete or search
+
+13
+00:05:23,480 --> 00:05:47,160
+In case of sorted array, like I might be taking order of n, order of n or order of log n, something like that. In balance minus ht, I might be taking this kind of things. But in hashing, our goal is to achieve this order of 1, order of 1, order of 1 everywhere. That is on an average. In worst case also, I mean in worst case, hashing may perform very bad, but that worst case will never ever occur. I mean in practical cases, it doesn't usually occur.
+
+14
+00:05:47,620 --> 00:06:13,070
+Right like if you remember that quicksort so quicksort is using like there is some variation of the quicksort that is a randomized quicksort randomized quicksort So there we basically like I haven't I haven't taught you this quicksort yet, but I will teach you later So in the randomized quicksort what we do we pick pivot element randomly pivot element
+
+15
+00:06:13,830 --> 00:06:28,390
+Randomly and then what we do we say that if we are doing doing such kind of thing then the worst case of this quick sort will never ever occur, right? So we say the worst case will not occur will not occur in practice
+
+16
+00:06:32,050 --> 00:07:00,170
+Similarly, in hashing also, we use such kind of functions that uses the random hash functions or something like that. Obviously, we will not go to in that detail because that is not required for gate. But in practice, this worst case will never ever occur and we are interested in the average case in case of hashing. And average case is super, super fast, right? Which really motivates us to use this hashing in many of the places, right? This is extremely fast. Now, before I start the hashing,
+
+17
+00:07:00,410 --> 00:07:28,130
+Let me just motivate the hashing with something called a direct addressing table, which is just a fancy name for an array. I mean, some people call it the easiest way of hashing. Some people also call it the easiest hashing. Some people do not even consider this as a hashing. They say that it is pre-hash. I mean, they do not even consider this direct as a stable as a hash. Because this is just an array.
+
+18
+00:07:28,780 --> 00:07:51,600
+so let me just remind you about the array and I mean basically I'm going to teach you the direct access at the same table and there we are just going to array we are not going to use any hashing or anything so let me just give you one example of bus service suppose there are some buses and bus numbers are from 0 to 999 which means all the bus numbers are integers and I want to store
+
+19
+00:07:51,900 --> 00:08:19,870
+maybe i want to search retrieval means like i want to find or i want to maybe store or i want to delete these bus numbers in some database then what can i do if the bus numbers are from 0 to 999 and then what can i do like for every every bus number i can say that okay bus 0 data will be here bus 1 data will be here bus 2 big data will be here bus 998 data will be here like that i can do it right so tell me how much time i will be taking for the for the search or for the retrieval
+
+20
+00:08:20,260 --> 00:08:46,320
+I can just, let's suppose I want to search for this data2, I can just do a2, which is just order of 1. If I want to insert something, then let's suppose I want to insert at a3, I can do a3 equal to some data. If I want to delete, then I can also say that suppose I want to delete this a4, then I can say a4 equal to none, something like that, or some other marker. So basically, in array, if I want to delete, I can just put none or minus one or something else.
+
+21
+00:08:47,330 --> 00:09:16,050
+So let me just tell you the code like if you want to insert just go to that key insert that if you want to delete just go to that key Just say null if you want to find then then just return this a of key, right? And you do not need to insert the key only maybe maybe here you can insert the data some data Okay, that is fine now All of these operations are very very fast. Why because these are just area operations and these all will be taking order of one that is all but obviously
+
+22
+00:09:16,480 --> 00:09:45,350
+like there are some limitations to this technique that's why we need to go for hashing so can you tell me what are the limitations first limitation could be that okay just think about the limitations and i will tell you the limitations after that see the first limitation could be this is an array and if i am directly using these kind of course which means i'm saying that okay go to that key and then insert the data then what might be the problem is that like i might be having keys which are which are not even integer
+
+23
+00:09:46,490 --> 00:10:17,290
+not integers Okay, this is the first problem that I might be having the keys which are not even integers So first I need to convert that key to integer number and then this kind of Technic member may work, right? So I'm not saying it will work, but it may work So first I need to convert this key to integer and then I can use the direct accessible direct accessible Let me just add DAT, which is direct accessible Direct address table or an accessible whatever you want to say Okay, so
+
+24
+00:10:17,690 --> 00:10:45,070
+this is the first problem that I want to convert this key to integer but that is okay that is not a severe problem I mean I can do it maybe maybe if I have some string let's suppose S A C H I N if I have some string then I can convert that to a that to integer maybe I can add all of these ASCII values or maybe maybe I can do something right that's not a bigger problem this is this is a problem but it is not a bigger problem the bigger problem is that the keys itself may may be having a huge range
+
+25
+00:10:45,510 --> 00:11:13,610
+So, let me go with the limitations one by one. So, suppose the keys are not integers, then this is the first problem, but that problem can be handled, right? But that is okay. Now, the second problem is that, range of key must be small. So, suppose that instead of bus number from 0 to 999, if I say that bus numbers are from 0 to maybe 5000 or 10,000, something like that, or not only bus number, I suppose I want to store some data based on the phone numbers, right?
+
+26
+00:11:13,880 --> 00:11:42,900
+Suppose I want to store the data based on the phone numbers. And in that case, the phone number is of 10 digit, right? If phone number is of 10 digit, I cannot have 10s power 9 or 10s power 10, these many, like this much big area, right? I cannot have this much big area. Suppose I want to, I want to, I want to have a direct access table for the IP addresses. So based on some IP address, I want to store some data, right? My key is IP address.
+
+27
+00:11:43,310 --> 00:12:08,310
+let's suppose it is ipv6 address or ipv4 like whatever ip address does not matter suppose it is ipv6 address or let me just say ipv4 it is enough to say ipv4 because ipv4 itself is huge so if you are using the ipv4 address as a key then there are 2 power 32 addresses and you cannot have 2 power 32 locations in the area because it will be a huge waste of memory
+
+28
+00:12:08,760 --> 00:12:25,980
+Why? Because your IP address is your key, that is okay, but you might not be using all the IP addresses. Maybe in your pool you just have 5 or 10 or maybe 100 IP addresses. For 100 IP addresses only you may have to allocate 2 power 32 locations.
+
+29
+00:12:26,580 --> 00:12:42,700
+Similarly, in case of phone number, let's suppose in your database you may have let's suppose 100 or 10,000 or some phone numbers, let's suppose 1000 phone numbers. Just to store those 1000 phone numbers you may have to allocate a memory for 10 power 9 locations, which is not feasible, right?
+
+30
+00:12:43,090 --> 00:13:13,150
+So that is why these are these ideas which which says that range of key must be small should be implemented. I mean if if range of keys is small then you can go for direct access table or direct access table that there is not a problem but if range of key is not small then there is a problem right because then in that case you may end up allocating you may end up wasting too much of memory wasting too much
+
+31
+00:13:14,770 --> 00:13:24,700
+memory right I hope you got it now this is the second problem is there any other problem yes keys must be dance which means let's suppose
+
+32
+00:13:24,990 --> 00:13:54,390
+that one key is having some value which is one then another key should be just like continuous it should not be having a value let's suppose 500 and another key let's suppose is having 10,000 something like that if the if the values of keys is like this one is having 500, 10,000 then in that case also you may have to allocate the address or the locations for 10,000 indices right so the memory location will be for 10,000 indices if just one key is having one another key is 500 another key is 10,000
+
+33
+00:13:54,860 --> 00:14:23,880
+So that is also not good. So keys must be dense. Dense means it should be continuous basically. There should not be much gap between the keys. This is a huge gap and then this is even bigger gap than this. So keys must be continuous in this case. So there are many limitations for direct address table and that is why we will go for hashing. So how to overcome these restrictions? The idea is to go for the hashing. So hashing has two ideas. One is that map non-integer keys to integers
+
+34
+00:14:24,230 --> 00:14:42,350
+and another is that map large integers to small integers actually this is the bigger idea I mean this is this is the important thing and this thing which is mapping non-integer keys to integers it is not even like hashing I mean if you want you can call it hashing but it is not even a hashing like if we have some history maybe such in
+
+35
+00:14:42,600 --> 00:15:07,890
+and if you want to map this to some let's suppose some integer then you can do it without the hashing right you can just add all the all the ASCII values or you can do something so if people call it pre-hash I mean before hashing we have to do it and this is actual hashing so let's see the hashing in the next video that how it is working for now I hope you are motivated enough that why direct access tables are not working right because of these these limitations
+
+36
+00:15:08,340 --> 00:15:25,080
+and all of these limitations are getting overcome by hashing and as you know the hashing is super powerful because hashing basically performs in order of one time on on average and there are many places where hashing is being used so let's see this hashing because it is actually very very important
+

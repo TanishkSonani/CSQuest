@@ -1,0 +1,540 @@
+1
+00:02:56,460 --> 00:03:26,140
+Hi, everyone. Welcome to Go classes. So in this session, we will study, we will understand redundancies in the DBMS, right? So we will study what redundancies are possible in different, different normal forms, which normal form does not have redundancy. Okay. So basically, we will understand redundancies in this lecture. Now, let me start. So this is the content of this lecture.
+
+2
+00:03:26,440 --> 00:03:54,660
+in this lecture we will study first of all we will understand the redundancy what is a redundancy okay then we will see why BCNF is free from FD causing redundancies okay so basically why BCNF that is free from FD functional dependencies caused redundancies and is BCNF free from all the redundancy that is our question that we will answer okay so this is our this is our content
+
+3
+00:03:55,330 --> 00:04:27,210
+for this lecture, lecture number 15. Now let's we start. Okay. Let's start now. Okay. So and you can join this telegram group. Okay. If you, if you are preparing for the gate exam, then for all your doubt discussions, you can join this telegram group. This is the username. Get CSE underscore go classes. Okay. Now let's understand redundancy. What are redundancies? Let's understand this first. So first of all, you tell me
+
+4
+00:04:27,470 --> 00:04:56,390
+Can a trivial FD create redundancy? Can a trivial FD, can a trivial functional dependency, can it create redundancy? Can it create redundancy? No, why? What is the reason? Why trivial functional dependency can never create redundancy? Because they are trivial, right? Okay, because they are always available, they are always present in all the relations. Okay, because yes or no? They are always present in all the relations. These are trivial, they will always be true.
+
+5
+00:04:56,780 --> 00:05:26,300
+Trivial functional dependency means they are always true. They will always hold in every relation. They will always hold. Yes or no, they will always hold in all the relations. So these are trivial. They do not cause any redundancy. So who will cause the redundancy? So I can say that non-trivial FDs, they may create redundancy, right? Yes or no. So non-trivial functional dependency, they may create redundancy. Now, let's see. With example, let's try to understand this. So for example, consider this relation, a student ID.
+
+6
+00:05:26,600 --> 00:05:56,420
+student name, date of birth, state, district. Consider this relation you have. Okay. Now, let me assume that there are, this is a student table, right? Okay. So let's assume this is a student relation. This is a student relation. Okay. Now, tell me who implies whom, district or state? Like, can I say, if you know the district, can you tell me the state? Yes or no? If I tell you the district name, automatically you can tell me the state name. Okay, state name. So I can say that.
+
+7
+00:05:56,820 --> 00:06:25,980
+district okay it determines state if i tell you the district name for example if i tell you Mumbai then automatically you will tell me state is Maharashtra yes or no so you can notice that district functionality determines state okay so district determines state so this fb we have and this is the primary key right yes or no this is the primary key that is student id this is student id this is the primary key now in this you can notice this is a what can i say about this district
+
+8
+00:06:27,940 --> 00:06:53,620
+district determines state this is a non-trivial FD correct yes or no this is not a trivial FD this is a non-trivial functional dependency now this is a non-trivial functional dependency you tell me one thing in this student relation in this relation if there are let me assume that there are 20,000 students let me assume there are 20,000 students okay let me assume there are 20,000 and
+
+9
+00:06:54,500 --> 00:07:24,810
+out of these 20,000 students let me assume that out of these 1000 are from 1000 students are from let's assume they are from okay I can say they are from Jaipur let's assume okay so 1000 students are from Jaipur then can you notice what will happen what will happen here so if 1000 students are from Jaipur in this table in the student relation what will happen in the student relation in the student relation this is student ID
+
+10
+00:07:25,210 --> 00:07:54,540
+and some extra things are there and there is district and there is district and there is state now you can notice that there are 1000 students who are from jaipur correct who are from jaipur okay so there are 1000 students who are from jaipur 1000 students are from jaipur okay so what will happen if 1000 students are from jaipur then what will happen the Rajasthan this will repeat this will repeat 1000 times correct yes or no agree or not
+
+11
+00:07:54,700 --> 00:08:22,930
+so if 1000 students are from jaipur then this rajasthan repeats so here what is redundancy for example this student is from jaipur this student is from jaipur this student is from jaipur this student this student okay and so on and so on so these are the jaipur students you tell me is this redundancy tell me is this redundancy is this redundancy is this data redundancy tell me is this data redundancy
+
+12
+00:08:23,150 --> 00:08:52,070
+is this data redundant tell me is this data redundant this data is not redundant right this is the important information this is the important information that s1 is from jaipur s2 is from jaipur s3 is from jaipur s4 is from jaipur this is the important information this is not redundant yes or no agree or not this information is not redundant okay you are taking from every student you are asking from where you are what is your district from every student you are asking what is your district
+
+13
+00:08:52,330 --> 00:09:22,230
+so there is nothing redundant here what is redundant this is redundant that after asking for the district okay you don't have to ask for the state yes or no after asking the district you don't have to ask this is redundant see this is redundancy yes or no can you notice this is redundancy why this is redundancy this is redundancy because if you know if you know that district is jaipur then automatically it will come automatically this data is coming
+
+14
+00:09:22,540 --> 00:09:50,960
+tell me is this data coming automatically or is this data coming automatically which data is coming automatically is this data coming automatically or is this data coming automatically so you cannot the state data is coming automatically so i can say this is redundant yes or no so this is redundancy is this clear to everyone so what is redundancy so you can notice this is a non-trivial fd okay this is a non-trivial fd and in this non-trivial because of this non-trivial fd because of this non-trivial fd what is happening
+
+15
+00:09:51,260 --> 00:10:22,460
+we are getting redundancy this data okay this data is redundant you can notice for example thousand tuples okay thousand tuples this data will be redundant okay and so on so thousand tuples of district jaipur thousand tuples of district jaipur so this is the data this is the redundancy remember this is not redundancy this is not redundant yes or no is this clear so this is not redundant this is the important information that you have to record
+
+16
+00:10:22,880 --> 00:10:52,230
+you have to record this information so this is not redundant but this is redundant so here what is the solution can anyone tell me like what could have been the solution to reduce this redundancy to reduce this redundancy what could have been a solution so this could have been a solution that what you do okay you have to put the district yes or no of course this could be a solution you have to do this so this is not redundant okay so this is what you have to ask from the student what you ask
+
+17
+00:10:52,520 --> 00:11:21,880
+you ask only district from the student you ask only district okay so here that is fine and you create another table you create another table where you have a where you have district comma where you have district comma state you create another table where you have district comma state is this clear so you can call it another table okay for example maybe you can call this table R so you can create this now in this table there is no redundancy in this table one time you write Jaipur one time you write Rajasthan
+
+18
+00:11:22,140 --> 00:11:50,920
+okay one time you write Bangalore one time you write Bangalore one time you write Karnataka okay yes or no so you can notice that now there is no redundancy is this clear to everyone tell me so from the student you ask what is your district from the student just directly ask what is your district but then what you do from another table you find out the state name so now there is no redundancy this is a solution I can say correct or not so I can say this is a solution
+
+19
+00:11:51,980 --> 00:12:23,680
+So, this is a solution. So, solution is what? That is decomposition. So, what is the solution? What is the solution? Solution is basically decomposition. Correct. Solution is a decomposition. We are decomposing. Okay. So, that is a solution. So, solution is decomposition. But anyway, did you understand what is redundancy? This is what I want to teach you. Okay. Mavith is saying we are saving one column in space. No, a lot of space we are saving. Mavith, a lot of space we are saving 1000 tuples.
+
+20
+00:12:23,940 --> 00:12:50,930
+of redundancy this is 1000 tuples of redundancy and then you can notice there will be more redundancy because there are 20,000 restaurants okay so there will be a lot of redundancy in this table almost I can say almost all the tuples have redundancy correct almost all the tuples almost all the tuples they have redundancy they have redundant data okay so this is what I'm saying and this is a solution what is the solution solution is decomposition you can decompose and what you can do
+
+21
+00:12:51,150 --> 00:13:20,410
+so this table and this table two tables you can create two relation you can create so this is the solution decomposition but did you understand what is redundancy our topic is what is our topic is understanding redundancy did you understand what is redundancy what is not redundancy what is useful data and what is redundant data did you understand that yes or no what is useful data and what is redundant data like for example consider this data okay consider this
+
+22
+00:13:20,780 --> 00:13:50,210
+concept this table another another example i am taking so you have three attributes abc and you have ab determining c c determining b now okay now you tell me which of them will both are known trivial right yes or no can you notice both are known trivial fd this is a known trivial fd this is a known trivial fd and this is also a known trivial fd which of them will create a redundancy which of these fds
+
+23
+00:13:50,610 --> 00:14:22,860
+which fd will create redundancy this is my question my question is which non-trivial fd both are non-trivial fd both are non-trivial both are non-trivial fd now my question is which non-trivial fd may create redundancy may create redundancy in the data may create redundancy in a database in relation r okay i can say in relation r which of them can create redundancy
+
+24
+00:14:23,770 --> 00:14:51,990
+Okay, which of them may create redundancy so the answer is the answer is only this can create only only this can create so I can say only this can create remember see determining be this this can create a redundancy this will not create a redundancy Okay, let's check it out. Let's check it out. So you have a relation are in which you have three attributes ABC and the question is saying that a be determined see and see determines be now can you notice what is the candidate key can anyone tell me
+
+25
+00:14:52,190 --> 00:15:20,790
+what is the candidate key or I can say what is what is the candidate key so a b is the candidate key ac is the candidate key these are the candidate key so can I call them super key also of course they are super key also okay so I can call them super key they are super key now can you notice because they are super key they can never create redundancy this a b determining c this can never create redundancy because it can see why redundancy is happening in this table in this table why the redundancy was happening
+
+26
+00:15:21,160 --> 00:15:50,300
+Can anyone tell me in this table why the redundancy was happening? Because repetition of this causes repetition of this. Agree or not? Agree or not? Repetition of Jaipur causes repetition of Rajasthan. Repetition of Bangalore causes repetition of Karnataka. Repetition of one column causes repetition of another column. And this is not a key, so it will repeat. So you can notice, okay, why redundancy? Why district determining state creating redundancy?
+
+27
+00:15:50,920 --> 00:16:24,800
+So this you understand why this is creating redundancy this you understand why this is creating redundancy there are two there are two reasons the why this is creating redundancy the first reason because okay because you can notice repetition the first reason is repetition of district causes repetition of state yes or no repetition of a district okay for example for example let's assume Bangalore okay for example let's assume Bangaluru okay nowadays
+
+28
+00:16:25,280 --> 00:17:00,820
+so you can notice that so repetition of district that causes repetition of district causes repetition of state yes or no so this is the idea so you can notice repetition of district if you repeat the district that will cause the repetition of state for example if you repeat Bengaluru then Karnataka will repeat okay so if you repeat this
+
+29
+00:17:01,260 --> 00:17:31,970
+Bangalore then automatically Karnataka will repeat and the second point and the second point second point it is not a super key so it will repeat yes or no second point since district is not super key yes or no since district is not super key is not super key in a student table in the student table so it will repeat so it may repeat yes or no so it may repeat so it may repeat
+
+30
+00:17:32,540 --> 00:18:01,840
+Agree or not? Okay, so it may repeat. So these are the two reasons. So it may repeat. So these are the two reasons you can notice. Okay, very simple. So why this is creating redundancy? Why this district determining state? Why this is creating redundancy? Because a repetition of district will automatically repeat the state. If you repeat Bengaluru 100 times, then Karnataka will repeat 100 times. Now you can notice if you repeat Jaipur 1000 times, then Rajasthan will repeat 1000 times. Now you can and the second reason.
+
+31
+00:18:02,170 --> 00:18:31,210
+and the second reason is this what the second reason and the second reason is this that since district is not a super key okay so it may repeat it okay it may definitely repeat okay so that is the reason you can notice because this is not a super key this district this is not a super key so it may repeat so it will cause the repetition of state also okay but you can notice in this example consider this example okay ab can never repeat yes or no can you notice can you notice ab can never repeat ab can never repeat
+
+32
+00:18:31,560 --> 00:19:01,800
+okay this will never they will they can never be same they can never be same never same okay they can never be same so you can notice this ab cannot repeat this ab cannot repeat so whatever data you put in the c whatever data you put in the c can i say even if that is that is that cannot be redundant right for example with one two let's assume you have three okay with two three can you have three
+
+33
+00:19:02,420 --> 00:19:30,140
+sorry with a 2 2 can you have 3 yeah is this redundancy okay tell me tell me tell me tell me is this redundancy this is not redundancy because for a different data this is 3 for this data this is 3 for different data you are getting 3 3 for example your name is Akash my name is Akash okay is that redundancy tell me your name is Akash my name is Akash is that redundancy that is not redundancy right yes or no
+
+34
+00:19:30,380 --> 00:19:59,450
+Okay, so this is the point that I'm saying. So you can notice different data. So they can never be same. You can notice they can never be same. These two tuples, they can never be same. So now, okay, so if I, for example, let's assume I have 4, 4 and the data is 4 and let's assume I have 5, 4 and let's assume data is 4. Okay, so you can notice this is not redundancy. Agree or not? So here, here if you notice this, this is not redundancy.
+
+35
+00:19:59,900 --> 00:20:32,220
+This is not a redundancy. This is not redundancy. Okay, so you can very easily see that this AB determining C, this cannot create redundancy. Agree? Okay, agree that this AB determining C, this FB, this FB does not create redundancy. Does not create redundancy. Agree or not? Why this does not create redundancy? Because LHS is super key. Because LHS is super key, correct?
+
+36
+00:20:32,590 --> 00:21:01,710
+because LHS is super key so it cannot repeat the LHS cannot repeat LHS cannot repeat so okay so easily you can notice there is no redundancy okay because for a different data you are getting three for a different data you are getting three for a different data you are getting four for a different data you are getting four so this is not redundancy okay so very simple so you can notice because LHS is super key so this FD this FD cannot create redundancy what about this FD what about the second FD there is C determining
+
+37
+00:21:03,340 --> 00:21:33,520
+consider this FD A, B, C okay now what you do now you consider this FD okay so now what you do now you consider this FD where you already know A, B determining C, C determining B now here you can notice that this is a non-trivial FD this is a non-trivial FD correct this is a non-trivial FD and LHS is not a super key you can notice LHS is not a super key
+
+38
+00:21:33,720 --> 00:22:02,830
+so if LHS is not super key what will happen here it will happen that if you repeat this 3 3 3 can i guarantee this okay c c c very simple okay let's assume let's assume this is true now now now now now okay if i repeat this three automatically this data will repeat yes or no automatically this data will repeat agree or not automatically automatically automatically this data will repeat so this is called redundancy okay yes this is called redundancy
+
+39
+00:22:04,290 --> 00:22:32,570
+this is called redundancy and remember can see repeat can see repeat can see repeat yes because it is not a super key because she is not a super key so it can repeat so you can easily see that okay because of this FD we can get redundancy because of this FD we can get redundancy of course it can be like 1 2 3 4 5 okay of course okay but the point is very simple that okay so you in this in this in this relation you have a be determining see also
+
+40
+00:22:32,940 --> 00:23:01,840
+a b determining c also c determining b also but you can notice you are getting redundancy so you are getting redundancy so I can say this c determining b okay look at this fd c determining b this fd causes redundancy correct this fd causes redundancy and what is the reason what is the reason it is causing redundancy because LHS is not super key because LHS is not super key
+
+41
+00:23:03,000 --> 00:23:30,960
+Okay, so this is this is the understanding of redundancy. Did you understand redundancy? So can I say non-trivial FD may create redundancy, right? Agree? Okay, I can say non-trivial FD may create a redundancy. But okay, is it true for all type of non-trivial FD? Can I say all the non-trivial FD they will create? They will create which non-trivial FD can never create redundancy? Which FD?
+
+42
+00:23:32,130 --> 00:24:02,100
+which non-trivial fd can never create redundancy where LHS is super key yes or no so non-trivial fd in which LHS is super key never creates yes or no where LHS is super key that will never create a redundancy okay so this is a simple point if LHS is super key so very simple point this is a very simple point that if you have a fd functional dependency I am talking about functional dependency as determining something okay
+
+43
+00:24:02,390 --> 00:24:33,900
+now if this x is if this LHS if if this LHS if this LHS x is a super key then this FD then this FD cannot cause redundancy this FD cannot create redundancy see this FD cannot create redundancy are you getting my point this FD cannot create redundancy okay this functional dependency
+
+44
+00:24:34,300 --> 00:25:02,790
+this functional dependency cannot create redundancy okay this functional dependency cannot create redundancy if x is a super key okay very simple so if LHS is super key then definitely this this functional dependency cannot create redundancy and of course trivial so so finally okay so finally what is your conclusion who can create and trivial fd cannot create redundancy trivial functional dependency cannot create redundancy so who can create
+
+45
+00:25:03,370 --> 00:25:35,340
+So finally I can say where LHS is not super key, non-trivial FD, non-trivial FD, where LHS is not super key, where LHS is not super key, these people can create redundancy. Okay? Yes or no? These people can create redundancy. So I can say that FD is that create redundancy. So who are those? So FD is which may cause redundancy. FD is which may cause redundancy.
+
+46
+00:25:38,440 --> 00:26:11,550
+okay which type of FDs can cause redundancy so this type of FD where x determines alpha okay where this is non-trivial this is non-trivial of course okay this must be a non-trivial FD and x is not super key x not super key okay so this type of FDs they may create redundancy is this clear they may cause redundancy so very simple so now you tell me
+
+47
+00:26:11,760 --> 00:26:38,230
+can BCNF have redundancy in BCNF what happens look at BCNF look at BCNF in BCNF what happens if you see any non-trivial FD every non-trivial FD okay whatever non-trivial FD you take so every non-trivial FD has LHS super key has LHS as super key correct has LHS as super key so LHS is always super key
+
+48
+00:26:38,770 --> 00:27:08,540
+okay so I can say this BCNF is a free from redundancy or I say okay which two statements should I say can I say it is free from can I say it is free from redundancy caused by redundancy can I say it is free from redundancy or can I say it is free from okay which statement can I say can I say it is free from redundancy or can I say it is free from redundancy caused by FDs
+
+49
+00:27:09,070 --> 00:27:38,240
+Caused by FDs. Caused by FDs. So which statement should I say? Can I say it is free from redundancy? This I will tell you. Okay. This I will tell you now. We will explain this now. Okay. Our main topic is this. Okay. So this statement is not correct. This statement is correct. Is this clear? So BCNF is free from redundancy caused by FDs. Redundancy caused by FDs.
+
+50
+00:27:38,800 --> 00:28:07,160
+So in the BCNF, FDs cannot cause redundancy. Someone else can cause. Yes or no? Is this clear? In BCNF, in the BCNF, FDs, functional dependency, they can never create a redundancy. Someone else can create. FDs can never create redundancy. Someone else can create. Who is that someone else that we will study now? Okay. So in the BCNF, functional dependency can never cause a redundancy.
+
+51
+00:28:07,350 --> 00:28:36,590
+FDs they can never cause a redundancy but in BCNF redundancy can be there someone else can create a redundancy who is that someone else that we will study now is this clear to everyone so if someone asks you BCNF is free from redundancy is this true or false BCNF is free from redundancy is that true or false that is false yes or no in the BCNF you can have redundancy but you can never have redundancy created by FDs
+
+52
+00:28:36,790 --> 00:29:05,750
+Because of functional dependency, you can never get redundancy in the BCNF. Okay, because of functional dependency, you can never get redundancy. So BCNF is free from 100% free from redundancies due to FDs. Okay, let's see this. Okay, but 3NF can have redundancy due to FD, agree or not? 3NF can have redundancy due to FD because in the 3NF, the NHS may not be super key.
+
+53
+00:29:06,120 --> 00:29:33,970
+agree or not the LHS may not be super key so 3NF may have redundancy due to FDs but BCNF is 100% free from redundancy due to FDs okay now let's see is BCNF free from all the redundancy is BCNF free from all the redundancy let's see example consider this example let's assume there are two tables I am giving you two tables one table is one table is courses which student has taken which course
+
+54
+00:29:34,430 --> 00:30:04,020
+in the real life is this many to many or one to many okay can I say is this many to many or one to many look at this course courses table you look at okay so I am giving you two tables one is courses table another is movies table in the courses table you have which student has taken which course so can I say one student can take many courses agree or not one student can take many courses and one course can be taken by many students so this is a many to one many to many or not
+
+55
+00:30:04,330 --> 00:30:33,810
+one student can take many courses and one course can be taken by many students so you can clearly see that this is many to many relationship similarly movies one student can like many movies and one movie can be liked by many students yes or no one movie is favorite of many students and one student has many favorite movies so both are many to many relationship agree is there any redundancy in this course table
+
+56
+00:30:34,330 --> 00:31:03,940
+In the course table, do you have any redundancy? In the course table, do you have any redundancy? Look at the course table. Okay, look at the course table. Look at the course table where you have SID and where you have CID. In the course table, do you have redundancy? Any type of redundancy? Do you have redundancy? I am asking, do you have redundancy? Any type of redundancy? Do you have redundancy? In the course table, do you have redundancy? Any type of redundancy?
+
+57
+00:31:04,330 --> 00:31:33,520
+Tell me, for example, let's assume this student S1 has taken 3 courses. C1, C2, C3. Will you call this redundancy? Will you call this information redundancy? S1, S1, S1. Will you call it redundancy? Will you call it redundancy? No. This is a useful information, right? That S1 has taken C1, S1 has taken C2, S1 has taken C3. This is not automatic information. Agree or not? This is not a useless information. This is not a repetition.
+
+58
+00:31:34,040 --> 00:32:03,380
+this is useful this is not a repetition this is useful similarly this c3 can be taken by maybe this c3 has been taken by h2 also s3 also s4 also so you can notice this is also not redundancy agree this repetition is not redundancy this is not a redundant data this is a useful information this is not a redundant data and similarly you can notice this is not a redundant data yes or no agree is this clear so here also no redundancy
+
+59
+00:32:03,570 --> 00:32:32,180
+So in this table, in this table, we have no redundancy. In this table, we have no redundancy. In this table, there is no redundancy. Is this clear? In this table, we have no redundancy. There is no redundancy. You can never have. In this table, you can never have redundant data. So any redundancy here, the answer is no. Correct? The answer is no. There is no redundancy. Now what you do? If there is no redundancy, then there is no redundancy due to FD also.
+
+60
+00:32:32,750 --> 00:33:02,430
+Due to functional dependency because can you notice? Okay, can you notice in this table? What is functional dependency? What are non-trivial functional dependency? Do you have any non-trivial functional dependency? Do you have any non-trivial FD? Do you have any non-trivial functional dependency? Do you have that? Do you have any non-trivial functional dependency? The answer is no. There is no non-trivial functional dependency. Can SID determine CD? Can SID determine CD?
+
+61
+00:33:02,930 --> 00:33:32,960
+No, SID cannot determine CD. Look at this. So SID cannot determine CD and CID cannot determine SID. CID cannot determine SID. You can look at this. You can look at this. So there is no non-trivial FD, right? Yes or no? We have no non-trivial FD in this. So remember, if there is no redundancy, okay, which statement is true? Like no redundancy, like no redundancy.
+
+62
+00:33:33,740 --> 00:34:07,920
+Can I say implies no FD redundancy? No FD cost redundancy? Yes or no? If there is no redundancy then automatically there is no FD cost redundancy, but this statement is not true, right? Okay, this statement is not true that yes or no? If FDs are not creating redundancy, someone else can create. Okay, functional dependency is not creating redundancy, then someone else can create. Okay, now important thing, what you do?
+
+63
+00:34:08,210 --> 00:34:36,690
+so you can notice one thing that any redundancy here the answer is no these two tables i gave you okay look at these two tables look at these two tables this table this table these two table course table movie table these two tables okay these are many to many relationship both are many to many relationship okay here also many to many here also many to many okay now is there any redundancy in these two tables in this table in this table there is no redundancy there is no redundancy but what if we merge them
+
+64
+00:34:37,300 --> 00:35:04,140
+what if we merge them look okay look what what what if we merge them now let's assume that see okay very simple point I want to say let's assume your movie you have a course table right this is your course table okay in the course table you have SID and you have CID let's assume this SID S1 okay has taken two courses C1 C2 okay or maybe S1 has also taken CC3
+
+65
+00:35:04,520 --> 00:35:35,420
+okay so far this is useful information three tuples agree three tuples and this is a useful information there are three tuples okay so I can say these these are three useful tuples there is no redundancy these are three useful tuples okay I can say three informative tuples correct okay three informative tuples now okay what I do I also give you movie stable I also give you movie stable in the movie stable you have SID and you have CI and your movie and your movie
+
+66
+00:35:35,740 --> 00:36:06,150
+Let's assume that this is your, this is the, this is student S1 has three favorite movies. Okay. This is student S1. Let's assume this has three favorite movies, three favorite movies, three different favorite movies he has. Maybe. Okay. Lord of the Rings. Okay. So maybe Hera Ferry. Okay. And Contara or maybe Tom Bard. Okay. So let's assume. So these are his favorite movies now. Okay. Actually, these are my favorite movies. So anyway, so let's see.
+
+67
+00:36:06,380 --> 00:36:35,350
+Anyway, these are the movies so you can take okay now you can also put a tumor here that is also very nice anyway so tell me here what will happen so there is no redundancy here there is no redundancy here you have three tuples here right here also you have three tuples correct so there are three tuples here there are three tuples here okay there is no redundancy here there is no redundancy here so I can say there is no redundancy here there is no redundancy here and there is no redundancy here right
+
+68
+00:36:35,640 --> 00:37:03,920
+okay we have no redundancy and we have no redundancy okay so very simple there is no redundancy there is no redundancy now you tell me if you merge them if you merge them and remember there is no fd here right correct there is no non-trivial fd here there is no non-trivial fd here there is no non-trivial fd here okay now what if you merge them then what will happen if you merge these two table and you create the student table a student table which is a course table
+
+69
+00:37:04,440 --> 00:37:34,750
+course table plus movie table so if you merge them basically you are merging them then what will happen then you will create a student table in the student table there will be three items there will be SID there will be CID and there will be and there will be movie and there will be movie okay so there will be SID CID movie how many tuples will be there can anyone tell me how many tuples will be there if you merge them I am merging them okay no not union
+
+70
+00:37:35,810 --> 00:38:06,910
+Can you take union? These two tables you have, can you take their union? Are they union compatible? Are they union compatible? Are they union compatible? They are not union compatible. They are not union compatible. Okay, if you merge them means joining them. Basically you are joining them. Okay, you are joining them. So what if you join them? What if you join them? Okay, what if I join them? Two different tables you have and what if you join them? So then what will happen?
+
+71
+00:38:07,230 --> 00:38:36,940
+then there will be okay so natural join yes or no you are doing you are doing the natural join so now how many tuples will be there now how many tuples will be there if you do the natural join there will be nine tuples there will be nine tuples okay redundant information you will get why tell me tell me see very simple very simple okay very simple thing very simple thing you understand this and that's it so s1 course is c1 now because of this c1 course unnecessarily
+
+72
+00:38:37,300 --> 00:39:04,900
+see okay unnecessarily because of this course there are seven core c2 core c3 course right so far this is correct there is no problem but what will happen unnecessarily this m1 will repeat three times this movie m1 will repeat three times yes or no this movie m1 will repeat three times this movie m2 this movie m3 okay so this is what i'm saying can you notice can you notice that this is fine this is fine these three tables are fine
+
+73
+00:39:05,160 --> 00:39:33,750
+but unnecessarily this is repeating yes or no agree or not unnecessarily this is repeating similarly similarly what will happen similarly s1 s1 s1 s1 he likes m2 movie yes or no he likes m2 movie he likes m2 movie because of this m2 movie unnecessarily again this information will repeat see this information will again repeat agree or not are you getting my point please tell me are you getting this point
+
+74
+00:39:34,130 --> 00:40:06,930
+you are repeating unnecessarily the information now because of M3 movie what will happen because of M3 movie what will happen M3 M3 M3 because of M3 movie again the courses will repeat again the courses will repeat okay so can you notice why okay what is happening is there any connection of movie comma course do they have any connection is there any connection of movie comma course they have no connection right this movie does not care about any course
+
+75
+00:40:07,190 --> 00:40:36,080
+this course does not care about any movie they have no connection but still what is happening because of this m1 unnecessarily this this is coming three time because of m2 also this is coming three time because of m3 also this is coming three time or you can say that because of c1 this m1 is coming c because of c1 because of c1 these movies are coming three times because of c2 these movies are coming three times similarly because of c3 these movies are coming three times
+
+76
+00:40:36,510 --> 00:41:06,190
+so can you notice there is redundancy yes or no now you got redundancy a lot of redundancy you got agree or not redundancy a lot agree or not so for example if you have like just think about it if you have 100 tuples here 100 tuples here for S1 S1 has taken 100 courses and S1 likes 200 movies S1 has taken 100 courses S1 likes 200 movies then can you notice there will be a lot of repetition
+
+77
+00:41:06,570 --> 00:41:38,230
+a lot of redundancy here is this clear can you visualize this that a lot of redundancy you will get yes or no so if you join them okay as long as they are separate there is no redundancy in the course table no redundancy in the movie table there is no redundancy but when you join them these two tables when you join them then you are getting a lot of redundancy you are getting okay because of this movie M1 unnecessarily these these courses are coming three times for M2 also these are coming three times
+
+78
+00:41:38,460 --> 00:42:09,920
+so okay like this so did you understand there is a redundancy did you understand that there is a redundancy is this clear in the table there is redundancy but but but but but in the student table is there any FD is there any non-trivial FD in this do you have any non-trivial FD can anyone determine anyone okay in the student table can SID determine CID you tell me this point simple point I'm asking can SID determine CID
+
+79
+00:42:10,480 --> 00:42:39,700
+Can SID determine CID? Of course not. SID cannot determine CID. CID cannot determine SID. SID, CID together. Can they, can they imply movie? SID, CID together. SID, CID together. Can they imply movie? They cannot imply movie. So, okay, they cannot imply movie, agree or not? So, they also cannot imply movie. So, basically you can, can you notice in this table, there is no non-trivial FD.
+
+80
+00:42:41,510 --> 00:43:12,210
+Is this clear? There is no non-trivial FD. We don't have any non-trivial FD. There is no non-trivial FD. Still redundancy. Still in this table there is redundancy. Still in this table there is redundancy. So who created that redundancy? Just think about it. There is no non-trivial FD. There is no non-trivial FD. So definitely FD did not create this redundancy. This redundancy definitely FD did not create.
+
+81
+00:43:12,510 --> 00:43:39,080
+agree this fd this fd did not create this redundancy so who created this redundancy is this point clear we will see who created but is this point clear two points are they clear that very simple simple points two points i'm telling i gave you two relations one relation was courses relation many to many relation a student course a student course a student can take many course a course can be taken by many students
+
+82
+00:43:39,320 --> 00:44:08,640
+so I gave you one many to many table another many to many table I gave you one student can like many movies one movie can be liked by many students so two different tables I gave you this table this table two different tables I gave you this was many to many table this was many to many table so these two different tables I gave you was there any redundancy in these two tables was there any redundancy here was there any redundancy here there was no redundancy right there was
+
+83
+00:44:08,920 --> 00:44:38,480
+no redundancy in these two tables but if you join them if you do the natural join then you will create a third table okay in the third table there will be three attributes now there is redundancy yes or no in that third table when you join them then you are getting a lot of redundancy you are getting because of every movie courses are repeating yes or no courses and movies they don't care about each other course comma movie they don't care about each other but still because of every movie all the courses are repeating
+
+84
+00:44:38,860 --> 00:45:08,080
+because of every movie all the courses are repeating because of every course all the movie are repeating because of every course all the movie are repeating so you can notice that when you join these two tables then you are getting a lot of redundancy but there is no non-trivial fd in the if you join the table there is no non-trivial fd so fd did not create this yes or no fd what fd will say fd will say yes or no this redundancy i did not create but there is a redundancy are you getting my point
+
+85
+00:45:08,370 --> 00:45:37,520
+there is no non-trivial FD so FD did not create the redundancy okay but there is redundancy so who created this redundancy yes or no who created this redundancy so that is what we need to see so is this clear so you can notice is there any redundancy the answer is yes a lot of redundancy you have okay a lot of redundancy you have so who created this any non-trivial FD do have any non-trivial FD there is no non-trivial FD so what you can see see the see
+
+86
+00:45:37,790 --> 00:46:08,040
+so who was causing this redundancy fd did not create this redundancy so who caused this redundancy okay before so who was causing this redundancy yes or no who is causing this fd is not creating redundancy so who is creating this redundancy yes or no so that is what we need to see so before that you ask yourself you ask yourself why this redundancy came yes or no before seeing who created yes or no before seeing who created
+
+87
+00:46:08,360 --> 00:46:37,870
+you ask yourself why this redundancy came this redundancy came but why are you getting my point there is no known triviality but still you got the redundancy why this redundancy came and the reason is very simple what was the reason the reason is very simple that too many too many more than one many too many relationship you are putting in a single table what we did yes or no what we did more than one many too many relationship
+
+88
+00:46:38,450 --> 00:47:07,350
+more than one many to many relationship you are putting in a single table more than one many to many relationship you have many to many relationship okay there is many to many relationship here there is many to many relationship here so more than one many to many relationship you are putting in a single table then who two people are fighting who two people are fighting now these two people are fighting they have nothing to do with each other they have nothing to do with each other okay this is a many to many relationship this is a many to many relationship
+
+89
+00:47:07,660 --> 00:47:36,100
+but when you put them in a single table then these two people are fighting because of every movie all the courses are repeating because of every course all the movies are repeating is this point clear to everyone please tell me so this is the reason because you are putting more than one many to many relationship in a single table is this clear let me know is this crystal clear see a simple analogy I can give you a simple analogy I can give you like for example okay let's assume there is a
+
+90
+00:47:37,000 --> 00:48:04,520
+You know, have you seen the Gominda movie? Have you seen the Gominda movie? So in the Gominda movie, there is a most of the time he has two wives. Okay, most of the most of the time he has two wives. Okay, most of the time. Okay, like typical Gominda movie will have at least two wives. Okay, definitely. Okay, at least two, maybe, maybe three, maybe four, I don't know. Okay, but so without two wives, Gominda does not make any movies. So you can notice that in this movie. Okay.
+
+91
+00:48:05,180 --> 00:48:35,160
+What happens? Initially this will happen. Okay, Govinda is very happy with the Silpa city here. Okay, Govinda, first wife, wife one. Okay, they are very happy. Okay, and in the another song, he is very happy with the wife two. But after sometime what will happen? After sometime what will happen? The problem will happen. Okay, the problem will happen. And now actually the problem is happening between these two. Now the problem is happening between these two. Okay.
+
+92
+00:48:35,500 --> 00:49:04,870
+so anyway is this clear so same something this is just an analogy of course this is just an analogy actually something is happening here there is many to many relationship here there is many to many relationship here now you can notice when they are separate there is no problem right yes or no like for example when they are separate when they are separate like your sid okay this is your govinda so govinda with courses okay there is no problem as long as they are separate as long as they are separate
+
+93
+00:49:05,350 --> 00:49:34,680
+okay movies very good movies humorous okay so you will laugh but what will happen but what is happening here so you can notice so as long as they are in the separate table there is no redundancy you have no redundancy okay so I can say plus movies so you can notice that there is many to many relationship okay there is many to many relationship here also many to many relationship and here also many to many relationship is this clear so here also many to many relationship
+
+94
+00:49:35,020 --> 00:50:07,010
+and here also many to many relationship so similarly here also many to many relationship i student can like many movies and a movie can be liked by many students okay so you cannot these are many to many but the problem will happen when you took when you put more than one many to many relationship in a single table is this clear tell me is this clear so when you put them in the single table now the problem is happening many to many more than one more than one many to many relationship when you join them
+
+95
+00:50:07,420 --> 00:50:36,340
+when you join them in a single table when you put them in a single table then there will be problem okay there will be problem between these two there will be problem between these two what will happen for every movie all the courses will repeat okay because of movie one all the courses will repeat because of course one all the movies will repeat so because of every movie all the courses will repeat because of every course all the movies will repeat actually they don't care about each other okay if they are separate course and movies if they are separate in the separate table
+
+96
+00:50:36,580 --> 00:51:05,970
+They don't care about each other. They don't create any problem. They don't create any problem. But if you join them in a single table, then they are creating problem. Is this point clear? Let me know. Let me know. So this is why you are getting the redundancy. So you are getting redundancy. There is no non-trivial FD. Still you are getting redundancy. Okay. Why you are getting redundancy? Because you are putting more than one many to many relationship in a single table. And when you do this, then a new type of redundancy.
+
+97
+00:51:06,170 --> 00:51:36,660
+Then a new type of dependency is created. See, when you do this, what you do? See, when you do this, when you do this, when you put more than one minute to many relationship, more than one minute to many relationship, if you put a single table, then a new type of dependency is created. Then a new type of dependency, a new type of dependency is created that is called multi-valued dependency. Okay, so when you do this, remember when you do this,
+
+98
+00:51:36,970 --> 00:52:04,990
+When you put more than one minute to many relationship, this and this, when you put them in the single table, then a new type of dependency is created here. A new type of dependency is created here between these two. A new type of dependency is created here. Yes or no? Can I say this? A new type of dependency is created here. A new type of dependency is created between these two.
+
+99
+00:52:05,750 --> 00:52:34,140
+because what will happen because of every movie all the courses will repeat because of every course all the movie will repeat yes or no agree or not is this clear to everyone please tell me so a new type of dependency is created what is this new type of dependency what is this new type of dependency so tell me like what is this new type of dependency is created this new type of dependency is basically saying that because of every movie all courses will repeat because of every course all the movies will repeat are you getting my point
+
+100
+00:52:34,400 --> 00:53:18,770
+a new type of dependency is created every movie every movie causes repetition of every course every movie causes repetition of all course repetition of all courses and vice versa yes or no every movie causes repetition of all courses so you can notice that very simple point so every movie causes repetition of all courses okay
+
+101
+00:53:19,690 --> 00:53:50,590
+and vice versa and vice versa means every course will also cause repetition of all movies every course will cause repetition of all movies so a new type of dependency has been created yes or no can you notice and this is a new type of dependency this is a new type of dependency they don't care about each other array see in the FD they care about each other right in the functional dependency they care about each other like district determines state
+
+102
+00:53:50,990 --> 00:54:20,110
+do they care about each other district state if you tell anyone okay in the world go to anyone and tell district state automatically they will tell you there is some connection yes or no automatically they will tell you agree or not are you getting my point the functional dependency has a natural connection okay if you tell anyone that district state so they will tell you there is some connection natural connection is there functional dependency is basically a natural connection but if you tell anyone
+
+103
+00:54:20,380 --> 00:54:47,860
+movies and courses what they will say tell me what they will say they will say there is no connection right there is no there is no dependency right so if you tell anyone movies courses movies courses there is no dependency there is no dependency but still but still when you put them together a new type of dependency is created because of every movie all courses are repeating because of every course all movies are repeating so even though there is no natural connection
+
+104
+00:54:48,140 --> 00:55:17,200
+movies courses there is no natural connection but still when you put them together in a single table then what is happening a new type of dependency has been created now every movie is uh causing the repetition of every course and every course is causing the repetition of every movie so a new dependency has been created this is not a functional dependency right this new dependency that has been created this new dependency that has been created this is not a functional dependency right yes or no
+
+105
+00:55:17,520 --> 00:55:47,700
+This is a new type of dependency which is called multi-valued dependency. Please tell me, is this crystal clear? Anyone has any doubt? Is this explanation whatever I told you, is this crystal clear? Do you have any doubt? Please tell me. Please tell me, did you get it? Let me know. Is this crystal clear? Whatever we have seen. So naturally there is no connection. Courses, movies, there is no connection. Naturally, if you ask anyone, there is no connection. They will say, there is no connection between these two. Okay.
+
+106
+00:55:47,940 --> 00:56:16,080
+But still, what is happening? When you merge them in a single table, when you put them in a single table, then some dependency is created. Some new type of dependency is created. This new type of dependency is not functional dependency. Functional dependency is a very natural thing. Functional dependency is a very natural scenario. But this new dependency is not natural. This new dependency is called multivalued dependency. So this new type of dependency
+
+107
+00:56:16,610 --> 00:56:47,000
+Okay, this new type of dependency has been created and this new type of dependency is called this is called multi-valued dependency. Okay, this is the explanation. Okay, I hope you like I hope you understood everything and let me tell you that so you can notice this is the idea. So when we put more than one many to many relationship in a single table, you have more than one many to many relationship when you put them in a single table. This type of situation gives birth gives birth
+
+108
+00:56:47,240 --> 00:57:17,460
+to a new type of dependency which is called MVD multi-value dependency more than this we don't require for the gate exam whatever we have seen so far that is enough this MVD 4NF these things are not required for the gate exam so what we have seen that is enough more than this is not required but now you can explain right yes or no if anyone ask you what is MVD you can explain right correct can you explain very natural explanation like a very logical explanation you can give
+
+109
+00:57:17,640 --> 00:57:46,560
+in any interview whatever interview okay if the interviewer will ask you okay tell me what are fd what is mvd a very logical explanation you can give yes or no a very logical explanation you can give to the interview that this is mvd this is fd more than this is not required for the gate exam whatever we have seen today that is enough in this lecture whatever we have seen that is more more more than enough for the gate exam okay so understood tell me understood right yes or no correct
+
+110
+00:57:46,790 --> 00:58:15,340
+Crystal clear. Okay. So that's it. So this is your topic. So you can notice. Can I say BCNF? The previous table was in BCNF. Is this in BCNF? The student table, the student table, where you have SID, where you have CID and where you have movie. Okay. Can I say this is in BCNF? Why this is in BCNF? Can anyone give me the reason? Anyone, anyone, give me the reason why this is in BCNF? Because there is no non-trivial FD, right?
+
+111
+00:58:15,820 --> 00:58:47,000
+array there is no non-trivial FD so there is no violation because there is no non-trivial functional dependency though okay so there is no violation of BCNF so we have no violation of BCNF because there is no non-trivial FD so there is no violation you cannot violate the BCNF okay so I can say this table was in BCNF so this table is in BCNF still this table has redundancy okay so BCNF may have redundancy this is the final point is this clear
+
+112
+00:58:47,310 --> 00:59:16,990
+so you can notice are there redundancies that are not okay so you can notice bcf is free from old redundancy the answer is no bcf is free from redundancy scored by the answer is yes okay and are there redundancy which are not created by fd are there redundancy which are not created by fd the answer is yes there are redundancy so redundancy can be created by two people now can you notice redundancy can be created by two people
+
+113
+00:59:18,230 --> 00:59:48,210
+This redundancy can be created by functional dependencies. Okay, so this redundancy can be created by two people. Either it can be created by functional dependencies or it can be created by multi-valued dependencies. Okay. Now, is this clear? Okay, now, so is this clear to everyone? Now, by FDs. Okay, these can be removed by this redundancy by FDs. Yes or no?
+
+114
+00:59:48,410 --> 01:00:24,170
+So this redundancy by FDs. This can be removed by whom? Redundancy by FD. This can be removed by, if you want to remove it completely, removed completely by, removed completely by BCNF. Okay, so BCNF will completely remove it. So this is removed completely by BCNF. BCNF will completely remove it. And this redundancy by MVD, this will be removed by 4NF. This redundancy by MVD.
+
+115
+01:00:24,540 --> 01:01:05,710
+this is removed by 4nf okay this is completely removed by 4nf is this clear this is completely removed by 4nf every fd is also mvd every fd is also mvd nikhil but that we will not go into the details of that is this clear we will not study the details of that what we can do if you want then maybe in the practice course maybe we can take some questions okay maybe i can give you the definition in the practice course okay but it is not required let me tell you
+
+116
+01:01:05,980 --> 01:01:34,360
+not at all required. Okay. This, this 4NF, MVD, multi-value dependency, these things are not at all required for the gate exam. Okay. Not even 0.0001%. This is not required. So my suggestion is skip this. Okay. This is my suggestion. Okay. But still if you want that, okay, sir, just give us the definition by chance some question comes. Okay. Just give us the definition of MVD. Okay. Then, then maybe in the practice course, we will see.
+
+117
+01:01:34,780 --> 01:02:04,540
+but that is not our priority okay this MVD for enough this is not our priority okay we will if we have time at the end okay then maybe we will see but anyway you can skip this is this clear so whatever we have seen that is enough you understood this right see without like whatever we did not see forget about that whatever we have seen did you understand it completely whatever I told you in this lecture in this lecture whatever we have seen every concept that we have seen every logic that we have seen
+
+118
+01:02:04,820 --> 01:02:34,000
+Did you understand that logic completely in a crystal clear manner? And can you explain this to someone? Like if someone asked you, can you explain it to someone in a very crystal clear words? Okay, so that is enough. Now let's move on. So you can notice, are there redundancy that are not caused by FDs? And the answer is yes, a new form of redundancy, a new form of dependency. Is it possible to have redundancy without any non-trivial FD? Yes, this is it.
+
+119
+01:02:34,300 --> 01:03:02,240
+It is possible. Okay. So another example, you can take this, but I leave this question to you. For example, another example is this, like CID and instructor. Okay. This is many to many relationships. One course can have many instructors, right? Yes or no? One course can be taught by many instructors. Like when you go to IIT, Bombay, ISC, IIT, Delhi, okay. When you go to top colleges, then what will happen? Same course will be taken by a two or three professor. Okay. The first half will be taken by some professor.
+
+120
+01:03:02,540 --> 01:03:29,170
+the second half will be taken by some professor so same course will be taken by multiple professors okay it is also possible that three professors okay it is also possible so multiple professors will take the same course okay for example let's assume you take the dbms course in the in the isc or it okay then what you can do the the first half will be taught by someone some other professor and the remaining half will be taught by some other professor so basically like
+
+121
+01:03:31,020 --> 01:03:59,580
+professors, they will take the take the course. Okay. So anyway, here you can notice what happens that so one course can be taken by many instructor and one instructor can take many courses. So this is a many to many relationship. Similarly, similarly, this is also many to many relationship. Okay. Similarly, you cannot this is also many to many relationship. One course can have many book and one book, one book can be used in many courses. So these are many to many relationship. Okay. Any relationship here, the answer is no.
+
+122
+01:03:59,800 --> 01:04:28,960
+there is no redundancy here but if you merge them if you merge them okay what if you merge them then redundancy will be created okay then a redundancy will be created if you merge them then redundancy will be created okay you can check it out so if you merge them then what will happen if you merge them then what will happen it will happen that because of every instructor okay the books will repeat yes or no because of every instructor because of every instructor for example because of every instructor all the books will repeat
+
+123
+01:04:29,180 --> 01:04:58,590
+are you getting my point because of every instructor all the books will repeat b1 b2 b3 all the books will repeat similarly because of one book one book all the instructors will repeat because of one book all the instructors will repeat okay like i2 i3 so this is the i can say this is a redundancy again you got the redundancy okay here you can notice again you got the redundancy okay so a lot a lot of redundancy
+
+124
+01:04:59,010 --> 01:05:28,890
+So you got a redundancy. Okay, this is another example, the same example we have already seen. So you can notice, okay, why we got this redundancy? The reason is very simple. Tell me, can anyone tell me why we got this redundancy? Why we got this redundancy? Because we are putting more than one many to many tables in the many to many relationship in the same table. Yes or no? Because we are putting more than one many to many relationship in the same in the single table. Okay, more than one many to many relationship in the single table. Okay.
+
+125
+01:05:29,150 --> 01:06:02,750
+so that is enough so mvd 4nf multi-value dependency 4nf these things are not required for the gate exam okay so whatever we have seen that is enough that is more than enough that's it this is your chapter can you answer this question can you answer this question tell me the answer for this can you answer this question once you go to it is the understanding every course is not the purpose okay it's not like
+
+126
+01:06:03,100 --> 01:06:36,870
+you have to understand everything. Like for the gate preparation, you have to understand every concept. Okay. You will focus on every concept, every question. You will solve many questions. You will do a lot of practice for the gate exam preparation. But once you go to IIT, ISE, they are basically the scenario is very different. Okay. So the scenario is very extremely different. Okay. So anyway, so let's see this. Let's see this question. So this is a gate.
+
+127
+01:06:37,260 --> 01:07:06,510
+CSE 2002 question and the question is saying that relation R within associated set of functional dependency F is decomposed into BCNF. You are decomposing into BCNF. Okay, so you decompose into BCNF. The redundancy arising out of FDs. The question is asking the redundancies due to FDs. That will be zero, right? Yes or no? The redundancy due to FDs, that will be zero. The redundancy due to FDs, that will be zero.
+
+128
+01:07:07,090 --> 01:07:35,960
+There is no redundancy in the BCNF. There is no redundancy in the BCNF. In the BCNF, in the BCNF, there is no redundancy due to FD. Due to FD, because of functional dependencies, there is no redundancy in the BCNF. So the redundancy will be zero. Okay. Yeah, this is F closer. Okay, this is closer of F. F plus means F closer. Okay, so more than zero, no, this is not more than zero.
+
+129
+01:07:36,610 --> 01:08:05,810
+More than three enough. No, of course, less than three enough. Yes, of course, less than three enough. Basically, it will be zero. There is zero. There is zero redundancy because of FDs because of functional dependencies. There is zero redundancy. Okay. So this is your table. Sorry. This is your chapter. Now the chapter is over because of MVD. What will happen if the same question is asking about the FD if the same question ask you about redundancy.
+
+130
+01:08:05,990 --> 01:08:37,610
+let's assume if the same question asked you about redundancy if the same question asked you only about redundancy only about redundancy then what will happen okay so now it will be more than zero it will be more than zero okay but less than three enough it will be more than zero but less than three enough is this clear tell me okay so the uh because of fd there will be no redundancy because of fd
+
+131
+01:08:37,850 --> 01:09:09,980
+there will be no redundancy so definitely less than three enough definitely less than three enough right yes or no because three enough can also have this three enough can also have fd this three enough can also have this three enough can also have redundancy caused by fd's redundancy caused by fd's okay so definitely less than this but more than zero okay so that will be your answer what is f plus f plus is closer of fd
+
+132
+01:09:10,780 --> 01:09:48,630
+We already know what is F plus. F plus is closer of F. Closer of F. Set of functional dependency. Have we seen this concept? Nikhil, you have set of functional dependency. Can you find the closer of F? Can you find F plus? Nikhil, F plus, you have set of functional dependencies. F is set of functional dependencies. We have already seen how to find closer of F. If you have set of functional dependency, you have set of functional dependencies F, you can find the closer also.
+
+133
+01:09:49,250 --> 01:10:25,340
+You can find the closure also, you can find the minimal cover also. You can find the closure also, you can find the minimal cover of F also. So both we have already seen. This we have seen, this we have seen. For this, we have also done the questions of Ulman. Yes or no, do you remember? We have done the Ulman questions. Anyone remembers it? We have done Ulman questions. Okay. So anyway, now let's take a small break. After the break, we will start the next session. Okay. MVD is not FD.
+
+134
+01:10:25,890 --> 01:10:56,080
+FD is MVD, MVD may not be FD. Mavith, Mavith, every FD is MVD, but MVD may not be FD. Okay, it's like MVD is superset of FD. MVD that is superset of FD. That covers FD. MVD will cover FD. But anyway, don't worry about it. Okay, so let's take a, yeah, after the break, we will see 3NF and BCNF decomposition. After our class, compiler class will start. Okay.
+
+135
+01:10:56,300 --> 01:11:06,770
+So in the next session, we will finish this three and a half BCN of decomposition. Okay. So let's start in five minutes. Is that clear? In five minutes, we will start. Okay. Thank you, everyone.
+

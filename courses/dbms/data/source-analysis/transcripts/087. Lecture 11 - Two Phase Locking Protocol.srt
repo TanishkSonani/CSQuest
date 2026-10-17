@@ -1,0 +1,884 @@
+1
+00:05:17,070 --> 00:05:48,200
+Hi everyone. So let's start now. In this session, we will study two phase locking protocol. In the last session, we have already seen the locking protocol, the general log based protocol we have already seen. And now we will study the two phase locking protocol, the two phase log based protocol. The name itself is telling you only one extra rule we have to the previous locking protocol, only one rule. Okay. And that rule is basically two phase rule.
+
+2
+00:05:48,640 --> 00:06:16,240
+Okay, so we will discuss that so the content of this lecture is to phase locking protocol and deadlock handling Let me tell you simple thing that from this topic a lot of questions are coming in the gate exam from this topic deadlock handling so Five questions five questions as it is have come from this topic Okay, and those questions all of them are very similar to each other and all the questions are from standard books
+
+3
+00:06:16,660 --> 00:06:46,300
+okay so these concepts this is a very important concept actually let me tell you this two phase locking many people think the many students they think that this two phase locking is very important but actually in the gate exam most of the questions are coming from this topic okay so this deadlock handling is I can say from gate exam point of view it is more important and of course this two phase locking is also another important topic so let's start now in the last class we have seen the locking protocol correct okay
+
+4
+00:06:46,520 --> 00:07:16,160
+So, now, all the things that we have seen in the last class, those you can just go through. Now, what was our conclusion? What was the conclusion? This was the conclusion, right? Correct? That the general scheme that you have, the log-based protocol that you have, like the normal log-based protocol that we have, in which we have shared log, exclusive log, okay, read-write log we have. So, this protocol is basically, it does not enforce, it does not, I can say, guarantee serializability.
+
+5
+00:07:16,450 --> 00:07:40,170
+It does not guarantee starvation. Starvation is possible. Deadlock is possible. Inconsistency possible. So basically nothing is good. Yes or no? In this protocol, in the general log base protocol, in the locking protocol, nothing is good. Everything is basically bad because deadlock possible. Starvation is also possible. Both these things possible. And serializability is not guaranteed. Unserializable schedule is also possible.
+
+6
+00:07:40,620 --> 00:08:01,720
+okay so that is the reason serializability is not guaranteed so isolation is not preserved so I can say inconsistency is possible so we need more rules now if you add just one simple rule then you will get two phase locking protocol okay the name itself is telling you two phase means there are two phases okay this is the simple concept now
+
+7
+00:08:02,030 --> 00:08:29,270
+Let me tell you that this is a set of protocols. There are many two-phase locking protocol. This two-phase locking protocol via many two-phase locking protocol, like we have basic two-phase locking protocol. It is also by default 2PL. Okay. So there is something called like basic 2PL or you can simply call it 2PL. There is a 2PL with log conversion. There is a conservative 2PL. There is a strict 2PL and there is regress 2PL. So these are the different different type of
+
+8
+00:08:29,880 --> 00:08:58,660
+2PL 2 phase locking protocol okay 2PL 2 phase locking protocol now let's see so we will start with the basic 2 phase locking protocol in the basic 2PL what happens let's check it out so there is only one extra rule what is that only one extra rule before we see that rule let me tell you that every transaction individually will follow this rule okay the rule that I will tell you now
+
+9
+00:08:58,970 --> 00:09:28,540
+every transaction will individually follow this rule okay is this clear to everyone like schedule will not follow this rule of course automatically schedule will also follow but you can see the this is the responsibility of the transaction that transaction will follow these rules is this clear to everyone who is whose responsibility is this like whatever rule I will tell you that rule is following that rule is the responsibility of transaction okay now let's see what is that rule
+
+10
+00:09:28,830 --> 00:09:59,490
+that rule is basically a simple rule we have in this two phase locking protocol in this two PL two phase locking protocol in this two PL protocol what we have we have all the rules of the previous protocol okay what are the rules here let me tell you the rules are like this all the general locking rules we have all the general locking rules that we saw in the last class okay all those general locking rules we have but there is additional rule
+
+11
+00:09:59,850 --> 00:10:29,600
+there is additional rule that is locking and unlocking will happen in two phases there is something called lock phase okay there is something called lock phase and there is something called unlock phase means locking and unlocking you cannot mix are you getting my point you cannot mix locking and unlocking there is a phase in which you will do locking and there is a phase in which you will do unlocking so there are two phases one is lock phase another is unlocking phase what it simply means that
+
+12
+00:10:29,940 --> 00:11:01,140
+And who will do this? Transaction. Okay, whose responsibility is this? All these rules will be followed by individual transaction. So every individual transaction has to follow these rules. All these rules will be followed by individual transactions. Okay. Now, what this rule number two is telling you? So what are the two phases? What is this concept? This concept is saying that if there is a transaction, let's assume there is a transaction, you have a transaction T.
+
+13
+00:11:01,770 --> 00:11:30,280
+and if this transaction T wants to lock item unlock item then then what it has to do this transaction basically there is there is a phase in which it will do the locking so there is a phase in which it cannot do the unlock this is the locking phase okay this is the lock phase in which it can do the locking it is also called growing phase you can also call it a growing phase because in this phase it will keep getting the locks
+
+14
+00:11:30,690 --> 00:11:58,330
+okay it will keep getting the logs for example in this in this phase it can request logs okay so basically in this phase it will request logs are you getting my point in this phase it will request all the logs all the logs it will request in this phase now in this phase it can request like this shared log on item a it is fine it can request exclusive log on item b that is fine it can request shared log on item c that is fine so basically
+
+15
+00:11:58,720 --> 00:12:26,330
+it will request all the locks okay in this page then it can do some work then it can do some work so you can see that this is the last lock are you getting my point this is the last because this is the locking phase and now the locking phase is over so this is the last lock request this is the last locking request or I can say this is the last locking point remember last
+
+16
+00:12:26,690 --> 00:12:54,820
+After this locking cannot be possible. Now you can do some work and then you will start the This is your unlocking phase. So basically what we are doing, what we are doing, we are dividing the locking phase and unlocking phase. We are dividing in the locking phase. You cannot do unlocking. Here you cannot unlock and in this phase, you cannot lock. Okay. In this phase, you cannot request for lock. In this phase, you cannot unlock. Is this clear to everyone?
+
+17
+00:12:55,000 --> 00:13:25,350
+So this is your unlocking phase. In this phase, you can unlock. This is also called shrinking phase. This is also called shrinking phase because now you will lose all the locks, all the looks, all the locks that you acquired here, okay, that you have taken here. Those locks you will unlock here. So you can say, for example, you can say unlock on a, you can unlock b, you can unlock c, something like that. So you can notice this is what this is first unlock.
+
+18
+00:13:26,340 --> 00:13:54,200
+This is the first unlock. Okay, that's it. Is this clear to everyone? See, this is very simple rule. Okay, very simple rule. All the general rules that we have, all the common sense rule that we have. In the last class, we have seen the general locking rules. What are the general rules? Very simple, like before you access any item, you have to take a lock on that. If you want to read, you can take shared lock. If you want to write, you can take exclusive lock. Okay, so basically,
+
+19
+00:13:54,510 --> 00:14:24,450
+these are the general rules now after the general rules only one rule we have to add and that is what you do locking unlocking don't mix okay so this this rule number two what it says it says don't mix locking unlocking don't mix don't mix lock unlock okay don't mix locking unlocking instruction unlock instructions is this clear don't mix them keep them separate so there is a there is a phase in which you can only do the locking
+
+20
+00:14:24,830 --> 00:14:51,960
+in this phase you cannot do unlocking in this phase you cannot do you cannot request for lock okay so there are only these points so you can see there is a last locking request this is the last locking request and there is a first there is a first unlock request okay in this phase you cannot do any unlocking sorry you in this phase you cannot request for any lock so finally I can say for any transaction if you take any transaction
+
+21
+00:14:53,170 --> 00:15:23,990
+this will happen for every transaction remember like whatever transaction you take this transaction as I told you this transaction in this here it can request logs okay so in this this is as I told you this phase as I told you this this phase this is your growing phase okay this is your growing phase means this is locking phase in this phase you cannot you cannot unlock
+
+22
+00:15:24,250 --> 00:15:56,140
+in this phase you cannot unlock okay and remember once you start unlocking once you start unlocking like this is your first unlock this is this is the first unlock once you start unlocking and remember this is your last lock this is your last lock so this is the last lock request i can say this is the last lock request so now what i'm saying that this is the first unlock now in this phase this you are shrinking
+
+23
+00:15:56,450 --> 00:16:26,310
+this is a shrinking phase in this shrinking phase what you cannot do in this shrinking phase you cannot request for lock cannot request for lock okay is this clear we cannot request you cannot request for lock okay so very simple extremely simple point now this is called lock point this last lock request this is called lock point okay so this this point where you are doing the last lock request
+
+24
+00:16:26,620 --> 00:16:57,310
+this is also called lock point clear this is called lock point lock point means that you are doing the last lock request at this point of time you are doing the last lock request after this you will not do any lock request this is the last so this is called lock point so lock point means at this point of time you are doing the last lock request after this you will never do the lock request so that is called lock point I hope this point is clear isn't it simple
+
+25
+00:16:57,680 --> 00:17:28,740
+2 phase locking only simple rule only simple rule that locking unlocking you don't mix once you start unlocking don't request for lock okay if you want to request for lock do it before unlocking any item is this clear to everyone please tell me let me know okay so very simple point so once you once you do your first unlock then you don't request for lock so you can see this is two phase locking protocol one protocol and this will ensure
+
+26
+00:17:29,090 --> 00:17:56,150
+conflict serializability this protocol says that if you if every transaction follows these rules then every schedule that will be generated every schedule that will be created in the future that schedule will be conflict serializable so this protocol will ensure serializability conflict serializability it will ensure and this protocol says that each transaction issues lock and unlock request in two phases
+
+27
+00:17:56,570 --> 00:18:24,400
+in the growing phase you can request for locks you can obtain locks but you cannot release any lock in the shrinking phase you can release locks but you cannot request for any locks so you can see initially tell me in which phase you are initially you are in the growing phase because initially you will request for the locks so initially a transaction in the growing phase it will acquire locks as needed once you start releasing the lock
+
+28
+00:18:24,640 --> 00:18:58,440
+Okay. Once you start unlocking, then you enter into the shrinking phase and after that you cannot request for more logs. Okay. After that, you cannot issue more log request. So simple point. So this is a simple rule. Please tell me. So remember this is a note that once you do your first unlocking, once you do, once a transaction, once a transaction T does fast unlocking, fast unlock. Okay.
+
+29
+00:18:58,800 --> 00:19:34,070
+Once the transaction does first unlock then it enters it enters into which phase tell me it enters into shrinking phase Okay, then it enters into shrinking phase in which in which T cannot request for any lock T cannot request for any lock for any locks you cannot request so once you start basically once you do your first unlock
+
+30
+00:19:34,330 --> 00:20:04,960
+then you are entering into the shrinking phase that's it very simple okay i hope this point is clear now what this protocol says let me tell you it's like this so you are in the growing phase in the growing phase you are acquiring the locks okay you are acquiring the locks then there is some constant phase then fast unlock so you can see this is the point where you do the fast unlock so this is the point of fast unlock clear this is the point of fast unlock this is the fast unlock point
+
+31
+00:20:05,320 --> 00:20:39,750
+this is the last lock point this is the last lock request and this last lock request this is also called lock point this is also called lock point we also called lock point okay so this point remember this point is called lock point please understand this point is called lock point that this is the last point where you are making a request for locking okay so this is called lock point I hope all these points are clear now what this protocol says
+
+32
+00:20:40,490 --> 00:21:20,520
+that we will see this protocol says that this 2PL protocol what it says it says that if every transaction follows remember if every individual transaction if every transaction individually follows two phase this two phase locking if every transaction individually individually follows two phase locking rules
+
+33
+00:21:21,100 --> 00:21:56,410
+2PL rules okay is this clear if every transition individually follows 2PL rules then every schedule that will be generated then every schedule that will be generated okay will be will be conflict serializable will be conflict serializable okay so this is something important that all you have to do
+
+34
+00:21:56,780 --> 00:22:26,370
+you don't have to do anything just make sure that every transaction follows all the 2PL rules and if every transaction is following 2PL rule if every transaction following 2PL rules then you can say every transaction is 2PL if every transaction is 2PL then every schedule will be conflict serializable is this clear? tell me if every transaction is 2PL 2 phase locked if every transaction is 2PL means 2 phase locked okay
+
+35
+00:22:26,730 --> 00:22:56,110
+your transaction is 2PL, then I can say that every schedule that will be generated will be conflict serializable. Okay, is this clear? All you have to do, make sure that every transaction individually is 2PL. If every transaction is 2PL, then you don't have to worry about anything. Then automatically every schedule that will be generated in the future, that schedule will automatically be conflict serializable. Let's see this question. Is this transaction two phase?
+
+36
+00:22:56,380 --> 00:23:32,980
+is this transaction 2PL look at this transaction and tell me is this transaction 2PL on your screen is this transaction 2PL tell me so you can you can notice that once you do the unlocking you cannot do locking okay look at the first unlock look look look look look look look at the first unlock this is your first unlock okay this is the first unlock after this you cannot do locking is this clear or not
+
+37
+00:23:33,190 --> 00:24:07,750
+this is the fast unlock so if you do the fast unlock it simply means this is what it simply means this is what this is a shrinking phase do you agree this is a shrinking phase this is shrinking phase in the shrinking phase you cannot request for lock okay so this is invalid this is invalid in 2pl protocol in 2pl protocol this is invalid so this transaction is not 2pl this transaction
+
+38
+00:24:08,120 --> 00:24:36,400
+is not i can say this transaction is not 2pl clear very simple is this clear to everyone so once you do the unlocking once you start unlocking you cannot request for lock okay how are you requesting for lock like once you start unlocking you cannot do this this request for lock you cannot do okay so don't mix lock comma unlock initially you are in the locking phase initially you will lock all the items you will start locking so initially you are in the locking phase
+
+39
+00:24:36,700 --> 00:25:08,400
+Once you do the unlock, the first unlock will take you to the shrinking phase. In the shrinking phase, you cannot do any lock request. So this lock request, this is invalid. Now let's see the next question. Tell me about this one. What is the answer for this question? Look at this transaction and tell me, is this two phase? This transaction is 2PL or not? Mavith is saying that, Sir, here we are only interested in CS, not VS. Mavith, VS is not practically implemented. This view serializability
+
+40
+00:25:08,720 --> 00:25:36,300
+it is not practically implemented. No protocol will implement view serializability. Okay, Mavith, because that is an NP complete problem. So all the protocols that we have in your real life, in the practical life, all the DBM software that you have, they will only use conflict serializability. They will only implement conflict serializability because we cannot implement view serializability
+
+41
+00:25:37,780 --> 00:26:05,780
+that is a NP complete problem of course you can implement but it will take a lot of time okay this view serializability it is a very I can say it is a very time-taking process okay is this clear so all the all the all the protocols that are created they are created around conflict serializability each and every protocol that is created to implement the conflict serializability because that is very easily implementable okay that is not a NP hard problem
+
+42
+00:26:05,960 --> 00:26:35,690
+this view serializability is NP complete problem okay it means it will take exponential time so no DBM software will implement it so now let's see this question tell me so here you can see I'm talking about conflict serializability is this clear Mavith is this clear so this 2PL protocol says that this protocol it says that just make sure that every transaction will follow 2PL make sure every transaction is 2PL okay every individual transaction is 2PL
+
+43
+00:26:36,000 --> 00:27:05,190
+Then don't worry about the schedule. Every schedule that will be generated in the future will be conflict serializable. Is this clear to everyone? Every schedule that will be generated that will be generated in the future. Okay. That will be conflict serializable. Now let's see this question and tell me the answer. You have a transaction. Is this transaction 2PL? Is this transaction 2 phase? Is this 2PL transaction? So again, you can notice that once you do the unlocking.
+
+44
+00:27:05,560 --> 00:27:37,500
+then this is invalid again this is invalid okay again this is invalid in 2pl because because this is the first unlock this is the first unlock so because of this first unlock now you are in the shrinking phase okay in the shrinking phase how can you how can you make the lock request so you cannot make the lock request this this lock request you cannot do what about this question is this transaction 2pl
+
+45
+00:27:37,820 --> 00:28:10,220
+on your screen look at this transaction and tell me is this 2PL locking locking locking locking yes it is 2PL this is the shrinking phase this is the shrinking phase so you can notice this is actually 2PL because before this read operation you are doing the oh you also have to check the normal rules is this clear is this clear you also have to check the general rules like before reading the item you have to take the lock
+
+46
+00:28:10,500 --> 00:28:40,040
+so of course if you want to read you also want to write then you can take the exclusive lock this exclusive lock you can take and now you can read you can write then you want to read and write then you can take exclusive lock you can read and write so these rules are also you have to check is this clear to everyone please tell me you have to check the normal rules also the general rules also you have to check don't violate the normal general rules okay so you can see yes this is a yes this is this transaction is 2pl
+
+47
+00:28:40,420 --> 00:29:13,680
+but this transaction is not a 2PL okay yeah this is very similar to that okay so now let's see this 2PL what about this question the last question is this transaction 2PL again you can notice you are locking locking and at the it is not mandatory that you have to do the unlocking at the end the answer is yes but let me tell you it is not mandatory it is not mandatory that you have to do the unlocking at the end okay so you can notice not that
+
+48
+00:29:13,980 --> 00:29:43,100
+the unlock instruction do not need to appear at the end of the transaction for example in the transaction t3 you can move this for example what i'm telling you look at this look at this transaction this unlock what i'm saying for example in this t3 in this t3 this unlock you can do here also this unlock this is what i want to tell you that in this transaction what you can do
+
+49
+00:29:43,470 --> 00:30:14,170
+this unlock you can do here also like this unlock be you can remove from here let's remove it from here and this unlock be you can do here also at this sorry at this point also you can do the unlock be clear at this point also you can do unlock be now you can notice tell me is this to be it is this to face tell me the answer is this to face answer if I do this is this to face is the transaction to face yes it is still to face
+
+50
+00:30:14,460 --> 00:30:50,760
+because you can clearly see that at this point of time at this point of time I'm shrinking phase will start okay so this is your shrinking phase so this is the shrinking phase and you can do this okay what about this one a simple question I'm asking can I do this that unlock a I remove from here and can I do this unlock a here can I do this unlock a here tell me can I do this unlock a here tell me let me know
+
+51
+00:30:59,060 --> 00:31:35,820
+Can I do this unlock here at this point? Can I do that? So yes you can do actually because remember because you are only reading see here actually this based on this read you will display are you getting my point so you can do that because remember the read operation you are doing here the read of a see I can unlock a because I will not read a again I am not reading a again I am not reading a I am not writing a
+
+52
+00:31:36,690 --> 00:32:03,550
+What you are doing based on this read you are displaying. Okay. So this is also fine. Is this clear? So if I do this, this is also fine. This is also two phase locking. So there is no problem here also if you do like this because understand that you after this unlock a you are not reading a you are not writing a we are not writing a we are not reading it. So this is also perfect. There is no problem in this also. Okay. Is this clear? So this is also fine. Now let's move on.
+
+53
+00:32:03,800 --> 00:32:32,840
+so you can see this unlock instruction do not need to be at the end you can put it anywhere simple so this is a simple thing now let's see the next so the lock point we have already seen i told you that this point i told you that your future schedule will be conflict serializable now you might be thinking what will be the equivalent serial schedule are you thinking like that i told you that if every transaction is 2pl
+
+54
+00:32:33,200 --> 00:33:04,460
+if every transaction will follow 2PL then definitely every future schedule will be what I am telling you let me tell you at this point of time so for example this is an important note that so you can see that if every transaction if every transaction is 2PL if every transaction is 2PL if every transaction is 2PL then what will happen then every schedule generated in the future
+
+55
+00:33:06,250 --> 00:33:39,620
+Then every schedule that can be generated that can be or I can say that will be generated Okay, so that will be generated in the future Okay, so that if every transaction if every transaction is to PL then this will happen that every schedule that can be generated is a conflict serializable is conflict serializable and and the equivalent serial schedule and the equivalent serial schedule
+
+56
+00:33:42,840 --> 00:34:16,790
+and the equivalent serial schedule okay the equivalent serial schedule is in the order of locking point is in the order of locking point is this clear is in the order of lock point lock point so the lock point order this lock point order will decide the equivalent serial schedule which tell me is this point clear like the locking points will be there in the schedule don't worry this point will be clear right now it will it will not be clear what I'm telling you like there is a schedule let's assume
+
+57
+00:34:17,290 --> 00:34:45,570
+there is a schedule you have a schedule as in the schedule there are many transactions there is T1 there is T2 there is T3 there is T4 okay now let me assume everything is 2PL like this is following 2PL this is following 2PL this is following 2PL this is following 2PL okay every transaction is following 2PL if every transaction is following 2PL then is there a guarantee that this this trial this schedule will be confit serializable tell me
+
+58
+00:34:45,890 --> 00:35:10,950
+every transaction is 2PL this transaction 2PL this transaction 2PL this is 2PL this is 2PL every transaction is 2PL then what you can say then you can say this schedule that will be created this schedule that will be created okay this schedule will be conflict serializable okay this schedule whatever schedule will be generated this schedule will be conflict serializable so this is a simple point that
+
+59
+00:35:11,610 --> 00:35:39,670
+conflict serializable schedule will be generated only this schedule can be generated conflict serializable now what I am saying I am saying that what is the equivalent serial schedule now you might be thinking that yes it is a conflict serializable that is fine but what is the equivalent serial schedule these are the transactions what is the equivalent serial schedule so let me tell you that there will be a there will be a locking point right correct this is the lock point of t2 can I say this is the lock point of t2
+
+60
+00:35:40,000 --> 00:36:10,410
+lock point means you already know what lock point means this is the last lock this is the last lock request this is the last lock request by T2 yes or no so there is a locking point this is the locking point after this you can do unlocking whatever okay so there is a locking point similarly this T3 also has a locking point let's assume this T3 has a locking point this T4 also has a locking point let me assume this
+
+61
+00:36:10,700 --> 00:36:50,210
+let me assume this T1 has locking point here okay this T1 has locking point here and let's assume this T4 has locking point here locking point here so now you tell me okay now you tell me what is the equivalent concrete serial schedule let me know so this schedule is concrete serializable this schedule is concrete serializable but what is the equivalent serial schedule tell me if your schedule S is like this your schedule is S is like this that
+
+62
+00:36:50,590 --> 00:37:21,420
+the t2 has lock point here then you can see t3 lock point then t1 lock point then t4 lock point so here what will be the serial conflict serial schedule so you can check that so what i can say i can say schedule s s is conflict serializable okay s is conflict serializable and for this s what is equivalent conflict what is the equivalent serial schedule the equivalent serial schedule will be in the order of
+
+63
+00:37:21,710 --> 00:37:57,130
+log points ok so order of log points will decide that is the order of log points i can say in order of log points of transactions so finally your equivalent serial schedule that will be like this log point of t2 is happening first so t2 log because log point of t2 is happening first then log point of t3 then log point of t1 then log point of t4
+
+64
+00:38:01,270 --> 00:38:30,980
+is this clear to everyone? let me know please tell me is this clear? so the order of log points in the order of log points you will get the equivalent serial schedule so your equivalent serial schedule will be in the order of log points you can see this is happening fast okay so log point of T2 then you can notice log point of T3 okay then log point of T1 then log point of T4 so it will be T2 T3 T1 T4 is this understood to everyone please tell me
+
+65
+00:38:31,410 --> 00:38:58,780
+so you can see that of course it can be proven you might be thinking sir are you you are not proving right yes or no you might be thinking that I did not give you the proof so let me tell you even the books also do not cover the proof okay they also give this as a homework basically they leave the proof for the user so we will not go into that that is not required is this clear actually proof is by induction you can see in this type of questions in this type of statements
+
+66
+00:38:59,450 --> 00:39:29,040
+Because the proof is by index on what? Tell me. The proof is by index on what? Index on number of transactions. Okay. Index on number of transactions. So the proof is actually very simple. Actually, it is not complicated proof. But of course, it is not required. The proof is by index on the number of transactions. So anyway, we will leave the proof. But it can be shown that two phase locking protocol ensures conflict serializability. Now consider any transaction.
+
+67
+00:39:29,440 --> 00:39:58,970
+Okay, whatever transaction you consider, consider any transaction. What is the logpoint? The logpoint, the point in the schedule where the transaction has obtained its final log, the end of the growing phase, that is called logpoint of the transaction. Okay, now, transaction can be ordered according to their logpoints, means serializability ordering for the transaction that is the order of logpoints. This is the complete, this is the complete 2PL summary.
+
+68
+00:39:59,980 --> 00:40:27,650
+This is the entire 2PL summary. So what this 2PL says is this clear to everyone? Let me know. So all you have to do just make sure that every transaction will follow 2PL. Every transaction will do locking and unlocking into phases. All you have to do just simple thing. Okay. If you have 100 transaction, just make sure that every transaction will do individual transaction. Look at the individual transaction. This transaction will do locking and unlocking into phases.
+
+69
+00:40:27,980 --> 00:40:56,260
+there will be lock phase, there will be unlocking phase, okay, there will be growing phase, there will be shrinking phase. Now, just make sure that every transaction has, this every transaction is 2PL, okay. Then automatically what will happen, whatever, whatever schedule will be created, whatever schedule will generate in the future, whatever schedule will generate, okay. That schedule will be conflict serializable, okay. Is this clear? So, this two-phase locking protocol will ensure
+
+70
+00:40:56,780 --> 00:41:28,360
+that only conflict serializable schedule will be generated and once the schedule has been generated what is the equivalent serial schedule that is the order of log point in the schedule okay is this clear simple very simple point so in the order of log points of transactions in the schedule this is the concept did you understand this concept this is your 2pl now we are going to take a lot of questions back to back back to back many questions we will take
+
+71
+00:41:29,160 --> 00:41:58,060
+a simple thing I am asking if I give you a schedule okay given a schedule how will you check it can be generated by 2PL or it cannot be generated by 2PL how will you check that if I give you a schedule let me assume I give you a schedule how to check it can be generated by the 2PL or not no I am asking I will give you a schedule how to check how to check can or cannot how to check if
+
+72
+00:41:58,670 --> 00:42:31,700
+as can be generated or cannot be generated can be or cannot be can not be generated by 2pl how will you check you will try to generate it right yes or no so see remember if I give you a schedule given a schedule you have to check can it be generated by 2pl okay then what you will do you will try to generate it
+
+73
+00:42:32,140 --> 00:43:03,440
+just follow all the rules and try to generate it if you can generate it then yes it can be generated else it cannot be generated yes or no so basically what you do you try to generate it put your best efforts you try to generate try to generate as while following 2PL rules okay while following 2PL rules so make sure that you follow 2PL rules so keep following 2PL rules for each transaction
+
+74
+00:43:07,510 --> 00:43:36,570
+for each transaction you keep following 2PL rules are you getting my point is this clear to everyone what is happening so what you do you try to generate it try to generate this as while following 2PL rules for each transaction let's see this will be clear with example now let's see this example can it be produced by a two phase locking scheduler on your screen I have given you a schedule a schedule is given to you and the question that I'm asking
+
+75
+00:43:37,020 --> 00:44:06,230
+Can it be produced? Okay, are you getting my point? What I'm asking? I'm asking, can it be produced? Can you produce? Can, can you produce? Can you generate this schedule? Okay, this schedule is given to you. Can you generate this schedule using 2PL? So what you will do? Let's try to generate it. Remember, we have to generate this schedule. This schedule we have to generate. So what I will do? Let's check. Let me check. Can I generate it?
+
+76
+00:44:07,280 --> 00:44:37,160
+Okay, I will follow all the 2PL rules. So let me check, can I generate it? So I know, I know that, see, okay, what I know. Okay, just focus on T1, T2, T3 and tell me, I know that this D, did you notice this D has no problem? This D has no problem. Did you notice? Correct or not? This D has no problem. This D has no problem. So what you can do very simple, you can just simply lock, which lock you will take?
+
+77
+00:44:38,020 --> 00:45:08,450
+on the item T3 which lock you will take which lock you will take on the item D on the item D which lock you will take you will take exclusive lock because remember you have to read also you have to write also so you can take exclusive lock on item D are you taking or are you requesting this instruction is a request instruction or this is a like what is this instruction this is a request you are requesting to whom you are requesting to whom this request will go
+
+78
+00:45:08,700 --> 00:45:36,620
+this request will go to the lock manager or concurrency control manager okay so remember this request will go to the concurrency control manager or you can say lock manager so anyway this you will take this exclusive lock on D it will be granted once it will be granted then there is no problem now you can read this also now you can read now you can write this also now you can do the unlocking now you can unlock D so there is no problem here correct
+
+79
+00:45:36,940 --> 00:46:06,280
+now let's see what else I can do but you can see okay after this is after this uh so this this operation is done we have completed this operation now remember okay one by one we will do let's see one by one because we have to generate this schedule we have to focus on this schedule so now I can do this now let's see can I do this yes I can do this what I need to do I need to take exclusive lock on a this exclusive lock on a I have to take now I can do this no problem
+
+80
+00:46:06,780 --> 00:46:35,650
+Okay, now what I have to do? I have to do read B. Can I do this? Yes, I can take shared lock on B, right? Correct. I can, I can take this shared lock, this shared lock on B I can take. Now I can read the B. There is no problem. Now, can I write D? Yes, of course, I can write D. There is no problem. So now I can write D. Okay, what else I can do? Can I write B? No. Okay, can I take exclusive lock? Can I take exclusive lock?
+
+81
+00:46:35,890 --> 00:47:07,010
+Okay, tell me, tell me, tell me now, now something beautiful is coming. Now something beautiful. I have taken shared lock here. Can I take exclusive lock? Can I take exclusive lock on B? I need exclusive lock on B. You know that I need this. Correct. You know that I need this, but can I do so? This will not be granted. This this request I can make. We can request, but this will not be granted, right? So can I say this is this schedule cannot be generated?
+
+82
+00:47:07,790 --> 00:47:38,490
+Can I say, this schedule can not be generated? You can not generate this schedule, can I say? Because there is a problem. Because there is a problem. So can I say this schedule can not be generated? The answer is no. Remember, you can still generate it because what you can do, you can unlock B. But again there is a problem. Again there is a problem. What is the problem now? Now what is the problem? If I unlock, then what is the problem?
+
+83
+00:47:39,210 --> 00:48:08,690
+there is a problem there is a problem you tell me what is the problem if you unlock now now how can you do this because now can I do this tell me tell me can I do this a simple question I am asking once you unlock can you request for lock after unlocking can you request for lock you cannot do that you cannot do that okay so once you unlock you cannot do that so what you will do Indian mentality what is our Indian mentality
+
+84
+00:48:09,360 --> 00:48:38,500
+So you know that you have to unlock this you already know in your mind. You have that you have to unlock. Okay, so let's Let's take the lock also correct or not. Let's immediately take the lock also then let's unlock be smart Hello, the mark say yes or no, isn't it? Are you getting my point? See what I've done. I have taken the lock only then I have done the unlocking now I am unlocking be now this is granted now this will be granted
+
+85
+00:48:39,210 --> 00:49:12,370
+Okay, now this will be done. Now this will be done. Now there is no problem. Very, very, very simple. Now you can unlock B. Now you can unlock A. Now you can unlock, unlock D. Okay, now you can unlock D. So there is no problem here at this point of, okay. Oh, there is another problem. What is that? See, there is another problem. You are taking this unlocked serial log. This you are taking. So what you can do actually,
+
+86
+00:49:18,030 --> 00:49:48,720
+here you can unlock this D okay and at this point of time you can take this actually this this lock that you are taking what you do you take at this point of time somewhere between this okay so between this and between this between these you do this thing okay are you getting my point so in this area you do these things in this area because this okay I hope like I think you did not understand so what I'm telling you that
+
+87
+00:49:49,200 --> 00:50:19,300
+you unlock this D here once you unlock this D then before this happens before this happens what you do you take this you you take this shared lock on D you also unlock B okay so this is the idea is this clear to everyone let me know is this clear see very simple step by step what I'm saying let me let me just tell you again what we are doing let me take it let me give you the time also like what we will do
+
+88
+00:50:19,560 --> 00:50:46,200
+at time 1 we will take the this request this request we will make okay so this exclusive lock on D at what time time 1 then at time 2 this operation will be happen okay this is your time 2 now at time 3 what will happen exclusive lock on A I will request this is the time number 3 then time number 4 this will happen okay next after that what I will do
+
+89
+00:50:46,420 --> 00:51:17,780
+I will take a shared log on B. This will happen at time 5. Then at time 6, this will happen. Then at time 7, what I will do? At time 7, this will happen. Okay. At time 7, this will happen. Then at time 8, what I will do? I will unlock this D at time 8. At time 8, I will unlock this D. Now what I will do? Now what I will do? During this period. So time 8 is done. Okay. After this time 8, what I will do? At time 9, I will
+
+90
+00:51:19,730 --> 00:51:46,880
+at time 9 okay I will take this lock I will take this shared lock on B at time 9 at time 10 what I will do I will unlock B at time 11 what I will do at time 11 what I will do I will request for lock on B at time 12 I will do this operation at time 13 I will do this operation and then you can unlock the remaining things so this is this schedule can be generated yes or no
+
+91
+00:51:47,280 --> 00:52:16,220
+Can this schedule be produced? Can this be produced? Yes. So this schedule can be produced by the 2PL schedule. So this 2PL schedule can produce. This can is important. So this 2PL schedule can produce. And you can also check that this is conflict serializable. Without any tension, you can verify this verification you can do that this is conflict serializable also. Let's make the precedence graph for this. What are the precedence graph for this? Tell me.
+
+92
+00:52:16,860 --> 00:52:46,190
+This T1 is there, this T2 is there, this T3 is there. Let's make that precedence graph. Let me create the precedence graph. So you can see there is no conflict here. There is no conflict here, but there is a conflict here. There is a conflict. So from T3 to T2, there will be one this. Next, you can notice what is the conflict. There is no conflict. There is a conflict. So from T2 to T1, there is a conflict. And you can notice that what else is happening?
+
+93
+00:52:46,800 --> 00:53:17,470
+from t2 to t1 there is a conflict any other conflict do we have? do we have any other conflict? okay there is no other conflict so you can notice this is the conflict serializable this schedule let's call this schedule as so you can notice as is conflict serializable so this is not a coincidence and what is the equivalent what is the conflict equivalent serial schedule the conflict equivalent serial schedule that will be t3 then t2 then t1
+
+94
+00:53:17,890 --> 00:53:49,990
+okay so tell me tell me tell me are we getting this T3 look at the log points what are the what is the log point here so you can see this is the log point right this is the log point of T3 do you agree this is the log point of T3 because this is the last locking point so this is the log point this is the log point of T3 so T3 will happen first you can check T3 will happen first okay T3 is happening first log point of T3 then you can notice
+
+95
+00:53:50,400 --> 00:54:26,310
+What is the lock point of T1? Where is the lock point of T1? This is the lock point of T1. This is the lock point of T1 and where is the lock point of T2? This is the lock point of T2. Now you can easily see what is the lock point order? What is the lock point order? Lock point order in schedule S. Lock point order in schedule S that you can see T3, then T2, then T1. This is the lock point order.
+
+96
+00:54:27,210 --> 00:55:01,810
+So everything is making sense. Yes or no all the all the statement that we have seen all those statements are true Do you agree all the statements are true? Okay Every statement that we have seen every statement is true that you can see the order of log points the log point order in s Okay, so that is that is this and this is basically your equivalent serial schedule This is your equivalent serial schedule and you can notice this is a
+
+97
+00:55:03,660 --> 00:55:31,390
+2PL. Mavith is saying that if it is confit serializable then it is 2PL. Is it true? No, that is not true. We will see that. Counter example we will see. But right now did you understand this question? Did you clearly, crystal clearly understand this question? A schedule is given to you. Okay, so this schedule is given to you. Can you generate this schedule? Can we, can we produce this schedule? This is a simple question. Can it be produced by a 2PL scheduler? If there is a 2PL scheduler, can it generate this schedule?
+
+98
+00:55:31,970 --> 00:56:06,510
+so that we have done so you can check yes it can be generated okay the answer will be yes it can be generated you can notice yes so yes this can be generated and you can you can notice that this is a conflict serializable schedule this schedule is conflict serializable and you can notice the log point order will give you the equivalent serial schedule I hope this point is clear now let's see let's move on let's take this question can you solve it can you take two minute and solve this question find out
+
+99
+00:56:07,670 --> 00:58:10,260
+Can it be produced? Can you produce this? Can 2PL cellular produce this? Somehow, somehow, somehow can you do this? Like this scheduling somehow we have to do this. Can you do this? Please try this. So let's see this. Can we, can we do this using 2PL? Can we create this schedule? So let me try. So we want to create this schedule. Remember this schedule we want to create like this now.
+
+100
+00:58:10,540 --> 00:58:41,060
+you tell me what i can do at this point i can request us i have i have no other choice i need to request lock on a exclusive lock on a i need there is no other choice do you agree there is no other choice do you agree okay so we have to do this this exclusive lock on a we have to do okay so this is your one at time t equal to one this is a request we are making please give us exclusive lock on a
+
+101
+00:58:41,320 --> 00:59:09,820
+this t1 is making this request to the concurrency control manager please give me exclusive log on it okay now see for this what we need to do in your mind you just think about it what we need to do if you want to do this operation after this after this operation if you want to do this operation what you need to do you definitely need to unlock but but but but if i do the unlock then i cannot do this so what what i will do
+
+102
+00:59:10,590 --> 00:59:38,430
+Hello the mark say what I will do tell me so in this I need to do this operation so I cannot unlock so what I will do I will take the lock on this also very good so what I will do at this point of time so this is your time t equal to 2 this is your time t equal to 2 this operation will happen and then at time t equal to 3 you can do this at time t equal to 3 what you can do you can you can take exclusive lock on B
+
+103
+00:59:39,610 --> 01:00:09,460
+Okay at time t equal to four what you can do you can unlock a is this clear at time t equal to four you can unlock a so at time t equal to three at time t equal to four this is what you can do very good so far there is no problem we have done this now what you can do you are unlocking a so you can take shared lock so this is your time t equal to five on time t equal to five you can take a shared lock on a on shared lock on a you can request and it will be granted
+
+104
+01:00:09,860 --> 01:00:38,150
+okay then you can do this operation at time t equal to six you can do this operation then uh then what i'm saying then then then then now now now now you tell me now can i do this operation now are you getting my point so now can we do this operation it's like it is like this it is a simple point simple point this operation we have to do after that this operation we have to do there is no choice because because
+
+105
+01:00:38,520 --> 01:01:09,420
+this T1 will unlock B here only tell me one thing can T1 unlock here can T1 unlock here unlock B T1 unlock B here no because if you unlock B here then you cannot write on B so definitely this T1 will unlock here I can say in this range T1 can unlock B in this range T1 will unlock B in this range I can say in this range T1 can unlock B
+
+106
+01:01:10,130 --> 01:01:47,440
+simple point so if t1 can unlock b in this range then definitely this is denied this is definitely not possible right at okay like i am saying that this is definitely not possible this is definitely this is definitely not a possible not possible before t1 write b so this schedule cannot be created is this created everyone please tell me this schedule cannot be created because
+
+107
+01:01:47,940 --> 01:02:19,740
+before this you cannot do this before t before t1 write b you cannot do this operation so definitely whatever you do you can do whatever you want to do okay you can never create this schedule so can it be produced the answer is no so the previous schedule cannot be produced so let's call it schedule as to so you can see that as to can not can never be generated by a 2pl schedule
+
+108
+01:02:21,260 --> 01:02:50,570
+generated by a 2PL scheduler ok clear to everyone please tell me did you understand this it can never be generated this H2 it can never be generated by a 2PL scheduler so some people what they say they say that this schedule this schedule is not 2PL some people will say some people will say that H2 is not 2PL but anyway you understood that this schedule can never be generated by the 2PL scheduler is this clear
+
+109
+01:02:51,060 --> 01:03:19,530
+Did you understand this? Can you see that this is purely analytical? Like this type of questions are purely based on your analysis. The only thing you can do is analysis in this type of questions. Okay, like synchronization. Yes, very good. In the synchronization, operating system synchronization, there also you do the same thing. Here preempt, here I will preempt, here I will not preempt, here I will run. Okay, I will preempt here, I will run here. So this type of things you do in the synchronization also.
+
+110
+01:03:19,900 --> 01:03:50,100
+Same things you do here also. So this is pure analysis, nothing else. Did you understand this particular question? Please give me yes or no. This particular question, did you understand that this schedule on your screen can never be generated by a 2PL scheduler? Okay, very good. So finally, now, okay, is this just for a moment? Is this conflict serializable or not? For a moment, let's check. Is this conflict serializable? Like the answer here, the answer is no, but is this conflict serializable?
+
+111
+01:03:51,510 --> 01:04:19,880
+Is this schedule? Is this schedule conflict serializable? Let's check. So let's make the precedence graph T1, T2, T3. Let me make the precedence graph. T1, T2, T3. So now you can check that there is a there is a arrow from there is a conflict pair. So T1 must happen before T2. T1 must happen before T2. Next you can notice. Yeah, there is T1 must happen before T2.
+
+112
+01:04:20,650 --> 01:04:50,150
+So you can see t1 must happen before t2 t1 must happen before t2 that is fine next Next next next there is no conflict next Next there is a conflict t3 must happen before t2 Okay, there is a conflict t3 must happen before t1 t3 must happen before t1 Okay, what about the next there is a conflict t1 must happen before t3 t1 must happen before t3 So this is not conflict serializable. Okay, this schedule is
+
+113
+01:04:50,640 --> 01:05:22,260
+neither confit serializable nor allowed by T2 so this schedule you can check so tell me if you already know this is not confit serializable can you guarantee that this cannot be produced by 2PL tell me simple question a very simple question I am asking so you can see this is T1 to T2 also there will be row so next you can see from T3 to T1 there will be row so like that so
+
+114
+01:05:23,000 --> 01:05:54,740
+So, in this question, you could have done, you don't need to do this. Remember? You don't need to do this. What you can say? You can simply say that because it is not, this we already know. This will help you very much. We know that allowed by 2PL implies a schedule allowed by 2PL. A schedule as allowed by 2PL. Allowed by 2PL. What that implies? That implies as conflict serializable.
+
+115
+01:05:55,200 --> 01:06:35,460
+right as conflict serializable so what is the contra positive what is the contra positive the contra positive let's take the contra positive this is the contra positive that is equivalent so the contra positive statement will be if s is not conflict serializable if s is not conflict serializable or I can do this it implies s is not allowed by 2pl it implies s is
+
+116
+01:06:35,790 --> 01:07:10,930
+not allowed by 2PL. Okay, so this will help you a lot. Is this clear? So if I ask you whether a given schedule is 2PL or not, first you will check, is it conflict serializable? So this is what I want to tell you. This is an important note that if a schedule S, so you have a schedule S, not conflict serializable. If it is not conflict serializable, then immediately you can say S not generated by 2PL. Immediately you can say that S not produced by 2PL.
+
+117
+01:07:13,040 --> 01:07:43,180
+S cannot be produced by 2PL but remember this is if this is conflict serializable then we cannot say anything okay if schedule S is conflict serializable then we cannot say then it does not imply that it will be generated okay so then it does not imply that it will be produced by 2PL so it is not guaranteed it may or may not be that we will see don't worry I will give you many example
+
+118
+01:07:43,740 --> 01:08:14,380
+where it is confused serializable but it may or may not be generated by 2PL ok may or may not be produced by 2PL now let's see this is the question I wanted to ask like just now Ekta is saying that may or may not be 2PL can I say schedule is 2PL can I say schedule is 2PL or who is 2PL schedule is 2PL or transaction is 2PL who is 2PL which of the following is called 2PL schedule is called 2PL or transaction is called 2PL
+
+119
+01:08:16,240 --> 01:08:42,250
+Tell me. Schedule is called 2PL or transaction is called 2PL. So the answer is transaction is called 2PL. Is this clear? Transaction is called 2PL. This transaction will satisfy the 2PL. It will satisfy 2PL property. Okay. It will satisfy 2PL property. I can say 2PL rules. It will do all these things.
+
+120
+01:08:44,800 --> 01:09:13,300
+Okay, is this clear to everyone? See, this is why I have taken this question. What is the reason I have taken this question? Because I have seen many students. Actually, even in the coaching institute also, what they do? They really don't understand what is this 2PL. They don't understand this. What they will say? They will just say, schedule is 2PL, schedule is 2PL, this schedule is 2PL, this schedule is not 2PL, this is 2PL, this is not 2PL. They really don't understand what they are doing. They are teaching the concepts, but they don't understand what they are teaching.
+
+121
+01:09:13,730 --> 01:09:44,140
+student is learning the concept student don't understand what he what he is learning see transaction has the 2PL property are you get him a point a transaction because remember you have a transaction this transaction will have the 2PL property a transaction T you have this transaction will have this property that there is a growing phase there is a shrinking phase please tell me is this understood so this transaction has the growing phase this transaction is two-phased growing phase shrinking phase
+
+122
+01:09:48,070 --> 01:10:17,170
+so transaction is 2PL or transaction is not 2PL so this 2PL is a property of transaction this schedule is either generated by 2PL or not generated by 2PL okay so remember for the transaction what we say for the transaction for this transaction what we say for the transaction T we say either is 2PL or you can say transaction is either 2PL or not 2PL either it is 2PL or it is not 2PL
+
+123
+01:10:17,660 --> 01:10:53,090
+okay so for the transaction this is what you will say either you will say okay this transaction is 2PL or you will say this transaction is not 2PL for schedule what you will say for schedule what you will say for schedule what you will say you will say is generated by 2PL schedule okay this schedule is generated allowed produced incurred this type of words are you getting my point this type of words
+
+124
+01:10:55,580 --> 01:11:36,970
+buy a 2PL cellular buy a 2PL cellular so this is what you do either you say that it is produced okay can be produced or I can say it can be produced or I can say is produced no problem so is produced is or can be okay so this is the point or you can say is never produced is not allowed by 2PL okay clear is this point clear so for the transaction we use this word
+
+125
+01:11:37,470 --> 01:12:06,720
+a transaction is 2PL or not 2PL a transaction is two-phased you have this transaction it will have two phases there is a growing phase shrinking phase so this this transaction has the for this transaction we say it is 2PL or not 2PL for the schedule what we say if there is a schedule for this schedule we will say that either it is generated this schedule is generated or this schedule is allowed or this schedule is produced or this schedule is incurred by a 2PL scheduler means by a 2PL scheduler it can be generated okay
+
+126
+01:12:07,150 --> 01:12:37,250
+Or I can say or I can say that it cannot be generated. It cannot be allowed by 2PL Cidule. Now, in some test series, in some Hululu test series by chance, if you see this word, actually not Hululu, but I can say if people say not that whenever you see this word that a Cidule is 2PL, what this means? If you see this type of thing in any test series, if you see this type of thing like Cidule S is 2PL, then you have to understand that they don't understand 2PL.
+
+127
+01:12:37,620 --> 01:13:09,840
+Okay, then few things you have to understand what are these the first thing is they don't understand what is 2PL the question maker Okay, the question maker does not understand what is 2PL But the question maker wants to say what is his feelings? Okay, what he feels so he wants to say when you say that schedule as is 2PL it means Remember this means what it means it means that it means that as can be generated
+
+128
+01:13:11,440 --> 01:13:42,400
+S can be produced by a 2PL cellular means by following 2PL rules you can generate this S can be produced. Is this clear to everyone now? So in the future if we use this word that schedule S is 2PL schedule S is not 2PL. If if I use this word sometimes I will use this word. Nope. Okay. So there's no problem in using this word, but I just want you to understand that if I use this statement
+
+129
+01:13:43,110 --> 01:14:13,030
+it simply means that I want to say that it cannot be generated okay will you understand or not in future if I use this word this statement if I use the schedule is not 2PL it means it means that I want to say that it cannot be produced by any 2PL scheduler okay now let's move on let's see this question so remember if every transaction individually is 2PL
+
+130
+01:14:13,470 --> 01:14:41,670
+then any schedule that can be generated will be conflict serializable second point now it is possible that so you can notice if schedule is 2PL then the schedule is conflict serializable as I told you but remember you might be thinking that in this standard resource this is given but there is a context also this is given in this resource this is also given this is also given okay so anyway what we are what we want to say that
+
+131
+01:14:41,890 --> 01:15:10,830
+This schedule is 2PL. It means this is a conflict serializable. But remember, there exist schedules which are conflict serializable but not 2PL. They are conflict serializable, but they are never generated by any 2PL scheduler. Let's take this schedule and let's verify. Let me verify this. So consider this schedule on your screen. You take this question as a homework, not as a homework, but as a classwork. So this T1, T2.
+
+132
+01:15:11,710 --> 01:15:44,510
+Transaction, I am giving you T1, T2, T3. Three transactions. And the schedule that is given to you is transaction one is writing item X. We are writing item X. Then T2 is reading item X. You are reading item X. Then T3 is reading item Y. Then T2 is reading item Z. And then T1 is writing item Y. Okay, look at this schedule. First you check is this schedule conferred serializable.
+
+133
+01:15:44,970 --> 01:16:23,370
+this is the first thing you do on your screen this is the schedule that is given to you is as conflict serializable is as conflict serializable let me check so you can see this is T1 this is T2 this is T3 so you have three schedules now so you can see there will be arrow from 1 to 2 because there is a conflict pair here so T1 must happen before T2 next you can notice
+
+134
+01:16:24,560 --> 01:16:59,240
+t3 must happen before this t3 this t3 must happen before t1 this t3 must happen before t1 so this is conflict serializable right yes or no isn't it so yes yes it is conflict serializable so the answer is yes and what is the conflict equivalent serial schedule conflict equivalent serial schedule that will be t3 t1 t2 okay so it will be t3 t1 t2 now
+
+135
+01:16:59,550 --> 01:17:39,560
+so you can see this is confit serializable but can you generate this using 2pl can this schedule be generated using 2pl can this schedule can be generated can you generate is using 2pl can 2pl generate it simple question can 2pl generate it let's check let's check you have to check you have to check so let's check can 2pl generate it can 2pl produce this schedule can this be produced let us check
+
+136
+01:17:40,770 --> 01:18:10,430
+so you can see there is no other choice we have to take exclusive lock on x okay this is what you have to do exclusive lock on x you have to take there is no other choice now now now there is a problem are a simple simple simple are a simple you tell me tell me if you want to do this definitely you have to unlock x correct so because of this because of this rx definitely you have to unlock x
+
+137
+01:18:11,670 --> 01:18:44,960
+if you have to unlock X then you have to take exclusive lock on Y is this clear step by step so you can notice because of this this will happen because of this RX because of this RX this unlock should happen if you are unlocking the item X then you should take lock on Y now there is a problem what is the problem now this unlocking will happen here correct here the unlocking will happen
+
+138
+01:18:45,230 --> 01:19:22,930
+unlocking of y will happen here if unlocking of y will happen here then this cannot happen okay this cannot happen clear or not is this clear or not so finally i can say that whatever you do this schedule cannot be produced so you can see this schedule look at this s this s is conflict serializable but not produced by 2pl okay but it is not produced by 2pl
+
+139
+01:19:26,250 --> 01:19:59,250
+So, did you understand this? So, did you understand 2PL? Please tell me. Finally, like, did you understand 2PL? Any type of question can you solve? Any type of question in the 2PL can you solve? Did you clearly, crystal clearly understood this 2PL? Okay, so these are important points as I told you that if your schedule is not a conflict serializable schedule, if you have a schedule S, there is a schedule S, now you can see that if S is not a conflict serializable,
+
+140
+01:20:00,230 --> 01:20:31,830
+then it means s not a 2PL okay it means s is not produced by 2PL but remember if this is not true this is not a true okay so very simple now let's move on let's see this question tell me the answer for this one on your screen this is the question please tell me does the following transaction we have two transactions do they follow 2PL do they follow two phase protocol
+
+141
+01:20:33,620 --> 01:21:10,650
+the question is asking do they follow 2PL protocol explain your answer if no then rewrite that new transaction such that so let's see this so you can clearly see that this unlock this is the first unlock after the first unlock you are making request this is the lock request so definitely this should not be allowed so this is invalid okay this is invalid anyone want to tell me what is this right lock request what this request is
+
+142
+01:21:11,050 --> 01:21:42,820
+right lock why this request this is your exclusive lock okay remember this is the exclusive lock and this is the shared lock now similarly you can see so again I'm telling you this is your actually exclusive lock this is the exclusive lock on why and this is the shared lock on X now same thing you can see here again the same thing this is the unlock and you can notice after unlocking you are doing the lock request so this is also not allowed so these are definitely not correct
+
+143
+01:21:43,980 --> 01:22:14,580
+Okay, very simple. So definitely this is also invalid. So both that I can say does the following followed answer is no. Answer is no. They do not follow 2PL. None of these transactions is 2PL. So what you can do? Can you convert them to 2PL? These transactions, can you convert? Can you convert into 2PL these transactions? Yes, I can convert what I can do. This right, this unlock why, where can I do this unlock why?
+
+144
+01:22:15,570 --> 01:22:49,490
+let me do this unlock why here I can do this unlock why okay so this unlock why I can do here now there is no problem this is what I can do unlock why I do here and the same thing this unlock X where where can I do this unlock X this unlocked X I can do here no problem okay so like this I can do there are many choices right of course you can do this unlock why here also here also here also here also here also so there are many choices
+
+145
+01:22:50,000 --> 01:23:27,270
+for this unlock y similarly there are many choices for unlock x you can do here also here also here also okay so this is how you can follow 2pl protocol now let's see this question so as i told you that when can you say schedule is legal under 2pl the question is after wx only not in t1 in the t1 in the t1 you are unlocking y yeah there is no problem we are unlocking y we can do that here
+
+146
+01:23:28,500 --> 01:24:02,380
+Is there any problem, Mahavit? In the T1, there is no problem. Yeah, yeah. After the right item X, I can do that. I can unlock Y here. After the right log, I can do it here. This unlocking, I can do here. I can do here also. I can do here also. Here also. Here also. Here also. All of them will follow. All of them will satisfy. Is this clear? The two-phase locking will be satisfied. This two-phase locking, it will be satisfied. Look at this two-phase locking. It will be satisfied.
+
+147
+01:24:03,500 --> 01:24:33,640
+Okay, let's move on. So when can I say schedule is legal under 2PL? When can I say? When can I say schedule is legal under any given protocol? If it can be possible schedule for set of transaction that follow the rules of the locking protocol. Okay. I can say that locking protocol will ensure conflict serializability if and only if if and only if all the legal schedules are conflict serializable. Okay. So these things we understood. Now let's see this question. Tell me the answer.
+
+148
+01:24:34,400 --> 01:25:05,320
+What is the first thing you will do in the gate exam? If this question comes, what is the first thing you will do? Yes, very good. First, you will check for conflict serializability. Very good. Please tell me, is this conflict serializable on your screen? This schedule you have. Let's see. So first, you will check for conflict serializability. So you can make T1, T2, T3, this diagram you can make. And you can check that this WA, there is nothing, there is no conflict.
+
+149
+01:25:05,880 --> 01:25:32,890
+there is a conflict from T2 to T1 there is a conflict from T2 to T1 this should happen so first T2 should happen then T1 should happen then you can notice there is a conflict from T3 to T2 T3 to T2 okay that's it so this is conflict serializable so can we do something like okay if this is conflict serializable so what we can say about 2PL it may or may not be 2PL right
+
+150
+01:25:33,190 --> 01:26:04,650
+so this is confit serializable but may or may not be 2pl correct may or may not be 2pl may not be allowed by 2pl either it may be allowed by 2pl or it may not be allowed by 2pl okay we cannot do some so let's try let's can can you generate this can you generate can you produce this using 2pl so let's check you have to take the exclusive log on a at this point at time number one
+
+151
+01:26:05,360 --> 01:26:32,070
+You will request for Exclusive Lock. Please give me Exclusive Lock on A. Okay. So now there is no problem because these people are not accessing. So there is no problem. You can do this. Then at time t equal to 2, you can do this operation. After that, what you can do? Yes, you can take shared lock on B. There is no problem. At time t equal to 3, you can do this. At time t equal to 4, you can do this. There is no problem. After that, what you can do?
+
+152
+01:26:32,330 --> 01:27:01,660
+at time t equal to 5 you can take exclusive lock on d this is what you can do then at time t equal to 6 you can do right lock right right operation you can do at time t equal to 6 so far there is no problem there is no issue now the issue will come i think this question we have already seen right oh this question we have already seen i think the same question okay okay okay so we have already seen actually this question so you can see that now this this issue will come
+
+153
+01:27:01,880 --> 01:27:31,860
+we need write B then at this point of time what I can do at this point of time during this period at time t equal to seven I can take the lock shared lock on D I can take and time t equal to eight I can take at time t equal to take I can take I can unlock B then at time t equal to nine at time t equal to nine I can take exclusive lock on B at time t equal to 10 I can do this
+
+154
+01:27:32,460 --> 01:28:13,750
+at time t equal to 11 I can do this and so on so yes this is 2PL okay can it be produced the answer is yes so this schedule as the answer is yes okay this can be produced by 2PL there is no problem and what are the locking points you can see as I told you the locking oh this is not the question our previous question was different is there any doubt in this so we are taking an exclusive lock on D then we are writing the D operation okay then we can unlock
+
+155
+01:28:14,440 --> 01:28:45,040
+so then 7 will be 7 point will be unlocking D 7 this will be the 7 point then 8 will be this then 9 will be this okay this will be 8 this will be 9 that is correct my with that is correct because you have to unlock yes you have to unlock the D so the 7 point will be unlocking the D then you can take shared lock on D below some operation oh okay okay okay
+
+156
+01:28:47,770 --> 01:29:14,930
+Okay, so this we did not see. So anyway, so let's restart this. I did not see that. What about conflict serializability? In the conflict serializability also we did not see. What about the conflict serializability? There is a operation. There is a write D operation. So let me check for conflict serializability also. This is not even conflict serializable. Right. T2 to T3, there is a arrow.
+
+157
+01:29:15,910 --> 01:29:48,980
+this is not conflict serializable because this is not conflict serializable so this is not 2PL so there is nothing to check that's it this question is over this question is over there is nothing to check because clearly this this schedule is not 2PL okay this is not generated by 2PL this schedule can never be generated by 2PL I hope this point is clear did you understand see there is a there is another see this was missing we were missing this
+
+158
+01:29:49,370 --> 01:30:17,190
+this we were missing so this can never be generated by the 2PL so there is nothing to check you can just simply see that previous schedule cannot be generated by 2PL so the answer for the previous question will be can it be generated by 2PL the answer will be no okay let's move on let's see this one what about this question let me check the complete question yeah okay so tell me about this one you have a right D operation
+
+159
+01:30:19,370 --> 01:30:49,410
+So again, first you will check for conflict serializability. There is T1, there is T2, there is T3. So let's check for conflict serializability. You can check that. So there is no conflict here. There is no conflict here. There is a conflict here. So from T2 to T1, there is a conflict. Then after that, there is no conflict here. Then yes, there is a conflict here. That is T2 to T3. There is a conflict.
+
+160
+01:30:50,950 --> 01:31:20,720
+Okay. So I think this is the only, that's it. There is no other conflict. So you can see this is conflict serializable. And what are the conflict equivalent serial schedules? How many conflict equivalent serial schedules? Yes, there are two conflict equivalent serial schedules. One is first you can do T2, first you can do T2, then you can do T1, T3, or you can do T2, then T3, T1. A simple question I want to ask you, you tell me,
+
+161
+01:31:22,180 --> 01:31:51,220
+please tell me if there are more than one conflict equivalent serial schedule okay but when you when you run this this schedule when you run when you try to generate this using the 2PL scheduler using the 2PL protocol when you try to generate only one only one locking order can be generated yes or no only one lock point order can be generated agree or not do you agree or not
+
+162
+01:31:52,050 --> 01:32:21,710
+Are you getting my point? What I am saying? I am saying that, using the 2PL cellular, when you try to produce this schedule, when you try to create this schedule, then only one locking point order can be there. Okay? Only one locking point order can be there. So, please understand this point. Like, theoretically, there are two equivalent... There are two, I can say, equivalent serial schedule. Theoretically.
+
+163
+01:32:22,140 --> 01:32:49,080
+there are two equivalent serial schedule but it does not mean that your 2PL scheduler will give you these two orders it simply means that when you try to generate this schedule on the 2PL scheduler using the 2PL rules when you try to generate it then you will get only one lock order lock point order you will get only one not the two one of them you will definitely get if it can be generated by 2PL
+
+164
+01:32:50,390 --> 01:33:20,660
+one of them you can definitely get if it can be generated by 2PL if this understood Mavith is your doubt clear let me know so now let's see so let's try to generate this using 2PL let's try our best what we can do so the question is saying that you have to read also you have to write also so what you will do you will take the what you will do you will take the exclusive lock on D so this is what you will do you will request this then what you will do then you can do this
+
+165
+01:33:21,050 --> 01:33:50,450
+so this operation is over now after this you can take exclusive lock on a okay this is your third then this operation will be over fourth time number four now at time number five what you can do at time number five you can take a shared lock on b at time number five there is no problem then you can do this at time number six then what you can do you need to do this you need to do this wb okay then
+
+166
+01:33:51,130 --> 01:34:18,850
+to allow this wb what you can do this is something you can do that at time t equal to 7 you can take the log on d right at time t equal to 7 you can take log on d but can you take log on d can you take log on d tell me simple question simple question can you take log on d you cannot take log on d okay you have to unlock b if you want to do this
+
+167
+01:34:19,820 --> 01:34:55,580
+remember because of this because because of this you have to unlock be whatever you do you have to unlock be okay there is no other choice you have to unlock be before that you have to take lock on D if you have to take lock on D that is not possible okay that is not possible right because T3 will unlock here T3 will unlock here so definitely this is a not possible okay
+
+168
+01:34:56,100 --> 01:35:25,570
+No, don't apply lock conversion. Mavith, don't apply lock conversion. In the question, if they tell you that lock conversion you can apply, then you have to apply lock conversion. Else don't apply the lock conversion. I will tell you what are the mistakes. See, lock conversion is something which does not come by default. As I told you in the last class. So don't apply lock conversion unless the question tells you to apply lock conversion. Because there are some
+
+169
+01:35:25,960 --> 01:35:54,350
+mistakes, there are some problems with the log conversion, I will tell you. Okay, so this is given in the Ulman book that log conversion can create some special type of deadlock. Because of log conversion, some special type of deadlock can be created. Okay, like without log conversion, those deadlocks are not possible. Without log conversion, some deadlocks are not possible. But with the log conversion, those deadlocks will also be possible.
+
+170
+01:35:54,730 --> 01:36:23,740
+So because of that, in the practical life, in the real life, we decide whether we want to do log conversion or we don't want to do log conversion. Is this clear, Mavith? Okay. So because of log conversion, some additional problems will happen. Some additional deadlocks will happen. So that is the reason log conversion does not happen by default. Don't take log conversion by default. Okay. So you can see clearly this is not a 2PL. So, okay, this answer is no.
+
+171
+01:36:23,980 --> 01:36:56,180
+This cannot be generated by 2PL. So let's move on now. Let's see this question. This is a great question on your screen. Please tell me the answer. What is the first thing you will do? The question is asking this schedule is serializable and can occur in a scheme using 2PL protocol. So the question is asking about something called 2PL protocol, 2PL protocol, 2PL protocol. Okay, let's check. Can this be created using 2PL protocol? So first, what are you able to do? Anyone?
+
+172
+01:36:57,150 --> 01:37:26,240
+Mahavit, Ekta, what you will do first? To check whether it is 2PL or not. It can be created by 2PL or not. Can it occur in 2PL? What you will do? First, you will check for conflict serializability. So, let's check for conflict serializability. Okay, okay, something I want to ask you. Actually, many students, they think that because of serializable, I am checking conflict serializability or because of this. Because of what of them, I am checking conflict serializability.
+
+173
+01:37:26,930 --> 01:37:58,600
+because of this statement or because of this statement because of the 2PL statement okay is this clear because of this 2PL statement let's check this first okay I am checking this first remove everything else just check this first okay can occur can not occur can occur can not occur okay so let's remove everything else just focus on this just focus on this remove everything else
+
+174
+01:37:58,970 --> 01:38:33,680
+Now, for this what your method is? What your method is? The method is Check Confid Serializability Check Confid Serializability Second You can notice If not Confid Serializable Then not 2PL Then not allowed by 2PL This will not be allowed by 2PL Third If Confid Serializable then Then check Then check 2PL Is this clear? This is the step Yes or No? This is the method, correct?
+
+175
+01:38:34,240 --> 01:39:02,940
+So if it is not conflict serializable, then it cannot be generated by 2PL. It cannot occur in the 2PL. It cannot be allowed by 2PL. It cannot be produced by 2PL. So you can see, let's create this. So first, this is T1, this is T2. Let's create the transition graph, this precedence graph. So you can see there is a, clearly there is this conflict is there. So from T1 to 2, there is this conflict. And you can see there is a conflict again.
+
+176
+01:39:03,450 --> 01:39:35,090
+so this is a cycle so I can say this schedule let's call this schedule as not conflict serializable and the schedule as is not conflict serializable it simply means what it means what it means as not allowed by 2PL not allowed by 2PL so this as will not be produced by 2PL okay so definitely the answer will be it cannot occur in a scheme by 2PL now what about serializability what about serializability
+
+177
+01:39:35,490 --> 01:40:08,890
+what we will check conflict or view or the general serializability what we will check tell me what we will check so the now let's now let's remove this now let's focus on serializability remove this now okay so now let's focus on this so what you will do will you check for this or will you check for this or will you check for the general what you will you check anyone anyone what you will you check
+
+178
+01:40:09,350 --> 01:40:38,120
+you don't have to check general in this question in this question you don't have to check general because only read write item are given or this will make difference when operations are given yes or no when computations are given then it will make difference like like like between these what computation is happening that computation will make difference is this clear Ekta Mavith please tell me did you understand this we have already seen this the difference will be created
+
+179
+01:40:40,430 --> 01:41:16,690
+Are you getting my point what I'm saying see this difference will be created when the difference comes a simple thing when the difference comes general view serializability versus general serializability when the difference comes this general serializability you can another name you can give what is the another name the another name for the general serializability is final state serializability we only check the final state right final database state correct
+
+180
+01:41:17,100 --> 01:41:48,690
+final database state serializability this is another name for this serializability because we check for the final state so you can see when the difference will come this difference will come when you have computations okay no no mavit this difference will come see this difference will come because of blind right conflict serializable versus view serializable this difference will come because of blind right
+
+181
+01:41:50,100 --> 01:42:23,060
+different only when blind right exist only when blind rights exist okay in this situation are you getting my point so this confit serializability view serializability between them the difference they are different only when only when blind rights exist now this view serializability and general serializability they are different when tell me Ekta Mavith please tell me
+
+182
+01:42:23,340 --> 01:43:06,860
+they are different when computations computations given along with along with read write operations okay clear is this clear to everyone let me know so they are different this view serializability and this general serializability they are different when computations are given like what computation is happening between these two like like this here write A write B what computation you are doing
+
+183
+01:43:08,450 --> 01:43:39,240
+Sorry, sorry, what I'm saying, I'm saying read a write B write a what what computation you are doing you are reading the value of a you are writing the value of a what you are doing this computation this is called computation so if computation is not given so now you tell me now you tell me do you have to check what now this you can now these are basically same when no computation these are basically same okay they are basically same same when computation not given
+
+184
+01:43:41,830 --> 01:44:09,690
+computation not given correct computation not shown so very simple so these two are basically same this view serializability and general serializability they are basically same they are same when computation is not shown when the computation is not given so finally you only have to check one of them okay so of course if this is there then this will automatically be there but you know
+
+185
+01:44:09,920 --> 01:44:52,020
+this is not confident serializable so let's check for view serializability so this is the powerful so finally i can say when read write operation only read write operation are given so this is what i want to say when only read write operation given shown or considered when only read write operations considered then serializable means view serializable okay serializable means view serializable okay so now you can solve this question easily
+
+186
+01:44:52,270 --> 01:45:31,900
+is there any blind right here in this question is there any blind right tell me do we have any blind right here just check just check is there any blind right simple this is not confit serializable you already know we know that this is not confit serializable now let's check for blind right so this is what you have to check okay so finally in this question in this question this is what you have to check okay so in this question this is what we have to check
+
+187
+01:45:33,650 --> 01:46:03,010
+I hope that point is clear. So you can notice this is not a conflict serializable. This schedule is not a conflict serializable and no blind rights because you can notice this is a read write. This is a read write. This is a read write. This is a read write. No blind rights. So finally, what I can say not conflict serializable, not blind rights. So what is the answer from this? What you can conclude the conclusion you can give is not a conflict serializable.
+
+188
+01:46:03,530 --> 01:46:38,090
+sorry not view serializable so this is not serializable and not allowed by 2PL so your answer will be what finally? finally your answer is this is not serializable and it cannot so the answer will be option D so this is a beautiful question this question can become more beautiful when they give computation right this question can become more beautiful if they give you computation also if some computations are also given then
+
+189
+01:46:38,530 --> 01:47:05,510
+Many students, what they will do for serializability, they will only, they will only check view serializability, but you have to check for general serializability. Because remember, if something is view serializable, sorry, if something is serializable, it does not mean it is view serializable. So this was your question. Now the last thing I want to tell you that this basic 2PL suffers from deadlock. The 2PL that we have seen, this will suffer from deadlock.
+
+190
+01:47:05,720 --> 01:47:43,520
+actually any locking protocol will suffer from deadlock let me tell you let me tell you every locking protocol every locking protocol except except except those using deadlock prevention using deadlock prevention like if you if you use the deadlock prevention scheme okay so what I'm saying don't worry it will be understood it will be understood what I'm saying I'm saying that
+
+191
+01:47:43,850 --> 01:48:14,560
+Every locking protocol, except those using deadlock prevention, suffer from deadlock, starvation. Suffer from deadlock, starvation. Okay. They suffer from deadlock, starvation. So, so this is the point that actually main problem is deadlock. So let's focus on that. So you can notice they actually suffer from deadlock. Okay.
+
+192
+01:48:16,040 --> 01:48:44,850
+so anyway this point we will visit again don't worry about it but let's see this so this 2PL that we have seen this basic 2PL that will suffer from deadlock let me give you example simple example you can see two transactions I have T1 T2 now you can notice is it possible this schedule if you have these two transactions this you have this you have then what is possible this is definitely possible right that what this T1 can do and what this T2 can do
+
+193
+01:48:45,420 --> 01:49:14,810
+Isn't it? Like this T1 is there and this T2 is there. Is this possible that this can take exclusive lock? Is this possible? Tell me. Is this possible it can take exclusive lock? Yes. So step number one, it can take exclusive lock on A. It is possible, right? Okay, no problem. Step number two, what is the step number two? It will write the operation A. Okay, it will write on A. Then in step number three, is it possible you tell me that it can take exclusive lock on B?
+
+194
+01:49:15,150 --> 01:49:46,080
+Is there anyone to stop it? Is there anyone to stop it? Does 2PL stop it? Does it 2PL stop it? No, there is no one to stop it. So it can take exclusive lock, then it can do right operation on B. Okay, it can do right operation on B. So now you tell me, now what we want to do? Now there is something problem. What is the problem? Now what T1 wants to do? T1 has done this. T2 has done this. What T1 wants to do? Tell me. T1 wants to do this.
+
+195
+01:49:46,310 --> 01:50:16,220
+write B this is what T1 wants to do and T2 wants to do write A so this T1 wants to do write B and this T2 wants to do write A can they do it can they do it so you can notice this T2 is waiting for T1 this T2 this is waiting for T1 so that it can unlock it can unlock okay so this T2 is waiting that T1 can unlock item A so that I can do this write operation E A
+
+196
+01:50:16,780 --> 01:50:46,130
+and this T1 is waiting for T2 this T1 this is waiting for T2 that please unlock so that I can do this right operation on V so definitely this is a deadlock situation correct so that's it so you can notice this situation is possible so this 2PL suffers from deadlock so you can see this is a wait here it will wait and here it will wait so here T2 will wait here T1 will wait and they will keep waiting
+
+197
+01:50:46,510 --> 01:51:20,840
+even uh see they will keep waiting the deadlock will occur so this deadlock is possible so like this you can do and same thing you can see here also deadlock possible there is a possibility of deadlock there is a possibility of deadlock here also mavit is saying that how 2pl no no no no no no mavit i am saying that in the 2pl this is possible this execution order is possible right are you getting my point see what i am saying this t1 will follow 2pl
+
+198
+01:51:22,150 --> 01:51:51,700
+This T1 will follow 2PL. So this T1 will take exclusive lock on A. Then it will write A. Okay. Then it will take exclusive lock on B. Then it will write B. And then it will unlock A. Then it will unlock B. Is this 2PL? Does T1 follow 2PL? Tell me. Mavith, does T1 follow 2PL? Yes. Similarly, T2 also following 2PL. Exclusive lock on B I will take. Then I will do my write B operation.
+
+199
+01:51:52,160 --> 01:52:25,470
+Then I will take exclusive lock on A, then I will do my write A operation, then I will unlock A, then I will unlock B. Is it 2PL? Yes, this is also 2PL. They both are following 2PL. T1 following 2PL, T2 following 2PL. Now, now what 2PL scheduler will do? This is what 2PL scheduler can do. See, now, now, now, 2PL scheduler can do this. This 2PL scheduler, can it execute them in this order? Like, this T1 is saying that
+
+200
+01:52:25,730 --> 01:52:57,270
+i will i will do this then i will do this then i will do this this this this and so on so this is what even is saying now what tuple cellular can do it can execute these two fast okay it can execute these two fast ex exclusive lock on a right on a then what this tuple cellular can do this tuple cellular can do this okay it will take it it can do this exclusive lock on b then right on b now now now they are stuck
+
+201
+01:52:57,770 --> 01:53:26,120
+Now this T1 also is stuck and T2 also is stuck. Are you getting my point? Okay, now this T1 is also stuck. T1 wants this and T2 wants this. Now they are stuck. So here you can see T1 is stuck. So neither T1 can move further nor T2 can move further. Both are waiting for each other. T1 waiting for T2, T2 waiting for T1. Okay. Mavithi is saying that
+
+202
+01:53:27,110 --> 01:53:57,290
+How it is related to 2PL generating schedule? When did I say it is generating schedule? I am talking about deadlock. I am not talking about generating schedule. You are confusing the schedule, generation of schedule with this deadlock situation. I am not generating the schedule. T1 is following 2PL. T2 is following 2PL. Now this deadlock possibility is there. Are you getting my point? I am not generating any schedule. I am saying that any schedule that will be generated will be confused serializable.
+
+203
+01:53:57,660 --> 01:54:28,810
+But this, because of this possibility, they both cannot continue. Schedule cannot even be generated in this situation. Deadlock possibility is there. Ektha, Mavith, are you getting my point? What I am saying? Don't confuse the schedule and deadlock possibility. Okay. Are you getting my point? Let me give you an example. Let me give you an analogy. Let's see an analogy. You want to do good work. Okay. I want to do good work. But let's assume that
+
+204
+01:54:29,700 --> 01:54:58,690
+You don't let me do good work and I don't let you do good work. Are you getting my point? So this analogy you understand. Okay. Let's see this analogy. It's like it's something like this. Like for example, let's assume this is a good person. This is a good A and this is a good B. Both are good. Good A means this is 2PL and good B means this is 2PL. Both are 2PL. Now, if they do their work, then definitely it will be a good work. Okay. If they do their work,
+
+205
+01:54:58,970 --> 01:55:27,650
+definitely it will be a good work but it can happen that it is possible that it is possible that A is waiting for B and B is waiting for A so it is possible this situation is possible of course if this situation is not possible then they they will do good work but if this situation is possible then they they are struck they cannot move further is this point clear any doubt simple point T1
+
+206
+01:55:28,010 --> 01:55:56,950
+T1 is 2PL you can see on your screen T1 is following 2PL there are two phases there is locking phase unlocking phase T1 is following 2PL T2 is also 2PL there is locking phase unlocking phase T2 T2 is also 2PL both T1 comma T2 are 2PL now what I am saying it is possible that this type of situation can occur yes or no maybe T1 will do this work then T2 will do this work now they cannot continue okay T1 will do this amount of work
+
+207
+01:55:57,190 --> 01:56:32,290
+T2 will do this amount of work. Now they cannot continue. Now this T1 is waiting. T2 is waiting. Okay. So now the deadlock has been created. Now the deadlock has happened. Deadlock occurred. None of them can continue. Okay. Is this clear? What I am saying? See, if any schedule will be generated, that will be conflict serializable. Okay. Don't confuse these two things. Like I am saying that if any schedule will be generated,
+
+208
+01:56:32,780 --> 01:57:13,950
+okay are you getting my point if focus on this if if if any schedule will be generated if any schedule will be generated that will be confidence realizable if any schedule will be generated that will be confidence realizable but here the schedule will not even be generated are you getting my point okay in 2pl in this 2pl if this if is important if any schedule will be generated
+
+209
+01:57:14,400 --> 01:57:45,400
+it will be it will be confidence serializable but here what is happening here schedule is not even generated t1 is waiting t2 is waiting schedule is not even generated is this clear both t1 comma t2 are waiting any other doubt let me know so you can see similarly in this situation also in these two transactions also there is a possibility of deadlock can i give this as a homework can you give me can you take this as a homework that in these two
+
+210
+01:57:45,650 --> 01:58:17,660
+This is your T1. This is your T2. You create a possibility of deadlock. Homework. Create possibility of deadlock. That is your homework. You can take it. Okay. Let's move on. So that's it. So that we have seen everything we have seen. This is a question from the court that we will do after the break. So let's take a break. So in the next class, we will do this question. This is a question from the court. A nice question. Two transactions are given to you.
+
+211
+01:58:18,120 --> 01:58:48,670
+I think there is a mistake here. This is 34. This is 35. Okay. So we need to solve this question after after the break. We will solve this question. The question is asking that this is a transaction. This is a transaction. Is there a possibility of deadlock? Can the execution of these transactions lead to deadlock? So that is what we need to see. Anyway, this is your chapter. Did you understand 2PL? Please tell me. Let me know. Did you understand 2PL? Two phase locking protocol. Did you understand clearly?
+
+212
+01:58:49,150 --> 01:59:17,130
+What is 2PL? Transaction is 2PL. In the future whatever schedule will be generated, whatever schedule will be produced, that schedule will be confidence serializable. And the equivalent serial schedule will be the order of lock point order. The lock point order in the schedule will decide the equivalent serial schedule. Okay, so this is your complete explanation of 2PL. After the break, we will see this fourth question.
+
+213
+01:59:17,420 --> 01:59:46,200
+this is a standard question from the court court book that we will solve and after that we will also see that in the 2PL recoverability is not guaranteed see conflict serializability is guaranteed right in the 2PL it is guaranteed that every schedule will be conflict serializable whatever schedule will be generated will be conflict serializable but the schedule that will be generated it may or may not be recoverable it may or may not be cascade less recoverable okay
+
+214
+01:59:46,570 --> 02:00:14,680
+As I told you, serializability and recoverability, they have nothing to do with each other. They are orthogonal concept. Similarly, in this 2PL, serializability is guaranteed. Conflict serializability will definitely happen. But recoverability may or may not happen. Okay? Recoverability is not guaranteed. Cascade less recoverability is also not guaranteed. Deadlock is also possible. Starvation is also possible. The only good thing is that
+
+215
+02:00:14,990 --> 02:00:44,440
+conflict serializability is guaranteed whatever schedule will be created in the future that will be uh conflict serializable this is the only benefit the remaining benefits we don't have okay deadlock possible starvation possible and you can notice recoverability not guaranteed so all these uh things uh we need to see after the break okay uh did you understand now let's take a small break and after that let's uh sir which is
+
+216
+02:00:44,640 --> 02:01:12,080
+which in present system then okay mavit is asking what see we allow this strict there is something called what we want actually we don't care about deadlock in the practical life let me tell you in the all the practical dbma software strict 2pl is used okay so this is strict 2pl because this is strict 2pl it will this 2pl will give you conflict serializability and this strict will give you recoverability
+
+217
+02:01:12,440 --> 02:01:41,420
+So in all the practical software, in all the DBMS software, we use strict 2PL. Okay, that is used in all the DBMS software. Because we want recoverability for atomic property, for atomicity. You know this? Okay, Mavith, do you remember? If recoverability is violated, then atomicity is violated. We want atomicity property, so we want recoverability. We also want this serializability for the isolation and consistency property. Now,
+
+218
+02:01:41,690 --> 02:02:05,760
+so finally these two things we need serializability will give us consistency and it will give us consistency and this isolation this atomicity will give us consistency and atomicity see consistency will be given by all these yes or no consistency database consistency everyone will everyone is responsible for that ultimately we want database consistency
+
+219
+02:02:06,050 --> 02:02:34,530
+so database consistency for the database consistency everyone is responsible serializability is also responsible recoverability is also responsible okay so this serializability serializability will give us isolation and database consistency recoverability will give us atomicity and this database consistency okay so these two things we want so we want a strict 2PL we will study that okay that is what we apply on the DBMS software
+
+220
+02:02:34,750 --> 02:03:02,760
+in all the DBM software, this strict 2PL is used. There are some software which use time is time protocol that we will study. Okay. Right now we are learning log based protocol. We are locking things before accessing. We are locking. Okay. You are you are taking permission before accessing the item. You are taking that permission. Okay. So these protocols that we are saying these are log based protocol. There is another protocol which does not take any permission. Okay.
+
+221
+02:03:03,100 --> 02:03:23,100
+that is the time is time best protocol in that we don't need any permission that we will study after this 2pl is over okay so let's take a break and we will start at 6 okay so let's take a long break for 45 minute break okay at 6pm we will start okay thank you everyone
+

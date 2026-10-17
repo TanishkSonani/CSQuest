@@ -1,0 +1,1020 @@
+1
+00:09:38,160 --> 00:10:21,390
+hi everyone so let's start now is the audio video volume is everything fine so in this lecture we will study recoverability we have already seen serializability conflict serializability and view serializability and also the general notion of serializability so those three topics we have already seen now the next topic is recoverability recoverability of a schedule you have a schedule and
+
+2
+00:10:21,970 --> 00:10:51,700
+Is that schedule recoverable? Is that schedule not recoverable? So that is what we are going to see now. So before we start this, let me tell you that in the revision course, discrete mathematics revision has started. The first lecture was propositional logic. In the propositional logic, we have done, I think, almost 20 gate questions we have done in the first lecture, in the first revision lecture. And also I have uploaded one quiz. So please try that.
+
+3
+00:10:52,000 --> 00:11:20,670
+okay so one quiz has been uploaded this quiz contains total 17 questions of propositional logic okay so this quiz you attempt in this quiz this these 17 these are very good questions and all the questions are from propositional logic and i'm expecting that before you attempt this quiz please solve all the gate questions so your first you first you must solve all the gate questions all the gate pyqs of propositional logic
+
+4
+00:11:20,990 --> 00:11:40,910
+Once those are done, after this, you should attempt this quiz. This quiz contains total 17 questions and only 14 minutes. So I'm expecting complete marks from you. There is no deadline. You can attempt it anytime. But this is my suggestion that because after this, new quizzes will be there.
+
+5
+00:11:41,260 --> 00:12:10,720
+As we, for example, once we study first order logic, then there will be one quiz for that. Then for combinatorics, then for TOC, for theory of computation, DBMS, for digital logic, for operating system. So for every subject, once we solve all the gate questions, after that, you can attempt one quiz. So this is going to happen. So please, please, I can say be in sync. Okay. The revision course is going on. You should be in sync synchronization with that revision course. Okay. This is, this is the target that
+
+6
+00:12:11,070 --> 00:12:38,930
+after solving all the gate pyqs of particular topic on that particular topic you will get a quiz this quiz will contain 10 to i can say 10 to 20 questions like this quiz contains total 17 questions so 10 to 20 20 questions will be there in this quiz and you can attempt this quiz and i'm expecting this is my expectation from all the go classes students that you should score full marks in this quiz okay so please attempt this quiz after solving all the gate questions and
+
+7
+00:12:39,180 --> 00:13:06,710
+I will check your marks and I am expecting full marks. Don't make any silly mistakes. If you don't make any silly mistake, definitely you will get full marks in this quiz. Okay. Now let's move on. Now let's start our chapter. So our topic is recoverability. Let's start this. Okay. No. So before we start, let me discuss about failure and recovery. Did you notice so far we did not discuss the failure?
+
+8
+00:13:07,180 --> 00:13:35,400
+we were discussing serializability in the serializability we did not discuss the failure we were discussing that if some transactions are executing in concurrent manner in the interleaved fashion if some transactions are executing then how can we make sure that database remains consistent yes or no so with the multiple transactions are executing in concurrent manner then how to make sure that your database
+
+9
+00:13:35,820 --> 00:14:03,800
+will remain consistent if you start in a consistent state you will go to the consistent state okay so how to how to make sure this consistency of database this we have already seen this is basically this is the target of serializability another target of serializability is that you you ensure the isolation property means every transaction should should think every transaction should feel that it is executing in isolation it is executing alone
+
+10
+00:14:04,110 --> 00:14:33,520
+okay so these are the purpose of serializability we have already seen the concept of serializability and if you remember so far we did not consider the failure so far we have studied schedules without considering the failure okay now what we are going to do now we are going to address the effect of transaction failure during the concurrent execution so when transactions are executing okay these transactions when they are executing concurrently then
+
+11
+00:14:33,780 --> 00:15:03,240
+if failure occurs any type of failure software failure hardware failure disk failure any type of failure occurs then the effect of that failure we will discuss on the concurrent execution so this is what we are going to discuss in this lecture i hope this is clear what we want to discuss in this lecture i hope that is clear okay so now what will happen now the failure will occur because of this failure what how the this concurrent execution will be affected because of this failure
+
+12
+00:15:03,470 --> 00:15:34,720
+that is what we are going to study okay so let's start now before we start you tell me the answer for this question on your screen serializability concept helps us ensure what it will help us ensure this is a MSQ question so tell me the answer serializability this concept it will help us ensure what we can ensure so we can ensure isolation property okay
+
+13
+00:15:35,070 --> 00:16:04,070
+isolation property we can ensure every transaction will think that it is executing alone every transaction is going to think that it is executing alone very good so isolation property we can ensure consistency of database yes consistency of database we can ensure okay basically not ensure but I can say serializability will affect these things if you are not serializable if your schedule is not serializable then consistency will be affected
+
+14
+00:16:04,520 --> 00:16:33,520
+okay consistency of database will be affected so if your debt if your schedule is serializable then definitely if there is no failure assume there is no failure then because of concurrent execution your system will remain in the consistent state okay your database will remain in the consistent state so you can notice isolation consistency of database consistency of transaction see this is ensured by c in acid yes or no
+
+15
+00:16:34,160 --> 00:17:02,320
+This is ensured by C in acid. Consistency of transaction. This is ensured by C in acid. So this is not ensured by, I can say, serializability. Serializability has no role to maintain the consistency of transaction. Yes, consistency of schedule. Yes, correct. Atomicity, no durability, no. So this is your answer. Is this clear to everyone? Please tell me. Very simple. So serializability, remember, what this serializability makes sure.
+
+16
+00:17:02,820 --> 00:17:33,100
+what is the responsibility of this serializability let me tell you this serializability says that if there is no failure okay if no failure if there is no failure then this serializability make sure that your database will remain consistent because of concurrent execution okay so if no failure then due to concurrent execution then I can say
+
+17
+00:17:33,600 --> 00:18:06,750
+then due to concurrent execution due to concurrent execution of transactions due to concurrent execution of transactions it will ensure database consistency it will take database from one consistent state to another consistent state so it will ensure database consistency also it will ensure the isolation property I hope these points are clear
+
+18
+00:18:08,770 --> 00:18:37,920
+if there are no failures if you don't have any failures if everything is perfect okay then then due to concurrent execution of transactions this serializability will ensure the database consistency it will take database from one consistent state to another consistent state also it will ensure isolation okay so these are the two things that that will be ensured by the serializability in case there is no failure okay but if there is failure then what will happen that we want to discuss today
+
+19
+00:18:38,220 --> 00:19:05,540
+I told you okay so if we have failure then how to proceed if we have failure if I can say if you have failure during concurrent execution then what will happen that we need to discuss today in this lecture we want to discuss before that I want to tell you one more thing tell me this is a simple question I want to ask you if you are showing wrong values to a user is that a violation of consistency tell me like to any user
+
+20
+00:19:06,010 --> 00:19:34,270
+to any user you are showing wrong values you are showing wrong results can i call it violation of consistency yes it also will be called violation of consistency remember one thing one thing remember if i show wrong results if i print wrong result then that does not change the state right agree or not that does not change the state state is not changed but but but you are showing the wrong result to a user that that is also considered we also consider that
+
+21
+00:19:34,560 --> 00:20:03,230
+as violation of consistency. I hope this point is clear. Okay, you might not be understanding this. Let me tell you, let me explain. So, for example, let's assume there is a transaction T1. I have a transaction T2, T1, I have transaction T1, T1, T2. In this transaction T1, what I am doing, I am basically reading some account, read value A, then what you do, this A value you decrease by 50. And then let's assume you write this A. Okay, you are writing this A.
+
+22
+00:20:04,080 --> 00:20:32,340
+Now at this point of time, okay, further what I am doing, I am basically doing this, I will read B, I will increase this by 50, okay, I will increase by 50 and then I will write B. So basically in this transaction T1 what I am doing, can anyone tell me in this transaction T1, ultimately what I am doing? Ultimately from account A, I am transferring 50 rupees to account B, okay, correct, yes or no, agree?
+
+23
+00:20:32,750 --> 00:21:01,630
+Do you agree? This happens in the transaction T1. Okay. From account A, I'm transferring 50 rupees to account B. Now assume that at this point, like let's assume this is your time. This is the time. So let's assume time like time one, two, three and time four time five times six times seven. Now let's assume that at this point, at this point, what happens? This transaction T2, it sees the balance. Okay.
+
+24
+00:21:01,900 --> 00:21:29,160
+at this point this transition to what it does it it reads the balance it reads the value of a it reads the value of b and it prints okay it prints the value of a plus b tell me one thing when you are printing value of a plus b are you changing the database state are you changing the database in the hard drive tell me this is a simple question i'm asking so these three action you look look at these three action
+
+25
+00:21:30,570 --> 00:21:57,580
+Will they change the database in the hard drive? They will not, yes or no? They will not, I can say they will not change. They will not change the database in disk. Basically this will not be captured in the database state, right? Yes or no? This is not captured in the database state. Can I say? I can say it does not change. It will not change the database state.
+
+26
+00:21:58,070 --> 00:22:24,430
+your database state will not change because of this but what is happening here you are just showing wrong result to the this user there is a user t2 and this user t2 this is showing this is looking at the wrong result because what is the consistency requirement in this in this complete scenario what is the consistency requirement can anyone tell me whenever you transfer some value from one account to another account what is the consistency requirement tell me the consistency requirement let me know
+
+27
+00:22:24,940 --> 00:22:58,200
+The consistency requirement is that summation of A plus B must be constant. So this we already know that whenever you transfer, whenever you transfer from account A to account B, whenever you transfer some money from one account to another account, then what is the consistency requirement? Consistency requirement or I can say database consistency requirement that is basically
+
+28
+00:22:58,460 --> 00:23:27,160
+that a plus b must be constant it should remain constant this summation a plus b this must remain constant okay this must okay so you can easily see that now you tell me one thing let's assume initially account a example let's assume example initially initially account a has 300 rupees and account b has let's assume 100 rupees so what should happen
+
+29
+00:23:27,580 --> 00:23:57,470
+so I can say consistency requirement what it will tell what consistency requirement says please tell me what this consistency requirement will say this consistency requirement will say that A plus B should remain 400 whatever happens correct okay this is the consistency requirement A plus B that must remain 400 whenever you transfer amount now you tell me at this point when you this you are reading the value you are reading the value and you are printing on the screen
+
+30
+00:23:57,950 --> 00:24:27,760
+this okay this is the user it is printing on the screen printing on the display now you tell me because of these actions we are not changing the database correct we have not changed the database in the disk this database we are not changing in the disk we are not changing the database state in the disk so the database we are not changing but still there is inconsistency still there is inconsistency okay no no this is not right this is just printing on screen
+
+31
+00:24:28,400 --> 00:24:57,190
+please understand this is just printing on screen basically basically you can consider this as this T2 T2 seeing a plus B this means T2 seeing a plus B okay user T2 you can consider like this so user T2 seeing a plus B now you can easily see that when this T2 at this point of time when this T2 will see a plus B what he will see
+
+32
+00:24:57,780 --> 00:25:27,450
+at this point of time what this T2 will see what this T2 user will see tell me what he will see this T2 user so the T2 user will see 350 because initially you have 300 comma 100 so you can see 50 are gone so 350 he will see so you can easily see he will see 350 so what this user is thinking tell me what this user is thinking this user this user is thinking that okay definitely it is wrong
+
+33
+00:25:27,790 --> 00:25:58,260
+so you cannot this is a wrong value right so this user can see a wrong value or i can say this wrong value is shown to the user this wrong value this is shown to the user is this clear to everyone please tell me but remember one thing that you are executing like this and in between you execute this then you can easily see there is this is called inconsistency but but but remember here your database is not changing in your database
+
+34
+00:25:59,540 --> 00:26:22,430
+inside your database like you are not I can say in consistency that is happening that is happening because we are showing wrong result to the t2 I hope this point is clear this user t2 is seeing a plus b he is seeing the wrong value so that is also considered in consistency so this is what I'm telling I'm telling that showing wrong result to the user
+
+35
+00:26:23,310 --> 00:26:52,830
+userman's transaction showing wrong result to the transaction that is also considered violation of consistency of database you can see this if a transaction computes a value and prints it on the screen this is an effect which is not captured in the database state your database state will not change but still we assume that that basically this is a part of consistency this is just like we assume that this is also written somewhere you can assume like this or you can just simply assume that
+
+36
+00:26:53,050 --> 00:27:23,590
+we will assume that it is part of a database consistency. So we will assume that all such values are also part of consistency. You can you can think like this. Okay. So this is what I want to tell you that showing wrong result to any user that is not that is not correct. That is not good. That is also considered violation of consistency. Okay, let's move on now. This example is understood. Please tell me this complete example is this understood. So here you have violation of consistency and the reason is
+
+37
+00:27:23,850 --> 00:27:56,450
+different. The reason that T2 is seeing the wrong, the wrong value, this user T2, he is looking at wrong value. This is the reason for violation of consistency. So here also you have, I can say violation of consistency, this complete thing, this complete thing, you can call it violation of consistency. Okay. Now let's move on now. So one more thing I want to discuss about the commit point. Do you remember what commit point says
+
+38
+00:27:57,140 --> 00:28:27,490
+Whenever your transaction you have a transaction and when it commits what he says what it says So this transaction it is it is committing It is committing it simply means that I Okay, you are committing it simply means that now your effect must must be captured in the database. Yes or no So this commit operation it says that once you execute this commit operation then it simply means that now now now Okay now t now effects of t2
+
+39
+00:28:27,730 --> 00:28:59,660
+must be permanently recorded in the database now effects of this transaction t effects of t must be must be permanently recorded permanently recorded in a database okay so these effects must not be lost i can say i can say that these effects effects of t must must not be lost okay must not be lost must not be lost
+
+40
+00:29:00,090 --> 00:29:27,620
+What is this property? What is this property called? This entire thing this entire thing is called durability property, right? Okay, this is called durability property if you remember the meme property Do you remember that meme like a bar many commit kardito maap ne apki bhi nahi sunta something like that Okay, so easily you can see so this is called durability property because durability property says that once you commit once you have committed then
+
+41
+00:29:27,940 --> 00:29:57,590
+Now your effects must be permanently recorded in the database. So this is what I want to tell you. I just want to remind you that this we have seen that a transaction reaches its commit point when you reach the commit point when all the operations are executed. So you will reach here when all the operations you have executed and then you will reach here. Okay. Now you can see that beyond the commit point. Once you have committed beyond the commit point. Okay. Beyond the commit point.
+
+42
+00:29:57,790 --> 00:30:24,820
+this transaction is said to be committed the transaction will be called committed and the effects must be permanently recorded in the database so this i am reminding you this we have already seen the durability property we have already seen that once the transaction will commit now you should never roll roll back yes or no agree okay now you should not roll back t this is simple point now t must not be rolled back
+
+43
+00:30:25,310 --> 00:30:59,200
+Once you have once you have I can say once you have committed now T must never be rollbacked never be Rollbacked or I can say undone or undone now you should not undo it Okay, so the this T must never be rollbacked or undone you should not do that Okay, very simple. This is called durability property Okay, so now let's move on so you can easily see that one more thing
+
+44
+00:30:59,690 --> 00:31:28,930
+if a system failure occurs then what we will do you tell me one thing like let's assume that your system this is your system in this system let's assume this T1 has committed let's assume this T1 has committed and let's assume this T2 has this T2 is not uncommitted I can say it did not commit uncommitted okay this T2 is T1 is committed T2 is uncommitted now at this point of time if failure occurs
+
+45
+00:31:29,590 --> 00:32:00,080
+at this point of time if failure occurs what you will do at this point of time if some failure occurs what you will do then what is your action that you will take so at this point what you will do tell me what action you will take action will be that you will undo the t2 right okay you will roll back roll back or I can say you will undo the t2 just undo t2 but remember this t1 is committed this t1 is committed so
+
+46
+00:32:00,440 --> 00:32:29,100
+t1 must not be rollback i can say t1 must persist must persist in database okay is this clear so t1 must persist in database because it is committed and t2 was uncommitted so you should undo t2 is this clear to everyone please tell me very simple point i am saying that if a failure occurs then uncommitted transaction you must undo okay their effect you must undo
+
+47
+00:32:29,560 --> 00:32:57,680
+and the committed to transaction you must keep them in the database they are permanently recorded in the database they must persist in the database so you can read this if a system failure occurs then we will search all the transaction we will search all the transaction those transaction which have not executed the commit operation which are not committed those operations we will roll back we will undo their effect on the database
+
+48
+00:32:58,260 --> 00:33:26,580
+their effect will be undone this is called recovery process we call it recovery process that this failure has come because of this failure this uncommitted transaction will be rolled back okay we will undo the all the effect everything that this transaction has done we will undo those things okay we will roll back those things but remember one more thing that those who have committed those transactions which have committed
+
+49
+00:33:26,960 --> 00:33:58,320
+Their effect on the database must persist. Their effect must not be undone. Okay, so these transactions, remember T1 must not be undone. T1 must not be undone. Is this clear? Tell me. T1 must not be undone because T1 has already committed. So T1 must persist in the database. Okay, all the uncommitted transactions, they must roll back. They must undo. So a simple point, this is what I want to tell you. Now, because of serializability, you will get isolation.
+
+50
+00:33:58,860 --> 00:34:26,180
+You will also get consistency of a schedule. Okay. This is what you will get because of serializability. But remember this serializability does not care about failure. If failure comes, if a failure comes, then atomicity may be violated. We will see this. Don't worry. I will give you example where atomicity will be violated. We cannot make sure atomicity. Consistency also will be violated if failure comes. I hope this point is clear.
+
+51
+00:34:26,380 --> 00:34:54,750
+like for example here you can notice in this this is a transaction in this transaction if some failure comes here then what you will do tell me at this point if some failure comes at this point in this transaction if some failure comes here if some failure occurs here then what you will do then you will undo okay you will roll back the changes by a this is what you will do very good okay you will roll back all the changes by a this transaction sorry the this is the transaction
+
+52
+00:34:55,210 --> 00:35:23,940
+By this transaction, all the changes you will roll back. You will undo those changes. So this is the idea. This is called recovery process. Okay. This, this is called recovery process because failure came because of failure. You have to do some things. Okay. Now let's move on. Now let's see the recoverability of a schedule. So this concept we need to see now. So far is everything clear? Please tell me. Let me know. So far is everything clear? What is serializability?
+
+53
+00:35:24,260 --> 00:35:52,440
+What serial eligibility will make sure? Aditya is asking, commit does not mean changes are written in disk, but it should be written right, sir. Aditya, commit means that eventually you will write them in the disk. Is this clear? Aditya, commit operation means that eventually, okay, maybe after one minute, maybe after 10 minutes, maybe after 20 minutes, but eventually your changes will be written to the disk.
+
+54
+00:35:53,000 --> 00:36:20,870
+Okay, basically if you have committed like you can think like this agar ek bar juban dedi then you will do that maybe today maybe tomorrow, but you have to do that Okay, similarly commit means this commit this commit means that once you have committed then all the changes that you have done all the changes that transaction has done they will be returned to the disk eventually Maybe immediately maybe after some time, but they will be returned to the disk
+
+55
+00:36:21,500 --> 00:36:50,980
+You should not roll back those changes. You should not forget those changes. Those changes must not be lost. Is this clear Aditya? Let me know. So commit means, this is what commit means. Commit does not mean that immediately all the changes will be written in the disk. Okay. Commit operation does not mean that all the changes will be written to the disk immediately. No. Commit means that either immediately or after some time the changes will be written to the disk.
+
+56
+00:36:51,230 --> 00:37:21,690
+Those changes will not be lost. Those changes will not be forgotten. Those changes will be permanently recorded in the disk. Okay, eventually. This is what this commit operation means. Okay. Is this clear? Let me know. Any other doubt? Anyone? Please tell me. So far, do you have any doubt you can ask? Is there any doubt so far? See, this transaction management is a very interesting chapter if you understand all the concepts. If you clearly understand, then this is an interesting chapter.
+
+57
+00:37:21,940 --> 00:37:48,800
+all these things that are happening failure is happening we are doing we are undo we undo the uncommitted transaction okay we we keep the committed transaction all these things these are very interesting if you understand them clearly what is serializability that we have already seen serializability simply means that if there is no failure let's assume there is no failure then in that case the concurrent execution will preserve the consistency okay if there is no failure
+
+58
+00:37:49,130 --> 00:38:16,360
+in your system no software failure no hardware failure there is no type of failure then because of concurrent execution the database will remain consistent you start in a consistent state you will go to the consistent state this is what serializability says but serializability does not handle the failure yes or no agree correct or not serializability does not handle the failure the failure how to handle the failure that is what we need to study today and i told you that
+
+59
+00:38:16,640 --> 00:38:46,090
+Whenever you have some committed transaction uncommitted transaction, like this is a committed transaction. This is an uncommitted transaction and some failure comes. Then you can easily say that these uncommitted transaction must be undone. You must roll back this uncommitted transaction. But this committed transaction, you should not roll back. You should not undo it. Okay. This committed transaction, you should write in the, in the database eventually. Okay. It must persist in the database. So these are the points. Any other doubt? Let me know.
+
+60
+00:38:47,650 --> 00:39:15,630
+25F. Mavith is asking 25F. So, Mayuk is asking, where Tutu is showing wrong value, it is not ensuring isolation. Yes, yes. This is not isolation. That's correct. But consistency is also gone. See, consistency is a bigger thing. Isolation, all these things are smaller, smaller. Consistency of database is the main thing. To maintain the consistency of database, these things we want.
+
+61
+00:39:15,930 --> 00:39:44,080
+Okay, please understand that consistency of database is most important. Okay, let me tell you that the most most most important thing is everything that we are doing is to maintain consistency of database. There is something called consistency of database. Please understand to make sure this consistency of database we are doing some things what we are doing. This is the main requirement. Please understand consistency of database. This is the main requirement.
+
+62
+00:39:45,830 --> 00:40:18,060
+this is the main I can say this is the main main hero here this is the king you can you can consider that this is the king in the chase this is what we want to preserve remember this is the king of chase you can consider like this now to make sure this to key to preserve this consistency of database to preserve this just to preserve this we need these things what we want to preserve these to preserve this I can say
+
+63
+00:40:18,510 --> 00:40:48,040
+this database consistency this is the main character to preserve this main character what we want we want certain things to preserve this database consistency we want ACID okay to preserve this consistency we desire ACID what we desire we desire ACID this ACID we desire to preserve the database consistency please understand this consistency database is the king you can understand like this
+
+64
+00:40:48,220 --> 00:41:17,450
+the chase king so this is the king in chess and to preserve this database consistency we desire acid and you can notice what is this acid that you already know to to to preserve this we want atomicity all or none this this consistency and this consistency they are different right yes or no or this consistency and this consistency different because this consistency talks about transaction this is consistency of transaction
+
+65
+00:41:18,250 --> 00:41:50,540
+this is the user responsibility okay so remember this is consistency of transaction this is all or none this is isolation and this is durability okay so remember this I hope this point is clear remember consistency of database is the important this is the most important thing please understand that this is the king you want to make sure you want to preserve this this consistency of database must be preserved now whatever violation happens
+
+66
+00:41:51,490 --> 00:42:20,270
+whatever whatever violation happens then who will be violated tell me whatever violation you will do then who will be violated this this will be violated are you getting my point whatever violation you do the database consistency will be violated I hope this point is clear let me know so remember these are like you can understand that these things are just just tools you can consider like these things this is you can consider this as rook knight okay so these things are like that
+
+67
+00:42:20,640 --> 00:42:50,600
+But this is the king. Okay. If these things are violated, if any of them are violated, then this database consistency is violated and we should not violate the consistency of database. I hope this point is clear. Any other doubt? Mayuk, is your doubt clear? Mayuk, please tell me. Is your doubt clear? Any other doubt? Mavith is saying that transaction is not completed, but in between users see wrong value. This is the scenario. Yes. Yes. If you're
+
+68
+00:42:50,810 --> 00:43:18,980
+like basically you should not see the wrong value your your dbms should prevent this type of things like let's assume you are doing some transaction and in between the transaction i should not be allowed to see the i should not be allowed to read the wrong value mavit yes or no i should not be allowed to read the wrong values okay so this is the idea any other doubt let me know so this is what i'm telling you that
+
+69
+00:43:21,260 --> 00:43:51,760
+if you if you if you show wrong result to the user that is also considered as consistency violation if you print wrong value on the screen that is also consistency violation any other doubt let me know okay let's move on now so now we will see the recoverability concept the concept of recoverability of a schedule you have a schedule for that schedule how to define recoverability so let me tell you that this is an interesting topic
+
+70
+00:43:52,710 --> 00:44:26,780
+these sedules you can divide according to recoverability all the sedules that you have these sedules you can classify them according to recoverability sedules classification by recoverability classification based on recoverability based on based on the concept of recoverability okay so we have already seen the based on serializability that we have already seen correct
+
+71
+00:44:27,090 --> 00:44:50,510
+Schedule classification based on serializability we have seen. Confid serializability, view serializability and serializability. So that we have already seen. But here what we have? We have schedule classification based on recoverability. Let me tell you. Schedules are of two types. One is where recoverability is possible. If some failure happens, then they are recoverable. You can recover them. Recovery is possible. Okay.
+
+72
+00:44:50,970 --> 00:45:21,120
+for these are the recoverable schedules recoverable schedules means recovery is possible correct recovery is possible okay if some failure comes then correct recovery is possible another is irrecoverable the name itself is telling you what this means irrecoverable means if failure happens the correct recovery is not possible is this clear let me know irrecoverable means if the failure happens then correct correct recovery correct recovery is not possible
+
+73
+00:45:21,500 --> 00:45:51,930
+Now, this recoverable schedule, there are two types. There are two types. One are easily recoverable. Another are not easily recoverable. Some schedules are very easily recoverable. These are called cascade less schedule. Cascade less schedules. So these are the schedules which are easily recoverable. These are cascade less schedules. And another type of schedules are cascading schedules. Cascading rollback schedules. You can call them.
+
+74
+00:45:52,250 --> 00:46:18,950
+cascading rollback schedules so there are two type of schedules in this recoverable these are the recoverable schedule you can recover them base the point is very simple the recovery algorithm can do it okay if some failure happens then you can recover them so you can notice these are two types one are easily recoverable these are called cascade less recoverable one are not easily recoverable but recoverable okay like here you have you don't have to do much work
+
+75
+00:46:19,350 --> 00:46:51,560
+okay very small amount of work you have to do but here you have to do some challenging work if you want to recover so here the recovery is easy here the recovery is complicated here the recovery is not even possible is this clear let me know is this understood is the difference clear let me know so remember here recovery is not even possible complete recovery not possible complete recovery not possible not possible cover complete recovery is not even possible here
+
+76
+00:46:52,560 --> 00:47:31,890
+so these are called irrecoverable here it is not even possible here recovery possible but recovery complicated recovery complicated here the recovery will be complicated but possible so the recovery is going to be complicated but definitely that will be possible and here the recovery is easy easy recovery okay so these are basically here easy recovery so this is the classification of schedules based on recoverability
+
+77
+00:47:32,190 --> 00:48:00,350
+So there are two types of schedule, recoverable schedule, which you can recover. If some failure happens, then you can recover them in recoverable schedules. If some failure happens, then complete recovery is not possible. Okay. Complete recovery. That is not possible. So this is the idea. So you can, you can just read it like for some schedules, it is very easy to recover. They are very easy to recover. If some failure happens, some schedules, the recovery process is complicated.
+
+78
+00:48:00,970 --> 00:48:29,640
+okay recovery process that will be complicated and and these are interesting for some schedule it is not even possible to recover correctly after failure not even possible this type of schedule what we call them tell me this type of schedule what we call them where recovery where complete recovery is not possible you cannot do complete recovery this type of schedules are called irrecoverable or not recoverable these are your irrecoverable schedules
+
+79
+00:48:30,730 --> 00:48:59,230
+Here the complete recovery is not possible. Now, let's see one by one what is happening here. But just remember this, this is an important point because it will come again and again. This point you remember. First, we will make, we would like to make sure this you have to ensure that once a transaction is committed, once your transaction is committed, it should never be rolled back. You should never roll back. This is your, this is your durability property. So remember this you must make sure.
+
+80
+00:48:59,690 --> 00:49:30,540
+that once you have committed then you should not roll then you should not do it rollback okay now now let's move on let's see this example this is an interesting example a schedule is given to you in this what is happening this is the time you can notice first this is happening then this is happening then this is happening then this is happening then this is happening so the schedule is given to you now let's take it out now let's see this so you tell me look at the schedule
+
+81
+00:49:30,880 --> 00:50:00,210
+and few things you understand here let's assume what is happening here first of all when you read this value a what value you are reading tell me when you read this value a what value you are reading what value are you reading you are reading this value right correct this change you are reading okay so you can easily see that this change you are reading and then you are committing then you are committing committing means remember this commit this is the point where user will see the result
+
+82
+00:50:00,920 --> 00:50:30,830
+This commit is the point where user will see the result. So do you remember this last example that we have taken? This last example that we have taken, this example print, here you also assume that there is commit here because before committing you will not see the result. This T2 will see the result when it commits. So just assume that here there is a commit also. You can also assume that there is a commit also. This commit is the point where user will see the result.
+
+83
+00:50:31,150 --> 00:51:13,600
+okay so you can understand like this this commit this commit you can you can think like this that this commit means this commit means transaction successfully executed commit means transaction executed successfully transaction executed successfully and changes eventually return to the disk eventually return in database also at this commit point
+
+84
+00:51:13,980 --> 00:51:46,260
+user sees the result result shown to user so at this point at this commit point you can assume that we are showing the result to the user you can check it out here like in this example also you can check it out that let me let me show you like here also you can check it out this commit operation you can think that make the changes permanent all the changes that you have you make them permanent and show the result to the user okay so this is what I'm telling you
+
+85
+00:51:46,480 --> 00:52:17,140
+that when this commit operation happens see this here you can assume that there is a commit operation also so you can just assume that there is a commit operation also this commit operation means you are showing the result to this user t2 this t2 can see the result okay so this is what i'm telling you so this commit operation means that you are showing the result to the user now let's see now consider this example okay so in this example you can see that
+
+86
+00:52:17,480 --> 00:52:49,520
+you are committing what it means now at this point of time this user TV T7 will see the value of a yes or no basically show value a to user T7 is this clear to everyone okay you are basically you will read the value and at this commit point when you do the commit operation at this commit point this commit point means you have committed at this point what you do you show the result
+
+87
+00:52:49,900 --> 00:53:19,100
+you show the value to the user show this value a to the user t7 now you tell me one thing so now you tell me one thing if so far there is no problem like one more thing whatever value you write that value will be read by t7 so for example let's assume this value that you are writing initially let me assume a value was for moment let's assume a value was 300 okay and in between you are doing some computation correct
+
+88
+00:53:19,390 --> 00:53:48,280
+in between you are doing some computation whatever computation you do i don't know but some computation you will do at this point of time at this point of time you will do some computation between the read comma write some computation you will do and then you will write let me assume when you write this then the a value becomes 200 it means you have subtracted 100 okay it simply means that you have subtracted 100 a lot is saying sir sir does t6 change a before the write
+
+89
+00:53:48,760 --> 00:54:18,290
+I know I told you that whenever you have a read operation this we have already seen that whenever you have a read operation and between this we don't show the but there are some computation happens correct or not we don't show this computation but the computation happens locally some computation in memory in buffer okay in buffer some computation happens in buffer this we have already seen but I told you that
+
+90
+00:54:18,980 --> 00:54:46,580
+we will only consider these things and we will assume some computation is happening we don't know what computation but some computation is happening for example let me give you example like let's assume this is transaction if you are reading the value of a then you are doing some computation you are doing okay maybe you are doing this computation that okay a-100 now initially you can assume that a was initially you can assume a was
+
+91
+00:54:46,860 --> 00:55:15,710
+300. This is what you can assume. Now, when you write this A, what this means? It simply means that you are putting this value A or if you want this completely, you can write, you can write this completely like read A comma T. Then what you do? This T means T minus 100. And then what to do? You write this A comma T. So at this point, what will happen? At this point in T, you will put this A. At this point, what will happen in this T? You will put T minus 100.
+
+92
+00:55:16,580 --> 00:55:48,660
+At this point what will happen? At this point in A you will put T. Okay. Clear. Let me know. So you can see that some computation will happen between these two. Between these two some computation will happen. Now then you will, then you will write. Initially if your value is this, then at this point of time your value will be what? Now at this point of time what your value will be? So, so now the value of A is 200. Okay. Is this clear to everyone? Please tell me. I told you that write does not read.
+
+93
+00:55:48,910 --> 00:56:18,480
+Yes or no? This I told you multiple times. Many times I told you that this right operation never reads. It will never read. It will never see the value of a. This will never see the value of a. Based on this read operation, some computation will happen in the buffer and then you will just put that computation in the A. This computation, this computation you will put in the A. So this is the idea. We have already seen this. So this is not a blind right because.
+
+94
+00:56:18,910 --> 00:56:51,320
+you are writing based on this value a first you are reading the value of a some computation you are doing then you are writing so this is not a blind right but this this operation will never see the value of a please tell me is this clear multiple times this point we have already seen now so let's see this so what i'm saying that this read operation you are doing you are reading the value of a so at this point of time what will happen in some variable t you will put the value of a you will put this value of a
+
+95
+00:56:51,560 --> 00:57:24,490
+So now this T has 300. Okay. Now some computation will happen. I don't know what computation, but some computation will happen. And then then what you will do then at this point, what you will do in the A, you will put a T some computation on T, some computation will happen on T. And then you will put that value in this A. So finally, you have value 200. Now when you read this value, what are you reading? Tell me now when you read this value, what are you reading? Let me know.
+
+96
+00:57:25,220 --> 00:57:55,110
+When you do this read operation, what are you reading? So at this point of time, some variables, some variable T2 in that variable T2, you are putting the value of a. So this T2 is now 200. Correct. So at this point of time, you are, you are reading the value of a that is 200. This value you are reading. And then this commit operation happens. This commit operation means you are showing the value to the user T7. So at this point of time, what this T7 user will see.
+
+97
+00:57:55,810 --> 00:58:25,080
+What this T7, what this T7 user will see? What this user will see? He will see the value 200, correct? Okay, at this point of time. Very simple. Is this understood? Is this understood? All these things are clear. Please tell me. Any doubt anywhere? Any doubt anywhere? So, step by step, I'm telling you, some computation will happen on the T, then that value of T you will put an A.
+
+98
+00:58:25,340 --> 00:58:53,560
+So finally at this point of time your A value will be 200. Now you will read this value of A. So the value that you are reading is 200. Okay. So then commit operation means you show this value to the user. So at this point of time your user will see the value 200. Now just assume that for a moment. So remember this T7 has seen the value 200. This T7 what he's thinking. This T7 what he's thinking. He's thinking the value is 200. Right. Correct.
+
+99
+00:58:54,200 --> 00:59:24,920
+This T7 is thinking that value is 200. Okay. Now, now for a moment, you assume that some failure happens here. Here some failure happens at this point of time. At this point of time, some failure happens. Now you tell me one thing. This T6 is uncommitted, right? Correct. This T6 did not commit. So definitely you need to roll back the T6. So what you will do, this T6, you will roll back. Definitely correct.
+
+100
+00:59:25,460 --> 00:59:54,250
+this you will roll back this t6 is uncommitted when the failure happens here you can easily see that t6 is uncommitted so definitely this t6 will roll back you need to roll back t6 because it is uncommitted okay now finally when you roll back roll back means undo undo you will undo the t6 you will undo t6 when you undo t6 what value what value ultimately will be stored in a
+
+101
+00:59:55,150 --> 01:00:27,430
+initially this A was initially this A was 300 yes or no so that 300 will be restored so this undo you will T6 when you undo this T6 then what will happen when you undo this T6 then what will happen now I can say A equal to 300 restored restored in database okay A equal to 300 restored in the database what it means what it means it means that T7 has seen a wrong value
+
+102
+01:00:28,020 --> 01:01:05,280
+are a t7 has gone t7 has committed so this t7 has committed it means this even this t7 has seen a wrong value you have given wrong value to the t7 so this is violation of what this is violation of what database consistency yes or no so definitely definitely you are seeing okay so this is violation of database consistency violation of database consistency is this clear but remember one more thing one more thing
+
+103
+01:01:05,800 --> 01:01:36,460
+One more thing, now can we tell T7 that you have seen the wrong value? Now can we undo T7? Like can we undo this T7? No, we cannot do that because it is committed. Because it is committed, we can't even undo this. Are you getting my point? This consistency we cannot preserve because we cannot undo. Okay, T7 has committed. He has gone. He will not listen to you now.
+
+104
+01:01:37,750 --> 01:02:07,430
+this is the consistency i hope this point is clear so it is it is a very simple scenario where you can easily see that you can you can easily see that this consistency this consistency sorry this violation of consistency we cannot i can say correct we cannot correct this violation of consistency is this clear let me know so i can say that in this situation recovery is not possible can i say
+
+105
+01:02:07,760 --> 01:02:37,250
+can I say the damage that you have done that damage you cannot undo the damage that you have already created the mesh that you have already created you can undo you cannot undo that damage so in this case you can easily see that recovery is not possible so this schedule is not recoverable is this clear in this schedule so I can say in previous schedule recovery is not possible for previous schedule in the previous schedule if
+
+106
+01:02:37,890 --> 01:03:15,970
+if t6 if t6 I can say if t6 aborts after t7 commits okay if t6 aborts after t7 commits then then t7 has seen what then t7 has seen wrong value okay t7 has seen wrong value and committed t7 has seen wrong value and committed okay so so
+
+107
+01:03:16,560 --> 01:03:50,700
+this is inconsistency so database consistency violated so this database consistency violated you have violated the consistency and remember but because it is committed but since t7 has committed since t7 has already committed we cannot recover from this we cannot recover from this inconsistency
+
+108
+01:03:52,550 --> 01:04:22,020
+from this inconsistency we cannot recover is this clear let me know because you have committed because T7 has committed so we cannot recover so we cannot recover from this inconsistency so that is the reason you can easily see that if T6 aborts after T7 commits then you can easily see that this is a irrecoverable schedule this is a irrecoverable schedule this schedule is
+
+109
+01:04:22,820 --> 01:04:51,150
+irrecoverable you cannot recover from this from this inconsistency you cannot recover okay aditya is saying that then database will have the wrong value no database is not having the wrong value because t6 is not changing anything t6 is just reading and going you can you can assume that let's assume the you know once in a lifetime opportunity you can assume that this was once in a lifetime opportunity and you have you have ruined it
+
+110
+01:04:51,600 --> 01:05:19,350
+Okay, the user has seen a wrong value. Now the user, remember the user is only doing the read operation. There is no other operation. So ultimately your database state is same. Aditya in your database state, like you will get this 300 will be restored in the database. So there is no problem. But the problem is this, that we cannot recover from this inconsistency. Is this clear? From this inconsistency, we cannot recover.
+
+111
+01:05:19,690 --> 01:05:49,080
+You have shown the wrong value to the T7 and that is that you should not do. Okay. So this is a not recoverable schedule. This schedule is not recoverable. And what is the point? Like what can anyone tell me? What is the problem? What is the problem? Let me know. Where is the problem in this entire schedule where the problem was happening? The problem was happening that you were reading from T6 and you were committing before T6.
+
+112
+01:05:49,790 --> 01:06:38,960
+you are reading you are cheating from t6 and you are committing before t6 this is the problem are you getting my point this is the problem that you are reading from t6 and you are committing before t6 so this is what I want to tell you that in this situation you can see so I want to tell you that it's it's like this let's take one analogy it is like this that yes so this analogy you can see that let's assume
+
+113
+01:06:39,220 --> 01:07:08,640
+you are cheating there is a student okay there is a student a and this you are you are you are also there and let's assume you are cheating from him okay so you are in the exam hall this is the exam hall in this exam hall let's assume you are cheating from this a this a has written some value he has done something and then you are okay you see the value and you write you just you do the copy and then let's assume you go okay and then let's assume that you you go
+
+114
+01:07:09,060 --> 01:07:38,550
+okay you have gone you have basically gone after you go okay after you go what happens after you go what happens this a changes his answer okay after you go this this a let's assume after you have gone this a changes his answer okay so he changes his answer he changes his answer after you have gone after be committed
+
+115
+01:07:39,270 --> 01:08:07,670
+So after be committed this is changing his answer. Okay. So very simple. So basically this be has seen a wrong value. Yes or no. Can I say can I say that this be has seen a wrong value. So he's seen wrong wrong answer and committed. He has seen wrong answer and committed. Correct. Okay. Very simple. So this is the idea you can like this is this is the analogy you can understand that
+
+116
+01:08:08,260 --> 01:08:39,040
+this B has seen a wrong answer and he has committed so definitely he will fail so this B will eventually fail ultimately this B will fail and this A will pass and basically okay something like this will happen so you can just see this this is just an analogy now let me tell you one more thing that what what should happen ideally what should happen tell me ideally what should happen let me know ideally what should happen ideally this would happen that this is your T1 this is your T2 this is writing
+
+117
+01:08:39,730 --> 01:09:10,310
+and let's assume this is reading okay now now ideally this would happen that if this failure happens at this point of time if failure happens at this point of time let's assume some failure happens then this should happen definitely this will roll back right this T1 will roll back definitely this T1 will undo ideally this would happen that because this is dependency yes or no can I call it dependency because this is dependency
+
+118
+01:09:10,810 --> 01:09:42,620
+So ideally this would happen that T2 also should roll back also should roll back correct this is what ideally should happen like for example ideally this would happen that if A is changing the answer then B also should change the answer this is what should happen ideally correct agree or not so if A if your A is changing answer then definitely B also should change the answer so this would happen ideally now this is the ideal situation but why this ideal situation is what is the problem
+
+119
+01:09:42,960 --> 01:10:16,240
+the problem is because of this commit operation because of this commit operation you can easily see that because of this commit operation I can say you cannot we cannot do this we cannot abort it okay we cannot roll it back this abort this abort operation cannot happen because you have this already has committed so if failure happens here then this commit operation cannot happen okay I hope this point is clear
+
+120
+01:10:16,650 --> 01:10:46,830
+so this is the problem and the problem is what the problem is this is dependency you are reading from T1 and also this is dependency so you are reading from T1 and also you are committing you are leaving the exam hall before T1 so this would not happen this is the problem this is the ultimate problem so finally what should we say that if this happens then it is irrecoverable
+
+121
+01:10:48,140 --> 01:11:19,280
+What is a irrecoverable schedule? What is a irrecoverable when I can say that irrecoverable schedule when your schedule is irrecoverable the schedule is irrecoverable when you have a transaction T1 and this is transaction T2 you are okay you see this right operation you read let's assume this right operation you are reading and then before this T1 you are committing
+
+122
+01:11:21,280 --> 01:11:52,690
+before this T1 you are committing like you are committing before this T1 before this T1 you are committing commit or abort okay so this situation is called this complete situation is called irrecoverable schedule what is happening here you copy this like you are reading this okay you are reading this you can notice this value you are reading this value and you are committing before this T1 you are you are cheating you are cheating from T1
+
+123
+01:11:52,940 --> 01:12:22,960
+and you are going out of exam hall before t1 so definitely this is the situation this is called irrecoverable here the schedule is irrecoverable okay and because of this because of this irrecoverability what will happen because of this irrecoverability we cannot make sure the atomicity property yes or no because of this irrecoverability you cannot recover them i can say in a correct way
+
+124
+01:12:23,570 --> 01:12:54,280
+Basically you should recover this also. Tell me what atomicity property says. What atomicity property says? Atomicity property says that either all your effects should happen or none should happen. Correct? Either you should do all the actions or you should do no action. You tell me one thing. If you recover this T1, if you undo this T1, can I say this T1 did not do anything?
+
+125
+01:12:55,340 --> 01:13:25,950
+Can I say this T1 did not do anything? This has already done something, right? Yes or no? This has already done something, correct or not? Are you are reading? This T2 has read. This T2 has read the value of by T1. So I can say that this is already, I can say atomicity property is violated. So because of this irrecoverable schedule, what is happening? Because of this, okay, this atomicity property we cannot make sure. Atomicity is violated. Is this clear?
+
+126
+01:13:26,250 --> 01:13:58,640
+see what atomicity property says very simple this atomicity property says that either completely you happen like either the transactions would happen completely or none of it should happen or I can say atomicity properties means that that no effect on the database okay if basically if a transaction fails if a transaction fails before commit if a transaction fails before commit then what should happen then
+
+127
+01:13:59,290 --> 01:14:31,180
+It should not affect the database. Agree or not? Then it should not affect the database. Correct? It should not affect the database. Yes or no? Then it should not affect the database. So if your transaction is failing before commit operation then it should not affect the database. You should not affect the database. But you can easily see that at this point you can easily see
+
+128
+01:14:31,390 --> 01:15:00,540
+that even if you buy chance okay even if you do the rollback then also you can already seen that you have already created the mess the mess has already been created so here the atomicity property is violated is this clear to everyone tell me like here you can easily see that for example if this student even if this student changes his answer he has ruined the life of this student b okay correct of course this this like because this
+
+129
+01:15:00,890 --> 01:15:28,970
+it's not it's not the mistake of person A but you can understand like this okay so even if this A changes the answer then also you can notice this has left some impact on the database on the database some impact it has left so definitely this atomicity property is violated when you have irrecoverable schedule okay so because of this irrecoverable schedule you can easily see that this atomicity property has violated okay
+
+130
+01:15:29,530 --> 01:16:03,220
+this, uh, atomicity property. This has violated. Okay. Mavith, as I told you that showing wrong result to someone that is also violation. I told you that is the reason I told you the database state is not changing, but still showing the wrong things to any, uh, like this, this note we have already seen. Do you remember this note? We have already seen that showing wrong results. This in the beginning, we have seen this note. That is the reason I have taken this note in the beginning.
+
+131
+01:16:03,690 --> 01:16:51,600
+showing or I can say printing wrong values okay showing wrong values to user on commit operation on commit point is also violation is also considered violation of database consistency okay that is the reason this point I have taken in the beginning of the class because I knew that this doubt will come to your mind okay in the beginning we have already seen this point
+
+132
+01:16:51,840 --> 01:17:19,960
+that if you show wrong result to the user okay then that is also considered violation of database consistency you should not show wrong values to the user on the commit point okay is this clear to everyone now please tell me is this understood so let's see what is a so you can easily see what is a recoverable schedule what is a irrecoverable schedule the final conclusion i'm giving you the final conclusion is this what is a recoverable schedule
+
+133
+01:17:23,580 --> 01:17:52,910
+recoverable schedule means if you read from T1 like if I am cheating if I if I see the changes of T1 this this T1 is making some changes if I read these changes okay if I read these changes these changes I read I copy from T1 then what should happen tell me I am cheating from T1 this T1 is the topper I am cheating from T1 then what should happen I should wait
+
+134
+01:17:53,340 --> 01:18:23,080
+until this T1 has committed I should leave the exam hall after this T1 has left the exam hall right yes or no I should leave the exam hall my commit my commit should happen after the T1 has committed okay is this clear my commit should happen definitely my commit should not happen before T1 commit so if I'm cheating like this then this would happen I can say
+
+135
+01:18:23,410 --> 01:18:53,310
+I can say that if this happens then this would happen. Is this clear? If this cheating is happening then this should happen that I should not leave the exam hall before this T1 leaves the exam hall. I hope this point is clear. Tell me. This is called recoverable schedule. And what is irrecoverable schedule? Irrecoverable schedule means you are cheating but you are leaving the exam hall. You are leaving the exam hall before this T1 leaves the exam hall.
+
+136
+01:18:56,720 --> 01:19:26,320
+before this T1 leaves the exam hall okay so this you should not do your commit should not happen before this T1 commit okay your commit should wait for T1 to commit this is the recoverable this is the irrecoverable please tell me is this understood what is recoverable schedule what is irrecoverable schedule and you can easily see when you have irrecoverable schedule then atomicity property is violated okay this irrecoverable schedule this type of schedule
+
+137
+01:19:26,710 --> 01:19:58,460
+they violate atomicity property this type of schedule they violate atomicity property like if you want to see a good example a better example if you want to see then you can see this example consider this example let's assume t1 is there t2 is there and this t1 what it has done some a better example i'm giving you a perfect example i'm giving you so let's assume this t1 is there t2 is there and let me assume that this item a was there
+
+138
+01:19:58,900 --> 01:20:27,330
+Initially the item A was let's assume 500. So this item A value was 500 and you have T1, T2. Let me assume that this T1 is reading the value of A doing some changes. I don't know what changes he will do, but let's assume he is doing some changes. So let me assume that T minus 50 or T minus 100. He's doing some changes T minus 100. And then he's writing the T into A. This is what he's doing. At this point of time, this T2 reads.
+
+139
+01:20:28,130 --> 01:20:59,270
+at this point of time t2 reads the value in some other variable s this s is also a variable t is also a variable okay so please understand that this is also temporary variable this is a temporary variable similarly this t is also temporary variable this t is the temporary variable of t1 and this s is the temporary variable of t2 so this you are reading this and then let's assume some changes you are also doing this t2 is also doing some changes what it does it changes
+
+140
+01:21:01,090 --> 01:21:31,540
+it changes the value let's assume by it decreases by 300 let me assume it decreases by 300 now it also writes it is also writing okay and then it is committing then it is committing now see the problem will happen now something some problem will happen what is the problem now if this failure happens here now if this T1 aborts now if the T1 aborts what will happen now tell me
+
+141
+01:21:31,920 --> 01:22:02,190
+this consider this situation this is the consider this situation now let's see now you can easily see this is irrecoverable right do you agree do you agree that this is irrecoverable yes because you are reading this value this A value you are reading okay you are reading this way value and you are committing you are committing before this T1 so definitely this is irrecoverable but how this violates the atomicity property that we need to see
+
+142
+01:22:03,320 --> 01:22:30,450
+Irrecoverable is fine. You understood that this is irrecoverable. Okay. I'm cheating from T1. I see the value which is written by T1. That value I read, but I commit before this T1 commits. So definitely this is irrecoverable, but how the atomicity violation is happening. Let's see that. So this is your initial value of A equal to 500. So tell me what T1 will have at this point of time. What T1 will, what database value will have T1?
+
+143
+01:22:30,950 --> 01:23:01,520
+what will be the database value of a at this point of time at this point of time the value will be 400 right so you are reading the 400 correct in variable s you are reading the 400 okay so this t2 it is reading the 400 then what this is doing then it is making it is decreasing by 300 so ultimately the value in the database the value in the database by a should be that should be 100
+
+144
+01:23:02,080 --> 01:23:33,530
+and then you are committing now see there is a problem will happen what is the problem will happen the problem that now you are aborting so because of this abort this T1 should undo the changes by T1 should undo correct so I can say these changes will you will undo the changes undo changes by T1 okay now you tell me when the T1 will undo the changes what T1 will want to do T1 knows what he has done
+
+145
+01:23:33,850 --> 01:24:02,260
+correct T1 knows what he has done so T1 is thinking that what I will do I will just add 100 do you agree T1 is thinking that what T1 will do T1 will just add 100 whatever value you have in that value you will add 100 correct is this clear so ultimately when you undo the T1 then what you will do then you will just or what see sorry so whatever initial value this T1 has seen
+
+146
+01:24:02,590 --> 01:24:32,700
+This is the initial value T1 has seen. So what T1 will want to do? T1 will want to make it again 500 because T1 does not know that T2 has come. Okay, yes or no? This transaction T1 does not know what T2 has done. He does not know. So this T1 will want to undo all the changes. So what he will want to do? He will want to make this a 500. But if you do this, you cannot do this, right? Why you cannot do this? Because this committed transaction
+
+147
+01:24:33,180 --> 01:25:03,080
+its effect you should not undo are you getting my point please tell me are you getting this point see this T1 wants to undo but if T1 wants to undo then you have to undo this T2 also but you cannot undo T2 is this clear to undo the changes by T1 you should undo the changes by T2 but you cannot undo the changes by T2 because T2 has committed so that is the reason this atomicity property is violated we cannot we cannot undo the changes
+
+148
+01:25:03,630 --> 01:25:36,900
+this atomicity property and this consistency property all these properties are violated because we cannot undo the changes by T1 to undo the changes by T1 we also have to undo the changes by T2 but we cannot do that please tell me is this understood let me know is this clear so very simple point so this undo okay this undo these changes are not possible this undo is not possible and the undo is not possible because
+
+149
+01:25:37,580 --> 01:26:22,060
+If you want to undo this T1 then you have to undo T2 To undo T1 We have to undo T2 Because T2 has already read from T1 Okay, because T2 had read from T1 From T1 Made some changes Made some changes And committed Or I can say made some changes Okay, it has read and made some changes Okay, so you have to read you have to undo T2
+
+150
+01:26:22,410 --> 01:27:13,710
+but we but we cannot undo T2 but we cannot undo T2 because it has committed because T2 committed so we cannot do this so we cannot undo T1 okay so we cannot undo T1 I can say completely I can say we cannot undo T1 correctly we cannot undo T1 correctly okay so we cannot do that and this means atomicity is violated okay let me know
+
+151
+01:27:13,870 --> 01:27:47,070
+Any other doubt? Please tell me. Please tell me. Is there any other doubt? Because this T2 has read from T1. All the things that T2 has done, all these things are based on this T1 changes. The changes by T1. So whatever T2 has done, these are based on this wrong result. Yes or no? Because T2 is aborting, the T2 want to abort. But whatever T2 has done,
+
+152
+01:27:47,290 --> 01:28:16,040
+that is based on this wrong thing okay so if you want to keep the data consistent if you want to make sure that your database remains consistent then you have to undo T1 but before undoing T1 you should undo T2 also because T2 has read from T1 okay so if you want to undo T1 then you have to undo T2 but you cannot undo T2 this is what we are saying you cannot undo T2 because T2 has committed okay
+
+153
+01:28:16,420 --> 01:28:47,060
+so like you can read this here please read this see this what does what this is saying this is saying that t7 commits while t6 now if t6 fails okay please see this t6 fails then t7 has already read from t6 so you can easily see t7 is dependent on t6 now because of this you can see we must abort t7 if you want to ensure atomicity but t7 has already committed
+
+154
+01:28:47,620 --> 01:29:17,920
+So you cannot abort it. So ultimately, atomicity property is violated. Is this clear? See, this is the paragraph. You can read this paragraph. You can see that you should, you want to undo this. Then because this T7 is dependent on T6, so you should undo T7. But you cannot undo T7 because T7 has committed. So that is the reason atomicity property is violated. Okay. I hope this point is clear. So finally,
+
+155
+01:29:18,380 --> 01:29:47,700
+what we are saying, we are saying that because of this irrecoverable schedule, the atomicity property is violated. Okay. Mavith is saying that if no right, then atomicity property is not violated. It is still violated. You can see in this example, there is no, there is no right operation. In this example, T7 is not doing the right operation, but you are giving wrong result to the T7. This T7 has seen the wrong result and this T7 has committed. So you, so basically,
+
+156
+01:29:48,220 --> 01:30:18,840
+If you want to undo this T6, all the effects of T6, all the changes by T6, if you want to undo them, then you should undo this also. You should undo that T7 has seen the wrong result. Mavith, is this clear? Okay. Again, just forget about everything. Just, just understand this statement that I'm telling you right now. You tell me, you came, you did something. And if I want to make sure that all your effects are undone,
+
+157
+01:30:19,090 --> 01:30:55,870
+then can i do that in this question can i undo all the effects of t6 this is the simple question i want to ask you in this question can i undo all the effects of t6 that is not possible right this is the this is the simple thing you have to understand that in this question it is not possible it is not possible to undo all the effects of t6
+
+158
+01:30:56,460 --> 01:31:32,640
+it is not possible right because t7 has read from t6 and t7 has committed so it is not possible to undo all the effects of t6 so atomicity violated so this atomicity property this is violated now is this understood let me know let me know now is this understood please tell me okay anyone has any doubt right now at this point do you have any doubt yes that is a good question let me take
+
+159
+01:31:32,860 --> 01:32:07,280
+Now case is asking a very good question. So that I want to take. Let me take some questions. Is this recoverable or not? Recoverable or not? Recoverable or not? Let me ask you some questions like T1, T2, some transactions I'm giving you and you tell me are they recoverable or not? Let's assume you write the value of A and here you are reading the value of B. Okay. And then at this point of time, let's assume you commit.
+
+160
+01:32:08,880 --> 01:32:40,310
+and now it commits or aborts or it commits it commits or aborts is this recoverable is this recoverable tell me is this recoverable yes this is recoverable right so this is recoverable this is clearly recoverable because there is no problem here right this T2 is not dependent on T1 can you see that T2 is independent of T2 you can notice T2 is not dependent on T1 it is not dependent on T1
+
+161
+01:32:40,640 --> 01:33:09,170
+So whether a commit happens or abort happens, there is no problem. You can do that. Yes or no, you can undo all the changes by T1. Whatever changes T1 has done, you can undo all the changes by T1. No problem. T2 does not care. T2 is not dependent on T1. Now you consider this example that you write this, this A, you are writing this A and then you are reading A and then you are doing something. Maybe. Okay. Then also you are doing something.
+
+162
+01:33:09,620 --> 01:33:45,570
+and then let's assume you are committing you are committing and at this point of time he is committing or or he is aborting I don't know he commit or abort I don't care so now you tell me is this recoverable is this recoverable is this recoverable or not tell me which of them are blind rights tell me is this blind right is this a blind right yes this is a blind right right okay so this is a blind right so tell me
+
+163
+01:33:46,190 --> 01:34:17,420
+This T2, is it reading from T1? This T2, is it reading from T1? A simple question I am asking. T2, is it reading from T1? No. Alright, T2 is not reading from T1. T2 is reading from T2 only. T2 is reading from T2 only. T2 is not reading from T1. T2 did not see this change. Can I say? Can I say T2 does not see this change? This transaction T2 does not see this change.
+
+164
+01:34:18,120 --> 01:34:48,240
+So again, you can notice this T2 is independent of T2. This T2 is not dependent on T1. Yes or no? This is not dependent on T1. So again, you can notice this is a recoverable. So this is also recoverable because T2 is not dependent on T1. T2 is not reading from T1. It's like, I'm not cheating. I'm not cheating from T1. I'm writing my own answer. I'm cheating from my own copy. Okay. Is this clear?
+
+165
+01:34:48,600 --> 01:35:22,960
+I am cheating from my own copy. I am not cheating from T1. Please tell me is this understood? Let me know. You can see that this is not happening. This is not happening. We are not reading from T1. So T2 is again not dependent on T1. So again this is a recoverable. Is this understood now? Please tell me. Let me know. Is this understood? What is recoverable? What is not recoverable? So recoverable? Again I am telling you what recoverable means.
+
+166
+01:35:23,720 --> 01:35:57,980
+recoverable means that or I can sorry about irrecoverable means irrecoverable means that I read the changes by this these changes I read but still I commit still I commit before this commit or abort this is called irrecoverable is this understood is this understood this is called irrecoverable schedule or this irrecoverable means atomicity is violated
+
+167
+01:36:03,210 --> 01:36:35,520
+or I can say recovery is not possible it is irrecoverable recovery is not possible you cannot recover from this let me know is this clear now one more thing let's assume WA WA then I commit and then he abort now tell me is this recoverable is it recoverable let me know the answer again this is a recoverable right again we are not reading from T1 yes or no again this is a blind right
+
+168
+01:36:37,440 --> 01:37:09,520
+Again, this is a blind right. I'm not reading from T1. No read from T1. So this T2, not reading from T1, T2, not seeing T1. Understood. Let me know all these points, small, small points I'm just covering. Let me know if you have any other doubt, any other variation should I take any other variation in your mind? Do you have any other variation in your mind? Remember, this is an important point that I want to tell you that.
+
+169
+01:37:09,740 --> 01:37:43,450
+if you have t1 if you have t2 and this happens let's assume like you write a and then you you read a but sorry you you also write a and then you read a then remember this thing this thing this thing is not happening okay so this is not a dirty read so I can say basically here we are not reading from t1 okay not reading from t1 okay we are not reading from t1 clear
+
+170
+01:37:44,800 --> 01:38:18,940
+So this is a point I want to tell you one more thing you can you can take this example like let's assume T1 is there T2 is there T3 is there and assume that this is writing some a this is reading some a but before that it is also writing some a or maybe or maybe you can consider that it is reading some a and then it is writing some a now now it commits now it now it commits
+
+171
+01:38:21,100 --> 01:38:56,380
+so you tell me and then it commits and then it commits is this recoverable or not on your screen is this recoverable or not is this recoverable again this is not recoverable because you are reading from t3 is reading from him but but you can notice this is happening it is committing before this so this is also irrecoverable this schedule is also irrecoverable now consider this that
+
+172
+01:38:56,730 --> 01:39:35,370
+let's assume you commit here and this is committing here and it is committing here now tell me is this recoverable or not now is it recoverable or not again this is not recoverable because you are reading this T2 is reading from this sorry okay so what about this now this is recoverable right this is recoverable there is no problem this is recoverable because you can see that it is reading from this and there is no problem this is also happening
+
+173
+01:39:35,720 --> 01:40:09,280
+the second situation the second situation it is reading from this and you can notice this is also happening so everything is perfect so this is a recoverable schedule but if this happens then this commit happens here and this commit happens here this is irrecoverable the irrecoverable because of this so you can notice this is irrecoverable okay so all these points are they understood like for example on your screen this schedule is this recoverable or not this schedule is this recoverable or not tell me
+
+174
+01:40:11,560 --> 01:40:43,460
+This is the schedule that is given to you. You can check that this value we are reading, right? Correct. So you can notice this T2 is reading from T1 and and this is also happening. So this is recoverable. So there is no problem here. This is recoverable. Okay. You are like T2. This T2 is cheating. This T2 is cheating from T1, but still this T2 is committing after T1. So there is no problem. This is recoverable. Okay. What about this one? What about this schedule?
+
+175
+01:40:45,800 --> 01:41:19,450
+like consider this schedule on your screen in this schedule you can notice that T2 is reading from this but T2 is committing before T1 so this is irrecoverable so this schedule is not recoverable you can check okay and tell me is this serializable is this serializable this schedule this schedule is recoverable you can see this schedule is recoverable but is this serializable is this serializable tell me
+
+176
+01:41:19,940 --> 01:42:06,330
+you can easily see that there is in this schedule just check it out it is serializable your as to look at as to as to is this there is T1 there is T2 just give me a second so there is T1 there is T2 and you are doing WA then it is doing WB then it is doing WA and then it was doing read B is this is this serializable like let's check for conflict this is not conflict serializable
+
+177
+01:42:06,660 --> 01:42:36,770
+you can easily see then you are doing c1 and then you are doing c2 so easily you can see this is not conflict serializable there is no problem here because your so this is not a conflict serializable because your precedence graph will be like this you have a precedence graph like this so this is definitely not a because your this precedence graph is this so there is from t1 to t2 there is a arrow and there is arrow from t2 to t1
+
+178
+01:42:37,000 --> 01:43:15,810
+So, this is not confident serializable. What about view? What about view serializable? What about view serializable? Can I say this is like T1, T2? Can I do this T1, T2? Can I do this? Can I do this T1, T2? What is the problem? If I do this, then final rights are not same. Yes or no? Then final right violation. Correct? In this situation, final right violation. Agree? If I do T1, then T2.
+
+179
+01:43:16,060 --> 01:43:44,690
+then final right will violate because in this the final right of age done by T1. So if you do T1 after T2 in this schedule you notice the final right of age done by T1. So if you do T1 then T2 then final right will be done by T2. So definitely this is final right violation. What about T2 T1? What about this? If you do T2 then T1 then this this read violation yes or no?
+
+180
+01:43:44,990 --> 01:44:19,470
+you can notice this read view violation so can i say that this is not view serializable yes or no this is not view serializable so finally you can see this is not serializable do you agree this schedule is not serializable we have already seen so this is not not serializable but this is recoverable similarly look at this schedule look at this schedule this is serializable this is also you can check that this is also conflict serializable
+
+181
+01:44:19,980 --> 01:44:51,770
+this schedule is confit serializable so automatically this is view serializable so this schedule is serializable but not recoverable one thing you can notice that these two concepts have nothing to do with each other can you see this serializability has nothing to do with recoverability this serializability and recoverability have nothing to do with each other recoverability are orthogonal concepts this is called
+
+182
+01:44:52,060 --> 01:45:27,810
+orthogonal concepts what that means what that means tell me orthogonal concepts it means that they have nothing to do with each other means nothing to do with each other all the situations are possible every situation is possible like this type of situations are possible where you have serializability but serializability and recoverability these are also possible okay what i want to say i want to say serializability and recoverability both are possible
+
+183
+01:45:28,810 --> 01:45:58,000
+not serializable, not recoverable, this is also possible serializable, not recoverable, this is also possible not serializable, recoverable, this is also possible so all these things are possible they are orthogonal concepts serializability, recoverability they have nothing to do with each other all situations are possible a schedule can be serializable and recoverable a schedule can be not serializable, not recoverable a schedule can be serializable, but not recoverable a schedule can be not serializable, but recoverable
+
+184
+01:45:58,240 --> 01:46:39,710
+example is on your screen like this is recoverable not serializable this schedule is serializable but not recoverable so these two concepts are completely orthogonal concepts they have nothing to do with each other okay let's move on now let's see this preserving atomicity so what you need to do if you want to preserve atomicity to preserve atomicity this is what you need to do remember to preserve atomicity this is what you need to do
+
+185
+01:46:40,630 --> 01:47:12,780
+whenever you want to preserve atomicity then you have to undo undo the so when when failure occurs then you have to undo the transactions okay so if you want to preserve the atomicity this point I want to tell you if you let's assume there is a T1 and you are reading from T1 okay let's assume there is a T2 and this T1 is reading from T1 now let me assume that this T3 is also reading from T1
+
+186
+01:47:13,990 --> 01:47:45,710
+also assume that let's assume this t2 is writing and t3 is this t3 is reading this t4 is reading tell me one thing can I say t4 is dependent on t1 can I say can I say t4 is dependent on t1 can I say that tell me can I say yes of course because remember this this this t3 is reading from t1 and then this t4 is reading from t3 so ultimately transitively this is dependent
+
+187
+01:47:47,330 --> 01:48:18,740
+This is called transitively. Okay. So you can see here, here you can easily see that that T2, all of them, this T2, this T3, this T4, all of them are dependent on dependent on T1, all of them. Okay. They are dependent on T1. Now one thing I want to ask what it means to undo T1. Then tell me what it means to undo T1.
+
+188
+01:48:20,720 --> 01:49:05,000
+What it means to undo T1? What it means to undo T1? This is my question. When I say that you undo T1, what it means? What it means to undo T1? It means, remember, it means undo T1 and undo T1 and undo all transactions dependent on T1. All transactions who have read from T1, who are dependent on T1. Dependent on T1 means
+
+189
+01:49:05,620 --> 01:49:40,660
+it means who have read from T1 who have read based on T1 who have read changes by T1 so this is what it means see many of you were having some doubts when we were discussing this read operation like do you remember one transaction was just reading it was not doing anything else there was a transaction which was only reading not doing anything else at that time
+
+190
+01:49:40,960 --> 01:50:10,390
+Some of you were having some doubt. Like, is that atomicity violation? Correct? You were wondering that is that atomicity violation? One transaction is just reading. It is not writing. It is just reading. Is that atomicity violation you were thinking? Okay. So let me tell you, this is the point I want to discuss in this topic, preserving consistency. In this, I want to discuss this point that if you can see that this T2 is reading from T1,
+
+191
+01:50:10,780 --> 01:50:40,400
+t3 is reading from t1 and t4 is reading from t3 t3 is reading from t1 you can notice this t4 is dependent on t3 t3 is dependent on t1 so ultimately t4 is dependent on t1 so you can see that t1 sorry t2 t3 t4 all of them are dependent on t1 so what it means what it means when I say undo t1 undo effects of t1 okay what it means when I say undo t1 it means undo t1 and all effects of t1
+
+192
+01:50:40,780 --> 01:51:12,690
+do you agree it makes sense it is very intuitive that undo T1 and all effects of T1 and all effects of by T1 all effects due to T1 correct this is very intuitive all effects by due to T1 you have to undo okay so it means that undo T1 as well as undo all the transactions who are dependent on T1 so this is what it means now remember if you cannot do this for example now now let's assume that
+
+193
+01:51:12,970 --> 01:51:51,900
+it commit let's assume it commit and or maybe you can assume that this is committing this t4 is committing now let me assume this t4 is committing and this t this is committing here so let's assume like it is committing here and this is committing here so you tell me now you can see that t4 is just reading if you notice it is just reading nothing else just reading from t1 okay not writing
+
+194
+01:51:52,360 --> 01:52:25,070
+it is just reading from T1 but still this is violation of atomicity this is still violation of atomicity because you cannot undo T4 so here you can easily see that this is violation of atomicity so this is your violation of atomicity because even if you undo this by chance if you undo this still you cannot undo its effect this all the effects of T1 you can undo
+
+195
+01:52:25,270 --> 01:52:52,430
+this all the effects of T1 you must undo, but you cannot undo all the effects of T1. So this is violation of atomicity. This is what I want to tell you. So you can, you can see this is the source, source is core. So please see this. You can see that if a transaction fails, then for whatever reason, what for whatever reason it fails, we need to undo the effect. We need to undo the effect of transaction to ensure the atomicity property.
+
+196
+01:52:53,450 --> 01:53:19,070
+in a system in which you have concurrent execution in a system which allows concurrent execution the atomicity property requires please understand this this is already given in the court this so I should have taken this slide earlier right agree this slide I have taken I should have taken before discussing this recoverability because a lot of confusion I know some of you had some confusion
+
+197
+01:53:19,520 --> 01:53:47,780
+So, I should have taken this slide before discussing the recoverability, but now you can understand. Okay. Now all the doubts are clear. Please tell me. All your previous doubts, all your previous confusions, are they clear now? Let me know. Allah, you were asking some doubt. Mahavith was also asking some doubt. All your doubts are clear now. I should have taken this slide before discussing the recoverability. I should have taken this slide.
+
+198
+01:53:49,400 --> 01:54:19,840
+uh this slide came after some time but anyway ultimately you understood everything all your doubts are clear so you can notice this atomicity property requires it requires that any transaction that is dependent on ti that is dependent on ti means it has read data written by ti is also aborted i hope this point is clear this is an important point so what it means when you say preserve atomicity
+
+199
+01:54:21,100 --> 01:55:07,870
+so ultimately remember preserving atomicity means you have to abort okay so to preserve atomicity to preserve atomicity I can say abort T and abort all transactions which have read from T which have read changes by T okay so this is the complete idea so to preserve the atomicity you abort T
+
+200
+01:55:08,130 --> 01:55:42,290
+and you about all the transactions who have read changes by T. This is the concept of preserving atomicity. So here there is atomicity violation. Again, I'm just giving this example. T1, T2. This T1 is writing. This T2 is reading and committing. This T1 is reading and committing. And let's assume now this commits. So remember, this is a violation of, this is irrecoverable. So at this point, if it
+
+201
+01:55:42,520 --> 01:56:17,810
+this is irrecoverable see this is irrecoverable but here there is no violation but here there is no violation because both are committing but there is violation will happen if it aborts the violation will happen if you abort it if it fails here now you can notice this is still irrecoverable and there is a violation of atomicity violation of atomicity because you will abort this you should abort this but you cannot abort T2 so violation of atomicity
+
+202
+01:56:18,150 --> 01:56:53,940
+Because we cannot abort T2. Because T2 cannot be aborted. Okay. Clear. Simple. So because T2 cannot be aborted. So this is violation of atomicity. That's it. Now let's move on. Click quickly. Let's see this question. This is a very, very, very, very beautiful question in the gate exam. So tell me, this is gate 2015 question on this concept that we have already seen. There is a schedule that is given to you in which you have two transactions. There is transaction T1, there is transaction T2.
+
+203
+01:56:54,270 --> 01:57:24,690
+Read write operations have been shown. Only the read write operation they have given the read operation and write operation anyway. Okay. So this is the question that is given to you. Now this transaction is given to you and the question is saying that suppose that transaction T1 fails. This transaction T1 fails immediately after time instance nine. So at this point, transaction T1 fails. Here T1 fails. Okay. Now the question is saying which of the following statement is correct. Tell me one thing.
+
+204
+01:57:25,320 --> 01:57:56,020
+If this transaction T1 fails here, then what you will do? The transaction T1 is failing here, then what you will do? Then you want to undo the T1 and all the transactions which are dependent on T1, you can notice this transaction is dependent on T1, right? This T2 is dependent on T1 and this T2 is committed. So we cannot roll back T2. So this is definitely irrecoverable. You can easily see this is irrecoverable.
+
+205
+01:57:56,280 --> 01:58:26,910
+this schedule is irrecoverable but what is the problem? irrecoverable is fine but what is the problem? the problem is that atomicity is violated yes or no? you can clearly see that atomicity is violated why atomicity is violated? atomicity is violated why? atomicity is violated because we have to make sure what we have to make sure this atomicity is violated the reason is this if you want to ensure atomicity
+
+206
+01:58:27,230 --> 01:59:05,150
+t1 and t2 both should abort both must abort to ensure to ensure atomicity correct to ensure atomicity if you want to ensure atomicity then they both must abort but t2 cannot abort yes or no but t2 cannot abort but t2 cannot abort because t2 is committed t2 is already committed so t2 cannot abort so remember
+
+207
+01:59:05,440 --> 01:59:36,070
+if you want to ensure atomicity to ensure this atomicity you must abort you must abort this t1 t2 but t2 cannot abort because t2 has already committed so you cannot abort t2 so that is the reason this is irrecoverable the recovery is not possible atomicity is violated so this is a beautiful question on this concept and finally your answer will be you can check it out your answer will be schedule s is not recoverable and you cannot ensure transit transaction atomicity
+
+208
+01:59:36,290 --> 02:00:06,060
+so the answer will be option B so this is a beautiful question and very nice question let me tell you why this is beautiful because for this question a lot of students they they don't understand this completely okay this question is beautiful because in this question they are they are asking for atomicity property violation of atomicity property and only those students can solve this question correctly only those students can solve this question with confidence who have studied from korth and from standard resources
+
+209
+02:00:06,660 --> 02:00:36,620
+As you can see in the corth, this is the source corth. What it means to ensure, I can say, ensuring atomicity. What it means? Ensuring atomicity, what it means you have to understand. Is this clear? For this question, if you want to solve this question, you have to understand what it means, correct or not? This you have to understand. If you want to solve this question, this you have to understand.
+
+210
+02:00:38,250 --> 02:01:08,920
+That ensuring atomicity means you have to undo T1 and all the transactions which are reading from T1. This is an important point that you should understand. And as I told you, without understanding this point, you cannot solve this question. Because what students think, let me tell you, what many students think, they think that atomicity means just do undo this. This is what many students think. Okay. Atomicity property means just undo T1. This is atomicity property.
+
+211
+02:01:09,870 --> 02:01:37,880
+but this is not correct yes or no atomicity property means you have to undo T1 also you have to undo those transactions which are reading from T1 this is called atomicity property so you should understand what is atomicity property preservation without understanding this you cannot solve this question so that is the reason the answer will be option B but on the gate or for website there is a lot of discussion on this question a lot of comment are there
+
+212
+02:01:38,250 --> 02:02:08,820
+And if you read those comments, you will find out one thing. What is that? You will find out that students don't understand what atomicity preservation means. Okay. To ensure atomicity, what you have to do, they don't understand. So I'm again telling you, I'm again telling you that if you want to ensure atomicity, then you have to abort T1. Also, you have to abort all the transactions which are dependent on T1. So you have to abort T2 because T2 is reading from T1.
+
+213
+02:02:09,020 --> 02:02:38,200
+So you have to abort this also, you have to abort this also to preserve atomicity. But remember, because T2 has already committed, so you cannot abort T2. So that is the reason atomicity property is violated. So that is the reason answer will be option B. So this is your gate 2015 question, a simple and a beautiful question. Okay, so let me see the time. Okay, let me actually complete this a small topic so that tomorrow we don't have to study this again.
+
+214
+02:02:38,590 --> 02:03:07,090
+a small topic I want to discuss that is now let's assume something is recoverable okay among the recoverable schedules all the recoverable schedules also there are two types one is easily recoverable the recoverable schedules there are two types means these are recoverable there is no problem of recoverability these are recoverable schedules but there are two types of schedules one is easily recoverable or I can say that these are cascade less recoverable
+
+215
+02:03:07,890 --> 02:03:44,910
+These are cascade less recoverable and another is cascade cascading rollback recoverable. So there are two types of schedules. One schedule is easily recoverable. I can say these schedules are basically very easily recoverable. You can recover them very easily. These are cascade less recoverable and another is basically I can say complicated recovery. The recovery will be complicated or I can say expensive.
+
+216
+02:03:46,320 --> 02:04:16,160
+expensive recovery okay so this is the point now let's see what this means so remember your transaction your schedule must be recoverable now consider this example is this recoverable tell me like for example let's assume this is committing here assume this was committing here assume this was committing here so is this recoverable tell me on your screen this schedule look at this is this look at this schedule is this recoverable yes clearly this schedule is recoverable
+
+217
+02:04:16,450 --> 02:04:46,350
+clearly there is no problem this schedule is recoverable because these people are reading from t1 you can notice this is reading from t1 and so you can see that this t1 sorry this t9 comma t10 are dependent on t8 so you can notice t9 comma t8 dependent on t dependent on t8 okay they are dependent on t8 because they are reading from t8 so there is no problem this is recoverable recoverability is not an issue
+
+218
+02:04:46,770 --> 02:05:19,990
+But now what will happen? Now you will abort this T8. Okay. So when you abort this T8, what automatically you will have to do? What automatically you will have to do? You will have to abort T9 also. What automatically you will have to do? You will have to abort this T10 also. Yes or no? So this is recoverable to ensure atomicity. To ensure atomicity. This is what you have to do. To ensure atomicity. What you will do?
+
+219
+02:05:20,460 --> 02:05:50,420
+You will abort, you will abort T8, T9, T10. All of them you will abort. Can you see this is a problem? What is the problem? Because of one failure, because of failure of T8, you have to abort T9, T10 also. Like just think about it. Let's assume some time you have spent here, some time spent here, some time spent here and all the process is gone. All the progress is gone, expensive. This, this type of recovery, this is expensive. Yes or no?
+
+220
+02:05:50,600 --> 02:06:26,100
+a lot of resources you have wasted and ultimately no result you have to okay because of T8 you are aborting T9 comma T10 also so very simple point you can notice so due to due to rollback of T8 due to rollback of T8 we we have to additionally rollback we have to additionally rollback T9 comma T10 okay so this is the simple point
+
+221
+02:06:26,370 --> 02:06:57,310
+this additional rollback we need to do this type of situation is called cascading rollback okay this is called cascading rollback because of one person all the people they have to rollback so this is your cascading rollback very simple example like this is topper let's assume you are you see his right you see his answer you this is you you are copying okay and whatever you write someone else is copying okay let's assume this is me i'm copying from you
+
+222
+02:06:57,530 --> 02:07:24,110
+And this is someone else. This is someone else. He's also copying. And now you can notice that now if he, if this table, if the stopper will abort now, if the stopper will abort, then what will happen automatically? If he will abort, then you will abort, then me will abort, then he will abort. Okay. Like this. So all people are aborting. Yes or no. So this, this is a problem. Of course, this is expensive abort. I can say this abort is expensive.
+
+223
+02:07:24,920 --> 02:07:54,720
+Okay, so you can easily see this type of rollback. It is called cascading rollback. This is a problem. This cascading rollback is a problem because because it is expensive. It will it is waste of resources. But rollback is possible. Do you agree? Expensive is fine, but rollback is possible. So because it is recoverable. So you can see because this is recoverable. So you can recover atomicity property. You will not violate. Okay, this atomicity property you can ensure.
+
+224
+02:07:55,420 --> 02:08:25,100
+But to ensure the atomicity property, you have to abort three people. You have to abort these also additional. So this is your cascading rollback. Now, so what you can do to make sure that this, this situation does not happen to make sure this situation does not happen. Then what you will do cascade less schedule, you will create. You will create a cascade less schedule, cascade less schedule. What it means? It means a schedule which.
+
+225
+02:08:25,470 --> 02:08:57,860
+schedule which avoids cascading rollback you will create a schedule which avoids which avoids cascading rollback this type of schedule you want to create okay this type of schedule which will avoid cascading rollback and for that what you have to do don't cheat yes or no don't cheat from someone who is already writing okay so for that what you do very simple don't cheat from someone who is already writing
+
+226
+02:08:58,450 --> 02:09:29,630
+So I can say don't read from uncommitted transactions from uncommitted transactions. So this is the final your answer for from uncommitted transactions. Don't read. So don't copy from those who have not submitted their homework or I can say so who are already writing. So don't read from uncommitted transactions. This you don't do then this type of schedule will be called cascade less schedule.
+
+227
+02:09:30,170 --> 02:09:59,290
+because they will avoid the cascading rollback so simple point so there are two type of rollback one is cascading rollback okay and another is cascade less rollback there are two type of cascade less means you are not reading from uncommitted transaction and cascading means you are reading from uncommitted transaction so please understand what is cascading rollback or I can say what is cascading rollback schedule what is that
+
+228
+02:10:01,020 --> 02:10:33,320
+cascading rollback schedule the diagram will be like this the diagram is going to be like this that there is a T1 there is a T2 you are reading from uncommitted transaction this is writing you are reading and remember this is not committed okay so you are reading and this is not committed yet and let's assume it will commit here so this is the problem okay so you can notice reading from uncommitted transaction you are reading from uncommitted transaction
+
+229
+02:10:40,870 --> 02:11:12,780
+Okay, so this is your cascading rollback. I hope this point is clear. Now, one more thing, what is casket less rollback? What is casket less rollback? Or I can say casket less schedule. So what is casket less schedule? Casket less schedule means you are not reading from the. Okay, so basically you are, if you want to read, then it should commit here. If you want to read, then it should commit here. Now it is fine. Now it is fine. So.
+
+230
+02:11:13,050 --> 02:11:46,750
+You are reading from committed transaction. Or I can say no reading from uncommitted transaction. I can say no reading from uncommitted transaction. Very simple. So this is the concept. Isn't it simple? Very simple concept. So, one more thing. This is also called ACR schedule. Avoiding cascade rollback. Avoiding cascading rollback. This is also called ACR. Avoid cascade rollback. Schedules which avoid cascade rollback.
+
+231
+02:11:47,130 --> 02:12:23,260
+Sorry cascading rollback. So this is this is another name for cascade less schedule. So there are two types of schedule. Sorry, this is the name for this cascade less schedule. Either you can call it cascade less schedule. You can call it cascade less schedule. Or you can call it avoiding cascading rollback schedule. Avoiding cascading rollback schedule. In short, these words ACR schedule.
+
+232
+02:12:23,660 --> 02:13:01,780
+So you can also call it ACR schedule. So these are the different different names for the same cascade less. Ultimately, it means that no reading from uncommitted transaction. The concept idea is very simple that no read from uncommitted transaction. This is the simple idea. Okay. Move on. Let's move on. And you can easily see, tell me one thing. If you are not reading from uncommitted transaction, can I say you are recoverable? This is my question.
+
+233
+02:13:02,510 --> 02:13:42,000
+Can I say you are recoverable? My question is ACR, schedules are recoverable. Prove it. Prove this. So how will we prove? How are we going to prove? The proof is very simple because you have ACR schedule. So it simply means that you have T1, you have T2. You are okay. If you are reading, it means you have already committed. Correct. If you are reading, if you are reading, if you are reading.
+
+234
+02:13:42,350 --> 02:14:20,540
+it automatically means that it is already committed correct it automatically means that you are already committed so this is the simple point okay isn't it simple point that see acr schedule means if you are reading then it means that before this read operation you have committed before this read operation you have committed you have committed before this read operation so this is the proof that every casket less rollback schedule that is your work
+
+235
+02:14:21,320 --> 02:14:51,610
+That is your recoverable schedule. Okay. ACR schedule. Cascade less rollback schedule. These are recoverable schedule. This is your proof. So you can notice every ACR schedule is recoverable. Okay. One more one more definition is there that is a strict schedule. What is this? What is the definition? This is just a definition. This definition says that don't write also. See this ACR means what this ACR schedule what it says it says that don't read from
+
+236
+02:14:52,230 --> 02:15:25,330
+uncommitted transaction this is says that don't read from uncommitted transaction from uncommitted transaction and what this strict schedule says there is something called strict schedule that is very very very strict that does not even allow you to write okay you can't even write so like for example here this is fine in this ACR schedule it is fine that you have T1 you have T2 and let's assume
+
+237
+02:15:25,760 --> 02:15:54,090
+You are writing. This writing is fine. Okay. You are writing. He's writing. And then let's assume that again, he's writing. Let's assume and then he's committing and then you are reading and then you are reading. It is fine. Yes or no. So this is you can see this is ACR. Correct. There is no problem here. This is fine. This is completely fine because you can see that you are reading from committed transaction.
+
+238
+02:15:54,920 --> 02:16:24,230
+Okay, so don't read from uncommitted transaction. You can see that this is fine. So here this is allowed. Yes or no? In the ACR schedule, this is allowed. This thing is allowed. But in the strict schedule, this is not allowed. This strict schedule says that if transaction is writing, then you should not write, you should not read a before it commits. So what I'm saying before it commits, let's assume here it commits.
+
+239
+02:16:24,670 --> 02:16:58,010
+then during this period during this period you should not you should not read no read a no write a okay is this clear so basically don't read comma write from uncommitted transaction don't read also don't write from uncommitted transaction so if this transaction is writing this is your transaction even it is writing and then it is committing in between you should not read a you should not write a
+
+240
+02:16:58,220 --> 02:17:28,680
+Of course you can read B. There is no problem. For example, this is fine. Like this T1 is writing A. Let me assume this T1 writing A. There is no problem if you read B. You can read B. You can write B. There is no problem. But it should commit then you should write A. If you want to write A, you should do it after the commit. So this is your strict schedule. This type of schedule is called a strict schedule.
+
+241
+02:17:29,700 --> 02:18:04,260
+Okay. If you do this, there is a problem. Like if you do this, if I do this commit, if I, if I put this commit here, now this is not a strict schedule, but this is a, but recoverable, but recoverable and cascade, uh, cast ACR. This is ACR also, but this is not a strict. So you can see this is ACR also and it is recoverable also, but it is not a strict. If this understood, please tell me if this understood, what are the differences?
+
+242
+02:18:05,070 --> 02:18:37,780
+Let me know what are the differences? Are they clear? So simple. Let me let me write side by side. What this is strict means is strict means you cannot do this. This is a transaction T1 T2. This is WA and this is committing. So, okay, between this period in this period, you know read a there should be no read a and there should be no write a in this period.
+
+243
+02:18:38,600 --> 02:19:16,250
+Okay, so this is your stricter schedule. What is ACR? ACR means avoid cascading rollback. So this is like cascaded less. You can call it cascaded less. So what are cascaded less schedule? It says that if you are writing, if T1 is writing and it is committing, then between this period, you should not read. No read A. In this period, you should not read A. Okay.
+
+244
+02:19:17,020 --> 02:19:51,950
+Basically, you should not read from T1. This is your ACR. So this is the point. What about this? What about this schedule? I'm giving you one schedule. What about this one? T1, T2. This is writing. This is also writing. This is reading. And this is committing here. Is this ACR? Is this ACR? Is it ACR? Does it avoid cascade? Does it avoid?
+
+245
+02:19:52,550 --> 02:20:26,630
+tell me does it ACR means cascade less ACR means cascade less is it cascade less yes of course remember you can see it is cascade less because you are not reading from T1 right yes or no we are not reading from T1 please understand please understand we are not reading from T1 okay we are not reading we are just reading from T2 also so remember this is ACR so this is your ACR but this is not strict correct
+
+246
+02:20:27,340 --> 02:21:01,610
+This is not a strict. This is not a strict because of this problem. This is the problem because of it is which it is not a strict. So remember T2 is not reading from T1. This T2 it is not reading from T1. So this example I wanted to take. So these are the questions. Okay. So I think this is enough. Can you take this question as a homework? We will do it in the next class. You can take this question as a homework.
+
+247
+02:21:02,650 --> 02:21:31,800
+you have to find out a strict cascade less recoverable all these things you have to find out so you can take it as homework you can do this question also as a homework this is gate 2014 question do it as a homework this is gate 2013 question do it as a homework okay these are some questions and in the next class we will study practical implementation of serializability like we will study two phase here basically we will study there is something called
+
+248
+02:21:32,190 --> 02:22:05,200
+two phase protocol okay so this two phase protocol we will study and we will study time stamp protocol so these are the protocols that we will study in the next in the next lecture of dbms is there any doubt in this lecture do you have any doubt in this lecture let me know so this two phase comma time step yes here deadlock and everything will come in this the part of this the part of this is deadlock and all these things like deadlock and etc so these things we will study
+
+249
+02:22:06,070 --> 02:22:36,980
+Yes. Yes. My with Thomas right role will come here. That is part of this time stamp in this. We will study Thomas right rule. Any other. So don't worry. All these concepts we will study in the next lecture. Do you have any doubt at this point of time? Do you have any doubt? Let me know. Did you understand the recovery ability? So the conclusion is this, that some schedules are recoverable. Some schedules are not recoverable. Not recoverable means atomicity will be violated. Okay. And remember this is very important that.
+
+250
+02:22:37,650 --> 02:23:06,920
+Atomicity. If you want to preserve atomicity, then you have to undo the transaction. Also, you have to undo the transactions which are dependent on that transaction. Okay. So if you, for example, there is a transaction T, if the transaction T is failing, then to ensure atomicity, you have to undo T. Also, you have to undo those transactions which are reading from T. That is called atomicity. I can say that is, that is what you have to do to preserve atomicity. Okay. That is one point.
+
+251
+02:23:07,130 --> 02:23:36,730
+So you can see sometimes it is not possible in some schedules. Your transaction T is there and let's assume transition T fails, but before it is failing some other transaction, which is reading from T, it is committing. So you can see that now you cannot preserve the atomicity because if you, if you rollback transaction T, then you also have to rollback this transaction, which has committed, but because this transaction has committed, so you cannot rollback. So you can see that atomicity property will be violated.
+
+252
+02:23:37,220 --> 02:24:05,710
+so this type of this type of schedule are called irrecoverable schedule so there are two type of recoverable irrecoverable now in the recoverable there are two type one is cascade less recoverable another is cascading rollback recoverable okay and also there is one more category that is a strict schedule so all these categories all these things we have seen and the most important misconception i told you that is how to ensure atomicity many students they think that
+
+253
+02:24:05,930 --> 02:24:33,240
+if you want to ensure atomicity then you have to just undo the transaction itself but the correct concept is you have to undo this transaction also you have to undo all the transactions which have read from this transaction basically if you want to ensure atomicity you have to undo the complete effect of the failed transaction there is a failed transaction the complete effect of the failed transaction you should undo
+
+254
+02:24:33,590 --> 02:25:01,890
+if you want to make sure atomicity property but sometimes it is not possible okay and that is your irrecoverable situation so this is your chapter please tell me is this crystal clear let me know all the concepts in this in today's lecture are they clear if you have any doubt you can ask okay thank you everyone so now at 9 30 after 25 minutes we will start our proposition logic remaining questions we will do
+
+255
+02:25:02,760 --> 02:25:32,770
+the remaining gate questions of propositional logic we will complete and then tomorrow we will start first order logic revision okay and I told you that one quiz has been uploaded for the propositional logic so try that quiz there are 17 questions 40 minutes try that okay thank you everyone see you after half an hour at 9 30 we will start the we will we will solve the remaining digit remaining propositional logic questions we will solve okay thank you
+

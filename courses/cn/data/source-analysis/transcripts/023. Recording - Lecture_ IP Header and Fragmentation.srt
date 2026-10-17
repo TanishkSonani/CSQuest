@@ -1,0 +1,1208 @@
+1
+00:00:04,560 --> 00:00:46,990
+Hi everyone. So let's get started today with the network layer. So we have completed data link layer and we have seen what are the responsibilities of data link layer, right? So can you tell me that what are the responsibility of the data link layer? So do you recall the responsibilities of data link layer? We started with the framing. Yes. So data link layer, we started with the framing and then flow control, error control and access control, right?
+
+2
+00:00:47,530 --> 00:01:22,360
+or media access control. So these are the responsibilities of data link media. Okay. In the network layer, we have few responsibilities. Let's just see that how and what are the responsibilities that we need to follow in the network layer. Okay. So where are we in this course? We are following to the network layer. So we have completed this data link layer.
+
+3
+00:01:22,570 --> 00:01:48,470
+physical layer is basically not, I mean, it's not a software layer, it's just a hardware which convert, which convert our data into signals, right, which is not in the syllabus. Okay. So do you recall the layering, which means that every layer, so every layer append some, some header, for example, application layer will be appending HTTP header, I mean, some protocol header or something like that. For example, that this is application layer.
+
+4
+00:01:48,670 --> 00:02:08,430
+which is appending some header like for example it is an appending HTTP header then transport layer will be appending its own header network layer will be appending its own header and the data link layer will be appending its own header right do you remember that that every layer appends its own header right okay now coming to the network layer
+
+5
+00:02:08,890 --> 00:02:37,250
+In the network layer, the main protocol that we have is just IP. I mean, there are no other protocols. I mean, there could be a little bit here and there just put the supporting protocol, but the main protocol that we have is IP. There is no alternative of IP. Okay. So here in the application layer, we might be having HTTP, FTP, SMTP and different DNS, different other protocols here, TCP, UDP. In the detailing layer also, we have Ethernet, Wi-Fi and these things, right? But we do not have any other protocol other than IP.
+
+6
+00:02:37,540 --> 00:03:02,480
+So you can see this is just like an hourglass, right? This is a waste of the hourglass of this internet protocol architecture. So this IP is very important. Everything is dependent on IP. For example, if you talk about the HTTPS, it will be using services of ultimately IP. I mean, it will be using let's suppose services of TCP and then it will be using services of IP. So everything is interconnected to the IP.
+
+7
+00:03:02,760 --> 00:03:35,620
+As you can see, it is just a main protocol. It is some glue which is binding all the protocols altogether. So network layer is using some protocol which is called IP. See, every layer, every layer append some header. Now, we are going to see the header that network layer append. So what is the header that network layer append? This is called IP. IP protocol. So we are at this stage. We want to understand this network layer header. So this diagram I hope is okay to everyone that
+
+8
+00:03:35,840 --> 00:04:00,260
+IP is most important protocol in the entire computer networks. Why? Because basically it is binding all the all the other protocols. Okay. So this, this is one diagram that I have taken from some university. I don't know why they put this pastry, but it looks nice. So I have also put it. Okay. So anyway, this IP is the most important protocol. You can say it is a waste of this hourglass, right?
+
+9
+00:04:00,980 --> 00:04:30,160
+Okay. So now let's just understand this IP protocol and the particularly this IP header. So this is the format of this IP header, which means there is a particular structure or particular format that this IP header follows. So as you can see that every layer has its own header, right? Every layer has its own header. Now, now we have not seen any other header detail before it. I mean, we might have seen some general methods, right? But we have not seen any, any header structure before it, right?
+
+10
+00:04:31,020 --> 00:05:00,910
+I mean, we have talked about ARP, we have talked about Ethernet a little bit. We have talked about, you know, you can say RARP, BootP, DSCP, these protocols, but we have not seen their header details because that is not in the syllabus. So the first header that is in the syllabus is IP header. Okay. So let's just see that how it looks like. And let's just try to understand this in the best detail that is possible. So you, as you can see from this format that these are some numbers which are written here, 04, 8, 16 and
+
+11
+00:05:01,090 --> 00:05:29,840
+31 can anyone guess that what are these numbers? These numbers are basically bits like this is till here is four bits till here is I mean till here is basically four bits and the fourth bit. I mean the numbering is starting from zero. So four means you can say the fifth bit. Okay, it's starting from here. So you can say that every row from zero to 31 every row is from zero to 31. So how much bits is for every row? The bits for every row is 32 bits, right?
+
+12
+00:05:30,080 --> 00:05:59,340
+every row is 32 bits or you can say four bytes okay four bytes so this is basically ip before header okay i can say this is ip ip also has a different version so this is ip before header so here this every row is your four bytes this is a four bytes this is your four bytes this is your four bytes this is your four bytes as you can see 32 bits 32 bits as you can see here right so till this point till this point can you tell me how many bytes i have till this point
+
+13
+00:06:00,780 --> 00:06:31,170
+One, two, three, four, five, right? So five rows, five rows means how many bytes? Five rows means if every row is four bytes, then five row means how many bytes? It means 20 bytes, right? So till this point, till this point from here to here, I can say I have 20 bytes, right? From here to here, these are the 20 bytes. Okay. Okay. Now, now every row is basically denoting something. Now first people understand each of the field and then we will see some questions here.
+
+14
+00:06:31,420 --> 00:06:59,470
+Okay. So let's just understand what are these fields. And after this 20 bytes, as you can see, there are some options and padding padding means like padding and option means these are the optional things. If you want, you can use it. Otherwise you can skip it. Okay. So these are some optional things. Now, how much could be the optional things? How much, how much this part can take at maximum minimum, it can take zero maximum. It can take 40 bytes. Okay. So, so this is your IP header from it.
+
+15
+00:06:59,660 --> 00:07:42,520
+Now let me ask a simple question here, okay, which is possible that what is the what is the minimum length of the IP header and what could be the maximum length of IP header. So what is the minimum length and what is the maximum length? See, as I told you that these these fields which are
+
+16
+00:07:42,990 --> 00:08:10,960
+which are the option and padding. These are options which can be ranging from 0 to 40 bytes. So if there is no option or no padding, then it is basically 0. It means essentially we have 20 bytes, right? You can't skip these 20 bytes. So these 20 bytes are essential. And if you have the options and padding, then at most it can be 40 bytes. So that's why 20 plus 40, which means 60 bytes of maximum it can take. Okay. So IB header minimum 20 bytes and maximum 60 bytes it will be taking.
+
+17
+00:08:12,050 --> 00:08:38,000
+I hope that is fine to everyone. Why 20 bytes? Because this is minimum. I mean, this thing is minimum you have and then you can have zero to 40 bytes. Sometimes you have, sometimes you don't have. So maximum you can have 40 bytes or minimum you can have here zero. So that's why 20 plus 40, which is 60 bytes, you can have maximum for this entire header. I hope that is understood to everyone. Okay. So you can see here, this is the IP header.
+
+18
+00:08:38,270 --> 00:09:10,770
+and this is payload payload means uh anything else that we have i mean the data okay the complete thing is called ip datagram so here also i have written that the range could be 20 or 20 to 65 right okay now let's just try to understand this in in a bit more detail so see let's suppose this is your data this is your data and now tell me that what is the header that you will be having the first header you may be having the application layer header
+
+19
+00:09:11,720 --> 00:09:44,480
+Then you may be having TCP, then you may be having IP and so on, right? Then you will be having some other headers. Okay. So what could be the minimum and maximum range here for the IP? The minimum and maximum could be 20 to 60 bytes, right? 20 to 60 bytes. Okay. Now, now this entire thing, this entire thing is your payload IP, IP payload or the IP data. You can also say it is IP data. Okay. IP data. Now tell me.
+
+20
+00:09:44,730 --> 00:10:11,050
+in this diagram in this diagram can you say that this payload is I mean there is something hidden in this in this payload what is that you must be having some some transport layer protocol let's suppose tcp is this okay everyone you must be having some transport layer protocol in this in this payload right is this okay and you must be having some application layer protocol
+
+21
+00:10:11,880 --> 00:10:33,430
+So this payload is basically containing all other headers but let's not worry about it. We are only concerned till I mean at this point in time we are only concerned for the IP header and the IP data. This IP data might be containing some other headers that is fine. That is definitely fine. I mean we are okay with that. This might be containing TCP or something. We are definitely okay with that.
+
+22
+00:10:38,220 --> 00:11:06,370
+Now let's just come back to this particular header format. So there are different different fields in this header. Now let's just understand each of this field and then we will solve some questions. Okay. So the very first field as you can see is version. Can you tell me how many bits are for version VR means version here? Can you tell me how many bits it is written? It is written four bits, which means the version, the IP version could be from from zero to four bits means 15, right? 15.
+
+23
+00:11:07,260 --> 00:11:35,700
+and and mostly we talk about ipv4 which which means the version 4 v4 means version 4 okay so generally this field will always be always be 4 4 means in binary if you write then 4 will be written as something like this right so this field will be like this okay this version field is always 4 okay so which means that it could be theoretically it could be 0 to 15 that is fine but but we have only ipv4 okay so
+
+24
+00:11:37,090 --> 00:12:05,630
+So basically in IP header, you have version. Uh, version is a forward and necessary to know other, uh, other fields to aspect, typically, typically it is four, right? For IP before. Okay. So this version field is also very, very necessary to, to know that, okay, what are the other fields, which means that see, I mean, I will just talk about in very brief that there are some other versions called IP V six also. Okay. And then, then if.
+
+25
+00:12:05,860 --> 00:12:33,120
+you have this version number i mean every every ip uh ip header will be having some version number based on this version number i will get to know okay this is ip b4 or ip b6 something like that if it is ip b4 it will be having entire different header format if it is ip b6 it will be having entire different header format okay so for example ip b4 is having this header format see ip b4 is having this header format but ip b6 might be having some other header format
+
+26
+00:12:33,450 --> 00:12:57,950
+okay it is not necessary that ipv6 that we will little bit talk about because that is not in the syllabus but you just try to understand one thing is that that ipv6 might not be having the same header format or it is required to have the same header format tell me no right so this version will be there just to help me just to get to know that okay this particular this particular header is from which ip understood
+
+27
+00:12:58,340 --> 00:13:24,380
+see ultimately tell me ultimately whenever the data is traveling will it be traveling just like you know will it be boxes here will be the boxes here or it will be just zero ones and I mean there will be some binary 0 1 0 0 0 0 1 0 something like that right will there be binary or there will be some boxes here there will just binary so so as a program as a router writer router will be having some program so router should be able to read the very first four bits
+
+28
+00:13:24,620 --> 00:13:51,430
+so that it can get to know that okay which version I am using based on that router will be having their own check right router will be having the own check okay now router will understand now it is ipv4 router has understand this is ipv4 that is why that is why now the next field will be header length now the next field will be service type now the next field will be total length and so on right so basically basically based on based on this version like
+
+29
+00:13:52,350 --> 00:14:21,440
+I mean, the router will get to know that what are the other fields here, right? The next field is identification, the next field is flag, the next field is fragment offset and so on. Suppose this is IPv6, suppose this is IPv6. Is it possible that in IPv6, maybe after version I am having total length? Is it possible? I do not have let's suppose these fields immediately. It is definitely possible, right? So that is why if I get to know what is the version, then I will interpret it, okay? I will be able to interpret other fields.
+
+30
+00:14:22,820 --> 00:14:31,980
+So that is why this version is important. So see here what they are saying that necessary to know what other fields to expect.
+
+31
+00:14:36,260 --> 00:15:05,580
+if i know that okay this is ipv4 now now you know there's a particular format if i know there's a ipv6 now i know that okay uh version version ke baad ipv6 main uh for example i have total length okay and i it is possible that i do not even have uh header length there okay i mean uh or maybe type of service there okay or maybe some some fields are omitted some fields are added we will talk about little bit there also but it is definitely possible in ipv6 let's suppose this field is not there this field is not there this field is not there some other field got added right i mean the
+
+32
+00:15:05,900 --> 00:15:34,580
+structure of IPv6 can be completely different from structure of IPv4 right so that is why this version field is important to know that which particular version is this I mean which particular protocol version is this I mean it is IPv4 or IPv6 or if there is anything else we have in our practical implementation then what is this right so that is why this version field is important now do you think we should be putting this version field okay ideally ideally do you think we should be putting in between anywhere in between or should be putting at the first
+
+33
+00:15:35,860 --> 00:15:57,880
+it makes sense to put it at the first right why because because because if if the packet is coming in the binary form then then just just after looking at these first 4 bits router will get to know that what to do next maybe maybe the next field is header length or maybe the next field is something else so it is it is also essential to put it as a first 4 I mean first field
+
+34
+00:15:58,310 --> 00:16:29,030
+although you can put it in between also but it's not a good idea why to put it in the between if you put it in the between then router will skip let's suppose you are putting after let's suppose 16 bits you are putting then router will first skip the 16 bits and then will check which version is this why to make the things complicated right so that's why that's why we prefer to put I mean the IP designer IP protocol designer prefer to put this as a first thing first first field okay cool so now you understood that why this version is important
+
+35
+00:16:29,260 --> 00:17:05,170
+because based on the version based on the version we will be deciding that what is the structure of the of the header right so that's why this version is very important okay so the very first field that we have is a version number and this version number is important because based on that we will decide based on this we will decide the next field or we will set the structure of the packet right structure of the header so
+
+36
+00:17:14,200 --> 00:17:37,610
+IPv4 is most of the internet today IPv6 is also also I mean we are quickly or widely adopting IPv6 internet is widely adopting IPv6 so that is also in the in the trend but but historically we have been using IPv4 IPv4 means like your IP is 32 bits right so if you remember your IP something like this right I mean we have we have 32 bits of IP right do you remember that
+
+37
+00:17:38,120 --> 00:18:03,270
+from the very first lectures so basically the IPv4 means you have 32 bits of IP which means you have 4 x 8 and IPv6 means you have 6 x 8 which means 48 bits of IP 6 x 8 do you have 48 bits of IP I mean as of now most probably know right so basically internet is switching towards IPv6 but currently it is IPv4 only okay currently it is IPv4 only
+
+38
+00:18:03,630 --> 00:18:23,250
+Now, after four, there has been five. I mean, people have proposed five, but it got not implemented. Okay. They're because of some standard body poll politics. I mean, politics is always there. It doesn't matter that how much intelligent or at what position are you scientist or are you engineer or like, I mean, whatever you are doing in life, ultimately, there is a politics even
+
+39
+00:18:23,560 --> 00:18:54,120
+I mean, politics has been there from ancient times, right? I mean, you pick any history, you pick even Mahabharat, you pick Rama, you pick anything, there has been politics, right? So even at that time, there has been politics, so it doesn't matter for this time also, there is always a politics in everywhere. So because of some politics, this IPv5 has not been practically implemented, then IPv6 has been launched, okay? Anyway, okay. Now, this header length,
+
+40
+00:18:54,420 --> 00:19:26,550
+Okay, so now the next field, now the next field here is header length. Header length is four bits. Okay, this is little interesting. Let's just try to understand this. Have you understood what is the version here? Version means it is telling whether it is IPv4 or IPv6. Okay. Mostly it is telling between IPv4 and IPv6. Do you think it is important? Yes, right? Okay. Now, now let's just talk about, let's just talk about this header length.
+
+41
+00:19:26,890 --> 00:19:58,220
+Can you tell me how many HLE n means header length? Can you tell me how many bits for header length? We have given here 4 bits, right? We have given 4 bits here, okay? Now tell me if we have given 4 bits here then you just need to tell me, okay? You just need to tell me that in these 4 bits, what is the minimum number we can represent? What is the maximum number we can represent? We can represent from 0 to 15, 0 to 15, okay?
+
+42
+00:19:59,810 --> 00:20:32,380
+and and this is what we can represent but but but our header length actually could be from 20 to 60 right 20 bytes to 60 bytes see maximum we can represent number 15 but our header length could be 60 bytes can we represent 60 here can we say that okay this is 60 can we even represent 20 can we even represent 20 here using these four words then then why we are having four words if we can't represent even 20 here
+
+43
+00:20:33,100 --> 00:21:04,490
+So what we will do, I mean it is absolutely not necessary to represent directly in the absolute fashion. What we will do, whatever is the IP header size, we will divide it by 4 because this 15 is 4 times, right? So that is why we will divide by 4. So 60 bytes, if it is 60 bytes, we will not represent a 60 here. We will represent 15, okay? We will represent 15. So which means, which means, which means, if HLEN field, okay?
+
+44
+00:21:04,830 --> 00:21:46,270
+this field contain let's suppose 15 as a number then what is the header length can anyone tell me so basically if that was 16 then 60 then I have represented 15 basically I will be if for 60 I will be representing 15 and if that is 15 it means the actual header length is into 4 which is 60
+
+45
+00:21:47,050 --> 00:22:31,890
+which is 60 bytes. Now, now let me ask another question. Maybe you will get to understand more. Okay. Suppose, so this question is that saying, suppose, suppose, suppose header length is 20 bytes, 20 bytes, then what is the value of HLE and field? What is the value of HLE and field?
+
+46
+00:22:32,420 --> 00:23:32,390
+See if it is 20 bytes, then I will be dividing the actual length I will be dividing by 4 and then I will say that it is 5 So the value of HLEn field will be 0 1 0 1, right? I mean that is in binary basically, okay? Is this fine to everyone? Okay, now tell me if if HLEn field then what is length of if HLEn is 1 1 0 1 then what is the length of
+
+47
+00:23:32,590 --> 00:24:08,150
+options plus padding see what is this number in decimal can anyone tell me what is this number in decimal this is 13 right so you can say you can say the header length is can anyone tell me the header length is 13 multiply by 4 which is 52 now I'm not asking the header length in the quotient I'm not asking the header length I'm asking options plus padding which means if you recall
+
+48
+00:24:08,650 --> 00:24:37,770
+Can you can you tell me what is the options plus padding? Yes, yes, they weren't such right. So if you recall that we are saying that for initial 20 bytes, that is some fixed format and then you have options plus padding, right? Okay, so maybe you can decode it. Let's see, you have options plus padding after after 20 bytes after these 20 bytes, you have options plus padding right after these 20 bytes. So if the total is 52 bytes, if the total is 52 bytes, this is 20 bytes, I'm just asking you this much. So what is this much?
+
+49
+00:24:38,350 --> 00:25:12,200
+52 minus 20, which is 32. Okay. See, this will be 52 minus 20, which is 32 bytes are options and padding. Is this killer to everyone? That how we are calculating these things? Okay. So, based on the header length, now you know that how to get the actual header length. Actually, in this header length, you need to multiply by four. Okay. And then you will get the actual header length.
+
+50
+00:25:12,510 --> 00:25:39,650
+We will do more questions. It is just for the sake of understanding that how these things are getting calculated. So basically, we now know what is this version. We now know what is the header length. Now, let's just see what is the service type. So the third field here is the service type. Now, interestingly, the service type is never being used. I mean, people don't use it. So that's why we will not see it. I mean, this is a huge less field.
+
+51
+00:25:39,930 --> 00:26:08,770
+Okay. So still we can just quickly see it. I mean, just for the sake of completion, but this is just a useless field. Okay. Cool. So let's just try to understand what are the service type or some people call it type of service. TOS means type of service. So the TOS value are defined in this RFC. They are hardly ever used. These are hardly ever used, right?
+
+52
+00:26:09,100 --> 00:26:34,580
+The TUS field has been redefined as differentiated service code point DSCP, which contains for success. Anyway, these are hardly ever used. So this TUS is basically, as you can see, or the service type, as you can see, is a eight bits field. So it says that, I mean, there are different, different things here that we can mention with this type of service that how should the packet be treated? I mean, the source or the host can mention that how should the packet be treated?
+
+53
+00:26:35,400 --> 00:27:03,380
+based on the value okay so it can say that okay should we care or don't care about the delay throughput or reliability or the cost which means let's suppose let's suppose this is the router okay the packet is coming the packet is coming with the type of service field as let's suppose four I mean just I'm giving the hypothetical example so four let's suppose means that that they send it to the least least delay or maybe the maximum throughput okay send this packet to the maximum throughput link
+
+54
+00:27:05,250 --> 00:27:33,310
+throughput link okay now let's suppose this router is having multiple options this option i mean if it sends to this link this option is saying this is the maximum throughput if it's sending to this link this option is saying minimum delay if this is sending to this link maybe minimum number of minimum distance or something like that so so basically what i'm trying to say here is that that i'm just hypothetically giving you some example let's suppose this type of service field how many bits it is do you recall
+
+55
+00:27:33,710 --> 00:28:05,550
+this type of service field is 8 bits right 8 bits so can you represent let's suppose 4 can you represent that 4 in the 8 bits I'm just giving the hypothetical example okay so let's suppose the value is this which means that type of service is basically 4 assuming this 4 means send it to send it to maximum throughput link maximum throughput link okay which means whichever link is having the maximum and very good bandwidth
+
+56
+00:28:05,920 --> 00:28:29,910
+so let's suppose this is having very good bandwidth maybe maybe it is having 100 mbps okay and this is having a very low bandwidth 1 kbps and this is having let's suppose 10 kbps so to which link it will it will be forwarding the first link right the first link because the mentioned here is that send it to the maximum throughput link
+
+57
+00:28:30,140 --> 00:28:54,700
+So the first link let's suppose this is five and five means that send it to the link I don't care about the bandwidth but send it to the link which is having which is having let's suppose maybe the bandwidth is is is low I don't care about it but which is having let's suppose very very less number of hopes which means let if you want to send to the host then it will be this link will be having let's suppose just one intermediate but this is having let's suppose multiple intermediates
+
+58
+00:28:55,050 --> 00:29:23,870
+So this five number means like you send it wherever you have less number of intermediate. So where you will send it, where this router will send it to the link number two to the link number two, because this five here means that send it to send it to the link which is having the lowest number of intermediates. Okay. So I'm just giving you some hypothetical example in the sense that this type of service field is there to tell the router that okay, how to how to make the forwarding decisions.
+
+59
+00:29:24,590 --> 00:29:49,030
+But this is not being used. It is too complicated for every packet to tell that how to make the forwarding decision. It is not basically used in the practical scenario. But have you understood that why it was there? Actually, it has been removed. We will see this later on. I mean, in IPv6, it has been removed. But have you understood a little bit that what it is doing? It is just telling for the router that how to make the routing decision, to which link you should send.
+
+60
+00:29:49,480 --> 00:30:22,800
+But it's not being used as they are saying, largely unused and until 2000 it was unused and now also it is unused. Okay. Now also it is unused as they are saying that these are hardly ever used. So no one talk about it. Okay. So if, if you, if I ask you in just one line that why it was there, can anyone tell me in just one line? Why it was there to tell routers about which link to send, right? Which
+
+61
+00:30:23,720 --> 00:30:36,860
+link to send or maybe how to take route to decision take routing decisions but it is not being used
+
+62
+00:30:37,520 --> 00:31:04,120
+Okay. Anyway, I mean, see, these are some things that people have tried, but then later they realize that, okay, they're not being used. So maybe in the future protocols, they might remove it. Okay. We will see IPv6 also in just a, you know, a glimpse that what are the fields there and what are the fields got removed? What are the new fields got added? We will see in just a glimpse because that is not in the syllabus. IPv6 is not on the syllabus, but it's still just a two, three, two, three minute of discussion. We can definitely do. Okay.
+
+63
+00:31:04,490 --> 00:31:46,190
+So anyway, let's just skip this field because it's not, it's not required. And it's not discussed in any of the textbook. Okay. It's not discussed in any detail. It's just discussed in just one line, just one line. Even if you see the foraging, you see any book. Okay. See here. Service type. Okay. That's all. Okay. That's all. I mean, that's not even required anyway. Okay. Now let's move to the next field, which is total length. So what is this total length? Let's just see.
+
+64
+00:31:49,380 --> 00:32:23,890
+So see this total length field, which is of how many bits? Can you read it here? It is of 16 bits, right? It is of 16 bits. So now what this total length is saying? It is saying that what is the total length of the IP datagram? Okay, so the header length is different and the total length is basically different. The total length basically including including the header length also. So this is the total length. Okay, total length of the IP datagram, including this payload and header. So
+
+65
+00:32:24,170 --> 00:33:04,060
+As you can see, this is 16 bits. So now can you tell me the maximum number that can be represented in the 16 bits? It will be 2 power 16 minus 1. I mean, minus 1 is there, right? Because all the ones means 2 power 16 minus 1. So this is the maximum number that you can represent in the 16 bits. So that's why the maximum size 2 power 16 minus 1 actually 6, 5, 5, 3, 5, okay? So the maximum size of this particular field could be, sorry, yeah, this particular field could be 6, 5, 5, 3, 5.
+
+66
+00:33:04,340 --> 00:33:37,400
+Is this so good? Okay. So what is the minimum size here? Actually, the minimum size is of the is dependent on the header. So the header minimum is 20. So that's why this minimum is also 20. Okay. And then depending on the data it is carrying, it could be as good as 65535. Cool. So, so this is, this is the other field which is called total length. Now, let's suppose, let's suppose I say, I say that
+
+67
+00:33:39,240 --> 00:34:23,190
+There is a question. Assume total length field is in 16 bytes, in 16 bits basically, right? So let's assume that this is 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0. Okay. Let's suppose this is the total length field and HLEN field is, let's suppose in the four bits we need to represent, let's suppose it is
+
+68
+00:34:23,800 --> 00:35:00,890
+it could be anything but let's suppose this is 1100 okay now you tell me what is the length of ip data what is the length of ip data let's just try to solve this question so what they are saying the total length field is given to you now if the total length field is given to you then can you tell me what is the total length actually the total length basically will be you can directly see that it will be how many bytes it is 0 1 2 3
+
+69
+00:35:01,080 --> 00:35:30,760
+four five six seven so two power seven which is 128 right 128 plus two which is 130 130 bytes so this is the total length total length is 130 bytes is this okay everyone which means which means the total length here is 130 bytes and the header length header length will be this is 10 into 4 which is 40 bytes the header length is 40 bytes right
+
+70
+00:35:31,180 --> 00:36:09,340
+So this is the header length. Sorry, this is 12 into 4. Yeah, 8 plus 8 plus 4 12. Okay, so this is 12 into 4, which is 48 bytes. Okay, 48 bytes. Now, now what I'm saying here is that that if this thing, if this thing is 48 bytes, 48 bytes, then I'm just asking you this thing, this thing, I'm giving you this total thing, right? So what is this? Yeah, 82. 82 bytes is the answer.
+
+71
+00:36:11,720 --> 00:36:54,790
+Okay, let's just see in the forage and also I mean okay length of the data, right? If you want to find out the length of the data, then what you will do whatever is the header length you multiply by the four and then you subtract from the total length, right? That's how you can find out the length of the data. Where should I paste it? Maybe that is fine because Okay, so this is what we have taken from have you understood how we are finding the length of the data length of IP data
+
+72
+00:36:56,350 --> 00:37:18,820
+okay header length into four will give you the actual header length that is what we have here and the total length field is also given so you can definitely find out the length of data okay so now we have understood what is version what is IP header length or header length right and type of service is not needed here and the total length also we have we have seen okay now let's just see these three fields here
+
+73
+00:37:19,150 --> 00:37:51,180
+these three fields I have highlighted and actually we will see it later on and these three fields are related to are very very important actually are related to something called as fragmentation okay and this fragmentation is very important topic at that time we will see these three fields okay for just 10 minutes or maybe I can say maybe 10 to 20 minutes I'm just skipping these three fields we will come back to this later on okay in just in just 20 minutes okay or half an hour is this fine to everyone now now let's just see
+
+74
+00:37:51,480 --> 00:38:25,560
+sorry now let's just see other fields here okay so let's just see this time to live let's just see protocol and header checks some other fields right so the next field is time to live how many bits it is it is off as you can see the time to time to live field from from this diagram can you tell me what is how many bits it is how we are saying eight bits because you see here right eight okay
+
+75
+00:38:25,770 --> 00:39:03,960
+I mean this is like this is in line so here this diagram is actually telling you this is 8 bits right anyway like I mean we should not be just because of the symmetricity or because of the how we are making the diagram but actually it is 8 bits only okay so this time to lift field is basically 8 bits field now how how this is helpful let just see right what it is doing how this is helpful let just see okay this is 8 bit field okay so
+
+76
+00:39:05,100 --> 00:39:34,490
+This is used to identify packets stuck in the forwarding loop. So how does how does help for legacy? Suppose that there is a router at that router, you got the packet. Okay, you got the packet which is having which is having some IP header and the TTL here, the TTL here is let's suppose saving. Okay, the incoming packet has TTL saving. Now TTL means time to live. Now what this router will do? This router will decrement this TTL and forward it. So can you tell me
+
+77
+00:39:34,730 --> 00:40:03,660
+can you tell me the same packet will be having what is that I mean what is the value of TTL here for the same packet it will be 6 it will be 6 why because the router will be decremented and forwarded okay so router decrements I mean the TTL will be decremented for every device whichever is in between okay so for every device the TTL will be decremented so if it is 7 here then it will get decremented and it will be 6 on the on the next on the next link
+
+78
+00:40:04,200 --> 00:40:35,370
+let's suppose that there is one more router here can you tell me what is the TTL here at this link so TTL here will be 5 and similarly and so on now suppose you keep on decrementing and maybe for example here let's just take directly some host can you tell me what is the TTL when it get delivered to the host at that time TTL will be 4
+
+79
+00:40:36,990 --> 00:41:07,810
+Okay, cool. I hope you understood that TTL will keep on decrementing. Now, now let's just do one thing. Let's just see that why this TTL is important, right? So what this TTL will do, whenever TTL is zero, for the intermediate router, okay? If the intermediate router is getting TTL as zero, then what this intermediate router will do? It will drop the packet, okay? If intermediate router get the TTL zero packet, if intermediate router
+
+80
+00:41:14,140 --> 00:41:48,230
+get ttl equal to 0 packet it will drop it so why why you want to drop any packet because what may so happen let's suppose I mean maybe maybe just because of some mistake on the routing decision it may so happen that this packet is in the loop right the packet is in the loop which means someone is sending the packet and because of the some wrong routing decision or something this packet is in the loop if packet is in the loop then after some time the ttl will be 0 isn't it
+
+81
+00:41:48,710 --> 00:42:17,310
+After sometime, I mean the TTL will keep on decrementing, keep on decrementing and after sometime there will be the router at which the packet is coming and then it will say that okay TTL equal to 0. If the incoming packet has the TTL equal to 0 then what this router will do? It will just drop the packet, right? It will just drop the packet. Now just imagine, just imagine if TTL field is not there, okay? And there is some wrong routing decision because of that like these routers are forwarding the packet in the loop. Do you think your network will survive anymore?
+
+82
+00:42:18,190 --> 00:42:40,730
+If you don't drop the packet, no, right? I mean, unnecessarily this packet will be keep on looping, keep on looping and, and, and after, you know, I can say, like, let's not even wait for one month. I can say even, even the way the internet is having the users, even after, you know, one hour, the internet will get adjusted, right? Right? Internet will get adjusted.
+
+83
+00:42:41,160 --> 00:43:11,890
+because there will be many many packets on the routers on the link that is the maybe because of some some mistake that is in the loop and they are keep on looping keep on looping and we are not dropping it right we are not dropping it so that's why this TTL field is very very important because we want to drop it after sometime we want to drop the packet because we will realize that okay this is in the loop and just to prevent the loop we will be having the TTL right so so if the intermediate router get TTL equal to 0 then packet will be dropped okay now let's see this scenario
+
+84
+00:43:13,540 --> 00:43:58,250
+let's suppose okay let's suppose that there are some routers here and and finally we have some host finally there is a host here okay suppose that you are getting some packet you are getting some packet with TTL anything maybe TTL 15 can you tell me the TTL here it will be 14 can you tell me the TTL here 13 right
+
+85
+00:44:00,230 --> 00:44:46,190
+Now assume that by this moment TTL is maybe okay, let's suppose by this moment TTL is 1. Assume by this moment TTL is 1. Now, can you tell me what this router will do? Sorry, what this host will do? Will it accept or not? Will it drop? Okay, so host, let's suppose this is a receiving host, okay, host B, right? Okay, now suppose suppose
+
+86
+00:44:46,630 --> 00:45:23,050
+the TTL by this time TTL is zero by this time let's assume the TTL is zero what this host will do host will accept a drop what do you think will accept it basically as I told you only the intermediate router drop okay if the intermediate router get TTL equal to zero then they will drop you you logically think you just logically think why why why will any host will ever drop any packet
+
+87
+00:45:23,990 --> 00:45:50,450
+see what is the use of TTL just to make sure it is not in the loop if by the reaching at the host if you are getting TTL is equal to 0 that's okay that's okay right I mean I mean by luck by luck basically it got just reached maybe if it is a router if it is a router router will say here TTL 0 okay let me just drop it maybe it is a loop but but this host will this host say that it is a loop see this is the final destination this is the final destination
+
+88
+00:45:50,820 --> 00:46:21,210
+so this host will not even worry about this TTL field right if the TTL even if the TTL is zero host will accept it why will any host reject it just because of the TTL because it is a final destination why it will reject it see what was the goal of the goal of the TTL to make sure that it is not in the loop if that is an intermediate router and then TTL is zero then I will drop it right host decrement or not it doesn't matter
+
+89
+00:46:21,840 --> 00:46:52,420
+It doesn't matter. I mean, what will you do by decrementing or what you will do by not decrementing? Minus karke? Ye minus one, iss me minus karke kya dekhana hai? So, what you will do, I mean, see this host is decrementing or not decrementing, it doesn't matter. The moment it reaches to the host, it will accept the packet. Are you getting? Just think about this logically. Why will any host will reject any packet? Just because of the TTL. See, what is the use of the TTL?
+
+90
+00:46:52,600 --> 00:47:38,890
+it is it is to make sure it is to make sure that this particular packet doesn't get into the loop if it is reaching to the final destination i will accept it okay maybe you will understand maybe you will understand uh by this let's suppose let's suppose this packet is reaching here okay this packet is reaching here with the ttl value zero now you tell me what this router will do drop it right router will definitely drop the packet
+
+91
+00:47:40,770 --> 00:48:26,110
+Okay, what about what about the case when when this is not zero here? Let's suppose this is one What this router will do? Can you tell me? It will drop or forward? It will drop or forward? Yes, so router will forward it right router will forward it So see based on the based on the studio value is that a zero on the intermediate router? Then it will drop it if that is zero on the host host never dropped because of the TTL, right? so
+
+92
+00:48:26,480 --> 00:49:33,390
+host any receiving host why it will drop you just think logically right okay now tell me now tell me can a host receive a packet with ttl equal to zero can a host receive a packet with ttl equal to zero if yes what it will do with this packet
+
+93
+00:49:36,840 --> 00:50:08,360
+So the answer is yes, it can receive, right? Yes, it can receive. So here, yes, yes, and what it will do, it will accept it. Understood? Okay. I hope this TTL field is okay to everyone. So don't worry. There are, there are many other questions we will be doing. It is just for the introduction. Like, I mean, just to understand that what is happening. Okay. See, the next field we have, the TTL we have seen, the next field we have is basically, as you can see from here,
+
+94
+00:50:08,590 --> 00:50:36,460
+the next village we have is called protocol right so this time to live is okay now the next village protocol okay so this is a protocol field now this protocol is some number so can you tell me how many bits it is maybe from this diagram can you tell me how many bits it is probably so it is of 8 bits so this protocol will be just telling you
+
+95
+00:50:36,650 --> 00:50:51,050
+that uh that it is basically this ip will be using this ip header uh this ip header will be having some other protocol right maybe the tcp udp or maybe some other protocol so it is just there to tell that which protocol you are using
+
+96
+00:50:51,260 --> 00:51:15,750
+okay I mean the what is the what is the transport layer protocol right maybe maybe I mean or what is the next protocol uh the header protocol that you're using if you if you're having six it means the next header is tcp header if you're having 17 I mean there are predefined numbers right if 17 means the next header is utp header and so on so for example see here okay these are some protocol values I mean these are just some protocol values
+
+97
+00:51:16,550 --> 00:51:45,850
+ICMP means 01 means we are we are having ICMP. Okay, something like this. These are some some protocol values. Okay, good. So ICMP, I mean, sorry, 01 means that we are having ICMP ICMP is one protocol that we will see later on. Okay, similarly TCP UDP ICMP we will see these protocols later on. So but 01 means that the the like it is encapsulating ICMP header. 06 means it is encapsulating TCP header.
+
+98
+00:51:46,120 --> 00:52:20,520
+17 means it is encapsulating UDP header and so on. So that is why we are having protocol field. These numbers you do not need to remember. Don't remember them, but I'm just telling you that they are fixed numbers. Now what is the next field here? Next field is header checksum. So let's just see how we calculate the checksum. Suppose these are the fields that we have, which means that we are having some IP.
+
+99
+00:52:23,780 --> 00:52:59,890
+We are having some IP header. So maybe I can just copy it again. So we are having some IP header and here we are having different, different fields, right? Now what we want to do, we want to calculate the checksum here. Okay. So this version here, let's suppose, I mean, I'm writing in decimal, this version, let's suppose four, this header length, let's suppose five, this zero, I mean, I'm having zero here for the type of service. Zero means like I don't want to use this type of service. I mean, I don't want to even use this option.
+
+100
+00:53:00,140 --> 00:53:37,110
+Okay. Anyway, like these are some, some, some fields that I have. And if I want to calculate the checksum, then how will we have you calculating? See, these are the source IP address, Russian IP address. So how I will be calculating, I will first put zero in the checksum. Then I will, I will divide the checksum. Can you tell me how many bits it is? How many bits it is? This is from the, from the area you can, you can, you might be guessing that it is 16 bits, right? 16 bits field. Okay. 16 bits field. So I will do one thing.
+
+101
+00:53:37,300 --> 00:54:07,560
+that i will be dividing my header into 16 16 bits which means these are first 16 bits next 16 bits next 16 bits next 16 bits like that so i will be dividing my header into 16 16 bits okay so 450 in in one row and then this 28 then then this 4913 okay so all of this like i will be dividing into 16 16 bits and then what will i do after i divide into 16 16 bits i will just sum okay i will just sum it up so once i sum this up
+
+102
+00:54:07,620 --> 00:54:39,440
+then I will be getting some number, I will be having the wrapped around some and I will be putting the checksum in this field. So I will just sum it up and the sum for the sum, which kind of arithmetic we will be using. Do you remember which kind of arithmetic once compliment, right? This is called once compliment sum. This is called once compliment sum. Okay. So I will be summing all of this and then I will be wrapping around this carry that is called once compliment sum. And then once I get this wrapped around some
+
+103
+00:54:39,610 --> 00:55:16,910
+I will be, I mean, I will be just taking the compliment of it and then I will be putting it, right? So this is the compliment and I will be putting this check some here. Okay. Is this fine to everyone? Okay. That's, that's quite an easy thing. Like we have already seen this, right? It is just, it is just that, I mean, it might look hard, but it is very easy. You, you just take 16, 16 bits, add, add them all. And then this, if it is a carry, wrap, wrap that around and then have a compliment, you put it there. That's how we are calculating the chips. Okay.
+
+104
+00:55:17,700 --> 00:55:40,370
+Cool. So now let's just look at the next field. What is the next field? Source IP and destination IP. You know this, right? I mean, what is, what is this IP address? This four bit, sorry, four byte IP address, you know this, right? This is the one byte, second byte, third byte and fourth byte. Okay. So these are called source IP and destination IP. And then you might be having options if there is, if there is options and padding. Now.
+
+105
+00:55:40,820 --> 00:56:10,340
+this options can also be I mean that is not required for gate I am just giving you some list of options that we also don't use it okay just like type of service we don't use it just like type of service we don't often use options okay just like type of service
+
+106
+00:56:10,770 --> 00:56:36,370
+So, but still I'm telling you that what are these options. So let's just see what are these options. Although, although that is not in the huge, but still just for the quick, quick glance, we can see. So one option is record, record, record route option. So what it does, it says that you should trace the route that datagram takes source create empty field for IP address up to nine and each router that process the IP datagram, it's
+
+107
+00:56:36,620 --> 00:57:03,900
+outgoing IP address so basically what it what it does that if the option is saying that I want to use a record or record route options then what it will be whenever you're forwarding it to some IP it will be just recording it okay so I have forwarded to this IP now I forwarded to this IP now I forwarded to this IP and so on right so whenever you are you are having this option which is record route option then you whenever some router forward to some some interface it also append the IP address of it
+
+108
+00:57:04,140 --> 00:57:31,040
+That's all. So that the receiver get to know which IP it comes from. Generally, these options are not being used, but I'm just telling you that there are some options. So IP, this record route option is there. Timestime option is there. So here in the timer stop option, what we do, it does similar to A plus record datagram and processing time by the each router. It will also append.
+
+109
+00:57:31,260 --> 00:58:09,760
+How long did it take? For example, it will not only append that to which IPM forwarding, it will also append that how much time I have taken to process this particular packet. Anyway, these options are not in use so that's why we will not talk about it. So I will say not at all required for gate. So the options and type of service fields are not being used so that's why these are not required for gate. So this was our IPP4.
+
+110
+00:58:10,010 --> 00:58:39,830
+header right this was our preview for header we have seen what is the version we have seen um header length we have seen type of I mean type of service is not in being used so we we we don't want to see it even total length we know and these things we will see okay these things we will see no very very good detail okay don't worry about it now tell me tell me is there any is there any doubt in any of the field what is this version is this clear what is the header length okay the header length will tell you that okay if this is five then it means the actual header length is 20 right
+
+111
+00:58:40,050 --> 00:59:12,340
+that's all okay type of service we don't want to see what is the total length you know right the total length will tell you the length of the data including the header header and this is ip data this is called total length okay these things we will see we'll see right ttl you understood protocol have you understood what is this protocol number telling you let's suppose let's suppose i mean we will see the questions don't worry but let's suppose that you have
+
+112
+00:59:13,050 --> 00:59:51,410
+this protocol field the protocol field is maybe for example you have let's suppose something okay maybe maybe you have let's suppose this then if I give you the list of the protocol okay can you tell me which protocol it is encapsulating which protocol it is encapsulating so this IP is having the protocol I mean it is basically the datagram which is carrying the
+
+113
+00:59:51,610 --> 01:00:19,810
+TCP header, right? It is actually getting this six means this is getting the TCP header, right? Okay. The header checks them. How to calculate? Have you understood? You divided that in the 16 16 bits and then you sum all this up, right? Okay. Source headers are destination. There's any way that options we don't want to see padding is just that we append some padding if that is required. Okay. Anyway, so this options and type of service don't worry about it, right? Don't worry about this options and type of service because that's not being used. Cool.
+
+114
+01:00:20,450 --> 01:00:49,940
+Now, let's just do one thing. Just for the sake of quick discussion, can we just see that okay, in IPv6 what they did? In IPv6, what did they remove? What did they apply? Okay. What did they shift from here to there? Maybe they might have shifted this protocol to last, maybe something like that. Just for the sake of comparison, is this good enough? Do you want to see that what they have did in IPv6 in the future protocol that what they have did? Okay.
+
+115
+01:00:50,250 --> 01:01:11,490
+so maybe we can just see right so let's just see see here this word this this particular color okay the blue color is telling you that field that are from ipv6 that are kept from ipv4 to ipv6 field name kept from ipv4 to ipv6 which means earlier we used to call it version now also we are calling it version
+
+116
+01:01:12,470 --> 01:01:40,420
+earlier we used to call it source address now also we are calling it source address earlier we used to call it destination address now also we are calling it destination address so these are the fields which are basically even the names are being same okay the names are same here here in this ipv6 also they have kept this version as a first field right they have kept this version as a first field i mean it's not a good idea to keep the version as a later on right okay these are the fields that are not kept in ipv6
+
+117
+01:01:40,720 --> 01:02:09,860
+So what are the fields which are not kept in IPv6? These fields, the options are not kept in IPv6. Padding is not kept in IPv6. Header checksum is not kept. These things, the fragmentation related, we will see that later on. These are not kept. Header length is not kept. These are the fields which are not kept in IPv6. Now let's just see what are the fields that name and position change in IPv6. Name and position change. So this is the field, the name.
+
+118
+01:02:10,140 --> 01:02:38,670
+the name earlier it was the type of service now it is something called as traffic class or something okay the name and position has been changed total length total length they have changed the name of this this is now calling payload length okay payload length and similarly this protocol field they have changed to the next header right i mean that is fine the TTL field they have they have changed to the hope limit are these name making sense to you that protocol why it is making sense to call it next header because what is the next header right
+
+119
+01:02:39,100 --> 01:03:05,030
+I mean, what IP is encapsulating anyway, right? And now, now, what is the TTL time to live? I mean, they, they're just calling it hope limit, like, okay, maximum, how many hope you can, you can go, something like that, right? Now there are some new fields that also captain IPv6, which is a flow level. Flow level is one new field that they have kept in IPv6. Okay. Anyway, so this is just a small discussion, but yeah, IPv6 is not in the syllabus. Okay.
+
+120
+01:03:07,220 --> 01:03:35,780
+just two minutes of discussion just to just to tell you that what are the fields that we have in IPv6 right just to I mean just to make sure that you understand that okay I mean what are the future changes that they have done yeah IPv6 is very simple yes that is true IPv6 looks very simple then IPv4
+
+121
+01:03:35,950 --> 01:04:01,630
+they have removed this unnecessary fields actually this fragmentation later on they said that fragmentation we won't be doing on the on the router we will be doing I mean I will tell you that what does this mean but a fragmentation they are saying that we won't be doing on the intermediate routers they are saying the header checks image unnecessary okay at IP level they are saying the header checks image unnecessary and similarly they are saying the options and padding no one is using let's just remove it completely that options you remember that that okay these are the options right
+
+122
+01:04:01,890 --> 01:04:32,040
+this rooting and all the key. And they are saying that this is not necessary. And similarly, like there for for many other fields, they are saying these are not not necessary. And they have changed this type of service to traffic class. And which is also not very very much used in this IPv6 also. Okay. Anyway, they've kept one another field, which is flow level. Yeah, IPv6 was earlier in the syllabus. It was, I think for two, three years it was there.
+
+123
+01:04:32,250 --> 01:05:16,060
+But it is now not in the syllabus. Okay. Okay. It was, it was there in syllabus for two to three years. Okay. I don't remember the years, but yeah, that was in the syllabus. Okay. Cool. Now, can you tell me what is the answer of this? Just try to solve this question. Okay. So what they're asking that which of the following fields in IP header is not modified by the typical IP router? See the checks will be modified, right?
+
+124
+01:05:16,330 --> 01:05:46,750
+because you are changing TTL since you're changing TTL every time you will be you will be basically changing changing the the checksum also right so they are saying not modified so will you be modifying will you modifying this checksum yes because you're changing the TTL so that's why you will be modifying this checksum can you can you modify this length can you modify this length what do you think yes if you're having the options and on
+
+125
+01:05:46,920 --> 01:06:20,610
+and and so on right if we are having the options maybe because of some padding okay maybe because of some padding just a second sorry maybe you are you are padding or maybe maybe you are having the options where where you are keep on appending the IP addresses right maybe because you have the record root options and something and so on so you may also change the length right but can you change the source address obviously never ever right you can't even touch it so you can't change the source address so that's why we can change the checksum
+
+126
+01:06:21,350 --> 01:06:52,160
+because because TTL is changed so it will be changed anyway that's anyway changed maybe padding or or what may so happen if you're not padding then maybe record root options enabled so you will be keep on enabled
+
+127
+01:06:52,620 --> 01:07:37,180
+So you will be basically keep on appending the IP addresses that okay, this will be basically traveling through which link, but source headers, we can't even touch it, right? Let's solve this question. This has been asked in this row. The IP packet has arrived with first eight words like this, which of the following is correct? The number of hopes this packet can travel is two. So first eight words is this, do you remember? What are the first eight words? I think version, right? And what was the next next? Do you remember? Had a length, right? Yeah, had a length.
+
+128
+01:07:38,610 --> 01:08:14,720
+you can say hln okay so so this version they are saying this version is four okay so the version is four and they are saying that header length is header length is two so what does this mean can the header length will be two header actual header length will be how much if hln field is two then actual header length is two into four eight right two into four which is eight
+
+129
+01:08:15,260 --> 01:08:50,220
+Now you tell me, is this even possible to have 8? Minimum should be 20. So, there is some mistake, right? So, that's why the receiver will reject the packet. Okay, D is the answer here. The number of hopes this packet can travel is to, no TTL, I don't even know, right? I don't even know it. The total number of bytes in this header is 16 bytes. In this header, header length, oh no, header length is 8 bytes. No. It is 8 bytes.
+
+130
+01:08:52,000 --> 01:09:33,050
+The upper layer protocol, I don't even know it, right? I don't know the protocol information. The receiver will reject the packet. Why? Because minimum IP header is equal to 20 bytes. And this 8 bytes is not even possible. It means there is some mistake. I mean some corruption is there, right? Some mistake or corruption is there. So router will reject it. Is this fine to everyone?
+
+131
+01:09:37,910 --> 01:10:07,970
+Yes, you have to remember the header format. Okay. Two, three things only you have to remember in the CN. Okay. I can't do anything for that because that's how it is designed, but not much. I mean, people say that you have to remember many, many things in the CN, but I don't find it very accurate. Like just the header formats you need to remember. Otherwise everything is very logical. Right. There's a header format. Yes, you have to remember. Okay. Now let's just see this question. What they're saying. An IPv4 packet has arrived.
+
+132
+01:10:08,250 --> 01:10:36,470
+with the first eight with this, the receiver discard the packet. Why? Oh, great. So this question is from Forozen. They've directly copied from Forozen, right? This question is from Forozen. I just copied it from Forozen. See this? The Naipur packet, the router, the receiver discarded by, right? So anyway, like, ISRO, that's good to see that ISRO at least copied from Forozen, okay? They have not copied from anywhere else. They have at least copied from Forozen.
+
+133
+01:10:38,530 --> 01:11:13,840
+so the answer is there because the 8 with the minimum header byte is 20 the packet must have been corrupted in transmission okay let's see the next question in ipv4 packet the header length value is this much okay in binary how many bytes of options are being carried what do you think so what is the what is the header length this means 8 8 into 8 into 4 right 8 into 4 which is 32 bytes 32 bytes of header so what are the options
+
+134
+01:11:18,960 --> 01:12:05,510
+options will be 32 minus 20, which is let's just see this question. So they are saying in an IPP4 packet, the header length value is 5, which means what is the actual header length? How much is the header length? 5 into 4, which is 20 bytes, right? The value of total length is 002816. What does this mean? This is in the hexadecimal, right? So 16 power 0 plus 16 power 1, which means 2 into 16 power 1. So
+
+135
+01:12:05,810 --> 01:12:46,620
+It is 32 plus 8, which is 40. Okay. So they are saying the total length 40 bytes guy had a length 20 bytes guy. Okay. Options any, I mean, if the header length is 20 bytes, then there is no option. Anyway, but how many bytes of the data? So data length, 20 bytes. Yes, this is 20 bytes. So let's just see. I mean, these questions actually have directly taken from four of them because I mean, this was just good to see. Anyway, so let's just see this question.
+
+136
+01:12:49,260 --> 01:13:18,760
+so what they're saying that a packet has arrived with this how many hopes it can travel so what are the TTL okay maybe I can just recall you the format of the header and the TTL for the TTL how many bytes you need to skip see here this is the format of the header right so for the TTL you need to skip initial 32 bytes 32 bits sorry 32 bits okay with TTL 32 bits sorry 32 or 64 I'm sorry
+
+137
+01:13:19,380 --> 01:14:00,330
+So 64 bits, you need to actually skip again. So what they're saying, if this is the hexadecimal, then each of this is basically four bit, right? Four bit. So this is the eight bits. How many, how many bits you need to skip, skip, skip, 64 bits, or maybe you can say eight bytes, right? Skip eight bytes. This is one byte, second byte, third byte, fourth byte, fifth byte, sixth byte.
+
+138
+01:14:02,650 --> 01:14:35,010
+After 8 bytes, you need to see how many bits, you need to see just 4 bits, right? So what are the 4 bits after 8 bytes? This is 0, this is 0. Sorry, you need to see 8, I'm sorry about it, you need to see 8 bits, you need to see 8 bits, so how many bits you have? 8 bits, so this is 0, 1. So basically this byte basically, right? This is TTL. And the next byte, this actually is TTL, the next byte is protocol, okay?
+
+139
+01:14:35,250 --> 01:14:59,180
+so I mean actually don't need to remember they will give you if that is the case but from the previous examples do you remember what is this 0 6 so they are saying what is the upper layer protocol so this 0 6 means I mean this is actually TCP right and this TTL 0 1 so what they are saying how many hopes can this packet travel before being dropped so it can travel at most one right one
+
+140
+01:15:09,750 --> 01:15:43,620
+So if if you are getting TTL one, I mean if this is getting TTL one, if you are getting TTL as one, then you can travel at most one hope to this hope you can you can go now it depending on that hope if that is host, it will accept if that is router, then it will reject it, right? It will drop it. Only one hope. The protocol field is zero six, which means upper layer protocol is TCP. Okay, good. Have you understood this? Okay, so
+
+141
+01:15:43,930 --> 01:16:13,220
+all the fields i hope you understood very well right all of this let me know if there is any doubt in any of this field okay don't worry about this type of service and options uh that's not being used okay other than that version is fine header length ip header length whatever you want to say h le and h l okay ihl whatever you want to say but yeah that is okay this total length i hope fine these things we are going to see next okay just next this is the fragmentation related
+
+142
+01:16:22,280 --> 01:16:46,860
+This TTL is fine, protocol is fine, header checks are fine, these things are fine. Okay. Now, let's just see these fields or maybe let's just see a broader topic which is a fragmentation. Okay. Revision tips to remember. No, you just need to remember. I mean, I don't have any shortcut here. I mean, I don't know any shortcut if you have anything here to remember.
+
+143
+01:16:47,720 --> 01:17:18,750
+but this version I mean with the practice you will understand I mean you will just remember it that okay this version had a let's just make it two three times just just draw it two three times you will get to remember okay okay just draw it two three times actually I also forget it so maybe you just draw it two three times you will get to remember that's all okay now let's just go to the fragmentation okay so the next topic here is a fragmentation and this is the most important topic in the network layer in the see the network layer is very small
+
+144
+01:17:19,280 --> 01:17:42,670
+subnetting supernetting we have already seen now only the two topics that we are yet to see one is the fragmentation another one is the routing okay in the routing there are two protocols distance vector routing and link state routing and that's all in the this ip this ip protocol is very small small thing or the network layer is very small compared to the data link layer okay although it is very very important also
+
+145
+01:17:42,820 --> 01:18:05,590
+Okay, which means this IP is small also and important also. So basically, if someone wants to even skip computer networks completely, then I will just say just studies IP and TCP. Okay, it will be very less duration, very, very less duration, and you will be most probably getting more than 60% marks from this IC IP and TCP. Okay, so let's just see this fragmentation.
+
+146
+01:18:06,740 --> 01:18:37,570
+Okay. So if any of your friend want to skip component networks, just ask them to, uh, to study this fragmentation or maybe the network layer and the transport layer and comparatively the, these combined with these two layers are a smaller than data link layer. Okay. In terms of a duration, basically I can say. Okay. So what is this fragmentation? Let's just try to understand. Right. So what we are saying, let's suppose that, uh, you have some router.
+
+147
+01:18:37,960 --> 01:19:05,610
+and this router is getting some packet which is very big. Why that is big? Big in the sense that the next link is having some limitation. Maybe you can say this wire is basically can hold the big packet but this wire maybe can't hold the big packet. Is it possible? So is it possible that this physical thing that you have here are not allowing you?
+
+148
+01:19:07,750 --> 01:19:31,570
+so basically it is definitely possible see this ip we have designed not based on the what is the physical thing what is the data link layer right this is an independent concept so we have designed it we are saying that the total length of this ip packet can do you remember how many bits it was this was 16 bits right this means 65535 it could be maximum 65535 bytes the ip packet can carry 65535 bytes but it is not necessary that this link can also carry
+
+149
+01:19:31,980 --> 01:20:06,820
+So if that is the case, then we will be breaking this packet or the routers will be or the host will be breaking the packet into multiple small packets. So if it's a big packet, this router will say it is too big to forward it, then what it will do? If it is too big to forward it, then what it will do? It will fragment it. Okay. So what is fragmentation? How do we connect network with a different packet, maximum packet size, which means let's suppose this link can carry some good packet size, but this link can't carry. Then what we will do?
+
+150
+01:20:07,050 --> 01:20:35,360
+we will be doing, we need to split the packet, split up the packets or discover the larger size to use. Okay, you will understand this, but we will be splitting the packet into different smaller packet. For example, that this router will say, if this is big enough, I will be just parting into two parts. Okay. Now it is maybe two or three, I mean, depending on that, okay, how much is the maximum it can carry. Is the overall idea fine? And at the end, it will get reassembled. Okay. Now it will be reassembling.
+
+151
+01:20:35,710 --> 01:20:56,870
+The final host will be reassembling. Okay. So there's a concept of MTU. Let's just try to understand this concept so that we can understand the fragmentation clearly. So see what may so happen whenever, whenever you are having
+
+152
+01:20:59,480 --> 01:21:28,910
+I mean, whenever this package is traveling any physical link at that time it may be possible that physical link is having some limitation. Okay. So actually based on the physical link, this data link layer and the physical physical layers heavily coupled. Okay. So based on the physical link, we also have the data link layer protocol. So let's suppose that we have the Ethernet protocol here at the data link layer. Okay. You just understand like this that this Ethernet protocol is saying the maximum data I can carry the maximum data this data link layer can carry.
+
+153
+01:21:29,240 --> 01:21:59,920
+It's called MTU. It's called MTU, the maximum transmission unit. So this is basically called MTU, the maximum data data that data link layer can carry. It is ultimately the limitations of home. It is ultimately limitations of wire, right? It is ultimately limitations of wire. And because of that, this Ethernet can't carry.
+
+154
+01:22:00,240 --> 01:22:25,850
+right more than some bytes for example let's suppose it is saying that i can carry maybe maybe maximum i can carry 1500 bytes suppose it is saying 1500 bytes i can carry okay now in this 1500 don't you think we already have ip we already have ip right i mean for the data link layer header it doesn't care that what is what do you have here you already have ip here don't you think we already have tcp
+
+155
+01:22:28,160 --> 01:22:57,070
+We already have some application layer protocol also, right? We already have these, right? So MTU already include all of this. Anyway, but this is the maximum data that this detailing layer can carry, that is called MTU, maximum transmission unit. Okay. And based on that, based on that, we need to see that, okay, maybe, maybe you can say that this router, this router is having, is having Ethernet, Ethernet here, right? On the, on the one side, this is some, some network on the one side, you are having Ethernet.
+
+156
+01:22:57,820 --> 01:23:27,490
+And on the other side, you may be having some other protocol. Okay. Maybe you, you have, you have some other physical transmission medium and some other protocol because of that, because of that, maybe this size could be larger and this size could be smaller. So let's suppose, let's suppose data here can carry, can carry with 300 bytes, but maximum it can carry here. I mean, apart from this, it can, it can carry 1500 bytes. So it will be divided roughly into two parts. Right. This router will say that, okay, let me divide into.
+
+157
+01:23:27,720 --> 01:24:09,440
+two small small parts. Right. Let's just see that how it is happening. So maybe I can just tell you that how it is happening with the example. And then we will see that how all of these three fields which we skipped for now that how all of these three fields are being useful. Okay. Cool. So let's just see. Suppose there is IP datagram total length is some bytes is let's suppose is 800 bytes.
+
+158
+01:24:11,630 --> 01:24:43,020
+and IP header is let's suppose 20 bytes right okay so which means that you have 20 bytes of header IP header now can you tell me what are the actual data IP data that you have this is 780 bytes okay now now you are saying that the MTU the maximum transmission unit is let's suppose
+
+159
+01:24:44,060 --> 01:25:12,160
+576 or something like that, right? 576 bytes. Suppose this is the maximum transmission that unit you have. So can you tell me what is the actual, I mean, if this is the maximum transmission unit, then what are the actual IP data it can carry? See, what does this maximum transmission unit mean? This is the Ethernet. And then, then this is the 576 bytes, right? You need to subtract 20 always. See, the total length is given, including the IP header, right?
+
+160
+01:25:12,380 --> 01:25:42,720
+The M2 is also including the IP header. M2 is always including the IP header. So in actual, how much you can carry? In actual, you can actually carry. If it is including M2, you always include the IP header. See, you just be on the same level. This is the total length. Is this the only IP data? Is this the only IP data? No. This is including the IP header. Is this the only IP data? No. This is also including the IP header. So just tell me how much IP data here? IP data.
+
+161
+01:25:43,390 --> 01:26:16,970
+Just be on the same ground IP data here is 800 minus 20 bytes of header That's why this is 780 bytes How much IP data it can carry? It can carry 576 minus 20 Which means Let's suppose this is 556 bytes What was the case? You have some packet Which was 20 bytes of header
+
+162
+01:26:18,600 --> 01:26:47,170
+780 bytes of data IP data. Okay. Now you just focus on this IP data. Okay. Don't worry about this header. This header will not be used. Okay. So this IP data has to be divided into multiple parts. How much should be the size of one part? What is the size of one part? The size of one part will be will be determined by the M to you. So how much you can carry? You can carry IP data. How much you can carry? You can carry 556 only.
+
+163
+01:26:47,750 --> 01:27:26,040
+So basically seven eighty bytes of IP data you have IP data you have and five fifty six in one you can carry. What is the remaining seven eighty minus five fifty six. What is it is coming to 24. Okay. So two twenty four fights will be the remaining bytes to 24 bytes will be the remaining bytes. Now this is just the IP data. See this is the IP data that we have divided into two parts. This is also IP data. Okay. Now what we need to do.
+
+164
+01:27:26,210 --> 01:27:51,930
+There will be the IP header that we, any we need to append right? This is the IP header. This is the IP header. Is this fine to everyone? Is this fine? The IP headers we need to any way append. Okay. So earlier, earlier it was just one IP header. Now there are two IP headers. Okay. Why? Because we are dividing.
+
+165
+01:27:52,220 --> 01:28:21,600
+into two parts so basically always always be on the same ground always divide the IP data and if the M2 is given they will always give the M2 we will see many many questions here because this topic is very very important and you will get to understand by the end of all the examples but anyway let's just start with this example that if they give you M2 you then just always find out that how much IP data you can carry right you subtract the IP header length and that's how you find out that how much IP data you can carry okay
+
+166
+01:28:22,060 --> 01:28:56,670
+so you can carry here 556 byte at most and then you can carry the remaining bytes here in the next fragment so what happened there was one fragment that has been divided into two is this fine now let's just solve one one question let's just try to solve one question okay so suppose suppose on datagram carry ip data excluding header basically okay
+
+167
+01:28:58,650 --> 01:29:34,350
+They will don't worry that IP data don't get confused that IP data including head or excellent at it then they will tell you okay excluding head where whether it is including by the IP data means that they are talking about just data not the head up, but anyway, they will they will still They will still mention it. Okay, let's suppose it is but it's some bytes. Maybe let's suppose this is 960 bytes Okay, and the end MTU is 300 bytes Okay now
+
+168
+01:29:35,440 --> 01:30:31,280
+it will be fragmented into how many parts you just need to tell it how many parts in which it will be fragmented how many fragments will be there okay let's be on the same ground first so what is the excluding header they have already given that's that's good so this is 960 you have to divide into you have to divide into let's suppose the header length IP header length is just 25 okay 280 280 right 280
+
+169
+01:30:32,230 --> 01:31:09,830
+280, 280, how many parts will be there? This will be 280, 280 into 3, 840 right? 840, 960, minus 840, so 120, okay. So these will be four parts. Understood? How to solve this question? So M2 is given to you and then based on that you can answer your question, okay? So answer is four parts.
+
+170
+01:31:20,780 --> 01:32:15,220
+Now now let's just extend this question a little further Okay, so suppose they they also ask you how many extra bytes We need to carry Including all header all all fragments extra extra bytes because of the header. Okay, how many extra bytes you are carrying 80 or 60 60 extra right
+
+171
+01:32:15,500 --> 01:32:45,870
+I mean see you are having the four fragments see earlier earlier what was the size earlier the size was 960 you divided I mean 960 plus 20 right 20 plus 960 you can see now you divided this 960 into four parts each was having each was having 280 280 right 280 280 280 and 120 now now this is 20 plus 960 you have earlier now you have 20 plus this 20 plus this
+
+172
+01:32:46,110 --> 01:33:44,230
+20 plus this 20 plus this so earlier total 980 now total will be uh you can say 960 plus 80 okay earlier total was earlier total was now total is how much 20 plus 20 plus 20 plus 20 plus anyway 960 we have divided but yeah that was 960 so the difference is you know tell me what is the difference 60 bytes right 60 bytes because of the header you're carrying okay understood
+
+173
+01:33:47,200 --> 01:34:14,520
+Okay. So, I mean, these are some easy questions, but I hope you understood. Right. So what is, what is happening here? I'm dividing the packet. I'm dividing the packet into multiple parts. Right. I'm dividing the packet into multiple parts. Now, let's just see that how the headers will look like here. I mean, the headers here of 25, that is fine. But how those will look like, especially that how to number them. Okay. How to number them. So basically what I'm saying here is that.
+
+174
+01:34:15,430 --> 01:34:48,230
+that let's suppose that you are dividing your 960 into 280 this is the first fragment right this is the first fragment that you have this is the second fragment this is the third fragment which is carrying 280 bytes this is the fourth fragment which is carrying 120 bytes right okay now now there will be 20 bytes of IP header each 20 bytes of IP header each okay is this fine to everyone and then 20 bytes here also okay
+
+175
+01:34:54,270 --> 01:35:21,330
+M2 versus 300, so you need to subtract 20, right? Yeah. M2 versus 300. So we need to subtract 20 to get that. Okay. What is the IP? I mean, we need to run the same ground. What is the IP data that can carry? Okay. So if the M2 is 300, it means this is a thread. This means this is 300 total. So IP, we need to subtract to check that. Okay. What is the IP data that can carry? Okay. Just remove the header because anyway, you will be appending the header for each, each fragment separately.
+
+176
+01:35:23,240 --> 01:35:55,870
+So how many fragments we have here? We have four fragments, right? We have four fragments here. Now, there's a first fragment, there's a second fragment, there's a third fragment, there's a fourth fragment, right? Now, now these four fragments are traveling. Now, again, see what is happening that earlier, you were just having one fragment, right? So earlier, you were just having one fragment. Yeah, empty means the complete data that data link layer can carry. Okay. So this, this is the net.
+
+177
+01:35:56,140 --> 01:36:27,390
+and whatever is this, this is MTU. The data link layer, how much data link layer can carry? This is the term defined as the data link layer. Because of the data link layer limitations, we also have to fragment that IP. I mean, router also have to fragment. So MTU means data link layer can carry these many bytes. It already includes the IP. MTU always includes the IP. So first remove the IP, then you will get to know that how much actual without IP it can carry. So now there was some packet, which was of
+
+178
+01:36:27,580 --> 01:36:59,550
+960 actual plus 20 i this is 20 this is 960 that has been broken by the router into into these four packets right these four packets now do you think that we need to reassemble them later or that's fine okay i mean if we are breaking it that's okay or we will be reassembling all of these packets later on obviously we will be re reassembling this later on at the host right at the host these packets will get reassembled
+
+179
+01:37:00,410 --> 01:37:24,600
+That's fine, but but now let's just see very interesting thing. See just because we need to reassemble these are not independent packet because just because of router it got fragmented, but ultimately this is just one packet. So this host will be combining them into one packet. Now don't you think this host should be knowing that this is the first packet, this is the second packet because it might so happen that this packet, I mean this packet might take some other route and this packet may get early, may reach early.
+
+180
+01:37:25,510 --> 01:37:53,750
+So this host needs to know that this is the first packet, this is the second packet, this is the third packet, this is the fourth packet. So what we can do here, we can have some field which can tell the fragment number. There's a first packet, there's a first fragment, there's a second fragment, there's a third fragment, there's a fourth fragment. Is this fine? So we need to have one field which should be telling the fragment number. If you notice here, these are the three fields which are useful.
+
+181
+01:37:54,030 --> 01:38:23,780
+Okay, we will see that how these fields are useful. So this fragment offset is similar to the fragment number. We will see how. So we are having some fragment number field in the IP header itself, right? Okay. Now, do you think this fragment number field is scalable? Can you have the fragment number and can you work with this? Suppose, suppose that this moves to happen. Okay. That this particular one of the, one of the, the fragment is taking some other path, right?
+
+182
+01:38:24,010 --> 01:38:55,860
+maybe taking some other path and because of that in that other path basically okay maybe taking some other path I mean there could be many paths possible and you you again have to divide this particular fragment you again have to divide this particular fragment is this possible to divide one of the fragment again maybe because of the limitations right maybe we need to divide suppose we need to divide we need to divide the third fragment again okay suppose we need to divide the third fragment again if we need to divide this third fragment again then can you tell me
+
+183
+01:38:56,140 --> 01:39:30,830
+what are these numbers let's suppose maybe in 100 100 bytes 100 bytes 100 bytes and this is this will be 80 bytes can you tell me which fragment number is this this is first fragment this is second second fragment can I say this is third fourth fifth and six this is third fourth fifth and six can I say something like this but there is a problem with this I mean you already numbered it for right how you will be changing it
+
+184
+01:39:30,990 --> 01:39:59,550
+it might be even you don't even know where it is right in the network you don't even know so if this is dividing further then what should be numbers of these these fragments what should be the number of these fragments yeah all of them are third can i say 3.1 3.2 3.3 okay now suppose now suppose if you are saying something like this now suppose this particular
+
+185
+01:40:00,240 --> 01:40:33,890
+3.2 or maybe 3.1 is again getting divided okay suppose this is again getting divided further maybe maybe 60 bytes or 70 or whatever right maybe in two parts right let us suppose 70 bytes and this is 30 or something like that okay then what should be the number of this 3.1.1 3.1.2 do you think it is scalable and can you even represent these numbers like this I don't think it is scalable right
+
+186
+01:40:34,190 --> 01:41:03,870
+if that is getting divided further it is too much complicated we have the similar we have the easier scheme here okay so here the difficulty is known right the difficulty here is that how to number these fragments this is the first second third how to number them if you're just plain numbering if you're just just doing the plain numbers it is not scalable because what if the one of the fragment further divided right what are the one of the fragment further divided so it is not scalable the plain numbering seems not to be scalable understood so
+
+187
+01:41:07,090 --> 01:41:37,690
+so if you have something like this then let me just remove this numbering and you just tell me if this numbering is not working for this particular division okay i mean this that's perfectly fine division but what should be the numbering here that's what we are interested in what should be the numbering here see that's the first fragment but what is the numbering i mean how should i be knowing this the first fragment abcd
+
+188
+01:41:42,120 --> 01:42:13,320
+Then it's called C1, C2, C3. Then it's called C1 Small. What to do? Okay. So, yeah. So I don't think this kind of numbering will work. So that's why we have a better scheme here. That is called fragment offset. Okay. That is called fragment offset. So we will, we will now see the fragment offset and, but you can see from this Berkeley University slide.
+
+189
+01:42:14,180 --> 01:42:28,080
+Okay, this is our university slide. It is saying why the buy top side for the fragment rather than numbering. We can't can't number right. I mean, there's a there's a question in the slide itself. They are saying that we can't number them each fragment. Okay, because of every number them.
+
+190
+01:42:28,330 --> 01:42:57,370
+Okay. I mean, currently you might not be understanding the question and answer both, but maybe I'm just a bit ahead of my time. I mean, ahead of the slide. But anyway, like, let's just quickly read it and then we will go back to the fragment offset. So, but what it is saying that it allow the further fragmentation of the fragments. So if you want to have the further fragmentation of the fragment, then the numbering can't work at least, right? We need to have some other scheme. So that other scheme called byte offset. So the question is that why we are using byte offset, not the plain numbering?
+
+191
+01:42:57,820 --> 01:43:22,650
+Because we want to have the further fragment of the fragments, further fragmentation of the fragment. So just imagine, just imagine if there is only one label, if there is only one label, can't you just do the frame numbering? If there is only one label, then you can just do 1, 2, 3, 4. There is no problem at all. If there is only one label, there is no problem at all. Understood? You can just say 1, 2, 3, 4. If there is only one label.
+
+192
+01:43:23,510 --> 01:43:52,100
+but one of the fragment may get further divided into different fragments that can again get further divided so it can keep on happening we need something which is sustainable that's what the Berkeley University says I'm not saying it Berkeley University is saying is right so what is the sustainable thing that is called fragment offset let's just see what is the fragment offset okay so that's very nice nice field let's just see that how it is working very nice very clever idea so what they say they say if this is a first fragment tell me
+
+193
+01:43:52,400 --> 01:44:18,700
+how many fragments are ahead of it how many fragments are ahead of it see this is the first fragment okay there is no fragment ahead of it this is the second fragment thus one fragment is ahead of it this is the second third fragment there's two fragments are ahead of it this is the fourth fragment how many fragments three fragments are ahead of it right so you just need to tell me how many fragments are ahead of it zero right so zero fragments
+
+194
+01:44:19,140 --> 01:44:53,270
+actually tell me how many bytes are ahead of it not just a fragment I mean you need to tell me number of bytes that are ahead of it zero bytes how many bytes are ahead of it in terms of IP data 280 how many bytes are ahead of it in terms of IP data 280 plus 280 how many bytes are ahead of it in terms of IP data 280 into 3 so it is 280 into 2 okay so so you just have a field which is calling which is called fragment offset
+
+195
+01:44:54,380 --> 01:45:24,800
+fragment offset fragment offset that will tell you that how many bytes are ahead of it so this fragment offset is one of the field here in the IP header so in the fragment offset you will be having zero here you will be having 280 for this particular you will be having 280 into for this particular and you will be having 280 into 3 for this particular and how this is working I will tell you okay so there is a field fragment offset that just tell you that how many bytes are ahead of it right
+
+196
+01:45:26,020 --> 01:46:00,300
+Okay. Now, now for this particular, for this particular, how many bytes are out of it? As you can see, the 280 into 3. Something like that, right? These many bytes are out of it. That's fine. Okay. So what is the fragment offset for this particular? 840. Here I will be writing 840. Is this okay to everyone? Okay. Now, now there is one catch. Also, here also there is one catch. Let's just see. Can you tell me how many bits are of this, if this is 3 bits? This is total.
+
+197
+01:46:01,260 --> 01:46:38,320
+total last 16 bits. So can you tell me what is the number of bits in the fragment offset? 13 bits, right? This fragment offset is one field, which is a 13 bits field. Okay. This is, this is 13 bits field. Cool. If this is 13 bits field, then can you tell me that how, what is the maximum number you can represent here? 2 power 13 minus something like this, right? Maximum number you can represent. Okay. Now you tell me
+
+198
+01:46:39,290 --> 01:47:12,260
+For any of the packet, how many bits can be the maximum ahead of it? How many, how many, sorry, these are the bytes. So how many bytes can be maximum ahead of it? See, what could be the maximum size of any packet? 2 power 16 minus 1, right? 2 power 16 minus 1. This is the maximum size. Now, it might so happen, it might so happen that this particular last one, last one is basically following how many bits, how many bytes?
+
+199
+01:47:15,310 --> 01:47:44,500
+Maybe maybe the last one is just one byte maybe because of some reason and almost 2 power 16 almost 2 power 16 it is following right See the max if it is carrying how many how many bytes you can carry? So the number of bytes you can carry is 2 power 16, right? What is the maximum size 2 power 16? So number of bytes you can carry maximum is 2 power 16 Now what I'm saying here is that that if this is the maximum byte you can carry Then if you're dividing that into parts see this is 2 power 16 bytes, right?
+
+200
+01:47:44,740 --> 01:48:17,130
+So the IP datagram could be of 2 power 16 bytes. If you're dividing into parts, then maybe this is some part, this is some part, this is some part, then it might so happen. Okay. It might so happen. So the maximum total length is 2 power 16 bytes, right? So which means, which means that this can be divided into multiple, multiple fragments. Then can you tell me what, what is the amount of data it can carry?
+
+201
+01:48:18,480 --> 01:48:47,480
+If this is the total length, then what is the amount of data it can carry? Maybe 2 power 16 minus minus 20, right? I mean something like that, right? I mean like little bit here and there, but yeah, it is 2 power 60, 16 minus 20, this much amount of data it can carry, right? So, so what we do, we always focus on data, okay? All of these IP fragmentation, everything is focused on data, at the end you just append header, okay? At the end you just append header. So now this 2 power 16 minus 20, this is the total data. Now you tell me,
+
+202
+01:48:48,370 --> 01:49:18,500
+Last, in the last fragment, what are the minimum bytes? Maybe, maybe this is a fragment of just one byte. Is this possible? Then, then, basically, how many bytes it can follow? Something like 2 power 16 minus 20 minus 1. It can follow. I mean, this particular, this particular last fragment can follow almost, almost 2 power 16 bytes. Is this okay to everyone? Right? It can follow almost 2 power 16 bytes.
+
+203
+01:49:20,920 --> 01:49:41,380
+see what is happening the total length here is 2 power 16 bytes and then 2 power 16 minus 20 is basically your I mean if you remove the header this is the actual data that you can carry maximum data that you can carry now you will be dividing the data into parts and it might so happen that the last fragment is just getting very less bytes I'm just hypothetical telling it is one byte so which means
+
+204
+01:49:41,720 --> 01:50:18,420
+which means this will be following this will be following at most at most 2 power 16 bytes almost 2 power 16 I mean 2 power 16 minus 20 minus 1 because of this minus 1 right so almost 2 power 16 bytes that will be carrying so can you tell me what is the fragment offset here for this particular packet it will be 2 power 16 bytes is this okay to everyone let me know see what is happening here that let's suppose let's suppose you have for example you have 5000 bytes of data okay
+
+205
+01:50:19,560 --> 01:50:55,340
+you have 5000 bytes of data let's suppose MTU okay I'm just directly giving you the data right let's suppose MTU is 1500 bytes now you tell me oh IP header length is I suppose 20 now tell me how much maximum you can carry 1480 1480 1480 what is the remaining one what is the remaining one 1480 multiplied by 3 and then you need to subtract from 5000 right
+
+206
+01:50:55,640 --> 01:51:29,340
+so basically maybe i can do that so 1480 multiplied by 3 it is coming out to be 444 0 so maybe the last one is uh 444 0 so it is 560 or 460 this is 560 right okay so this is 560 bytes is this okay everyone now you tell me what is the fragment offset for everyone okay
+
+207
+01:51:29,610 --> 01:51:54,870
+I mean, you will be appending 20 bytes of header later on, but anyway, what is the fragment offset here? 0. Why? Because it is not following any number of bytes. This is the fragment offset 0. What is the fragment offset here? 1480. What is the fragment offset here? How much bytes it is following after it? How much? How much is it? It is 1480 into 2. How much? How much after this? How much after this? 1480 into 3, right? 1480 into 3, right?
+
+208
+01:51:55,230 --> 01:52:21,790
+so that's how we call we calculate the fragment offset right that's how we calculate the fragment offset now coming to this tell me if this is 2 power 16 minus 20 or some bytes so basically how much bytes it is following almost 2 power 16 right almost 2 power 16 because 2 power 16 minus 20 minus 1 see 2 power minus 16 minus 20 you're dividing into many many pairs if the last is just getting 1 then it is almost following 2 power 16 minus 20 minus 1 almost 2 power 16
+
+209
+01:52:22,140 --> 01:52:53,210
+so the fragment offset here will be 2.16 is this is this fine to everyone okay so these many biases following but but interestingly our fragment offset is also just 13 bytes 13 bits sorry so the fragment offset here if you see the field of the fragment offset is just 13 bit free but you need to represent 2 power 16 bytes here I mean as good as 2 power 16 so what you will be doing you will be again doing the scaling which means you will be whatever the fragment offset you will be dividing it by
+
+210
+01:52:53,610 --> 01:53:25,940
+see this is the maximum value that you want to represent but maximum that you can represent is this much so you will be dividing what you want to represent you will be dividing that by 8 and then you will be representing it it is just the interpretation that we are doing so which means which means if you want to represent let's suppose if you want to represent 1480 so is this a fragment episode or divided by 8 is a fragment offset whatever you want to represent basically divided by 8 divided by 8 divided by 8 divided by 8 okay this is the fragment offset so how many bias it is following
+
+211
+01:53:26,170 --> 01:53:58,730
+but you need to divide by 8 because otherwise you can't fit that in the fragment offset. I mean that's the meaning of that. So basically you can have as long as 2 power 16 but you can't put in 2 power 16 so that's why you need to divide by 8. Now you tell me that what is the answer here? 0. What is the answer here? 1480 divided by 8. This is 185. This is 185 into 2. This is 185 into 3. This is how you are going to calculate the fragment offset. Is this fine?
+
+212
+01:53:59,870 --> 01:54:25,430
+So, so how many bytes you are following, but you need to divide by eight. Okay. Don't worry with the many examples. We will, we are going to do many, many, many, many examples here. And then I will make sure that it is very, very, very, very clear. Okay. This is the first example there where I'm saying that you need to divide by eight. So whatever the fragment offset number of bytes it is following, you need to divide by eight. Okay. So that's how you know that. Okay. What is the fragment offset? Right. Why we are dividing by eight because.
+
+213
+01:54:25,750 --> 01:54:57,020
+Because for this, if we don't divide by 8, it might be possible, we may need to represent more than 2 power 13. Maybe as good as 2 power 16. Can we represent as good as 2 power 16, just 13 bits? What do you think? No, right? So that is why I will be dividing by 8. So whatever I want to actually represent, I will be dividing by 8 so that I can just represent that into the fragment offset, okay? Because that's a 13-bit field. Okay, with the examples, it will be Kylian. Okay, so now let's just see this example. Let's just see this example.
+
+214
+01:54:58,600 --> 01:55:38,920
+Now you tell me suppose if there is a 300 was empty here, right? If I remember clearly. So let's just pick this example only. Okay. So if this is the example, and now let's just see how to calculate the fragment offset for each of the fragment, right? Good. Have some patience. You will get to understand. So what is the data that you want to that you want to basically carry the data excluding the header?
+
+215
+01:55:39,860 --> 01:56:20,200
+965. What is the M2? M2 is 300, but the header length is 20, so 280, 280, right? So you divide into 280. You divide into 280, divide into 280. There will be four packets that we have seen. This will be 120, right? Okay. Now, now let's just go to the next page. Let's just try to calculate the fragment offsets here. Okay. So what is the fragment offset for this? How many bytes it is following? Fragment.
+
+216
+01:56:20,760 --> 01:56:50,190
+upset how many words it is falling the first packet is falling no bytes I mean after it there is no bytes 0 how many words this is falling 280 right but the answer 280 divided by 8 here 280 divided by I mean 280 into 280 is following but divided by 8 this is following 280 into 3 but divided by 8 that's all so so basically this number is coming out to be 35 I think right it is 35 into 2 it is 35 into 3
+
+217
+01:56:50,780 --> 01:57:30,240
+That's how very easily you are going to calculate the fragment offset. Whatever it is following, just divide by eight. Okay. Okay. Now let's just do one question. Maybe you will get to understand more. Right. Suppose, suppose there is a 5000 or maybe let's, let's take it 5000 500. Okay. Total length of IP data. Right. Total length of IP data.
+
+218
+01:57:31,920 --> 01:58:21,610
+Now, let's suppose that IP header length is 20 bytes only. Okay, the minimum header length. Now, now let's suppose that they are saying the MTU here is 1500 bytes. Okay, so this is the information that is given to you. Now, A, they're asking that number of fragments, B, they're asking fragment offset for each fragment. Let's just try to solve these two questions. So if you're, if you're dividing
+
+219
+01:58:21,900 --> 01:58:53,540
+these 1500 bytes, right? If you're dividing these 1500 bytes, then what you will do? Sorry, 15, 5,500 bytes. Then what is the M2U here? This is first of all the total length. So will you be dividing this or you will be dividing minus 20, minus 20, right? So basically just be on the same ground, which means just first find out minus 20. This is 5480. Now you will be dividing 5480, right? Okay. So let's just divide this 5480.
+
+220
+01:58:54,450 --> 01:59:24,650
+this is 5480 divided into how many parts many many parts and let's just see how many parts 480 right 1480 1480 1480 this is it will be how much okay it will be 1060 okay if you sum this up it will be 5480 right it should be 54080 so how many fragments are there what is the answer here
+
+221
+01:59:27,040 --> 01:59:59,990
+Can, can you calculate the fragment offset for each of them? Let's just see. How many bytes it is falling? Zero bytes. How many bytes it is falling? 1480 divided by 8. How many bytes it is falling? 1480 into 2 it is falling. Divided by 8. How many bytes this is falling? 1480 into 3 divided by 8. Right? So this is coming out to be 185. This is coming out to be 185 into 2. I mean, you can definitely calculate, right? This is 185 into 3.
+
+222
+02:00:00,590 --> 02:00:51,700
+So these are the fragment offsets. Now I hope you understood that how to calculate the fragment offsets. So these are the fragment offsets. So the last one is 1040. Every data is in bytes only. Every data is in bytes. There is no data that is in bits. So these are the fragment offsets. Now there is one bit.
+
+223
+02:00:52,010 --> 02:01:18,900
+okay that is called more fragment it is just one bit field okay more fragment mf more fragment if that could be yes or no that could be yes or no okay it means that are there more fragments which means that if this is last fragment then I will say that no are there more fragments after me no if this is first fragment I will say yes so which means that for the first fragment I will say
+
+224
+02:01:19,120 --> 02:01:48,160
+yes there are more fragments there are more fragments there are more fragments are there more fragments here no so zero so this particular there's just one bit here in the header i will just tell you that particular bit says more fragments whether it is more fragment or following or not okay so are there more fragments after me no there are no fragments after me are there more fragments after me yes are there more fragments after me yes are there are there more fragments after me yes right so that's why you will be having one one one everywhere apart from the last one there is one more bit that is called do not fragment
+
+225
+02:01:50,470 --> 02:02:21,800
+Do not fragment if this is this could be also yes and no if this is yes means one no means zero so which means that Can you fragment it? I mean basically it will be set by the original host. So can you fragment it? So answer if you are doing the fragmentation then answer should be yes, okay? Yes, yes, yes, yes, okay? I mean because because you're doing the fragmentation Okay, so so don't worry. We will understand all of this in many many good detail So now there are two three fields that we have
+
+226
+02:02:21,980 --> 02:03:01,460
+one is this fragment offset that i hope you understood how to calculate another one is flex now the flex is three flex are there one is called i mean this particular bit i mean this is a three bit field this particular bit is not used unused okay then we have do not fragment if this do not fragment is is one then we can't fragment okay if it is one then we can not fragment if this is zero then we can fragment right
+
+227
+02:03:01,850 --> 02:03:33,910
+more fragments means are there more fragments after me okay if it is one it could be one or zero then this is if it is zero then this is last fragment basically and there are one means there are more fragments after me right okay now now let's just understand these fields first let's suppose this is actually unused but let's suppose that these are the two this is do not fragment this is more fragment okay so suppose that I have that I have
+
+228
+02:03:35,310 --> 02:04:05,090
+do not fragment field as as one which means I cannot fragment okay which means I cannot fragment okay and let's suppose the more fragment field is basically zero which means it is the original fragment basically this is the total data that you are following let's suppose this is 5000 bytes okay some some bytes and then there's a router
+
+229
+02:04:05,640 --> 02:04:36,020
+which is which is getting do not fragment field. Okay. Don't worry about this more fragment for now. Let's suppose this is a do not fragment field and which is saying one, which means do not fragment. Okay. Yes. Do not fragment. Okay. So, so, okay. So we're saying they could have given this unusual bit to fragment offset. Okay. So this is the router router. Now let's suppose that this is the data that is coming and in this data, there is a header.
+
+230
+02:04:36,300 --> 02:05:07,100
+in this header there's a df field which is sing one okay df is one which means do not fragment now let's suppose this mtu is 1500 bytes so whenever this data is coming to this router what it needs to do you need to fragment right because this is uh 5000 bytes and this is just 1500 bytes so it needs to fragment but if do not fragment is set then it cannot fragment so what it will do this router will drop the packet since it can't fragment and can't forward also so router will drop the packet
+
+231
+02:05:11,960 --> 02:05:38,420
+and there is some small message it will send that I have dropped the packet okay I have dropped the packet a small message with the region also it will say that okay because of the MTU and this message we will see later on using some header or some protocol which is ICMP we will see this later on but if this is ok to everyone if the do not fragment is set and if this router has to fragment then it will just drop it
+
+232
+02:05:38,620 --> 02:06:10,520
+if the it is if i'm saying okay don't fragment then it will this router will say okay i'm dropping it because you are saying don't fragment but i have to anyway i mean fragmented to forward it right okay so this do not fragment field is clear right okay so now this if you're if you're fragmenting if you're fragmenting then this do not fragment sorry this do not fragment this should be zero if you're fragmenting then this means do not fragment should be zero it should be originally should be zero right then we just copy it
+
+233
+02:06:11,650 --> 02:06:45,200
+If it is one, then do not fragment. If it is zero, then yes fragment. Okay. So let's just see some questions. Maybe with that, you will get to understand more. Let's just see this question. An IP data gram with a total length of 1500 bytes. Okay. But the header length of 20 bytes arrived through the Ethernet link at an intermediate router. So the total length is given to you. Okay. Header length 20 bytes, including the header length. It is total length. So IP data, can you tell me 14, 80 bytes? You need to divide this 14, 80 bytes, right?
+
+234
+02:06:45,580 --> 02:07:08,060
+The next link allows the datagrams of up to 576 bytes. So the MTU is basically 576 bytes. Now how many fragments are created to carry forward this original datagram? So how many fragments you will be creating? Let's suppose this is MTU. So this is 1480.
+
+235
+02:07:12,900 --> 02:07:32,620
+No, they will make it very, very clear. Don't worry about the terminology. They will make it very, very clear whether this is M2U or this is excluding, including the IP data, IP header or not. I mean, I'm assuming here this is M2U. In the actual question, like this is just typed by me, but they will definitely tell you everything. Okay. So there won't be any ambiguity.
+
+236
+02:07:33,060 --> 02:08:02,620
+total length they will they will specify uh by by the way it is very clear from this question that total length total length actually always mean that including at the ip if i'm telling the total length including the header they're they're telling the header length also otherwise they will definitely specify this is including header okay don't worry about it okay let's suppose this is m2u then actually actually this is 556 bytes of data you can carry so if this is 556 this is 556 this will be something how much it is
+
+237
+02:08:04,350 --> 02:08:34,300
+566 into 2 you can do and then subtracted this will become our 368 that's all so how many fragments 3 okay now let's just see this question a packet has arrived with m bit value to be 0 which means m is more fragment okay if I'm saying there are more more fragment bit at 0 then what does this mean if this is the first fragment if there's a large fragment or the middle fragment do we know the packet was fragment
+
+238
+02:08:34,610 --> 02:09:05,960
+If the more fragmented 0, it means there is no more fragment, I mean, there is no more fragment following me. It means that, that more fragment MF or just M whatever you want to say, if it is 0, then it is last packet. Okay. Do you know if the, if the, if it has been fragmented? No, you don't know. Maybe it is the original packet. In the original packet also, you have, I mean, if you do not fragment it, if this is the original packet, then also you set it M to be 0, right? Because this is the only fragment or the last fragment.
+
+239
+02:09:06,550 --> 02:09:48,510
+So you don't know, right? Do we know the packet is fragmented? No. No, we don't. A non fragmented packet is considered to be the last fragment. Okay. So this is, these are the questions from the, uh, for ocean. Let's just see this question. So what they're saying, a packet has arrived with M bit as one. Is this the first fragment or the last fragment or something? Do we know the packet is fragmented? If this is one, then then if this is one, then not.
+
+240
+02:09:50,680 --> 02:10:31,910
+the last fragment may be first or intermediate right and do we know the packet is fragmented no we don't know right at least one it means that there are more fragments following me I mean there are more fragments after me this fragment can be the first or the middle one but not the last one we don't know if there is a first one or middle one and we need more information more information the value of the fragment option
+
+241
+02:10:32,490 --> 02:10:56,450
+Okay, if the packet is fragmented or not, that we don't know. For that we need to know some more information, right? Yeah, so MF equal to 1 means this is either the first packet or the middle packet cannot be the last packet because MF equal to 1 means there are more packet after me. There are more packet following me, right? There are more packet after me. So why do you think it might be necessary to tell that there are more packets after me? Because at the final destination,
+
+242
+02:10:56,890 --> 02:11:30,910
+It should not be keep on waiting, right? If he doesn't know if there is any fragment ahead of it, so what it will do, right? If I am saying that, okay, MF equal to 1, it will wait. It will wait, okay. Maybe there are more fragments coming, maybe there are more fragments coming. The moment I get MF equal to 0, I will say, oh, now there are no more fragments coming, right? Something like that. Okay. Understood. So basically it is needed for the final destination to know whether there are more fragments or not. No, we don't know the packet is fragment or not, we don't know. Just because of the MF field, we don't know, right? Okay. Now, let's just see this.
+
+243
+02:11:31,250 --> 02:12:09,960
+A packet has arrived and the m value is 1 and the fragmentation offset value is 0. So it means m value is 1 means there are more fragments following me. There are more fragments after me and the fragmentation of offset value is 0. Then what does this mean? It means that I'm not following anyone. It means I'm the first one. So m bit is 1 and fragmentation offset is 0. It means I'm the first one. There are more after me. So now you tell me
+
+244
+02:12:11,060 --> 02:12:54,500
+Can I say this is the first fragment? Yes, this is the first fragment. Can I say that the fragmentation has been happened or not? Whether it is fragmented? Yes, it is fragmented, right? Okay, see, sorry. In the earlier case, what they ask, do we know if the packet was fragmented? If the M is 1, it is the last fragment. Okay, for the M is 1, it is the last fragment. Not the last fragment. And do we know the packet is fragmented? We don't know if it is first of what we need more information. Okay. Yeah, so do we know the packet was fragmented here?
+
+245
+02:12:57,670 --> 02:13:43,420
+See, Ambitage 1, it means there are more fragments following me, right? So, do we know it is fragmented? Yeah, we know. So, sorry about it. So, we know, right? So, do we know the packet is fragmented? Yes, we know. Because Ambitage 1 means that there are more fragments following me. So, that means that we know that there has been the fragmentation, right? If there, okay, let's just do it slowly. Maybe you will understand more. Okay. Let's just see this. So, okay. So, here, the fragmentation was there because Ambitage 1. Okay. Let's just see this.
+
+246
+02:13:43,650 --> 02:14:12,960
+A packet has arrived and now they are saying that the offset value is 100. So for this packet, the fragment offset is 100. What does this mean? How many bytes it is following? It is actually following how many bytes? 100 into 8. So basically after it 800 bytes are there. So before it you can say that without IP header.
+
+247
+02:14:13,260 --> 02:14:46,320
+okay don't include the IP header here this is the fragmentation is without IP header so this offset is also without IP header so without IP header this is following 800 bytes okay 800 bytes do we know the number of last byte the number of the last byte what is the number of the first byte okay so what is the number of the first byte here so the byte number start from 0 then 0 to 790 and must be here so this is 800th byte what is the number of the last byte here what is the size of this
+
+248
+02:14:50,120 --> 02:15:25,420
+size of this we don't know right so the total size is not given so we don't know what is the last but we definitely know the byte I mean the byte number is the first byte is 800 why because it is following 800 bytes so which means 0 to 799 bytes it is following it means this is the byte number if you talk about the byte if you give a byte to be every number then this is the 800th byte okay we cannot determine the last byte unless we know the length of the data okay
+
+249
+02:15:25,640 --> 02:16:02,940
+is this okay to everyone that if fragment offset is 100 then what does this mean that actual number of bytes it is following 800 bytes right okay now let's just do this question so what they are saying here let's just try to understand what they are saying a packet has arrived in which the offset value is 100 which means which means how many bytes it is following it is actually following 800 bytes of data 800 bytes of ip data okay
+
+250
+02:16:07,230 --> 02:16:41,540
+okay so basically this is following 800 bytes here these are 800 bytes is this including the header without including the header without including the header okay it is always without including the header that it is following 800 bytes without including the header okay now the value of header length is 5 then what does this mean the header length I mean hln field is 5 then what does this what does this mean the header length is 20 okay the value of the total length field is 100
+
+251
+02:16:41,870 --> 02:17:12,740
+So do you need to multiply anything here in the total length? No, right? So what is the IP data? See, IP data must be 80. 80 bytes of data, 20 is this. Okay. So here, this is basically 80. I mean, the 80 bytes of data you have here, the fragment offset you have here. So 20 bytes here, 80 bytes. The fragment offset is 100, which means it is 80 bytes and it is following 800 bytes. See, it is 80 bytes and it is following how many bytes? 800 bytes.
+
+252
+02:17:13,070 --> 02:17:43,900
+so what is the first byte here if you if you number the every byte what is the first byte here 0 to 179799 it is following so it will be 800th byte and this will be 800 I mean since indexing will start from 0 so 879 this will be 879 yes everyone is correct okay hope you understood so basically the first byte number is this much this much
+
+253
+02:17:44,330 --> 02:18:16,400
+and that is why the first byte number is 800 and the last byte number is this. So basically they are saying that there is a packet that we have received the fragment offset is telling you how many bytes it is following the total length and the header length both of them is telling you that how many IP data you have 80 bytes of data you have 800 bytes it is following. So now let's just try to solve this question. So what they're saying let's just try to solve this question.
+
+254
+02:18:17,360 --> 02:18:46,950
+They are saying suppose a router receives 1500 bytes IP before packet with 20 bytes of header. Okay. So this 1500 bytes including the 20 bytes of header. So which means how many bytes you need to divide 1480 bytes. Okay. 1480 you want to divide and there is something called something called identifier field. So this is a last field that we have here. See there is something called identifier field also.
+
+255
+02:18:47,650 --> 02:19:16,490
+So we have in this row, we have identification, flags and the fragment object. Now you know how to calculate the fragment object. How many bytes it is following divided by eight? What are the flags? There are two flags only. Do not fragment and more fragments, right? If do not fragment is yes, do not fragment vision. If it is one, then don't fragment it. If it is zero, then only we can fragment it more fragment. If this is one, yes, there are more fragments following me. It means this is either first packet or the middle packet. If it is zero, then can I say that there are no more fragments?
+
+256
+02:19:17,150 --> 02:19:47,740
+Can I say it is the last fragment? Yes, right? It is the last fragment or maybe the fragmentation has not happened. It might be the original packet, right? Okay. So I hope you understood every of this field that how this is working. So now you know how this fragment offset is working in divided by 8. What is this flag? And now this identification number is very easy. It is just saying that, okay, let's suppose you're dividing some packet. Let's suppose you're dividing some packet. This ID here is identification field is X.
+
+257
+02:19:48,280 --> 02:20:22,960
+you are dividing some packet into three fragments okay suppose three small fragments so can you tell me if you divide that into three small fragments what is the identification here it will be x identifier it is x it will it will it will be same it will be same so if you further divide it let's suppose into small small what is identifier here x it will be same whatever the whatever is the original identifier the fragments will be having the same identifier okay now no
+
+258
+02:20:23,220 --> 02:20:53,290
+don't worry there are many many questions we have not even started the question okay now we are just understanding the theory for now let's just see the questions now so now they are saying i mean it is not even the start of the first question you can say okay there are many questions we will be solving identifier field is just telling you the number of the packet okay why it is helpful can anyone guess why we want to have some identification for every packet can anyone guess it because
+
+259
+02:20:54,570 --> 02:21:22,400
+at the destination right at the destination it should know at the destination it should know that okay if it is receiving that some packet with the identifier xx some packet with the identifier y it should know that okay these two packets i need to combine this packet i do not need to combine with this right this is should i need to combine all of this three no i will be combining all of these two but i will not be combining this with this right so just to let the receiver know that okay which one you need to combine finally because receiver is going to do reassembly which we will see later on
+
+260
+02:21:22,590 --> 02:21:48,200
+okay but you might guess it that why this identifier is important because for the receiver for the receiver we should be knowing that okay these two packets having the same identifier let me combine it these two packets having the same identifier let me combine it right so for the receiver it should be known yeah yes so that let's suppose the data here is 1480 bytes now they are saying that identification field id is given to vx
+
+261
+02:21:48,410 --> 02:22:22,310
+more fragment of this particular packet is given to zero, which means there, I mean, this could be the last fragment or there is no, I mean, there is no fragmentation till now. Do not fragmented zero, which means that yes, we can fragment actually. It needs to forward on the link of 500 writes M2U. And if IP, IP header is 20, then what does this mean? Then it is 480, 480, right? So can you tell me how many fragments that will be there? If it is 500 by M2U, so 480.
+
+262
+02:22:22,700 --> 02:23:01,680
+into three it will be one four four zero so at the last it will remain 40 right is this fine to everyone so these there will be four there will be four fragments right what should be the now they're asking what should be the identifier field ip id length offset flag everything field of the header of the third uh fragment so this is for second third so can you tell me these fields for the third fragment so this is the third fragment let's just try to find out so it's easy what is the id here
+
+263
+02:23:01,940 --> 02:23:43,290
+what is the identifier just x whether there are more fragments what do you think do you think there are more fragments yes there are more fragments have i mean you just need to just copy this do not fragment field anyway so this is zero you will always copy this do not fragment field what else yeah fragment offset so 4 and 2 into can you tell me what is the fragment offset 482 2 divided by 8 right what is this what is 128 is this fun to everyone
+
+264
+02:23:44,130 --> 02:24:23,130
+Okay, 120. So the fragment offset field will be continued 120. Okay. Don't include, don't do, multiply by 3. It will be wrong. Okay. It is multiplied. How many bars you are following? How many bars you are following? That's what you need to do. Okay. Understood. Maybe little bit you have understood, right? Okay. So now, now let's just see the answer. This is x 500. What is 500? What they're asking? ID.
+
+265
+02:24:23,420 --> 02:24:55,520
+length length means total length so what is the total length here total length is 500 including the header right 120 right 120 okay so easy question i hope you understood now let's just solve more questions so that you can you get it very clearly that what is happening here okay so maybe little bit you have got it right maybe little bit till now you have got it but but we will we will get it very very clearly let's just do this this interesting question here
+
+266
+02:24:56,070 --> 02:25:25,310
+Let's just see if how many of you can answer this question. So this is quite an interesting question. What this is saying? An IPB4 packet includes a TCP segment. Okay. So IP is basically having TCP here. I mean, that's what they're saying. TCP. That's fine. The IPB4 packet needs to be fragmented. Which of the, which fragment include the information from original IP header? Which fragment include the TCP header? Okay. So which fragments include
+
+267
+02:25:25,990 --> 02:26:02,230
+let's suppose this question is like this maybe let me make it more clear which fragment include the original IP header okay and which fragment include the TCP header what is the answer let's suppose there are multiple fragments first last you can just tell me first last middle so which fragment include the original IP header the original IP header if I just say the original IP header which fragment include see this is the data that we divide
+
+268
+02:26:03,490 --> 02:26:45,410
+Do any of the fragment has this original IP header? Any of the fragment? You will divide, you will append the new headers, right? You will append the new headers based on the fragment offset and so on, right? So none of the, okay? None of the fragment includes the original IP header. None of the fragments. Which fragment includes the TCP header? This is interesting. First, middle, last. Everyone? No. No. No. TCP header, not all. Why? Why all will include?
+
+269
+02:26:45,660 --> 02:27:14,260
+You don't care about the TCP. For you, it is a data. Only this is the data one, this is a data two, this is a data three. Only the first fragment contains the TCP header, not anyone else apart from the first fragment. It is just to confuse you. Why you're getting confused? See, this is for us, for the network layer, this is TCP, just a data. So it is just a data. So which fragment contains the TCP header? Only the first fragment. So this is very important to understand which fragment.
+
+270
+02:27:14,570 --> 02:27:53,110
+only the first one right see here this diagram see they may even confuse you till HTTP do do you really care about this HTTP see this is 20 bytes you you you uh subtract this 20 bytes you you will say that this is the data one this is a data two this is a data three that's all agent it this is a data one this is a data two this is a data three not tell me tell me which one is including this TCP HTTP which one
+
+271
+02:27:53,430 --> 02:28:21,160
+all or just one just first one just first one is having this TCP right this is not having TCP this is not having TCP okay now interestingly interestingly do you really think that every every fragment need a TCP header see router work till network layer only okay router router only has a network router will only process the network layer header and they will do just a routing decision
+
+272
+02:28:22,280 --> 02:28:52,420
+you will get to understand the TCP that we need a process to process delivery in the TCP you will get to understand but for now you just understand that for the intermediate router who never need TCP you just need the routing decision that can be done by using the IP header only okay using the source IP distinction IP and so on right so the intermediate router doesn't even need the TCP they can't even see the TCP actually so for the intermediate router anyway TCP is not needed it will be needed at the last and at the last anyway I will be combining right at the last anyway I will be combining
+
+273
+02:28:53,820 --> 02:29:47,040
+understanding so for the intermediate router anyway it is not needed for if the intermediate router will be getting this particular fragment do you think that it is it is waiting okay I don't know what is written in tcp why it is anyway needing tcp right it just need to forward just see the what is the destination and do your work forward and that's all right so the intermediate router anyway doesn't need the tcp understood okay now let's just see more questions
+
+274
+02:29:47,430 --> 02:30:18,070
+we will be having many many interesting questions here okay consider 4000 byte ipv4 data ground which travels 10 links okay so from a to b they are saying there are 10 links i mean this could be x y z and similarly there are 10 links now they are saying link number one link number one is having mtu of 5000 bytes link number two is having mtu of 5000 bytes maybe somewhere eight is having 5000 bytes of mtu
+
+275
+02:30:19,120 --> 02:30:49,180
+And other links have 1500 bytes of empty. Okay. This is having 1500 bytes. We'll use a figure and explain when fragmentation occur and into how many fragments the data is fragmented. So data size is 400 bytes. IP datagram. Okay. So, which means you need to basically divide three, three, eight, eight, zero, right? Sorry, three, nine, eight, zero. You need to divide these many bytes. Now.
+
+276
+02:30:49,730 --> 02:31:18,240
+You think that this 5000 bytes will be having any problem with this particular data? No, right? If the empty 5000 bytes, no problem. If this is 1500 bytes, then only it will be divided. Maybe, maybe you can say maybe into three parts, right? Maybe into three parts. Into three parts at max. So one fragment, another fragment, another fragment, right? So maybe into three parts, you will be dividing. Do you think if you are getting again 1500 somewhere, okay? Again 1500, you will be dividing again.
+
+277
+02:31:19,130 --> 02:31:56,020
+No, it has been divided, it has been divided and this is a smaller packet that can travel into the 1500. So it will be divided only once and at which link it will be divided if I say this is first, this is second, this is third. It will be divided only once and that too at the third link, right? So, so I can say the packet will be divided only once that too just at the third link, that's all. After that, there will be no fragmentation, right? So the packet will be
+
+278
+02:32:01,380 --> 02:32:48,210
+divided only add third link into three fragments, right? After that, no fragmentation. After that, no fragmentation. Is this fine to everyone? Okay. Now let's, let's see this question. What they're saying. Link L1 only permits the MTU. So MTU is given here. MTU is given here. Right? A is a datagram. A is an IP datagram. Okay.
+
+279
+02:32:48,610 --> 02:33:18,840
+uh it has size so basically let's suppose that here a is a datagram which is having 4000 bytes the size of ip datagram includes its header so basically 4000 total length 4000 bytes of total length it is not using any of the option fields which means the headers okay so it is trying to tell you the header sizes header length is 20 bytes right because they are saying that no no option field is here
+
+280
+02:33:19,400 --> 02:33:47,880
+Because A is larger than the MTU's of link 1 and link 2. A is, yeah, this is larger than this MTU and this MTU, that is fine. Now they are saying that A must be fragmented from this, I mean from R1, router 1 and router 2. Assume all fragments are sent successfully and received successfully. Into how many IP datagrams A is fragmented when it is sent from R1 to R2. R1 will be fragmented, will be fragmented to how many datagrams? Okay.
+
+281
+02:33:48,280 --> 02:34:23,870
+and what are the size of each fragment of each of these small fragment which of these fragment has offset flag bit to zero okay so let's just see this right in order for the host to receive so basically this R1 will be dividing and R2 will also be dividing so let's just see that what is happening here so it's an easy question only let's just quickly do it right sorry so let's just go to the next page and let's just do this so what they're trying to say
+
+282
+02:34:24,190 --> 02:34:57,880
+is that you have this figure now tell me what is the ip header length that is given ip header length that is given is just 20 bytes so basically you need to divide 3980 right into how many this is 1500 okay this question data is similar right okay yeah so for this question and that question data is almost similar right i mean this at least is 3980 it is matching cool so unity divided into
+
+283
+02:34:58,220 --> 02:35:27,090
+how many bytes this is 1500 1480 1480 and what is the remaining one 1020 great right okay now now you tell me like let's not append the ip header you can append it but for now let's not append it because i anyway need to fragment it again okay so now you tell me what is the m2 here 1100 which means the permissible ip size ip data size it will be how much minus 20 which is
+
+284
+02:35:27,990 --> 02:36:01,960
+1080 right 1080 so 1080 is the data size that you can carry it will pass through it will pass through there is no problem with that it will be again fragmented into 1080 right and what is this this will be can you tell me 400 right similarly 1080 and 400 okay so so after R1 if you if you just look at after R1 what is happening just try to calculate after R1
+
+285
+02:36:06,470 --> 02:36:41,440
+So R1 will be dividing into these many parts. Let's just see the fragment offset right? Fragment offset value and more fragment. These two fields are very important. If you want you can have total length also. Let's just see these three values. So what is this? This is 0. What is this? 1480 divided by 8. 1480 divided by 8. So this will be 185. This is 185. This is
+
+286
+02:36:41,660 --> 02:37:15,690
+185 into 2. Is this fine to everyone? Very easily you can definitely calculate the fragment offset. Okay. Now tell me more fragment. Are there more fragments? Yes. Are there more fragments? Yes. Are there more fragments? No. Right. Okay. What are the total length? This is just the data I'm telling you the total length at the IP level. Okay. IP datagram. What the total length it will be containing. This is just a data length. Right. So plus 20. This is just a data length plus 20.
+
+287
+02:37:15,950 --> 02:37:53,190
+This is just a data length plus 20. Is this fine to everyone? Okay. Okay. Now, now let's just do one thing. Let's just divide. Let's just divide one, I mean, these two also into into different parts. So basically, these are the parameters for these, these data grams, but that's okay. Let's just further divide it. Okay. I mean, if you want, I can just keep these parameters here also on the side. Let's just further divide it. So can you divide, can you divide this 4080?
+
+288
+02:37:53,530 --> 02:38:27,090
+So what is the, yeah, that's interesting. Now you tell me, uh, what are the bytes it is following? It is following zero bytes. What are the bytes it is following? One zero eight zero, but it will be one zero eight zero divided by eight, right? One zero eight zero divided by eight. So it is 135. So it is following 135. Is this fun to everyone? Now you tell me how many bytes it is following. This is following how many bytes? One four eight zero, right? One four eight zero.
+
+289
+02:38:27,260 --> 02:39:07,620
+divided by 8. So 1480 divided by 8. This is following harm inverse. This is interesting. This is following 10080 plus 1480. Maybe you can just add all of this. This is following 10080 plus plus 1480 divided by 8. And that was following 10080 divided by 8. So can you tell me the fragment offset for everyone? So this is 10080. This is 135. This is 0. This is
+
+290
+02:39:09,360 --> 02:39:41,820
+1480 divided by 8 right 1480 divided by 8 this is 185 this is 185 plus 135 which will be 0 2 3 2 0 right is this fun to everyone okay these are the fragment offsets now can you tell me for this also what is the fragment offset that will be just carried on like I mean this is basically 1480 into 2 divided by 8 which is 185 into 2
+
+291
+02:39:42,890 --> 02:40:16,410
+So these are the values of fragment offsets, right? Basically, for every datagram, I exactly know that how many bytes it is following, right? I mean, before that, how many bytes it is there? So what is this 185 into 2? Anyway, we can do this. This is 370, right? Okay, understood. How to calculate the fragment offsets? Now, the other fields are extremely easy. Whatever they're asking, let's suppose the other fields they're asking is total length and more fragment.
+
+292
+02:40:16,730 --> 02:40:52,120
+now just tell me the more fragments are there more fragments what do you think yes yes yes yes no right for this packet no right okay other fields are actually a little comparatively I mean easy let's suppose they are also asking total length can you tell me the total length here the total length of this 1080 plus 20 which will be 1120 420 1120 420 1040 right
+
+293
+02:40:52,360 --> 02:41:32,310
+that's all sorry 1100 this is 1100 yeah okay that's all that that is a total and more fragment so i mean these three fields are um are tricky to calculate and out of these three fields basically a fragment offset is most tricky one but have you understood how to do it it's actually easy one like okay now you know right that how to calculate it let me know if there is any issue here okay so i hope you understood that how it is working right
+
+294
+02:41:33,290 --> 02:42:11,170
+So actually this is I mean just easy just you just need to take the data Okay, so for example, let me let me just quickly show you that how to do this question again Okay, I mean we can solve more questions also but for this also I can show you that how to do this, right? So what we can do we can just take this Okay, so we can just let me just copy the previous one So see what we have done That was a problem to us and then we said that okay 30
+
+295
+02:42:12,330 --> 02:42:40,720
+3980 right 3980 bytes of data we wanted to carry on these links then we got to know okay for now 1480 for first one I mean this l1 will carry 1480 this will carry 1480 this will again carry 1480 sorry it will be carrying how much I can directly copy from it so it is 1020 okay then I said that okay if you want to pass through this 1100 which means 1
+
+296
+02:42:41,470 --> 02:43:10,610
+1 1 0 0 means 1 1 0 9 1 0 8 0 because 20 bytes are hydrangeas there so 1 0 8 0 bytes you can actually carry so this will anyway pass through but these two will not pass through so you will be again dividing that into 1 0 8 0 and the remaining is 400 right you will be again dividing so I think that's very easy to make this kind of division then I just needed to calculate the
+
+297
+02:43:12,060 --> 02:43:43,400
+fragment offset, right? So the fragment offset, if you want to calculate, let's suppose at this link, at this link, how many packets are there? At this link, at this link, there will be five packets. At this link, how many packets are there? At this link, there will be three packets. Yes. So let's suppose for these five packets, I want to calculate. Now you can say that, okay, this is following zero bytes. This is following one zero eight zero bytes. This is following one four eight zero bytes. This is actually following one four eight zero plus one zero eight zero.
+
+298
+02:43:43,630 --> 02:44:12,910
+one four eight zero plus one zero eight zero bytes this is following one four eight zero plus one four eight zero so this is following one four eight zero into two right something like this very easily you can just write down how many bytes they are following and then that's all right just divide by eight divide by eight divide by eight divide by eight divide by eight if you divide by eight this is this is 135 this is 185 this is 135 plus 185 this is 185 into two that's all
+
+299
+02:44:13,110 --> 02:44:43,590
+this is fragment offset and now now if you want you can also calculate the other fields what is the other fields more fragment maybe if you want to calculate this is zero right the more fragment do you have more fragments yes yes yes yes no right this is the more fragment what what other field you might be interested total length right total length so the total length will be just add 20 so this is 1 1 1 1 1 1 0 0 this is 4 2 0
+
+300
+02:44:43,900 --> 02:45:13,620
+this is 1100 this is 420 this is 1040 right that's all okay yeah do not fragment is anyway is anyway 0 do not fragment is anyway 0 right because that was initially set to 0 that's why I'm fragmenting so do not fragment it if you are interested 0 right initially it has to be 0 otherwise I will not be able to even fragment that's all
+
+301
+02:45:13,930 --> 02:45:40,290
+Okay. So don't worry if you have not understood much. Actually, this is very important topic. But if you have not understood much, then don't worry because tomorrow we will be only doing the questions of this. Okay. Everything will be very, very crystal clear. Tomorrow we will be doing many, many, many questions, including all the gateway. So that this topic become very, very clear. Okay. So this topic will be very, very clear. And this topic is very, very important also. See in the, in the whole computer networks.
+
+302
+02:45:41,050 --> 02:45:52,300
+fragmentation and the TCP. These are the two topics which are very important. So we will see this fermentation in very good detail. Okay. Cool. So thank you everyone. Take care. Bye bye. Thanks.
+

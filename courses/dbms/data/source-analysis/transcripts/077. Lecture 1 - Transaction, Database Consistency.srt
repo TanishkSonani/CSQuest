@@ -1,0 +1,864 @@
+1
+00:07:37,900 --> 00:08:59,430
+Hi everyone. Hi all. So is the audio video volume is everything fine? Please tell me. Is the audio volume video is everything fine? Do you feel any echo or is the audio clear? Is there any echo or something? Let me know. So let's start now. Okay. So now we are starting our last module of DBMS in database management system. So this is the last module. This is the last chapter that is
+
+2
+00:08:59,850 --> 00:09:24,530
+transaction management, concurrency control and recovery. Okay, so these three topics we need to study. First, we will study what is transaction, what is transaction management, what is concurrency, what is concurrency control and what is recovery. Okay, so we need to study one, then we need to study two, then three, then four and then five. Basically, total five things we have to study. Okay, transaction management, concurrency control and recovery. Now,
+
+3
+00:09:25,170 --> 00:09:54,670
+in in this is our lecture one for the module six in the in this module this is the lecture one in this lecture what what we are going to study so what we will study is transaction what is a transaction what is the definition of transaction okay now then we will study what is basically acid property what is database consistency consistent database inconsistent database read write operations and concurrent execution so these are the topics for today okay so now let's start this now let me tell you
+
+4
+00:09:54,880 --> 00:10:23,810
+Before we start this chapter, let me tell you this is the most interesting, most intuitive and very easy topic. Okay, so from this topic, let me tell you if if two or three marks will come in the gate exam from this complete topic, either two or three, these many marks will come in the gate exam. Definitely these many marks will come guaranteed. Okay, there is a guarantee every year to three marks will come from this topic. And let me tell you these are the I can say these marks are very easy marks.
+
+5
+00:10:24,090 --> 00:10:52,910
+Okay, but not for all. Okay, let me tell you like the this topic is not a is not like a process scheduling. Okay, see from the process scheduling, you will get the marks. Correct. Okay, everyone will get the marks from the process scheduling. But this transaction management, this is a topic. This is a topic which is very easy once you understand. Okay, see once you understand this is really, really interesting and really easy topic. Okay, so these two three marks are I can say these are very easy marks.
+
+6
+00:10:53,210 --> 00:11:11,010
+okay and these are guaranteed marks for those who understand the concepts okay now let me tell you this lecture one is going to be very interesting so this lecture one okay this lecture current lecture so this is going to be very interesting and the reason let me tell you the reason is that many misconceptions I am going to clear
+
+7
+00:11:11,270 --> 00:11:33,610
+okay so if you have already studied this topic okay this transaction what is the transaction what are acid properties so if you already have studied this topic from some resource okay then I can guarantee that there will be some misconceptions okay if you have not studied from standard resources of course if you if you have already studied from the standard resources then that is very good
+
+8
+00:11:33,820 --> 00:11:57,600
+okay but remember if you did not study from standard resources then there will be some misconceptions that I am going to clear in this lecture okay so this is going to be a very interesting lecture now let's start this okay so at the end I am going to take many questions from the acid properties and from the all the topics that we see today okay so we are going to take a lot of questions now let's start so the lecture number one
+
+9
+00:11:57,850 --> 00:12:26,850
+So this is our complete I can say this is our complete module six. Okay. So this is our module six. Now in this module six one by one we will study. Okay. So first we will study this transaction processing then we will study concurrency control then we will study recovery manager. So one by one we will study this then this then this okay in this lecture we will study this in the next lecture in the next two lecture we will study this and then okay then this we will study. Okay. So like this.
+
+10
+00:12:27,160 --> 00:12:52,020
+now let's see start so here first of all you might be thinking what is a transaction right okay so far we have seen SQL we have seen normalization we have seen how to write a query how to retrieve data okay so basically and indexing how to store data how to retrieve data so all the things we have seen now you might be thinking what is this new thing yes or no what is this new word what is the definition of this new word and why we study this
+
+11
+00:12:52,330 --> 00:13:20,750
+first of all what is the definition then why we study this and then you might be thinking what is transaction management in this transaction management what do we manage like what we study in this then you might be thinking what is concurrency then you might be thinking what is concurrency control what we try to control okay like we are controlling something but what we try to control we are managing something what we try to manage okay so all these things what are these things and why we study these things that is a question you might be thinking so let's see one by one
+
+12
+00:13:21,110 --> 00:13:49,490
+Tell me one thing if I ask you if I ask you if anyone ask you if anyone ask you what DBMS does tell me in one word what your answer will be like in two words or one word in one statement what your answer will be what typically happens in a DBMS in a database management system in a database so what typically happens if you have a database system what typically happens managing data very good okay very good very good so can I say data access okay
+
+13
+00:13:49,700 --> 00:14:16,800
+Can I say that typically in the DBMS, okay, data access happens, you have the data, you have the data, you will access the data, you will read the data, you can change the data. If you want to write the data, you can write the data. If you want to read the data, you can read the data. This is your hard drive. In the hard drive, so remember, this is your hard disk. In the hard disk, you have the data. So you already have some, like, okay, some tables are there. So there are some tables. So there are some tables.
+
+14
+00:14:17,600 --> 00:14:38,140
+We have already seen how to store these tables. We have already seen indexing file, file organization, all these things we have already seen. Now you can notice what you will do. You will read the data. Correct. You can read the data. If you want to change either. Okay. It is not mandatory to change. Right. Okay. Maybe maybe you only want to read the data. But if you want, you can write the data also.
+
+15
+00:14:38,400 --> 00:15:07,420
+or you can change the data also so you can modify also so i can say you can write also so can i say that in a database in a dbms these things happen frequently yes or no data access happens very frequently so what typically happens in a dbms okay that is i can say data access it typically it happens very frequently either you will read or you will write or both of them you will do first you will read then you will change okay so all these things you can do correct now tell me one thing tell me one thing so when you do
+
+16
+00:15:08,000 --> 00:15:36,480
+these data access then what operations are involved on the like you might be thinking that to retrieve the data if you want to access the data you will write a SQL query right yes or no what you might be thinking that sir if I want to read the data in the in the database in the database some table is there okay some multiple tables can be there but data is there and if I want to retrieve the data then I can write a SQL command right yes or no correct if I want to read the data to read the data to read the data what you can do
+
+17
+00:15:36,740 --> 00:16:05,800
+You can write a SQL command. Okay. So to read the data, you can write a SQL command and tell me one more thing. Tell me one more thing. So here you can write a SQL query command. If you want to store the data, if you want to write the data, then also you can write SQL command, right? DML. I told you. Okay. DML, DDL. So in the SQL, there are, there are many parts in the SQL. There is DDL data definition language. There is DML in this DML, in this DML, one small part is query.
+
+18
+00:16:06,370 --> 00:16:30,770
+Yes or no data retrieval. That is one small part. There are many other parts. Okay. Yes or no. Do you agree? So in the SQL, you have these commands like in the SQL, you can create a table. If you want to create a table, you can create a table. You can delete a table. Okay. Similarly, you can retrieve the data. If you want to read the data, you can read the data and you can change the data. You can modify the data. You can write the data. If you want to insert a new row.
+
+19
+00:16:31,270 --> 00:16:58,900
+insert a new record that also you can do okay so many things you can do agree or not so this is what I'm asking that if you want to read then you can write a SQL command and if you want to write then also you can write a SQL command okay if you want to write in the database in the database if you want to write then also you can write a SQL command but tell me one thing this SQL is this a high language or low language this SQL this is like this is the English type of language right yes or no so this is a high level language correct
+
+20
+00:16:59,160 --> 00:17:28,600
+Okay. So this is like an English type of language. Okay. Very simple. Like your C language, your Java language, your Python language. So this is a high level language. Now I'm asking when you whatever SQL command you are writing, whether to read the data or to write the data, whatever you are doing, okay, on the in the DBMS, whatever, whatever you are doing, reading or writing, whatever, then tell me on the low level, what do you think? What are the basic operations that are involved? What are the very fundamental operations like very, very, very fundamental operations that are involved?
+
+21
+00:17:29,080 --> 00:17:58,490
+Tell me. What are fundamental operations like a primitive or I can call it primitive or I can say very basic operations that are involved. So when you read or write. When you access the data. So what are the basic operations that are involved. So can I say those are read and write operations. Yes or no. Correct. Yes or no. Can I say can I say that read operation and write operation. These are involved. These are the basic operations that are involved. What you can do. You can read the data from the disk. Okay. Possibly you can write the data.
+
+22
+00:17:58,800 --> 00:18:27,280
+Okay, so you can read the data you can read from the from the disk to main memory you can read. If you want to write, you can write also. Okay, so you can change the data and then you can modify into the disk also. So this is what you can do. This is what I'm telling you. See, maybe your target is to only read. Maybe your target is to only read. If your target is to only read, you don't want to change the data. Okay, so this is your hard drive. This is your hard drive and your target.
+
+23
+00:18:27,640 --> 00:18:56,820
+this is your hard drive this is your disk in the disk you have your database correct okay so in the disk you have the database now you tell me one thing if your target is to only read then what you will do in this situation to read the data you want to just show the data then what you will do very simple that you will bring it to main memory this is your main memory okay so what you can do whatever data you want to read that you that block will come of course okay agree so for example let's assume you want to read this data
+
+24
+00:18:57,020 --> 00:19:26,700
+okay this is the data to be read so let's assume this is the data element this is I can say this is the data item we want to read okay this is the data item we want to read but okay tell me in the main memory will only this data item will come is it okay will only this data item will come will only this will come no this will not come the entire block will come right okay so very simple point that entire block is going to come let's assume this is the entire block okay let me assume let me assume that
+
+25
+00:19:27,060 --> 00:19:56,800
+This is the entire block. Okay. So I am assuming this is the entire block block containing our data item block containing desired data item. Yes or no. So this is our block containing desired data item. So this block you will block will go in the main memory in the main memory. There is a buffer. I told you. Okay. In the main memory, there is a buffer. Okay. So you have a buffer. So there is a space in the main memory. So this buffer is there.
+
+26
+00:19:57,100 --> 00:20:24,280
+and in this buffer you can put okay so you are reading the data okay you are reading the block this block is coming read this block this block will come and you this block will come in this in this buffer okay and then you can read agree or not so if you only want to read do we need to do anything else okay do we need to write this again do we do we need to write this again there is no need okay so if you only want to read then this is the only action that is involved so if you only want to read
+
+27
+00:20:24,570 --> 00:20:40,830
+okay this is the only thing you want to do you only want to read then you can read from here and then you can discard this this is the memory copy can i say this is the copy can i say this is a copy yes or no yes can i say this is a copy in memory can i say this is a copy in memory
+
+28
+00:20:42,830 --> 00:21:06,370
+can I say this is a copy in memory so once you read this okay after you read this after your work is done then from the main memory you can remove this there is no need your disk will not change your hard drive your hard drive is not changing your database is not changing so if your target is to only read this is what you can do now you tell me one thing if your target is to read and then according to that okay you want to write for example
+
+29
+00:21:06,620 --> 00:21:34,160
+Okay, please understand this. Please understand this carefully. What I am saying, I am saying that your target is to read plus write. Your target is to read plus write. What it means? It simply means that, for example, let's assume you want to double the salary. Okay, you want to double the salary. You want to double the salary. Then tell me, will you have to read the previous salary? If you want to double the salary, do you need the previous salary? Is it mandatory that you need the previous salary?
+
+30
+00:21:34,600 --> 00:22:01,760
+Yes, correct. Okay, so you need the previous salary. So what you are going to do, so let's assume you want to so in this situation, you have to read also, you have to write also, do you agree? Okay, you have to read also, you have to write also, because you want to double the salary. So in that situation, this old salary you have to read. Okay, then you have to change it in the main memory and then you will store it on the drive. So this is what you are going to do. Okay, in this situation, what operation is involved? Let me tell you.
+
+31
+00:22:02,060 --> 00:22:31,760
+let me tell you in this situation this is what you are going to do so first you will read block okay containing salary okay so let's assume you want to double the salary of some particular employee okay so let's assume salary equal to so double the salary this is what you do okay for employee number maybe okay some employee ID is equal to 101 okay for this employee you want to double the salary then in this situation what you will do first you will read the block containing
+
+32
+00:22:32,150 --> 00:23:00,830
+this i can say this salary ok salary of employee ID 101 into main memory yes or no into main memory so you will read the block from the disk you will read the block into main memory so after that what you will do ok inside main memory you will change ok in main memory you will change this is what you are going to do in main memory you are going to change in main memory double the salary
+
+33
+00:23:01,190 --> 00:23:32,040
+okay in main memory what you do double salary and then what you do then you store back to store back to disk is this correct is this clear to everyone tell me okay in the main memory because who will double are you tell me who has the power to double cpu right yes or no who has the power to double this tell me who has the power to double this who has the power to create this operation to to execute this operation so this operation will be done by what okay that will be done by the cpu
+
+34
+00:23:32,330 --> 00:24:00,610
+ok so are you getting my point ok very simple thing I am saying that so what you will do this block ok this block you will read this entire block you will read in the main memory this will come to the main memory and then what you will do then in the main memory you will double the salary ok so this this salary you will double in main memory and then you will store back to disk so this is what you are going to do see ok read plus write follow so this is the process let's assume this is the let's assume this is the salary
+
+35
+00:24:01,570 --> 00:24:29,850
+this is the salary sale of employee id equal to 101 ok so this is the sale where salary is stored are you getting my point ok this is the sale where salary is stored for the employee id 101 and this is your let's assume this is the block so this is your block ok so in this situation what is what is going to happen this is your main memory in the main memory there is a buffer ok so this is your main memory
+
+36
+00:24:30,230 --> 00:24:59,420
+I can call it main memory in this main memory you have a buffer so this is your buffer this is your buffer now in this buffer what you will do you will read this so this will come here okay this will come here in the buffer it will come now in the buffer it has come who has come it has come like this this this sale has come now what you can see what you will do now now you will assign this to a new variable
+
+37
+00:24:59,730 --> 00:25:27,670
+okay so okay what you are going to do this salary you will put in a new variable so this is a variable I can say basically this is a temporary variable are you getting my point this is a some temporary variable this is some temporary variable this is some temporary program variable because some program will be there right CPU will execute what CPU will execute some program agree or not or a CPU can execute only some program okay so I can say this is a temporary some program variable
+
+38
+00:25:28,700 --> 00:25:57,490
+some temporary program variable in this program variable you will put the salary then what you will do the CPU will do this the CPU is going to do this so then then basically the CPU will do this I can say okay so here I am writing this basically I can say that CPU so the CPU is going to do this CPU is going to multiply this basically okay and store into T correct now T has what now tell me now T has what now T has the updated value can I say
+
+39
+00:25:57,810 --> 00:26:26,780
+Can I say T now has the updated value? Okay. So now T has the updated value and then what you can do this updated value this updated value you can put in the in the in here. Okay. So tell me did we update the hard drive so far? Did we update the database because your database is here? Tell me did we update the database? Did we update update the database? We did not. Okay. We did not update. Do we have to update the database?
+
+40
+00:26:27,640 --> 00:26:56,900
+our target is to update the database our target is to double the salary so now what we are going to do then what we are going to do this block we will store this block we are going to store is this clear then this block store back so this block we are restored is this point clear so we are reading this block and then we are restoring this block and whatever changes we want to make we are making them in the main memory in the main memory we are making the changes and then we are restoring the block in the
+
+41
+00:26:57,140 --> 00:27:24,970
+in the hard drive now your database is changed yes or no now your database you have changed the database so the salary you wanted to double you have done that salary now tell me so far are you understanding see so far I did not use the word transaction I did not use the word transaction very common sense I'm using okay like whatever we have seen simple simple things I'm doing that you have a database and you either you can read the database or you can write into the database you can update the database
+
+42
+00:27:25,550 --> 00:27:54,870
+Tell me one more thing. What is the another possibility? So one possibility is that you are only reading Another possibility is that you are reading followed by writing basically read followed by right This is what you are doing read followed by right. Okay. So these are the two possibility. Is there any other possibility? Is there any other possibility? Consider this possibility now the consider this possibility see consider this possibility only right possibility Consider this possibility. See I'm giving you one right
+
+43
+00:27:55,160 --> 00:28:23,660
+see one thing one thing tell me if i want to store the salary like if i want to change all the salary to 100 okay suddenly i want to change the salary to 100 i don't care what was the initial salary okay for example or maybe validity i want to change the validity to i want to change the validity this validity i want to change this new validity i want to create 365 days okay this is what i want to do
+
+44
+00:28:23,850 --> 00:28:52,290
+So this 365 days I want to put in the I want to put in the validity. Okay, I want to change this validity for a student. Let's assume there is a student. Okay, student as one. So for this student as one, I want to change this validity. Now you tell me one thing. Do you care about the previous value of validity? Do you care about the previous value of the validity? Do you really care? No, we don't care. Yes or no. So we don't care about that. Now in this situation, what you will do
+
+45
+00:28:52,520 --> 00:29:19,260
+very again very simple so this is again your hard drive this is your hardest let's assume this is the as I told you that there is a this is the file and let's assume here let's assume let's assume that this is the let's assume what this this is your validity let's assume this is the validity column or I can say this is the validity sale okay so this is the validity sale of I can say student
+
+46
+00:29:21,230 --> 00:29:45,990
+student s1 this is the validity cell of a student s1 now you tell me if I want to change this I want to write I want to change this I want to make it 365 can I do that in the hard drive can I do that inside the hard drive can I do that of course not of course not yes or no inside the hard drive you cannot do so what you will have to do this is your disk and this is your database okay so I can say this is your database
+
+47
+00:29:46,740 --> 00:30:14,960
+now inside the hard drive we cannot change so what you have to do again you have to bring to the main memory okay again in the main memory because CPU is necessary okay CPU CPU is necessary so you can bring to main memory in the main memory there is again a buffer okay there is a buffer in the main memory let's assume this is the area we are calling it buffer area okay so in the main memory there is a buffer area again who will come in the main memory tell me again who is going to come again you cannot this block will come
+
+48
+00:30:15,270 --> 00:30:42,650
+okay this block is going to come so this block read is happening yes or no tell me what I am reading am I reading the validity or am I reading the block did I read the validity or did I read the block this is very important okay this is very important now see you won't realize this but I will tell you that this is very important that what you are reading we are reading the block not reading the we don't read the validity yes or no because we do not need to read the validity
+
+49
+00:30:43,200 --> 00:31:06,100
+We only have to change the validity. I don't have to read the validity, but I have to read the block. Agree or not? Why I have to read the block? What is the reason? What is the reason I have to read the block? Because I cannot change inside the disk. I need CPU. I need to bring this to the main memory so that I can do the changes. So what I will do? This block will come now. Now this block is here.
+
+50
+00:31:06,440 --> 00:31:35,380
+now this block is here and this is your that cell ok this is what you want to update now in this situation remember remember remember remember very important thing I am telling you in this situation you will not read this validity ok this validity you will not read where directly what you will do directly what you are going to do directly this command you are going to execute ok so some some t value you will take again again some t value you will take ok and let's assume that t value you will keep that as 100 ok some t value
+
+51
+00:31:35,610 --> 00:32:01,590
+sorry, 365. So some t value will have the value 365. This is your again, this is your program variable. Some programming you are doing some program. Okay, is this one clear some programming you will do agree or not. Are you have to do some programming that program will go to the CPU. So you have to do some programming. So this is a program variable. And in your program what you will write in your program what you will write you will write that t is equal to 365.
+
+52
+00:32:01,910 --> 00:32:25,970
+Yes or no, so some program you are going to write some programming. Yes, SQL program you are going to write very good. Okay, some SQL program you are going to write. Okay, so this is what I'm saying that so this is a SQL program variable or you can simply call it program variable because it does not matter like which program you are writing. Okay, so let's assume this is a program variable. Now, what you are going to do very simply this directly you are going to store. See, I'm not reading the very tree.
+
+53
+00:32:26,280 --> 00:32:56,390
+I did not read the validity. I am directly storing this 365 into here. I don't care what is the previous value here. Okay, the previous value does not matter to me. Then finally what I will do, then this block I will store back. Yes or no? Yes or no? This block I will store back. So this is called only write. Okay, this type of write, this type of write is called blind write. Okay, this type of write, what do you call them? This type of write, we call them blind write. Because we are writing without reading.
+
+54
+00:32:56,830 --> 00:33:23,510
+see this type of right is called blind right because we are not reading we are writing without reading we don't care what is the validity okay without looking at the validity without looking at the element without looking at the data we are we are writing it okay so this is called blind right so tell me did you notice in your DBMS whatever you do ultimately that is a read write sequence ultimately some read write things are happening whatever you do in your DBMS
+
+55
+00:33:23,770 --> 00:33:42,810
+like whatever data you access you read the data you write the data you modify the table you I can say you create a new table okay so at the low level can I say everything that you do that is a read write sequence can I say this is a sequence of read write operation some read operation some write operation some read operation some write operation so can I say that
+
+56
+00:33:43,150 --> 00:33:56,690
+at the lowest level at the low level everything that you do in a dbms every action that you perform in a dbms every SQL command that you create on the dbms that converts into a sequence of read and write operation do you agree
+
+57
+00:33:57,100 --> 00:34:21,660
+Okay, every command that you are writing every SQL command that you are writing every like SQL query that you are writing whether you want to retrieve the data you want to write the data you want to change the data you want to read the data whatever you want to do ultimately some program you will write some SQL command you will write some SQL program you are going to write and that that that is basically at the lowest level at the low level that is a sequence of read write operations. Do you agree? Yes or no?
+
+58
+00:34:22,010 --> 00:34:51,590
+that is a sequence of read write operation at the lowest level and this sequence of read write operation is called transaction that's it this is your definition of transaction are you getting my point this is the definition of transaction so transaction basically means that this is just a sequence of read write operation okay are you getting my point in simple words in simple words transaction is a sequence of read write operations and some other operations see read write and some other operations like here you can notice multiplication is happening
+
+59
+00:34:51,920 --> 00:35:21,100
+okay so can I say transaction is a sequence of read write and some arithmetic operations some arithmetic operations are also happening like multiplication is happening here I can say that multiplication is happening you are reading you are doing the multiplication you are writing so I can say that transaction is a sequence of read write and and arithmetic operations correct so I can say what what happens in a dbms that is data access okay and one more thing which operation happens for data access at the low level
+
+60
+00:35:21,450 --> 00:35:47,510
+very simple either right read will happen so you can read the data into main memory you can modify into the main memory and then you can write back to the disk this is what you can do okay one more thing that these read writes these are the operations that keep on happening in the dbms yes or no at the lowest level at the low level these are the operations read write operations these are the operations that keep happening on the low level and they they create a transaction
+
+61
+00:35:47,820 --> 00:36:17,690
+So what is a transaction if you ask me in a simple words so the transaction is very simple transaction in simple words in simple words that is sequence of read write operations on database items whatever is your database item like salary salary of employee this is an employee in that employee this is a salary like this is a student in this is when this is the validity so I can say that read write operation on database items okay so the sequence of read write operation this is a transaction is this clear to everyone let me know tell me
+
+62
+00:36:18,030 --> 00:36:46,210
+So this is the definition of transaction. You can read this definition. So what are the definition? Transaction is seen by DBMS. Okay. From the DBMS point of view, from the DBMS software point of view, this transaction, what is this transaction? This is a series of actions. Okay. And what are the actions? See, remember, okay, from the DBMS point of view, from the, from DBMS point of view, or I can say from this DBMS software point of view. So what happens?
+
+63
+00:36:46,620 --> 00:37:14,730
+from this point of view from this dbms point of view i can say what is a transaction what is a transaction transaction is basically i can say this is sequence of sequence of actions so this is a transaction this is a sequence of actions like fast action second action third action fourth action okay and what are these here for example these actions are like read operation maybe you can do some read operation maybe like you are reading some i can say maybe you are reading some element a
+
+64
+00:37:15,050 --> 00:37:42,950
+Some element a you are reading okay, so you are reading some element a you are writing some element a You are writing some basic you are changing the element a and you can do some arithmetic operations also for example Maybe you are incrementing a plus 10. Okay, so this is what you are doing or maybe you can do this for example, maybe like you B is equal to okay, or maybe something like let's assume t is equal to this is a temporary variable. Okay, so t is equal to 100
+
+65
+00:37:43,320 --> 00:38:12,410
+And let's assume what you are doing. You are doing the blind right. Okay. Like in the element B, you are putting the T. Okay. So this is what I'm saying that can you notice that your DBMS from the DBMS point of view, this transaction is a sequence of operations sequence of actions and what are the actions involved? So sequence of actions and what are the sequence? What are the actions here? What are the actions here? Tell me. So sequence of actions. What are the actions? I can say this is a read action. You can read the data.
+
+66
+00:38:12,880 --> 00:38:42,260
+you can write the data you can do arithmetic arithmetic or i can say arithmetic and logical operations yes or no you can do arithmetic and logical operations so these are the actions is this clear this is your transaction so transaction is a sequence of read operations write operations and arithmetic and logical operations so series of these actions this is called a transaction is this clear to everyone let me tell you one thing
+
+67
+00:38:42,480 --> 00:39:11,540
+one thing I am telling you whatever you have done so far like for example you have written some SQL query okay to create a table to create a schema okay to create a new row to insert a row to delete a row or maybe I can say to retrieve record for example SQL retrieval queries we have written like select where okay select from where these type of queries we have written basically whatever you have done at the lowest level what happens it gets converted to transaction it gets converted into a transaction at the lowest level
+
+68
+00:39:11,880 --> 00:39:41,680
+everything at the lowest level is a transaction. So at the lowest level, you can see that everything gets converted. Okay, it will be converted into a sequence of simple, simple operations. So whatever like very complex query you've written, let's assume, okay, very complex things you are doing, very complex things you are doing, those complex things also at the lowest level, they are nothing but a sequence of read, write and arithmetic logical operations. So this is your transaction. Is this clear? Tell me, let me know.
+
+69
+00:39:41,880 --> 00:40:14,550
+so very simple this is the definition of transaction like for example this is a transaction on your screen like let's assume that you want to transfer you want to transfer $50 from account A to account B this is what you want to do you tell me like without looking at this what do you think what you should do what do you think what you should do so let's see so what do you want to do you want to transfer $50 you want to transfer from account A to account B okay so let's assume that this is your hard drive in this hard drive
+
+70
+00:40:14,780 --> 00:40:38,150
+what happens in this hard drive let's assume this is a table this is a table and in this table what you have let's assume that this is the this is the account a okay so 50 so let's assume this is the entry for account a and this is the entry for account b so let's assume these are the elements and what do you want to do you want to transfer $50 from account a to account b
+
+71
+00:40:38,470 --> 00:41:05,160
+Okay, it is also possible that it they may be in the same block. They may be in different block. Everything is possible. Okay. Yes or no. Correct. It is also possible. It is also possible that maybe they are in the different block like for example, maybe this is in a different block and this is in a different block that is also possible. There is no problem. Okay. So that is also possible. Now this is what I'm saying. So now what you will do what accent you will do. So in this situation first you will read. So ultimately a transaction will be created.
+
+72
+00:41:05,550 --> 00:41:35,260
+Ultimately, whatever you will write some SQL command. Will you write the transaction? Tell me. Will you write the transaction? No, you will write some SQL command, but that SQL command will get converted will be converted into transaction. So let's directly write a transaction. So what you are going to do, you are going to read read this item a this item a you will read in some variable t. Okay, in some variable t. So this a item you are reading in a variable t. This is a temporary variable as I told you.
+
+73
+00:41:35,530 --> 00:42:04,620
+as I told you this is nothing but this is a temporary program variable some programming variable okay so you will what you will do so this is what you are going to do let me tell you like you will this is the main memory this is the main memory in the main memory first you will read this so this whatever is your block so this block will come okay in the main memory this block will come in this block there is a so what you are going to do so remember read a comma t
+
+74
+00:42:04,850 --> 00:42:33,000
+so when you do this read a comma t now what will happen now this t has the value whatever was the value whatever was the value that value is in t now is this clear so this value whatever is the value that value is in t now now this value this t has this value now you tell me what will happen next tell me what will happen next what do you need to do next so this t has the value a now you are going to do the second action that will be have that will happen is t is equal to t minus 50 yes or no
+
+75
+00:42:33,320 --> 00:43:01,100
+from t you will remove t-50 and then what you will do then you will put then you will in this a you will what you are going to do in this a what you are going to do in this a you will write this t yes or no this updated t you will write in this a are you getting my point please tell me remember remember in for this right what you are doing see first you are reading this a into t whatever is the value of a that you will read in the t
+
+76
+00:43:01,420 --> 00:43:29,220
+Then what you will do this T you will you will change this T in the CPU in the CPU. This T will get modified. Okay, this T equal to T minus 50. So this T this will happen in the inside the CPU inside the CPU. Now this T has the new value. Yes or no. Correct. Now this T has the new value. This T now finally what you will do finally this T you can write into the A. Yes or no. This T you are writing into the A. Now what is the next thing will happen.
+
+77
+00:43:29,600 --> 00:43:59,480
+at this point of time remember at this point of time at this point of time for simplicity i'm telling you for simplicity actually see at this time at this point of time will you write this block this block will you change in the database this block will you change in the database this block will you change in the database at this point of time okay you may or may not remember you may or may not this is not in our control let me tell you let me tell you this is not in our control after some time i will tell you so for
+
+78
+00:43:59,700 --> 00:44:28,120
+for now let's make this assumption let's make this assumption that you are writing this in the main memory in the disk let's make this assumption let me tell you that whether we whether we whether we change this basically whether we this updated block this is the updated block the modified block this modified block we put in the disk or not that is not our decision let me tell you after sometime I will tell you whose decision who will make this decision that I will tell you but for now
+
+79
+00:44:28,340 --> 00:44:57,930
+let's assume that you have written okay is this clear let's assume you have written so in the hard drive you have written is this clear let me know is this clear at this point of time let's assume this is written for now simply for simplicity let's assume that you have written this now what you are going to do now what is the next action then you will read the then you will read b okay yes or no then this b you will read because we want to transfer a amount from a to b you tell me one more thing tell me one more thing
+
+80
+00:44:58,290 --> 00:45:19,810
+If you want to transfer $50 to the account of B, do you need the previous value of B? If you want to transfer $50 from account A to account B, do you need the value of B? Of course you need the value of B. You will do the addition, right? Tell me. Of course you need the value of B. Are you getting my point?
+
+81
+00:45:20,410 --> 00:45:47,620
+Do you don't you need like I For example, let's assume you have a thousand dollars at this point of time in your account. You have thousand dollars Okay, and I transfer $50 to you then suddenly will you have 1050 or should you have a 50? So do you have 50 or should you have 1050? Okay, see very simple point. I'm asking. Okay, so of course So you cannot this is not a blind right. You have to read are you getting my point? So that is the reason I'm reading
+
+82
+00:45:48,290 --> 00:46:16,530
+Please understand why I am reading please understand why I read this I am reading this be why I am reading this be did you understand please tell me Did you understand why I am reading this be? See this block we will read are a blow reading the block is not same as the reading as the Is not same as reading the value right? Yes or no? Are you getting my point like here validity in this situation? We were reading the block reading the block is not same as reading the Element yes or no?
+
+83
+00:46:17,160 --> 00:46:43,160
+reading the block is not same as reading the validity we did not read the validity here yes or no agree or not in this case we did not read the validity in this case in this case we were only reading the block we did not read the validity but now what we are doing we have to read this okay so you have to read this b and again you can use this variable t because again this t is dead yes or no did you notice this t is dead now now this t is dead
+
+84
+00:46:43,530 --> 00:47:11,210
+this T is dead so again you can use this T or you can use T1 that is your choice see that is your choice you can use T or T1 that does not matter because this T is anywhere dead this is anywhere gone okay so you can read again this B into T then what you will do then this T you will make T plus 50 in the CPU inside the CPU this will happen inside the CPU this will happen and after that what you will do after that the new value of T you will store in the B yes or no
+
+85
+00:47:11,740 --> 00:47:40,180
+the new value of t you will store in the B and then let's assume that as I as I will tell you for simplicity for simplicity let's assume that block this block of B also you have updated okay this was a block of B this block of B also you have updated so this is your program is this clear let me know tell me is this point clear very simple see I am just telling you this is just an overview all the concepts will become more clear as we go on this is just an overview use your common sense nothing more
+
+86
+00:47:40,350 --> 00:48:09,900
+nothing more than that just use your common sense nothing more than that all the parts will become more and more clear now let me tell you one more thing see let me tell you for convenience force okay for convenience what we do for convenience let me tell you for convenience we don't write this t okay we only write this a are you getting my point for convenience we only write this a but it actually means that this actually means a comma t are you getting my point let me know is this point clear
+
+87
+00:48:10,110 --> 00:48:37,900
+see for i'm actually i wrote this like for example this read a comma t i wrote i wrote a comma t means this value you put in the t but for convenience okay this same thing this same thing for convenience or i can say this is just a convenient notation for convenience the same thing okay is written like this the same thing is written like this read a but both are same
+
+88
+00:48:38,250 --> 00:49:06,170
+okay remember both are same if you are confused at any point of time if you are confused remember both are same so this read a comma t means that you are reading the value of a in a variable t this a value you are putting in a variable t in a temporary variable t the same thing the same thing we write as a read read a means you are reading a of course in some temporary variable yes or no of course in some temporary variable okay so this is the this is just for convenience similarly similarly
+
+89
+00:49:06,660 --> 00:49:33,600
+this right a comma t it means that this t you are putting in a and it means that this a you are putting in t now this right a comma t this is same as you are simply writing as a right a but this is actually same as that you are putting this t into this okay one more thing actually when you use this notation when we are using this notation at that point of time we assume if you are using this notation if anyone
+
+90
+00:49:34,070 --> 00:50:01,390
+if anyone is using this notation then they are assuming that this t is a basically this this temporary variable this is a are you getting my part this temporary variable is a means this element is also a and this temporary variable is also a are you go are you getting my part okay so this temporary variable is also a and this element is also a so basically i can say that they are using this a as temporary variable they are using this a as a
+
+91
+00:50:01,700 --> 00:50:30,480
+as a temporary variable also this same name they are using as a temporary variable also the same name this is what I am saying the same name A as a temporary variable also anyway this point will become more clear right now this point will not be not be as clear as it will be okay for now just assume just assume that for now I am telling you only it's just a overview you know in the first few pages of the book if you see any book
+
+92
+00:50:30,730 --> 00:50:58,360
+in any book the first first lecture that has all the summary yes or no in that summary you will not understand agree or not okay so you will understand you will understand that once you go through all the chapters then you will understand but anyway the first page is just a summary of the entire book for the entire book what is the summary that is so similar to that i'm just giving you some summary if you understand very good if you don't understand if you have some doubt just wait okay every point
+
+93
+00:50:58,670 --> 00:51:27,360
+we will see one by one every point we will see just wait now let's see this example for example this is a SQL program when you write this SQL program internally what will happen tell me internally what will happen just wait if you have any doubt just wait just wait every point will come slowly slowly every point will come you tell me one thing so this is a SQL program internally what will happen at the lowest level what will happen okay at the low level what will happen at low level
+
+94
+00:51:28,640 --> 00:51:59,000
+at low level it will be converted into a transaction there will be a transaction yes or no at the low level there will be a transaction okay now can you just write the transaction first of all you tell me if you want to perform this action do you need to read the balance if you want to perform this action do you need to read the balance yes you need to read the balance yes or no if you want to perform this at present then definitely you need to read followed by write I can say this is read
+
+95
+00:51:59,260 --> 00:52:30,140
+followed by right okay read balance followed by right balance so this is a read balance followed by right balance now here what you will do so this is what you are going to do first of all you will read first of all let me assume that first you might be thinking that see this account is a table yes or no in your hard drive so this is your hard drive in the hard drive this is the hard drive in the hard drive this account is a table this is the account table let's assume let's assume this is the account table
+
+96
+00:52:32,100 --> 00:53:00,690
+in this account table there is an ID in this account table this is the I can say this is the account ID see this is the account ID is equal to 31414 this is the account ID and this is the salary of this this is the balance of this account ID yes or no this is the balance this is the balance of this I can say 31414 account can I say this
+
+97
+00:53:00,920 --> 00:53:30,020
+tell me yes or no is this clear okay there can be more there can be more there can be more but i can say that there is a there is a row there is a record there is a record which is for this account for this account this is the row and let's assume this is the salary now our focus should be on what tell me on which element our focus should be our focus should be on this element or this element first or second our focus should be on which element yes we want to change this element yes or no this is our desired data element this is our data element
+
+98
+00:53:30,330 --> 00:53:58,170
+Yes or no, I can say this is your data item. This is your desired data item. This is the data item we want to change. Yes or no, correct. So I want to change this data item. Now what I'm going to do in this situation, what I'm going to do first of all, I will read this first of all what I will do. Let's assume that let's call this data item a for a moment. I am calling this data item a. So what is the data item a? What is data item a? This is the data item a. Is this clear?
+
+99
+00:53:58,450 --> 00:54:26,260
+this is the data item a only this much only this much this is the data item a look at this this is the data item a so let me assume this is the data item a then what I'm going to do first I will read the data item a what it will mean actually what it means I'm writing what it means also okay everything that we are doing I'm writing what it means I'm writing what it means so you tell me and I'm writing where this action is happening
+
+100
+00:54:26,580 --> 00:54:55,250
+Okay, so you cannot anyway. So what this means when I write a reading, it simply means that the variable name is also a it simply means there is a temporary variable a. Okay, in this situation, there is a temporary variable a. Are you getting my point in this situation? There is a temporary variable a and in this variable a you are putting a. Okay, is this clear? The temporary variable is also a in that variable a you are putting a. So remember this is the data item. Okay, this is the data element.
+
+101
+00:54:55,930 --> 00:55:25,960
+or I can say this is our data element and this is the temporary variable so the temporary variable also has the name a this is a simple point okay so basically in the temporary variable a you are putting a now the temporary variable a has the value a now what you will do now what you will do you will change you will do this so on on this this is a temporary variable or what this action in this action this is this is a temporary variable or what tell me
+
+102
+00:55:26,280 --> 00:55:56,240
+yes this is a temporary variable right yes or no so remember here this is a temporary variable of course this a this is your temporary variable a so this is this is the sorry this is the temporary variable a now after that what you will do after that what you will do the third action what you are going to do very simple just put it put this in the a okay this you put in a so right a right a means what now this right a means what this right a means in the a you are putting a so tell me
+
+103
+00:55:56,460 --> 00:56:25,750
+The first A is the data element or temporary variable, the first A array. Now you are doing this. So it means this is the data item. Yes. So now the first A is the data item and this was your temporary variable. This was your temporary variable. So this is just a convenient notation. Is this convenient notation clear to everyone? But the better notation, the another notation, what is the another notation that is more better? But actually, okay, so this is another notation that what you do this A you put in T.
+
+104
+00:56:26,110 --> 00:56:55,270
+and then you do this t equal to t minus 100 and then you do this right a t okay so here basically this t you are putting in a so this is a this is also correct this is also correct and this is also correct is this clear both are correct but tell me which is which is actual like which is actually happening this first or the second this is second and this is first the actual happening is second this is convenient yes or no
+
+105
+00:56:55,510 --> 00:57:25,240
+this is convenient remember this is just a convenient notation this is just a convenient notation but actually this is what actually happens okay is this clear let me know very simple okay this is more readable yes or no this is more reading friendly this is more reading friendly but why what is the reason this is like we follow this we use this most of the time because this is more logical
+
+106
+00:57:25,940 --> 00:57:56,290
+See this is more logical because it's a very simple that you are reading a you are You are decrementing a and you are writing a so this is logical. This is purely logical and This is I can say this is what actually happens Is this point is this point clear? This is what actually happens and this is purely logical This is purely logical Okay, so anyway both are correct Now so I am just giving you some examples remember now you tell me one more thing. This is your question
+
+107
+00:57:56,730 --> 00:58:27,020
+Do you need read followed by write in this question? Do you need read followed by write in this question? Do you need read followed by write? No, you don't need because ultimately the salary you are setting to 100. You don't care about the previous salary. So in this situation, you don't need to read in this situation. There is a I can say there is no need to read. There is a blind right. You can blindly write. So actually, okay, this is the SQL command. Ultimately, there will be a transaction. A transaction will be created for this.
+
+108
+00:58:27,840 --> 00:58:57,430
+and the transaction that will be created will have only one line okay that is your right okay let's assume this this element let's assume this you can notice this element I can say let's assume what is this a this a is the salary of eid 921 okay so this is a is the salary of 921 so this is the so this is your element a so what you will do just simply this so this is your transaction is this clear
+
+109
+00:58:57,820 --> 00:59:25,540
+see you are not reading anything yes or no did you notice we did not read a did you notice we are blindly writing a we did not read a did you notice we are blindly writing a we did not read a okay so this is another this is example of blind right because you are setting the salary to 100 you don't care about the previous salary so these examples that we have seen now you might be having some doubts yes or no correct some doubts you might be having so far what we have seen
+
+110
+00:59:25,870 --> 00:59:55,160
+So far I only told you some examples. Just to give you some idea about what is a transaction. You forget about everything. What happens in a read operation? That I will tell you. What happens in a read operation? What happens in a write operation? So all these things I will tell you. What is an element? What is a database element? All these things I will tell you. Forget about all these things. Now you tell me one thing. Did you understand what is a transaction? That can you explain to anyone? This is the only target. So far
+
+111
+00:59:55,430 --> 01:00:24,990
+the only thing you have to understand is what is a transaction nothing else don't worry about anything else just tell me can you explain this to anyone that what is a transaction so transaction basically is it in a very simple words you can say in simple words transaction is a sequence of read write and arithmetic and logical operations so what is a transaction transaction is sequence of actions sequence of actions series of actions list of actions in this what are the actions read or read action
+
+112
+01:00:25,290 --> 01:00:55,680
+right action and arithmetic logical actions. So these are the actions in a transaction. This is what we this is what is called transaction. Okay. So this is the idea. Now let's see more. So now let's see the definition of transaction. So what is the transaction? You can check it out. So the transaction is very simple that so here you can notice. So one more thing. So actually one more thing is missing in the transaction definition from the DBMS point of view.
+
+113
+01:00:55,900 --> 01:01:26,750
+this is a transaction is a sequence of actions I can say I can say that this transaction this transaction from the dbms point of view it is a sequence of actions it is a sequence of tasks from the dbms point of view it is like this okay so this is from dbms point of view yes or no from dbms point of view this is like this at sequence of actions but tell me from user point of view what is this from user point of view from user point of view
+
+114
+01:01:27,020 --> 01:01:53,390
+Does user know these things are happening? Does user know these things are happening? Tell me. Does user know these things are happening? No, he does not know. Tell me one more thing. Whenever you transfer some data from your account to your friend's account for you, this is a single action. Okay, like is it two actions like, okay, I will transfer you the money so that will that that will come there, then that will come there, then this will happen, then this will happen, then it will come to your in your account. Yes or no?
+
+115
+01:01:53,830 --> 01:02:23,780
+This this you you don't say this yes or no what you will say you will say that you will say that This is a one action. I'm okay. This I'm doing the UPI so from my account to my friend's account. I'm sending the data. This is single action. Yes or no Similarly, for example, you want to book a ticket if you are booking a ticket for you. This is one single action. Yes or no one single logical action that I'm booking the ticket Whenever you order food from the tomato or swiggy, then that is a single action that you are ordering the food
+
+116
+01:02:24,120 --> 01:02:47,500
+but within your single action from the dbms point of view many actions are involved yes or no so from the user point of view from user point of view what i can say from user point of view transaction is a single logical action remember transaction is a single single logical action lower i can say single logical task is this clear
+
+117
+01:02:47,820 --> 01:03:16,320
+So from the user point of view, transaction is a single logical task. For example, you want to transfer money from your account to your friend's account. That is a single logical task. Similarly, for example, when you are booking a ticket, that is a single logical task. Whenever you order a food, that is a single logical task from your point of view. But inside many things are there. Okay, whatever you are doing, your single logical task gets converted into many actions. So from the DBMS point of view, this is a sequence of actions. Okay, read action.
+
+118
+01:03:17,000 --> 01:03:46,020
+write action, some arithmetic operation, logical operation, read operation, write operation, arithmetic operation. So I can say from the DBMS point of view, this is a series of actions. This, okay, but from the user point of view, this is a single logical task. So this is the final definition you can notice. What is a transaction? So the transaction is basically our single logical task on the database that corresponds to a transaction. Yes or no? Whatever is your single logical task? For example, you tell me, is this a single logical task for you?
+
+119
+01:03:46,300 --> 01:04:11,960
+for you don't worry about the dbms is this a single logical task making a reservation yes this is a single logical task similarly you can notice issue a book from the library that is a single logical task transfer money from your account to another account that is a single logical task so all these are single logical tasks from your point of view for you these are single logical tasks okay so whenever you create a single logical task on the database that correspond to a transaction
+
+120
+01:04:12,420 --> 01:04:44,610
+and a transaction from the dbms point of view that is a sequence of read write actions and some arithmetic logical actions. Okay, which make one logical task. Is this clear? So what is a transaction? Tell me is this clear? So what is a transaction? So transaction is you can say transaction is a single logical task, a single logical task from user point of view. The definition of transaction, I can say transaction is a single logical task. Okay, which
+
+121
+01:04:45,740 --> 01:05:20,630
+from dbms point of view what happens which from dbms point of view which from dbms point of view is a sequence of actions yes or no is a sequence of actions of actions now what are these actions these actions can be read these actions can be write these actions can be arithmetic and logical operations so these actions can be arithmetic operations and logical operations arithmetic and logical
+
+122
+01:05:21,070 --> 01:05:50,060
+operations. So this is the definition of a transaction. This is the complete definition of transaction. The transaction is a single logical task, which from DVMS point of view, from the DVMS point of view, this is a sequence of actions, read action, write action, arithmetic and logical operations. So this is the transaction. This is the definition of transaction. Like all these are the examples of transaction whenever you go to supermarket and you do the checkout. So this supermarket checkout stock market. Okay, so online purchase.
+
+123
+01:05:50,410 --> 01:06:14,650
+all these things. These are the examples of transactions. So these are logical, single logical task for you. Okay, from your point of view, these are single tasks, but from DBMs point of view, these are sequence of actions. Is this clear? Let me know. These are sequence of actions from DBMs point of view. Now, let's see the next. Now what we are going to do. So in this transaction management, what we study, you might be thinking, sir,
+
+124
+01:06:14,860 --> 01:07:25,360
+I understood what is a transaction but what we study in this chapter like what is transaction processing so whenever you are creating a transaction then what are the problems that can happen tell me like can anyone tell me what are the problems that can happen whenever sorry for that just give me a second hi everyone yes so what I'm saying tell me whenever you are creating a transaction whenever you are creating some you are basically doing some transaction then what are the problems that can happen
+
+125
+01:07:26,360 --> 01:07:53,040
+Before that you tell me whenever like for example on the IRCTC website you are booking this is the IRCTC website on this let's assume you are booking a ticket should this happen one after one or these things should happen concurrently. Tell me. Of course these many things are happening many users are concurrently they are accessing the same website many users maybe they are accessing the same train yes or no.
+
+126
+01:07:53,670 --> 01:08:22,630
+concurrently many users are accessing the same train the same website okay on the same website the same train in the same train also maybe they are putting the same choices yes or no they are also putting the same choices that for example in the same train they are looking for one ac so you can notice for the same seat at the same time there are many contenders yes or no so very simple that many contenders many many concurrently many people are concurrently accessing the same data
+
+127
+01:08:23,220 --> 01:08:52,990
+It is possible. Yes or no. Many people, they are accessing the same data at the same point of time. For example, let's assume this is a, this is the, I can say this is a seed. Okay. This may be seed number or maybe I actually see it number will not be visible on the IR cities website, but you can consider this as a geometry. Okay. You can consider this as some geometry or Amazon. You can consider this as Amazon. And let's assume this is the only piece, one last piece of this is the last piece.
+
+128
+01:08:55,040 --> 01:09:23,810
+of some mobile okay some iphone okay whatever so let's assume this is the last piece of iphone then all these people they are simultaneously they are accessing this but what are the issues that can happen one okay tell me what are the issues that can happen so this issue can happen that it is like this issue can happen that okay these four people can book it yes or no there is last piece of iphone but these four people can book it this issue can happen so this issue is happening because of what this issue is happening because of
+
+129
+01:09:24,090 --> 01:09:53,520
+because of concurrency because concurrently many people are accessing the same thing okay so this issue can happen so tell me one more thing because of this issue should we not have concurrency because of this issue should we not have concurrency we should definitely have concurrency if we don't have concurrency then a lot of problem will happen on the amazon website if concurrency is not there then no one will use the amazon website yes or no this website no one is going to use
+
+130
+01:09:53,790 --> 01:10:21,770
+if there is no concurrency so very simple that these problems will happen because of concurrency so we need concurrency control yes or no so here what is happening let me tell you it is happening that this person is running some transaction whenever you are purchasing this phone okay this iPhone you are purchasing so you are running some transaction he is running some transaction he is running some transaction maybe same or different transaction it is also possible that maybe they are running the same transaction this and this they are running the same transaction
+
+131
+01:10:22,260 --> 01:10:50,180
+this and this they are running the same transaction so or maybe different transaction whatever happens same or different whatever happens you can notice that concurrently at the same time okay many transactions are running at the same time concurrently many transactions are running so definitely what what can happen some problem can happen so you can notice concurrent execution of several transactions some problem can happen so that problem we have to take care yes or no we have to handle that that problem now you tell me one more thing
+
+132
+01:10:50,380 --> 01:11:18,150
+if a single transaction is executing then some can some problem happen can you think about some problem which can happen when a single transaction is happening okay like just assume that in the entire world you are the only one you are the only one who is making a transaction no one else is there okay let's assume now tell me when you are making a transaction you are the only one then can some problem happen yes definitely problems can happen for example you are you are transferring some
+
+133
+01:11:18,370 --> 01:11:48,050
+amount from your account to your friend's account and let's assume it is a very frequent problem that let's assume the money gets debited from your account but it does not credited to your friend's account so this this is definitely a problem yes or no is this problem because of concurrency is this problem because of concurrency you tell me are you getting my point very simple point I'm saying that let's assume you are transferring the data okay this data you are transferring from your account to your friend's account it gets debited your money is gone
+
+134
+01:11:48,350 --> 01:12:15,660
+But it did not it did not it did not go to your friend's account. So definitely there is a problem. So you can notice problems can happen. Remember problems can happen because of single transaction execution and because of concurrent transaction execution. So because of both these problems can happen. Yes or no. Agree or not. So remember problems can happen. This is what I'm saying that this is what I'm saying. Problems can happen because because of two situations. So problems can happen.
+
+135
+01:12:15,880 --> 01:12:43,660
+when single transaction is executing when a single transaction is executing or when several transactions are executing concurrently so in this situation also problem can happen when a single transaction is executing and example you can notice that for example amount A to B you are transferring let's assume this is $500 and you want to transfer $50 to amount B to account B okay this problem can happen what happens that let's assume this amount debited
+
+136
+01:12:45,810 --> 01:13:17,450
+debited from A okay but you can notice this is not credited to B not credited to B so this is the problem that can happen when single transaction is executing more problems can happen similarly when several transactions are happening then also then also problem can happen as I told you okay so like for example maybe what problem can happen this problem can happen that two people booking the same seat yes or no two people booking same seat
+
+137
+01:13:18,940 --> 01:13:46,860
+So these type of things should not happen. Agree or not? We should avoid these type of things like this. We should avoid this. We should avoid. So these type of things we should avoid. So these are the problems that can happen. These are the problems that can happen. So what we have to do? We have to avoid these problems. This is what we study in the transaction management. So if if I ask you what we study in the transaction management, then what you will say, you will say we want to avoid these problems. The problems that are happening because of single transition execution.
+
+138
+01:13:47,340 --> 01:14:14,910
+those problems we want to avoid and also we want to avoid the problems which are happening because of concurrent execution of transactions so remember these problems we want to avoid and this is what we study in the transaction management in the transaction management so remember basically let me tell you this is your dbms software right correct dbms software is a very huge software like this is a dbms software very huge in this dbms software let me tell you there are many parts
+
+139
+01:14:15,470 --> 01:14:48,110
+there are many components like there is a component called query manager there is a component called query manager there are many more components there is a component there is a component which is called transaction management there is a component the name of this component is transaction manager like in your compiler you have many components yes or no in the compiler you have lexical syntax semantic so like that you have many components similarly here also in the dbms software you have many components there is a query manager there is transaction management
+
+140
+01:14:48,490 --> 01:15:18,780
+Okay, there are many more. There are many more. Now in this one more thing, let me tell you, there is another. There is another that is recovery manager. There is another component. This is the another component that is recovery manager. This is the recovery manager. So there is a recovery manager. There is a transaction manager. And let me tell you inside this transaction manager, there is a small part which is there is another component inside this sub component. Inside this, there is another component that is
+
+141
+01:15:19,100 --> 01:15:49,020
+concurrency controller that is concurrency concurrency controller i can say concurrency control component concurrency control component is this clear tell me is this point clear so remember in the dbms software there are many components in the dbms software this dbms is a huge software in this software you have query manager recovery manager transaction manager many many components are there in this transaction manager there is a sub component
+
+142
+01:15:49,600 --> 01:16:19,000
+Okay, there is a sub component which is concurrency control component. So, so far, whatever we have seen, like, okay, all the problems that are happening. So, okay, you want to handle those problems. So for that, these two components are involved. Are you getting my point? These two components, the transaction manager and the recovery manager, these two components, they work together. It's not like it is not like it will work separately. It will work separately. It's not like that. They work together. Okay, so they will, they will work in coordination.
+
+143
+01:16:19,500 --> 01:16:47,660
+so this component and this component they work in coordination they will help each other to remove these problems that are happening like these problems that can happen as I told you two people are booking the same seat this problem should not happen this problem also should not happen that amount is debited but amount is not credited okay so this problem should not happen so all the problems that are happening that are possible to avoid these problems I can say that these two components are responsible transaction manager recovery manager okay
+
+144
+01:16:48,110 --> 01:17:10,810
+this recovery manager will come into photo when this recovery manager will come into picture when problem has already happened yes or no when problem has already happened then this recovery manager will come into picture when your when the problem is already I can say when the problem has already occurred then in this situation this recovery manager will come into picture but I can say that these two
+
+145
+01:17:11,060 --> 01:17:38,180
+components, they will work in coordination as we will see. So when we study the recovery manager at that time, we will see that these two are working in coordination. Some information. Okay. So they will share the information and they will help each other. So this is the idea. So this is your, I can say that. So these two parts that you can see these two parts, what they do, they handle the access to data. They control the access to data. So these two components, which two component, one component is recovery manager.
+
+146
+01:17:38,620 --> 01:18:06,520
+this recovery manager component and another is your transaction manager component means concurrency control component okay so these two components they handle the control I can say they control the access to data so what are the things they have to maintain they have to mention sorry they have to they have to make sure that data is because of some failure data is not I can say corrupted yes or no because of system failure this data is not lost for example here you can notice
+
+147
+01:18:06,770 --> 01:18:36,510
+some system failure. Let's assume here some failure happens. Now, because of this failure, what will happen? This amount is debited, but this is not credited. So because of this failure, now, who will make sure that because of this failure, you don't lose your money? Who will make sure? Who will make sure that because of this failure, you will not lose your money? Who will make sure recovery manager? Okay. So recovery manager will make sure that you don't lose your money. So remember data must be protected even in the face of system failure.
+
+148
+01:18:36,810 --> 01:19:04,490
+so the system recovery manager will make sure he it is the responsibility of recovery manager to make sure that you don't lose your data okay one more thing because of concurrently many things are happening concurrently many transactions are happening so because of that also data should not be corrupted or I can say inconsistency should not come like for example you can notice two people are booking the same seat this type of problems should not come and this is the responsibility of concurrency control component okay now
+
+149
+01:19:04,940 --> 01:19:34,400
+So whatever we have seen so far, this is just I can say this is just a motivation. Now we will see everything one by one. So far, whatever we have seen, you might be having many doubts, but now we will see one by one everything. So some terminology one by one, we will see now, please understand whatever I'm telling you because these things are very important. Now we will not mix anything. So far, I'm mixing everything. So far, you you have seen that I was telling you element read write everything I was telling you buffer.
+
+150
+01:19:34,810 --> 01:20:03,010
+Okay, reading the blog writing the blog all these things temporary variable. So all these things I was telling you but remember now we will see everything one by one. We will not mix anything. So now you understand whatever you understood so far that is fine. If you did not understand forget about it. So far whatever we have seen that does not matter. You can forget about it. That is just a motivation for this subject or I can say that is just the idea of the subject in the subject what we study why we study. Okay. What are the things that we that are involved.
+
+151
+01:20:03,300 --> 01:20:28,420
+okay what are the concepts what are the terminology that we have we have to see in this topic in this chapter that is what I told you but now whatever I am going to tell you these are the concepts okay so from now onwards questions will be created is this clear from now onwards the questions are going to be created so focus now the first concept we need to see is a database element so what we will see
+
+152
+01:20:28,680 --> 01:20:53,870
+we will see some terminology one by one we will see some terminology you understand all the terms and then we will see their applications how to use them so one by one just understand everything let's see the first thing that is database element now you let me let me let me ask you on the high level what are the elements in a database inside a database what do you see on the high level on the high level
+
+153
+01:20:54,200 --> 01:21:22,630
+what do you see when you see a database on the high level on the conceptual level what do you see in a database you see some relations correct you see some very good some relations you are seeing okay some tables some records some attributes correct so these are the things you can see on the high level yes or no on the low level everything is element that's it this is the definition of element whatever is whatever you see on the high level you see relation you see record you see tuple attribute okay all these things that you see
+
+154
+01:21:22,970 --> 01:21:51,540
+or everything, everything is an element on the low level. So what is a database element? The database element is nothing but all these things are element now. Is this clear? So database, this is composed of elements. So everything is an element. For example, your relation is an element. Your block is an element. Your individual tuple is an element. In particular, I can say one more thing. See, your entire tuple can be an element.
+
+155
+01:21:51,940 --> 01:22:24,930
+your entire relation can be element your block is also element one more thing a particular field value of a particular record is also element okay or something else that also can be element so what is element this so I can say that for example let's assume this is a table this is a table let's assume this is your student table this is your student relation so this is also element and one more thing in this student relation you have rows correct these are the rows
+
+156
+01:22:25,210 --> 01:22:54,580
+so these are also element and in this you have block for example i can say this is a block for example this is a block this is also element and one more thing this particular this particular value this is also element is this clear what is the element in this in this row in this row this particular field this is also element so what are the elements you can check that this is an element this is an element this block is an element
+
+157
+01:22:55,160 --> 01:23:24,600
+This entire record is an element. This entire tuple is an element. And this particular, you can see this particular, this is also an element. So all these things are elements. Is this clear? So from the transaction management point of view, remember for the transactions from the transaction in the low level on the low level, everything in the database is an element or data item. Is this clear? The definition of element is clear. The definition of data item. What is a data item? So from the transaction processing point of view,
+
+158
+01:23:25,570 --> 01:23:54,950
+Everything is a data item. Everything is an element. Database is basically represented as collection of data items. Okay. Is this clear? Everything is a data item. Whether your block is an item, this relation is a data item and you can notice your tuple, your entire tuple can be an element. Or similarly, a particular field value of a particular record that is also data element. So what is an element? Is this clear? So from the transaction processing point of view,
+
+159
+01:23:55,230 --> 01:24:24,840
+A database is nothing but a collection of data items. Okay. Is this clear? Very simple. So this is the definition of data item. Now, so one more thing, each data item has a unique name. But how to do that? Each data item, I'm saying that each data item has a unique name. Maybe address what we can use for a name. Can anyone tell me? I want to give every element. I want to give a unique name. Then what I can do to give unique name.
+
+160
+01:24:25,770 --> 01:24:54,770
+to give unique name what I can do I can use the address yes or no for example you can you can see that if like for every record also there is a record address yes or no for record there is a record address for block there is a block address is this clear so for every data element you can assign the address as the name so finally you can see that each data item has a unique name okay is this point clear for example you can assign the address as a name
+
+161
+01:24:55,240 --> 01:25:24,760
+Like your block, let's assume your disk block. So your disk block has address. So that address you can use as the name of that disk block. Similarly, your record, whatever record you take, that has a record address. So that record address you can take as a name. Now you might be thinking, sir, inside a record, this also, this also has a address. Yes or no? This also has a address because this also, if this is a fixed record, then you can calculate this. Yes or no? Is this clear to everyone?
+
+162
+01:25:25,150 --> 01:25:52,290
+if this is a fixed length record if this record is fixed length record then you can calculate this address we have already seen this how to calculate do you remember we have already seen this like if this is 100 then how to calculate this how to calculate this so all these things we have already seen so ultimately what I'm saying okay you don't have to worry about it but what I'm saying that every data element has a unique name and you in worst case what you can do you can use the address as the name okay this
+
+163
+01:25:52,510 --> 01:26:24,750
+record address block address these addresses you can use as the name so ultimately every data item has a name has a unique name this is your first topic this is your first terminology so what is the element is that clear what is element that is clear now the manzan is asking data item one greater than data item two the same record yes everything is possible you can basically you can do the operation on anything yes or no
+
+164
+01:26:25,000 --> 01:26:53,420
+See, you can do the operation on entire record. You can do an operation on one block. Like, for example, let me let me ask you one thing. If I want to update all the employee salary of all the employee, I want to make 100. Then in this situation, did you notice that your block entire block is a data element? Yes or no? If I want to create, I can say you I want to do this that every earlier, sorry, every your entire relation is a data element in this situation.
+
+165
+01:26:53,820 --> 01:27:23,280
+i want to do this for every employee i am making salary equal to 100 for every employee so in this situation your employee table complete employee relation that is a data element is this clear so everything is a basically element from the data from the transaction point of view from the transaction manager point of view everything is a element okay everything is element element a element b element c element d so everything has a unique name every element has a unique name for us let me tell you
+
+166
+01:27:23,440 --> 01:27:50,440
+From now onwards, we will only use A, B, C, D. These type of things we will use. Are you getting my point? From now onwards, we will only use A, B, C, D, A, B, C, D, A, B, C, D. But I am telling you that in your, from the transaction manager point of view, everything is an element. Your transaction manager does not care about, okay, is this relation, is this attribute, is this record. Your transaction manager does not care. Your transaction manager only sees that, okay, this is an element, this is an element, this is an element, this is an element.
+
+167
+01:27:50,720 --> 01:28:21,580
+element A, element B, element C, element D. So from the transaction manager point of view, your database is a collection of elements. Tell me, is this point clear to everyone? Let me know. From the transaction manager point of view, everything is an element. The next point is, this is very important to understand that is a state of database. What is a state of a database? This is very, very, very important to understand. Let me tell you. Again, okay, see, this is very important to understand what is a state of a database and what is consistency of database.
+
+168
+01:28:22,120 --> 01:28:51,280
+So what is the state of database that is just a snapshot means value of every element Yes or no see from the transaction point of view if you if you see from the transaction point of view from the transaction point of view or I can say from the low level point of view transaction means low level yes or no correct so transaction means I can say low level so you can notice from low level point of view what I can say I can say your complete database your entire database is just a
+
+169
+01:28:51,490 --> 01:29:22,540
+I can say it is just a collection of elements. Everything is element. It is just a collection of elements. Or I can say data items. So it is just a collection of elements or data items. Now you tell me, so if your database is collection of elements, then what will be database state? What will you state of database current state of database that will be value of all the elements? Yes or no? Is this clear? What is the state of database? State of database means
+
+170
+01:29:22,860 --> 01:29:52,400
+I can say snapshot of the database. So state of the database that is snapshot of the database means currently I can say database state means database instance. So what is the database state? So a database has a state which is the value of each of its element. Every element has some value. Okay. So from the transaction point of view, everything is a element. Everything, everything, everything from your database is nothing but set of I can say set of elements and every element has a value. Correct.
+
+171
+01:29:52,650 --> 01:30:22,400
+every element has a value every element has a value so this is what i am saying that what is the database state database state means every database has a state which is the value of each of its elements can database state change can database state change of course yes or no of course the database state can change it can keep changing you can keep changing yes or no so database state can you can keep changing the value of the elements for example the salary
+
+172
+01:30:22,830 --> 01:30:52,460
+salary of employee s1 you have some employee s1 for him the salary is also element so you can keep changing there is no problem so remember elements the state the database state will keep changing it will keep changing keep changing so what is the database state that is nothing but database instance it is like database snapshot it is like database snapshot so this is your database snapshot currently at this point of time what is the value of all the elements this is your database snapshot
+
+173
+01:30:52,770 --> 01:31:20,820
+now this is very important that what is a consistent database and what is inconsistent database what is a consistent database what is inconsistent database so what is consistent database so let me tell you that see whenever you are creating a database there are some there are some integrity constraints yes or no whenever you are creating some database then what what happens there are some integrity constraints
+
+174
+01:31:21,280 --> 01:31:53,860
+like you have many integrity constraints are there like for example primary key uh i can say primary key foreign key so there are some integrity constraints okay what are the integrity constraints tell me there are for example i can say uh primary key yes or no like primary key constraint like foreign key constraint okay your functional dependencies your null constraints okay candidate key and so on so there are many many many okay there are entity integrity so there are many constraints
+
+175
+01:31:54,320 --> 01:32:24,970
+integrity constraints is there any other constraint tell me is there any other constraint on your database now let me tell you there is something called application dependent constraints these are application dependent these are application dependent constraints these are the application dependent constraint these will depend on the application these are in the mind of the application developer where are these these are in the mind
+
+176
+01:32:25,800 --> 01:32:56,280
+Where are these? These are in the mind of application developer. For example, you might not be at this point of time, you will not understand this, but let me give you example. You tell me so you can. Okay, what I'm saying, I'm saying that I will explain this. I will explain this. What is this application dependent constraints? So see in every database, whatever database you take in every database, what happens? There are some integrity constraints like what will be the primary key? This would be the primary key.
+
+177
+01:32:56,520 --> 01:33:25,310
+So then primary key constraint is there. Okay, then there is a entity integrity constraints. Yes or no, there is a entity integrity constraints. So there is I can say uniqueness constraints. Like, okay, yes or no, you can uniqueness and so on. So like foreign key constraint, functional dependency, these are the constraints. These are the integrity constraints. These are fine that that is fine. These are easy to I can say enforce. Yes or no. Yes or no. These are quite easy to enforce.
+
+178
+01:33:26,320 --> 01:33:53,300
+You can easily enforce these. Okay, then these are no difficult these you can very easily do Now you tell me the another thing is application dependent constraints. These are these are in the mind of application developer Okay, I will explain what are these but ultimately ultimately when everything is fine Then we call that your database is consistent. Are you getting my point? Are you getting my point that when everything is fine when everything is fine
+
+179
+01:33:53,610 --> 01:34:20,060
+then we called okay all these things are basically these are called all these things all these things these are called consistency requirements okay these are called consistency requirements these are called consistency requirements is this clear what are consistency requirement so these things are consistency requirement like integrity constraints these things must be perfect okay functional dependency violations should not happen
+
+180
+01:34:20,460 --> 01:34:46,330
+primary key violations should not happen uniqueness this constraint violation should not happen so foreign key violations should not happen so these these things and also some things which are in the mind of application developer these things so if you if you include all these now let me one more one more thing I want to tell you these are called explicit these are called explicit constraints it will be clear just wait I know you are
+
+181
+01:34:46,590 --> 01:35:16,680
+having some doubts these are called explicit constraints and these are called implicit because these are in the mind of the application developer yes or no application so these are the in the mind of the application developer and these are explicit constraints and which are easy to manage see these are easy to enforce yes or no these are very easy to enforce these integrity constraints these you can very easily easily enforce we will see example of these we will see that but ultimately what i'm saying that if you combine all of them
+
+182
+01:35:16,940 --> 01:35:45,800
+then that is called consistency requirement. Is this clear? If you combine all of them, all of them, you combine that is called consistency requirement. Now I'm saying that if all these things are perfect, if there is no violation, if all these things are perfect, then we will say that your database is in consistent state. So your database state, your database state. So what is a database state that database state can be either consistent state means snapshot. Yes or no.
+
+183
+01:35:46,540 --> 01:36:16,690
+okay state means snapshot state means snapshot or I can say state means instance so your database instance at this point of time your database that can be in consistent state either your database can be in consistent state or your database can be in consistent state consistent state means subchangasi or I can say all basically all constraints okay all consistency requirements are perfect
+
+184
+01:36:17,450 --> 01:36:41,550
+Is this clear? All consistency requirements perfect. All consistency requirements fulfilled. Requirements hold. So when all the consistency requirements are holding, then in this situation, we will say that your database is in the consistent state means everything is perfect in the database. There is no problem. Okay. All the consistency requirement are holding.
+
+185
+01:36:41,960 --> 01:37:08,680
+like for there is no violation of foreign key there is no violation of functional dependency there is no violation of application dependent constraints so there is no violation everything is perfect then we will say that your database is in consistent state and inconsistent state means some consistency violation can i say yes or no some constraint violation some constraint violation okay then this is called inconsistent state
+
+186
+01:37:09,050 --> 01:37:37,890
+Is this clear? What is consistent state? What is inconsistent state? Is this clear? It is not clear. I know it is not clear. Okay. It will be clear now. Let's take example. But ultimately what I'm saying see a database has a state. Every database has a state which is value of its elements. So database state simply means that it is a snapshot of the database at this point of time. What is the database value for every element? What is the value that is your database state? Now your database state can be consistent.
+
+187
+01:37:38,240 --> 01:38:05,560
+or it can be inconsistent consistent state means what consistent state means it means that all the constraints of the database are fulfilled okay all the constraints are fulfilled see all the constraints remember all the constraints like for example for example key constraint or I can say your database schema constraint integrity constraints so they must be fulfilled however more more more
+
+188
+01:38:06,970 --> 01:38:32,830
+Consistent state must also satisfy implicit constraints which are in the mind of a database designer. You might be thinking, sir, what this means in the mind? Yes or no? Agree or not? You might be thinking, sir, what this means in the mind? What this means? So let me tell you the example. You tell me if you are creating the application for IRCTC, then what consistency is in your mind? Forget about all other things.
+
+189
+01:38:34,480 --> 01:39:04,290
+IRCTC specific consistency is in your mind you tell me that IRCTC specific consistency which is specific to IRCTC tell me from the IRCTC point of view IRCTC developers point of view what is a consistency which they have to take care one consistency you give me one consistency requirement you give me one requirement that is same seats should not be booked by multiple people yes or no very good yes or no same seat
+
+190
+01:39:04,590 --> 01:39:32,830
+should not be booked by multiple people do you agree that this is a application dependent consistency requirement yes or no this is what i'm saying see this application dependent constraints so depending on the application there are some constraints for example in the irctc i can say one one seed should not be booked by multiple people that should not happen okay so i can say that is a application dependent constraints for example another situation like from the
+
+191
+01:39:33,470 --> 01:40:02,860
+one another situation it can happen like total number of reserved seats that should not be more than total number of seats do you agree total number of reserved seats that should not be more than total number of seats so these type of things I can say these type of things you should take care like for example the aeroplane in the airline this you should take care that okay people are booking people are booking it should not happen that total number reserved seat that is more than the total number of seat in the aeroplane that should not happen okay
+
+192
+01:40:03,100 --> 01:40:32,780
+let me tell you it happens in the real life sometimes it can happen actually you go to a you go you have a ticket you have a ticket and still it has happened in the some situations that you have a ticket but still they will deny the seat they will say that aeroplane is full it has happened you can check it out you can watch some video on the youtube you can check it out so you have the ticket but still what they will say they will say flight is full they will say flight is full okay you have the ticket still they will say flight is full
+
+193
+01:40:33,150 --> 01:41:02,800
+So you can see that they are not fulfilling the consistency requirement. Yes or no? They should definitely take care that number of reserved seats should not be more than number of total seats. So this is what I'm saying that there are some consistency requirements. Yes or no? For example, for from the bank point of view, what are the consistency requirement from the bank point of view? From the bank point of view, I can say like your amount is debited. Okay, I can say you tell me one thing. You are transferring some amount from your account to another account.
+
+194
+01:41:03,090 --> 01:41:30,730
+like let me ask you this question read this question and tell me read this question and tell me the answer assume that go airline okay so yeah this is just for publicity of go classes so assume in a go airline database data item a there is a data item a see this data item a represents number of unreserved seats number of unreserved seats that is represented by data item a this is the number of unreserved seats
+
+195
+01:41:31,110 --> 01:41:59,680
+and data item B represents number of reserved seats okay and the total number of seats is 300 then you can you find can you find one database state consistency requirement can you give me one consistency requirement can you give me that is what yes very good that is a plus b should be equal to 300 this would always be 300 yes or no okay is this clear are you getting my point what I'm saying application dependent consistency requirement
+
+196
+01:42:00,460 --> 01:42:28,690
+yes or no consistency requirement so that everything is very consistent consistency requirement application dependent consistency requirement are you getting this point like see this question and tell me the answer like here data item e represents the number of android students in the go classes in the go classes how many android students are there and data item t represents number of students in the private telegram group then for the consistency requirement what should happen
+
+197
+01:42:29,100 --> 01:42:57,460
+for the consistency requirement what should happen it should happen that t must be less than equal to e yes or no t i can say t should not be more than e agree or not t should not be more than e are you getting my point is this point clear so this is specific for go classes yes or no like this tell me tell me who who wanted this consistency requirement like this consistency requirement that okay telegram group should have less than equal to number of
+
+198
+01:42:57,640 --> 01:43:26,650
+private telegram group should have less than equal to number of enrolled students then who is deciding this who is deciding this yes or no go classes okay yes or no is this clear to everyone is this clear to everyone okay so you can notice this is decided by go classes now let's see this question tell me the answer now for any payment transfer whenever you are doing some payment transfer that transfers some amount from account A to account B you are transferring some amount from account A to account B
+
+199
+01:43:27,660 --> 01:43:56,080
+For any transfer, okay, whatever transfer you take, what is the consistency requirement? Like what should happen? Tell me what should happen? What is the consistency requirement? See the summation must be exactly same. Yes or no. I can say that I can say that this is account A plus account B that summation, the summation must be constant. Do you agree? The summation must be constant. Okay. So yes or no.
+
+200
+01:43:56,400 --> 01:44:23,930
+even if for example even if some failure is there you are transferring okay if amount is gone if it is successful then also it will be constant and if it is not successful amount has come back to you you are transferring amount has come back to you then also this is constant so can I say a plus b should be constant this is the consistency requirement now is this point clear what I am saying consistency tell me this is a very very very important topic you will not realize this I know
+
+201
+01:44:24,270 --> 01:44:52,320
+you are not realizing this but this is very important what is consistent database many times I will use the word consistent database consistent database I have seen many students they use the word consistent database consistent database what is consistent database they don't know this have you seen this maybe maybe you have used the word consistent database but what is this consistent like what are you saying when you say consistent database what do you mean okay are you getting my point tell me
+
+202
+01:44:52,820 --> 01:45:21,760
+So now if I say database is consistent, do you understand what I want to say? Tell me. Do you understand what I want to say when I say consistency? A state of database you understood. Okay, you one by one you tell me. Did you understand the state of database? A state of database means current current situation. It is the current situation for every element. What is the value? What is the current value of every element? Yes or no. So a state of database means current snapshot.
+
+203
+01:45:22,280 --> 01:45:48,440
+so state I can say database state means database instance that is snapshot at this point of time what is the value of every element this is the state now there can be two type of state consistent state inconsistent state okay so you tell me one thing what is a consistent state consistent database what is a consistent database when can I say your database is consistent when can I say this your database is consistent when
+
+204
+01:45:48,820 --> 01:46:18,440
+All the requirements, all the consistency requirements are fulfilled. Yes or no? All the consistency requirements are fulfilled. Agree or not? All the consistency requirement. These are the consistency requirement. So when all the, when all the consistency requirement are holding, then I can say your database is consistent. Inconsistent means some constraint is violated. Is this clear? Let me know. Tell me, is this clear to everyone? So, okay, this you understood.
+
+205
+01:46:19,420 --> 01:46:42,400
+Did you understand this that there are some explicit constraints like integrity constraints like primary key, foreign key, functional dependency. Okay. These constraints. These are very easy to enforce. You can very easily to enforce this. Yes or no. Do you agree? These are very easy for anyone. Okay. Like, but you tell me the actual game happens here for the IRCTC. I think the major problem is maybe.
+
+206
+01:46:42,790 --> 01:47:10,950
+they have to handle that same seat in any situation whatever happen same seat should not go same seat should not go to two people okay for every bank every bank for every bank like phone pay or I can say not a bank but phone pay Google pay if you say what is the major problem that they are facing tell me or I can say what is the frequent issue that they get that is amount is debited but it is not credited yes or no my amount is debited but I did not receive it back okay it has been five days then they will say
+
+207
+01:47:11,130 --> 01:47:39,350
+It will come back to you in in two weeks. Okay. Agree or not? So you can notice these are the actual things that we have to we have to make sure here we have to actually do the some work. Actually, these are very easy to implement. You can very easily very easily you can implement these but the actual thing is this the application dependent constraints. Okay. And remember these are they depend on the application developer. Yes or no. So these are in the mind of the developer. Okay.
+
+208
+01:47:39,610 --> 01:48:08,430
+like when we create the go classes app so at that time we have some some consistency requirement agree or not yes or no when you create your own company you tell me tomorrow when you create your own company some requirement you will have in your mind you will have some requirement that okay i need this this this my company is is related to this this this service and i want these this consistency requirement yes or no whatever happens this should not happen whatever happens this should happen so i can say that these are some
+
+209
+01:48:08,780 --> 01:48:35,800
+application dependent constraints these are called implicit constraints and these are in the mind of the application developer okay and these are the main things I can say for any application for any software these are the main things these are the main challenges I can say okay so ultimately I can say your database can be consistent your database can be inconsistent consistent database means everything is fine subchangasi you know there is a meme subchangasi so consistent state means
+
+210
+01:48:36,120 --> 01:48:59,470
+all the consistency requirements are holding and inconsistent state means some some violation is there okay so these examples are these examples clear tell me like this example you can notice a plus b equal to 300 this example t should be less than equal to e all these examples are they clear so ultimately this is the definition now you tell me have you seen this
+
+211
+01:48:59,870 --> 01:49:27,190
+that many people they use the word consistent database consistent database consistent but they don't understand what is this mean what this means yes or no have you seen this maybe maybe you have seen this like on the in the telegram groups when some people are discussing or maybe you have you have also experienced this that we use the word consistent database consistent database but we don't really understand what this means okay so finally I hope you understood is this clear so consistent state of database
+
+212
+01:49:27,600 --> 01:49:56,140
+satisfies all the requirements satisfies all the constraints specific to the schema as well as other constraints which are which are in the mind okay as well as which are in the mind of the database designer so these also we should make sure so is this clear this terminology so remember depending on the application depending on the application depending on the problem depending on the transaction there are some some database consistency requirements yes or no
+
+213
+01:49:56,820 --> 01:50:23,980
+Depending on the application, there are some consistency requirements in the mind of the developer. These are part of database consistency. Okay. What are the other things which are part of database consistency? These are part of database consistency. What are other things which are part of database consistency? These are like integrity constraints. Yes or no? Those are also part of database consistency. Integrity constraints. Very good.
+
+214
+01:50:24,430 --> 01:50:53,130
+So now let's see the third terminology. Let's see this. So so far this is clear. Okay, so let's take a break or shall we continue? Tell me. Now we need to see what is read write operation. Okay, so let's take a break. We can meet after. Let's take a small break. Actually, I want to complete whatever I have taken this all the slides which I have taken. I will take I want to complete them. Okay, so let's take a small break at
+
+215
+01:50:54,320 --> 01:51:23,080
+in 15 minutes we will meet okay after that there will there will not be a long break we will take only 5 minute break after that okay so I want to complete actually this all the slides that I have taken all these slides I want to complete today I want to complete acid properties and a lot of questions I have taken on acid properties okay so that that I want to complete so let's take a small break I think 10 minute break will be fine so please we will meet back at 15 minute okay 8 30 okay
+
+216
+01:51:23,660 --> 01:51:26,720
+Thank you everyone 830 we will start again okay
+

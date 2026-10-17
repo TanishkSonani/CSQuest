@@ -1,0 +1,904 @@
+1
+00:01:43,790 --> 00:02:14,920
+Hi everyone. So in the last lecture we were discussing we have already seen the definition of transaction and we have seen the definition of what is consistent database database state what is a consistent state what is inconsistent state and that is very important to understand. Okay, but if you still have some doubt don't worry in this lecture it will become clear. Okay, because remember today basically in the in our I can say in the beginning
+
+2
+00:02:16,150 --> 00:02:45,350
+Once we study the acid properties then all your doubts will be clear like I promise you that after acid properties are over I am going to take more than 10 questions more than 10 questions back to back I will take and with those 10 questions all your doubts will clear Okay, you will have crystal clear understanding of all the things all the concepts everything like what is happening inside the transaction manager What what is what is happening inside the transaction? Everything will be very crystal clear
+
+3
+00:02:45,590 --> 00:03:14,630
+okay by the end of today's lectures okay so now let's start so in the last class we have already seen the database state what is the state of database and what is consistent database what is inconsistent database consistent database means that everything is very I can say everything is fine okay all the consistency requirements are fulfilled all the consistency requirement are satisfied and inconsistent database means that some some consistency requirement is violated
+
+4
+00:03:15,090 --> 00:03:41,610
+Okay. So now what we are going to see now we will see the next thing that is read write operations on database element. What happens when you do the read operation? What happens when you do the right operation? So at this point of time, I want to make sure I want to tell you that I will tell you what happens in the read operation. I will tell you what happens in the right operation. But the definition that I will give you that is a simplified definition. Okay.
+
+5
+00:03:42,070 --> 00:04:09,610
+So the definition that we will see right now, that is just a simplified version of the actual definition, the actual implementation of the read operation, the actual implementation of write operation, we will see in the recovery manager. So this is what I'm telling you. Remember the actual, the actual working, the actual implementation. It is clear the actual implementation, the actual working of read operation, write operation, we will see in the recovery manager chapter. So.
+
+6
+00:04:09,860 --> 00:04:34,810
+Before that, before that recovery manager, okay, we will see the simplified definition of both operations. But remember, it's not like this simplified definition. Let me tell you what the difference between this simplified and actual definition. What are the difference? The only difference is when you do the recovery. Okay, the only difference will be happen when you do the recovery means some, some, I can say some failure has already occurred. Okay.
+
+7
+00:04:35,260 --> 00:05:03,730
+So let's assume some failure has already occurred in that situation. You are creating that you are doing the recovery at that point of time. This difference will come into into the picture. So this is what I'm telling you that there is not much difference. Yes, there is difference. The actual working of read write operation and the simplified definition that we will see there is difference, but that different, but that difference does not matter to us. Okay. In the recovery manager, I will tell you what is the difference at that time you will understand.
+
+8
+00:05:04,110 --> 00:05:53,390
+Okay, so do not worry about it. Whatever I'm telling you whatever definition I'm giving you that definition we will use I can say before this recovery manager. So before this recovery manager, whatever we study, we will use the simplified definition and in the recovery manager, we will use the actual definition. Okay, just give me a second. You can read this slide. So Okay, is this fine? Please tell me. So the actual working we will see in the recovery manager. Now we will see only the simplified definition.
+
+9
+00:05:53,910 --> 00:06:23,330
+and but remember it does not affect okay it does not affect anything except efficiency yes efficiency will be affected but we don't care about efficiency right now that we will see in the recovery manager chapter is this point clear to everyone so we can safely follow this definition and this definition is standard let me tell you this this simplified definition that we will see this simplified definition is taken from the court so the source if you are wondering that what is the source of this simplified definition so for this simplified definition the source is
+
+10
+00:06:23,570 --> 00:06:52,730
+Korth book and also NPTEL professor Partha Pritam Das course. So this is the source for this simplified definition. But this simplified definition is actually very easy to follow. Very easy to understand everything. Using this definition you will be, I can say very easily you can analyze all the things, all the questions, all the programs, all the transactions. Okay. Everything you can analyze very easily using this simplified definition. But the actual definition we will see in the, where we will see in the recovery manager. Okay.
+
+11
+00:06:52,990 --> 00:07:14,110
+So whatever whatever difference is there that difference will be clear in the recovery manager. So do not worry. Now let's see the definition of read operation. Let's see the definition of write operation. So let's assume there is a database element a now this element can be what tell me there is a database element a database element a this element can be what
+
+12
+00:07:14,670 --> 00:07:44,440
+this element can be anything right this element can be any element for example this element can be block this can be relation this can be tuple this can be a particular value in a tuple inside a tuple a particular value so this element can be this or maybe the entire tuple can be this or maybe the entire block can be a so this can be any element so let's assume there is an element database element a okay now when you do this operation what this means when you do read a comma t what this means let me tell you
+
+13
+00:07:44,660 --> 00:08:12,320
+what this actually means what this means read a comma t what this means here what will happen first of all this will happen that remember this is your database element so this is in in a hard drive agree or not initially this is in the hard drive this is your hard disk in the hard drive you have this element a so let's assume this is the block in this block this is the element a okay this is what this is the block and this is what this is your element
+
+14
+00:08:13,030 --> 00:08:43,440
+this is your desired element that we are that we are taking so let's assume this is the desired element element a so this is your element a and this is your block now you tell me one more thing so in this read operation when you do when you give this command read a comma t what it actually means it means that first of all what will come in in the main memory first of all this block will come yes or no let me call this be block for a moment for a moment let me call this okay anyway
+
+15
+00:08:43,790 --> 00:09:15,300
+block a okay let me call this block containing a so I can say that what will happen when you do this command in this command what will happen first of all this block containing a will come in main memory yes or no so block containing a okay comes in main memory comes in main memory is this clear to everyone the first step the first step is that block containing a that comes in main memory from where from where from disk from the disk it will come to the main memory what is the second thing will happen
+
+16
+00:09:15,660 --> 00:09:42,430
+The second thing, this T is a temporary variable. Yes or no? This T, this is just a temporary program variable. Okay. This is just a, I can say temporary variable or I can say this is just a temporary program variable. And remember one thing that here, what will happen? So in this T, you will put the value of A. Okay. So the value of A will be, you will put in A. That's it. So these are the steps that are involved in read A comma T. Okay. And then
+
+17
+00:09:43,030 --> 00:10:11,870
+That's it. Actually, only these steps are involved in the read a comma t. One more thing, when you do the read a comma t, this will happen. Okay. So tell me, is this point clear so far? Let me know what happens when you do read a comma t. Only these things will happen when you do read a comma t in this situation. First of all, block containing a comes in main memory from the hard drive. You are reading yes or no. So block containing a comes in the main memory from the hard drive. Then this teaser temporary program variable.
+
+18
+00:10:12,170 --> 00:10:41,880
+and what will happen in this t this a value will be stored that's it so this is the reading a now i told you one more thing what was that one more thing i told you that is uh you can also write simplified version yes or no you can also write simply read a this is this is same remember this is same as read a comma t both are same both are exactly same so this is what i'm saying this is so remember read a comma t this is exactly same as
+
+19
+00:10:42,190 --> 00:11:13,740
+So for convenience you can also write it read A. I can say this is just for I can say this is a convenient notation. What is this? This is a convenient notation. So this is a convenient notation read A. In this situation what happens tell me when you do this read A what happens actually here. Here basically A is T is A yes or no. Here T is A agree or not. Here your temporary variable is also A. We consider that temporary variable name is also A. Temporary variable name is also A.
+
+20
+00:11:15,480 --> 00:11:44,090
+Okay, this is what we consider but you can you don't have to do this actually you can very low you can logically understand what is happening. So here the temporary variable is also a So very simple. So tell me what will what you will do when I say read a comma read a then it means first of all you will face the block which contains a into the main memory and then in this situation what you will do then that's it very simple is the program variable temporary program variable in that you will put the data element a okay
+
+21
+00:11:44,330 --> 00:12:14,520
+So this data item a you will put in this the data item a you will put here. Tell me is this point clear to everyone. Let me know. So both are basically same. There is not much difference. Okay. So this is the definition of read a now what happens when you do the right a right a comma t what happens then. So when you do right a comma t in this situation what happens. So first of all this this step is same which step I can say
+
+22
+00:12:14,710 --> 00:12:46,460
+this first step that block containing A comes in main memory from the disk. This step is same. So first this block will come in the main memory. Now then what will happen? Then what will happen? Then very simple that in this, in main memory, inside main memory, you will do this. In main memory, what will happen? In memory, what will happen inside the memory, in memory copy, in memory copy of A, yes or no? In memory copy of A, what you will do? You will put this T.
+
+23
+00:12:47,320 --> 00:13:16,890
+You will write this t. Is this clear to everyone? So when you do this, write a comma t, then what you will do in the memory, in the memory copy of a, you will just put the value of t. Whatever is this value of t that you will put in this a. That's it. Now this third step, what is the third step? This third step is basically the simplified definition. I told you there is a simplified definition. So this simplified definition is basically this is the only difference. The difference is that what we do. This block containing a, we again put in the hard drive.
+
+24
+00:13:17,110 --> 00:13:47,240
+Okay, then we store block containing A in hard drive. Store block containing A in hard drive in disk or I can say database. Tell me is this point clear? See, let me tell you actually this is the simplified version. This is the simplified version, but actually what happens? But actually what happens that also I will tell you, but this is the simplified version that what we do. We store the block containing A in the hard drive.
+
+25
+00:13:47,590 --> 00:14:17,240
+Tell me, is this point clear? Read definition, write definition. Are they clear? The definition of read operation, the definition of write operation. Are they clear? Okay. So now let's see this example with example, we will try to understand what is happening here. But before that, let me just show you and the simplified definition. So this is the simplified definition and the source is core for the simplified definition. So let's see this read this definition. What is happening? So when you read X, that means that first of all, you will transfer
+
+26
+00:14:17,550 --> 00:14:44,040
+the data item x from database to a variable this x you will put in some variable is this clear okay this you will put in some variable and that variable is also called x see this read this definition please read this definition so what is happening here so when you do this read x what happens in the read x you will transfer the data item x from the disk to the variable the variable name is also x in the main memory in the buffer of main memory
+
+27
+00:14:44,400 --> 00:15:11,890
+Okay, belonging to the transaction that executed the read operation. This is actually this is also simplified. Basically, it actually doesn't happen. I will tell you what happens what doesn't happen. But here one more thing you can do that this temporary variable that you have this temporary variable see you can assume that in the in our definition read and write you can assume that every so this is the simplified assumption.
+
+28
+00:15:12,650 --> 00:15:41,080
+See this what I'm saying in the simplified assumption. What is this simplified assumption for a moment? You can assume this Actually not not for a moment, but I can say that this is what you can assume throughout the course throughout the lectures You can assume this before the recovery manager in the recovery manager We will see exactly what happens exactly what is happening that we will see in the recovery manager But the simplified assumption is what this is that every transaction has its own memory buffer. Is this clear every transaction
+
+29
+00:15:41,500 --> 00:16:14,100
+has its own memory buffer tell me is this clear every transaction every transaction has its own memory buffer its own main memory buffer okay so this this assumption also you can take actually it does not matter much but this assumption you can take there is no problem because this is the definition that is given in the court and as I told you that the actual definition we will see when we study the this recovery manager at that time I will tell you but the difference I will tell you right now
+
+30
+00:16:14,240 --> 00:16:42,920
+What is the difference that I will tell you right now, but what in detail we will see in the recovery manager. So is the definition clear read this when you do when you do read X, then what you do transfer the data item you transfer that from the disk to the variable a variable name is also X in the buffer in main memory belonging to the transistor that is executing this command. That's it. Very simple. What is right X in the right X what you do in the right X you will again what you will do see the transfer the value of variable X.
+
+31
+00:16:43,850 --> 00:17:15,730
+transfer the value of variable X from the main memory buffer to the transaction that executed this item. Okay. In the database, see, okay. Right now you might be having some confusion, but let's see this. So what is the read operation? See, let's see this. I will also tell you the difference. What is the exact difference that also I will tell you, but this is the final point that you have, you are doing this read operation. So in this read operation, I can say
+
+32
+00:17:16,130 --> 00:17:49,910
+this block containing A comes in main memory buffer comes in main memory buffer of transaction T okay let's assume this is executed by transaction T let me assume let me assume this is executed by transaction T transaction T let me assume okay then what will happen here I can say that this block containing A comes into main memory buffer of transaction T okay is this clear so this this block will come this block will come in main memory okay
+
+33
+00:17:50,230 --> 00:18:25,890
+in main memory buffer of transaction t in that buffer it will come this is simplified assumption similarly here also let's assume okay the same thing here also that this is executed by transaction t if this is executed by transaction t then again the same thing will happen here that okay so in main memory buffer of transaction t okay and the same thing for the write operation so if the write operation you are executing
+
+34
+00:18:26,380 --> 00:18:57,570
+this right operation this is executed by transaction T by transaction T so the same thing again so this block containing A comes in main memory buffer containing transaction T okay so in main memory buffer of T main memory buffer of T so so this is the idea okay now what you will do in this A you will put the value of T that you will put here
+
+35
+00:18:57,850 --> 00:19:26,800
+so that's it and then you will restore this in the database okay so this is the definition that we have seen this is the simplified assumption that we have taken so these are the simplified assumption what is the this is the first and what is the second assumption that the right operation stores right operation stores updated block immediately yes or no updated block into disk immediately into disk immediately
+
+36
+00:19:28,180 --> 00:19:56,840
+These are simplified assumptions. Is this clear to everyone please tell me these are assumptions only these are not the actual things Okay, basically it's not like every transaction has its own buffer. It's not like that Okay, is this clear every transaction has its own buffer. It's not like that So different transaction don't have different buffer. They have the same buffer basically There is a common buffer the same buffer for all the transactions. This is the actual thing and second thing the second thing
+
+37
+00:19:57,100 --> 00:20:26,410
+Right operation does not store the updated blog immediately. But we will assume this. We will assume this. Okay. No, even not not on the commit also. Just wait. Not even on the commit. That is a misconception. Okay, I will explain it. Not even on the commit also. Commit does not mean that what do you think what is commit that that that is not commit. Okay, I will explain what is commit. But this simplified assumption is this clear. So what I will do now, first I will do some practice of this simplified assumption.
+
+38
+00:20:26,840 --> 00:20:54,920
+and then we will see the difference of actual definition and simplified definition. Is this clear? Tell me. Is this fine? Let me know. Okay, so the definition of read operation, write operation that we have seen. For that definition, we will do the some practice we will do and then we will see the difference of actual definition, what is the actual definition and what is our simplified definition, that difference we will see and that difference
+
+39
+00:20:55,230 --> 00:21:24,880
+In detail, we will see in the recovery manager. Okay. The details of that difference we will see in the recovery manager. Now let's see this. So first let's see this example. Consider this example. Let me assume that for a moment, let me assume that consistency requirement is A equal to B. I'm giving you this consistency requirement. Is this point clear? I'm giving you, let's assume, who will give me the implicit consistency requirement? Anyone? There are two types of consistency requirement. Implicit, explicit. Who will give me
+
+40
+00:21:25,180 --> 00:22:00,240
+implicit consistency requirement as you already know so database consistency requirement you know this database consistency requirement database consistency requirement so there are two type of requirements one is implicit one is explicit one is implicit one is explicit I can say explicit consistency requirement another is implicit consistency requirement so explicit is very simple right these are like integrity constants
+
+41
+00:22:01,080 --> 00:22:31,460
+These are simply integrity constraints. Okay. These are very simple constraints. So these are quite simple implicit. These who will tell me tell me application developer. Yes. User. Yes or no. User's mind. Okay. So basically user is going to tell me these implicit. These. Okay. These user knows user know. So not the user actually application developer. Sorry. Application developer knows. Yes or no. These are in the mind of application developer. Who is the.
+
+42
+00:22:31,750 --> 00:23:03,810
+Basically, who is the application developer? Database developer, DPM developer. So in that developer, basically he knows. Yes or no? So these implicit requirements, these will be told by application developer or I can say DBMS developer. Who is the DBMS developer? He knows these. Okay. Is this clear to everyone? Tell me. So very simple, right? Application developer, he knows these requirements. So let me assume that someone told you that someone told you that
+
+43
+00:23:05,180 --> 00:23:34,440
+this consistency requirement is that a should be equal to b okay this I am giving you I am giving you consistency requirement what I am saying I am saying that consistency requirement is this is the consistency requirement that a should be equal to b okay this is the consistency requirement let me assume that a should be equal to b this is the consistency requirement now what I am asking I am asking that if you start in a consistent state will you and in a consistent state
+
+44
+00:23:34,780 --> 00:23:59,740
+this is the question I can ask yes or no see what is happening here here there are two transactions and they are running one after the other yes or no they are running one after the other first the transaction T1 is running then transaction T2 is running this type of situation is called serial execution yes or no one by one transactions are happening first the transaction T1 is running
+
+45
+00:24:00,060 --> 00:24:25,320
+for this transaction will happen then this transaction will happen it's like for example for example you are making some transaction then your friend is making some transaction okay so one after other the transaction transactions are happening is this clear let me know see there are two transactions but you can notice first this transaction is completing then this transaction is completing so this is a serial execution of transaction let me assume that if you start in a consistent state
+
+46
+00:24:26,100 --> 00:25:00,420
+Then will you end in consistent state? This is the question that I want to ask. What is the question? Okay. Starting in consistent state. Starting in consistent state. What that means? Tell me what that means. Starting in consistent state. What that means? Tell me what that means. Consistent state. What that means? Means A equal to B. Yes. Very good. Very good. So starting in consistent state will be end in consistent state. Will be end in consistent state. Okay.
+
+47
+00:25:00,700 --> 00:25:27,570
+starting in the consistent state will be and in consistent state let's take one by one we will say let me assume that can i assume that a equal a is 100 b equal to 200 can i assume that can i assume a equal to 100 b equal to 200 i don't know because starting in consistent state you should start in the consistent state yes or no starting in the consistent state will be and in the consistent state that is the question yes or no
+
+48
+00:25:27,790 --> 00:25:56,740
+so i have to assume that i am already in the consistent state yes or no tell me is this point clear starting in the consistent state so let's assume that i am starting in the consistent state that is let's assume 30 and b is also 30 both are 30 30 i am starting in the consistent state now let's take what will happen after every action first of all actually these are actually two things remember this is one then this is two these are two things so tell me here
+
+49
+00:25:57,140 --> 00:26:25,380
+what is happening here first of all when you do the read a then what will happen when you do the read a then a will have 100 a will have 30 yes or no then a will have 30 the variable name is also a variable name is also a so here tell me which is variable which of them is variable like which of them is the temporary variable this a or this a which of them is a temporary variable tell me yes the first a is the temporary variable right yes or no so very simple this is a temporary variable
+
+50
+00:26:25,940 --> 00:26:53,590
+you can notice this is your temporary variable this is your temporary variable A and this is your data item A and this is your element A so what is happening here first of all you are reading A so now A has 30 at this point of time when you read A then your variable temporary variable has 30 correct or not is this clear to everyone now okay when you do this read A then your variable A has 30
+
+51
+00:26:54,290 --> 00:27:22,350
+temporary variable a that has 30 then you are adding 100 now your temporary variable has 130 then what you are doing then you are doing the writing so at this point of time if you notice at this point of time your temporary variable a has tell me temporary a what that has that has 130 correct that is 130 very good now you tell me next when you write a then what are the actions that will happen write a what it means I tell me write it what it means
+
+52
+00:27:24,010 --> 00:27:52,120
+write a what it means it means that in the data item a you will put the temporary a yes or no in the element a in the element a you will put the temporary a correct or not is this clear to everyone let me know so in the element a you will put the temporary a this is what you are going to do tell me one thing when you are doing this only look at this only just look at this only are you reading a
+
+53
+00:27:52,740 --> 00:28:21,200
+are you reading element a look at this only and tell me are you reading element a here are you reading element a here look at only this only look at this only are you reading element a here no we are not reading element a here remember here what we are doing basically this temporary a we are putting in this that's it but this is still not a blind right yes or no this is not a blind right
+
+54
+00:28:21,490 --> 00:28:49,170
+This is the property of right. This is how right is defined. This is how we define right. This is not a blind right because it is followed by read operation. Okay. Sorry. It is preceded by read operation. After reading, you are doing the right. So this is not a blind right. Remember, but this is the property of right operation that we don't read. The right operation doesn't read. It right operation. What it will do? It will simply take the temporary and it will put in the element. So at this point of time in your database.
+
+55
+00:28:49,690 --> 00:29:16,740
+our simplified assumption what this is saying our simplified assumption is saying that in the database in the database a is equal to what in the database in the hard drive in the hard disk your a is equal to what that is 130 yes or no this is our simplified assumption that right will happen immediately in the disk yes or no is this clear right will happen immediately in the disk this is our simplified assumption I told you that it will happen immediately
+
+56
+00:29:17,110 --> 00:29:48,400
+right operation stores the updated block into disk immediately. This is our assumption. So this assumption we follow. So in the database, A has 130. Okay, at this point of time, what will happen? At this point of time, you will read the B in variable B. You will read B in variable B. Now, this variable B has value, value one, I can say at this point of time, you can see that. So
+
+57
+00:29:48,780 --> 00:30:17,000
+at this point of time I can say that you are reading this value this temporary this temporary B has the value 130 correct and then finally what you will do you are writing okay finally this you are writing it means what it means it means in the data element B you are putting this value B so in this the database B will be value 130 yes or no in the database the value will be 130 now finally what is happening here
+
+58
+00:30:17,550 --> 00:30:45,540
+again you will read remember again you will read the block yes or no as I told you you are reading the block again so you will read the block again from the hard drive from the hard drive again the block will come so when the block is coming now from the hard drive what the A value is from the hard drive when the when the A block is coming then what what the A value that is 130 so here what will happen here your temporary A will have what value your temporary value will have 260
+
+59
+00:30:46,270 --> 00:31:15,580
+then you will write now in the database a value will be 260 okay in the database the value is going to be a 260 now here what will happen here your temporary be here temporary be okay so this temporary be that will have that will have the value again 260 yes or no and then what you will do you will write okay so now your database be will have the value 260 is this clear see
+
+60
+00:31:15,930 --> 00:31:45,390
+is this clear to everyone now see very important point that remember the way we are defining our definition our simplified definition of read operation and our simplified definition of write operation okay they are very simple yes consistency is maintained yes or no you can notice here b value is also 260 and you can notice a value is also 260 so definitely consistency is maintained so I can say at the end consistent yes so I can say the answer is yes at the end it will be consistent
+
+61
+00:31:45,740 --> 00:32:14,110
+If you start in the consistent state, you will end in a consistent state. Is this clear to everyone? Let me know. You can check it out. Now let's see this. Let's see this one. So this also you can trace. Can I give this as a homework? This is already written here. What is happening with the value of A? What is happening with the value of B? You can check it out here. Okay. The answer already I have given to you. Now let's see this one. Here what is happening?
+
+62
+00:32:14,790 --> 00:32:44,990
+Here some, some kind of, I can say interleaving is happening. Yes or no? Some interleaving is happening. Agree? So here we are having some interleaving. Now let's see, let's, let's take example of this also. But before that, you understand, you understand very important thing that is read operation. What are the steps of read operation? When you do read operation A, what are the steps? Tell me. Tell me the first step. What is the step? The block will come. Okay. This block.
+
+63
+00:32:45,390 --> 00:33:15,020
+block from disk to main memory okay to main memory so block will come from disk to main memory so this is the first step the block will come from disk to main memory then the second step is what the temporary a the temporary a will have the value of a of the element a the temporary a will have the value of element a is this clear so very simple first you will
+
+64
+00:33:15,280 --> 00:33:43,670
+bring the block from disk to main memory okay and then this temporary A and let's assume one more thing when the transaction T is executing this if transaction T is executing this then everything is happening in his personal area yes or no all these things are happening in his personal area I can say main memory buffer of T buffer of T yes or no is this clear so this block will come from the disk it will come
+
+65
+00:33:43,970 --> 00:34:15,370
+to the main memory buffer of t so everything that is happening here this is in the personal space of t yes or no this is the personal space of t this is happening in the personal space of t okay one more thing so what happens in the right operation when you do the right operation then what happens when you are doing the right operation then again block will come from disk to main memory buffer of t the first step will be same the first step will not change now what will happen this will happen that
+
+66
+00:34:16,290 --> 00:34:45,610
+element a Okay, we'll have the value. Okay, you will do this and there is a third step. What is the third step? You will store. You will store this block in disk into disk immediately immediately. Okay. So this is the idea. I hope this point is clear. Let me know. So these are the three steps in the right operation and these are the two steps in the read operation. Let me tell you one misconception.
+
+67
+00:34:46,370 --> 00:35:15,650
+this I have seen many like this is a misconception among the students also and many teachers also that is wrong what they say that these steps of read operation you have seen right all the steps of read operation we have seen now what people will say there are I have seen this misconception among many people many students many teachers what they say this these steps of read operation we have seen they will say that the same steps will be here and there will be additional step
+
+68
+00:35:16,120 --> 00:35:46,540
+and there will be additional step are you getting my point additional step is that okay these same steps will be here and there will be additional step or of storing the block into disk can you tell me what is the wrong here like I am saying that the same steps here and the one more stop store this last store like store block into disk store block into disk can anyone tell me what is the what is the mistake here anyone anyone tell me
+
+69
+00:35:46,720 --> 00:36:16,030
+What is the mistake here? See, this is wrong. This is wrong. Let me tell you like these are the steps of read operation. Now, if you say that this is the right operation, this is wrong because right operation never reads. Is this clear? No, no, the mistake is here. The mistake is here. See the read operation will read the value of a. The read operation is going to store the value of a in the in the temporary variable. See this read a.
+
+70
+00:36:16,380 --> 00:36:46,640
+what it will do the value the value of a will be stored in the temporary variable is this clear please see this the value of a will be stored in the temporary variable but look at these steps and tell me are we reading the value okay when you do this when you do this do you care about what is the already the value of a all the things that are happening these are happening before this yes or no see all the things that are happening they are happening before this right operation yes or no
+
+71
+00:36:46,910 --> 00:37:17,160
+agree or not you are doing this you are not reading the value of element a is this point clear to everyone we do not read the value of element a we are simply writing this whatever is this temporary a we will write this in the element a so whatever is happening that is happening before this right a so now what is the blind right then tell me then tell me what is the blind right then we were discussing blind right blind right means a right which is not followed by read
+
+72
+00:37:17,370 --> 00:37:46,760
+For example, you do this right w a you are doing w a but there is no read a but there is no read a but there is no read a Okay, so this is called blind right is this point clear to everyone but there is no read a in this situation this will be called blind right because what it will do see why this is called blind right tell me why this is called blind right because now what it will do now what it will do it will store
+
+73
+00:37:47,140 --> 00:38:17,060
+in a it will store some value t without reading the value of a we are not reading the value of a because it will not do that I agree or not because right will not do that see okay very simple thing I want to tell you let's assume that this is the correct definition let me assume let me assume this is the correct definition then what is the problem then there is no blind right yes or no if you take this definition then it will never happen that you have the blind right it will never happen agree or not
+
+74
+00:38:17,360 --> 00:38:44,520
+It will never happen that you have blind right because your right itself is reading the value. Yes or no. Your right itself is reading the value. Then you can never have blind right. Do you agree? Please tell me if you if your right operation reads the value of a if you are reading the value of a in the right operation, then you can never have blind right. So this is what I'm telling you that blind right means your right operation, but that is not preceded by read operation.
+
+75
+00:38:45,610 --> 00:39:16,210
+But remember if you have this type of situation like there is a read operation Okay, you are reading a and then you are doing something you are doing something for example, maybe a into two Okay, and then you are doing this then this is not blind right Okay, now this is not blind right This is not a blind right Why because ultimately what you are doing for example here here this will happen here in the temp a I can say here in here in the temp a you will put the value of a
+
+76
+00:39:16,540 --> 00:39:47,670
+and let's assume the value of A was 100 so this value of A you will put in this then here what will happen here the temp A will have the value 200 okay and here what will happen here in the A you will put the value of temp A yes or no so finally your A will have value 200 tell me is this point clear let me know is this point crystal clear what I'm telling see okay so the right operation is not going to read the right operation is just going to store
+
+77
+00:39:48,390 --> 00:40:18,190
+The only thing the right operation will do is store. So right operation is just a store operation. You can consider this right operation as a store operation. So this right operation is purely a store operation. It is purely a store operation and your read operation is purely a Your read operation that is purely a load operation. Okay, so your right operation is show is only read is only a store operation and your read operation is only load operation. Okay, is this clear?
+
+78
+00:40:19,990 --> 00:40:49,830
+now mavit is saying that sir query if b equal to b plus 10 like that it involves read and then write no see the transaction will happen like this if you have this type of query let's assume you are having this type of query like mavit is saying that in the high level you have this on the high level let's assume you write this that b should be b plus 10 on the high level you are writing this now in this situation what your transaction will be created for this what your transaction will be created is this
+
+79
+00:40:50,310 --> 00:41:20,190
+first of all you tell me for this operation do you need the value old value of b for this operation do you need the value old value of b yes you need yes or no so first of all you will read that okay you will read the value of b because you need the old value of b so you will read that you will read that okay then what you will do then you will do this b equal to b plus 10 now remember this is temporary okay now remember this is your temporary b are you getting my point this is your temporary b
+
+80
+00:41:20,550 --> 00:41:50,020
+Now remember this is your temporary bee and what actually happens here? It actually happens that in the temporary bee you are putting bee. Yes or no? In the temporary bee you are putting bee. You are putting bee in the temporary bee. And then finally, finally, finally this right only stores. Are you yes or no? Are you getting this point now? Tell me this right only stores. This only stores nothing else. This only stores. It does not read. It only stores. Please tell me is this point clear?
+
+81
+00:41:50,630 --> 00:42:18,700
+so if you have this statement the transaction will be created is this this is this is the transaction that will be created any other doubt anyone let me know whatever doubt you have you can ask any doubt let's for example if your high level statement is this okay if your high level statement if that is this that in a users put a hundred okay means basically you do this let's assume this is your high level statement then what transaction will be created
+
+82
+00:42:20,870 --> 00:42:48,460
+Now you will never read the value of A. Yes or no? Now you are not going to read the value of A. Now here you can just simply write A,100. That's it. Okay. See, please understand that your right operation is not going to read. Yes or no? Your right operation is not going to read. Your right operation is simply doing that. Okay. This is the 100. Just put it here. This is what your right operation is doing. So your right operation is not doing any read.
+
+83
+00:42:48,880 --> 00:43:17,950
+So when we say that your right operation is so can I say that every right operation is blind if you only look at the right operation if you only look at the right operation if you only look at the right operation it is definitely blind yes or no if you only look at the right operation it does not read but remember when we say blind operation blind right it simply means when you say blind right it simply means a right which is not preceded by read so remember blind right means a right
+
+84
+00:43:18,350 --> 00:43:50,340
+when you do write a but it is not preceded by no read a there is no read a okay is this clear so you are not reading the value this type of right so in this situation you will call it a blind right okay is this point clear let me know okay so this is the idea I hope this point is clear now let's see so this is another example if I start in the initial state let's assume I start in the state
+
+85
+00:43:51,100 --> 00:44:19,550
+Let's assume both are A is also 2035 B is also 30 then tell me what will happen then at this point of time what will happen you tell me like here first of all you will read a so you are reading the value of so block will come yes or no see okay please focus on this when you do read a then what are the things will happen the block will come in main memory what value that block what value that a has so this a has a value 30 so this a value has 30
+
+86
+00:44:19,820 --> 00:44:49,190
+and this is your temporary a this is your temporary a okay so you can clearly see that after this step your temporary a will be what your temporary a is going to be 130 after that what will happen when you do the right operation you are doing the right operation now your database a in now your database a has 130 when you do this operation then actually what will happen in this operation your element a just you are putting the temporary a are you understanding this point
+
+87
+00:44:49,410 --> 00:45:17,300
+So remember everything happens before the right operation. Yes or no. Before the right operation, the things are happening. The things are happening before the right operation. If these things do not happen, then this is a blind right. Yes or no. If these things, for example, for example, if this thing doesn't happen, like if I say some constant value, okay. If I say some, okay. So now this is a blind right because now you are putting a equal to 10. You are writing a equal to 10. So this is a blind right. So very simple.
+
+88
+00:45:17,630 --> 00:45:46,420
+now that so your database value of a is 130 now what will happen remember this is the time this is the timeline so now the next operation is this okay this is the time I can say this is the time so this is how the things are happening so now the transition to do is happening okay now what it will do tell me here what will happen now it will read again again it will read yes or no so what is the value we are reading tell me
+
+89
+00:45:46,710 --> 00:46:14,390
+what is the value we are reading you tell me that yes 130 very good so 130 you are reading okay so here what will happen so here finally I can say here temporary A will be your temporary A will be 260 then you will write okay so when you write then in that case database A will be database A will be 260 is this clear so database A is going to be 260 now these things will happen now these things will happen so you tell me now what will happen here
+
+90
+00:46:15,730 --> 00:46:44,990
+here your database be finally your database be will be what so you can notice you will read be so when you read be you are reading 30 because block will come from the disk from the database the block will come then it will become 130 this is your temporary variable this is your temp okay so here you can notice then you will write be and when you write be then your database be will have 130 and then finally this operation you will execute again you are reading so what value are reading tell me
+
+91
+00:46:45,280 --> 00:47:14,780
+array what value you are reading again you will fetch again you will fetch B from the disk from the disk again you will bring B from the disk again you will bring B then what will happen here so here again you can notice that B value will multiply by two and again so database value B will be 260 so is this consistent tell me this interleaving is this consistent this interleaving is this consistent yes this interleaving is consistent you can notice
+
+92
+00:47:15,020 --> 00:47:44,360
+This is the B value final and this is the A value final. You can check it out at the end. Both are 260 260. So can I say that this type of interleaving is consistent? Okay. This type of interleaving. If it happens that this is consistent. Okay. Very simple. So if you start in the consistent state, you will end in the consistent state. You brought this thing when only T1 ends there, then it is not consistent. See temporary inconsistency will always happen.
+
+93
+00:47:45,690 --> 00:48:12,710
+Whenever you are doing something temporary inconsistency can always happen. See, for example, let me give you example, like you are transferring amount, like you Raj is transferring amount to his friends. Okay, let's assume Mahavit. Okay, so what will happen? The temporary inconsistency will always happen. Yes, at some point of time, your amount will be debited. After that, it will be credited. So the temporary inconsistency can always happen. Are you getting my point? Okay, is this clear?
+
+94
+00:48:13,120 --> 00:48:40,040
+So the temporary whenever your transaction is running this is your transaction when this transaction is running then temporary inconsistency can happen but at the end you must have the consistent result is this point clear like this example is this example clear when you transfer the money it will be debited it will be debited then it will be credited so the temporary inconsistency is there at this point of time the money has been debited but it has not been credited
+
+95
+00:48:40,430 --> 00:49:10,790
+The problem will happen if it is not credited. Yes or no? See the problem will happen if this does not happen. Are you getting this point? So the problem will happen when this does not happen. So I hope this point is clear. So you can check it out. Similarly, this is another. This is another. Now let's check it out. Is this consistent? This is a question that I am asking. Please see this question. It's starting in and this is the consistency requirement. Now let's do this. This is interesting. Don't take as homework.
+
+96
+00:49:11,150 --> 00:49:40,950
+just check this let's assume the consistency requirement i'm giving you i'm giving you consistency requirement because i have to give you consistency requirement consistency requirement is a equal to b okay this is the consistency requirement i want this requirement that a should be equal to b you might be thinking okay are you thinking that sir uh these are two elements two different elements in which situation they must be always same like i'm this consistency requirement this is on transaction or on database whenever you put some
+
+97
+00:49:41,140 --> 00:50:11,120
+consistency requirement whenever you are putting some consistency requirement are you putting that on the transaction or on the database tell me whenever you have some consistency requirement on which you have that consistency requirement tell me this consistency requirement do we put on the transaction this consistency requirement we put on the transaction or we put on the database yes we put on the database right here this is this we put on the database like IRCTC has this
+
+98
+00:50:11,310 --> 00:50:41,260
+consistency requirement that same seat should same seat should not be booked by two people that is a consistency requirement on the database yes or no depending on the application depending on the application so on the database this consistency requirement we have like integrity constraints this consistency requirement that can be implicit explicit all these things we have already seen explicit implicit all these things we have already seen these are on what tell me like these integrity constraints these are on what these implicit constraints these are on what
+
+99
+00:50:41,390 --> 00:51:11,300
+these all of them are on database okay these are not on transaction the this is the responsibility of transition to maintain it do you agree this is the responsibility of transaction to maintain it the maintenance is the purpose the maintenance is the purpose but the but the consistency requirement is on the database so this is the idea now i am giving you this consistency requirement that a should be equal to b now you tell me starting in consistent state will be
+
+100
+00:51:12,450 --> 00:51:49,530
+will be and in the consistent state starting in consistent state starting in consistent state will be and consistent state so if you start in a consistent state then what will happen let's take example your consistent state is what so let's assume initially your consistency like take any random value you can take okay just take any random value like let me take 20 let's assume a is 20 and let's assume b is 20 so now you tell me what will happen
+
+101
+00:51:49,950 --> 00:52:14,260
+so after this at this point of time what will happen at this point of time okay at this point of time what is the what is the situation at this point of time I can say is 120 right yes or no at this point of time the database is 120 agree yes or no the database a is 120 in the database in your hard drive the a is 120 now you are reading a so what value you will read
+
+102
+00:52:14,870 --> 00:52:44,060
+When you read a what value you are reading you are reading the database value because the block will come in the memory. Okay. So here this is what you are doing. So at this point of time, your database a that is what your database a that is what that is 240. Then again, at this point of time, your database be what is that database be? What is that? So the two will come and then it will become 40 at this point of time. What is your database be at this point of time? What are the database be?
+
+103
+00:52:46,510 --> 00:53:12,090
+The database be that will become 140. Okay. See, see the final value. See the final value consistency violated. Yes or no. Can I say inconsistent database? This is the inconsistent state of database in consistent state of database state of database. This is the inconsistent state of database. So this type of interleaving you cannot do. Yes or no. This type of interleaving you should not do.
+
+104
+00:53:12,290 --> 00:53:43,190
+Because if you do this type of interleaving, then your database will go to the inconsistent state. So this is the inconsistent state of database because consistency violation. This consistency violation is happening. This is the consistency requirement and this violation is happening. Is this clear to everyone? Please tell me. So this read write operation, are they clear? Let me know. Read write operations, are they clear? Please tell me. So this is the read operation. In the read operation, what do you do? First you copy the disk block into the buffer in the main memory.
+
+105
+00:53:43,470 --> 00:54:11,730
+Just do this and then you copy the value X to the program variable named X. So this is what you do. This is your read operation. Only two things you are doing. Only two things. One thing is you, uh, you bring the block, copy the disc block in the main memory. This is what you do. And the second thing you item X, you put that in the variable X. Okay. So this is your read operation. So very simple. You can read this. Similarly, you can write the read the right operation.
+
+106
+00:54:12,070 --> 00:54:43,390
+Okay, so these things we have already seen. Now you might be thinking, what is the actual? Now let's see the difference between actual and simplified definition. So the definition we have seen is simplified read write definition. Now let's see the definition, the actual difference. So our simplified, our simplified read write definition, I can say read a and write a definition versus actual definition versus.
+
+107
+00:54:45,870 --> 00:55:14,940
+actual read a and write a definition but okay one thing I'm telling you again one thing I'm telling you this simplified definition that we are seeing this is fine for analysis whenever you do some analysis this is very like I can say this is very easy and very good very easy to do okay you will confuse when you use the actual if you use the actual definition you will get confused definitely you will get confused when you do the when you use the actual definition
+
+108
+00:55:15,310 --> 00:55:44,010
+So the simplified difference in that we see this is very good for analysis and the difference is difference is there but that difference is only for efficiency. Okay. That difference is only when problem has already occurred. Some failure has already occurred and you are doing recovery. So when you do the recovery at that time, this difference will be will matter. Are you getting this point? So this difference will matter when this difference will matter only when you are doing the recovery. Okay. This difference matters.
+
+109
+00:55:46,030 --> 00:56:17,550
+This difference matters only when we do the recovery. We do recovery after some failure. We do recovery after some failure. So this we will see in the recovery manager. So the difference will matter only in this situation. Is this clear? So when you do recovery at that time, this situation, this difference will matter. But in other situations, the difference will not matter. But let me tell you the difference. The first difference is the actual implementation is this actually.
+
+110
+00:56:17,770 --> 00:56:48,390
+the actual read a in the actual read a what happens that this is this is fine first of all the buffer is common okay the buffer is common so in this situation for all the transactions the buffer is common like this is your main memory and this is a common buffer for all all the transactions is this clear so this is a common buffer for all transactions for all the transactions this is a common buffer like every transaction has the same buffer
+
+111
+00:56:48,890 --> 00:57:18,090
+okay but the variable will be personal for the transaction so it will happen that first of all one more thing in the actual definition you will you will face only when the block is not in the main memory okay so face block only when it is not in the main memory so okay actually I will not write this right now the details I will not write because anyway we will see this again okay are you getting my point see if I tell you right now we will waste 10 or 15 minutes we will waste
+
+112
+00:57:18,330 --> 00:57:48,100
+and then again in the recovery manager again i will tell you all these things okay so let me tell you i will not write this you also don't write in your notes okay let me tell you what are the differences the difference is this first of all in our definition we are fetching every time whenever we do the read operation we are fetching the disk block yes or no agree or not so we are fetching the disk block every time whenever you do the read operation for every read operation we are fetching the disk block from the disk but in the actual definition what we do
+
+113
+00:57:48,350 --> 00:58:17,350
+in the actual definition first you check the buffer if your block is already here then don't fetch it is this clear just check the buffer if your block is already here don't fetch it but in our simplified definition we fetch it every time okay for every read operation we fetch it for every read operation just fetch it for every write operation just fetch it but in the actual definition we fetch only when it is not in the buffer
+
+114
+00:58:17,660 --> 00:58:48,450
+So if it is already in the buffer, then we don't face it. That is the first point. The second point is this, that the major difference is in the right operation. In the right operation, what I told you that we are writing immediately in the disk. So when you do this right operation, like whenever, like for example, here you are doing this right. Okay. Here you are doing this read a and let's assume initially a value was, I can say, let's assume initially a value was initial, initial a was 100.
+
+115
+00:58:48,810 --> 00:59:14,750
+and then let's assume you are doing this a is equal to a plus 20 then here what will happen a will be 120 now at this point of time what we are telling we are saying that in our definition we are saying that this a equal to 120 you will put in the database or I can say disk immediately yes or no disk immediately this is what I told you agree or not this is our definition simplified definition
+
+116
+00:59:15,210 --> 00:59:43,890
+So this is the simplified definition that happens. So I can say this a equal to 20. Okay. This simplified definition. But actually what happens? Actually what happens when you store this in the main memory, sorry, in the hard drive, when you store this in the disk that is decided by recovery manager. We don't decide it. The recovery manager will decide. Okay. The recovery manager can do this immediately or you can do this after some time or you can do this at the.
+
+117
+00:59:44,080 --> 01:00:13,830
+Time of commit. There is a commit. Let me tell you. I will tell you after just like after sometime I will tell you in the transaction. There is a commit point in the transaction in every transaction. Okay. Whenever you have a transaction, some sequence are there. Some sequence are there. Now when all the actions are done, like means your transaction is over means. Okay. All the actions are done. Then in the situation, there is a final point that is commit. This commit tells you that your transaction is a completed. Okay. This tells us what
+
+118
+01:00:14,140 --> 01:00:43,310
+Tell me this tells this tells us that transaction is completed. That transaction is completed is completed. Okay, that your all the actions are done basically. This is these are the actions. I can say these are the actions. These are the main actions and this commit this tells us that transaction is completed. Your transaction is over. Your transaction is completed. Now remember this committed does not mean that at this point of time recovery manager will store.
+
+119
+01:00:43,700 --> 01:01:19,380
+Are you getting this point? When do you store? Actually, when do we store? Actually, when do we store? Actually, when do we store in disk? In disk. This is decided by whom? Tell me. Actually, when do we store in the disk? This is decided by whom? Recovery manager will decide. Okay, so this is decided by recovery manager. Recovery manager decides. So the recovery manager is going to decide when do we do that.
+
+120
+01:01:19,610 --> 01:01:49,790
+Okay, so he will decide this recovery manager. We don't know when even when it will happen. It can happen immediately or it can happen at the time of C. Let me just tell you the recovery manager will decide but when but when it will happen. So remember this when you do this, let's assume that this is your transaction. Okay, you have transaction T in the transaction T. Let's assume some actions were there some you are you are reading something something something you are writing something something.
+
+121
+01:01:50,100 --> 01:02:17,640
+at this point of time in the man memory your time I can say in the man memory you have you have this in the man memory you have A equal to 120 is this point clear in the man memory you have A equal to 120 okay yes or no in the man memory we have A equal to 120 right now when do we put this in the hard drive in the database in the database let's assume this is your commit here your transaction completes now remember
+
+122
+01:02:18,050 --> 01:02:49,430
+your recovery manager can do this immediately okay so there are these are the situations the situation one here immediately I can say this is the case one what are the case one that recovery manager okay in short I will write it RM so recovery manager recovery manager RM so maybe RM can store this immediately in the disk okay RM stores this a in disk or I can say in database
+
+123
+01:02:50,770 --> 01:03:18,870
+immediately. This is possible. Okay. This is a possibility. This is a possibility. But what is the other case? But what is the other case? The other case is maybe after sometime, maybe, maybe, maybe, maybe, maybe at this point of time, suddenly he decides, suddenly the recovery manager decides, okay, I will restore a at this point of time. Are you getting my point? Suddenly this recovery manager decides that this a this a, okay, this value of a equal to 20.
+
+124
+01:03:19,640 --> 01:03:47,380
+Okay, you decide at this point of time. Is this point clear? Let me know. Are you getting my point? What I'm saying, or maybe the recovery manager decides, okay, the recovery manager is deciding at this point of time I can do at this point of time when the committee will happen, when the committee will happen, I will do or maybe, maybe the recovery manager decides that some more things will happen. Some more things other transitions will do. Yes or no?
+
+125
+01:03:47,630 --> 01:04:14,470
+Some more things of other transactions. This your transition T is gone. Your transaction T is gone. So your transaction T is over. Your transition T is over. But after some time, after some time, after some time at this point of time, let's assume your RM decides that now I will now I will store this value, this value. Okay. This value. Now I will store. So remember this commit does not mean that you will store him at this point of time. Are you getting my point? Commit does not mean that.
+
+126
+01:04:14,840 --> 01:04:43,210
+your recovery manager will store at this point of time your recovery manager can store this value this value can store at any point of time you can do this immediately or you can do this at any later point of time is this point clear tell me so from here to here at any point of time you can okay this can be stored is this clear let me know from here to here at any point of time this
+
+127
+01:04:43,490 --> 01:05:11,190
+value this value can be stored in the disk so where it will remain until then where it will remain until then it will remain in the main memory okay and remember it will remain in the main memory buffer and people and and remember remember so if a new transition is reading the value a will he read from the disk a new transition if we read value a will he read from this no because I told you in the actual definition
+
+128
+01:05:11,610 --> 01:05:39,410
+we bring block only when it is not in the main memory agree or not in the actual definition we bring the block only when it is not in the main memory yes or no so because it is already in the main memory so you will use it you will use it okay I leave it up to you okay I leave this on you that our simplified definition is basically equivalent to this definition if you notice no changes
+
+129
+01:05:39,920 --> 01:06:09,210
+because in our simplified definition we are bringing from the disk every time from the disk every time we are bringing but also what we are doing we are writing every time immediately yes or no are you getting my point see we are writing immediately and we are reading every time so everything is very I can say everything is very fine I can say the actual definition is basically the equivalent to our simplified definition both are basically equivalent the only difference will happen
+
+130
+01:06:09,530 --> 01:06:38,630
+when we study the recovery manager at that point of time the differences will come okay is this clear in the recovery manager the difference will come when we do the recovery at that time difference will come okay other than that difference will never come please tell me other than that other than that difference is not going to come let me let me know did you understand this this read operation write operation did you understand do you have any doubt right now let me know do you have any doubt
+
+131
+01:06:39,040 --> 01:07:14,960
+please tell me whatever doubt you have asked so final conclusion is please use only simplified definition don't confuse yourself because this actual definition we will again see okay this actual definition we are anyway we are going to see in the in the recovery manager so don't worry about the actual definition so again remember this actual definition when we will study this actual definition of read write okay we will study in recovery manager so don't worry about it
+
+132
+01:07:15,160 --> 01:07:47,750
+We will study in recovery manager in recovery manager. Okay. So before that we will only use our simplified definition. Okay. Before that we will use our simplified definition and the simplified definition is not created by me. Okay. I don't create the concept. This is taken from this is taken from the fourth book. Okay.
+
+133
+01:07:48,010 --> 01:08:17,590
+court and NPTEL. So remember this is this simplified definition is taken from the court book. So we will use that before that we will use our simplified definition. So the simplified definition we are going to use and this for the simplified definition as I told you the source is court. See why I tell you about these sources and all these things like many teachers, they will not tell you these things. See this happens. It happens actually many teachers. I have seen they create their own concepts.
+
+134
+01:08:18,640 --> 01:08:47,560
+I don't know why they are creating their own concepts. Okay. Maybe they are thinking that they are more powerful than the professors. They are more powerful than the, uh, I can say they are bigger God than I can say this, uh, standard books. Okay. Maybe they are considering themselves as something, which is something very bigger, but they are really, they are really creating concepts. See if you want to create concept, let me tell you what you have to do. If you want to create concepts, what do you have to do? You, you should do PhD.
+
+135
+01:08:47,980 --> 01:09:15,560
+You should do PhD. You should do postdoc. Okay, then you will get that knowledge from okay, then you will be in the position. Okay, then you will be in the starting position of creating your own concepts. Are you getting my point? Okay, so then you can write your own book. Like for example, for the DBMS, there is a court book. What you can do like my with can my if my with does PhD in the DBMS PhD postdoc. He's the professor in IIT.
+
+136
+01:09:16,050 --> 01:09:44,070
+If he writes a book, then that book will be considered as a standard book. At that point of time, he can change some conventions. Yes or no? He can make, okay, that this convention I will follow. I will follow the simplified definition. Oh, I will not follow the simplified definition. I will follow this definition. But whatever they do, these people, the, I can say, professors in the IIT, ISE in, in, in bigger colleges, they always, they always basically, I can say, like, they have the knowledge to do this.
+
+137
+01:09:44,660 --> 01:10:14,060
+Are you getting my point? So that is the reason I always give you resources like the references I always give you because you should not study any wrong concepts. So this simplified definition that we will use that is given in the court book as you can see this. You can read this. It is important to know if the change in data appears in the main memory or it is written in the disk. Okay. In the real time, see this is that you can see in the real database, this decision can be taken at any point of time. Okay.
+
+138
+01:10:14,490 --> 01:10:42,080
+This decision can and can happen at any point of time. But what we will assume, we shall assume that the right operation updates the database immediately. We shall return to this in chapter 16. What is chapter 16? Tell me that is recovery manager. Okay. So that that is recovery manager. So in the recovery manager, this will happen. So if this point clear, let me know. So very simple point. So this is what we are going to assume that right operation updates the database immediately.
+
+139
+01:10:42,530 --> 01:11:13,230
+so this definition we will use our simplified definition so that's it our simplified definition is good for analysis okay and i told you this point that write x comma t it doesn't see the value of x yes or no or yes or no write x comma t it doesn't see the value of x it simply puts the t into x okay it simply puts a t into x so remember write x comma t it will bring the block containing x
+
+140
+01:11:13,700 --> 01:11:43,680
+but write x comma tree doesn't read x so reading block is different from reading element yes or no agree or not reading block containing a reading block containing a that is not same as reading reading a reading block containing a this thing is not same as reading a okay because this will this we will always do according to our definition this we are we are always going to do
+
+141
+01:11:43,860 --> 01:12:12,290
+right operation read operation whatever operation is there we will always do this yes or no agree or not see this thing we will always do the block we will always read okay so here this read simply means faiths here this read means faiths so we are always going to do this we will face the block containing a whether you do read operation right operation doesn't matter so this does not mean read a so i hope this point is clear so write x comma t it will bring the block containing x but
+
+142
+01:12:12,570 --> 01:12:43,360
+it does not see the value of x and also as I told you that okay so yeah okay so this we have already seen so that's it this is the read operation write operation so these are very simple operation remember our read operation our write operation these are very simple operations I hope you understood this anyone has any doubt you can ask yes what commit means I will tell you now now I am going to tell you what commit means okay now let's see so the transaction the definition of transaction we have already seen
+
+143
+01:12:43,610 --> 01:13:13,110
+what is the transaction from the there are two point of view yes or no for the transaction there are two point of view when you transfer the data from your account to your friend's account for you this is one action but from the bank point of view from the dbms point of view there are many actions yes or no there are many actions so there are two point of view one is database point of view dbms point of view another point of view user point of view for you okay for the user this is a single action i can say this is a single logical task
+
+144
+01:13:13,530 --> 01:13:41,970
+Okay. But from the DBMS point of view, this is a sequence of operations. So this is a simple point that the transaction, this transaction refers to a collection of operations that form a single logical unit. Yes or no. The transaction refers to collection of operations that form a single logical unit of work. So the transaction is the unit of execution of database operations because whenever you are creating some, whenever you are doing something, then a transaction will be created. Yes or no.
+
+145
+01:13:42,410 --> 01:14:11,810
+In the in the DBMS, whenever you do something, whatever query you write in SQL, DML, DDL, whatever query you write, that will be converted into DB into transaction. So this transaction is the unit of execution of DB database operations. This is the definition of transaction. What is a transaction? Can you explain this to in interview? Tell me in the interview, can you explain this in a very crystal clear manner? What is a transaction? Because whatever you do in the database, you write any query SQL query.
+
+146
+01:14:12,120 --> 01:14:42,080
+Okay, DDL query, DML query, whatever query you write, then what happens? That will be converted. That will be converted basically into a on the low level that will be converted into a sequence of operations. Some read operation, write operation, some arithmetic operation, logical operation. So it will be converted into a collection of operations. So the transaction is a collection of operations that forms a single logical unit of work. So this transaction, remember, this is a unit of execution of database operations. Everything in your database in your DBMS
+
+147
+01:14:42,580 --> 01:15:09,210
+Okay, every execution basically that happens in terms of transactions. Okay, so these transactions are very important. If you notice, whatever you've seen so far, you've seen query normalization indexing all the things that you've seen, ER model, everything that you've seen, ultimately on the low level, it boils down to transaction. Yes or no. On the low level, everything comes down to transaction. So this is the idea. So from the user point of view, there are two point of view.
+
+148
+01:15:09,430 --> 01:15:38,730
+From the user point of view, I can say that this is a logical unit of work. But from the DBMS point of view, this is a sequence of operations. Like this is your transaction. This is a transaction. Okay, one more thing I want to tell you that see this. So what is a transaction you can see from the user point of view, this is a logical or I can say complete piece of work. But from the system point of view, this is a sequence of database operations. Okay, you are reading something, either you are reading something or you are computing something. See this.
+
+149
+01:15:38,990 --> 01:16:10,160
+you are reading something or you are computing something arithmetic logical operation or you are writing something so this is the definition of transition now one more thing that there is see see whenever you have some transaction the last operation of transaction is either commit or abort so let's assume this is your transaction in this transaction the last operation if you see the last operation the last operation either will be committed
+
+150
+01:16:10,480 --> 01:16:41,340
+Either this last operation will be commit or the last operation will be abort. What this operation tells you? What this operation tells you? This operation tells you that transaction is completed. Transaction is completed. Okay. This operation tells you that transaction is completed. Please understand this word. Please understand this word. Okay. This commit operation tells you that transaction is completed. What it means? It means these actions are done. These actions are executed.
+
+151
+01:16:41,980 --> 01:17:16,720
+okay so this commit operation says that transaction is completed it means these actions are executed okay completed means what completed means these actions executed so when you execute this commit okay when this commit operation is executed then what it will tell the transaction manager now the transaction manager knows that transaction is over okay so this commit operation will tell the transaction remember this tells the transaction manager the
+
+152
+01:17:17,130 --> 01:17:48,950
+transaction manager. This tells the transaction manager that or recovery manager that transaction is completed. Okay. Transition is complete. Is this clear? Let me know. So what is this commit operation? So this commit operation simply says that transaction is completed. Nothing else. As I told you, tell me this commit operation. Does it mean does it mean that whatever you have done here that is stored in the database at this point of time? Tell me.
+
+153
+01:17:49,240 --> 01:18:17,490
+Does it mean that whatever you have done here, whatever read and write you have done here, does this commit mean that this you are storing in the database at this point of time? So remember, may or may not, as I told you. So this commit does not mean, remember this commit does not mean that your whatever you have done that is reflected in the disk. So this point I want to tell you this commit.
+
+154
+01:18:18,060 --> 01:18:49,620
+at the, at the point of commit, I can say at the time of commit, at the time of commit, at the time of commit. So at the time of commit, what should I have? I can say at the time of commit means at this point of time, like some time, let's see. Okay. T equal to, okay. Some T equal to whatever. Okay. At this point of time, this is what I'm saying at this point of time. So at the point, at the time of commit, okay. The, I can say the changes.
+
+155
+01:18:51,900 --> 01:19:26,030
+the changes by transaction the changes by transactions may or may not be reflected in database be reflected in database or I can say disk they may or may not be reflected in database at this point of time see at this point of time I am saying at this point of time at this point of time they may or may not be reflected but they can they will definitely be reflected after some point of time yes or no
+
+156
+01:19:26,340 --> 01:19:55,440
+This because this commit means that your transition is completed. This is what I'm saying. See at this point of time, your, your disk, your, your database. Okay. It may not have the changes at this point of time, but it can have those changes at this point of time. Yes or no. I don't know. Some other things will happen. Some other things will happen from some other transition. This is your transition tea. Some other transition will do something and then maybe the recovery manager will decide suddenly that, okay, now I will do this.
+
+157
+01:19:56,380 --> 01:20:24,880
+So, so at this point of time also this can happen. So remember this commit operation does not mean that your changes that you have done all the changes that you have done those changes will be stored in the disk at this point of time at this point of time immediately at this point of time the changes will be stored. This is not true. Is this clear? So if I ask you at the point at the time of commit immediately the changes will be done immediately the changes will be reflected in the disk that will not happen. Okay. That may or may not happen.
+
+158
+01:20:25,250 --> 01:20:55,070
+Is this clear? That may or may not happen. Is this clear to everyone? But remember this commit operation tells you that the transition is completed. Let me know if anyone has any doubt. Please tell me. Anyone has any doubt in this? The second point. The second point is abort operation. The last operation can be abort or rollback. The last operation can be abort or rollback. What it means? It means that the name itself is telling you.
+
+159
+01:20:55,210 --> 01:21:24,160
+Okay. The last action, these are the actions and the last action is abort or rollback. It simply means that whatever you have done. Okay. Basically some failure has come. Okay. Suddenly some failure has come and because of the failure, you have to undo the changes. Yes or no. So this abort or rollback simply means that all the changes that you have done undo those changes. Yes or no. It simply means that undo changes undo changes by T. Okay. It simply means.
+
+160
+01:21:24,360 --> 01:21:54,340
+that whatever basically at this point of time failure has come basically at that point of time failure has come. Okay. So at this point of time, you will say that undo the changes by two is anyone here who is wondering, sir, why we will put abort? Okay. Why are we putting abort? Like whenever you are creating a transaction, will you put abort at the end? Like in the beginning, you know that abort rollback will happen in the beginning. Do you know that rollback will happen after some time? Tell me. Are you wondering this or not? Tell me.
+
+161
+01:21:54,660 --> 01:22:24,370
+Did you ever wonder this or not like tell me if I give you a transaction at the end I write about so at the beginning do I know that final action will be about at the beginning do I know that no at the beginning I don't know that so it simply means what whatever transaction I have gave you those are static transactions but actually in the real life what happens these actions there they come one by one yes or no first this action will happen then this action will happen then this action will happen then this action will happen are you getting my point
+
+162
+01:22:24,620 --> 01:22:53,300
+see I will give you the transaction in one I can say immediately the entire transaction I will give you immediately but in the real life what happens in the real life this action will happen then this action will happen then this will happen then this will happen and suddenly some problem comes and suddenly some problem comes okay then then what will happen then the system will abort so this abort remember it's not like it's not like I'm putting this abort okay so at the end I will put the abort it's not like that
+
+163
+01:22:53,690 --> 01:23:24,290
+the things are happening one by one okay all these things are happening one by one and because of some issue either because of this transaction or because of some other issue okay there can be some failure this failure can come in many situations like for example tell me let me give you example let me give you analogy have you have you installed any software whenever you do any software installation what happens whenever you do any software installation so this is a systematic procedure
+
+164
+01:23:24,510 --> 01:23:52,480
+are one by one things will happen yes or no so okay step by step so some step then some step then some step then some step so step number one step number two step number three step number four at this point of time some error can come yes or no at this point of time some failure can come at 99% some failure can come okay or that failure can be maybe maybe disk is full okay suddenly he okay suddenly the software gets no okay that disk is full idiot why did you why did you not check at the beginning
+
+165
+01:23:52,850 --> 01:24:23,700
+but you can notice suddenly he will find okay that disk is full or maybe you can notice maybe some other problem maybe some other problem that permission not granted some maybe some permission yes or no some permission issue correct some antivirus issue some antivirus issue okay there can be some antivirus issue or maybe suddenly maybe power maybe suddenly you press the cancel button or something okay maybe suddenly your operating system hangs suddenly your operating or maybe
+
+166
+01:24:23,960 --> 01:24:55,250
+suddenly your disk I can say disk corrupt it actually happened with me this has happened with me actually when I was in my btech at that time I was doing some work and suddenly my laptop got basically turned off shut down okay and the issue was this that suddenly I was working and because of heat okay because of the heat the hard drive that corrupted we have already seen how the magnetic disk works yes or no
+
+167
+01:24:55,440 --> 01:25:22,210
+some magnetism is there so it is very easy to for it to be corrupt because it works on the based on the principle of magnetism so it is like it is not hard to corrupt it so so this like I can say this corrupt so there can be many more issues power failure yes or no power failure so there can be many more issue or maybe maybe suddenly earthquake can come or maybe you have your I can say you destroyed your laptop
+
+168
+01:25:23,030 --> 01:25:51,280
+okay fire on laptop whatever basically I can say that whatever issue yes or no many issues can come I don't know how many issues okay many issues can come so you can see that or maybe because of transaction also or because of the issue of this transaction also maybe this software is doing something wrong maybe dividing by zero or something okay so you can very easily see that what I'm saying similar thing happens with the transaction so this failure can come because of any situation okay at this point of time
+
+169
+01:25:51,500 --> 01:26:21,300
+this failure can come maybe this failure is coming because of operating system or because of disk or because of this transaction maybe because this transaction is dividing by zero yes or no are you getting my point maybe this transaction is dividing by zero so that is the problem with user this is the I can say fault of the user the programmer this is the fault of the programmer okay so very simple the failure can come because of anything so this is what I am saying that these things will happen one by one remember one by one these things will happen
+
+170
+01:26:21,590 --> 01:26:51,120
+and if they cannot continue if by any chance by any failure if they cannot continue then this abort action is carried out okay this abort action this will be carried out and this action what it will do it will undo all the changes by t tell me is this clear what is commit what is abort is this clear let me know so all these things they will happen one by one one by one one by one and then once these things are over once all the access are done then either the last action will be commit or it will be abort
+
+171
+01:26:52,220 --> 01:27:20,510
+by default, if I do not give you what is the last action, then what is that? Like if I only give you some actions, I don't give you commit or abort, then by default, what is that? That is commit. Okay. So by default, if I don't give you what is the last action by default, that will be commit. So I hope this point is clear. So you can check it out. See, this is the NPTEL Professor Parthapritam Das course. This is the screen show type taken. So by default, transaction assume to execute commit instruction as its last step.
+
+172
+01:27:20,760 --> 01:27:49,290
+So if I if I don't give you the last like if I don't give you whether it is commit or abort if I don't give you that okay So most of the time I will not give you that are you getting my point most of the time this commit operation We will not write at the end most of the time But remember by default if there if there is no last action whether whether your transition is committing or abort then by default is it is committing Okay, but if it does not commit by chance if if there is a failure
+
+173
+01:27:49,720 --> 01:28:16,560
+if there is a failure then definitely we have to write this this is mandatory okay this is mandatory you cannot assume it so this you cannot assume this you have to this you have to I can say write this you have to write you cannot assume it so by default you can assume that it is committing but if there is if it is not successfully completed then this about instruction is the last instruction okay so this is the idea
+
+174
+01:28:18,170 --> 01:28:50,800
+rollback and abort. Yes, these are basically the keywords in SQL. Mavith, both are same in the SQL language. These are the keywords. There is a keyword rollback and there is a keyword abort. So these are the key keywords. Okay. So both are basically same now. So I hope this point is clear. So you can notice rollback and commit these things. So all these things, they will happen one by one. Now, one more thing that I want to discuss that is concurrent execution. This we have already seen and you already know that
+
+175
+01:28:51,020 --> 01:29:20,160
+Concurrently, many things will execute, agree? Whatever you do, many users, they will execute concurrently. They will share the data. For example, you are also booking the same food item or maybe on the Amazon website, as I told you, on the Amazon website, let's assume there is only one mobile. The last piece is available. The last piece of iPhone is available. Now, you also want to purchase, your friend also want to purchase and 10,000 people also want to purchase.
+
+176
+01:29:20,470 --> 01:29:50,010
+then all of them simultaneously they are accessing the same data yes or no the same data item they are accessing at the same time so because of this concurrent execution there are benefits also agree yes or no there are many benefits of concurrent execution because if there is no concurrent execution then we will not use these website this amazon website we will never use if there is no concurrent execution because many crores of people they are simultaneously using this app like if if it happens that
+
+177
+01:29:50,260 --> 01:30:18,840
+first you use then I will use then this type of I can say this type of applications can never work yes or no they can never work so remember concurrency is useful we definitely want concurrency because of throughput because of efficiency because of performance so the reason we want the reason we want concurrency is a performance that is the reason but remember because of concurrent there are many issues when you have concurrent execution of transactions then many issues will come because what will happen
+
+178
+01:30:19,320 --> 01:30:49,240
+very simple that so in this situation you can notice many issues can come whenever you are doing the concurrent execution then we want concurrent execution so that our average response time is reduced so that our utilization is more okay so that our performance is better so that throughput is better so all these things must be better so we want concurrent execution but because of concurrent execution one more thing I want to tell you this is very important thing this
+
+179
+01:30:49,500 --> 01:31:16,890
+that we will assume single processor CPU this is what we are going to assume that we only have single processor like in your operating system how many CPU you assume tell me in the operating system whenever you study some concept of operating system you assume only one CPU right single processor so similarly here also we will assume single processor one CPU is there so that there is only one CPU and many transactions they can run so in this situation concurrent means what
+
+180
+01:31:17,880 --> 01:31:45,320
+Concrete means interleaved. So when I say concrete, it does not mean that two things are happening parallel. Okay, two things are happening parallel, not like that. This is wrong. What happens? Something is happening, then something is happening, then something is happening, then this will happen, then this will happen, then this will happen, something like that. So this is your interleaved. Is this clear? This is called interleaved. I can say, for example, this is transaction T1, this is transaction T2, this is transaction T3. So this is called interleaved execution.
+
+181
+01:31:46,310 --> 01:32:14,880
+because there is only one CPU the reason is very simple the reason is because there is only single CPU we have only one CPU so you can very easily see that this is interleaved execution we won't interleaved execution okay if if you are busy with CPU then you can for example let's assume T1 is busy with CPU okay now in that situation what T2 can do tell me T1 is busy with CPU then what T2 can do it can bring from the disk yes or no
+
+182
+01:32:15,170 --> 01:32:44,700
+T1 is busy with the CPU, so what this T2 can do? It can bring data from the disk. Okay, the T3, what T3 can do? It can bring data from the disk. So these things, so this interleaving is very helpful. Yes or no? When this is busy with something, then these things can do something. For example, okay, if it is busy with CPU, then they can bring from the disk. They can bring the data from the disk. So this is the idea. Okay, now,
+
+183
+01:32:45,630 --> 01:33:13,700
+when your concurrent execution then definitely there will be problem and what are the problems if you do not care then there will be problems there can be many problems and the problems are we have already seen for example as I told you like two people they are booking the same seat that is a problem okay so that is an inconsistency yes or no why that is an inconsistency two people if they book the same seat then why that is inconsistency because this is the IRCTC requirement
+
+184
+01:33:14,850 --> 01:33:43,350
+IRCTC consistency requirement is this that two people should not book the same seat yes or no are you getting my point so this is the database requirement of IRCTC this is the requirement this is not the requirement of transaction this is the requirement of IRCTC IRCTC wants that two people should not book the same seat okay but when the concurrently people are booking the same seat then it is possible if you do not take care of course if you do not take care then it is possible that same seat is booked by
+
+185
+01:33:43,580 --> 01:34:11,900
+multiple people then definitely what will happen the consistency is failed okay the database is inconsistent okay so this is the very simple point now let's see one more example consider this question consider this assume there is a go airline as I told you again you can notice so there is a data item a which is available seats means unreserved available means unreserved okay when I write this available means this I want to say unreserved
+
+186
+01:34:12,380 --> 01:34:41,080
+So these are the unreserved seat and what is B? Data item B, what is that? That is your number of reserved seats. So what is the consistency requirement? Database consistency requirement is A plus B equal to 300, right? Yes or no? This is the database consistency requirement because total number of seats is 300. So this is your database consistency requirement. Now I'm giving you, consider the following two transactions. Two transactions I'm giving you, okay? Two transactions I'm giving you.
+
+187
+01:34:41,980 --> 01:35:11,870
+by two different users. So there is one user who is running this transition and there is another user who is running this transition. So this user, there is a user one. There is a user one who is running this transaction and there is a user to user to is running this transaction. Okay. So there are two transactions and you can notice the database consistency requirement is a plus b equal to third 300 and there's only one CPU. Yes or no. We only have one CPU. Is this clear?
+
+188
+01:35:12,140 --> 01:35:41,600
+we only have one CPU now you tell me now you tell me if you do them serially if you execute them serially will your consistency fail in this in this case in this question in this question if you execute them serially will your consistency fail array you are check it see the students who are saying never okay you will be in shock after sometime okay after sometime you will be in shock you are thinking that serial execution can never lead to
+
+189
+01:35:42,170 --> 01:36:10,220
+inconsistency right yes or no you are thinking many of you are thinking right yes or no that serial execution can never lead to inconsistency that you are thinking okay but i will give you many examples where serial execution will lead to inconsistency okay so please please do this like i am asking you to okay forget about your misconceptions all the previous concept that you know forget about them and do the serial execution and tell me
+
+190
+01:36:10,600 --> 01:36:37,790
+Will your consistency hold? Will your consistency be satisfied if you do the serial execution after T1 you execute T2. So let's assume you execute after T1 you execute T2. Now what will happen? So let's assume you are executing first you are executing T1 then you are executing T2. So first complete T1 I will execute. So this is what I'm doing. Okay, so let's assume I'm executing T1 and then I'm executing T2. So this serial execution I'm doing.
+
+191
+01:36:42,480 --> 01:37:12,440
+this serial execution we are doing so let me so tell me the consistency requirement is this so always assume that initially you are in consistent state yes or no agree or not of course because if you are already in the inconsistent state then what is the fault of these transactions if you are already inconsistent then there is no fault of these transactions so very simple so first of all you understand you assume that initially you are consistent so initially a plus b equal to 300
+
+192
+01:37:12,820 --> 01:37:41,050
+okay initially this is the situation now one more thing you remember okay what he sees what he should see whenever whenever this t2 consistency says what he should see this t2 what he should see he should see 300 that is also consistency remember yes or no that is also consistency that t2 should see 300 that is also consistency because for example let's assume that
+
+193
+01:37:41,360 --> 01:38:10,160
+T2 can see 500. Then there is a problem. T2 can see zero. There is a problem. So if T2 can see some wrong data, that is also a problem. Okay. So very simple. Now I'm asking that if you execute this completely and then you execute this completely, then will there be an issue? So there will be no issue because you are reading a whatever is the value of a, you can assume some value. Some initially value you can assume doesn't matter. Let's assume initially value of a was a.
+
+194
+01:38:10,870 --> 01:38:40,770
+okay then here what will happen here the at this point of time what your value of a will be at this point of time a will be a-50 right correct initially your value is a small a then at this point of time your value will be a-50 and then you can notice at this point of time what your initially your b value was b then at this point of time your b value will be what that will be b plus 50 okay so here you can notice your b value will be b plus 50 so that is your b plus 50
+
+195
+01:38:41,130 --> 01:39:08,750
+Now you tell me. Very simple. So there is no issue. Transaction T1 has executed. There is no issue. And when you see the final value, that will be 300. So there is no issue. So when you see really execute this, or if you do T2 after T1, that is also fine. If you first execute this completely, first you execute this completely, then you execute this completely. That is also fine. Can you see yes or no? Is this clear? There is no inconsistency. You can check it out.
+
+196
+01:39:08,940 --> 01:39:37,270
+okay here also it will be 300 because first you execute this completely then you execute this completely okay so you can just check it out that print a plus b a plus b is 300 so this t2 can see this t2 is just checking what is a plus b okay t2 is just checking what is a plus b he is just only checking a plus b he is not doing anything he is checking a plus b okay he want this data he is reading basically okay he is reading what is a plus b is this point clear
+
+197
+01:39:37,550 --> 01:40:06,950
+so when he when he reads this he will read 300 yes or no so there is no inconsistency you can take it out when you read after this after this transition one when you execute transition t2 sorry after t2 you execute t1 there is no inconsistency yes or no at the end you will have a plus b equal to 30 this user will also see sorry this user will also see 300 and at the end of t1 also the answer will be 300 so clearly you can notice that
+
+198
+01:40:07,340 --> 01:40:37,510
+For the serial execution for the serial execution is fine. Every serial execution is fine. Okay, it will keep our database in consistent state. But what about concurrent execution? Let me give you one concurrent execution. I'm giving you one concrete execution that this is the step number four. And these are the step number five comma six. Okay, let me give you one concurrent execution. So this is a concurrent execution means first these will happen. Then this four will happen.
+
+199
+01:40:37,930 --> 01:41:11,160
+this four will happen okay and then then this five six seven will happen so this is the concurrent execution I am giving you you tell me is there any issue is there any inconsistency five six seven five six seven we will see that Mavith in this example serial execution is fine I am saying in this in this particular example in this particular question Mavith is this clear in this particular question serial execution is fine
+
+200
+01:41:11,760 --> 01:41:43,330
+Whether you do T1 after T2 or T2 after T1, both are fine in this particular question. Now you tell me about this one. So we are executing these, then we are executing these, then we are executing these. So you tell me this consistency requirement, will that be fulfilled? Will that hold? Will that hold the consistency requirement? Will that hold? No, in this situation, you can notice what will happen. There is a big problem. What is the big problem?
+
+201
+01:41:43,640 --> 01:42:13,860
+see at this point of time you tell me what will happen what will happen to the database value of a like initially you can assume something like initially assume a is 100 initially assume b is 200 let's assume initially you can assume something a is 100 b is 200 so tell me what the database value a here that is 50 right yes or no now this user to what he will see this user to what he will see this user to this user to when he reads this
+
+202
+01:42:14,240 --> 01:42:41,900
+So this A will be 50. This B is already 200. So he will see 250. Should he see 250? This user's 2 will see 250 and then he will go away. Yes or no? He will close the website. Agree or not? He will close the website. He will see 250. He will close the website. Then you can do whatever you want. But you can notice the user 2 has already seen the wrong data. Yes or no? The user 2
+
+203
+01:42:42,280 --> 01:43:09,680
+that he has already seen the wrong data is there any problem with this issue is there any problem if user 2 is looking at the wrong data is there any problem user 2 has seen wrong data is there any problem can you give me a practical example where there can be a big problem user 2 has seen wrong data can you give me a practical example like where there is bank transaction yes or no is bank transaction yeah see it reserve for example let's assume
+
+204
+01:43:10,030 --> 01:43:37,510
+this user 2 is thinking yeah stock market there can be big problems for let me give you go classes point of view okay from the go classes point of view let me tell you let me let me give you the example let's assume we say that for example let's assume we say that the course is available okay the course is available you can enroll and due to some glitch due to some issue the user 2 sees that okay course is not available then he will
+
+205
+01:43:38,070 --> 01:44:03,700
+Then he will go away. Yes or no. He will think that, okay, courses are not available. Okay. He will go away. He will enroll somewhere else. Okay. And once you enroll in somewhere else, then after one year, he will come back. Okay. He will come back, but after one year, okay. After wasting some money at, at some other institute, he will come back, but you can notice. Can you see this is the issue? Yes or no. So user two can see 250. That is the issue, but that is the wrong data. Yes or no.
+
+206
+01:44:04,060 --> 01:44:32,610
+So what user 2 is thinking, user 2 is thinking this aeroplane is not good. Okay. The A plus B should be 300. It is 250. Okay. So if they cannot do this, this type of simple calculation, if they cannot do, then they can crash. Yes or no, they can crash anytime. So he will go to Indigo. Yes or no, or maybe he will go to Air India. So very simple that these type of things should not happen. So this is inconsistency. So this user 2, he has seen a wrong data.
+
+207
+01:44:33,000 --> 01:45:01,050
+This 250 which is a wrong data, this wrong data has been seen by user 2. Is this clear? Let me know. So this is an inconsistency that user 2 has seen a wrong data. So I hope you understood this. Please tell me. So this tell me one more thing. Why this issue? Why this problem? Why this problem? The problem is because of concurrency. Yes or no? Because of concurrency, this problem is happening. Concurrent execution.
+
+208
+01:45:01,580 --> 01:45:31,770
+because of concurrent execution this problem is happening you tell me one more thing one more thing I want to ask that is is every concurrent execution bad can I say is every concurrent execution bad of course not some concurrent execution can be good okay but this particular this particular concurrent execution is bad yes or no yes or no this particular concurrent execution is not good okay but there can be some good concurrent executions this particular concurrent execution is not good
+
+209
+01:45:32,750 --> 01:46:03,010
+So what is the concurrent control so in the concurrency we have seen what is the concurrency then what we want to control tell me We have seen what is the concurrency that we have seen then what we want to control We want to control that database must go from one consistent state to another consistent state Yes or no you must go from one consistent state to another consistent state that is your concurrency control I hope this point is clear so for example rule is a equal to be
+
+210
+01:46:03,230 --> 01:46:33,760
+you can check it out i leave this up to you okay this question i leave this up to you you can check it out can i give this as a homework see the answer are already available this is your two transaction t1 t2 and what is the consistency the consistency requirement what is the consistency requirement tell me consistency requirement is a equal to b who will give this can i find it out if they do not give me can i find it out i cannot yes or no this will be given by the
+
+211
+01:46:33,930 --> 01:47:05,710
+developers so this must be given yes or no i cannot find it out this must be given so this this is the consistency requirement this is the this is the consistency requirement in the mind of the developers yes or no consistency this is the consistency requirement in mind of in mind of application dbms developer i can say i can say dbms developer so remember this is already given to you now
+
+212
+01:47:05,950 --> 01:47:35,780
+The question is saying that if you execute T1, then you execute T2. Will this be, will there be any violation? So the answer is no. You can check it out. This is the serial execution. After T1, if you execute T2, there will be no violation here. Okay. The consistency will not violate. Similarly, you can notice if you execute T2, then you execute T1, the consistency will not violate. From the consistent state, you will go to consistent state. Okay. Okay. One more thing. One more thing. See, interesting thing you tell me.
+
+213
+01:47:36,680 --> 01:48:05,460
+i execute t1 then i execute t2 i am going from consistent to consistent okay a equal to b to a equal to b consistent to consistent here i am executing t2 then i am executing t1 i am going from consistent to consistent but but what is happening here i am i am having 250 250 and here i am 150 150 so which is correct serial execution you have serial execution 1 serial execution 2 which is correct both are correct yes or no
+
+214
+01:48:05,800 --> 01:48:34,560
+both are correct we are not saying that we are not saying that every serial execution will give you the same state yes or no here the database state is different here the database state is different we are not saying that that I can say we are not saying that they will give you same we are saying that from consistent you are going to consistent from consistent you are going to consistent okay is this clear it's like this for example here
+
+215
+01:48:35,980 --> 01:49:04,240
+For example, let's from the Amazon point of view, if you purchase first, you're okay. There is only one product. If you purchase first, Amazon is happy. Yes or no. Amazon is also happy if I if I purchase first. So Amazon is happy in both the cases, whether you purchase or I purchase Amazon is happy. But the problem will happen when you and me both both purchase. Yes or no, the problem will happen. Only one piece is there. The problem will happen that we both purchase.
+
+216
+01:49:04,840 --> 01:49:32,670
+or the problem will happen that both of us see that okay that it is not available item is not available item is available but we see that item is not available that is also problem yes or no so that is a loss for amazon so this is a very simple point that you purchase that is also fine i purchase that is also fine but if both of us purchase that is problem if none of us purchase that is also problem okay so are you getting this point so remember this is serial execution
+
+217
+01:49:33,050 --> 01:50:00,710
+from one consistent state you are going to another consistent state and the consistency requirement you already know this is already given to you a equal to b this is the consistency requirement so you can check it out if you execute this then this you are going from consistent to consistent okay execute this then this t2 then t1 consistent to consistent no problem and you can notice this is the problem here yes or no if you do this type of this type of concurrency then
+
+218
+01:50:01,120 --> 01:50:33,110
+from consistent you are going to inconsistent state agree or not this is the inconsistent state so this this concurrent this concurrent execution is bad this is definitely bad but this is good yes or no this concurrent execution is good this concurrent execution this is good so you are going from consistent to consistent so this is fine yes or no so this I can say consistent state so some concurrent execution are good
+
+219
+01:50:33,420 --> 01:51:02,480
+Some concurrent executions are bad. This is bad. Okay. But remember this is very good. There is no problem. So I hope this point is clear. So this is the concurrent control means database must go from one consistent state to another consistent state. Very simple consistency should not lose. Now this is a question that I want to ask is a serial execution always correct. When you do the serial execution is that always correct. This was the question that I wanted to ask.
+
+220
+01:51:03,340 --> 01:51:33,510
+is serial execution always correct whenever you do serial execution will that be always correct does serial execution always preserve database consistency this is my question the answer we will see the answer we will see okay after acid property once we study okay acid property this will clear okay the answer is basically I will tell you the answer but just wait okay so the answer is yes actually but I will tell you why and I will give you
+
+221
+01:51:33,860 --> 01:52:02,600
+why not see the answer can be yes also no also both are possible I will give you standard questions from the olemann book where the answer is no okay I will give you that so but just wait for it basically a serial execution if you do there is no concurrent execution this is a serial execution like first this transition happens then this happens then this happens okay sorry this happens so this is a serial execution so this serial execution will it will it always preserve the consistency
+
+222
+01:52:03,120 --> 01:52:28,820
+will it take your database from consistent state to consistent state initial consistent state and the finally also your database is in consistent state will it always happen that is what we need to see and that is very actually this is a very interesting point that I want to discuss so we will see this okay exact reason in shortly so let's see this now now we will study acid properties this is the topic that we will study so should we take a break
+
+223
+01:52:30,150 --> 01:52:58,100
+Let's take a five-minute break. Okay, just take I can say water break After that, we will start acid properties. These are very important Extremely important properties. Okay, and the crystal clear understanding we should have See, I have seen that many students they have they they know this acid property. What is a what is C? What is I what is this D? Let me tell you most of them don't understand this C comma I they understand a they understand D
+
+224
+01:52:58,420 --> 01:53:29,940
+But most of the people, most of the students, they don't understand CI. This seed, they don't understand and this I, they don't understand. Okay. So after the break, we will just take a five minute break. After that, we will see this acid property in a crystal clear manner. Okay. So let's take a small break. So we will start at 1029. Okay. So actually I want to finish this. So shall we take a class? Okay. After 10 minutes, shall we continue?
+
+225
+01:53:30,380 --> 01:54:01,280
+please tell me okay so let's continue uh so that we can uh we can complete it because else our you know syllabus will get longer okay more classes we will have to take so what should i do okay so uh okay let's continue tomorrow we can start at uh 4 p.m maybe okay tomorrow at 4 p.m we can start so that we can finish by 10 okay because many students they have to
+
+226
+01:54:01,890 --> 01:54:17,890
+go to college in the morning so tomorrow we will start at 4 and finish at 10 but today let's continue okay we will complete this acid property after the break so let's take a small break we will meet at 40 10 40 okay 10 minute break
+
