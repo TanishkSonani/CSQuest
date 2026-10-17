@@ -1,0 +1,4438 @@
+{
+  "version": 1,
+  "episodes": [
+    {
+      "id": "ds:0",
+      "subject": "ds",
+      "unit": 0,
+      "title": "List foundations",
+      "courseName": "Data Structures",
+      "description": "Nodes, access and safe updates. Use a diagram and a small example to justify each answer.",
+      "language": "en-US",
+      "syntheticVoices": true,
+      "speechVersion": 2,
+      "hosts": [
+        {
+          "id": "maya",
+          "name": "Maya",
+          "voice": "af_heart"
+        },
+        {
+          "id": "leo",
+          "name": "Leo",
+          "voice": "am_michael"
+        }
+      ],
+      "topics": [
+        "Choosing a data structure",
+        "Nodes and links",
+        "Arrays versus linked lists",
+        "Traversing a singly linked list",
+        "Inserting list nodes",
+        "Deleting list nodes",
+        "Building a list safely in C"
+      ],
+      "chapters": [
+        {
+          "id": "introduction",
+          "title": "Section introduction",
+          "startTurn": 0,
+          "endTurn": 3
+        },
+        {
+          "id": "topic-0",
+          "title": "Choosing a data structure",
+          "lecture": 0,
+          "startTurn": 4,
+          "endTurn": 7,
+          "lessonIds": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "id": "topic-1",
+          "title": "Nodes and links",
+          "lecture": 1,
+          "startTurn": 8,
+          "endTurn": 12,
+          "lessonIds": [
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "id": "topic-2",
+          "title": "Arrays versus linked lists",
+          "lecture": 2,
+          "startTurn": 13,
+          "endTurn": 17,
+          "lessonIds": [
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "id": "topic-3",
+          "title": "Traversing a singly linked list",
+          "lecture": 3,
+          "startTurn": 18,
+          "endTurn": 22,
+          "lessonIds": [
+            9,
+            10,
+            11
+          ]
+        },
+        {
+          "id": "topic-4",
+          "title": "Inserting list nodes",
+          "lecture": 4,
+          "startTurn": 23,
+          "endTurn": 26,
+          "lessonIds": [
+            12,
+            13,
+            14
+          ]
+        },
+        {
+          "id": "topic-5",
+          "title": "Deleting list nodes",
+          "lecture": 5,
+          "startTurn": 27,
+          "endTurn": 32,
+          "lessonIds": [
+            15,
+            16,
+            17
+          ]
+        },
+        {
+          "id": "topic-6",
+          "title": "Building a list safely in C",
+          "lecture": 6,
+          "startTurn": 33,
+          "endTurn": 36,
+          "lessonIds": [
+            18,
+            19,
+            20
+          ]
+        },
+        {
+          "id": "recap",
+          "title": "Recap and next steps",
+          "startTurn": 37,
+          "endTurn": 40
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "maya",
+          "text": "Maya and Leo here. Our section today is List foundations."
+        },
+        {
+          "speaker": "leo",
+          "text": "Nodes, access and safe updates."
+        },
+        {
+          "speaker": "maya",
+          "text": "Here's what we're working toward: nodes, access and safe updates. Use a diagram and a small example to justify each answer."
+        },
+        {
+          "speaker": "leo",
+          "text": "We'll begin with choosing a data structure and work our way to building a list safely in C."
+        },
+        {
+          "speaker": "leo",
+          "text": "Let's start with choosing a data structure. What do we need to know?"
+        },
+        {
+          "speaker": "maya",
+          "text": "A data structure organizes values so useful operations can be performed. Choose it from the access and update operations the task needs, rather than from how its picture looks."
+        },
+        {
+          "speaker": "leo",
+          "text": "Data means the stored values."
+        },
+        {
+          "speaker": "maya",
+          "text": "An undo history needs the most recent action first, so a stack is a natural contract."
+        },
+        {
+          "speaker": "leo",
+          "text": "That takes us to nodes and links. Where does it fit?"
+        },
+        {
+          "speaker": "maya",
+          "text": "A singly linked node stores a payload and a next link. The head identifies the first node; following next reaches the remaining nodes. NULL denotes no node, not a node with value zero."
+        },
+        {
+          "speaker": "leo",
+          "text": "Payload means the value inside a node."
+        },
+        {
+          "speaker": "leo",
+          "text": "An undo action must use the most recent saved action first. Which contract fits?"
+        },
+        {
+          "speaker": "maya",
+          "text": "A stack removes the most recent insertion."
+        },
+        {
+          "speaker": "maya",
+          "text": "An array stores consecutive elements and computes an indexed location. A linked list reaches an element by following links. Insert costs depend on whether the needed position is already known."
+        },
+        {
+          "speaker": "leo",
+          "text": "Index means a numbered array position."
+        },
+        {
+          "speaker": "leo",
+          "text": "Inserting before array index 1 in four occupied slots shifts three elements."
+        },
+        {
+          "speaker": "maya",
+          "text": "Inserting after a known list node changes two links."
+        },
+        {
+          "speaker": "leo",
+          "text": "Save needed links before overwriting them."
+        },
+        {
+          "speaker": "maya",
+          "text": "A traversal keeps a separate cursor so the head remains usable. Visit each node once, then move the cursor to its next link."
+        },
+        {
+          "speaker": "leo",
+          "text": "Cursor means a temporary traversal reference."
+        },
+        {
+          "speaker": "leo",
+          "text": "A NULL-terminated list stores 3, 6, 9, 12, 15, 18. How many real nodes are reachable?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Count payload nodes; NULL is not an extra node."
+        },
+        {
+          "speaker": "maya",
+          "text": "We end up with 6."
+        },
+        {
+          "speaker": "leo",
+          "text": "How would you explain inserting list nodes to someone meeting it for the first time?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Insertion connects a new initialized node without losing the existing suffix. The head changes when inserting at the front; a known predecessor lets a middle insertion avoid searching."
+        },
+        {
+          "speaker": "leo",
+          "text": "Predecessor means the node before an insertion point."
+        },
+        {
+          "speaker": "maya",
+          "text": "To insert 8 after 3 in 3 -> 6, first set new->next to 6, then set the 3 node next to new."
+        },
+        {
+          "speaker": "maya",
+          "text": "Deletion first repairs the live list, then releases a detached node if its storage was dynamically allocated. Reading a freed node is invalid. The head needs a separate update when removing the first node."
+        },
+        {
+          "speaker": "leo",
+          "text": "Detach means remove a node from the live path."
+        },
+        {
+          "speaker": "leo",
+          "text": "What should be retained before freeing a node during traversal?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Reading fields after free is invalid."
+        },
+        {
+          "speaker": "maya",
+          "text": "So we'd choose Its successor pointer."
+        },
+        {
+          "speaker": "maya",
+          "text": "Updating a local pointer does not necessarily update the caller's head."
+        },
+        {
+          "speaker": "maya",
+          "text": "C node creation and list linking are separate jobs. Allocation can fail; only initialize fields after a successful allocation. A pointer value and the payload of the pointed-to node are different things."
+        },
+        {
+          "speaker": "leo",
+          "text": "Allocation means obtaining storage for a node."
+        },
+        {
+          "speaker": "leo",
+          "text": "A new final node needs next = NULL."
+        },
+        {
+          "speaker": "maya",
+          "text": "Merely allocating it does not make head reach it."
+        },
+        {
+          "speaker": "leo",
+          "text": "Before we leave list foundations, let's connect the pieces."
+        },
+        {
+          "speaker": "maya",
+          "text": "A data structure organizes values so useful operations can be performed. Choose it from the access and update operations the task needs, rather than from how its picture looks."
+        },
+        {
+          "speaker": "leo",
+          "text": "C node creation and list linking are separate jobs. Allocation can fail; only initialize fields after a successful allocation. A pointer value and the payload of the pointed-to node are different things."
+        },
+        {
+          "speaker": "maya",
+          "text": "You can pause here and try the List foundations activities. Pick one idea and see whether you can explain it without the notes."
+        }
+      ],
+      "hash": "872bc4fcc2dc542553799f30475c55f12394da6d34064080341a75c8bcf76903",
+      "estimatedMinutes": 4
+    },
+    {
+      "id": "ds:1",
+      "subject": "ds",
+      "unit": 1,
+      "title": "Recursive lists",
+      "courseName": "Data Structures",
+      "description": "Calls, returned heads and structural updates. Use a diagram and a small example to justify each answer.",
+      "language": "en-US",
+      "syntheticVoices": true,
+      "speechVersion": 2,
+      "hosts": [
+        {
+          "id": "maya",
+          "name": "Maya",
+          "voice": "af_heart"
+        },
+        {
+          "id": "leo",
+          "name": "Leo",
+          "voice": "am_michael"
+        }
+      ],
+      "topics": [
+        "Recursive list printing",
+        "Recursive length and sum",
+        "Recursive append and returned heads",
+        "How a wrong return loses a list",
+        "Removing the first matching node",
+        "Removing every matching node",
+        "Swapping adjacent payloads",
+        "Iterative list reversal",
+        "Recursive list reversal"
+      ],
+      "chapters": [
+        {
+          "id": "introduction",
+          "title": "Section introduction",
+          "startTurn": 0,
+          "endTurn": 3
+        },
+        {
+          "id": "topic-7",
+          "title": "Recursive list printing",
+          "lecture": 7,
+          "startTurn": 4,
+          "endTurn": 9,
+          "lessonIds": [
+            21,
+            22,
+            23
+          ]
+        },
+        {
+          "id": "topic-8",
+          "title": "Recursive length and sum",
+          "lecture": 8,
+          "startTurn": 10,
+          "endTurn": 15,
+          "lessonIds": [
+            24,
+            25,
+            26
+          ]
+        },
+        {
+          "id": "topic-9",
+          "title": "Recursive append and returned heads",
+          "lecture": 9,
+          "startTurn": 16,
+          "endTurn": 18,
+          "lessonIds": [
+            27,
+            28,
+            29
+          ]
+        },
+        {
+          "id": "topic-10",
+          "title": "How a wrong return loses a list",
+          "lecture": 10,
+          "startTurn": 19,
+          "endTurn": 23,
+          "lessonIds": [
+            30,
+            31,
+            32
+          ]
+        },
+        {
+          "id": "topic-11",
+          "title": "Removing the first matching node",
+          "lecture": 11,
+          "startTurn": 24,
+          "endTurn": 27,
+          "lessonIds": [
+            33,
+            34,
+            35
+          ]
+        },
+        {
+          "id": "topic-12",
+          "title": "Removing every matching node",
+          "lecture": 12,
+          "startTurn": 28,
+          "endTurn": 32,
+          "lessonIds": [
+            36,
+            37,
+            38
+          ]
+        },
+        {
+          "id": "topic-13",
+          "title": "Swapping adjacent payloads",
+          "lecture": 13,
+          "startTurn": 33,
+          "endTurn": 35,
+          "lessonIds": [
+            39,
+            40,
+            41
+          ]
+        },
+        {
+          "id": "topic-14",
+          "title": "Iterative list reversal",
+          "lecture": 14,
+          "startTurn": 36,
+          "endTurn": 41,
+          "lessonIds": [
+            42,
+            43,
+            44
+          ]
+        },
+        {
+          "id": "topic-15",
+          "title": "Recursive list reversal",
+          "lecture": 15,
+          "startTurn": 42,
+          "endTurn": 44,
+          "lessonIds": [
+            45,
+            46,
+            47
+          ]
+        },
+        {
+          "id": "recap",
+          "title": "Recap and next steps",
+          "startTurn": 45,
+          "endTurn": 48
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "maya",
+          "text": "Hi, it's Maya. I've got Leo with me for Recursive lists."
+        },
+        {
+          "speaker": "leo",
+          "text": "Calls, returned heads and structural updates."
+        },
+        {
+          "speaker": "maya",
+          "text": "Here's what we're working toward: calls, returned heads and structural updates. Use a diagram and a small example to justify each answer."
+        },
+        {
+          "speaker": "leo",
+          "text": "We'll begin with recursive list printing and work our way to recursive list reversal."
+        },
+        {
+          "speaker": "leo",
+          "text": "That takes us to recursive list printing. Where does it fit?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Recursion separates descent from unwinding. Printing before the recursive call follows head-to-tail order; printing after it produces tail-to-head order. Printing in reverse does not itself change any links."
+        },
+        {
+          "speaker": "leo",
+          "text": "Descent means making a recursive call."
+        },
+        {
+          "speaker": "maya",
+          "text": "On 3 -> 6 -> 9, print-before yields 3,6,9; print-after yields 9,6,3, with the same original links."
+        },
+        {
+          "speaker": "leo",
+          "text": "Updating a local pointer does not necessarily update the caller's head."
+        },
+        {
+          "speaker": "leo",
+          "text": "Save needed links before overwriting them."
+        },
+        {
+          "speaker": "leo",
+          "text": "There's another piece to this: recursive length and sum."
+        },
+        {
+          "speaker": "maya",
+          "text": "The empty list provides a base result. A nonempty call combines one node with the value returned by its suffix: length adds one; sum adds the payload."
+        },
+        {
+          "speaker": "leo",
+          "text": "Suffix result means the answer for the smaller list."
+        },
+        {
+          "speaker": "leo",
+          "text": "Which empty-list sum base result combines correctly with addition?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Zero is the additive identity."
+        },
+        {
+          "speaker": "maya",
+          "text": "So we'd choose 0."
+        },
+        {
+          "speaker": "maya",
+          "text": "Recursive append returns the head of the updated suffix. A caller must store that returned pointer in its next field and return its own node. The top-level caller keeps the returned head."
+        },
+        {
+          "speaker": "leo",
+          "text": "Returned head means the first node of the updated sublist."
+        },
+        {
+          "speaker": "maya",
+          "text": "Appending 99 to 3 -> 6 returns the 3 node and reconnects the chain as 3 -> 6 -> 99."
+        },
+        {
+          "speaker": "maya",
+          "text": "A return statement controls which node a caller can reconnect. In a faulty append that returns p->next instead of p, every caller can end up forwarding the newly appended node and skipping the original prefix."
+        },
+        {
+          "speaker": "leo",
+          "text": "Reachable means visitable from the current head."
+        },
+        {
+          "speaker": "leo",
+          "text": "Why does returning p.next differ from returning p?"
+        },
+        {
+          "speaker": "maya",
+          "text": "The caller reconnects to exactly the returned pointer."
+        },
+        {
+          "speaker": "maya",
+          "text": "We end up with It can omit the current node from the returned path."
+        },
+        {
+          "speaker": "leo",
+          "text": "I want to unpack removing the first matching node next."
+        },
+        {
+          "speaker": "maya",
+          "text": "Removing the first match stops removal immediately after a match. Recursive callers before the match reconnect to its surviving successor; later equal values remain."
+        },
+        {
+          "speaker": "leo",
+          "text": "First occurrence means the earliest matching node from head."
+        },
+        {
+          "speaker": "maya",
+          "text": "Removing the first 2 from 3 -> 2 -> 2 -> 6 leaves 3 -> 2 -> 6."
+        },
+        {
+          "speaker": "maya",
+          "text": "Removing every match must continue into the suffix even after a matching node. Return the updated suffix when deleting this node; return this node after reconnecting it when keeping it."
+        },
+        {
+          "speaker": "leo",
+          "text": "Filter means retain only values satisfying a condition."
+        },
+        {
+          "speaker": "leo",
+          "text": "Which rule distinguishes removing every match from removing the first?"
+        },
+        {
+          "speaker": "maya",
+          "text": "First-match deletion stops removal; all-match filtering continues."
+        },
+        {
+          "speaker": "maya",
+          "text": "So we'd choose Continue into the suffix after a match."
+        },
+        {
+          "speaker": "maya",
+          "text": "Adjacent payload swapping groups positions (0,1), (2,3), and so on. This variant swaps data values inside existing nodes; it does not move node addresses. An unmatched final node remains unchanged."
+        },
+        {
+          "speaker": "leo",
+          "text": "Pair means two adjacent positions."
+        },
+        {
+          "speaker": "maya",
+          "text": "3 -> 6 -> 9 becomes 6 -> 3 -> 9 after one complete pair swap."
+        },
+        {
+          "speaker": "leo",
+          "text": "Let's start with iterative list reversal. What do we need to know?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Iterative reversal maintains a reversed prefix and an untouched suffix. Save the old next link before overwriting it, or the suffix may become unreachable."
+        },
+        {
+          "speaker": "leo",
+          "text": "Reversed prefix means nodes already linked backward."
+        },
+        {
+          "speaker": "leo",
+          "text": "What must be saved before overwriting a forward next link?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Preserve a live route to the untouched suffix."
+        },
+        {
+          "speaker": "maya",
+          "text": "We end up with The old successor if it is still needed."
+        },
+        {
+          "speaker": "maya",
+          "text": "Recursive reversal first obtains the new head of the reversed suffix. Reconnect the old successor back to this node, terminate this node next field, then return the same new head upward."
+        },
+        {
+          "speaker": "leo",
+          "text": "New head means the original tail."
+        },
+        {
+          "speaker": "maya",
+          "text": "Reversing 3 -> 6 returns 6, connects 6 -> 3, and makes the 3 node next NULL."
+        },
+        {
+          "speaker": "leo",
+          "text": "Before we leave recursive lists, let's connect the pieces."
+        },
+        {
+          "speaker": "maya",
+          "text": "Recursion separates descent from unwinding. Printing before the recursive call follows head-to-tail order; printing after it produces tail-to-head order. Printing in reverse does not itself change any links."
+        },
+        {
+          "speaker": "leo",
+          "text": "Recursive reversal first obtains the new head of the reversed suffix. Reconnect the old successor back to this node, terminate this node next field, then return the same new head upward."
+        },
+        {
+          "speaker": "maya",
+          "text": "A useful next step is to revisit recursive list reversal with an example of your own. Keep it small enough to check by hand."
+        }
+      ],
+      "hash": "cb855b99777f65f230d343861abf602a635479ce737bfc036b908e618dad2252",
+      "estimatedMinutes": 5
+    },
+    {
+      "id": "ds:2",
+      "subject": "ds",
+      "unit": 2,
+      "title": "List variations",
+      "courseName": "Data Structures",
+      "description": "Cycles, two-way links and pointer tracing. Use a diagram and a small example to justify each answer.",
+      "language": "en-US",
+      "syntheticVoices": true,
+      "speechVersion": 2,
+      "hosts": [
+        {
+          "id": "maya",
+          "name": "Maya",
+          "voice": "af_heart"
+        },
+        {
+          "id": "leo",
+          "name": "Leo",
+          "voice": "am_michael"
+        }
+      ],
+      "topics": [
+        "Circular linked lists",
+        "Doubly linked lists",
+        "Linked-list trace challenges"
+      ],
+      "chapters": [
+        {
+          "id": "introduction",
+          "title": "Section introduction",
+          "startTurn": 0,
+          "endTurn": 3
+        },
+        {
+          "id": "topic-16",
+          "title": "Circular linked lists",
+          "lecture": 16,
+          "startTurn": 4,
+          "endTurn": 7,
+          "lessonIds": [
+            48,
+            49,
+            50
+          ]
+        },
+        {
+          "id": "topic-17",
+          "title": "Doubly linked lists",
+          "lecture": 17,
+          "startTurn": 8,
+          "endTurn": 13,
+          "lessonIds": [
+            51,
+            52,
+            53
+          ]
+        },
+        {
+          "id": "topic-18",
+          "title": "Linked-list trace challenges",
+          "lecture": 18,
+          "startTurn": 14,
+          "endTurn": 18,
+          "lessonIds": [
+            54,
+            55,
+            56
+          ]
+        },
+        {
+          "id": "recap",
+          "title": "Recap and next steps",
+          "startTurn": 19,
+          "endTurn": 22
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "maya",
+          "text": "Welcome to CSQuest Audio. I'm Maya, here with Leo. This section is called List variations."
+        },
+        {
+          "speaker": "leo",
+          "text": "Cycles, two-way links and pointer tracing."
+        },
+        {
+          "speaker": "maya",
+          "text": "Here's what we're working toward: cycles, two-way links and pointer tracing. Use a diagram and a small example to justify each answer."
+        },
+        {
+          "speaker": "leo",
+          "text": "We'll begin with circular linked lists and work our way to linked-list trace challenges."
+        },
+        {
+          "speaker": "leo",
+          "text": "There's another piece to this: circular linked lists."
+        },
+        {
+          "speaker": "maya",
+          "text": "A nonempty circular list returns to its head instead of reaching NULL. Check for an empty head first, then use a loop that visits once before testing whether the cursor has returned."
+        },
+        {
+          "speaker": "leo",
+          "text": "Cycle means a path that returns to an earlier node."
+        },
+        {
+          "speaker": "maya",
+          "text": "A circle 3 -> 6 -> 9 -> 3 has three nodes; a do-while traversal stops after its third advance."
+        },
+        {
+          "speaker": "leo",
+          "text": "Let's spend a moment on doubly linked lists."
+        },
+        {
+          "speaker": "maya",
+          "text": "A doubly linked node has both next and prev fields. An insertion or deletion must leave adjacent nodes consistent in both directions. Endpoints use NULL where no neighbor exists."
+        },
+        {
+          "speaker": "leo",
+          "text": "prev means reference to the preceding node."
+        },
+        {
+          "speaker": "leo",
+          "text": "What must be saved before overwriting a forward next link?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Preserve a live route to the untouched suffix."
+        },
+        {
+          "speaker": "maya",
+          "text": "So we'd choose The old successor if it is still needed."
+        },
+        {
+          "speaker": "maya",
+          "text": "A pointer trace follows references, not the numbers stored in nodes. Changing a payload leaves reachability intact; changing a next link can skip a suffix or join two lists."
+        },
+        {
+          "speaker": "leo",
+          "text": "Identity means the same node even after a payload changes."
+        },
+        {
+          "speaker": "leo",
+          "text": "With 3 -> 6 -> 9, head->next = head->next->next skips the 6 node."
+        },
+        {
+          "speaker": "maya",
+          "text": "That statement alone does not free it."
+        },
+        {
+          "speaker": "leo",
+          "text": "Updating a local pointer does not necessarily update the caller's head."
+        },
+        {
+          "speaker": "leo",
+          "text": "Before we leave list variations, let's connect the pieces."
+        },
+        {
+          "speaker": "maya",
+          "text": "A nonempty circular list returns to its head instead of reaching NULL. Check for an empty head first, then use a loop that visits once before testing whether the cursor has returned."
+        },
+        {
+          "speaker": "leo",
+          "text": "A pointer trace follows references, not the numbers stored in nodes. Changing a payload leaves reachability intact; changing a next link can skip a suffix or join two lists."
+        },
+        {
+          "speaker": "maya",
+          "text": "We've covered a lot in list variations. You don't have to remember every detail at once; start by trying one of the examples yourself."
+        }
+      ],
+      "hash": "503802b585906a41c332ff6beeca97788b959403ea73003f2f056292371c7d3f",
+      "estimatedMinutes": 3
+    },
+    {
+      "id": "ds:3",
+      "subject": "ds",
+      "unit": 3,
+      "title": "Logs and growth",
+      "courseName": "Data Structures",
+      "description": "Inverse powers and asymptotic comparisons. Use a diagram and a small example to justify each answer.",
+      "language": "en-US",
+      "syntheticVoices": true,
+      "speechVersion": 2,
+      "hosts": [
+        {
+          "id": "maya",
+          "name": "Maya",
+          "voice": "af_heart"
+        },
+        {
+          "id": "leo",
+          "name": "Leo",
+          "voice": "am_michael"
+        }
+      ],
+      "topics": [
+        "Logarithms as inverse powers",
+        "Simplifying logarithmic expressions",
+        "Logarithm graphs and inverses",
+        "Counting work before comparing speed",
+        "Big O and big Omega bounds",
+        "Tight Theta bounds",
+        "Growth and the power of doubling",
+        "Comparing different functions",
+        "Strict little-o and little-omega",
+        "Asymptotic notation describes sets",
+        "Growth comparison puzzles"
+      ],
+      "chapters": [
+        {
+          "id": "introduction",
+          "title": "Section introduction",
+          "startTurn": 0,
+          "endTurn": 3
+        },
+        {
+          "id": "topic-19",
+          "title": "Logarithms as inverse powers",
+          "lecture": 19,
+          "startTurn": 4,
+          "endTurn": 7,
+          "lessonIds": [
+            57,
+            58,
+            59
+          ]
+        },
+        {
+          "id": "topic-20",
+          "title": "Simplifying logarithmic expressions",
+          "lecture": 20,
+          "startTurn": 8,
+          "endTurn": 13,
+          "lessonIds": [
+            60,
+            61,
+            62
+          ]
+        },
+        {
+          "id": "topic-21",
+          "title": "Logarithm graphs and inverses",
+          "lecture": 21,
+          "startTurn": 14,
+          "endTurn": 16,
+          "lessonIds": [
+            63,
+            64,
+            65
+          ]
+        },
+        {
+          "id": "topic-22",
+          "title": "Counting work before comparing speed",
+          "lecture": 22,
+          "startTurn": 17,
+          "endTurn": 21,
+          "lessonIds": [
+            66,
+            67,
+            68
+          ]
+        },
+        {
+          "id": "topic-23",
+          "title": "Big O and big Omega bounds",
+          "lecture": 23,
+          "startTurn": 22,
+          "endTurn": 26,
+          "lessonIds": [
+            69,
+            70,
+            71
+          ]
+        },
+        {
+          "id": "topic-24",
+          "title": "Tight Theta bounds",
+          "lecture": 24,
+          "startTurn": 27,
+          "endTurn": 31,
+          "lessonIds": [
+            72,
+            73,
+            74
+          ]
+        },
+        {
+          "id": "topic-25",
+          "title": "Growth and the power of doubling",
+          "lecture": 25,
+          "startTurn": 32,
+          "endTurn": 34,
+          "lessonIds": [
+            75,
+            76,
+            77
+          ]
+        },
+        {
+          "id": "topic-26",
+          "title": "Comparing different functions",
+          "lecture": 26,
+          "startTurn": 35,
+          "endTurn": 40,
+          "lessonIds": [
+            78,
+            79,
+            80
+          ]
+        },
+        {
+          "id": "topic-27",
+          "title": "Strict little-o and little-omega",
+          "lecture": 27,
+          "startTurn": 41,
+          "endTurn": 44,
+          "lessonIds": [
+            81,
+            82,
+            83
+          ]
+        },
+        {
+          "id": "topic-28",
+          "title": "Asymptotic notation describes sets",
+          "lecture": 28,
+          "startTurn": 45,
+          "endTurn": 50,
+          "lessonIds": [
+            84,
+            85,
+            86
+          ]
+        },
+        {
+          "id": "topic-29",
+          "title": "Growth comparison puzzles",
+          "lecture": 29,
+          "startTurn": 51,
+          "endTurn": 54,
+          "lessonIds": [
+            87,
+            88,
+            89
+          ]
+        },
+        {
+          "id": "recap",
+          "title": "Recap and next steps",
+          "startTurn": 55,
+          "endTurn": 58
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "maya",
+          "text": "Hi, I'm Maya. Leo's with me, and today's section is called Logs and growth."
+        },
+        {
+          "speaker": "leo",
+          "text": "Inverse powers and asymptotic comparisons."
+        },
+        {
+          "speaker": "maya",
+          "text": "Here's what we're working toward: inverse powers and asymptotic comparisons. Use a diagram and a small example to justify each answer."
+        },
+        {
+          "speaker": "leo",
+          "text": "We'll begin with logarithms as inverse powers and work our way to growth comparison puzzles."
+        },
+        {
+          "speaker": "leo",
+          "text": "Let's spend a moment on logarithms as inverse powers."
+        },
+        {
+          "speaker": "maya",
+          "text": "log_b(x) is the exponent y for which b^y=x. For real logarithms, x must be positive and b must be positive and different from one."
+        },
+        {
+          "speaker": "leo",
+          "text": "Base means the repeated multiplication factor."
+        },
+        {
+          "speaker": "maya",
+          "text": "log_2(8)=3 because 2^3=8. log_2(1)=0 because 2^0=1."
+        },
+        {
+          "speaker": "leo",
+          "text": "How would you explain simplifying logarithmic expressions to someone meeting it for the first time?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Log rules simplify multiplication and powers only when their domain conditions hold. A logarithm of a sum cannot generally be split into a sum of logarithms."
+        },
+        {
+          "speaker": "leo",
+          "text": "Product rule means addition of logs."
+        },
+        {
+          "speaker": "leo",
+          "text": "Which is the correct logarithm domain for real logs?"
+        },
+        {
+          "speaker": "maya",
+          "text": "These are the real-domain conditions."
+        },
+        {
+          "speaker": "maya",
+          "text": "So we'd choose Argument positive; base positive and not 1."
+        },
+        {
+          "speaker": "maya",
+          "text": "Every real logarithm graph has domain x>0 and passes through (1,0). A base above one gives an increasing graph; a base between zero and one gives a decreasing graph."
+        },
+        {
+          "speaker": "leo",
+          "text": "Domain means allowed input values."
+        },
+        {
+          "speaker": "maya",
+          "text": "At x=4, log_2(x)=2 while log_(1/2)(x)=-2."
+        },
+        {
+          "speaker": "maya",
+          "text": "A running-time model counts stated primitive operations as a function of input size. Measured seconds also depend on hardware and implementation; asymptotic growth removes constant factors and lower-order details."
+        },
+        {
+          "speaker": "leo",
+          "text": "Input size means the quantity being varied."
+        },
+        {
+          "speaker": "leo",
+          "text": "For nonnegative functions, which statement describes Big O?"
+        },
+        {
+          "speaker": "maya",
+          "text": "The inequality holds after a fixed threshold."
+        },
+        {
+          "speaker": "maya",
+          "text": "We end up with An eventual constant-factor upper bound."
+        },
+        {
+          "speaker": "leo",
+          "text": "We also need to talk about big O and big Omega bounds."
+        },
+        {
+          "speaker": "maya",
+          "text": "For nonnegative functions, Big O is an eventual upper bound and Big Omega is an eventual lower bound, allowing a fixed positive constant factor. A bound need not be tight."
+        },
+        {
+          "speaker": "leo",
+          "text": "O(g) means f(n)<=c g(n) eventually."
+        },
+        {
+          "speaker": "leo",
+          "text": "For n>=1, 3n <= 3n+2 <= 5n."
+        },
+        {
+          "speaker": "maya",
+          "text": "The same function is both O(n) and Omega(n)."
+        },
+        {
+          "speaker": "maya",
+          "text": "Theta is a tight growth class: a function has both an eventual positive lower bound and an eventual positive upper bound using the same comparison function. Constants and lower-order terms do not change this class."
+        },
+        {
+          "speaker": "leo",
+          "text": "Theta(g) means the intersection of O(g) and Omega(g)."
+        },
+        {
+          "speaker": "leo",
+          "text": "At n=3, evaluate 3n^2+2n."
+        },
+        {
+          "speaker": "maya",
+          "text": "Sum the quadratic and linear terms."
+        },
+        {
+          "speaker": "maya",
+          "text": "So we'd choose 33."
+        },
+        {
+          "speaker": "maya",
+          "text": "An eventual growth comparison is about increasing input size, not one numerical sample. Logarithmic, linear, polynomial and exponential functions can separate sharply as n grows."
+        },
+        {
+          "speaker": "leo",
+          "text": "log_2(n) means work that rises once per doubling."
+        },
+        {
+          "speaker": "maya",
+          "text": "At n=8, log_2(n)=3, n=8, n log_2(n)=24, n^2=64 and 2^n=256."
+        },
+        {
+          "speaker": "leo",
+          "text": "There's another piece to this: comparing different functions."
+        },
+        {
+          "speaker": "maya",
+          "text": "Compare growth families using ratios or justified inequalities."
+        },
+        {
+          "speaker": "leo",
+          "text": "Polynomial means a fixed power such as n^2."
+        },
+        {
+          "speaker": "leo",
+          "text": "For n=16, calculate log_2(n)."
+        },
+        {
+          "speaker": "maya",
+          "text": "The input is a power of two."
+        },
+        {
+          "speaker": "maya",
+          "text": "We end up with 4."
+        },
+        {
+          "speaker": "maya",
+          "text": "Little-o is a strict slower-growth relation, and little-omega is a strict faster-growth relation. For eventually positive comparison functions, limiting ratios of zero or infinity give useful sufficient tests."
+        },
+        {
+          "speaker": "leo",
+          "text": "Strict slower means little-o."
+        },
+        {
+          "speaker": "leo",
+          "text": "n/n^2=1/n tends to zero, while 2n/n=2 does not."
+        },
+        {
+          "speaker": "maya",
+          "text": "Thus n=o(n^2), but 2n is not o(n)."
+        },
+        {
+          "speaker": "maya",
+          "text": "O(g) and Omega(g) denote sets of functions satisfying a bound. Writing f in O(g) expresses membership; it does not say f and g are the same function or that every member has tight growth g."
+        },
+        {
+          "speaker": "leo",
+          "text": "Membership means a function belongs to a bound class."
+        },
+        {
+          "speaker": "leo",
+          "text": "A scan takes T(n)=3n+2 operations. At n=7, how many operations occur?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Substitute the stated input size."
+        },
+        {
+          "speaker": "maya",
+          "text": "So we'd choose 23."
+        },
+        {
+          "speaker": "maya",
+          "text": "A finite sample graph cannot prove an asymptotic bound."
+        },
+        {
+          "speaker": "leo",
+          "text": "I want to unpack growth comparison puzzles next."
+        },
+        {
+          "speaker": "maya",
+          "text": "Inverse powers and logarithms can simplify a growth expression. Use the same stated base, keep arguments positive, and compare the resulting functions rather than their visual complexity."
+        },
+        {
+          "speaker": "leo",
+          "text": "Inverse pair means b^(log_b x)=x."
+        },
+        {
+          "speaker": "maya",
+          "text": "For n>1, 2^(log_2(log_2(n)))=log_2(n), not n."
+        },
+        {
+          "speaker": "leo",
+          "text": "Before we leave logs and growth, let's connect the pieces."
+        },
+        {
+          "speaker": "maya",
+          "text": "log_b(x) is the exponent y for which b^y=x. For real logarithms, x must be positive and b must be positive and different from one."
+        },
+        {
+          "speaker": "leo",
+          "text": "Inverse powers and logarithms can simplify a growth expression. Use the same stated base, keep arguments positive, and compare the resulting functions rather than their visual complexity."
+        },
+        {
+          "speaker": "maya",
+          "text": "Try explaining growth comparison puzzles in your own words. If you get stuck, that chapter is a good place to listen again."
+        }
+      ],
+      "hash": "40377f3220909692bcfdd35fb0fcf64063a52ea756518db4feafc08881964c14",
+      "estimatedMinutes": 5
+    },
+    {
+      "id": "ds:4",
+      "subject": "ds",
+      "unit": 4,
+      "title": "Counting algorithms",
+      "courseName": "Data Structures",
+      "description": "Loop work and input-case reasoning. Use a diagram and a small example to justify each answer.",
+      "language": "en-US",
+      "syntheticVoices": true,
+      "speechVersion": 2,
+      "hosts": [
+        {
+          "id": "maya",
+          "name": "Maya",
+          "voice": "af_heart"
+        },
+        {
+          "id": "leo",
+          "name": "Leo",
+          "voice": "am_michael"
+        }
+      ],
+      "topics": [
+        "Counting loop iterations",
+        "Dependent and nested loops",
+        "Best, worst and average search",
+        "Cases and bounds answer different questions",
+        "Reasoning from best and worst bounds",
+        "Dominant terms and transitive bounds",
+        "Transforming growth expressions"
+      ],
+      "chapters": [
+        {
+          "id": "introduction",
+          "title": "Section introduction",
+          "startTurn": 0,
+          "endTurn": 3
+        },
+        {
+          "id": "topic-30",
+          "title": "Counting loop iterations",
+          "lecture": 30,
+          "startTurn": 4,
+          "endTurn": 8,
+          "lessonIds": [
+            90,
+            91,
+            92
+          ]
+        },
+        {
+          "id": "topic-31",
+          "title": "Dependent and nested loops",
+          "lecture": 31,
+          "startTurn": 9,
+          "endTurn": 14,
+          "lessonIds": [
+            93,
+            94,
+            95
+          ]
+        },
+        {
+          "id": "topic-32",
+          "title": "Best, worst and average search",
+          "lecture": 32,
+          "startTurn": 15,
+          "endTurn": 18,
+          "lessonIds": [
+            96,
+            97,
+            98
+          ]
+        },
+        {
+          "id": "topic-33",
+          "title": "Cases and bounds answer different questions",
+          "lecture": 33,
+          "startTurn": 19,
+          "endTurn": 25,
+          "lessonIds": [
+            99,
+            100,
+            101
+          ]
+        },
+        {
+          "id": "topic-34",
+          "title": "Reasoning from best and worst bounds",
+          "lecture": 34,
+          "startTurn": 26,
+          "endTurn": 29,
+          "lessonIds": [
+            102,
+            103,
+            104
+          ]
+        },
+        {
+          "id": "topic-35",
+          "title": "Dominant terms and transitive bounds",
+          "lecture": 35,
+          "startTurn": 30,
+          "endTurn": 34,
+          "lessonIds": [
+            105,
+            106,
+            107
+          ]
+        },
+        {
+          "id": "topic-36",
+          "title": "Transforming growth expressions",
+          "lecture": 36,
+          "startTurn": 35,
+          "endTurn": 37,
+          "lessonIds": [
+            108,
+            109,
+            110
+          ]
+        },
+        {
+          "id": "recap",
+          "title": "Recap and next steps",
+          "startTurn": 38,
+          "endTurn": 41
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "maya",
+          "text": "Welcome back. Maya here, with Leo. We've reached the section called Counting algorithms."
+        },
+        {
+          "speaker": "leo",
+          "text": "Loop work and input-case reasoning."
+        },
+        {
+          "speaker": "maya",
+          "text": "Here's what we're working toward: loop work and input-case reasoning. Use a diagram and a small example to justify each answer."
+        },
+        {
+          "speaker": "leo",
+          "text": "We'll begin with counting loop iterations and work our way to transforming growth expressions."
+        },
+        {
+          "speaker": "leo",
+          "text": "How would you explain counting loop iterations to someone meeting it for the first time?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Count the actual values visited by a loop before choosing a growth class. Additive updates usually produce linear counts; multiplicative updates from a positive initial value often produce logarithmic counts."
+        },
+        {
+          "speaker": "leo",
+          "text": "Iteration means one execution of the loop body."
+        },
+        {
+          "speaker": "leo",
+          "text": "For i=1; i<16; i*=2, the body sees 1,2,4,8, so it runs four times."
+        },
+        {
+          "speaker": "maya",
+          "text": "Starting i at zero would never progress."
+        },
+        {
+          "speaker": "leo",
+          "text": "I want to unpack dependent and nested loops next."
+        },
+        {
+          "speaker": "maya",
+          "text": "Multiply loop lengths only when they are independent. If the inner length depends on the outer index, sum those lengths. A shared cursor that is never reset may advance only n times in total."
+        },
+        {
+          "speaker": "leo",
+          "text": "Dependent range means an inner length controlled by the outer value."
+        },
+        {
+          "speaker": "leo",
+          "text": "A loop starts i=0 and repeatedly sets i*=2 while i<n for positive n. What happens?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Zero doubled remains zero."
+        },
+        {
+          "speaker": "maya",
+          "text": "So we'd choose It never progresses toward termination."
+        },
+        {
+          "speaker": "maya",
+          "text": "A search cost depends on where the target occurs or whether it is absent. Best and worst choose inputs of the same size; average cost additionally requires a probability model."
+        },
+        {
+          "speaker": "leo",
+          "text": "Best means smallest cost among size-n inputs."
+        },
+        {
+          "speaker": "leo",
+          "text": "Linear search of four distinct entries costs 1,2,3,4 comparisons for equally likely successful positions: average 2.5."
+        },
+        {
+          "speaker": "maya",
+          "text": "An absent target costs four."
+        },
+        {
+          "speaker": "maya",
+          "text": "Input-case selection and asymptotic bounds answer separate questions. A best-case, worst-case or expected-cost function may each have an upper bound, lower bound and tight bound."
+        },
+        {
+          "speaker": "leo",
+          "text": "Case means how inputs of one size are selected."
+        },
+        {
+          "speaker": "leo",
+          "text": "Which defines worst case at a fixed input size?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Case selection chooses an input or distribution; Big O is a separate bound."
+        },
+        {
+          "speaker": "maya",
+          "text": "We end up with The maximum cost among inputs of that size."
+        },
+        {
+          "speaker": "maya",
+          "text": "A finite sample graph cannot prove an asymptotic bound."
+        },
+        {
+          "speaker": "maya",
+          "text": "Count operations and state the input case."
+        },
+        {
+          "speaker": "leo",
+          "text": "Let's start with reasoning from best and worst bounds. What do we need to know?"
+        },
+        {
+          "speaker": "maya",
+          "text": "A worst-case ceiling limits every input of that size, and a best-case floor applies to every input of that size. These bounds alone need not determine a tight average-case class."
+        },
+        {
+          "speaker": "leo",
+          "text": "Ceiling means an upper guarantee."
+        },
+        {
+          "speaker": "maya",
+          "text": "If every size-n input costs between n and n^2 operations, both n and n^2 are possible costs; no unique expected cost follows."
+        },
+        {
+          "speaker": "maya",
+          "text": "For a polynomial with positive leading coefficient, the highest power determines its tight asymptotic class. Bound constants still need to work beyond one fixed threshold; a chain of valid upper bounds is transitive."
+        },
+        {
+          "speaker": "leo",
+          "text": "Leading term means the term with highest power."
+        },
+        {
+          "speaker": "leo",
+          "text": "For nonnegative functions, which statement describes Big O?"
+        },
+        {
+          "speaker": "maya",
+          "text": "The inequality holds after a fixed threshold."
+        },
+        {
+          "speaker": "maya",
+          "text": "So we'd choose An eventual constant-factor upper bound."
+        },
+        {
+          "speaker": "maya",
+          "text": "Inverse powers and logarithms can simplify a growth expression. Use the same stated base, keep arguments positive, and compare the resulting functions rather than their visual complexity."
+        },
+        {
+          "speaker": "leo",
+          "text": "Inverse pair means b^(log_b x)=x."
+        },
+        {
+          "speaker": "maya",
+          "text": "For n>1, 2^(log_2(log_2(n)))=log_2(n), not n."
+        },
+        {
+          "speaker": "leo",
+          "text": "Before we leave counting algorithms, let's connect the pieces."
+        },
+        {
+          "speaker": "maya",
+          "text": "Count the actual values visited by a loop before choosing a growth class. Additive updates usually produce linear counts; multiplicative updates from a positive initial value often produce logarithmic counts."
+        },
+        {
+          "speaker": "leo",
+          "text": "Inverse powers and logarithms can simplify a growth expression. Use the same stated base, keep arguments positive, and compare the resulting functions rather than their visual complexity."
+        },
+        {
+          "speaker": "maya",
+          "text": "When you try a problem on transforming growth expressions, talk through why each step works. That's a useful check on what has clicked."
+        }
+      ],
+      "hash": "05853e807308fc1bd90dfdc9f9c1682797a2885f663394d430ddecf015b2f72e",
+      "estimatedMinutes": 4
+    },
+    {
+      "id": "ds:5",
+      "subject": "ds",
+      "unit": 5,
+      "title": "Stacks and queues",
+      "courseName": "Data Structures",
+      "description": "Endpoint contracts and operation traces. Use a diagram and a small example to justify each answer.",
+      "language": "en-US",
+      "syntheticVoices": true,
+      "speechVersion": 2,
+      "hosts": [
+        {
+          "id": "maya",
+          "name": "Maya",
+          "voice": "af_heart"
+        },
+        {
+          "id": "leo",
+          "name": "Leo",
+          "voice": "am_michael"
+        }
+      ],
+      "topics": [
+        "Stacks and possible pop sequences",
+        "Implementing a stack",
+        "Queues and first-in first-out"
+      ],
+      "chapters": [
+        {
+          "id": "introduction",
+          "title": "Section introduction",
+          "startTurn": 0,
+          "endTurn": 3
+        },
+        {
+          "id": "topic-37",
+          "title": "Stacks and possible pop sequences",
+          "lecture": 37,
+          "startTurn": 4,
+          "endTurn": 9,
+          "lessonIds": [
+            111,
+            112,
+            113
+          ]
+        },
+        {
+          "id": "topic-38",
+          "title": "Implementing a stack",
+          "lecture": 38,
+          "startTurn": 10,
+          "endTurn": 15,
+          "lessonIds": [
+            114,
+            115,
+            116
+          ]
+        },
+        {
+          "id": "topic-39",
+          "title": "Queues and first-in first-out",
+          "lecture": 39,
+          "startTurn": 16,
+          "endTurn": 18,
+          "lessonIds": [
+            117,
+            118,
+            119
+          ]
+        },
+        {
+          "id": "recap",
+          "title": "Recap and next steps",
+          "startTurn": 19,
+          "endTurn": 22
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "maya",
+          "text": "I'm Maya, and this is CSQuest Audio. Today, Leo and I are taking on Stacks and queues."
+        },
+        {
+          "speaker": "leo",
+          "text": "Endpoint contracts and operation traces."
+        },
+        {
+          "speaker": "maya",
+          "text": "Here's what we're working toward: endpoint contracts and operation traces. Use a diagram and a small example to justify each answer."
+        },
+        {
+          "speaker": "leo",
+          "text": "We'll begin with stacks and possible pop sequences and work our way to queues and first-in first-out."
+        },
+        {
+          "speaker": "leo",
+          "text": "I want to unpack stacks and possible pop sequences next."
+        },
+        {
+          "speaker": "maya",
+          "text": "A stack exposes its most recently inserted item. With a fixed sequential input, a proposed pop sequence is possible only when each requested item can become the top through allowed pushes and pops."
+        },
+        {
+          "speaker": "leo",
+          "text": "LIFO means last in, first out."
+        },
+        {
+          "speaker": "leo",
+          "text": "For input 1,2,3, output 2,1,3 is possible."
+        },
+        {
+          "speaker": "maya",
+          "text": "Output 3,1,2 is blocked by 2 after popping 3."
+        },
+        {
+          "speaker": "leo",
+          "text": "A stack removes the newest item; a queue removes the oldest waiting item."
+        },
+        {
+          "speaker": "leo",
+          "text": "Now for implementing a stack. What's the key distinction?"
+        },
+        {
+          "speaker": "maya",
+          "text": "An array stack tracks its last occupied index; here an empty stack has top=-1. A linked stack can use head as its top. Both implementations must check empty or full conditions before unsafe access."
+        },
+        {
+          "speaker": "leo",
+          "text": "Capacity means the number of allocated array slots."
+        },
+        {
+          "speaker": "leo",
+          "text": "Which endpoint does a stack pop use?"
+        },
+        {
+          "speaker": "maya",
+          "text": "A stack is LIFO."
+        },
+        {
+          "speaker": "maya",
+          "text": "So we'd choose The most recent inserted item."
+        },
+        {
+          "speaker": "maya",
+          "text": "A queue removes the oldest waiting item: enqueue adds at the rear and dequeue removes at the front. The contract differs from a stack regardless of the chosen implementation."
+        },
+        {
+          "speaker": "leo",
+          "text": "FIFO means first in, first out."
+        },
+        {
+          "speaker": "maya",
+          "text": "Enqueue 3,6,9, then dequeue once: 3 leaves and the queue is 6,9 from front to rear."
+        },
+        {
+          "speaker": "leo",
+          "text": "Before we leave stacks and queues, let's connect the pieces."
+        },
+        {
+          "speaker": "maya",
+          "text": "A stack exposes its most recently inserted item. With a fixed sequential input, a proposed pop sequence is possible only when each requested item can become the top through allowed pushes and pops."
+        },
+        {
+          "speaker": "leo",
+          "text": "A queue removes the oldest waiting item: enqueue adds at the rear and dequeue removes at the front. The contract differs from a stack regardless of the chosen implementation."
+        },
+        {
+          "speaker": "maya",
+          "text": "Take a small example of stacks and possible pop sequences and work it out before looking at the explanation. Then compare your reasoning."
+        }
+      ],
+      "hash": "2d39a21cac504535d2c48e653cf7ec887bb89ecf1eced1f1a2a4146d53a73cff",
+      "estimatedMinutes": 2
+    },
+    {
+      "id": "ds:6",
+      "subject": "ds",
+      "unit": 6,
+      "title": "Queue and expression mechanics",
+      "courseName": "Data Structures",
+      "description": "Buffers, transfers and operator stacks. Use a diagram and a small example to justify each answer.",
+      "language": "en-US",
+      "syntheticVoices": true,
+      "speechVersion": 2,
+      "hosts": [
+        {
+          "id": "maya",
+          "name": "Maya",
+          "voice": "af_heart"
+        },
+        {
+          "id": "leo",
+          "name": "Leo",
+          "voice": "am_michael"
+        }
+      ],
+      "topics": [
+        "Circular array queues",
+        "Queue index conventions",
+        "Linked queues with two endpoints",
+        "A queue made from two stacks",
+        "A stack made from two queues",
+        "Bracket matching and shared stack storage",
+        "Infix, prefix and postfix expressions",
+        "Expression processing with a stack",
+        "Stack and queue operation challenges",
+        "Reasoning about buffered operations"
+      ],
+      "chapters": [
+        {
+          "id": "introduction",
+          "title": "Section introduction",
+          "startTurn": 0,
+          "endTurn": 3
+        },
+        {
+          "id": "topic-40",
+          "title": "Circular array queues",
+          "lecture": 40,
+          "startTurn": 4,
+          "endTurn": 7,
+          "lessonIds": [
+            120,
+            121,
+            122
+          ]
+        },
+        {
+          "id": "topic-41",
+          "title": "Queue index conventions",
+          "lecture": 41,
+          "startTurn": 8,
+          "endTurn": 14,
+          "lessonIds": [
+            123,
+            124,
+            125
+          ]
+        },
+        {
+          "id": "topic-42",
+          "title": "Linked queues with two endpoints",
+          "lecture": 42,
+          "startTurn": 15,
+          "endTurn": 18,
+          "lessonIds": [
+            126,
+            127,
+            128
+          ]
+        },
+        {
+          "id": "topic-43",
+          "title": "A queue made from two stacks",
+          "lecture": 43,
+          "startTurn": 19,
+          "endTurn": 23,
+          "lessonIds": [
+            129,
+            130,
+            131
+          ]
+        },
+        {
+          "id": "topic-44",
+          "title": "A stack made from two queues",
+          "lecture": 44,
+          "startTurn": 24,
+          "endTurn": 27,
+          "lessonIds": [
+            132,
+            133,
+            134
+          ]
+        },
+        {
+          "id": "topic-45",
+          "title": "Bracket matching and shared stack storage",
+          "lecture": 45,
+          "startTurn": 28,
+          "endTurn": 31,
+          "lessonIds": [
+            135,
+            136,
+            137
+          ]
+        },
+        {
+          "id": "topic-46",
+          "title": "Infix, prefix and postfix expressions",
+          "lecture": 46,
+          "startTurn": 32,
+          "endTurn": 35,
+          "lessonIds": [
+            138,
+            139,
+            140
+          ]
+        },
+        {
+          "id": "topic-47",
+          "title": "Expression processing with a stack",
+          "lecture": 47,
+          "startTurn": 36,
+          "endTurn": 41,
+          "lessonIds": [
+            141,
+            142,
+            143
+          ]
+        },
+        {
+          "id": "topic-48",
+          "title": "Stack and queue operation challenges",
+          "lecture": 48,
+          "startTurn": 42,
+          "endTurn": 44,
+          "lessonIds": [
+            144,
+            145,
+            146
+          ]
+        },
+        {
+          "id": "topic-49",
+          "title": "Reasoning about buffered operations",
+          "lecture": 49,
+          "startTurn": 45,
+          "endTurn": 50,
+          "lessonIds": [
+            147,
+            148,
+            149
+          ]
+        },
+        {
+          "id": "recap",
+          "title": "Recap and next steps",
+          "startTurn": 51,
+          "endTurn": 54
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "maya",
+          "text": "Maya and Leo here. Our section today is Queue and expression mechanics."
+        },
+        {
+          "speaker": "leo",
+          "text": "Buffers, transfers and operator stacks."
+        },
+        {
+          "speaker": "maya",
+          "text": "Here's what we're working toward: buffers, transfers and operator stacks. Use a diagram and a small example to justify each answer."
+        },
+        {
+          "speaker": "leo",
+          "text": "We'll begin with circular array queues and work our way to reasoning about buffered operations."
+        },
+        {
+          "speaker": "leo",
+          "text": "Now for circular array queues. What's the key distinction?"
+        },
+        {
+          "speaker": "maya",
+          "text": "A circular queue reuses a fixed array by advancing indices modulo its capacity. The meaning of front and rear must be stated before using a size, empty or full formula. This example reserves one slot to distinguish full from empty."
+        },
+        {
+          "speaker": "leo",
+          "text": "Capacity C means allocated array slots."
+        },
+        {
+          "speaker": "maya",
+          "text": "With C=6, F=4 and R=1, the queue occupies slots 4,5,0 and holds three items."
+        },
+        {
+          "speaker": "leo",
+          "text": "We also need to talk about queue index conventions."
+        },
+        {
+          "speaker": "maya",
+          "text": "An index name alone does not determine whether it points at a live item, the next free slot or the last removed item. Two correct queue implementations can therefore use different updates. We use an explicit next-removal/next-insertion convention throughout this example."
+        },
+        {
+          "speaker": "leo",
+          "text": "Index convention means the precise meaning of each stored position."
+        },
+        {
+          "speaker": "leo",
+          "text": "With next-removal F, next-insertion R and one reserved slot, what is full?"
+        },
+        {
+          "speaker": "maya",
+          "text": "The unused slot distinguishes full from empty."
+        },
+        {
+          "speaker": "maya",
+          "text": "So we'd choose (R+1) mod C equals F."
+        },
+        {
+          "speaker": "maya",
+          "text": "A stack removes the newest item; a queue removes the oldest waiting item."
+        },
+        {
+          "speaker": "maya",
+          "text": "A singly linked queue can retain both a front reference and a rear reference. Inserting after the rear and removing from the front avoid searching for a predecessor, while preserving first-in first-out order."
+        },
+        {
+          "speaker": "leo",
+          "text": "Front means next removal node."
+        },
+        {
+          "speaker": "leo",
+          "text": "Enqueue 4 into 1->2->3: rear becomes 4."
+        },
+        {
+          "speaker": "maya",
+          "text": "Dequeue once: front becomes 2 and rear remains 4."
+        },
+        {
+          "speaker": "maya",
+          "text": "A lazy-transfer queue uses an incoming stack for enqueues and an outgoing stack for dequeues. Transfer all incoming items only when outgoing is empty; their order reverses so the earliest arrival becomes accessible."
+        },
+        {
+          "speaker": "leo",
+          "text": "Worst-case dequeue means a transfer can take linear work."
+        },
+        {
+          "speaker": "leo",
+          "text": "When should the lazy-transfer queue move IN to OUT?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Transferring newer items over older OUT items would break FIFO."
+        },
+        {
+          "speaker": "maya",
+          "text": "We end up with Only when OUT is empty and a dequeue needs an item."
+        },
+        {
+          "speaker": "leo",
+          "text": "There's another piece to this: a stack made from two queues."
+        },
+        {
+          "speaker": "maya",
+          "text": "One way to implement a stack with two queues keeps push cheap and pop costly. Enqueue new items to the active queue. To remove the newest item, transfer all older items to the spare queue, remove the final item, then swap queue roles."
+        },
+        {
+          "speaker": "leo",
+          "text": "LIFO means newest insertion leaves first."
+        },
+        {
+          "speaker": "maya",
+          "text": "Active front-to-rear 1,2,3 moves 1 and 2 to the spare queue, returns 3, and makes the spare queue active."
+        },
+        {
+          "speaker": "maya",
+          "text": "A bracket stack tracks unmatched openers. A closer must match the most recent unmatched opener. Two independent stacks can also share one array by growing inward from opposite ends, checking the gap before a push."
+        },
+        {
+          "speaker": "leo",
+          "text": "Nesting means inner bracket pairs close before outer pairs."
+        },
+        {
+          "speaker": "leo",
+          "text": "Which string has correctly matched nesting?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Closers must match the latest unmatched opener and no opener may remain."
+        },
+        {
+          "speaker": "maya",
+          "text": "Infix places an operator between operands, prefix places it before them, and postfix places it after them. All three can describe the same expression tree. Parentheses and precedence determine grouping; operands must keep their left/right roles."
+        },
+        {
+          "speaker": "leo",
+          "text": "Infix means a+b."
+        },
+        {
+          "speaker": "leo",
+          "text": "(2+3)*4 is prefix * + 2 3 4 and postfix 2 3 + 4 *."
+        },
+        {
+          "speaker": "maya",
+          "text": "Each evaluates to 20."
+        },
+        {
+          "speaker": "leo",
+          "text": "I want to unpack expression processing with a stack next."
+        },
+        {
+          "speaker": "maya",
+          "text": "Postfix evaluation reads tokens left to right using a value stack. Operands are pushed. A binary operator pops the right operand first, then the left operand, and pushes the result. Infix conversion uses an operator stack with stated precedence and associativity."
+        },
+        {
+          "speaker": "leo",
+          "text": "Operand stack means pending numeric values."
+        },
+        {
+          "speaker": "leo",
+          "text": "Which is postfix for (a+b)*c?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Postfix emits each operator after its own operand subexpressions."
+        },
+        {
+          "speaker": "maya",
+          "text": "We end up with a b + c *."
+        },
+        {
+          "speaker": "maya",
+          "text": "Mixed stack and queue traces require preserving each endpoint contract and tracking the work actually performed. A configuration already produced by earlier operations is different from the cost of creating it."
+        },
+        {
+          "speaker": "leo",
+          "text": "Starting state means contents before the stated new operations."
+        },
+        {
+          "speaker": "maya",
+          "text": "If OUT already holds 3,2,1 bottom-to-top, the next dequeue is one OUT pop; it does not repeat the earlier transfer."
+        },
+        {
+          "speaker": "maya",
+          "text": "Apply each operation to the specified endpoint and update the state."
+        },
+        {
+          "speaker": "leo",
+          "text": "Transfer cost means the pushes and pops or dequeues and enqueues counted explicitly."
+        },
+        {
+          "speaker": "leo",
+          "text": "Initially IN holds 1 through 4 bottom-to-top and OUT is empty. Use lazy transfer for the first dequeue; no new enqueues occur. IN holds 1 through 4 bottom-to-top; OUT is empty. How many items transfer for the next dequeue?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Every IN item moves to OUT before serving."
+        },
+        {
+          "speaker": "maya",
+          "text": "So we'd choose 4."
+        },
+        {
+          "speaker": "maya",
+          "text": "Count operations and state the input case."
+        },
+        {
+          "speaker": "leo",
+          "text": "Before we leave queue and expression mechanics, let's connect the pieces."
+        },
+        {
+          "speaker": "maya",
+          "text": "A circular queue reuses a fixed array by advancing indices modulo its capacity. The meaning of front and rear must be stated before using a size, empty or full formula. This example reserves one slot to distinguish full from empty."
+        },
+        {
+          "speaker": "leo",
+          "text": "Apply each operation to the specified endpoint and update the state."
+        },
+        {
+          "speaker": "maya",
+          "text": "You can pause here and try the Queue and expression mechanics activities. Pick one idea and see whether you can explain it without the notes."
+        }
+      ],
+      "hash": "f285d80fbaccbf565dc0a447859f3bd933b91a753d83d559bf9ab8c394448407",
+      "estimatedMinutes": 6
+    },
+    {
+      "id": "ds:7",
+      "subject": "ds",
+      "unit": 7,
+      "title": "Binary trees",
+      "courseName": "Data Structures",
+      "description": "Shapes, recurrences and traversal reconstruction. Use a diagram and a small example to justify each answer.",
+      "language": "en-US",
+      "syntheticVoices": true,
+      "speechVersion": 2,
+      "hosts": [
+        {
+          "id": "maya",
+          "name": "Maya",
+          "voice": "af_heart"
+        },
+        {
+          "id": "leo",
+          "name": "Leo",
+          "voice": "am_michael"
+        }
+      ],
+      "topics": [
+        "Binary-tree structure and height",
+        "Binary-tree representation and bounds",
+        "Recursive tree size and leaves",
+        "Tree shape versus tree identity",
+        "Preorder, inorder and postorder",
+        "Reconstructing a tree from traversals",
+        "When traversals leave ambiguity"
+      ],
+      "chapters": [
+        {
+          "id": "introduction",
+          "title": "Section introduction",
+          "startTurn": 0,
+          "endTurn": 3
+        },
+        {
+          "id": "topic-50",
+          "title": "Binary-tree structure and height",
+          "lecture": 50,
+          "startTurn": 4,
+          "endTurn": 7,
+          "lessonIds": [
+            150,
+            151,
+            152
+          ]
+        },
+        {
+          "id": "topic-51",
+          "title": "Binary-tree representation and bounds",
+          "lecture": 51,
+          "startTurn": 8,
+          "endTurn": 13,
+          "lessonIds": [
+            153,
+            154,
+            155
+          ]
+        },
+        {
+          "id": "topic-52",
+          "title": "Recursive tree size and leaves",
+          "lecture": 52,
+          "startTurn": 14,
+          "endTurn": 16,
+          "lessonIds": [
+            156,
+            157,
+            158
+          ]
+        },
+        {
+          "id": "topic-53",
+          "title": "Tree shape versus tree identity",
+          "lecture": 53,
+          "startTurn": 17,
+          "endTurn": 21,
+          "lessonIds": [
+            159,
+            160,
+            161
+          ]
+        },
+        {
+          "id": "topic-54",
+          "title": "Preorder, inorder and postorder",
+          "lecture": 54,
+          "startTurn": 22,
+          "endTurn": 25,
+          "lessonIds": [
+            162,
+            163,
+            164
+          ]
+        },
+        {
+          "id": "topic-55",
+          "title": "Reconstructing a tree from traversals",
+          "lecture": 55,
+          "startTurn": 26,
+          "endTurn": 30,
+          "lessonIds": [
+            165,
+            166,
+            167
+          ]
+        },
+        {
+          "id": "topic-56",
+          "title": "When traversals leave ambiguity",
+          "lecture": 56,
+          "startTurn": 31,
+          "endTurn": 33,
+          "lessonIds": [
+            168,
+            169,
+            170
+          ]
+        },
+        {
+          "id": "recap",
+          "title": "Recap and next steps",
+          "startTurn": 34,
+          "endTurn": 37
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "maya",
+          "text": "Hi, it's Maya. I've got Leo with me for Binary trees."
+        },
+        {
+          "speaker": "leo",
+          "text": "Shapes, recurrences and traversal reconstruction."
+        },
+        {
+          "speaker": "maya",
+          "text": "Here's what we're working toward: shapes, recurrences and traversal reconstruction. Use a diagram and a small example to justify each answer."
+        },
+        {
+          "speaker": "leo",
+          "text": "We'll begin with binary-tree structure and height and work our way to when traversals leave ambiguity."
+        },
+        {
+          "speaker": "leo",
+          "text": "We also need to talk about binary-tree structure and height."
+        },
+        {
+          "speaker": "maya",
+          "text": "A binary tree gives every node at most two ordered child positions. Full means each node has zero or two children; complete means levels fill left to right; perfect means every internal node has two children and all leaves share a depth."
+        },
+        {
+          "speaker": "leo",
+          "text": "Depth means edges from root to a node."
+        },
+        {
+          "speaker": "maya",
+          "text": "A perfect tree of height 2 has levels containing 1,2,4 nodes, seven nodes total and four leaves."
+        },
+        {
+          "speaker": "leo",
+          "text": "Let's start with binary-tree representation and bounds. What do we need to know?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Tree representation distinguishes real nodes from child-reference slots. A nonempty n-node tree has n-1 edges. In a binary representation with two child fields per node, the remaining n+1 fields are NULL."
+        },
+        {
+          "speaker": "leo",
+          "text": "NULL link means an empty child position."
+        },
+        {
+          "speaker": "leo",
+          "text": "Which definition describes a full binary tree?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Full describes child counts."
+        },
+        {
+          "speaker": "maya",
+          "text": "So we'd choose Every node has zero or two children."
+        },
+        {
+          "speaker": "maya",
+          "text": "Recursive tree size combines independent left and right subproblems. The empty tree contributes zero; a live root contributes one. Height uses a maximum rather than adding the two subtree heights."
+        },
+        {
+          "speaker": "leo",
+          "text": "Subtree means a node with all descendants beneath it."
+        },
+        {
+          "speaker": "maya",
+          "text": "A root whose subtrees contain three nodes each has size seven; child heights one each give root height two."
+        },
+        {
+          "speaker": "maya",
+          "text": "Structural comparison checks where left and right children exist. Identical labeled-tree comparison also checks corresponding payloads. The base conditions must distinguish both-empty from exactly-one-empty pairs."
+        },
+        {
+          "speaker": "leo",
+          "text": "Same shape means matching ordered child positions."
+        },
+        {
+          "speaker": "leo",
+          "text": "Both corresponding child pointers are NULL. What does a structural comparison return there?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Two empty positions have the same structure."
+        },
+        {
+          "speaker": "maya",
+          "text": "We end up with Match."
+        },
+        {
+          "speaker": "leo",
+          "text": "Let's spend a moment on preorder, inorder and postorder."
+        },
+        {
+          "speaker": "maya",
+          "text": "Depth-first traversals differ in when they visit each root relative to its left and right subtrees. Preorder is root-left-right, inorder is left-root-right, and postorder is left-right-root."
+        },
+        {
+          "speaker": "leo",
+          "text": "Preorder means root first."
+        },
+        {
+          "speaker": "maya",
+          "text": "With root 8, left 4 and right 12, the three orders are 8,4,12; 4,8,12; and 4,12,8."
+        },
+        {
+          "speaker": "maya",
+          "text": "For valid traversals with distinct labels, preorder plus inorder or postorder plus inorder determines an ordered binary tree. Identify a root, split its inorder segment, then recurse on matching traversal segments."
+        },
+        {
+          "speaker": "leo",
+          "text": "Distinct keys means labels identify unique inorder positions."
+        },
+        {
+          "speaker": "leo",
+          "text": "Where is the root in a preorder sequence?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Preorder begins with the subtree root."
+        },
+        {
+          "speaker": "maya",
+          "text": "So we'd choose First."
+        },
+        {
+          "speaker": "maya",
+          "text": "Preorder and postorder alone may not determine which side a single child occupies. Distinct labels do not resolve that choice. An additional full-binary-tree promise can remove this particular ambiguity."
+        },
+        {
+          "speaker": "leo",
+          "text": "Ordered positions means left and right are different."
+        },
+        {
+          "speaker": "maya",
+          "text": "Preorder 1,2,3 and postorder 3,2,1 describe a chain with two independent left/right choices, hence four possible ordered trees."
+        },
+        {
+          "speaker": "leo",
+          "text": "Before we leave binary trees, let's connect the pieces."
+        },
+        {
+          "speaker": "maya",
+          "text": "A binary tree gives every node at most two ordered child positions. Full means each node has zero or two children; complete means levels fill left to right; perfect means every internal node has two children and all leaves share a depth."
+        },
+        {
+          "speaker": "leo",
+          "text": "Preorder and postorder alone may not determine which side a single child occupies. Distinct labels do not resolve that choice. An additional full-binary-tree promise can remove this particular ambiguity."
+        },
+        {
+          "speaker": "maya",
+          "text": "A useful next step is to revisit when traversals leave ambiguity with an example of your own. Keep it small enough to check by hand."
+        }
+      ],
+      "hash": "a7910a8d8c19f8b2d9882ef0598b000776cf29fa5ab0e9ebfb88895e6524d917",
+      "estimatedMinutes": 4
+    },
+    {
+      "id": "ds:8",
+      "subject": "ds",
+      "unit": 8,
+      "title": "Binary search trees",
+      "courseName": "Data Structures",
+      "description": "Ordering, search, ranges and deletion. Use a diagram and a small example to justify each answer.",
+      "language": "en-US",
+      "syntheticVoices": true,
+      "speechVersion": 2,
+      "hosts": [
+        {
+          "id": "maya",
+          "name": "Maya",
+          "voice": "af_heart"
+        },
+        {
+          "id": "leo",
+          "name": "Leo",
+          "voice": "am_michael"
+        }
+      ],
+      "topics": [
+        "Binary search trees",
+        "Reporting a BST key range",
+        "Deleting from a BST",
+        "Valid BST search sequences",
+        "BST preorder and insertion-order puzzles",
+        "BST cost follows tree height",
+        "Recursive tree and BST challenges",
+        "Global BST checks and tree diameter"
+      ],
+      "chapters": [
+        {
+          "id": "introduction",
+          "title": "Section introduction",
+          "startTurn": 0,
+          "endTurn": 3
+        },
+        {
+          "id": "topic-57",
+          "title": "Binary search trees",
+          "lecture": 57,
+          "startTurn": 4,
+          "endTurn": 7,
+          "lessonIds": [
+            171,
+            172,
+            173
+          ]
+        },
+        {
+          "id": "topic-58",
+          "title": "Reporting a BST key range",
+          "lecture": 58,
+          "startTurn": 8,
+          "endTurn": 13,
+          "lessonIds": [
+            174,
+            175,
+            176
+          ]
+        },
+        {
+          "id": "topic-59",
+          "title": "Deleting from a BST",
+          "lecture": 59,
+          "startTurn": 14,
+          "endTurn": 17,
+          "lessonIds": [
+            177,
+            178,
+            179
+          ]
+        },
+        {
+          "id": "topic-60",
+          "title": "Valid BST search sequences",
+          "lecture": 60,
+          "startTurn": 18,
+          "endTurn": 22,
+          "lessonIds": [
+            180,
+            181,
+            182
+          ]
+        },
+        {
+          "id": "topic-61",
+          "title": "BST preorder and insertion-order puzzles",
+          "lecture": 61,
+          "startTurn": 23,
+          "endTurn": 27,
+          "lessonIds": [
+            183,
+            184,
+            185
+          ]
+        },
+        {
+          "id": "topic-62",
+          "title": "BST cost follows tree height",
+          "lecture": 62,
+          "startTurn": 28,
+          "endTurn": 32,
+          "lessonIds": [
+            186,
+            187,
+            188
+          ]
+        },
+        {
+          "id": "topic-63",
+          "title": "Recursive tree and BST challenges",
+          "lecture": 63,
+          "startTurn": 33,
+          "endTurn": 35,
+          "lessonIds": [
+            189,
+            190,
+            191
+          ]
+        },
+        {
+          "id": "topic-64",
+          "title": "Global BST checks and tree diameter",
+          "lecture": 64,
+          "startTurn": 36,
+          "endTurn": 41,
+          "lessonIds": [
+            192,
+            193,
+            194
+          ]
+        },
+        {
+          "id": "recap",
+          "title": "Recap and next steps",
+          "startTurn": 42,
+          "endTurn": 45
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "maya",
+          "text": "Welcome to CSQuest Audio. I'm Maya, here with Leo. This section is called Binary search trees."
+        },
+        {
+          "speaker": "leo",
+          "text": "Ordering, search, ranges and deletion."
+        },
+        {
+          "speaker": "maya",
+          "text": "Here's what we're working toward: ordering, search, ranges and deletion. Use a diagram and a small example to justify each answer."
+        },
+        {
+          "speaker": "leo",
+          "text": "We'll begin with binary search trees and work our way to global BST checks and tree diameter."
+        },
+        {
+          "speaker": "leo",
+          "text": "Let's start with binary search trees. What do we need to know?"
+        },
+        {
+          "speaker": "maya",
+          "text": "A strict distinct-key BST orders entire subtrees: every left key is smaller than its ancestor root and every right key is larger. Search uses this property to discard one branch per comparison."
+        },
+        {
+          "speaker": "leo",
+          "text": "Strict BST means no duplicate keys in this example."
+        },
+        {
+          "speaker": "maya",
+          "text": "In a BST rooted at 8, target 6 follows 8->4->6; the right subtree of 8 cannot contain it."
+        },
+        {
+          "speaker": "leo",
+          "text": "That takes us to reporting a BST key range. Where does it fit?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Inclusive BST range reporting visits only potentially relevant subtrees. A node smaller than the lower endpoint rules out its left subtree; a node larger than the upper endpoint rules out its right subtree. Inorder collection gives sorted output."
+        },
+        {
+          "speaker": "leo",
+          "text": "Inclusive interval means low<=key<=high."
+        },
+        {
+          "speaker": "leo",
+          "text": "Use inclusive range [13,17] on the pictured BST unless a strict interval is explicitly stated. Report inclusive range [13,17] from the pictured BST. How many keys match?"
+        },
+        {
+          "speaker": "maya",
+          "text": "The two endpoints and root match."
+        },
+        {
+          "speaker": "maya",
+          "text": "So we'd choose 3."
+        },
+        {
+          "speaker": "maya",
+          "text": "BST deletion handles zero, one and two children separately. For two children, copy an inorder predecessor or successor key and remove its original donor node. The donor has at most one relevant child, simplifying removal."
+        },
+        {
+          "speaker": "leo",
+          "text": "Successor means next key in sorted order."
+        },
+        {
+          "speaker": "maya",
+          "text": "Deleting root 8 from the balanced keys 2,4,6,8,10,12,14 can replace it with successor 10, then remove the original 10 leaf."
+        },
+        {
+          "speaker": "leo",
+          "text": "A rotation changes links while preserving inorder order."
+        },
+        {
+          "speaker": "maya",
+          "text": "A valid BST search sequence stays inside an inherited open interval. Going left lowers the upper bound; going right raises the lower bound. A later probe must satisfy all earlier decisions, not only its immediate predecessor comparison."
+        },
+        {
+          "speaker": "leo",
+          "text": "Open interval means endpoints excluded for strict distinct keys."
+        },
+        {
+          "speaker": "leo",
+          "text": "Which strict BST property must hold?"
+        },
+        {
+          "speaker": "maya",
+          "text": "The ordering is inherited through every descendant."
+        },
+        {
+          "speaker": "maya",
+          "text": "We end up with All left-subtree keys are smaller and all right-subtree keys larger."
+        },
+        {
+          "speaker": "leo",
+          "text": "How would you explain BST preorder and insertion-order puzzles to someone meeting it for the first time?"
+        },
+        {
+          "speaker": "maya",
+          "text": "A BST preorder completes the entire left subtree before its right subtree. Once a right-side transition establishes a lower bound, later smaller keys cannot return to a finished left region. Insertion orders and preorder outputs are different objects."
+        },
+        {
+          "speaker": "leo",
+          "text": "Preorder block means all keys of one subtree occur contiguously."
+        },
+        {
+          "speaker": "leo",
+          "text": "8,4,2,6,12,10,14 is a valid preorder."
+        },
+        {
+          "speaker": "maya",
+          "text": "8,4,12,2 cannot be: key 2 appears after entering the root right subtree."
+        },
+        {
+          "speaker": "maya",
+          "text": "BST search cost depends on the encountered path length. A balanced shape can have logarithmic height; sorted insertion into an ordinary unbalanced BST can create a linear-height chain. Average claims need an input model."
+        },
+        {
+          "speaker": "leo",
+          "text": "Worst ordinary BST means height can be n-1."
+        },
+        {
+          "speaker": "leo",
+          "text": "Does an ordinary BST always guarantee logarithmic worst-case search?"
+        },
+        {
+          "speaker": "maya",
+          "text": "An unbalanced tree can have linear height."
+        },
+        {
+          "speaker": "maya",
+          "text": "So we'd choose No; it may be a chain."
+        },
+        {
+          "speaker": "maya",
+          "text": "Recursive tree size combines independent left and right subproblems. The empty tree contributes zero; a live root contributes one. Height uses a maximum rather than adding the two subtree heights."
+        },
+        {
+          "speaker": "leo",
+          "text": "Subtree means a node with all descendants beneath it."
+        },
+        {
+          "speaker": "maya",
+          "text": "A root whose subtrees contain three nodes each has size seven; child heights one each give root height two."
+        },
+        {
+          "speaker": "leo",
+          "text": "We also need to talk about global BST checks and tree diameter."
+        },
+        {
+          "speaker": "maya",
+          "text": "A global BST check passes an allowed key interval down the recursion. Immediate parent-child comparisons alone can miss ancestor violations. Tree diameter is a different quantity: the longest simple path between any two nodes, measured here in edges."
+        },
+        {
+          "speaker": "leo",
+          "text": "Ancestral interval means all earlier search constraints."
+        },
+        {
+          "speaker": "leo",
+          "text": "The pictured perfect height-two tree has what diameter in edges?"
+        },
+        {
+          "speaker": "maya",
+          "text": "A leaf-to-leaf route crosses two edges up to root and two down."
+        },
+        {
+          "speaker": "maya",
+          "text": "We end up with 4."
+        },
+        {
+          "speaker": "leo",
+          "text": "Before we leave binary search trees, let's connect the pieces."
+        },
+        {
+          "speaker": "maya",
+          "text": "A strict distinct-key BST orders entire subtrees: every left key is smaller than its ancestor root and every right key is larger. Search uses this property to discard one branch per comparison."
+        },
+        {
+          "speaker": "leo",
+          "text": "A global BST check passes an allowed key interval down the recursion. Immediate parent-child comparisons alone can miss ancestor violations. Tree diameter is a different quantity: the longest simple path between any two nodes, measured here in edges."
+        },
+        {
+          "speaker": "maya",
+          "text": "We've covered a lot in binary search trees. You don't have to remember every detail at once; start by trying one of the examples yourself."
+        }
+      ],
+      "hash": "98d51f55c99fd25f073aea64f90e8131c8faa803b95b5efe53d871de940278f5",
+      "estimatedMinutes": 5
+    },
+    {
+      "id": "ds:9",
+      "subject": "ds",
+      "unit": 9,
+      "title": "AVL balance",
+      "courseName": "Data Structures",
+      "description": "Height constraints and preserving rotations. Use a diagram and a small example to justify each answer.",
+      "language": "en-US",
+      "syntheticVoices": true,
+      "speechVersion": 2,
+      "hosts": [
+        {
+          "id": "maya",
+          "name": "Maya",
+          "voice": "af_heart"
+        },
+        {
+          "id": "leo",
+          "name": "Leo",
+          "voice": "am_michael"
+        }
+      ],
+      "topics": [
+        "AVL balance and rotations"
+      ],
+      "chapters": [
+        {
+          "id": "introduction",
+          "title": "Section introduction",
+          "startTurn": 0,
+          "endTurn": 2
+        },
+        {
+          "id": "topic-65",
+          "title": "AVL balance and rotations",
+          "lecture": 65,
+          "startTurn": 3,
+          "endTurn": 7,
+          "lessonIds": [
+            195,
+            196,
+            197
+          ]
+        },
+        {
+          "id": "recap",
+          "title": "Recap and next steps",
+          "startTurn": 8,
+          "endTurn": 10
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "maya",
+          "text": "Hi, I'm Maya. Leo's with me, and today's section is called AVL balance."
+        },
+        {
+          "speaker": "leo",
+          "text": "Height constraints and preserving rotations."
+        },
+        {
+          "speaker": "maya",
+          "text": "Here's what we're working toward: height constraints and preserving rotations. Use a diagram and a small example to justify each answer."
+        },
+        {
+          "speaker": "leo",
+          "text": "That takes us to AVL balance and rotations. Where does it fit?"
+        },
+        {
+          "speaker": "maya",
+          "text": "An AVL tree combines strict BST ordering with a balance requirement at every node. Using edge heights and empty height -1, the balance factor is left height minus right height and must remain -1,0 or 1."
+        },
+        {
+          "speaker": "leo",
+          "text": "LL/RR means one primitive rotation."
+        },
+        {
+          "speaker": "leo",
+          "text": "Inserting 30,20,10 causes LL imbalance at 30."
+        },
+        {
+          "speaker": "maya",
+          "text": "A right rotation produces root 20 with children 10 and 30."
+        },
+        {
+          "speaker": "leo",
+          "text": "Before we leave AVL balance, let's connect the pieces."
+        },
+        {
+          "speaker": "maya",
+          "text": "An AVL tree combines strict BST ordering with a balance requirement at every node. Using edge heights and empty height -1, the balance factor is left height minus right height and must remain -1,0 or 1."
+        },
+        {
+          "speaker": "maya",
+          "text": "Try explaining AVL balance and rotations in your own words. If you get stuck, that chapter is a good place to listen again."
+        }
+      ],
+      "hash": "26fe3d9463d9cf51b662c6d2b8e7cc31bdf3c208f09f1f17884f77b9fc422932",
+      "estimatedMinutes": 1
+    },
+    {
+      "id": "ds:10",
+      "subject": "ds",
+      "unit": 10,
+      "title": "Heaps",
+      "courseName": "Data Structures",
+      "description": "Complete shapes, priority operations and linear building. Use a diagram and a small example to justify each answer.",
+      "language": "en-US",
+      "syntheticVoices": true,
+      "speechVersion": 2,
+      "hosts": [
+        {
+          "id": "maya",
+          "name": "Maya",
+          "voice": "af_heart"
+        },
+        {
+          "id": "leo",
+          "name": "Leo",
+          "voice": "am_michael"
+        }
+      ],
+      "topics": [
+        "Min-heaps and their array shape",
+        "Ranks inside a min-heap",
+        "Heap insertion by bubbling upward",
+        "Heapify with valid child subheaps",
+        "Building a heap from the bottom",
+        "Why bottom-up heap building is linear",
+        "Deleting the minimum from a heap"
+      ],
+      "chapters": [
+        {
+          "id": "introduction",
+          "title": "Section introduction",
+          "startTurn": 0,
+          "endTurn": 3
+        },
+        {
+          "id": "topic-66",
+          "title": "Min-heaps and their array shape",
+          "lecture": 66,
+          "startTurn": 4,
+          "endTurn": 8,
+          "lessonIds": [
+            198,
+            199,
+            200
+          ]
+        },
+        {
+          "id": "topic-67",
+          "title": "Ranks inside a min-heap",
+          "lecture": 67,
+          "startTurn": 9,
+          "endTurn": 15,
+          "lessonIds": [
+            201,
+            202,
+            203
+          ]
+        },
+        {
+          "id": "topic-68",
+          "title": "Heap insertion by bubbling upward",
+          "lecture": 68,
+          "startTurn": 16,
+          "endTurn": 18,
+          "lessonIds": [
+            204,
+            205,
+            206
+          ]
+        },
+        {
+          "id": "topic-69",
+          "title": "Heapify with valid child subheaps",
+          "lecture": 69,
+          "startTurn": 19,
+          "endTurn": 23,
+          "lessonIds": [
+            207,
+            208,
+            209
+          ]
+        },
+        {
+          "id": "topic-70",
+          "title": "Building a heap from the bottom",
+          "lecture": 70,
+          "startTurn": 24,
+          "endTurn": 27,
+          "lessonIds": [
+            210,
+            211,
+            212
+          ]
+        },
+        {
+          "id": "topic-71",
+          "title": "Why bottom-up heap building is linear",
+          "lecture": 71,
+          "startTurn": 28,
+          "endTurn": 32,
+          "lessonIds": [
+            213,
+            214,
+            215
+          ]
+        },
+        {
+          "id": "topic-72",
+          "title": "Deleting the minimum from a heap",
+          "lecture": 72,
+          "startTurn": 33,
+          "endTurn": 35,
+          "lessonIds": [
+            216,
+            217,
+            218
+          ]
+        },
+        {
+          "id": "recap",
+          "title": "Recap and next steps",
+          "startTurn": 36,
+          "endTurn": 39
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "maya",
+          "text": "Welcome back. Maya here, with Leo. We've reached the section called Heaps."
+        },
+        {
+          "speaker": "leo",
+          "text": "Complete shapes, priority operations and linear building."
+        },
+        {
+          "speaker": "maya",
+          "text": "Here's what we're working toward: complete shapes, priority operations and linear building. Use a diagram and a small example to justify each answer."
+        },
+        {
+          "speaker": "leo",
+          "text": "We'll begin with min-heaps and their array shape and work our way to deleting the minimum from a heap."
+        },
+        {
+          "speaker": "leo",
+          "text": "There's another piece to this: min-heaps and their array shape."
+        },
+        {
+          "speaker": "maya",
+          "text": "A binary min-heap has both a complete-tree shape and parent<=child ordering. Its root is a minimum, but its array is not globally sorted and its left/right subtrees do not follow BST key partitions."
+        },
+        {
+          "speaker": "leo",
+          "text": "Min-heap root means a minimum key."
+        },
+        {
+          "speaker": "maya",
+          "text": "Array 1,4,2,9,6,3,8 is a min-heap even though 4 precedes 2."
+        },
+        {
+          "speaker": "leo",
+          "text": "A heap is not a sorted array."
+        },
+        {
+          "speaker": "leo",
+          "text": "Let's spend a moment on ranks inside a min-heap."
+        },
+        {
+          "speaker": "maya",
+          "text": "Heap array position is not sorted rank. For distinct min-heap keys, a kth-smallest key cannot have more than k-1 smaller ancestors, so its depth is at most k-1. Repeated minimum extraction determines successive ranks."
+        },
+        {
+          "speaker": "leo",
+          "text": "Rank means position in sorted key order."
+        },
+        {
+          "speaker": "leo",
+          "text": "Which two requirements define a binary min-heap?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Shape and ordering are separate requirements."
+        },
+        {
+          "speaker": "maya",
+          "text": "So we'd choose Complete shape and parent<=child order."
+        },
+        {
+          "speaker": "maya",
+          "text": "Heap order compares parents with children, not every pair of values."
+        },
+        {
+          "speaker": "maya",
+          "text": "Min-heap insertion first appends at the next complete-tree array position, then bubbles the key upward while it is smaller than its parent. This preserves shape and repairs order along one ancestor path."
+        },
+        {
+          "speaker": "leo",
+          "text": "Bubble up means move a small key toward its ancestors."
+        },
+        {
+          "speaker": "maya",
+          "text": "Appending 0 to 1,4,2,9,6,3,8 uses index 7 and swaps through indices 3,1,0."
+        },
+        {
+          "speaker": "maya",
+          "text": "Sift-down repairs a possibly misplaced root when its child subtrees are already heaps. Compare against the smaller existing child and swap only if needed. Without the subheap precondition, one local call need not repair an arbitrary array."
+        },
+        {
+          "speaker": "leo",
+          "text": "Precondition means child subheaps are already valid."
+        },
+        {
+          "speaker": "leo",
+          "text": "Start with array 26, 10, 8, 15, 12, 9, 14 and sift down at index 0, choosing the smaller child. Both child subtrees of the pictured root are valid min-heaps. What root key results from sift-down?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Promote the smaller child at each needed step."
+        },
+        {
+          "speaker": "maya",
+          "text": "We end up with 8."
+        },
+        {
+          "speaker": "leo",
+          "text": "Now for building a heap from the bottom. What's the key distinction?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Bottom-up heap building starts at the last internal node and applies sift-down moving toward the root. Leaves already satisfy the heap condition, and each processed node receives already repaired child subheaps."
+        },
+        {
+          "speaker": "leo",
+          "text": "Bottom-up means children before parents."
+        },
+        {
+          "speaker": "maya",
+          "text": "Array 9,4,7,1,6,3,2 is repaired at indices 2,1,0 and yields one valid heap 1,4,2,9,6,3,7."
+        },
+        {
+          "speaker": "maya",
+          "text": "The bottom-up build bound weights each node by its available downward height. Most nodes are leaves and have no downward work; very few nodes can travel the full tree height. Summing n copies of the maximum height is unnecessarily loose."
+        },
+        {
+          "speaker": "leo",
+          "text": "Height-weighted budget means possible downward levels, not exact operations."
+        },
+        {
+          "speaker": "leo",
+          "text": "Why is n times the maximum tree height a loose bottom-up bound?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Only very few nodes can travel the full height."
+        },
+        {
+          "speaker": "maya",
+          "text": "So we'd choose Most nodes have much smaller available downward height."
+        },
+        {
+          "speaker": "maya",
+          "text": "Delete-min saves the root key, removes the last array slot, moves that final key to the root if any keys remain, then sifts down. Removing the final slot preserves completeness; sifting repairs parent-child order."
+        },
+        {
+          "speaker": "leo",
+          "text": "Find-min means inspect the root without removal."
+        },
+        {
+          "speaker": "maya",
+          "text": "Deleting from 1,4,2,9,6,3,8 returns 1 and can leave 2,4,3,9,6,8."
+        },
+        {
+          "speaker": "leo",
+          "text": "Before we leave heaps, let's connect the pieces."
+        },
+        {
+          "speaker": "maya",
+          "text": "A binary min-heap has both a complete-tree shape and parent<=child ordering. Its root is a minimum, but its array is not globally sorted and its left/right subtrees do not follow BST key partitions."
+        },
+        {
+          "speaker": "leo",
+          "text": "Delete-min saves the root key, removes the last array slot, moves that final key to the root if any keys remain, then sifts down. Removing the final slot preserves completeness; sifting repairs parent-child order."
+        },
+        {
+          "speaker": "maya",
+          "text": "When you try a problem on deleting the minimum from a heap, talk through why each step works. That's a useful check on what has clicked."
+        }
+      ],
+      "hash": "8f819dd38d84e5b0820b369988234ed99cf7aee852cf94d8f65dfa553b61d3c0",
+      "estimatedMinutes": 4
+    },
+    {
+      "id": "ds:11",
+      "subject": "ds",
+      "unit": 11,
+      "title": "Heaps in practice",
+      "courseName": "Data Structures",
+      "description": "Counting, sorting, merging and priority scheduling. Use a diagram and a small example to justify each answer.",
+      "language": "en-US",
+      "syntheticVoices": true,
+      "speechVersion": 2,
+      "hosts": [
+        {
+          "id": "maya",
+          "name": "Maya",
+          "voice": "af_heart"
+        },
+        {
+          "id": "leo",
+          "name": "Leo",
+          "voice": "am_michael"
+        }
+      ],
+      "topics": [
+        "Counting distinct min-heaps",
+        "Counting ordered binary trees",
+        "Random-node height and insertion averages",
+        "Heap operation costs",
+        "In-place heapsort",
+        "Merging heaps and choosing structures",
+        "Priority queues for a job scheduler",
+        "Heap rank and search challenges",
+        "Heap repair challenges",
+        "Maximum deletion and boundary cases"
+      ],
+      "chapters": [
+        {
+          "id": "introduction",
+          "title": "Section introduction",
+          "startTurn": 0,
+          "endTurn": 3
+        },
+        {
+          "id": "topic-73",
+          "title": "Counting distinct min-heaps",
+          "lecture": 73,
+          "startTurn": 4,
+          "endTurn": 8,
+          "lessonIds": [
+            219,
+            220,
+            221
+          ]
+        },
+        {
+          "id": "topic-74",
+          "title": "Counting ordered binary trees",
+          "lecture": 74,
+          "startTurn": 9,
+          "endTurn": 14,
+          "lessonIds": [
+            222,
+            223,
+            224
+          ]
+        },
+        {
+          "id": "topic-75",
+          "title": "Random-node height and insertion averages",
+          "lecture": 75,
+          "startTurn": 15,
+          "endTurn": 18,
+          "lessonIds": [
+            225,
+            226,
+            227
+          ]
+        },
+        {
+          "id": "topic-76",
+          "title": "Heap operation costs",
+          "lecture": 76,
+          "startTurn": 19,
+          "endTurn": 23,
+          "lessonIds": [
+            228,
+            229,
+            230
+          ]
+        },
+        {
+          "id": "topic-77",
+          "title": "In-place heapsort",
+          "lecture": 77,
+          "startTurn": 24,
+          "endTurn": 30,
+          "lessonIds": [
+            231,
+            232,
+            233
+          ]
+        },
+        {
+          "id": "topic-78",
+          "title": "Merging heaps and choosing structures",
+          "lecture": 78,
+          "startTurn": 31,
+          "endTurn": 35,
+          "lessonIds": [
+            234,
+            235,
+            236
+          ]
+        },
+        {
+          "id": "topic-79",
+          "title": "Priority queues for a job scheduler",
+          "lecture": 79,
+          "startTurn": 36,
+          "endTurn": 38,
+          "lessonIds": [
+            237,
+            238,
+            239
+          ]
+        },
+        {
+          "id": "topic-80",
+          "title": "Heap rank and search challenges",
+          "lecture": 80,
+          "startTurn": 39,
+          "endTurn": 44,
+          "lessonIds": [
+            240,
+            241,
+            242
+          ]
+        },
+        {
+          "id": "topic-81",
+          "title": "Heap repair challenges",
+          "lecture": 81,
+          "startTurn": 45,
+          "endTurn": 47,
+          "lessonIds": [
+            243,
+            244,
+            245
+          ]
+        },
+        {
+          "id": "topic-82",
+          "title": "Maximum deletion and boundary cases",
+          "lecture": 82,
+          "startTurn": 48,
+          "endTurn": 52,
+          "lessonIds": [
+            246,
+            247,
+            248
+          ]
+        },
+        {
+          "id": "recap",
+          "title": "Recap and next steps",
+          "startTurn": 53,
+          "endTurn": 56
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "maya",
+          "text": "I'm Maya, and this is CSQuest Audio. Today, Leo and I are taking on Heaps in practice."
+        },
+        {
+          "speaker": "leo",
+          "text": "Counting, sorting, merging and priority scheduling."
+        },
+        {
+          "speaker": "maya",
+          "text": "Here's what we're working toward: counting, sorting, merging and priority scheduling. Use a diagram and a small example to justify each answer."
+        },
+        {
+          "speaker": "leo",
+          "text": "We'll begin with counting distinct min-heaps and work our way to maximum deletion and boundary cases."
+        },
+        {
+          "speaker": "leo",
+          "text": "Let's spend a moment on counting distinct min-heaps."
+        },
+        {
+          "speaker": "maya",
+          "text": "Counting min-heaps with distinct keys means counting valid key assignments to one complete binary shape. The smallest key is forced into the root; choosing left-subtree keys and arranging the two subheaps accounts for the remaining freedom."
+        },
+        {
+          "speaker": "leo",
+          "text": "Complete shape means occupied positions are fixed by n."
+        },
+        {
+          "speaker": "leo",
+          "text": "Seven keys give subtree sizes three and three. H(7)=C(6,3)*H(3)*H(3)=20*2*2=80."
+        },
+        {
+          "speaker": "maya",
+          "text": "C(6,3)=6*5*4/(3*2*1)=20."
+        },
+        {
+          "speaker": "leo",
+          "text": "How would you explain counting ordered binary trees to someone meeting it for the first time?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Ordered binary-tree shapes distinguish left and right child positions. Splitting n-1 remaining nodes between the two subtrees gives the Catalan recurrence. Shape counts, arbitrary labeled-tree counts and strict BST labelings are different questions."
+        },
+        {
+          "speaker": "leo",
+          "text": "Ordered shape means left and right positions differ."
+        },
+        {
+          "speaker": "leo",
+          "text": "A single child on the left versus right gives what?"
+        },
+        {
+          "speaker": "maya",
+          "text": "The child position is part of an ordered shape."
+        },
+        {
+          "speaker": "maya",
+          "text": "So we'd choose Different ordered shapes."
+        },
+        {
+          "speaker": "maya",
+          "text": "An average is meaningful only after stating the random experiment. Choosing an existing node uniformly from a perfect tree weights small subtree heights heavily. That experiment is not identical to choosing a new insertion key or averaging over heap inputs."
+        },
+        {
+          "speaker": "leo",
+          "text": "Random experiment means what is selected and with what probability."
+        },
+        {
+          "speaker": "leo",
+          "text": "A perfect height-three tree has height-group counts 8,4,2,1."
+        },
+        {
+          "speaker": "maya",
+          "text": "Mean subtree height is (0+4+4+3)/15=11/15."
+        },
+        {
+          "speaker": "maya",
+          "text": "Binary heaps expose one priority extremum efficiently, but do not partition keys into searchable left and right ranges. Operation cost depends on the path or set of entries touched: a root read, an ancestor path, a downward path or a full scan."
+        },
+        {
+          "speaker": "leo",
+          "text": "Priority access means inspect the guaranteed root extremum."
+        },
+        {
+          "speaker": "leo",
+          "text": "What is the worst-case binary-heap insertion bound?"
+        },
+        {
+          "speaker": "maya",
+          "text": "A new minimum may traverse full complete-tree depth."
+        },
+        {
+          "speaker": "maya",
+          "text": "We end up with Theta(log n)."
+        },
+        {
+          "speaker": "leo",
+          "text": "We also need to talk about in-place heapsort."
+        },
+        {
+          "speaker": "maya",
+          "text": "Ascending in-place heapsort builds a max-heap, swaps its root into the last active slot, shrinks the active heap and repairs only that prefix. A growing suffix is final output and must never reenter the heap repair."
+        },
+        {
+          "speaker": "leo",
+          "text": "Active prefix means entries still maintained as a max-heap."
+        },
+        {
+          "speaker": "leo",
+          "text": "For 7,2,6,1,5,3, the first extracted maximum 7 goes to index five."
+        },
+        {
+          "speaker": "maya",
+          "text": "The final ascending array is 1,2,3,5,6,7."
+        },
+        {
+          "speaker": "leo",
+          "text": "Heap order compares parents with children, not every pair of values."
+        },
+        {
+          "speaker": "leo",
+          "text": "A heap is not a sorted array."
+        },
+        {
+          "speaker": "maya",
+          "text": "Two individually valid heaps may stop satisfying parent order after their arrays are concatenated. A linear batch merge concatenates all keys and performs bottom-up build. A heap supports priority access; a balanced BST supports ordered key search and ranges."
+        },
+        {
+          "speaker": "leo",
+          "text": "Concatenation means preserve input values without promising heap order."
+        },
+        {
+          "speaker": "leo",
+          "text": "Is raw concatenation always a valid heap merge?"
+        },
+        {
+          "speaker": "maya",
+          "text": "New parent-child relations can violate heap order."
+        },
+        {
+          "speaker": "maya",
+          "text": "So we'd choose No."
+        },
+        {
+          "speaker": "maya",
+          "text": "A priority queue selects by a declared priority rule rather than by arrival time. A min-heap can serve jobs when smaller numbers mean greater urgency. Equal priorities require an explicit tie policy; heap order alone does not promise first-in first-out ties."
+        },
+        {
+          "speaker": "leo",
+          "text": "Priority means application-specific urgency rank."
+        },
+        {
+          "speaker": "maya",
+          "text": "Jobs Backup=7, Alert=1 and Report=3 are served Alert, Report, Backup under smaller-is-more-urgent ordering."
+        },
+        {
+          "speaker": "leo",
+          "text": "There's another piece to this: heap rank and search challenges."
+        },
+        {
+          "speaker": "maya",
+          "text": "Heap puzzles often mix array position, sorted rank, depth and arbitrary-key search. Ancestors provide priority guarantees, while unrelated branches need not be sorted. Trace the supplied state and stated operation instead of importing an unstated BST property."
+        },
+        {
+          "speaker": "leo",
+          "text": "Rank means place in sorted order rather than array position."
+        },
+        {
+          "speaker": "leo",
+          "text": "Does array index two always hold the third-smallest key?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Index and rank are separate."
+        },
+        {
+          "speaker": "maya",
+          "text": "We end up with No."
+        },
+        {
+          "speaker": "maya",
+          "text": "A local sift-down puzzle starts from a particular misplaced root with valid child subheaps. The smaller-child choice and every swap must be traced on that input. A worst-case height bound is not the same as the exact observed swap count."
+        },
+        {
+          "speaker": "leo",
+          "text": "Local precondition means the child subheaps are valid."
+        },
+        {
+          "speaker": "maya",
+          "text": "Root 20 in 20,4,2,9,6,3,8 moves through indices zero, two and five, taking two swaps and producing 2,4,3,9,6,20,8."
+        },
+        {
+          "speaker": "maya",
+          "text": "Deleting an extremum requires the heap direction to be explicit. A max-heap removes its maximum root and repairs through larger children; a min-heap uses smaller children. Removing the last occupied array slot preserves the complete shape."
+        },
+        {
+          "speaker": "leo",
+          "text": "Max-heap means every parent is at least its children."
+        },
+        {
+          "speaker": "leo",
+          "text": "What comparison direction repairs a max-heap?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Max-heap order is parent greater than or equal to child."
+        },
+        {
+          "speaker": "maya",
+          "text": "So we'd choose Promote the larger existing child."
+        },
+        {
+          "speaker": "leo",
+          "text": "Before we leave heaps in practice, let's connect the pieces."
+        },
+        {
+          "speaker": "maya",
+          "text": "Counting min-heaps with distinct keys means counting valid key assignments to one complete binary shape. The smallest key is forced into the root; choosing left-subtree keys and arranging the two subheaps accounts for the remaining freedom."
+        },
+        {
+          "speaker": "leo",
+          "text": "Deleting an extremum requires the heap direction to be explicit. A max-heap removes its maximum root and repairs through larger children; a min-heap uses smaller children. Removing the last occupied array slot preserves the complete shape."
+        },
+        {
+          "speaker": "maya",
+          "text": "Take a small example of counting distinct min-heaps and work it out before looking at the explanation. Then compare your reasoning."
+        }
+      ],
+      "hash": "7c28bd501d3ac815cba0d5dfeb843d5ef1c5aca0aab4a08f8f6af4caa1e39083",
+      "estimatedMinutes": 6
+    },
+    {
+      "id": "ds:12",
+      "subject": "ds",
+      "unit": 12,
+      "title": "Hash tables",
+      "courseName": "Data Structures",
+      "description": "Key mapping, collisions, probing and safe deletion. Use a diagram and a small example to justify each answer.",
+      "language": "en-US",
+      "syntheticVoices": true,
+      "speechVersion": 2,
+      "hosts": [
+        {
+          "id": "maya",
+          "name": "Maya",
+          "voice": "af_heart"
+        },
+        {
+          "id": "leo",
+          "name": "Leo",
+          "voice": "am_michael"
+        }
+      ],
+      "topics": [
+        "Direct addressing and its space tradeoff",
+        "Hash functions and collisions",
+        "Collision resolution choices",
+        "Chaining performance",
+        "Linear probing and safe deletion",
+        "Quadratic probing and double hashing",
+        "Counting possible probe orders"
+      ],
+      "chapters": [
+        {
+          "id": "introduction",
+          "title": "Section introduction",
+          "startTurn": 0,
+          "endTurn": 3
+        },
+        {
+          "id": "topic-83",
+          "title": "Direct addressing and its space tradeoff",
+          "lecture": 83,
+          "startTurn": 4,
+          "endTurn": 8,
+          "lessonIds": [
+            249,
+            250,
+            251
+          ]
+        },
+        {
+          "id": "topic-84",
+          "title": "Hash functions and collisions",
+          "lecture": 84,
+          "startTurn": 9,
+          "endTurn": 14,
+          "lessonIds": [
+            252,
+            253,
+            254
+          ]
+        },
+        {
+          "id": "topic-85",
+          "title": "Collision resolution choices",
+          "lecture": 85,
+          "startTurn": 15,
+          "endTurn": 17,
+          "lessonIds": [
+            255,
+            256,
+            257
+          ]
+        },
+        {
+          "id": "topic-86",
+          "title": "Chaining performance",
+          "lecture": 86,
+          "startTurn": 18,
+          "endTurn": 22,
+          "lessonIds": [
+            258,
+            259,
+            260
+          ]
+        },
+        {
+          "id": "topic-87",
+          "title": "Linear probing and safe deletion",
+          "lecture": 87,
+          "startTurn": 23,
+          "endTurn": 27,
+          "lessonIds": [
+            261,
+            262,
+            263
+          ]
+        },
+        {
+          "id": "topic-88",
+          "title": "Quadratic probing and double hashing",
+          "lecture": 88,
+          "startTurn": 28,
+          "endTurn": 32,
+          "lessonIds": [
+            264,
+            265,
+            266
+          ]
+        },
+        {
+          "id": "topic-89",
+          "title": "Counting possible probe orders",
+          "lecture": 89,
+          "startTurn": 33,
+          "endTurn": 36,
+          "lessonIds": [
+            267,
+            268,
+            269
+          ]
+        },
+        {
+          "id": "recap",
+          "title": "Recap and next steps",
+          "startTurn": 37,
+          "endTurn": 40
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "maya",
+          "text": "Maya and Leo here. Our section today is Hash tables."
+        },
+        {
+          "speaker": "leo",
+          "text": "Key mapping, collisions, probing and safe deletion."
+        },
+        {
+          "speaker": "maya",
+          "text": "Here's what we're working toward: key mapping, collisions, probing and safe deletion. Use a diagram and a small example to justify each answer."
+        },
+        {
+          "speaker": "leo",
+          "text": "We'll begin with direct addressing and its space tradeoff and work our way to counting possible probe orders."
+        },
+        {
+          "speaker": "leo",
+          "text": "How would you explain direct addressing and its space tradeoff to someone meeting it for the first time?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Direct addressing allocates one record slot for every possible key in a bounded integer universe. The key is its own index, so valid keys do not collide. Space depends on the whole universe, even when only a few records are currently stored."
+        },
+        {
+          "speaker": "leo",
+          "text": "Universe means all keys the table must support."
+        },
+        {
+          "speaker": "leo",
+          "text": "Keys zero through nine require ten slots."
+        },
+        {
+          "speaker": "maya",
+          "text": "If only keys 2,5,9 are present, seven slots remain unused; eight bytes per slot reserve 80 bytes."
+        },
+        {
+          "speaker": "leo",
+          "text": "I want to unpack hash functions and collisions next."
+        },
+        {
+          "speaker": "maya",
+          "text": "A hash function maps keys from a potentially large universe into a smaller set of bucket indices. Two unequal keys can map to the same index. Store full keys and compare them during lookup; equality of hash values alone does not identify a record."
+        },
+        {
+          "speaker": "leo",
+          "text": "Hash value means bucket index, not proof of key equality."
+        },
+        {
+          "speaker": "leo",
+          "text": "Does equal hash imply equal full keys?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Many unequal keys can share a bucket."
+        },
+        {
+          "speaker": "maya",
+          "text": "So we'd choose No."
+        },
+        {
+          "speaker": "maya",
+          "text": "Collision resolution determines where unequal keys with the same home bucket remain stored. Chaining keeps a bucket collection; open addressing searches table slots. A collision statistic needs a definition: extra items beyond the first and colliding key pairs are different counts."
+        },
+        {
+          "speaker": "leo",
+          "text": "Chaining means potentially multiple keys in a bucket."
+        },
+        {
+          "speaker": "maya",
+          "text": "Bucket sizes three and two contain (3-1)+(2-1)=3 extra items, but C(3,2)+C(2,2)=4 colliding pairs."
+        },
+        {
+          "speaker": "maya",
+          "text": "Chaining search cost combines bucket access with full-key comparisons in a bucket list. Independent uniform bucket hashing gives expected list occupancy alpha=n/m, but a bad distribution may still put every key in one chain. An average comparison count requires a target model."
+        },
+        {
+          "speaker": "leo",
+          "text": "Load factor means n/m and it may exceed one with chaining."
+        },
+        {
+          "speaker": "leo",
+          "text": "Can chaining alpha exceed one?"
+        },
+        {
+          "speaker": "maya",
+          "text": "A bucket can hold multiple records."
+        },
+        {
+          "speaker": "maya",
+          "text": "We end up with Yes."
+        },
+        {
+          "speaker": "leo",
+          "text": "Let's start with linear probing and safe deletion. What do we need to know?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Linear probing inspects consecutive table slots modulo table size. A never-used empty slot can terminate a lookup, while a deletion tombstone cannot: later keys may have been displaced beyond it. Insertions must also respect duplicates and bounded probing."
+        },
+        {
+          "speaker": "leo",
+          "text": "Never-used empty means ends an unsuccessful lookup."
+        },
+        {
+          "speaker": "leo",
+          "text": "Insert 10,17,24 into seven slots with h(k)=k mod seven: slots 3,4,5 fill."
+        },
+        {
+          "speaker": "maya",
+          "text": "Deleting 10 must leave a tombstone so a lookup for 24 reaches slot five."
+        },
+        {
+          "speaker": "maya",
+          "text": "Quadratic probing adds a quadratic offset, whereas double hashing uses a second hash as a step. Neither an arbitrary coefficient nor an arbitrary step automatically visits every slot. A double-hash step coprime to table size covers all positions in its cycle."
+        },
+        {
+          "speaker": "leo",
+          "text": "Quadratic probe means (h+i squared) mod m in this example."
+        },
+        {
+          "speaker": "leo",
+          "text": "Which condition gives full coverage for a fixed double-hash step?"
+        },
+        {
+          "speaker": "maya",
+          "text": "A noncoprime step forms a shorter cycle."
+        },
+        {
+          "speaker": "maya",
+          "text": "So we'd choose The step is coprime to m."
+        },
+        {
+          "speaker": "maya",
+          "text": "A probe order is a sequence of slot indices, not a permutation of input keys. The ideal uniform-hashing analysis allows all m! slot permutations. Actual linear, quadratic or double-hash rules form particular families, which may include cycles before visiting every slot."
+        },
+        {
+          "speaker": "leo",
+          "text": "Permutation order means every slot appears exactly once."
+        },
+        {
+          "speaker": "leo",
+          "text": "Four slots have 4!=24 permutation orders, but linear probing has only four possible cyclic orders."
+        },
+        {
+          "speaker": "maya",
+          "text": "Step two in six slots visits only three distinct positions."
+        },
+        {
+          "speaker": "leo",
+          "text": "Before we leave hash tables, let's connect the pieces."
+        },
+        {
+          "speaker": "maya",
+          "text": "Direct addressing allocates one record slot for every possible key in a bounded integer universe. The key is its own index, so valid keys do not collide. Space depends on the whole universe, even when only a few records are currently stored."
+        },
+        {
+          "speaker": "leo",
+          "text": "A probe order is a sequence of slot indices, not a permutation of input keys. The ideal uniform-hashing analysis allows all m! slot permutations. Actual linear, quadratic or double-hash rules form particular families, which may include cycles before visiting every slot."
+        },
+        {
+          "speaker": "maya",
+          "text": "You can pause here and try the Hash tables activities. Pick one idea and see whether you can explain it without the notes."
+        }
+      ],
+      "hash": "2ac8de29051310c196f1a922840363473602e0aacd70ca698d100422357e8a6e",
+      "estimatedMinutes": 5
+    },
+    {
+      "id": "ds:13",
+      "subject": "ds",
+      "unit": 13,
+      "title": "Hashing and probability",
+      "courseName": "Data Structures",
+      "description": "Indicators, expectations and honest cost models. Use a diagram and a small example to justify each answer.",
+      "language": "en-US",
+      "syntheticVoices": true,
+      "speechVersion": 2,
+      "hosts": [
+        {
+          "id": "maya",
+          "name": "Maya",
+          "voice": "af_heart"
+        },
+        {
+          "id": "leo",
+          "name": "Leo",
+          "voice": "am_michael"
+        }
+      ],
+      "topics": [
+        "Unsuccessful open-address searches",
+        "Successful open-address searches",
+        "Bernoulli indicators and binomial counts",
+        "Expected bucket occupancy and collisions"
+      ],
+      "chapters": [
+        {
+          "id": "introduction",
+          "title": "Section introduction",
+          "startTurn": 0,
+          "endTurn": 3
+        },
+        {
+          "id": "topic-90",
+          "title": "Unsuccessful open-address searches",
+          "lecture": 90,
+          "startTurn": 4,
+          "endTurn": 9,
+          "lessonIds": [
+            270,
+            271,
+            272
+          ]
+        },
+        {
+          "id": "topic-91",
+          "title": "Successful open-address searches",
+          "lecture": 91,
+          "startTurn": 10,
+          "endTurn": 15,
+          "lessonIds": [
+            273,
+            274,
+            275
+          ]
+        },
+        {
+          "id": "topic-92",
+          "title": "Bernoulli indicators and binomial counts",
+          "lecture": 92,
+          "startTurn": 16,
+          "endTurn": 18,
+          "lessonIds": [
+            276,
+            277,
+            278
+          ]
+        },
+        {
+          "id": "topic-93",
+          "title": "Expected bucket occupancy and collisions",
+          "lecture": 93,
+          "startTurn": 19,
+          "endTurn": 23,
+          "lessonIds": [
+            279,
+            280,
+            281
+          ]
+        },
+        {
+          "id": "recap",
+          "title": "Recap and next steps",
+          "startTurn": 24,
+          "endTurn": 27
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "maya",
+          "text": "Hi, it's Maya. I've got Leo with me for Hashing and probability."
+        },
+        {
+          "speaker": "leo",
+          "text": "Indicators, expectations and honest cost models."
+        },
+        {
+          "speaker": "maya",
+          "text": "Here's what we're working toward: indicators, expectations and honest cost models. Use a diagram and a small example to justify each answer."
+        },
+        {
+          "speaker": "leo",
+          "text": "We'll begin with unsuccessful open-address searches and work our way to expected bucket occupancy and collisions."
+        },
+        {
+          "speaker": "leo",
+          "text": "I want to unpack unsuccessful open-address searches next."
+        },
+        {
+          "speaker": "maya",
+          "text": "Expected unsuccessful open-address search depends on the hashing model and occupancy. With uniform hashing, no deletion tombstones and alpha below one, the expected probe count is bounded by 1/(1-alpha). This upper bound is not an exact measured cost for every linear-probing table."
+        },
+        {
+          "speaker": "leo",
+          "text": "Alpha means fraction of occupied live slots for this model."
+        },
+        {
+          "speaker": "leo",
+          "text": "At alpha=0.75 the bound is 1/(1-0.75)=4 probes."
+        },
+        {
+          "speaker": "maya",
+          "text": "A specific table may finish earlier or take more than four on one query."
+        },
+        {
+          "speaker": "leo",
+          "text": "Collisions are possible; an expected cost is not a worst-case guarantee."
+        },
+        {
+          "speaker": "leo",
+          "text": "Now for successful open-address searches. What's the key distinction?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Successful-search analysis averages the costs incurred at earlier insertion occupancies, under uniform hashing, no deletion tombstones and equally likely stored targets with 0<alpha<1. The standard expected upper bound is ln(1/(1-alpha))/alpha. It must not be presented as exact for a specific probing rule."
+        },
+        {
+          "speaker": "leo",
+          "text": "Natural logarithm ln means log to base e; supplied numerical values work with the basic calculator."
+        },
+        {
+          "speaker": "leo",
+          "text": "What does the stated probe expression represent?"
+        },
+        {
+          "speaker": "maya",
+          "text": "The assumptions govern an average bound."
+        },
+        {
+          "speaker": "maya",
+          "text": "So we'd choose An expected upper bound under the model."
+        },
+        {
+          "speaker": "maya",
+          "text": "An indicator variable equals one when an event happens and zero otherwise. Its expectation is the event probability. Adding independent identical indicators gives a binomial count; adding indicator expectations works by linearity even when independence is not supplied."
+        },
+        {
+          "speaker": "leo",
+          "text": "Bernoulli indicator means one yes or no trial."
+        },
+        {
+          "speaker": "maya",
+          "text": "Four independent fair trials have expected count two, variance one and probability of exactly two successes C(4,2)/16=0.375."
+        },
+        {
+          "speaker": "maya",
+          "text": "For independent uniform bucket choices, occupancy questions can be expressed using indicators. Each key enters a specified bucket with probability 1/m. Each bucket remains empty with probability (1-1/m)^n. Defining the counted event prevents ambiguous collision formulas."
+        },
+        {
+          "speaker": "leo",
+          "text": "Empty indicator means one if a specified bucket receives no key."
+        },
+        {
+          "speaker": "leo",
+          "text": "Why is a specified bucket empty with probability (1-1/m)^n?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Multiply the avoidance probabilities across keys."
+        },
+        {
+          "speaker": "maya",
+          "text": "We end up with Every independent key must avoid it."
+        },
+        {
+          "speaker": "leo",
+          "text": "Before we leave hashing and probability, let's connect the pieces."
+        },
+        {
+          "speaker": "maya",
+          "text": "Expected unsuccessful open-address search depends on the hashing model and occupancy. With uniform hashing, no deletion tombstones and alpha below one, the expected probe count is bounded by 1/(1-alpha). This upper bound is not an exact measured cost for every linear-probing table."
+        },
+        {
+          "speaker": "leo",
+          "text": "For independent uniform bucket choices, occupancy questions can be expressed using indicators. Each key enters a specified bucket with probability 1/m. Each bucket remains empty with probability (1-1/m)^n. Defining the counted event prevents ambiguous collision formulas."
+        },
+        {
+          "speaker": "maya",
+          "text": "A useful next step is to revisit expected bucket occupancy and collisions with an example of your own. Keep it small enough to check by hand."
+        }
+      ],
+      "hash": "ffdcf140ff6e561afb65734750ca0832b34285d47e8a4ae3afebd1655c81d187",
+      "estimatedMinutes": 3
+    },
+    {
+      "id": "ds:14",
+      "subject": "ds",
+      "unit": 14,
+      "title": "Array memory layouts",
+      "courseName": "Data Structures",
+      "description": "Storage order, dimension strides and byte addresses. Use a diagram and a small example to justify each answer.",
+      "language": "en-US",
+      "syntheticVoices": true,
+      "speechVersion": 2,
+      "hosts": [
+        {
+          "id": "maya",
+          "name": "Maya",
+          "voice": "af_heart"
+        },
+        {
+          "id": "leo",
+          "name": "Leo",
+          "voice": "am_michael"
+        }
+      ],
+      "topics": [
+        "Row-major and column-major arrays",
+        "Multidimensional array strides",
+        "Array bounds and address puzzles"
+      ],
+      "chapters": [
+        {
+          "id": "introduction",
+          "title": "Section introduction",
+          "startTurn": 0,
+          "endTurn": 3
+        },
+        {
+          "id": "topic-94",
+          "title": "Row-major and column-major arrays",
+          "lecture": 94,
+          "startTurn": 4,
+          "endTurn": 9,
+          "lessonIds": [
+            282,
+            283,
+            284
+          ]
+        },
+        {
+          "id": "topic-95",
+          "title": "Multidimensional array strides",
+          "lecture": 95,
+          "startTurn": 10,
+          "endTurn": 15,
+          "lessonIds": [
+            285,
+            286,
+            287
+          ]
+        },
+        {
+          "id": "topic-96",
+          "title": "Array bounds and address puzzles",
+          "lecture": 96,
+          "startTurn": 16,
+          "endTurn": 19,
+          "lessonIds": [
+            288,
+            289,
+            290
+          ]
+        },
+        {
+          "id": "recap",
+          "title": "Recap and next steps",
+          "startTurn": 20,
+          "endTurn": 23
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "maya",
+          "text": "Welcome to CSQuest Audio. I'm Maya, here with Leo. This section is called Array memory layouts."
+        },
+        {
+          "speaker": "leo",
+          "text": "Storage order, dimension strides and byte addresses."
+        },
+        {
+          "speaker": "maya",
+          "text": "Here's what we're working toward: storage order, dimension strides and byte addresses. Use a diagram and a small example to justify each answer."
+        },
+        {
+          "speaker": "leo",
+          "text": "We'll begin with row-major and column-major arrays and work our way to array bounds and address puzzles."
+        },
+        {
+          "speaker": "leo",
+          "text": "Now for row-major and column-major arrays. What's the key distinction?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Memory is a one-dimensional sequence of element slots. Row-major layout varies the final index fastest; column-major varies the first index fastest. An element offset counts slots, while a byte address also needs the element width and base address."
+        },
+        {
+          "speaker": "leo",
+          "text": "Stride means element slots skipped when an index advances once."
+        },
+        {
+          "speaker": "leo",
+          "text": "For A[3][4], A[1][2] has row offset six and column offset seven."
+        },
+        {
+          "speaker": "maya",
+          "text": "Base 1000 and four-byte elements give addresses 1024 and 1028."
+        },
+        {
+          "speaker": "leo",
+          "text": "A two-dimensional contiguous array is not the same layout as an array of row pointers."
+        },
+        {
+          "speaker": "leo",
+          "text": "We also need to talk about multidimensional array strides."
+        },
+        {
+          "speaker": "maya",
+          "text": "Multidimensional offsets generalize the same stride rule: in row-major order, an index is weighted by the product of dimensions to its right; column-major uses dimensions to its left. The logical shape remains unchanged while storage order changes."
+        },
+        {
+          "speaker": "leo",
+          "text": "Row stride means product of dimensions to the right."
+        },
+        {
+          "speaker": "leo",
+          "text": "Which index changes fastest in row-major storage?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Dimensions to the right supply the row-major strides."
+        },
+        {
+          "speaker": "maya",
+          "text": "So we'd choose The last subscript."
+        },
+        {
+          "speaker": "maya",
+          "text": "Array-address questions may specify nonzero or negative lower bounds. The base belongs to the element at all lower bounds. Subtract each lower bound before applying strides; otherwise a correct-looking formula can point outside the intended storage."
+        },
+        {
+          "speaker": "leo",
+          "text": "Inclusive bounds means both endpoints are valid indices."
+        },
+        {
+          "speaker": "leo",
+          "text": "A[-1..1][1..4] has dimensions three by four."
+        },
+        {
+          "speaker": "maya",
+          "text": "Target A[0][3] normalizes to 1,2 and has row offset six, or address 1024 for base 1000 and width four."
+        },
+        {
+          "speaker": "leo",
+          "text": "Before we leave array memory layouts, let's connect the pieces."
+        },
+        {
+          "speaker": "maya",
+          "text": "Memory is a one-dimensional sequence of element slots. Row-major layout varies the final index fastest; column-major varies the first index fastest. An element offset counts slots, while a byte address also needs the element width and base address."
+        },
+        {
+          "speaker": "leo",
+          "text": "Array-address questions may specify nonzero or negative lower bounds. The base belongs to the element at all lower bounds. Subtract each lower bound before applying strides; otherwise a correct-looking formula can point outside the intended storage."
+        },
+        {
+          "speaker": "maya",
+          "text": "We've covered a lot in array memory layouts. You don't have to remember every detail at once; start by trying one of the examples yourself."
+        }
+      ],
+      "hash": "866b3429ffd3b194e8b8b18675b86768dc75748416decb7f479f03324b54a591",
+      "estimatedMinutes": 3
+    },
+    {
+      "id": "ds:15",
+      "subject": "ds",
+      "unit": 15,
+      "title": "DS challenge workshop",
+      "courseName": "Data Structures",
+      "description": "Operation accounting, insertion orders and safe list updates. Use a diagram and a small example to justify each answer.",
+      "language": "en-US",
+      "syntheticVoices": true,
+      "speechVersion": 2,
+      "hosts": [
+        {
+          "id": "maya",
+          "name": "Maya",
+          "voice": "af_heart"
+        },
+        {
+          "id": "leo",
+          "name": "Leo",
+          "voice": "am_michael"
+        }
+      ],
+      "topics": [
+        "Queue implementation cost puzzles",
+        "Stack residence-time puzzles",
+        "BST insertion-order challenges",
+        "Circular doubly linked list review"
+      ],
+      "chapters": [
+        {
+          "id": "introduction",
+          "title": "Section introduction",
+          "startTurn": 0,
+          "endTurn": 3
+        },
+        {
+          "id": "topic-97",
+          "title": "Queue implementation cost puzzles",
+          "lecture": 97,
+          "startTurn": 4,
+          "endTurn": 8,
+          "lessonIds": [
+            291,
+            292,
+            293
+          ]
+        },
+        {
+          "id": "topic-98",
+          "title": "Stack residence-time puzzles",
+          "lecture": 98,
+          "startTurn": 9,
+          "endTurn": 14,
+          "lessonIds": [
+            294,
+            295,
+            296
+          ]
+        },
+        {
+          "id": "topic-99",
+          "title": "BST insertion-order challenges",
+          "lecture": 99,
+          "startTurn": 15,
+          "endTurn": 19,
+          "lessonIds": [
+            297,
+            298,
+            299
+          ]
+        },
+        {
+          "id": "topic-100",
+          "title": "Circular doubly linked list review",
+          "lecture": 100,
+          "startTurn": 20,
+          "endTurn": 26,
+          "lessonIds": [
+            300,
+            301,
+            302
+          ]
+        },
+        {
+          "id": "recap",
+          "title": "Recap and next steps",
+          "startTurn": 27,
+          "endTurn": 30
+        }
+      ],
+      "turns": [
+        {
+          "speaker": "maya",
+          "text": "Hi, I'm Maya. Leo's with me, and today's section is called DS challenge workshop."
+        },
+        {
+          "speaker": "leo",
+          "text": "Operation accounting, insertion orders and safe list updates."
+        },
+        {
+          "speaker": "maya",
+          "text": "Here's what we're working toward: operation accounting, insertion orders and safe list updates. Use a diagram and a small example to justify each answer."
+        },
+        {
+          "speaker": "leo",
+          "text": "We'll begin with queue implementation cost puzzles and work our way to circular doubly linked list review."
+        },
+        {
+          "speaker": "leo",
+          "text": "We also need to talk about queue implementation cost puzzles."
+        },
+        {
+          "speaker": "maya",
+          "text": "A queue made from two stacks can have a costly individual dequeue and cheap amortized operation sequences. Count only the primitive operations requested by the question and only new work after the stated starting state. Already completed transfers must not be charged again."
+        },
+        {
+          "speaker": "leo",
+          "text": "Primitive operation means one stated stack push or pop."
+        },
+        {
+          "speaker": "maya",
+          "text": "Four enqueues followed by four dequeues cost four IN pushes, eight transfer operations and four OUT pops: 16 stack operations total."
+        },
+        {
+          "speaker": "leo",
+          "text": "A stack removes the newest item; a queue removes the oldest waiting item."
+        },
+        {
+          "speaker": "leo",
+          "text": "Let's start with stack residence-time puzzles. What do we need to know?"
+        },
+        {
+          "speaker": "maya",
+          "text": "Residence-time puzzles need precise timing endpoints. Here a key enters when its push completes and leaves when its pop completes. After pushing all keys and then popping all, LIFO makes early arrivals wait longer. A mean also requires the target-selection probabilities."
+        },
+        {
+          "speaker": "leo",
+          "text": "Entry endpoint means completion of the item push."
+        },
+        {
+          "speaker": "leo",
+          "text": "Which item is popped first after all four pushes?"
+        },
+        {
+          "speaker": "maya",
+          "text": "A stack is LIFO."
+        },
+        {
+          "speaker": "maya",
+          "text": "So we'd choose Key four."
+        },
+        {
+          "speaker": "maya",
+          "text": "Different insertion permutations can build the same ordinary distinct-key BST. The root must be first; left and right subsequences must each build their own fixed subtree. Their relative internal orders stay intact while the subsequences may interleave."
+        },
+        {
+          "speaker": "leo",
+          "text": "Fixed tree means the exact target shape and keys."
+        },
+        {
+          "speaker": "leo",
+          "text": "Root six with left chain 4->2 and right chain 8->10 requires six first."
+        },
+        {
+          "speaker": "maya",
+          "text": "Interleave 4,2 with 8,10 in C(4,2)=6 ways."
+        },
+        {
+          "speaker": "leo",
+          "text": "A rotation changes links while preserving inorder order."
+        },
+        {
+          "speaker": "maya",
+          "text": "A circular doubly linked list supports insertion before a supplied nonempty head without traversing for its tail: head.prev already identifies it. Update both directions around the new node before publishing its head reference, preserving node identities independently of payloads."
+        },
+        {
+          "speaker": "leo",
+          "text": "Head reference means chosen starting node in the ring."
+        },
+        {
+          "speaker": "leo",
+          "text": "What identifies the original tail without a traversal?"
+        },
+        {
+          "speaker": "maya",
+          "text": "The circular doubly linked invariant retains the tail reference."
+        },
+        {
+          "speaker": "maya",
+          "text": "We end up with head.prev."
+        },
+        {
+          "speaker": "maya",
+          "text": "Updating a local pointer does not necessarily update the caller's head."
+        },
+        {
+          "speaker": "maya",
+          "text": "Save needed links before overwriting them."
+        },
+        {
+          "speaker": "leo",
+          "text": "Before we leave DS challenge workshop, let's connect the pieces."
+        },
+        {
+          "speaker": "maya",
+          "text": "A queue made from two stacks can have a costly individual dequeue and cheap amortized operation sequences. Count only the primitive operations requested by the question and only new work after the stated starting state. Already completed transfers must not be charged again."
+        },
+        {
+          "speaker": "leo",
+          "text": "A circular doubly linked list supports insertion before a supplied nonempty head without traversing for its tail: head.prev already identifies it. Update both directions around the new node before publishing its head reference, preserving node identities independently of payloads."
+        },
+        {
+          "speaker": "maya",
+          "text": "Try explaining circular doubly linked list review in your own words. If you get stuck, that chapter is a good place to listen again."
+        }
+      ],
+      "hash": "961876fa42f18a3e624cf7956cb8158b903f347309d4ae6ac6c0fa6e1f46e247",
+      "estimatedMinutes": 4
+    }
+  ]
+}

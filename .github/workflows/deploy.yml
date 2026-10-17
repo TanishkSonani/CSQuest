@@ -46,6 +46,9 @@ jobs:
       - name: Check browser and server syntax
         run: |
           node --check apps/web/public/app.js
+          node --check apps/web/public/podcasts.js
+          node --check src/platform/podcasts.mjs
+          node --check scripts/build-podcasts.mjs
           node --check apps/web/public/experience-ui.js
           node --check apps/web/public/activity-calendar.js
           node --check apps/web/public/lesson-journey-ui.js
@@ -64,6 +67,7 @@ jobs:
           bash -n deploy/configure-pipeline.sh
       - run: npm run validate
       - run: npm test
+      - run: python3 tests/podcast_speech_test.py
 
   deploy:
     needs: test

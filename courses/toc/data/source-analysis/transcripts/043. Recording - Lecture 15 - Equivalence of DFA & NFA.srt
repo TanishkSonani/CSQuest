@@ -1,0 +1,1068 @@
+1
+00:00:43,920 --> 00:01:34,210
+Hi everyone. Am I audible? So let's start now. In this session, we are going to discuss NFA to DFA conversion. Basically, we are going to discuss the equivalence of NFA and DFA. Okay. So let's start now. NFA to DFA conversion. Before we study this, we need to study some subtopics. We need to study what is epsilon closer. You can call it null closer. Then we need to study what is extended transition function. Also,
+
+2
+00:01:34,740 --> 00:02:03,020
+Then we will study NFA to DFA algorithm. Okay. So these three topics we will study one by one. Now first let's study this epsilon closer. Okay. Remember our main purpose, our main target that is NFA to DFA conversion. You have some NFA. You want to convert that NFA to DFA. Keeping the language is same. The language must be same. Okay. So this is our target. Let me tell you our target is you have some NFA. Let's assume some NFA and you have and this NFA and
+
+3
+00:02:03,880 --> 00:02:32,460
+it recognizes let's assume language L okay so I can say this NFAN it recognizes language L now what we will do this NFAN we will convert into DFA okay we will we will create a DFA from this N from this NFAN we will create a DFA D such that the language must be same okay even so this DFA is also recognizing the language L so this is our main purpose we want to convert this NFA
+
+4
+00:02:32,800 --> 00:03:01,820
+this conversion we want to do okay we want to convert the NFA to DFA such that the language should not change the language the language must be same okay this is our main purpose for this lecture I can say okay now to study this conversion first we need to study what is a epsilon closer what is null closer so let's start with the null closer okay so this epsilon closer you can also call it null closer and what this means so this null closer
+
+5
+00:03:04,160 --> 00:03:31,280
+or you can call it epsilon closer epsilon closer most of the books they call it epsilon closer okay so they will call it epsilon closer but you can also call it null closer what it simply means remember if I give you some NFA I give you some NFA this NFA and I give you in this NFA there will be some states right in this NFA what will happen there will be there will be initial state there will be some states there will be some transitions
+
+6
+00:03:31,760 --> 00:04:02,270
+okay there will be some transitions something will be there now in this NFA if I ask you you have some state Q and if I ask you what is the epsilon closure of Q okay if I ask you what is epsilon closure epsilon closure closure of Q then what is that means for this state Q what is epsilon closure what is epsilon closure that simply means from this state Q for free where we can go okay
+
+7
+00:04:02,560 --> 00:04:31,240
+from this state q without consuming any input symbol where we can go are you getting my point so I can say that this epsilon closure of q that simply means where we can go from q for free it's like it's like this okay so it's like this set of states set of states the answer okay epsilon closure will be set of states where we can go set of states where q can go
+
+8
+00:04:31,720 --> 00:05:02,730
+Q okay we can go from Q I can say okay Q can go for free okay from Q we can go for free okay so I can say that where we can go where we can go for free from Q okay so this is the idea of epsilon closer I hope this point is clear so remember you have some NFA in this NFA in this NFA if I ask you what is the epsilon closer of Q then the answer will be set of states where we can go for free
+
+9
+00:05:03,640 --> 00:05:34,330
+Okay, where we can go for free from state Q what it simply means it simply means that without consuming any alphabet symbol where we can go from state Q I hope this point is clear so this simply means this is set of states the answer is set of states where where we can go where we can go from Q where we can go from Q without consuming any without consuming any alphabet symbol
+
+10
+00:05:35,360 --> 00:06:06,010
+without consuming any alphabet symbol any alphabet symbol okay is this point clear please tell me is this clear the definition is clear to everyone so remember the very simple point null closer or epsilon closer that simply means what are the states where we can go via epsilon transitions or I can say basically where we can go for free this is the simple point okay so this is your epsilon closer now
+
+11
+00:06:06,380 --> 00:06:35,900
+Now let's see. Let's see some examples with examples. This point will become more and more clear. So let's see this example. In this example, you tell me what is the epsilon closer of Q1? What is the epsilon closer of Q1? Okay. I'm asking what is the epsilon closer of Q1 of Q1? Let's call it E close. Okay. In short, in short, you can call it, for example, you can call it E close. What is E close of Q1?
+
+12
+00:06:36,460 --> 00:07:06,180
+So tell me what is E close of Cuban if you are in state Cuban where you can go for free from state Cuban where where you can go for free You are in a state Cuban remember you are here. Okay from this state from this Cuban for free without consuming any alphabet symbol Remember these these are the alphabet symbol your alphabet symbols are a comma B. These are the alphabet symbol, please tell me Please tell me is this alphabet symbol, please tell me is this alphabet symbol
+
+13
+00:07:06,520 --> 00:07:34,480
+this is not alphabet symbol this is your null move this is your null move null move simply means that from q1 without consuming any alphabet symbol you can go to q3 okay so this is this is this null string is this null string can i say this is null string can i say this is null string this is not null string this is not null string this is null move please understand this is null move this is the transition
+
+14
+00:07:34,960 --> 00:08:05,260
+this is a transition that from Q1 you can go to Q3 without consuming any alphabet symbol so again I am telling you please notice this is a transition please notice this is a transition this is not a string this is a transition or this is a move this is a transition or this is a move okay so remember this look at this this is a transition right yes or no look at this from Q1 you are going to Q3 this is a transition yes or no this is a move
+
+15
+00:08:05,630 --> 00:08:37,790
+and what this move means this move means that we can go from Q1 to Q3 without consuming any input symbol from the input tape okay basically we can go it's like this we can go from Q1 to Q3 without consuming any input symbol okay without without consuming any input symbol okay we don't need to consume any input symbol without consuming any input symbol we can go from Q1 to Q3
+
+16
+00:08:38,650 --> 00:09:03,210
+I hope this point is clear so if you are in state q1 if I am here I can go to q3 without consuming any input symbol so this is the point so this is null move this is not null string this is null move this I told you many times yes or no the difference of null string and null move this I told you this is a null move this is your I can say from
+
+17
+00:09:03,520 --> 00:09:32,440
+you can go to Q3 without consuming any symbol you don't need to consume any input symbol these are the input symbols remember these are the input symbols these are the input symbols you don't need to consume any input symbol to go from Q1 to Q3 I hope this point is clear okay from Q1 you can go to Q3 for free for free without consuming any input symbol now you tell me so what is the null closure of Q1 so
+
+18
+00:09:32,750 --> 00:10:01,210
+From Q1 can I go to Q1? If I don't read any symbol Please understand If I don't do anything If I don't consume any input symbol Without consuming any input symbol Can I go from Q1 to Q1? Yes of course So if I want to go from Q1 to Q1 I don't need to do anything I don't need to read A I don't need to read B I can simply stay So I can go to Q1
+
+19
+00:10:01,590 --> 00:10:32,070
+you can also notice that I can also go from Q1 I can also go to Q3 so this is your null closure of Q1 I hope this point is clear okay very simple so tell me what is the null closure what is the null closure of Q2 from state Q2 without reading any symbol without reading any input symbol where can I go you are in state Q2 now in state Q2 if I want to go to some other state I definitely need to read some input symbol right agree
+
+20
+00:10:32,410 --> 00:10:59,820
+for example from q2 if i want to go to q3 from q2 i want to go here then i need to read b this input symbol i need to read similarly from q2 if i if i want to go to q1 i need to read b so from q2 without reading any symbol without reading any input symbol for free where can i go from q2 from q2 for free i can go to q2 only yes or no agree with me
+
+21
+00:11:00,160 --> 00:11:31,040
+If you want to go to Q3, then you need to read B. If you want to go to Q1, then you need to read B. But if you want to go from Q2 to Q2, that you can do for free. I hope this point is clear. Okay, so this is your null closer of Q2. Now you tell me what is the null closer of Q3? What is the null closer of Q3? Tell me. From Q3, where can I go for free? From Q3, where can I go for free? Only Q3.
+
+22
+00:11:31,380 --> 00:12:00,940
+only q3 this is your null closer of q3 i hope this point is clear please tell me did you understand let me know now let's see this example this example it is taken from ulman now you tell me what is the answer for this question so if i ask you what is the null closer of one state one what that will be so e close e close of state one from state one where can i go for free free from
+
+23
+00:12:01,260 --> 00:12:31,940
+this state where can i go for free so tell me from this state for free means without reading a comma b remember these are your input symbols remember your input symbols are a comma b these are the input symbols these are the input symbols and these are what these are your null moves these are the null moves okay so now you tell me from state one where can i go for free
+
+24
+00:12:33,110 --> 00:13:02,180
+means without reading any input symbol where can I go I can go to one from one I can go to one that is very simple okay I can just stay next I can go to two I can go to see I can go to two I don't need to read any symbol without reading any symbol I can go this simply means null move null move means without reading any symbol it simply means without reading any symbol what it means it means without reading any symbol any input symbol
+
+25
+00:13:04,030 --> 00:13:33,460
+okay so from state 1 to 2 I can go without reading any input symbol I can also go to 3 I can also go to 6 so I can also go to 3 I can also go to 6 okay I can also go to 4 can I go to 5 can I go to 5 please tell me from state 1 for free where can I go for free I can go to 4 but I cannot go to 5 if I want to go to 5 I need I need to read this symbol A
+
+26
+00:13:33,980 --> 00:14:04,480
+Okay, so very simple. So I hope this point is clear. This is your E close of state 1. Tell me what are the E close of state 2? What are the state E close epsilon closer of state 2? So from state 2 for free, you can go to 2, you can go to 3, you can go to 6. Tell me what are the E close of state 3? E close of state 3. From state 3 for free, you can go to 3,6. Tell me the E close of
+
+27
+00:14:05,580 --> 00:14:34,220
+State 4 From state 4 For free where can you go? From this state where you can go for free Only state 4 You cannot go anywhere else If you want to go to 5 From 4 If you want to go to state 5 Then you need to read this A Yes or no? You need to read this symbol A So very simple What about? E close of state 5 Please tell me E close of state 5
+
+28
+00:14:36,300 --> 00:15:07,010
+E close of 5. What that is? So I can go to 5. I can go to 7. That's it. This is your E close of 5. What is the E close of 6? What is the E close of 6? Where can I go? From 6. From this state. Where can I go? For free. I can go to only 6. That's it. What about the E close of 7? What about the E close of 7? That also will be only 7. I hope this point is clear. So, understood? Let me know. You can read this.
+
+29
+00:15:07,260 --> 00:15:36,790
+so E closer of a state what is that epsilon closer of a state that simply means where you can go for free that is the very simple point so this is remember this is how you can find out the epsilon closer so if I ask you what is the epsilon closer of state q of state q then you can directly put state q right yes or no then what you can do you can directly put state q then then what you can do
+
+30
+00:15:37,010 --> 00:16:05,370
+you can keep putting you can keep putting those states where I can go by epsilon transitions. For example, if if from state q if this type of arrow you have then what I will do in this situation what I will do in this situation this p also I will put here this p also I will put here now you tell me from this p if this if you have this from this p if you have this then what I will do then what I will do
+
+31
+00:16:05,470 --> 00:16:32,510
+then this r also you will put here yes or no are you getting my point from this state q if you have epsilon here for example m then what i will do then this m also i will put here then this m also i will put i hope this point is clear so very simple recursively you can find recursively you can find so what you can do you can find it recursively so the i can say finding the epsilon closure that is very simple
+
+32
+00:16:32,880 --> 00:17:04,100
+so we can just find it recursively epsilon closer for state q the what is the first step tell me the step one tell me the step one step one will be step one will be that q belongs to this set okay for example let's call it as for example for example let's call it as so I can say that q belongs to s the second step what is that the second step is like this if if some I can say if x belongs to s
+
+33
+00:17:04,460 --> 00:17:34,860
+and and from x I can go to y by null transition then what I can do then what I can do then y also belongs to s yes or no please understand what I am saying I am saying that what is the epsilon closure of q let's assume that is s let's assume that is s so the first step is q belongs to s the second step if x belongs to s means in this
+
+34
+00:17:35,100 --> 00:18:03,780
+if you have some state if you have some state in this S and from X you can go by null move you can go to Y then what I will do then Y also will belong to S this is how you can find okay recursively right yes or no we are doing it recursively we are doing it recursively so let's understand this with one example for example consider this here if I ask you what are the state P null closer what that will be
+
+35
+00:18:04,440 --> 00:18:34,100
+NULL CLOSER OF STATE P in this diagram so what you will do in the NULL CLOSER OF STATE P first you will what you will do the first step is you put P okay this is the first step NULL CLOSER OF Q first what you do this Q will belong to the NULL CLOSER OF Q so first you put P now if P is here and you can notice from P I can go by NULL TRANSITION to Q, R so you can put Q, R next next
+
+36
+00:18:34,440 --> 00:19:03,280
+from q i cannot go on null transition to anyone else from q but what i can do from r i can go from r on null transition i can go to s so next you can put s i hope this point is clear yes or no recursively we can find the null closer did you understand so first you start with p this is your first step you start with p then from p you have p from p on null
+
+37
+00:19:03,460 --> 00:19:29,940
+null transition you can go to q comma r so you add q comma r this is second step the third step is from r you can go to s on null transition so you add this s to you you add this s also so that's it no new states can be added that's it so you can terminate so this is your algorithm please tell me did you understand the algorithm very simple right yes or no so this is how you can do what is the null closure of r2
+
+38
+00:19:30,520 --> 00:19:57,850
+in the same question if I ask you what is the null closure of r2 from r2 where can you go for free you can also you can only go to r2 that's it so this is your algorithm now remember one thing that you can find this epsilon closure for set of states also so far what we have done tell me so far what we have done please tell me so far we are finding the epsilon closure for a particular state
+
+39
+00:19:58,550 --> 00:20:29,030
+for a particular state means q belonging to set of states so we are finding the epsilon closer for a particular state means for a single state I can say so far this is a single state so far this is a single state but what we can do we can find the epsilon closer for set of states also for example if I ask you what the epsilon closer for I give you two states like p comma q then that is also very easy to find how to find this very simple
+
+40
+00:20:29,340 --> 00:20:57,760
+just find from p comma q where can you go for free means you find where this will go for free okay right you find the epsilon closer of p you find the epsilon closer of q okay that will be your answer is this point clear please tell me see you want to find from p comma q from this i can say from these two states where can i go for free okay for either from here or from here this is not end this is over
+
+41
+00:20:58,340 --> 00:21:28,250
+This is not end. This is over. Okay. So I can say that from P or Q. Where can you go for free? So that you can find like this from P epsilon closer you find and from Q you find the epsilon closer. That will be your answer. That is your final answer. Okay. Is this point clear? Is the video audio lagging? Please tell me is the audio video fine? Let me know. So
+
+42
+00:21:28,870 --> 00:21:58,160
+This is the point that I'm telling you that if you have some set of states if you ask what is the epsilon closer for a set of states For example, if I give you set of states like a, b, c, d then what your answer will be your answer will be you find the epsilon closer of a Union epsilon closer of b Union epsilon closer of c Union epsilon closer of d so like this you can find
+
+43
+00:21:58,630 --> 00:22:27,150
+Okay, very simple. So finally I can say it's like epsilon closer of you can do the union of all of them Okay in one word if I ask you epsilon closer of you have some set of states here Okay, you have some set of states for example, you have some I can say some Q1 where Q1 is the subset of states Then what your answer will be your answer will be you take the union of epsilon closer of all the states
+
+44
+00:22:27,500 --> 00:22:57,750
+which belong to this q1 okay is this point clear please tell me what you do you take the union this is union this is union you take the union of epsilon closer of all the states which belong to this q1 so this is the idea you can understand here you can see so epsilon closer of these four states what that will be that will be epsilon closer of a union epsilon closer of b union epsilon closer of c union epsilon closer of d so this is your answer
+
+45
+00:22:58,090 --> 00:23:28,580
+Now let's see this one. So you can understand here. Tell me what is the epsilon closer of Q0? In this example, what is the epsilon closer of Q0? From Q0, where can you go? So you can notice from Q0 for free, I can go to Q0, I can also go to Q1. That's it. So you can notice epsilon closer of Q0, that will be Q0, Q1. What about epsilon closer of Q1? Epsilon closer of Q1 will be only Q1. What about epsilon closer of Q2?
+
+46
+00:23:29,280 --> 00:23:58,690
+epsilon closer of q2 that will be q2 comma q3 that will be q2 comma q3 what will be epsilon closer of q0 q2 what that will be means epsilon closer of q0 q2 so very simple you find the epsilon closer of q0 you find the epsilon closer of q2 that will be your final answer so your answer will be you find the epsilon closer of q0 that will be q0 q1 that will be q0 q1 you find the epsilon closer of q2
+
+47
+00:23:59,020 --> 00:24:28,250
+that will be q2 q3 that will be q2 q3 so your final answer will be the union of these your final answer will be q0 q1 q2 q3 this is your final answer so this is how you can do please tell me is this understood let me know so this is your concept of epsilon closer i hope all these points are clear so very easily you can notice in this example you can check what is the epsilon closer of a what is the null closer of a
+
+48
+00:24:28,700 --> 00:24:55,850
+Null closure of A will be only A. That will be only A. Null closure of B. Null closure of B. That will be B, D. That will be B, D. You can check. Null closure of C. That will be C, D. Null closure of D. That will be D. So you can check. So we have taken a lot of examples. I hope all these concepts are clear. So let's move on now. So this is what we have seen. Now the next topic that we will study that is
+
+49
+00:24:56,090 --> 00:25:26,260
+for NFA what is transition function and what is extended transition function what is the difference between these two this is our next topic okay so before we study for NFA let me revise this concept for DFA we have already seen this concept for DFA right transition function versus extended transition function for DFA we have already seen so let me revise this concept for DFA focus on DFA for DFA what is
+
+50
+00:25:26,580 --> 00:25:55,540
+Transition function. Tell me what is transition function? See, transition function is very simple. You don't need to apply your brain to find the transition function. Transition function is simply I can I can simply say that this is like the age function in the DFA diagram. Please understand that transition function simply means transitions. That's it. Okay. It simply means you can call it you can call it age function. You can call it age function in DFA diagram.
+
+51
+00:25:56,460 --> 00:26:26,900
+okay in DFA diagram so please understand that this transition function is actually very simple it simply means that for example if I ask you what the transition function for state Q on symbol A then what that will be I am talking about DFA so tell me if I start in the state Q I read the symbol A then where I will go can I go to a set of states can I go to a set of states no I am talking about DFA so
+
+52
+00:26:27,160 --> 00:26:55,760
+in state q if you read this input symbol a then you can go to then you can go to some state q1 okay you can go to some state q1 you tell me one thing remember i am saying that transition function simply means a is function in the dfa diagram so if i give you some dfa diagram for example q0 okay a you are going to q1 a b is this dfa is this dfa this is not dfa so for example
+
+53
+00:26:56,590 --> 00:27:27,800
+I can do this. Now this is DFA, right? Yes or no? Now this is DFA. So I can do this. That will be your DFA. Now remember one thing. In this, you tell me, I am finding the transition function. Let's focus only on the transition function. Transition function is what you see. That's it. Transition function simply means what you see in this diagram. That is your transition function. Transition function simply means these transitions. Remember, these are transitions. Agree?
+
+54
+00:27:28,210 --> 00:28:00,930
+For example, this is a transition, right? Yes or no? Look at this. This is a transition. Just look at this. This is one transition. This is a transition. I can call it transition. So you can also call it age. You can also call it age from Q1 to Q0. So transition function simply means that you are finding the age function. This is a transition. So I can say delta from Q1 in this state Q1. If you read symbol B where you will go.
+
+55
+00:28:01,160 --> 00:28:29,910
+you will go to q0 you will go to q0 now you tell me one thing if i ask you what is delta in this state q1 without reading any symbol where will you go without reading any symbol where will you go in this state q1 without reading any symbol where will you go see this is invalid please understand that this is invalid please understand this is invalid this is nonsense please understand that
+
+56
+00:28:30,130 --> 00:28:58,010
+transition function simply means age function is this point clear now are you getting this point transition function simply means age function see there is no age because this is a DFA so can I put this type of age can I put this type of age can I put can I put I cannot do that okay because this is a DFA I cannot do this type of thing so you can notice that there is no age there is no age this type of age you don't have is this point clear
+
+57
+00:28:58,760 --> 00:29:28,000
+So again I am telling you that delta q1, epsilon why this is nonsense what are the reason this is nonsense this is nonsense this is invalid to ask because there is no such age yes or no there is no such transition or I can say there is no such age or you can say there is no such transition so transition function is very simple do you agree with me
+
+58
+00:29:28,330 --> 00:29:56,210
+the transition function simply means this is your age function you don't need to apply brain to find the transition function so transition function is simply age function what age you see that is your transition for example if you see this type of age if you see this type of age then this is your transition okay so this is your transition function we denote transition function by delta this is your delta now what is extended transition function
+
+59
+00:29:58,410 --> 00:30:30,930
+there is something called extended transition function one more thing I want to ask one more thing I want to ask that in the same question can I ask delta on state q from state q0 from state q0 where can you go on a a is this invalid or valid can I ask you this can I ask you this again this is nonsense why this is nonsense tell me why this is nonsense because there is no such age
+
+60
+00:30:31,770 --> 00:31:02,070
+because there is no such age we don't have such age is this point clear in this diagram do you have from q0 is there age on AA on AA is there age see from q0 there are only two ages this age this age only two ages you have I hope this point is clear right from state q0 there are only two ages this age this age there are only two ages from state q0 so this type of age we don't have
+
+61
+00:31:02,370 --> 00:31:32,200
+So again I am telling you that transition function it is it is similar to AS function Okay this transition function you can think as AS function Now what is extended transition function? We denote it by delta star or we can denote it by delta hat Okay so very simple You can denote by delta hat or you can call it delta star But the point is what is extended transition function? In this what we do? In this we take the string
+
+62
+00:31:32,620 --> 00:32:02,920
+from state q on string you have some string where will you go on this string okay it is like remember what this answer will be answer will be like this this is your string from state q where will you go are you getting my point so on the input tape if I put this string w this string w I put on the input tape I start in the in the state q where I will go that will be your answer
+
+63
+00:32:03,380 --> 00:32:34,100
+this is your extended transition function okay you tell me one thing I am talking about DFA so finally at the end will I get a set of states at the end will I get a set of states no a single state I will get yes or no because I am talking about DFA so at the end I will get a single state so this is your extended transition function now in this diagram you tell me can I ask you this delta hat from state Q0
+
+64
+00:32:34,720 --> 00:33:05,270
+on this string what your answer will be please tell me what your answer will be delta star first of all is this valid to ask can I ask this is this nonsense no this is not nonsense here this is string here this is string means this is your string AA you start in the Q0 where will you go so from Q0 on AA you will go to Q1 so your answer will be simply Q1 okay next you tell me either you can denote this
+
+65
+00:33:05,550 --> 00:33:34,940
+this extended transition function you can denote as delta hat or you can denote as delta star okay so remember either you can use delta star peter linz uses delta star ulman uses delta hat okay so these are the different different authors is this point clear so either you can use this symbol for extended transition function or you can use this symbol for extended transition function so very simple now you tell me what is delta hat
+
+66
+00:33:35,850 --> 00:34:06,970
+from state q0 on this first of all you tell me is this empty move or is this empty string here this is empty string or this is null move here this is string because I am asking extended transition function so here this is string your null string this is your null string so what your answer will be please understand I am asking extended transition function so how the input tape will look like please tell me how the input tape will look like
+
+67
+00:34:07,780 --> 00:34:35,970
+input tape when I put this string on the input tape if I put this string on the input tape then your input tape will look like this okay now you start in the Q0 where will you go you start in the Q0 without reading because there is nothing to read okay there is nothing to read where you will you will go you will go only to Q0 yes or no so your here answer will be Q0 is this point clear so very simple these are the strings remember
+
+68
+00:34:36,390 --> 00:35:06,890
+in the extended transition function you have some state and you have some string here you have a string okay and your answer will be your answer will be that this is your string you start in queue at the end at the end where you will go that your answer will be okay so if you are going to let's assume q dash then your answer will be q dash is this point clear let me know so very simple this is your extended transition function so I hope this is clear
+
+69
+00:35:07,110 --> 00:35:39,010
+So this is for DFA. So far we have seen this example for DFA. Clear? Anyone has any doubt in this? So here you can notice. Tell me when you create the transition table, do you create from transition function or do you create from extended transition function? When you create the transition table, this table when you create. So this is created from the transition function. This is created from the transition function. So it is very easily you can create this. All you have to see just look at the edges.
+
+70
+00:35:39,610 --> 00:36:10,000
+you just need to look at the edges from q0 on 0 you are going to q2 sorry q1 from q0 on 0 you are going to q1 okay so this diagram is actually little bit wrong okay so you can do like this anyway this diagram has some mistake so but the point is simple that this transition function you can represent using a table that we have seen okay so here we use the transition function nothing else I hope this point is clear
+
+71
+00:36:10,190 --> 00:36:37,620
+Now some student is asking can it be empty set in case of DFA? No, in DFA you tell me one thing if you have some DFA whatever string I give you whether it is null string or whatever string you have this W can be any string remember it can be null string also it can be any string you tell me if I start in this state Q is it mandatory and remember this can be any state this can be any state
+
+72
+00:36:37,960 --> 00:37:08,860
+Is it mandatory that I will definitely get some state here? Is it mandatory? Is it mandatory that I will get a unique state here? Is it mandatory I will definitely get some state here in the DFA? Yes, definitely I will get some state here. Some state definitely I will get. Okay, and that will be a unique. And that will be a unique state I will get. Okay, because this is a DFA by the definition of DFA. Remember by the definition of DFA if your W is like this.
+
+73
+00:37:09,800 --> 00:37:37,970
+A1, A2, and so on, AN. If your W is like this, AI belongs to Sigma. Means, for example, your W can be, for example, your W can be like this. A, B, AA, something like this. So if this is your W, you tell me one thing. This is your A1, A2, AN. This is your input tape. This is the input tape. Now you tell me, if I start in some state Q, this can be any state, remember.
+
+74
+00:37:38,600 --> 00:38:08,930
+this can be any state it can be any state or any state if I start if I start in state Q is it mandatory I will get after A1 I will get some state here is it mandatory I will get some state here yes by the definition of DFA I am asking for DFA I am asking for DFA in DFA whatever state you take on any input symbol on any input symbol you will definitely have some transition right yes or no
+
+75
+00:38:09,230 --> 00:38:38,880
+you will definitely have some transition similarly then here also definitely there will be some transition and so on and so on finally you will get some you will get some state here also by the definition of DFA remember the definition of DFA what is the definition of DFA just remember the definition of DFA in DFA what happens you take any state Q on every input symbol there will be a move on every input symbol there will be a move
+
+76
+00:38:39,640 --> 00:39:09,750
+whatever state q you take I hope this point is clear okay so from state from any state whatever state you take this can be any state this can be any state whatever state you take on every alphabet symbol a comma b let's assume your alphabet is a comma b your alphabet is a comma b if your alphabet is a comma b comma c then something like this definitely must happen so very simple this is your point this is your definition of dfa
+
+77
+00:39:10,030 --> 00:39:40,500
+I hope this point is clear. Okay, now let's move on in the same question you tell me from Q0 if I ask you if I ask you delta Q0 epsilon what answer will be if I ask you delta delta is transition function delta Q0 epsilon then that will be nonsense yes or no because there is no such age we don't have such age but if I ask you what is delta star means extended transition function now here this is a string
+
+78
+00:39:41,210 --> 00:40:09,960
+Now this is a string Okay Now this is a string So here your answer will be simply Your answer will be simply Q0 Because this is a DFA So your answer will be simply Q0 Because I am talking about a DFA Okay let's move on now Now we will study for NFA Okay So in NFA what is transition function and what is extended transition function So let's see that Again the same thing Whether you take NFA or whether you take DFA
+
+79
+00:40:10,280 --> 00:40:41,660
+what is your transition function what is your transition function first let's see the transition function so you tell me in the transition function if I give you alphabet let's assume your alphabet is a comma b transition function that is similar to your as function right your analogy how can you understand this it is like I can say it is like as function what ages are what ages are there it is that okay so you this is like as function so you tell me one thing
+
+80
+00:40:41,970 --> 00:41:12,880
+in NFA can i ask this like delta in state q comma epsilon can i ask this please tell me can i ask this question and can i ask this question which question is nonsense which question is nonsense can i ask this question which question can i can i ask see i can ask this question right what is the reason see first of all i cannot ask this this is nonsense what is the reason this is nonsense
+
+81
+00:41:13,470 --> 00:41:41,560
+please tell me what are the reason why this is nonsense because there is no such age no such age yes or no we have no such age so this is clearly nonsense there is no such age but we can have this type of age right yes or no here this is empty string or this is null move here this is empty string or this is null move this is your null move here because I am asking your
+
+82
+00:41:42,000 --> 00:42:12,340
+I am asking the transition function I am asking the transition function that is similar to your age function so here this is your null move so I can ask this right this is a valid yes or no this is valid to ask I can ask this I can also ask this this is also valid to ask okay so this is the simple point transition function is varies I can say you can understand that this is your age function that's it nothing else transition function this is your age function very simple for example
+
+83
+00:42:12,600 --> 00:42:51,100
+let me give you some let me give you this example consider this NFA i am giving you state one this is your initial state you can go to two from two you can go to or null move you can go to state three something like this let's assume okay so consider this one now you tell me here what is your transition function delta 1 comma a what that will be remember transition function i am asking transition function
+
+84
+00:42:51,420 --> 00:43:19,980
+you don't have to apply your brain transition function simply means what you can see in the diagram what are the edges from state one where can I go on a when I read the symbol a so I can go to 1 comma 2 that's it yes or no agree so you can notice because I have edges look at the edges only that's it look at the edges tell me what is delta 1 comma b tell me what that will be delta 1 comma b
+
+85
+00:43:20,240 --> 00:43:52,510
+look at the edges only look at the edges only let's assume I give you this diagram okay look at the edges only so tell me what will be 1 comma B that will be 5 very good okay that will be 5 because from state 1 you have no A's there is no A's on symbol B what is delta 1 comma null move now this is not a null string this is a null move this is a null move is there any A's from state 1 is there any A's
+
+86
+00:43:52,600 --> 00:44:23,400
+on null move do we have any age on null move so the answer will be 5 remember i am asking transition function transition function and that is simply your age function you can understand this transition function as like age function just look at the ages you only have to look at the ages nothing else just look at the ages is there any age from state 1 on epsilon on null move is there any age please tell me yes or no
+
+87
+00:44:23,740 --> 00:44:56,550
+from state 1 do we have any age can you see any age on null move tell me can you see any age on null move no so the answer will be 5 i hope this point is clear so tell me here so what if i ask you what is delta q2,a what that will be q2,a tell me the answer just look at the ages from state 2 from this state look at the ages again 5
+
+88
+00:44:57,140 --> 00:45:27,760
+again your answer is 5 yes or no next you tell me delta 2 comma a what that will be sorry 2 comma b what that will be 2 comma b that will be only 2 because you have age just look at the ages nothing else delta 2 comma null move what your answer will be 2 comma null move the answer will be 3 the answer will be 3 because this age you have just look at the ages nothing else just look at the ages
+
+89
+00:45:28,470 --> 00:46:00,630
+I hope this point is clear. Tell me what is 3 comma A? What is 3 comma A? Tell me. Just look at the edges. So that will be 3. What is 3 comma B? That will be 5. What is 3 comma null move? That will be 5. Just look at the edges. Okay. I hope this point is clear. So let's see the next. If I ask you delta 1 comma AB. Now what that will be? Delta 1 comma AB.
+
+90
+00:46:01,160 --> 00:46:34,330
+Now that is nonsense Okay So very simple Is this point clear? Yes or no? So this is your transition function So transition function is similar to your AS function You just have to look at the ages If you are finding the transition function So remember transition function whenever you are finding Transition function whenever you are finding for NFA or DFA For NFA or DFA What do you need to do? Tell me what you need to do? Just look at the ages
+
+91
+00:46:35,840 --> 00:47:07,530
+just look at just look at ages nothing else okay so this is your answer now you can notice this is your this screenshot this is taken from sipser here also you can check for example tell me if I ask you from Q1 first of all you tell me why in the transition function this is your transition function right first of all you notice something interesting you notice that first of all in transition function
+
+92
+00:47:08,560 --> 00:47:37,800
+how many columns you will have because this is NFA this is NFA this is NFA so in the transition function how many columns you will have there will be three columns okay what is this is this empty string is this empty string no this is your null move without reading any symbol you can move this is your null move I hope this point is clear right this diagram in this diagram all your answers are there if you have any doubt in this diagram all your answers you can find
+
+93
+00:47:38,190 --> 00:48:07,520
+okay so you can notice because this is the transition function I am writing the transition function so you can notice that only three columns will be there because on any age either I will put zero or I will put one or I will put null yes or no agree in NFA you tell me just tell me simple point in NFA if I give you this age okay if I give you this age what are the possibilities means here what I can put if your sigma is let's assume a comma b
+
+94
+00:48:07,790 --> 00:48:36,200
+Now tell me in this age, what are the labels I can put? What are the labels I can put on this age? Tell me, I can put only these labels either this can be A or this can be B or this can be a null move. So these are the labels I can put. Agree? Agree? Yes or no? So very simple. That is the reason I am saying that in the transition function, when you write the transition function, you can notice in the transition function, there will be three columns.
+
+95
+00:48:37,220 --> 00:49:07,030
+Okay, in the DFA, what will happen? In the DFA, what will happen? In the DFA, either this can be A or this can be B. That's it. You don't have null move in the DFA. So when you create the DFA, when you create the table for DFA, then only two columns will be there. Yes or no? Then only two columns will be there in the DFA. So this is the idea. Now you tell me here. So tell me Q1, 0. What should I write? Q1, 0. Just look at the
+
+96
+00:49:08,100 --> 00:49:40,670
+where you will look just look at the edges q1,0 there is a's so I will write q1 what about q1,1 what about q1,1 that will be q1,q2 because q1,q2 yes or no just look at the edges what will be q1,epsilon what will be q1,epsilon please tell me what will be q1,epsilon that will be 5 because there is no a's from q1 there is no a's so that is 5 you can check
+
+97
+00:49:40,890 --> 00:50:10,250
+similarly q2,0 q2,0 there is a's to q3 so you can see there is q3 what is q2,1 that is 5 because there is no a's what is q2,epsilon that will be q3 because there is a's so that will be q3 what about q3,0 q3,0 there is no a's so that is 5 q3,1 that will be q4 there is a's this a's you have what is q3,epsilon that will be 5 because there is no a's
+
+98
+00:50:11,020 --> 00:50:40,810
+Similarly Q4,0 that will be Q4 Q4,1 Q4 Q4,0 Q4,0 that will be 5 because there is no edge. Please tell me did you understand? Is this point clear? The transition function is this crystal clear. The transition function is crystal clear or not? Let me know. So let me move on. Should we move on? Now let me tell you what is the extended transition function. We have seen the transition function.
+
+99
+00:50:41,100 --> 00:51:16,920
+now let's see the extended transition function for NFA okay now let's study this so tell me this extended transition function for NFA so this is your I can say delta hat from q on w where you will go right here this is a string here this is a string in the extended transition function I am asking from this state q where you will go on string w means you are in this state q
+
+100
+00:51:17,160 --> 00:51:47,140
+this is your w you are in this state q where you will go where you will go when you read the this w when you read this w where you will go is this point clear see remember tell me because this is NFA so will i get a set of states will i get a set of states yes i will get a set of states right so here i can get a set of states here i will get a set of states okay so this is the point this is your extended transition function
+
+101
+00:51:47,690 --> 00:52:17,690
+Now let's see in this extended transition function, you just need to what do you need to do? Let me tell you what do you need to do with example? I will tell you. Okay. So let's let's see this example. Consider this example in this you tell me first of all, I ask you what is Delta Q1 comma one. What that will be Delta Q1 comma one. I am asking Delta transition function. So what is Delta Q1 comma one. That is very simple. That is Q1 comma Q2. Just look at the ages. You will look at the ages.
+
+102
+00:52:18,030 --> 00:52:47,610
+But if I ask you what is delta hat cube one comma one Okay now here this is a string right here this is a string and here this one is what Here this one this is a symbol right this is a symbol I can say this is just a input symbol Here this is just a input symbol This is your input symbol But or I can say this yeah like this is a transition This is a transition this one But here this is a string So you tell me if you are in state cube one
+
+103
+00:52:48,630 --> 00:53:16,480
+you are here in the state q1 after reading this one what are the possibilities where can you go what are the possibilities where can you be from the state q1 after consuming this entire string after consuming this entire string where can you be you can be in q1 you can be in q1 right because you can go to q1 or what can happen you can go to q2
+
+104
+00:53:17,280 --> 00:53:47,150
+after consuming this entire string you can go to Q2 or what you can do or what you can do see or you can go to Q3 because what you can do you can consume this one and then you without reading anything you just go to Q3 without reading anything you just go to Q3 so is this point clear see what I am asking let me tell you again I am saying that Q1 this delta star or I can say delta hat Q1, symbol 1
+
+105
+00:53:48,010 --> 00:54:18,340
+now this is your extended transition function so if you are in state so these are the possibilities please understand this is your one this is your Q1 what I can do either I can make this transition either I can do this so then my answer will be Q1 right if I do if I take this transition then this is what will happen okay now you tell me now you tell me if I do this from Q1 if I take this transition then where where I can go I can go to Q2 right
+
+106
+00:54:18,690 --> 00:54:48,390
+Yes or no? So I can go to Q2. What else? What else? From Q1. What I can do? I can do this. I can read this one. Where I will go? I will go to Q2. But then what I can do? Then without reading any symbol, I can go to Q3. Agree? Without reading any symbol. Without reading any symbol, I can go to Q3. I don't need to read any symbol. Without reading any symbol. For free, I can go to Q3.
+
+107
+00:54:48,970 --> 00:55:17,490
+without reading any symbol I can go to Q3 so your final answer will be what tell me tell me what is your final answer from Q1 when you consume this entire string then either you can be in Q1 or you can be in Q2 or you can be in Q3 so your answer will be delta hat extended transition function Q1,1 that will be a set of states that will be Q1, Q2, Q3 is this point clear this is your extended transition function
+
+108
+00:55:18,730 --> 00:55:50,030
+okay and this means null move remember without reading any symbol you can go from q2 to q3 you don't need to read any symbol is this point clear let me know see this is not difficult very simple this now let me tell you how will you find if I ask you if I ask you this question delta hat extended transition function from state q1 on 1 comma 1 comma 1
+
+109
+00:55:50,240 --> 00:56:20,540
+Okay, let's see this. What your answer will be? What your answer will be here? So remember, what you can do from Cuban 1.1. So just find out where can you go? You start in Cuban. Where can you go when you read this entire string? This entire string, this is your entire string. When you consume this entire string, where can you go? So what you can do see, you can take this transition. If you take this transition, then you will go to Cuban.
+
+110
+00:56:21,720 --> 00:56:51,070
+and then what you can do then again you can take this transition then you will go to Cuban so this is possible right agree agree this is possible so this thing is possible okay what else is possible what else is possible this is one one what you can do you can take this transition first you can take this transition you can go to Cuban and then you can take this this transition in this state Cuban then you can take this transition you can go to Q2 so this is also possible
+
+111
+00:56:51,640 --> 00:57:22,350
+what else is possible what else is possible you start in Q1 you take this transition you will go to Q1 then you take this transition you will go to Q2 and then again you take this without reading any symbol you can go to Q3 yes or no without reading any symbol without for free you can go for free without visa without reading any symbol without reading any symbol okay so without visa
+
+112
+00:57:22,670 --> 00:57:50,810
+You don't need any visa. You can just directly go to Q3. Is this point clear? This is also possible. Is there any other possibility? Do we have any other possibility? See, what you can do? You can take this transition first. You will go to Q2. Then, in this Q2, can I read 1? In this Q2, can I read 1? Tell me, simple point I am asking. In this state Q2, can I read the symbol 1? Can I read symbol 1 in the state Q2? I cannot do that.
+
+113
+00:57:51,740 --> 00:58:21,290
+I cannot do that in state q2 can I read symbol 1 in state q2 when you are here can you read symbol 1 can you read symbol 1 I cannot do that so what I will do I can do this without reading any symbol I can go to q3 without reading any symbol here I am not reading any symbol remember here I am not reading any symbol here I am not reading any symbol so without reading any symbol I can go to q3 now after that what you can do
+
+114
+00:58:21,530 --> 00:58:49,890
+from q3 you can go to q4 when you read one is this point clear you can go to q4 you can go to q4 when you read one so your final answer will be what tell me your final answer so the final answer will be you can go to q1 also you can go to q2 also you can go to q3 also you can go to q4 also from this state please understand from this state q1 when you consume this entire string
+
+115
+00:58:50,360 --> 00:59:25,480
+Either you can be in this state or you can be in this state or you can be in this state or you can be in this state. NFA can go to these states after consuming this entire string. Please tell me is this clear? Let me know. Is this point clear? Tell me the answer for this question now. Delta hat if I start in Q3 if okay from Q3 on this string where you will go. What your answer will be on this string where you will go means
+
+116
+00:59:25,830 --> 00:59:54,010
+this is your zero zero you start in the q3 now you tell me where you will go so now your answer will be five right there is nothing here there is nothing here so now your answer will be five is this understood some students were asking about five so you can see the scenario that if you are here in this state q3 you can notice there is nothing here you will not get anything here yes or no
+
+117
+00:59:54,490 --> 01:00:29,250
+From Q3 on 0, there is nothing here, this itself is 5. Okay? Is this clear? So very simple. This is your Q3,00 that will be 5. Understood? Please tell me all these points. See, very step by step I am going. Please tell me, are you getting these points? Okay, let's see this one. Q2,1. What your answer will be? What will be the answer? Q2,1. See, this is your string. Remember, this is string.
+
+118
+01:00:29,630 --> 01:00:59,960
+Remember this is string I am asking extended transition function I am asking extended transition function Okay, so you start here Q2 Can you read symbol 1? Can you read symbol 1? Just tell me in state Q2 Can you read symbol 1? So can I say answer will be 5? So can I say answer will be 5? Can I say that answer will be 5? No, answer will not be 5 Okay, so can I say answer will be 5? No, that will be wrong
+
+119
+01:01:01,130 --> 01:01:30,890
+why that will be wrong because notice in this state q2 I am here I am here I cannot read symbol 1 I am here okay in this state q2 I cannot read symbol 1 but what I can do without reading any symbol I can go to q3 without reading any symbol I can go to q3 without reading any symbol yes or no without consuming any symbol I can go to q3 and then what I can do in q3 I can read 1
+
+120
+01:01:31,390 --> 01:02:07,930
+In Q3, I can read one and then what will happen? Then I will go to Q3, Q4. So what your answer will be, tell me. So your answer will be only Q4. Your answer will be only Q4. Is this clear? Please tell me, did you understand? Is this complicated? Are you getting this point? All, see, step by step, all the possibilities I'm taking. Please tell me, is this clear? Is this understood? Okay, so let me give you some revision.
+
+121
+01:02:08,250 --> 01:02:40,190
+Okay, so let's do the revision of whatever we have seen. Let's do the revision of that. See, don't confuse yourself. Very simple. You have NFA for NFA we are finding. You tell me if you find the transition function, what you will do? If you find the transition function, what you will do? That is very simple. Agree? If you find the transition function, that is very simple. This transition function is very simple. Just check the ages. Just look at the ages.
+
+122
+01:02:40,710 --> 01:03:09,650
+that's it just look at the edges nothing else just look at the edges yes or no so this is how you can find the transition function now if your sigma is this if your sigma is a comma b then what are the only possibilities what makes sense if your sigma is this then what makes sense for transition function I can only ask you these questions right I can ask you this question I can ask you this question I can also ask you this question
+
+123
+01:03:10,280 --> 01:03:40,560
+only these three questions make sense agree yes or no so transition function is not complicated agree these are the only valid questions these are the only valid i can say transitions these are the only valid transitions i can only ask you these three questions nothing else i can ask i cannot ask you i cannot ask you q a comma q comma a i cannot ask you q comma bb i cannot ask you these things
+
+124
+01:03:40,900 --> 01:04:15,270
+so transition function is very simple just look at the edges is this clear okay tell me at this point you tell me is this clear transition function okay so this is clear very good now let's see extended transition function this extended transition function what this says this says that this is your etf in short you can call it etf or you can denote by delta star or you can denote by delta hat okay so what this says
+
+125
+01:04:15,960 --> 01:04:45,740
+This extended transition function, this simply says that delta hat in state q w. So here this you will treat as a string. Okay. And what you will find, you will find from state q after consuming this entire string, what are the possibilities? Yes or no? This will be your answer. Correct? Agree? So very simple. This is your extended transition function. Now, let me tell you what you can do. See, very something interesting. So if I ask you what is
+
+126
+01:04:46,060 --> 01:05:16,420
+delta star delta star q comma a if I ask you this then what your answer will be delta star q comma a so for this what you will do delta star q comma a what you are going to do you are going to do this that you start in q and after consuming this entire string what are the possibilities where you will go so what you can do the best way to solve this question is what you do this is your state q now first you see
+
+127
+01:05:16,670 --> 01:05:46,900
+Where you can go for free? Agree? Yes or no? First you see where you can go for free. First you find out where you can go for free. Then you find out. First you find out where you can go for free. What this is called? Tell me what this is called? From state Q. First you find out where you can go for free. What this is called? This is called your null closure. This we have seen in the beginning of the class.
+
+128
+01:05:47,530 --> 01:06:17,670
+Yes or no? This is your null closure of Q. Agree or not? In the starting we have seen this null closure. So what you do? From this state Q for free where you can go. Then what you do? Then you find on A where these things will go. Means where you will go on these things. Where these states, these states where they will go on A. And then again what you do? For free where you will go. This is your final answer. Your final answer is this.
+
+129
+01:06:18,390 --> 01:06:50,190
+here you got your final answer is this simple now tell me I am telling you the procedure now see so far I told you the idea I was taking examples back to back I was taking examples I was telling you the meaning of extended transition function so far we have seen the meaning what this extended transition function means with help of examples we have seen what it means okay now I am telling you the algorithm okay so this is the algorithm
+
+130
+01:06:50,590 --> 01:07:20,290
+if i ask you from this state q on symbol a where you will go then what you can do very simple you can consider this a something like this that first you see where you will go for free then you see where you will go on a and then you will see where you will go for free okay because we already know that this a that is same as this agree or not yes or no so this is what we are doing so from state q for free where you are going find it this is your null closure of q
+
+131
+01:07:20,920 --> 01:07:50,370
+This will be the null closure of Q then on a where you will go find it then for free where you will go find it. That will be your final answer. Is this clear? Now you tell me don't worry. We will do a lot of practice. There are two or three gate questions. We will solve them also. And there are four Peter Lynch questions. We will solve those also. So don't worry on the internet, whatever questions I could found, I have taken in my slides. I have taken all the questions that I could found on the internet.
+
+132
+01:07:50,770 --> 01:08:22,990
+so we will do a lot of practice but try to understand so tell me if I ask you what is your q, epsilon what your answer will be here if I ask you this this is extended transition function I am asking remember I am asking this so here this is string or what is this null move or is this string this is a string okay so remember yes this is same as your epsilon closer of q agree or not this is same as
+
+133
+01:08:23,230 --> 01:08:53,490
+this is same as epsilon closer of q when i was teaching you epsilon closer some students were asking for extended transition function those students did they get their answer now when i taught you this concept epsilon closer of a state at that point some students were asking the connection of epsilon closer with extended transition function now is this point clear see from state q i am asking extended transition function
+
+134
+01:08:53,840 --> 01:09:27,580
+So basically what I'm asking I'm asking this is your so just give me yeah so from state q when you read this string from state q when you read this string when you read this string then where will you go and that is nothing but means for free where you are going yes or no it simply means for free where you are going that is your answer so I can say that delta star q comma epsilon that is your epsilon closer of q
+
+135
+01:09:27,800 --> 01:09:57,390
+means from queue where you are going for free where you are going for free freely where you are going for free or I can say that from queue without consuming any input symbol you cannot consume input symbol because this is your string your string is empty string so without consuming any input symbol where you can go and that is the definition of epsilon closer is this point clear let me know
+
+136
+01:09:57,940 --> 01:10:29,950
+Now you tell me if I ask you delta star q comma AB or I can say for example a how will you find this? Tell me how will you find this? Let me know. How are you going to find this? So very simple. It is like this that on AA this is your string on a you start in Q where you will go. So how are we going to find it? So let me tell you this is how we can find very simple. This is your state Q.
+
+137
+01:10:30,300 --> 01:11:00,340
+first you find for free where you will go for free where you are going then you find on a where you will go then again you find for free where you will go then again you find for a where you will go and then you find for free where you will go so your answer will be this this will be your answer is this clear did you understand please tell me did you understand see very simple i am saying this is your double a so what you can do
+
+138
+01:11:00,640 --> 01:11:32,800
+first you find for free where you are going find all the possibilities for free where you are going then then you find where you are going after reading a okay you read this a then where you are going then you find for free where you are going then you read this a where you are going then for free where you are going okay is this clear so very simple i hope this point is clear so it's like this that first you find for free where you are going for free
+
+139
+01:11:33,020 --> 01:12:04,550
+where you are going then read this a where you are going then for free where you are going then you read this a where you are going and then for free where you are going this is your answer please tell me did you understand okay so let's see if i ask you delta star a b a now what answer will be how will you find this remember this simply means that this is your string a b a you are starting in the state q
+
+140
+01:12:05,450 --> 01:12:37,650
+you are starting in the state q you are starting in this state q so what it means simply means this is what you want to find out you want to find out this is what you want to find out so how will you find out so I can say delta star from q a b a so the answer will be like this this is your starting point first you find for free variable go yes or no for free variable go for free where you can go
+
+141
+01:12:37,950 --> 01:13:11,930
+Then you consume this symbol. Then you consume this A. Then you find out for free variable go. Then you consume this next symbol. Then you consume this next symbol. Then you find out for free variable go. Then you find out. Then you consume this last symbol. And then you find out for free variable go. So your final answer will be this. This is your final answer. Is this understood? Let me know.
+
+142
+01:13:13,080 --> 01:13:42,760
+Is this clear? Simple, right? Quite intuitive. Ultimately, what we are reading? Tell me. In this procedure, ultimately, what is the string we are reading? Please tell me. Ultimately, in this complete procedure, which string we are reading? We are reading only A, B, A. Remember, this is the string we are reading. We are only reading the string A, B, A. Okay? We are only reading the string A, B, A. Only these symbols we are reading A, B, then A.
+
+143
+01:13:43,430 --> 01:14:14,250
+This is what we are doing. So I hope this point is clear. Now let's see this example again. Okay, we will do some more practice. So let's see. Now some students were asking what is the difference between, for example, if I ask you delta, if I ask you delta cube one comma epsilon, what that will be and delta star cube one comma epsilon, what that will be? Please tell me the answer for these two. What will be the answer here? Delta cube one comma epsilon, what your answer will be?
+
+144
+01:14:14,990 --> 01:14:44,770
+This is a simple age function. There is no age from Q1. There is no age. This is here. This means null move. Is there any null move from Q1? Do we have any null move from Q1? This is simply your age function. This is simply your age function. Do we have any null move from Q1? The answer is 5. There is no null move. Okay. But here this is a empty string. Here this is a string means
+
+145
+01:14:45,120 --> 01:15:17,480
+From... Okay, I start in Q1. Without reading anything, where can I go? Without reading anything, where can I go? I can go only to Q1. Without reading anything, I can go to Q1. So some students were asking this difference. I have told this. Is this clear? See, things are not complicated. Let me tell you. These things are actually very simple. But some of you are making these things complicated in your mind. See, these things are very consistent and very simple. But don't worry.
+
+146
+01:15:17,840 --> 01:15:47,220
+we will take a lot of examples by the end of this session everything will be crystal clear so tell me here if i ask you what is delta i am asking delta q2, epsilon what is that and what is delta star q2, epsilon what is that now tell me the answer what is delta q2, epsilon remember here this is a null move here this is a transition here this is a transition because this is simply your age this is your simple age function
+
+147
+01:15:48,380 --> 01:16:16,000
+your transition function so I am asking from Q2 is there any age on null move do we have any null move yes we can go to Q3 this null move we have okay yes or no this null move we have without reading any symbol I can go from Q2 to Q3 without reading any symbol now you tell me about this one what this will be this means you are starting in Q2
+
+148
+01:16:16,270 --> 01:16:45,870
+now without reading any symbol where I can go see I can go to q2 also I can go to q3 also so here answer will be q2 comma q3 and now you tell me something interesting not interesting but you tell me delta star q2 comma epsilon what that is and what is epsilon closer of q2 what that is now you tell me the answer for these two for these two you tell me the answer what is epsilon closer of q2
+
+149
+01:16:46,250 --> 01:17:18,030
+Absolute closure means where I can go from Q2 for free Okay, from Q2 for free For free where we can go From Q2 for free So from Q2 I can go for free to Q2 Q3 Now you tell me about this one What is the extended transition function? This is also very simple means from Q2 without reading any symbol Okay, without reading any symbol where I can go Here also the answer will be Q2 Q3
+
+150
+01:17:18,340 --> 01:17:52,610
+can you notice they are same can you notice they are same this is what i was saying so this is what i was saying that delta star q comma epsilon that is same as your epsilon closer yes or no that is same as epsilon closer of q okay because both of them what they mean they simply means that both of them they mean where we can go from q from q
+
+151
+01:17:53,210 --> 01:18:26,550
+for free where you can go for free where we can go for free means without reading any symbol where we can go okay yes or no so this is the idea I hope this point is clear now let's see some more questions let's see this table this NFA this NFA is given to you for this NFA I am asking some questions first of all you tell me the transition function only that's it first of all you tell me the transition function only that's it
+
+152
+01:18:26,890 --> 01:18:57,950
+tell me what is the transition function the transition function delta you just give me the delta let's assume the alphabet is only a this is your alphabet so tell me how many columns will be there how many columns only two columns will be there a comma null move a comma null move this simply means null move a comma null move so you tell me now in this state q0 state q1 and state q2 so this is your
+
+153
+01:18:58,170 --> 01:19:28,830
+final state is q2 so you can you can do like this this means final state this means final state okay so this means final state and this because this is the first step state so you can either see remember one thing I want to tell you one thing either you can do like this okay either you can do like this or you can simply leave it because if I'm writing this state on top then it simply means this is start state okay
+
+154
+01:19:29,200 --> 01:19:59,170
+if I am writing this state on top I am writing this state on top so this is your restart state or you can simply you can do this okay now you tell me what is q0 comma a I am asking transition function that is simply your as function nothing else just look at the edges only look at the edges so q0 comma a that will be your q1 okay that will be like this because it will be a set right because I am talking about NFA so it can be a set agree
+
+155
+01:19:59,980 --> 01:20:29,960
+I am talking about NFS so it can be a set for example if you have A, C if I have this then your answer will be set Q1, Q2 set Q1, Q2 agree so now you tell me so this will be your now Q0, epsilon null move what your answer will be that is 5 there is no edge we don't have such edge so that will be 5 next you tell me Q1, A Q1, A there is no such edge there is no such edge
+
+156
+01:20:30,200 --> 01:20:59,740
+q1 comma epsilon null move this this this is your null move remember here either you can use lambda or you can use epsilon that is fine so tell me this q1 comma epsilon that is your q2 you are going to q2 what about q2 comma a q2 comma a there is no age what about q2 comma epsilon that will be q0 so this is your transition function is this clear we have seen the transition function now you tell me the extended transition
+
+157
+01:21:00,250 --> 01:21:30,070
+see I am asking so tell me if I ask you delta star q0 comma a now what answer will be what the answer will be so here remember one thing here I am simply asking that if you read from state q0 if you read a where you can go so what are the possibilities just tell me all the possibilities see what I can do I can start in q0 I can read this symbol and I can go to q1
+
+158
+01:21:30,640 --> 01:21:57,870
+and I can stop yes or no I can stop agree with me I can stop or what I can do I can go from Q0 I can read this symbol A I can go to Q1 but from Q1 without reading any symbol I can go to Q2 from Q1 without reading any symbol I can go to Q2 or what I can do or what I can do see from Q0 I can read this symbol A I can go to Q1 I can go to Q1
+
+159
+01:21:58,160 --> 01:22:30,020
+From Q1 without reading any symbol I can go to Q2. From Q2 without reading any symbol I can go to Q0. So my answer will be what? Here the answer will be Q0 Q1 Q2. Is this understood? Please tell me. Is this point clear? Did we use the algorithm here? To find the delta star Q0, did we use the algorithm? See this is not algorithm. This is simply idea.
+
+160
+01:22:30,790 --> 01:22:59,990
+here we are simply using the idea means what this extended transition function means we are using that but you can use the algorithm also what algorithm says you can use the algorithm also algorithm says for free where you can go then on a where you can go and then for free where you can go so tell me from q0 for free where you can go from q0 from this is that q0 for free where you can go you can only go to q0
+
+161
+01:23:00,480 --> 01:23:34,190
+now from q0 on symbol a where you can go from q0 on symbol a where you can go you can go to q1 now from q1 for free where you can go now from q1 for free where you can go from this state q1 so from this state q1 where you can go for free so you can go to this from this q1 for free you can go to q1 for free you can go to q2 for free you can go to q0 this is your final answer yes or no
+
+162
+01:23:34,340 --> 01:24:03,310
+so you can use the algorithm also if you want you can use the algorithm also this algorithm is also very simple means for free where you are going here you find for free where you are going here you find on a where you are going let me tell you one more thing see here just focus on a don't don't focus on free yes or no here just focus on a don't focus on free agree because we are focusing on free here and we are focusing on free here
+
+163
+01:24:04,210 --> 01:24:34,760
+So you don't have to focus on free here. Is this point clear? So first you find out from Q0 where you will go for free. Then you find out where you will go on A. Then you find out from where you will go for free. Your final answer will be Q0, Q1. Your final answer will be Q1, Q2, Q0. Yes. Okay. Is this clear? Let me know. So what is the difference? Delta Q0 comma A. Delta Q0 comma A.
+
+164
+01:24:34,990 --> 01:25:05,020
+and what is delta star q0 comma a what is that what is delta delta q0 comma a what is that delta q0 comma a what is that that will be q1 and what is delta star q0 comma a that will be q0 q1 q2 this is the answer i hope you are slowly slowly you are understanding all these points so tell me where you will go from q1 on sim on epsilon where you will go delta
+
+165
+01:25:05,560 --> 01:25:35,870
+also delta star both of them you tell me you tell me both of them so what will be the transition function there is only one is there is only one is we have only one is and what is the external transition function that is same as your epsilon closure of q1 epsilon closure of q1 okay so from q1 where you can go for free you can go to q1 you can go to q2 you can go to q0 so this is your answer
+
+166
+01:25:36,300 --> 01:26:07,570
+Is this clear? So very simple, you can do this. I hope all these points are clear. Now let's move on. So you can check it out. Please tell me what is delta star q2, lambda? This lambda, this is your nothing but this is your epsilon only. So you tell me in this previous question from q1, you are in this state q1 for free where you can go for free for free where you can go for free.
+
+167
+01:26:08,410 --> 01:26:35,660
+from q1 you can go to q1 for free you can go to q1 you can go to q2 you can also go for free you can go to q0 okay you can go to all the states for free if I am here if I am here for free I can go here also for free I can go here also and for free I can go here also okay now you tell me about this one so tell me delta star q2 comma lambda delta star q2 comma lambda
+
+168
+01:26:36,110 --> 01:27:03,140
+remember this is delta star this is extended transistor function so tell me like if I ask you delta q2, lambda what is that and delta star q2, lambda what is that you tell me both of them delta q2, lambda what is that delta q2, lambda that will be only q0 because this is the age this is the age next what is delta star q2, lambda this is your epsilon closer
+
+169
+01:27:03,600 --> 01:27:33,970
+means from q2 where you can go for free from q2 for free you can go to q2 from this state q2 remember from this state q2 for free you can go to q2 also for free you can go to q0 also so this is your answer next you tell me delta star q2 comma a what is that delta star delta star q2 comma double a so how will you find very simple you start in q2
+
+170
+01:27:34,540 --> 01:28:02,360
+you're starting this state q2 first you find for free variable go then you find on a variable go then you find for free variable go then you find on a variable go and then you find for free variable go this is your answer okay so tell me for free variable go from q2 from this state q2 for free where you can go you can go to q2 comma q0 right you can go to q2 comma q0 for free
+
+171
+01:28:02,920 --> 01:28:32,350
+for free where you can go remember this is your epsilon closer of q2 this is the null closer of q2 so from this state q2 for free you can go to q2 comma q0 now you tell me now just look at a now here just look at a right here you will just look at a just look at the transitions just look at the transition function because remember one thing I'm telling you again here you can here you can see the free here you can see the free
+
+172
+01:28:32,650 --> 01:29:01,980
+here you only have to look at a is this point clear please tell me is this point clear see here you can look at free where i can go for free here also i can look at free where i can go for free in this you only have to look at transition you only have to look at the transition function so tell me from q2 on a where i will go from q2 on a from q2 on a there is nothing from q2 on a from q0 on a
+
+173
+01:29:02,620 --> 01:29:32,270
+from q0 on A from q0 on A that will be q1 so this is what you got you got this okay next you tell me from here for free means from q1 from q1 for free where you will go from this state q1 for free you can go to q1 you can go to q2 you can go to q0 so you can go to q2 you can go to q1 and you can go to q2 so this is what you can do next
+
+174
+01:29:32,720 --> 01:30:03,290
+Now if you read a variable go see from Q0 if I read a I will go to Q1 just look at the transition function Q1 here from Q1 if I read a nothing from Q2 if I read a nothing okay so very simple this is only Q1 now from Q1 for free where you will go from Q1 for free where you will go you will go to all the places you will go to Q1 Q0 Q2 that's it this is your answer so your final answer will be
+
+175
+01:30:03,550 --> 01:30:35,120
+q0, q1, q2 okay is this clear? so this is how you can find just go step by step nothing else ultimately which string we are reading this is your final answer but tell me in this complete process which string we are reading which string did we read see we are only reading AA we are only reading this string AA okay so very simple so you can you can see these are the examples next you tell me
+
+176
+01:30:35,370 --> 01:31:14,480
+from q0 on 110 what that will be if i ask you you tell me the answer here delta star q0 110 delta star q0 110 means you start in q0 after reading this entire string where you will go after reading this entire string where you can go see very simple you can notice from this q0 what i can do see there are two things what are the two things here from this q0 let me tell you
+
+177
+01:31:14,670 --> 01:31:44,670
+I am asking what is delta star q0 comma 110 this is what I want to ask see okay we will use the both the methods what we will do first I will tell you the intuitive method that this is your 110 and this is your q0 so what is the first thing you can do tell me in this situation what is the first thing you can do either you can do this or you can do this agree with me do you agree with me
+
+178
+01:31:44,910 --> 01:32:15,950
+that i can either i can without reading any symbol i can go to q2 so what i can do see very simple this is your 110 what i can do either what i can do from without reading any symbol i can go to q2 without reading any symbol from q0 without reading any symbol i can go to q2 but there is a problem now but now there is a problem yes or no now this is your five so i can just here i can say if you do this then answer will be five if you do this
+
+179
+01:32:16,140 --> 01:32:44,970
+then answer will be 5 because in this state q2 i cannot read 1 you can notice in this state q2 i cannot read symbol 1 so this is what you can do or what i can do so in this situation answer will be 5 now another thing what i can do is i can take this this arrow from q0 i can read 1 i can go to q1 i can read 1 i can go to q1 now what about this tell me what about this q1 comma 1 what about this
+
+180
+01:32:45,720 --> 01:33:16,480
+Q1,1 what are how many possibilities I have Q1,1 how many possibilities I have tell me Q1,1 there is only one possibility that is Q2 that is Q2 so there is only one possibility that is Q2 now you tell me how many possibilities Q2,0 that is your Phi Q2,0 in this state Q2 you cannot read 0 so very simple so your final answer will be what tell me the final answer so your final answer will be
+
+181
+01:33:16,800 --> 01:33:52,140
+it will be just five it will be answer will be it will be five okay i hope this point is clear so you can check from this state q0 110 the answer will be five let's move on this is your peter linz question so let's solve it peter linz exercise five question so tell me the answer this is the exercise question question number five the question is asking you find delta star q1 comma zero one first let's find out
+
+182
+01:33:52,360 --> 01:34:24,900
+delta star q1 comma 01 means this is your 01 this is your q1 then first you tell me from this q1 on 0 how many possibilities I have how many possibilities there are two possibilities there are two possibilities what I can do see there are two possibilities from this q1 on 01 either what I can do I can read this 0 I can go to q2 or I can read this 0 and I can go to q0 because there are two possibilities
+
+183
+01:34:25,560 --> 01:34:57,990
+I have two possibilities from this Cuban. Now you tell me, what about this one? What about this? This is nothing. This is just fine. It will not go anywhere. What about this one? What about this one? When you read one, remember again, there are two possibilities. Again, here there are two possibilities. What are the two possibilities? See, either it will happen like this. What I can do? Either I can go to Cuban. Either I can go to Cuban.
+
+184
+01:34:58,500 --> 01:35:30,000
+or what I can do tell me or what I can do I can make this null move and then it will be fine yes or no agree yes or no so simple I can make this null move but then it will be fine because remember in this state q0 I am saying like this that in this state q0 if you read symbol 1 there are two possibilities what are the two possibilities either I can simply go to q1 either I can do this
+
+185
+01:35:30,270 --> 01:36:04,030
+I can simply go to q1 or what I can do I can do this that from q0 I can go to q2 but then this will be phi but then this will be remember this is going to be phi anyway your final answer is what tell me so can I say that delta star so your final answer what that will be delta star q1 comma 01 ultimately where you are going you can only go to one state that is q1
+
+186
+01:36:04,370 --> 01:36:35,150
+yes or no that is q1 is this clear after reading this 01 after reading this 01 this is the only state where you can go you can only go to this state q1 please tell me is this clear let me know if you think that this is complicated then you can use the algorithm also no problem don't worry don't worry don't worry see delta star q1 comma 01 you can just do the algorithm okay just okay let's apply the algorithm
+
+187
+01:36:35,450 --> 01:37:05,890
+Tell me how the algorithm will work. Tell me how the algorithm will work. This is your state Q1. First you find for free where you will go. Then you find on zero where you will go. Then find for free where you will go. Then find on one where you will go and then find for free where you will go. Just use the algorithm. If you don't want to use the brain. Okay. If you don't want to use this, then you can apply the algorithm. So tell me the answer from Q1 where you can go for free.
+
+188
+01:37:07,150 --> 01:37:35,380
+for free where you can go from this state q1 from this state q1 for free i can only go to q1 for free from this state q1 for free i can only go to q1 next from this q1 if i read 0 where i can go just look at the 0 just look at the 0 i can go to q2 q0 i can go to q2 q0 now for free where i can go from q2 from q2 from q2
+
+189
+01:37:35,770 --> 01:38:05,240
+for free i can go to q2 from q0 for free from q0 for free i can go to q0 also i can go to q2 also that is all already written yes or no from q0 from this state q0 for free i can go to q0 also i can go to q2 also so i can go to q0 q2 next from these states if i read one where i will go from q2 on one nothing q2 on one
+
+190
+01:38:05,500 --> 01:38:34,630
+this is state q2 on 1 that is nothing q0 comma 1 q0 comma 1 that will be q1 next from q1 for free where i will go please tell me from q1 for free where i will go from q1 from this q1 for free where i will go i can only go to q1 so your final answer will be q1 this is how also you can do see this algorithm this algorithm this is boring this is time taking
+
+191
+01:38:34,960 --> 01:39:07,120
+but you will not make mistake that is the benefit yes or no agree with me this is a time taking this is boring but this will not make you mistake you will not make mistake in this you will get you will definitely get correct answer that is the benefit that is the only benefit okay so very simple this is how you can do now you tell me the answer for this one delta star q 0 1 0 1 1 both the ways you apply okay you apply both the ways so
+
+192
+01:39:07,620 --> 01:39:37,850
+without algorithm if you want to solve how will you solve how will you solve without algorithm q010111011q0 okay so you can notice one thing that if I take this path then definitely know where I can go agree with me from q0 if I anytime if I take this from this state q0 anytime if I take this path then after that I cannot read anything
+
+193
+01:39:38,870 --> 01:40:08,160
+after that I cannot do anything once I go here I cannot go anywhere okay so here what I can do see very simple I am telling you that if you directly go without reading any symbol if you go to Q2 now here you will stuck yes or no now here you will stuck agree or not so this path you can just forget about it next what you can do 1011 so tell me from this state Q0 if you read one where you will go
+
+194
+01:40:08,510 --> 01:40:38,780
+from this state q0 if you read 1 you can go to q1 now from q1 on 0 from q1 on 0 from this state q1 on 0 you can either go to q0 or you can go to q2 see either you can go to q0 or you can go to q2 but this q2 path will be stuck right this q2 on 1 this will be 5 this will be 5 this will be stuck so now you tell me about this one q0 comma 1
+
+195
+01:40:39,050 --> 01:41:15,820
+where you can go q0 comma 1 from this state q0 comma 1 again you can notice if you do this then again you will be stuck again you will be stuck so you can simply go to q1 you can simply go to q1 okay next finally q1 comma 1 finally q1 comma 1 what that will be this is your one so finally this q1 comma 1 so from this state q1 on 1 you can only go to q2 that's it
+
+196
+01:41:16,040 --> 01:41:53,380
+so here you can only go to q2 so your final answer will be what tell me your final answer is you can only go to q2 so your answer will be delta star q0 1011 your final answer you can only go to q2 q1 comma one you can only go to q2 not q0 see from this straight q1 you can notice on one you can only go to q2 okay okay so this is the idea now you can also apply the algorithm agree
+
+197
+01:41:53,830 --> 01:42:22,160
+delta star q01011 you can also apply the algorithm so let's quickly do this if you are applying the algorithm so let's quickly do this for free where you can go tell me tell me for free from this issue at q0 from this issue at q0 for free where you can go you can go to q0 or you can go to q2 you can go to q0 q2 you can go to q0 you can go to q2 okay now on the symbol one variable go on the symbol one
+
+198
+01:42:22,940 --> 01:42:53,670
+from this Q2 nothing see this Q2 will give you nothing right yes or no this Q2 will give you nothing agree so I can say that Q2 is going to give you nothing but Q0 comma 1 what it will give you Q0 comma 1 Q0 comma 1 that will give you Q1 okay next for free where you will go from Q1 there is no free right from Q1 there is no free from Q1 there is no free okay so for free you will only go to Q1
+
+199
+01:42:54,080 --> 01:43:23,670
+next so this symbol is done remember this symbol 1 this symbol 1 is done next what about 0 what about this symbol q1 comma 0 from this state q1 on 0 you can go to q0 you can go to q2 you can go to q0 you can go to q2 next you tell me for free where you will go for free where you are going q0 from this q0 for free you can go to q0 q2 you can go to q0 q2 and from this q2 for free
+
+200
+01:43:24,470 --> 01:43:52,670
+from this q2 for free you can go to q2 you can go to q2 that is already written next from here on this next symbol see this zero is also done so on this next symbol one where you are going see this q2 will go nowhere this q2 comma I can say this q2 comma one nothing but q0 comma one q0 comma one that will be q1 right so that will be q1 next from q1
+
+201
+01:43:54,470 --> 01:44:25,220
+for free where you will go that we have already done so you don't have to look at the map you don't have to look at the diagram again from this q1 for free you can go to q1 then finally which symbol is remaining see this symbol done this symbol done this symbol done last symbol one is remaining last symbol one is remaining from q1 on one q1 on one that is only q2 that is only q2 next for free next for free you can only go to q2 so your answer will be q2
+
+202
+01:44:25,450 --> 01:44:53,820
+this is the algorithm algorithm is also very nice actually algorithm is not so bad right at least you will not make mistake this is the benefit this is the benefit that you will not make mistake this algorithm is also fine it's not it's not a bad algorithm this is also very I can say very I can say fine algorithm light okay because see one thing you tell me see if you apply this method then also it is taking time
+
+203
+01:44:55,060 --> 01:45:24,570
+this method is also taking time right and some mistake you can make in this method it is possible that some mistake you can make if you are not careful but in this method you will not make mistake that is the benefit okay so did you understand this algorithm please tell me very simple right free one free zero free one free one free so very simple this is your algorithm I hope this point is clear so this is your bitterlings question we have done it okay
+
+204
+01:45:24,890 --> 01:45:54,910
+for this question what will be the answer what was the answer we got that is q2 okay and for this question what was the answer i think that was q1 okay so this is your peter linz question question number five we have done it now let's see peter linz question question number six let's solve it first you tell me about this one this is quite easy right what is this what will be the answer for this that is simply epsilon closer of q1
+
+205
+01:45:56,050 --> 01:46:28,270
+From q1 for free where you can go from this state q1 for free where you can go So for free you can go to q1 you can go to q2 and you can go to q0 for free Okay, so this is quite simple This is done next. What about this one q0 comma a q0 comma a So this you can do like this q0 first for free where you will go on a where you will go for free where you will go
+
+206
+01:46:28,570 --> 01:46:57,250
+see notice for free where you will go from this state q0 for free you will go to q0 okay from this state q0 for free you will go to q0 from this state q0 on A you will go to q1 and from this q1 for free you will go to all the states you will go to all the states okay so this is how you can do so very simple this question number 6 this is also done question number 7 in the petrolins now tell me the answer here
+
+207
+01:46:58,320 --> 01:47:33,430
+the question is asking first let's see this delta star q100 what answer you will get delta star q100 delta star q100 see this is actually quite simple if you if you apply this simply if you notice see this is your 00 how many possibilities I have you just simply tell me how many possibilities I have see from q0 the only possibility I cannot read 0 do you agree with me
+
+208
+01:47:33,870 --> 01:48:05,920
+From this state q0 I cannot read 0 Can I read 0? In this state q0 can I read 0? I cannot read 0 So this is the only possibility I have I have only one possibility That from q0 I can go to q2 for free Agree? Yes or no? From q0 I can go to q2 for free I can go to q2 for free Without reading anything Without reading any symbol So without reading any symbol I can go to q2
+
+209
+01:48:06,170 --> 01:48:37,230
+now in this q2 q2 comma 0 that is your phi so your final answer will be what delta star q1 comma 00 that will be phi sorry q1 comma 00 oh the question is asking q1 comma 00 the explanation is according to q0 sorry sorry sorry sorry i made a mistake the explanation is according to q0 comma 00 okay so remember
+
+210
+01:48:37,500 --> 01:49:05,370
+the explanation this explanation this is according to q0 comma 00 okay q0 so okay i will not remove this explanation you can assume that this is the question okay is this clear you can assume this is the question then the answer will be five but the question is actually q1 comma 00 the question is actually q1 comma 00 so let's see this q1 comma 00 so tell me this is 00 q1 where you will go
+
+211
+01:49:05,940 --> 01:49:36,570
+First of all, in this Q1, can I go for free? Can you go for free? From this state Q1, can you go for free anywhere? You can go to only Q1, nowhere else. Okay. So you can notice that the only way is either you, if you read zero, either you can go here or you can go to Q2. So either you can go to Q0 or you can go to Q2 when you read this symbol zero. Now, now what about this and what about this? What is the answer? Tell me, what is the answer here?
+
+212
+01:49:36,900 --> 01:50:06,090
+Q0,0 Q0,0 what is the answer here that is also 5 and Q2,0 that is also 5 ultimately the answer will be 5 okay ultimately the answer is 5 but you can apply the algorithm also see if you don't want to make mistake then you can apply the algorithm from this state Q1 for free variable go on 0 variable go for free variable go on 0 variable go and for free variable go let's check it out
+
+213
+01:50:06,470 --> 01:50:34,940
+so tell me from this state q1 for free where you will go from this state q1 for free from this state for free you will go to q1 from this q1 on 0 from this state q1 on 0 you can go to q0 q2 you can go to q0 q2 next for free where you can go from this state for free where you can go q0 q2 from here q0 q2 from here for free
+
+214
+01:50:35,500 --> 01:51:05,800
+see from q0 for free you can go to q0 q2 and from q2 you can go to q2 so that is already included okay because that is already included so you don't have to write it again okay now you tell me from q0 on 0 q0 on 0 nothing q0 on 0 nothing q2 on 0 nothing so here you got 5 okay so ultimately because you got 5 so ultimately you will again get 5 so the answer will be 5 is this clear
+
+215
+01:51:06,410 --> 01:51:39,460
+Please tell me. So here the answer will be 5. Okay. Let's see the next one. What about this Q01010? What about this one? Q01010. So from this state Q0, either you can apply the algorithm or you can apply the idea. Okay. You can do anything if you want. But if you don't want to make mistake, my suggestion is algorithm. This is my strong suggestion. If you don't want to make mistake, just apply the algorithm.
+
+216
+01:51:39,750 --> 01:52:10,170
+because the algorithm is also actually very simple to apply okay all you have to do from this q2 sorry from this q0 on 1010 so okay so let's start tell me for free where you will go for free from this state q0 for free you can go to q0 q2 you can go to q0 q2 on symbol one where you will go on symbol one this q2 will go nowhere this q1 will go to q1
+
+217
+01:52:11,140 --> 01:52:40,860
+sorry this q2 will go nowhere this q0 will go to q1 next for free variable go this q1 for free it will go to q1 next for 0 variable go this q1 on 0 it will go to q0 q2 it will go to q0 q2 ok next for free variable go for free this q0 for free it will go to q0 q2 this q0 for free it will go to q0 q2
+
+218
+01:52:41,340 --> 01:53:11,450
+and this q2 for free it will go to q2 that is already written so you don't have to write it again because that is already written okay so tell me which symbol this symbol done see this symbol done this symbol done the next symbol is one so tell me q0 q2 on one q0 q2 on one this q2 will go nowhere this q2 see this q2 will go nowhere next what about the q0 q0 on one
+
+219
+01:53:11,710 --> 01:53:42,630
+it will go to q1 again from q1 for free q1 for free it will go to q1 next which symbol is remaining only this symbol 0 is remaining right only this symbol 0 is remaining so now you tell me from q1 comma 0 that is q0 q2 you can use it again okay because we have already found it see we have already found it okay so that will be this next for free variable go
+
+220
+01:53:43,760 --> 01:54:12,120
+Q0 Q2 for free it will go to Q0 Q2 so your final answer will be Q0 Q2 yes or no is this point clear so the final answer will be Q0 Q2 please tell me did you get it please let me know is this concept crystal clear now can you say now can you tell me all these concepts are they crystal clear so far whatever we have seen so far we have seen these concepts we have seen the null closer
+
+221
+01:54:12,850 --> 01:54:39,290
+okay remember this was the first concept null closure of any state that simply means from state q for free where I can go this concept is clear please tell me yes or no is this concept clear then we have seen the transition function versus extended transition function for DFA transition function versus extended transition function for DFA that we have seen then we have seen
+
+222
+01:54:39,900 --> 01:55:07,820
+Transition Function vs Extended Transition Function for NFA that we have seen. So these are the concepts we have seen. We have also done the Peterlin's questions. All the Peterlin's questions we have done. Now we will do the gate questions. But tell me, are you confident now? Do you have clear understanding of the difference between these two? This is very simple. This is just AS Function, right? Here you don't have to apply your brain.
+
+223
+01:55:08,340 --> 01:55:38,190
+This is simply your AS function, transition function. You just have to look at the edges. Nothing else. Okay. Here you have to do something. Here you can apply the algorithm. So these are the concepts we have seen so far. I hope all these concepts are clear. Please tell me. Is the explanation clear? Do you have any doubt in any concept so far? In this lecture, whatever we have seen, do you have any doubt? Now let's see this question. This is a university question, a very nice question.
+
+224
+01:55:38,740 --> 01:56:09,580
+a very beautiful question so tell me the answer given the following NFA what is the correct transition function for state 0 the question is asking what tell me the question is asking what the transition function the question is asking the question is asking for transition function only so you tell me one thing is it can I ask this transition function can I ask like is it valid to ask
+
+225
+01:56:09,910 --> 01:56:41,950
+first of all you tell me is this nonsense or is it valid to ask is it valid to ask or is it nonsense I am asking transition function is it valid or is it nonsense yes it is valid right it is valid for NFA I can ask this it is valid for NFA so if I ask this then what it means it simply means null move yes or no it simply means null move okay now let's see this question so tell me now now tell me
+
+226
+01:56:42,140 --> 01:57:12,520
+what is transition function 0 comma a just look at the edges only look at the edges transition function 0 comma a that will be 0 comma 1 transition function 0 comma b just look at the edges that will be 5 transition function 0 comma null move that will be 5 there is no null move here there is no null move here so what is your answer your answer is a option d okay this is a good question let me tell you
+
+227
+01:57:12,780 --> 01:57:44,220
+why this is a good question because many strengths they don't understand the difference between transition function and extended transition function so that is the reason this is a good question okay see what answer many strengths will give let me tell you many strengths will give this answer 0 comma null what they will say they will say okay from 0 on this null I will go to 0 they will give this answer if options are created in a nice way then many strengths will give this answer
+
+228
+01:57:44,390 --> 01:58:14,260
+but this answer is wrong yes or no this answer is wrong because t star 0 comma epsilon what is that t star 0 comma epsilon what is that t star extended transition function please tell me the answer now extended transition function from this state 0 for free where you can go you can only go to 0 okay from this state 0 for free you can go to 0 that's it is this clear
+
+229
+01:58:14,890 --> 01:58:47,160
+I hope you are clear you understood this I can say this complete thing so tell me transition function of one also you write transition function of one what is that see you can notice transition function of one one comma A there is no age one comma B you will go to zero one comma epsilon there is no age understood in the same question if I ask you T star means extended transition function extended transition function
+
+230
+01:58:48,600 --> 01:59:19,350
+1, b what answer will be extended transition function 1, b 1, b that will be simply 0 because in this question there is no null move yes or no so this is actually very easy this is actually very easy there are no null moves because there is no null move you don't you don't need to do anything you can simply find out okay what is the extended transition function 1, epsilon extended transition function
+
+231
+01:59:19,720 --> 01:59:49,350
+one comma epsilon that will be only one what is the transition function one comma epsilon that will be fine okay so this is your question in some university this is question number 10 a good question a nice question now tell me the answer for this this is your gate exam question gate 2014 finite automata question first of all you tell me this finite automata that is given to you is this NFA or DFA tell me
+
+232
+01:59:49,590 --> 02:00:18,970
+This finite automata that is given to you is this NFA or is this DFA? Why this is NFA? What are the reasons? See this is NFA because from Q0 there are two moves on one. From this state Q0 we have two moves, two transitions on symbol 1. What is another reason? Tell me what is another reason? The another reason is here. From this state Q2 on symbol 1 there are two transitions. Is there any other reason? Is there any other reason? Yes.
+
+233
+02:00:19,270 --> 02:00:49,650
+from the seated q3 there is no transition on 0.1 so this is another reason okay so these are the reasons that this finite automata is actually this finite automata this is actually NFA not DFA this is NFA this is not DFA okay anyway let me tell you one more thing in this transits in this NFA do we have null moves in this NFA do we have null moves is there any null move there is no null move
+
+234
+02:00:49,950 --> 02:01:19,350
+So solving the questions is very easy right? For this NFA, solving the questions is very very very easy because there are no null moves. You can notice we have no null moves. So solving the questions is very easy for this NFA. The question is asking what is the set of reachable states for the input string 0011? From where should I start? From where should I start? What is the set of reachable states?
+
+235
+02:01:19,870 --> 02:01:51,980
+for the input string 0011 from where should I start I should start in the starting state so let's do this so the answer will be let me solve it from q0 okay I am asking basically the question is asking that what are the extended transition function from q0 on 1011 this is the sorry 0011 this is a string 0011 so your answer is quite simple from q0
+
+236
+02:01:52,590 --> 02:02:21,660
+on zero where you will go on zero where you will go see there are no null moves so you don't have to worry about the free moves yes or no you have no free moves in this NFA there are no free moves agree there are no free movements in this NFA we have no free movements so you don't have to worry about the free movements you just simply tell me from this state q0 if you read this symbol zero where you will go state q0 on symbol zero it will go to q0 then
+
+237
+02:02:22,250 --> 02:02:50,660
+On symbol 0, where you will go? You will go to Q0. On symbol 1, where you will go? On symbol 1, where you will go? You can go to Q0, Q1. You can go to Q0, Q1. Finally, on symbol 1, where you will go? See, Q0 on 1. Q0 on 1, it will go to Q0, Q1. It will go to Q0, Q1. Next, Q1 on 1. Next, Q1 on 1. Q1 on 1, it will go to Q2.
+
+238
+02:02:51,210 --> 02:03:21,560
+So your final answer will be Q0, Q1, Q2. Yes or no? This is your final answer. This is the string we are reading. 0011. Your final answer will be Q0, Q1, Q2. This option A is the answer. Is this clear? This is quite easy. Why this question is very easy? Tell me. Like, what is the reason this question is actually very, very, very easy? Because there are no, there are no null moves. There are no free movements. So that is the reason this question is actually very easy.
+
+239
+02:03:21,800 --> 02:03:54,740
+Your final answer will be Q0, Q1, Q2. Okay. I hope this point is clear. So this is your gate 2014 question. Now let's move on. Now let's see this. Gate 2017 question. Gate Combat Science 2017. Let delta denote transition function. Delta is the transition function that is given to you. This delta that is transition function that is given to you. Delta hat denote the extended transition function.
+
+240
+02:03:56,000 --> 02:04:26,510
+of epsilon NFA why epsilon NFA because there are some null moves right so that is the reason okay next whose transition table is given to you this transition function table is given to you now the question is asking delta head extended transition function Q2 ABA what is the method before we solve this question let me ask you some some simple simple questions let me ask you first of all you tell me first of all you tell me delta
+
+241
+02:04:27,870 --> 02:04:59,090
+q0, epsilon what is that and delta hat q0, epsilon what is that tell me the answer for these two what is delta q0, epsilon means transition function null move here this simply means null move remember this means null move so what is delta q0, epsilon that is your q2 means there is a null move from q0 to q2 yes or no it simply means from q0 q0 is the initial state tell me how will you know what is the initial state
+
+242
+02:04:59,690 --> 02:05:29,410
+how will you know what is the initial state because of this arrow this is the arrow so from q0 there is a there is null move to q2 okay there is null move to q2 next what about extended transition function q0 comma epsilon what is that extended transition function q0 comma epsilon it means from q0 for free where you can go from q0 for free where you can go it simply means epsilon closer
+
+243
+02:05:30,460 --> 02:06:00,170
+It simply means epsilon closer of Q0. This means epsilon closer of Q0. So you can go to Q0. You can go to Q2. You also check from Q2 where you can go. You also check you also check from Q2 where you can go. See from Q2 also there is this type of age. From Q2 also we have this type of age. So you can go to Q0. That's it. So your answer will be Q0 Q2. Yes or no. Is this point clear? So like this.
+
+244
+02:06:00,380 --> 02:06:32,790
+these simple simple questions you can ask remember can you see the difference between transition function and extended transition function in the transition function the answer is only q2 in the extended transition function answer is q2 comma q0 okay so now let me ask you one more thing so tell me about this one delta epsilon okay let me check what should I ask yeah okay let's ask for q1 now tell me the answer here and tell me the answer also for
+
+245
+02:06:33,160 --> 02:07:01,840
+delta hat q1, epsilon tell me the answer for these questions first you tell me q1, epsilon q1, epsilon transition function so yes that is q2 that is already given in the question that is already given it simply means that from this state q1 there is epsilon move to where from to q2 yes or no next what is the extended transition function for free where you can go
+
+246
+02:07:02,320 --> 02:07:33,780
+this simply means epsilon closer of q1 so from q1 for free you can go to q1 from q1 for free you can go to q2 now also check for q2 q2 on for free it will go to q0 q2 for free it will go to q0 so answer will be this is this clear your answer will be this so these nice nice questions they can ask some more variations are possible right in this
+
+247
+02:07:34,350 --> 02:08:04,990
+in this gate question some more variations are possible now first let's solve this the actual question the actual question is extended transition function Q2 comma ABA so what is the method extended transition function Q2 comma ABA what you will do quite simple just apply the algorithm so from Q2 for free variable go on A variable go for free variable go on B variable go
+
+248
+02:08:05,420 --> 02:08:33,400
+for free variable go on a variable go for free variable go this is your answer yes or no so tell me from this state q2 for free variable go from this state q2 from this state q2 okay if you want you can create the diagram also if you want but you can check it out here also from this state q2 for free so this is your epsilon closer right yes or no
+
+249
+02:08:33,860 --> 02:09:02,750
+this is your epsilon closure of q2, agree? means from this state q2 for free where you can go from this state q2 for free you can go to q0 you can see for free you can go to q2 also you can go to q0 also but you also check from q0 where you are going please understand from this state q2 for free you can go to q2 very simple from this state q2 this is your state q2 for free you can go to q2
+
+250
+02:09:03,070 --> 02:09:33,930
+for free you can also go to q0 now where this q0 can go for free this q0 where it is going for free it is going to q2 so ultimately you will get q2 q0 now when you read symbol A where you will go when you read symbol A q2 on A q2 on A nothing q2 on A nothing what about q1 on A sorry q0 on A what about q0 on A that is q1 that is a q1
+
+251
+02:09:34,370 --> 02:10:06,980
+so you got this next to tell me next to tell me so remember q0,a q0,a that is q1 okay now from q1 for free where you can go from this state q1 for free where you are going from this state q1 remember from this state q1 for free you are going to q2 for free you are going to q2 from this state q1 for free you are going to q2 but you can notice from q2 you can go to q0 also
+
+252
+02:10:07,300 --> 02:10:37,200
+so ultimately I can say that from this Q1 remember from this state Q1 for free where you are going for free you can go to Q1 also you can go to Q2 also you can go to Q0 also so this is where you are going for free yes or no is this clear from this state Q1 for free you can go to Q1 you can also go to Q2 you can also go to Q0 these are the states where you can go for free so Q0 Q1 Q2 Q0
+
+253
+02:10:37,570 --> 02:11:07,660
+q1 q2 next you tell me q0 comma b q0 comma b that is q0 q0 comma b that is q0 yes or no q0 comma b that is q0 what about q1 comma b what about q1 comma b that is q3 q1 comma b that is q3 okay so that will be q3 next q2 comma b q2 comma b that is nothing
+
+254
+02:11:07,990 --> 02:11:36,300
+Q2 comma B so finally Q0 Q3 next to tell me Q0 Q3 where they are going for free Q0 Q3 where they are going for free you already know where Q0 is going for free see Q0 for free it is going to Q0 also it is going to Q2 also so I can say Q0 Q2 I can say Q0 Q2 where this Q3 is going for free where this Q3 is going for free
+
+255
+02:11:37,030 --> 02:12:05,990
+This Q3 is never going for free anywhere, right? This Q3 is not going for free On B it is going to Q2 On B it is going to Q2 But for free it is not going anywhere So basically it means that Q3 for free it is going to Q3, right? At least it will go to Q3 Don't forget this Don't forget this Q3 for free it will go to Q3 only Yes or no? Agree or not? Don't forget this Q3
+
+256
+02:12:08,270 --> 02:12:36,000
+is this clear please tell me don't forget this q3 this q3 for free it will go to q3 only okay next you tell me so remember here I can say that delta hat q3 for free it will go to only q3 okay now now tell me on a where they will go on symbol a we already know q2 q0 we already know they will go to q1 okay because we already know we can reuse
+
+257
+02:12:36,570 --> 02:13:07,310
+you don't have to see the diagram again and again you can reuse Q2 Q0 on A this Q2 Q0 these two on A they are going to Q1 where this Q3 is going on A where this Q3 is going on A nowhere nowhere so finally I got Q1 from Q1 for free you can go to Q0 Q1 Q2 you can reuse from this state Q1 for free you can go to Q0 Q1 Q2 so your final answer will be
+
+258
+02:13:07,640 --> 02:13:42,950
+Q0, Q1, Q2. Q0, Q1, Q2. Is this clear? Please tell me. Nice question, right? So, this is your gate 2017 question. Please tell me, anyone has any doubt in this? Let me know. This is your extended transition function question in gate 2017. See, if you are thinking this is time taking, actually this is no time taking, okay? Because I am explaining, so that is the reason I am taking time.
+
+259
+02:13:43,420 --> 02:14:13,060
+if I solve this question then it will not take much time this is what you have to do just don't make mistake this is the one thing I want to tell you see don't make mistake to save time don't make mistake some students what they will do they want to save time in order to save time they will make mistake they will definitely make mistake some mistake they will make okay so don't make mistake to save time now let me ask you in the same question
+
+260
+02:14:14,030 --> 02:14:43,330
+q2,ab what that will be? delta hat q2,ab what that will be? so that will be like this q2,ab so your answer will be only this yes or no agree or not q2,ab your answer will be this only a,b so you can see your answer will be q2,q0,q3 q2,q0,q3 is this clear? this is one variation
+
+261
+02:14:43,740 --> 02:15:13,940
+why i am telling you this variation because let me tell you many students will forget about this okay are you getting my point because when i ask you where q3 will go for free when i ask you where q3 will go for free this q3 where it will go for free many students will forget q3 okay that state q3 will go for free to q3 some students will forget it
+
+262
+02:15:14,230 --> 02:15:44,090
+Okay, so then they will give the answer Q2, Q0. So that is the reason I'm saying. So this will be the answer. If you are giving this answer Q2, Q0, then that is a very common mistake. That is a very common mistake because remember from state Q3 without reading any symbol for free, you will at least go to Q3, right? Yes or no? At least like if I don't want to spend any money for free where I can go,
+
+263
+02:15:44,330 --> 02:16:13,600
+I can stay here where I am for free, I can stay here. So this state Q3 for free, at least it will go to Q3. So your answer will be this. So very simple. I hope this point is clear. So shall we move on? Please tell me. Are you crystal clear with all these concepts? Now the next concept is finally we will see NFA to DFA conversion. Okay. All these concepts we will use. Remember NFA to DFA conversion.
+
+264
+02:16:13,970 --> 02:16:44,390
+We will use the concept of null closer. We will use the concept of extended transition function. So these concepts we are going to use. Okay. So this topic, we will study tomorrow, but please tell me, did you understand the previous topics? The previous topics, did you understand? Please tell me in today's class, all the concepts that we have seen, did you understand in a very clear way, intuitively, also algorithmically, also in a very clear way. Did you understand?
+
+265
+02:16:45,580 --> 02:17:14,910
+Okay. Let me tell you one thing that we have taken all the questions, all the gate questions, all the Petrolins questions on the check, there is a website check on the check also if there is some question I've taken. So all the questions that I found on the internet, I've taken all those questions and we have done the analysis of everything. Okay. So I think everything is clear. Now tomorrow we will study this concept. What is that? This concept.
+
+266
+02:17:15,520 --> 02:17:42,640
+Equalance of DFA and NFA means NFA to DFA conversion and this is also very simple thing. Okay. So this we will study tomorrow and let me tell you one more thing that this TOC weekly queues 24 that is uploaded. So please attempt it. Okay. So please attempt TOC weekly queues 24. Please attempt this weekly queues. Okay. We will have live discussion of it.
+
+267
+02:17:43,400 --> 02:17:57,810
+We will do the live discussion. Once you attempt this live discussion day after tomorrow, we will do it day after tomorrow. We will do the live discussion of it. Okay. So please attempt this weekly quiz. Thank you.
+

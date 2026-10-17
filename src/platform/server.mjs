@@ -6,12 +6,14 @@ import {createAccounts} from './accounts.mjs';
 import {createStore} from './database.mjs';
 import {handleSocial} from './social.mjs';
 import {prepareContent,sendContent} from './http-content.mjs';
+import {createPodcasts} from './podcasts.mjs';
 
 const root=fileURLToPath(new URL('../../',import.meta.url));
 const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.json':'application/json','.woff2':'font/woff2'};
 const publicCourses=courses=>courses.map(({sourceFolder,builder,...course})=>course);
-export function createServer({store:providedStore}={}){
+export function createServer({store:providedStore,podcastDirectory}={}){
  const store=providedStore||createStore();
+ const podcasts=createPodcasts({store,directory:podcastDirectory});
  const assets=new Map(),bundles=new Map();
  const server=http.createServer(async(req,res)=>{
   const send=(code,value,type='application/json')=>{res.writeHead(code,{'Content-Type':type,'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});res.end(req.method==='HEAD'?undefined:typeof value==='string'?value:JSON.stringify(value));};
@@ -26,6 +28,7 @@ export function createServer({store:providedStore}={}){
     let actor;
     try{actor=await accounts.authorize(req);}catch(e){send(e.status||503,{error:e.status===401?'Please log in to your account.':'Account service unavailable',code:e.status===401?'AUTH_REQUIRED':'AUTH_UNAVAILABLE'});return;}
     if(await handleSocial({store,actor,req,url,send,courses}))return;
+    if(await podcasts({req,res,url,send,courses}))return;
     if(url.pathname==='/api/subjects'){send(200,publicCourses(courses));return;}
     if(url.pathname.startsWith('/api/')){
      const course=courses.find(c=>c.id===(url.searchParams.get('subject')||'coa'));
