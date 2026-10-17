@@ -23,7 +23,7 @@ const assert=require('node:assert/strict'),fs=require('node:fs');
     await page.locator('[data-journey-next]').click();await page.locator('[data-journey-phase="1"]').waitFor();assert.equal(await page.locator('dialog').evaluate(el=>el.scrollTop),0,'Each stage starts at its heading');
     assert.ok(await page.locator('[data-journey-next]').isDisabled());const action=page.locator('.journey-explorer button:not([disabled]):visible').first();if(await action.count())await action.click();else{const input=page.locator('.journey-explorer input:visible').first();await input.focus();await page.keyboard.press('ArrowRight');await input.dispatchEvent('input');}assert.ok(await page.locator('[data-journey-next]').isEnabled(),`${subject}:${id} interaction enables continue; errors: ${errors.join('; ')}`);
     if(id===0){
-     await page.locator('[data-action=exit]').click();await page.locator('[data-action=leave]').click();await page.reload();await page.locator('[data-action=resume-saved]').click();await page.locator('[data-journey-phase="1"]').waitFor();assert.ok(await page.locator('[data-journey-next]').isEnabled(),'Exploration gate survives pause/reload');
+     await page.reload();await page.locator('[data-action=resume-saved]').click();await page.locator('[data-journey-phase="1"]').waitFor();assert.ok(await page.locator('[data-journey-next]').isEnabled(),'Exploration gate survives an unexpected reload');
     }
     for(const width of [320,390,1440]){await page.setViewportSize({width,height:844});assert.ok(await page.evaluate(()=>document.querySelector('dialog').scrollWidth<=innerWidth),`${subject}:${id} learning explorer overflow ${width}`);}
     await page.setViewportSize({width:390,height:844});await page.screenshot({path:`qa-results/journeys/${subject}-${id}-explore.png`});
@@ -32,6 +32,6 @@ const assert=require('node:assert/strict'),fs=require('node:fs');
     await page.locator('[data-action=exit]').click();await page.locator('[data-action=leave]').click();total++;
    }
   }
-  assert.deepEqual(errors,[]);assert.deepEqual(failures,[]);console.log(`Guided learning passed: ${total} early/middle/final lessons across seven courses; optional notes, real interactions, pause/reload, no unearned XP/completion and 320px–desktop layouts.`);
+  assert.deepEqual(errors,[]);assert.deepEqual(failures,[]);console.log(`Guided learning passed: ${total} early/middle/final lessons across seven courses; optional notes, real interactions, reload recovery, no unearned XP/completion and 320px–desktop layouts.`);
  }finally{await browser?.close();await new Promise(resolve=>server.close(resolve));await fixture.dispose();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

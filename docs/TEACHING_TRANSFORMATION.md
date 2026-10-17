@@ -69,6 +69,12 @@ Executed after implementation and correction:
 
 Initial regression failures were investigated and corrected before the passing reruns. In particular, advancing to a last frame could disable its button before the parent recorded the interaction; capturing the actual click before that change fixed the gate. The glossary now updates in place. The original five-subject expectation in the Aptitude test was replaced by an availability assertion that supports the current nine-subject catalog.
 
+## Navigation and profile follow-up
+
+Subsequent navigation updates open all ready, published lessons without requiring earlier completions. The concept browser searches unit, topic and lesson names; jumping does not award XP or mark skipped lessons complete. After finishing a selected lesson, Next Lesson follows that lesson's order. Explicit lesson exits discard the unfinished attempt, while unexpected reloads retain recovery. The focused browser regression is `tests/lesson-navigation-browser.cjs`.
+
+Visible social profiles now compare basic XP, streak and completed-level summaries with the visitor. Accepted friends additionally see course progress, detailed study metrics and calendars. Profile visibility restrictions remain enforced; the regression checks are in `tests/social.test.mjs` and `tests/activity-browser.cjs`.
+
 ## Outstanding editorial and course authoring work
 
 - All original paragraphs and 7,992 questions have not been individually rewritten and reviewed by a human educator. The checklist marks individual editorial review pending for every lesson, rather than equating shared/family guidance with a bespoke rewrite.

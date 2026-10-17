@@ -27,7 +27,7 @@ test('Every DBMS unit ends with a distinct, optional guided SQL lab',()=>{
   const withLab={...progress,codingLabs:{[lab.id]:{version:1,values:[...lab.answer],completedAt:1}}};
   assert.deepEqual(courseCompletion(withLab,lessons.length),courseCompletion(progress,lessons.length));
   assert.equal(nextUnit(lessons,withLab,units),nextUnit(lessons,progress,units));assert.equal(withLab.xp,progress.xp);
-  assert.equal(available(21,lessons,{completed:[],codingLabs:withLab.codingLabs}),false,'A lab cannot bypass lesson prerequisites');
+  assert.equal(available(21,lessons,{completed:[],codingLabs:withLab.codingLabs}),true,'All published lessons are open independently of optional labs');
  }
 });
 

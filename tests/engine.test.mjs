@@ -23,7 +23,7 @@ test('authored lessons have unique IDs, source references, and four gradable cha
     }
   }
 });
-test('a level unlocks only after its predecessor is completed',()=>{const p=emptyProgress();assert.equal(available(0,lessons,p),true);assert.equal(available(1,lessons,p),false);p.completed.push(0);assert.equal(available(1,lessons,p),true);assert.equal(available(2,lessons,p),false);assert.equal(available(15,lessons,p),false);});
+test('every published ready lesson is open without completing predecessors',()=>{const p=emptyProgress();for(const lesson of lessons)assert.equal(available(lesson.id,lessons,p),true);assert.equal(available(-1,lessons,p),false);assert.equal(available(9999,lessons,p),false);assert.equal(available(0,[{id:0,ready:false}],p),false);assert.deepEqual(p.completed,[]);});
 test('same-day study adds XP without inflating the streak',()=>{let p=addStudy(emptyProgress(),20,'2026-10-10');p=addStudy(p,10,'2026-10-10');assert.equal(p.streak,1);assert.equal(p.xp,30);assert.equal(p.daily['2026-10-10'],30);});
 test('consecutive study days extend the streak and a gap restarts it',()=>{let p=addStudy(emptyProgress(),20,'2026-10-10');p=addStudy(p,20,'2026-10-11');assert.equal(p.streak,2);assert.equal(displayedStreak(p,'2026-10-12'),2);assert.equal(displayedStreak(p,'2026-10-13'),0);p=addStudy(p,20,'2026-10-14');assert.equal(p.streak,1);});
 test('local date and streak handle month/year boundaries',()=>{assert.equal(localDate(new Date(2026,9,10,0,1)),'2026-10-10');let p=addStudy(emptyProgress(),10,'2026-12-31');p=addStudy(p,10,'2027-01-01');assert.equal(p.streak,2);});

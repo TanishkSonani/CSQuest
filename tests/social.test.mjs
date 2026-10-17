@@ -25,7 +25,9 @@ test('friend consent, private comparisons, saved-round scores, invitations and c
   assert.equal((await guest.request('social/profile?userId='+a.id)).status,401);
   assert.equal((await a.request('social/profile?userId=invalid')).status,400);
   const publicProfile=(await a.request('social/profile?userId='+b.id)).data;
-  assert.equal(publicProfile.user.id,b.id);assert.equal(publicProfile.relationship,'none');assert.deepEqual(publicProfile.learners,[]);assert.equal(publicProfile.canRequest,true);
+  assert.equal(publicProfile.user.id,b.id);assert.equal(publicProfile.relationship,'none');assert.equal(publicProfile.learners.length,2);assert.equal(publicProfile.canRequest,true);
+  assert.equal(publicProfile.comparisonAccess,'summary');
+  for(const learner of publicProfile.learners){assert.equal(learner.xp,0);assert.equal(learner.levels,0);assert.equal(learner.streak,0);for(const key of ['daily','today','courses','accuracy','minutes','rounds','studyDays'])assert.ok(!(key in learner),key+' must stay private');}
   const selfProfile=(await a.request('social/profile?userId='+a.id)).data;
   assert.equal(selfProfile.learners.length,1);assert.equal(selfProfile.relationship,'self');
   const suggestions=(await a.request('social/overview')).data.suggestions;
@@ -47,8 +49,13 @@ test('friend consent, private comparisons, saved-round scores, invitations and c
   await a.earn();await b.earn(40);
   const friendProfile=(await b.request('social/profile?userId='+a.id)).data;
   assert.equal(friendProfile.relationship,'friend');assert.equal(friendProfile.learners.length,2);
+  assert.equal(friendProfile.comparisonAccess,'full');
   assert.deepEqual(friendProfile.learners.find(user=>user.id===a.id).daily,{'2024-02-28':20,'2024-02-29':40});
   assert.ok(!JSON.stringify(friendProfile).includes('history'));assert.ok(!JSON.stringify(friendProfile).includes('password'));assert.ok(!JSON.stringify(friendProfile).includes('recovery'));
+  const visitorProfile=(await c.request('social/profile?userId='+a.id)).data;
+  assert.equal(visitorProfile.comparisonAccess,'summary');
+  const visitorTarget=visitorProfile.learners.find(user=>user.id===a.id);
+  assert.equal(visitorTarget.xp,60);assert.equal(visitorTarget.weekXP,60);assert.ok(!('daily' in visitorTarget));assert.ok(!('courses' in visitorTarget));
   const compare=await a.request('social/compare?userId='+b.id);assert.equal(compare.status,200);assert.equal(compare.data.learners.find(row=>row.id===a.id).weekXP,60);
   assert.ok(!JSON.stringify(compare.data).includes('recoveryHash'));assert.ok(!JSON.stringify(compare.data).includes('data":'));
   const board=await a.request('social/leaderboard?scope=friends');assert.equal(board.data.rows[0].id,a.id);assert.equal(board.data.rows[1].xp,40);

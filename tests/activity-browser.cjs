@@ -28,6 +28,9 @@ const assert=require('node:assert/strict'),fs=require('node:fs');
   fs.mkdirSync('qa-results',{recursive:true});await calendar.screenshot({path:'qa-results/activity-calendar-mobile.png'});
   await page.goto(base+'/#social');await page.locator('.social-suggestions').waitFor();await page.locator(`[data-social=profile][data-user-id="${bob.id}"]`).first().click();await page.locator('#social-profile').waitFor();
   assert.equal(await page.locator('#social-profile [data-calendar]').count(),0,'Nonfriends see no detailed analytics');
+  assert.match(await page.locator('#social-profile .social-comparison').innerText(),/Alice Learner/);assert.match(await page.locator('#social-profile .social-comparison').innerText(),/Bob Learner/);assert.match(await page.locator('.social-comparison-highlights').innerText(),/50 more XP/);
+  for(const width of [320,390,768,1440]){await page.setViewportSize({width,height:900});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`Public profile overflow at ${width}`);}
+  await page.setViewportSize({width:390,height:844});await page.locator('#social-profile').screenshot({path:'qa-results/public-profile-comparison.png'});
   await page.locator('#social-profile [data-social=friend-request]').click();await page.getByText('Friend request sent',{exact:true}).waitFor();
   assert.equal((await b.request.post(base+'/api/social/friends/respond',{headers,data:{userId:alice.id,response:'accept'}})).status(),200);
   await page.reload();await page.locator('.social-friend').waitFor();await page.locator(`.social-friend [data-social=profile][data-user-id="${bob.id}"]`).first().click();await page.locator('#social-profile [data-calendar=profile]').waitFor();
@@ -43,7 +46,7 @@ const assert=require('node:assert/strict'),fs=require('node:fs');
   await comparison.locator('summary').click();await comparison.evaluate(el=>scrollTo(0,scrollY+el.getBoundingClientRect().top-100));await page.screenshot({path:'qa-results/activity-comparison-dark.png'});
   await page.locator('[data-social=profile-close]').click();await page.locator('.social-friend').waitFor();
   assert.equal((await b.request.post(base+'/api/social/friends/respond',{headers,data:{userId:alice.id,response:'remove'}})).status(),200);
-  const removed=await a.request.get(base+'/api/social/profile?userId='+bob.id);assert.deepEqual((await removed.json()).learners,[],'Removing friendship removes analytics access');
+  const removed=await a.request.get(base+'/api/social/profile?userId='+bob.id);const publicSummary=await removed.json();assert.equal(publicSummary.comparisonAccess,'summary');assert.equal(publicSummary.learners.length,2);assert.ok(publicSummary.learners.every(user=>!('daily' in user)&&!('courses' in user)),'Removing friendship removes detailed analytics access');
   assert.deepEqual(errors,[]);assert.deepEqual(failures,[]);
   console.log('Monthly analytics passed: leap year, full daily history, subject totals, year navigation, profile discovery, friend consent, comparison, friendship removal, four widths and dark mode.');
  }finally{await browser?.close();await new Promise(resolve=>server.close(resolve));await fixture.dispose();}

@@ -19,7 +19,7 @@ const assert=require('node:assert/strict'),path=require('node:path'),{pathToFile
  assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('coa-quest-v1')).xp),60);
  await page.evaluate(()=>{const p=JSON.parse(localStorage.getItem('coa-quest-v1'));p.completed=Array.from({length:19},(_,i)=>i);localStorage.setItem('coa-quest-v1',JSON.stringify(p));});await page.reload();await page.waitForSelector('[data-lesson="19"].current');
  await page.locator('[data-lesson="19"]').click();await finishJourney(page);await page.locator('#hex-answer').fill(lessons[19].questions[0].answer);await page.locator('#hex-answer').press('Enter');await page.waitForSelector('.answer-footer.correct');
- await page.keyboard.press('Escape');await page.locator('[data-action="leave"]').focus();await page.keyboard.press('Enter');await page.waitForSelector('[data-action="resume-saved"]');
+ await page.keyboard.press('Escape');await page.locator('[data-action="leave"]').focus();await page.keyboard.press('Enter');await page.waitForSelector('.unit-banner');assert.equal(await page.locator('[data-action="resume-saved"]').count(),0);
  assert.deepEqual(errors,[]);console.log('Enter checks numeric and hex inputs, number keys choose answers, Ctrl+Enter submits puzzles, and native Enter activates puzzle and pause controls.');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exit(1);});

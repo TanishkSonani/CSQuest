@@ -10,7 +10,7 @@ test('COA standalone lessons continue from Unit 1 into Unit 2 without transcript
  assert.equal(lessons.length,105);
  assert.ok(lessons.every(lesson=>lesson.ready&&lesson.questions.length===4));
  assert.equal(available(15,lessons,progress),true);
- assert.equal(available(16,lessons,progress),false);
+ assert.equal(available(16,lessons,progress),true);
  assert.equal(nextUnit(lessons,progress,units),1);
  assert.equal(lessons.find(lesson=>lesson.ready&&available(lesson.id,lessons,progress)&&!progress.completed.includes(lesson.id)).id,15);
 });

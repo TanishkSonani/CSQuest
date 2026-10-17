@@ -22,7 +22,7 @@ test('Each DS unit has a standalone optional C lab while regular lesson IDs and 
   assert.equal(nextUnit(lessons,progress,units),Math.min(i+1,units.length-1));
   if(i<units.length-1)assert.equal(available(completed.length,lessons,progress),true,'An untouched lab cannot gate the next lesson');
   const withLab={...progress,codingLabs:{[lab.id]:{version:1,values:[...lab.answer],completedAt:1}}};assert.deepEqual(courseCompletion(withLab,303),courseCompletion(progress,303));assert.equal(nextUnit(lessons,withLab,units),nextUnit(lessons,progress,units));assert.equal(withLab.xp,progress.xp);
-  assert.equal(available(21,lessons,{completed:[],codingLabs:withLab.codingLabs}),false,'A lab also cannot bypass regular prerequisites');
+  assert.equal(available(21,lessons,{completed:[],codingLabs:withLab.codingLabs}),true,'All published lessons are open independently of optional labs');
  }
 });
 test('Guided checks accept lexical whitespace and reject missing, wrong, or operator-changing fragments',()=>{

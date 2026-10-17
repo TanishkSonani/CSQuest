@@ -1,10 +1,10 @@
 export const units = [
   {id:0,title:'Computer foundations',subtitle:'Meet the machine behind the magic.',color:'green',icon:'chip',range:[0,4],goal:'Understand how computers execute a program.'},
   {id:1,title:'Memory & the system bus',subtitle:'Give every byte a place to call home.',color:'blue',icon:'memory',range:[5,10],goal:'Solve addressability, endianness, expansion, and interleaving problems.'},
-  {id:2,title:'Speak machine language',subtitle:'Tiny instructions. Incredible possibilities.',color:'purple',icon:'code',range:[11,19],goal:'Trace registers, flags, instruction formats, opcodes, and branches.'},
-  {id:3,title:'Inside the CPU',subtitle:'Follow an instruction, one step at a time.',color:'orange',icon:'bolt',range:[20,23],goal:'Trace execution and calculate effective addresses.'},
-  {id:4,title:'The cache adventure',subtitle:'Make every memory access count.',color:'teal',icon:'rocket',range:[24,31],goal:'Map addresses, trace hits and misses, and compare write policies.'},
-  {id:5,title:'Numbers in binary',subtitle:'Small bits. Very big numbers.',color:'pink',icon:'binary',range:[32,34],goal:'Encode fixed and floating point values and solve representation questions.'}
+  {id:2,title:'Instruction sets, opcodes and assembly',subtitle:'Tiny instructions. Incredible possibilities.',color:'purple',icon:'code',range:[11,19],goal:'Trace registers, flags, instruction formats, opcodes, and branches.'},
+  {id:3,title:'CPU execution and addressing modes',subtitle:'Follow an instruction, one step at a time.',color:'orange',icon:'bolt',range:[20,23],goal:'Trace execution and calculate effective addresses.'},
+  {id:4,title:'Cache mapping and replacement policies',subtitle:'Make every memory access count.',color:'teal',icon:'rocket',range:[24,31],goal:'Map addresses, trace hits and misses, and compare write policies.'},
+  {id:5,title:'Fixed-point and floating-point representation',subtitle:'Small bits. Very big numbers.',color:'pink',icon:'binary',range:[32,34],goal:'Encode fixed and floating point values and solve representation questions.'}
 ];
 export const lecturePlans = [
   ['Architecture vs organization','Hardware foundations','Build an instruction','Architecture checkpoint'],

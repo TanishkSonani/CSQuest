@@ -126,7 +126,9 @@ export async function handleSocial({store,actor,req,url,send,courses,now=Date.no
    const user=(await pool.query('SELECT u.id,u.username,u.display_name,u.avatar,p.discoverable,p.league_enabled FROM csquest_users u JOIN csquest_social_profiles p ON p.user_id=u.id WHERE u.id=$1',[target])).rows[0];
    if(!user||(target!==id&&!user.discoverable&&!user.league_enabled&&!relation))fail(404,'Learner profile is not available.');
    const canCompare=target===id||relation?.status==='accepted';
-   result={user:identity(user),relationship:target===id?'self':relation?.status==='accepted'?'friend':relation?.status==='pending'?relation.requested_by===id?'outgoing':'incoming':'none',canRequest:user.discoverable&&target!==id&&!relation,learners:canCompare?await summaries(pool,[...new Set([id,target])],courses,now,true):[]};
+   const learners=await summaries(pool,[...new Set([id,target])],courses,now,canCompare);
+   const summaryKeys=['id','username','displayName','avatar','xp','weekXP','levels','completion','streak','bestStreak'];
+   result={user:identity(user),relationship:target===id?'self':relation?.status==='accepted'?'friend':relation?.status==='pending'?relation.requested_by===id?'outgoing':'incoming':'none',canRequest:user.discoverable&&target!==id&&!relation,comparisonAccess:canCompare?'full':'summary',learners:canCompare?learners:learners.map(learner=>Object.fromEntries(summaryKeys.map(key=>[key,learner[key]])))};
   }else if(action==='compare'&&!write){
    const target=uuid(url.searchParams.get('userId'));
    if(target!==id&&(await friendship(pool,id,target))?.status!=='accepted')fail(403,'Accept a friend request before comparing learning progress.');
