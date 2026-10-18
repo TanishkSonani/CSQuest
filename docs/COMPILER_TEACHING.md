@@ -1,8 +1,8 @@
-# Compiler Design teaching draft
+# Compiler Design teaching
 
 The final-source validation, regression gates, and version-three mathematical
 speech preparation are recorded in [CD validation](CD_VALIDATION.md). TOC audio
-has finished; CD audio generation has started from its ten validated scripts.
+has finished; all ten CD recordings are complete, totaling about 40.5 minutes.
 
 Local authoring now defines 52 topic identities in ten concept-named sections,
 156 three-stage lessons and 624 assessment items. It follows the existing flow:
@@ -10,10 +10,10 @@ optional written notes, an ungraded prediction, an interactive model, guided
 explanation, then four graded questions. Ten optional section workshops write no
 XP or completion state and do not block access to another section.
 
-The manifest remains **planned**. Draft modules are not exposed by the course
-API. Browser validation uses a disposable account and schema, with draft
-availability overridden only inside that audit server. This work has not been
-committed, pushed or deployed.
+The completed course is marked **available**. Publication checks use the real
+manifest and imported course bundle, without forcing availability in a fixture.
+All ten podcast recordings were installed and checksum-verified on the VM before
+the course was enabled. Existing lesson IDs and learner progress remain stable.
 
 ## Source readiness
 
@@ -21,7 +21,8 @@ Final transcription import: **51 recordings completed, one explicitly skipped,
 zero remaining**. All 52 topic identities now have generated draft lessons:
 153 transcript-backed stages and three independent source-gap practice stages
 (156 total). The earlier browser snapshot counts below are historical and have
-not been relabeled as a full post-import browser run. The course stays planned.
+not been relabeled as a full post-import browser run. Current gates are recorded
+in CD_VALIDATION.md.
 
 `courses/cd/data/teaching-coverage.json` records the imported source count,
 pending identities, source evidence and explicit skips. Rebuild with

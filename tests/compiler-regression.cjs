@@ -9,7 +9,7 @@ const {finishJourney,exploreJourney}=require('./journey-helper.cjs');
  // Inject a newer bundle version only in this disposable draft audit to exercise
  // delayed older status snapshots without changing actual lesson versions.
  const bundle={subjectId:'cd',units,lecturePlans,lessons:lessons.map(l=>({...l,contentVersion:Math.max(2,l.contentVersion)}))};
- const store={...original,async courses(){return (await original.courses()).map(c=>c.id==='cd'?{...c,status:'available'}:c);},async documentContent(id,path,version){return id==='cd'&&path==='learning.json'?{version:'regression-draft',content:version==='regression-draft'?null:JSON.stringify(bundle)}:original.documentContent(id,path,version);}};
+ const store={...original,async documentContent(id,path,version){return id==='cd'&&path==='learning.json'?{version:'regression-draft',content:version==='regression-draft'?null:JSON.stringify(bundle)}:original.documentContent(id,path,version);}};
  const server=createServer({store});await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
  const base=`http://127.0.0.1:${server.address().port}`,directory='qa-results/cd';fs.mkdirSync(directory,{recursive:true});let browser;
  try{

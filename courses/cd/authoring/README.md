@@ -11,10 +11,9 @@ skipped sources are disclosed separately from transcript-backed lessons. Source
 008 has independent expression-tree practice, not a reconstruction of the named
 exam question. Do not claim that it has a transcript.
 
-The manifest stays `planned` during authoring. A planned course can contain
-draft modules on disk, but the server keeps its lesson bundle and modules
-unpublished. `tests/compiler-browser.cjs` explicitly enables the draft only in
-an isolated test server so the real UI can be exercised without releasing it.
+The completed course is marked `available`. Publication checks use that real
+manifest rather than overriding its status in a test server. Future unfinished
+courses should stay `planned` until their publication gates pass.
 
 Before publication run `node scripts/validate-courses.mjs`, `npm.cmd test`, and
 `node tests/compiler-browser.cjs`. Review `data/teaching-coverage.json` for source

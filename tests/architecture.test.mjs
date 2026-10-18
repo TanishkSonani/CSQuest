@@ -53,6 +53,9 @@ test('shared server serves both subjects and shared modules while isolating priv
   const registration=await fetch(base+'/api/account/register',{method:'POST',headers:{'Content-Type':'application/json','X-CSQuest-Request':'1'},body:JSON.stringify({username:'wall_test',displayName:'Wall Test',avatar:'chip',password:'a memorable test passphrase'})});assert.equal(registration.status,200);
   const cookie=registration.headers.get('set-cookie').split(';')[0];const signedFetch=(url,options={})=>fetch(url,{...options,headers:{...options.headers,cookie}});
   const catalog=await (await signedFetch(base+'/api/subjects')).json();assert.equal(catalog.length,subjects.length);
+  assert.equal(catalog.find(course=>course.id==='cd').status,'available','Compiler Design appears as a published course');
+  const compilerResponse=await signedFetch(base+'/api/course-content?subject=cd');assert.equal(compilerResponse.status,200);
+  const compiler=await compilerResponse.json();assert.equal(compiler.lessons.length,156);assert.ok(compiler.lessons.every(lesson=>lesson.ready));assert.equal(compiler.units.length,10);
   for(const course of subjects.filter(c=>c.status==='planned')){
    assert.equal((await signedFetch(`${base}/api/course-content?subject=${course.id}`)).status,404,'Draft course bundles stay unpublished');
    assert.equal((await signedFetch(`${base}/courses/${course.id}/lessons.js`)).status,404,'Draft modules stay unpublished');

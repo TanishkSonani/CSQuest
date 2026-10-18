@@ -16,7 +16,7 @@ const assert=require('node:assert/strict'),fs=require('node:fs/promises'),os=req
   browser=await chromium.launch({headless:true,executablePath:'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'});
   const context=await browser.newContext({viewport:{width:1440,height:900},reducedMotion:'reduce'}),page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
   assert.equal((await context.request.post(base+'/api/account/register',{headers:{'X-CSQuest-Request':'1'},data:{username:'podcast_browser',displayName:'Audio Learner',avatar:'chip',password:'a memorable test passphrase'}})).status(),200);
-  await page.goto(base+'/#podcasts');await page.locator('[data-podcast-id="coa:0"]').waitFor();assert.equal(await page.locator('[data-podcast-id]').count(),109);
+  await page.goto(base+'/#podcasts');await page.locator('[data-podcast-id="coa:0"]').waitFor();assert.equal(await page.locator('[data-podcast-id]').count(),119);
   await page.locator('#podcast-course').selectOption('coa');assert.equal(await page.locator('[data-podcast-id]').count(),6);
   await page.locator('#podcast-search').fill('cache');assert.equal(await page.locator('[data-podcast-id]').count(),1);await page.locator('#podcast-search').fill('');
   await page.locator('[data-podcast-id="coa:0"]').click();const dock=page.locator('#podcast-player');await dock.waitFor();await page.waitForFunction(()=>Number(document.querySelector('[data-podcast-seek]').value)>.1);

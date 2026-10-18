@@ -9,8 +9,8 @@ for the voices; those expansions are not substituted into the transcript.
 
 The ten published subjects have 109 episodes and 4,444 dialogue turns. Their
 replacement scripts use speech version four. Compiler Design retains its ten
-verified version-three episodes and frozen pronunciation implementation. CD
-remains planned; storing its media does not publish the course.
+verified version-three episodes and frozen pronunciation implementation. CD is now published after its publication checks, bringing the available
+library to 119 episodes. Its source-eight skip remains explicitly documented.
 
 Version four handles fractions, grouped powers, decimal fractions, hexadecimal
 digits, IP addresses/prefixes, recurrences, Boolean operators, C pointers and

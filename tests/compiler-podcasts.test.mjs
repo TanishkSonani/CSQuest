@@ -8,7 +8,7 @@ import {lessons} from '../courses/cd/content/lessons.js';
 
 test('Compiler podcasts cover all 52 ready topics in ten ordered two-host section conversations',async()=>{
  const subject=subjects.find(s=>s.id==='cd'),source=JSON.parse(await fs.readFile(new URL('../courses/cd/data/podcasts.json',import.meta.url),'utf8')),plan=JSON.parse(await fs.readFile(new URL('../courses/cd/data/podcast-speech.json',import.meta.url),'utf8'));
- assert.equal(subject.status,'planned','Preparing a podcast must not publish the course');assert.equal(source.episodes.length,10);assert.equal(plan.version,3);assert.equal(plan.episodes.length,10);const covered=[];
+ assert.equal(subject.status,'available','The completed Compiler Design course is published');assert.equal(source.episodes.length,10);assert.equal(plan.version,3);assert.equal(plan.episodes.length,10);const covered=[];
  for(const ep of source.episodes){
   assert.equal(ep.speechVersion,3);assert.deepEqual(ep,buildEpisode(subject,units[ep.unit],lecturePlans,lessons));assert.deepEqual(new Set(ep.turns.map(t=>t.speaker)),new Set(['maya','leo']));
   const speech=plan.episodes.find(e=>e.id===ep.id);assert.equal(speech.scriptHash,ep.hash);assert.equal(speech.speechVersion,3);assert.match(speech.digest,/^[a-f0-9]{64}$/);assert.equal(speech.turns.length,ep.turns.length);

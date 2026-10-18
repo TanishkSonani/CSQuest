@@ -1,10 +1,20 @@
 # Compiler Design validation and podcast preparation
 
+Publication follow-up: the manifest is `available`. The 188-test application
+suite passed (186 passed, two optional checks skipped); course validation confirms
+all 156 CD stages. Browser regression passed startup/login, subject switching,
+section access, lesson restart, quizzes, optional workshops and progress retention
+using the actual publication flag, with no browser errors or failed requests.
+All ten existing CD recordings are complete and checksum-verified on the VM.
+`tests/deployment-compiler.cjs` checks the real published subject, imported bundle,
+first teaching journey, last-section access, optional workshop and podcast playback.
+
 The local draft covers 52 topic identities in ten sections: 156 lesson stages,
 624 exercises and ten optional workshops. All 51 completed source transcripts
 are imported. Source 008 is explicitly skipped for no detected speech and has
 three independent practice stages with no fabricated transcript evidence.
-The course remains planned; this audit does not deploy or publish it.
+The course is now marked available for publication. All ten podcast recordings
+are complete and installed on the VM; publication checks use the real manifest.
 
 ## Validation gates
 
@@ -31,9 +41,10 @@ The course remains planned; this audit does not deploy or publish it.
 | Mobile and desktop shell | Calculator fits the viewport; study rhythm does not overlap; current-lesson controls return correctly after unit changes or scrolling; no unit-banner podcast overlap |
 | Browser diagnostics | No browser exceptions, failed page requests or outer overflow observed in these passes |
 
-CD remains unpublished during these checks. Browser fixtures enable its draft
-only in disposable test schemas and accounts. The stale-response test injects
-a higher bundle version in that fixture; actual lesson versions are unchanged
+The original authoring checks ran before publication. The publication pass uses
+the actual available manifest and verifies its imported bundle through the API.
+Browser checks still use disposable schemas and accounts. The stale-response test
+injects a higher bundle version; actual lesson versions are unchanged
 apart from the independently authored source-008 explanation revision.
 
 ## Corrections made during this pass

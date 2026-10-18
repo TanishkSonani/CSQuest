@@ -39,7 +39,7 @@ test('section conversations include every published topic, examples, both hosts 
   }
   assert.deepEqual(covered,[...new Set(lessons.filter(l=>l.ready).map(l=>l.lecture))]);
  }
- assert.equal(episodes,109);assert.equal(topics,812);
+ assert.equal(episodes,119);assert.equal(topics,864);
 });
 test('audio byte ranges support open ends and suffixes without serving invalid or multiple ranges',()=>{
  assert.equal(byteRange(undefined,100),null);assert.deepEqual(byteRange('bytes=0-9',100),{start:0,end:9});assert.deepEqual(byteRange('bytes=95-',100),{start:95,end:99});assert.deepEqual(byteRange('bytes=-12',100),{start:88,end:99});assert.deepEqual(byteRange('bytes=95-999',100),{start:95,end:99});assert.deepEqual(byteRange('bytes=-999',100),{start:0,end:99});
@@ -70,7 +70,7 @@ test('podcast audio and transcripts require authentication, report readiness hon
   for(const endpoint of ['/api/podcasts','/api/podcast?subject=coa&unit=0','/api/podcast-audio?subject=coa&unit=0'])assert.equal((await fetch(base+endpoint)).status,401);
   const registration=await fetch(base+'/api/account/register',{method:'POST',headers:{'Content-Type':'application/json','X-CSQuest-Request':'1'},body:JSON.stringify({username:'podcast_test',displayName:'Podcast Learner',avatar:'chip',password:'a memorable test passphrase'})});assert.equal(registration.status,200);
   const headers={cookie:registration.headers.get('set-cookie').split(';')[0]};
-  const catalog=await(await fetch(base+'/api/podcasts',{headers})).json();assert.equal(catalog.episodes.length,109);assert.equal(catalog.episodes.filter(e=>e.ready).length,1);assert.ok(catalog.episodes.every(episode=>!Object.hasOwn(episode,'turns')));
+  const catalog=await(await fetch(base+'/api/podcasts',{headers})).json();assert.equal(catalog.episodes.length,119);assert.equal(catalog.episodes.filter(e=>e.ready).length,1);assert.ok(catalog.episodes.every(episode=>!Object.hasOwn(episode,'turns')));
   const detail=await(await fetch(base+'/api/podcast?subject=coa&unit=0',{headers})).json();assert.equal(detail.ready,true);assert.equal(detail.turns.length,episode.turns.length);assert.ok(!detail.audioUrl.includes(directory));
   assert.deepEqual(detail.turns.map(turn=>turn.text),episode.turns.map(turn=>turn.text),'Media contributes timings while authored formulas remain the transcript');
   const partial=await fetch(base+detail.audioUrl,{headers:{...headers,Range:'bytes=4-19'}});assert.equal(partial.status,206);assert.equal(partial.headers.get('content-range'),'bytes 4-19/128');assert.equal(partial.headers.get('content-type'),'audio/mpeg');assert.match(partial.headers.get('cache-control'),/private/);assert.deepEqual(Buffer.from(await partial.arrayBuffer()),audio.subarray(4,20));
@@ -79,6 +79,7 @@ test('podcast audio and transcripts require authentication, report readiness hon
   assert.equal((await fetch(base+'/api/podcast-audio?subject=coa&unit=0&v=old-version',{headers})).status,404);
   assert.equal((await fetch(base+detail.audioUrl,{headers:{...headers,Range:'bytes=128-'}})).status,416);
   const pending=await(await fetch(base+'/api/podcast?subject=coa&unit=1',{headers})).json();assert.equal(pending.ready,false);assert.equal(pending.audioUrl,null);assert.ok(pending.turns.length>0);assert.equal((await fetch(base+'/api/podcast-audio?subject=coa&unit=1',{headers})).status,404);
-  assert.equal((await fetch(base+'/api/podcast?subject=cd&unit=0',{headers})).status,400);assert.equal((await fetch(base+'/api/podcast?subject=coa&unit=9999',{headers})).status,404);assert.equal((await fetch(base+'/api/podcast?subject=..&unit=0',{headers})).status,400);
+  const compiler=await(await fetch(base+'/api/podcast?subject=cd&unit=0',{headers})).json();assert.equal(compiler.subject,'cd');assert.equal(compiler.ready,false);assert.ok(compiler.turns.length);
+  assert.equal((await fetch(base+'/api/podcast?subject=missing&unit=0',{headers})).status,400);assert.equal((await fetch(base+'/api/podcast?subject=coa&unit=9999',{headers})).status,404);assert.equal((await fetch(base+'/api/podcast?subject=..&unit=0',{headers})).status,400);
  }finally{await new Promise(resolve=>server.close(resolve));await fixture.dispose();assert.ok(directory.startsWith(path.join(os.tmpdir(),'csquest-podcast-')));await fs.rm(directory,{recursive:true,force:true});}
 });

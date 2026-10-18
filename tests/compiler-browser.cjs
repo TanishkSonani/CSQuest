@@ -5,9 +5,8 @@ const {finishJourney}=require('./journey-helper.cjs');
  const {createServer}=await import('../src/platform/server.mjs'),{testStore}=await import('./database-helper.mjs');
  const {units,lecturePlans}=await import('../courses/cd/content/curriculum.js'),{lessons}=await import('../courses/cd/content/lessons.js');
  const fixture=await testStore({courses:true}),original=fixture.store,course={subjectId:'cd',units,lecturePlans,lessons};
- // Draft availability is overridden only for this isolated audit account/server.
- // This never publishes a planned course to the local or production database.
- const store={...original,async courses(){return (await original.courses()).map(c=>c.id==='cd'?{...c,status:'available'}:c);},async documentContent(id,path,version){return id==='cd'&&path==='learning.json'?{version:'draft-audit',content:version==='draft-audit'?null:JSON.stringify(course)}:original.documentContent(id,path,version);}};
+ // Use the published manifest for availability; isolate only the audited content version.
+ const store={...original,async documentContent(id,path,version){return id==='cd'&&path==='learning.json'?{version:'draft-audit',content:version==='draft-audit'?null:JSON.stringify(course)}:original.documentContent(id,path,version);}};
  const server=createServer({store});await new Promise(r=>server.listen(0,'127.0.0.1',r));const base='http://127.0.0.1:'+server.address().port,output='qa-results/compiler';fs.mkdirSync(output,{recursive:true});let browser;
  try{
   browser=await chromium.launch({headless:true,executablePath:'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'});
